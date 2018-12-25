@@ -5,7 +5,6 @@
     using System.Linq;
     using Core.UnitTests.TestHelpers;
     using Data;
-    using Extension.Utility;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;

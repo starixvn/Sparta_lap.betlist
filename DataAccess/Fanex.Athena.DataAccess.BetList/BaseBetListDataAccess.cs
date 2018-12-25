@@ -15,7 +15,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
     using Model.Core.DataDomain;
-    using Session.Interfaces;
 
     public class BaseBetListDataAccess : BaseDataAccess
     {

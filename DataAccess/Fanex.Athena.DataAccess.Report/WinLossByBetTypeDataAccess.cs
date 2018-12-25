@@ -18,7 +18,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Resources;
-    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class WinLossByBetTypeDataAccess : BaseDataAccess, IWinLossByBetTypeDataAccess

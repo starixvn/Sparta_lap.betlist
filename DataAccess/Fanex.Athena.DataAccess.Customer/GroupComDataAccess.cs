@@ -9,13 +9,11 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Common;
-    using Session.Interfaces;
 
     public class GroupComDataAccess : BaseDataAccess, IGroupComDataAccess
     {

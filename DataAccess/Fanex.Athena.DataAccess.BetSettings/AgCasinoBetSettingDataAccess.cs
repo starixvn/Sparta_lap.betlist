@@ -8,13 +8,11 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Data;
     using Common;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.BetSettings.DTO.AgCasino;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
     using Model.BetSettings.DTO;
-    using Session.Interfaces;
 
     public class AgCasinoBetSettingDataAccess : BaseDataAccess, IAgCasinoBetSettingDataAccess
     {

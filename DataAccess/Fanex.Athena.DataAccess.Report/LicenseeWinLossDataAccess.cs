@@ -18,7 +18,6 @@
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
 
     public class LicenseeWinLossDataAccess : BaseDataAccess, ILicenseeWinLossDataAccess
     {

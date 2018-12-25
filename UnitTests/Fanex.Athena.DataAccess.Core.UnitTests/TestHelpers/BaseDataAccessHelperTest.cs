@@ -3,12 +3,9 @@
     using System.Collections.Generic;
     using System.Data;
     using Core.Exception;
-    using Extension.Utility;
     using Fanex.Data;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
-    using Session.Model;
     using UnitTest.Common.Helpers;
 
     public class BaseDataAccessHelperTest<T> where T : BaseDataAccess

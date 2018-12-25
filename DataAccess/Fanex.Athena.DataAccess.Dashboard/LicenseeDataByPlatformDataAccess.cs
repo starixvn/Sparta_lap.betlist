@@ -5,13 +5,11 @@
     using Core;
     using Core.Exception;
     using Data;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Fanex.Common.Extensions;
     using Model.Core.DataDomain;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
-    using Session.Interfaces;
 
     public class LicenseeDataByPlatformDataAccess : BaseDataAccess, ILicenseeDataByPlatformDataAccess
     {

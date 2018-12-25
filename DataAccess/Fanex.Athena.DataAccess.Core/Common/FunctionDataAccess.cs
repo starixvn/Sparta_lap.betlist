@@ -14,7 +14,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using Session.Interfaces;
 
     public class FunctionDataAccess : BaseDataAccess, IFunctionDataAccess
     {

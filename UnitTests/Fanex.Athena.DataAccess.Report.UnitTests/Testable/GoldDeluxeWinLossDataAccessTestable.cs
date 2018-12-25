@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.Report.DTO;
 using Fanex.Athena.Model.Report.MetaModel;
-using Fanex.Athena.Session.Interfaces;
 using Fanex.Data;
 
 namespace Fanex.Athena.DataAccess.Report.UnitTests.Testable

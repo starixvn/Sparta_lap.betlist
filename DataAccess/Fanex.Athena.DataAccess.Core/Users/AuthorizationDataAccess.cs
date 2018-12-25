@@ -7,11 +7,9 @@
 namespace Fanex.Athena.DataAccess.Core.Users
 {
     using System.Data;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Common;
-    using Session.Interfaces;
 
     public class AuthorizationDataAccess : BaseDataAccess, IAthorizationDataAccess
     {

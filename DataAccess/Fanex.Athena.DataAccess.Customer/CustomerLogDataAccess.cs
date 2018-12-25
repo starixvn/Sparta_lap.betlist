@@ -10,11 +10,9 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Data;
     using System.Linq;
     using Core;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
-    using Session.Interfaces;
 
     public class CustomerLogDataAccess : BaseDataAccess, ICustomerLogDataAccess
     {

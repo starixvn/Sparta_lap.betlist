@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ResultModel;
-    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
 
     public interface ISubsidiaryPerformanceDataAccess

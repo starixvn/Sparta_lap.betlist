@@ -7,7 +7,6 @@
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
     using TestHelpers;
     using VendorAdapter.Interfaces;
 

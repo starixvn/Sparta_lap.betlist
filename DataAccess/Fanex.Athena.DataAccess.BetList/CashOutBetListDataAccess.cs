@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.ViewModel;
-    using Session.Interfaces;
 
     public class CashOutBetListDataAccess : BaseBetListDataAccess, ICashOutBetListDataAccess
     {

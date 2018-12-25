@@ -2,8 +2,6 @@
 using System.Data;
 using Fanex.Athena.DataAccess.Core;
 using Fanex.Athena.DataAccess.Customer.Interfaces;
-using Fanex.Athena.Extension.Utility;
-using Fanex.Athena.Session.Interfaces;
 
 namespace Fanex.Athena.DataAccess.Customer
 {

@@ -9,12 +9,10 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Collections.Generic;
     using System.Data;
     using Data;
-    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Interfaces;
     using Model.Core.MetaModel.Common;
-    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class LeagueDataAccess : BaseDataAccess, ILeagueDataAccess

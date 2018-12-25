@@ -7,14 +7,10 @@
 namespace Fanex.Athena.DataAccess.Core
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
-    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Data;
-    using Session.Interfaces;
 
     public class BaseDataAccess
     {

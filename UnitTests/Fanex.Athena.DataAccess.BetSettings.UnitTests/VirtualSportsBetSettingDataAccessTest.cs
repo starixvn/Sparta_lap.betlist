@@ -2,7 +2,6 @@
 {
     using System.Data;
     using Core.UnitTests.TestHelpers;
-    using Extension.Utility;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using NSubstitute;

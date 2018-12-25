@@ -1,11 +1,8 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Users
 {
-    using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using Core.Users;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;

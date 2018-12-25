@@ -7,7 +7,6 @@
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Data;
-    using Extension.Utility;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;

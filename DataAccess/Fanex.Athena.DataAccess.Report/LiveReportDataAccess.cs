@@ -23,7 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.Helper;
-    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess

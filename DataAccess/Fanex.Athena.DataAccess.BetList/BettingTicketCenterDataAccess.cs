@@ -8,12 +8,10 @@
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Data;
-    using Extension.Utility;
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
-    using Session.Interfaces;
 
     public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {

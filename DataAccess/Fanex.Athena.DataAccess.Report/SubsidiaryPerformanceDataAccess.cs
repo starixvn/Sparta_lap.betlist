@@ -10,10 +10,8 @@
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Model.Core.ResultModel;
-    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
-    using Session.Interfaces;
 
     public class SubsidiaryPerformanceDataAccess : BaseDataAccess, ISubsidiaryPerformanceDataAccess
     {

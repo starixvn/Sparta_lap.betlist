@@ -5,14 +5,12 @@
     using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Report.Interfaces;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
 
     public class GoldDeluxeWinLossDataAccess : ThirdPartyWinLossDataAccess<GoldDeluxeWinLoss>, IGoldDeluxeWinLossDataAccess
     {

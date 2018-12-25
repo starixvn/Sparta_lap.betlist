@@ -14,7 +14,6 @@
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Session.Interfaces;
 
     public class LicenseeWinLossByTimeZoneDataAccess : BaseDataAccess, ILicenseeWinLossByTimeZoneDataAccess
     {

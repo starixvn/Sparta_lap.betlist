@@ -24,7 +24,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Core.DTO.Common;
     using Model.Core.Helper;
     using Model.Report.ResultModel;
-    using Session.Interfaces;
 
     public class WinLossByProductDataAccess : BaseDataAccess, IWinLossByProductDataAccess
     {

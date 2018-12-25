@@ -5,9 +5,7 @@
     using System.Data;
     using Core;
     using Core.Users.Interfaces;
-    using Extension.Utility;
     using Model.Report.DTO;
-    using Session.Interfaces;
 
     public class SubsidiaryDataAccess : BaseDataAccess, ISubsidiaryDataAccess
     {

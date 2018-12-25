@@ -8,12 +8,10 @@
     using Core.Exception;
     using Data;
     using Extension.Helper;
-    using Extension.Utility;
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
-    using Session.Interfaces;
 
     public class ExchangeBetListDataAccess : BaseDataAccess, IExchangeBetListDataAccess
     {

@@ -13,14 +13,12 @@ namespace Fanex.Athena.DataAccess.Report
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Data;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
 
     public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
     {

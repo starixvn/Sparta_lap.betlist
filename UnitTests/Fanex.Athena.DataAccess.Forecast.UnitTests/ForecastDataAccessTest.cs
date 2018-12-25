@@ -11,7 +11,6 @@
     using Model.Forecast.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
     using UnitTest.Common.Helpers;
     using VendorAdapter.Interfaces;
 

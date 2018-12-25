@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -24,7 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
 
     public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
     {

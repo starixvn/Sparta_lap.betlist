@@ -6,14 +6,12 @@
     using System.Globalization;
     using System.Linq;
     using Core.Configuration.Interfaces;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Interfaces;
-    using Session.Interfaces;
     using Util;
 
     public class DailyStatementBetListDataAccess : BaseBetListDataAccess, IDailyStatementBetListDataAccess

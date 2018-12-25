@@ -11,14 +11,12 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Linq;
     using Core.Exception;
     using Data;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
 
     public class CustomerPendingFundsDataAccess : BaseDataAccess, ICustPendingFundsDataAccess
     {

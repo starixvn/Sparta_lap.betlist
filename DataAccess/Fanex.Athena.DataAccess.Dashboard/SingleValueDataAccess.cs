@@ -4,11 +4,9 @@
     using Core;
     using Core.Exception;
     using Data;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Fanex.Common.Extensions;
     using Model.Dashboard.MetaModel;
-    using Session.Interfaces;
 
     public class SingleValueDataAccess : BaseDataAccess, ISingleValueDataAccess
     {

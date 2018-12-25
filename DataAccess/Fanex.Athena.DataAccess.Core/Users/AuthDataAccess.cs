@@ -2,10 +2,8 @@
 using System.Data;
 using Fanex.Athena.DataAccess.Core.Exception;
 using Fanex.Athena.DataAccess.Core.Users.Interfaces;
-using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.DTO.Users;
-using Fanex.Athena.Session.Interfaces;
 using Fanex.Common;
 using Fanex.Common.Extensions;
 using Fanex.Data;

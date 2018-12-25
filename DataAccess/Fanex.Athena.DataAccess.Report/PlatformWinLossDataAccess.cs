@@ -19,7 +19,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
 
     public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {

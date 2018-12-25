@@ -11,7 +11,6 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class ColossusBetsWinLossDataAccessTest : BaseDataAccessHelperTest<ColossusBetsWinLossDataAccess>

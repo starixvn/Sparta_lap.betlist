@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
-    using System.Collections.Generic;
 
     public interface ICashOutBetListDataAccess
     {

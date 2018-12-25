@@ -6,9 +6,9 @@
 
 namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Report.ResultModel;
-    using System.Collections.Generic;
 
     public interface IWinLossByProductDataAccess
     {

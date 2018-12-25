@@ -10,11 +10,9 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Data;
     using System.Linq;
     using Core;
-    using Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Interfaces;
-    using Session.Interfaces;
 
     public class CancelledBetListDataAccess : BaseDataAccess, ICancelledBetListDataAccess
     {

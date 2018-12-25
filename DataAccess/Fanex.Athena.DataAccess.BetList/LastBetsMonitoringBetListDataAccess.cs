@@ -9,13 +9,11 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Data;
     using Interfaces;
-    using Session.Interfaces;
 
     public class LastBetsMonitoringBetListDataAccess : BaseBetListDataAccess, ILastBetsMonitoringBetListDataAccess
     {

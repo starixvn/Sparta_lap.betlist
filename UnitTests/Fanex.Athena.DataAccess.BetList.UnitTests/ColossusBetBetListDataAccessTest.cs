@@ -20,8 +20,6 @@
         {
             var ticketHelper = Substitute.For<ITicketHelper>();
             DataAccess = Substitute.ForPartsOf<ColossusBetBetListDataAccess>(
-                AppSetting,
-                Substitute.For<ISessionStorage>(),
                 ticketHelper);
         }
 

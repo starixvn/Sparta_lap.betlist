@@ -2,10 +2,8 @@
 {
     using System.Data;
     using Core;
-    using Extension.Utility;
     using Interfaces;
     using Model.Customer.DTO;
-    using Session.Interfaces;
 
     public class CustomerDataAccess : BaseDataAccess, ICustomerDataAccess
     {

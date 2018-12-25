@@ -7,10 +7,8 @@
 namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Data;
-    using Extension.Utility;
     using Interfaces;
     using Model.Core.MetaModel.Common;
-    using Session.Interfaces;
 
     public class UserLogDataAccess : BaseDataAccess, IUserLogDataAccess
     {

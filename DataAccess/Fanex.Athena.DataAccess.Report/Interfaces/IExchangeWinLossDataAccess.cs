@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.Athena.Model.Core.ResultModel;
     using Fanex.Athena.Model.Report.DTO;
     using Model.Report.MetaModel;
-    using System.Collections.Generic;
 
     public interface IExchangeWinLossDataAccess
     {

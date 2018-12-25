@@ -6,13 +6,11 @@
     using System.Xml.Linq;
     using Constant.DataDomain;
     using Core;
-    using Extension.Utility;
     using Fanex.Common.Extensions;
     using Interfaces;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using Service.Core.Utility.Interfaces;
-    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class DcsBetSettingDataAccess : BaseDataAccess, IDcsBetSettingDataAccess

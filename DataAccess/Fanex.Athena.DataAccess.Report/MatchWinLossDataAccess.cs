@@ -12,7 +12,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Core.Configuration.Interfaces;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -21,7 +20,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class MatchWinLossDataAccess : BaseDataAccess, IMatchWinLossDataAccess
