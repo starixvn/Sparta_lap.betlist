@@ -17,11 +17,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class ThirdPartyBetSettingDataAccess : BaseDataAccess, IThirdPartyBetSettingDataAccess
     {
-        public ThirdPartyBetSettingDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
+       
         public ThirdPartyBetSetting GetBetSetting(int custId, int productid)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";

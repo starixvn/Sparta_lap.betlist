@@ -20,10 +20,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         private readonly ICoreCasinoBetSettingDataAccess _coreCasinoBetSettingDataAccess;
 
         public RngCasinoBetSettingDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ICoreCasinoBetSettingDataAccess coreCasinoBetSettingDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _coreCasinoBetSettingDataAccess = coreCasinoBetSettingDataAccess;
         }

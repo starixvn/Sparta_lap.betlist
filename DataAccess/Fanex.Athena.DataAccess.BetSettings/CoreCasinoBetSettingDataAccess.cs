@@ -24,10 +24,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         private readonly IUserLogDataAccess _userLogDataAccess;
 
         public CoreCasinoBetSettingDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IUserLogDataAccess userLogDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _userLogDataAccess = userLogDataAccess;
         }

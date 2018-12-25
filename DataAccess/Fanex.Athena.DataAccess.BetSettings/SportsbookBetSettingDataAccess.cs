@@ -30,9 +30,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public SportsbookBetSettingDataAccess(
             IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IBetSettingReader betSettingReader)
-            : base(appSetting, sessionStorage)
         {
             _appSettings = appSetting;
             _betSettingReader = betSettingReader;

@@ -50,11 +50,8 @@
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public DcsBetSettingDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ICoreLogger logger,
             ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
         {
             _logger = logger;
             _cacheRefAdapter = cacheRefAdapter;

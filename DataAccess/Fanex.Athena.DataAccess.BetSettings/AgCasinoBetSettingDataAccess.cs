@@ -18,10 +18,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class AgCasinoBetSettingDataAccess : BaseDataAccess, IAgCasinoBetSettingDataAccess
     {
-        public AgCasinoBetSettingDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
 
         public AgCasinoBetSetting GetBetSetting(int custId)
         {

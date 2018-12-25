@@ -16,11 +16,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class CoreBetSettingDataAccess : BaseDataAccess, ICoreBetSettingDataAccess
     {
-        public CoreBetSettingDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
         {
             var uspName = "Lrf_LicenseeProductSel";
