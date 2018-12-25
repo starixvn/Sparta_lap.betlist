@@ -27,7 +27,7 @@
             ObjectDb.GetOuputParams().Returns(x => { return null; });
 
             // Action
-            DataAccess.GetBetListData(metaModel, LiveReportWinlossByMatchSp);
+            DataAccess.GetBetListData(metaModel, UserCurrencyList, LiveReportWinlossByMatchSp);
 
             // Assert
             Assert.Multiple(() =>
@@ -66,7 +66,7 @@
             });
 
             // Action
-            var result = DataAccess.GetBetListData(new LiveReportBetListMetaModel(), LiveReportWinlossByMatchSp);
+            var result = DataAccess.GetBetListData(new LiveReportBetListMetaModel(), UserCurrencyList, LiveReportWinlossByMatchSp);
 
             // Assert
             Assert.Multiple(() =>
@@ -101,7 +101,7 @@
             });
 
             // Action
-            var result = DataAccess.GetBetListData(new LiveReportBetListMetaModel(), LiveReportWinlossByMatchSp);
+            var result = DataAccess.GetBetListData(new LiveReportBetListMetaModel(), UserCurrencyList, LiveReportWinlossByMatchSp);
 
             // Assert
             Assert.Multiple(() =>
@@ -119,7 +119,7 @@
             var metaModel = GetLiveReportBetListMetaModel();
 
             // Action
-            DataAccess.GetBetListData(metaModel, LiveReportWinlossOutrightSp);
+            DataAccess.GetBetListData(metaModel, UserCurrencyList, LiveReportWinlossOutrightSp);
 
             // Assert
             Assert.Multiple(() =>
@@ -143,7 +143,7 @@
             var metaModel = GetLiveReportBetListMetaModel();
 
             // Action
-            DataAccess.GetBetListData(metaModel, LiveReportWinlossNumberGameSp);
+            DataAccess.GetBetListData(metaModel, UserCurrencyList, LiveReportWinlossNumberGameSp);
 
             // Assert
             Assert.Multiple(() =>
@@ -167,7 +167,7 @@
             var metaModel = GetLiveReportBetListMetaModel();
 
             // Action
-            DataAccess.GetBetListData(metaModel, LiveReportWinlossParlaySp);
+            DataAccess.GetBetListData(metaModel, UserCurrencyList, LiveReportWinlossParlaySp);
 
             // Assert
             Assert.Multiple(() =>
@@ -195,7 +195,7 @@
             var metaModel = GetLiveReportBetListMetaModel();
 
             // Action
-            DataAccess.GetBetListData(metaModel, UspKey);
+            DataAccess.GetBetListData(metaModel, UserCurrencyList, UspKey);
 
             // Assert
             Assert.Multiple(() =>
@@ -250,7 +250,7 @@
             Reader.GetName(1).Returns(hasOrdinalStake ? "stake" : string.Empty);
 
             // Action
-            var result = DataAccess.GetBetListData(new LiveReportBetListMetaModel(), LiveReportWinlossByMatchSp);
+            var result = DataAccess.GetBetListData(new LiveReportBetListMetaModel(), UserCurrencyList, LiveReportWinlossByMatchSp);
 
             // Assert
             Assert.Multiple(() =>
@@ -271,7 +271,7 @@
             metaModel.SortBy = sortBy;
 
             // Action
-            DataAccess.GetBetListData(metaModel, LiveReportWinlossNumberGameSp);
+            DataAccess.GetBetListData(metaModel, UserCurrencyList, LiveReportWinlossNumberGameSp);
 
             // Assert
             Assert.That(metaModel.SortBy, Is.EqualTo(expectedSortedProp));
@@ -308,7 +308,7 @@
             var metaModel = new BetListMetaModel { BaseCurrency = string.Empty };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel, uspName);
+            var result = DataAccess.GetBetListData(metaModel, UserCurrencyList, uspName);
 
             // Assert
             Assert.Multiple(() =>
@@ -362,7 +362,7 @@
             var metaModel = new BetListMetaModel { BaseCurrency = BaseCurrency };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel, uspName);
+            var result = DataAccess.GetBetListData(metaModel, UserCurrencyList, uspName);
 
             // Assert
             AssertTicketResult(result, expectSummaryResult, BaseCurrency);
@@ -400,7 +400,7 @@
             var metaModel = new BetListMetaModel { BaseCurrency = BaseCurrency };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel, uspName);
+            var result = DataAccess.GetBetListData(metaModel, UserCurrencyList, uspName);
 
             // Assert
             AssertTicketResult(result, expectSummaryResult);

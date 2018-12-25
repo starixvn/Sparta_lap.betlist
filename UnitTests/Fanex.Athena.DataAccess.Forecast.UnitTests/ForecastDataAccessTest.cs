@@ -11,7 +11,6 @@
     using Model.Forecast.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
     using UnitTest.Common.Helpers;
     using VendorAdapter.Interfaces;
 
@@ -21,8 +20,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<ForecastDataAccess>(
-                AppSetting,
-                Substitute.For<ISessionStorage>(),
                 Substitute.For<ICacheRefAdapter>());
         }
 

@@ -12,7 +12,6 @@ namespace Fanex.Athena.Service.Casino
     using System.Globalization;
     using System.Net;
     using System.Web;
-    using Core.Utility;
     using Core.Utility.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;

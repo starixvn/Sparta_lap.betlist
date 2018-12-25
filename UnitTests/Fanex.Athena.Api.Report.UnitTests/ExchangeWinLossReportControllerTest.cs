@@ -21,7 +21,6 @@
         private IReportSettingService _reportSettingService;
         private IExchangeWinLossDataAccess _dataAccess;
         private ExchangeWinLossReportController _controller;
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -34,7 +33,6 @@
             });
 
             _dataAccess = Substitute.For<IExchangeWinLossDataAccess>();
-
             _controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(
                 SessionService,
                 ProductService,
@@ -131,7 +129,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
-                _dataAccess.Received().GetMainWinloss(model);
+                _dataAccess.Received().GetMainWinloss(model, SessionService.UserSession.CurrencyList);
             });
         }
 
@@ -154,7 +152,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
-                _dataAccess.Received().GetCustomerWinloss(model);
+                _dataAccess.Received().GetCustomerWinloss(model, SessionService.UserSession.CurrencyList);
             });
         }
 
@@ -183,7 +181,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(model.LicenseeId, Is.EqualTo(LicenseeId));
-                _dataAccess.Received().GetCustomerWinloss(model);
+                _dataAccess.Received().GetCustomerWinloss(model, SessionService.UserSession.CurrencyList);
             });
         }
 
@@ -211,7 +209,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(model.LicenseeId, Is.EqualTo(LicenseeIdentity.OneTwoBet));
-                _dataAccess.Received().GetLicenseeWinloss(model);
+                _dataAccess.Received().GetLicenseeWinloss(model, SessionService.UserSession.CurrencyList);
             });
         }
     }

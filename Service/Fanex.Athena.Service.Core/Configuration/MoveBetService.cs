@@ -9,11 +9,8 @@ namespace Fanex.Athena.Service.Core.Configuration
     using System;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Configuration;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
-    using Utility;
     using Utility.Interfaces;
 
     public class MoveBetService : IMoveBetService

@@ -108,7 +108,8 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
 
-            DataAccess = Substitute.ForPartsOf<DailyStatementBetListDataAccess>(AppSetting, CreateSessionStorage(), balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<DailyStatementBetListDataAccess>(
+              balanceUpDataAccess);
         }
 
         [Test]

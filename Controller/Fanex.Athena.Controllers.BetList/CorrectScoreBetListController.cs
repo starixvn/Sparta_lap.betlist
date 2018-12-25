@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers.BetList
                 excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
                 excelModel.IsShowSumStake = true;
 
-                var ticketResult = BetListService.GetBetListData(excelModel, UspKey);
+                var ticketResult = BetListService.GetBetListData(excelModel, UserCurrencyList, UspKey);
 
                 var showingOption = new ShowingOption
                 {

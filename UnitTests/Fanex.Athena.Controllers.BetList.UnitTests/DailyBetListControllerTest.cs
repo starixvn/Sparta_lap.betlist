@@ -109,7 +109,7 @@
                 var expectedTitle = $"{ViewResources.DailyBetList} {ViewResources.On} 01/01/2018 - {currencyTitle}";
 
                 var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), "Lrf_BetList_SelWinlossDaily").Returns(ticketResult);
+                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_SelWinlossDaily").Returns(ticketResult);
 
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 

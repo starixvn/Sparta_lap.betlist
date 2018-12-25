@@ -114,7 +114,7 @@ namespace Fanex.Athena.Api.BetList
 
         private dynamic GetData(LiveReportBetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
 
             return new
             {
@@ -135,7 +135,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
 
-            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
 
             var totalPage = metaModel.TotalRows % metaModel.PageSize == 0
                 ? metaModel.TotalRows / metaModel.PageSize

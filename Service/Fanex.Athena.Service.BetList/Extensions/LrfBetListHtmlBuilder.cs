@@ -11,14 +11,12 @@ namespace Fanex.Athena.Service.BetList.Extensions
     using System;
     using System.Collections.Generic;
     using Constant.DataDomain;
-    using Constant.Helper;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Helpers;
-    using Model.Core.DataDomain;
     using Resources;
 
     #endregion Using

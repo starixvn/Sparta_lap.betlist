@@ -22,7 +22,6 @@
                     SportId = x[1].ToString()
                 });
             DataAccess = Substitute.ForPartsOf<NumberGameBetSettingDataAccess>(
-                AppSetting,
                 Substitute.For<ISessionStorage>(),
                 betSettingReader);
         }

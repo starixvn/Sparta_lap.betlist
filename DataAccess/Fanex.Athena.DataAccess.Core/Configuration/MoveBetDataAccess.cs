@@ -7,25 +7,19 @@
 namespace Fanex.Athena.DataAccess.Core.Configuration
 {
     using System;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Logging;
-    using Session.Interfaces;
-
     public class MoveBetDataAccess : BaseDataAccess, IMoveBetDataAccess
     {
         private readonly ILogger _logger;
 
         [CLSCompliant(false)]
         public MoveBetDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ILogger logger)
-            : base(appSetting, sessionStorage)
         {
             _logger = logger;
         }

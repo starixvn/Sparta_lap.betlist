@@ -9,7 +9,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -17,15 +16,9 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Data;
     using Model.Core.MetaModel.Account;
-    using Session.Interfaces;
 
     public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess
     {
-        public CurrencyDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IList<CurrencyUser> GetCurrencies(int licenseeId)
         {
             const string UspName = "Lrf_SelCurrencyByLicensee";

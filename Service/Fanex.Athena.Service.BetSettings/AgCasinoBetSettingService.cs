@@ -12,9 +12,7 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Xml.Linq;
     using Common;
     using Core.Users.Interfaces;
-    using Core.Utility;
     using Core.Utility.Interfaces;
-    using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Interfaces;

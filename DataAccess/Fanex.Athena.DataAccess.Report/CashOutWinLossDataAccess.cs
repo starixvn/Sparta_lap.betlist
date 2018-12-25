@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -24,22 +23,19 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
 
     public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-        
+
         public CashOutWinLossDataAccess(
-            IAppSettings appSetting, 
-            ISessionStorage sessionStorage, 
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetSummary(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<CashOutWinLoss> GetSummary(ThirdPartyWinLossMetaModel metaModel, 
+            IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss";
             try
@@ -51,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        var result = GetData(reader, metaModel);
+                        var result = GetData(reader, currencyList, metaModel);
                         AssignRowSpan(result.DataList);
                         return result;
                     }
@@ -63,7 +59,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetDetail(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<CashOutWinLoss> GetDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss_Detail";
             try
@@ -73,7 +69,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader, currencyList, metaModel);
                     }
                 }
             }
@@ -152,7 +148,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private SortableReportResultModel<CashOutWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
+        private SortableReportResultModel<CashOutWinLoss> GetData(IDataReader reader, IDictionary<int, string> currencyList, ThirdPartyWinLossMetaModel metaModel)
         {
             var result = new SortableList<CashOutWinLoss>();
 
@@ -189,7 +185,7 @@ namespace Fanex.Athena.DataAccess.Report
                     ExternalId = hasExternalId ? reader.ToString("externalid") : string.Empty,
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     CurrencyId = currencyId,
-                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                     CashOutTimes = reader.ToInt("cashouttime"),
                     CashOutValue = reader.ToDecimal(cashOutValueColumn),
                     CashOutTickets = reader.ToInt("cashoutticket"),

@@ -58,7 +58,10 @@
                 };
 
                 var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), "Lrf_BetList_LicenseeBonus_Detail").Returns(ticketResult);
+                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), Arg.Any<IDictionary<int, string>>(),
+
+
+                    "Lrf_BetList_LicenseeBonus_Detail").Returns(ticketResult);
 
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
                 controller.When(x => x.ProcessExportExcel(

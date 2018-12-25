@@ -15,19 +15,14 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
     using Model.Core.DataDomain;
-    using Session.Interfaces;
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
-        public BaseBetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [CLSCompliant(false)]
-        protected internal SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency = "", long custId = 0)
+        protected internal SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, IDictionary<int, string> currencyList, string baseCurrency = "", long custId = 0)
         {
             var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency?.ToUpperInvariant()) ? baseCurrency : string.Empty;
 
@@ -114,7 +109,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     Handicap1 = reader.GetDecimal("hdp1"),
                     Handicap2 = reader.GetDecimal("hdp2"),
                     TransDesc = reader.GetString("transdesc"),
-                    Currency = GetCurrencyName(currencyId),
+                    Currency = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
 
                     BetdaqId = reader.GetLong("betdaqid", -1),
                     ExtraInfo = reader.GetString("extrainfo"),

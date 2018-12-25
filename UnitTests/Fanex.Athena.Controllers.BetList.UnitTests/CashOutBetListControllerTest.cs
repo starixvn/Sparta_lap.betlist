@@ -33,7 +33,7 @@
                 // Arrang
                 var metaModel = new CashOutBetListDetailMetaModel { TransId = 2 };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(new CashOutBetListDetailViewModel
+                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
                 {
                     OriginalTicket = new LrfTicket { TransId = metaModel.TransId, Status = "running" },
                     CashOutTicketList = new List<CashOutTicket>()
@@ -55,7 +55,7 @@
                 // Arrang
                 var metaModel = new CashOutBetListDetailMetaModel { TransId = 2, IsCashOut = true };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(new CashOutBetListDetailViewModel
+                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
                 {
                     OriginalTicket = new LrfTicket { TransId = metaModel.TransId, Status = "running" },
                     CashOutTicketList = new List<CashOutTicket>()
@@ -82,7 +82,7 @@
             {
                 var metaModel = new CashOutBetListDetailMetaModel { TransId = 2 };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(new CashOutBetListDetailViewModel
+                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
                 {
                     OriginalTicket = new LrfTicket { TransId = metaModel.TransId, Status = "running", ExternalId = "Test", UserName = "Test" },
                     CashOutTicketList = new List<CashOutTicket>()
@@ -109,7 +109,7 @@
                 // Arrang
                 var metaModel = new CashOutBetListDetailMetaModel { TransId = 2 };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(new CashOutBetListDetailViewModel
+                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
                 {
                     OriginalTicket = new LrfTicket { TransId = metaModel.TransId, Status = "running" },
                     CashOutTicketList = new List<CashOutTicket> { new CashOutTicket { Stake = 1, Price = 2, WinLoss = 3, Status = "running" } }
@@ -142,7 +142,7 @@
                 // Arrang
                 var metaModel = new CashOutBetListDetailMetaModel { TransId = 2, BetdaqId = betdaqid, BetType = betType };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(new CashOutBetListDetailViewModel
+                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
                 {
                     OriginalTicket = new LrfTicket { TransId = 3, Status = "running" },
                     CashOutTicketList = new List<CashOutTicket>()

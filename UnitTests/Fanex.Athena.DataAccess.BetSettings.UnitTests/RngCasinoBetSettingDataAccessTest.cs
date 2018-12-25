@@ -21,8 +21,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<RngCasinoBetSettingDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 _coreCasinoBetSettingDataAccess);
         }
 

@@ -5,35 +5,28 @@
     using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Report.Interfaces;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
 
     public class GoldDeluxeWinLossDataAccess : ThirdPartyWinLossDataAccess<GoldDeluxeWinLoss>, IGoldDeluxeWinLossDataAccess
     {
-        public GoldDeluxeWinLossDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
+        public ReportResultModel<GoldDeluxeWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
+            return GetSummaryWinloss(metaModel, currencyList, "Lrf_Rpt_GoldDeluxeWinloss");
         }
 
-        public ReportResultModel<GoldDeluxeWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
+        public ReportResultModel<GoldDeluxeWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return GetSummaryWinloss(metaModel, "Lrf_Rpt_GoldDeluxeWinloss");
+            return GetCustomerWinlossDetail(metaModel, currencyList, "Lrf_Rpt_GoldDeluxeWinloss_Mem");
         }
 
-        public ReportResultModel<GoldDeluxeWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
+        public ReportResultModel<GoldDeluxeWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return GetCustomerWinlossDetail(metaModel, "Lrf_Rpt_GoldDeluxeWinloss_Mem");
-        }
-
-        public ReportResultModel<GoldDeluxeWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
-        {
-            return GetAgentWinlossDetail(metaModel, "Lrf_Rpt_GoldDeluxeWinloss_Ag");
+            return GetAgentWinlossDetail(metaModel, currencyList, "Lrf_Rpt_GoldDeluxeWinloss_Ag");
         }
 
         protected override void ReadSummaryTotal(IDataReader reader, IDictionary<string, GoldDeluxeWinLoss> summaryTotal)

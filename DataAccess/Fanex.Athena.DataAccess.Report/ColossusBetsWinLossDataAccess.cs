@@ -21,29 +21,24 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
-
     public class ColossusBetsWinLossDataAccess : BaseDataAccess, IColossusBetsWinLossDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public ColossusBetsWinLossDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ColossusBetsWinLossMetaModel metaModel)
+        public SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ColossusBetsWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return GetData("Lrf_Rpt_ColossusBetsWinloss", metaModel);
+            return GetData("Lrf_Rpt_ColossusBetsWinloss", currencyList, metaModel);
         }
 
-        public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel)
+        public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return GetData("Lrf_Rpt_ColossusBetsWinloss_detail", metaModel);
+            return GetData("Lrf_Rpt_ColossusBetsWinloss_detail", currencyList, metaModel);
         }
 
         private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ColossusBetWinLoss> summaryTotal)
@@ -60,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private SortableReportResultModel<ColossusBetWinLoss> GetData(string spname, ColossusBetsWinLossMetaModel metaModel)
+        private SortableReportResultModel<ColossusBetWinLoss> GetData(string spname, IDictionary<int, string> currencyList, ColossusBetsWinLossMetaModel metaModel)
         {
             try
             {
@@ -69,7 +64,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0);
                     using (var reader = db.ExecuteReader())
                     {
-                        return ReadData(reader, metaModel);
+                        return ReadData(reader, currencyList, metaModel);
                     }
                 }
             }
@@ -91,6 +86,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         private SortableReportResultModel<ColossusBetWinLoss> ReadData(
             IDataReader reader,
+             IDictionary<int, string> currencyList,
             ColossusBetsWinLossMetaModel metaModel)
         {
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
@@ -122,7 +118,7 @@ namespace Fanex.Athena.DataAccess.Report
                     ExternalId = hasExternalId ? reader.ToString("externalid") : string.Empty,
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     CurrencyId = currencyId,
-                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
                     MemberWinning = reader.ToDecimal(memberWinningColumn),

@@ -41,8 +41,6 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             DataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 balanceUpDataAccess);
         }
 
@@ -103,7 +101,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetMemberDataSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetMemberData(_metaModel);
+            DataAccess.GetMemberData(_metaModel, UserCurrencyList);
 
             // Assert
             AssertSpParameters();
@@ -125,7 +123,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetMemberData(_metaModel);
+            var result = DataAccess.GetMemberData(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>

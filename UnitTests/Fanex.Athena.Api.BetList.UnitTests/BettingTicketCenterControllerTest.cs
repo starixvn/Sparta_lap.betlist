@@ -23,6 +23,7 @@
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
         private BettingTicketCenterController _controller;
+        protected IDictionary<int, string> UserCurrencyList => SessionService.UserSession.CurrencyList;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -383,7 +384,7 @@
                 SumStake = FakeHelper.Create<decimal>(),
                 TotalRows = FakeHelper.Create<int>()
             };
-            _service.GetBetListForSingleCustomer(metaModel).Returns(ticketResult);
+            _dataAccess.GetBetListForSingleCustomer(metaModel).Returns(ticketResult);
 
             // Action
             var result = _controller.GetBySingleCustomer(metaModel);

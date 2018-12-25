@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
 
             var title = GetCustomerBetListTitle(metaModel, GetViewInCurrency(metaModel));
 

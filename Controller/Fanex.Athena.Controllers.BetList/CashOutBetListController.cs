@@ -46,7 +46,7 @@
         public ActionResult Detail(CashOutBetListDetailMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
-            var viewModel = _cashOutBetListDataAccess.GetDetail(metaModel);
+            var viewModel = _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList);
             if (viewModel.OriginalTicket != null)
             {
                 viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId ||

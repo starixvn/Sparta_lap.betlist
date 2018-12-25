@@ -27,7 +27,7 @@ namespace Fanex.Athena.Api.Report
     public class MicrogamingWinlossReportController : ApiReportBaseController
     {
         private readonly IMicroGamingWinLossDataAccess _microGamingWinLossDataAccess;
-        
+
         public MicrogamingWinlossReportController(
             ISessionService sessionService,
             IProductService productService,
@@ -44,7 +44,7 @@ namespace Fanex.Athena.Api.Report
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
 
-            var result = _microGamingWinLossDataAccess.GetSummaryWinloss(metaModel);
+            var result = _microGamingWinLossDataAccess.GetSummaryWinloss(metaModel, SessionService.UserSession.CurrencyList);
 
             if (metaModel.IsExportExcel)
             {
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Api.Report
                 {
                     Data = DoRestructureData(result.DataList.GroupBy(i => new { i.TypeID, i.Date })),
                     Total = CalculateTotal(result.DataList),
-                    SummaryTotal = result.SummaryTotal
+                    result.SummaryTotal
                 };
             }
 

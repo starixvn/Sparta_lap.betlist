@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.BetList.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.BetList.Core.Entities;
@@ -15,8 +16,8 @@ namespace Fanex.Athena.Service.BetList.Interfaces
     {
         SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);
 
-        TicketResult GetMixParlayDetailTicket(int licenseeId, long transId, int custId);
+        TicketResult GetMixParlayDetailTicket(IDictionary<int, string> currencyList, int licenseeId, long transId, int custId);
 
-        TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey);
+        TicketResult GetBetListData(BetListMetaModel metaModel, IDictionary<int, string> currencyList, string uspKey);
     }
 }

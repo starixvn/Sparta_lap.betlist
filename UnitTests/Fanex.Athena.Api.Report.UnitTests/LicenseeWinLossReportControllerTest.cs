@@ -343,15 +343,15 @@
 
             if (level == 0)
             {
-                _dataAccess.GetSummaryWinloss(metaModel).Returns(result);
+                _dataAccess.GetSummaryWinloss(metaModel, UserCurrencyList).Returns(result);
             }
             else if (level == 1)
             {
-                _dataAccess.GetAgentWinlossDetail(metaModel).Returns(result);
+                _dataAccess.GetAgentWinlossDetail(metaModel, UserCurrencyList).Returns(result);
             }
             else
             {
-                _dataAccess.GetCustomerWinlossDetail(metaModel).Returns(result);
+                _dataAccess.GetCustomerWinlossDetail(metaModel, UserCurrencyList).Returns(result);
             }
 
             return result;

@@ -41,7 +41,7 @@
             DataAccess.GetObjectDb(Arg.Is(expectedSpName)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSummaryWinloss(_metaModel, spname);
+            DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList, spname);
 
             // Assert
             Assert.Multiple(() =>
@@ -71,7 +71,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel, SpName);
+            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -89,7 +89,7 @@
             const string SpName = "Summary2";
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 SpName,
-                () => DataAccess.GetSummaryWinloss(_metaModel, SpName));
+                () => DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList, SpName));
         }
 
         [TestCase("Test", "Test")]
@@ -99,7 +99,7 @@
             DataAccess.GetObjectDb(Arg.Is(expectedSpName)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetCustomerWinlossDetail(_metaModel, spname);
+            DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList, spname);
 
             // Assert
             Assert.Multiple(() =>
@@ -129,7 +129,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomerWinlossDetail(_metaModel, SpName);
+            var result = DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -145,7 +145,7 @@
             const string SpName = "Detail2";
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 SpName,
-                () => DataAccess.GetCustomerWinlossDetail(_metaModel, SpName));
+                () => DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList, SpName));
         }
 
         [TestCase("Test", "Test")]
@@ -156,7 +156,7 @@
             _metaModel.ProductId = -1;
 
             // Action
-            DataAccess.GetAgentWinlossDetail(_metaModel, spname);
+            DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, spname);
 
             // Assert
             Assert.Multiple(() =>
@@ -185,7 +185,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -213,7 +213,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().SystemId, Is.EqualTo(readerDataMapping.username));
@@ -237,7 +237,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().ExternalId, Is.EqualTo(readerDataMapping.nickname));
@@ -261,7 +261,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().CustomerId, Is.EqualTo(readerDataMapping.custid));
@@ -285,7 +285,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().Date, Is.EqualTo(readerDataMapping.winlostdate));
@@ -297,7 +297,7 @@
             const string SpName = "Agent6";
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 SpName,
-                () => DataAccess.GetAgentWinlossDetail(_metaModel, SpName));
+                () => DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName));
         }
     }
 }

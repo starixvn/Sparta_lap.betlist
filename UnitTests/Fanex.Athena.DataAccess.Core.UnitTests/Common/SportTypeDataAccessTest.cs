@@ -3,7 +3,6 @@
     using System.Data;
     using Constant.DataDomain;
     using Core.Common;
-    using Extension.Utility;
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
@@ -14,8 +13,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<SportTypeDataAccess>(
-                Substitute.For<IAppSettings>(),
-                CreateSessionStorage(),
                 Substitute.For<ICacheRefAdapter>());
         }
 

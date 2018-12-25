@@ -105,7 +105,7 @@
                     + $"External{(isFakeLic ? "" : "(System)")} - {string.Format(ViewResources.Viewin, expCurrency)}";
 
                 var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), "Lrf_BetList_SelWinloss_Mem").Returns(ticketResult);
+                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_SelWinloss_Mem").Returns(ticketResult);
 
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
                 controller.When(x => x.ProcessExportExcel(

@@ -179,9 +179,10 @@ namespace Fanex.Athena.Api.Report
 
         private SortableReportResultModel<CashOutWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
             return metaModel.DrillDownLevel == 0 ?
-                _cashOutWinLossDataAccess.GetSummary(metaModel) :
-                _cashOutWinLossDataAccess.GetDetail(metaModel);
+                _cashOutWinLossDataAccess.GetSummary(metaModel, userCurrencyList) :
+                _cashOutWinLossDataAccess.GetDetail(metaModel, userCurrencyList);
         }
     }
 }

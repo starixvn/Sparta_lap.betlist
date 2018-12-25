@@ -19,17 +19,13 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
-    using Session.Interfaces;
 
     public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public PlatformWinLossDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -48,7 +44,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel)
+        public SortableReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
 
@@ -57,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Report
                 UpdateUspParams(db, metaModel);
                 using (var reader = db.ExecuteReader())
                 {
-                    return ReadMemberData(reader, metaModel.BaseCurrency);
+                    return ReadMemberData(reader, currencyList, metaModel.BaseCurrency);
                 }
             }
         }
@@ -159,7 +155,9 @@ namespace Fanex.Athena.DataAccess.Report
             totalData.AmtDueToBA += item.AmtDueToBA;
         }
 
-        private SortableReportResultModel<PlatformWinLossMember> ReadMemberData(IDataReader reader, string baseCurrency)
+        private SortableReportResultModel<PlatformWinLossMember> ReadMemberData(IDataReader reader,
+             IDictionary<int, string> currencyList
+            , string baseCurrency)
         {
             var dataList = new SortableList<PlatformWinLossMember>();
             var totalData = new PlatformWinLossMember();
@@ -178,7 +176,7 @@ namespace Fanex.Athena.DataAccess.Report
                 var item = new PlatformWinLossMember
                 {
                     Index = index,
-                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                     TotalTransactions = reader.ToInt("Betcount"),
                     Turnover = reader.ToDecimal(turnoverColumn),
                     CustomerWinLoss = reader.ToDecimal(winlostComumn),

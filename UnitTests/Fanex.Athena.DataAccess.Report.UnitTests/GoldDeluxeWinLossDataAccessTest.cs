@@ -9,7 +9,6 @@
     using NSubstitute;
     using NUnit.Framework;
     using Testable;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class GoldDeluxeWinLosDataAccessTest : BaseDataAccessHelperTest<GoldDeluxeWinLossDataAccessTestable>

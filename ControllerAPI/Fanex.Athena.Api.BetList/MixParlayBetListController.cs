@@ -35,7 +35,8 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic Detail(long transId, int custId)
         {
-            var ticketResult = BetListService.GetMixParlayDetailTicket(SessionService.LicenseeSession.LicenseeId, transId, custId);
+            var ticketResult = BetListService.GetMixParlayDetailTicket(UserCurrencyList,
+                SessionService.LicenseeSession.LicenseeId, transId, custId);
             return Ticket(ticketResult: ticketResult, showOdds: true);
         }
 
@@ -44,7 +45,8 @@ namespace Fanex.Athena.Api.BetList
         {
             var texts = (string[])CacheRefAdapter.GetCombinationTypeCombo(betTeam, betCheck, handicap1, handicap2).Clone();
 
-            var ticketResult = BetListService.GetMixParlayDetailTicket(SessionService.LicenseeSession.LicenseeId, transId, custId);
+            var ticketResult = BetListService.GetMixParlayDetailTicket(UserCurrencyList,
+                SessionService.LicenseeSession.LicenseeId, transId, custId);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
 
             var textRenderPattern = "<p class='system-parlay-ticket-infor'>"

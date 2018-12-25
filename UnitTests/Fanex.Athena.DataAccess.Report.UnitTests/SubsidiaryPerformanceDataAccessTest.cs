@@ -29,8 +29,6 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 balanceUpDataAccess);
         }
 
@@ -45,7 +43,7 @@
             var metaModel = GetDefaultMetaModel();
 
             // Action
-            DataAccess.GetData(metaModel);
+            DataAccess.GetData(metaModel, UserCurrencyList);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);
@@ -67,7 +65,7 @@
             var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping, false));
 
             // Action
-            var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel));
+            var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel, UserCurrencyList));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -89,7 +87,7 @@
             var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping, true));
 
             // Action
-            var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel));
+            var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel, UserCurrencyList));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -106,7 +104,7 @@
             var metaModel = GetDefaultMetaModel();
 
             // Action
-            DataAccess.GetDetailData(metaModel);
+            DataAccess.GetDetailData(metaModel, UserCurrencyList);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);
@@ -127,7 +125,7 @@
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailData(metaModel);
+            var result = DataAccess.GetDetailData(metaModel, UserCurrencyList);
             var firstData = result.DataList.First();
 
             // Assert
@@ -154,7 +152,7 @@
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailData(metaModel);
+            var result = DataAccess.GetDetailData(metaModel, UserCurrencyList);
             var firstData = result.DataList.First();
 
             // Assert
@@ -181,7 +179,7 @@
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailData(metaModel);
+            var result = DataAccess.GetDetailData(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>

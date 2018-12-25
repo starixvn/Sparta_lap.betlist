@@ -7,7 +7,6 @@
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
     using TestHelpers;
     using VendorAdapter.Interfaces;
 
@@ -19,8 +18,6 @@
         {
             _cacheRef = Substitute.For<ICacheRefAdapter>();
             DataAccess = Substitute.ForPartsOf<LeagueDataAccess>(
-                AppSetting,
-                Substitute.For<ISessionStorage>(),
                 _cacheRef);
         }
 

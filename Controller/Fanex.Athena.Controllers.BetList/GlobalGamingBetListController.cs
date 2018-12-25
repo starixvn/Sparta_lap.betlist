@@ -46,7 +46,7 @@
             return ProcessExportExcel(
                 new ShowingOption { CustomerCommVisible = true },
                 metaModel,
-                BetListService.GetBetListData(metaModel, uspKey),
+                BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey),
                 HiddenColumns,
                 _title,
                 "GlobalGamingDetail");

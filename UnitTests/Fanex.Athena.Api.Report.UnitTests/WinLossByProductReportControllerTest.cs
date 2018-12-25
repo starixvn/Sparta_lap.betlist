@@ -69,7 +69,7 @@
 
             var metaModel = CreateValidMetaModel();
             var summaryTotalResult = new Dictionary<string, IEnumerable<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
-            _dataAccess.GetWinlossByProducts(metaModel).Returns(new WinLossByProductResultModel
+            _dataAccess.GetWinlossByProducts(metaModel, UserCurrencyList).Returns(new WinLossByProductResultModel
             {
                 SummaryTotal = summaryTotalResult,
                 ResultInfo = new ResultInfo
@@ -85,7 +85,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>());
+                _dataAccess.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
                 Assert.That(result.ErrorMessage, Is.EqualTo(ViewResources.ResourceManager.GetString(errorMessageKey)));
@@ -98,7 +98,7 @@
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
             var metaModel = CreateValidMetaModel();
-            _dataAccess.GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>()).Returns(
+            _dataAccess.GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList).Returns(
                 new WinLossByProductResultModel
                 {
                     ResultInfo = new ResultInfo
@@ -126,7 +126,7 @@
             };
 
             var summaryTotalResult = new Dictionary<string, IEnumerable<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
-            _dataAccess.GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>()).Returns(
+            _dataAccess.GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList).Returns(
                 new WinLossByProductResultModel
                 {
                     SummaryTotal = summaryTotalResult,
@@ -140,7 +140,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>());
+                _dataAccess.Received().GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });
@@ -157,7 +157,7 @@
             };
 
             var summaryTotalResult = new Dictionary<string, IEnumerable<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
-            _dataAccess.GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>()).Returns(
+            _dataAccess.GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList).Returns(
                 new WinLossByProductResultModel
                 {
                     SummaryTotal = summaryTotalResult,
@@ -171,7 +171,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>());
+                _dataAccess.Received().GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });
@@ -199,7 +199,7 @@
             };
 
             var summaryTotalResult = new Dictionary<string, IEnumerable<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
-            _dataAccess.GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>()).Returns(
+            _dataAccess.GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList).Returns(
                 new WinLossByProductResultModel
                 {
                     SummaryTotal = summaryTotalResult,

@@ -189,7 +189,7 @@
                 ToDate = new DateTime(2018, 1, 31)
             };
 
-            _dataAccess.GetData(model).Returns(new ReportResultModel<LicenseeWinLoss> { DataList = Enumerable.Empty<LicenseeWinLoss>() });
+            _dataAccess.GetData(model, UserCurrencyList).Returns(new ReportResultModel<LicenseeWinLoss> { DataList = Enumerable.Empty<LicenseeWinLoss>() });
 
             var expectedCurrencyXML = $"<ROOT><CR Id=\"1\" Code=\"C1\" /><CR Id=\"2\" Code=\"C2\" /></ROOT>";
 
@@ -199,7 +199,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetData(model);
+                _dataAccess.Received().GetData(model, UserCurrencyList);
                 Assert.That(string.Join(",", model.BaseCurrencies), Is.EqualTo("USD"));
                 Assert.That(model.SiteName, Is.EqualTo(expectedSiteName));
                 Assert.That(model.CurrencyListXml, Is.EqualTo(expectedCurrencyXML));
@@ -228,7 +228,7 @@
             };
 
             var data = CreateResultModel();
-            _dataAccess.GetData(model).Returns(data);
+            _dataAccess.GetData(model, UserCurrencyList).Returns(data);
 
             // Action
             var result = _controller.Index(model);

@@ -91,7 +91,7 @@
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(currencyIdList);
             }
 
-            var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel);
+            var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, UserCurrencyList);
 
             if (ticketResult.MainTicketList.Any())
             {

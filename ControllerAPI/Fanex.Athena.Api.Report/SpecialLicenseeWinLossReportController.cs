@@ -95,7 +95,7 @@
                 metaModel.SiteName = _siteNameList[SessionService.LicenseeSession.LicenseeId];
                 metaModel.CurrencyListXml = GenerateCurrencyListXml(metaModel);
 
-                var result = _licenseeWinLossDataAccess.GetData(metaModel);
+                var result = _licenseeWinLossDataAccess.GetData(metaModel, SessionService.UserSession.CurrencyList);
 
                 if (result.DataList.Any())
                 {

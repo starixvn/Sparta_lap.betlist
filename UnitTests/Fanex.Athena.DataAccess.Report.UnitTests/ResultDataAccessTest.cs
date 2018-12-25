@@ -14,7 +14,6 @@
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
-    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
@@ -53,8 +52,6 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             DataAccess = Substitute.ForPartsOf<ResultDataAccess>(
-                AppSetting,
-                Substitute.For<ISessionStorage>(),
                 balanceUpDataAccess,
                 cacheRefAdapter);
         }

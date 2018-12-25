@@ -22,14 +22,16 @@ namespace Fanex.Athena.Service.Report
             this._colossusBetsWinLossDataAccess = dataAccess;
         }
 
-        public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel)
+        public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel
+            , IDictionary<int, string> currencyList)
         {
-            return _colossusBetsWinLossDataAccess.GetWinlossDetail(metaModel);
+            return _colossusBetsWinLossDataAccess.GetWinlossDetail(metaModel, currencyList);
         }
 
-        public SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ColossusBetsWinLossMetaModel metaModel)
+        public SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ColossusBetsWinLossMetaModel metaModel,
+             IDictionary<int, string> currencyList)
         {
-            var result = this._colossusBetsWinLossDataAccess.GetSummaryWinloss(metaModel);
+            var result = this._colossusBetsWinLossDataAccess.GetSummaryWinloss(metaModel, currencyList);
             var date = new System.DateTime();
             var index = 0;
             foreach (var item in result.DataList)

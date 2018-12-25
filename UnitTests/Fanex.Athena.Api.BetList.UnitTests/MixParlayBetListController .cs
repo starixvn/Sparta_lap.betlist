@@ -44,7 +44,7 @@
             const int CustId = 2;
 
             var ticketResult = new TicketResult();
-            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId).Returns(ticketResult);
+            BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
             _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
 
@@ -54,7 +54,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                BetListService.Received().GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId);
+                BetListService.Received().GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId);
                 _controller.Received().Ticket(ticketResult, null, 1, true);
             });
         }
@@ -74,7 +74,7 @@
             CacheRefAdapter.GetCombinationTypeCombo(BetTeam, BetCheck, Handicap1, Handicap2).Returns(combinationTypeCombo);
 
             var ticketResult = new TicketResult();
-            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId).Returns(ticketResult);
+            BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
             var ticketText = new List<TicketText>();
             _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
@@ -108,7 +108,7 @@
             var ticketResult = new TicketResult();
             var lrfTicket = new LrfTicket { Stake = 1, Currency = "usd" };
             ticketResult.MainTicketList.Add(lrfTicket);
-            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId).Returns(ticketResult);
+            BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
             var ticketText = new List<TicketText>();
             _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
@@ -149,7 +149,7 @@
             ticketResult.MainTicketList.Add(lrfTicket1);
             var lrfTicket2 = new LrfTicket { Stake = 1, Currency = "usd", MatchId = 1 };
             ticketResult.MainTicketList.Add(lrfTicket2);
-            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId).Returns(ticketResult);
+            BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
             var ticketText = new List<TicketText>();
             _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();

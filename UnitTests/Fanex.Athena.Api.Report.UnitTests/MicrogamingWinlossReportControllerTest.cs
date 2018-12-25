@@ -98,7 +98,7 @@
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
-            _dataAccess.GetSummaryWinloss(metaModel).Returns(new ReportResultModel<MicroGamingWinLoss>
+            _dataAccess.GetSummaryWinloss(metaModel, UserCurrencyList).Returns(new ReportResultModel<MicroGamingWinLoss>
             {
                 DataList = new List<MicroGamingWinLoss>()
             });
@@ -163,7 +163,7 @@
                 SummaryTotal = new Dictionary<string, MicroGamingWinLoss>()
             };
 
-            _dataAccess.GetSummaryWinloss(metaModel).Returns(result);
+            _dataAccess.GetSummaryWinloss(metaModel, UserCurrencyList).Returns(result);
             return result;
         }
     }

@@ -106,7 +106,7 @@ namespace Fanex.Athena.Controllers.Report
             var currencyName = userSession.CurrencyList
                 .Where(i => i.Key == metaModel.CurrencyId).Select(i => i.Value).SingleOrDefault();
 
-            var result = _customerTurnoverService.GetDataList(metaModel, userSession.Language);
+            var result = _customerTurnoverService.GetDataList(metaModel, userSession.CurrencyList, userSession.Language);
 
             var reportTitle = GenerateReportTitle(metaModel, currencyName);
             var excel = CreateExcel(templatePath, formatDateTime, showingOption, result, reportTitle);

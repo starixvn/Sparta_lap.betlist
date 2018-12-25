@@ -101,9 +101,10 @@
 
         private ReportResultModel<GoldDeluxeWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
-            return metaModel.DrillDownLevel == 0 ? _dataAccess.GetSummaryWinloss(metaModel) : metaModel.DrillDownLevel == 2
-                               ? _dataAccess.GetCustomerWinlossDetail(metaModel)
-                               : _dataAccess.GetAgentWinlossDetail(metaModel);
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
+            return metaModel.DrillDownLevel == 0 ? _dataAccess.GetSummaryWinloss(metaModel, userCurrencyList) : metaModel.DrillDownLevel == 2
+                               ? _dataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList)
+                               : _dataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList);
         }
 
         private dynamic ProcessRequest(

@@ -46,7 +46,7 @@
             var metaModel = new RefNoBetListMetaModel();
 
             // Action
-            DataAccess.GetBetListByRefno(metaModel);
+            DataAccess.GetBetListByRefno(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -65,7 +65,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 BetListByRefnoUspKey,
-                () => DataAccess.GetBetListByRefno(new RefNoBetListMetaModel()));
+                () => DataAccess.GetBetListByRefno(new RefNoBetListMetaModel(), UserCurrencyList));
         }
 
         [TestCase("", "", false)]
@@ -83,7 +83,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = productCode };
 
             // Action
-            DataAccess.GetRunningBetList(metaModel);
+            DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -115,7 +115,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
             // Action
-            DataAccess.GetRunningBetList(metaModel);
+            DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -137,7 +137,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
             // Action
-            DataAccess.GetRunningBetList(metaModel);
+            DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
 
             // Assert
             ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
@@ -161,7 +161,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty };
 
             // Action
-            var result = DataAccess.GetRunningBetList(metaModel);
+            var result = DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -176,7 +176,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 RunningBetListUspKey,
-                () => DataAccess.GetRunningBetList(new BaseBettingTicketMetaModel()));
+                () => DataAccess.GetRunningBetList(new BaseBettingTicketMetaModel(), UserCurrencyList));
         }
 
         [TestCase("", "", false)]
@@ -194,7 +194,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = productCode };
 
             // Action
-            DataAccess.GetBetListForSingleCustomer(metaModel);
+            DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -234,7 +234,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
             // Action
-            DataAccess.GetBetListForSingleCustomer(metaModel);
+            DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -256,7 +256,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
             // Action
-            DataAccess.GetBetListForSingleCustomer(metaModel);
+            DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
 
             // Assert
             ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
@@ -284,7 +284,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty };
 
             // Action
-            var result = DataAccess.GetBetListForSingleCustomer(metaModel);
+            var result = DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -303,7 +303,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 BetListBySingleCustomerUspKey,
-                () => DataAccess.GetBetListForSingleCustomer(new SingleCustomersBetListMetaModel()));
+                () => DataAccess.GetBetListForSingleCustomer(new SingleCustomersBetListMetaModel(), UserCurrencyList));
         }
     }
 }

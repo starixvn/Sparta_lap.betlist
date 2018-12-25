@@ -38,8 +38,8 @@ namespace Fanex.Athena.Controllers.Report
         {
             metaModel.IsExportExcel = false;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-
-            var result = _customerTurnoverService.GetDataList(metaModel, SessionService.UserSession.Language);
+            var userSession = SessionService.UserSession;
+            var result = _customerTurnoverService.GetDataList(metaModel, userSession.CurrencyList, userSession.Language);
 
             return Json(new { Data = result.DataList, Total = result.TotalData, TotalRow = result.TotalRows });
         }

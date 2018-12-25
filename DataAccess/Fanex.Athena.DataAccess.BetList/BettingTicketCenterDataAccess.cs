@@ -1,28 +1,25 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Common;
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Data;
-    using Extension.Utility;
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
-    using Session.Interfaces;
 
     public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public BettingTicketCenterDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
+
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -91,7 +88,8 @@
             }
         }
 
-        public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
+        public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel,
+            IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_Mem";
 
@@ -104,7 +102,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader));
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                     }
 
                     var outSqlParams = db.GetOuputParams();
@@ -124,7 +122,7 @@
             return ticketResult;
         }
 
-        public TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel)
+        public TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_RefNo_Mem";
 
@@ -143,7 +141,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader));
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                     }
                 }
             }
@@ -155,7 +153,7 @@
             return ticketResult;
         }
 
-        public TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel)
+        public TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_Running";
 
@@ -184,7 +182,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader));
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                     }
 
                     var outSqlParams = db.GetOuputParams();

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.Interfaces
 {
+    using System.Collections.Generic;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
 
@@ -9,10 +10,9 @@
 
         int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
 
-        TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel);
 
-        TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel);
+        TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList);
 
-        TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel);
+        TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList);
     }
 }

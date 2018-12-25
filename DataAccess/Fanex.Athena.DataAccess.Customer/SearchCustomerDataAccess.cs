@@ -2,18 +2,11 @@
 using System.Data;
 using Fanex.Athena.DataAccess.Core;
 using Fanex.Athena.DataAccess.Customer.Interfaces;
-using Fanex.Athena.Extension.Utility;
-using Fanex.Athena.Session.Interfaces;
 
 namespace Fanex.Athena.DataAccess.Customer
 {
     public class SearchCustomerDataAccess : BaseDataAccess, ISearchCustomerDataAccess
     {
-        public SearchCustomerDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml, bool isIncludeDormant)
         {
             using (var db = this.GetObjectDb("Lrf_CustomerSelUserSearch"))

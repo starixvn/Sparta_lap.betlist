@@ -19,6 +19,7 @@
         private ILastBetsMonitoringBetListDataAccess _lastBetsMonitoringBetListDataAccess;
         private ILastBetsMonitoringBetListService _betListService;
         private IMemoryCacheService _cache;
+        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
 
         [SetUp]
         public void SetUp()
@@ -48,7 +49,7 @@
                 new LrfTicket { MatchId = match.MatchId, BetTypeId = (int)betType }
             });
 
-            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>(), _currencyList)
                 .Returns(ticketResult);
 
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(x => { return null; });
@@ -60,7 +61,7 @@
             var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
             {
                 OddsType = string.Empty
-            });
+            }, _currencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -87,7 +88,7 @@
                 new LrfTicket { MatchId = match.MatchId, BetTypeId = (int)betType }
             });
 
-            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>(), _currencyList)
                 .Returns(ticketResult);
 
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch> { match });
@@ -95,7 +96,7 @@
             _lastBetsMonitoringBetListDataAccess.GetMatchList(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty });
+            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty }, _currencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -125,7 +126,7 @@
                 new LrfTicket { MatchId = 999, BetTypeId = (int)betType }
             });
 
-            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>(), _currencyList)
                 .Returns(ticketResult);
 
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(x => { return null; });
@@ -134,7 +135,8 @@
                 .Returns(new List<BetListMatch>());
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty });
+            var result = _betListService.GetLastBetsMonitoringData(
+                new LastBetsMonitoringMetaModel { OddsType = string.Empty }, _currencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -160,7 +162,7 @@
                 new LrfTicket { MatchId = 999, BetTypeId = (int)betType }
             });
 
-            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>(), _currencyList)
                 .Returns(ticketResult);
 
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(x => { return null; });
@@ -169,7 +171,7 @@
                 .Returns(new List<BetListMatch>());
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty });
+            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty }, _currencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -198,7 +200,7 @@
                     OddsType = oddsType
                 }
             });
-            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>(), _currencyList)
                 .Returns(ticketResult);
 
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
@@ -207,7 +209,7 @@
             var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
             {
                 OddsType = "dec"
-            });
+            }, _currencyList);
 
             // Assert
             Assert.That(result.MainTicketList[0].Odds, Is.EqualTo(expectedValue));
@@ -232,7 +234,7 @@
                     OddsType = oddsType
                 }
             });
-            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>(), _currencyList)
                 .Returns(ticketResult);
 
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
@@ -241,7 +243,7 @@
             var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
             {
                 OddsType = "my"
-            });
+            }, _currencyList);
 
             // Assert
             Assert.That(result.MainTicketList[0].Odds, Is.EqualTo(expectedValue));
@@ -262,7 +264,7 @@
                     TransDate = new DateTime(2017, 3, 17, 0, 0, 0)
                 }
             });
-            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>()).Returns(ticketResult);
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>(), _currencyList).Returns(ticketResult);
 
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
@@ -273,7 +275,7 @@
             {
                 OddsType = "my",
                 TimeZone = 0
-            });
+            }, _currencyList);
 
             // Assert
             Assert.That(result.MainTicketList[0].TransDate, Is.EqualTo(expectedResult));
@@ -294,7 +296,7 @@
                     TransDate = new DateTime(2017, 3, 17, 0, 0, 0)
                 }
             });
-            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>()).Returns(ticketResult);
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>(), _currencyList).Returns(ticketResult);
 
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
@@ -305,7 +307,7 @@
             {
                 OddsType = "my",
                 TimeZone = -5
-            });
+            }, _currencyList);
 
             // Assert
             Assert.That(result.MainTicketList[0].TransDate, Is.EqualTo(expectedResult));

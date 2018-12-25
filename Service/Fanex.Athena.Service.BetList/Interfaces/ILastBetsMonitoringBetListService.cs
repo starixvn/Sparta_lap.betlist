@@ -6,11 +6,12 @@
 
 namespace Fanex.Athena.Service.BetList.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
 
     public interface ILastBetsMonitoringBetListService
     {
-        TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel);
+        TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList);
     }
 }

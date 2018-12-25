@@ -38,9 +38,9 @@ namespace Fanex.Athena.Service.BetList
             _cache = cache;
         }
 
-        public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
+        public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            var ticketResult = this._lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(metaModel);
+            var ticketResult = this._lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(metaModel, currencyList);
 
             UpdateMatchInfo(metaModel, ticketResult);
 

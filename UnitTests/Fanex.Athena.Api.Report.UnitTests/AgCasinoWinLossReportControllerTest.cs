@@ -77,7 +77,7 @@
                 CurrencyId = -1
             };
 
-            _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), string.Empty).ReturnsForAnyArgs(x =>
+            _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList, string.Empty).ReturnsForAnyArgs(x =>
             {
                 return new SortableReportResultModel<ThirdPartyWinLoss>();
             });
@@ -113,7 +113,7 @@
             {
                 Assert.That(model.DrillDownLevel, Is.Zero);
                 Assert.That(model.DrillDownCustomerId, Is.Zero);
-                _dataAccess.Received().GetSummaryWinloss(model, "Lrf_Rpt_AGCasinoWinloss");
+                _dataAccess.Received().GetSummaryWinloss(model, UserCurrencyList, "Lrf_Rpt_AGCasinoWinloss");
             });
         }
 
@@ -163,7 +163,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetAgentWinlossDetail(model, "LRF_Rpt_AGCasinoWinloss_Ag");
+                _dataAccess.Received().GetAgentWinlossDetail(model, UserCurrencyList, "LRF_Rpt_AGCasinoWinloss_Ag");
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
                 Assert.That(model.DrillDownCurrencyId, Is.EqualTo(currencyId));
                 Assert.That(model.DrillDownLevel, Is.EqualTo(level));
@@ -217,7 +217,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model, "LRF_Rpt_AGCasinoWinloss_Mem");
+                _dataAccess.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model, UserCurrencyList, "LRF_Rpt_AGCasinoWinloss_Mem");
                 Assert.That(result.Data, Is.EqualTo(expectedData.DataList));
                 Assert.That(result.Total, Is.EqualTo(expectedData.TotalDataList));
                 Assert.That(result.SummaryTotal, Is.EqualTo(expectedData.SummaryTotal));
@@ -312,15 +312,15 @@
 
             if (level == 0)
             {
-                _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), "Lrf_Rpt_AGCasinoWinloss").Returns(expectedData);
+                _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList, "Lrf_Rpt_AGCasinoWinloss").Returns(expectedData);
             }
             else if (level == 1)
             {
-                _dataAccess.GetAgentWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), "LRF_Rpt_AGCasinoWinloss_Ag").Returns(expectedData);
+                _dataAccess.GetAgentWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList, "LRF_Rpt_AGCasinoWinloss_Ag").Returns(expectedData);
             }
             else
             {
-                _dataAccess.GetCustomerWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), "LRF_Rpt_AGCasinoWinloss_Mem").Returns(expectedData);
+                _dataAccess.GetCustomerWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList, "LRF_Rpt_AGCasinoWinloss_Mem").Returns(expectedData);
             }
 
             return expectedData;

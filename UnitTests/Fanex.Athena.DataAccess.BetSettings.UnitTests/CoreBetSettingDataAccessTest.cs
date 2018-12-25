@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.BetSettings.DTO;
     using NSubstitute;
     using NUnit.Framework;

@@ -8,7 +8,6 @@ namespace Fanex.Athena.Excel.BetList
 {
     using System.Globalization;
     using Athena.Model.BetList.DTO;
-    using Constant.Helper;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NPOI.HSSF.UserModel;

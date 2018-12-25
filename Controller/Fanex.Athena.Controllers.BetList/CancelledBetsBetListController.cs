@@ -112,7 +112,7 @@ namespace Fanex.Athena.Controllers.BetList
                 var excelModel = CreateDefaultMetaModel(metaModel);
                 excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
 
-                var ticketResult = BetListService.GetBetListData(excelModel, UspKey);
+                var ticketResult = BetListService.GetBetListData(excelModel, UserCurrencyList, UspKey);
 
                 var showingOption = new ShowingOption
                 {

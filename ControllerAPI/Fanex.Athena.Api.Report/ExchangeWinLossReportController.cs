@@ -38,14 +38,15 @@
         [HttpPost]
         public dynamic Index(ExchangeWinLossMetaModel metaModel)
         {
+            var currencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.IsValid && IsValidParams(metaModel) && IsValidRequest(metaModel, metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                return metaModel.Level == 0 ? _dataAccess.GetMainWinloss(metaModel) :
+                return metaModel.Level == 0 ? _dataAccess.GetMainWinloss(metaModel, currencyList) :
                                 metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2
-                               ? _dataAccess.GetCustomerWinloss(metaModel)
-                               : _dataAccess.GetLicenseeWinloss(metaModel);
+                               ? _dataAccess.GetCustomerWinloss(metaModel, currencyList)
+                               : _dataAccess.GetLicenseeWinloss(metaModel, currencyList);
             }
 
             return new ReportResultModel<ExchangeWinLoss>

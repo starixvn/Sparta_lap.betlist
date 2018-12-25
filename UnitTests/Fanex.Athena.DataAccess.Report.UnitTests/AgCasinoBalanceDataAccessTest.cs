@@ -27,7 +27,7 @@
             var metaModel = CreateMetaModel();
 
             // Action
-            DataAccess.GetSummaryBalance(metaModel);
+            DataAccess.GetSummaryBalance(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -54,7 +54,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = DataAccess.GetSummaryBalance(metaModel).DataList.First();
+            var result = DataAccess.GetSummaryBalance(metaModel, UserCurrencyList).DataList.First();
 
             // Assert
             Assert.Multiple(() =>
@@ -81,7 +81,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetSummaryBalanceSp,
-                () => DataAccess.GetSummaryBalance(new ThirdPartyWinLossMetaModel()));
+                () => DataAccess.GetSummaryBalance(new ThirdPartyWinLossMetaModel(), UserCurrencyList));
         }
 
         [Test]
@@ -95,7 +95,7 @@
             ObjectDb.GetParameterValue("TotalRows").Returns(TotalRows);
 
             // Action
-            DataAccess.GetCustomerBalanceDetail(metaModel);
+            DataAccess.GetCustomerBalanceDetail(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -115,7 +115,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetCustomerBalanceDetailSp,
-                () => DataAccess.GetCustomerBalanceDetail(new ThirdPartyWinLossMetaModel()));
+                () => DataAccess.GetCustomerBalanceDetail(new ThirdPartyWinLossMetaModel(), UserCurrencyList));
         }
 
         [Test]
@@ -133,7 +133,7 @@
             ObjectDb.GetParameterValue("TotalRows").Returns(TotalRows);
 
             // Action
-            DataAccess.GetCustomerBalanceDetail(metaModel);
+            DataAccess.GetCustomerBalanceDetail(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -163,7 +163,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = DataAccess.GetCustomerBalanceDetail(metaModel).DataList[0];
+            var result = DataAccess.GetCustomerBalanceDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.Multiple(() =>
@@ -193,7 +193,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.Multiple(() =>
@@ -211,7 +211,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetAgentBalanceDetailSp,
-                () => DataAccess.GetAgentBalanceDetail(new ThirdPartyWinLossMetaModel()));
+                () => DataAccess.GetAgentBalanceDetail(new ThirdPartyWinLossMetaModel(), UserCurrencyList));
         }
 
         [Test]
@@ -236,7 +236,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(result.Index, Is.EqualTo(ExpectedIndex));
@@ -264,7 +264,7 @@
             Reader.GetName(Arg.Any<int>()).Returns("UserName");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(UserName));
@@ -292,7 +292,7 @@
             Reader.GetName(Arg.Any<int>()).Returns("NickName");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(result.ExternalId, Is.EqualTo(NickName));
@@ -321,7 +321,7 @@
             Reader.GetName(Arg.Any<int>()).Returns("CustId");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(result.CustomerId, Is.EqualTo(CustId));
@@ -350,7 +350,7 @@
             Reader.GetName(Arg.Any<int>()).Returns("Currency");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(result.CurrencyId, Is.EqualTo(Currency));
@@ -378,7 +378,7 @@
             Reader.GetName(Arg.Any<int>()).Returns("Date");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(result.Date, Is.EqualTo(date));
