@@ -19,11 +19,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class ProductDataAccess : BaseDataAccess, IProductDataAccess
     {
-        public ProductDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IList<Product> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false)
         {
             var uspName = isActiveCustomerSummaryReport ? "Lrf_LicenseeProduct3rdSel_active" : "Lrf_LicenseeProduct3rdSel";

@@ -20,8 +20,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public MatchDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
+        public MatchDataAccess(ICacheRefAdapter cacheRefAdapter)
+
         {
             _cacheRefAdapter = cacheRefAdapter;
         }

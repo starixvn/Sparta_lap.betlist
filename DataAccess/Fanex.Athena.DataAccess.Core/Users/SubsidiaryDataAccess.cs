@@ -11,11 +11,6 @@
 
     public class SubsidiaryDataAccess : BaseDataAccess, ISubsidiaryDataAccess
     {
-        public SubsidiaryDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IEnumerable<Subsidiary> GetSubsidiaryList(string licenseeName)
         {
             var dataList = new List<Subsidiary>();

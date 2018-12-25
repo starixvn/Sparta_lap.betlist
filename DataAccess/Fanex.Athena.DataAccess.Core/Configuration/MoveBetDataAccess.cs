@@ -22,10 +22,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
 
         [CLSCompliant(false)]
         public MoveBetDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ILogger logger)
-            : base(appSetting, sessionStorage)
         {
             _logger = logger;
         }

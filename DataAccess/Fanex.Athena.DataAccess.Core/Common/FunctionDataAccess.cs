@@ -20,8 +20,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
     {
         private readonly IAppSettings _appSettings;
 
-        public FunctionDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
+        public FunctionDataAccess(IAppSettings appSetting)
         {
             _appSettings = appSetting;
         }

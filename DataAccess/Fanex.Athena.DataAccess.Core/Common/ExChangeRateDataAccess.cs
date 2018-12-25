@@ -16,11 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class ExChangeRateDataAccess : BaseDataAccess, IExChangeRateDataAccess
     {
-        public ExChangeRateDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ExChangeRate GetExChangeRate(string currenyCode, DateTime datetime)
         {
             const string UspName = "Lrf_GetExchangeRateByDate";

@@ -18,12 +18,7 @@
 
     public class ExchangeWinLossDataAccess : BaseDataAccess, IExchangeWinLossDataAccess
     {
-        public ExchangeWinLossDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
-        public ReportResultModel<ExchangeWinLoss> GetMainWinloss(ExchangeWinLossMetaModel metaModel)
+        public ReportResultModel<ExchangeWinLoss> GetMainWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss";
             try
@@ -35,7 +30,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader, metaModel, currencyList);
                     }
                 }
             }
@@ -45,7 +40,7 @@
             }
         }
 
-        public ReportResultModel<ExchangeWinLoss> GetCustomerWinloss(ExchangeWinLossMetaModel metaModel)
+        public ReportResultModel<ExchangeWinLoss> GetCustomerWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss_Mem";
             try
@@ -57,7 +52,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader, metaModel, currencyList);
                     }
                 }
             }
@@ -67,7 +62,7 @@
             }
         }
 
-        public ReportResultModel<ExchangeWinLoss> GetLicenseeWinloss(ExchangeWinLossMetaModel metaModel)
+        public ReportResultModel<ExchangeWinLoss> GetLicenseeWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss_Ag";
             try
@@ -78,7 +73,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader, metaModel, currencyList);
                     }
                 }
             }
@@ -137,7 +132,7 @@
             }).ToList();
         }
 
-        private ReportResultModel<ExchangeWinLoss> GetData(IDataReader reader, ExchangeWinLossMetaModel metaModel)
+        private ReportResultModel<ExchangeWinLoss> GetData(IDataReader reader, ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             var dataList = new List<ExchangeWinLoss>();
             var summaryTotal = SystemConstants.BaseCurrencyList.ToDictionary(x => x, x => new ExchangeWinLoss());
@@ -153,7 +148,7 @@
                 var item = new ExchangeWinLoss
                 {
                     Date = hasWinlostdate ? reader.ToDateTime("Winlostdate") : metaModel.ToDate,
-                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                     CurrencyId = currencyId,
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,

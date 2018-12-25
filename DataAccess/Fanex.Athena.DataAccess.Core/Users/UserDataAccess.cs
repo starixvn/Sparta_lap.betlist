@@ -23,11 +23,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
     public class UserDataAccess : BaseDataAccess, IUserDataAccess
     {
-        public UserDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IResultInfo ChangePassword(User requestUser, string oldPassword, string newPassword, string salt)
         {
             const string UspName = "Licensee_UserPasswordUpd";

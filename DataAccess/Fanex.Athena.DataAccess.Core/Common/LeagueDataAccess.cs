@@ -21,8 +21,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public LeagueDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
+        public LeagueDataAccess(ICacheRefAdapter cacheRefAdapter)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }

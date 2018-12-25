@@ -20,10 +20,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
     {
-        public LicenseeDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
 
         public IResultInfo<bool> IsAllowUpdateMemberBAStatus(Request request, int licenseeId)
         {

@@ -26,11 +26,8 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
 
         [CLSCompliant(false)]
         public BalanceUpDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ILogger logger,
             IMemoryCacheService cache)
-            : base(appSetting, sessionStorage)
         {
             _logger = logger;
             _cache = cache;

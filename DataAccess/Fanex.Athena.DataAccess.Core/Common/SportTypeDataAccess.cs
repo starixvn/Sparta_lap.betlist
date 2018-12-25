@@ -30,10 +30,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public SportTypeDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }

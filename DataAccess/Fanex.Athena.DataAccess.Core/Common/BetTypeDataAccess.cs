@@ -19,11 +19,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     /// </summary>
     public class BetTypeDataAccess : BaseDataAccess, IBetTypeDataAccess
     {
-        public BetTypeDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         /// <summary>
         /// Get bet type.
         /// </summary>

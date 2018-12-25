@@ -16,11 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
     public class OneAuthDataAccess : BaseDataAccess, IOneAuthDataAccess
     {
-        public OneAuthDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public OneAuthUserInfo GetUserInfo(int userSEQ, string vendorId)
         {
             const string UspName = "Lrf_GetUserLevelInfo";

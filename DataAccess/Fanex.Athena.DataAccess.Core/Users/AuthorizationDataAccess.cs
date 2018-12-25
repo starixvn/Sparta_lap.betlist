@@ -15,11 +15,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
     public class AuthorizationDataAccess : BaseDataAccess, IAthorizationDataAccess
     {
-        public AuthorizationDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public bool IsCustomerBelonging(int licenseeId, int custId, long transid)
         {
             using (var db = this.GetObjectDb("Lrf_CustomerSelCheckBelonging"))

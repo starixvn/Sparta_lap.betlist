@@ -25,12 +25,8 @@ namespace Fanex.Athena.DataAccess.BetList
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
-        public BetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
 
-        public TicketResult GetMixParlayDetailTicket(long transId, int custId)
+        public TicketResult GetMixParlayDetailTicket(IDictionary<int, string> currencyList, long transId, int custId)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";
 
@@ -41,7 +37,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 using (var reader = db.ExecuteReader())
                 {
                     var result = new TicketResult();
-                    result.MainTicketList.AddRange(ReadBetListTicket(reader, string.Empty));
+                    result.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList, string.Empty));
                     return result;
                 }
             }
@@ -111,7 +107,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        public TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey)
+        public TicketResult GetBetListData(BetListMetaModel metaModel, IDictionary<int, string> currencyList, string uspKey)
         {
             var ticketResult = new TicketResult();
 
@@ -124,7 +120,7 @@ namespace Fanex.Athena.DataAccess.BetList
 
                 using (var reader = db.ExecuteReader())
                 {
-                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, baseCurrency, metaModel.CustId));
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList, baseCurrency, metaModel.CustId));
                     if (reader.NextResult())
                     {
                         ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader, baseCurrency).ToList());

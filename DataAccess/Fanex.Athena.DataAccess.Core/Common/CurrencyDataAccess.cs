@@ -21,11 +21,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess
     {
-        public CurrencyDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IList<CurrencyUser> GetCurrencies(int licenseeId)
         {
             const string UspName = "Lrf_SelCurrencyByLicensee";

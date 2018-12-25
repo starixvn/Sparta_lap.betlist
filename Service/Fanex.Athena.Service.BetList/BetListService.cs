@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.BetList
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.BetList.Core.Entities;
+    using System.Collections.Generic;
 
     public class BetListService : IBetListService
     {
@@ -33,10 +34,10 @@ namespace Fanex.Athena.Service.BetList
             _authorizationService = authorizationService;
         }
 
-        public TicketResult GetMixParlayDetailTicket(int licenseeId, long transId, int custId)
+        public TicketResult GetMixParlayDetailTicket(IDictionary<int, string> currencyList, int licenseeId, long transId, int custId)
         {
             return _authorizationService.HasPermissionOnData(licenseeId, custId, transId)
-                        ? _betlistDataAccess.GetMixParlayDetailTicket(transId, custId)
+                        ? _betlistDataAccess.GetMixParlayDetailTicket(currencyList, transId, custId)
                         : new TicketResult();
         }
 
@@ -46,12 +47,12 @@ namespace Fanex.Athena.Service.BetList
             return _betlistDataAccess.GetSystemParlayDetail(metaModel);
         }
 
-        public TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey)
+        public TicketResult GetBetListData(BetListMetaModel metaModel, IDictionary<int, string> currencyList, string uspKey)
         {
             AssignBalanceUpDates(metaModel);
 
             return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
-                        ? _betlistDataAccess.GetBetListData(metaModel, uspKey)
+                        ? _betlistDataAccess.GetBetListData(metaModel, currencyList, uspKey)
                         : new TicketResult();
         }
 

@@ -18,18 +18,6 @@ namespace Fanex.Athena.DataAccess.Core
 
     public class BaseDataAccess
     {
-        private readonly IAppSettings _appSetting;
-
-        private readonly ISessionStorage _sessionStorage;
-
-        private IDictionary<int, string> _currencyList;
-
-        public BaseDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-        {
-            _sessionStorage = sessionStorage;
-            _appSetting = appSetting;
-        }
-
         [CLSCompliant(false)]
         protected static void AddResultParam(IObjectDb db)
         {
@@ -53,35 +41,10 @@ namespace Fanex.Athena.DataAccess.Core
             return result;
         }
 
-        protected string GetCurrencyName(int currencyId)
-        {
-            if (_currencyList == null)
-            {
-                _currencyList = _sessionStorage.UserSession.CurrencyList;
-            }
-
-            if (_currencyList.ContainsKey(currencyId))
-            {
-                return _currencyList[currencyId];
-            }
-
-            return currencyId.ToString();
-        }
-
         [CLSCompliant(false)]
         protected internal virtual IObjectDb GetObjectDb(string spname, int timeout = 120)
         {
             return new ObjectDb(spname, timeout);
-        }
-
-        protected internal virtual bool IsFakeLicensee(int licenseeId)
-        {
-            return _appSetting.FakeLicenseeList.Contains(licenseeId);
-        }
-
-        protected internal virtual string GetSpNameForFakeLicensee(int licenseeId, string uspName)
-        {
-            return IsFakeLicensee(licenseeId) ? uspName + "_BySourced" : uspName;
         }
 
         private static void AssignResult(IObjectDb db, IResultInfo result)
