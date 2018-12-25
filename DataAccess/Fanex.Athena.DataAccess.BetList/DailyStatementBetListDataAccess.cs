@@ -29,10 +29,7 @@
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public DailyStatementBetListDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

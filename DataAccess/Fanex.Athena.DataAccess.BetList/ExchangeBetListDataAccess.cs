@@ -17,11 +17,6 @@
 
     public class ExchangeBetListDataAccess : BaseDataAccess, IExchangeBetListDataAccess
     {
-        public ExchangeBetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ExchangeBetListResult GetBetListData(ExchangeBetListMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_Exchange_Mem";

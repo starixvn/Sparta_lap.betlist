@@ -12,7 +12,7 @@ namespace Fanex.Athena.DataAccess.BetList.Interfaces
 
     public interface ILastBetsMonitoringBetListDataAccess
     {
-        TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel);
+        TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList);
 
         IList<BetListMatch> GetMatchList(string uspKey);
     }

@@ -28,8 +28,7 @@ namespace Fanex.Athena.DataAccess.BetList
 
 #pragma warning disable CS3001 // Argument type is not CLS-compliant
 
-        public ColossusBetBetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ITicketHelper ticketHelper)
-            : base(appSetting, sessionStorage)
+        public ColossusBetBetListDataAccess(ITicketHelper ticketHelper)
 #pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             _ticketHelper = ticketHelper;
