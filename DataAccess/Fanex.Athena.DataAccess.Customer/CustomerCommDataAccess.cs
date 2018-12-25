@@ -12,11 +12,6 @@
 
     public class CustomerCommDataAccess : BaseDataAccess, ICustomerCommDataAccess
     {
-        public CustomerCommDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         /// <summary>
         ///     Move customers to new group including 2 following steps:
         ///     1: Remove all customers commission in group.

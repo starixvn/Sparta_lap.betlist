@@ -19,8 +19,6 @@
         {
             _cacheRef = Substitute.For<ICacheRefAdapter>();
             DataAccess = Substitute.ForPartsOf<LeagueDataAccess>(
-                AppSetting,
-                Substitute.For<ISessionStorage>(),
                 _cacheRef);
         }
 

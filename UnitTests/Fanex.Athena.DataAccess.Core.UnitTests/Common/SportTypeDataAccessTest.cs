@@ -14,8 +14,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<SportTypeDataAccess>(
-                Substitute.For<IAppSettings>(),
-                CreateSessionStorage(),
                 Substitute.For<ICacheRefAdapter>());
         }
 

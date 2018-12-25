@@ -19,11 +19,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
     public class GroupComDataAccess : BaseDataAccess, IGroupComDataAccess
     {
-        public GroupComDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
+      
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
         {
             const string UspName = "Lrf_LicenseeGroupCommSel";

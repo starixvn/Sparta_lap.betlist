@@ -14,7 +14,7 @@
     {
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<SubsidiaryDataAccess>(AppSetting, CreateSessionStorage());
+            DataAccess = Substitute.ForPartsOf<SubsidiaryDataAccess>();
         }
 
         [Test]

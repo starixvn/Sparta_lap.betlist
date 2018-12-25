@@ -23,8 +23,7 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<MoveBetDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
+            
                 _logger);
         }
 

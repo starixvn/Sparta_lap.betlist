@@ -19,11 +19,7 @@
 
     public class CustomerListDataAccess : BaseDataAccess, ICustomerListDataAccess
     {
-        public CustomerListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
+    
         #region Read
 
         public ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel)

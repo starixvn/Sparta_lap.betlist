@@ -17,11 +17,6 @@ namespace Fanex.Athena.DataAccess.Customer
 
     public class LogInLogDataAccess : BaseDataAccess, ILogInLogDataAccess
     {
-        public LogInLogDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IList<LogInLog> GetDataList(int licenseeId, string username, string agentListXml)
         {
             const string SpName = "Lrf_UserLog_LoginSel";

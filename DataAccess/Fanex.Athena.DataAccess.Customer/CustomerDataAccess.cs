@@ -9,11 +9,6 @@
 
     public class CustomerDataAccess : BaseDataAccess, ICustomerDataAccess
     {
-        public CustomerDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public CustomerInfo GetCustomerInfo(int custId)
         {
             const string UspName = "Lrf_CustomerSelStatus";

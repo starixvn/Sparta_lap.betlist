@@ -15,10 +15,6 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     public class DormantCustomerListDataAccess : BaseDataAccess, IDormantCustomerListDataAccess
     {
-        public DormantCustomerListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
 
         public ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel)
         {

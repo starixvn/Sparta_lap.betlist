@@ -18,11 +18,6 @@ namespace Fanex.Athena.DataAccess.Customer
 
     public class CustomerLogDataAccess : BaseDataAccess, ICustomerLogDataAccess
     {
-        public CustomerLogDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel)
         {
             const string SpName = "Lrf_CustomerSettingLog_Sel";
