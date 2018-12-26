@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Web;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using Base;
     using Base.Attributes;
@@ -19,6 +19,7 @@
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterMultiCustomerController : BaseApiController
@@ -29,15 +30,19 @@
 
         private const int MaxRowPerFile = 65000;
 
+        private readonly ICoreLogger _logger;
+
         private readonly IBettingTicketCenterService _service;
 
         public BettingTicketCenterMultiCustomerController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
+            ICoreLogger logger,
             IBettingTicketCenterService service)
             : base(sessionService, productService, langService)
         {
+            _logger = logger;
             _service = service;
         }
 
@@ -151,9 +156,6 @@
                         workbook.Write(stream);
                         stream.Close();
                     }
-
-                    /* GC.Collect();
-                     GC.WaitForPendingFinalizers();*/
                 }
 
                 using (ZipFile zip = new ZipFile())
@@ -169,25 +171,41 @@
             }
             catch (Exception)
             {
-                if (Directory.Exists(path))
-                {
-                    Directory.Delete(path);
-                }
-
+                DeleteFolder(path);
                 throw;
             }
         }
 
         protected HttpResponseMessage ZipContentResult(ZipFile zipFile, string path)
         {
-            var pushStreamContent = new PushStreamContent((stream, content, context) =>
-            {
-                zipFile.Save(stream);
-                stream.Close(); // After save we close the stream to signal that we are done writing.
-                Directory.Delete(path, true);
-            }, "application/zip");
+            var pushStreamContent = new PushStreamContent(
+                (stream, content, context) =>
+                {
+                    zipFile.Save(stream);
+                    stream.Close();
+                    DeleteFolder(path);
+                },
+                "application/zip");
 
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
+        }
+
+        private void DeleteFolder(string path)
+        {
+            HostingEnvironment.QueueBackgroundWorkItem(action =>
+            {
+                if (Directory.Exists(path))
+                {
+                    try
+                    {
+                        Directory.Delete(path, true);
+                    }
+                    catch (Exception exception)
+                    {
+                        _logger.Error(exception, "Folder Path: " + path);
+                    }
+                }
+            });
         }
     }
 }
