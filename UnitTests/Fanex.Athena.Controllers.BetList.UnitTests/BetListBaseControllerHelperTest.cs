@@ -28,7 +28,7 @@
         protected IBetListService BetListService { get; private set; }
 
         protected ICacheRefAdapter CacheRefAdapter { get; private set; }
-        protected IDictionary<int, string> UserCurrencyList => SessionService.UserSession.CurrencyList;
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {

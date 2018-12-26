@@ -13,6 +13,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Users.Interfaces;
+    using Service.StatelessCore.Interfaces;
     using Session.Model;
     using UnitTest.Common.Helpers;
 

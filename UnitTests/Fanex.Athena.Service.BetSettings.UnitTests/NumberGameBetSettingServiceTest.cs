@@ -4,12 +4,12 @@
     using System.Collections.Generic;
     using BetSettings;
     using BetSettings.Interfaces;
-    using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Model.BetSettings.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using StatelessCore.Interfaces;
 
     [TestFixture]
     public class NumberGameBetSettingServiceTest

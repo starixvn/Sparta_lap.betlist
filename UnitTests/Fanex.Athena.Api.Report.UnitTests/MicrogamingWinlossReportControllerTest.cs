@@ -98,7 +98,7 @@
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
-            _dataAccess.GetSummaryWinloss(metaModel, UserCurrencyList).Returns(new ReportResultModel<MicroGamingWinLoss>
+            _dataAccess.GetSummaryWinloss(metaModel, Arg.Any<IDictionary<int, string>>()).Returns(new ReportResultModel<MicroGamingWinLoss>
             {
                 DataList = new List<MicroGamingWinLoss>()
             });

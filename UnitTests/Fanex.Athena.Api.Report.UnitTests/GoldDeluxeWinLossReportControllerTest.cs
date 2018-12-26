@@ -82,7 +82,7 @@
             // Arrange
             var metaModel = CreateValidMetaModel();
 
-            _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList).Returns(
+            _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), Arg.Any<IDictionary<int, string>>()).Returns(
                 new ReportResultModel<GoldDeluxeWinLoss>());
 
             // Action

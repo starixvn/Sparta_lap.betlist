@@ -7,7 +7,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Users.Interfaces;
+    using Service.StatelessCore.Interfaces;
     using Session.Model;
 
     public class OutstandingDailyStatementBetListControllerTest : BaseApiControllerHelperTest

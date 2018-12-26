@@ -5,7 +5,6 @@
     using BetSettings;
     using Casino.Interfaces;
     using Casino.Wrappers;
-    using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Interfaces;
@@ -15,6 +14,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using StatelessCore.Interfaces;
 
     [TestFixture]
     public partial class RngCasinoBetSettingServiceTest

@@ -52,7 +52,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<LicenseeWinLossByTimeZoneMetaModel>(), UserCurrencyList);
+                _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<LicenseeWinLossByTimeZoneMetaModel>(), Arg.Any<IDictionary<int, string>>());
                 Assert.That(result.Data, Is.Empty);
             });
         }

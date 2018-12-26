@@ -77,7 +77,7 @@
             // Arrange
             var metaModel = CreateValidMetaModel();
 
-            _service.GetSummaryWinloss(Arg.Any<ColossusBetsWinLossMetaModel>(), UserCurrencyList).Returns(
+            _service.GetSummaryWinloss(Arg.Any<ColossusBetsWinLossMetaModel>(), Arg.Any<IDictionary<int, string>>()).Returns(
                 new SortableReportResultModel<ColossusBetWinLoss>());
 
             // Action

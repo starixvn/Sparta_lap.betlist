@@ -12,7 +12,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
-    using Service.Core.Users.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     public class CancelledBetsBetListControllerTest : BetListBaseControllerHelperTest
     {
@@ -189,7 +189,7 @@
                     BaseCurrency = baseCurrency
                 };
 
-                var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency); 
+                var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.CancelledBets} - {currencyTitle}";
 
                 var ticketResult = new TicketResult();

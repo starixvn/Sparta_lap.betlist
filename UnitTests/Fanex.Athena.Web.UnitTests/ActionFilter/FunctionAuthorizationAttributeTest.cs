@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Fanex.Athena.Service.Core.Users.Interfaces;
+using Fanex.Athena.Service.StatelessCore.Interfaces;
 using Fanex.Athena.Session.Enum;
 using Fanex.Athena.Session.Interfaces;
 using Fanex.Athena.Session.Model;

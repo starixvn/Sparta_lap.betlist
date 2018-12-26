@@ -2,12 +2,12 @@
 {
     using Casino.Interfaces;
     using Core.Common.Interfaces;
-    using Core.Users.Interfaces;
     using DataAccess.Customer.Interfaces;
     using Extension.Utility;
     using Model.Customer.DTO;
     using NSubstitute;
     using NUnit.Framework;
+    using StatelessCore.Interfaces;
     using UnitTest.Common.Helpers;
 
     [TestFixture]

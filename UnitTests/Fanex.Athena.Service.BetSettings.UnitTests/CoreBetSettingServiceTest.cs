@@ -13,6 +13,7 @@
     using NUnit.Framework;
     using Session.Enum;
     using Session.Model;
+    using StatelessCore.Interfaces;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
@@ -113,7 +114,7 @@
 
             // Assert
             Assert.That(
-                result.Select(x => x.ProductId).ToArray(), 
+                result.Select(x => x.ProductId).ToArray(),
                 Is.EqualTo(new[] { ProductTypes.RngCasino, ProductTypes.Sportsbook, ProductTypes.Macau }));
         }
 

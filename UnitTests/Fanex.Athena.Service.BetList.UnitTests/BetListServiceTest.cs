@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Service.BetList.UnitTests
 {
     using System.Collections.Generic;
-    using Core.Users.Interfaces;
     using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
@@ -12,6 +11,7 @@
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
+    using StatelessCore.Interfaces;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
@@ -21,6 +21,7 @@
         private IAuthorizationService _authorizationService;
         private IBetListService _betListService;
         private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
+
         [OneTimeSetUp]
         public void SetUp()
         {
@@ -69,7 +70,7 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _betListService.GetMixParlayDetailTicket(_currencyList,LicenseeId, TransId, CustId);
+            var result = _betListService.GetMixParlayDetailTicket(_currencyList, LicenseeId, TransId, CustId);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));

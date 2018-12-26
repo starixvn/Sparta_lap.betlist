@@ -4,12 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using Core.Common.Interfaces;
-    using Core.Users;
-    using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using StatelessCore;
+    using StatelessCore.Interfaces;
     using UnitTest.Common.Helpers;
 
     [TestFixture]

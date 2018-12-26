@@ -85,7 +85,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
+                _dataAccess.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), Arg.Any<IDictionary<int, string>>());
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
                 Assert.That(result.ErrorMessage, Is.EqualTo(ViewResources.ResourceManager.GetString(errorMessageKey)));

@@ -59,7 +59,7 @@
             };
             _subsidiaryService.GetCurrencyAgentList(Arg.Any<string>(), Arg.Any<bool>()).Returns(agentList);
             SessionService.GenerateAgentListXml(agentList).Returns(AgentListXml);
-            _service.GetDetailData(metaModel, UserCurrencyList).Returns(resultData);
+            _service.GetDetailData(metaModel, Arg.Any<IDictionary<int, string>>()).Returns(resultData);
 
             // Action
             var result = _controller.Detail(metaModel);

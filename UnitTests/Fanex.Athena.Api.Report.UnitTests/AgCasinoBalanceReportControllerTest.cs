@@ -75,7 +75,7 @@
                 DataList = new SortableList<AgCasinoBalance>(),
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
-            _dataAccess.GetSummaryBalance(metaModel, UserCurrencyList).Returns(resultModel);
+            _dataAccess.GetSummaryBalance(metaModel, Arg.Any<IDictionary<int, string>>()).Returns(resultModel);
 
             var expectedResult = GetSerializationData();
 
