@@ -5103,6 +5103,7 @@ var Site = function () {
             document.body.appendChild(link);
             link.click();
             link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
         }
     }, {
         key: "readAsJson",

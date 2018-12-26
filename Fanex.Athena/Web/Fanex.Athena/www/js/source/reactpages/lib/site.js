@@ -36,6 +36,7 @@ export default class Site {
         document.body.appendChild(link);
         link.click();
         link.parentNode.removeChild(link);
+        window.URL.revokeObjectURL(url);
     }
 
     static readAsJson(blob, callback){
