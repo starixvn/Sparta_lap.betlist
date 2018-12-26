@@ -23,6 +23,8 @@
     [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterMultiCustomerController : BaseApiController
     {
+        private const int RowsExceedLimitErrorCode = 1001;
+
         private const int MaxRowSupportExportExcel = 300000;
 
         private const int MaxRowPerFile = 65000;
@@ -55,7 +57,10 @@
 
                 if (metaModel.IsExport && _service.GetTotalRowForMultipleCustomers(metaModel) > MaxRowSupportExportExcel)
                 {
-                    return new HttpResponseMessage(HttpStatusCode.RequestedRangeNotSatisfiable);
+                    return new
+                    {
+                        ErrorCode = RowsExceedLimitErrorCode
+                    };
                 }
 
                 ticketResult = _service.GetBetListForMultipleCustomers(metaModel, userCurrencyList);

@@ -55,7 +55,8 @@ export class FormFilter extends Component {
         if (!params) {
             return;
         }
-        
+
+        toast.dismiss();
         const title = Service.getTitle(params.FromDate, params.ToDate, params.CurrencyName, params.BaseCurrency);
         this.props.setReportTitle(title);
         this.props.setRequestParam(params);
@@ -102,27 +103,35 @@ export class FormFilter extends Component {
         params.IsExport = true;
         this.props.toggleLoader(true);
         DataService.getFile(ApiUrl.MULTICUSTOMER_DATA_URL, params).then((response) => {
-            const NoContentStatusCode = 204;
-
             toast.dismiss();
-            if(response.status === NoContentStatusCode){
-                alert(LangHelper.getSingleResource("NoInfo"));
-            }
-            else {
-                const fileName = "BettingTicketsCenter_MultiCustomer." +
-                    (response.headers["content-type"] === "application/zip" ? "zip" : "xls");
+            const contentType = response.headers["content-type"];
+            if(contentType && contentType.indexOf('application/json') > -1)
+            {
+                const RowsExceedLimitErrorCode = 1001;
+                Site.readAsJson(response.data, (result) => {
+                    if(result.ErrorCode === RowsExceedLimitErrorCode){
+                        this._showExportWarning();
+                    }
+                    else
+                    {
+                        alert(LangHelper.getSingleResource("ErrorProcessingMsg"));
+                    }
+                });
+            } else {
+                if(response.status === NoContentStatusCode){
+                    alert(LangHelper.getSingleResource("NoInfo"));
+                }
+                else {
+                    const fileName = "BettingTicketsCenter_MultiCustomer." +
+                        (response.headers["content-type"] === "application/zip" ? "zip" : "xls");
                 
-                Site.downloadFile(response.data, fileName);
+                    Site.downloadFile(response.data, fileName);
+                }
             }
             
             this.props.toggleLoader(false);
         }).catch(error => {
-            const RequestedRangeNotSatisfiable = 416;
-            if (error.response && error.response.status == RequestedRangeNotSatisfiable) {
-                this._showExportWarning();
-            }else {
-                alert(LangHelper.getSingleResource("ErrorProcessingMsg"));
-            }
+            alert(LangHelper.getSingleResource("ErrorProcessingMsg"));
             this.props.toggleLoader(false);
         });
     }

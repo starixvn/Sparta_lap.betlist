@@ -37,4 +37,12 @@ export default class Site {
         link.click();
         link.parentNode.removeChild(link);
     }
+
+    static readAsJson(blob, callback){
+        const reader = new FileReader();
+        reader.onload = function() {
+            callback && callback(JSON.parse(reader.result));
+        }
+        reader.readAsText(blob);
+    }
 }
