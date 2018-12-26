@@ -118,6 +118,7 @@ export class FormFilter extends Component {
                     }
                 });
             } else {
+                const NoContentStatusCode = 204;
                 if(response.status === NoContentStatusCode){
                     alert(LangHelper.getSingleResource("NoInfo"));
                 }

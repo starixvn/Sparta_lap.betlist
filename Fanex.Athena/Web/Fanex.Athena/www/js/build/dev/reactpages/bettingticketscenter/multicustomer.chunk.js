@@ -10994,6 +10994,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                         }
                     });
                 } else {
+                    var NoContentStatusCode = 204;
                     if (response.status === NoContentStatusCode) {
                         alert(_langHelper2.default.getSingleResource("NoInfo"));
                     } else {
@@ -11005,6 +11006,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
                 _this.props.toggleLoader(false);
             }).catch(function (error) {
+                console.log(error);
                 alert(_langHelper2.default.getSingleResource("ErrorProcessingMsg"));
                 _this.props.toggleLoader(false);
             });
