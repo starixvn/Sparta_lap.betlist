@@ -28,7 +28,7 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 65000;
+        private const int MaxRowPerFile = 65;
 
         private readonly ICoreLogger _logger;
 
@@ -183,6 +183,8 @@
                 {
                     zipFile.Save(stream);
                     stream.Close();
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
                     DeleteFolder(path);
                 },
                 "application/zip");
