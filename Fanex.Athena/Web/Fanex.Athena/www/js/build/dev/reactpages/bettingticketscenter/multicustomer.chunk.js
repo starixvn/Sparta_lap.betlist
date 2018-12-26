@@ -9246,6 +9246,15 @@ var Site = function () {
             link.click();
             link.parentNode.removeChild(link);
         }
+    }, {
+        key: "readAsJson",
+        value: function readAsJson(blob, callback) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                callback && callback(JSON.parse(reader.result));
+            };
+            reader.readAsText(blob);
+        }
     }]);
 
     return Site;
@@ -10954,6 +10963,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 return;
             }
 
+            _reactToastify.toast.dismiss();
             var title = _Service2.default.getTitle(params.FromDate, params.ToDate, params.CurrencyName, params.BaseCurrency);
             _this.props.setReportTitle(title);
             _this.props.setRequestParam(params);
@@ -10972,25 +10982,30 @@ var FormFilter = exports.FormFilter = function (_Component) {
             params.IsExport = true;
             _this.props.toggleLoader(true);
             _DataService2.default.getFile(_apiUrl2.default.MULTICUSTOMER_DATA_URL, params).then(function (response) {
-                var NoContentStatusCode = 204;
-
                 _reactToastify.toast.dismiss();
-                if (response.status === NoContentStatusCode) {
-                    alert(_langHelper2.default.getSingleResource("NoInfo"));
+                var contentType = response.headers["content-type"];
+                if (contentType && contentType.indexOf('application/json') > -1) {
+                    var RowsExceedLimitErrorCode = 1001;
+                    _site2.default.readAsJson(response.data, function (result) {
+                        if (result.ErrorCode === RowsExceedLimitErrorCode) {
+                            _this._showExportWarning();
+                        } else {
+                            alert(_langHelper2.default.getSingleResource("ErrorProcessingMsg"));
+                        }
+                    });
                 } else {
-                    var fileName = "BettingTicketsCenter_MultiCustomer." + (response.headers["content-type"] === "application/zip" ? "zip" : "xls");
+                    if (response.status === NoContentStatusCode) {
+                        alert(_langHelper2.default.getSingleResource("NoInfo"));
+                    } else {
+                        var fileName = "BettingTicketsCenter_MultiCustomer." + (response.headers["content-type"] === "application/zip" ? "zip" : "xls");
 
-                    _site2.default.downloadFile(response.data, fileName);
+                        _site2.default.downloadFile(response.data, fileName);
+                    }
                 }
 
                 _this.props.toggleLoader(false);
             }).catch(function (error) {
-                var RequestedRangeNotSatisfiable = 416;
-                if (error.response && error.response.status == RequestedRangeNotSatisfiable) {
-                    _this._showExportWarning();
-                } else {
-                    alert(_langHelper2.default.getSingleResource("ErrorProcessingMsg"));
-                }
+                alert(_langHelper2.default.getSingleResource("ErrorProcessingMsg"));
                 _this.props.toggleLoader(false);
             });
         };

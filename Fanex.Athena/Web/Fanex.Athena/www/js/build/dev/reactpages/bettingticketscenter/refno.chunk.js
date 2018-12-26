@@ -4949,6 +4949,15 @@ var Site = function () {
             link.click();
             link.parentNode.removeChild(link);
         }
+    }, {
+        key: "readAsJson",
+        value: function readAsJson(blob, callback) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                callback && callback(JSON.parse(reader.result));
+            };
+            reader.readAsText(blob);
+        }
     }]);
 
     return Site;
