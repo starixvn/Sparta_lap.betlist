@@ -2608,4 +2608,10 @@
   <data name="BettingTicketCenter_MultiCustomersTabNote1" xml:space="preserve">
     <value>所有投注類別，聯賽和比賽過濾器僅支援1個選定日期</value>
   </data>
+  <data name="BTCExportExcelMsg1" xml:space="preserve">
+    <value>您的搜尋結果超過系統設定的範圍. </value>
+  </data>
+  <data name="BTCExportExcelMsg2" xml:space="preserve">
+    <value>請試著縮短日期範圍或是分別搜尋個別貨幣/投注類別等。</value>
+  </data>
 </root>

@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/24/2018 1:26:44 PM
+// Generated at: 12/26/2018 10:51:52 AM
 window._language_zh_CN = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -182,6 +182,8 @@ window._language_zh_CN = {
   BoughtDetails: "买入详情",
   BoughtStake: "买入本金",
   BoughtTicketsList: "买入注单",
+  BTCExportExcelMsg1: "您的搜寻结果超过系统设定的范围.",
+  BTCExportExcelMsg2: "请试着缩短日期范围或是分别搜寻个别货币/投注类别等。",
   BuyBackAmount: "回购金额",
   ByBetType: "根据投注类型",
   ByCurrency: "根据货币",
