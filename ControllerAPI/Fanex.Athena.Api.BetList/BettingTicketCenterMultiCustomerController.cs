@@ -136,70 +136,41 @@
                 Title = title
             };
 
-            var path = HttpContext.Current.Server.MapPath("~/tmp/BTC/" + Guid.NewGuid());
-            Directory.CreateDirectory(path);
-
             var numOfFile = (int)Math.Ceiling((double)dataList.Count / MaxRowPerFile);
-            for (int i = 0; i < numOfFile; i++)
-            {
-                var startIndex = i * MaxRowPerFile;
-
-                ticketResult.MainTicketList.Clear();
-                ticketResult.MainTicketList.AddRange(dataList.Skip(startIndex).Take(MaxRowPerFile));
-                var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-
-                var filePath = path + $"/sheet{i}.xls";
-                 workbook = excel.Export(excelModel);
-                using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-                {
-                    workbook.Write(stream);
-                }
-
-                workbook?.Clear();
-            }
-
-            using (ZipFile zip = new ZipFile())
+            using (var zip = new ZipFile())
             {
                 for (int i = 0; i < numOfFile; i++)
                 {
-                    var filePath = path + $"/sheet{i}.xls";
-                    zip.AddEntry(Path.GetFileName(filePath), new FileStream(filePath, FileMode.Open, FileAccess.Read));
+                    var startIndex = i * MaxRowPerFile;
+
+                    ticketResult.MainTicketList.Clear();
+                    ticketResult.MainTicketList.AddRange(dataList.Skip(startIndex).Take(MaxRowPerFile));
+                    var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
+
+                    workbook = excelService.Export(excelModel);
+                    using (var excelStream = new MemoryStream())
+                    {
+                        workbook.Write(excelStream);
+                        zip.AddEntry($"sheet{ i}.xls", excelStream.ToArray());
+                        workbook.Clear();
+                    }
                 }
 
-                return ZipContentResult(zip, path);
+                return ZipContentResult(zip);
             }
         }
 
-        protected HttpResponseMessage ZipContentResult(ZipFile zipFile, string path)
+        protected HttpResponseMessage ZipContentResult(ZipFile zipFile)
         {
             var pushStreamContent = new PushStreamContent(
                 (stream, content, context) =>
                 {
                     zipFile.Save(stream);
                     stream.Close();
-                    DeleteFolder(path);
                 },
                 "application/zip");
 
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
-        }
-
-        private void DeleteFolder(string path)
-        {
-            HostingEnvironment.QueueBackgroundWorkItem(action =>
-            {
-                if (Directory.Exists(path))
-                {
-                    try
-                    {
-                        Directory.Delete(path, true);
-                    }
-                    catch (Exception exception)
-                    {
-                        _logger.Error(exception, "Folder Path: " + path);
-                    }
-                }
-            });
         }
     }
 }
