@@ -33,7 +33,7 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 50;
+        private const int MaxRowPerFile = 10000;
 
         private readonly IAppSettings _appSettings;
 
@@ -57,7 +57,7 @@
         public dynamic GetData(MultipleCustomersBetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            if (metaModel.IsExport && 
+            if (metaModel.IsExport &&
                 _appSettings.IsDisableExportLargeBetList &&
                 _appSettings.LicenseesWithLargeData.Contains(licenseeSession.LicenseeId))
             {
