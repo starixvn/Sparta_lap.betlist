@@ -125,7 +125,8 @@
                 MockCreatingExcel(controller);
                 var resultModel = new ReportResultModel<CustTurnover>();
                 _customerTurnoverService.GetDataList(
-                    Arg.Any<CustomerTurnoverMetaModel>(), UserCurrencyList,
+                    Arg.Any<CustomerTurnoverMetaModel>(), 
+                    UserCurrencyList,
                     SessionService.UserSession.Language).Returns(resultModel);
 
                 // Action

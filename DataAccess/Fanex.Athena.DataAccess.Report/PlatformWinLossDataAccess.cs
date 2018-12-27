@@ -155,9 +155,10 @@ namespace Fanex.Athena.DataAccess.Report
             totalData.AmtDueToBA += item.AmtDueToBA;
         }
 
-        private SortableReportResultModel<PlatformWinLossMember> ReadMemberData(IDataReader reader,
-             IDictionary<int, string> currencyList
-            , string baseCurrency)
+        private SortableReportResultModel<PlatformWinLossMember> ReadMemberData(
+             IDataReader reader,
+             IDictionary<int, string> currencyList, 
+             string baseCurrency)
         {
             var dataList = new SortableList<PlatformWinLossMember>();
             var totalData = new PlatformWinLossMember();

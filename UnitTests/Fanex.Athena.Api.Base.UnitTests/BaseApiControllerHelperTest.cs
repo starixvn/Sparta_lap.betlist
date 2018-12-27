@@ -31,12 +31,18 @@
         protected IAppSettings AppSetting { get; private set; }
 
         protected ILanguageService LangService { get; private set; }
+
         protected IDictionary<int, string> UserCurrencyList => SessionService.UserSession.CurrencyList;
 
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
             SessionService = Substitute.For<ISessionService>();
+            SessionService.UserSession.Returns(new UserSession
+            {
+                CurrencyList = new Dictionary<int, string>()
+            });
+
             ProductService = Substitute.For<IProductService>();
             AppSetting = Substitute.For<IAppSettings>();
             LangService = Substitute.For<ILanguageService>();

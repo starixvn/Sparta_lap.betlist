@@ -17,8 +17,7 @@
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public BettingTicketCenterDataAccess(
-            IBalanceUpDataAccess balanceUpDataAccess)
+        public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
 
         {
             _balanceUpDataAccess = balanceUpDataAccess;

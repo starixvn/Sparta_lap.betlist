@@ -14,10 +14,7 @@
     {
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<MatchDataAccess>(
-                Substitute.For<IAppSettings>(),
-                Substitute.For<ISessionStorage>(),
-                Substitute.For<ICacheRefAdapter>());
+            DataAccess = Substitute.ForPartsOf<MatchDataAccess>(Substitute.For<ICacheRefAdapter>());
         }
 
         [TestCase(1)]

@@ -19,8 +19,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     {
         private readonly IBetSettingReader _betSettingReader;
 
-        public NumberGameBetSettingDataAccess(
-            IBetSettingReader betSettingReader)
+        public NumberGameBetSettingDataAccess(IBetSettingReader betSettingReader)
         {
             _betSettingReader = betSettingReader;
         }

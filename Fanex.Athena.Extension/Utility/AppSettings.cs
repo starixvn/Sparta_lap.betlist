@@ -22,6 +22,22 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public bool DisableExportLargeBetList
+        {
+            get
+            {
+                return GetValue("DisableExportLargeBetList") == "1";
+            }
+        }
+
+        public IEnumerable<int> LicenseesWithLargeData
+        {
+            get
+            {
+                return GetIntegers("LicenseesWithLargeData");
+            }
+        }
+
         public IEnumerable<int> LicenseeOfferNewForecast
         {
             get

@@ -5,12 +5,10 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Extension.Utility;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
     using UnitTest.Common.Helpers;
 
     public class BettingTicketsCenterDataAccessTest : BaseDataAccessHelperTest<BettingTicketCenterDataAccess>
@@ -29,10 +27,7 @@
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
-            DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(
-                Substitute.For<IAppSettings>(),
-                Substitute.For<ISessionStorage>(),
-                balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(balanceUpDataAccess);
         }
 
         [Test]

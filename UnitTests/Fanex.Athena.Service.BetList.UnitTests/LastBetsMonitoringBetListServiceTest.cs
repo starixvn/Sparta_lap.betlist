@@ -58,10 +58,12 @@
                 .Returns(new List<BetListMatch> { match });
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
-            {
-                OddsType = string.Empty
-            }, _currencyList);
+            var result = _betListService.GetLastBetsMonitoringData(
+                new LastBetsMonitoringMetaModel
+                {
+                    OddsType = string.Empty
+                }, 
+                _currencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -206,10 +208,12 @@
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
-            {
-                OddsType = "dec"
-            }, _currencyList);
+            var result = _betListService.GetLastBetsMonitoringData(
+                new LastBetsMonitoringMetaModel
+                {
+                    OddsType = "dec"
+                }, 
+                _currencyList);
 
             // Assert
             Assert.That(result.MainTicketList[0].Odds, Is.EqualTo(expectedValue));
@@ -240,10 +244,12 @@
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
-            {
-                OddsType = "my"
-            }, _currencyList);
+            var result = _betListService.GetLastBetsMonitoringData(
+                new LastBetsMonitoringMetaModel
+                {
+                    OddsType = "my"
+                }, 
+                _currencyList);
 
             // Assert
             Assert.That(result.MainTicketList[0].Odds, Is.EqualTo(expectedValue));
@@ -271,11 +277,13 @@
             var expectedResult = new DateTime(2017, 3, 17, 4, 0, 0);
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
-            {
-                OddsType = "my",
-                TimeZone = 0
-            }, _currencyList);
+            var result = _betListService.GetLastBetsMonitoringData(
+                new LastBetsMonitoringMetaModel
+                {
+                    OddsType = "my",
+                    TimeZone = 0
+                }, 
+                _currencyList);
 
             // Assert
             Assert.That(result.MainTicketList[0].TransDate, Is.EqualTo(expectedResult));

@@ -35,8 +35,11 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic Detail(long transId, int custId)
         {
-            var ticketResult = BetListService.GetMixParlayDetailTicket(UserCurrencyList,
-                SessionService.LicenseeSession.LicenseeId, transId, custId);
+            var ticketResult = BetListService.GetMixParlayDetailTicket(
+                UserCurrencyList,
+                SessionService.LicenseeSession.LicenseeId, 
+                transId, 
+                custId);
             return Ticket(ticketResult: ticketResult, showOdds: true);
         }
 

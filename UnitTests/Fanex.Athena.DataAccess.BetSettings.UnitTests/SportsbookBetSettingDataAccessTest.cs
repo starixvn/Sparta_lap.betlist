@@ -27,7 +27,6 @@
             _appSetting = Substitute.For<IAppSettings>();
             DataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>(
                 _appSetting,
-                Substitute.For<ISessionStorage>(),
                 betSettingReader);
         }
 

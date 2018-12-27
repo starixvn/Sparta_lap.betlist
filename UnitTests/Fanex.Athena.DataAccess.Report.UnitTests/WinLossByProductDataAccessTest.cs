@@ -197,7 +197,8 @@
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
-                }, UserCurrencyList);
+                },
+                UserCurrencyList);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).SystemId, Is.EqualTo(readerDataMapping.username));
@@ -226,7 +227,8 @@
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
-                }, UserCurrencyList);
+                }, 
+                UserCurrencyList);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).ExternalId, Is.EqualTo(readerDataMapping.nickname));
@@ -255,7 +257,8 @@
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
-                }, UserCurrencyList);
+                }, 
+                UserCurrencyList);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).CustomerId, Is.EqualTo(readerDataMapping.custid));
