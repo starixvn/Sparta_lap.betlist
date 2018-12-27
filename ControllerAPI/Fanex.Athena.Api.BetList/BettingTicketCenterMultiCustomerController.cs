@@ -29,9 +29,7 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 30000;
-
-        private readonly ICoreLogger _logger;
+        private const int MaxRowPerFile = 10000;
 
         private readonly IBettingTicketCenterService _service;
 
@@ -39,11 +37,9 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
-            ICoreLogger logger,
             IBettingTicketCenterService service)
             : base(sessionService, productService, langService)
         {
-            _logger = logger;
             _service = service;
         }
 
