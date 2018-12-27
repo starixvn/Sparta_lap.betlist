@@ -29,7 +29,7 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 65;
+        private const int MaxRowPerFile = 30000;
 
         private readonly ICoreLogger _logger;
 
