@@ -3131,4 +3131,8 @@
     <value>Valid Bet Amount</value>
     <comment>95178</comment>
   </data>
+  <data name="Happy5" xml:space="preserve">
+    <value>Happy 5</value>
+    <comment>103698</comment>
+  </data>
 </root>

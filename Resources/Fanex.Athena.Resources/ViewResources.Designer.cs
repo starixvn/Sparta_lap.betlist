@@ -3301,6 +3301,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Happy 5.
+        /// </summary>
+        public static string Happy5 {
+            get {
+                return ResourceManager.GetString("Happy5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Harness Aust Tote.
         /// </summary>
         public static string HarnessAustTote {
