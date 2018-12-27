@@ -115,15 +115,23 @@
             var workbook = excel.Export(excelModel);
             return ExcelStream(workbook, string.Empty);
         }
-
-        private HttpResponseMessage ExportZip(TicketResult ticketResult, string title)
+        private BettingTicketCenterExcelModel CreateBettingTicketCenterExcelModel(TicketResult data, int startIndex, string title)
         {
-            IWorkbook workbook = null;
-            var dataList = ticketResult.MainTicketList.ToList();
-            ticketResult.MainTicketList.Clear();
-            var excelModel = new BettingTicketCenterExcelModel
+            var dataBySheet = new TicketResult
             {
-                Data = ticketResult,
+                SumBetEffective = data.SumBetEffective,
+                SumComm = data.SumComm,
+                SumLicenseeWL = data.SumLicenseeWL,
+                SumPlayerComm = data.SumPlayerComm,
+                SumStake = data.SumStake,
+                SumWinLoss = data.SumWinLoss,
+                TotalRows = data.TotalRows
+            };
+            dataBySheet.MainTicketList.AddRange(data.MainTicketList.Skip(startIndex).Take(MaxRowPerFile));
+            dataBySheet.TicketDataList = data.TicketDataList;
+            return new BettingTicketCenterExcelModel
+            {
+                Data = dataBySheet,
                 ShowTotal = true,
                 ShowSumStake = true,
                 ShowLicenseeWl = true,
@@ -131,26 +139,36 @@
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
                 Title = title
             };
+        }
 
-            var numOfFile = (int)Math.Ceiling((double)dataList.Count / MaxRowPerFile);
+        private HttpResponseMessage ExportZip(TicketResult ticketResult, string title)
+        {
+            IWorkbook workbook = null;
+
+            var numOfFile = (int)Math.Ceiling((double)ticketResult.MainTicketList.Count / MaxRowPerFile);
             using (var zip = new ZipFile())
             {
                 for (int i = 0; i < numOfFile; i++)
                 {
                     var startIndex = i * MaxRowPerFile;
 
-                    ticketResult.MainTicketList.Clear();
-                    ticketResult.MainTicketList.AddRange(dataList.Skip(startIndex).Take(MaxRowPerFile));
                     var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-
+                    var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, startIndex, title);
                     workbook = excelService.Export(excelModel);
                     using (var excelStream = new MemoryStream())
                     {
                         workbook.Write(excelStream);
                         zip.AddEntry($"sheet{ i}.xls", excelStream.ToArray());
                         workbook.Clear();
+                        excelModel.Data.MainTicketList.TrimExcess();
+                        excelModel.Data = null;
                     }
                 }
+
+                ticketResult.MainTicketList.TrimExcess();
+                ticketResult.TicketDataList.TrimExcess();
+                ticketResult.MainTicketList = null;
+                ticketResult.TicketDataList = null;
 
                 return ZipContentResult(zip);
             }
