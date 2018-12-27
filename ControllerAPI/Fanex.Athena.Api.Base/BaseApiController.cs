@@ -14,7 +14,6 @@ namespace Fanex.Athena.Api.Base
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
-    using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users;
