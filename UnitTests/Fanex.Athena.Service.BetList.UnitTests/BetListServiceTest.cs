@@ -96,7 +96,10 @@
         public void GetBetListData_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = FakeHelper.Create<TicketResult>();
+            var expectedResult = new TicketResult
+            {
+                TotalRows = 1234
+            };
             var spname = FakeHelper.Create<string>();
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             _betlistDataAccess.GetBetListData(Arg.Any<BetListMetaModel>(), _currencyList, spname).Returns(expectedResult);
