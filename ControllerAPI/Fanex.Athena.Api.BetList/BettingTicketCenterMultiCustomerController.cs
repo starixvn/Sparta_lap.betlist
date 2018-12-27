@@ -12,6 +12,7 @@
     using Excel.BetList;
     using Excel.BetList.Model;
     using Extension.Utility;
+    using Fanex.Athena.Extension.Utility.Interfaces;
     using Ionic.Zip;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
@@ -32,7 +33,7 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 65;
+        private const int MaxRowPerFile = 10000;
 
         private readonly IAppSettings _appSettings;
 

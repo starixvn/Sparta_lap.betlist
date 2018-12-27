@@ -8,18 +8,92 @@
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Data;
+    using Fanex.Athena.Extension.Utility.Interfaces;
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
+    using Newtonsoft.Json;
 
     public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-
-        public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        private readonly ITempFileService _tempFileService;
+        public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ITempFileService tempFileService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
+            _tempFileService = tempFileService;
+        }
+        public GroupTicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, int rowPerGroup, IDictionary<int, string> currencyList)
+        {
+            const string UspKey = "Lrf_BetList_Licensee";
+            var groupData = new GroupTicketResult
+            {
+                RowPerGroup = rowPerGroup
+            };
+            var count = 0;
+            TicketResult ticket = null;
+            try
+            {
+                using (var db = GetObjectDb(UspKey))
+                {
+                    AddMultiCustomerParameters(db, metaModel);
+
+
+                    using (var reader = db.ExecuteReader())
+                    {
+                        var columns = GetColumns();
+                        var safeReader = this.GetSafeDataReader(reader, columns.Select(x => x.Value).ToList());
+
+                        while (reader.Read())
+                        {
+                            if (count > 0 && count == rowPerGroup && ticket != null)
+                            {
+                                SaveDataToFile(groupData, ticket);
+                            }
+                            if (count == 0 || count == rowPerGroup)
+                            {
+                                ticket = new TicketResult();
+
+                            }
+
+                            ticket?.MainTicketList.Add(MapTicket(safeReader, columns, currencyList));
+                            count++;
+
+                        }
+                        if (ticket != null)
+                        {
+                            SaveDataToFile(groupData, ticket);
+                        }
+
+                    }
+
+                    var outSqlParams = db.GetOuputParams();
+                    groupData.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
+                    groupData.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
+                    groupData.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
+                    groupData.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
+                    groupData.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
+                    groupData.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+
+                    return groupData;
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new DataAccessException(exception, UspKey, metaModel);
+            }
+
+        }
+
+        private void SaveDataToFile(GroupTicketResult groupData, TicketResult ticket)
+        {
+            var data = JsonConvert.SerializeObject(ticket);
+            var dataFileName = $"BTC\\{Guid.NewGuid().ToString()}.json";
+            _tempFileService.Save(dataFileName, data);
+            groupData.DataPath.Add(dataFileName);
+            ticket.MainTicketList.TrimExcess();
+            ticket.MainTicketList = null;
         }
 
         public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
