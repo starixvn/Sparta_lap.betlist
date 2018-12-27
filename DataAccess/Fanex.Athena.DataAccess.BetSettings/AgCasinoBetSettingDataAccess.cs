@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class AgCasinoBetSettingDataAccess : BaseDataAccess, IAgCasinoBetSettingDataAccess
     {
-
         public AgCasinoBetSetting GetBetSetting(int custId)
         {
             var uspName = "Lrf_AGC_SelCustSetting";

@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common.Extensions;
     using Logging;
+
     public class BalanceUpDataAccess : BaseDataAccess, IBalanceUpDataAccess
     {
         private const int CacheTimeoutSeconds = 60;

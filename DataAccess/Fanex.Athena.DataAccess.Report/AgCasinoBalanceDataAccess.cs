@@ -24,8 +24,8 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
-
-        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(ThirdPartyWinLossMetaModel metaModel,
+        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(
+            ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_AGCasinoBalance";
@@ -47,7 +47,8 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(ThirdPartyWinLossMetaModel metaModel, 
+        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(
+            ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Mem";

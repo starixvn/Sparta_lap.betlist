@@ -17,7 +17,6 @@
 
     public class CustomerListDataAccess : BaseDataAccess, ICustomerListDataAccess
     {
-    
         #region Read
 
         public ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel)

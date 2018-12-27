@@ -18,7 +18,6 @@
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
-
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -87,7 +86,8 @@
             }
         }
 
-        public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel,
+        public TicketResult GetBetListForSingleCustomer(
+            SingleCustomersBetListMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_Mem";

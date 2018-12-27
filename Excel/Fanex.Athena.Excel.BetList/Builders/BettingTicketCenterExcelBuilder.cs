@@ -19,13 +19,13 @@ namespace Fanex.Athena.Excel.BetList.Builders
 
         private const int ColumnTotalStart = 6;
 
-        private bool disposed;
-
-        private IBetListExcelBuilder _builder;
-
         private readonly ITicketHelper _ticketHelper;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        private bool disposed;
+
+        private IBetListExcelBuilder _builder;
 
         private ICellStyle _evenCellLeftAlign;
 

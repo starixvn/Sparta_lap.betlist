@@ -106,10 +106,12 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 UspName,
-                () => DataAccess.GetDetail(new CashOutBetListDetailMetaModel
-                {
-                    BaseCurrency = "usd"
-                }, UserCurrencyList));
+                () => DataAccess.GetDetail(
+                    new CashOutBetListDetailMetaModel
+                    {
+                        BaseCurrency = "usd"
+                    }, 
+                    UserCurrencyList));
         }
     }
 }

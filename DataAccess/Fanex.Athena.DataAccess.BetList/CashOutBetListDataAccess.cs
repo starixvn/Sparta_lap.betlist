@@ -19,7 +19,8 @@ namespace Fanex.Athena.DataAccess.BetList
 
     public class CashOutBetListDataAccess : BaseBetListDataAccess, ICashOutBetListDataAccess
     {
-        public CashOutBetListDetailViewModel GetDetail(CashOutBetListDetailMetaModel metaModel,
+        public CashOutBetListDetailViewModel GetDetail(
+            CashOutBetListDetailMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_CashOut_Detail";

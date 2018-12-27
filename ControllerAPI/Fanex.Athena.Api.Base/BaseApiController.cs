@@ -37,6 +37,7 @@ namespace Fanex.Athena.Api.Base
         }
 
         protected IDictionary<int, string> UserCurrencyList => _sessionService.UserSession.CurrencyList;
+
         protected IProductService ProductService
         {
             get

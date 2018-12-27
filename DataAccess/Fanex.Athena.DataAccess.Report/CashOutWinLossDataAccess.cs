@@ -34,7 +34,8 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetSummary(ThirdPartyWinLossMetaModel metaModel, 
+        public SortableReportResultModel<CashOutWinLoss> GetSummary(
+            ThirdPartyWinLossMetaModel metaModel, 
             IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss";

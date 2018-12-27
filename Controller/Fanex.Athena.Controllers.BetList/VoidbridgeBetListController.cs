@@ -47,7 +47,8 @@
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
-            return ProcessExportExcel(showingOption, metaModel, BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey), HiddenColumns, _title, "MacauGamesDetail");
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, _title, "MacauGamesDetail");
         }
     }
 }

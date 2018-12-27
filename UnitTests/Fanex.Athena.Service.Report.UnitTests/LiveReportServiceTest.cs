@@ -14,9 +14,9 @@
 
     public class LiveReportServiceTest
     {
+        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
         private ILiveReportDataAccess _dataAccess;
         private LiveReportService _service;
-        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
 
         [SetUp]
         public void SetUp()

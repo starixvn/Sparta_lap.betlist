@@ -18,11 +18,12 @@
     {
         private const string LicenseeName = "12Bet";
 
-        private IList<Subsidiary> _subsidiaryList = new List<Subsidiary>
+        private readonly IList<Subsidiary> _subsidiaryList = new List<Subsidiary>
         {
             new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
             new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
         };
+
         private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
 
         private ISubsidiaryPerformanceDataAccess _dataAccess;

@@ -13,9 +13,9 @@
 
     public class ColossusBetsWinLossServiceTest
     {
+        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
         private IColossusBetsWinLossDataAccess _dataAccess;
         private ColossusBetsWinLossService _service;
-        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
 
         [SetUp]
         public void SetUp()

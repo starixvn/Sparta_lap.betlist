@@ -189,7 +189,8 @@
                 ToDate = new DateTime(2018, 1, 31)
             };
 
-            _dataAccess.GetData(model, Arg.Any<IDictionary<int, string>>()).Returns(new ReportResultModel<LicenseeWinLoss> { DataList = Enumerable.Empty<LicenseeWinLoss>() });
+            _dataAccess.GetData(model, Arg.Any<IDictionary<int, string>>())
+                .Returns(new ReportResultModel<LicenseeWinLoss> { DataList = Enumerable.Empty<LicenseeWinLoss>() });
 
             var expectedCurrencyXML = $"<ROOT><CR Id=\"1\" Code=\"C1\" /><CR Id=\"2\" Code=\"C2\" /></ROOT>";
 

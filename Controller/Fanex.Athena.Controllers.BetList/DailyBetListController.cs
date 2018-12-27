@@ -81,13 +81,13 @@ namespace Fanex.Athena.Controllers.BetList
 
         private ActionResult Excel(BetListMetaModel metaModel)
         {
-            const string uspKey = "Lrf_BetList_SelWinlossDaily";
+            const string UspKey = "Lrf_BetList_SelWinlossDaily";
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.IsServerPaging = true;
             metaModel.PageSize = MaxPageSize;
             metaModel.PageIndex = 1;
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey);
 
             // Sum value by page
             ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);

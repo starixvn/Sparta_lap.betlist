@@ -14,9 +14,9 @@
 
     public class CustomerTurnoverServiceTest
     {
+        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
         private ICustomerTurnoverDataAccess _dataAccess;
         private CustomerTurnoverService _service;
-        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
 
         [SetUp]
         public void SetUp()

@@ -18,14 +18,13 @@ namespace Fanex.Athena.DataAccess.BetList
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
-
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [CLSCompliant(false)]
         protected internal SortableList<LrfTicket> ReadBetListTicket(
-            IDataReader dataReader, 
-            IDictionary<int, string> currencyList, 
-            string baseCurrency = "", 
+            IDataReader dataReader,
+            IDictionary<int, string> currencyList,
+            string baseCurrency = "",
             long custId = 0)
         {
             var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency?.ToUpperInvariant()) ? baseCurrency : string.Empty;

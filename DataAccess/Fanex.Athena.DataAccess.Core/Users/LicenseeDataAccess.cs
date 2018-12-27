@@ -15,9 +15,9 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Data;
+
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
     {
-
         public IResultInfo<bool> IsAllowUpdateMemberBAStatus(Request request, int licenseeId)
         {
             const string UspName = "Lrf_BATimeCheck";

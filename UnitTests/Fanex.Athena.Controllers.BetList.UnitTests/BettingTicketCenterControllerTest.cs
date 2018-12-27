@@ -16,11 +16,11 @@
 
     public class BettingTicketCenterControllerTest : BaseControllerHelperTest
     {
+        private static readonly DateTime BalanceUpDate = new DateTime(2018, 11, 2);
+
         private IProductService _productService;
 
         private IBalanceUpDataAccess _balanceUpDataAccess;
-
-        private static readonly DateTime BalanceUpDate = new DateTime(2018, 11, 2);
 
         [OneTimeSetUp]
         public override void FixtureSetUp()

@@ -24,7 +24,6 @@ namespace Fanex.Athena.DataAccess.BetList
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
-
         public TicketResult GetMixParlayDetailTicket(IDictionary<int, string> currencyList, long transId, int custId)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";

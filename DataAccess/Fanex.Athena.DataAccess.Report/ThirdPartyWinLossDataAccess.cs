@@ -47,8 +47,10 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public ReportResultModel<T> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, 
-            IDictionary<int, string> currencyList, string spname)
+        public ReportResultModel<T> GetCustomerWinlossDetail(
+            ThirdPartyWinLossMetaModel metaModel, 
+            IDictionary<int, string> currencyList, 
+            string spname)
         {
             try
             {
@@ -68,8 +70,10 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public ReportResultModel<T> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel,
-            IDictionary<int, string> currencyList, string spname)
+        public ReportResultModel<T> GetAgentWinlossDetail(
+            ThirdPartyWinLossMetaModel metaModel,
+            IDictionary<int, string> currencyList, 
+            string spname)
         {
             try
             {

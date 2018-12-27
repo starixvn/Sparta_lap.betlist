@@ -16,6 +16,7 @@
     public class SportsbookBetSettingDataAccessTest : BaseDataAccessHelperTest<SportsbookBetSettingDataAccess>
     {
         private IAppSettings _appSetting;
+
         protected override void SetUpDataAccess()
         {
             var betSettingReader = Substitute.For<IBetSettingReader>();

@@ -17,6 +17,7 @@ namespace Fanex.Athena.DataAccess.BetList
     public class CancelledBetListDataAccess : BaseDataAccess, ICancelledBetListDataAccess
     {
         private const string UspKey = "Lrf_BetList_SelDeleted_UserList";
+
         public IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel)
         {
             using (var db = this.GetObjectDb(UspKey))

@@ -23,8 +23,10 @@ namespace Fanex.Athena.Service.Report
             _customerTurnoverDataAccess = customerTurnoverDataAccess;
         }
 
-        public ReportResultModel<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel,
-            IDictionary<int, string> currencyList, string languageCode)
+        public ReportResultModel<CustTurnover> GetDataList(
+            CustomerTurnoverMetaModel metaModel,
+            IDictionary<int, string> currencyList, 
+            string languageCode)
         {
             if (!metaModel.IsValid)
             {

@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Athena.DataAccess.Core;
     using Interfaces;
     using Model.Core.DTO.OneAuth;
+
     public class OneAuthDataAccess : BaseDataAccess, IOneAuthDataAccess
     {
         public OneAuthUserInfo GetUserInfo(int userSEQ, string vendorId)

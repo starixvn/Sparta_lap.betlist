@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Logging;
+
     public class MoveBetDataAccess : BaseDataAccess, IMoveBetDataAccess
     {
         private readonly ILogger _logger;

@@ -10,7 +10,6 @@
 
     public class BettingTicketCenterExcel : IBettingTicketCenterExcel
     {
-        
         private readonly IBettingTicketCenterExcelBuilder _builder;
 
         public BettingTicketCenterExcel(IBettingTicketCenterExcelBuilder builder)
@@ -80,6 +79,5 @@
 
             _builder.AddFooter(sumStake, sumWinLoss, sumPlayerComm, sumLicenseeWL);
         }
-        
     }
 }

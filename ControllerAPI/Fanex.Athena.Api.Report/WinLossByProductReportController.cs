@@ -14,7 +14,6 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Excel.Report.Models;
     using Extension.Utility;
@@ -220,6 +219,7 @@ namespace Fanex.Athena.Api.Report
                     ResultInfo = new ResultInfo()
                 };
             }
+
             var userCurrencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.Level == 0)
             {

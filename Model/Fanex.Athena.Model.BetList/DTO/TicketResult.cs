@@ -15,7 +15,6 @@ namespace Fanex.Athena.Model.BetList.DTO
     /// </summary>
     public class TicketResult
     {
-
         [System.CLSCompliant(false)]
         public SortableList<LrfTicket> MainTicketList { get; set; } = new SortableList<LrfTicket>();
 

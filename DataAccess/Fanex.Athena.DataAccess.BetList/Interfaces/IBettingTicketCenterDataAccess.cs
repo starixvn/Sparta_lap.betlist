@@ -10,8 +10,10 @@
 
         int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
 
-        TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel,
-                  IDictionary<int, string> currencyList);
+        TicketResult GetBetListForSingleCustomer(
+            SingleCustomersBetListMetaModel metaModel,
+            IDictionary<int, string> currencyList);
+
         TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList);
 
         TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList);

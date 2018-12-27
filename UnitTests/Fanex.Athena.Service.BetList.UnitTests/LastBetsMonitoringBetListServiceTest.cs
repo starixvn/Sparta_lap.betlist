@@ -16,10 +16,10 @@
     [TestFixture]
     public class LastBetsMonitoringBetListServiceTest
     {
+        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
         private ILastBetsMonitoringBetListDataAccess _lastBetsMonitoringBetListDataAccess;
         private ILastBetsMonitoringBetListService _betListService;
         private IMemoryCacheService _cache;
-        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
 
         [SetUp]
         public void SetUp()
@@ -311,11 +311,13 @@
             var expectedResult = new DateTime(2017, 3, 17, 0, 0, 0);
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
-            {
-                OddsType = "my",
-                TimeZone = -5
-            }, _currencyList);
+            var result = _betListService.GetLastBetsMonitoringData(
+                new LastBetsMonitoringMetaModel
+                {
+                    OddsType = "my",
+                    TimeZone = -5
+                }, 
+                _currencyList);
 
             // Assert
             Assert.That(result.MainTicketList[0].TransDate, Is.EqualTo(expectedResult));

@@ -240,19 +240,6 @@
             });
         }
 
-        private void MockDataAccess(IAgCasinoBalanceDataAccess dataAccess, ThirdPartyWinLossMetaModel metaModel)
-        {
-            var resultModel = new SortableReportResultModel<AgCasinoBalance>
-            {
-                TotalDataList = new List<AgCasinoBalance> { new AgCasinoBalance() },
-                DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
-                SummaryTotal = new Dictionary<string, AgCasinoBalance>()
-            };
-            dataAccess.GetSummaryBalance(metaModel, UserCurrencyList).Returns(resultModel);
-            dataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).Returns(resultModel);
-            dataAccess.GetCustomerBalanceDetail(metaModel, UserCurrencyList).Returns(resultModel);
-        }
-
         private static string GetSerializationData(SortableReportResultModel<AgCasinoBalance> data = null)
         {
             if (data == null)
@@ -275,6 +262,19 @@
                     Total = data.TotalDataList,
                     SummaryTotal = data.SummaryTotal
                 });
+        }
+
+        private void MockDataAccess(IAgCasinoBalanceDataAccess dataAccess, ThirdPartyWinLossMetaModel metaModel)
+        {
+            var resultModel = new SortableReportResultModel<AgCasinoBalance>
+            {
+                TotalDataList = new List<AgCasinoBalance> { new AgCasinoBalance() },
+                DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
+                SummaryTotal = new Dictionary<string, AgCasinoBalance>()
+            };
+            dataAccess.GetSummaryBalance(metaModel, UserCurrencyList).Returns(resultModel);
+            dataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).Returns(resultModel);
+            dataAccess.GetCustomerBalanceDetail(metaModel, UserCurrencyList).Returns(resultModel);
         }
     }
 }

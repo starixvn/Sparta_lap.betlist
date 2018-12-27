@@ -25,7 +25,8 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<LicenseeWinLossByTimeZone> GetData(LicenseeWinLossByTimeZoneMetaModel metaModel,
+        public ReportResultModel<LicenseeWinLossByTimeZone> GetData(
+            LicenseeWinLossByTimeZoneMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string SpName = "Lrf_Rpt_LicWinlossByTimeZone";
@@ -66,7 +67,10 @@
             };
         }
 
-        private LicenseeWinLossByTimeZone ReadDataInBaseCurrency(IDataReader reader, IDictionary<int, string> currencyList, LicenseeWinLossByTimeZoneMetaModel metaModel)
+        private LicenseeWinLossByTimeZone ReadDataInBaseCurrency(
+            IDataReader reader,
+            IDictionary<int, string> currencyList,
+            LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
             const byte GroupByProduct = 1;
             const int ReportBySummary = 1;
@@ -89,7 +93,6 @@
             item.GroupBy = metaModel.GroupBy == GroupByProduct ?
                         ProductHelper.GetProductName(item.GroupBy) :
                         currencyList?.GetValueOrDefault(Convert.ToInt32(item.GroupBy), item.GroupBy);
-
 
             return item;
         }

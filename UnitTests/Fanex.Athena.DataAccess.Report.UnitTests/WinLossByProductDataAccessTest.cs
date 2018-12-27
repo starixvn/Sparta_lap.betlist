@@ -102,7 +102,8 @@
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = "USD"
-                }, UserCurrencyList);
+                }, 
+                UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>

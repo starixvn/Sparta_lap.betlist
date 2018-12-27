@@ -13,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     public class DormantCustomerListDataAccess : BaseDataAccess, IDormantCustomerListDataAccess
     {
-
         public ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel)
         {
             const string UspName = "Lrf_DormantCustomerSel";

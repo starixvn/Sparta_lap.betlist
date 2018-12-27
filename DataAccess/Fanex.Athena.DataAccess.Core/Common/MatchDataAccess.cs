@@ -19,7 +19,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public MatchDataAccess(ICacheRefAdapter cacheRefAdapter)
-
         {
             _cacheRefAdapter = cacheRefAdapter;
         }
