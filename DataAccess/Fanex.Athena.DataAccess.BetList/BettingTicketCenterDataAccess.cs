@@ -92,8 +92,9 @@
             var dataFileName = $"BTC\\{Guid.NewGuid().ToString()}.json";
             _tempFileService.Save(dataFileName, data);
             groupData.DataPath.Add(dataFileName);
+            ticket.MainTicketList.Clear();
             ticket.MainTicketList.TrimExcess();
-            ticket.MainTicketList = null;
+            
         }
 
         public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)

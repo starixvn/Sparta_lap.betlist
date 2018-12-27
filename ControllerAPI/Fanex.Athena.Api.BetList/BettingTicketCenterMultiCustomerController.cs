@@ -202,8 +202,9 @@
                             workbook.Write(excelStream);
                             zip.AddEntry($"sheet{ i}.xls", excelStream.ToArray());
                             workbook.Clear();
+                            excelModel.Data.MainTicketList.Clear();
                             excelModel.Data.MainTicketList.TrimExcess();
-                            excelModel.Data = null;
+                            
                         }
                     }
 
