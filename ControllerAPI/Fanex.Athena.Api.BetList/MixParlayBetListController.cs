@@ -37,10 +37,12 @@ namespace Fanex.Athena.Api.BetList
         {
             var ticketResult = BetListService.GetMixParlayDetailTicket(
                 UserCurrencyList,
-                SessionService.LicenseeSession.LicenseeId, 
-                transId, 
+                SessionService.LicenseeSession.LicenseeId,
+                transId,
                 custId);
-            return Ticket(ticketResult: ticketResult, showOdds: true);
+            var result = Ticket(ticketResult: ticketResult, showOdds: true);
+            ClearData(ticketResult);
+            return result;
         }
 
         [HttpGet]
@@ -50,8 +52,8 @@ namespace Fanex.Athena.Api.BetList
 
             var ticketResult = BetListService.GetMixParlayDetailTicket(
                 UserCurrencyList,
-                SessionService.LicenseeSession.LicenseeId, 
-                transId, 
+                SessionService.LicenseeSession.LicenseeId,
+                transId,
                 custId);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
 
@@ -81,11 +83,13 @@ namespace Fanex.Athena.Api.BetList
                 }
             }
 
-            return new
+            var result = new
             {
                 Data = Ticket(ticketResult: ticketResult, showOdds: true),
                 Texts = texts
             };
+            ClearData(ticketResult);
+            return result;
         }
     }
 }

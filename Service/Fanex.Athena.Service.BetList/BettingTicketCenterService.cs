@@ -114,7 +114,6 @@ namespace Fanex.Athena.Service.BetList
 
                 ticketTextList.Add(ticketText);
             }
-
             return ticketTextList;
         }
 

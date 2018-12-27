@@ -122,7 +122,7 @@
 
         private dynamic GenerateHtmlViewModel(MultipleCustomersBetListMetaModel metaModel, TicketResult ticketResult, bool isAllowedCustomerComm)
         {
-            return new
+            var result = new
             {
                 Data = _service.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
                 Total = new
@@ -133,6 +133,11 @@
                 },
                 TotalRows = ticketResult.TotalRows
             };
+
+            ticketResult.MainTicketList.Clear();
+            ticketResult.MainTicketList.TrimExcess();
+            
+            return result;
         }
 
 
@@ -204,7 +209,7 @@
                             workbook.Clear();
                             excelModel.Data.MainTicketList.Clear();
                             excelModel.Data.MainTicketList.TrimExcess();
-                            
+
                         }
                     }
 

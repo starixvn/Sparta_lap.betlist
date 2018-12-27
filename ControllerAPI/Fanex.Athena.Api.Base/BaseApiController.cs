@@ -14,6 +14,7 @@ namespace Fanex.Athena.Api.Base
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
+    using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users;
@@ -100,5 +101,6 @@ namespace Fanex.Athena.Api.Base
             var validProductCodes = productCodeList.Split(',').Where(x => productList.Any(y => y.ProductCode.Equals(x, StringComparison.OrdinalIgnoreCase)));
             return string.Join(",", validProductCodes.ToArray());
         }
+
     }
 }

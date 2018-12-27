@@ -142,7 +142,7 @@ namespace Fanex.Athena.Api.BetList
                 leagueName = _cacheRefAdapter.GetLeagueName(firstOrDefault.LeagueId);
             }
 
-            return new
+            var result = new
             {
                 Main = Ticket(ticketResult, metaModel),
                 Total = new
@@ -154,6 +154,16 @@ namespace Fanex.Athena.Api.BetList
                 },
                 LeagueName = leagueName,
             };
+            ClearData(ticketResult);
+            return result;
+        }
+
+        protected static void ClearData(TicketResult ticketResult)
+        {
+            ticketResult.MainTicketList.Clear();
+            ticketResult.TicketDataList.Clear();
+            ticketResult.MainTicketList.TrimExcess();
+            ticketResult.TicketDataList.TrimExcess();
         }
 
         protected internal virtual dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
@@ -185,7 +195,7 @@ namespace Fanex.Athena.Api.BetList
                 ? string.Format("<span class='negative-number'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;
 
-            return new
+            var result = new
             {
                 page = pageIndex,
                 total = totalPage,
@@ -197,6 +207,8 @@ namespace Fanex.Athena.Api.BetList
                     LicenseeWL = sumLicenseeWlText
                 }
             };
+            ClearData(ticketResult);
+            return result;
         }
 
         protected bool IsValidCurrencyId(int currencyId)

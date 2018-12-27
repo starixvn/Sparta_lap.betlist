@@ -96,12 +96,17 @@
             if (ticketResult.MainTicketList.Any())
             {
                 var rows = GetLastMonitorBetListContent(metaModel, ticketResult);
-                return new
+                var result = new
                 {
                     NewRow = true,
                     Rows = rows,
                     LastTransId = ticketResult.MainTicketList.Max(t => t.TransId),
                 };
+                ticketResult.MainTicketList.Clear();
+                ticketResult.TicketDataList.Clear();
+                ticketResult.TicketDataList.TrimExcess();
+                ticketResult.MainTicketList.TrimExcess();
+                return result;
             }
             else
             {
