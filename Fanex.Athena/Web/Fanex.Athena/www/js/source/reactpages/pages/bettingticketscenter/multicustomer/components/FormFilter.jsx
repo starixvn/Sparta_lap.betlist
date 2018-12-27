@@ -114,7 +114,8 @@ export class FormFilter extends Component {
                     }
                     else
                     {
-                        alert(LangHelper.getSingleResource("ErrorProcessingMsg"));
+                        const msg = result.ErrorMsg || LangHelper.getSingleResource("ErrorProcessingMsg");
+                        alert(msg);
                     }
                 });
             } else {

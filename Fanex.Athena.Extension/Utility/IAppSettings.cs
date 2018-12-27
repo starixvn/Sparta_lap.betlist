@@ -5,7 +5,7 @@
 
     public interface IAppSettings
     {
-        bool DisableExportLargeBetList { get; }
+        bool IsDisableExportLargeBetList { get; }
 
         IEnumerable<int> LicenseesWithLargeData { get; }
 

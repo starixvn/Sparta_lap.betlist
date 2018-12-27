@@ -3119,4 +3119,8 @@
     <value>Please try reducing date range, selecting individual currency/ bet type, etc.</value>
     <comment>103046</comment>
   </data>
+  <data name="ServerBusyMessage" xml:space="preserve">
+    <value>Your request can't be processed now due to busy server. Please try again later</value>
+    <comment>103046</comment>
+  </data>
 </root>

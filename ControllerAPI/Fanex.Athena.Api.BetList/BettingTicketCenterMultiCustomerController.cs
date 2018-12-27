@@ -5,31 +5,34 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Web;
-    using System.Web.Hosting;
     using System.Web.Mvc;
     using Base;
     using Base.Attributes;
     using Excel.BetList;
     using Excel.BetList.Model;
+    using Extension.Utility;
     using Ionic.Zip;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using NPOI.SS.UserModel;
+    using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Core.Utility.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterMultiCustomerController : BaseApiController
     {
         private const int RowsExceedLimitErrorCode = 1001;
 
+        private const int ServerBusyErrorCode = 1002;
+
         private const int MaxRowSupportExportExcel = 300000;
 
         private const int MaxRowPerFile = 10000;
+
+        private readonly IAppSettings _appSettings;
 
         private readonly IBettingTicketCenterService _service;
 
@@ -37,18 +40,32 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
+            IAppSettings appSettings,
             IBettingTicketCenterService service)
             : base(sessionService, productService, langService)
         {
+            _appSettings = appSettings;
             _service = service;
         }
 
         [System.Web.Http.HttpPost]
         public dynamic GetData(MultipleCustomersBetListMetaModel metaModel)
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            if (metaModel.IsExport && 
+                _appSettings.IsDisableExportLargeBetList &&
+                _appSettings.LicenseesWithLargeData.Contains(licenseeSession.LicenseeId))
+            {
+                return new
+                {
+                    ErrorCode = ServerBusyErrorCode,
+                    ErrorMsg = ViewResources.ServerBusyMessage
+                };
+            }
+
             TicketResult ticketResult;
             var userCurrencyList = SessionService.UserSession.CurrencyList;
-            var isAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            var isAllowedCustomerComm = licenseeSession.IsAllowedCustomerComm;
             if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
             {
                 ticketResult = new TicketResult();
@@ -115,6 +132,7 @@
             var workbook = excel.Export(excelModel);
             return ExcelStream(workbook, string.Empty);
         }
+
         private BettingTicketCenterExcelModel CreateBettingTicketCenterExcelModel(TicketResult data, int startIndex, string title)
         {
             var dataBySheet = new TicketResult

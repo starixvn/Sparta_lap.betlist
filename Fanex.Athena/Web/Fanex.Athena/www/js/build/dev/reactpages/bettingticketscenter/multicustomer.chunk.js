@@ -10991,7 +10991,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
                         if (result.ErrorCode === RowsExceedLimitErrorCode) {
                             _this._showExportWarning();
                         } else {
-                            alert(_langHelper2.default.getSingleResource("ErrorProcessingMsg"));
+                            var msg = result.ErrorMsg || _langHelper2.default.getSingleResource("ErrorProcessingMsg");
+                            alert(msg);
                         }
                     });
                 } else {

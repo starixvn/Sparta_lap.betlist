@@ -6856,6 +6856,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your request can&apos;t be processed now due to busy server. Please try again later.
+        /// </summary>
+        public static string ServerBusyMessage {
+            get {
+                return ResourceManager.GetString("ServerBusyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Session ID.
         /// </summary>
         public static string SessionID {

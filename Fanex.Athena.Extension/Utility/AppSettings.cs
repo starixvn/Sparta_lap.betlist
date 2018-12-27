@@ -22,11 +22,11 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
-        public bool DisableExportLargeBetList
+        public bool IsDisableExportLargeBetList
         {
             get
             {
-                return GetValue("DisableExportLargeBetList") == "1";
+                return GetValue("IsDisableExportLargeBetList") == "1";
             }
         }
 
