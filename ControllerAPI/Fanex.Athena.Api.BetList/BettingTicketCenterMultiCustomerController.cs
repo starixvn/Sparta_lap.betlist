@@ -16,6 +16,7 @@
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
+    using NPOI.SS.UserModel;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
@@ -121,6 +122,7 @@
 
         private HttpResponseMessage ExportZip(TicketResult ticketResult, string title)
         {
+            IWorkbook workbook = null;
             var dataList = ticketResult.MainTicketList.ToList();
             ticketResult.MainTicketList.Clear();
             var excelModel = new BettingTicketCenterExcelModel
@@ -135,44 +137,36 @@
             };
 
             var path = HttpContext.Current.Server.MapPath("~/tmp/BTC/" + Guid.NewGuid());
+            Directory.CreateDirectory(path);
 
-            try
+            var numOfFile = (int)Math.Ceiling((double)dataList.Count / MaxRowPerFile);
+            for (int i = 0; i < numOfFile; i++)
             {
-                Directory.CreateDirectory(path);
+                var startIndex = i * MaxRowPerFile;
 
-                var numOfFile = (int)Math.Ceiling((double)dataList.Count / MaxRowPerFile);
+                ticketResult.MainTicketList.Clear();
+                ticketResult.MainTicketList.AddRange(dataList.Skip(startIndex).Take(MaxRowPerFile));
+                var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
+
+                var filePath = path + $"/sheet{i}.xls";
+                 workbook = excel.Export(excelModel);
+                using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                {
+                    workbook.Write(stream);
+                }
+
+                workbook?.Clear();
+            }
+
+            using (ZipFile zip = new ZipFile())
+            {
                 for (int i = 0; i < numOfFile; i++)
                 {
-                    var startIndex = i * MaxRowPerFile;
-
-                    ticketResult.MainTicketList.Clear();
-                    ticketResult.MainTicketList.AddRange(dataList.Skip(startIndex).Take(MaxRowPerFile));
-                    var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-
                     var filePath = path + $"/sheet{i}.xls";
-                    var workbook = excel.Export(excelModel);
-                    using (var stream = new FileStream(filePath, FileMode.Create, System.IO.FileAccess.Write))
-                    {
-                        workbook.Write(stream);
-                        stream.Close();
-                    }
+                    zip.AddEntry(Path.GetFileName(filePath), new FileStream(filePath, FileMode.Open, FileAccess.Read));
                 }
 
-                using (ZipFile zip = new ZipFile())
-                {
-                    for (int i = 0; i < numOfFile; i++)
-                    {
-                        var filePath = path + $"/sheet{i}.xls";
-                        zip.AddEntry(Path.GetFileName(filePath), new FileStream(filePath, FileMode.Open, FileAccess.Read));
-                    }
-
-                    return ZipContentResult(zip, path);
-                }
-            }
-            catch (Exception)
-            {
-                DeleteFolder(path);
-                throw;
+                return ZipContentResult(zip, path);
             }
         }
 
@@ -183,8 +177,6 @@
                 {
                     zipFile.Save(stream);
                     stream.Close();
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
                     DeleteFolder(path);
                 },
                 "application/zip");
