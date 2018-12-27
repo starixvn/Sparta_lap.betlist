@@ -262,7 +262,7 @@ namespace Fanex.Athena.Constant.DataDomain
         /// <summary>
         /// Number Game
         /// </summary>
-        NumberGameHappy5= 164,
+        NumberGameHappy5 = 164,
 
         /// <summary>
         /// VirtualSport, value = 180.

@@ -63,7 +63,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private  string GetSportName(int bettype)
+        private static string GetSportName(int bettype)
         {
             if (BetTypeHelper.IsVirtualSports(bettype))
             {
