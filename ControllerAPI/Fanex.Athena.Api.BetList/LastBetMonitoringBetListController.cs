@@ -106,6 +106,8 @@
                 ticketResult.TicketDataList.Clear();
                 ticketResult.TicketDataList.TrimExcess();
                 ticketResult.MainTicketList.TrimExcess();
+                ticketResult.MainTicketList = null;
+                ticketResult.TicketDataList = null;
                 return result;
             }
             else

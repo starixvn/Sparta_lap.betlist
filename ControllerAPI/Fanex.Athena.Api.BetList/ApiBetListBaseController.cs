@@ -164,6 +164,8 @@ namespace Fanex.Athena.Api.BetList
             ticketResult.TicketDataList.Clear();
             ticketResult.MainTicketList.TrimExcess();
             ticketResult.TicketDataList.TrimExcess();
+            ticketResult.MainTicketList = null;
+            ticketResult.TicketDataList = null;
         }
 
         protected internal virtual dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)

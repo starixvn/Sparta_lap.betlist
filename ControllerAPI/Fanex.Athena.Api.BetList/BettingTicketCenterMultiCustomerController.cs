@@ -133,13 +133,17 @@
                 },
                 TotalRows = ticketResult.TotalRows
             };
-
-            ticketResult.MainTicketList.Clear();
-            ticketResult.MainTicketList.TrimExcess();
-            
+            ClearData(ticketResult);
             return result;
         }
 
+        private static void ClearData(TicketResult ticketResult)
+        {
+
+            ticketResult.MainTicketList.Clear();
+            ticketResult.MainTicketList.TrimExcess();
+            ticketResult.MainTicketList = null;
+        }
 
         private HttpResponseMessage ExportXls(TicketResult ticketResult, string title)
         {
@@ -156,6 +160,8 @@
 
             var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
             var workbook = excel.Export(excelModel);
+            excelModel.Data = null;
+            ClearData(ticketResult);
             return ExcelStream(workbook, string.Empty);
         }
         private BettingTicketCenterExcelModel CreateBettingTicketCenterExcelModel(GroupTicketResult groupData, string dataPath, string title)
@@ -209,6 +215,7 @@
                             workbook.Clear();
                             excelModel.Data.MainTicketList.Clear();
                             excelModel.Data.MainTicketList.TrimExcess();
+                            excelModel.Data = null;
 
                         }
                     }
