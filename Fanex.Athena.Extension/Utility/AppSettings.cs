@@ -172,6 +172,8 @@ namespace Fanex.Athena.Extension.Utility
             get { return bool.Parse(GetValue("EnableAssignCurrency")); }
         }
 
+        public string TempFilePath => GetValue("TempFilePath");
+
         #endregion Assign Currency
 
         public string GetValue(string key)

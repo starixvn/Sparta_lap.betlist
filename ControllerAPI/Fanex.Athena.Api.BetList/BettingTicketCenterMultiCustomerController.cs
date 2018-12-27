@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -15,6 +16,7 @@
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
+    using Newtonsoft.Json;
     using NPOI.SS.UserModel;
     using Resources;
     using Service.BetList.Interfaces;
@@ -30,22 +32,24 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 10000;
+        private const int MaxRowPerFile = 65;
 
         private readonly IAppSettings _appSettings;
 
         private readonly IBettingTicketCenterService _service;
-
+        private readonly ITempFileService _tempFileService;
         public BettingTicketCenterMultiCustomerController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
             IAppSettings appSettings,
-            IBettingTicketCenterService service)
+            IBettingTicketCenterService service,
+            ITempFileService tempFileService)
             : base(sessionService, productService, langService)
         {
             _appSettings = appSettings;
             _service = service;
+            _tempFileService = tempFileService;
         }
 
         [System.Web.Http.HttpPost]
@@ -74,22 +78,49 @@
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-                if (metaModel.IsExport && _service.GetTotalRowForMultipleCustomers(metaModel) > MaxRowSupportExportExcel)
+                if (metaModel.IsExport)
                 {
-                    return new
+                    var totalRow = _service.GetTotalRowForMultipleCustomers(metaModel);
+                    if (totalRow > MaxRowSupportExportExcel)
                     {
-                        ErrorCode = RowsExceedLimitErrorCode
-                    };
+                        return new
+                        {
+                            ErrorCode = RowsExceedLimitErrorCode
+                        };
+                    }
+
+                    return Export(metaModel, userCurrencyList, totalRow);
                 }
 
                 ticketResult = _service.GetBetListForMultipleCustomers(metaModel, userCurrencyList);
             }
 
-            if (metaModel.IsExport)
+            return GenerateHtmlViewModel(metaModel, ticketResult, isAllowedCustomerComm);
+        }
+
+        private dynamic Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
+        {
+            var title = _service.GetTitle(metaModel);
+
+            if (totalRow <= MaxRowPerFile)
             {
-                return Export(ticketResult, _service.GetTitle(metaModel));
+                var normalTicketResult = _service.GetBetListForMultipleCustomers(metaModel, userCurrencyList);
+                if (normalTicketResult.MainTicketList.Count == 0)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.NoContent);
+                }
+
+                return ExportXls(normalTicketResult, title);
             }
 
+            var ticketResult = _service.GetBetListForMultipleCustomers(metaModel, MaxRowPerFile, userCurrencyList);
+
+
+            return ExportZip(ticketResult, title);
+        }
+
+        private dynamic GenerateHtmlViewModel(MultipleCustomersBetListMetaModel metaModel, TicketResult ticketResult, bool isAllowedCustomerComm)
+        {
             return new
             {
                 Data = _service.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
@@ -103,17 +134,6 @@
             };
         }
 
-        private HttpResponseMessage Export(TicketResult ticketResult, string title)
-        {
-            if (ticketResult.MainTicketList.Count == 0)
-            {
-                return new HttpResponseMessage(HttpStatusCode.NoContent);
-            }
-
-            return ticketResult.MainTicketList.Count > MaxRowPerFile ?
-                ExportZip(ticketResult, title) :
-                ExportXls(ticketResult, title);
-        }
 
         private HttpResponseMessage ExportXls(TicketResult ticketResult, string title)
         {
@@ -132,62 +152,63 @@
             var workbook = excel.Export(excelModel);
             return ExcelStream(workbook, string.Empty);
         }
-
-        private BettingTicketCenterExcelModel CreateBettingTicketCenterExcelModel(TicketResult data, int startIndex, string title)
+        private BettingTicketCenterExcelModel CreateBettingTicketCenterExcelModel(GroupTicketResult groupData, string dataPath, string title)
         {
-            var dataBySheet = new TicketResult
+            var contentData = _tempFileService.ReadString(dataPath);
+            if (!string.IsNullOrEmpty(contentData))
             {
-                SumBetEffective = data.SumBetEffective,
-                SumComm = data.SumComm,
-                SumLicenseeWL = data.SumLicenseeWL,
-                SumPlayerComm = data.SumPlayerComm,
-                SumStake = data.SumStake,
-                SumWinLoss = data.SumWinLoss,
-                TotalRows = data.TotalRows
-            };
-            dataBySheet.MainTicketList.AddRange(data.MainTicketList.Skip(startIndex).Take(MaxRowPerFile));
-            dataBySheet.TicketDataList = data.TicketDataList;
-            return new BettingTicketCenterExcelModel
-            {
-                Data = dataBySheet,
-                ShowTotal = true,
-                ShowSumStake = true,
-                ShowLicenseeWl = true,
-                ShowWinLoss = true,
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                Title = title
-            };
+                var dataBySheet = JsonConvert.DeserializeObject<TicketResult>(contentData);
+
+                dataBySheet.SumStake = groupData.SumStake;
+                dataBySheet.SumWinLoss = groupData.SumWinLoss;
+                dataBySheet.SumLicenseeWL = groupData.SumLicenseeWL;
+                dataBySheet.SumBetEffective = groupData.SumBetEffective;
+                dataBySheet.SumComm = groupData.SumComm;
+                dataBySheet.SumPlayerComm = groupData.SumPlayerComm;
+                dataBySheet.TotalRows = groupData.TotalRows;
+
+
+                return new BettingTicketCenterExcelModel
+                {
+                    Data = dataBySheet,
+                    ShowTotal = true,
+                    ShowSumStake = true,
+                    ShowLicenseeWl = true,
+                    ShowWinLoss = true,
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    Title = title
+                };
+            }
+            return null;
         }
 
-        private HttpResponseMessage ExportZip(TicketResult ticketResult, string title)
+        private HttpResponseMessage ExportZip(GroupTicketResult ticketResult, string title)
         {
             IWorkbook workbook = null;
 
-            var numOfFile = (int)Math.Ceiling((double)ticketResult.MainTicketList.Count / MaxRowPerFile);
             using (var zip = new ZipFile())
             {
-                for (int i = 0; i < numOfFile; i++)
+                for (int i = 0; i < ticketResult.DataPath.Count; i++)
                 {
-                    var startIndex = i * MaxRowPerFile;
 
                     var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-                    var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, startIndex, title);
-                    workbook = excelService.Export(excelModel);
-                    using (var excelStream = new MemoryStream())
+                    var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title);
+                    if (excelModel != null)
                     {
-                        workbook.Write(excelStream);
-                        zip.AddEntry($"sheet{ i}.xls", excelStream.ToArray());
-                        workbook.Clear();
-                        excelModel.Data.MainTicketList.TrimExcess();
-                        excelModel.Data = null;
+                        workbook = excelService.Export(excelModel);
+                        using (var excelStream = new MemoryStream())
+                        {
+                            workbook.Write(excelStream);
+                            zip.AddEntry($"sheet{ i}.xls", excelStream.ToArray());
+                            workbook.Clear();
+                            excelModel.Data.MainTicketList.TrimExcess();
+                            excelModel.Data = null;
+                        }
                     }
+
+                    _tempFileService.Delete(ticketResult.DataPath[i]);
+
                 }
-
-                ticketResult.MainTicketList.TrimExcess();
-                ticketResult.TicketDataList.TrimExcess();
-                ticketResult.MainTicketList = null;
-                ticketResult.TicketDataList = null;
-
                 return ZipContentResult(zip);
             }
         }

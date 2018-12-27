@@ -7,6 +7,7 @@
     public interface IBettingTicketCenterDataAccess
     {
         TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList);
+        GroupTicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, int rowPerGroup, IDictionary<int, string> currencyList);
 
         int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
 

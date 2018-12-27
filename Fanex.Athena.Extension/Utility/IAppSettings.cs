@@ -60,5 +60,6 @@
         string RemoteRefUrl { get; }
 
         string GetValue(string key);
+        string TempFilePath { get; }
     }
 }

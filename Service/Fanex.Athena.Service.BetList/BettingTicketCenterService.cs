@@ -39,6 +39,11 @@ namespace Fanex.Athena.Service.BetList
             _cacheRefAdapter = cacheRefAdapter;
             _ticketHelper = ticketHelper;
         }
+        public GroupTicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, int rowPerGroup, IDictionary<int, string> currencyList)
+        {
+
+            return _dataAccess.GetBetListForMultipleCustomers(metaModel, rowPerGroup, currencyList);
+        }
 
         public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
