@@ -39,7 +39,6 @@
                 {
                     AddMultiCustomerParameters(db, metaModel);
 
-                    var paging = rowPerGroup;
                     using (var reader = db.ExecuteReader())
                     {
                         var columns = GetColumns();
@@ -47,12 +46,12 @@
 
                         while (reader.Read())
                         {
-                            if (count > 0 && count == paging && ticket != null)
+                            if (count > 0 && count == rowPerGroup && ticket != null)
                             {
                                 SaveDataToFile(groupData, ticket);
-                                paging += rowPerGroup;
+                                count = 0;
                             }
-                            if (count == 0 || count == paging)
+                            if (count == 0 || count == rowPerGroup)
                             {
                                 ticket = new TicketResult();
 
