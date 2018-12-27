@@ -19,9 +19,11 @@
         protected IDataReader Reader { get; set; }
 
         protected T DataAccess { get; set; }
+
         private readonly IDictionary<int, string> _userCurrencyList = new Dictionary<int, string> { { 20, "UUS" }, { 1, "USD" } };
 
         protected IDictionary<int, string> UserCurrencyList => _userCurrencyList;
+
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
