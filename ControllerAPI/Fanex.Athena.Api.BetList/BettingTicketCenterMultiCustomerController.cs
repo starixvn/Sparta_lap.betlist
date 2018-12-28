@@ -79,6 +79,12 @@
             }
             else
             {
+                /*
+                 * Force to clean memory
+                 */
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                 if (metaModel.IsExport)
