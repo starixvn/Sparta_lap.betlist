@@ -232,7 +232,7 @@
 
             }
 
-            HostingEnvironment.QueueBackgroundWorkItem(x => CleanDataFile(ticketResult.DataPath));
+            CleanDataFile(ticketResult.DataPath);
 
             using (var zip = new ZipFile())
             {
@@ -240,7 +240,7 @@
                 {
                     zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
                 }
-                HostingEnvironment.QueueBackgroundWorkItem(x => CleanDataFile(excelFiles));
+                CleanDataFile(excelFiles);
                 return ZipContentResult(zip);
             }
         }
