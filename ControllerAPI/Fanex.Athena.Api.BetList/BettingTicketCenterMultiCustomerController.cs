@@ -34,7 +34,7 @@
 
         private const int ServerBusyErrorCode = 1002;
 
-        private const int MaxRowSupportExportExcel = 300000;
+        private int MaxRowSupportExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportExportExcel"));
 
         private int MaxRowPerFile => int.Parse(_appSettings.GetValue("MaxRowPerExcelFile"));
         private readonly IAppSettings _appSettings;
@@ -231,7 +231,7 @@
                             workbook.Clear();
                             ClearData(excelModel.Data);
                             excelModel.Data = null;
-                           
+
                         }
 
                     }
