@@ -7,6 +7,7 @@
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Base;
@@ -197,51 +198,54 @@
 
         private HttpResponseMessage ExportZip(GroupTicketResult ticketResult, string title)
         {
+
             IWorkbook workbook = null;
             var excelFiles = new List<string>();
+            var response = HttpContext.Current.Response;
 
-
-            for (int i = 0; i < ticketResult.DataPath.Count; i++)
+            for (int i = ticketResult.DataPath.Count - 1; i >= 0; i--)
             {
-                var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-                var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title);
-                if (excelModel != null)
+                if (response.IsClientConnected)
                 {
-                    workbook = excelService.Export(excelModel);
-                    var dataFileName = ticketResult.DataPath[i] + ".dat";
-                    var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
-                    var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write);
-
-                    try
+                    var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
+                    var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title);
+                    if (excelModel != null)
                     {
-
-                        workbook.Write(stream);
-                        excelFiles.Add(dataFileName);
+                        workbook = excelService.Export(excelModel);
+                        var dataFileName = ticketResult.DataPath[i] + ".dat";
+                        var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
+                        var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write);
+                        try
+                        {
+                            workbook.Write(stream);
+                            excelFiles.Add(dataFileName);
+                        }
+                        finally
+                        {
+                            stream.Close();
+                            workbook.Clear();
+                            ClearData(excelModel.Data);
+                            excelModel.Data = null;
+                        }
 
                     }
-                    finally
-                    {
-                        stream.Close();
-                        workbook.Clear();
-                        ClearData(excelModel.Data);
-                        excelModel.Data = null;
-                    }
-
                 }
 
 
             }
-
             CleanDataFile(ticketResult.DataPath);
 
             using (var zip = new ZipFile())
             {
                 for (var i = 0; i < excelFiles.Count; i++)
                 {
-                    zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
+                    if (response.IsClientConnected)
+                    {
+                        zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
+                    }
                 }
                 CleanDataFile(excelFiles);
-                return ZipContentResult(zip);
+                return response.IsClientConnected ? ZipContentResult(zip) : null;
             }
         }
 
