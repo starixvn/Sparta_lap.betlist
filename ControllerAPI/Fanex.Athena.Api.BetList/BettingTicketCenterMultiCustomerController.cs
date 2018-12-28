@@ -35,8 +35,7 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 50;
-
+        private int MaxRowPerFile => int.Parse(_appSettings.GetValue("MaxRowPerExcelFile"));
         private readonly IAppSettings _appSettings;
 
         private readonly IBettingTicketCenterService _service;
