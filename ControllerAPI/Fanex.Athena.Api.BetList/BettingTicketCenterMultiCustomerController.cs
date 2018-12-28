@@ -35,7 +35,7 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 10000;
+        private const int MaxRowPerFile = 50;
 
         private readonly IAppSettings _appSettings;
 
@@ -211,20 +211,29 @@
                     workbook = excelService.Export(excelModel);
                     var dataFileName = ticketResult.DataPath[i] + ".dat";
                     var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
-                    using (var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write))
+                    var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write);
+
+                    try
                     {
+
                         workbook.Write(stream);
-                        workbook.Clear();
                         excelFiles.Add(dataFileName);
+
+                    }
+                    finally
+                    {
+                        stream.Close();
+                        workbook.Clear();
                         ClearData(excelModel.Data);
                         excelModel.Data = null;
                     }
+
                 }
 
 
             }
 
-            HostingEnvironment.QueueBackgroundWorkItem(x=> CleanDataFile(ticketResult.DataPath));
+            HostingEnvironment.QueueBackgroundWorkItem(x => CleanDataFile(ticketResult.DataPath));
 
             using (var zip = new ZipFile())
             {
@@ -239,7 +248,7 @@
 
         private void CleanDataFile(IList<string> dataPath)
         {
-            foreach(var item in dataPath)
+            foreach (var item in dataPath)
             {
                 _tempFileService.Delete(item);
             }

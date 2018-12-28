@@ -22,39 +22,57 @@ namespace Fanex.Athena.Extension.Utility
                     File.Delete(realPath);
                 }
             }
-            catch (Exception ex)
+            finally
             {
 
             }
+
         }
 
         public string ReadString(string path)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            using (var reader = new StreamReader(realPath))
+            var reader = new StreamReader(realPath);
+
+            try
             {
                 return reader.ReadToEnd();
             }
+            finally
+            {
+                reader.Close();
+                reader.Dispose();
+            }
+
         }
 
         public void Save(string path, string content)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            using (var stream = new FileStream(realPath, FileMode.CreateNew, FileAccess.Write))
+            var stream = new FileStream(realPath, FileMode.CreateNew, FileAccess.Write);
+            var writer = new StreamWriter(stream);
+
+            try
             {
-                using (var writer = new StreamWriter(stream))
-                {
-                    writer.Write(content);
-                }
+                writer.Write(content);
             }
+            finally
+            {
+                writer.Close();
+                writer.Dispose();
+                stream.Close();
+                stream.Dispose();
+            }
+
+
         }
         public byte[] ReadBytes(string path)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            using (FileStream fsSource = new FileStream(realPath,
-           FileMode.Open, FileAccess.Read))
+            FileStream fsSource = new FileStream(realPath,
+           FileMode.Open, FileAccess.Read);
+            try
             {
-
                 byte[] bytes = new byte[fsSource.Length];
                 int numBytesToRead = (int)fsSource.Length;
                 int numBytesRead = 0;
@@ -70,9 +88,15 @@ namespace Fanex.Athena.Extension.Utility
                     numBytesRead += n;
                     numBytesToRead -= n;
                 }
-                
+
                 return bytes;
             }
+            finally
+            {
+                fsSource.Close();
+                fsSource.Dispose();
+            }
+
         }
     }
 }
