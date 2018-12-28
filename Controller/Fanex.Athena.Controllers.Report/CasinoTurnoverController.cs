@@ -15,11 +15,11 @@
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ReportCasinoTurnover)]
-    public class CasinoTurnoverReportController : ReportBaseController
+    public class CasinoTurnoverController : ReportBaseController
     {
         private readonly IReportSettingService _reportSettingService;
 
-        public CasinoTurnoverReportController(
+        public CasinoTurnoverController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
