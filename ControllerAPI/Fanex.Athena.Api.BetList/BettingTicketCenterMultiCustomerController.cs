@@ -7,6 +7,7 @@
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using Base;
     using Base.Attributes;
@@ -220,20 +221,30 @@
                     }
                 }
 
-                _tempFileService.Delete(ticketResult.DataPath[i]);
 
             }
+
+            HostingEnvironment.QueueBackgroundWorkItem(x=> CleanDataFile(ticketResult.DataPath));
 
             using (var zip = new ZipFile())
             {
                 for (var i = 0; i < excelFiles.Count; i++)
                 {
                     zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
-                    _tempFileService.Delete(excelFiles[i]);
                 }
+                HostingEnvironment.QueueBackgroundWorkItem(x => CleanDataFile(excelFiles));
                 return ZipContentResult(zip);
             }
         }
+
+        private void CleanDataFile(IList<string> dataPath)
+        {
+            foreach(var item in dataPath)
+            {
+                _tempFileService.Delete(item);
+            }
+        }
+
         protected HttpResponseMessage ZipContentResult(ZipFile zipFile)
         {
             var pushStreamContent = new PushStreamContent(
