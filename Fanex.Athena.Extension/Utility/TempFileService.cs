@@ -32,46 +32,29 @@ namespace Fanex.Athena.Extension.Utility
         public string ReadString(string path)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            var reader = new StreamReader(realPath);
-
-            try
+            using (var reader = new StreamReader(realPath))
             {
                 return reader.ReadToEnd();
             }
-            finally
-            {
-                reader.Close();
-                reader.Dispose();
-            }
-
         }
 
         public void Save(string path, string content)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            var stream = new FileStream(realPath, FileMode.CreateNew, FileAccess.Write);
-            var writer = new StreamWriter(stream);
-
-            try
+            using (var stream = new FileStream(realPath, FileMode.CreateNew, FileAccess.Write))
             {
-                writer.Write(content);
+                using (var writer = new StreamWriter(stream))
+                {
+                    writer.Write(content);
+                }
             }
-            finally
-            {
-                writer.Close();
-                writer.Dispose();
-                stream.Close();
-                stream.Dispose();
-            }
-
 
         }
         public byte[] ReadBytes(string path)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            FileStream fsSource = new FileStream(realPath,
-           FileMode.Open, FileAccess.Read);
-            try
+            using (FileStream fsSource = new FileStream(realPath,
+            FileMode.Open, FileAccess.Read))
             {
                 byte[] bytes = new byte[fsSource.Length];
                 int numBytesToRead = (int)fsSource.Length;
@@ -91,11 +74,7 @@ namespace Fanex.Athena.Extension.Utility
 
                 return bytes;
             }
-            finally
-            {
-                fsSource.Close();
-                fsSource.Dispose();
-            }
+
 
         }
     }

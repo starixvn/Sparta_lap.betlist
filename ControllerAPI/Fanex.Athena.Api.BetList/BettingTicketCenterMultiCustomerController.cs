@@ -216,18 +216,18 @@
                     workbook = excelService.Export(excelModel);
                     var dataFileName = ticketResult.DataPath[i] + ".dat";
                     var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
-                    var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write);
-                    try
+                    using (var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write))
                     {
-                        workbook.Write(stream);
-                        excelFiles.Add(dataFileName);
-                    }
-                    finally
-                    {
-                        stream.Close();
-                        workbook.Clear();
-                        ClearData(excelModel.Data);
-                        excelModel.Data = null;
+                        using (var bufferStream = new BufferedStream(stream))
+                        {
+                            workbook.Write(bufferStream);
+                            excelFiles.Add(dataFileName);
+                            workbook.Clear();
+                            ClearData(excelModel.Data);
+                            excelModel.Data = null;
+                           
+                        }
+
                     }
 
                 }
@@ -243,7 +243,6 @@
                     {
                         break;
                     }
-
                     zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
 
                 }

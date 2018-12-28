@@ -64,18 +64,27 @@ namespace Fanex.Athena.Api.Base
         protected internal virtual HttpResponseMessage ExcelStream(IWorkbook workbook, string fileName)
         {
             var result = new HttpResponseMessage(HttpStatusCode.OK);
-            using (var memoryStream = new MemoryStream())
-            {
-                workbook.Write(memoryStream);
-                result.Content = new ByteArrayContent(memoryStream.ToArray());
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                {
-                    FileName = fileName
-                };
-            }
-            workbook.Clear();
+            result.Content = new PushStreamContent(
+              (stream, context, transportContext) =>
+              {
+                  try
+                  {
+                      workbook.Write(stream);
+                  }
+                  finally
+                  {
+                      workbook.Clear();
+                      stream.Close();
+                      context.Dispose();
 
+                  }
+              },
+              new MediaTypeHeaderValue("application/octet-stream"));
+            result.Headers.TransferEncodingChunked = true;
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = fileName
+            };
             return result;
         }
 
