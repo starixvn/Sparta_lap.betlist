@@ -105,10 +105,12 @@
                 return Export(excelModel);
             }
 
-            return new
+            var result = new
             {
                 Data = _service.BuildTicketText(ticketResult, metaModel, SessionService.LicenseeSession.IsAllowedCustomerComm)
             };
+            ClearData(ticketResult);
+            return result;
         }
 
         [HttpPost]
@@ -160,7 +162,16 @@
             }
 
             var workbook = _bettingTicketCenterExcel.Export(excelModel);
+            ClearData(excelModel.Data);
+            excelModel.Data = null;
             return ExcelStream(workbook, string.Empty);
+        }
+        private static void ClearData(TicketResult ticketResult)
+        {
+
+            ticketResult.MainTicketList.Clear();
+            ticketResult.MainTicketList.TrimExcess();
+            ticketResult.MainTicketList = null;
         }
     }
 }

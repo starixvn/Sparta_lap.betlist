@@ -74,6 +74,7 @@ namespace Fanex.Athena.Api.Base
                     FileName = fileName
                 };
             }
+            workbook.Clear();
 
             return result;
         }
