@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Web.Mvc;
     using Base;
     using Base.Attributes;
@@ -33,7 +34,7 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 10000;
+        private const int MaxRowPerFile = 50;
 
         private readonly IAppSettings _appSettings;
 
@@ -58,8 +59,8 @@
         {
             var licenseeSession = SessionService.LicenseeSession;
             if (metaModel.IsExport &&
-                _appSettings.IsDisableExportLargeBetList &&
-                _appSettings.LicenseesWithLargeData.Contains(licenseeSession.LicenseeId))
+                _appSettings.IsDisableExportLargeBetList
+                && _appSettings.LicenseesWithLargeData.Contains(licenseeSession.LicenseeId))
             {
                 return new
                 {
@@ -197,47 +198,68 @@
         private HttpResponseMessage ExportZip(GroupTicketResult ticketResult, string title)
         {
             IWorkbook workbook = null;
+            var excelFiles = new List<string>();
+
+
+            for (int i = 0; i < ticketResult.DataPath.Count; i++)
+            {
+
+                var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
+                var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title);
+                if (excelModel != null)
+                {
+                    workbook = excelService.Export(excelModel);
+                    var dataFileName = ticketResult.DataPath[i] + ".dat";
+                    var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
+                    using (var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write))
+                    {
+                        workbook.Write(stream);
+                        workbook.Clear();
+                        excelFiles.Add(dataFileName);
+                        ClearData(excelModel.Data);
+                        excelModel.Data = null;
+                    }
+                }
+
+                _tempFileService.Delete(ticketResult.DataPath[i]);
+
+            }
 
             using (var zip = new ZipFile())
             {
-                for (int i = 0; i < ticketResult.DataPath.Count; i++)
+                for (var i = 0; i < excelFiles.Count; i++)
                 {
-
-                    var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-                    var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title);
-                    if (excelModel != null)
-                    {
-                        workbook = excelService.Export(excelModel);
-                        using (var excelStream = new MemoryStream())
-                        {
-                            workbook.Write(excelStream);
-                            zip.AddEntry($"sheet{ i}.xls", excelStream.ToArray());
-                            workbook.Clear();
-                            excelModel.Data.MainTicketList.Clear();
-                            excelModel.Data.MainTicketList.TrimExcess();
-                            excelModel.Data = null;
-
-                        }
-                    }
-
-                    _tempFileService.Delete(ticketResult.DataPath[i]);
-
+                    zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
+                    _tempFileService.Delete(excelFiles[i]);
                 }
                 return ZipContentResult(zip);
             }
         }
-
         protected HttpResponseMessage ZipContentResult(ZipFile zipFile)
         {
             var pushStreamContent = new PushStreamContent(
-                (stream, content, context) =>
+                (stream, context, transportContext) =>
                 {
-                    zipFile.Save(stream);
-                    stream.Close();
-                },
-                "application/zip");
+                    try
+                    {
+                        zipFile.Save(stream);
+                    }
+                    finally
+                    {
+                        stream.Close();
+                        zipFile.Dispose();
 
-            return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
+                    }
+                },
+                new MediaTypeHeaderValue("application/zip"));
+
+            var result = new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
+            result.Headers.TransferEncodingChunked = true;
+            result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+            {
+                FileName = "BettingTicketsCenter_MultiCustomer.zip"
+            };
+            return result;
         }
     }
 }

@@ -48,5 +48,30 @@ namespace Fanex.Athena.Extension.Utility
                 }
             }
         }
+        public byte[] ReadBytes(string path)
+        {
+            var realPath = Path.Combine(_appSettings.TempFilePath, path);
+            using (FileStream fsSource = new FileStream(realPath,
+           FileMode.Open, FileAccess.Read))
+            {
+
+                byte[] bytes = new byte[fsSource.Length];
+                int numBytesToRead = (int)fsSource.Length;
+                int numBytesRead = 0;
+                while (numBytesToRead > 0)
+                {
+                    // Read may return anything from 0 to numBytesToRead.
+                    int n = fsSource.Read(bytes, numBytesRead, numBytesToRead);
+
+                    // Break when the end of the file is reached.
+                    if (n == 0)
+                        break;
+
+                    numBytesRead += n;
+                    numBytesToRead -= n;
+                }
+                return bytes;
+            }
+        }
     }
 }
