@@ -70,6 +70,7 @@ namespace Fanex.Athena.Extension.Utility
                     numBytesRead += n;
                     numBytesToRead -= n;
                 }
+                
                 return bytes;
             }
         }

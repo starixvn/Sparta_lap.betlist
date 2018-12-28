@@ -34,7 +34,7 @@
 
         private const int MaxRowSupportExportExcel = 300000;
 
-        private const int MaxRowPerFile = 50;
+        private const int MaxRowPerFile = 10000;
 
         private readonly IAppSettings _appSettings;
 
@@ -203,7 +203,6 @@
 
             for (int i = 0; i < ticketResult.DataPath.Count; i++)
             {
-
                 var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
                 var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title);
                 if (excelModel != null)
@@ -243,10 +242,12 @@
                     try
                     {
                         zipFile.Save(stream);
+
                     }
                     finally
                     {
                         stream.Close();
+                        context.Dispose();
                         zipFile.Dispose();
 
                     }
