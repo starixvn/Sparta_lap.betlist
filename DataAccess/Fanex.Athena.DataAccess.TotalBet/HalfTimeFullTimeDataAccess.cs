@@ -45,8 +45,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             }
         }
 
-        #region Utility
-
         private static IList<HalfTimeFullTime> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<HalfTimeFullTime>();
@@ -116,7 +114,5 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
             return new HalfTimeFullTime();
         }
-
-        #endregion Utility
     }
 }

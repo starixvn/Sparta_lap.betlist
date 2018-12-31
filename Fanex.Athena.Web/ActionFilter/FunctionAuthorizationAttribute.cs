@@ -32,8 +32,6 @@ namespace Fanex.Athena.Web.ActionFilter
 
         public IAuthorizationService AuthorizationServiceInstance { get; set; }
 
-        #region Override
-
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var context = filterContext.HttpContext;
@@ -75,7 +73,5 @@ namespace Fanex.Athena.Web.ActionFilter
 
             base.OnActionExecuting(filterContext);
         }
-
-        #endregion Override
     }
 }

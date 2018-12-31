@@ -14,9 +14,17 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Fanex.Common.Extensions;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
+    using VendorAdapter.Interfaces;
 
     public class OutrightDataAccess : BaseDataAccess, IOutrightDataAccess
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public OutrightDataAccess(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
         public IList<Outright> GetOutrightDataList(OutrightMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel10";
@@ -46,7 +54,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
         /// <param name="isConvert">Is Convert value.</param>
         /// <param name="baseCurrency">Base currency value.</param>
         /// <returns>A list of Handicap Over/Under.</returns>
-        private static IList<Outright> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
+        private IList<Outright> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<Outright>();
 
@@ -55,10 +63,12 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
             while (reader.Read())
             {
+                var teamId = reader.ToInt("teamid");
                 var item = new Outright
                 {
                     LeagueId = reader.ToInt("leagueid"),
-                    TeamId = reader.ToInt("teamid"),
+                    TeamId = teamId,
+                    TeamName = _cacheRefAdapter.GetTeamName(teamId),
                     MatchId = reader.ToInt("orid"),
                     Forecast = reader.ToDecimal(forecastColumn),
                     Balance = reader.ToDecimal(balanceColumn)
