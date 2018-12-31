@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Web.Hosting;
     using Common;
     using Core.Configuration.Interfaces;
     using Data;
@@ -36,36 +37,33 @@
             {
                 RowPerGroup = rowPerGroup
             };
-            var count = 0;
-            TicketResult ticket = null;
-
+            
             using (var db = GetObjectDb(UspKey))
             {
                 AddMultiCustomerParameters(db, metaModel);
 
                 using (var reader = db.ExecuteReader())
                 {
+                    var count = 0;
+                    var ticket = new TicketResult();
+
                     var columns = GetColumns();
                     var safeReader = this.GetSafeDataReader(reader, columns.Select(x => x.Value).ToList());
 
                     while (reader.Read())
                     {
-                        if (count > 0 && count == rowPerGroup && ticket != null)
+                        if (count == rowPerGroup)
                         {
                             SaveDataToFile(groupData, ticket);
                             count = 0;
-                        }
-
-                        if (count == 0 || count == rowPerGroup)
-                        {
                             ticket = new TicketResult();
                         }
 
-                        ticket?.MainTicketList.Add(MapTicket(safeReader, columns, currencyList));
+                        ticket.MainTicketList.Add(MapTicket(safeReader, columns, currencyList));
                         count++;
                     }
 
-                    if (ticket != null)
+                    if (ticket.MainTicketList.Any())
                     {
                         SaveDataToFile(groupData, ticket);
                     }
@@ -250,7 +248,7 @@
         private void SaveDataToFile(GroupTicketResult groupData, TicketResult ticket)
         {
             var data = JsonConvert.SerializeObject(ticket);
-            var dataFileName = $"BTC\\{Guid.NewGuid().ToString()}.json";
+            var dataFileName = HostingEnvironment.MapPath($"~\\tmp\\BTC\\{Guid.NewGuid().ToString()}.json");
             _tempFileService.Save(dataFileName, data);
             groupData.DataPath.Add(dataFileName);
             ticket.MainTicketList.Clear();

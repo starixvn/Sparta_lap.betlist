@@ -202,7 +202,7 @@
             var excelFiles = new List<string>();
             var response = HttpContext.Current.Response;
 
-            for (int i = ticketResult.DataPath.Count - 1; i >= 0; i--)
+            for (int i = 0; i < ticketResult.DataPath.Count; i++)
             {
                 if (response.IsClientConnected)
                 {
