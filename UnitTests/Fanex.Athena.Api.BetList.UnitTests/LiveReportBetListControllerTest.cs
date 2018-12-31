@@ -26,8 +26,6 @@
 
         private const int DefaultPageIndex = 1;
 
-        private readonly TicketResult _ticketResult = new TicketResult { SumComm = 1, SumPlayerComm = 2, SumLicenseeWL = 3, SumWinLoss = 4 };
-
         private readonly IList<TicketText> _ticketTexts = new List<TicketText>();
 
         private LiveReportBetListController _controller;
@@ -92,7 +90,7 @@
         }
 
         [TearDown]
-        public void SetUp()
+        public void TearDown()
         {
             BetListService.ClearReceivedCalls();
         }
@@ -178,7 +176,7 @@
         {
             // Arrange
             var metaModel = CreateValidCurrencyMetaModel(currencyId);
-            BetListService.GetBetListData(metaModel, UserCurrencyList, SelWinlossByMatchUsp).Returns(_ticketResult);
+            BetListService.GetBetListData(metaModel, UserCurrencyList, SelWinlossByMatchUsp).Returns(CreateTicketResult());
 
             // Action
             var result = _controller.Match(metaModel);
@@ -198,7 +196,7 @@
         {
             // Arrange
             var metaModel = CreateValidCurrencyMetaModel(currencyId);
-            BetListService.GetBetListData(metaModel, UserCurrencyList, SelWinlossOutrightUsp).Returns(_ticketResult);
+            BetListService.GetBetListData(metaModel, UserCurrencyList, SelWinlossOutrightUsp).Returns(CreateTicketResult());
 
             // Action
             var result = _controller.Outright(metaModel);
@@ -219,7 +217,7 @@
             metaModel.TotalRows = testCaseData.TotalRows;
             metaModel.SumLicenseeWL = testCaseData.SumLicenseeWL;
             metaModel.SumComm = testCaseData.SumComm;
-            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), UserCurrencyList, SelWinlossNumberGameUsp).Returns(_ticketResult);
+            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), UserCurrencyList, SelWinlossNumberGameUsp).Returns(CreateTicketResult());
 
             // Action
             var result = _controller.NumberGame(metaModel, testCaseData.Page, testCaseData.Rows);
@@ -242,11 +240,12 @@
         public void MixParlay_ValidCurrency_ReturnCorrectResult(dynamic testCaseData)
         {
             // Arrange
-            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), UserCurrencyList, SelWinlossParlayUsp).Returns(_ticketResult);
-            var metaModel = CreateValidCurrencyMetaModel(testCaseData.CurrencyId);
+            LiveReportBetListMetaModel metaModel = CreateValidCurrencyMetaModel(testCaseData.CurrencyId);
             metaModel.TotalRows = testCaseData.TotalRows;
             metaModel.SumLicenseeWL = testCaseData.SumLicenseeWL;
             metaModel.SumComm = testCaseData.SumComm;
+            var ticketResult = CreateTicketResult();
+            BetListService.GetBetListData(metaModel, Arg.Any<IDictionary<int, string>>(), SelWinlossParlayUsp).Returns(ticketResult);
 
             // Action
             var result = _controller.MixParlay(metaModel, testCaseData.Page, testCaseData.Rows);
@@ -273,7 +272,7 @@
             metaModel.TotalRows = testCaseData.TotalRows;
             metaModel.SumLicenseeWL = testCaseData.SumLicenseeWL;
             metaModel.SumComm = testCaseData.SumComm;
-            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), UserCurrencyList, SelWinlossVHRacingUsp).Returns(_ticketResult);
+            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), Arg.Any<IDictionary<int, string>>(), SelWinlossVHRacingUsp).Returns(CreateTicketResult());
 
             // Action
             var result = _controller.VirtualSports(metaModel, testCaseData.Page, testCaseData.Rows);
@@ -291,6 +290,15 @@
                     testCaseData.SumLicenseeWLText);
             });
         }
+
+        private static TicketResult CreateTicketResult() =>
+            new TicketResult
+            {
+                SumComm = 1,
+                SumPlayerComm = 2,
+                SumLicenseeWL = 3,
+                SumWinLoss = 4
+            };
 
         private LiveReportBetListMetaModel CreateInvalidCurrencyMetaModel()
         {
@@ -310,19 +318,20 @@
         {
             SessionService.GenerateAgentListXml(Arg.Any<int>()).Returns("<Xml/>");
 
-            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), UserCurrencyList, Arg.Any<string>()).Returns(_ticketResult);
+            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), UserCurrencyList, Arg.Any<string>()).Returns(CreateTicketResult());
 
-            _controller.When(x => x.Ticket(_ticketResult, Arg.Any<BetListMetaModel>(), Arg.Any<int>(), Arg.Any<bool>())).DoNotCallBase();
-            _controller.Ticket(_ticketResult, Arg.Any<BetListMetaModel>(), Arg.Any<int>(), Arg.Any<bool>()).Returns(_ticketTexts);
+            _controller.When(x => x.Ticket(Arg.Any<TicketResult>(), Arg.Any<BetListMetaModel>(), Arg.Any<int>(), Arg.Any<bool>())).DoNotCallBase();
+            _controller.Ticket(Arg.Any<TicketResult>(), Arg.Any<BetListMetaModel>(), Arg.Any<int>(), Arg.Any<bool>()).Returns(_ticketTexts);
         }
 
         private void AssertData(dynamic result)
         {
+            var ticketResult = CreateTicketResult();
             Assert.Multiple(() =>
             {
                 Assert.That(result.Main, Is.EqualTo(_ticketTexts));
-                Assert.That(result.Total.SumWinLoss, Is.EqualTo(_ticketResult.SumWinLoss + _ticketResult.SumPlayerComm));
-                Assert.That(result.Total.SumLicenseeWl, Is.EqualTo(_ticketResult.SumLicenseeWL + _ticketResult.SumComm));
+                Assert.That(result.Total.SumWinLoss, Is.EqualTo(ticketResult.SumWinLoss + ticketResult.SumPlayerComm));
+                Assert.That(result.Total.SumLicenseeWl, Is.EqualTo(ticketResult.SumLicenseeWL + ticketResult.SumComm));
             });
         }
 

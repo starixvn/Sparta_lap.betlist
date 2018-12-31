@@ -5,6 +5,7 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
+    using Extension.Utility.Interfaces;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
@@ -27,7 +28,9 @@
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
-            DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(
+                balanceUpDataAccess,
+                Substitute.For<ITempFileService>());
         }
 
         [Test]
@@ -53,14 +56,6 @@
                 ObjectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, BalanceUp.BalanceUpDay);
                 ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
             });
-        }
-
-        [Test]
-        public void GetBetListByRefno_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                BetListByRefnoUspKey,
-                () => DataAccess.GetBetListByRefno(new RefNoBetListMetaModel(), UserCurrencyList));
         }
 
         [TestCase("", "", false)]
@@ -164,14 +159,6 @@
                 Assert.That(result.SumStake, Is.EqualTo(outPut["sumstake"]));
                 Assert.That(result.TotalRows, Is.EqualTo(outPut["totalrows"]));
             });
-        }
-
-        [Test]
-        public void GetRunningBetList_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                RunningBetListUspKey,
-                () => DataAccess.GetRunningBetList(new BaseBettingTicketMetaModel(), UserCurrencyList));
         }
 
         [TestCase("", "", false)]
@@ -291,14 +278,6 @@
                 Assert.That(result.SumComm, Is.EqualTo(outPut["sumcomm"]));
                 Assert.That(result.SumPlayerComm, Is.EqualTo(outPut["sumplayercomm"]));
             });
-        }
-
-        [Test]
-        public void GetBetListForSingleCustomer_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                BetListBySingleCustomerUspKey,
-                () => DataAccess.GetBetListForSingleCustomer(new SingleCustomersBetListMetaModel(), UserCurrencyList));
         }
     }
 }

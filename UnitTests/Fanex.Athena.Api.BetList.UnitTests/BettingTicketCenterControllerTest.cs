@@ -38,6 +38,8 @@
                 LangService,
                 _service,
                 _bettingTicketCenterExcel);
+
+            MockSessionData();
         }
 
         [OneTimeTearDown]
@@ -52,6 +54,7 @@
         [TearDown]
         public void TearDown()
         {
+            _service.ClearReceivedCalls();
             _bettingTicketCenterExcel.ClearReceivedCalls();
         }
 
@@ -81,7 +84,6 @@
             {
                 RefNo = FakeHelper.Create<int>()
             };
-            // SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
 
             _service.GetBetListByRefno(metaModel, Arg.Any<IDictionary<int, string>>()).Returns(new TicketResult());
 
@@ -158,21 +160,13 @@
         public void GetByRunning_InvalidCurrency_ReturnEmpty()
         {
             // Arrange
-            SessionService.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-                {
-                    { 1, "Currency" }
-                }
-            });
-
             var metaModel = new BaseBettingTicketMetaModel
             {
                 FromDate = DateTime.Today,
                 ToDate = DateTime.Today,
-                ProductCodeList = "C1,C2",
-                CurrencyId = 2
+                ProductCodeList = "C1,C2"
             };
+            _service.IsValidCurrencyId(Arg.Any<int>(), Arg.Any<IDictionary<int, string>>()).Returns(false);
 
             // Action
             var result = _controller.GetByRunning(metaModel);
@@ -194,13 +188,6 @@
             };
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            SessionService.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-                {
-                    { 1, "Currency" }
-                }
-            });
 
             var ticketResult = new TicketResult
             {
@@ -208,6 +195,7 @@
                 TotalRows = FakeHelper.Create<int>()
             };
             _service.GetRunningBetList(metaModel, Arg.Any<IDictionary<int, string>>()).Returns(ticketResult);
+            _service.IsValidCurrencyId(Arg.Any<int>(), Arg.Any<IDictionary<int, string>>()).Returns(true);
 
             // Action
             var result = _controller.GetByRunning(metaModel);
@@ -235,20 +223,13 @@
                 IsExport = true
             };
 
-            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            SessionService.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-                {
-                    { 1, "Currency" }
-                }
-            });
-
             var ticketResult = new TicketResult
             {
                 SumStake = FakeHelper.Create<int>(),
                 TotalRows = FakeHelper.Create<int>()
             };
+            ticketResult.MainTicketList.Add(new LrfTicket());
+            _service.IsValidCurrencyId(Arg.Any<int>(), Arg.Any<IDictionary<int, string>>()).Returns(true);
             _service.GetRunningBetList(metaModel, Arg.Any<IDictionary<int, string>>()).Returns(ticketResult);
 
             // Action
@@ -266,6 +247,7 @@
             {
                 RefNo = FakeHelper.Create<int>()
             };
+            var ticketResult = new TicketResult();
             var ticket = new TicketText
             {
                 Index = 1,
@@ -273,8 +255,8 @@
             };
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-
-            _service.BuildTicketText(Arg.Any<TicketResult>(), metaModel, Arg.Any<bool>()).Returns(new List<TicketText> { ticket });
+            _service.GetBetListByRefno(metaModel, SessionService.UserSession.CurrencyList).Returns(ticketResult);
+            _service.BuildTicketText(ticketResult, metaModel, Arg.Any<bool>()).Returns(new List<TicketText> { ticket });
 
             // Action
             var result = _controller.GetByRefno(metaModel);
@@ -291,14 +273,6 @@
         public void GetBySingleCustomer_InvalidCurrency_ReturnEmpty()
         {
             // Arrange
-            SessionService.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-                {
-                    { 1, "Currency" }
-                }
-            });
-
             var metaModel = new SingleCustomersBetListMetaModel
             {
                 FromDate = DateTime.Today,
@@ -307,6 +281,7 @@
                 CurrencyId = 2,
                 UserName = FakeHelper.Create<string>()
             };
+            _service.IsValidCurrencyId(Arg.Any<int>(), Arg.Any<IDictionary<int, string>>()).Returns(false);
 
             // Action
             var result = _controller.GetBySingleCustomer(metaModel);
@@ -364,13 +339,7 @@
             };
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>(), IsAllowedCustomerComm = true });
-            SessionService.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-                {
-                    { 1, "Currency" }
-                }
-            });
+            _service.IsValidCurrencyId(Arg.Any<int>(), Arg.Any<IDictionary<int, string>>()).Returns(true);
 
             var ticketResult = new TicketResult
             {
@@ -391,10 +360,6 @@
             {
                 _service.Received(1).GetBetListForSingleCustomer(metaModel, Arg.Any<IDictionary<int, string>>());
                 Assert.That(result.Data, Is.Not.Null);
-                Assert.That(
-                    result.Total.SumWinLoss.Contains(ticketResult.SumWinLoss.ToString(FormatKey.DecimalFormat))
-                        && result.Total.SumWinLoss.Contains(ticketResult.SumPlayerComm.ToString(FormatKey.DecimalFormat)),
-                    Is.True);
                 Assert.That(result.Total.SumLicenseeWL, Is.EqualTo((ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat)));
                 Assert.That(result.Total.SumStake, Is.EqualTo(ticketResult.SumStake.ToString(FormatKey.DecimalFormat)));
                 Assert.That(result.TotalRows, Is.EqualTo(ticketResult.TotalRows));
@@ -416,23 +381,10 @@
             };
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>(), IsAllowedCustomerComm = true });
-            SessionService.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-                {
-                    { 1, "Currency" }
-                }
-            });
+            _service.IsValidCurrencyId(Arg.Any<int>(), Arg.Any<IDictionary<int, string>>()).Returns(true);
 
-            var ticketResult = new TicketResult
-            {
-                SumWinLoss = FakeHelper.Create<decimal>(),
-                SumLicenseeWL = FakeHelper.Create<decimal>(),
-                SumComm = FakeHelper.Create<decimal>(),
-                SumPlayerComm = FakeHelper.Create<decimal>(),
-                SumStake = FakeHelper.Create<decimal>(),
-                TotalRows = FakeHelper.Create<int>()
-            };
+            var ticketResult = new TicketResult();
+            ticketResult.MainTicketList.Add(new LrfTicket());
             _service.GetBetListForSingleCustomer(metaModel, Arg.Any<IDictionary<int, string>>()).Returns(ticketResult);
 
             // Action

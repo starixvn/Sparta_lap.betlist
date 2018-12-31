@@ -46,7 +46,7 @@
         public void GetMixParlayDetailTicket_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = FakeHelper.Create<TicketResult>();
+            var expectedResult = new TicketResult();
             const int LicenseeId = 1;
             const long TransId = 1;
             const int CustId = 2;
