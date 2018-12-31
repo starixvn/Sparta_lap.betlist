@@ -15,6 +15,7 @@
     using Excel.BetList;
     using Excel.BetList.Model;
     using Extension.Utility;
+    using Fanex.Athena.Excel.BetList.Builders;
     using Fanex.Athena.Extension.Utility.Interfaces;
     using Ionic.Zip;
     using Model.BetList.DTO;
@@ -79,12 +80,6 @@
             }
             else
             {
-                /*
-                 * Force to clean memory
-                 */
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                 if (metaModel.IsExport)
@@ -215,15 +210,17 @@
                 {
                     break;
                 }
-                var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-                var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title);
-                if (excelModel != null)
+
+                var builder = DependencyResolver.Current.GetService<IBettingTicketCenterExcelBuilder>();
+                using (var excelService = new BettingTicketCenterExcel(builder))
                 {
-                    workbook = excelService.Export(excelModel);
-                    var dataFileName = ticketResult.DataPath[i] + ".dat";
-                    var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
-                    using (var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write))
+                    var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title);
+                    if (excelModel != null)
                     {
+                        workbook = excelService.Export(excelModel);
+                        var dataFileName = ticketResult.DataPath[i] + ".dat";
+                        var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
+                        using (var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write))
                         using (var bufferStream = new BufferedStream(stream))
                         {
                             workbook.Write(bufferStream);
@@ -231,11 +228,9 @@
                             workbook.Clear();
                             ClearData(excelModel.Data);
                             excelModel.Data = null;
-
                         }
 
                     }
-
                 }
 
             }

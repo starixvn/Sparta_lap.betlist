@@ -8,10 +8,10 @@
     using NPOI.SS.UserModel;
     using Resources;
 
-    public class BettingTicketCenterExcel : IBettingTicketCenterExcel
+    public class BettingTicketCenterExcel : IBettingTicketCenterExcel, IDisposable
     {
         private readonly IBettingTicketCenterExcelBuilder _builder;
-
+        bool disposed;
         public BettingTicketCenterExcel(IBettingTicketCenterExcelBuilder builder)
         {
             _builder = builder;
@@ -78,6 +78,28 @@
             var sumLicenseeWL = excelModel.ShowLicenseeWl ? (excelModel.Data.SumLicenseeWL + excelModel.Data.SumComm) : (decimal?)null;
 
             _builder.AddFooter(sumStake, sumWinLoss, sumPlayerComm, sumLicenseeWL);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (disposing && _builder != null)
+            {
+                ((IDisposable)_builder)?.Dispose();
+            }
+
+            disposed = true;
         }
     }
 }

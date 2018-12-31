@@ -262,6 +262,21 @@ namespace Fanex.Athena.Excel.BetList.Builders
             {
                 (_builder as IDisposable)?.Dispose();
                 _builder = null;
+
+                _evenCellLeftAlign = null;
+
+                _oddCellLeftAlign = null;
+
+                _evenCellCenterAlign = null;
+
+                _oddCellCenterAlign = null;
+
+                _negativeWinLossFont = null;
+
+                _winLossFont = null;
+
+                _liveFont = null;
+                _mixLiveFont = null;
             }
 
             disposed = true;

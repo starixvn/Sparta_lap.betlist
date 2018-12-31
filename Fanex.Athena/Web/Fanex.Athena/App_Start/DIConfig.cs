@@ -53,12 +53,12 @@ namespace Fanex.Athena
             builder.RegisterInstance(new CustomMemoryCache()).As<ICustomMemoryCache>();
 
             builder.RegisterType<ApiExceptionLogger>().As<IExceptionLogger>();
-
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
+        
 
         private static void RegisterThirdpartyServices(ContainerBuilder builder)
         {
