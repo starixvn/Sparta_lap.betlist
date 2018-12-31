@@ -14,7 +14,8 @@
 
         protected const string CurrencyName = "aaaaaaaaa";
 
-        private readonly IDictionary<int, string> _userCurrencyList = new Dictionary<int, string> {
+        private readonly IDictionary<int, string> _userCurrencyList = new Dictionary<int, string>
+        {
             { CurrencyId, CurrencyName }, { 1, "USD" }
         };
 

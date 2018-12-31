@@ -59,7 +59,8 @@
             Justification = "Reviewed. Suppression is OK here.")]
         string RemoteRefUrl { get; }
 
-        string GetValue(string key);
         string TempFilePath { get; }
+
+        string GetValue(string key);
     }
 }

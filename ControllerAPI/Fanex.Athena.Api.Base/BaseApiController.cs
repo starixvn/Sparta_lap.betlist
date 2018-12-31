@@ -8,15 +8,12 @@ namespace Fanex.Athena.Api.Base
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using NPOI.SS.UserModel;
     using ONEbook.UM.Filters;
@@ -76,7 +73,6 @@ namespace Fanex.Athena.Api.Base
                       workbook.Clear();
                       stream.Close();
                       context.Dispose();
-
                   }
               },
               new MediaTypeHeaderValue("application/octet-stream"));
@@ -110,6 +106,5 @@ namespace Fanex.Athena.Api.Base
             var validProductCodes = productCodeList.Split(',').Where(x => productList.Any(y => y.ProductCode.Equals(x, StringComparison.OrdinalIgnoreCase)));
             return string.Join(",", validProductCodes.ToArray());
         }
-
     }
 }

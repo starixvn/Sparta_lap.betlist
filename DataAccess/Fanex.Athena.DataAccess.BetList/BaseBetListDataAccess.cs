@@ -9,19 +9,22 @@ namespace Fanex.Athena.DataAccess.BetList
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Core.Utilities;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
     using Model.Core.DataDomain;
-    using System.Linq;
+
     public class BaseBetListDataAccess : BaseDataAccess
     {
-
-        protected static internal LrfTicket MapTicket(ISafeDataReader reader, IDictionary<string, string> columns, IDictionary<int, string> currencyList, string baseCurrency = "", long custId = 0)
+        protected internal static LrfTicket MapTicket(
+            ISafeDataReader reader, 
+            IDictionary<string, string> columns, 
+            IDictionary<int, string> currencyList, 
+            string baseCurrency = "", 
+            long custId = 0)
         {
-
             var currencyId = reader.GetInt("currencyid");
             return new LrfTicket
             {
@@ -89,17 +92,15 @@ namespace Fanex.Athena.DataAccess.BetList
                 OddsSpread = reader.GetDecimal("oddsspread"),
                 SettlementStatus = reader.GetByte("SettlementStatus")
             };
-
-
-
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         [CLSCompliant(false)]
-        protected internal SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, IDictionary<int, string> currencyList, string baseCurrency = "", long custId = 0)
+        protected internal SortableList<LrfTicket> ReadBetListTicket(
+            IDataReader dataReader, 
+            IDictionary<int, string> currencyList, 
+            string baseCurrency = "", 
+            long custId = 0)
         {
-
             var columns = GetColumns(baseCurrency);
             var tickets = new SortableList<LrfTicket>();
 

@@ -1,12 +1,12 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Common;
     using Core.Configuration.Interfaces;
-    using Core.Exception;
     using Data;
     using Fanex.Athena.Extension.Utility.Interfaces;
     using Interfaces;
@@ -19,12 +19,17 @@
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ITempFileService _tempFileService;
+
         public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ITempFileService tempFileService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _tempFileService = tempFileService;
         }
-        public GroupTicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, int rowPerGroup, IDictionary<int, string> currencyList)
+
+        public GroupTicketResult GetBetListForMultipleCustomers(
+            MultipleCustomersBetListMetaModel metaModel,
+            int rowPerGroup,
+            IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_Licensee";
             var groupData = new GroupTicketResult
@@ -33,68 +38,44 @@
             };
             var count = 0;
             TicketResult ticket = null;
-            try
+
+            using (var db = GetObjectDb(UspKey))
             {
-                using (var db = GetObjectDb(UspKey))
+                AddMultiCustomerParameters(db, metaModel);
+
+                using (var reader = db.ExecuteReader())
                 {
-                    AddMultiCustomerParameters(db, metaModel);
+                    var columns = GetColumns();
+                    var safeReader = this.GetSafeDataReader(reader, columns.Select(x => x.Value).ToList());
 
-                    using (var reader = db.ExecuteReader())
+                    while (reader.Read())
                     {
-                        var columns = GetColumns();
-                        var safeReader = this.GetSafeDataReader(reader, columns.Select(x => x.Value).ToList());
-
-                        while (reader.Read())
-                        {
-                            if (count > 0 && count == rowPerGroup && ticket != null)
-                            {
-                                SaveDataToFile(groupData, ticket);
-                                count = 0;
-                            }
-                            if (count == 0 || count == rowPerGroup)
-                            {
-                                ticket = new TicketResult();
-
-                            }
-
-                            ticket?.MainTicketList.Add(MapTicket(safeReader, columns, currencyList));
-                            count++;
-
-                        }
-                        if (ticket != null)
+                        if (count > 0 && count == rowPerGroup && ticket != null)
                         {
                             SaveDataToFile(groupData, ticket);
+                            count = 0;
                         }
 
+                        if (count == 0 || count == rowPerGroup)
+                        {
+                            ticket = new TicketResult();
+                        }
+
+                        ticket?.MainTicketList.Add(MapTicket(safeReader, columns, currencyList));
+                        count++;
                     }
 
-                    var outSqlParams = db.GetOuputParams();
-                    groupData.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
-                    groupData.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
-                    groupData.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
-                    groupData.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
-                    groupData.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
-                    groupData.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
-
-                    return groupData;
+                    if (ticket != null)
+                    {
+                        SaveDataToFile(groupData, ticket);
+                    }
                 }
-            }
-            catch (Exception exception)
-            {
-                throw new DataAccessException(exception, UspKey, metaModel);
-            }
 
-        }
+                var outSqlParams = db.GetOuputParams();
+                ReadOutputParams(groupData, outSqlParams);
 
-        private void SaveDataToFile(GroupTicketResult groupData, TicketResult ticket)
-        {
-            var data = JsonConvert.SerializeObject(ticket);
-            var dataFileName = $"BTC\\{Guid.NewGuid().ToString()}.json";
-            _tempFileService.Save(dataFileName, data);
-            groupData.DataPath.Add(dataFileName);
-            ticket.MainTicketList.Clear();
-            ticket.MainTicketList.TrimExcess();
-            
+                return groupData;
+            }
         }
 
         public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
@@ -102,29 +83,23 @@
             const string UspKey = "Lrf_BetList_Licensee";
 
             var ticketResult = new TicketResult();
-            try
+
+            using (var db = GetObjectDb(UspKey))
             {
-                using (var db = GetObjectDb(UspKey))
+                AddMultiCustomerParameters(db, metaModel);
+
+                using (var reader = db.ExecuteReader())
                 {
-                    AddMultiCustomerParameters(db, metaModel);
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
-                    }
-
-                    var outSqlParams = db.GetOuputParams();
-                    ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
-                    ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
-                    ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
-                    ticketResult.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
-                    ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
-                    ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                 }
-            }
-            catch (Exception sqlException)
-            {
-                throw new DataAccessException(sqlException, UspKey, metaModel);
+
+                var outSqlParams = db.GetOuputParams();
+                ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
+                ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
+                ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
+                ticketResult.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
+                ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
+                ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
             }
 
             return ticketResult;
@@ -168,29 +143,23 @@
             const string UspKey = "Lrf_BetList_Mem";
 
             var ticketResult = new TicketResult();
-            try
+
+            using (var db = GetObjectDb(UspKey))
             {
-                using (var db = GetObjectDb(UspKey))
+                AddSingleCustomerParameters(db, metaModel);
+
+                using (var reader = db.ExecuteReader())
                 {
-                    AddSingleCustomerParameters(db, metaModel);
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
-                    }
-
-                    var outSqlParams = db.GetOuputParams();
-                    ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
-                    ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
-                    ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
-                    ticketResult.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
-                    ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
-                    ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                 }
-            }
-            catch (Exception sqlException)
-            {
-                throw new DataAccessException(sqlException, UspKey, metaModel);
+
+                var outSqlParams = db.GetOuputParams();
+                ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
+                ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
+                ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
+                ticketResult.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
+                ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
+                ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
             }
 
             return ticketResult;
@@ -201,27 +170,21 @@
             const string UspKey = "Lrf_BetList_RefNo_Mem";
 
             var ticketResult = new TicketResult();
-            try
-            {
-                using (var db = GetObjectDb(UspKey))
-                {
-                    var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-                    db.AddInParameter("RefNo", DbType.Int64, metaModel.RefNo);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, balanceUp.MoveBetsDay);
-                    db.AddInParameter("BalanceUpDay", DbType.DateTime, balanceUp.BalanceUpDay);
-                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
-                    }
-                }
-            }
-            catch (Exception sqlException)
+            using (var db = GetObjectDb(UspKey))
             {
-                throw new DataAccessException(sqlException, UspKey, metaModel);
+                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                db.AddInParameter("UserName", DbType.String, metaModel.UserName);
+                db.AddInParameter("RefNo", DbType.Int64, metaModel.RefNo);
+                db.AddInParameter("MoveBetsDay", DbType.DateTime, balanceUp.MoveBetsDay);
+                db.AddInParameter("BalanceUpDay", DbType.DateTime, balanceUp.BalanceUpDay);
+                db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
+                }
             }
 
             return ticketResult;
@@ -232,44 +195,48 @@
             const string UspKey = "Lrf_BetList_Running";
 
             var ticketResult = new TicketResult();
-            try
+
+            using (var db = GetObjectDb(UspKey))
             {
-                using (var db = GetObjectDb(UspKey))
+                var productCodes = metaModel.ProductCodeList.Split(',');
+                var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
+                var endOfToDate = metaModel.ToDate.AddDays(1).AddMilliseconds(-2);
+
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                db.AddInParameter("UserName", DbType.String, metaModel.UserName);
+                db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                db.AddInParameter("ToDate", DbType.DateTime, endOfToDate);
+                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
+                db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+                db.AddInParameter("ProductList", DbType.String, productList);
+                db.AddInParameter("showBA", DbType.Boolean, productCodes.Contains(Product.BA));
+                db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
+                db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
+                db.AddOutParameter("TotalRows", DbType.Int32, 4);
+                db.AddOutParameter("SumStake", DbType.Currency, 8);
+                AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
+
+                using (var reader = db.ExecuteReader())
                 {
-                    var productCodes = metaModel.ProductCodeList.Split(',');
-                    var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
-                    var endOfToDate = metaModel.ToDate.AddDays(1).AddMilliseconds(-2);
-
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-                    db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                    db.AddInParameter("ToDate", DbType.DateTime, endOfToDate);
-                    db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
-                    db.AddInParameter("ProductList", DbType.String, productList);
-                    db.AddInParameter("showBA", DbType.Boolean, productCodes.Contains(Product.BA));
-                    db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
-                    db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
-                    db.AddOutParameter("TotalRows", DbType.Int32, 4);
-                    db.AddOutParameter("SumStake", DbType.Currency, 8);
-                    AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
-                    }
-
-                    var outSqlParams = db.GetOuputParams();
-                    ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
-                    ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                 }
-            }
-            catch (Exception sqlException)
-            {
-                throw new DataAccessException(sqlException, UspKey, metaModel);
+
+                var outSqlParams = db.GetOuputParams();
+                ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
+                ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
             }
 
             return ticketResult;
+        }
+
+        private static void ReadOutputParams(GroupTicketResult groupData, Hashtable outSqlParams)
+        {
+            groupData.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
+            groupData.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
+            groupData.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
+            groupData.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
+            groupData.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
+            groupData.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
         }
 
         private static void AddSortParameter(IObjectDb db, string sortBy, string sortOrder)
@@ -278,6 +245,16 @@
             {
                 db.AddInParameter("Sort", DbType.String, sortBy + " " + sortOrder);
             }
+        }
+
+        private void SaveDataToFile(GroupTicketResult groupData, TicketResult ticket)
+        {
+            var data = JsonConvert.SerializeObject(ticket);
+            var dataFileName = $"BTC\\{Guid.NewGuid().ToString()}.json";
+            _tempFileService.Save(dataFileName, data);
+            groupData.DataPath.Add(dataFileName);
+            ticket.MainTicketList.Clear();
+            ticket.MainTicketList.TrimExcess();
         }
 
         private void AddSingleCustomerParameters(IObjectDb db, SingleCustomersBetListMetaModel metaModel)

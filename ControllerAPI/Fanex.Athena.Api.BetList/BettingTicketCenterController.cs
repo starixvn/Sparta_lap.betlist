@@ -154,6 +154,13 @@
             };
         }
 
+        private static void ClearData(TicketResult ticketResult)
+        {
+            ticketResult.MainTicketList.Clear();
+            ticketResult.MainTicketList.TrimExcess();
+            ticketResult.MainTicketList = null;
+        }
+
         private HttpResponseMessage Export(BettingTicketCenterExcelModel excelModel)
         {
             if (excelModel.Data.MainTicketList.Count == 0)
@@ -165,13 +172,6 @@
             ClearData(excelModel.Data);
             excelModel.Data = null;
             return ExcelStream(workbook, string.Empty);
-        }
-        private static void ClearData(TicketResult ticketResult)
-        {
-
-            ticketResult.MainTicketList.Clear();
-            ticketResult.MainTicketList.TrimExcess();
-            ticketResult.MainTicketList = null;
         }
     }
 }

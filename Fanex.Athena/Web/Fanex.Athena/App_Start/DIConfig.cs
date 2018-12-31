@@ -14,7 +14,6 @@ using Fanex.Athena.Api.Base.Logger;
 using Fanex.Athena.DataAccess.Report;
 using Fanex.Athena.DataAccess.Report.Interfaces;
 using Fanex.Athena.Extension.Utility.Internal;
-using Fanex.Athena.Model.Report.DTO;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.TicketHelper;
@@ -53,12 +52,11 @@ namespace Fanex.Athena
             builder.RegisterInstance(new CustomMemoryCache()).As<ICustomMemoryCache>();
 
             builder.RegisterType<ApiExceptionLogger>().As<IExceptionLogger>();
-            // Set the dependency resolver to be Autofac.
+
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
-        
 
         private static void RegisterThirdpartyServices(ContainerBuilder builder)
         {

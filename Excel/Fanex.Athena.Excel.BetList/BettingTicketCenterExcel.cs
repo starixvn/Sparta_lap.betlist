@@ -11,7 +11,9 @@
     public class BettingTicketCenterExcel : IBettingTicketCenterExcel, IDisposable
     {
         private readonly IBettingTicketCenterExcelBuilder _builder;
-        bool disposed;
+
+        private bool disposed;
+
         public BettingTicketCenterExcel(IBettingTicketCenterExcelBuilder builder)
         {
             _builder = builder;

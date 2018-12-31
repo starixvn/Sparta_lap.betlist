@@ -72,6 +72,16 @@ namespace Fanex.Athena.Api.BetList
             get { return _cacheRefAdapter; }
         }
 
+        protected static void ClearData(TicketResult ticketResult)
+        {
+            ticketResult.MainTicketList.Clear();
+            ticketResult.TicketDataList.Clear();
+            ticketResult.MainTicketList.TrimExcess();
+            ticketResult.TicketDataList.TrimExcess();
+            ticketResult.MainTicketList = null;
+            ticketResult.TicketDataList = null;
+        }
+
         protected BalanceUp GetBalanceUp()
         {
             return _balanceUpDataAccess.GetBalanceUp();
@@ -156,16 +166,6 @@ namespace Fanex.Athena.Api.BetList
             };
             ClearData(ticketResult);
             return result;
-        }
-
-        protected static void ClearData(TicketResult ticketResult)
-        {
-            ticketResult.MainTicketList.Clear();
-            ticketResult.TicketDataList.Clear();
-            ticketResult.MainTicketList.TrimExcess();
-            ticketResult.TicketDataList.TrimExcess();
-            ticketResult.MainTicketList = null;
-            ticketResult.TicketDataList = null;
         }
 
         protected internal virtual dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)

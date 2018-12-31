@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Fanex.Athena.Extension.Utility.Interfaces;
 
 namespace Fanex.Athena.Extension.Utility
@@ -7,10 +6,12 @@ namespace Fanex.Athena.Extension.Utility
     public class TempFileService : ITempFileService
     {
         private readonly IAppSettings _appSettings;
+
         public TempFileService(IAppSettings appSetting)
         {
             _appSettings = appSetting;
         }
+
         public void Delete(string path)
         {
             try
@@ -22,11 +23,10 @@ namespace Fanex.Athena.Extension.Utility
                     File.Delete(realPath);
                 }
             }
-            finally
+            catch
             {
-
+                // Ignore it
             }
-
         }
 
         public string ReadString(string path)
@@ -48,34 +48,30 @@ namespace Fanex.Athena.Extension.Utility
                     writer.Write(content);
                 }
             }
-
         }
+
         public byte[] ReadBytes(string path)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            using (FileStream fsSource = new FileStream(realPath,
-            FileMode.Open, FileAccess.Read))
+            using (FileStream fileStream = new FileStream(realPath, FileMode.Open, FileAccess.Read))
             {
-                byte[] bytes = new byte[fsSource.Length];
-                int numBytesToRead = (int)fsSource.Length;
+                byte[] bytes = new byte[fileStream.Length];
+                int numBytesToRead = (int)fileStream.Length;
                 int numBytesRead = 0;
                 while (numBytesToRead > 0)
                 {
                     // Read may return anything from 0 to numBytesToRead.
-                    int n = fsSource.Read(bytes, numBytesRead, numBytesToRead);
+                    int n = fileStream.Read(bytes, numBytesRead, numBytesToRead);
 
-                    // Break when the end of the file is reached.
-                    if (n == 0)
-                        break;
-
-                    numBytesRead += n;
-                    numBytesToRead -= n;
+                    if (n > 0)
+                    {
+                        numBytesRead += n;
+                        numBytesToRead -= n;
+                    }
                 }
 
                 return bytes;
             }
-
-
         }
     }
 }
