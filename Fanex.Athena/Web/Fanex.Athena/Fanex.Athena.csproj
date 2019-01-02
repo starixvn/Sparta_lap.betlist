@@ -714,7 +714,6 @@
     <Content Include="Scripts\Extension\ajaxBinaryTransporting.js" />
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
-    <Content Include="tmp\BTC\placeholder.txt" />
     <Content Include="Views\Desktop\BetList\PragmaticPlayDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\ajax-loader.gif" />

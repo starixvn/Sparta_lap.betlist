@@ -248,7 +248,7 @@
         private void SaveDataToFile(GroupTicketResult groupData, TicketResult ticket)
         {
             var data = JsonConvert.SerializeObject(ticket);
-            var dataFileName = HostingEnvironment.MapPath($"~\\tmp\\BTC\\{Guid.NewGuid().ToString()}.json");
+            var dataFileName = $"BTC\\{Guid.NewGuid().ToString()}.json";
             _tempFileService.Save(dataFileName, data);
             groupData.DataPath.Add(dataFileName);
             ticket.MainTicketList.Clear();
