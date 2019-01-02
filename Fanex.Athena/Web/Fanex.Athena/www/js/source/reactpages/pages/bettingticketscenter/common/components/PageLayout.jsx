@@ -20,9 +20,14 @@ export class PageLayout extends Component {
             popupUrl: null,
             popupTitle: null
         };
+
     }
     
     componentDidMount() {
+        window.onload = () => {
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent("BTC");
+        };
+        
         window.ViewResult = (...args) => {
             const url = BetList.getResultUrl.apply(BetList, args);
             this._openPopup(url, LangHelper.getSingleResource("Result"));

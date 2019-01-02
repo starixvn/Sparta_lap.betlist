@@ -5318,6 +5318,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
             popupUrl: null,
             popupTitle: null
         };
+
         return _this;
     }
 
@@ -5325,6 +5326,10 @@ var PageLayout = exports.PageLayout = function (_Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             var _this2 = this;
+
+            window.onload = function () {
+                window.logOpenBetlistEvent && window.logOpenBetlistEvent("BTC");
+            };
 
             window.ViewResult = function () {
                 for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
