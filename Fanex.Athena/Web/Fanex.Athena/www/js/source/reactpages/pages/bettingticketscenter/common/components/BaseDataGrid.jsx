@@ -72,7 +72,7 @@ export default class BaseDataGrid extends Component {
             
             rows.push(
                    <Row key={`product-${i}`}>
-                    <Cell className="center-align">{item.Index}</Cell>                  
+                    <Cell title={item.Index} className="center-align">{item.Index}</Cell>                  
                     <Cell>{item.ExternalId}</Cell>
                     <Cell>{item.SystemId}</Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.TransTime }}></Cell>

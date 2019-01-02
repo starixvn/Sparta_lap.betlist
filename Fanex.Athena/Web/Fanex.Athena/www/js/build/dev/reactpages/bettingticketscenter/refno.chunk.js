@@ -5145,7 +5145,7 @@ var BaseDataGrid = function (_Component) {
                     { key: 'product-' + i },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { className: 'center-align' },
+                        { title: item.Index, className: 'center-align' },
                         item.Index
                     ),
                     _react2.default.createElement(
