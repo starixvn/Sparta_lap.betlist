@@ -45,15 +45,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             }
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Set data to list.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="isConvert">Is Convert value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>A list of Handicap Over/Under.</returns>
         private IList<Outright> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<Outright>();
@@ -79,7 +70,5 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
             return dataList;
         }
-
-        #endregion Utility
     }
 }
