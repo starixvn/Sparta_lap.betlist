@@ -2,13 +2,10 @@
 {
     using System.Data;
     using Core.UnitTests.TestHelpers;
-    using Extension.Utility;
     using Model.Core.DTO.Common;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
-    using Session.Model;
 
     public class GroupComDataAccessTest : BaseDataAccessHelperTest<GroupComDataAccess>
     {
@@ -17,12 +14,7 @@
 
         protected override void SetUpDataAccess()
         {
-            var sessionStorage = Substitute.For<ISessionStorage>();
-            sessionStorage.LicenseeSession.Returns(new LicenseeSession
-            {
-                LicenseeId = LicenseeId
-            });
-            DataAccess = Substitute.ForPartsOf<GroupComDataAccess>(Substitute.For<IAppSettings>(), sessionStorage);
+            DataAccess = Substitute.ForPartsOf<GroupComDataAccess>();
         }
 
         [Test]
@@ -78,7 +70,7 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_GroupCommGetById")).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetById(GroupCommId);
+            DataAccess.GetById(GroupCommId, LicenseeId);
 
             // Assert
             Assert.Multiple(() =>

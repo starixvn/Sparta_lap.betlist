@@ -62,7 +62,7 @@ namespace Fanex.Athena.Service.Customer
         public IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel)
         {
             IResultInfo result = null;
-            var groupInfo = _groupComDataAccess.GetById(metaModel.GroupComId);
+            var groupInfo = _groupComDataAccess.GetById(metaModel.GroupComId, _sessionService.LicenseeSession.LicenseeId);
             if (groupInfo == null)
             {
                 return new ResultInfo

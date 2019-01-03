@@ -16,6 +16,8 @@
     [TestFixture]
     public partial class CustomerCommServiceTest
     {
+        private const int LicenseeId = 999;
+
         private ICasinoCustomerService _casinoCustomerService;
 
         private ICustomerCommDataAccess _customerCommDataAccess;
@@ -32,6 +34,10 @@
             _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _customerCommDataAccess = Substitute.For<ICustomerCommDataAccess>();
             _sessionService = Substitute.For<ISessionService>();
+            _sessionService.LicenseeSession.Returns(new LicenseeSession
+            {
+                LicenseeId = LicenseeId
+            });
             _groupCommDataAccess = Substitute.For<IGroupComDataAccess>();
 
             _customerCommService = new CustomerCommService(

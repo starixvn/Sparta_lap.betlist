@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Casino.Interfaces;
+    using Core.Users.Interfaces;
     using DataAccess.Customer.Interfaces;
     using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
@@ -14,9 +15,13 @@
     [TestFixture]
     public class GroupComServiceTest
     {
+        private const int LicenseeId = 999;
+
         private ICasinoCustomerService _casinoCustomerService;
 
         private IGroupComDataAccess _groupDataAccess;
+
+        private ISessionService _sessionService;
 
         private GroupComService _groupComService;
 
@@ -25,7 +30,12 @@
         {
             _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _groupDataAccess = Substitute.For<IGroupComDataAccess>();
-            _groupComService = new GroupComService(_casinoCustomerService, _groupDataAccess);
+            _sessionService = Substitute.For<ISessionService>();
+            _sessionService.LicenseeSession.Returns(new LicenseeSession
+            {
+                LicenseeId = LicenseeId
+            });
+            _groupComService = new GroupComService(_casinoCustomerService, _groupDataAccess, _sessionService);
         }
 
         [TearDown]
@@ -71,7 +81,7 @@
             var result = _groupComService.GetById(groupCommId);
 
             // Assert
-            _groupDataAccess.Received().GetById(groupCommId);
+            _groupDataAccess.Received().GetById(groupCommId, LicenseeId);
         }
 
         [Test]

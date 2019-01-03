@@ -17,7 +17,7 @@
         {
             // Arrange
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
-            _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(x => null);
+            _groupCommDataAccess.GetById(metaModel.GroupComId, Arg.Any<int>()).Returns(x => null);
 
             // Action
             var result = _customerCommService.MoveCustomersToGroup(metaModel);
@@ -36,7 +36,7 @@
             // Arrange
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
 
-            _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(FakeHelper.Create<GroupCommMetaModel>());
+            _groupCommDataAccess.GetById(metaModel.GroupComId, LicenseeId).Returns(FakeHelper.Create<GroupCommMetaModel>());
             _customerCommDataAccess.MoveCustomersToGroup(metaModel).Returns(new ResultInfo
             {
                 Code = Math.Abs(FakeHelper.Create<int>()) + 1,
@@ -61,7 +61,7 @@
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
             metaModel.IsAllowedRNG = true;
 
-            _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(FakeHelper.Create<GroupCommMetaModel>());
+            _groupCommDataAccess.GetById(metaModel.GroupComId, LicenseeId).Returns(FakeHelper.Create<GroupCommMetaModel>());
 
             var userSession = new UserSession { UserName = FakeHelper.Create<string>() };
             _sessionService.UserSession.Returns(userSession);
@@ -87,7 +87,7 @@
         {
             // Arrange
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
-            _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(FakeHelper.Create<GroupCommMetaModel>());
+            _groupCommDataAccess.GetById(metaModel.GroupComId, LicenseeId).Returns(FakeHelper.Create<GroupCommMetaModel>());
 
             var expectedResult = new ResultInfo { ExtendedData = string.Empty };
             _customerCommDataAccess.MoveCustomersToGroup(metaModel).Returns(expectedResult);
