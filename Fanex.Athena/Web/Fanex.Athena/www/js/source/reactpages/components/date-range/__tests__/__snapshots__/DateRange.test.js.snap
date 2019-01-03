@@ -174,11 +174,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
                   value={2018}
                 >
                   <option
-                    value={2013}
-                  >
-                    2013
-                  </option>
-                  <option
                     value={2014}
                   >
                     2014
@@ -202,6 +197,11 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
                     value={2018}
                   >
                     2018
+                  </option>
+                  <option
+                    value={2019}
+                  >
+                    2019
                   </option>
                 </select>
               </span>
@@ -1021,11 +1021,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
                   value={2018}
                 >
                   <option
-                    value={2013}
-                  >
-                    2013
-                  </option>
-                  <option
                     value={2014}
                   >
                     2014
@@ -1049,6 +1044,11 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
                     value={2018}
                   >
                     2018
+                  </option>
+                  <option
+                    value={2019}
+                  >
+                    2019
                   </option>
                 </select>
               </span>
@@ -1905,11 +1905,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
                   value={2018}
                 >
                   <option
-                    value={2013}
-                  >
-                    2013
-                  </option>
-                  <option
                     value={2014}
                   >
                     2014
@@ -1933,6 +1928,11 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
                     value={2018}
                   >
                     2018
+                  </option>
+                  <option
+                    value={2019}
+                  >
+                    2019
                   </option>
                 </select>
               </span>
@@ -2752,11 +2752,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
                   value={2018}
                 >
                   <option
-                    value={2013}
-                  >
-                    2013
-                  </option>
-                  <option
                     value={2014}
                   >
                     2014
@@ -2780,6 +2775,11 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
                     value={2018}
                   >
                     2018
+                  </option>
+                  <option
+                    value={2019}
+                  >
+                    2019
                   </option>
                 </select>
               </span>
@@ -3657,11 +3657,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
                   value={2018}
                 >
                   <option
-                    value={2013}
-                  >
-                    2013
-                  </option>
-                  <option
                     value={2014}
                   >
                     2014
@@ -3685,6 +3680,11 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
                     value={2018}
                   >
                     2018
+                  </option>
+                  <option
+                    value={2019}
+                  >
+                    2019
                   </option>
                 </select>
               </span>
@@ -4504,11 +4504,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
                   value={2018}
                 >
                   <option
-                    value={2013}
-                  >
-                    2013
-                  </option>
-                  <option
                     value={2014}
                   >
                     2014
@@ -4532,6 +4527,11 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
                     value={2018}
                   >
                     2018
+                  </option>
+                  <option
+                    value={2019}
+                  >
+                    2019
                   </option>
                 </select>
               </span>
