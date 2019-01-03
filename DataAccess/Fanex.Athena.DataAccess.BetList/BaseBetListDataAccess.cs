@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Core.Utilities;
     using Fanex.Athena.DataAccess.Core;
@@ -18,6 +19,8 @@ namespace Fanex.Athena.DataAccess.BetList
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected internal static LrfTicket MapTicket(
             ISafeDataReader reader, 
             IDictionary<string, string> columns, 
