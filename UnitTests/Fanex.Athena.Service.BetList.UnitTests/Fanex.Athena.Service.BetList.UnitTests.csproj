@@ -141,6 +141,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BettingTicketCenterServiceTest.cs" />
     <Compile Include="Extensions\LrfBetListHtmlBuilderTest.cs" />
     <Compile Include="Helpers\BetListHelperTest.cs" />
     <Compile Include="ExchangeBetListServiceTest.cs" />
@@ -164,6 +165,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
+      <Project>{CE1F7641-A14D-4AF6-9BD3-CAD4873669B4}</Project>
+      <Name>Fanex.Athena.VendorAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.StatelessCore\Fanex.Athena.Service.StatelessCore.csproj">
       <Project>{DA9A50E3-C62D-4F12-96C2-3AC289D423FE}</Project>
