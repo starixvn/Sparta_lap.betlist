@@ -414,6 +414,8 @@ var _site = __webpack_require__(/*! @jsroot/lib/site */ "./www/js/source/reactpa
 
 var _site2 = _interopRequireDefault(_site);
 
+var _loaderAction = __webpack_require__(/*! @jsroot/actions/loaderAction */ "./www/js/source/reactpages/actions/loaderAction.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -423,6 +425,9 @@ function getGridData(url, params) {
         _DataService2.default.postData(url, params).then(function (response) {
             response.data.timestamp = new Date().getTime();
             dispatch(setGridData(response.data));
+        }).catch(function (error) {
+            alert("Sorry, an error occurred while processing your request.");
+            dispatch((0, _loaderAction.toggleLoader)(false));
         });
     };
 }
@@ -1125,12 +1130,13 @@ var AutoComplete = function (_Component) {
         };
 
         _this._onChange = function (event) {
-            var value = _this.input.value;
+            var value = (_this.input.value || "").trim();
+
             var onInput = _this.props.onInput;
 
             onInput && onInput(value);
 
-            if (value === "") {
+            if (value.length < 3) {
                 _this._clearState();
                 return;
             }
@@ -3733,7 +3739,8 @@ var Pager = function (_Component) {
             var _props = this.props,
                 isShowPagingInfo = _props.isShowPagingInfo,
                 isAllowInputPageIndex = _props.isAllowInputPageIndex,
-                pageOption = _props.pageOption;
+                pageOption = _props.pageOption,
+                alwaysVisible = _props.alwaysVisible;
             var PageIndex = pageOption.PageIndex,
                 PageSize = pageOption.PageSize,
                 TotalItem = pageOption.TotalItem,
@@ -3743,7 +3750,7 @@ var Pager = function (_Component) {
 
             var isDisable = isNaN(parseInt(inputValue));
 
-            var isShow = TotalItem > PageList[0];
+            var isShow = alwaysVisible || TotalItem > PageList[0];
             var totalPage = Math.ceil(TotalItem / PageSize);
 
             return _react2.default.createElement(
@@ -3780,7 +3787,8 @@ Pager.propTypes = {
     }),
     onPaging: _propTypes2.default.func,
     isShowPagingInfo: _propTypes2.default.bool,
-    isAllowInputPageIndex: _propTypes2.default.bool
+    isAllowInputPageIndex: _propTypes2.default.bool,
+    alwaysVisible: _propTypes2.default.bool
 };
 Pager.defaultProps = {
     pageOption: {
@@ -3790,7 +3798,8 @@ Pager.defaultProps = {
         TotalItem: 0
     },
     isShowPagingInfo: true,
-    isAllowInputPageIndex: true
+    isAllowInputPageIndex: true,
+    alwaysVisible: false
 };
 exports.default = Pager;
 
@@ -4166,7 +4175,8 @@ var Table = function (_Component) {
                 footer = _props2.footer,
                 isPaging = _props2.isPaging,
                 pageOption = _props2.pageOption,
-                onPaging = _props2.onPaging;
+                onPaging = _props2.onPaging,
+                alwaysVisiblePager = _props2.alwaysVisiblePager;
 
             var maxWidth = this.state.maxWidth;
 
@@ -4208,7 +4218,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: onPaging })
+                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { alwaysVisible: alwaysVisiblePager, pageOption: pageOption, onPaging: onPaging })
             );
         }
     }, {
@@ -4239,7 +4249,8 @@ Table.propTypes = {
     isPaging: _propTypes2.default.bool,
     onPaging: _propTypes2.default.func,
     pageOption: _propTypes2.default.object,
-    adjustedHeight: _propTypes2.default.number
+    adjustedHeight: _propTypes2.default.number,
+    alwaysVisiblePager: _propTypes2.default.bool
 };
 Table.defaultProps = {
     width: _constants.MAX_WIDTH,
@@ -4248,7 +4259,8 @@ Table.defaultProps = {
     isPaging: false,
     adjustedHeight: 0,
     bodyHeight: 0,
-    autoHeight: true
+    autoHeight: true,
+    alwaysVisiblePager: false
 };
 
 var _initialiseProps = function _initialiseProps() {
@@ -5133,6 +5145,16 @@ var Site = function () {
             document.body.appendChild(link);
             link.click();
             link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        }
+    }, {
+        key: "readAsJson",
+        value: function readAsJson(blob, callback) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                callback && callback(JSON.parse(reader.result));
+            };
+            reader.readAsText(blob);
         }
     }]);
 

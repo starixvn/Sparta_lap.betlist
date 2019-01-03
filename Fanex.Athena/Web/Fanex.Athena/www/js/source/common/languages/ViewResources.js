@@ -1,4 +1,4 @@
-﻿// Generated at: 12/20/2018 1:15:56 PM
+﻿// Generated at: 1/3/2019 5:04:11 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -756,6 +756,7 @@ SelectSite:"Select Site",
 SelectTop:"Select Top",
 Sep:"Sep",
 September:"September",
+ServerBusyMessage:"Your request can&apos;t be processed now due to busy server. Please try again later",
 SessionID:"Session ID",
 SessionLoggedMsg:"You have logged in from another session or your login session has expired",
 SetAsDefaultGroup:"Set as default group",
