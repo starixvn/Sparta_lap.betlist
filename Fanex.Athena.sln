@@ -224,7 +224,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{5BC66D3C-4A3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Web.UnitTests", "UnitTests\Fanex.Athena.Web.UnitTests\Fanex.Athena.Web.UnitTests.csproj", "{8611F4A1-E278-45CD-8D75-F8D8004529B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.StatelessCore", "Fanex.Athena.Service.StatelessCore\Fanex.Athena.Service.StatelessCore.csproj", "{DA9A50E3-C62D-4F12-96C2-3AC289D423FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.StatelessCore", "Service\Fanex.Athena.Service.StatelessCore\Fanex.Athena.Service.StatelessCore.csproj", "{DA9A50E3-C62D-4F12-96C2-3AC289D423FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

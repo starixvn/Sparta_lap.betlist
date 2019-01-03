@@ -112,7 +112,7 @@
       <Project>{c25dc4bc-2721-401b-8896-d210d70b392b}</Project>
       <Name>Fanex.Athena.DataAccess.Customer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena.Service.StatelessCore\Fanex.Athena.Service.StatelessCore.csproj">
+    <ProjectReference Include="..\Fanex.Athena.Service.StatelessCore\Fanex.Athena.Service.StatelessCore.csproj">
       <Project>{DA9A50E3-C62D-4F12-96C2-3AC289D423FE}</Project>
       <Name>Fanex.Athena.Service.StatelessCore</Name>
     </ProjectReference>

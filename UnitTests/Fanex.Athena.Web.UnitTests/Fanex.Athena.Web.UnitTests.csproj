@@ -167,7 +167,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Fanex.Athena.Service.StatelessCore\Fanex.Athena.Service.StatelessCore.csproj">
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.StatelessCore\Fanex.Athena.Service.StatelessCore.csproj">
       <Project>{DA9A50E3-C62D-4F12-96C2-3AC289D423FE}</Project>
       <Name>Fanex.Athena.Service.StatelessCore</Name>
     </ProjectReference>
