@@ -2590,4 +2590,7 @@
   <data name="BettingTicketCenter_MultiCustomersTabNote1" xml:space="preserve">
     <value>所有投注类别，联赛和比赛过滤器仅支援1个选定日期</value>
   </data>
+  <data name="ServerBusyMessage" xml:space="preserve">
+    <value>由于服务器繁忙，您的请求现在无法处理。请稍后再试。</value>
+  </data>
 </root>

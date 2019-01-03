@@ -2614,4 +2614,7 @@
   <data name="BTCExportExcelMsg2" xml:space="preserve">
     <value>請試著縮短日期範圍或是分別搜尋個別貨幣/投注類別等。</value>
   </data>
+  <data name="ServerBusyMessage" xml:space="preserve">
+    <value>由於服務器繁忙，您的請求現在無法處理。請稍後再試。</value>
+  </data>
 </root>
