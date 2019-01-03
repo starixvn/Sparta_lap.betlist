@@ -60,10 +60,10 @@
 
             gtag('config', 'UA-93927620-1');
 
-            window.logOpenBetlistEvent = function () {
+            window.logOpenBetlistEvent = function (eventLabel) {
                 try {
                     window.gtag('event', 'view_bet_list', {
-                        'event_label': 'Bet List Promotion',
+                        'event_label': eventLabel || 'Bet List Promotion',
                         'event_category': 'bet_list',
                         'non_interaction': true
                     });

@@ -52,7 +52,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<LicenseeWinLossByTimeZoneMetaModel>());
+                _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<LicenseeWinLossByTimeZoneMetaModel>(), Arg.Any<IDictionary<int, string>>());
                 Assert.That(result.Data, Is.Empty);
             });
         }
@@ -65,7 +65,7 @@
             var metaModel = CreateValidMetaModel();
             metaModel.CurrencyId = 999;
             SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTestData).Returns(AgentListXml);
-            _dataAccess.GetData(metaModel).ReturnsForAnyArgs(new ReportResultModel<LicenseeWinLossByTimeZone>());
+            _dataAccess.GetData(metaModel, UserCurrencyList).ReturnsForAnyArgs(new ReportResultModel<LicenseeWinLossByTimeZone>());
 
             // Action
             using (var controller = CreateController())
@@ -74,7 +74,7 @@
             }
 
             // Assert
-            _dataAccess.Received(1).GetData(Arg.Is<LicenseeWinLossByTimeZoneMetaModel>(x => x.AgentListXml == AgentListXml));
+            _dataAccess.Received(1).GetData(Arg.Is<LicenseeWinLossByTimeZoneMetaModel>(x => x.AgentListXml == AgentListXml), UserCurrencyList);
         }
 
         [Test]
@@ -91,7 +91,7 @@
                 },
                 TotalData = new LicenseeWinLossByTimeZone { BetCount = 123 }
             };
-            _dataAccess.GetData(metaModel).Returns(resultModel);
+            _dataAccess.GetData(metaModel, UserCurrencyList).Returns(resultModel);
             dynamic result;
 
             // Action

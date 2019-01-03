@@ -2,21 +2,14 @@
 {
     using System;
     using System.Data;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Data;
-    using Session.Interfaces;
 
     public class CustomerCommDataAccess : BaseDataAccess, ICustomerCommDataAccess
     {
-        public CustomerCommDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         /// <summary>
         ///     Move customers to new group including 2 following steps:
         ///     1: Remove all customers commission in group.

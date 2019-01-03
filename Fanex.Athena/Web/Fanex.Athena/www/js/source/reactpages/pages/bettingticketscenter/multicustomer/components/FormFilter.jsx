@@ -2,6 +2,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import moment from 'moment'
+import { ToastContainer, toast, Flip } from 'react-toastify';
 
 import Select from 'react-select'
 import MultipleSelect from '@9softstudio/react-multiselect'
@@ -15,17 +16,28 @@ import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
 import Service from '../../common/lib/Service'
+import ApiUrl from '../../common/constants/apiUrl'
 
-const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
-const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer');
+const ToastMsg = () => (
+  <div>
+    <div>{LangHelper.getSingleResource("BTCExportExcelMsg1")}</div>
+    <div>{LangHelper.getSingleResource("BTCExportExcelMsg2")}</div>
+  </div>
+)
 
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
+        this.baseCurrencyList = AppData.baseCurrencyList;
+        this.defaultBaseCurrency = props.selectedBaseCurrency;
     }
 
     componentDidMount() {
         this._onChangeProduct(this.props.selectedProduct);
+    }
+
+    _showExportWarning = () => {
+        toast.success(<ToastMsg />);
     }
 
     get isValidModel() {
@@ -44,11 +56,12 @@ export class FormFilter extends Component {
             return;
         }
 
+        toast.dismiss();
         const title = Service.getTitle(params.FromDate, params.ToDate, params.CurrencyName, params.BaseCurrency);
         this.props.setReportTitle(title);
         this.props.setRequestParam(params);
         this.props.toggleLoader(true);
-        this.props.getGridData(DATA_URL, params);
+        this.props.getGridData(ApiUrl.MULTICUSTOMER_DATA_URL, params);
     }
 
     _getParams() {
@@ -57,17 +70,25 @@ export class FormFilter extends Component {
         }
 
         const { fromDate, toDate } = this.props.dateRange;
+        const { PageSize, SortBy, SortOrder } = this.props.requestParam;
 
         return {
+            PageSize: PageSize,
+            PageIndex: 1,
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
-            Username: this.props.username,
+            CurrencyId: this.props.selectedCurrency.value,
+            CurrencyName: this.props.selectedCurrency.label,
             BaseCurrency: this.props.selectedBaseCurrency,
-            IsConvertAll: this.props.isConvertAll,
-            Status: this.props.selectedStatus,
+            StatusList: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
-            Platform: this.props.selectedPlatform
+            SportId: this.props.selectedSport,
+            BetTypeId: this.props.selectedBettype,
+            LeagueId: this.props.selectedLeague,
+            MatchId: this.props.selectedMatch,
+            SortBy: SortBy,
+            SortOrder: SortOrder
         }
     }
 
@@ -81,8 +102,38 @@ export class FormFilter extends Component {
 
         params.IsExport = true;
         this.props.toggleLoader(true);
-        DataService.getFile(DATA_URL, params).then((response) => {
-            Site.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
+        DataService.getFile(ApiUrl.MULTICUSTOMER_DATA_URL, params).then((response) => {
+            toast.dismiss();
+            const contentType = response.headers["content-type"];
+            if(contentType && contentType.indexOf('application/json') > -1)
+            {
+                const RowsExceedLimitErrorCode = 1001;
+                Site.readAsJson(response.data, (result) => {
+                    if(result.ErrorCode === RowsExceedLimitErrorCode){
+                        this._showExportWarning();
+                    }
+                    else
+                    {
+                        const msg = result.ErrorMsg || LangHelper.getSingleResource("ErrorProcessingMsg");
+                        alert(msg);
+                    }
+                });
+            } else {
+                const NoContentStatusCode = 204;
+                if(response.status === NoContentStatusCode){
+                    alert(LangHelper.getSingleResource("NoInfo"));
+                }
+                else {
+                    const fileName = "BettingTicketsCenter_MultiCustomer." +
+                        (response.headers["content-type"] === "application/zip" ? "zip" : "xls");
+                
+                    Site.downloadFile(response.data, fileName);
+                }
+            }
+            
+            this.props.toggleLoader(false);
+        }).catch(error => {
+            alert(LangHelper.getSingleResource("ErrorProcessingMsg"));
             this.props.toggleLoader(false);
         });
     }
@@ -102,9 +153,9 @@ export class FormFilter extends Component {
     _onChangeDateRange = (date, isValidMonthRange = true) => {
         if (isValidMonthRange) {
             this.props.setDateRange(date);
-            this.props.getBettypeList(this.props.selectedProduct, this.props.selectedBettype, this.isSingleDate({fromDate: date.startDate, toDate: date.endDate}));
+            this.props.getBettypeList(this.props.selectedProduct, this.isSingleDate({fromDate: date.startDate, toDate: date.endDate}));
             if(this.isSingleDate()){
-                this.props.getLeagueList(this.props.selectedSport.value, this.props.dateRange.fromDate);
+                this.props.getLeagueList(this.props.selectedSport.value, date.startDate);
             }
         }
         else {
@@ -115,6 +166,7 @@ export class FormFilter extends Component {
 
     _renderProductSelectList() {
         const productList = AppData.productList;
+
         return productList && productList.length && (
            <Select instanceId="ProductList"
                 value={this.props.selectedProduct}
@@ -126,7 +178,7 @@ export class FormFilter extends Component {
     _onChangeProduct = (productCode) => {
         this.props.setSelectedProduct(productCode);
         this.props.getSportList(productCode, this.isSingleDate() && this.props.dateRange.fromDate);
-        this.props.getBettypeList(productCode, this.props.selectedBettype, this.isSingleDate());
+        this.props.getBettypeList(productCode, this.isSingleDate());
     }
 
    _renderSportSelectList() {
@@ -154,7 +206,7 @@ export class FormFilter extends Component {
             <Select instanceId="BettypeList"
                 value={this.props.selectedBettype}
                 options={bettypeList}
-                onChange={(item) => this.props.setSelectedBettype(item)} />
+                onChange={(item) => this.props.setSelectedBettype(item.value)} />
         );
     }
 
@@ -195,22 +247,26 @@ export class FormFilter extends Component {
     }
 
     _onChangeCurrency = (currency) => {
-        this.props.setSelectedCurrency(currency);
+        const currencyName = currency.label;
+        let baseCurrency = currencyName;
 
-        const baseCurrencyList = AppData.originalBaseCurrencyList.slice(0); // clone array
-
-        var baseCurrency = baseCurrencyList.find((item) => item.label == currency.label);
-        if(!baseCurrency) {
-            baseCurrency = { value: currency.label, label: currency.label }
-            baseCurrencyList.push(baseCurrency);
+        if (currency.value == 0) {
+            this.baseCurrencyList = AppData.baseCurrencyList;
+            baseCurrency = this.baseCurrencyList.find(x => x.label === this.props.selectedBaseCurrency) ?
+                            this.props.selectedBaseCurrency :
+                            this.defaultBaseCurrency;
         }
-            
-        this.props.setBaseCurrencyList(baseCurrencyList);
+        else if(!this.baseCurrencyList.find(x => x.label === currencyName)){
+            this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
+            this.baseCurrencyList.push({value: currencyName, label: currencyName});      
+        }
+
+        this.props.setSelectedCurrency(currency)
         this.props.setSelectedBaseCurrency(baseCurrency);
     }
 
     _renderBaseCurrencySelectList() {
-        const baseCurrencyList = this.props.baseCurrencyList;
+        const baseCurrencyList = this.baseCurrencyList;
 
         return baseCurrencyList && baseCurrencyList.length && (
             <Select instanceId="ddlBased"
@@ -234,17 +290,6 @@ export class FormFilter extends Component {
                     onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
     }
 
-    _renderPlatformSelectList() {
-        const platformList = AppData.platformList;
-
-        return platformList && platformList.length && (
-            <Select instanceId="PlatformList"
-                value={this.props.selectedPlatform}
-                options={platformList}
-                onChange={(item) => this.props.setSelectedPlatform(item.value)} />
-        );
-    }
-
       _renderLiveStatusSelectList() {
           const liveStatusList = AppData.liveStatusList;
 
@@ -260,7 +305,11 @@ export class FormFilter extends Component {
         return (
             <div className="page-filter">
                 <div className="row">
-
+                    <ToastContainer 
+                            autoClose={10000} 
+                            pauseOnFocusLoss={false} 
+                            style={{width:"500px"}}
+                            transition={Flip}/>
                      <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
@@ -326,13 +375,6 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Platform")}</label>
-                        {this._renderPlatformSelectList()}
-                        </div>
-                    </div>
-
                     <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Live")}</label>
@@ -354,8 +396,13 @@ export class FormFilter extends Component {
                     </div>
                </div>
                <div className="row">
-                    <div className="col-12">
-                        {LangHelper.getSingleResource('BettingTicketCenter_MultiCustomersTabNote')}
+                   <div className="col-1" style={{flex: "0 0 4%"}}>
+                       {LangHelper.getSingleResource('Note')}:
+                    </div>
+                    <div className="col-9">
+                        * {LangHelper.getSingleResource('BettingTicketCenter_MultiCustomersTabNote1')}
+                        <br />
+                        * {LangHelper.getSingleResource('BettingTicketCenter_MultiCustomersTabNote2').replace("{0}", AppData.dateConstraint.minDate)}
                     </div>
                </div>
             </div>
@@ -367,10 +414,10 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
-        return Object.assign({}, { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-            selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
+    const { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
+        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus } = state;
+        return Object.assign({}, { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
+            selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

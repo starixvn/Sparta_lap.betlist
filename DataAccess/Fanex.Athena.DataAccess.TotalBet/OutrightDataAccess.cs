@@ -11,17 +11,18 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Core;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
-    using Extension.Utility;
     using Fanex.Common.Extensions;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
-    using Session.Interfaces;
+    using VendorAdapter.Interfaces;
 
     public class OutrightDataAccess : BaseDataAccess, IOutrightDataAccess
     {
-        public OutrightDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public OutrightDataAccess(ICacheRefAdapter cacheRefAdapter)
         {
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public IList<Outright> GetOutrightDataList(OutrightMetaModel metaModel)
@@ -44,16 +45,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
             }
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Set data to list.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="isConvert">Is Convert value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>A list of Handicap Over/Under.</returns>
-        private static IList<Outright> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
+        private IList<Outright> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<Outright>();
 
@@ -62,10 +54,12 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
             while (reader.Read())
             {
+                var teamId = reader.ToInt("teamid");
                 var item = new Outright
                 {
                     LeagueId = reader.ToInt("leagueid"),
-                    TeamId = reader.ToInt("teamid"),
+                    TeamId = teamId,
+                    TeamName = _cacheRefAdapter.GetTeamName(teamId),
                     MatchId = reader.ToInt("orid"),
                     Forecast = reader.ToDecimal(forecastColumn),
                     Balance = reader.ToDecimal(balanceColumn)
@@ -76,7 +70,5 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
             return dataList;
         }
-
-        #endregion Utility
     }
 }

@@ -7,7 +7,6 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
     using Utility;
 
     [TestFixture]
@@ -21,10 +20,7 @@
                 {
                     SportId = x[1].ToString()
                 });
-            DataAccess = Substitute.ForPartsOf<NumberGameBetSettingDataAccess>(
-                AppSetting,
-                Substitute.For<ISessionStorage>(),
-                betSettingReader);
+            DataAccess = Substitute.ForPartsOf<NumberGameBetSettingDataAccess>(betSettingReader);
         }
 
         [Test]

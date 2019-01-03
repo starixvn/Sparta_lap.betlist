@@ -23,7 +23,10 @@ namespace Fanex.Athena.Service.Report
             _customerTurnoverDataAccess = customerTurnoverDataAccess;
         }
 
-        public ReportResultModel<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode)
+        public ReportResultModel<CustTurnover> GetDataList(
+            CustomerTurnoverMetaModel metaModel,
+            IDictionary<int, string> currencyList, 
+            string languageCode)
         {
             if (!metaModel.IsValid)
             {
@@ -34,7 +37,7 @@ namespace Fanex.Athena.Service.Report
                 };
             }
 
-            var result = _customerTurnoverDataAccess.GetDataList(metaModel, languageCode);
+            var result = _customerTurnoverDataAccess.GetDataList(metaModel, currencyList, languageCode);
 
             if (result.DataList.Any())
             {

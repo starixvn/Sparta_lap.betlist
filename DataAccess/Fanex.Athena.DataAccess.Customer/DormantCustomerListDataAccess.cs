@@ -2,11 +2,9 @@
 using System.Data;
 using Fanex.Athena.DataAccess.Core;
 using Fanex.Athena.DataAccess.Customer.Interfaces;
-using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.Core.ResultModel;
 using Fanex.Athena.Model.Customer.DTO;
 using Fanex.Athena.Model.Customer.MetaModel;
-using Fanex.Athena.Session.Interfaces;
 using Fanex.Common;
 using Fanex.Common.Extensions;
 using Fanex.Data;
@@ -15,11 +13,6 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     public class DormantCustomerListDataAccess : BaseDataAccess, IDormantCustomerListDataAccess
     {
-        public DormantCustomerListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel)
         {
             const string UspName = "Lrf_DormantCustomerSel";

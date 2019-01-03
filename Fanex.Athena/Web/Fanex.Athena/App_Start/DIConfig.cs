@@ -14,7 +14,6 @@ using Fanex.Athena.Api.Base.Logger;
 using Fanex.Athena.DataAccess.Report;
 using Fanex.Athena.DataAccess.Report.Interfaces;
 using Fanex.Athena.Extension.Utility.Internal;
-using Fanex.Athena.Model.Report.DTO;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.TicketHelper;
@@ -54,7 +53,6 @@ namespace Fanex.Athena
 
             builder.RegisterType<ApiExceptionLogger>().As<IExceptionLogger>();
 
-            // Set the dependency resolver to be Autofac.
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
@@ -63,9 +61,9 @@ namespace Fanex.Athena
         private static void RegisterThirdpartyServices(ContainerBuilder builder)
         {
             builder.RegisterType<MaintenanceService>().As<IMaintenanceService>();
-            builder.RegisterType<TicketHelper>().As<ITicketHelper>();
-            builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>();
-            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>();
+            builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
+            builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
+            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerDependency();
             builder.RegisterType<PPResult>().As<IPPResult>();
 
             builder.RegisterInstance(ParserService.Instance).As<IParserService>();

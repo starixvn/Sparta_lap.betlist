@@ -15,8 +15,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<KenoBetSettingDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 Substitute.For<ICacheRefAdapter>());
         }
 

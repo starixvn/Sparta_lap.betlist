@@ -16,7 +16,7 @@
 
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<CashOutBetListDataAccess>(null, CreateSessionStorage());
+            DataAccess = Substitute.ForPartsOf<CashOutBetListDataAccess>();
         }
 
         [Test]
@@ -39,7 +39,7 @@
             ObjectDb.ExecuteReader(Arg.Do<object>(x => param = x));
 
             // Action
-            DataAccess.GetDetail(metaModel);
+            DataAccess.GetDetail(metaModel, UserCurrencyList);
 
             // Assert
             Assert.That(param, Tobe.SameProperties(expectedParam));
@@ -62,7 +62,7 @@
             safeReader.GetDecimal("playercomm").Returns(PlayerComm);
 
             // Action
-            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel());
+            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel(), UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -89,7 +89,7 @@
             MapReaderData(dataReader);
 
             // Action
-            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel());
+            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel(), UserCurrencyList);
 
             var firstCashoutTicket = result.CashOutTicketList.First();
 
@@ -106,10 +106,12 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 UspName,
-                () => DataAccess.GetDetail(new CashOutBetListDetailMetaModel
-                {
-                    BaseCurrency = "usd"
-                }));
+                () => DataAccess.GetDetail(
+                    new CashOutBetListDetailMetaModel
+                    {
+                        BaseCurrency = "usd"
+                    }, 
+                    UserCurrencyList));
         }
     }
 }

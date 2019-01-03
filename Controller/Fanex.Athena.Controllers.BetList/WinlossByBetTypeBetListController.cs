@@ -51,7 +51,7 @@
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
-            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
 
             // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;

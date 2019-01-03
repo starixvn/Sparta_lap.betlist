@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System;
+    using System.Collections.Generic;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
     using Model.BetList.MetaModel;

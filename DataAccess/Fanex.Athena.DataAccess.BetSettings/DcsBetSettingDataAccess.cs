@@ -6,13 +6,11 @@
     using System.Xml.Linq;
     using Constant.DataDomain;
     using Core;
-    using Extension.Utility;
     using Fanex.Common.Extensions;
     using Interfaces;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using Service.Core.Utility.Interfaces;
-    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class DcsBetSettingDataAccess : BaseDataAccess, IDcsBetSettingDataAccess
@@ -50,11 +48,8 @@
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public DcsBetSettingDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ICoreLogger logger,
             ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
         {
             _logger = logger;
             _cacheRefAdapter = cacheRefAdapter;

@@ -111,7 +111,7 @@
                 var expectedTitle = ViewResources.ProductFW + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
 
                 var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), "Lrf_BetList_RNG_Detail").Returns(ticketResult);
+                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_RNG_Detail").Returns(ticketResult);
 
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 

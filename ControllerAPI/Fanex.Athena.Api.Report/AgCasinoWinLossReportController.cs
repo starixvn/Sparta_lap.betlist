@@ -102,7 +102,7 @@ namespace Fanex.Athena.Api.Report
             }
 
             metaModel.ProductName = ViewResources.ProductAGC;
-            
+
             var excel = CreateExcel(templatePath, convertingOption, metaModel, resultData);
 
             excel.Export();
@@ -150,16 +150,18 @@ namespace Fanex.Athena.Api.Report
 
         private ReportResultModel<ThirdPartyWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
+
             switch (metaModel.DrillDownLevel)
             {
                 case 0:
-                    return _thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel, "Lrf_Rpt_AGCasinoWinloss");
+                    return _thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel, userCurrencyList, "Lrf_Rpt_AGCasinoWinloss");
 
                 case 1:
-                    return _thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel, "LRF_Rpt_AGCasinoWinloss_Ag");
+                    return _thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList, "LRF_Rpt_AGCasinoWinloss_Ag");
 
                 case 2:
-                    return _thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel, "LRF_Rpt_AGCasinoWinloss_Mem");
+                    return _thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList, "LRF_Rpt_AGCasinoWinloss_Mem");
 
                 default:
                     throw new ArgumentException("Invalid level: " + metaModel.DrillDownLevel);

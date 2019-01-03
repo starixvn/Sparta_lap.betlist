@@ -2,7 +2,6 @@
 {
     using System.Data;
     using Core.UnitTests.TestHelpers;
-    using Extension.Utility;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -17,8 +16,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<DcsBetSettingDataAccess>(
-                Substitute.For<IAppSettings>(),
-                CreateSessionStorage(),
                 Substitute.For<ICoreLogger>(),
                 Substitute.For<ICacheRefAdapter>());
         }

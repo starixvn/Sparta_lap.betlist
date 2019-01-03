@@ -14,7 +14,6 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Excel.Report.Models;
     using Extension.Utility;
@@ -221,17 +220,18 @@ namespace Fanex.Athena.Api.Report
                 };
             }
 
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.Level == 0)
             {
-                return _winlossByProductDataAccess.GetWinlossByProducts(metaModel);
+                return _winlossByProductDataAccess.GetWinlossByProducts(metaModel, userCurrencyList);
             }
             else if (SessionService.LicenseeSession.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2)
             {
-                return _winlossByProductDataAccess.GetWinlossByProductCustomers(metaModel);
+                return _winlossByProductDataAccess.GetWinlossByProductCustomers(metaModel, userCurrencyList);
             }
             else
             {
-                return _winlossByProductDataAccess.GetWinlossByProductAgents(metaModel);
+                return _winlossByProductDataAccess.GetWinlossByProductAgents(metaModel, userCurrencyList);
             }
         }
 

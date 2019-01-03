@@ -4,19 +4,12 @@
     using Core;
     using Core.Exception;
     using Data;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Fanex.Common.Extensions;
     using Model.Dashboard.MetaModel;
-    using Session.Interfaces;
 
     public class SingleValueDataAccess : BaseDataAccess, ISingleValueDataAccess
     {
-        public SingleValueDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public decimal GetCustomerBalance(DashboardBaseModel metaModel)
         {
             return GetData(metaModel, "Lrf_GetCustomerBalance", "ClosingBalance");

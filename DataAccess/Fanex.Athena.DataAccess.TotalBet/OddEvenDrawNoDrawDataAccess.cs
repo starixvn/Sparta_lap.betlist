@@ -11,20 +11,13 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Core;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
-    using Extension.Utility;
     using Fanex.Common.Extensions;
     using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
-    using Session.Interfaces;
 
     public class OddEvenDrawNoDrawDataAccess : BaseDataAccess, IOddEvenDrawNoDrawDataAccess
     {
-        public OddEvenDrawNoDrawDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ReportResultModel<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel25";

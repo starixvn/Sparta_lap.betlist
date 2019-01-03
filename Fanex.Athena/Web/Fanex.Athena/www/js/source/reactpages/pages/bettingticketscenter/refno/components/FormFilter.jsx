@@ -48,7 +48,13 @@ export class FormFilter extends Component {
         this.props.toggleLoader(true);
         
         DataService.getFile(ApiUrl.REFNO_DATA_URL, params).then((response) => {
-            Site.downloadFile(response.data, 'BettingTicketsCenter_RefNo.xls');
+            const NoContentStatusCode = 204;
+
+            if(response.status === NoContentStatusCode){
+                alert(LangHelper.getSingleResource("NoInfo"));
+            } else {
+                Site.downloadFile(response.data, 'BettingTicketsCenter_RefNo.xls');
+            }
             this.props.toggleLoader(false);
         });
     }

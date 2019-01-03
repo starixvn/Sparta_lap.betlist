@@ -14,6 +14,7 @@
 
     public class LiveReportServiceTest
     {
+        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
         private ILiveReportDataAccess _dataAccess;
         private LiveReportService _service;
 
@@ -70,7 +71,7 @@
             var products = Enumerable.Empty<Product>();
 
             // Action
-            var result = _service.GetLiveReportSumaryDetail(metaModel, products);
+            var result = _service.GetLiveReportSumaryDetail(metaModel, _currencyList, products);
 
             // Assert
             Assert.Multiple(() =>
@@ -79,7 +80,7 @@
                 Assert.That(result.DataByCurrency, Is.Empty);
                 Assert.That(result.DataByBetType, Is.Empty);
                 _dataAccess.DidNotReceive().GetDetailBySport(metaModel);
-                _dataAccess.DidNotReceive().GetDetailByCurrencyAndBettype(metaModel, products);
+                _dataAccess.DidNotReceive().GetDetailByCurrencyAndBettype(metaModel, _currencyList, products);
             });
         }
 
@@ -95,11 +96,11 @@
             var detailByBettypeData = new List<LiveReportByBetType>();
 
             _dataAccess.GetDetailBySport(metaModel).Returns(detailBySportData);
-            _dataAccess.GetDetailByCurrencyAndBettype(metaModel, products)
+            _dataAccess.GetDetailByCurrencyAndBettype(metaModel, _currencyList, products)
                 .Returns(new System.Tuple<IList<LiveReport>, IList<LiveReportByBetType>>(detailByCurrencyData, detailByBettypeData));
 
             // Action
-            var result = _service.GetLiveReportSumaryDetail(metaModel, products);
+            var result = _service.GetLiveReportSumaryDetail(metaModel, _currencyList, products);
 
             // Assert
             Assert.Multiple(() =>

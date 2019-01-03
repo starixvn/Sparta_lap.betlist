@@ -10,19 +10,19 @@ const Url = Site.resolveClientUrl('api/CommonDataApi/GetLeagues');
 const LEAGUE_CACHE_KEY = "LEAGUE_CACHE_KEY";
 
 function dispatchLeagueList(dispatch, data, date, sportId){
-    dispatch(setLeagueList(data));
     if(data.length == 0 || data[0].value != 0)
     {
         data.unshift({value: 0, label: LangHelper.getSingleResource('All')});
     }
-    dispatch(setSelectedLeague(data[0]));
+    dispatch(setLeagueList(data));
+    dispatch(setSelectedLeague(data[0].value));
     dispatch(getMatchList(sportId, data[0].value, date, date));
 }
 
-export const setSelectedLeague = (item) => {
+export const setSelectedLeague = (leagueid) => {
     return {
         type: types.SET_SELECTED_LEAGUE,
-        data: item
+        data: leagueid
     };
 }
 

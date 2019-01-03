@@ -14,8 +14,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<DcsBetSettingDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 Substitute.For<ICoreLogger>(),
                 Substitute.For<ICacheRefAdapter>());
         }

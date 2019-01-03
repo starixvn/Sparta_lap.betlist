@@ -288,15 +288,15 @@ describe('AutoComplete', () => {
     })
 
     describe('_onChange', () => {
-        it('input value is empty - call onInput and clear state', () => {
+        it('input value is less than 3 character - call onInput and clear state', () => {
             const props = { onInput: jest.fn() };
             const autoComplete = new AutoComplete(props);
             autoComplete._clearState = jest.fn();
-            autoComplete.input = { value: '' };
+            autoComplete.input = { value: '  xx  ' };
 
             autoComplete._onChange();
 
-            expect(props.onInput).toHaveBeenCalledWith(autoComplete.input.value);
+            expect(props.onInput).toHaveBeenCalledWith(autoComplete.input.value.trim());
             expect(autoComplete._clearState).toHaveBeenCalled();
         })
 
@@ -305,8 +305,8 @@ describe('AutoComplete', () => {
             const autoComplete = new AutoComplete(props);
             autoComplete._clearState = jest.fn();
             autoComplete.setState = jest.fn();
-            autoComplete.input = { value: 'v1' };
-            autoComplete.cacheData = { v1: '1' };
+            autoComplete.input = { value: 'vv1' };
+            autoComplete.cacheData = { vv1: '1' };
 
             autoComplete._onChange();
 
@@ -321,7 +321,7 @@ describe('AutoComplete', () => {
             autoComplete._getDataByUrl = jest.fn();
             autoComplete._clearState = jest.fn();
             autoComplete.setState = jest.fn();
-            autoComplete.input = { value: 'v1' };
+            autoComplete.input = { value: 'vv1' };
             autoComplete.cacheData = { v2: '1' };
 
             autoComplete._onChange();
@@ -332,14 +332,14 @@ describe('AutoComplete', () => {
             expect(autoComplete._clearState).not.toHaveBeenCalled();
         })
 
-        it('input value is not empty cachedData does not exist and url does not exist - call onInput only', () => {
+        it('input value is valid, cachedData does not exist and url does not exist - call onInput only', () => {
             const props = { onInput: jest.fn() };
             const autoComplete = new AutoComplete(props);
             autoComplete._getDataByUrl = jest.fn();
             autoComplete._clearState = jest.fn();
             autoComplete.setState = jest.fn();
-            autoComplete.input = { value: 'v1' };
-            autoComplete.cacheData = { v2: '1' };
+            autoComplete.input = { value: 'xxxx' };
+            autoComplete.cacheData = { };
 
             autoComplete._onChange();
 

@@ -7,27 +7,27 @@ import * as types from './types'
 const Url = Site.resolveClientUrl('api/CommonDataApi/GetBettypes');
 const BETTYPE_CACHE_KEY = "BETTYPE_CACHE_KEY";
 
-function dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll){
+function dispatchBettypeList(dispatch, data, hasItemAll) {
     // Remove Item All
     data.length && data[0].value == 0 && data.shift();
     const itemAll = { value: 0, label: LangHelper.getSingleResource('All') };
 
-    if(hasItemAll){
+    if(hasItemAll) {
         data.unshift(itemAll);
     }
 
     dispatch(setBettypeList(data));
     if(data.length > 0)
     {
-        const bettype = hasItemAll ? itemAll : data[0];
-        dispatch(setSelectedBettype(bettype || data[0]));
+        const bettype = hasItemAll ? itemAll.value : data[0].value;
+        dispatch(setSelectedBettype(bettype || data[0].value));
     }
 }
 
-export const setSelectedBettype = (item) => {
+export const setSelectedBettype = (bettypeId) => {
     return {
         type: types.SET_SELECTED_BETTYPE,
-        data: item
+        data: bettypeId
     };
 }
 
@@ -38,13 +38,13 @@ export const setBettypeList = (list) => {
     };
 }
 
-export function getBettypeList(productCode, selectedBettype, hasItemAll = false) {
+export function getBettypeList(productCode, hasItemAll = false) {
     const cacheKey = BETTYPE_CACHE_KEY + productCode;
     return (dispatch) => {
         var cacheData = Cache.get(cacheKey);
         if(cacheData)
         {
-            dispatchBettypeList(dispatch, cacheData, selectedBettype, hasItemAll);
+            dispatchBettypeList(dispatch, cacheData, hasItemAll);
             return;
         }
 
@@ -52,7 +52,7 @@ export function getBettypeList(productCode, selectedBettype, hasItemAll = false)
             .then(response => {
                 var data = response.data;
                 Cache.set(cacheKey, data);
-                dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll);
+                dispatchBettypeList(dispatch, data, hasItemAll);
             });
     };
 }

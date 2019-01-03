@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Service.BetList.UnitTests
 {
-    using Core.Users.Interfaces;
+    using System.Collections.Generic;
     using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
@@ -11,11 +11,14 @@
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
+    using StatelessCore.Interfaces;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class BetListServiceTest
     {
+        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
+
         private IBetListDataAccess _betlistDataAccess;
         private IAuthorizationService _authorizationService;
         private IBetListService _betListService;
@@ -43,15 +46,15 @@
         public void GetMixParlayDetailTicket_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = FakeHelper.Create<TicketResult>();
+            var expectedResult = new TicketResult();
             const int LicenseeId = 1;
             const long TransId = 1;
             const int CustId = 2;
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _betlistDataAccess.GetMixParlayDetailTicket(TransId, CustId).Returns(expectedResult);
+            _betlistDataAccess.GetMixParlayDetailTicket(_currencyList, TransId, CustId).Returns(expectedResult);
 
             // Action
-            var result = _betListService.GetMixParlayDetailTicket(LicenseeId, TransId, CustId);
+            var result = _betListService.GetMixParlayDetailTicket(_currencyList, LicenseeId, TransId, CustId);
 
             // Assert
             Assert.That(result.TotalRows, Is.EqualTo(expectedResult.TotalRows));
@@ -68,7 +71,7 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _betListService.GetMixParlayDetailTicket(LicenseeId, TransId, CustId);
+            var result = _betListService.GetMixParlayDetailTicket(_currencyList, LicenseeId, TransId, CustId);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
@@ -93,13 +96,16 @@
         public void GetBetListData_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = FakeHelper.Create<TicketResult>();
+            var expectedResult = new TicketResult
+            {
+                TotalRows = 1234
+            };
             var spname = FakeHelper.Create<string>();
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _betlistDataAccess.GetBetListData(Arg.Any<BetListMetaModel>(), spname).Returns(expectedResult);
+            _betlistDataAccess.GetBetListData(Arg.Any<BetListMetaModel>(), _currencyList, spname).Returns(expectedResult);
 
             // Action
-            var result = _betListService.GetBetListData(new BetListMetaModel(), spname);
+            var result = _betListService.GetBetListData(new BetListMetaModel(), _currencyList, spname);
 
             // Assert
             Assert.That(result.TotalRows, Is.EqualTo(expectedResult.TotalRows));
@@ -114,7 +120,7 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _betListService.GetBetListData(new BetListMetaModel(), spname);
+            var result = _betListService.GetBetListData(new BetListMetaModel(), _currencyList, spname);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));

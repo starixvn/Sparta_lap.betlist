@@ -7,12 +7,14 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System;
     #region Using
 
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Helper;
+    using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.BetList.Core.Builder;
@@ -114,9 +116,9 @@ namespace Fanex.Athena.Api.BetList
 
         private dynamic GetData(LiveReportBetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
 
-            return new
+            var result = new
             {
                 Main = Ticket(ticketResult),
                 Total = new
@@ -125,6 +127,8 @@ namespace Fanex.Athena.Api.BetList
                     SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm
                 }
             };
+            ClearData(ticketResult);
+            return result;
         }
 
         private dynamic GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
@@ -135,7 +139,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
 
-            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
 
             var totalPage = metaModel.TotalRows % metaModel.PageSize == 0
                 ? metaModel.TotalRows / metaModel.PageSize
@@ -149,7 +153,7 @@ namespace Fanex.Athena.Api.BetList
                 ? string.Format("<span class='negative-number'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;
 
-            return new
+            var result = new
             {
                 page = pageIndex,
                 total = totalPage,
@@ -162,6 +166,10 @@ namespace Fanex.Athena.Api.BetList
                 },
                 IsHasCustComm = licenseeSession.IsAllowedCustomerComm,
             };
+
+            ClearData(ticketResult);
+
+            return result;
         }
 
         #endregion Utility

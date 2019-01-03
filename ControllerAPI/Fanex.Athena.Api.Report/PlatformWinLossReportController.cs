@@ -34,7 +34,7 @@ namespace Fanex.Athena.Api.Report
     public class PlatformWinLossReportController : ApiReportBaseController
     {
         private readonly IPlatformWinLossDataAccess _platformWinLossDataAccess;
-        
+
         public PlatformWinLossReportController(
             ISessionService sessionService,
             IProductService productService,
@@ -172,7 +172,7 @@ namespace Fanex.Athena.Api.Report
             else
             {
                 var result = metaModel.IsValid ?
-                    _platformWinLossDataAccess.GetMemberData(metaModel) :
+                    _platformWinLossDataAccess.GetMemberData(metaModel, SessionService.UserSession.CurrencyList) :
                     new SortableReportResultModel<PlatformWinLossMember>
                     {
                         DataList = new SortableList<PlatformWinLossMember>(),

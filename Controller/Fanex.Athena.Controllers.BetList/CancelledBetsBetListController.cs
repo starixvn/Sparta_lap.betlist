@@ -11,13 +11,14 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
+    using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetList.DTO;
     using Resources;
@@ -112,7 +113,7 @@ namespace Fanex.Athena.Controllers.BetList
                 var excelModel = CreateDefaultMetaModel(metaModel);
                 excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
 
-                var ticketResult = BetListService.GetBetListData(excelModel, UspKey);
+                var ticketResult = BetListService.GetBetListData(excelModel, UserCurrencyList, UspKey);
 
                 var showingOption = new ShowingOption
                 {

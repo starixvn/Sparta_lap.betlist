@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/19/2018 4:04:42 PM
+// Generated at: 12/26/2018 10:51:52 AM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -172,6 +172,9 @@ window._language_zh_TW = {
   BetTaken: "匹配時間",
   BettingLimit: "投注限額",
   BettingTicketCenter: "注單中心",
+  BettingTicketCenter_MultiCustomersTabNote1: "所有投注類別，聯賽和比賽過濾器僅支援1個選定日期",
+  BettingTicketCenter_MultiCustomersTabNote2: "顯示從{0}開始的資料",
+  BettingTicketCenter_RefnoTabNote: "注意: 在體育的搜尋結果將包含相關的紅利與現金注單",
   BetType: "投注類別",
   BONTeamToScore: "雙方/一方/兩者皆不得分",
   Bonus: "紅利",
@@ -179,6 +182,8 @@ window._language_zh_TW = {
   BoughtDetails: "買入詳情",
   BoughtStake: "買入本金",
   BoughtTicketsList: "買入注單",
+  BTCExportExcelMsg1: "您的搜尋結果超過系統設定的範圍.",
+  BTCExportExcelMsg2: "請試著縮短日期範圍或是分別搜尋個別貨幣/投注類別等。",
   BuyBackAmount: "回購金額",
   ByBetType: "根據投注類型",
   ByCurrency: "根據貨幣",
@@ -566,6 +571,7 @@ window._language_zh_TW = {
   Monthly: "每月",
   MoveSuccessfullyMsg: "成功移動",
   MoveToGroup: "轉移至組",
+  MultiCustomers: "多個會員",
   Multiplier: "倍增",
   Name: "姓名",
   NetGaming: "Net Gaming",
@@ -594,6 +600,7 @@ window._language_zh_TW = {
   Normal: "正常",
   NotAllowBA: "此被許可不允許投注總計",
   NotAuthorizedMsg: "您沒有被授權於此功能",
+  Note: "注意",
   NotIdenticalPasswordMsg: "密碼不相同",
   Notification: "通知",
   NotificationDateRangeLimitNote: "最多可以檢索六個月前的資料",
@@ -746,6 +753,7 @@ window._language_zh_TW = {
   ShowAllLeagues: "顯示所有聯賽",
   ShowOldValue: "顯示舊值",
   Sincelastmonth: "從上個月",
+  SingleCustomer: "單一會員",
   Site: "網頁",
   SixMonth: "6 months",
   SortBy: "排序由",

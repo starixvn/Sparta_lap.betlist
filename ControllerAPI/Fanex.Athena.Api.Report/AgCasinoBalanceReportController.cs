@@ -145,17 +145,18 @@ namespace Fanex.Athena.Api.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(
                 metaModel.DrillDownCurrencyId == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId,
                 metaModel.IsExcludedTestData);
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.DrillDownLevel == 0)
             {
-                var result = _agcasinoBalanceDataAccess.GetSummaryBalance(metaModel);
+                var result = _agcasinoBalanceDataAccess.GetSummaryBalance(metaModel, userCurrencyList);
                 AssignRowSpan(result.DataList);
                 return result;
             }
             else
             {
                 return metaModel.DrillDownLevel == 1 ?
-                    _agcasinoBalanceDataAccess.GetAgentBalanceDetail(metaModel) :
-                    _agcasinoBalanceDataAccess.GetCustomerBalanceDetail(metaModel);
+                    _agcasinoBalanceDataAccess.GetAgentBalanceDetail(metaModel, userCurrencyList) :
+                    _agcasinoBalanceDataAccess.GetCustomerBalanceDetail(metaModel, userCurrencyList);
             }
         }
 

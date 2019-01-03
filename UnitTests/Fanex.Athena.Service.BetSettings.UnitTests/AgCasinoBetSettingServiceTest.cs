@@ -4,7 +4,6 @@
     using System.Linq;
     using BetSettings;
     using BetSettings.Interfaces;
-    using Core.Users.Interfaces;
     using Core.Utility.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
@@ -14,6 +13,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using StatelessCore.Interfaces;
     using UnitTest.Common.Helpers;
 
     [TestFixture]

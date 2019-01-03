@@ -34,8 +34,6 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             DataAccess = Substitute.ForPartsOf<CashOutWinLossDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 balanceUpDataAccess);
         }
 
@@ -64,7 +62,7 @@
             Reader.Read().Returns(false);
 
             // Action
-            DataAccess.GetSummary(_metaModel);
+            DataAccess.GetSummary(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -89,7 +87,7 @@
             var expectedSummaryTotal = ObjectHelper.ToJson(CreateExpectedSummaryTotalData());
 
             // Action
-            var result = DataAccess.GetSummary(_metaModel);
+            var result = DataAccess.GetSummary(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -121,7 +119,7 @@
             var expectedCashoutWinLossData = ObjectHelper.ToJson(cashoutWinLossData);
 
             // Action
-            var result = DataAccess.GetSummary(_metaModel);
+            var result = DataAccess.GetSummary(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
@@ -145,7 +143,7 @@
             const int ExpectedRowSpan2 = 2;
 
             // Action
-            var result = DataAccess.GetSummary(_metaModel);
+            var result = DataAccess.GetSummary(_metaModel, UserCurrencyList);
             var firstGroupDate1 = result.DataList[0];
             var firstGroupDate2 = result.DataList[1];
 
@@ -162,7 +160,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetSummarySp,
-                () => DataAccess.GetSummary(_metaModel));
+                () => DataAccess.GetSummary(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -173,7 +171,7 @@
             Reader.Read().Returns(false);
 
             // Action
-            DataAccess.GetDetail(_metaModel);
+            DataAccess.GetDetail(_metaModel, UserCurrencyList);
 
             // Assert
             AssertUspParameters(isDrilldown: true);
@@ -197,7 +195,7 @@
             };
 
             // Action
-            var result = ObjectHelper.ToJson(DataAccess.GetDetail(_metaModel));
+            var result = ObjectHelper.ToJson(DataAccess.GetDetail(_metaModel, UserCurrencyList));
 
             // Assert
             Assert.That(result, Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
@@ -208,7 +206,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetDetailSp,
-                () => DataAccess.GetDetail(_metaModel));
+                () => DataAccess.GetDetail(_metaModel, UserCurrencyList));
         }
 
         private static Dictionary<string, object> CreateFakeData()

@@ -4,6 +4,7 @@
     using System.Data;
     using System.Linq;
     using Core.UnitTests.TestHelpers;
+    using Fanex.Athena.Extension.Utility;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -14,6 +15,8 @@
     [TestFixture]
     public class SportsbookBetSettingDataAccessTest : BaseDataAccessHelperTest<SportsbookBetSettingDataAccess>
     {
+        private IAppSettings _appSetting;
+
         protected override void SetUpDataAccess()
         {
             var betSettingReader = Substitute.For<IBetSettingReader>();
@@ -22,9 +25,9 @@
                 {
                     SportId = x[1].ToString()
                 });
+            _appSetting = Substitute.For<IAppSettings>();
             DataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>(
-                AppSetting,
-                Substitute.For<ISessionStorage>(),
+                _appSetting,
                 betSettingReader);
         }
 
@@ -46,7 +49,7 @@
         public void GetBetSetting_ReaderNotHaveData_ReturnDefaultResult()
         {
             // Arrange
-            AppSetting.IsShowMixedSport.Returns(true);
+            _appSetting.IsShowMixedSport.Returns(true);
 
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditCustomer")).Returns(ObjectDb);
             Reader.Read().Returns(false);
@@ -66,7 +69,7 @@
         public void GetBetSetting_WhenCall_DataReturnCorrectly(bool isShowMixedSport)
         {
             // Arrange
-            AppSetting.IsShowMixedSport.Returns(isShowMixedSport);
+            _appSetting.IsShowMixedSport.Returns(isShowMixedSport);
 
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditCustomer")).Returns(ObjectDb);
             Reader.Read().Returns(true);

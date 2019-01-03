@@ -335,7 +335,7 @@
         private TicketResult SetUpForExportingExcel(string uspKey, LiveReportBetListMetaModel metaModel, LiveReportBetListController controller)
         {
             var ticketResult = new TicketResult();
-            BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), uspKey).Returns(ticketResult);
+            BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, uspKey).Returns(ticketResult);
 
             SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 

@@ -7,18 +7,11 @@
 namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Data;
-    using Extension.Utility;
     using Interfaces;
     using Model.Core.MetaModel.Common;
-    using Session.Interfaces;
 
     public class UserLogDataAccess : BaseDataAccess, IUserLogDataAccess
     {
-        public UserLogDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public void WriteLog(UserLogMetaModel metaModel)
         {
             const string UspName = "WriteLog_UserLog_RunSP";

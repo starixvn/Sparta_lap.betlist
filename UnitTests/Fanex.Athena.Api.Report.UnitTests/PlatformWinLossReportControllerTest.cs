@@ -92,7 +92,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.ReceivedWithAnyArgs().GetMemberData(Arg.Any<PlatformWinLossMetaModel>());
+                _dataAccess.ReceivedWithAnyArgs().GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), Arg.Any<IDictionary<int, string>>());
                 Assert.That(result.Data.Count, Is.EqualTo(3));
                 Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
             });
@@ -142,7 +142,7 @@
                 DataList = memberData
             };
 
-            _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>()).ReturnsForAnyArgs(result);
+            _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), UserCurrencyList).ReturnsForAnyArgs(result);
 
             return new SortableList<PlatformWinLossMember>
             {

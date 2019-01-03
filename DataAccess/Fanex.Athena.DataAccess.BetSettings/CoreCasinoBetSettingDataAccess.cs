@@ -10,24 +10,19 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Common;
     using Core.Common.Constants;
     using Core.Common.Interfaces;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
     using Model.Core.MetaModel.Common;
-    using Session.Interfaces;
 
     public class CoreCasinoBetSettingDataAccess : BaseDataAccess, ICoreCasinoBetSettingDataAccess
     {
         private readonly IUserLogDataAccess _userLogDataAccess;
 
         public CoreCasinoBetSettingDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IUserLogDataAccess userLogDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _userLogDataAccess = userLogDataAccess;
         }

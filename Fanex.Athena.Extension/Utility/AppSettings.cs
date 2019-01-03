@@ -22,6 +22,22 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public bool IsDisableExportLargeBetList
+        {
+            get
+            {
+                return GetValue("IsDisableExportLargeBetList") == "1";
+            }
+        }
+
+        public IEnumerable<int> LicenseesWithLargeData
+        {
+            get
+            {
+                return GetIntegers("LicenseesWithLargeData");
+            }
+        }
+
         public IEnumerable<int> LicenseeOfferNewForecast
         {
             get
@@ -155,6 +171,8 @@ namespace Fanex.Athena.Extension.Utility
         {
             get { return bool.Parse(GetValue("EnableAssignCurrency")); }
         }
+
+        public string TempFilePath => GetValue("TempFilePath");
 
         #endregion Assign Currency
 

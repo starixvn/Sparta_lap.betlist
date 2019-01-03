@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.Constant.DataDomain;
+﻿using System;
+using Fanex.Athena.Constant.DataDomain;
 using Fanex.Athena.Model.BetList.DTO;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Resources;
@@ -12,17 +13,19 @@ using NPOI.SS.Util;
 
 namespace Fanex.Athena.Excel.BetList.Builders
 {
-    public class BettingTicketCenterExcelBuilder : IBettingTicketCenterExcelBuilder
+    public class BettingTicketCenterExcelBuilder : IBettingTicketCenterExcelBuilder, IDisposable
     {
         private const int NumberOfColumns = 12;
 
         private const int ColumnTotalStart = 6;
 
-        private readonly IBetListExcelBuilder _builder;
-
         private readonly ITicketHelper _ticketHelper;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        private bool disposed;
+
+        private IBetListExcelBuilder _builder;
 
         private ICellStyle _evenCellLeftAlign;
 
@@ -240,6 +243,43 @@ namespace Fanex.Athena.Excel.BetList.Builders
             cellStyle.SetFont(_builder.RTFHelper.NormalFont);
             cellStyle.WrapText = true;
             return cellStyle;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (disposing && _builder != null)
+            {
+                (_builder as IDisposable)?.Dispose();
+                _builder = null;
+
+                _evenCellLeftAlign = null;
+
+                _oddCellLeftAlign = null;
+
+                _evenCellCenterAlign = null;
+
+                _oddCellCenterAlign = null;
+
+                _negativeWinLossFont = null;
+
+                _winLossFont = null;
+
+                _liveFont = null;
+                _mixLiveFont = null;
+            }
+
+            disposed = true;
         }
     }
 }

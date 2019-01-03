@@ -108,11 +108,12 @@ export default class AutoComplete extends Component {
     }
 
     _onChange = (event) => {
-        const value = this.input.value;
+        const value = (this.input.value || "").trim();
+        
         const { onInput } = this.props;
         onInput && onInput(value);
 
-        if (value === "") {
+        if (value.length < 3) {
             this._clearState();
             return;
         }

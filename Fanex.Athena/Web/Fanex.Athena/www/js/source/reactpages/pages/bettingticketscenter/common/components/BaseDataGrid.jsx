@@ -18,6 +18,12 @@ export default class BaseDataGrid extends Component {
         param.PageSize = DEFAULT_PAGE_SIZE;
         this.props.setRequestParam(param);
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.gridData !== prevProps.gridData) {
+            this.props.toggleLoader(false);
+        }
+    }
     
     get dataUrl(){
         // This property should be override in child class.
@@ -63,9 +69,10 @@ export default class BaseDataGrid extends Component {
 
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
+            
             rows.push(
                    <Row key={`product-${i}`}>
-                    <Cell className="center-align">{item.Index}</Cell>                  
+                    <Cell title={item.Index} className="center-align">{item.Index}</Cell>                  
                     <Cell>{item.ExternalId}</Cell>
                     <Cell>{item.SystemId}</Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.TransTime }}></Cell>
@@ -96,21 +103,21 @@ export default class BaseDataGrid extends Component {
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-        }
+    }
 
         const { Data } = this.props.gridData;
         
         if (!Data.length) {
             return this._renderNodata();
-        }
+    }
 
         const param = this.props.requestParam;
         const pageOption = {
-            PageIndex: param.PageIndex,
-            PageSize: param.PageSize,
-            TotalItem: this.props.gridData.TotalRows,
-            PageList: [DEFAULT_PAGE_SIZE, 100, 200, 300, 400, 500, 1000, 2000]
-        };
+        PageIndex: param.PageIndex,
+        PageSize: param.PageSize,
+        TotalItem: this.props.gridData.TotalRows,
+        PageList: [DEFAULT_PAGE_SIZE, 100, 200, 300, 400, 500, 1000, 2000]
+    };
 
         return (
             <div className="betlist-container result-content">
@@ -125,8 +132,9 @@ export default class BaseDataGrid extends Component {
                     isPaging={true}
                     pageOption={pageOption}
                     onPaging={this.onPaging}
+                    alwaysVisiblePager={true}
                 />
             </div>
         );
     }
-}
+    }

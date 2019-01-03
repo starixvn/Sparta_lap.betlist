@@ -10,7 +10,7 @@ namespace Fanex.Athena.Web.ActionFilter
     using System.Net;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Service.Core.Users.Interfaces;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Session.Enum;
     using Session.Interfaces;
 
@@ -30,9 +30,7 @@ namespace Fanex.Athena.Web.ActionFilter
 
         public ISessionStorage SessionStorage { get; set; }
 
-        public IAuthorizationService AuthorizationService { get; set; }
-
-        #region Override
+        public IAuthorizationService AuthorizationServiceInstance { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -44,8 +42,8 @@ namespace Fanex.Athena.Web.ActionFilter
             if (authorized)
             {
                 authorized = userSession.ApplicationMode == AppMode.Parasitic ?
-                              AuthorizationService.HasPermissions(userSession.PortalFunctionList, _permissionKeys) :
-                              AuthorizationService.HasPermissions(userSession.FunctionIdList, _permissionKeys);
+                              AuthorizationServiceInstance.HasPermissions(userSession.PortalFunctionList, _permissionKeys) :
+                              AuthorizationServiceInstance.HasPermissions(userSession.FunctionIdList, _permissionKeys);
             }
 
             if (!authorized)
@@ -75,7 +73,5 @@ namespace Fanex.Athena.Web.ActionFilter
 
             base.OnActionExecuting(filterContext);
         }
-
-        #endregion Override
     }
 }

@@ -87,7 +87,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.IsServerPaging = true;
             metaModel.PageSize = MaxPageSize;
             metaModel.PageIndex = 1;
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey);
 
             // Sum value by page
             ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);

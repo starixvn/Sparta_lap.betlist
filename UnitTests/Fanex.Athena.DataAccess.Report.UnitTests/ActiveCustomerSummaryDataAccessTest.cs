@@ -5,7 +5,6 @@
     using System.Data;
     using System.Linq;
     using Core.UnitTests.TestHelpers;
-    using Extension.Utility;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -22,7 +21,7 @@
 
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<ActiveCustomerSummaryDataAccess>(Substitute.For<IAppSettings>(), CreateSessionStorage());
+            DataAccess = Substitute.ForPartsOf<ActiveCustomerSummaryDataAccess>();
         }
 
         [OneTimeSetUp]

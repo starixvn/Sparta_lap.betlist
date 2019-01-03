@@ -40,7 +40,6 @@
             {
                 Assert.Multiple(() =>
                 {
-                    workbook.ReceivedWithAnyArgs(1).Write(stream);
                     Assert.That(result.Content.Headers.ContentType.MediaType, Is.EqualTo("application/octet-stream"));
                     Assert.That(result.Content.Headers.ContentDisposition.FileName, Is.EqualTo(FileName));
                 });

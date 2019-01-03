@@ -5,6 +5,10 @@
 
     public interface IAppSettings
     {
+        bool IsDisableExportLargeBetList { get; }
+
+        IEnumerable<int> LicenseesWithLargeData { get; }
+
         IEnumerable<int> LicenseeOfferNewForecast { get; }
 
         IEnumerable<int> LicenseeAllowCasinoTransfer { get; }
@@ -54,6 +58,8 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         string RemoteRefUrl { get; }
+
+        string TempFilePath { get; }
 
         string GetValue(string key);
     }

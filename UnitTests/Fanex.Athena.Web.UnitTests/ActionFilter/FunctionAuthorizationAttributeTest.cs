@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Fanex.Athena.Service.Core.Users.Interfaces;
+using Fanex.Athena.Service.StatelessCore.Interfaces;
 using Fanex.Athena.Session.Enum;
 using Fanex.Athena.Session.Interfaces;
 using Fanex.Athena.Session.Model;
@@ -32,7 +33,7 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
             _authorizationService = Substitute.For<IAuthorizationService>();
             _attribute = new FunctionAuthorizationAttribute();
             _attribute.SessionStorage = _sessionStorage;
-            _attribute.AuthorizationService = _authorizationService;
+            _attribute.AuthorizationServiceInstance = _authorizationService;
         }
 
         [TestCase(AppMode.Parasitic)]

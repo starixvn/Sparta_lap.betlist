@@ -3,12 +3,9 @@
     using System.Collections.Generic;
     using System.Data;
     using Core.Exception;
-    using Extension.Utility;
     using Fanex.Data;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
-    using Session.Model;
     using UnitTest.Common.Helpers;
 
     public class BaseDataAccessHelperTest<T> where T : BaseDataAccess
@@ -17,7 +14,10 @@
 
         protected const string CurrencyName = "aaaaaaaaa";
 
-        protected IAppSettings AppSetting { get; set; }
+        private readonly IDictionary<int, string> _userCurrencyList = new Dictionary<int, string>
+        {
+            { CurrencyId, CurrencyName }, { 1, "USD" }
+        };
 
         protected IObjectDb ObjectDb { get; set; }
 
@@ -25,10 +25,11 @@
 
         protected T DataAccess { get; set; }
 
+        protected IDictionary<int, string> UserCurrencyList => _userCurrencyList;
+
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
-            AppSetting = Substitute.For<IAppSettings>();
             ObjectDb = Substitute.For<IObjectDb>();
             SetUpDataAccess();
         }
@@ -56,23 +57,9 @@
             Reader = null;
         }
 
-        protected ISessionStorage CreateSessionStorage()
-        {
-            var sessionStorage = Substitute.For<ISessionStorage>();
-            sessionStorage.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-                {
-                    { CurrencyId, CurrencyName }
-                }
-            });
-
-            return sessionStorage;
-        }
-
         protected virtual void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<T>(AppSetting, CreateSessionStorage());
+            DataAccess = Substitute.ForPartsOf<T>();
         }
 
         protected void MapReaderData(object readerDataMapping)

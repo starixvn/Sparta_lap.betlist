@@ -19,7 +19,8 @@ export default class Pager extends Component {
         }),
         onPaging: PropTypes.func,
         isShowPagingInfo: PropTypes.bool,
-        isAllowInputPageIndex: PropTypes.bool
+        isAllowInputPageIndex: PropTypes.bool,
+        alwaysVisible: PropTypes.bool
     };
 
     static defaultProps = {
@@ -30,7 +31,8 @@ export default class Pager extends Component {
             TotalItem: 0
         },
         isShowPagingInfo: true,
-        isAllowInputPageIndex: true
+        isAllowInputPageIndex: true,
+        alwaysVisible: false
     };
 
     componentDidUpdate(prevProps, prevState) {
@@ -111,13 +113,13 @@ export default class Pager extends Component {
     }
 
     render() {
-        const { isShowPagingInfo, isAllowInputPageIndex, pageOption } = this.props;
+        const { isShowPagingInfo, isAllowInputPageIndex, pageOption, alwaysVisible } = this.props;
         const { PageIndex, PageSize, TotalItem, PageList } = pageOption;
         const { inputValue } = this.state;
 
         const isDisable = isNaN(parseInt(inputValue));
 
-        const isShow = TotalItem > PageList[0];
+        const isShow = alwaysVisible || TotalItem > PageList[0];
         const totalPage = Math.ceil(TotalItem / PageSize);
 
         return (

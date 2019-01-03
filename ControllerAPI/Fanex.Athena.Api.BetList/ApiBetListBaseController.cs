@@ -72,6 +72,16 @@ namespace Fanex.Athena.Api.BetList
             get { return _cacheRefAdapter; }
         }
 
+        protected static void ClearData(TicketResult ticketResult)
+        {
+            ticketResult.MainTicketList.Clear();
+            ticketResult.TicketDataList.Clear();
+            ticketResult.MainTicketList.TrimExcess();
+            ticketResult.TicketDataList.TrimExcess();
+            ticketResult.MainTicketList = null;
+            ticketResult.TicketDataList = null;
+        }
+
         protected BalanceUp GetBalanceUp()
         {
             return _balanceUpDataAccess.GetBalanceUp();
@@ -125,7 +135,7 @@ namespace Fanex.Athena.Api.BetList
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
-
+            var currencyList = SessionService.UserSession.CurrencyList;
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
@@ -133,7 +143,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = _betListService.GetBetListData(metaModel, currencyList, uspKey);
 
             var leagueName = string.Empty;
             var firstOrDefault = ticketResult.MainTicketList.FirstOrDefault();
@@ -142,7 +152,7 @@ namespace Fanex.Athena.Api.BetList
                 leagueName = _cacheRefAdapter.GetLeagueName(firstOrDefault.LeagueId);
             }
 
-            return new
+            var result = new
             {
                 Main = Ticket(ticketResult, metaModel),
                 Total = new
@@ -154,12 +164,15 @@ namespace Fanex.Athena.Api.BetList
                 },
                 LeagueName = leagueName,
             };
+            ClearData(ticketResult);
+            return result;
         }
 
         protected internal virtual dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
+            var currencyList = SessionService.UserSession.CurrencyList;
 
             metaModel.IsServerPaging = true;
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
@@ -169,7 +182,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = _betListService.GetBetListData(metaModel, currencyList, uspKey);
 
             var totalPage = (int)Math.Ceiling((double)ticketResult.TotalRows / metaModel.PageSize);
             metaModel.PageIndex = pageIndex > totalPage ? totalPage : pageIndex;
@@ -184,7 +197,7 @@ namespace Fanex.Athena.Api.BetList
                 ? string.Format("<span class='negative-number'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;
 
-            return new
+            var result = new
             {
                 page = pageIndex,
                 total = totalPage,
@@ -196,6 +209,8 @@ namespace Fanex.Athena.Api.BetList
                     LicenseeWL = sumLicenseeWlText
                 }
             };
+            ClearData(ticketResult);
+            return result;
         }
 
         protected bool IsValidCurrencyId(int currencyId)

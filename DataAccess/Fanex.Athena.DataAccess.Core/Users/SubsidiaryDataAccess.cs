@@ -5,17 +5,10 @@
     using System.Data;
     using Core;
     using Core.Users.Interfaces;
-    using Extension.Utility;
     using Model.Report.DTO;
-    using Session.Interfaces;
 
     public class SubsidiaryDataAccess : BaseDataAccess, ISubsidiaryDataAccess
     {
-        public SubsidiaryDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IEnumerable<Subsidiary> GetSubsidiaryList(string licenseeName)
         {
             var dataList = new List<Subsidiary>();

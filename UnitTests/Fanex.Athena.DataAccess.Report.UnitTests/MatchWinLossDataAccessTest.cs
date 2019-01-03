@@ -47,8 +47,6 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             DataAccess = Substitute.ForPartsOf<MatchWinLossDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 balanceUpDataAccess, 
                 Substitute.For<ICacheRefAdapter>());
         }

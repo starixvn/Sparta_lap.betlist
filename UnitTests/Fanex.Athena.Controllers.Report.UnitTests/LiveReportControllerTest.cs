@@ -207,7 +207,7 @@
                     DataBySport = new List<LiveReport>() { new LiveReport() },
                     DataByBetType = new List<LiveReportByBetType>()
                 };
-                _liveReportService.GetLiveReportSumaryDetail(metaModel, Arg.Any<IEnumerable<Product>>()).Returns(resultModel);
+                _liveReportService.GetLiveReportSumaryDetail(metaModel, UserCurrencyList, Arg.Any<IEnumerable<Product>>()).Returns(resultModel);
 
                 // Action
                 var viewResult = controller.Detail(metaModel, productCode) as ViewResult;

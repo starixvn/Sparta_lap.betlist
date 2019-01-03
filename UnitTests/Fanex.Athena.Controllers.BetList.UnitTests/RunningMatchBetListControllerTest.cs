@@ -104,7 +104,7 @@
                     ticketResult.MainTicketList.Add(new LrfTicket { LeagueId = 2 });
                 }
 
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), uspName).Returns(ticketResult);
+                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, uspName).Returns(ticketResult);
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
                 controller.When(x => x.ProcessExportExcel(
                     Arg.Any<ShowingOption>(),

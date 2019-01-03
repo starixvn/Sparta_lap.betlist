@@ -34,8 +34,6 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             DataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 balanceUpDataAccess,
                 Substitute.For<ICacheRefAdapter>());
             DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CustomerTurnOver")).Returns(ObjectDb);
@@ -50,7 +48,7 @@
             _metaModel.Username = metaModelUser;
 
             // Action
-            DataAccess.GetDataList(_metaModel, LanguageCode);
+            DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -82,7 +80,7 @@
             Reader.NextResult().Returns(false);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel, LanguageCode);
+            var result = DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -107,7 +105,7 @@
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel, LanguageCode);
+            var result = DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -142,7 +140,7 @@
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel, LanguageCode);
+            var result = DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
             var firstItem = result.DataList.First();
             var totalData = result.TotalData;
 

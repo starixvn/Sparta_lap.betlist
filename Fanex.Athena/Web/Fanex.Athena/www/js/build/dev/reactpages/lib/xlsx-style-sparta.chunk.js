@@ -2081,7 +2081,7 @@ function fromByteArray (uint8) {
 
   var Buffer;
   try {
-    Buffer = __webpack_require__(/*! buffer */ 11).Buffer;
+    Buffer = __webpack_require__(/*! buffer */ 12).Buffer;
   } catch (e) {
   }
 
@@ -5523,7 +5523,7 @@ if (typeof self === 'object') {
 } else {
   // Node.js or Web worker with no crypto support
   try {
-    var crypto = __webpack_require__(/*! crypto */ 12);
+    var crypto = __webpack_require__(/*! crypto */ 13);
     if (typeof crypto.randomBytes !== 'function')
       throw new Error('Not supported');
 
@@ -30310,7 +30310,7 @@ util.inherits = __webpack_require__(/*! inherits */ "./node_modules/inherits/inh
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(/*! util */ 9);
+var debugUtil = __webpack_require__(/*! util */ 10);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -32199,7 +32199,7 @@ Writable.prototype._destroy = function (err, cb) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Buffer = __webpack_require__(/*! safe-buffer */ "./node_modules/safe-buffer/index.js").Buffer;
-var util = __webpack_require__(/*! util */ 10);
+var util = __webpack_require__(/*! util */ 11);
 
 function copyBuffer(src, target, offset) {
   src.copy(target, offset);
@@ -46730,6 +46730,17 @@ var XLS = XLSX;
 /***/ }),
 
 /***/ 11:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 12:
 /*!************************!*\
   !*** buffer (ignored) ***!
   \************************/
@@ -46740,21 +46751,10 @@ var XLS = XLSX;
 
 /***/ }),
 
-/***/ 12:
+/***/ 13:
 /*!************************!*\
   !*** crypto (ignored) ***!
   \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 9:
-/*!**********************!*\
-  !*** util (ignored) ***!
-  \**********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

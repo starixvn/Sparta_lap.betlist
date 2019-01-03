@@ -7,14 +7,12 @@
 namespace Fanex.Athena.DataAccess.Core.Configuration
 {
     using System;
-    using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common.Extensions;
     using Logging;
-    using Session.Interfaces;
 
     public class BalanceUpDataAccess : BaseDataAccess, IBalanceUpDataAccess
     {
@@ -26,11 +24,8 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
 
         [CLSCompliant(false)]
         public BalanceUpDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ILogger logger,
             IMemoryCacheService cache)
-            : base(appSetting, sessionStorage)
         {
             _logger = logger;
             _cache = cache;

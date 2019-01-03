@@ -125,7 +125,7 @@
                 var metaModel = new BetListMetaModel();
 
                 var ticketResult = new TicketResult();
-                BetListService.GetBetListData(metaModel, UspKey).Returns(ticketResult);
+                BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey).Returns(ticketResult);
 
                 // Action
                 var result = controller.GetBetListResult(metaModel, UspKey);
@@ -154,7 +154,7 @@
                 var ticketResult = new TicketResult { SumWinLoss = 1, SumPlayerComm = 2, SumLicenseeWL = 3, SumComm = 4, SumBetEffective = 5 };
                 var ticket = new LrfTicket { LeagueId = 1, Stake = 1.123m, Status = BetStatus.Won };
                 ticketResult.MainTicketList.Add(ticket);
-                BetListService.GetBetListData(metaModel, UspKey).Returns(ticketResult);
+                BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey).Returns(ticketResult);
 
                 const string LeagueName = "Name";
                 CacheRefAdapter.GetLeagueName(ticket.LeagueId).Returns(LeagueName);
@@ -192,7 +192,7 @@
                     SumLicenseeWL = testCaseData.SumLicenseeWL,
                     SumComm = testCaseData.SumComm
                 };
-                BetListService.GetBetListData(metaModel, UspKey).Returns(ticketResult);
+                BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey).Returns(ticketResult);
 
                 // Action
                 var result = controller.GetPagingBetListResult(metaModel, UspKey, testCaseData.InPutPageIndex, testCaseData.InPutPageSize);

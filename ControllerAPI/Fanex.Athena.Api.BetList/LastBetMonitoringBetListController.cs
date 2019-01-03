@@ -91,17 +91,24 @@
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(currencyIdList);
             }
 
-            var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel);
+            var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, UserCurrencyList);
 
             if (ticketResult.MainTicketList.Any())
             {
                 var rows = GetLastMonitorBetListContent(metaModel, ticketResult);
-                return new
+                var result = new
                 {
                     NewRow = true,
                     Rows = rows,
                     LastTransId = ticketResult.MainTicketList.Max(t => t.TransId),
                 };
+                ticketResult.MainTicketList.Clear();
+                ticketResult.TicketDataList.Clear();
+                ticketResult.TicketDataList.TrimExcess();
+                ticketResult.MainTicketList.TrimExcess();
+                ticketResult.MainTicketList = null;
+                ticketResult.TicketDataList = null;
+                return result;
             }
             else
             {

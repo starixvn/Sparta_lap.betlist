@@ -16,7 +16,7 @@ namespace Fanex.Athena.Service.Report.Interfaces
     {
         IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel model);
 
-        LiveReportDetailResultModel GetLiveReportSumaryDetail(LiveReportMetaModel model, IEnumerable<Product> products);
+        LiveReportDetailResultModel GetLiveReportSumaryDetail(LiveReportMetaModel model, IDictionary<int, string> currencyList, IEnumerable<Product> products);
 
         IList<LiveReportWinLossByMatch> GetLiveReportWinLossByMatch(LiveReportMatchListMetalModel model);
     }

@@ -4,14 +4,13 @@
     using System.Web.Http;
     using Base;
     using Base.Attributes;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
-    using Service.BetList;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
 

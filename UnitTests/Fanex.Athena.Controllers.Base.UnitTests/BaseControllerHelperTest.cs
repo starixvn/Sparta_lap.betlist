@@ -39,6 +39,8 @@
 
         protected IAppSettings AppSettings { get; set; }
 
+        protected IDictionary<int, string> UserCurrencyList => SessionService.UserSession.CurrencyList;
+
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {

@@ -41,6 +41,7 @@ namespace Fanex.Athena.Service.Report
 
         public LiveReportDetailResultModel GetLiveReportSumaryDetail(
             LiveReportMetaModel model,
+            IDictionary<int, string> currencyList,
             IEnumerable<Product> products)
         {
             if (!model.IsValid)
@@ -58,7 +59,7 @@ namespace Fanex.Athena.Service.Report
                 return _liveReportDataAccess.GetDetailBySport(model);
             });
 
-            var tupleCurrencyAndBettype = _liveReportDataAccess.GetDetailByCurrencyAndBettype(model, products);
+            var tupleCurrencyAndBettype = _liveReportDataAccess.GetDetailByCurrencyAndBettype(model, currencyList, products);
             return new LiveReportDetailResultModel
             {
                 DataBySport = taskForSport.Result,

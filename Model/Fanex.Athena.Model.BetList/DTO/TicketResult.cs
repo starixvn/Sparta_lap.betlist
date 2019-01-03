@@ -15,26 +15,11 @@ namespace Fanex.Athena.Model.BetList.DTO
     /// </summary>
     public class TicketResult
     {
-        private readonly SortableList<LrfTicket> _mainTicketList = new SortableList<LrfTicket>();
-        private readonly List<ITicketData> _ticketDataList = new List<ITicketData>();
+        [System.CLSCompliant(false)]
+        public SortableList<LrfTicket> MainTicketList { get; set; } = new SortableList<LrfTicket>();
 
         [System.CLSCompliant(false)]
-        public SortableList<LrfTicket> MainTicketList
-        {
-            get
-            {
-                return _mainTicketList;
-            }
-        }
-
-        [System.CLSCompliant(false)]
-        public List<ITicketData> TicketDataList
-        {
-            get
-            {
-                return _ticketDataList;
-            }
-        }
+        public List<ITicketData> TicketDataList { get; set; } = new List<ITicketData>();
 
         // Sum value
         public int TotalRows { get; set; }

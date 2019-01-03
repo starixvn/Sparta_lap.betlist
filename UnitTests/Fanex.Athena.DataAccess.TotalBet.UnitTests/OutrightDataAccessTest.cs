@@ -5,6 +5,7 @@
     using Model.TotalBet.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     public class OutrightDataAccessTest : BaseDataAccessHelperTest<OutrightDataAccess>
     {
@@ -14,6 +15,11 @@
             base.FixtureSetUp();
 
             DataAccess.GetObjectDb(Arg.Is("Lrf_TotalBets_Sel10")).Returns(ObjectDb);
+        }
+
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<OutrightDataAccess>(Substitute.For<ICacheRefAdapter>());
         }
 
         [Test]

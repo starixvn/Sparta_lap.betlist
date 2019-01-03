@@ -14,14 +14,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using Session.Interfaces;
 
     public class FunctionDataAccess : BaseDataAccess, IFunctionDataAccess
     {
         private readonly IAppSettings _appSettings;
 
-        public FunctionDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
+        public FunctionDataAccess(IAppSettings appSetting)
         {
             _appSettings = appSetting;
         }

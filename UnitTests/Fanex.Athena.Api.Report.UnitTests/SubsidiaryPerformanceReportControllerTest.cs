@@ -64,7 +64,7 @@
             {
                 Total = new Dictionary<string, SubsidiaryPerformanceBase>()
             };
-            _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>()).Returns(resultData);
+            _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>()).Returns(resultData);
 
             // Action
             _controller.Index(metaModel);
@@ -97,7 +97,7 @@
             {
                 Total = new Dictionary<string, SubsidiaryPerformanceBase>()
             };
-            _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>()).Returns(resultData);
+            _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>()).Returns(resultData);
 
             // Action
             _controller.Index(metaModel);
@@ -126,7 +126,7 @@
             _controller.Index(metaModel);
 
             // Assert
-            _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>());
+            _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
         }
 
         [Test]
@@ -145,7 +145,7 @@
             _controller.Index(metaModel);
 
             // Assert
-            _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>());
+            _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
         }
 
         [Test]
@@ -163,7 +163,7 @@
             _controller.Index(metaModel);
 
             // Assert
-            _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>());
+            _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
         }
 
         [Test]

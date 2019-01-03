@@ -30,9 +30,9 @@
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
 
-        public SubsidiaryResultViewModel GetData(SubsidiaryPerformanceMetaModel metaModel)
+        public SubsidiaryResultViewModel GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            var dataList = _subLicenseePerformanceDataAccess.GetData(metaModel);
+            var dataList = _subLicenseePerformanceDataAccess.GetData(metaModel, currencyList);
 
             if (dataList.Any())
             {
@@ -45,9 +45,9 @@
             };
         }
 
-        public ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel)
+        public ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _subLicenseePerformanceDataAccess.GetDetailData(metaModel);
+            return _subLicenseePerformanceDataAccess.GetDetailData(metaModel, currencyList);
         }
 
         private static void AssignSumData(SubsidiaryPerformanceBase total, SubsidiaryPerformanceBase detail)

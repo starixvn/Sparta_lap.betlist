@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Core;
     using Core.Extensions;
     using Extension.Helper;
-    using Extension.Utility;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Athena.Model.Forecast.ViewModel;
     using Fanex.Common;
@@ -24,15 +23,13 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Resources;
-    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class ForecastDataAccess : BaseDataAccess, IForecastDataAccess
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public ForecastDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
+        public ForecastDataAccess(ICacheRefAdapter cacheRefAdapter)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }

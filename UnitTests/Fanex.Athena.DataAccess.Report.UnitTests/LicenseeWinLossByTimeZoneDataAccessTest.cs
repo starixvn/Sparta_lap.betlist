@@ -33,8 +33,6 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             DataAccess = Substitute.ForPartsOf<LicenseeWinLossByTimeZoneDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 balanceUpDataAccess);
 
             const string SpName = "Lrf_Rpt_LicWinlossByTimeZone";
@@ -50,7 +48,7 @@
             var metaModel = GetDefaultMetaModel();
 
             // Action
-            DataAccess.GetData(metaModel);
+            DataAccess.GetData(metaModel, UserCurrencyList);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);
@@ -74,7 +72,7 @@
             MapReaderData(expectedData, metaModel.BaseCurrency);
 
             // Action
-            var result = DataAccess.GetData(metaModel);
+            var result = DataAccess.GetData(metaModel, UserCurrencyList);
             var firstItem = result.DataList.ElementAt(0);
             var total = result.TotalData;
 
@@ -118,7 +116,7 @@
             MapReaderData(expectedBaseData, metaModel.BaseCurrency);
 
             // Action
-            var result = DataAccess.GetData(metaModel);
+            var result = DataAccess.GetData(metaModel, UserCurrencyList);
             var firstItem = result.DataList.ElementAt(0);
             var total = result.TotalData;
 
@@ -150,7 +148,7 @@
             var expected = new DateTime(2017, 1, 1);
 
             // Action
-            var result = DataAccess.GetData(metaModel);
+            var result = DataAccess.GetData(metaModel, UserCurrencyList);
             var firstItem = result.DataList.ElementAt(0);
 
             // Assert
@@ -171,7 +169,7 @@
             MapReaderData(data, string.Empty);
 
             // Action
-            var result = DataAccess.GetData(metaModel);
+            var result = DataAccess.GetData(metaModel, UserCurrencyList);
             var firstItem = result.DataList.ElementAt(0);
 
             // Assert

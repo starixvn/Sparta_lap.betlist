@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/19/2018 4:04:42 PM
+// Generated at: 12/26/2018 10:51:52 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -185,7 +185,8 @@ window._language_en_US = {
   BetTaken: "Bet Taken",
   BettingLimit: "Betting Limit",
   BettingTicketCenter: "Betting Ticket Center",
-  BettingTicketCenter_MultiCustomersTabNote: "Note: Sport/ Bettype/ League/ Match can be selected all for 1 selected date.",
+  BettingTicketCenter_MultiCustomersTabNote1: "All bettypes, League, and Match filter available only when 1 day is selected",
+  BettingTicketCenter_MultiCustomersTabNote2: "Data is available from {0}",
   BettingTicketCenter_RefnoTabNote: "Note: For Sportsbook, the search result includes the related Bonus/Cash tickets.",
   BetTrade: "Bet Trade",
   BetTradeCommission: "Bet Trade Commission",
@@ -197,6 +198,8 @@ window._language_en_US = {
   BoughtDetails: "Bought Details",
   BoughtStake: "Bought Stake",
   BoughtTicketsList: "Bought Ticket[s]",
+  BTCExportExcelMsg1: "Your search result exceeds our set limits to get it downloaded.",
+  BTCExportExcelMsg2: "Please try reducing date range, selecting individual currency/ bet type, etc.",
   BuyBackAmount: "Buy Back Amount",
   ByBetType: "By Bet Type",
   ByCurrency: "By Currency",
@@ -645,6 +648,7 @@ window._language_en_US = {
   MoreThanOneCustomerFoundMsg: "More than 1 customer found. Please search for 1 customer only.",
   MoveSuccessfullyMsg: "Successfully moved.",
   MoveToGroup: "Move to Group",
+  MultiCustomers: "Multi-Customers",
   MultipleCustomers: "Multiple Customers",
   Multiplier: "Multiplier",
   MYR: "MYR",

@@ -7,14 +7,11 @@
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Data;
-    using Extension.Utility;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
-    using Session.Model;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
@@ -46,16 +43,9 @@
 
             ObjectDb = Substitute.For<IObjectDb>();
 
-            var sessionStorage = Substitute.For<ISessionStorage>();
-            sessionStorage.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>()
-            });
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
 
             DataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(
-                Substitute.For<IAppSettings>(),
-                sessionStorage,
                 balanceUpDataAccess,
                 _cacheRefAdapter);
 
@@ -219,7 +209,7 @@
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            DataAccess.GetDetailByCurrencyAndBettype(_metaModel, new List<Product>());
+            DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, new List<Product>());
 
             // Assert
             AssertCommonAddInParameters();
@@ -248,7 +238,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, productList);
+            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
 
             // Assert
             Assert.Multiple(() =>
@@ -292,7 +282,7 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, productList);
+            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
 
             // Assert
             Assert.That(result.Item2[0].LiveReports[0].ProductName, Is.EqualTo($"{betType} (Virtual Basketball)"));
@@ -313,7 +303,7 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, productList);
+            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
 
             // Assert
             Assert.Multiple(() =>
@@ -328,7 +318,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetDetailByCurrencyAndBettypeSp,
-                () => DataAccess.GetDetailByCurrencyAndBettype(_metaModel, null));
+                () => DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, null));
         }
 
         [Test]

@@ -29,7 +29,7 @@
         public override void FixtureSetUp()
         {
             _appSetting = Substitute.For<IAppSettings>();
-            DataAccess = Substitute.ForPartsOf<FunctionDataAccess>(_appSetting, CreateSessionStorage());
+            DataAccess = Substitute.ForPartsOf<FunctionDataAccess>(_appSetting);
             ObjectDb = Substitute.For<Data.IObjectDb>();
         }
 

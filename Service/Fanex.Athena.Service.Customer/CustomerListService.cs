@@ -13,8 +13,8 @@ namespace Fanex.Athena.Service.Customer
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer.Interfaces;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Model.Core.ResultModel;
     using Resources;
 

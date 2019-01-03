@@ -23,7 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.Helper;
-    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess
@@ -38,11 +37,8 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public LiveReportDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
@@ -122,7 +118,8 @@ namespace Fanex.Athena.DataAccess.Report
 
         public Tuple<IList<LiveReport>, IList<LiveReportByBetType>> GetDetailByCurrencyAndBettype(
             LiveReportMetaModel metaModel,
-            IEnumerable<Product> products)
+            IDictionary<int, string> currencyList,
+             IEnumerable<Product> products)
         {
             var currency = metaModel.BaseCurrency;
             const string UspName = "Lrf_Rpt_LiveReportSummaryDetail";
@@ -134,7 +131,7 @@ namespace Fanex.Athena.DataAccess.Report
                     AddParameters(db, metaModel, moveBetsDate);
                     using (var reader = db.ExecuteReader())
                     {
-                        var resultByCurrency = ReadDetailByCurrency(reader, currency);
+                        var resultByCurrency = ReadDetailByCurrency(reader, currencyList, currency);
 
                         var resultByBettype = reader.NextResult() ? ReadDetailByBettype(reader, products, currency) : new List<LiveReportByBetType>();
 
@@ -250,13 +247,13 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private IList<LiveReport> ReadDetailByCurrency(IDataReader reader, string currency)
+        private IList<LiveReport> ReadDetailByCurrency(IDataReader reader, IDictionary<int, string> currencyList, string currency)
         {
             var list = new List<LiveReport>();
             while (reader.Read())
             {
                 var currencyId = reader.ToInt("Currency");
-                var currencyName = GetCurrencyName(currencyId);
+                var currencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString());
                 var item = new LiveReport
                 {
                     ProductName = currencyName,

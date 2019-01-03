@@ -35,8 +35,6 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
             DataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 _cacheRefAdapter,
                 balanceUpDataAccess);
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);

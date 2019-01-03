@@ -71,7 +71,8 @@ class Table extends Component {
         isPaging: PropTypes.bool,
         onPaging: PropTypes.func,
         pageOption: PropTypes.object,
-        adjustedHeight: PropTypes.number
+        adjustedHeight: PropTypes.number,
+        alwaysVisiblePager: PropTypes.bool
     }
 
     static defaultProps = {
@@ -81,7 +82,8 @@ class Table extends Component {
         isPaging: false,
         adjustedHeight: 0,
         bodyHeight: 0,
-        autoHeight: true
+        autoHeight: true,
+        alwaysVisiblePager: false
     }
 
     _getColumnsWidth(headerRows) {
@@ -205,7 +207,7 @@ class Table extends Component {
         return newColumnsWidth;
     }
     render() {
-        const { width, autoWidth, minWidth, header, body, footer, isPaging, pageOption, onPaging } = this.props;
+        const { width, autoWidth, minWidth, header, body, footer, isPaging, pageOption, onPaging, alwaysVisiblePager } = this.props;
         const maxWidth = this.state.maxWidth;
 
         const newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ?
@@ -227,31 +229,31 @@ class Table extends Component {
             <div>
                 <div className="table-container" style={{ maxWidth }}>
                     <Header {...sectionProps}>
-                        {rowLayout}
-                        {header}
+                    {rowLayout}
+                    {header}
                     </Header>
                     {
                         body &&
                         <Body {...sectionProps} maxHeight={this.state.contentHeight}>
-                        {rowLayout}
-                        {body}
+                    {rowLayout}
+                    {body}
                         </Body>
                     }
                     {
                         footer &&
                         <Footer {...sectionProps}>
-                        {rowLayout}
-                        {footer}
+                    {rowLayout}
+                    {footer}
                         </Footer>
                     }
                 </div>
                     {
                     isPaging && pageOption &&
-                    <Pager pageOption={pageOption} onPaging={onPaging} />
+                    <Pager alwaysVisible={alwaysVisiblePager} pageOption={pageOption} onPaging={onPaging} />
                     }
-            </div>
-        )
-}
-}
+                </div>
+            )
+        }
+        }
 
 export default Table;

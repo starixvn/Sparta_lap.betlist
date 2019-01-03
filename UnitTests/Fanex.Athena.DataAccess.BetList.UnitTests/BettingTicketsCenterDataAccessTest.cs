@@ -5,12 +5,11 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
     using UnitTest.Common.Helpers;
 
     public class BettingTicketsCenterDataAccessTest : BaseDataAccessHelperTest<BettingTicketCenterDataAccess>
@@ -30,9 +29,8 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
             DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(
-                Substitute.For<IAppSettings>(),
-                Substitute.For<ISessionStorage>(),
-                balanceUpDataAccess);
+                balanceUpDataAccess,
+                Substitute.For<ITempFileService>());
         }
 
         [Test]
@@ -46,7 +44,7 @@
             var metaModel = new RefNoBetListMetaModel();
 
             // Action
-            DataAccess.GetBetListByRefno(metaModel);
+            DataAccess.GetBetListByRefno(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -58,14 +56,6 @@
                 ObjectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, BalanceUp.BalanceUpDay);
                 ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
             });
-        }
-
-        [Test]
-        public void GetBetListByRefno_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                BetListByRefnoUspKey,
-                () => DataAccess.GetBetListByRefno(new RefNoBetListMetaModel()));
         }
 
         [TestCase("", "", false)]
@@ -83,7 +73,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = productCode };
 
             // Action
-            DataAccess.GetRunningBetList(metaModel);
+            DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -115,7 +105,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
             // Action
-            DataAccess.GetRunningBetList(metaModel);
+            DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -137,7 +127,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
             // Action
-            DataAccess.GetRunningBetList(metaModel);
+            DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
 
             // Assert
             ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
@@ -161,7 +151,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty };
 
             // Action
-            var result = DataAccess.GetRunningBetList(metaModel);
+            var result = DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -169,14 +159,6 @@
                 Assert.That(result.SumStake, Is.EqualTo(outPut["sumstake"]));
                 Assert.That(result.TotalRows, Is.EqualTo(outPut["totalrows"]));
             });
-        }
-
-        [Test]
-        public void GetRunningBetList_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                RunningBetListUspKey,
-                () => DataAccess.GetRunningBetList(new BaseBettingTicketMetaModel()));
         }
 
         [TestCase("", "", false)]
@@ -194,7 +176,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = productCode };
 
             // Action
-            DataAccess.GetBetListForSingleCustomer(metaModel);
+            DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -234,7 +216,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
             // Action
-            DataAccess.GetBetListForSingleCustomer(metaModel);
+            DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -256,7 +238,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
             // Action
-            DataAccess.GetBetListForSingleCustomer(metaModel);
+            DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
 
             // Assert
             ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
@@ -284,7 +266,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty };
 
             // Action
-            var result = DataAccess.GetBetListForSingleCustomer(metaModel);
+            var result = DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -296,14 +278,6 @@
                 Assert.That(result.SumComm, Is.EqualTo(outPut["sumcomm"]));
                 Assert.That(result.SumPlayerComm, Is.EqualTo(outPut["sumplayercomm"]));
             });
-        }
-
-        [Test]
-        public void GetBetListForSingleCustomer_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                BetListBySingleCustomerUspKey,
-                () => DataAccess.GetBetListForSingleCustomer(new SingleCustomersBetListMetaModel()));
         }
     }
 }

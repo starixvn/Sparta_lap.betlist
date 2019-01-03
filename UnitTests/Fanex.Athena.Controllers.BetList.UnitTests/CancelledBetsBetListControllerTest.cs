@@ -12,7 +12,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
-    using Service.Core.Users.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     public class CancelledBetsBetListControllerTest : BetListBaseControllerHelperTest
     {
@@ -189,11 +189,11 @@
                     BaseCurrency = baseCurrency
                 };
 
-                var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency); 
+                var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.CancelledBets} - {currencyTitle}";
 
                 var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), "Lrf_BetList_SelDeleted").Returns(ticketResult);
+                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_SelDeleted").Returns(ticketResult);
 
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 

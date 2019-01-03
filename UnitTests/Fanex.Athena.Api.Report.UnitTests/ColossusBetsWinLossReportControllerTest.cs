@@ -77,7 +77,7 @@
             // Arrange
             var metaModel = CreateValidMetaModel();
 
-            _service.GetSummaryWinloss(Arg.Any<ColossusBetsWinLossMetaModel>()).Returns(
+            _service.GetSummaryWinloss(Arg.Any<ColossusBetsWinLossMetaModel>(), Arg.Any<IDictionary<int, string>>()).Returns(
                 new SortableReportResultModel<ColossusBetWinLoss>());
 
             // Action
@@ -108,7 +108,7 @@
             {
                 Assert.That(0, Is.EqualTo(model.DrillDownLevel));
                 Assert.That(0, Is.EqualTo(model.DrillDownCustomerId));
-                _service.ReceivedWithAnyArgs().GetSummaryWinloss(model);
+                _service.ReceivedWithAnyArgs().GetSummaryWinloss(model, UserCurrencyList);
             });
         }
 
@@ -157,7 +157,7 @@
                 Assert.That(fdate, Is.EqualTo(model.DrillDownFromDate));
                 Assert.That(tdate, Is.EqualTo(model.DrillDownToDate));
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
-                _service.ReceivedWithAnyArgs().GetWinlossDetail(model);
+                _service.ReceivedWithAnyArgs().GetWinlossDetail(model, UserCurrencyList);
             });
         }
 
@@ -289,11 +289,11 @@
             };
             if (level == 0)
             {
-                _service.GetSummaryWinloss(Arg.Any<ColossusBetsWinLossMetaModel>()).Returns(expectedResult);
+                _service.GetSummaryWinloss(Arg.Any<ColossusBetsWinLossMetaModel>(), UserCurrencyList).Returns(expectedResult);
             }
             else
             {
-                _service.GetWinlossDetail(Arg.Any<ColossusBetsWinLossMetaModel>()).Returns(expectedResult);
+                _service.GetWinlossDetail(Arg.Any<ColossusBetsWinLossMetaModel>(), UserCurrencyList).Returns(expectedResult);
             }
 
             _service.CalculateTotal(Arg.Any<SortableList<ColossusBetWinLoss>>()).Returns(expectedDataList.AsEnumerable());

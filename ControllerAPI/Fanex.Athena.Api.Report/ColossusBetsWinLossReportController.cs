@@ -122,9 +122,10 @@ namespace Fanex.Athena.Api.Report
 
         private SortableReportResultModel<ColossusBetWinLoss> GetData(ColossusBetsWinLossMetaModel metaModel)
         {
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
             return metaModel.DrillDownLevel == 0 ?
-                _colossusBetsWinLossService.GetSummaryWinloss(metaModel) :
-                _colossusBetsWinLossService.GetWinlossDetail(metaModel);
+                _colossusBetsWinLossService.GetSummaryWinloss(metaModel, userCurrencyList) :
+                _colossusBetsWinLossService.GetWinlossDetail(metaModel, userCurrencyList);
         }
 
         private dynamic ProcessRequest(

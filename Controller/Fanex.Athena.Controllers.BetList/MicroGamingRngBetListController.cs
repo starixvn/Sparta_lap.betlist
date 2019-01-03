@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
 
             var title = GetTitle(metaModel.TransType);
-            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
 
             return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "MicrogamingRNGDetail");
         }

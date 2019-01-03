@@ -9,24 +9,17 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Data;
     using Interfaces;
-    using Session.Interfaces;
 
     public class LastBetsMonitoringBetListDataAccess : BaseBetListDataAccess, ILastBetsMonitoringBetListDataAccess
     {
         private const string UspKey = "Lrf_Monitor_BetlistSel_New";
 
-        public LastBetsMonitoringBetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
-        public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
+        public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             var ticketResult = new TicketResult();
             try
@@ -49,7 +42,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     db.AddInParameter("BetFrom", DbType.Byte, metaModel.BetFrom);
                     using (var reader = db.ExecuteReader())
                     {
-                        var mainTicket = ReadBetListTicket(reader);
+                        var mainTicket = ReadBetListTicket(reader, currencyList);
                         mainTicket.Sort("TransId", false);
                         ticketResult.MainTicketList.AddRange(mainTicket);
                     }

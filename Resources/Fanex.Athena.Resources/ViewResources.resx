@@ -3051,8 +3051,8 @@
     <value>Void</value>
     <comment>80941</comment>
   </data>
-  <data name="BettingTicketCenter_MultiCustomersTabNote" xml:space="preserve">
-    <value>Note: Sport/ Bettype/ League/ Match can be selected all for 1 selected date.</value>
+  <data name="BettingTicketCenter_MultiCustomersTabNote1" xml:space="preserve">
+    <value>All bettypes, League, and Match filter available only when 1 day is selected</value>
     <comment>80941</comment>
   </data>
   <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
@@ -3102,5 +3102,25 @@
   <data name="VirtualSoccerAsianCup" xml:space="preserve">
     <value>Virtual Soccer Asian Cup</value>
     <comment>105409</comment>
+  </data>
+  <data name="BettingTicketCenter_MultiCustomersTabNote2" xml:space="preserve">
+    <value>Data is available from {0}</value>
+    <comment>103046</comment>
+  </data>
+  <data name="MultiCustomers" xml:space="preserve">
+    <value>Multi-Customers</value>
+    <comment>103046</comment>
+  </data>
+  <data name="BTCExportExcelMsg1" xml:space="preserve">
+    <value>Your search result exceeds our set limits to get it downloaded.</value>
+    <comment>103046</comment>
+  </data>
+  <data name="BTCExportExcelMsg2" xml:space="preserve">
+    <value>Please try reducing date range, selecting individual currency/ bet type, etc.</value>
+    <comment>103046</comment>
+  </data>
+  <data name="ServerBusyMessage" xml:space="preserve">
+    <value>Your request can't be processed now due to busy server. Please try again later</value>
+    <comment>103046</comment>
   </data>
 </root>

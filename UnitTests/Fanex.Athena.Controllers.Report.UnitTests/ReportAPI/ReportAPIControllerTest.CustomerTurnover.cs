@@ -96,7 +96,7 @@
                     TotalData = new CustTurnover(),
                     TotalRows = 999
                 };
-                _customerTurnoverService.GetDataList(metaModel, SessionService.UserSession.Language).Returns(data);
+                _customerTurnoverService.GetDataList(metaModel, UserCurrencyList, SessionService.UserSession.Language).Returns(data);
 
                 // Action
                 var result = controller.CustomerTurnover(metaModel) as JsonResult;

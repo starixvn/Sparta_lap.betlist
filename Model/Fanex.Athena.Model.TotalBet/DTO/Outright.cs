@@ -6,24 +6,11 @@
 
 namespace Fanex.Athena.Model.TotalBet.DTO
 {
-    using VendorAdapter;
-
-    /// <summary>
-    /// Outright class.
-    /// </summary>
     public class Outright : TotalBetsBase
     {
-        private string _teamName;
-
         public int TeamId { get; set; }
 
-        public string TeamName
-        {
-            get
-            {
-                return _teamName ?? (_teamName = CacheRefAdapter.Instance.GetTeamName(TeamId));
-            }
-        }
+        public string TeamName { get; set; }
 
         public decimal Balance { get; set; }
 

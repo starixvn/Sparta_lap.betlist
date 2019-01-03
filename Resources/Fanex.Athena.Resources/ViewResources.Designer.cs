@@ -844,11 +844,20 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: Sport/ Bettype/ League/ Match can be selected all for 1 selected date..
+        ///   Looks up a localized string similar to All bettypes, League, and Match filter available only when 1 day is selected.
         /// </summary>
-        public static string BettingTicketCenter_MultiCustomersTabNote {
+        public static string BettingTicketCenter_MultiCustomersTabNote1 {
             get {
-                return ResourceManager.GetString("BettingTicketCenter_MultiCustomersTabNote", resourceCulture);
+                return ResourceManager.GetString("BettingTicketCenter_MultiCustomersTabNote1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data is available from {0}.
+        /// </summary>
+        public static string BettingTicketCenter_MultiCustomersTabNote2 {
+            get {
+                return ResourceManager.GetString("BettingTicketCenter_MultiCustomersTabNote2", resourceCulture);
             }
         }
         
@@ -948,6 +957,24 @@ namespace Fanex.Athena.Resources {
         public static string BoughtTicketsList {
             get {
                 return ResourceManager.GetString("BoughtTicketsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your search result exceeds our set limits to get it downloaded..
+        /// </summary>
+        public static string BTCExportExcelMsg1 {
+            get {
+                return ResourceManager.GetString("BTCExportExcelMsg1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please try reducing date range, selecting individual currency/ bet type, etc..
+        /// </summary>
+        public static string BTCExportExcelMsg2 {
+            get {
+                return ResourceManager.GetString("BTCExportExcelMsg2", resourceCulture);
             }
         }
         
@@ -4984,6 +5011,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multi-Customers.
+        /// </summary>
+        public static string MultiCustomers {
+            get {
+                return ResourceManager.GetString("MultiCustomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multiple Customers.
         /// </summary>
         public static string MultipleCustomers {
@@ -6816,6 +6852,15 @@ namespace Fanex.Athena.Resources {
         public static string September {
             get {
                 return ResourceManager.GetString("September", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your request can&apos;t be processed now due to busy server. Please try again later.
+        /// </summary>
+        public static string ServerBusyMessage {
+            get {
+                return ResourceManager.GetString("ServerBusyMessage", resourceCulture);
             }
         }
         

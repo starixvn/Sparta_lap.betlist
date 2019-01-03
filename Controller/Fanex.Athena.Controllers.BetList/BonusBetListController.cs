@@ -36,7 +36,7 @@
             return ProcessExportExcel(
                 new ShowingOption { GrandTotalVisible = false, CustomerCommVisible = true },
                 metaModel,
-                BetListService.GetBetListData(metaModel, uspKey),
+                BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey),
                 new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn },
                 ViewResources.TransactionDetail,
                 "BonusTransactionDetail");

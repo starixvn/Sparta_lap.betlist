@@ -3,19 +3,35 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { ActionCreators } from '../actions'
+import { Row, Cell } from '@jsroot/components/fixed-table-header'
 import LangHelper from '../../../../lib/langHelper'
 import BaseDataGrid from '../../common/components/BaseDataGrid'
 import Service from '../../common/lib/Service'
+import ApiUrl from '../../common/constants/apiUrl'
+import AppData from '@jsroot/lib/AppData'
 
 export class DataGrid extends BaseDataGrid {
     constructor(props) {
         super(props);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.gridData !== prevProps.gridData) {
-            this.props.toggleLoader(false);
-        }
+    get dataUrl(){
+        return ApiUrl.MULTICUSTOMER_DATA_URL;
+    }
+
+    _buildFooter() {
+        const item = this.props.gridData.Total;
+        const isNegativeWL = item.SumLicenseeWL.substring(0, 1) === '-';
+        
+        return [(
+            <Row className="fixed-table-grant-total" key={1}>
+               <Cell className="right-align" colSpan={6}>{LangHelper.getSingleResource("Total")}</Cell>
+               <Cell className="right-align">{item.SumStake}</Cell>
+               <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.SumWinLoss}}></Cell>
+               <Cell className={`right-align ${isNegativeWL ? "negative" : ""}`}>{item.SumLicenseeWL}</Cell>
+               <Cell className="right-align" colSpan={3}></Cell>
+            </Row>
+        )]
     }
 
     _buildHeader() {

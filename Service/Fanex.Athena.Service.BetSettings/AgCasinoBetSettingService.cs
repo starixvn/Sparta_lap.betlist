@@ -11,12 +11,10 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Linq;
     using System.Xml.Linq;
     using Common;
-    using Core.Users.Interfaces;
-    using Core.Utility;
     using Core.Utility.Interfaces;
-    using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Interfaces;
     using Model.BetSettings.DTO;
     using Model.BetSettings.DTO.AgCasino;

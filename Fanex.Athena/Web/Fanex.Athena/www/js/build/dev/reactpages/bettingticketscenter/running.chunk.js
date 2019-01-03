@@ -284,6 +284,8 @@ var _site = __webpack_require__(/*! @jsroot/lib/site */ "./www/js/source/reactpa
 
 var _site2 = _interopRequireDefault(_site);
 
+var _loaderAction = __webpack_require__(/*! @jsroot/actions/loaderAction */ "./www/js/source/reactpages/actions/loaderAction.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -292,6 +294,9 @@ function getGridData(url, params) {
     return function (dispatch) {
         _DataService2.default.postData(url, params).then(function (response) {
             dispatch(setGridData(response.data));
+        }).catch(function (error) {
+            alert("Sorry, an error occurred while processing your request.");
+            dispatch((0, _loaderAction.toggleLoader)(false));
         });
     };
 }
@@ -902,12 +907,13 @@ var AutoComplete = function (_Component) {
         };
 
         _this._onChange = function (event) {
-            var value = _this.input.value;
+            var value = (_this.input.value || "").trim();
+
             var onInput = _this.props.onInput;
 
             onInput && onInput(value);
 
-            if (value === "") {
+            if (value.length < 3) {
                 _this._clearState();
                 return;
             }
@@ -3510,7 +3516,8 @@ var Pager = function (_Component) {
             var _props = this.props,
                 isShowPagingInfo = _props.isShowPagingInfo,
                 isAllowInputPageIndex = _props.isAllowInputPageIndex,
-                pageOption = _props.pageOption;
+                pageOption = _props.pageOption,
+                alwaysVisible = _props.alwaysVisible;
             var PageIndex = pageOption.PageIndex,
                 PageSize = pageOption.PageSize,
                 TotalItem = pageOption.TotalItem,
@@ -3520,7 +3527,7 @@ var Pager = function (_Component) {
 
             var isDisable = isNaN(parseInt(inputValue));
 
-            var isShow = TotalItem > PageList[0];
+            var isShow = alwaysVisible || TotalItem > PageList[0];
             var totalPage = Math.ceil(TotalItem / PageSize);
 
             return _react2.default.createElement(
@@ -3557,7 +3564,8 @@ Pager.propTypes = {
     }),
     onPaging: _propTypes2.default.func,
     isShowPagingInfo: _propTypes2.default.bool,
-    isAllowInputPageIndex: _propTypes2.default.bool
+    isAllowInputPageIndex: _propTypes2.default.bool,
+    alwaysVisible: _propTypes2.default.bool
 };
 Pager.defaultProps = {
     pageOption: {
@@ -3567,7 +3575,8 @@ Pager.defaultProps = {
         TotalItem: 0
     },
     isShowPagingInfo: true,
-    isAllowInputPageIndex: true
+    isAllowInputPageIndex: true,
+    alwaysVisible: false
 };
 exports.default = Pager;
 
@@ -3943,7 +3952,8 @@ var Table = function (_Component) {
                 footer = _props2.footer,
                 isPaging = _props2.isPaging,
                 pageOption = _props2.pageOption,
-                onPaging = _props2.onPaging;
+                onPaging = _props2.onPaging,
+                alwaysVisiblePager = _props2.alwaysVisiblePager;
 
             var maxWidth = this.state.maxWidth;
 
@@ -3985,7 +3995,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: onPaging })
+                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { alwaysVisible: alwaysVisiblePager, pageOption: pageOption, onPaging: onPaging })
             );
         }
     }, {
@@ -4016,7 +4026,8 @@ Table.propTypes = {
     isPaging: _propTypes2.default.bool,
     onPaging: _propTypes2.default.func,
     pageOption: _propTypes2.default.object,
-    adjustedHeight: _propTypes2.default.number
+    adjustedHeight: _propTypes2.default.number,
+    alwaysVisiblePager: _propTypes2.default.bool
 };
 Table.defaultProps = {
     width: _constants.MAX_WIDTH,
@@ -4025,7 +4036,8 @@ Table.defaultProps = {
     isPaging: false,
     adjustedHeight: 0,
     bodyHeight: 0,
-    autoHeight: true
+    autoHeight: true,
+    alwaysVisiblePager: false
 };
 
 var _initialiseProps = function _initialiseProps() {
@@ -4939,6 +4951,16 @@ var Site = function () {
             document.body.appendChild(link);
             link.click();
             link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        }
+    }, {
+        key: "readAsJson",
+        value: function readAsJson(blob, callback) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                callback && callback(JSON.parse(reader.result));
+            };
+            reader.readAsText(blob);
         }
     }]);
 
@@ -5079,6 +5101,13 @@ var BaseDataGrid = function (_Component) {
             this.props.setRequestParam(param);
         }
     }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (this.props.gridData !== prevProps.gridData) {
+                this.props.toggleLoader(false);
+            }
+        }
+    }, {
         key: '_getData',
         value: function _getData(param) {
             this.props.toggleLoader(true);
@@ -5113,12 +5142,13 @@ var BaseDataGrid = function (_Component) {
 
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
+
                 rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
                     { key: 'product-' + i },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { className: 'center-align' },
+                        { title: item.Index, className: 'center-align' },
                         item.Index
                     ),
                     _react2.default.createElement(
@@ -5194,7 +5224,8 @@ var BaseDataGrid = function (_Component) {
                     footer: this._buildFooter && this._buildFooter(),
                     isPaging: true,
                     pageOption: pageOption,
-                    onPaging: this.onPaging
+                    onPaging: this.onPaging,
+                    alwaysVisiblePager: true
                 })
             );
         }
@@ -5290,6 +5321,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
             popupUrl: null,
             popupTitle: null
         };
+
         return _this;
     }
 
@@ -5298,6 +5330,10 @@ var PageLayout = exports.PageLayout = function (_Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
+            window.onload = function () {
+                window.logOpenBetlistEvent && window.logOpenBetlistEvent("BTC");
+            };
+
             window.ViewResult = function () {
                 for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
                     args[_key] = arguments[_key];
@@ -5305,6 +5341,18 @@ var PageLayout = exports.PageLayout = function (_Component) {
 
                 var url = _BetList2.default.getResultUrl.apply(_BetList2.default, args);
                 _this2._openPopup(url, _langHelper2.default.getSingleResource("Result"));
+            };
+
+            window.showMP = function (transId) {
+                var divEvent = document.querySelector('#divEvent_' + transId);
+                divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
+                _this2._showMixParlayDetail(transId, divEvent);
+            };
+
+            window.showCombMP = function (transId, index) {
+                var divEvent = document.querySelector('#divEvent_' + transId + "" + index);
+                divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
+                _this2._showMixParlayDetail(transId, divEvent);
             };
 
             // expand choice content
@@ -5341,6 +5389,8 @@ var PageLayout = exports.PageLayout = function (_Component) {
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
+            window.showMP = undefined;
+            window.showCombMP = undefined;
             window.ViewResult = undefined;
             window.showNewCombMP = undefined;
             window.showCombMPDetail = undefined;
@@ -5348,9 +5398,38 @@ var PageLayout = exports.PageLayout = function (_Component) {
             window.ShowBonusDetails = undefined;
         }
     }, {
+        key: '_showMixParlayDetail',
+        value: function _showMixParlayDetail(transId, divEvent) {
+            var _this3 = this;
+
+            if (divEvent.style.display === 'none') {
+                this.props.toggleLoader(true);
+                var url = _site2.default.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId);
+                _axios2.default.get(url).then(function (result) {
+                    var choice = "";
+                    var length = result.data.length;
+                    for (var i = 0; i < length; i++) {
+                        choice += result.data[i].Choice;
+                        if (i < length - 1) {
+                            choice += "<div class='line'></div>";
+                        }
+                    }
+
+                    divEvent.innerHTML = choice;
+                    divEvent.style.display = 'block';
+                    _this3.props.toggleLoader(false);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            } else {
+                divEvent.style.display = 'none';
+                divEvent.innerHTML = "";
+            }
+        }
+    }, {
         key: '_showNewParlayDetail',
         value: function _showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
-            var _this3 = this;
+            var _this4 = this;
 
             var divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
             var nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
@@ -5364,7 +5443,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
                     divEvent.innerHTML = choice;
                     divEvent.style.display = 'block';
                     nameDiv.style.display = 'none';
-                    _this3.props.toggleLoader(false);
+                    _this4.props.toggleLoader(false);
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -5387,7 +5466,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this5 = this;
 
             return _react2.default.createElement(
                 _AppLayout2.default,
@@ -5396,6 +5475,8 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 _react2.default.createElement(
                     _reactSimpleTab.Tabs,
                     null,
+                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 0, label: _langHelper2.default.getSingleResource("MultiCustomers"),
+                        url: _site2.default.resolveClientUrl("BettingTicketCenter/MultipleCustomers") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 1, label: _langHelper2.default.getSingleResource("SingleCustomer"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/SingleCustomer") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 2, label: _langHelper2.default.getSingleResource("RefNo"),
@@ -5413,7 +5494,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
                     title: this.state.popupTitle,
                     width: 900, height: 600,
                     onClose: function onClose() {
-                        return _this4._closePopup();
+                        return _this5._closePopup();
                     }
                 })
             );
@@ -5487,7 +5568,7 @@ var ApiUrl = {
     RUNNING_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetByRunning'),
     REFNO_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetByRefNo'),
     SINGLECUSTOMER_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer'),
-    MULTICUSTOMER_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetByMultipleCustomers')
+    MULTICUSTOMER_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenterMultiCustomer/GetData')
 };
 exports.default = ApiUrl;
 
@@ -5936,13 +6017,6 @@ var DataGrid = exports.DataGrid = function (_BaseDataGrid) {
     }
 
     _createClass(DataGrid, [{
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
-            if (this.props.gridData !== prevProps.gridData) {
-                this.props.toggleLoader(false);
-            }
-        }
-    }, {
         key: '_buildFooter',
         value: function _buildFooter() {
             var item = this.props.gridData.Total;
@@ -6209,7 +6283,13 @@ var FormFilter = exports.FormFilter = function (_Component) {
             params.IsExport = true;
             _this.props.toggleLoader(true);
             _DataService2.default.getFile(_apiUrl2.default.RUNNING_DATA_URL, params).then(function (response) {
-                _site2.default.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
+                var NoContentStatusCode = 204;
+
+                if (response.status === NoContentStatusCode) {
+                    alert(_langHelper2.default.getSingleResource("NoInfo"));
+                } else {
+                    _site2.default.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
+                }
                 _this.props.toggleLoader(false);
             });
         };

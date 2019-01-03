@@ -1,13 +1,10 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Core.Utility.Interfaces;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Interfaces;
-    using Logging;
     using Model.Core.DTO.Common;
     using Model.Report.DTO;
     using Model.Report.MetaModel;

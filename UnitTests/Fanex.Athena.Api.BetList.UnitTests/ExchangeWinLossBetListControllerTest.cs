@@ -4,11 +4,10 @@
     using System.Collections.Generic;
     using Base.UnitTests;
     using Model.BetList.MetaModel;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.BetList.Interfaces;
-    using Service.Core.Users.Interfaces;
+    using Service.StatelessCore.Interfaces;
     using Session.Model;
 
     public class ExchangeWinLossBetListControllerTest : BaseApiControllerHelperTest
