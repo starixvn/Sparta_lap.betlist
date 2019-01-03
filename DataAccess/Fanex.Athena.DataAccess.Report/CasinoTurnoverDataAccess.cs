@@ -9,24 +9,18 @@
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Data;
-    using Extension.Utility;
     using Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.Helper;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Session.Interfaces;
 
     public class CasinoTurnoverDataAccess : BaseDataAccess, ICasinoTurnoverDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public CasinoTurnoverDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
-            IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
+        public CasinoTurnoverDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

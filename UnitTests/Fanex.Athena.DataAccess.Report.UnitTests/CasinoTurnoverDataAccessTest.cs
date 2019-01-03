@@ -34,7 +34,7 @@
                 MoveBetsDay = _moveBetsDay
             });
 
-            DataAccess = Substitute.ForPartsOf<CasinoTurnoverDataAccess>(AppSetting, CreateSessionStorage(), balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<CasinoTurnoverDataAccess>(balanceUpDataAccess);
         }
 
         [OneTimeSetUp]
