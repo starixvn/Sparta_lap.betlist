@@ -1,20 +1,23 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System;
+    using System.Data;
     using Core.Common;
     using Extension.Utility;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
     using TestHelpers;
     using VendorAdapter.Interfaces;
 
     public class MatchDataAccessTest : BaseDataAccessHelperTest<MatchDataAccess>
     {
+        private IAppSettings _appSettings;
+
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<MatchDataAccess>(Substitute.For<ICacheRefAdapter>());
+            _appSettings = Substitute.For<IAppSettings>();
+            DataAccess = Substitute.ForPartsOf<MatchDataAccess>(Substitute.For<ICacheRefAdapter>(), _appSettings);
         }
 
         [TestCase(1)]
@@ -75,18 +78,21 @@
             Assert.That(result, Is.Empty);
         }
 
-        [Test]
-        public void GetAllRunningMatch_WhenCall_ParametersPassedCorrectly()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GetAllRunningMatch_WhenCall_ParametersPassedCorrectly(bool isProduction)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueMatchSelRunning")).Returns(ObjectDb);
-            var sportId = 1;
+            const int SportId = 1;
+            _appSettings.IsProduction.Returns(isProduction);
 
             // Action
-            DataAccess.GetAllRunningMatch(sportId);
+            DataAccess.GetAllRunningMatch(SportId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("sporttype", System.Data.DbType.Int32, sportId);
+            ObjectDb.Received(1).AddInParameter("sporttype", DbType.Int32, SportId);
+            ObjectDb.Received(1).AddInParameter("IsIncludeTestLeague", DbType.Boolean, !isProduction);
         }
 
         [Test]

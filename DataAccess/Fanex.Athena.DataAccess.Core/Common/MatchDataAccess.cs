@@ -116,8 +116,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     SportId = sportId,
                     LeagueID = leagueId,
                     FromDate = fromDate,
-                    ToDate = toDate,
-                    IsIncludeTestLeague = !_appSettings.IsProduction
+                    ToDate = toDate
                 };
                 using (var reader = db.ExecuteReader(uspParam))
                 {
