@@ -140,7 +140,7 @@ export default class ReportExcel {
             const item = mainData[i];
             item.Date = moment(item.Date).format("MM/DD/YYYY");
             var cellAddress = Excel.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
-            this.worksheet[cellAddress] = { t: "s", v: (i + 1), s: bodyCellStyle.center };
+            this.worksheet[cellAddress] = { t: "s", v: item.Index, s: bodyCellStyle.center };
             this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, DATE_COLUMN_INDEX, CUSTOMERWL_COLUMN_INDEX);
             if (item.RowSpan > 1) {
                 for(let column = 0; column <= 3; column++) {

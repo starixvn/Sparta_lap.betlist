@@ -6399,7 +6399,7 @@ var ReportExcel = function () {
                 var item = mainData[i];
                 item.Date = (0, _moment2.default)(item.Date).format("MM/DD/YYYY");
                 var cellAddress = _excel2.default.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
-                this.worksheet[cellAddress] = { t: "s", v: i + 1, s: _excelStyle.bodyCellStyle.center };
+                this.worksheet[cellAddress] = { t: "s", v: item.Index, s: _excelStyle.bodyCellStyle.center };
                 this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, DATE_COLUMN_INDEX, CUSTOMERWL_COLUMN_INDEX);
                 if (item.RowSpan > 1) {
                     for (var column = 0; column <= 3; column++) {
