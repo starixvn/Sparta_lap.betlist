@@ -18,6 +18,8 @@
     [FunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class CommonDataApiController : ApiController
     {
+        private readonly ILanguageService _langService;
+
         private readonly ISportTypeDataAccess _sportTypeDataAccess;
 
         private readonly ISessionService _sessionService;
@@ -29,17 +31,26 @@
         private readonly IBetTypeService _betTypeService;
 
         public CommonDataApiController(
+            ILanguageService langService,
             ISportTypeDataAccess sportTypeDataAccess,
             ISessionService sessionService,
             ILeagueDataAccess leagueDataAccess,
             IMatchDataAccess matchDataAccess,
             IBetTypeService betTypeService)
         {
+            _langService = langService;
             _sportTypeDataAccess = sportTypeDataAccess;
             _sessionService = sessionService;
             _leagueDataAccess = leagueDataAccess;
             _matchDataAccess = matchDataAccess;
             _betTypeService = betTypeService;
+        }
+
+        protected override void Initialize(System.Web.Http.Controllers.HttpControllerContext controllerContext)
+        {
+            base.Initialize(controllerContext);
+            var currentLanguage = _langService.GetCurrentLanguage();
+            _langService.SetPageCulture(currentLanguage);
         }
 
         [HttpGet]

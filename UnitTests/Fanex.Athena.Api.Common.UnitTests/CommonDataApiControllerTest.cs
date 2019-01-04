@@ -155,6 +155,7 @@
         private CommonDataApiController CreateController()
         {
             return new CommonDataApiController(
+                Substitute.For<ILanguageService>(),
                 _sportTypeDataAccess,
                 _sessionService,
                 _leagueDataAccess,
