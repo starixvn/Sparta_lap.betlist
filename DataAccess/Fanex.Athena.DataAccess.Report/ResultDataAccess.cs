@@ -14,6 +14,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Constant.Helper;
     using Core;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -33,12 +34,16 @@ namespace Fanex.Athena.DataAccess.Report
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
+        private readonly IAppSettings _appSettings;
+
         public ResultDataAccess(
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IAppSettings appSettings)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
+            _appSettings = appSettings;
         }
 
         public IList<Outright> GetOutRight(ResultMetalModel metal)
@@ -48,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 fromdate = metal.FromDate,
                 todate = metal.ToDate,
-                isshowall = true
+                isshowall = !_appSettings.IsProduction
             };
 
             try
@@ -115,7 +120,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 eventdate = dateValue,
                 sporttype = sportId,
-                isshowall = true,
+                isshowall = !_appSettings.IsProduction,
                 movebetsday = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay
             };
 
