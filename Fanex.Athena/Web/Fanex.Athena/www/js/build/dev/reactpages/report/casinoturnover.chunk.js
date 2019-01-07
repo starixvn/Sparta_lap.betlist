@@ -6083,7 +6083,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                             _react2.default.createElement(
                                 'label',
                                 { className: 'label-text' },
-                                _langHelper2.default.getSingleResource('UserName')
+                                _langHelper2.default.getSingleResource('Username')
                             ),
                             this._renderUserName()
                         )
