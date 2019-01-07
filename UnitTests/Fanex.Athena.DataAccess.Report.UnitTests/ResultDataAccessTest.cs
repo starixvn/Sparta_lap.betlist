@@ -5,6 +5,7 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
+    using Extension.Utility;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
@@ -51,9 +52,11 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            var appSettings = Substitute.For<IAppSettings>();
             DataAccess = Substitute.ForPartsOf<ResultDataAccess>(
                 balanceUpDataAccess,
-                cacheRefAdapter);
+                cacheRefAdapter,
+                appSettings);
         }
 
         [Test]
