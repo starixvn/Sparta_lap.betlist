@@ -209,7 +209,7 @@
                 appendSetFixtures("<a class='sport-detailt-link' data-drill-down='{\"SportId\":161}'></a>");
                 LiveReport.initialize();
                 $('.sport-detailt-link').click();
-                var urlPattern = /LiveReportBetList\/NumberGame\?currencyname=\&productcodelist=AG/i;
+                var urlPattern = /LiveReportBetList\/NumberGame\?sporttype=161\&currencyname=\&productcodelist=AG/i;
 
                 expect(Site.redirect).toHaveBeenCalledWith(jasmine.stringMatching(urlPattern));
             });
