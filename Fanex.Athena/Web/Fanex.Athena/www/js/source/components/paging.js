@@ -117,7 +117,7 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
         me._bindEvent(setting);
     };
     me.getSetting = function (elementcontainer) {
-        var elementcontainer = elementcontainer || Object.keys(_settings)[0];
+        elementcontainer = elementcontainer || Object.keys(_settings)[0];
         var setting = _settings[elementcontainer];
         var $pagerContainer = $(elementcontainer);
         var $pageIndex = getByName($pagerContainer, "PageIndex");

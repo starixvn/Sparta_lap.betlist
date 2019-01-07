@@ -98,7 +98,7 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             jqGridAdditional.updateGridHeight($container);
             
             $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
-            $container.find(".panel-heading").width(width)
+            $container.find(".panel-heading").width(width);
             $("#DormantCustomerPager").width(width);
             
             if ($.active <= 1) {

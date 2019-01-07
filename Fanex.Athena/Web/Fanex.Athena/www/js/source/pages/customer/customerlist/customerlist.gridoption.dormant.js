@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
-    function ($, Site, jqGridAdditional) {
+﻿define(["jquery", "common/site"],
+    function ($, Site) {
         "use strict";
 
         var externalIdColumn =

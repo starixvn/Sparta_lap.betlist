@@ -142,7 +142,7 @@ define([
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
-            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, csCom, abCom) {
+            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, csCom) {
                 var count = 0;
                 var length = Object.keys(_state.selectedCustomers).length;
 
