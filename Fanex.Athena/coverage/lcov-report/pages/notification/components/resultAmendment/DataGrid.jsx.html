@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for pages/notification/components/resultAmendment/DataGrid.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">pages/notification/components/resultAmendment</a> DataGrid.jsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>55/55</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>20/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>55/55</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">﻿import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { ActionCreators } from '../../actions/resultAmendment'
+import { bindActionCreators } from 'redux'
+import { Table, Row, Cell } from '../../../../components/fixed-table-header'
+import LangHelper from '../../../../lib/langHelper'
+import ReportTitle from '../../../../components/ReportTitle'
+import NoDataTitle from '../../../../components/NoDataTitle'
+import service from '../../lib/resultAmendmentService'
+import Site from '../../../../lib/site'
+import CollapsibleRow from '../../../../components/CollapsibleRow'
+import moment from 'moment'
+import Excel from '../../../../lib/excel'
+&nbsp;
+export class DataGrid extends Component {
+    constructor(props) {
+        super(props);
+&nbsp;
+        this.reportTitle = "";
+    }
+&nbsp;
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.param !== prevProps.param) {
+            const paramData = this.props.param;
+            if(paramData) {
+                this.reportTitle = service.getReportTitle({
+                    fromDate: paramData.FromDate,
+                    toDate: paramData.ToDate
+                });
+            }
+        }
+&nbsp;
+        if (this.props.gridData !== prevProps.gridData) {
+            this.props.toggleLoader(false);
+        }
+    }
+&nbsp;
+    onPaging = (index, size) =&gt; {
+        let paramData = this.props.param;
+&nbsp;
+        paramData.PageIndex = index;
+        paramData.PageSize = size;
+&nbsp;
+        const params = {
+            data: paramData
+        };
+&nbsp;
+        this.props.toggleLoader(true);
+        this.props.getGridData(params);
+        this.props.setParam(paramData);
+    }
+&nbsp;
+    onExpand(index, item) {
+        const { Data, Total } = this.props.gridData;
+        Data[index].IsExpand = true;
+&nbsp;
+        if(!item.IsRead) {
+            this.props.markItemAsRead({
+                Index: index,
+                Id: item.Id,
+                Type: item.Type,
+                Data: Data,
+                Total: Total
+            });
+        }
+        else {
+            this.props.setGridData({ Data: Data, Total: Total });
+        }
+    }
+&nbsp;
+    exportExcel(item) {
+        const params = {
+            fileName: item.DataFilePath
+        };
+        const fileName = this.props.licenseeName;
+&nbsp;
+        this.props.toggleLoader(true);
+        this.props.exportAttachment(params).then(response =&gt; {
+            if(response.status === 204) {
+                alert(LangHelper.getSingleResource('FileIsNotReady'));
+            }
+            else{
+                const blob = response.data;
+                Excel.downloadFromBolb(blob, fileName);
+            }
+            this.props.toggleLoader(false);
+        });
+    }
+&nbsp;
+    _buildHeader() {
+        const headerText = service.getHeaderText();
+&nbsp;
+        return (
+            &lt;Row style={{ height: 32 }}&gt;
+                &lt;Cell colWidth={30} header={true} title={headerText.index}&gt;{headerText.index}&lt;/Cell&gt;
+                &lt;Cell colWidth={120} header={true} title={headerText.dateTime}&gt;{headerText.dateTime}&lt;/Cell&gt;
+                &lt;Cell colWidth={350} header={true} title={headerText.content}&gt;{headerText.content}&lt;/Cell&gt;
+                &lt;Cell colWidth={30} header={true} title={headerText.ticketList}&gt;{headerText.ticketList}&lt;/Cell&gt;
+            &lt;/Row&gt;
+        );
+    }
+&nbsp;
+    _buildBody() {
+        const data = this.props.gridData.Data;
+        const exportToExcelTitle = LangHelper.getSingleResource("ExportToExcel");
+&nbsp;
+        let rows = [];
+        let index = ((this.props.param.PageIndex - 1) * this.props.param.PageSize) + 1;
+        for (let i = 0; i &lt; data.length; i++) {
+            const item = data[i];
+            const datetimeString = moment(item.DateTime).format("MM/DD/YYYY");
+            rows.push(
+                &lt;Row key={`tr${i}`} className={ item.IsRead ? "" : "unread" }&gt;
+                    &lt;Cell title={index} className="center-align"&gt;{index}&lt;/Cell&gt;
+                    &lt;Cell title={datetimeString} className="center-align"&gt;{datetimeString}&lt;/Cell&gt;
+                    &lt;Cell className="notification-content"&gt;
+                        &lt;CollapsibleRow 
+                            subject={item.Subject} 
+                            content={item.Content}
+                            onExpand={() =&gt; this.onExpand(i, item)} 
+                            isExpand={item.IsExpand}
+                            isHtml={true} /&gt;
+                    &lt;/Cell&gt;
+                    {
+                        Site.asNull(item.DataFilePath) === null 
+                        ? &lt;Cell&gt;&lt;/Cell&gt;
+                        : &lt;Cell title={exportToExcelTitle} className="center-align"&gt;&lt;a onClick={() =&gt; this.exportExcel(item)} className="icon-excel"&gt;&lt;/a&gt;&lt;/Cell&gt;
+                    }
+                &lt;/Row&gt;)
+            index++;
+        }
+&nbsp;
+        return rows;
+    }
+&nbsp;
+    _renderNodata() {
+        return (
+            &lt;div className="result-content"&gt;
+                &lt;ReportTitle content={this.reportTitle} /&gt;
+                &lt;NoDataTitle /&gt;
+            &lt;/div&gt;
+        )
+    }
+&nbsp;
+    render() {
+        const gridData = this.props.gridData;
+        if (!gridData.Data) {
+            return null;
+        }
+&nbsp;
+        if (!gridData.Data || !gridData.Data.length) {
+            return this._renderNodata();
+        }
+&nbsp;
+        const param = this.props.param;
+        const pageOption = {
+            PageIndex: param.PageIndex,
+            PageSize: param.PageSize,
+            TotalItem: gridData.Total,
+            PageList: [10, 20, 50, 100, 500]
+        };
+&nbsp;
+        return (
+            &lt;div className="result-content"&gt;
+                &lt;ReportTitle content={this.reportTitle} /&gt;
+&nbsp;
+                &lt;Table minWidth={650}
+                       autoWidth={true}
+                       adjustedHeight={32}
+                       header={this._buildHeader()}
+                       body={this._buildBody()}
+                       isPaging={true}
+                       pageOption={pageOption}
+                       onPaging={this.onPaging} /&gt;
+            &lt;/div&gt;
+        );
+    }
+}
+&nbsp;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ActionCreators, dispatch);
+}
+&nbsp;
+function mapStateToProps(state) {
+    const { gridData, dateRange, param, licenseeName } = state;
+    return Object.assign({}, { gridData, dateRange, param, licenseeName });
+};
+&nbsp;
+export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 12:41:33 GMT+0700 (SE Asia Standard Time)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

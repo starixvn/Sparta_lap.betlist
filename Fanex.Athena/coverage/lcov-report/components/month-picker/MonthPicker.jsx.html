@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/month-picker/MonthPicker.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">components/month-picker</a> MonthPicker.jsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>26/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.83% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>17/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.71% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>26/26</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">﻿import React, { Component } from 'react';
+import Month from './Month';
+import Day from './Day';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+&nbsp;
+class MonthPicker extends Component {
+    constructor(props) {
+        super(props);
+&nbsp;
+        const format = 'MM/DD/YYYY';
+&nbsp;
+        const minDate = moment(props.minDate, format);
+        const maxDate = moment(props.maxDate, format);
+&nbsp;
+        const min = { year: minDate.year(), month: minDate.month(), date: minDate.date() };
+        const max = { year: maxDate.year(), month: maxDate.month(), date: maxDate.date() };
+        this.min = min;
+        this.max = max;
+&nbsp;
+        const fromDate = moment(props.fromDate, format);
+        const toDate = moment(props.toDate, format);
+&nbsp;
+        const currentMonth = { year: fromDate.year(), month: fromDate.month() };
+&nbsp;
+        this.state = {
+            month: currentMonth,
+            from: fromDate.date(),
+            to: toDate.date()
+        }
+    }
+&nbsp;
+    static propTypes = {
+        monthOption: PropTypes.object.isRequired,
+        fromDateOption: PropTypes.object.isRequired,
+        toDateOption: PropTypes.object.isRequired,
+        onChange: PropTypes.func,
+&nbsp;
+        minDate: PropTypes.string.isRequired,
+        maxDate: PropTypes.string.isRequired,
+        fromDate: PropTypes.string.isRequired,
+        toDate: PropTypes.string.isRequired
+    }
+&nbsp;
+    static defaultProps = {
+        label: 'View data in month',
+        onChange: <span class="fstat-no" title="function not covered" >fu</span>nction() {}
+    }
+&nbsp;
+    _onMonthChange = (value)  =&gt; {
+        const minDate = value.year === this.min.year &amp;&amp; value.month === this.min.month ? <span class="branch-0 cbranch-no" title="branch not covered" >this.min.date </span>: 1;
+        const maxDate = value.year === this.max.year &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >value.month === this.max.month </span>? <span class="branch-0 cbranch-no" title="branch not covered" >this.max.date </span>: moment({ year: value.year, month: value.month}).daysInMonth();
+      
+        this.setState({
+            month: value,
+            minDate: minDate,
+            maxDate: maxDate,
+            from: minDate,
+            to: maxDate
+        });
+&nbsp;
+        this.props.onChange({
+            fromDate: this._formatDate(minDate, value.month, value.year),
+            toDate: this._formatDate(maxDate, value.month, value.year)
+        });
+    }
+&nbsp;
+    _formatDate(date, month, year) {
+        return `${month &lt; 9 ? '0'+ (month + 1) : month + 1}/${date &lt; 10 ? '0'+ date : date}/${year}`;
+    }
+&nbsp;
+    _onFromDateChange = (value) =&gt; {
+        this.setState({ from: value });
+&nbsp;
+        this.props.onChange({
+            fromDate: this._formatDate(value, this.state.month.month, this.state.month.year),
+            toDate: this._formatDate(this.state.to, this.state.month.month, this.state.month.year)
+        });
+    }
+&nbsp;
+    _onToDateChange = (value) =&gt; {
+        this.setState({ to: value });
+&nbsp;
+        this.props.onChange({
+            fromDate: this._formatDate(this.state.from, this.state.month.month, this.state.month.year),
+            toDate: this._formatDate(value, this.state.month.month, this.state.month.year)
+        });
+    }
+&nbsp;
+    render() {
+        const { month, from, to } = this.state;
+        const daysInMonth = moment({ year: month.year, month: month.month}).daysInMonth();
+&nbsp;
+        const startDate = month.year === this.min.year &amp;&amp; month.month === this.min.month ? <span class="branch-0 cbranch-no" title="branch not covered" >this.min.date </span>: 1;
+        const endDate = month.year === this.max.year &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >month.month === this.max.month </span>? <span class="branch-0 cbranch-no" title="branch not covered" >this.max.date </span>: daysInMonth;
+&nbsp;
+        return (
+            &lt;div className='month-picker'&gt;
+                &lt;Month min={this.min} max={this.max} value={month}  {...this.props.monthOption} onChange={this._onMonthChange}/&gt;
+&nbsp;
+                &lt;Day min = {startDate} max={endDate &gt; to ? to : <span class="branch-1 cbranch-no" title="branch not covered" >endDate}</span> value={from} { ...this.props.fromDateOption } onChange={this._onFromDateChange} /&gt;
+                &lt;Day min = {startDate &lt; from ? from : startDate} max={endDate} value={to} { ...this.props.toDateOption } onChange={this._onToDateChange}/&gt;
+            &lt;/div&gt;
+       );
+    }
+}
+&nbsp;
+export default MonthPicker;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 12:41:33 GMT+0700 (SE Asia Standard Time)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>

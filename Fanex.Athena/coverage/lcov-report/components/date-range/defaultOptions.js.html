@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/date-range/defaultOptions.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">components/date-range</a> defaultOptions.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>34/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>30/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>34/34</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">275x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">266x</span>
+<span class="cline-any cline-yes">196x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import moment from 'moment';
+import LangHelper from "../../lib/langHelper";
+import locale from "./utils/locale";
+import { MomentFormat } from './constants';
+&nbsp;
+const addRange = (rangeObj, name, start, end) =&gt; {
+    rangeObj[LangHelper.getSingleResource(name)] = {
+        startDate: start,
+        endDate: end
+    };
+};
+&nbsp;
+const addOneDay = (rangeObj, name, day, min, max) =&gt; {
+    if (day &gt;= min &amp;&amp; day &lt;= max) {
+        addRange(rangeObj, name, day, day);
+    }
+};
+&nbsp;
+const addDistanceDays = (rangeObj, name, start, end, min, max) =&gt; {
+    if (!(max &lt; start || end &lt; min)) {
+        addRange(rangeObj, name, start &lt; min ? min : start, end &gt; max ? max: end);
+    }
+};
+&nbsp;
+export default {
+    ranges: (today, min, max, limitMonths) =&gt; {
+        today = !today ? moment() : (!moment.isMoment(today) ? moment(today, MomentFormat.default) : today);
+        max = !max ? today : (!moment.isMoment(max) ? moment(max, MomentFormat.default) : max);
+        min = !min ? today : (!moment.isMoment(min) ? moment(min, MomentFormat.default) : min);
+&nbsp;
+        const range = {};
+&nbsp;
+        if (today &lt; min) {
+            return range;
+        }
+&nbsp;
+        addOneDay(range, "Today", today, min, max);
+&nbsp;
+        const yesterday = today.clone().add(-1, 'days');
+        addOneDay(range, "Yesterday", yesterday, min, max);
+&nbsp;
+        const startCurrentWeek = today.clone().startOf('week');
+        const endCurrentWeek = today;
+        addDistanceDays(range, "Currentweek", startCurrentWeek, endCurrentWeek, min, max);
+&nbsp;
+        const startLastWeek = today.clone().subtract(1, 'week').startOf('week');
+        const endLastWeek = startLastWeek.clone().add(6, 'days');
+        addDistanceDays(range, "Lastweek", startLastWeek, endLastWeek, min, max);
+&nbsp;
+        const startCurrentmonth = today.clone().startOf('month');
+        const endCurrentmonth = today;
+        addDistanceDays(range, "Currentmonth", startCurrentmonth, endCurrentmonth, min, max);
+&nbsp;
+        const startLastmonth = today.clone().subtract(1, 'month').startOf('month');
+        const endLastmonth = startLastmonth.clone().endOf('month');
+        addDistanceDays(range, "Lastmonth", startLastmonth, endLastmonth, min, max);
+&nbsp;
+        if (limitMonths &amp;&amp; limitMonths &gt; 1) {
+            const startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
+            const endSincelastmonth = today;
+            addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max); 
+        }
+&nbsp;
+        return range;
+    },
+&nbsp;
+    locale: {
+        applyLabel: LangHelper.getSingleResource("OK"),
+        cancelLabel: LangHelper.getSingleResource("Cancel"),
+        ...locale
+    }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 12:41:33 GMT+0700 (SE Asia Standard Time)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>

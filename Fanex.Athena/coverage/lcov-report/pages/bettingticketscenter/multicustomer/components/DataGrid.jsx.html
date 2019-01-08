@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for pages/bettingticketscenter/multicustomer/components/DataGrid.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">pages/bettingticketscenter/multicustomer/components</a> DataGrid.jsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>16/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>16/16</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">﻿import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+&nbsp;
+import { ActionCreators } from '../actions'
+import { Row, Cell } from '@jsroot/components/fixed-table-header'
+import LangHelper from '../../../../lib/langHelper'
+import BaseDataGrid from '../../common/components/BaseDataGrid'
+import Service from '../../common/lib/Service'
+import ApiUrl from '../../common/constants/apiUrl'
+import AppData from '@jsroot/lib/AppData'
+&nbsp;
+export class DataGrid extends BaseDataGrid {
+    constructor(props) {
+        super(props);
+    }
+&nbsp;
+    get dataUrl(){
+        return ApiUrl.MULTICUSTOMER_DATA_URL;
+    }
+&nbsp;
+    _buildFooter() {
+        const item = this.props.gridData.Total;
+        const isNegativeWL = item.SumLicenseeWL.substring(0, 1) === '-';
+        
+        return [(
+            &lt;Row className="fixed-table-grant-total" key={1}&gt;
+               &lt;Cell className="right-align" colSpan={6}&gt;{LangHelper.getSingleResource("Total")}&lt;/Cell&gt;
+               &lt;Cell className="right-align"&gt;{item.SumStake}&lt;/Cell&gt;
+               &lt;Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.SumWinLoss}}&gt;&lt;/Cell&gt;
+               &lt;Cell className={`right-align ${isNegativeWL ? "negative" : <span class="branch-1 cbranch-no" title="branch not covered" >""}</span>`}&gt;{item.SumLicenseeWL}&lt;/Cell&gt;
+               &lt;Cell className="right-align" colSpan={3}&gt;&lt;/Cell&gt;
+            &lt;/Row&gt;
+        )]
+    }
+&nbsp;
+    _buildHeader() {
+        var headerText = Service.getHeaderText();
+        const licenseeWLText = `${headerText.LicenseeWL}/${headerText.Comm}`;
+        const winlossText = AppData.isAllowedCustomerComm ? `${headerText.WinLoss}/${headerText.Comm}` : headerText.WinLoss;
+&nbsp;
+        const { SortBy, SortOrder } = this.props.requestParam;
+&nbsp;
+        return (
+            &lt;Row style={{ height: 32 }}&gt;
+                &lt;Cell colWidth={40} header={true} title={headerText.Index}&gt;{headerText.Index}&lt;/Cell&gt;               
+                &lt;Cell colWidth={120} header={true} title={headerText.ExternalId}&gt;{headerText.ExternalId}&lt;/Cell&gt;
+                &lt;Cell colWidth={120} header={true} title={headerText.SystemId}&gt;{headerText.SystemId}&lt;/Cell&gt;
+                &lt;Cell colWidth={150} header={true} title={headerText.TransTime}&gt;{headerText.TransTime}&lt;/Cell&gt;
+                &lt;Cell colWidth={400} header={true} title={headerText.Choice}&gt;{headerText.Choice}&lt;/Cell&gt;
+                &lt;Cell colWidth={70} header={true} title={headerText.Odds}&gt;{headerText.Odds}&lt;/Cell&gt;
+                &lt;Cell colWidth={100} header={true} title={headerText.Stake} sortable={true} sorting={SortBy=='Stake'} asc={SortOrder=='asc'} onClick={()=&gt;this._sort('Stake')}&gt;
+                    {headerText.Stake}
+                &lt;/Cell&gt;
+                &lt;Cell colWidth={100} header={true} title={winlossText} sortable={true} sorting={SortBy=='WinLost'} asc={SortOrder=='asc'} onClick={()=&gt;this._sort('WinLost')}&gt;
+                    {winlossText}
+                &lt;/Cell&gt;
+                &lt;Cell colWidth={100} header={true} title={licenseeWLText} sortable={true} sorting={SortBy=='LicenseeWL'} asc={SortOrder=='asc'} onClick={()=&gt;this._sort('LicenseeWL')}&gt;
+                    {licenseeWLText}
+                &lt;/Cell&gt;
+                &lt;Cell colWidth={80} header={true} title={headerText.Status}&gt;{headerText.Status}&lt;/Cell&gt;
+                &lt;Cell colWidth={80} header={true} title={headerText.Platform}&gt;{headerText.Platform}&lt;/Cell&gt;
+                &lt;Cell colWidth={80} header={true} title={headerText.Live}&gt;{headerText.Live}&lt;/Cell&gt;
+            &lt;/Row&gt;
+        )
+        }
+  }
+&nbsp;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ActionCreators, dispatch);
+  }
+function mapStateToProps(state) {
+    const { requestParam, gridData, reportTitle } = state;
+    return Object.assign({}, { requestParam, gridData, reportTitle });
+  };
+&nbsp;
+export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 12:41:33 GMT+0700 (SE Asia Standard Time)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

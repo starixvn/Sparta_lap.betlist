@@ -1,0 +1,1355 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/date-range/Calendar.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">components/date-range</a> Calendar.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>160/160</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>98/98</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>25/25</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>160/160</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2268x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2268x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2268x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2268x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2268x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">858x</span>
+<span class="cline-any cline-yes">858x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">858x</span>
+<span class="cline-any cline-yes">690x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">168x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">858x</span>
+<span class="cline-any cline-yes">690x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">168x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">858x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-yes">684x</span>
+<span class="cline-any cline-yes">684x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">684x</span>
+<span class="cline-any cline-yes">684x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">684x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">346x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">378x</span>
+<span class="cline-any cline-yes">378x</span>
+<span class="cline-any cline-yes">378x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">1682x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1682x</span>
+<span class="cline-any cline-yes">1682x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1652x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">465x</span>
+<span class="cline-any cline-yes">465x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2310x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import parseInput from './utils/parseInput.js';
+import DayCell from './DayCell.js';
+import getTheme, { defaultClasses } from './styles.js';
+import { MomentFormat } from './constants';
+&nbsp;
+const START_OF_MONTH = 0;
+const END_OF_MONTH = 11;
+const START_DAY_OF_MONTH = 1;
+const DEFAULT_YEAR_RANGE = 5;
+&nbsp;
+function checkRange(dayMoment, range) {
+  return (
+    dayMoment.isBetween(range['startDate'], range['endDate']) ||
+    dayMoment.isBetween(range['endDate'], range['startDate'])
+  )
+}
+&nbsp;
+function checkStartEdge(dayMoment, range) {
+  const { startDate } = range;
+&nbsp;
+  return dayMoment.startOf('day').isSame(startDate.startOf('day'));
+}
+&nbsp;
+function checkEndEdge(dayMoment, range) {
+  const { endDate } = range;
+&nbsp;
+  return dayMoment.endOf('day').isSame(endDate.endOf('day'));
+}
+&nbsp;
+function isOusideMinMax(dayMoment, minDate, maxDate, format) {
+  return (
+    (minDate &amp;&amp; dayMoment.isBefore(parseInput(minDate, format, 'startOf'))) ||
+    (maxDate &amp;&amp; dayMoment.isAfter(parseInput(maxDate, format, 'endOf')))
+  )
+}
+&nbsp;
+class Calendar extends Component {
+  constructor(props, context) {
+    super(props, context);
+&nbsp;
+    const { format, range, theme, offset, firstDayOfWeek, shownDate } = props;
+&nbsp;
+    const date = parseInput(props.date, format, 'startOf');
+    let showDate = (shownDate || range &amp;&amp; range['endDate'] || date).clone();
+    const state = {
+      date,
+      shownDate: showDate,
+      firstDayOfWeek: (firstDayOfWeek || moment.localeData().firstDayOfWeek())
+    }
+&nbsp;
+    this.state = state;
+    this.styles = getTheme(theme);
+  }
+&nbsp;
+  componentDidMount() {
+    const { onInit } = this.props;
+    onInit &amp;&amp; onInit(this.state.date);
+  }
+&nbsp;
+  get limitedDate() {
+    const { minDate, maxDate } = this.props;
+    const m = moment();
+    let startDate, endDate;
+&nbsp;
+    if (minDate) {
+      startDate = moment.isMoment(minDate) ? minDate : moment(minDate, MomentFormat.default);
+    }
+    else {
+      startDate = moment([m.year() - DEFAULT_YEAR_RANGE, START_OF_MONTH]);
+    }
+&nbsp;
+    if (maxDate) {
+      endDate = moment.isMoment(maxDate) ? maxDate : moment(maxDate, MomentFormat.default);
+    }
+    else {
+      endDate = moment([m.year(), END_OF_MONTH]).endOf("month");
+    }
+&nbsp;
+&nbsp;
+    return { startDate, endDate }
+  }
+&nbsp;
+  get disablePrevButton() {
+    const range = this.limitedDate;
+    const startDate = range.startDate;
+    const currentDate = this.state.shownDate;
+    let prevMonth = this.state.shownDate.month() - 1;
+&nbsp;
+    if (prevMonth &lt; startDate.month() &amp;&amp; currentDate.year() &lt;= startDate.year()) {
+      return true;
+    }
+&nbsp;
+    return false;
+  }
+&nbsp;
+  get disableNextButton() {
+    const range = this.limitedDate;
+    const endDate = range.endDate;
+    const currentDate = this.state.shownDate;
+    let nextMonth = this.state.shownDate.month() + 1;
+&nbsp;
+    if (nextMonth &gt; endDate.month() &amp;&amp; currentDate.year() &gt;= endDate.year()) {
+      return true;
+    }
+&nbsp;
+    return false;
+  }
+&nbsp;
+  getShownDate() {
+    const { link } = this.props;
+&nbsp;
+    const shownDate = link || this.state.shownDate;
+&nbsp;
+    return shownDate;
+  }
+&nbsp;
+  handleSelect(newDate) {
+    const { link, onChange } = this.props;
+&nbsp;
+    onChange &amp;&amp; onChange(newDate);
+&nbsp;
+    if (!link) {
+      this.setState({ date: newDate });
+    }
+  }
+&nbsp;
+  nextButtonClickHandler(event) {
+    event.preventDefault();
+&nbsp;
+    if (!this.disableNextButton) {
+      this.changeMonth(this.state.shownDate.month() + 1, event);
+    }
+  }
+&nbsp;
+  prevButtonClickHandler(event) {
+    event.preventDefault();
+    if (!this.disablePrevButton) {
+      this.changeMonth(this.state.shownDate.month() - 1, event);
+    }
+  }
+&nbsp;
+  changeMonth(direction, event) {
+    event.preventDefault();
+    let selectedMonth = Number(direction);
+    let year = this.state.shownDate.year();
+&nbsp;
+    if (selectedMonth &lt; START_OF_MONTH) {
+      selectedMonth = END_OF_MONTH;
+      year -= 1;
+    }
+&nbsp;
+    if (selectedMonth &gt; END_OF_MONTH) {
+      selectedMonth = START_OF_MONTH;
+      year += 1;
+    }
+&nbsp;
+    const { link, linkCB } = this.props;
+&nbsp;
+    let newDate = moment([year, selectedMonth, this.state.shownDate.date()]);
+    if (!newDate.isValid()) {
+      newDate = moment([year, selectedMonth, START_DAY_OF_MONTH]);
+    }
+&nbsp;
+    if (link &amp;&amp; linkCB) {
+      return linkCB(newDate);
+    }
+&nbsp;
+    this.setState({
+      shownDate: newDate
+    });
+  }
+&nbsp;
+  changeYear(event) {
+    event.preventDefault();
+&nbsp;
+    const selectedYear = Number(event.target.value);
+    let newDate = moment([selectedYear, this.state.shownDate.month(), this.state.shownDate.date()]);
+    if (!newDate.isValid()) {
+      newDate = moment([selectedYear, this.state.shownDate.month(), START_DAY_OF_MONTH]);
+    }
+&nbsp;
+    this.setState({
+      shownDate: newDate
+    });
+  }
+&nbsp;
+  renderMonthList(classes) {
+    const { styles } = this;
+    const { onlyClasses, locale } = this.props;
+    const monthLabels = locale.months;
+&nbsp;
+    let monthOptions = [];
+    for (let i = 0; i &lt; 12; i++) {
+      const isDisabled = this._isDisabledMonth(i);
+      monthOptions.push(&lt;option disabled={isDisabled} key={`month${i}`} value={i}&gt;{monthLabels[i]}&lt;/option&gt;);
+    }
+&nbsp;
+    return (
+      &lt;select style={onlyClasses ? undefined : styles["MonthAndYearSelect"]} className={classes.monthAndYearSelect}
+        onChange={(e) =&gt; this.changeMonth(e.target.value, e)} value={this.state.shownDate.month()}&gt;
+        {monthOptions}
+      &lt;/select&gt;
+    );
+  }
+&nbsp;
+  _isDisabledMonth(currentMonth) {
+    const range = this.limitedDate;
+    const currentYear = this.state.shownDate.year();
+&nbsp;
+    return currentMonth &lt; range.startDate.month() &amp;&amp; currentYear &lt;= range.startDate.year()
+      || currentMonth &gt; range.endDate.month() &amp;&amp; currentYear &gt;= range.endDate.year();
+  }
+&nbsp;
+  renderYearList(classes) {
+    const { styles } = this;
+    const { onlyClasses } = this.props;
+    const range = this.limitedDate;
+&nbsp;
+    const yearOptions = [];
+    for (let i = range.startDate.year(); i &lt;= range.endDate.year(); i++) {
+      yearOptions.push(&lt;option key={`year${i}`} value={i}&gt;{i}&lt;/option&gt;);
+    }
+&nbsp;
+    return (
+      &lt;select style={onlyClasses ? undefined : styles["MonthAndYearSelect"]} className={classes.monthAndYearSelect}
+        onChange={this.changeYear.bind(this)} value={this.state.shownDate.year()}&gt;
+        {yearOptions}
+      &lt;/select&gt;
+    );
+  }
+&nbsp;
+  renderMonthAndYear(classes) {
+    const shownDate = this.getShownDate();
+    const year = shownDate.year();
+    const { styles } = this;
+    const { minDate, maxDate, onlyClasses, showMonthArrow } = this.props;
+&nbsp;
+    return (
+      &lt;div style={onlyClasses ? undefined : styles['MonthAndYear']} className={classes.monthAndYearWrapper}&gt;
+        {
+          showMonthArrow ?
+            &lt;button
+              type="button" disabled={this.disablePrevButton}
+              style={onlyClasses ? undefined : { ...styles['MonthButton'], float: 'left' }}
+              className={classes.prevButton}
+              onClick={this.prevButtonClickHandler.bind(this)}&gt;
+              &lt;i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowPrev'] }}&gt;&lt;/i&gt;
+            &lt;/button&gt; : null
+        }
+        &lt;span&gt;
+          &lt;span className={classes.month}&gt;{this.renderMonthList(classes)}&lt;/span&gt;
+          &lt;span className={classes.monthAndYearDivider}&gt;&amp;nbsp;&lt;/span&gt;
+          &lt;span className={classes.year}&gt;{this.renderYearList(classes)}&lt;/span&gt;
+        &lt;/span&gt;
+        {
+          showMonthArrow ?
+            &lt;button
+              type="button" disabled={this.disableNextButton}
+              style={onlyClasses ? undefined : { ...styles['MonthButton'], float: 'right' }}
+              className={classes.nextButton}
+              onClick={this.nextButtonClickHandler.bind(this)}&gt;
+              &lt;i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowNext'] }}&gt;&lt;/i&gt;
+            &lt;/button&gt; : null
+        }
+      &lt;/div&gt;
+    )
+  }
+&nbsp;
+  renderWeekdays(classes) {
+    const dow = this.state.firstDayOfWeek;
+    const weekdays = [];
+    const { styles } = this;
+    const { onlyClasses, locale } = this.props;
+    const weekDays = locale.weekdays;
+&nbsp;
+    const dayLength = 7 + dow;
+    for (let i = dow; i &lt; dayLength; i++) {
+      const weekDayIndex = i % 7;
+      const day = weekDays[weekDayIndex];
+      weekdays.push(
+        &lt;span style={onlyClasses ? undefined : styles['Weekday']} className={classes.weekDay} key={i + day}&gt;{day}&lt;/span&gt;
+      );
+    }
+&nbsp;
+    return weekdays;
+  }
+&nbsp;
+  renderDays(classes) {
+    // TODO: Split this logic into smaller chunks
+    const { styles } = this;
+&nbsp;
+    const { range, minDate, maxDate, format, onlyClasses, disableDaysBeforeToday, specialDays } = this.props;
+&nbsp;
+    const shownDate = this.getShownDate();
+    const { date, firstDayOfWeek } = this.state;
+    const dateUnix = date.unix();
+&nbsp;
+    const monthNumber = shownDate.month();
+    const dayCount = shownDate.daysInMonth();
+    const startOfMonth = shownDate.clone().startOf('month').isoWeekday();
+&nbsp;
+    const lastMonth = shownDate.clone().month(monthNumber - 1);
+    const lastMonthNumber = lastMonth.month();
+    const lastMonthDayCount = lastMonth.daysInMonth();
+&nbsp;
+    const nextMonth = shownDate.clone().month(monthNumber + 1);
+    const nextMonthNumber = nextMonth.month();
+&nbsp;
+    const days = [];
+&nbsp;
+    // Previous month's days
+    const diff = (Math.abs(firstDayOfWeek - (startOfMonth + 7)) % 7);
+    for (let i = diff - 1; i &gt;= 0; i--) {
+      const dayMoment = lastMonth.clone().date(lastMonthDayCount - i);
+      days.push({ dayMoment, isPassive: true });
+    }
+&nbsp;
+    // Current month's days
+    for (let i = 1; i &lt;= dayCount; i++) {
+      const dayMoment = shownDate.clone().date(i);
+      // set days before today to isPassive
+      var _today = moment()
+      if (disableDaysBeforeToday &amp;&amp; Number(dayMoment.diff(_today, "days")) &lt;= -1) {
+        days.push({ dayMoment, isPassive: true });
+      } else {
+        days.push({ dayMoment });
+      }
+    }
+&nbsp;
+    // Next month's days
+    const remainingCells = 42 - days.length; // 42cells = 7days * 6rows
+    for (let i = 1; i &lt;= remainingCells; i++) {
+      const dayMoment = nextMonth.clone().date(i);
+      days.push({ dayMoment, isPassive: true });
+    }
+&nbsp;
+    const today = moment().startOf('day');
+    return days.map((data, index) =&gt; {
+      const { dayMoment, isPassive } = data;
+      const isSelected = !range &amp;&amp; (dayMoment.unix() === dateUnix);
+      const isInRange = range &amp;&amp; checkRange(dayMoment, range);
+      const isStartEdge = range &amp;&amp; checkStartEdge(dayMoment, range);
+      const isEndEdge = range &amp;&amp; checkEndEdge(dayMoment, range);
+      const isEdge = isStartEdge || isEndEdge;
+      const isToday = today.isSame(dayMoment);
+      const isSunday = dayMoment.day() === 0;
+      const isSpecialDay = specialDays &amp;&amp; specialDays.some((specialDay) =&gt; {
+        return dayMoment.endOf('day').isSame(specialDay.date.endOf('day'));
+      });
+      const isOutsideMinMax = isOusideMinMax(dayMoment, minDate, maxDate, format);
+&nbsp;
+      return (
+        &lt;DayCell
+          onSelect={this.handleSelect.bind(this)}
+          { ...data }
+          theme={styles}
+          isStartEdge={isStartEdge}
+          isEndEdge={isEndEdge}
+          isSelected={isSelected || isEdge}
+          isInRange={isInRange}
+          isSunday={isSunday}
+          isSpecialDay={isSpecialDay}
+          isToday={isToday}
+          key={index}
+          isPassive={isPassive || isOutsideMinMax}
+          onlyClasses={onlyClasses}
+          classNames={classes}
+        /&gt;
+      );
+    })
+  }
+&nbsp;
+  render() {
+    const { styles } = this;
+    const { onlyClasses, classNames } = this.props;
+&nbsp;
+    const classes = { ...defaultClasses, ...classNames };
+&nbsp;
+    return (
+      &lt;div style={onlyClasses ? undefined : { ...styles['Calendar'], ...this.props.style }} className={classes.calendar}&gt;
+        &lt;div className={classes.monthAndYear}&gt;{this.renderMonthAndYear(classes)}&lt;/div&gt;
+        &lt;div className={classes.weekDays}&gt;{this.renderWeekdays(classes)}&lt;/div&gt;
+        &lt;div className={classes.days}&gt;{this.renderDays(classes)}&lt;/div&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+&nbsp;
+Calendar.defaultProps = {
+  format: MomentFormat.default,
+  theme: {},
+  showMonthArrow: true,
+  disableDaysBeforeToday: false,
+  onlyClasses: false,
+  classNames: {},
+  specialDays: [],
+}
+&nbsp;
+Calendar.propTypes = {
+  showMonthArrow: PropTypes.bool,
+  disableDaysBeforeToday: PropTypes.bool,
+  lang: PropTypes.string,
+  sets: PropTypes.string,
+  range: PropTypes.shape({
+    startDate: PropTypes.object,
+    endDate: PropTypes.object
+  }),
+  minDate: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.string]),
+  maxDate: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.string]),
+  date: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.func]),
+  format: PropTypes.string.isRequired,
+  firstDayOfWeek: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onChange: PropTypes.func,
+  onInit: PropTypes.func,
+  link: PropTypes.oneOfType([PropTypes.shape({
+    startDate: PropTypes.object,
+    endDate: PropTypes.object,
+  }), PropTypes.bool]),
+  linkCB: PropTypes.func,
+  theme: PropTypes.object,
+  onlyClasses: PropTypes.bool,
+  specialDays: PropTypes.array,
+  classNames: PropTypes.object,
+  locale: PropTypes.object
+}
+&nbsp;
+export default Calendar;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 12:41:33 GMT+0700 (SE Asia Standard Time)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>

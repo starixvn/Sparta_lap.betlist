@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for pages/licenseewl-by-timezone/components/__tests__/fakeData.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">pages/licenseewl-by-timezone/components/__tests__</a> fakeData.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/6</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63</td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Data = [],
+    Total = [];
+&nbsp;
+const defaultProps = {
+    gridData: { Data, Total },
+    xsrfToken: "token",
+    selectedProduct: 'SB,BA',
+    selectedCurrency: { "value": 0, "label": "All" },
+    selectedBaseCurrency: 'EUR',
+    timeZoneList: [{ "value": -4, "label": "GMT-4" }, { "value": 8, "label": "GMT+8" }],
+    selectedTimeZone: -4,
+    reportByList: [{ "value": 1, "label": "Summary" }, { "value": 2, "label": "Daily" }, { "value": 3, "label": "Monthly" }],
+    selectedReportBy: 1,
+    groupBy: 1,
+    isConvertAll: true,
+    isIncludeDrawData: true,
+    isExcludeTest: true,
+    dateRange: { fromDate: '12/12/2017', toDate: '12/12/2017' },
+    isLoading: false,
+    dateConstraint: { minDate: '06/01/2012', maxDate: '12/12/2017' },
+&nbsp;
+    setDateRange: jest.fn(),
+    toggleLoader: jest.fn(),
+    setSelectedTimeZone: jest.fn(),
+    setSelectedReportBy: jest.fn(),
+    setSelectedCurrency: jest.fn(),
+    setSelectedBaseCurrency: jest.fn(),
+    changeIsConvertAll: jest.fn(),
+    changeIsIncludeDrawData: jest.fn(),
+    changeIsExcludeTest: jest.fn()
+}
+&nbsp;
+const defaultAppData = {
+    productOptions: [{ "Code": "SB", "Name": "Sportsbook", "Status": true }, { "Code": "BA", "Name": "BA", "Status": true }],
+    currencyList: [{ "value": 0, "label": "All" }, { "value": 9, "label": "AUD" }, { "value": 41, "label": "CHF" }, { "value": 6, "label": "EUR" }, { "value": 51, "label": "INH" }, { "value": 61, "label": "INR" }, { "value": 32, "label": "JPY" }, { "value": 45, "label": "KRW" }, { "value": 70, "label": "MKK" }, { "value": 4, "label": "THB" }, { "value": 3, "label": "USD" }, { "value": 20, "label": "UUS" }],
+    baseCurrencyList: [{ "value": "EUR", "label": "EUR" }, { "value": "USD", "label": "USD" }, { "value": "GBP", "label": "GBP" }, { "value": "MYR", "label": "MYR" }, { "value": "CNY", "label": "CNY" }, { "value": "THB", "label": "THB" }, { "value": "IDR", "label": "IDR" }]
+};
+&nbsp;
+const bodyData = [{
+    "ReportBy": "0001-01-01T00:00:00",
+    "GroupBy": "Sportsbook",
+    "BetCount": 50,
+    "Turnover": 26761.0000,
+    "CustomerComm": 960.0000,
+    "LicenseeWinLoss": 23646.1700,
+    "LicenseeComm": 72.0000,
+    "LicenseeNetWinLoss": 22758.1700,
+    "Margin": 85.04230036246777026269571391
+}]
+&nbsp;
+const totalData = {
+    "ReportBy": "0001-01-01T00:00:00",
+    "GroupBy": null,
+    "BetCount": 50,
+    "Turnover": 130685.73784,
+    "CustomerComm": 4688.1024,
+    "LicenseeWinLoss": 115474.6524248,
+    "LicenseeComm": 351.60768,
+    "LicenseeNetWinLoss": 111138.1577048,
+    "Margin": 85.04230036246777026269571391
+}
+&nbsp;
+export { defaultProps, defaultAppData, totalData, bodyData };</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 12:41:33 GMT+0700 (SE Asia Standard Time)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

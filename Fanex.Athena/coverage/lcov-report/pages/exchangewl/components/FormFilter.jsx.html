@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for pages/exchangewl/components/FormFilter.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">pages/exchangewl/components</a> FormFilter.jsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.51% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>66/67</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.55% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>28/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.45% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>21/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.48% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>65/66</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">﻿import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { ActionCreators } from '../actions/index.js'
+import { bindActionCreators } from 'redux'
+import Select from 'react-select'
+import { DateRange } from '../../../components/date-range/index'
+import LangHelper from '../../../lib/langHelper'
+import Site from '@jsroot/lib/site'
+import AppData from '@jsroot/lib/AppData'
+import { ReportLevel } from '../../../constants/report'
+import { BaseCurrency } from '../../../constants/currency'
+import ReportExcel from '../lib/reportExcel'
+import { Service } from '../lib/service'
+import moment from 'moment'
+&nbsp;
+const RANGE_MONTH_CONSTRAINT = 3;
+&nbsp;
+export class FormFilter extends Component {
+    constructor(props) {
+        super(props);
+    }
+&nbsp;
+    submit = (event) =&gt; {
+        event.preventDefault();
+        const params = this._getParams();
+        if (!params) {
+            return;
+        }
+&nbsp;
+        this.props.toggleLoader(true);
+        this.props.getGridData(params, () =&gt; {
+            Service.showErrorMsg();
+            this.props.toggleLoader(false);
+        });
+&nbsp;
+        this.props.setParams(params.data);
+    }
+&nbsp;
+    exportExcel = (event) =&gt; {
+        event.preventDefault();
+&nbsp;
+        const level = this.props.gridData.level || 0;
+&nbsp;
+        const isAllowedCustomerComm = this.props.isAllowedCustomerComm;
+        const params = this._getParams();
+        if (!params) {
+            return;
+        }
+     
+        this.props.toggleLoader(true);
+        if (level === ReportLevel.MAIN) {            
+            this.props.exportExcel(params)
+                .then(response =&gt; this._doExportExcel(level, params.data, isAllowedCustomerComm, response.data))
+                .catch(() =&gt; {
+                    Service.showErrorMsg();
+                    this.props.toggleLoader(false);
+                });
+        }
+        else {
+            this._doExportExcel(level, params.data, isAllowedCustomerComm, this.props.gridData.data);
+        }
+    }
+&nbsp;
+    _doExportExcel(level, params, isAllowedCustomerComm, gridData) {
+        if (!gridData || !gridData.DataList.length) {
+            this.props.toggleLoader(false);
+            alert(LangHelper.getSingleResource("NoInfo"));
+            return;
+        }
+&nbsp;
+        let excelData;
+        if (level === ReportLevel.MAIN) {
+            excelData = params;
+        }
+        else {
+            const firstRow = gridData.DataList[0];
+            const drillDownDate = Service.getDrilldownDateRange(params.ReportBy, params.FromDate, params.ToDate, firstRow.Date);
+&nbsp;
+            excelData = {
+                FromDate: Site.convertDateToString(moment(drillDownDate.fromDate)),
+                ToDate: Site.convertDateToString(moment(drillDownDate.toDate)),
+                BaseCurrency: gridData.AdditionalInfo,
+                CurrencyName: firstRow.CurrencyName,
+                CurrencyId: firstRow.CurrencyId,
+                ReportBy: params.ReportBy
+            };
+        }
+&nbsp;
+        const title = Service.getReportTitle(
+            { fromDate: excelData.FromDate, toDate: excelData.ToDate }, 
+            excelData.BaseCurrency ? excelData.BaseCurrency : <span class="branch-1 cbranch-no" title="branch not covered" >excelData.CurrencyName </span>, 
+            level === ReportLevel.MAIN ? excelData.CurrencyId === 0 : false);
+        const excel = new ReportExcel(gridData, title, level, isAllowedCustomerComm, excelData.ReportBy);
+        excel.export(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >            this.props.toggleLoader(false);</span>
+        });
+    }
+&nbsp;
+    _getParams() {
+        let param = {};
+&nbsp;
+        const { fromDate, toDate } = this.props.dateRange;
+        const baseCurrency = BaseCurrency.find(x =&gt; x.value === this.props.selectedCurrency.value);
+&nbsp;
+        param = {
+            CurrencyId: this.props.selectedCurrency.value,
+            BaseCurrency: baseCurrency ? baseCurrency.text : "",
+            CurrencyName: baseCurrency ? baseCurrency.text : this.props.selectedCurrency.label,
+            FromDate: Site.convertDateToString(fromDate),
+            ToDate: Site.convertDateToString(toDate),
+            ReportBy: this.props.selectedReportBy,
+            ExcludeTestData: this.props.isExcludeTest,
+            Level: 0
+        };
+        
+        return {
+            data: param
+        };
+    }
+&nbsp;
+    applyDateRangeHandler = (date, isValidMonthRange = true) =&gt; {
+        if (isValidMonthRange) {
+            this.props.setDateRange(date);
+        }
+        else {
+            const message = LangHelper.getSingleResource('DateRangeExceedMsg').replace('{0}', RANGE_MONTH_CONSTRAINT);
+            alert(message);
+        }
+    }
+&nbsp;
+    changeReportBy = (event) =&gt; {
+        const newValue = parseInt(event.target.value);
+        if (!isNaN(newValue) &amp;&amp; this.props.selectedReportBy !== newValue) {
+            this.props.setReportBy(newValue);
+        }
+    }
+&nbsp;
+    _renderDateRange() {
+        const { dateRange } = this.props;
+        const dateConstraint = AppData.dateConstraint;
+        return (
+            &lt;DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
+                minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
+                today={dateConstraint.toDay} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
+                onChange={this.applyDateRangeHandler} /&gt;
+        );
+    }
+&nbsp;
+    _renderCurrencySelectList() {
+        const { selectedCurrency } = this.props;
+        const currencyList = AppData.currencyList;
+        return &lt;Select instanceId='ddlCurrency'
+            name='form-field-name'
+            value={selectedCurrency}
+            options={currencyList}
+            onChange={(item) =&gt; this.props.setSelectedCurrency(item)} /&gt;
+    }
+&nbsp;
+    _renderReportByOption() {
+        const { reportByOption, selectedReportBy } = this.props;
+&nbsp;
+        return (&lt;div className='form-group'&gt;
+            &lt;label className='label-text'&gt;{LangHelper.getSingleResource('ReportBy')}&lt;/label&gt;
+            {   
+                reportByOption.map((option, i) =&gt; {
+                    const key = 'ReportBy' + i;
+                    return (&lt;span key={`Group${key}`}&gt;
+                        &lt;input type='radio' value={option.value} checked={selectedReportBy === option.value} id={key}
+                            onChange={this.changeReportBy} /&gt;
+                        &lt;label htmlFor={key}&gt;{option.label}&lt;/label&gt;
+                    &lt;/span&gt;)  
+                })
+            }
+        &lt;/div&gt;);
+    }
+&nbsp;
+    _renderExcludeTestDataCheckBox() {
+        return (&lt;div className="checkbox-group"&gt;
+            &lt;input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
+                   onChange={() =&gt; this.props.changeIsExcludeTest(!this.props.isExcludeTest)} /&gt;
+            &lt;label style={{marginLeft: "0px"}} htmlFor="ExcludeTest"&gt;{LangHelper.getSingleResource("ExcludeTestData")}&lt;/label&gt;
+        &lt;/div&gt;);
+    }
+&nbsp;
+    render() {
+        return (
+            &lt;div className='page-filter'&gt;
+                &lt;div className='row'&gt;
+                    &lt;div className='col-12 col-sm-7 col-md-4 col-xl-3'&gt;
+                        &lt;div className='form-group'&gt;
+                            &lt;label className='label-text'&gt;{LangHelper.getSingleResource('Date')}&lt;/label&gt;
+                            {this._renderDateRange()}
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+&nbsp;
+                     &lt;div className='col-12 col-sm-4 col-md-2 col-xl-2'&gt;
+                        &lt;div className='form-group'&gt;
+                            &lt;label className='label-text'&gt;{LangHelper.getSingleResource('Currency')}&lt;/label&gt;
+                            {this._renderCurrencySelectList()}
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+&nbsp;
+                    &lt;div className='col-12 col-sm-4 col-md-2 col-xl-2'&gt;
+                        {this._renderReportByOption()}
+                    &lt;/div&gt;
+&nbsp;
+                    &lt;div className='col-12 col-sm-3 col-md-2 col-xl-2'&gt;
+                        &lt;div className="form-group"&gt;
+                           {this._renderExcludeTestDataCheckBox()}
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+&nbsp;
+                    &lt;div className='col-12 col-sm-3 col-md-2 col-xl-2'&gt;
+                        &lt;div className='form-group button-group'&gt;
+                            &lt;button type='button' className='btn btn-submit' onClick={this.submit}&gt;{LangHelper.getSingleResource('Submit')}&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div className='caret-block'&gt;
+                    &lt;i className='icon-excel right' onClick={this.exportExcel} title={LangHelper.getSingleResource('ExportToExcel')}&gt;&lt;/i&gt;
+                &lt;/div&gt; 
+            &lt;/div&gt;
+        );
+    }
+}
+&nbsp;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ActionCreators, dispatch);
+};
+&nbsp;
+function mapStateToProps(state) {
+    const { licenseeId, ...rest } = state;
+    return Object.assign({}, rest);
+};
+&nbsp;
+export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 12:41:33 GMT+0700 (SE Asia Standard Time)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>
