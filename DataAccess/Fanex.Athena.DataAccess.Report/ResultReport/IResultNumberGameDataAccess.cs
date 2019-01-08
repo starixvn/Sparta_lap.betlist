@@ -1,0 +1,25 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="IResultDataAccess.cs" company="">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.DataAccess.Report.ResultReport
+{
+    using System.Collections.Generic;
+    using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Result.Core.NumberGame.DTO;
+    using Result.Core.Happy5.DTO;
+
+    [System.CLSCompliant(false)]
+    public interface IResultNumberGameDataAccess
+    {
+        IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
+
+        IList<Happy5> GetHappy5Matches(ResultMetalModel metalModel);
+
+        IList<NumberGame> GetPopUpNumberGameMatch(int matchId);
+
+        IList<Happy5> GetPopUpHappy5Match(int matchId);
+    }
+}

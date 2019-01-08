@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
+﻿namespace Fanex.Athena.DataAccess.Report.UnitTests.ResultReport
 {
     using System;
     using System.Collections.Generic;
@@ -12,6 +12,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Report.ResultReport;
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
@@ -23,11 +24,9 @@
         private const string GetOutRightSp = "Lrf_Result_Outright";
         private const string GetSportsSp = "Lrf_Result_SportSelByDate";
         private const string GetLeaguesSp = "Lrf_Result_LeagueSelByDate";
-        private const string GetNumberGameMatchesSp = "Lrf_Result_MatchSelNumberGameByLeague";
         private const string GetVirtualSportMatchesSp = "Lrf_Result_RaceSelByMeeting";
         private const string GetPopUpMatchesSp = "Lrf_BetList_SelMatchResult";
         private const string GetPopUpParalayMatchSp = "Lrf_BetList_SelMatchResultParlay";
-        private const string GetPopUpNumberGameMatchSp = "Lrf_BetList_SelMatchResultNumberGame";
         private const string GetMatchesSp = "Lrf_Result_MatchSelByLeague";
 
         private const int MatchId = 1;
@@ -237,82 +236,6 @@
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetLeaguesSp,
                 () => DataAccess.GetLeagues(new DateTime(), 0));
-        }
-
-        [Test]
-        public void GetNumberGameMatches_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetNumberGameMatchesSp)).Returns(ObjectDb);
-            _metaModel.LeagueId = 1;
-
-            dynamic result = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
-            var expectedResult = new
-            {
-                fromdate = _metaModel.FromDate,
-                leagueid = _metaModel.LeagueId,
-                isshowall = true
-            };
-
-            // Action
-            DataAccess.GetNumberGameMatches(_metaModel);
-
-            // Assert
-            Assert.That(result, Tobe.SameProperties(expectedResult));
-        }
-
-        [Test]
-        public void GetNumberGameMatches_WhenCall_ReturnCorrectData()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetNumberGameMatchesSp)).Returns(ObjectDb);
-            _metaModel.LeagueId = 1;
-
-            Reader.Read().Returns(true, true, false);
-            Reader.FieldCount.Returns(1);
-            Reader.GetName(0).Returns("isrefund");
-
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "leagueid", 1 }, { "matchid", 2 }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
-                { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
-            };
-            MapReaderData(readerDataMapping);
-
-            var expectedResult = new List<NumberGame>
-            {
-                new NumberGame
-                {
-                    LeagueId = 1,
-                    MatchId = 2,
-                    EventStatus = "win",
-                    EventDate = new DateTime(2017, 3, 16),
-                    IsPending = true,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    MatchCode = "test",
-                    Seg = new List<int> { 3, 3 },
-                    Ball = new List<int> { 4, 4 }
-                }
-            };
-
-            // Action
-            var result = DataAccess.GetNumberGameMatches(_metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetNumberGameMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetNumberGameMatchesSp,
-                () => DataAccess.GetNumberGameMatches(_metaModel));
         }
 
         [Test]
