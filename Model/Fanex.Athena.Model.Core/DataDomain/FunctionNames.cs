@@ -29,5 +29,7 @@
         public const string SpecialLicenseeWinLoss = "SpecialLicenseeWinLoss";
 
         public const string BettingTicketCenter = "BettingTicketCenter";
+
+        public const string CasinoTurnover = "CasinoTurnover";
     }
 }

@@ -5501,7 +5501,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             var baseCurrencyList = _AppData2.default.baseCurrencyList;
             return baseCurrencyList && baseCurrencyList.length && _react2.default.createElement(_reactSelect2.default, { id: 'ddlBased',
-                name: 'form-field-name',
+                name: 'BaseCurrency',
                 value: selectedBaseCurrency,
                 options: baseCurrencyList,
                 onChange: function onChange(item) {

@@ -11,7 +11,8 @@ var cssPaths = {
     exchangewl: "./www/css/source/reactpages/pages/exchangewl/index.scss",
     speciallicenseewl: "./www/css/source/reactpages/pages/speciallicenseewl/index.scss",
     bettingticketscenter: "./www/css/source/reactpages/pages/bettingticketscenter/index.scss",
-    betlist: "./www/css/source/reactpages/pages/betlist/index.scss"
+    betlist: "./www/css/source/reactpages/pages/betlist/index.scss",
+    casinoturnover: "./www/css/source/reactpages/pages/casinoturnover/index.scss"
 };
 
 var scriptPaths = {
@@ -33,7 +34,8 @@ var scriptPaths = {
     bettingticketscenter_multicustomer: "./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/components/index.jsx",
     bettingticketscenter_singlecustomer: "./www/js/source/reactpages/pages/bettingticketscenter/singlecustomer/components/index.jsx",
     bettingticketscenter_refno: "./www/js/source/reactpages/pages/bettingticketscenter/refno/components/index.jsx",
-    bettingticketscenter_running: "./www/js/source/reactpages/pages/bettingticketscenter/running/components/index.jsx"
+    bettingticketscenter_running: "./www/js/source/reactpages/pages/bettingticketscenter/running/components/index.jsx",
+    casinoturnover: "./www/js/source/reactpages/pages/casinoturnover/components/index.jsx"
 };
 module.exports = {
     projectRoot: projectRoot,

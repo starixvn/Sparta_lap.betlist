@@ -1195,6 +1195,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Casino Turnover.
+        /// </summary>
+        public static string CasinoTurnover {
+            get {
+                return ResourceManager.GetString("CasinoTurnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Password.
         /// </summary>
         public static string ChangePassword {
@@ -8085,6 +8094,15 @@ namespace Fanex.Athena.Resources {
         public static string UserTooManyLicensees {
             get {
                 return ResourceManager.GetString("UserTooManyLicensees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid Bet Amount.
+        /// </summary>
+        public static string ValidBetAmount {
+            get {
+                return ResourceManager.GetString("ValidBetAmount", resourceCulture);
             }
         }
         

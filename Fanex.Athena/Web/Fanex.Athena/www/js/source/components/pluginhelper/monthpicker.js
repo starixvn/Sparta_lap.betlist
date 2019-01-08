@@ -45,11 +45,11 @@
         }
 
         function getFromDateString() {
-            return $(PICKER_SELECTOR).monPickr("getFromDate", "dd MMM yyyy");
+            return $(PICKER_SELECTOR).monPickr("getFromDate", FORMAT);
         }
 
         function getToDateString() {
-            return $(PICKER_SELECTOR).monPickr("getToDate", "dd MMM yyyy");
+            return $(PICKER_SELECTOR).monPickr("getToDate", FORMAT);
         }
 
         return {

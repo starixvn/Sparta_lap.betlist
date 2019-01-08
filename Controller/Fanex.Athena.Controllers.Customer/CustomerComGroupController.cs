@@ -4,6 +4,7 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Net;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.SessionState;
@@ -135,6 +136,10 @@
         public ActionResult Update(int groupId)
         {
             var model = _groupComService.GetById(groupId);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
 
             CreateMetaModel(model);
 

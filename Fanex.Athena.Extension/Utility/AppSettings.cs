@@ -22,6 +22,11 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public bool IsProduction
+        {
+            get { return GetValue("Environment") == "PRO"; }
+        }
+
         public bool IsDisableExportLargeBetList
         {
             get

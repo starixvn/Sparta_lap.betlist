@@ -410,7 +410,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         me._bindEvent(setting);
     };
     me.getSetting = function (elementcontainer) {
-        var elementcontainer = elementcontainer || Object.keys(_settings)[0];
+        elementcontainer = elementcontainer || Object.keys(_settings)[0];
         var setting = _settings[elementcontainer];
         var $pagerContainer = $(elementcontainer);
         var $pageIndex = getByName($pagerContainer, "PageIndex");
@@ -5987,7 +5987,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
-            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, csCom, abCom) {
+            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, csCom) {
                 var count = 0;
                 var length = Object.keys(_state.selectedCustomers).length;
 
@@ -6044,7 +6044,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
         "use strict";
 
         var externalIdColumn =
@@ -6630,7 +6630,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             jqGridAdditional.updateGridHeight($container);
             
             $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
-            $container.find(".panel-heading").width(width)
+            $container.find(".panel-heading").width(width);
             $("#DormantCustomerPager").width(width);
             
             if ($.active <= 1) {
@@ -7103,7 +7103,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 $tab.show();
                 $(this).addClass("active");
 
-                var isDormantTab = tabId == 'tabDormantCustomer';
+                var isDormantTab = tabId === 'tabDormantCustomer';
                 $(".page-button input[type=button]").prop('disabled', isDormantTab);
                 if (isDormantTab) {
                     jqGridAdditional.updateGridHeight($tab);

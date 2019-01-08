@@ -150,7 +150,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           menuBuffer={0}
           menuRenderer={[Function]}
           multi={false}
-          name="form-field-name"
+          name="BaseCurrency"
           noResultsText="No results found"
           onBlurResetsInput={true}
           onChange={[Function]}

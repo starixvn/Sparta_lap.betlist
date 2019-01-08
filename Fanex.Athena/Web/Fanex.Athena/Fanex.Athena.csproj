@@ -402,7 +402,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Code\DesktopLiveReportRazorHelper.cshtml" />
-    <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
+    <Content Include="SpNameConfig\FanexSpName.xml1.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
@@ -423,26 +423,20 @@
     <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-TW.htm" />
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
-    <Content Include="App_Data\SpNameConfig\FanexSpName.BACKUPMNL.xml">
+    <Content Include="SpNameConfig\FanexSpName.LOCAL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.LOCAL.xml">
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.PRO.xml">
+    <Content Include="SpNameConfig\FanexSpName.PRO.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.SANDBOX.xml">
+    <Content Include="SpNameConfig\FanexSpName.SIT.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.SIT.xml">
+    <Content Include="SpNameConfig\FanexSpName.UAT.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.UAT.xml">
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.xml">
+    <Content Include="SpNameConfig\FanexSpName.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
@@ -489,7 +483,7 @@
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-TW.htm" />
-    <Content Include="App_Data\SpNameConfig\FanexSpNameConfig.xml">
+    <Content Include="SpNameConfig\FanexSpNameConfig.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\UserGuide\CustomerTurnover\zh-CN.htm" />
@@ -727,6 +721,8 @@
     <Content Include="www\css\build\dev\reactpages\betlist\index.css" />
     <Content Include="www\css\build\dev\reactpages\bettingticketscenter\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\bettingticketscenter\index.css" />
+    <Content Include="www\css\build\dev\reactpages\casinoturnover\index.chunk.js" />
+    <Content Include="www\css\build\dev\reactpages\casinoturnover\index.css" />
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.css" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js" />
@@ -760,6 +756,8 @@
     <Content Include="www\css\build\pro\reactpages\betlist\index.css" />
     <Content Include="www\css\build\pro\reactpages\bettingticketscenter\index.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\bettingticketscenter\index.css" />
+    <Content Include="www\css\build\pro\reactpages\casinoturnover\index.chunk.js" />
+    <Content Include="www\css\build\pro\reactpages\casinoturnover\index.css" />
     <Content Include="www\css\build\pro\reactpages\exchangewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\pro\reactpages\notification\index.chunk.js" />
@@ -791,6 +789,7 @@
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-Hans.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-TW.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\xlsx-style-sparta.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\report\casinoturnover.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
@@ -815,6 +814,7 @@
     <Content Include="www\js\build\pro\reactpages\lib\lang-zh-TW.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\xlsx-style-sparta.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\report\casinoturnover.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\notification\notification.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\report\speciallicenseewl.chunk.js" />
@@ -959,6 +959,11 @@
     <Content Include="www\css\build\dev\reactpages\betlist\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\betlist\index.css.map" />
     <Content Include="www\css\source\pages\betlist\betlist.custom.scss" />
+    <Content Include="Views\Desktop\Report\CasinoTurnover\Main.cshtml" />
+    <Content Include="www\css\source\reactpages\pages\casinoturnover\index.scss" />
+    <Content Include="www\css\build\dev\reactpages\casinoturnover\index.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\casinoturnover\index.css.map" />
+    <Content Include="www\js\build\dev\reactpages\report\casinoturnover.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -1046,6 +1051,10 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\singlecustomer\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\reducers\index.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\reportExcel.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\convertAllReducer.js" />
@@ -2050,7 +2059,7 @@
     <Content Include="App_Code\DesktopRazorHelper.cshtml" />
     <Content Include="App_Code\DesktopReportRazorHelper.cshtml" />
     <Content Include="App_Data\PortalSystemFunction.json" />
-    <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
+    <None Include="SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\Report\casinoprogressivewins.css" />
@@ -2064,11 +2073,11 @@
     <Content Include="Content\UserGuide\Images\team-to-score-guide3.png" />
     <Content Include="Content\UserGuide\user-guide.css" />
     <Content Include="Deployment.ignore" />
-    <None Include="App_Data\SpNameConfig\FanexSpName.xml.tt">
+    <None Include="SpNameConfig\FanexSpName.xml.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FanexSpName.xml1.txt</LastGenOutput>
     </None>
-    <None Include="App_Data\SpNameConfig\SpNameConfiguration.ttinclude" />
+    <None Include="SpNameConfig\SpNameConfiguration.ttinclude" />
     <Content Include="App_Data\Template\Reports\ActiveCustomerSummary.xls" />
     <Content Include="App_Data\Template\Reports\GoldDeluxeWinLoss.xls" />
     <Content Include="App_Data\Template\Reports\ThirdPartyWinLoss.xls" />
@@ -2635,6 +2644,10 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\singlecustomer\components\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\singlecustomer\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\DataGrid.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

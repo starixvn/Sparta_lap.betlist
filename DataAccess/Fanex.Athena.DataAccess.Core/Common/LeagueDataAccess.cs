@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Collections.Generic;
     using System.Data;
     using Data;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Interfaces;
@@ -19,9 +20,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public LeagueDataAccess(ICacheRefAdapter cacheRefAdapter)
+        private readonly IAppSettings _appSettings;
+
+        public LeagueDataAccess(ICacheRefAdapter cacheRefAdapter, IAppSettings appSettings)
         {
             _cacheRefAdapter = cacheRefAdapter;
+            _appSettings = appSettings;
         }
 
         public IEnumerable<League> GetLeaguesBySport(LeagueMetaModel metaModel)
@@ -32,6 +36,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                db.AddInParameter("IsIncludeTestLeague", DbType.Boolean, !_appSettings.IsProduction);
                 return ReadLeagues(db);
             }
         }
@@ -43,6 +48,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 db.AddInParameter("AgentList", DbType.String, agentList);
                 db.AddInParameter("betTypes", DbType.String, betTypes);
+                db.AddInParameter("IsIncludeTestLeague", DbType.Boolean, !_appSettings.IsProduction);
                 return ReadLeagues(db);
             }
         }

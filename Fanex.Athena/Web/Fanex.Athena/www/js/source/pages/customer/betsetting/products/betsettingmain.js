@@ -4,11 +4,11 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
     var Product = Constant.Product;
 
     function getConfirmMessage(productId) {
-        return productId == Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
+        return parseInt(productId) === Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
     }
 
     function getUpdateUrl(productId) {
-        return productId == Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
+        return parseInt(productId) === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
     }
 
     var _me = {

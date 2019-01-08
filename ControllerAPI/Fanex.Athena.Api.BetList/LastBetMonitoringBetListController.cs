@@ -51,7 +51,7 @@
         [HttpGet]
         public dynamic GetRunningMatchList(int sportId)
         {
-            var matchList = _matchService.GetAllRunningMatch(sportId);
+            var matchList = _matchService.GetAllRunningMatch(sportId, SessionService.UserSession.Language);
 
             var leagueListNormal = matchList.Where(i => !i.IsOutRight).Select(m => m.LeagueId).Distinct()
                                       .Select(l => new League

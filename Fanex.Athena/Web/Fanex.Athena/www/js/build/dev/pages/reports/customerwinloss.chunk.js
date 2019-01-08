@@ -410,7 +410,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         me._bindEvent(setting);
     };
     me.getSetting = function (elementcontainer) {
-        var elementcontainer = elementcontainer || Object.keys(_settings)[0];
+        elementcontainer = elementcontainer || Object.keys(_settings)[0];
         var setting = _settings[elementcontainer];
         var $pagerContainer = $(elementcontainer);
         var $pageIndex = getByName($pagerContainer, "PageIndex");
@@ -790,11 +790,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function getFromDateString() {
-            return $(PICKER_SELECTOR).monPickr("getFromDate", "dd MMM yyyy");
+            return $(PICKER_SELECTOR).monPickr("getFromDate", FORMAT);
         }
 
         function getToDateString() {
-            return $(PICKER_SELECTOR).monPickr("getToDate", "dd MMM yyyy");
+            return $(PICKER_SELECTOR).monPickr("getToDate", FORMAT);
         }
 
         return {

@@ -14,5 +14,10 @@
     "MinDateString": "",
     "MaxDateString": "today",
     "LimitRecentDays": 90
+  },
+  {
+    "ReportKey": "CasinoTurnover80",
+    "MinDateString": "08/01/2018",
+    "MaxDateString": ""
   }
 ]

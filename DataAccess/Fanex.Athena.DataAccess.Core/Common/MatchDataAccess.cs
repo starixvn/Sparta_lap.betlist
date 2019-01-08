@@ -8,6 +8,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -18,9 +20,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public MatchDataAccess(ICacheRefAdapter cacheRefAdapter)
+        private readonly IAppSettings _appSettings;
+
+        public MatchDataAccess(ICacheRefAdapter cacheRefAdapter, IAppSettings appSettings)
         {
             _cacheRefAdapter = cacheRefAdapter;
+            _appSettings = appSettings;
         }
 
         public IList<Match> GetForecastMatchListByLeague(int leagueId)
@@ -71,7 +76,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = GetObjectDb("Lrf_LeagueMatchSelRunning"))
             {
-                db.AddInParameter("sporttype", System.Data.DbType.Int32, sportId);
+                db.AddInParameter("sporttype", DbType.Int32, sportId);
+                db.AddInParameter("IsIncludeTestLeague", DbType.Boolean, !_appSettings.IsProduction);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())

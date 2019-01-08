@@ -1,4 +1,4 @@
-﻿// Generated at: 12/26/2018 10:51:52 AM
+﻿// Generated at: 1/3/2019 5:04:11 PM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -648,6 +648,7 @@ SelectSite:"选择网站",
 SelectTop:"选择最大",
 Sep:"九月",
 September:"九月",
+ServerBusyMessage:"由于服务器繁忙，您的请求现在无法处理。请稍后再试。",
 SessionID:"每局号码",
 SessionLoggedMsg:"您已从另一会话登入或您的登入会话已过期",
 SetAsDefaultGroup:"设置为默认组",

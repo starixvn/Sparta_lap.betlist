@@ -73,7 +73,7 @@
                 new Match { MatchName = "Match4", IsOutRight = true, LeagueId = 3 },
                 new Match { MatchName = "Match2", IsOutRight = true, LeagueId = 5 },
             };
-            _matchService.GetAllRunningMatch(SportId).Returns(matchList);
+            _matchService.GetAllRunningMatch(SportId, Arg.Any<string>()).Returns(matchList);
 
             _cacheRefAdapter.GetLeagueName(Arg.Any<int>()).Returns(x => { return x[0].ToString(); });
 

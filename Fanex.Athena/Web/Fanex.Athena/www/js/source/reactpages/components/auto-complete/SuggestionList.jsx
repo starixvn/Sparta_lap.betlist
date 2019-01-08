@@ -25,7 +25,7 @@ export default class SuggestionList extends Component {
             const className = index === this.props.selectedIndex ? "ac-item ac-item-active" : "ac-item";
             return (
                 <li key={`ac-item-${index}`} className={className} onClick={this.onSelect.bind(this, item)}>
-                    {typeof (item) === "object" ? item.value : item}
+                    {item && typeof (item) === "object" ? item.value : item}
                 </li>
             )
         })

@@ -30,6 +30,7 @@ function generateConfig(environment) {
             [`${jsPath}/bettingticketscenter/singlecustomer`]: pathConfig.scriptPaths.bettingticketscenter_singlecustomer,
             [`${jsPath}/bettingticketscenter/refno`]: pathConfig.scriptPaths.bettingticketscenter_refno,
             [`${jsPath}/bettingticketscenter/running`]: pathConfig.scriptPaths.bettingticketscenter_running,
+            [`${jsPath}/report/casinoturnover`]: pathConfig.scriptPaths.casinoturnover,
 
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
@@ -39,7 +40,8 @@ function generateConfig(environment) {
             [`${cssPath}/exchangewl/index`]: pathConfig.cssPaths.exchangewl,
             [`${cssPath}/speciallicenseewl/index`]: pathConfig.cssPaths.speciallicenseewl,
             [`${cssPath}/bettingticketscenter/index`]: pathConfig.cssPaths.bettingticketscenter,
-            [`${cssPath}/betlist/index`]: pathConfig.cssPaths.betlist
+            [`${cssPath}/betlist/index`]: pathConfig.cssPaths.betlist,
+            [`${cssPath}/casinoturnover/index`]: pathConfig.cssPaths.casinoturnover
         },
         output: {
             path: pathConfig.projectRoot,

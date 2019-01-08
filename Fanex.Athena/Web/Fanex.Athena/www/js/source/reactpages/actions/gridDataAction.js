@@ -7,6 +7,7 @@ export function getGridData(url, params) {
     return (dispatch) => {
         DataService.postData(url, params)
             .then(response => {
+                response.data.timestamp = new Date().getTime();
                 dispatch(setGridData(response.data));
             })
             .catch(error => {

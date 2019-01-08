@@ -288,7 +288,7 @@ namespace Fanex.Athena.Api.Report
             metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
             metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
 
-            if (IsValidParams(metaModel) && IsValidRequest(metaModel, currencyId))
+            if (IsValidParams(metaModel) && IsValidRequest(metaModel.CurrencyId, currencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.DrillDownCurrencyId = currencyId;

@@ -10,7 +10,12 @@
     public class GroupComDataAccessTest : BaseDataAccessHelperTest<GroupComDataAccess>
     {
         private const string GetLicenseeGroupCommSp = "Lrf_LicenseeGroupCommSel";
-        private const int LicenseeId = 0;
+        private const int LicenseeId = 23340;
+
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<GroupComDataAccess>();
+        }
 
         [Test]
         public void GetAll_WhenCall_ParametersPassedCorrectly()
@@ -65,10 +70,14 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_GroupCommGetById")).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetById(GroupCommId);
+            DataAccess.GetById(GroupCommId, LicenseeId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("GroupCommID", DbType.Int32, GroupCommId);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("GroupCommID", DbType.Int32, GroupCommId);
+            });
         }
 
         [Test]

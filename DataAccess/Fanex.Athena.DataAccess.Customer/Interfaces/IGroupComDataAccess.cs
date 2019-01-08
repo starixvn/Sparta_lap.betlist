@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
 
         DataTable GetDataForExcel(int licenseeId);
 
-        GroupCommMetaModel GetById(int groupCommId);
+        GroupCommMetaModel GetById(int groupCommId, int licenseeId);
 
         bool CheckByName(int licenseeId, string groupName);
 

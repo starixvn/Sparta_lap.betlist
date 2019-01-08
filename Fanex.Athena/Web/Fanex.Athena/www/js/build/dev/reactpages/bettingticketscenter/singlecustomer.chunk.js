@@ -293,6 +293,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function getGridData(url, params) {
     return function (dispatch) {
         _DataService2.default.postData(url, params).then(function (response) {
+            response.data.timestamp = new Date().getTime();
             dispatch(setGridData(response.data));
         }).catch(function (error) {
             alert("Sorry, an error occurred while processing your request.");
@@ -1242,7 +1243,7 @@ var SuggestionList = function (_Component) {
                 return _react2.default.createElement(
                     'li',
                     { key: 'ac-item-' + index, className: className, onClick: _this2.onSelect.bind(_this2, item) },
-                    (typeof item === 'undefined' ? 'undefined' : _typeof(item)) === "object" ? item.value : item
+                    item && (typeof item === 'undefined' ? 'undefined' : _typeof(item)) === "object" ? item.value : item
                 );
             });
         }

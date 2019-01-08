@@ -30,9 +30,9 @@ namespace Fanex.Athena.Service.Core.Common
             _cache = cache;
         }
 
-        public IList<Match> GetAllRunningMatch(int sportId)
+        public IList<Match> GetAllRunningMatch(int sportId, string languageCode)
         {
-            var cacheKey = RunningMatchCacheKey + sportId;
+            var cacheKey = RunningMatchCacheKey + sportId + languageCode;
             var isInCache = _cache.Contains(cacheKey);
             if (isInCache)
             {

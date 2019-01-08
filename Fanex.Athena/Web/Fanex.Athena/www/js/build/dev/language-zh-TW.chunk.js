@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/18/2018 2:57:58 PM
+﻿// Generated at: 1/3/2019 5:04:11 PM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -179,6 +179,8 @@ BoughtAmount:"買入金額",
 BoughtDetails:"買入詳情",
 BoughtStake:"買入本金",
 BoughtTicketsList:"買入注單",
+BTCExportExcelMsg1:"您的搜尋結果超過系統設定的範圍.",
+BTCExportExcelMsg2:"請試著縮短日期範圍或是分別搜尋個別貨幣/投注類別等。",
 BuyBackAmount:"回購金額",
 ByBetType:"根據投注類型",
 ByCurrency:"根據貨幣",
@@ -739,6 +741,7 @@ SelectSite:"選擇網站",
 SelectTop:"選擇最大",
 Sep:"九月",
 September:"九月",
+ServerBusyMessage:"由於服務器繁忙，您的請求現在無法處理。請稍後再試。",
 SessionID:"每局號碼",
 SessionLoggedMsg:"您已從另一會話登入或您的登入會話已過期",
 SetAsDefaultGroup:"設置為默認組",
@@ -751,7 +754,6 @@ Sincelastmonth:"從上個月",
 SingleCustomer:"單一會員",
 Site:"網頁",
 SixMonth:"6 months",
-SmartSite:"行動裝置版",
 SortBy:"排序由",
 Sorting:"排序",
 SpecialLevel:"特殊層級",

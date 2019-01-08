@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Core;
     using Core.Extensions;
     using Extension.Helper;
+    using Extension.Utility;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Athena.Model.Forecast.ViewModel;
     using Fanex.Common;

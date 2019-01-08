@@ -14,6 +14,7 @@
     [TestFixture]
     public class MatchServiceTest
     {
+        private const string Language = "en-Us";
         private static readonly IList<Match> ExpectedResultDataList = new List<Match>
             {
                 new Match { MatchId = 1 }
@@ -47,7 +48,7 @@
             _cache.Get<IList<Match>>(Arg.Any<string>()).Returns(ExpectedResultDataList);
 
             // Action
-            var result = _matchService.GetAllRunningMatch(sportId);
+            var result = _matchService.GetAllRunningMatch(sportId, Language);
 
             // Assert
             Assert.Multiple(() =>
@@ -65,7 +66,7 @@
             _matchDataAccess.GetAllRunningMatch(sportId).Returns(ExpectedResultDataList);
 
             // Action
-            var result = _matchService.GetAllRunningMatch(sportId);
+            var result = _matchService.GetAllRunningMatch(sportId, Language);
 
             // Assert
             Assert.Multiple(() =>
@@ -81,10 +82,10 @@
             // Arrange
             var sportId = FakeHelper.Create<int>();
             _matchDataAccess.GetAllRunningMatch(sportId).Returns(ExpectedResultDataList);
-            var firstCall = _matchService.GetAllRunningMatch(sportId);
+            var firstCall = _matchService.GetAllRunningMatch(sportId, Language);
 
             // Action
-            var result = _matchService.GetAllRunningMatch(sportId);
+            var result = _matchService.GetAllRunningMatch(sportId, Language);
 
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedResultDataList));

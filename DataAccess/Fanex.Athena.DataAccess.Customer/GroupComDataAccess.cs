@@ -42,12 +42,13 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        public GroupCommMetaModel GetById(int groupCommId)
+        public GroupCommMetaModel GetById(int groupCommId, int licenseeId)
         {
             const string UspName = "Lrf_GroupCommGetById";
 
             using (var db = GetObjectDb(UspName))
             {
+                db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
                 db.AddInParameter("GroupCommID", DbType.Int32, groupCommId);
 
                 return db.QueryEntity<GroupCommMetaModel>();

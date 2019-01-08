@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/26/2018 10:51:52 AM
+// Generated at: 1/3/2019 5:04:11 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -224,6 +224,7 @@ window._language_en_US = {
   CasinoProgressiveWins: "Casino Progressive Wins",
   CasinoProgressiveWinsGuidelineContent: "This report supports up-to-date data. You can filter data up to 12 months per query.",
   CasinoTransfer: "Casino Transfer",
+  CasinoTurnover: "Casino Turnover",
   ChangePassword: "Change Password",
   ChangeStatus: "Change {0}&apos;s status",
   ChangeStatusOfThisCustomerMsg: "Are you sure you want to change status of this customer?",
@@ -853,6 +854,7 @@ window._language_en_US = {
   SelectTop: "Select Top",
   Sep: "Sep",
   September: "September",
+  ServerBusyMessage: "Your request can&apos;t be processed now due to busy server. Please try again later",
   SessionID: "Session ID",
   SessionLoggedMsg: "You have logged in from another session or your login session has expired",
   SetAsDefaultGroup: "Set as default group",
@@ -989,6 +991,7 @@ window._language_en_US = {
   UserNotExist: "Not found user",
   UserNotHaveCurrency: "You do not have any currency permissions to view this report, please contact your administrator account.",
   UserTooManyLicensees: "This account is assigned to more than 1 licensee.",
+  ValidBetAmount: "Valid Bet Amount",
   View: "View",
   ViewBy: "View by",
   ViewDataInMonth: "View data in month",

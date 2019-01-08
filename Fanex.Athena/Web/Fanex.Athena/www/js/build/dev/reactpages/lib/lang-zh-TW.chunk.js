@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/26/2018 10:51:52 AM
+// Generated at: 1/3/2019 5:04:11 PM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -744,6 +744,7 @@ window._language_zh_TW = {
   SelectTop: "選擇最大",
   Sep: "九月",
   September: "九月",
+  ServerBusyMessage: "由於服務器繁忙，您的請求現在無法處理。請稍後再試。",
   SessionID: "每局號碼",
   SessionLoggedMsg: "您已從另一會話登入或您的登入會話已過期",
   SetAsDefaultGroup: "設置為默認組",

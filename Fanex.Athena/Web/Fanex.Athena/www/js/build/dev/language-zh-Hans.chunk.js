@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/18/2018 2:57:58 PM
+﻿// Generated at: 1/3/2019 5:04:11 PM
 window._language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -734,6 +734,7 @@ SelectSite:"选择网站",
 SelectTop:"选择最大",
 Sep:"九月",
 September:"九月",
+ServerBusyMessage:"由于服务器繁忙，您的请求现在无法处理。请稍后再试。",
 SessionID:"每局号码",
 SessionLoggedMsg:"您已从另一会话登入或您的登入会话已过期",
 SetAsDefaultGroup:"设置为默认组",
@@ -746,7 +747,6 @@ Sincelastmonth:"自上个月",
 SingleCustomer:"单一会员",
 Site:"网页",
 SixMonth:"6 months",
-SmartSite:"行动装置版",
 SortBy:"排序由",
 Sorting:"排序",
 SpecialLevel:"特殊层级",

@@ -49,7 +49,7 @@
             };
 
             // Action
-            var result = _controller.IsValidRequest(metaModel);
+            var result = _controller.IsValidRequest(metaModel.CurrencyId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

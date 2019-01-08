@@ -4,6 +4,7 @@
     using System.Data;
     using System.Linq;
     using Core.Common;
+    using Extension.Utility;
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -14,18 +15,22 @@
     {
         private ICacheRefAdapter _cacheRef;
 
+        private IAppSettings _appSettings;
+
         protected override void SetUpDataAccess()
         {
             _cacheRef = Substitute.For<ICacheRefAdapter>();
-            DataAccess = Substitute.ForPartsOf<LeagueDataAccess>(
-                _cacheRef);
+            _appSettings = Substitute.For<IAppSettings>();
+            DataAccess = Substitute.ForPartsOf<LeagueDataAccess>(_cacheRef, _appSettings);
         }
 
-        [Test]
-        public void GetLeaguesBySport_WhenCall_ParametersPassedCorrectly()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GetLeaguesBySport_WhenCall_ParametersPassedCorrectly(bool isProduction)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_SelLeagueBySport")).Returns(ObjectDb);
+            _appSettings.IsProduction.Returns(isProduction);
             var metaModel = new LeagueMetaModel
             {
                 AgentListXml = "hello",
@@ -44,6 +49,7 @@
                 ObjectDb.Received(1).AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
                 ObjectDb.Received(1).AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("IsIncludeTestLeague", DbType.Boolean, !isProduction);
             });
         }
 
@@ -73,20 +79,23 @@
             });
         }
 
-        [Test]
-        public void GetRunningLeagues_WhenCall_ParametersPassedCorrectly()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GetRunningLeagues_WhenCall_ParametersPassedCorrectly(bool isProduction)
         {
             // Arrange
             const string AgentList = "<sdfsdfml>";
             const string BetTypes = "1,2,3,4,5";
             DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueSelRunning")).Returns(ObjectDb);
+            _appSettings.IsProduction.Returns(isProduction);
 
             // Action
             DataAccess.GetRunningLeagues(AgentList, BetTypes);
 
             // Assert
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, AgentList);
-            ObjectDb.Received().AddInParameter("betTypes", DbType.String, BetTypes);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, AgentList);
+            ObjectDb.Received(1).AddInParameter("betTypes", DbType.String, BetTypes);
+            ObjectDb.Received(1).AddInParameter("IsIncludeTestLeague", DbType.Boolean, !isProduction);
         }
     }
 }

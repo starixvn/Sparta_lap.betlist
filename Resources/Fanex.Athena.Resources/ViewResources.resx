@@ -3123,4 +3123,12 @@
     <value>Your request can't be processed now due to busy server. Please try again later</value>
     <comment>103046</comment>
   </data>
+  <data name="CasinoTurnover" xml:space="preserve">
+    <value>Casino Turnover</value>
+    <comment>95178</comment>
+  </data>
+  <data name="ValidBetAmount" xml:space="preserve">
+    <value>Valid Bet Amount</value>
+    <comment>95178</comment>
+  </data>
 </root>
