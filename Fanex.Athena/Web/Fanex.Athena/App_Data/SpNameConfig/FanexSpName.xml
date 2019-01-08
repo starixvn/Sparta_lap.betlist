@@ -110,7 +110,7 @@
     <Setting Key="Lrf_Rpt_ExchangeWinloss" SpName="Lrf_Rpt_ExchangeWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_ExchangeWinloss_Ag" SpName="Lrf_Rpt_ExchangeWinloss_Ag" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_ExchangeWinloss_Mem" SpName="Lrf_Rpt_ExchangeWinloss_Mem" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_CasinoTurnover" SpName="Lrf_Rpt_CasinoTurnover_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_CasinoTurnover" SpName="Lrf_Rpt_CasinoTurnover" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerInformation">
@@ -189,7 +189,7 @@
     <Setting Key="Lrf_Forecast_SelHDP" SpName="Lrf_Forecast_SelHDP" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast_SelOU" SpName="Lrf_Forecast_SelOU" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast1x2_SelByLeague" SpName="Lrf_Forecast1x2_SelByLeague" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_LeagueSelRunning" SpName="Lrf_LeagueSelRunning_xtest" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_LeagueSelRunning" SpName="Lrf_LeagueSelRunning" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast_MatchList" SpName="Lrf_Forecast_MatchList" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast_Sel1X2" SpName="Lrf_Forecast_Sel1X2" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast_SelByLeague" SpName="Lrf_Forecast_SelByLeague" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
@@ -197,10 +197,10 @@
   </Function>
 
   <Function Name="Common">
-    <Setting Key="Lrf_LeagueMatchSelRunning" SpName="Lrf_LeagueMatchSelRunning_xtest" DbName="DB042.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_LeagueMatchSelRunning" SpName="Lrf_LeagueMatchSelRunning" DbName="DB042.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetExchangeRateByDate" SpName="Lrf_GetExchangeRateByDate" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_SelBetTypeBySport" SpName="Lrf_SelBetTypeBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_SelLeagueBySport" SpName="Lrf_SelLeagueBySport_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_SelLeagueBySport" SpName="Lrf_SelLeagueBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelMatchByLeague" SpName="Lrf_SelMatchByLeague" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelSportDetail" SpName="Lrf_SelSportDetail" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Acc_ShowNotificationWhenProcessingData" SpName="Acc_ShowNotificationWhenProcessingData" DbName="DBTXN.bodb02.bodbLicenseeNet" />
