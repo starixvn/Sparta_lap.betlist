@@ -6,6 +6,7 @@
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Happy5.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -39,6 +40,8 @@
 
         IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
 
+        IList<Happy5> GetHappy5Matches(ResultMetalModel metalModel);
+
         IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel);
 
         #endregion Report
@@ -65,6 +68,8 @@
         /// <param name="matchId">The match id.</param>
         /// <returns>The match info.</returns>
         IList<NumberGame> GetPopUpNumberGameMatchs(int matchId);
+
+        IList<Happy5> GetPopUpHappy5Matches(int matchId);
 
         #endregion Popup
     }

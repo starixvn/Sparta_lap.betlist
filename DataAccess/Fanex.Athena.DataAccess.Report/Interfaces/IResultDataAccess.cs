@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Result.Core.Happy5.DTO;
 
     [System.CLSCompliant(false)]
     public interface IResultDataAccess
@@ -35,6 +36,8 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
         IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
 
+        IList<Happy5> GetHappy5Matches(ResultMetalModel metalModel);
+
         #endregion Report
 
         #region Popup
@@ -44,6 +47,8 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
         IList<Parlay> GetPopUpParalayMatch(long refNo);
 
         IList<NumberGame> GetPopUpNumberGameMatch(int matchId);
+
+        IList<Happy5> GetPopUpHappy5Match(int matchId);
 
         Sportsbook GetSportsbookGameDetail(int matchId);
 

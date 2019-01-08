@@ -8,6 +8,7 @@
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Result.Core;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Happy5.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -69,6 +70,11 @@
             return this._dataAccess.GetNumberGameMatches(metalModel);
         }
 
+        public IList<Happy5> GetHappy5Matches(ResultMetalModel metalModel)
+        {
+            return this._dataAccess.GetHappy5Matches(metalModel);
+        }
+
         public IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel)
         {
             return this._dataAccess.GetVirtualSportMatches(metalModel);
@@ -103,6 +109,11 @@
         public IList<NumberGame> GetPopUpNumberGameMatchs(int matchId)
         {
             return this._dataAccess.GetPopUpNumberGameMatch(matchId);
+        }
+
+        public IList<Happy5> GetPopUpHappy5Matches(int matchId)
+        {
+            return this._dataAccess.GetPopUpHappy5Match(matchId);
         }
 
         #endregion Popup

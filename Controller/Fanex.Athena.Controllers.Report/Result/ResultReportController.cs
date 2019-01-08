@@ -303,7 +303,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             var limitedSports = sports;
             if (!productAccess.IsAllowNG)
             {
-                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.NumberGame);
+                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.NumberGame && i.SportId != (int)SportType.Happy5);
             }
 
             if (!productAccess.IsAllowVS)
@@ -373,6 +373,15 @@ namespace Fanex.Athena.Controllers.Report.Result
                     if (dataNg != null)
                     {
                         _htmlResult = _resultService.HtmlParser(dataNg, setting);
+                    }
+
+                    break;
+
+                case SportType.Happy5:
+                    var dataHappy5 = _resultService.GetPopUpHappy5Matches(metalModel.MatchId);
+                    if (dataHappy5 != null)
+                    {
+                        _htmlResult = _resultService.HtmlParser(dataHappy5, setting);
                     }
 
                     break;
@@ -502,6 +511,11 @@ namespace Fanex.Athena.Controllers.Report.Result
                 case SportType.NumberGame:
                     var dataNg = _resultService.GetNumberGameMatches(metalModel);
                     ParseResult(dataNg, setting, metalModel.IsExportExcel);
+                    break;
+
+                case SportType.Happy5:
+                    var dataHappy5 = _resultService.GetHappy5Matches(metalModel);
+                    ParseResult(dataHappy5, setting, metalModel.IsExportExcel);
                     break;
 
                 default:
