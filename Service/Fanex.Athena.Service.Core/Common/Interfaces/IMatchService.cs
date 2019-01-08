@@ -20,7 +20,7 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
         /// </summary>
         /// <param name="sportId">The sport id.</param>
         /// <returns>The running match list.</returns>
-        IList<Match> GetAllRunningMatch(int sportId);
+        IList<Match> GetAllRunningMatch(int sportId, string languageCode);
 
         /// <summary>
         /// Get match by league id.
