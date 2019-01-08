@@ -402,7 +402,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Code\DesktopLiveReportRazorHelper.cshtml" />
-    <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
+    <Content Include="SpNameConfig\FanexSpName.xml1.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
@@ -423,26 +423,20 @@
     <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-TW.htm" />
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
-    <Content Include="App_Data\SpNameConfig\FanexSpName.BACKUPMNL.xml">
+    <Content Include="SpNameConfig\FanexSpName.LOCAL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.LOCAL.xml">
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.PRO.xml">
+    <Content Include="SpNameConfig\FanexSpName.PRO.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.SANDBOX.xml">
+    <Content Include="SpNameConfig\FanexSpName.SIT.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.SIT.xml">
+    <Content Include="SpNameConfig\FanexSpName.UAT.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.UAT.xml">
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.xml">
+    <Content Include="SpNameConfig\FanexSpName.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
@@ -489,7 +483,7 @@
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-TW.htm" />
-    <Content Include="App_Data\SpNameConfig\FanexSpNameConfig.xml">
+    <Content Include="SpNameConfig\FanexSpNameConfig.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\UserGuide\CustomerTurnover\zh-CN.htm" />
@@ -2065,7 +2059,7 @@
     <Content Include="App_Code\DesktopRazorHelper.cshtml" />
     <Content Include="App_Code\DesktopReportRazorHelper.cshtml" />
     <Content Include="App_Data\PortalSystemFunction.json" />
-    <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
+    <None Include="SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\Report\casinoprogressivewins.css" />
@@ -2079,11 +2073,11 @@
     <Content Include="Content\UserGuide\Images\team-to-score-guide3.png" />
     <Content Include="Content\UserGuide\user-guide.css" />
     <Content Include="Deployment.ignore" />
-    <None Include="App_Data\SpNameConfig\FanexSpName.xml.tt">
+    <None Include="SpNameConfig\FanexSpName.xml.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FanexSpName.xml1.txt</LastGenOutput>
     </None>
-    <None Include="App_Data\SpNameConfig\SpNameConfiguration.ttinclude" />
+    <None Include="SpNameConfig\SpNameConfiguration.ttinclude" />
     <Content Include="App_Data\Template\Reports\ActiveCustomerSummary.xls" />
     <Content Include="App_Data\Template\Reports\GoldDeluxeWinLoss.xls" />
     <Content Include="App_Data\Template\Reports\ThirdPartyWinLoss.xls" />

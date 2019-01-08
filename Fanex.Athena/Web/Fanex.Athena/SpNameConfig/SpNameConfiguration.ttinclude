@@ -24,14 +24,6 @@
         new SiteInfo
         {
             SiteEnvironment = SiteEnvironment.PRO
-        },
-        new SiteInfo
-        {
-            SiteEnvironment = SiteEnvironment.BACKUPMNL
-        },
-        new SiteInfo
-        {
-            SiteEnvironment = SiteEnvironment.SANDBOX
         }
     };
 #>
@@ -42,9 +34,7 @@
         LOCAL,
         UAT,
 		SIT,
-        PRO,
-        BACKUPMNL,
-        SANDBOX
+        PRO
     }
 
 	class SiteInfo
@@ -86,13 +76,13 @@
 	{
 		public static string GetAllSpName()
         {
-			var fileName = @"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameOriginal.xml";
+			var fileName = @"Fanex.Athena\Web\Fanex.Athena\SpNameConfig\FanexSpNameOriginal.xml";
             return System.IO.File.ReadAllText(fileName);
         }	
 
 		public static IList<SpNameConfig> GetListOfConfig()
 		{
-			var document = System.Xml.Linq.XDocument.Load(@"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameConfig.xml");
+			var document = System.Xml.Linq.XDocument.Load(@"Fanex.Athena\Web\Fanex.Athena\SpNameConfig\FanexSpNameConfig.xml");
 			var elements = document.Root.Elements("SpNameConfig");
 			var listOfConfig = new System.Collections.Generic.List<SpNameConfig>();
 				
