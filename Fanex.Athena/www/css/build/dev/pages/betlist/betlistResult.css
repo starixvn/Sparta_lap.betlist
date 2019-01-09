@@ -54,7 +54,9 @@
   line-height: 31px;
   text-align: center;
   background-image: url(images/lotto_ball.png);
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  background-color: transparent !important;
+  /* custom */ }
 
 .lottoBall.red {
   background-position: 0 0; }
