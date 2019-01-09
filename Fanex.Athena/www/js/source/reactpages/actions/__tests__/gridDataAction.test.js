@@ -22,14 +22,18 @@ describe('gridDataAction', () => {
 
     const expectedUrl = "api/XXReport/Index";
     
-    describe('getGridData - should create an correct action', () => {
+    describe('getGridData - should create a correct action', () => {
         it('dispatch correct action', (done) => {
+            const timeStamp = 99999999;
             const expectedActions = [
-                { type: types.SET_GRID_DATA, data: { xxx:123456 } }
+                { type: types.SET_GRID_DATA, data: { xxx:123456, timestamp: timeStamp } }
             ];
             
             const store = mockStore({ gridData: Object.assign({},  { data: {a:1}}) });
+            spyOn(Date.prototype, 'getTime').and.returnValue(timeStamp);
+
             store.dispatch(actions.getGridData(expectedUrl, {}));
+
             promise.then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
                 done();
@@ -37,7 +41,7 @@ describe('gridDataAction', () => {
         })
     })
 
-    it('setGridData - should create an correct action', () => {
+    it('setGridData - should create a correct action', () => {
         const data = {
             DataList: []
         };
