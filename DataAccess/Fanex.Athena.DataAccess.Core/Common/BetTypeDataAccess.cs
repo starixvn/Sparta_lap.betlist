@@ -8,23 +8,29 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
     using System.Data;
+    using Constant.DataDomain;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using VendorAdapter.Interfaces;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class BetTypeDataAccess : BaseDataAccess, IBetTypeDataAccess
     {
-        /// <summary>
-        /// Get bet type.
-        /// </summary>
-        /// <param name="licenseeId">The licensee Id.</param>
-        /// <param name="sports">The sports (xml string parameter).</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <returns>The data table.</returns>
-        public IList<CheckedItem> GetBettypes(int licenseeId, string sports, string languageCode)
+        private static readonly IDictionary<int, int> MapBettypeSportSuffix = new Dictionary<int, int>
+        {
+            { 1204, (int)SportType.Soccer },
+            { 1235, (int)SportType.Tennis },
+            { 8102, (int)SportType.NumberGameHappy5 }
+        };
+
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public BetTypeDataAccess(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
+        public IList<CheckedItem> GetBettypes(int licenseeId, string xmlSportList, string languageCode)
         {
             const string UspName = "Lrf_SelBetTypeBySport";
             IList<CheckedItem> results = new List<CheckedItem>();
@@ -32,17 +38,25 @@ namespace Fanex.Athena.DataAccess.Core.Common
             using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                db.AddInParameter("sportlist", DbType.String, sports);
+                db.AddInParameter("sportlist", DbType.String, xmlSportList);
                 db.AddInParameter("langkey", DbType.String, languageCode);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
                     {
+                        var bettypeId = int.Parse(reader["BettypeID"].ToString());
+                        var bettypeName = reader["BettypeName"].ToString();
+                        if (MapBettypeSportSuffix.ContainsKey(bettypeId))
+                        {
+                            var suffix = _cacheRefAdapter.GetSportName(MapBettypeSportSuffix[bettypeId], languageCode);
+                            bettypeName += "(" + suffix + ")";
+                        }
+
                         results.Add(new CheckedItem
                         {
                             Checked = true,
-                            ID = int.Parse(reader["BettypeID"].ToString()),
-                            Name = reader["BettypeName"].ToString()
+                            ID = bettypeId,
+                            Name = bettypeName
                         });
                     }
                 }

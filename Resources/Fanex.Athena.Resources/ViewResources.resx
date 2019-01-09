@@ -3135,4 +3135,12 @@
     <value>Happy 5</value>
     <comment>103698</comment>
   </data>
+  <data name="Soccer" xml:space="preserve">
+    <value>Soccer</value>
+    <comment>103698</comment>
+  </data>
+  <data name="Tennis" xml:space="preserve">
+    <value>Tennis</value>
+    <comment>103698</comment>
+  </data>
 </root>
