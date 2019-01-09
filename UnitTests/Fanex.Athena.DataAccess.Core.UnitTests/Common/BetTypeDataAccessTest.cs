@@ -6,6 +6,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
+    using VendorAdapter.Interfaces;
 
     public class BetTypeDataAccessTest : BaseDataAccessHelperTest<BetTypeDataAccess>
     {
@@ -13,6 +14,11 @@
         private const int LicenseeId = 1;
         private const string Sports = "1,2,3";
         private const string LanguageCode = "en-US";
+
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<BetTypeDataAccess>(Substitute.For<ICacheRefAdapter>());
+        }
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
