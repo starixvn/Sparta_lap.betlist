@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Fanex.Athena.DataAccess.Report.Interfaces;
+    using DataAccess.Report.ResultReport;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Result.Core;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Happy5.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -18,9 +19,12 @@
     {
         private readonly IResultDataAccess _dataAccess;
 
-        public ResultService(IResultDataAccess dataAccess)
+        private readonly IResultNumberGameDataAccess _numberGameDataAccess;
+
+        public ResultService(IResultDataAccess dataAccess, IResultNumberGameDataAccess numberGameDataAccess)
         {
             this._dataAccess = dataAccess;
+            _numberGameDataAccess = numberGameDataAccess;
         }
 
         public IList<Outright> GetOutRight(ResultMetalModel metal)
@@ -66,7 +70,12 @@
 
         public IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel)
         {
-            return this._dataAccess.GetNumberGameMatches(metalModel);
+            return this._numberGameDataAccess.GetNumberGameMatches(metalModel);
+        }
+
+        public IList<Happy5> GetHappy5Matches(ResultMetalModel metalModel)
+        {
+            return this._numberGameDataAccess.GetHappy5Matches(metalModel);
         }
 
         public IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel)
@@ -102,7 +111,12 @@
 
         public IList<NumberGame> GetPopUpNumberGameMatchs(int matchId)
         {
-            return this._dataAccess.GetPopUpNumberGameMatch(matchId);
+            return this._numberGameDataAccess.GetPopUpNumberGameMatch(matchId);
+        }
+
+        public IList<Happy5> GetPopUpHappy5Matches(int matchId)
+        {
+            return this._numberGameDataAccess.GetPopUpHappy5Match(matchId);
         }
 
         #endregion Popup

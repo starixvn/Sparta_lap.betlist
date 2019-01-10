@@ -11,7 +11,7 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 
     public interface IBetTypeDataAccess
     {
-        IList<CheckedItem> GetBettypes(int licenseeId, string sports, string languageCode);
+        IList<CheckedItem> GetBettypes(int licenseeId, string xmlSportList, string languageCode);
 
         IList<CheckedItem> GetBettypesByProduct(int licenseeId, string productCode, string languageCode);
     }

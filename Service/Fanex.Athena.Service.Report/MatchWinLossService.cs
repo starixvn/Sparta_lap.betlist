@@ -144,7 +144,8 @@ namespace Fanex.Athena.Service.Report
         {
             if (matchWinLoss.ProductName == Product.NG)
             {
-                return ViewResources.NumberGameNo + " " + matchWinLoss.MatchCode;
+                var prefix = matchWinLoss.SportType == (int)SportType.NumberGameHappy5 ? ViewResources.No + "." : ViewResources.NumberGameNo;
+                return prefix + " " + matchWinLoss.MatchCode;
             }
 
             if (VSSportTypes.Contains(matchWinLoss.SportType))

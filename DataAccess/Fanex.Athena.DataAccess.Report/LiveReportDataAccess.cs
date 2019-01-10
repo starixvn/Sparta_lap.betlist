@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Constant.DataDomain;
+    using Constant.Helper;
     using Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
@@ -312,6 +313,11 @@ namespace Fanex.Athena.DataAccess.Report
 
         private string GetBettypeNameSuffix(int betType)
         {
+            if (betType == (int)BetType.NumberGameHappy5OddEven)
+            {
+                return " (" + _cacheRefAdapter.GetSportName((int)SportType.NumberGameHappy5) + ")";
+            }
+
             if (betType >= (int)BetType.VirtualBasketballOverUnder && betType <= (int)BetType.VirtualBasketballFirstHalfHandicap)
             {
                 return " (" + _cacheRefAdapter.GetSportName((int)SportType.VirtualBasketball) + ")";

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
     using System;
-    using DataAccess.Report.Interfaces;
+    using DataAccess.Report.ResultReport;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
     using Model.Report.MetaModel;
@@ -12,13 +12,15 @@
     public class ResultServiceTest
     {
         private IResultDataAccess _dataAccess;
+        private IResultNumberGameDataAccess _numberGameDataAccess;
         private ResultService _service;
 
         [SetUp]
         public void SetUp()
         {
             _dataAccess = Substitute.For<IResultDataAccess>();
-            _service = new ResultService(_dataAccess);
+            _numberGameDataAccess = Substitute.For<IResultNumberGameDataAccess>();
+            _service = new ResultService(_dataAccess, _numberGameDataAccess);
         }
 
         [TearDown]
@@ -38,7 +40,7 @@
             _service.GetOutRight(metaModel);
 
             // Assert
-            _dataAccess.Received().GetOutRight(metaModel);
+            _dataAccess.Received(1).GetOutRight(metaModel);
         }
 
         [Test]
@@ -52,7 +54,7 @@
             _service.GetSports(date, LicenseeId);
 
             // Assert
-            _dataAccess.Received().GetSports(date, LicenseeId);
+            _dataAccess.Received(1).GetSports(date, LicenseeId);
         }
 
         [Test]
@@ -66,7 +68,7 @@
             _service.GetLeagues(date, LicenseeId);
 
             // Assert
-            _dataAccess.Received().GetLeagues(date, LicenseeId);
+            _dataAccess.Received(1).GetLeagues(date, LicenseeId);
         }
 
         [Test]
@@ -79,7 +81,7 @@
             _service.GetMatches(metaModel);
 
             // Assert
-            _dataAccess.Received().GetMatches<Sportsbook>(metaModel);
+            _dataAccess.Received(1).GetMatches<Sportsbook>(metaModel);
         }
 
         [Test]
@@ -92,7 +94,7 @@
             _service.GetNumberGameMatches(metaModel);
 
             // Assert
-            _dataAccess.Received().GetNumberGameMatches(metaModel);
+            _numberGameDataAccess.Received(1).GetNumberGameMatches(metaModel);
         }
 
         [Test]
@@ -105,7 +107,7 @@
             _service.GetVirtualSportMatches(metaModel);
 
             // Assert
-            _dataAccess.Received().GetVirtualSportMatches(metaModel);
+            _dataAccess.Received(1).GetVirtualSportMatches(metaModel);
         }
 
         [Test]
@@ -118,7 +120,7 @@
             _service.GetSportsbookGameDetail(MatchId);
 
             // Assert
-            _dataAccess.Received().GetSportsbookGameDetail(MatchId);
+            _dataAccess.Received(1).GetSportsbookGameDetail(MatchId);
         }
 
         [Test]
@@ -139,7 +141,7 @@
             _service.GetPopUpMatch(metaModel);
 
             // Assert
-            _dataAccess.Received().GetPopUpMatches<Sportsbook>(Arg.Is<ResultPopupMetalModel>(x => x == metaModel && !x.RaceNo.HasValue));
+            _dataAccess.Received(1).GetPopUpMatches<Sportsbook>(Arg.Is<ResultPopupMetalModel>(x => x == metaModel && !x.RaceNo.HasValue));
         }
 
         [Test]
@@ -158,7 +160,7 @@
             _service.GetPopUpVirtualSportMatch(metaModel);
 
             // Assert
-            _dataAccess.Received().GetPopUpMatches<Racing>(metaModel);
+            _dataAccess.Received(1).GetPopUpMatches<Racing>(metaModel);
         }
 
         [Test]
@@ -171,7 +173,7 @@
             _service.GetPopUpParlayMatch(RefNo);
 
             // Assert
-            _dataAccess.Received().GetPopUpParalayMatch(RefNo);
+            _dataAccess.Received(1).GetPopUpParalayMatch(RefNo);
         }
 
         [Test]
@@ -184,7 +186,7 @@
             _service.GetPopUpNumberGameMatchs(MatchId);
 
             // Assert
-            _dataAccess.Received().GetPopUpNumberGameMatch(MatchId);
+            _numberGameDataAccess.Received(1).GetPopUpNumberGameMatch(MatchId);
         }
     }
 }

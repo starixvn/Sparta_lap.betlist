@@ -44,10 +44,10 @@ Fanex.Athena.sln.GhostDoc.xml
 /.vs
 node_modules
 bower_components
-/Fanex.Athena/Web/Fanex.Athena/junit
-/Fanex.Athena/Web/Fanex.Athena/PhantomJS_2.1.1_(Windows_7_0.0.0)
+/Fanex.Athena/junit
+/Fanex.Athena/PhantomJS_2.1.1_(Windows_7_0.0.0)
 /CodeCoverage/output
-/Fanex.Athena/Web/Fanex.Athena/PhantomJS_2.1.1_(Windows_8_0.0.0)/junit/test-results.xml
+/Fanex.Athena/PhantomJS_2.1.1_(Windows_8_0.0.0)/junit/test-results.xml
 /UnitTest.xml
 /UnitTestCoverage.xml
 
@@ -56,9 +56,10 @@ UnitTestResult_*.xml
 
 stats.json
 /package-lock.json
-/Fanex.Athena/Web/Fanex.Athena/wwwroot
-/Fanex.Athena/Web/Fanex.Athena/coverage
-/Fanex.Athena/Web/Fanex.Athena/yarn.lock
-/Fanex.Athena/Web/Fanex.Athena/package-lock.json
-/Fanex.Athena/Web/Fanex.Athena/webpack-stats-*
+/Fanex.Athena/wwwroot
+/Fanex.Athena/coverage
+/Fanex.Athena/yarn.lock
+/Fanex.Athena/package-lock.json
+/Fanex.Athena/webpack-stats-*
+
 

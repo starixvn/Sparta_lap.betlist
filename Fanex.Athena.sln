@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Report
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Extension", "Fanex.Athena.Extension\Fanex.Athena.Extension.csproj", "{71F95E53-36D0-4091-828D-ED14C9939C35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena", "Fanex.Athena\Web\Fanex.Athena\Fanex.Athena.csproj", "{CE8FBEBC-3312-4881-8486-42C9F70DDADF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena", "Fanex.Athena\Fanex.Athena.csproj", "{CE8FBEBC-3312-4881-8486-42C9F70DDADF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.BetList", "ControllerAPI\Fanex.Athena.Api.BetList\Fanex.Athena.Api.BetList.csproj", "{0C22899B-6CE0-4187-9BCF-7F503213F207}"
 EndProject

@@ -69,7 +69,7 @@
 
         public static int GetProductId(int bettype)
         {
-            if (BetTypeHelper.IsNumberGame(bettype))
+            if (BetTypeHelper.IsNumberGame(bettype) || BetTypeHelper.IsNumberGameHappy5(bettype))
             {
                 return ProductTypes.NumberGame;
             }

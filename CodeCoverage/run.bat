@@ -17,7 +17,7 @@ if not !v2!==x%%y (set fileList=!fileList! UnitTests\%%y\bin\Debug\%%y.dll)
 
 )
 
-echo %fileList%
+REM echo %fileList%
 
 REM create output folder
 if not exist ..\cireport\testcoveragereport mkdir ..\cireport\testcoveragereport

@@ -1,0 +1,9 @@
+﻿
+
+// Generated helper templates
+// Generated items
+// Fanex.Athena\SpNameConfig\FanexSpName.PRO.xml
+// Fanex.Athena\SpNameConfig\FanexSpName.SIT.xml
+// Fanex.Athena\SpNameConfig\FanexSpName.UAT.xml
+// Fanex.Athena\SpNameConfig\FanexSpName.LOCAL.xml
+// Fanex.Athena\SpNameConfig\FanexSpName.xml

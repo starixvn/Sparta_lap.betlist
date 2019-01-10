@@ -58,6 +58,10 @@
       <HintPath>..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.2\lib\net40\Fanex.Result.Core.AllBetCasino.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.Result.Core.Happy5, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core.Happy5.1.0.0.0\lib\net40\Fanex.Result.Core.Happy5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.Result.Core.NumberGame">
       <HintPath>..\..\packages\Fanex.Result.Core-NumberGame.1.0.3\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
       <Private>True</Private>
@@ -120,6 +124,8 @@
     <Compile Include="Interfaces\ISubsidiaryPerformanceDataAccess.cs" />
     <Compile Include="Interfaces\IGoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchDataAccess.cs" />
+    <Compile Include="ResultReport\IResultNumberGameDataAccess.cs" />
+    <Compile Include="ResultReport\ResultNumberGameDataAccess.cs" />
     <Compile Include="SpecialLicenseeWinLossDataAccess.cs" />
     <Compile Include="MicroGamingWinLossDataAccess.cs" />
     <Compile Include="AgCasinoBalanceDataAccess.cs" />
@@ -130,14 +136,14 @@
     <Compile Include="ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="WeeklyLiveMatchDataAccess.cs" />
     <Compile Include="WinLossByLeagueDataAccess.cs" />
-    <Compile Include="ResultDataAccess.cs" />
+    <Compile Include="ResultReport\ResultDataAccess.cs" />
     <Compile Include="Interfaces\ICasinoProgressiveWinsDataAccess.cs" />
     <Compile Include="Interfaces\IMicroGamingWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="Interfaces\IAgCasinoBalanceDataAccess.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWinLossByLeagueDataAccess.cs" />
-    <Compile Include="Interfaces\IResultDataAccess.cs" />
+    <Compile Include="ResultReport\IResultDataAccess.cs" />
     <Compile Include="CustomerBalanceDataAccess.cs" />
     <Compile Include="CustomerPendingFundsDataAccess.cs" />
     <Compile Include="CustomerTurnoverDataAccess.cs" />

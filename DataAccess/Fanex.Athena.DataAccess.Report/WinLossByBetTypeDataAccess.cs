@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Report
 {
     using System.Data;
+    using Constant.DataDomain;
     using Constant.Helper;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
@@ -72,6 +73,11 @@ namespace Fanex.Athena.DataAccess.Report
             if (BetTypeHelper.IsVirtualSports2(bettype))
             {
                 return " (" + ViewResources.ProductVS2 + ")";
+            }
+
+            if (bettype == (int)BetType.NumberGameHappy5OddEven)
+            {
+                return " (" + ViewResources.Happy5 + ")";
             }
 
             return string.Empty;
