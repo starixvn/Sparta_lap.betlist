@@ -4,7 +4,7 @@
 <#@ import namespace="System.Xml" #>
 <#@ output extension=".txt" #>
 <#
-string projectPath = Host.ResolveAssemblyReference("$(SolutionDir)") + @"Fanex.Athena\Web\Fanex.Athena\";
+string projectPath = Host.ResolveAssemblyReference("$(SolutionDir)") + @"Fanex.Athena\";
 var environments = new string[] {"DEV", "LOCAL", "UAT", "SIT", "PRO","PROStatic", "BACKUPMNL", "SANDBOX" };
 foreach(var environment in environments)
 {

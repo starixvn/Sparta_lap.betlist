@@ -406,11 +406,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Code\DesktopLiveReportRazorHelper.cshtml" />
-    <Content Include="SpNameConfig\FanexSpName.xml1.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
     <Content Include="App_Data\UserGuide\CashOutWL\zh-Hans.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\zh-TW.htm" />
@@ -487,6 +482,11 @@
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-TW.htm" />
+    <Content Include="SpNameConfig\FanexSpName.xml1.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
     <Content Include="SpNameConfig\FanexSpNameConfig.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -5497,15 +5497,8 @@
     <Content Include="Scripts\Plugin\Note\note.js" />
     <Content Include="Scripts\Plugin\Refresh\refreshcountdown.js" />
     <Content Include="Scripts\Report\report.js" />
-    <Content Include="under-maintenance.gif" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Scripts\Library\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Library\jquery.validate.unobtrusive.min.js" />
