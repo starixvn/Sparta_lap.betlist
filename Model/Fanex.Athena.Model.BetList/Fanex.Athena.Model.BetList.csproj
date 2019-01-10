@@ -144,6 +144,7 @@
     <Compile Include="DTO\LrfTicket.cs" />
     <Compile Include="DTO\BetListMatch.cs" />
     <Compile Include="DTO\ColossusBetDetail.cs" />
+    <Compile Include="DTO\ParlayDetailTicketText.cs" />
     <Compile Include="DTO\TicketText.cs" />
     <Compile Include="DTO\TicketResult.cs" />
     <Compile Include="MetaModel\BaseBettingTicketMetaModel.cs" />

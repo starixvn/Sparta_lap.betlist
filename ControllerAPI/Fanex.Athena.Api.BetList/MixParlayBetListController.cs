@@ -7,11 +7,13 @@
 namespace Fanex.Athena.Api.BetList
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Model.BetList.DTO;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
@@ -40,7 +42,7 @@ namespace Fanex.Athena.Api.BetList
                 SessionService.LicenseeSession.LicenseeId,
                 transId,
                 custId);
-            var result = Ticket(ticketResult: ticketResult, showOdds: true);
+            var result = BuildParlayDetailTickets(ticketResult: ticketResult, showOdds: true);
             ClearData(ticketResult);
             return result;
         }
@@ -85,11 +87,35 @@ namespace Fanex.Athena.Api.BetList
 
             var result = new
             {
-                Data = Ticket(ticketResult: ticketResult, showOdds: true),
+                Data = BuildParlayDetailTickets(ticketResult: ticketResult, showOdds: true),
                 Texts = texts
             };
             ClearData(ticketResult);
             return result;
+        }
+
+        protected internal virtual IList<ParlayDetailTicketText> BuildParlayDetailTickets(TicketResult ticketResult, bool showOdds = false)
+        {
+            var ticketTextList = new List<ParlayDetailTicketText>();
+
+            TicketHelper.IsShowOddsWithChoice = showOdds;
+
+            foreach (var ticket in ticketResult.MainTicketList)
+            {
+                var statusTemplate = BetListHTMLBuilder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, TicketHelper, ticketResult.TicketDataList, isShowVNIP: false);                statusTemplate.ShowIP = null;
+                statusTemplate.StatusResult = null;
+
+                var ticketText = new ParlayDetailTicketText
+                {
+                    EventDate = ticket.EventDate.ToString("MM/dd/yyyy <br> hh:mm:ss tt"),
+                    Status = statusTemplate.ToString(),
+                    Choice = BetListHTMLBuilder.BuildChoice(ticket, TicketHelper, ticketResult.TicketDataList, false),
+                };
+
+                ticketTextList.Add(ticketText);
+            }
+
+            return ticketTextList;
         }
     }
 }
