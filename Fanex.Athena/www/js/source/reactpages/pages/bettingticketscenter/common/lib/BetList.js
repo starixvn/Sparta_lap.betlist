@@ -65,27 +65,23 @@ class BetList {
         return url;
     }
 
-    buildChoiceParlayDetail(response){
-        let choice = "";
-        let length = response.Data === null ? 0 : response.Data.length;
-        if (length > 0) {
-            for(let i = 0; i < response.Texts.length; i++){
-                choice += response.Texts[i];
-            }
+    buildChoiceParlayDetailTable(dataList){
+        if(!dataList || !dataList.length){
+            return "";
+        }
+        
+        let choice = "<table class='parlay-detail-choice-table'>";
 
-            choice += "<div class='line'></div>";
-
-            for(let i = 0;i < response.Data.length; i++){
-                let item = response.Data[i];
-                if (i === length - 1) {
-                    choice += item.Choice;
-                }
-                else {
-                    choice += item.Choice + "<div class='line'></div>";
-                }
-            }
+        for(let i = 0; i < dataList.length; i++){
+            const item = dataList[i];
+            choice += "<tr>";
+            choice += "<td class='text-center'>" + item.EventDate + "</td>";
+            choice += "<td class='text-right'>" + item.Choice + "</td>";
+            choice += "<td class='text-center'>" + item.Status + "</td>";
+            choice += "</tr>";
         }
 
+        choice += "</table>";
         return choice;
     }
 
