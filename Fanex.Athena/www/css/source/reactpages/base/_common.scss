@@ -64,3 +64,35 @@ ul {
     border-radius: 50%;
     background: #f94a4a;
 }
+
+.arrow-icon {
+    display: inline-block;
+    border-width: 4px;
+    border-style: solid;
+    width: 0;
+    height: 0;
+
+    &.left-arrow {
+        border-color: transparent $black transparent transparent;
+
+        &.disable {
+            border-color: transparent $input-disabled-color transparent transparent;
+        }
+    }
+
+    &.right-arrow {
+        border-color: transparent transparent transparent $black;
+
+        &.disable {
+            border-color: transparent transparent transparent $input-disabled-color;
+        }
+    }
+
+    &.down-arrow {
+        border-color: $black transparent transparent;
+
+        &.disable {
+            border-color: $input-disabled-color transparent transparent;
+        }
+    }
+}
