@@ -217,3 +217,11 @@
 .betlist-container .status {
   white-space: normal; }
 
+.parlay-detail-choice-table {
+  width: 100%; }
+  .parlay-detail-choice-table tr {
+    border-top: 1px solid #A0A0A0;
+    border-collapse: collapse; }
+    .parlay-detail-choice-table tr td {
+      border: none !important; }
+

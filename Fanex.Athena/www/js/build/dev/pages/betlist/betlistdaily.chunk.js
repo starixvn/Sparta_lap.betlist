@@ -3704,6 +3704,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return params.BaseCurrency;
         }
 
+        function buildChoiceParlayDetailTable(dataList) {
+            if (!dataList || !dataList.length) {
+                return "";
+            }
+
+            var choice = "<table class='parlay-detail-choice-table'>";
+
+            $.each(dataList, function (index, item) {
+                choice += "<tr>";
+                choice += "<td class='text-center'>" + item.EventDate + "</td>";
+                choice += "<td class='text-right'>" + item.Choice + "</td>";
+                choice += "<td class='text-center'>" + item.Status + "</td>";
+                choice += "</tr>";
+            });
+
+            choice += "</table>";
+            return choice;
+        }
+
         var _me = {
             getSortParams: function () {
                 if (!_sortColumnName) {
@@ -4133,16 +4152,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         cache: false,
                         url: url,
                         success: function (response) {
-                            var choice = "";
-                            var len = response.length;
-                            $.each(response, function (index, item) {
-                                if (index === len - 1) {
-                                    choice += item.Choice;
-                                }
-                                else {
-                                    choice += item.Choice + "<div class='line'></div>";
-                                }
-                            });
+                            var choice = buildChoiceParlayDetailTable(response);
+
                             divEvent.html(choice);
                             divEvent.css("display", "");
                         },
@@ -4182,27 +4193,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         cache: false,
                         url: url,
                         success: function (response) {
-                            var length = response.Data === null ? 0 : response.Data.length;
-                            if (length > 0) {
-                                var choice = "";
-                                $.each(response.Texts, function (index, item) {
-                                    choice += item;
-                                });
+                            var choice = "";
+                            $.each(response.Texts, function (index, item) {
+                                choice += item;
+                            });
 
-                                choice += "<div class='line'></div>";
+                            choice += buildChoiceParlayDetailTable(response.Data);
 
-                                $.each(response.Data, function (index, item) {
-                                    if (index === length - 1) {
-                                        choice += item.Choice;
-                                    }
-                                    else {
-                                        choice += item.Choice + "<div class='line'></div>";
-                                    }
-                                });
-
-                                $divEvent.html(choice).show();
-                                $nameDiv.hide();
-                            }
+                            $divEvent.html(choice).show();
+                            $nameDiv.hide();
                         },
                         beforeSend: Site.blockUI,
                         complete: Site.unBlockUI
@@ -4395,7 +4394,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             registerBetListGlobalFunctions: function () {
                 window.ViewResult = _me.viewResult;
-
+                // showMP and showCombMP are only for old tickets
                 window.showMP = function (transId, refNo, custId) {
                     var divEvent = $('#divEvent_' + transId);
                     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
