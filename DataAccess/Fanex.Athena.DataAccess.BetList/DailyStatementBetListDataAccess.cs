@@ -79,11 +79,13 @@
                 var transTypeId = TransTypeIdMap.ContainsKey(transDesc.ToLower(currentCulture)) ? TransTypeIdMap[transDesc.ToLower(currentCulture)] : 0;
                 var credit = transDesc.ToLower(currentCulture) == "outstanding bet" || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
                 var comm = reader.ToDecimal(commissionColumn);
+                var turnover = reader.ToDecimal(turnoverColumn);
+                var outstanding = transDesc.ToLower(currentCulture) == "outstanding bet" ? turnover : 0;
 
                 // Add commission.
                 if (!transType.Equals("gp"))
                 {
-                    balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (allowCustComm ? comm : 0);
+                    balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (allowCustComm ? comm : 0) - outstanding;
                 }
 
                 result.Add(new DailyStatement
@@ -97,7 +99,7 @@
                     Index = index++,
                     Date = winlostDate.ToString("MM/dd/yyyy"),
                     Remark = string.Format(FormatRemark, transType.ToUpper(currentCulture), transDesc),
-                    Turnover = NumberReport(reader.ToDecimal(turnoverColumn)),
+                    Turnover = NumberReport(turnover),
                     CreditDebit = NumberReport(credit),
                     Commission = NumberReport(comm),
                     Balance = NumberReport(balance)
