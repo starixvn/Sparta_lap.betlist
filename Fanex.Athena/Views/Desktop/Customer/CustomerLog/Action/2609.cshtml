@@ -8,8 +8,6 @@
     var ngCommOld = Converter.ToDecimal(Model.Data["NGCommOld"]);
     var csComm = Converter.ToDecimal(Model.Data["RNGComm"]);
     var csCommOld = Converter.ToDecimal(Model.Data["RNGCommOld"]);
-    var abComm = Converter.ToDecimal(Model.Data["AllbetComm"]);
-    var abCommOld = Converter.ToDecimal(Model.Data["AllbetCommOld"]);
 
     var groupId = Model.Data["GroupCommID"];
     var groupColor = Model.Data["GroupColor"];
@@ -20,14 +18,12 @@
     var isChangeSbComm = sbComm != sbCommOld;
     var isChangeNgComm = ngComm != ngCommOld;
     var isChangeCsComm = csComm != csCommOld;
-    var isChangeAbComm = abComm != abCommOld;
     var isChangeGroupColor = groupColor != groupColorOld;
     var isChangeGroupName = groupName != groupNameOld;
 
     var sbCommTitle = sbCommOld.ToString(FormatComm) + "-->" + sbComm.ToString(FormatComm);
     var ngCommTitle = ngCommOld.ToString(FormatComm) + "-->" + ngComm.ToString(FormatComm);
     var csCommTitle = csCommOld.ToString(FormatComm) + "-->" + csComm.ToString(FormatComm);
-    var abCommTitle = abCommOld.ToString(FormatComm) + "-->" + abComm.ToString(FormatComm);
 
     var groupNameLength = groupName.Length;
     var groupNameOldLength = groupNameOld.Length;
@@ -46,12 +42,12 @@
 <table class="nested-table">
     <thead>
         <tr>
-            <th>@Model.Resource["GroupId"]</th>
-            <th>@Model.Resource["GroupName"]</th>
-            <th>@Model.Resource["GroupColor"]</th>
-            <th>@Model.Resource["SBComm"]</th>
-            <th>@Model.Resource["NGComm"]</th>
-            <th>@Model.Resource["CSComm"]</th>
+            <th style="width:70px;">@Model.Resource["GroupId"]</th>
+            <th style="width:150px;">@Model.Resource["GroupName"]</th>
+            <th style="width:70px;">@Model.Resource["GroupColor"]</th>
+            <th style="width:70px;">@Model.Resource["SBComm"]</th>
+            <th style="width:70px;">@Model.Resource["NGComm"]</th>
+            <th style="width:70px;">@Model.Resource["CSComm"]</th>
         </tr>
     </thead>
     <tbody>
