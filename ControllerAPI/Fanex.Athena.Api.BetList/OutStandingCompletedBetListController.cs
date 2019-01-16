@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Http;
@@ -41,7 +42,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-        public dynamic Index(
+        public async Task<dynamic> Index(
             int page,
             int rows,
             [FromUri]BetListMetaModel metaModel)
@@ -52,7 +53,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingName);
-            return GetPagingBetListResult(metaModel, "Lrf_BetList_CustomerList_Mem", page, rows);
+            return await GetPagingBetListResult(metaModel, "Lrf_BetList_CustomerList_Mem", page, rows).ConfigureAwait(false);
         }
     }
 }

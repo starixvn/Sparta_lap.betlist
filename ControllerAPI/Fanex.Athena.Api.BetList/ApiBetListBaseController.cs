@@ -11,6 +11,8 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Base;
     using Constant.DataDomain;
     using DataAccess.Core.Configuration.Interfaces;
@@ -21,6 +23,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Model.BetList.ViewModel;
     using Model.Core.DTO.Configuration;
     using Service.BetList.Helpers;
     using Service.Core.Common.Interfaces;
@@ -168,7 +171,7 @@ namespace Fanex.Athena.Api.BetList
             return result;
         }
 
-        protected internal virtual dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
+        protected internal virtual async Task<object> GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
@@ -181,36 +184,21 @@ namespace Fanex.Athena.Api.BetList
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.IsShowPlayerComm = licenseeSession.IsAllowedCustomerComm;
 
-            var ticketResult = _betListService.GetBetListData(metaModel, currencyList, uspKey);
-
-            var totalPage = (int)Math.Ceiling((double)ticketResult.TotalRows / metaModel.PageSize);
-            metaModel.PageIndex = pageIndex > totalPage ? totalPage : pageIndex;
-
-            var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-
-            var sumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
-            var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
-            var sumWinLossText = NumberHelper.DecFormat(sumWinLoss, 2);
-            var sumLicenseeWlText = NumberHelper.DecFormat(sumLicenseeWl, 2);
-            sumLicenseeWlText = sumLicenseeWl < 0
-                ? string.Format("<span class='negative-number'>{0}</span>", sumLicenseeWlText)
-                : sumLicenseeWlText;
-
-            var result = new
+            var betlistAPIUrl = $"http://localhost:55050/api/ApiBetListBase/GetBetListPaging";
+            using (var client = new HttpClient())
             {
-                page = pageIndex,
-                total = totalPage,
-                records = ticketResult.TotalRows,
-                rows = Ticket(ticketResult, metaModel, startIndex),
-                userdata = new
-                {
-                    WinLoss = sumWinLossText,
-                    LicenseeWL = sumLicenseeWlText
-                }
-            };
-            ClearData(ticketResult);
-            return result;
+                var response = await client.PostAsJsonAsync(betlistAPIUrl,
+                        new BetListResultMetaModel
+                        {
+                            CurrencyList = currencyList,
+                            MetaModel = metaModel,
+                            UspKey = uspKey
+                        }).ConfigureAwait(false);
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
+            }
         }
 
         protected bool IsValidCurrencyId(int currencyId)

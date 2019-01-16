@@ -3,9 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Dynamic;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
     using NSubstitute;
+    using NSubstitute.Core;
     using NUnit.Framework;
     using Session.Model;
 
@@ -108,16 +110,20 @@
             betList.Main = "Main";
             betList.LeagueName = "Name";
             betList.Total = "Total";
-            _controller.When(x => x.GetPagingBetListResult(metaModel, UspKey, Arg.Any<int>(), Arg.Any<int>())).DoNotCallBase();
-            _controller.GetPagingBetListResult(metaModel, UspKey, 1, 10).Returns(betList);
+            _controller.When(async x => await x.GetPagingBetListResult(metaModel, UspKey, Arg.Any<int>(), Arg.Any<int>())).DoNotCallBase();
+            _controller.GetPagingBetListResult(metaModel, UspKey, 1, 10).Returns(Task.FromResult(new object()));
 
             // Action
-            var result = _controller.Index(1, 10, metaModel);
+            var result = _controller.Index(1, 10, metaModel).Result;
+            
 
             // Assert
             Assert.Multiple(() =>
             {
-                _controller.Received().GetPagingBetListResult(metaModel, UspKey, 1, 10);
+                Received.InOrder(async () =>
+                {
+                    await _controller.Received(1).GetPagingBetListResult(metaModel, UspKey, 1, 10);
+                });
                 Assert.That(metaModel.ProductCodeList, Is.EqualTo("Product1"));
 
                 Assert.That(result.Main, Is.EqualTo(betList.Main));

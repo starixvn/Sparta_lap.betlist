@@ -9,12 +9,14 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -41,7 +43,7 @@ namespace Fanex.Athena.Api.BetList
 
         [HttpGet]
 #pragma warning disable S107 // Methods should not have too many parameters
-        public dynamic Index(
+        public async Task<dynamic> Index(
             int page,
             int rows,
             int currencyId,
@@ -69,7 +71,7 @@ namespace Fanex.Athena.Api.BetList
                 SortBy = sortBy,
                 SortOrder = sortOrder
             };
-            return GetPagingBetListResult(metaModel, UspKey, page, rows);
+            return await GetPagingBetListResult(metaModel, UspKey, page, rows).ConfigureAwait(false);
         }
     }
 }
