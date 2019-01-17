@@ -9,6 +9,7 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Helpers;
     using Model.Core.DTO.Configuration;
     using Service.BetList.Helpers;
     using Service.Core.Common.Interfaces;
@@ -168,7 +170,9 @@ namespace Fanex.Athena.Api.BetList
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.IsShowPlayerComm = licenseeSession.IsAllowedCustomerComm;
 
-            var betlistAPIUrl = $"http://localhost:55050/api/ApiBetListBase/GetBetListPaging";
+            var param = new Hashtable();
+            BetListParamBuilder.CreateBetListParameters(param, uspKey, metaModel);
+            var betlistAPIUrl = $"http://localhost:55050/api/ApiBetList/GetBetListPaging";
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsJsonAsync(betlistAPIUrl,
@@ -176,7 +180,8 @@ namespace Fanex.Athena.Api.BetList
                         {
                             CurrencyList = currencyList,
                             MetaModel = metaModel,
-                            UspKey = uspKey
+                            UspKey = uspKey,
+                            Params = param
                         }).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
