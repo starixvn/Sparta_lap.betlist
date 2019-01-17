@@ -129,7 +129,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
 
                 row2.Cells[ColumnTurnoverBa].Received(1).SetCellValue(ViewResources.Turnover);
                 row2.Cells[ColumnCommBa].Received(1).SetCellValue(ViewResources.Comm);
-                row2.Cells[ColumnAmountDueToBa].Received(1).SetCellValue(ViewResources.AmtDueTo);
+                row2.Cells[ColumnAmountDueToBa].Received(1).SetCellValue(ViewResources.AmountDueTo);
             });
         }
 
