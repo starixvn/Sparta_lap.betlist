@@ -7,6 +7,7 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Common.Extensions;
@@ -59,7 +60,10 @@
             }
         }
 
+#pragma warning disable S3776 // Cognitive Complexity of methods should not be too high
+
         private static IEnumerable<DailyStatement> ReadData(BetListMetaModel metaModel, bool allowCustComm, IDataReader reader)
+#pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
         {
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
             var index = 1;
@@ -76,15 +80,16 @@
                 var winlostDate = reader.ToDateTime("winlostdate");
                 var transType = reader.ToString("transtype").ToLower(currentCulture);
                 var transDesc = reader.ToString("transdesc");
-                var transTypeId = TransTypeIdMap.ContainsKey(transDesc.ToLower(currentCulture)) ? TransTypeIdMap[transDesc.ToLower(currentCulture)] : 0;
-                var credit = transDesc.ToLower(currentCulture) == "outstanding bet" || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
+                var isOutstandingBet = transDesc.ToLower(currentCulture) == "outstanding bet";
+                var transTypeId = TransTypeIdMap.GetValueOrDefault(transDesc.ToLower(currentCulture), 0);
+                var credit = isOutstandingBet || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
                 var comm = reader.ToDecimal(commissionColumn);
                 var turnover = reader.ToDecimal(turnoverColumn);
-                var outstanding = transDesc.ToLower(currentCulture) == "outstanding bet" ? turnover : 0;
 
                 // Add commission.
                 if (!transType.Equals("gp"))
                 {
+                    var outstanding = isOutstandingBet ? turnover : 0;
                     balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (allowCustComm ? comm : 0) - outstanding;
                 }
 
