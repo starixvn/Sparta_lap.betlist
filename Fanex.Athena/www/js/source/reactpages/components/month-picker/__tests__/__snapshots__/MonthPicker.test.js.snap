@@ -13,33 +13,37 @@ exports[`MonthPicker render render correct content 1`] = `
       View data in month
     </label>
     <div
-      className="monPickrWrapParent"
+      className="month-content"
     >
       <div
-        className="monPickrWrap"
+        className="month-container"
       >
         <div
-          className="monPickr"
+          className="month-picked"
         >
           <a
-            className="prev "
+            className="prev"
             href="javascript:;"
             onClick={[Function]}
           >
-            <b />
+            <span
+              className="arrow-icon left-arrow "
+            />
           </a>
           <span
-            className="selectedMonth"
+            className="month-label"
             onClick={[Function]}
           >
             Oct 2000
           </span>
           <a
-            className="next "
+            className="next"
             href="javascript:;"
             onClick={[Function]}
           >
-            <b />
+            <span
+              className="arrow-icon right-arrow "
+            />
           </a>
         </div>
         <div
@@ -60,25 +64,26 @@ exports[`MonthPicker render render correct content 1`] = `
       className="label-text"
     />
     <div
-      className="selectedDayWrapParent"
+      className="date-content"
     >
       <div
-        className="selectedDayWrap"
+        className="date-container"
       >
         <div
-          className="dayPickr"
+          className="date-picked"
           onClick={[Function]}
         >
           <span
-            className="selectedDay"
+            className="date-label"
           >
             20
           </span>
           <a
-            className="darr"
             href="javascript:;"
           >
-            <b />
+            <span
+              className="arrow-icon down-arrow"
+            />
           </a>
         </div>
         <div
@@ -99,25 +104,26 @@ exports[`MonthPicker render render correct content 1`] = `
       className="label-text"
     />
     <div
-      className="selectedDayWrapParent"
+      className="date-content"
     >
       <div
-        className="selectedDayWrap"
+        className="date-container"
       >
         <div
-          className="dayPickr"
+          className="date-picked"
           onClick={[Function]}
         >
           <span
-            className="selectedDay"
+            className="date-label"
           >
             29
           </span>
           <a
-            className="darr"
             href="javascript:;"
           >
-            <b />
+            <span
+              className="arrow-icon down-arrow"
+            />
           </a>
         </div>
         <div

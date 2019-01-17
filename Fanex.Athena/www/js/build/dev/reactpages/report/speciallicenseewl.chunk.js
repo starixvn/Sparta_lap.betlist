@@ -1439,7 +1439,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { alwaysVisible: alwaysVisiblePager, pageOption: pageOption, onPaging: onPaging })
+                isPaging && pageOption && pageOption.TotalItem > 0 && _react2.default.createElement(_Pager2.default, { alwaysVisible: alwaysVisiblePager, pageOption: pageOption, onPaging: onPaging })
             );
         }
     }, {
@@ -1762,18 +1762,26 @@ var Day = function (_Component) {
     _createClass(Day, [{
         key: '_renderOption',
         value: function _renderOption(min, max, value) {
+            var _this2 = this;
+
             var options = [];
 
-            for (var i = min; i <= max; i++) {
+            var _loop = function _loop(i) {
                 options.push(_react2.default.createElement(
                     'li',
-                    { key: i, onClick: this._onChange.bind(this, i) },
+                    { key: i, onClick: function onClick() {
+                            return _this2._onChange(i);
+                        } },
                     _react2.default.createElement(
                         'a',
                         { href: 'javascript:;' },
                         i
                     )
                 ));
+            };
+
+            for (var i = min; i <= max; i++) {
+                _loop(i);
             }
 
             return options;
@@ -1787,7 +1795,7 @@ var Day = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             var value = this.props.value;
 
@@ -1801,32 +1809,34 @@ var Day = function (_Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'selectedDayWrapParent' },
+                    { className: 'date-content' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'selectedDayWrap' },
+                        { className: 'date-container' },
                         _react2.default.createElement(
                             'div',
-                            { className: 'dayPickr', onClick: function onClick() {
-                                    return _this2.setState({ showDateDrop: true });
+                            { className: 'date-picked', onClick: function onClick() {
+                                    return _this3.setState({ showDateDrop: true });
                                 } },
                             _react2.default.createElement(
                                 'span',
-                                { className: 'selectedDay' },
+                                { className: 'date-label' },
                                 value
                             ),
                             _react2.default.createElement(
                                 'a',
-                                { href: 'javascript:;', className: 'darr' },
-                                _react2.default.createElement('b', null)
+                                { href: 'javascript:;' },
+                                _react2.default.createElement('span', { className: 'arrow-icon down-arrow' })
                             )
                         ),
                         _react2.default.createElement(
                             _Overlay2.default,
-                            { isOpening: this.state.showDateDrop, onClose: this.setState.bind(this, { showDateDrop: false }) },
+                            { isOpening: this.state.showDateDrop, onClose: function onClose() {
+                                    return _this3.setState({ showDateDrop: false });
+                                } },
                             this.state.showDateDrop && _react2.default.createElement(
                                 'div',
-                                { className: 'dayPickrDropDown' },
+                                { className: 'date-selection-container' },
                                 _react2.default.createElement(
                                     'ul',
                                     null,
@@ -1929,9 +1939,12 @@ var Month = function (_Component) {
     }, {
         key: '_renderOption',
         value: function _renderOption(min, max, value) {
+            var _this2 = this;
+
             var options = [];
-            for (var i = min.year; i <= max.year; i++) {
-                if (i === this.state.expandYear) {
+
+            var _loop = function _loop(i) {
+                if (i === _this2.state.expandYear) {
 
                     options.push(_react2.default.createElement(
                         'li',
@@ -1946,24 +1959,32 @@ var Month = function (_Component) {
                     var minMonth = i === min.year ? min.month : 0;
                     var maxMonth = i === max.year ? max.month : 11;
 
-                    for (var j = minMonth; j <= maxMonth; j++) {
+                    var _loop2 = function _loop2(j) {
                         var isSelected = i === value.year && j === value.month;
                         var valueItem = { year: i, month: j };
 
                         options.push(_react2.default.createElement(
                             'li',
-                            { key: '' + j + i, className: 'monthWrap', onClick: this._onChange.bind(this, valueItem) },
+                            { key: '' + j + i, className: 'month-option', onClick: function onClick() {
+                                    return _this2._onChange(valueItem);
+                                } },
                             _react2.default.createElement(
                                 'a',
                                 { href: 'javascript:;', className: '' + (isSelected ? 'selected' : '') },
-                                this.fullMonths[j]
+                                _this2.fullMonths[j]
                             )
                         ));
+                    };
+
+                    for (var j = minMonth; j <= maxMonth; j++) {
+                        _loop2(j);
                     }
                 } else {
                     options.push(_react2.default.createElement(
                         'li',
-                        { key: i, className: 'year', onClick: this.setState.bind(this, { expandYear: i }) },
+                        { key: i, className: 'year', onClick: function onClick() {
+                                return _this2.setState({ expandYear: i });
+                            } },
                         _react2.default.createElement(
                             'a',
                             { href: 'javascript:;' },
@@ -1971,6 +1992,10 @@ var Month = function (_Component) {
                         )
                     ));
                 }
+            };
+
+            for (var i = min.year; i <= max.year; i++) {
+                _loop(i);
             }
 
             return options;
@@ -2025,7 +2050,7 @@ var Month = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             var nexMonth = this._getNextMonth();
             var preMonth = this._getPrevMonth();
@@ -2043,44 +2068,46 @@ var Month = function (_Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'monPickrWrapParent' },
+                    { className: 'month-content' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'monPickrWrap' },
+                        { className: 'month-container' },
                         _react2.default.createElement(
                             'div',
-                            { className: 'monPickr' },
+                            { className: 'month-picked' },
                             _react2.default.createElement(
                                 'a',
-                                { href: 'javascript:;', className: 'prev ' + (validPreMonth ? '' : 'disable'), onClick: function onClick(e) {
-                                        return validPreMonth && _this2._goToMonth(e, preMonth);
+                                { href: 'javascript:;', className: 'prev', onClick: function onClick(e) {
+                                        return validPreMonth && _this3._goToMonth(e, preMonth);
                                     } },
-                                _react2.default.createElement('b', null)
+                                _react2.default.createElement('span', { className: 'arrow-icon left-arrow ' + (validPreMonth ? '' : 'disable') })
                             ),
                             _react2.default.createElement(
                                 'span',
-                                { className: 'selectedMonth', onClick: function onClick() {
-                                        return _this2.setState({ showMonthDrop: true });
+                                { className: 'month-label', onClick: function onClick() {
+                                        return _this3.setState({ showMonthDrop: true });
                                     } },
                                 this._formatString(value.month, value.year)
                             ),
                             _react2.default.createElement(
                                 'a',
-                                { href: 'javascript:;', className: 'next ' + (validNexMonth ? '' : 'disable'), onClick: function onClick(e) {
-                                        return validNexMonth && _this2._goToMonth(e, nexMonth);
+                                { href: 'javascript:;', className: 'next', onClick: function onClick(e) {
+                                        return validNexMonth && _this3._goToMonth(e, nexMonth);
                                     } },
-                                _react2.default.createElement('b', null)
+                                _react2.default.createElement('span', { className: 'arrow-icon right-arrow ' + (validNexMonth ? '' : 'disable') })
                             )
                         ),
                         _react2.default.createElement(
                             _Overlay2.default,
-                            { isOpening: this.state.showMonthDrop, onClose: this.setState.bind(this, { showMonthDrop: false }) },
+                            { isOpening: this.state.showMonthDrop, onClose: function onClose() {
+                                    return _this3.setState({ showMonthDrop: false });
+                                } },
                             this.state.showMonthDrop && _react2.default.createElement(
                                 'div',
-                                { className: 'monPickrDropDown' },
+                                { className: 'month-selection-container' },
                                 _react2.default.createElement(
                                     'ul',
-                                    { className: 'monPickrDropDownInner' },
+                                    { className: 'month-selection' },
                                     this._renderOption(this.props.min, this.props.max, value)
                                 )
                             )

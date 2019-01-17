@@ -142,10 +142,6 @@
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Report\Fanex.Athena.Service.Report.csproj">
-      <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
-      <Name>Fanex.Athena.Service.Report</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

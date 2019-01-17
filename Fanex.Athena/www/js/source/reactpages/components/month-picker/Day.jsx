@@ -26,7 +26,7 @@ class Day extends Component {
 
         for (let i = min; i <= max; i++) {
             options.push(
-                <li key={i} onClick={this._onChange.bind(this,i)}>
+                <li key={i} onClick={() => this._onChange(i)}>
                     <a href='javascript:;'>{i}</a>
                 </li>
             );
@@ -46,16 +46,18 @@ class Day extends Component {
         return (
             <div className='date'>
                 <label className='label-text'>{this.props.label}</label>
-                <div className='selectedDayWrapParent'>
-                    <div className='selectedDayWrap'>
-                        <div className='dayPickr' onClick={() => this.setState({showDateDrop: true})}>
-                            <span className='selectedDay'>{value}</span>
-                            <a href='javascript:;' className='darr'><b></b></a>
+                <div className='date-content'>
+                    <div className='date-container'>
+                        <div className='date-picked' onClick={() => this.setState({showDateDrop: true})}>
+                            <span className='date-label'>{value}</span>
+                            <a href='javascript:;'>
+                                <span className='arrow-icon down-arrow'></span>
+                            </a>
                         </div>
-                        <Overlay isOpening={this.state.showDateDrop} onClose={this.setState.bind(this,{showDateDrop: false})}>
+                        <Overlay isOpening={this.state.showDateDrop} onClose={() => this.setState({showDateDrop: false})}>
                             {
                                 this.state.showDateDrop &&
-                                <div className='dayPickrDropDown'>
+                                <div className='date-selection-container'>
                                     <ul>
                                         {this._renderOption(this.props.min, this.props.max, value)}
                                     </ul>

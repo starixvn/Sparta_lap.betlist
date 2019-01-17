@@ -17,7 +17,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -28,7 +28,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -39,7 +39,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -50,7 +50,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -61,7 +61,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -72,7 +72,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -83,7 +83,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -94,7 +94,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -105,7 +105,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -116,7 +116,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -127,7 +127,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     </a>
   </li>
   <li
-    className="monthWrap"
+    className="month-option"
     onClick={[Function]}
   >
     <a
@@ -200,33 +200,37 @@ exports[`Month render showMonthDrop = false: render correct content 1`] = `
     View data in month
   </label>
   <div
-    className="monPickrWrapParent"
+    className="month-content"
   >
     <div
-      className="monPickrWrap"
+      className="month-container"
     >
       <div
-        className="monPickr"
+        className="month-picked"
       >
         <a
-          className="prev disable"
+          className="prev"
           href="javascript:;"
           onClick={[Function]}
         >
-          <b />
+          <span
+            className="arrow-icon left-arrow disable"
+          />
         </a>
         <span
-          className="selectedMonth"
+          className="month-label"
           onClick={[Function]}
         >
           undefined 1999
         </span>
         <a
-          className="next disable"
+          className="next"
           href="javascript:;"
           onClick={[Function]}
         >
-          <b />
+          <span
+            className="arrow-icon right-arrow disable"
+          />
         </a>
       </div>
       <div
@@ -252,33 +256,37 @@ exports[`Month render showMonthDrop = true: render correct content 1`] = `
     View data in month
   </label>
   <div
-    className="monPickrWrapParent"
+    className="month-content"
   >
     <div
-      className="monPickrWrap"
+      className="month-container"
     >
       <div
-        className="monPickr"
+        className="month-picked"
       >
         <a
-          className="prev disable"
+          className="prev"
           href="javascript:;"
           onClick={[Function]}
         >
-          <b />
+          <span
+            className="arrow-icon left-arrow disable"
+          />
         </a>
         <span
-          className="selectedMonth"
+          className="month-label"
           onClick={[Function]}
         >
           undefined 1999
         </span>
         <a
-          className="next disable"
+          className="next"
           href="javascript:;"
           onClick={[Function]}
         >
-          <b />
+          <span
+            className="arrow-icon right-arrow disable"
+          />
         </a>
       </div>
       <div
@@ -290,10 +298,10 @@ exports[`Month render showMonthDrop = true: render correct content 1`] = `
         }
       >
         <div
-          className="monPickrDropDown"
+          className="month-selection-container"
         >
           <ul
-            className="monPickrDropDownInner"
+            className="month-selection"
           />
         </div>
       </div>

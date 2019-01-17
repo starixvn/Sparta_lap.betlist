@@ -57,7 +57,7 @@ class Month extends Component {
                     const valueItem = { year: i, month: j };
 
                     options.push(
-                        <li key={`${j}${i}`} className='monthWrap' onClick={this._onChange.bind(this, valueItem) }>
+                        <li key={`${j}${i}`} className='month-option' onClick={() => this._onChange(valueItem) }>
                            <a href='javascript:;' className={`${isSelected ? 'selected' : ''}`}>{this.fullMonths[j]}</a>
                         </li>
                     );
@@ -65,8 +65,8 @@ class Month extends Component {
             }
             else {
                 options.push(
-                    <li key={i} className='year' onClick={this.setState.bind(this, {expandYear: i})}>
-                            <a href='javascript:;'>{i}</a>
+                    <li key={i} className='year' onClick={() => this.setState({expandYear: i})}>
+                        <a href='javascript:;'>{i}</a>
                     </li>
                 );
             }
@@ -125,22 +125,22 @@ class Month extends Component {
         return (
             <div className='month'>
                 <label className='label-text'>{this.props.label}</label>
-                <div className='monPickrWrapParent'>
-                    <div className='monPickrWrap'>
-                        <div className='monPickr'>
-                            <a href='javascript:;' className={`prev ${validPreMonth ? '' : 'disable'}`} onClick={(e) => validPreMonth && this._goToMonth(e, preMonth)}>
-                                <b></b>
+                <div className='month-content'>
+                    <div className='month-container'>
+                        <div className='month-picked'>
+                            <a href='javascript:;' className='prev' onClick={(e) => validPreMonth && this._goToMonth(e, preMonth)}>
+                                <span className={`arrow-icon left-arrow ${validPreMonth ? '' : 'disable'}`}></span>
                             </a>
-                            <span className='selectedMonth' onClick={() => this.setState({showMonthDrop: true})}>{this._formatString(value.month, value.year)}</span>
-                            <a href='javascript:;' className={`next ${validNexMonth ? '' : 'disable'}`} onClick={(e) => validNexMonth && this._goToMonth(e, nexMonth)}>
-                                <b></b>
+                            <span className='month-label' onClick={() => this.setState({showMonthDrop: true})}>{this._formatString(value.month, value.year)}</span>
+                            <a href='javascript:;' className='next' onClick={(e) => validNexMonth && this._goToMonth(e, nexMonth)}>
+                                <span className={`arrow-icon right-arrow ${validNexMonth ? '' : 'disable'}`}></span>
                             </a>
                         </div>
-                        <Overlay isOpening={this.state.showMonthDrop} onClose={this.setState.bind(this,{showMonthDrop: false})}>
+                        <Overlay isOpening={this.state.showMonthDrop} onClose={() => this.setState({showMonthDrop: false})}>
                             {
                                 this.state.showMonthDrop && 
-                                <div className='monPickrDropDown'>
-                                    <ul className='monPickrDropDownInner'>
+                                <div className='month-selection-container'>
+                                    <ul className='month-selection'>
                                         {this._renderOption(this.props.min, this.props.max, value)}
                                     </ul>
                                 </div>

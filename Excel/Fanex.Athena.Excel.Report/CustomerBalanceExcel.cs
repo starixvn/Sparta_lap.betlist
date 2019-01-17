@@ -139,7 +139,7 @@ namespace Fanex.Athena.Excel.Report
 
             row2.Cells[ColumnTurnoverBa].SetCellValue(ViewResources.Turnover);
             row2.Cells[ColumnCommBa].SetCellValue(ViewResources.Comm);
-            row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmtDueTo);
+            row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmountDueTo);
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)

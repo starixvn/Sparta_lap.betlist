@@ -31,25 +31,26 @@ exports[`Day render showDateDrop = false: render correct content 1`] = `
     className="label-text"
   />
   <div
-    className="selectedDayWrapParent"
+    className="date-content"
   >
     <div
-      className="selectedDayWrap"
+      className="date-container"
     >
       <div
-        className="dayPickr"
+        className="date-picked"
         onClick={[Function]}
       >
         <span
-          className="selectedDay"
+          className="date-label"
         >
           1000
         </span>
         <a
-          className="darr"
           href="javascript:;"
         >
-          <b />
+          <span
+            className="arrow-icon down-arrow"
+          />
         </a>
       </div>
       <div
@@ -73,25 +74,26 @@ exports[`Day render showDateDrop = true: render correct content 1`] = `
     className="label-text"
   />
   <div
-    className="selectedDayWrapParent"
+    className="date-content"
   >
     <div
-      className="selectedDayWrap"
+      className="date-container"
     >
       <div
-        className="dayPickr"
+        className="date-picked"
         onClick={[Function]}
       >
         <span
-          className="selectedDay"
+          className="date-label"
         >
           1000
         </span>
         <a
-          className="darr"
           href="javascript:;"
         >
-          <b />
+          <span
+            className="arrow-icon down-arrow"
+          />
         </a>
       </div>
       <div
@@ -103,7 +105,7 @@ exports[`Day render showDateDrop = true: render correct content 1`] = `
         }
       >
         <div
-          className="dayPickrDropDown"
+          className="date-selection-container"
         >
           <ul>
             <li

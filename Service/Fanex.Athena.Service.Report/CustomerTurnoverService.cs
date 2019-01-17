@@ -49,8 +49,8 @@ namespace Fanex.Athena.Service.Report
 
         private static IEnumerable<CustTurnover> RestructureData(IEnumerable<CustTurnover> datalist)
         {
-            var sortedData = datalist.OrderByDescending(i => i.ReportBy).ThenBy(i => i.UserName)
-                .ThenBy(i => i.SportType).ThenBy(i => i.Bettype).ToArray();
+            var sortedData = datalist.OrderBy(x => x.Index).ThenByDescending(i => i.ReportBy).ThenBy(i => i.UserName)
+                .ThenBy(i => i.SportType).ThenBy(i => i.Bettype).ToList();
 
             var newDataList = new List<CustTurnover>();
 

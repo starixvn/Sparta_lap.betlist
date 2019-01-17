@@ -248,7 +248,7 @@ class Table extends Component {
                     }
                 </div>
                     {
-                    isPaging && pageOption &&
+                    isPaging && pageOption && pageOption.TotalItem > 0 &&
                     <Pager alwaysVisible={alwaysVisiblePager} pageOption={pageOption} onPaging={onPaging} />
                     }
                 </div>

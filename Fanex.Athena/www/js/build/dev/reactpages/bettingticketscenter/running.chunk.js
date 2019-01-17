@@ -3996,7 +3996,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { alwaysVisible: alwaysVisiblePager, pageOption: pageOption, onPaging: onPaging })
+                isPaging && pageOption && pageOption.TotalItem > 0 && _react2.default.createElement(_Pager2.default, { alwaysVisible: alwaysVisiblePager, pageOption: pageOption, onPaging: onPaging })
             );
         }
     }, {

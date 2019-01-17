@@ -103,13 +103,13 @@ export default class BaseDataGrid extends Component {
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-    }
+        }
 
         const { Data } = this.props.gridData;
         
         if (!Data.length) {
             return this._renderNodata();
-    }
+        }
 
         const param = this.props.requestParam;
         const pageOption = {

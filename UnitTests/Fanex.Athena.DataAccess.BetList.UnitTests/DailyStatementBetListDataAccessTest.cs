@@ -55,7 +55,7 @@
                     ExpectedTransTypeHasBetList = false,
                     AllowCustComm = true,
                     Commission = 100,
-                    ExpectedBalance = 100, // =  ExpectedCreditDebit + Commission
+                    ExpectedBalance = 88.5, 
                     ExternalId = (string)null,
                     ExpectedExternalId = "0",
                     SystemId = (string)null,

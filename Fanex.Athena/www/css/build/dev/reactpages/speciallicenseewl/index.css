@@ -284,19 +284,81 @@ th.sortable {
   th.sortable .desc {
     border-top: 5px solid; }
 
-/*
-* monPickr - jQuery Plugin
-* Just a simple month picker
-*
-* Examples and documentation at: http://update.later
-*
-* Version: 1.0.0 (6 Jan 2012)
-* Requires: jQuery v1.7+
-*
-* Swatch color: BDC7D8 - base color
-*               000000 - text, link color
-*               aaaaaa - border, button background
-*/
+/* z-index */
+/* Table */
+/* Label Text */
+/* z-index */
+/* Table */
+/* Label Text */
+html {
+  font-size: 62.5%;
+  height: auto; }
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: #f5f7fa;
+  font-size: 1.2rem;
+  color: #2c2c2c; }
+
+a {
+  color: #147ccc; }
+  a, a:hover {
+    text-decoration: none; }
+  a:hover {
+    color: inherit; }
+
+ul {
+  padding: 0; }
+
+.wrapper {
+  position: relative; }
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto; }
+
+.center-align {
+  text-align: center; }
+
+.left-align {
+  text-align: left; }
+
+.right-align {
+  text-align: right; }
+
+.text-bold {
+  font-weight: bold; }
+
+.circle {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f94a4a; }
+
+.arrow-icon {
+  display: inline-block;
+  border-width: 4px;
+  border-style: solid;
+  width: 0;
+  height: 0; }
+  .arrow-icon.left-arrow {
+    border-color: transparent #2c2c2c transparent transparent; }
+    .arrow-icon.left-arrow.disable {
+      border-color: transparent rgba(0, 0, 0, 0.26) transparent transparent; }
+  .arrow-icon.right-arrow {
+    border-color: transparent transparent transparent #2c2c2c; }
+    .arrow-icon.right-arrow.disable {
+      border-color: transparent transparent transparent rgba(0, 0, 0, 0.26); }
+  .arrow-icon.down-arrow {
+    border-color: #2c2c2c transparent transparent; }
+    .arrow-icon.down-arrow.disable {
+      border-color: rgba(0, 0, 0, 0.26) transparent transparent; }
+
 .month-picker {
   display: flex;
   flex-wrap: wrap;
@@ -309,155 +371,97 @@ th.sortable {
     max-width: 25%;
     padding-left: 10px; }
 
-.monPickrWrap {
+.month-container {
   width: 100%;
-  color: #000;
   position: absolute;
   z-index: 1; }
 
-.monPickrWrapParent, .selectedDayWrapParent {
-  margin-bottom: 10px;
+.month-content, .date-content {
   position: relative; }
 
-.monPickrDropDown, .dayPickrDropDown {
+.month-selection-container, .date-selection-container {
   background: #fff;
-  display: block; }
-
-.monPickr {
-  padding: 3px 0;
-  text-align: center;
-  border-bottom: 1px solid #9e9e9e; }
-  .monPickr a {
-    display: block;
-    text-decoration: none;
-    color: #000; }
-  .monPickr .prev b, .monPickr .next b {
-    color: #fff;
-    font-weight: 500; }
-    .monPickr .prev b:after, .monPickr .next b:after {
-      font-family: 'icomoon' !important;
-      content: "\E916";
-      color: #444;
-      font-size: 17px;
-      position: absolute;
-      top: -3px; }
-  .monPickr .prev.disable b:after, .monPickr .next.disable b:after {
-    color: rgba(0, 0, 0, 0.26); }
-  .monPickr .prev {
-    float: left;
-    padding-left: 10px; }
-    .monPickr .prev b {
-      float: left;
-      transform: rotate(90deg); }
-      .monPickr .prev b:after {
-        right: -18px; }
-  .monPickr .next {
-    float: right;
-    padding-right: 10px; }
-    .monPickr .next b {
-      float: right;
-      transform: rotate(-90deg); }
-      .monPickr .next b:after {
-        left: -18px; }
-
-.selectedMonth {
-  cursor: pointer;
-  padding: 0; }
-  .selectedMonth:hover {
-    background-color: #D1F0FC;
-    text-decoration: none; }
-
-.monPickrDropDown {
+  display: block;
   max-height: 330px;
   overflow: auto;
   padding: 1px;
   border-top: 1px solid #eee;
-  list-style-type: circle;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
-  .monPickrDropDown a {
+
+.month-picked {
+  padding: 3px 0;
+  text-align: center;
+  border-bottom: 1px solid #9e9e9e; }
+  .month-picked a {
+    display: block;
     text-decoration: none;
-    color: #000 !important;
-    /*font-size: 14px;*/ }
-    .monPickrDropDown a:hover {
-      background-color: #D1F0FC;
-      text-decoration: none;
-      color: #FFF; }
-    .monPickrDropDown a.hover:hover {
-      cursor: default; }
+    width: 25px; }
+  .month-picked .prev {
+    float: left;
+    padding-left: 5px;
+    text-align: left; }
+  .month-picked .next {
+    float: right;
+    padding-right: 5px;
+    text-align: right; }
 
-.monPickrDropDownInner {
+.month-label {
+  cursor: pointer; }
+  .month-label:hover {
+    text-decoration: none; }
+
+.month-selection-container a {
+  text-decoration: none;
+  color: #2c2c2c !important; }
+  .month-selection-container a:hover {
+    background-color: #D1F0FC;
+    text-decoration: none;
+    color: #fff; }
+
+.month-selection {
   padding: 0;
-  list-style-type: circle;
+  list-style-type: none;
   margin-bottom: 0; }
-  .monPickrDropDownInner li {
+  .month-selection li {
     text-align: center; }
-  .monPickrDropDownInner .monthWrap {
-    list-style-type: none; }
-    .monPickrDropDownInner .monthWrap li {
-      list-style-type: none; }
-    .monPickrDropDownInner .monthWrap a {
-      font-size: 12px !important; }
-    .monPickrDropDownInner .monthWrap ul {
-      margin: 0;
-      padding: 0; }
-    .monPickrDropDownInner .monthWrap a.selected {
-      font-weight: bold;
-      text-decoration: underline; }
+  .month-selection .month-option a {
+    font-size: 12px !important; }
+  .month-selection .month-option ul {
+    margin: 0;
+    padding: 0; }
+  .month-selection .month-option a.selected {
+    font-weight: bold;
+    text-decoration: underline; }
 
-/* DATE RANGE
-----------------------------------------------------------*/
-.selectedDayWrap {
+.date-container {
   width: 100%;
-  color: #444;
   position: absolute;
   z-index: 1; }
 
-.dayPickr {
+.date-picked {
   padding: 3px 0;
   border-bottom: 1px solid #9e9e9e;
   cursor: pointer; }
-  .dayPickr .selectedDay:hover {
+  .date-picked .date-label:hover {
     cursor: default; }
-  .dayPickr .darr {
-    display: block;
+  .date-picked a {
+    padding-right: 5px;
     float: right;
-    text-decoration: none;
-    font-size: 14px;
-    color: #fff;
-    position: relative; }
-    .dayPickr .darr:after {
-      font-family: 'icomoon' !important;
-      content: "\E916";
-      color: #444;
-      font-size: 17px;
-      position: absolute;
-      top: -2px;
-      right: -5px; }
-    .dayPickr .darr:hover {
-      cursor: default; }
-    .dayPickr .darr b {
-      float: right;
-      margin-right: 4px;
-      margin-top: -1px;
-      font-size: 10px; }
+    width: 25px;
+    text-align: center; }
 
-.dayPickrDropDown {
-  max-height: 330px;
-  overflow: auto;
-  border-top: #eee solid 1px;
-  width: 100%;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
-  .dayPickrDropDown ul {
+.date-selection-container {
+  list-style-type: none; }
+  .date-selection-container ul {
     margin: 0;
     padding: 0; }
-  .dayPickrDropDown li {
-    list-style-type: none;
+  .date-selection-container li {
     text-indent: 13px;
     cursor: pointer; }
-    .dayPickrDropDown li:hover {
+    .date-selection-container li:hover {
       background-color: #D1F0FC; }
-      .dayPickrDropDown li:hover a {
-        color: #000;
+      .date-selection-container li:hover a {
+        color: #2c2c2c;
         cursor: default; }
 
 .rdr-DateRange {
