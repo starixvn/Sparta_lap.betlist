@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Http;
@@ -36,10 +37,10 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpPost]
-        public dynamic Detail(BetListMetaModel metaModel)
+        public async Task<dynamic> Detail(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_RNG_Detail";
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }
     }
 }

@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -31,14 +32,14 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            return GetBetListResult(metaModel, "Lrf_BetList_SelRunningByMultipleBettypeMatch");
+            return await GetBetListResult(metaModel, "Lrf_BetList_SelRunningByMultipleBettypeMatch").ConfigureAwait(false);
         }
     }
 }

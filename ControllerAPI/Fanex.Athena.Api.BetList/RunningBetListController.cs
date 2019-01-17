@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Http;
@@ -72,14 +73,14 @@ namespace Fanex.Athena.Api.BetList
             return ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList");
         }
 
-        private dynamic ProcessRequest(BetListMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
+        private async Task<dynamic> ProcessRequest(BetListMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            return GetBetListResult(metaModel, uspKey);
+            return await GetBetListResult(metaModel, uspKey).ConfigureAwait(false);
         }
     }
 }

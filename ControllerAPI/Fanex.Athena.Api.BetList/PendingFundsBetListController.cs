@@ -9,6 +9,7 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
@@ -40,7 +41,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -52,7 +53,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.FromDate = DateTime.Today.AddYears(-1);
             metaModel.ToDate = DateTime.Today.AddYears(1);
 
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }
     }
 }

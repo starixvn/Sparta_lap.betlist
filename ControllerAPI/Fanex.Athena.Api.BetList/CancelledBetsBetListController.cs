@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
+
     #region Using
 
     using System.Web.Http;
@@ -39,7 +41,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -49,7 +51,7 @@ namespace Fanex.Athena.Api.BetList
             const string UspKey = "Lrf_BetList_SelDeleted";
             metaModel.BetType = 13;
 
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }
     }
 }

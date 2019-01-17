@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Http;
@@ -35,7 +36,7 @@
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -46,7 +47,7 @@
 
             const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }
     }
 }

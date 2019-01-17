@@ -62,14 +62,14 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">Meta model object.</param>
         /// <returns>Bet list data for match win loss outright.</returns>
         [HttpPost]
-        public dynamic Outright(BetListMetaModel metaModel)
+        public async Task<dynamic> Outright(BetListMetaModel metaModel)
         {
             if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 metaModel.IsServerPaging = true;
 
                 const string UspKey = "Lrf_BetList_MatchWL_Outright";
-                return GetBetListResult(metaModel, UspKey);
+                return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
             }
 
             return null;

@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Http;
@@ -39,7 +40,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -55,8 +56,8 @@ namespace Fanex.Athena.Api.BetList
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
 
             const int RunningTicketTransType = 3;
-            var result = GetBetListResult(metaModel, uspKey);
-
+            var result = await GetBetListResult(metaModel, uspKey).ConfigureAwait(false);
+            
             return new
             {
                 result.Main,

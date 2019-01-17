@@ -111,7 +111,7 @@
             betList.LeagueName = "Name";
             betList.Total = "Total";
             _controller.When(async x => await x.GetPagingBetListResult(metaModel, UspKey, Arg.Any<int>(), Arg.Any<int>())).DoNotCallBase();
-            _controller.GetPagingBetListResult(metaModel, UspKey, 1, 10).Returns(Task.FromResult(new object()));
+            _controller.GetPagingBetListResult(metaModel, UspKey, 1, 10).Returns(Task.FromResult((object)betList));
 
             // Action
             var result = _controller.Index(1, 10, metaModel).Result;

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
@@ -41,7 +42,7 @@
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             if (!IsValidDateRange(metaModel.FromDate, metaModel.ToDate))
             {
@@ -58,7 +59,7 @@
             }
 
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }
 
         private bool IsValidDateRange(DateTime fromDate, DateTime toDate)

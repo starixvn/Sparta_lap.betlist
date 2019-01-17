@@ -10,20 +10,17 @@ namespace Fanex.Athena.Api.BetList
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
     using Base;
     using Constant.DataDomain;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Model.BetList.ViewModel;
     using Model.Core.DTO.Configuration;
     using Service.BetList.Helpers;
     using Service.Core.Common.Interfaces;
@@ -128,13 +125,7 @@ namespace Fanex.Athena.Api.BetList
             return ticketTextList;
         }
 
-        /// <summary>
-        /// Get Bet List Result.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="uspKey">Stored procedure key.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
-        protected internal virtual dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
+        protected internal virtual async Task<dynamic> GetBetListResult(BetListMetaModel metaModel, string uspKey)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
@@ -145,33 +136,24 @@ namespace Fanex.Athena.Api.BetList
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.IsShowPlayerComm = licenseeSession.IsAllowedCustomerComm;
 
-            var ticketResult = _betListService.GetBetListData(metaModel, currencyList, uspKey);
-
-            var leagueName = string.Empty;
-            var firstOrDefault = ticketResult.MainTicketList.FirstOrDefault();
-            if (firstOrDefault != null)
+            var betlistAPIUrl = $"http://localhost:55050/api/ApiBetListBase/GetBetList";
+            using (var client = new HttpClient())
             {
-                leagueName = _cacheRefAdapter.GetLeagueName(firstOrDefault.LeagueId);
+                var response = await client.PostAsJsonAsync(betlistAPIUrl,
+                        new BetListResultMetaModel
+                        {
+                            CurrencyList = currencyList,
+                            MetaModel = metaModel,
+                            UspKey = uspKey
+                        }).ConfigureAwait(false);
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
             }
-
-            var result = new
-            {
-                Main = Ticket(ticketResult, metaModel),
-                Total = new
-                {
-                    SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
-                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm,
-                    SumBetEffective = ticketResult.SumBetEffective,
-                    SumStake = ticketResult.MainTicketList.Sum(x => Math.Round(x.Stake, 2))
-                },
-                LeagueName = leagueName,
-            };
-            ClearData(ticketResult);
-            return result;
         }
 
-        protected internal virtual async Task<object> GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
+        protected internal virtual async Task<dynamic> GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();

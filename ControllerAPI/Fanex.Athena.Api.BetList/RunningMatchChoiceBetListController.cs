@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Http;
@@ -36,14 +37,14 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            return GetBetListResult(metaModel, "Lrf_BetList_Forecast_SelByMatch");
+            return await GetBetListResult(metaModel, "Lrf_BetList_Forecast_SelByMatch").ConfigureAwait(false);
         }
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Dynamic;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -76,7 +77,7 @@
             betListResult.Main = "Main";
             betListResult.Total = "Total";
             betListResult.LeagueName = "Name";
-            _controller.GetBetListResult(metaModel, uspKey).Returns(betListResult);
+            _controller.GetBetListResult(metaModel, uspKey).Returns(Task.FromResult((object)betListResult));
 
             // Action
             _controller.Index(metaModel);
@@ -103,10 +104,10 @@
             betListResult.Main = "Main";
             betListResult.Total = "Total";
             betListResult.LeagueName = "Name";
-            _controller.GetBetListResult(metaModel, UspKeyOld).Returns(betListResult);
+            _controller.GetBetListResult(metaModel, UspKeyOld).Returns(Task.FromResult((object)betListResult));
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>
