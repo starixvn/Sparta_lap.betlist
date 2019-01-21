@@ -14,6 +14,7 @@
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
     #endregion Using
 
@@ -24,12 +25,13 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
+            IBridgeClientService bridgeClientService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ITicketHelper ticketHelper,
             ICacheRefAdapter cacheRefAdapter,
             IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, bridgeClientService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
         {
         }
 

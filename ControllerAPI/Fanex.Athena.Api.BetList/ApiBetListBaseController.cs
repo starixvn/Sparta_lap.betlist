@@ -22,17 +22,19 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Helpers;
     using Model.Core.DTO.Configuration;
     using Service.BetList.Helpers;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     #endregion Using
 
     public class ApiBetListBaseController : BaseApiController
     {
+        private readonly IBridgeClientService _bridgeClientService;
+
         private readonly IBetListService _betListService;
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
@@ -49,6 +51,7 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
+            IBridgeClientService bridgeClientService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ITicketHelper ticketHelper,
@@ -57,6 +60,7 @@ namespace Fanex.Athena.Api.BetList
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(sessionService, productService, languageService)
         {
+            _bridgeClientService = bridgeClientService;
             _betListService = betListService;
             _balanceUpDataAccess = balanceUpDataAccess;
             _ticketHelper = ticketHelper;
@@ -138,21 +142,14 @@ namespace Fanex.Athena.Api.BetList
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            metaModel.IsShowPlayerComm = licenseeSession.IsAllowedCustomerComm;
-
-            var betlistAPIUrl = $"http://localhost:55050/api/ApiBetListBase/GetBetList";
-            using (var client = new HttpClient())
+            var betlistAPIUrl = new Uri($"http://localhost:55050/api/ApiBetList/GetBetList");
+            return await _bridgeClientService.PostAsJsonAsync<BetListResultMetaModel, dynamic>(betlistAPIUrl, new BetListResultMetaModel
             {
-                var response = await client.PostAsJsonAsync(betlistAPIUrl,
-                        new BetListResultMetaModel
-                        {
-                            CurrencyList = currencyList,
-                            MetaModel = metaModel,
-                            UspKey = uspKey
-                        }).ConfigureAwait(false);
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
-            }
+                IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm,
+                CurrencyList = currencyList,
+                MetaModel = metaModel,
+                UspKey = uspKey
+            }).ConfigureAwait(false);
         }
 
         protected internal virtual async Task<dynamic> GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
@@ -168,24 +165,15 @@ namespace Fanex.Athena.Api.BetList
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            metaModel.IsShowPlayerComm = licenseeSession.IsAllowedCustomerComm;
 
-            var param = new Hashtable();
-            BetListParamBuilder.CreateBetListParameters(param, uspKey, metaModel);
-            var betlistAPIUrl = $"http://localhost:55050/api/ApiBetList/GetBetListPaging";
-            using (var client = new HttpClient())
+            var betlistAPIUrl = new Uri($"http://localhost:55050/api/ApiBetList/GetBetListPaging");
+            return await _bridgeClientService.PostAsJsonAsync<BetListResultMetaModel, dynamic>(betlistAPIUrl, new BetListResultMetaModel
             {
-                var response = await client.PostAsJsonAsync(betlistAPIUrl,
-                        new BetListResultMetaModel
-                        {
-                            CurrencyList = currencyList,
-                            MetaModel = metaModel,
-                            UspKey = uspKey,
-                            Params = param
-                        }).ConfigureAwait(false);
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
-            }
+                IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm,
+                CurrencyList = currencyList,
+                MetaModel = metaModel,
+                UspKey = uspKey
+            }).ConfigureAwait(false);
         }
 
         protected bool IsValidCurrencyId(int currencyId)

@@ -15,6 +15,7 @@
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
@@ -29,6 +30,7 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
+            IBridgeClientService bridgeClientService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ITicketHelper ticketHelper,
@@ -36,7 +38,7 @@
             IBetListHTMLBuilder betlistHtmlBuilder,
             IReportSettingService reportSettingService)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, bridgeClientService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
         {
             _reportSettingService = reportSettingService;
         }

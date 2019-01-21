@@ -20,9 +20,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             PageIndex = 1;
             PageSize = int.MaxValue - 1;
         }
-
-        public bool IsShowPlayerComm { get; set; }
-
+        
         public string ProductCodeList { get; set; } = string.Empty;
 
         public string ExcelFileName { get; set; }

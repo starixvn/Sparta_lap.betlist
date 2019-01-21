@@ -7,6 +7,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Utility.Interfaces;
     using Session.Model;
     using UnitTest.Common.Helpers;
 
@@ -220,6 +221,7 @@
                 SessionService,
                 ProductService,
                 LangService,
+                Substitute.For<IBridgeClientService>(),
                 BetListService,
                 BalanceUpDataAccess,
                 TicketHelper,
