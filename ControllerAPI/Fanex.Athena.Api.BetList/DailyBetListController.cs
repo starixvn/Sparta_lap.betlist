@@ -73,7 +73,8 @@ namespace Fanex.Athena.Api.BetList
                 SortBy = sortBy,
                 SortOrder = sortOrder
             };
-            return await GetPagingBetListResult(metaModel, UspKey, page, rows).ConfigureAwait(false);
+            var url = "http://localhost:55050/BetList/GetDailyBetListData";
+            return await GetPagingBetListResult(metaModel, UspKey, page, rows, url).ConfigureAwait(false);
         }
     }
 }

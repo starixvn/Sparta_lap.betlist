@@ -50,7 +50,8 @@ namespace Fanex.Athena.Api.BetList
             }
 
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
-            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
+            var url = "http://localhost:55050/BetList/GetWinLossByLeagueData";
+            return await GetBetListResult(metaModel, UspKey, url).ConfigureAwait(false);
         }
     }
 }

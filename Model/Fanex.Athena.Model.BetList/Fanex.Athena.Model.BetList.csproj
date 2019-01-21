@@ -148,7 +148,6 @@
     <Compile Include="DTO\TicketText.cs" />
     <Compile Include="DTO\TicketResult.cs" />
     <Compile Include="MetaModel\BaseBettingTicketMetaModel.cs" />
-    <Compile Include="MetaModel\BetListResultMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListDetailMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListMetaModel.cs" />
     <Compile Include="MetaModel\BetListMetaModel.cs" />

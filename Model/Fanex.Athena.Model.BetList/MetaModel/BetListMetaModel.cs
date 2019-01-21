@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using Model.Core.MetaModel;
 
@@ -20,7 +21,13 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             PageIndex = 1;
             PageSize = int.MaxValue - 1;
         }
-        
+
+        public bool IsShowPlayerCom { get; set; }
+
+        public IDictionary<int, string> CurrencyList { get; set; }
+
+        public string UspKey { get; set; }
+
         public string ProductCodeList { get; set; } = string.Empty;
 
         public string ExcelFileName { get; set; }
