@@ -8,6 +8,7 @@
 namespace Fanex.Athena.Api.BetList
 {
     using System;
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Http;
@@ -45,48 +46,45 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpPost]
-        public dynamic Match(LiveReportBetListMetaModel metaModel)
+        public async Task<dynamic> Match(LiveReportBetListMetaModel metaModel)
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-
             const string UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
 
-            return GetData(metaModel, UspKey);
+            return await GetData(metaModel, UspKey).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public dynamic Outright(LiveReportBetListMetaModel metaModel)
+        public async Task<dynamic> Outright(LiveReportBetListMetaModel metaModel)
         {
             if (IsValidCurrencyId(metaModel.CurrencyId))
             {
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
-                return GetData(metaModel, UspKey);
+                return await GetData(metaModel, UspKey).ConfigureAwait(false);
             }
 
             return null;
         }
 
         [HttpGet]
-        public dynamic NumberGame([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
+        public async Task<dynamic> NumberGame([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
             if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return GetPagingData(metaModel, UspKey, page, rows);
+                
+                return await GetPagingData(metaModel, UspKey, page, rows).ConfigureAwait(false);
             }
 
             return null;
         }
 
         [HttpGet]
-        public dynamic MixParlay([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
+        public async Task<dynamic> MixParlay([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
             if (IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -94,21 +92,21 @@ namespace Fanex.Athena.Api.BetList
 
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-                return GetPagingData(metaModel, UspKey, page, rows);
+                return await GetPagingData(metaModel, UspKey, page, rows).ConfigureAwait(false);
             }
 
             return null;
         }
 
         [HttpGet]
-        public dynamic VirtualSports([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
+        public async Task<dynamic> VirtualSports([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
             if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
 
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return GetPagingData(metaModel, UspName, page, rows);
+               
+                return await GetPagingData(metaModel, UspName, page, rows).ConfigureAwait(false);
             }
 
             return null;
@@ -116,62 +114,31 @@ namespace Fanex.Athena.Api.BetList
 
         #region Utility
 
-        private dynamic GetData(LiveReportBetListMetaModel metaModel, string uspKey)
-        {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
-            var result = new
-            {
-                Main = Ticket(ticketResult),
-                Total = new
-                {
-                    SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
-                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm
-                }
-            };
-            ClearData(ticketResult);
-            return result;
-        }
-
-        private dynamic GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
+        private async Task<dynamic> GetData(LiveReportBetListMetaModel metaModel, string uspKey)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var currencyList = SessionService.UserSession.CurrencyList;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm;
+            metaModel.CurrencyList = currencyList;
+            metaModel.UspKey = uspKey;
+            var betlistAPIUrl = new Uri($"http://localhost:55050/LiveReportBetList/GetData");
+            return await BridgeClientService.PostAsJsonAsync<LiveReportBetListMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+        }
 
+        private async Task<dynamic> GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
+        {
+            var licenseeSession = SessionService.LicenseeSession;
+            var currencyList = SessionService.UserSession.CurrencyList;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
-            var totalPage = metaModel.TotalRows % metaModel.PageSize == 0
-                ? metaModel.TotalRows / metaModel.PageSize
-                : (metaModel.TotalRows / metaModel.PageSize) + 1;
-            var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-
-            var sumLicenseeWl = metaModel.SumLicenseeWL + metaModel.SumComm;
-            var sumWinLossText = NumberHelper.DecFormat(metaModel.SumWinlost + metaModel.SumPlayerComm, 2);
-            var sumLicenseeWlText = NumberHelper.DecFormat(sumLicenseeWl, 2);
-            sumLicenseeWlText = sumLicenseeWl < 0
-                ? string.Format("<span class='negative-number'>{0}</span>", sumLicenseeWlText)
-                : sumLicenseeWlText;
-
-            var result = new
-            {
-                page = pageIndex,
-                total = totalPage,
-                records = metaModel.TotalRows,
-                rows = Ticket(ticketResult, metaModel, startIndex),
-                userdata = new
-                {
-                    WinLoss = sumWinLossText,
-                    LicenseeWL = sumLicenseeWlText
-                },
-                IsHasCustComm = licenseeSession.IsAllowedCustomerComm,
-            };
-
-            ClearData(ticketResult);
-
-            return result;
+            metaModel.IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm;
+            metaModel.CurrencyList = currencyList;
+            metaModel.UspKey = uspKey;
+            var betlistAPIUrl = new Uri($"http://localhost:55050/LiveReportBetList/GetPagingData");
+            return await BridgeClientService.PostAsJsonAsync<LiveReportBetListMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
 
         #endregion Utility
