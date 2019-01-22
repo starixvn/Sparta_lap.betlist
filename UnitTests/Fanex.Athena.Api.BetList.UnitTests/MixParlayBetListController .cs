@@ -81,7 +81,7 @@
             _controller.Ticket(ticketResult, null, 1, true).Returns(ticketText);
 
             // Action
-            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId);
+            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId).Result;
 
             // Assert
             Assert.Multiple(() =>
@@ -120,7 +120,7 @@
                                 + "</p>";
 
             // Action
-            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId);
+            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId).Result;
 
             // Assert
             Assert.Multiple(() =>
@@ -161,7 +161,7 @@
                                 + "</p>";
 
             // Action
-            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId);
+            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId).Result;
 
             // Assert
             Assert.Multiple(() =>

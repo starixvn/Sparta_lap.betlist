@@ -152,7 +152,9 @@
     <Compile Include="MetaModel\ExchangeBetListMetaModel.cs" />
     <Compile Include="MetaModel\BetListMetaModel.cs" />
     <Compile Include="MetaModel\BaseExchangeBetListMetaModel.cs" />
+    <Compile Include="MetaModel\MixParlayDetailMetaModel.cs" />
     <Compile Include="MetaModel\MultipleCustomersBetListMetaModel.cs" />
+    <Compile Include="MetaModel\NewParlayDetailMetaModel.cs" />
     <Compile Include="MetaModel\RefNoBetListMetaModel.cs" />
     <Compile Include="MetaModel\SingleCustomersBetListMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueBetListMetaModel.cs" />
