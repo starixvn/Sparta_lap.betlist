@@ -22,6 +22,11 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public string BetListApiHostUrl
+        {
+            get { return GetValue("BetListApiHostUrl"); }
+        }
+
         public bool IsProduction
         {
             get { return GetValue("Environment") == "PRO"; }

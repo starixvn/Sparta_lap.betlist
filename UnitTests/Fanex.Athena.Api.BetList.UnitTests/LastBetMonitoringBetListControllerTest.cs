@@ -139,7 +139,7 @@
             SetUpForIndexMethod(metaModel, ticketResult);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>
@@ -159,7 +159,7 @@
             SetUpForIndexMethod(metaModel, ticketResult);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>
@@ -215,7 +215,7 @@
             var expectedPlatform = $"<td data-name='Platform'>{ViewResources.ResourceManager.GetString(expectedText)}</td>";
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>
@@ -276,7 +276,7 @@
             var expectedAddType = $"</span><br><span class=\"oddstype\">{metaModel.OddsType}</span></td>";
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>
@@ -302,7 +302,7 @@
             _cacheRefAdapter.GetOddsTypeName(Arg.Any<object>()).Returns(expectedOddTypeName);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>
@@ -325,7 +325,7 @@
             var expectedStatus = $"<label style='color:{expectedColor}'>{ViewResources.ResourceManager.GetString(expectedTitle)}</label>";
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>
@@ -352,7 +352,7 @@
             var expectedStatus = $"<label style='color:{expectedColor}'>{ViewResources.ResourceManager.GetString(expectedTitle)}</label>";
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>

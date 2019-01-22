@@ -5,6 +5,8 @@
 
     public interface IAppSettings
     {
+        string BetListApiHostUrl { get; }
+
         bool IsProduction { get; }
 
         bool IsDisableExportLargeBetList { get; }

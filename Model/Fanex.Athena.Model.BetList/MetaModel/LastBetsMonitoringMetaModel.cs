@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
     public class LastBetsMonitoringMetaModel
@@ -44,5 +46,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         public int BetFrom { get; set; }
 
         public string AgentListXml { get; set; }
+
+        public IDictionary<int, string> UserCurrencyList { get; set; }
     }
 }
