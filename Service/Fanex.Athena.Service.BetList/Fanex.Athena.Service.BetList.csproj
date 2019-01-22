@@ -121,12 +121,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BettingTicketCenterService.cs" />
-    <Compile Include="ExchangeBetListService.cs" />
     <Compile Include="Helpers\BetListHelper.cs" />
     <Compile Include="Interfaces\IBettingTicketCenterService.cs" />
-    <Compile Include="Interfaces\IExchangeBetListService.cs" />
-    <Compile Include="Interfaces\ILastBetsMonitoringBetListService.cs" />
-    <Compile Include="LastBetsMonitoringBetListService.cs" />
     <Compile Include="BetListService.cs" />
     <Compile Include="Interfaces\IBetListService.cs" />
     <Compile Include="Extensions\LrfBetListHtmlBuilder.cs" />

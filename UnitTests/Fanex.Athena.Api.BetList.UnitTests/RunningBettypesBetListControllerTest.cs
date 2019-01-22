@@ -22,11 +22,8 @@
                 SessionService,
                 ProductService,
                 LangService,
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder);
+                BridgeClientService,
+                BalanceUpDataAccess);
         }
 
         [OneTimeTearDown]

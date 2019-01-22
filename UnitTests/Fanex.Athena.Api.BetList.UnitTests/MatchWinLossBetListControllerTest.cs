@@ -24,11 +24,8 @@
                 SessionService,
                 ProductService,
                 LangService,
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder);
+                BridgeClientService,
+                BalanceUpDataAccess);
 
             _controller.When(x => x.GetBetListResult(Arg.Any<BetListMetaModel>(), Arg.Any<string>())).DoNotCallBase();
             _controller.When(x => x.GetPagingBetListResult(Arg.Any<BetListMetaModel>(), Arg.Any<string>(), Page, Rows)).DoNotCallBase();

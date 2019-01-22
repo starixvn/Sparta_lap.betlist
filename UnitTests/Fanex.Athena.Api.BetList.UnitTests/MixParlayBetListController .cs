@@ -19,11 +19,8 @@
                 SessionService,
                 ProductService,
                 LangService,
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder);
+                BridgeClientService,
+                BalanceUpDataAccess);
 
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
@@ -44,18 +41,14 @@
             const int CustId = 2;
 
             var ticketResult = new TicketResult();
-            BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
-
-            _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
-
+            
             // Action
             _controller.Detail(TransId, CustId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                BetListService.Received().GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId);
-                _controller.Received().Ticket(ticketResult, null, 1, true);
+            
             });
         }
 
@@ -71,15 +64,11 @@
             const int CustId = 2;
 
             var combinationTypeCombo = new[] { "OrginalText" };
-            CacheRefAdapter.GetCombinationTypeCombo(BetTeam, BetCheck, Handicap1, Handicap2).Returns(combinationTypeCombo);
-
+            
             var ticketResult = new TicketResult();
-            BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
-
+            
             var ticketText = new List<TicketText>();
-            _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
-            _controller.Ticket(ticketResult, null, 1, true).Returns(ticketText);
-
+            
             // Action
             var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId).Result;
 
@@ -103,17 +92,13 @@
             const int CustId = 2;
 
             var combinationTypeCombo = new[] { "CombinationTypeCombo" };
-            CacheRefAdapter.GetCombinationTypeCombo(BetTeam, BetCheck, Handicap1, Handicap2).Returns(combinationTypeCombo);
-
+            
             var ticketResult = new TicketResult();
             var lrfTicket = new LrfTicket { Stake = 1, Currency = "usd" };
             ticketResult.MainTicketList.Add(lrfTicket);
-            BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
-
+            
             var ticketText = new List<TicketText>();
-            _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
-            _controller.Ticket(ticketResult, null, 1, true).Returns(ticketText);
-
+            
             var expectedText = "<p class='system-parlay-ticket-infor'>"
                                 + $"<span class='system-parlay-combo-type'>{combinationTypeCombo[0]}</span> x "
                                 + $"<span class='system-parlay-unit-stake'>{lrfTicket.Currency} {lrfTicket.Stake.ToString("N0")}</span>"
@@ -142,19 +127,15 @@
             const int CustId = 2;
 
             var combinationTypeCombo = new[] { "CombinationTypeCombo" };
-            CacheRefAdapter.GetCombinationTypeCombo(BetTeam, BetCheck, Handicap1, Handicap2).Returns(combinationTypeCombo);
-
+            
             var ticketResult = new TicketResult();
             var lrfTicket1 = new LrfTicket { Stake = 1, Currency = "usd", MatchId = 2 };
             ticketResult.MainTicketList.Add(lrfTicket1);
             var lrfTicket2 = new LrfTicket { Stake = 1, Currency = "usd", MatchId = 1 };
             ticketResult.MainTicketList.Add(lrfTicket2);
-            BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
             var ticketText = new List<TicketText>();
-            _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
-            _controller.Ticket(ticketResult, null, 1, true).Returns(ticketText);
-
+            
             var expectedText = "<p class='system-parlay-ticket-infor'>"
                                 + $"<span class='system-parlay-combo-type'>{combinationTypeCombo[0]}</span> x "
                                 + $"<span class='system-parlay-unit-stake'>{lrfTicket2.Currency} {lrfTicket2.Stake.ToString("N0")}</span>"

@@ -28,12 +28,8 @@
             IProductService productService,
             ILanguageService languageService,
             IBridgeClientService bridgeClientService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, bridgeClientService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, bridgeClientService, balanceUpDataAccess)
         {
         }
 

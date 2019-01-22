@@ -23,11 +23,8 @@
                 SessionService,
                 ProductService,
                 LangService,
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder);
+                BridgeClientService,
+                BalanceUpDataAccess);
 
             var metaModel = new BetListMetaModel();
 

@@ -21,9 +21,7 @@
     public class ExchangeWinLossBetListController : BaseApiController
     {
         private readonly IBridgeClientService _bridgeClientService;
-
-        private readonly IExchangeBetListService _service;
-
+        
         private readonly IAuthorizationService _authorizationService;
 
         public ExchangeWinLossBetListController(
@@ -31,13 +29,11 @@
             IProductService productService,
             ILanguageService languageService,
             IBridgeClientService bridgeClientService,
-            IExchangeBetListService service,
             IAuthorizationService authorizationService)
 
         : base(sessionService, productService, languageService)
         {
             _bridgeClientService = bridgeClientService;
-            _service = service;
             _authorizationService = authorizationService;
         }
 

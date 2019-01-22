@@ -10,8 +10,6 @@ namespace Fanex.Athena.Api.BetList
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
@@ -25,12 +23,8 @@ namespace Fanex.Athena.Api.BetList
             IProductService productService,
             ILanguageService languageService,
             IBridgeClientService bridgeClientService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, bridgeClientService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, bridgeClientService, balanceUpDataAccess)
         {
         }
 

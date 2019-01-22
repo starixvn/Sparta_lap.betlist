@@ -23,22 +23,15 @@
     public class LicenseeWinLossBetListController : ApiBetListBaseController
     {
         private readonly IReportSettingService _reportSettingService;
-
-#pragma warning disable S107 // Methods should not have too many parameters
-
+        
         public LicenseeWinLossBetListController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
             IBridgeClientService bridgeClientService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder,
             IReportSettingService reportSettingService)
-#pragma warning restore S107 // Methods should not have too many parameters
-        : base(sessionService, productService, languageService, bridgeClientService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, bridgeClientService, balanceUpDataAccess)
         {
             _reportSettingService = reportSettingService;
         }

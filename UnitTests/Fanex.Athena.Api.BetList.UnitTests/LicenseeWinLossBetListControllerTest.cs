@@ -26,11 +26,8 @@
                 SessionService,
                 ProductService,
                 LangService,
-                BetListService,
+                BridgeClientService,
                 BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder,
                 _reportSettingService);
 
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });

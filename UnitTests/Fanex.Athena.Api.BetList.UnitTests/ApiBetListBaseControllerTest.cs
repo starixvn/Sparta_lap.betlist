@@ -9,7 +9,6 @@
     using NUnit.Framework;
     using Service.Core.Utility.Interfaces;
     using Session.Model;
-    using UnitTest.Common.Helpers;
 
     public class ApiBetListBaseControllerTest : ApiBetListBaseControllerHelperTest
     {
@@ -84,39 +83,6 @@
         }
 
         [Test]
-        public void Ticket_WhenCall_ReturnCorrectResult()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                const string ExpectedTransTime = "Abc";
-                const string ExpectedChoice = "Def";
-                var metaModel = new BetListMetaModel();
-
-                var ticket = FakeHelper.Create<LrfTicket>();
-                var ticketResult = new TicketResult();
-                ticketResult.MainTicketList.Add(ticket);
-
-                BetListHTMLBuilder.BuildTrans(ticket).Returns(ExpectedTransTime);
-                BetListHTMLBuilder.BuildChoice(ticket, TicketHelper, ticketResult.TicketDataList, false).Returns(ExpectedChoice);
-
-                // Action
-                var result = controller.Ticket(ticketResult, metaModel);
-                var ticketText = result[0];
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(ticketText.Index, Is.EqualTo(1));
-                    Assert.That(ticketText.ExternalId, Is.EqualTo(ticket.ExternalId));
-                    Assert.That(ticketText.SystemId, Is.EqualTo(ticket.UserName));
-                    Assert.That(ticketText.TransTime, Is.EqualTo(ExpectedTransTime));
-                    Assert.That(ticketText.Choice, Is.EqualTo(ExpectedChoice));
-                });
-            }
-        }
-
-        [Test]
         public void GetBetListResult_NoData_ReturnCorrectResult()
         {
             using (var controller = CreateController())
@@ -126,7 +92,6 @@
                 var metaModel = new BetListMetaModel();
 
                 var ticketResult = new TicketResult();
-                BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey).Returns(ticketResult);
 
                 // Action
                 var result = controller.GetBetListResult(metaModel, UspKey);
@@ -155,18 +120,13 @@
                 var ticketResult = new TicketResult { SumWinLoss = 1, SumPlayerComm = 2, SumLicenseeWL = 3, SumComm = 4, SumBetEffective = 5 };
                 var ticket = new LrfTicket { LeagueId = 1, Stake = 1.123m, Status = BetStatus.Won };
                 ticketResult.MainTicketList.Add(ticket);
-                BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey).Returns(ticketResult);
-
-                const string LeagueName = "Name";
-                CacheRefAdapter.GetLeagueName(ticket.LeagueId).Returns(LeagueName);
-
+                
                 // Action
                 var result = controller.GetBetListResult(metaModel, UspKey);
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.LeagueName, Is.EqualTo(LeagueName));
                     Assert.That(result.Total.SumWinLoss, Is.EqualTo(ticketResult.SumWinLoss + ticketResult.SumPlayerComm));
                     Assert.That(result.Total.SumLicenseeWl, Is.EqualTo(ticketResult.SumLicenseeWL + ticketResult.SumComm));
                     Assert.That(result.Total.SumBetEffective, Is.EqualTo(ticketResult.SumBetEffective));
@@ -193,7 +153,6 @@
                     SumLicenseeWL = testCaseData.SumLicenseeWL,
                     SumComm = testCaseData.SumComm
                 };
-                BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey).Returns(ticketResult);
 
                 // Action
                 var result = controller.GetPagingBetListResult(metaModel, UspKey, testCaseData.InPutPageIndex, testCaseData.InPutPageSize);
@@ -222,11 +181,7 @@
                 ProductService,
                 LangService,
                 Substitute.For<IBridgeClientService>(),
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder);
+                BalanceUpDataAccess);
         }
     }
 }
