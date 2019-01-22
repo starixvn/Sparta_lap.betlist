@@ -6,61 +6,54 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base;
     using Base.Attributes;
-    using DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Model.BetList.DTO;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class OutstandingDailyStatementBetListController : BaseApiController
     {
+        private readonly IBridgeClientService _bridgeClientService;
+
         private readonly IAuthorizationService _authorizationService;
 
-        private readonly IDailyStatementBetListDataAccess _dailyStatementBetListDataAccess;
-        
         public OutstandingDailyStatementBetListController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IAuthorizationService authorizationService,
-            IDailyStatementBetListDataAccess dailyStatementBetListDataAccess)
+            IBridgeClientService bridgeClientService,
+            IAuthorizationService authorizationService)
         : base(sessionService, productService, languageService)
         {
+            _bridgeClientService = bridgeClientService;
             _authorizationService = authorizationService;
-            _dailyStatementBetListDataAccess = dailyStatementBetListDataAccess;
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
-
-            return new
+            metaModel.IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm;
+            if (_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId))
             {
-                Main = GetData(metaModel, licenseeSession.IsAllowedCustomerComm),
-                Total = new
-                {
-                    SumWinLoss = 0,
-                    SumLicenseeWl = 0
-                }
-            };
-        }
+                var betlistAPIUrl = new Uri($"http://localhost:55050/OutstandingDailyStatementBetList/GetData");
+                return await _bridgeClientService.PostAsJsonAsync<BetListMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            }
 
-        private IEnumerable<DailyStatement> GetData(BetListMetaModel metaModel, bool isAllowCustComm)
-        {
-            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
-                        ? _dailyStatementBetListDataAccess.GetDailyStatementData(metaModel, isAllowCustComm)
-                         : new List<DailyStatement>();
+            return new List<DailyStatement>();
         }
     }
 }

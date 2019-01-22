@@ -57,7 +57,7 @@
             _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CustId, metaModel.TransId).Returns(false);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>
@@ -81,7 +81,7 @@
             _dailyStatementBetListDataAccess.GetDailyStatementData(metaModel, Arg.Any<bool>()).Returns(dailyStatement);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.Multiple(() =>
