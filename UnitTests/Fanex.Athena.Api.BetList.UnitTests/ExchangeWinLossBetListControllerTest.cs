@@ -59,7 +59,7 @@
             };
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.That(result.MainData, Is.Null);
@@ -79,7 +79,7 @@
             StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.That(result.MainData, Is.Null);
@@ -100,7 +100,7 @@
             _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CurrencyId, 0).Returns(false);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.That(result.MainData, Is.Null);
@@ -119,7 +119,7 @@
             };
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel).Result;
 
             // Assert
             Assert.That(result.MainData, Is.Null);

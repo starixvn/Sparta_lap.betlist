@@ -7,6 +7,7 @@
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Service.BetList.Interfaces;
+    using Core.Utility.Interfaces;
 
     public class ExchangeBetListService : IExchangeBetListService
     {
