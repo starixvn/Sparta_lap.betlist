@@ -8,6 +8,7 @@ namespace Fanex.Athena.Api.BetList
 {
     using System;
     using System.Collections.Generic;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Base;
@@ -50,7 +51,7 @@ namespace Fanex.Athena.Api.BetList
             if (_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId))
             {
                 var betlistAPIUrl = new Uri($"http://localhost:55050/OutstandingDailyStatementBetList/GetData");
-                return await _bridgeClientService.PostAsJsonAsync<BetListMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+                return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
             }
 
             return new List<DailyStatement>();

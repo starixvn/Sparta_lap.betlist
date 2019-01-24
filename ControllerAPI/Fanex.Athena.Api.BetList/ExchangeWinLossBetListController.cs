@@ -38,7 +38,7 @@
         }
 
         [HttpPost]
-        public async Task<ExchangeBetListViewModel> Index(ExchangeBetListMetaModel metaModel)
+        public async Task<dynamic> Index(ExchangeBetListMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
             {
@@ -51,11 +51,11 @@
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
             var betlistAPIUrl = new Uri($"http://localhost:55050/ExchangeWinLossBetList/GetData");
-            return await _bridgeClientService.PostAsJsonAsync<ExchangeBetListMetaModel, ExchangeBetListViewModel>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public async Task<IEnumerable<ExchangeTicketDetail>> Detail(ExchangeBetListDetailMetaModel metaModel)
+        public async Task<dynamic> Detail(ExchangeBetListDetailMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
             {
@@ -65,7 +65,7 @@
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
             var betlistAPIUrl = new Uri($"http://localhost:55050/ExchangeWinLossBetList/Detail");
-            return await _bridgeClientService.PostAsJsonAsync<ExchangeBetListDetailMetaModel, IEnumerable<ExchangeTicketDetail>>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
 
         private bool IsValidRequest(BaseExchangeBetListMetaModel metaModel)

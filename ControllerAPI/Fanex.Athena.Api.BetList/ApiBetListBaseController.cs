@@ -15,8 +15,9 @@ namespace Fanex.Athena.Api.BetList
     using Model.Core.DTO.Configuration;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
-    
+
     public class ApiBetListBaseController : BaseApiController
     {
         private readonly IBridgeClientService _bridgeClientService;
@@ -76,7 +77,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
             var betlistAPIUrl = new Uri(url ?? $"http://localhost:55050/BetList/GetBetList");
-            return await _bridgeClientService.PostAsJsonAsync<BetListMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
 
         protected internal virtual async Task<dynamic> GetPagingBetListResult(
@@ -101,7 +102,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
             var betlistAPIUrl = new Uri(url ?? $"http://localhost:55050/BetList/GetBetListPaging");
-            return await _bridgeClientService.PostAsJsonAsync<BetListMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
 
         protected bool IsValidCurrencyId(int currencyId)

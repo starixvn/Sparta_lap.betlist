@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Base;
@@ -68,7 +69,7 @@
         }
 
         [HttpPost]
-        public async Task<dynamic> Index(LastBetsMonitoringMetaModel metaModel)
+        public async Task<HttpResponseMessage> Index(LastBetsMonitoringMetaModel metaModel)
         {
             if (string.IsNullOrWhiteSpace(metaModel.Currency))
             {
@@ -82,7 +83,7 @@
 
             metaModel.UserCurrencyList = UserCurrencyList;
             var betlistAPIUrl = new Uri($"http://localhost:55050/LastBetMonitoringBetList/GetData");
-            return await _bridgeClientService.PostAsJsonAsync<LastBetsMonitoringMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _bridgeClientService.PostAsync<LastBetsMonitoringMetaModel>(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
     }
 }

@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Api.BetList
 {
     using System;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
@@ -32,7 +33,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-        public async Task<dynamic> Detail(long transId, int custId)
+        public async Task<HttpResponseMessage> Detail(long transId, int custId)
         {
             var metaModel = new MixParlayDetailMetaModel
             {
@@ -41,11 +42,11 @@ namespace Fanex.Athena.Api.BetList
                 UserCurrencyList = UserCurrencyList
             };
             var betlistAPIUrl = new Uri($"http://localhost:55050/MixParlayBetList/Detail");
-            return await BridgeClientService.PostAsJsonAsync<MixParlayDetailMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
 
         [HttpGet]
-        public async Task<dynamic> NewParlayDetail(long transId, string betTeam, string betCheck, decimal handicap1, decimal handicap2, int custId)
+        public async Task<HttpResponseMessage> NewParlayDetail(long transId, string betTeam, string betCheck, decimal handicap1, decimal handicap2, int custId)
         {
             var metaModel = new NewParlayDetailMetaModel
             {
@@ -58,7 +59,7 @@ namespace Fanex.Athena.Api.BetList
                 UserCurrencyList = UserCurrencyList
             };
             var betlistAPIUrl = new Uri($"http://localhost:55050/MixParlayBetList/NewParlayDetail");
-            return await BridgeClientService.PostAsJsonAsync<NewParlayDetailMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
     }
 }

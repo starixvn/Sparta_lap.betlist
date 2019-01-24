@@ -8,6 +8,7 @@
 namespace Fanex.Athena.Api.BetList
 {
     using System;
+    using System.Net.Http;
     using System.Threading.Tasks;
     #region Using
 
@@ -110,7 +111,7 @@ namespace Fanex.Athena.Api.BetList
 
         #region Utility
 
-        private async Task<dynamic> GetData(LiveReportBetListMetaModel metaModel, string uspKey)
+        private async Task<HttpResponseMessage> GetData(LiveReportBetListMetaModel metaModel, string uspKey)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var currencyList = SessionService.UserSession.CurrencyList;
@@ -119,10 +120,10 @@ namespace Fanex.Athena.Api.BetList
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
             var betlistAPIUrl = new Uri($"http://localhost:55050/LiveReportBetList/GetData");
-            return await BridgeClientService.PostAsJsonAsync<LiveReportBetListMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
 
-        private async Task<dynamic> GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
+        private async Task<HttpResponseMessage> GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var currencyList = SessionService.UserSession.CurrencyList;
@@ -134,7 +135,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
             var betlistAPIUrl = new Uri($"http://localhost:55050/LiveReportBetList/GetPagingData");
-            return await BridgeClientService.PostAsJsonAsync<LiveReportBetListMetaModel, dynamic>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
 
         #endregion Utility
