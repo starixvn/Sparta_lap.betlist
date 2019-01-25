@@ -1,7 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
-    using System;
-    using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -97,53 +95,36 @@
             string caption = null,
             string sportName = null)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            if (!model.IsExportExcel)
+            CreateDefaultMetaModel(metaModel);
+            if (!metaModel.IsExportExcel)
             {
                 ViewBag.SportName = sportName;
-                return View(viewPath, model);
+                return View(viewPath, metaModel);
             }
 
             var currencyList = SessionService.UserSession.CurrencyList;
 
-            if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
+            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
             {
-                var title = GetExcelTitle(model, caption);
-                return Excel(model, uspKey, title);
+                var title = GetExcelTitle(metaModel, caption);
+                return Excel(metaModel, uspKey, title);
             }
 
             return EmptyExcel();
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel, string uspKey, string title)
+        private ActionResult Excel(BetListExcelMetaModel metaModel, string uspKey, string title)
         {
             // Sum value by page
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var ticketResult = GetTicketResult(metaModel, uspKey);
-
-            var showingOption = new ShowingOption
+            metaModel.UspKey = uspKey;
+            metaModel.Title = title;
+            metaModel.ShowingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
-            var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "LiveReportBetList", startIndex);
-        }
-
-        private LiveReportBetListMetaModel CreateDefaultMetaModel(LiveReportBetListMetaModel metaModel = null)
-        {
-            var defaultMetaModel = metaModel ?? new LiveReportBetListMetaModel();
-            defaultMetaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            defaultMetaModel.UserId = SessionService.UserSession.UserId;
-
-            var balanceUp = GetBalanceUp();
-            defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
-            defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
-            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Utc);
-            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Utc);
-            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Utc);
-
-            return defaultMetaModel;
+            metaModel.StartIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
+            metaModel.HiddenColumns = HiddenColumns;
+            return ProcessExportExcel(metaModel, "LiveReportBetList");
         }
 
         private string GetExcelTitle(LiveReportBetListMetaModel metaModel, string caption = null)
@@ -159,18 +140,6 @@
                 metaModel.FromDate.ToShortDateString(),
                 metaModel.ToDate.ToShortDateString(),
                 viewInCaption);
-        }
-
-        private TicketResult GetTicketResult(BetListMetaModel metaModel, string uspKey)
-        {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
-            ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);
-            ticketResult.SumLicenseeWL = ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
-            ticketResult.SumComm = ticketResult.MainTicketList.Sum(x => x.Comm);
-            ticketResult.SumPlayerComm = ticketResult.MainTicketList.Sum(x => x.PlayerComm);
-
-            return ticketResult;
         }
     }
 }

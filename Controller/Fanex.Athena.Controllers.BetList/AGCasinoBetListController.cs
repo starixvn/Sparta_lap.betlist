@@ -37,9 +37,10 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListExcelMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/AGCasinoDetail/Main.cshtml", "Lrf_BetList_LC_Detail");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/AGCasinoDetail/Main.cshtml", "Lrf_BetList_LC_Detail");
         }
 
         protected override void AssignViewBag(BetListMetaModel model)
@@ -47,19 +48,18 @@ namespace Fanex.Athena.Controllers.BetList
             ViewBag.BetListTitle = GetAGCasinoBetListTitle(model.TransType);
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new ShowingOption
             {
                 GrandTotalVisible = false,
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-            var title = GetAGCasinoBetListTitle(metaModel.TransType);
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
+            metaModel.HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+            metaModel.Title = GetAGCasinoBetListTitle(metaModel.TransType);
 
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, hiddenColumns, title, "AGCasinoDetail");
+            return ProcessExportExcel(metaModel, "AGCasinoDetail");
         }
 
         private static string GetAGCasinoBetListTitle(long transType)

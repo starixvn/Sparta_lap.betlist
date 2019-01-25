@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
-    public class WinLossByLeagueBetListMetaModel : BetListMetaModel
+    public class WinLossByLeagueBetListMetaModel : BetListExcelMetaModel
     {
         public bool ShowWin { get; set; }
 

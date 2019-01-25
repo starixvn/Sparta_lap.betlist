@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System;
+    using System.Net.Http;
     using System.Threading.Tasks;
 
     using System.Web.Http;
@@ -15,6 +17,7 @@ namespace Fanex.Athena.Api.BetList
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCancelledBets)]

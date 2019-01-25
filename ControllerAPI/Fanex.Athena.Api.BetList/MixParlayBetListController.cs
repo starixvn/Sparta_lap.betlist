@@ -11,14 +11,10 @@ namespace Fanex.Athena.Api.BetList
     using System.Threading.Tasks;
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
     using Model.BetList.MetaModel;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
-    using VendorAdapter.Interfaces;
 
     public class MixParlayBetListController : ApiBetListBaseController
     {

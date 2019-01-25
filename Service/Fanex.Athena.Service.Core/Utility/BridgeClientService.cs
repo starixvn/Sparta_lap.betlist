@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace Fanex.Athena.Service.Core.Utility
 {
     public class BridgeClientService : IBridgeClientService
     {
-        public async Task<HttpResponseMessage> PostAsync<TParam>(Uri url, TParam value)
+        public async Task<HttpResponseMessage> PostAsync(Uri url, object value)
         {
             using (var client = new HttpClient())
             {
@@ -19,6 +20,18 @@ namespace Fanex.Athena.Service.Core.Utility
                 response.EnsureSuccessStatusCode();
 
                 return response;
+            }
+        }
+
+        public async Task<Stream> PostAsyncStream(Uri url, object value)
+        {
+            using (var client = new HttpClient())
+            {
+                //var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+                var response = await client.PostAsJsonAsync(url, value).ConfigureAwait(false);
+                response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             }
         }
     }

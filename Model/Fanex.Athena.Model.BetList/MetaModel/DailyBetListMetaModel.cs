@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
-    public class DailyBetListMetaModel : BetListMetaModel
+    public class DailyBetListMetaModel : BetListExcelMetaModel
     {
         public string ProductCode { get; set; }
 

@@ -40,25 +40,25 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/LicenseeWl/Main.cshtml", "Lrf_BetList_SelWinloss_Mem");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/LicenseeWl/Main.cshtml", "Lrf_BetList_SelWinloss_Mem");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
-            var title = GetCustomerBetListTitle(metaModel, GetViewInCurrency(curencyId, metaModel.CurrencyName));
+            metaModel.Title = GetCustomerBetListTitle(metaModel, GetViewInCurrency(curencyId, metaModel.CurrencyName));
 
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
+            metaModel.HiddenColumns = HiddenColumns;
             var fileName = string.IsNullOrWhiteSpace(metaModel.ExcelFileName) ? "LicenseeWinLossBetList" : metaModel.ExcelFileName;
 
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, fileName);
+            return ProcessExportExcel(metaModel, fileName);
         }
     }
 }

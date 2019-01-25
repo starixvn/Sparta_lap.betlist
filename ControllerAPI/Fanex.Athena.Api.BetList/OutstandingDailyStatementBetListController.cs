@@ -47,7 +47,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
-            metaModel.IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm;
+            metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             if (_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId))
             {
                 var betlistAPIUrl = new Uri($"http://localhost:55050/OutstandingDailyStatementBetList/GetData");

@@ -83,7 +83,7 @@
 
             metaModel.UserCurrencyList = UserCurrencyList;
             var betlistAPIUrl = new Uri($"http://localhost:55050/LastBetMonitoringBetList/GetData");
-            return await _bridgeClientService.PostAsync<LastBetsMonitoringMetaModel>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
         }
     }
 }

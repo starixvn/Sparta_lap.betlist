@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetCleanSheet)]
-        public ActionResult CleanSheet(BetListMetaModel metaModel)
+        public ActionResult CleanSheet(BetListExcelMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.CleanSheet;
             ViewBag.ReportTitle = ViewResources.CleanSheet;
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetToWinToNil)]
-        public ActionResult ToWinToNil(BetListMetaModel metaModel)
+        public ActionResult ToWinToNil(BetListExcelMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.ToWinToNil;
             ViewBag.ReportTitle = ViewResources.ToWinToNil;
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBet3WayHandicap)]
-        public ActionResult ThreeWayHandicap(BetListMetaModel metaModel)
+        public ActionResult ThreeWayHandicap(BetListExcelMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.ThreeWayHandicap;
             metaModel.MultipleBettype = $"{(int)BetType.ThreeWayHandicap},{(int)BetType.FirstHalfThreeWayHandicap}";
@@ -80,52 +80,52 @@ namespace Fanex.Athena.Controllers.BetList
             return ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList");
         }
 
-        private ActionResult ProcessRequest(BetListMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
+        private ActionResult ProcessRequest(BetListExcelMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
         {
             var userSession = SessionService.UserSession;
-            var viewParam = CreateDefaultMetaModel(metaModel);
+            CreateDefaultMetaModel(metaModel);
             var currencies = userSession.CurrencyList;
 
-            if (viewParam.IsExportExcel)
+            if (metaModel.IsExportExcel)
             {
-                if (viewParam.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(viewParam.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
-                    viewParam.AgentListXml = SessionService.GenerateAgentListXml(viewParam.CurrencyId);
-                    return Excel(viewParam, uspKey);
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                    return Excel(metaModel, uspKey);
                 }
 
                 return EmptyExcel();
             }
 
-            SetConvetedUSDCurrencyName(viewParam);
+            SetConvetedUSDCurrencyName(metaModel);
 
             var model = new BetListBaseViewModel
             {
                 ShowEmptyContent = true,
-                Param = viewParam,
+                Param = metaModel,
                 CurrencyList = currencies,
-                ProductAccess = ProductService.GetProductAccess(viewParam.LicenseeId, userSession.Language),
+                ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
             return View("~/Views/Desktop/BetList/RunningBetList/Main.cshtml", model);
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel, string uspKey)
+        private ActionResult Excel(BetListExcelMetaModel metaModel, string uspKey)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
+            metaModel.UspKey = uspKey;
 
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
             var baseCurrency = GetViewInCurrency(metaModel);
-            var title = $"{CacheRefAdapter.GetBettype(metaModel.BetType)} - {baseCurrency}";
+            metaModel.Title = $"{CacheRefAdapter.GetBettype(metaModel.BetType)} - {baseCurrency}";
 
             metaModel.IsShowSumStake = true;
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
+            metaModel.HiddenColumns = HiddenColumnIndexes;
+            return ProcessExportExcel(metaModel, "RunningBetList");
         }
     }
 }

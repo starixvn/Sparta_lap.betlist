@@ -36,29 +36,22 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/RunningBetListOfMatch/Main.cshtml", null);
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/RunningBetListOfMatch/Main.cshtml", "Lrf_BetList_SelRunningByBettypeMatch");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            const string UspName = "Lrf_BetList_SelRunningByBettypeMatch";
+            metaModel.Title = $"(LEAGUENAME) - {CacheRefAdapter.GetBettype(metaModel.BetType)} - {GetViewInCurrency(metaModel)}";
 
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, UspName);
-
-            var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
-            var leagueName = firstTicket != null ? CacheRefAdapter.GetLeagueName(firstTicket.LeagueId) : string.Empty;
-
-            var title = $"{leagueName} - {CacheRefAdapter.GetBettype(metaModel.BetType)} - {GetViewInCurrency(metaModel)}";
-
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
+            metaModel.HiddenColumns = HiddenColumnIndexes;
+            return ProcessExportExcel(metaModel, "RunningBetList");
         }
     }
 }

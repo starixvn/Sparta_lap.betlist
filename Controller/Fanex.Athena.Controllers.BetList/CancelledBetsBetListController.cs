@@ -6,9 +6,11 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System;
     #region Using
 
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
@@ -21,11 +23,14 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetList.DTO;
+    using NPOI.SS.UserModel;
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility;
     using VendorAdapter.Interfaces;
+    using Web.ResultExtension;
 
     #endregion Using
 
@@ -68,7 +73,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
             if (metaModel.IsExportExcel)
             {
@@ -104,25 +109,23 @@ namespace Fanex.Athena.Controllers.BetList
             };
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListExcelMetaModel metaModel)
         {
             if (metaModel.CurrencyId == BaseCurrencyType.All ||
                 SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
-                var excelModel = CreateDefaultMetaModel(metaModel);
-                excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
-
-                var ticketResult = BetListService.GetBetListData(excelModel, UserCurrencyList, UspKey);
-
-                var showingOption = new ShowingOption
+                CreateDefaultMetaModel(metaModel);
+                metaModel.UspKey = UspKey;
+                
+                var currencyTitle = GetViewInCurrency(metaModel);
+                metaModel.ShowingOption = new ShowingOption
                 {
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = metaModel.HasPlayerCom
                 };
-                var currencyTitle = GetViewInCurrency(excelModel);
-                var title = $"{ViewResources.CancelledBets} - {currencyTitle}";
-
-                return ProcessExportExcel(showingOption, excelModel, ticketResult, HiddenColumnIndexes, title, "CancelledBetList");
+                metaModel.HiddenColumns = HiddenColumnIndexes;
+                metaModel.Title = $"{ViewResources.CancelledBets} - {currencyTitle}";
+                return ProcessExportExcel(metaModel, "CancelledBetList");
             }
 
             return EmptyExcel();

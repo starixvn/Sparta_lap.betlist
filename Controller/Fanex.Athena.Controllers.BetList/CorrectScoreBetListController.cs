@@ -63,7 +63,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var currencies = SessionService.UserSession.CurrencyList;
@@ -71,20 +71,18 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 const string UspKey = "Lrf_TotalBets_Sel430";
 
-                var excelModel = CreateDefaultMetaModel(metaModel);
-                excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
-                excelModel.IsShowSumStake = true;
+                CreateDefaultMetaModel(metaModel);
+                metaModel.IsShowSumStake = true;
+                metaModel.UspKey = UspKey;
 
-                var ticketResult = BetListService.GetBetListData(excelModel, UserCurrencyList, UspKey);
-
-                var showingOption = new ShowingOption
+                metaModel.ShowingOption = new ShowingOption
                 {
                     CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                 };
 
-                var title = ViewResources.CorrectScore + " - " + GetViewInCurrency(excelModel);
-
-                return ProcessExportExcel(showingOption, excelModel, ticketResult, HiddenColumnIndexes, title, "CorrectScoreBetList");
+                metaModel.Title = ViewResources.CorrectScore + " - " + GetViewInCurrency(metaModel);
+                metaModel.HiddenColumns = HiddenColumnIndexes;
+                return ProcessExportExcel(metaModel, "CorrectScoreBetList");
             }
 
             return EmptyExcel();

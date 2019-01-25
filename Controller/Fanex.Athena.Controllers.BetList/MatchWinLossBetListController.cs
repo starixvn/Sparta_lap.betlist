@@ -41,28 +41,28 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult MatchBetType(BetListMetaModel metaModel)
+        public ActionResult MatchBetType(BetListExcelMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, "~/Views/Desktop/BetList/MatchWl/MatchBetType.cshtml");
         }
 
         [HttpGet]
-        public ActionResult MixParlay(BetListMetaModel metaModel)
+        public ActionResult MixParlay(BetListExcelMetaModel metaModel)
         {
             return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Parlay", "~/Views/Desktop/BetList/MatchWl/MixParlay.cshtml");
         }
 
         [HttpGet]
-        public ActionResult Outright(BetListMetaModel metaModel)
+        public ActionResult Outright(BetListExcelMetaModel metaModel)
         {
             return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Outright", "~/Views/Desktop/BetList/MatchWl/Outright.cshtml");
         }
 
-        private ActionResult ProcessRequest(BetListMetaModel metaModel, string uspKey, string viewPath)
+        private ActionResult ProcessRequest(BetListExcelMetaModel metaModel, string uspKey, string viewPath)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            model.IsServerPaging = true;
-            return ProcessDefaultRequest(model, viewPath, uspKey);
+            CreateDefaultMetaModel(metaModel);
+            metaModel.IsServerPaging = true;
+            return ProcessDefaultRequest(metaModel, viewPath, uspKey);
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)
@@ -71,15 +71,16 @@ namespace Fanex.Athena.Controllers.BetList
             return model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId);
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
 
-            var uspName = string.IsNullOrEmpty(uspKey) ? "Lrf_BetList_MatchWL_Bettype" : uspKey;
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspName);
-
-            var showingOption = new ShowingOption
+            if (string.IsNullOrEmpty(metaModel.UspKey))
+            {
+                metaModel.UspKey = "Lrf_BetList_MatchWL_Bettype";
+            }
+            metaModel.ShowingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
@@ -89,14 +90,15 @@ namespace Fanex.Athena.Controllers.BetList
                   : string.Empty;
             var currencyTitle = GetViewInCurrency(metaModel);
 
-            var title = ViewResources.BetList
+            metaModel.Title = ViewResources.BetList
                 + string.Format(
                 " - {0}{1} - {2}",
                 matchName + (metaModel.BetType > 0 ? CacheRefAdapter.GetBettype(metaModel.BetType) + " - " : string.Empty),
                 metaModel.FromDate.ToShortDateString(),
                 currencyTitle);
+            metaModel.HiddenColumns = HiddenColumns;
 
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "MatchWinLossBetList");
+            return ProcessExportExcel(metaModel, "MatchWinLossBetList");
         }
     }
 }

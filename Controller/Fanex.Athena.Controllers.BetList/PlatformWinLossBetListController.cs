@@ -41,20 +41,20 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/PlatformWinLoss/Main.cshtml", "Lrf_BetList_PlatformWinLoss_Mem");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/PlatformWinLoss/Main.cshtml", "Lrf_BetList_PlatformWinLoss_Mem");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
+        
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
             var platformText = PlatformType.GetPlatformName(metaModel.PlatformType);
 
-            var title = ViewResources.Customer + " " + ViewResources.BetList
+            metaModel.Title = ViewResources.Customer + " " + ViewResources.BetList
                 + string.Format(
                 " - {0} --> {1} - {2}{3} - {4} - {5}",
                 metaModel.FromDate.ToString(FormatKey.ShortDateFormat),
@@ -64,11 +64,12 @@ namespace Fanex.Athena.Controllers.BetList
                 ViewResources.Platform + ": " + platformText,
                 viewinCurrency);
 
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "PlatformWinLossBetList");
+            metaModel.HiddenColumns = HiddenColumns;
+            return ProcessExportExcel(metaModel, "PlatformWinLossBetList");
         }
     }
 }

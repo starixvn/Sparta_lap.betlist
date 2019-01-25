@@ -73,7 +73,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            metaModel.IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm;
+            metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
             var betlistAPIUrl = new Uri(url ?? $"http://localhost:55050/BetList/GetBetList");
@@ -98,7 +98,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            metaModel.IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm;
+            metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
             var betlistAPIUrl = new Uri(url ?? $"http://localhost:55050/BetList/GetBetListPaging");

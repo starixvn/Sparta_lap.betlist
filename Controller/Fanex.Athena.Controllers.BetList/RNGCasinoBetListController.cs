@@ -34,9 +34,10 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListExcelMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/RngCasinoDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/RngCasinoDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
         }
 
         protected override void AssignViewBag(BetListMetaModel model)
@@ -44,15 +45,15 @@ namespace Fanex.Athena.Controllers.BetList
             ViewBag.BetListTitle = GetRNGCasinoBetListTitle(model.TransType);
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var title = GetRNGCasinoBetListTitle(metaModel.TransType);
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-            var showingOption = new ShowingOption
+            metaModel.Title = GetRNGCasinoBetListTitle(metaModel.TransType);
+            metaModel.ShowingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "RngCasinoDetail");
+            metaModel.HiddenColumns = HiddenColumns;
+            return ProcessExportExcel(metaModel, "RngCasinoDetail");
         }
 
         private static string GetRNGCasinoBetListTitle(long transType)

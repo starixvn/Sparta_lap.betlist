@@ -6,6 +6,6 @@ namespace Fanex.Athena.Service.Core.Utility.Interfaces
 {
     public interface IBridgeClientService
     {
-        Task<HttpResponseMessage> PostAsync<TParam>(Uri url, TParam value);
+        Task<HttpResponseMessage> PostAsync(Uri url, object value);
     }
 }

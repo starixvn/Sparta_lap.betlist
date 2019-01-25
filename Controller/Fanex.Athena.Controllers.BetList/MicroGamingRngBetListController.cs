@@ -38,10 +38,10 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListExcelMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/MicroGamingRngDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/MicroGamingRngDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
         }
 
         protected override void AssignViewBag(BetListMetaModel model)
@@ -49,18 +49,17 @@ namespace Fanex.Athena.Controllers.BetList
             ViewBag.BetListTitle = GetTitle(model.TransType);
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new ShowingOption
             {
                 GrandTotalVisible = false,
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            var title = GetTitle(metaModel.TransType);
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "MicrogamingRNGDetail");
+            metaModel.Title = GetTitle(metaModel.TransType);
+            metaModel.HiddenColumns = HiddenColumns;
+            return ProcessExportExcel(metaModel, "MicrogamingRNGDetail");
         }
 
         private static string GetTitle(long transType)

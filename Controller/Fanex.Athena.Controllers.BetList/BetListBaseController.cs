@@ -4,26 +4,21 @@
 
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Configuration.Interfaces;
-    using Excel.Base.Entities;
     using Excel.Base.Helpers;
-    using Excel.BetList;
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Model.BetList.DTO;
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using VendorAdapter.Interfaces;
-    using Web.ResultExtension;
 
     #endregion Using
 
@@ -39,8 +34,7 @@
         protected const int BetEffectiveColumn = 8;
         protected const int LicenseeWLColumn = 9;
 
-        protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
-            new ReadOnlyCollection<int>(new[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
+        protected static readonly int[] HiddenColumnIndexes = new[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -173,15 +167,19 @@
             var defaultMetaModel = metaModel ?? new BetListMetaModel();
             defaultMetaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             defaultMetaModel.UserId = SessionService.UserSession.UserId;
+            defaultMetaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
 
             var balanceUp = GetBalanceUp();
-            defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
-            defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
-            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Utc);
-            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Utc);
-            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Utc);
+            defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Unspecified);
 
             defaultMetaModel.IsFakeLicensee = IsFakeLicensee();
+            defaultMetaModel.CurrencyList = UserCurrencyList;
+            defaultMetaModel.AgentListXml = SessionService.GenerateAgentListXml(defaultMetaModel.CurrencyId);
+
             return defaultMetaModel;
         }
 
@@ -217,7 +215,7 @@
             return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        protected virtual ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected virtual ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
             return null;
         }
@@ -232,22 +230,16 @@
         }
 
         protected internal virtual ActionResult ProcessExportExcel(
-            ShowingOption showingOption,
-            BetListMetaModel metaModel,
-            TicketResult ticketResult,
-            IEnumerable<int> hiddenColumns,
-            string title,
+            BetListExcelMetaModel metaModel,
             string fileName,
-            int startIndex = 1)
+            string url = null)
         {
-            var excel = new BetListExcel(showingOption, SessionService.LicenseeSession.LicenseeId, hiddenColumns, metaModel.IsShowSumStake);
-
-            var workbook = excel.Export(ticketResult, title, startIndex);
-
-            return new ExcelResult(workbook, fileName);
+            var betlistAPIUrl = new Uri($"http://localhost:55050" + (url ?? "/BetList/ExportExcel"));
+            var stream = new BridgeClientService().PostAsyncStream(betlistAPIUrl, metaModel).Result;
+            return File(stream, "application/vnd.ms-excel", fileName + ".xls");
         }
 
-        protected ActionResult ProcessDefaultRequest(BetListMetaModel model, string viewPath, string uspKey)
+        protected ActionResult ProcessDefaultRequest(BetListExcelMetaModel model, string viewPath, string uspKey)
         {
             if (!model.IsExportExcel)
             {
@@ -257,8 +249,8 @@
 
             if (IsValidExportExcel(model))
             {
-                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                return ExportExcel(model, uspKey);
+                model.UspKey = uspKey;
+                return ExportExcel(model);
             }
 
             return EmptyExcel();

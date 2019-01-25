@@ -116,7 +116,7 @@ namespace Fanex.Athena.Api.BetList
             var licenseeSession = SessionService.LicenseeSession;
             var currencyList = SessionService.UserSession.CurrencyList;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            metaModel.IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm;
+            metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
             var betlistAPIUrl = new Uri($"http://localhost:55050/LiveReportBetList/GetData");
@@ -131,7 +131,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.IsShowPlayerCom = licenseeSession.IsAllowedCustomerComm;
+            metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
             var betlistAPIUrl = new Uri($"http://localhost:55050/LiveReportBetList/GetPagingData");

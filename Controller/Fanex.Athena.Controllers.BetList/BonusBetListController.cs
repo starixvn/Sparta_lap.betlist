@@ -26,20 +26,18 @@
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListExcelMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/BonusDetail/Main.cshtml", "Lrf_BetList_LicenseeBonus_Detail");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/BonusDetail/Main.cshtml", "Lrf_BetList_LicenseeBonus_Detail");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            return ProcessExportExcel(
-                new ShowingOption { GrandTotalVisible = false, CustomerCommVisible = true },
-                metaModel,
-                BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey),
-                new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn },
-                ViewResources.TransactionDetail,
-                "BonusTransactionDetail");
+            metaModel.ShowingOption = new ShowingOption { GrandTotalVisible = false, CustomerCommVisible = metaModel.HasPlayerCom };
+            metaModel.HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
+            metaModel.Title = ViewResources.TransactionDetail;
+            return ProcessExportExcel(metaModel, "BonusTransactionDetail");
         }
     }
 }

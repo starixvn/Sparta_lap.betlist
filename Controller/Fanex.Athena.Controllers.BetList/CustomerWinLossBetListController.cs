@@ -36,23 +36,21 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/CustomerWl/Main.cshtml", "Lrf_BetList_SelWinLossByDate_Mem");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/CustomerWl/Main.cshtml", "Lrf_BetList_SelWinLossByDate_Mem");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
-            var title = GetCustomerBetListTitle(metaModel, GetViewInCurrency(metaModel));
-
-            var showingOption = new ShowingOption
+            metaModel.Title = GetCustomerBetListTitle(metaModel, GetViewInCurrency(metaModel));
+            metaModel.ShowingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "CustomerWinLossBetList");
+            metaModel.HiddenColumns = HiddenColumns;
+            return ProcessExportExcel(metaModel, "CustomerWinLossBetList");
         }
     }
 }

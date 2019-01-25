@@ -43,12 +43,12 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            model.FromDate = DateTime.Today.AddYears(-10);
-            model.ToDate = DateTime.Today.AddYears(10);
-            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem");
+            CreateDefaultMetaModel(metaModel);
+            metaModel.FromDate = DateTime.Today.AddYears(-10);
+            metaModel.ToDate = DateTime.Today.AddYears(10);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem");
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)
@@ -57,23 +57,21 @@ namespace Fanex.Athena.Controllers.BetList
             return model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId);
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
-            var title = "Running " + ViewResources.BetList
+            metaModel.Title = "Running " + ViewResources.BetList
                 + string.Format(
                 " - {0}{1} - {2}",
                 metaModel.ExternalId,
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 GetViewInCurrency(metaModel));
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColList, title, "CustomerPendingFundsBetList");
+            metaModel.HiddenColumns = HiddenColList;
+            return ProcessExportExcel(metaModel, "CustomerPendingFundsBetList");
         }
     }
 }
