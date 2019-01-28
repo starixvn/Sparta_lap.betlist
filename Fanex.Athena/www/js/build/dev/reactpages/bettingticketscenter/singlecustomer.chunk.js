@@ -5559,7 +5559,14 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 this.props.toggleLoader(true);
                 var url = _site2.default.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId);
                 _axios2.default.get(url).then(function (result) {
-                    var choice = _BetList2.default.buildChoiceParlayDetail(result.data);
+                    var choice = "";
+                    var length = result.data.length;
+                    for (var i = 0; i < length; i++) {
+                        choice += result.data[i];
+                        if (i < length - 1) {
+                            choice += "<div class='line'></div>";
+                        }
+                    }
 
                     divEvent.innerHTML = choice;
                     divEvent.style.display = 'block';
@@ -5585,12 +5592,8 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 var url = _BetList2.default.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam, custId);
                 this.props.toggleLoader(true);
                 _axios2.default.get(url).then(function (result) {
-                    var choice = "";
-                    for (var i = 0; i < result.data.Texts.length; i++) {
-                        choice += result.data.Texts[i];
-                    }
+                    var choice = _BetList2.default.buildChoiceParlayDetail(result.data);
 
-                    choice += _BetList2.default.buildChoiceParlayDetailTable(result.data.Data);
                     divEvent.innerHTML = choice;
                     divEvent.style.display = 'block';
                     nameDiv.style.display = 'none';
@@ -5825,24 +5828,26 @@ var BetList = function () {
             return url;
         }
     }, {
-        key: 'buildChoiceParlayDetailTable',
-        value: function buildChoiceParlayDetailTable(dataList) {
-            if (!dataList || !dataList.length) {
-                return "";
+        key: 'buildChoiceParlayDetail',
+        value: function buildChoiceParlayDetail(response) {
+            var choice = "";
+            var length = response.Data === null ? 0 : response.Data.length;
+            if (length > 0) {
+                for (var i = 0; i < response.Texts.length; i++) {
+                    choice += response.Texts[i];
+                }
+
+                choice += "<div class='line'></div>";
+
+                for (var _i = 0; _i < response.Data.length; _i++) {
+                    var item = response.Data[_i];
+                    choice += item;
+                    if (_i < length - 1) {
+                        choice += "<div class='line'></div>";
+                    }
+                }
             }
 
-            var choice = "<table class='parlay-detail-choice-table'>";
-
-            for (var i = 0; i < dataList.length; i++) {
-                var item = dataList[i];
-                choice += "<tr>";
-                choice += "<td class='text-center'>" + item.EventDate + "</td>";
-                choice += "<td class='text-right'>" + item.Choice + "</td>";
-                choice += "<td class='text-center'>" + item.Status + "</td>";
-                choice += "</tr>";
-            }
-
-            choice += "</table>";
             return choice;
         }
     }, {

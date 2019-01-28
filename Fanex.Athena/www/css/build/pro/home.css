@@ -3930,9 +3930,6 @@ main {
 .text-center {
   text-align: center !important; }
 
-.text-right {
-  text-align: right !important; }
-
 .dropdown-content > li > a, .dropdown-content > li > span {
   color: rgba(0, 0, 0, 0.6);
   font-size: 13px;
