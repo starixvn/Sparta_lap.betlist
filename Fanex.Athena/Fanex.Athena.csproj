@@ -773,7 +773,6 @@
     <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
-    <Content Include="www\css\source\pages\betlist\core\betlist.parlaydetail.scss" />
     <None Include="www\css\source\reactpages\components\custom3rd\react-toastify.scss" />
     <None Include="www\css\source\pages\betlist\result\result.happy5.scss" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\bonus.png" />

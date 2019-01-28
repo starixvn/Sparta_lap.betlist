@@ -85,7 +85,14 @@ export class PageLayout extends Component {
             var url = Site.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId);
             axios.get(url)
                .then((result) => {               
-                   const choice = BetList.buildChoiceParlayDetail(result.data);
+                   let choice = "";
+                   const length = result.data.length;
+                   for(let i = 0; i < length; i++) {
+                       choice += result.data[i];
+                       if (i < length - 1) {
+                           choice += "<div class='line'></div>";
+                       }
+                   }
                    
                    divEvent.innerHTML = choice;
                    divEvent.style.display = 'block';
@@ -110,12 +117,8 @@ export class PageLayout extends Component {
             this.props.toggleLoader(true);
             axios.get(url)
                .then((result) => {       
-                   let choice = "";
-                   for(let i = 0; i < result.data.Texts.length; i++){
-                       choice += result.data.Texts[i];
-                   }
-
-                   choice += BetList.buildChoiceParlayDetailTable(result.data.Data);
+                   let choice = BetList.buildChoiceParlayDetail(result.data);
+                   
                    divEvent.innerHTML = choice;
                    divEvent.style.display = 'block';
                    nameDiv.style.display = 'none';

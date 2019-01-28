@@ -94,9 +94,9 @@ namespace Fanex.Athena.Api.BetList
             return result;
         }
 
-        protected internal virtual IList<ParlayDetailTicketText> BuildParlayDetailTickets(TicketResult ticketResult, bool showOdds = false)
+        protected internal virtual IList<string> BuildParlayDetailTickets(TicketResult ticketResult, bool showOdds = false)
         {
-            var ticketTextList = new List<ParlayDetailTicketText>();
+            var ticketTextList = new List<string>();
 
             TicketHelper.IsShowOddsWithChoice = showOdds;
 
@@ -105,14 +105,10 @@ namespace Fanex.Athena.Api.BetList
                 var statusTemplate = BetListHTMLBuilder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, TicketHelper, ticketResult.TicketDataList, isShowVNIP: false);                statusTemplate.ShowIP = null;
                 statusTemplate.StatusResult = null;
 
-                var ticketText = new ParlayDetailTicketText
-                {
-                    EventDate = ticket.EventDate.ToString("MM/dd/yyyy <br> hh:mm:ss tt"),
-                    Status = statusTemplate.ToString(),
-                    Choice = BetListHTMLBuilder.BuildChoice(ticket, TicketHelper, ticketResult.TicketDataList, false),
-                };
-
-                ticketTextList.Add(ticketText);
+                var choice = BetListHTMLBuilder.BuildChoice(ticket, TicketHelper, ticketResult.TicketDataList, false);
+                var transDateAndStatus = BetListHTMLBuilder.BuildTransEventDateAndStatusResult(ticket, ticketResult.TicketDataList);
+                
+                ticketTextList.Add(choice + transDateAndStatus);
             }
 
             return ticketTextList;
