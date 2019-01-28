@@ -1,0 +1,134 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="BetListMetaModel.cs" company="">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Model.BetList.MetaModel
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using Model.Core.MetaModel;
+
+    public class BetListMetaModel : BaseMetaModel
+    {
+        public BetListMetaModel()
+        {
+            FromDate = DateTime.Today;
+            Date = DateTime.Today;
+            ToDate = DateTime.Today;
+            PageIndex = 1;
+            PageSize = int.MaxValue - 1;
+        }
+
+        public bool HasPlayerCom { get; set; }
+
+        public IDictionary<int, string> CurrencyList { get; set; }
+
+        public string UspKey { get; set; }
+
+        public string ProductCodeList { get; set; } = string.Empty;
+
+        public string ExcelFileName { get; set; }
+
+        public bool IsShowSumStake { get; set; }
+
+        public bool IsServerPaging { get; set; }
+
+        public string SortBy { get; set; }
+
+        public string SortOrder { get; set; }
+
+        public bool IsExportExcel { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int PageIndex { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+        public string FromDateString
+        {
+            get
+            {
+                return FromDate.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        public DateTime ToDate { get; set; }
+
+        public string ToDateString
+        {
+            get
+            {
+                return ToDate.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        public DateTime Date { get; set; }
+
+        public string DateString
+        {
+            get
+            {
+                return Date.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        public int CustId { get; set; }
+
+        public string SystemId { get; set; }
+
+        public string ExternalId { get; set; }
+
+        public string BetListName { get; set; }
+
+        public DateTime MoveBetsDay { get; set; }
+
+        public DateTime BalanceUpDay { get; set; }
+
+        public int MatchId { get; set; }
+
+        public int HomeId { get; set; }
+
+        public int AwayId { get; set; }
+
+        public int LeagueId { get; set; }
+
+        public int BetType { get; set; }
+
+        public string MultipleBettype { get; set; }
+
+        public string BetTeam { get; set; }
+
+        public int? LiveIndicator { get; set; }
+
+        public string RaceNo { get; set; }
+
+        public int DrawFilter { get; set; }
+
+        public long TransId { get; set; }
+
+        public long TransType { get; set; }
+
+        public int PlatformType { get; set; }
+
+        public string BetChoice { get; set; }
+
+        public string Handicap { get; set; }
+
+        public long RefCode { get; set; }
+
+        public virtual bool IsValid
+        {
+            get
+            {
+                return FromDate <= ToDate
+                    && !string.IsNullOrWhiteSpace(ProductCodeList);
+            }
+        }
+
+        public bool IsFakeLicensee { get; set; }
+    }
+}
