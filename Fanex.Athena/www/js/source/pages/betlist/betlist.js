@@ -475,7 +475,7 @@
                             $.each(response, function (index, item) {
                                 choice += item;
                                 if (index < len - 1) {
-                                    choice += item + "<div class='line'></div>";
+                                    choice += "<div class='line'></div>";
                                 }
                             });
 
@@ -528,11 +528,9 @@
                                 choice += "<div class='line'></div>";
 
                                 $.each(response.Data, function (index, item) {
-                                    if (index === length - 1) {
-                                        choice += item;
-                                    }
-                                    else {
-                                        choice += item + "<div class='line'></div>";
+                                    choice += item;
+                                    if (index < length - 1) {
+                                        choice += "<div class='line'></div>";
                                     }
                                 });
 
