@@ -18,8 +18,6 @@ namespace Fanex.Athena.Service.BetList.Interfaces
 
         int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
 
-        bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList);
-
         string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm);
 
         IList<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel, bool isAllowedCustomerComm);

@@ -41,8 +41,8 @@ namespace Fanex.Athena.Service.BetList
         }
 
         public GroupTicketResult GetBetListForMultipleCustomers(
-            MultipleCustomersBetListMetaModel metaModel, 
-            int rowPerGroup, 
+            MultipleCustomersBetListMetaModel metaModel,
+            int rowPerGroup,
             IDictionary<int, string> currencyList)
         {
             return _dataAccess.GetBetListForMultipleCustomers(metaModel, rowPerGroup, currencyList);
@@ -71,11 +71,6 @@ namespace Fanex.Athena.Service.BetList
         public TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             return _dataAccess.GetRunningBetList(metaModel, currencyList);
-        }
-
-        public bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)
-        {
-            return currencyId == BaseCurrencyType.All || currencyList.ContainsKey(currencyId);
         }
 
         public string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm)

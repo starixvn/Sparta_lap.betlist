@@ -73,11 +73,6 @@ namespace Fanex.Athena.Service.BetList
             return _dataAccess.GetRunningBetList(metaModel, currencyList);
         }
 
-        public bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)
-        {
-            return currencyId == BaseCurrencyType.All || currencyList.ContainsKey(currencyId);
-        }
-
         public string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm)
         {
             var ticket = new LrfTicket { Winlost = ticketResult.SumWinLoss, PlayerComm = ticketResult.SumPlayerComm };

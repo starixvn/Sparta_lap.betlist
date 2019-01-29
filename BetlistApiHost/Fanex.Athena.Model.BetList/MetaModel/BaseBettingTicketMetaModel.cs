@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Model.BetList.MetaModel
 {
     using System;
+    using System.Collections.Generic;
+    using System.Web.Script.Serialization;
 
     public class BaseBettingTicketMetaModel
     {
@@ -65,5 +67,10 @@
         public string SortOrder { get; set; }
 
         public virtual bool IsValid => FromDate <= ToDate && !string.IsNullOrWhiteSpace(ProductCodeList);
+
+        public bool HasPlayerCom { get; set; }
+
+        [ScriptIgnore]
+        public IDictionary<int, string> UserCurrencyList { get; set; }
     }
 }

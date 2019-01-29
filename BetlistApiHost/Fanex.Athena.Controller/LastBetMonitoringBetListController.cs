@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
+using System.Web.Mvc;
 using Fanex.Athena.Constant.DataDomain;
 using Fanex.Athena.Model.BetList.DTO;
 using Fanex.Athena.Model.BetList.MetaModel;
@@ -35,7 +35,7 @@ namespace Fanex.Athena.Controller
         }
 
         [HttpPost]
-        public dynamic GetData(LastBetsMonitoringMetaModel metaModel)
+        public JsonResult GetData(LastBetsMonitoringMetaModel metaModel)
         {
             var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList);
 
@@ -54,14 +54,14 @@ namespace Fanex.Athena.Controller
                 ticketResult.MainTicketList.TrimExcess();
                 ticketResult.MainTicketList = null;
                 ticketResult.TicketDataList = null;
-                return result;
+                return Json(result);
             }
             else
             {
-                return new
+                return Json(new
                 {
                     NewRow = false
-                };
+                });
             }
         }
 

@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Web.Http;
-using Fanex.Athena.Model.BetList.DTO;
+﻿using System.Web.Mvc;
 using Fanex.Athena.Model.BetList.MetaModel;
-using Fanex.Athena.Model.BetList.ViewModel;
 using Fanex.Athena.Service.BetList.Interfaces;
 
 namespace Fanex.Athena.Controller
@@ -17,15 +14,15 @@ namespace Fanex.Athena.Controller
         }
 
         [HttpPost]
-        public ExchangeBetListViewModel GetData(ExchangeBetListMetaModel metaModel)
+        public JsonResult GetData(ExchangeBetListMetaModel metaModel)
         {
-            return _service.GetBetListData(metaModel);
+            return Json(_service.GetBetListData(metaModel));
         }
 
         [HttpPost]
-        public IEnumerable<ExchangeTicketDetail> Detail(ExchangeBetListDetailMetaModel metaModel)
+        public JsonResult Detail(ExchangeBetListDetailMetaModel metaModel)
         {
-            return _service.GetTicketDetailList(metaModel);
+            return Json(_service.GetTicketDetailList(metaModel));
         }
     }
 }

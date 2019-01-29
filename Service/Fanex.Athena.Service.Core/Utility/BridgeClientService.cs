@@ -17,7 +17,7 @@ namespace Fanex.Athena.Service.Core.Utility
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(url, stringContent).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+              //  response.EnsureSuccessStatusCode();
 
                 return response;
             }
@@ -29,7 +29,7 @@ namespace Fanex.Athena.Service.Core.Utility
             {
                 //var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsJsonAsync(url, value).ConfigureAwait(false);
-                response.EnsureSuccessStatusCode();
+           //     response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             }
