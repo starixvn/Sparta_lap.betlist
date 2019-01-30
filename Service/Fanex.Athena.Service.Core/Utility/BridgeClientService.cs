@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Fanex.Athena.Service.Core.Utility.Interfaces;
@@ -29,9 +32,9 @@ namespace Fanex.Athena.Service.Core.Utility
             {
                 var response = await client.PostAsJsonAsync(url, value).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
-
-                return await response.Content.ReadAsAsync<T>().ConfigureAwait(false);
+                // response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                return JsonConvert.DeserializeObject<T>(json);
             }
         }
 

@@ -12,6 +12,6 @@ namespace Fanex.Athena.DataAccess.BetList.Interfaces
 
     public interface ICancelledBetListDataAccess
     {
-        IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel);
+        IEnumerable<CustomerCancelBetItem> GetCancelBetCustList(string agentListXml);
     }
 }

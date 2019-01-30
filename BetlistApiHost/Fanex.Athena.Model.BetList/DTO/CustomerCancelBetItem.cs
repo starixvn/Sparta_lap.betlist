@@ -6,9 +6,6 @@
 
 namespace Fanex.Athena.Model.BetList.DTO
 {
-    /// <summary>
-    /// CustomerCancelBetItem class.
-    /// </summary>
     public class CustomerCancelBetItem
     {
         public int CustId { get; set; }

@@ -122,6 +122,7 @@
     <Compile Include="BaseDataAccess.cs" />
     <Compile Include="BettingTicketCenterDataAccess.cs" />
     <Compile Include="BetListDataAccess.cs" />
+    <Compile Include="CancelledBetListDataAccess.cs" />
     <Compile Include="CashOutBetListDataAccess.cs" />
     <Compile Include="DailyStatementBetListDataAccess.cs" />
     <Compile Include="ExchangeBetListDataAccess.cs" />
