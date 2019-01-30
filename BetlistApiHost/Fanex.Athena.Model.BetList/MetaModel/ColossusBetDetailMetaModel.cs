@@ -8,6 +8,8 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 {
     public class ColossusBetDetailMetaModel
     {
+        public int UserId { get; set; }
+
         public int CustId { get; set; }
 
         public long RefNo { get; set; }
