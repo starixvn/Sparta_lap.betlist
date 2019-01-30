@@ -16,7 +16,7 @@ namespace Fanex.Athena.Controller
         public MixParlayBetListController(ICacheRefAdapter cacheRefAdapter, IBetListService betListService)
         {
             _cacheRefAdapter = cacheRefAdapter;
-            _betListService = betListService; ;
+            _betListService = betListService;
         }
 
         [HttpPost]

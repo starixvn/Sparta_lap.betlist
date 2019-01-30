@@ -27,11 +27,23 @@ namespace Fanex.Athena.Service.Core.Utility
         {
             using (var client = new HttpClient())
             {
-                //var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsJsonAsync(url, value).ConfigureAwait(false);
            //     response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+        }
+
+        public async Task<string> PostAsyncString(Uri url, object value)
+        {
+            using (var client = new HttpClient())
+            {
+                var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(url, stringContent).ConfigureAwait(false);
+
+                //  response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
         }
     }

@@ -52,26 +52,26 @@ namespace Fanex.Athena.Api.BetList
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
-        public dynamic MixParlay(BetListMetaModel metaModel)
+        public async Task<dynamic> MixParlay(BetListMetaModel metaModel)
         {
             metaModel.MultipleBettype = ((int)BetType.CombinationMixParlay).ToString();
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetDoubleChance)]
-        public dynamic DoubleChange(BetListMetaModel metaModel)
+        public async Task<dynamic> DoubleChange(BetListMetaModel metaModel)
         {
             metaModel.MultipleBettype = DoubleChangeBettypes;
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetBONTeamToScore)]
-        public dynamic BONTeamToScore(BetListMetaModel metaModel)
+        public async Task<dynamic> BONTeamToScore(BetListMetaModel metaModel)
         {
             metaModel.MultipleBettype = BONTeamToScoreBettypes;
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         private async Task<dynamic> ProcessRequest(BetListMetaModel metaModel)
