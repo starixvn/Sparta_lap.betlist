@@ -8,14 +8,12 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
@@ -29,10 +27,9 @@ namespace Fanex.Athena.Controllers.BetList
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 

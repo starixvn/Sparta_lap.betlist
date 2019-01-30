@@ -4,7 +4,7 @@
     using System.Text;
     using System.Web;
     using System.Web.Script.Serialization;
-    using Core.Utility.Interfaces;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Report.DTO.Keno;
     using Fanex.Athena.Service.Core.Exception;
     using Interfaces;

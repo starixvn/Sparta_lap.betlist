@@ -251,17 +251,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.BetList\Fanex.Athena.DataAccess.BetList.csproj">
-      <Project>{B269F027-9AE1-4969-89D6-56C401B96051}</Project>
-      <Name>Fanex.Athena.DataAccess.BetList</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.BetList\Fanex.Athena.Excel.BetList.csproj">
-      <Project>{673f1094-bbf7-4e48-95e2-b4050fceb8ef}</Project>
-      <Name>Fanex.Athena.Excel.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.StatelessCore\Fanex.Athena.Service.StatelessCore.csproj">
       <Project>{DA9A50E3-C62D-4F12-96C2-3AC289D423FE}</Project>
@@ -298,10 +290,6 @@
     <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
       <Name>Fanex.Athena.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.BetList\Fanex.Athena.Service.BetList.csproj">
-      <Project>{20dee0ca-7487-4fa5-9af3-3d1e02f1faaf}</Project>
-      <Name>Fanex.Athena.Service.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>

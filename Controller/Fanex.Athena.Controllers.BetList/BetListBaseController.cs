@@ -1,7 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
-    #region Using
-
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
@@ -11,7 +9,6 @@
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
@@ -19,8 +16,6 @@
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using VendorAdapter.Interfaces;
-
-    #endregion Using
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -42,8 +37,6 @@
 
         private readonly IProductService _productService;
 
-        private readonly IBetListService _betListService;
-
 #pragma warning disable S107 // Methods should not have too many parameters
 
         public BetListBaseController(
@@ -51,14 +44,12 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
-            _betListService = betListService;
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
         }
@@ -73,11 +64,6 @@
         protected ICacheRefAdapter CacheRefAdapter
         {
             get { return _cacheRefAdapter; }
-        }
-
-        protected IBetListService BetListService
-        {
-            get { return _betListService; }
         }
 
         protected static string GetTitleByTransType(string productTitle, long transType)

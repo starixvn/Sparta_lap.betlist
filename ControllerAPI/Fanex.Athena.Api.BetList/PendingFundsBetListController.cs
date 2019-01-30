@@ -14,14 +14,10 @@ namespace Fanex.Athena.Api.BetList
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
     using Model.Core.DataDomain;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
-    using VendorAdapter.Interfaces;
 
     #endregion Using
 

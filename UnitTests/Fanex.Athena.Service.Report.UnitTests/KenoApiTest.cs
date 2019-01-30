@@ -2,7 +2,7 @@
 {
     using System;
     using Core.Exception;
-    using Core.Utility.Interfaces;
+    using Extension.Utility.Interfaces;
     using Model.Core.DataDomain;
     using Model.Report.DTO.Keno;
     using Model.Report.MetaModel.Keno;

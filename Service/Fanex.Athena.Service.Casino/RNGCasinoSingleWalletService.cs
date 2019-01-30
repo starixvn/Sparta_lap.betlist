@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Casino
     using System.Net;
     using System.Web;
     using Core.Utility.Interfaces;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Casino.Interfaces;
@@ -37,7 +38,7 @@ namespace Fanex.Athena.Service.Casino
         private readonly IAppSettings _appSettings;
 
         private readonly IWebClientService _webClientService;
-        
+
         public RngCasinoSingleWalletService(ICoreLogger logger, IAppSettings appSettings, IWebClientService webClientService)
         {
             _logger = logger;

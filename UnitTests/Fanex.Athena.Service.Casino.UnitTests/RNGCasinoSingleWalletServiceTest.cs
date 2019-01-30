@@ -6,6 +6,7 @@
     using Core.Utility.Interfaces;
     using Extension.Helper;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
     using Resources;

@@ -11,7 +11,6 @@
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
@@ -21,7 +20,7 @@
     public class ExchangeWinLossBetListController : BaseApiController
     {
         private readonly IBridgeClientService _bridgeClientService;
-        
+
         private readonly IAuthorizationService _authorizationService;
 
         public ExchangeWinLossBetListController(

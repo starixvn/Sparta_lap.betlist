@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -8,7 +7,6 @@
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
@@ -25,10 +23,9 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 
@@ -51,7 +48,7 @@
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
-            
+
             // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);

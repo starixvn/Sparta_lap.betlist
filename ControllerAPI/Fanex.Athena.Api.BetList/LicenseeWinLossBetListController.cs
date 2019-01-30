@@ -8,22 +8,18 @@
     using Extension.Helper;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
-    using VendorAdapter.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
     [ApiBetListAuthorization]
     public class LicenseeWinLossBetListController : ApiBetListBaseController
     {
         private readonly IReportSettingService _reportSettingService;
-        
+
         public LicenseeWinLossBetListController(
             ISessionService sessionService,
             IProductService productService,

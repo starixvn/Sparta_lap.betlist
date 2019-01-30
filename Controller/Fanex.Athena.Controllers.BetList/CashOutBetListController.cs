@@ -1,19 +1,12 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
-    using Model.BetList.DTO;
     using Model.BetList.ViewModel;
-    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -48,7 +41,6 @@
 
             var betlistAPIUrl = new Uri($"http://localhost:55050/CashOutBetList/Detail");
             var viewModel = await _bridgeClientService.PostAsync<CashOutBetListDetailViewModel>(betlistAPIUrl, metaModel).ConfigureAwait(false);
-
 
             return this.View("~/Views/Desktop/BetList/CashOutDetail/Main.cshtml", viewModel);
         }

@@ -162,9 +162,7 @@
     <Compile Include="Utility\CoreLogger.cs" />
     <Compile Include="Utility\Interfaces\IBridgeClientService.cs" />
     <Compile Include="Utility\Interfaces\ICoreLogger.cs" />
-    <Compile Include="Utility\Interfaces\IWebClientService.cs" />
     <Compile Include="Utility\KeanOceanBusinessHelper.cs" />
-    <Compile Include="Utility\WebClientService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

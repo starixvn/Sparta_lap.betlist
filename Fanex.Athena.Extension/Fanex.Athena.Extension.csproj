@@ -151,6 +151,7 @@
     <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Utility\AntiForgeryService.cs" />
     <Compile Include="Utility\AppSettings.cs" />
+    <Compile Include="Utility\Interfaces\IWebClientService.cs" />
     <Compile Include="Utility\Internal\CustomMemoryCache.cs" />
     <Compile Include="Utility\IAntiForgeryService.cs" />
     <Compile Include="Utility\Internal\ICustomMemoryCache.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Utility\Interfaces\IFormsAuthenticationService.cs" />
     <Compile Include="Utility\Interfaces\IFileSystem.cs" />
     <Compile Include="Utility\TempFileService.cs" />
+    <Compile Include="Utility\WebClientService.cs" />
     <Compile Include="Utility\XDocumentWrapper.cs" />
     <Compile Include="Utility\Interfaces\IXDocumentWrapper.cs" />
     <Compile Include="Utility\PropertyComparer.cs" />

@@ -10,22 +10,17 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
+
     #region Using
 
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
-    using VendorAdapter.Interfaces;
 
     #endregion Using
 
@@ -73,7 +68,7 @@ namespace Fanex.Athena.Api.BetList
             if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
-                
+
                 return await GetPagingData(metaModel, UspKey, page, rows).ConfigureAwait(false);
             }
 
@@ -102,7 +97,6 @@ namespace Fanex.Athena.Api.BetList
             {
                 const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
 
-               
                 return await GetPagingData(metaModel, UspName, page, rows).ConfigureAwait(false);
             }
 

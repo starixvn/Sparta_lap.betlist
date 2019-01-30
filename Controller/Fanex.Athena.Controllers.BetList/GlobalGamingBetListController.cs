@@ -6,7 +6,6 @@
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
@@ -23,10 +22,9 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 

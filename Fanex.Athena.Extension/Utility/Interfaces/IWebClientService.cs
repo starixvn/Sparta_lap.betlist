@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Service.Core.Utility.Interfaces
+﻿namespace Fanex.Athena.Extension.Utility.Interfaces
 {
     using System;
     using System.Collections.Generic;

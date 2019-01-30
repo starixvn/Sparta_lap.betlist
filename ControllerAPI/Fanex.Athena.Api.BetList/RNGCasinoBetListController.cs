@@ -10,11 +10,9 @@ namespace Fanex.Athena.Api.BetList
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
-    using VendorAdapter.Interfaces;
 
     public class RNGCasinoBetListController : ApiBetListBaseController
     {

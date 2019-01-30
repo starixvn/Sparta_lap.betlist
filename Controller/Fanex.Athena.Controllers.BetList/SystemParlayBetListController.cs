@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -34,12 +33,11 @@ namespace Fanex.Athena.Controllers.BetList
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
             IBridgeClientService bridgeClientService)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
         {
             _bridgeClientService = bridgeClientService;
         }

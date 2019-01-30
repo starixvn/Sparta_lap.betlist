@@ -4,6 +4,7 @@
     using System.Linq;
     using Core.Utility.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Interfaces;
     using Model.Core.DTO.Common;
     using Model.Report.DTO;
