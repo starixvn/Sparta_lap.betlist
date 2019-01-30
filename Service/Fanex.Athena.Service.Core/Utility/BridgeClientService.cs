@@ -23,6 +23,18 @@ namespace Fanex.Athena.Service.Core.Utility
             }
         }
 
+        public async Task<T> PostAsync<T>(Uri url, object value)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsJsonAsync(url, value).ConfigureAwait(false);
+
+                response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadAsAsync<T>().ConfigureAwait(false);
+            }
+        }
+
         public async Task<Stream> PostAsyncStream(Uri url, object value)
         {
             using (var client = new HttpClient())

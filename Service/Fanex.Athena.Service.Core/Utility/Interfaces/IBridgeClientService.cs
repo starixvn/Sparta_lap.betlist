@@ -9,6 +9,8 @@ namespace Fanex.Athena.Service.Core.Utility.Interfaces
     {
         Task<HttpResponseMessage> PostAsync(Uri url, object value);
 
+        Task<T> PostAsync<T>(Uri url, object value);
+
         Task<Stream> PostAsyncStream(Uri url, object value);
 
         Task<string> PostAsyncString(Uri url, object value);

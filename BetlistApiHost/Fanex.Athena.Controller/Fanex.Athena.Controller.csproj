@@ -208,6 +208,7 @@
   <ItemGroup>
     <Compile Include="BettingTicketCenterController.cs" />
     <Compile Include="BettingTicketCenterMultiCustomerController.cs" />
+    <Compile Include="CashOutBetListController.cs" />
     <Compile Include="CustomActionResult\ExcelResult.cs" />
     <Compile Include="BetListController.cs" />
     <Compile Include="ExchangeWinLossBetListController.cs" />
@@ -235,6 +236,10 @@
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>
+      <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.DataAccess.BetList\Fanex.Athena.DataAccess.BetList.csproj">
       <Project>{B269F027-9AE1-4969-89D6-56C401B96051}</Project>
