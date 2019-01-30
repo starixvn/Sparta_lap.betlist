@@ -115,7 +115,7 @@
             // Sum value by page
             metaModel.UspKey = uspKey;
             metaModel.Title = title;
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };

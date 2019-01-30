@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.BetList
                 ViewResources.Platform + ": " + platformText,
                 viewinCurrency);
 
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };

@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.ExternalId,
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 viewinCurrency);
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };

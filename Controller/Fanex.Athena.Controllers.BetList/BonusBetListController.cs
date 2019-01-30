@@ -32,7 +32,7 @@
 
         protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            metaModel.ShowingOption = new ShowingOption { GrandTotalVisible = false, CustomerCommVisible = metaModel.HasPlayerCom };
+            metaModel.ShowingOption = new BetListShowingOption { GrandTotalVisible = false, CustomerCommVisible = metaModel.HasPlayerCom };
             metaModel.HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
             metaModel.Title = ViewResources.TransactionDetail;
             return ProcessExportExcel(metaModel, "BonusTransactionDetail");

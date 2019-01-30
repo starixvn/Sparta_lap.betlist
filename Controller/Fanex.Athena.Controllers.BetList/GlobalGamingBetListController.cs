@@ -42,7 +42,7 @@
 
         protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            metaModel.ShowingOption = new ShowingOption { CustomerCommVisible = metaModel.HasPlayerCom };
+            metaModel.ShowingOption = new BetListShowingOption { CustomerCommVisible = metaModel.HasPlayerCom };
             metaModel.Title = _title;
             metaModel.HiddenColumns = HiddenColumns;
             return ProcessExportExcel(metaModel, "GlobalGamingDetail");

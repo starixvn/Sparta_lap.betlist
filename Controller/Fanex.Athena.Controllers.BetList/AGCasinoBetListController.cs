@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 GrandTotalVisible = false,
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm

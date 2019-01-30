@@ -42,7 +42,7 @@
 
         protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };

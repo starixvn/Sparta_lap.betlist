@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Model.BetList.MetaModel
 {
-    public class ShowingOption
+    public class BetListShowingOption
     {
-        public ShowingOption()
+        public BetListShowingOption()
         {
             GrandTotalVisible = true;
             NGVisible = false;

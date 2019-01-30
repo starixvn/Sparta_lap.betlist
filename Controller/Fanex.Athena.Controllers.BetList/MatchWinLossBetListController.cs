@@ -78,7 +78,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 metaModel.UspKey = "Lrf_BetList_MatchWL_Bettype";
             }
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };

@@ -42,7 +42,7 @@ namespace Fanex.Athena.Excel.BetList
 
         private readonly bool _isShowSumStake;
 
-        private readonly ShowingOption _showingOption;
+        private readonly BetListShowingOption _showingOption;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Excel.BetList
 
         private IFont _winLossFont;
 
-        public BetListExcel(ShowingOption showingOption, int licenseeId, IEnumerable<int> hiddenColumnIndexes, bool isShowSumStake = false)
+        public BetListExcel(BetListShowingOption showingOption, int licenseeId, IEnumerable<int> hiddenColumnIndexes, bool isShowSumStake = false)
         {
             _cacheRefAdapter = new CacheRefAdapter();
             _appSettings = new AppSettings();
@@ -70,7 +70,7 @@ namespace Fanex.Athena.Excel.BetList
             ICacheRefAdapter cacheRefAdapter,
             IAppSettings appSettings,
             ITicketHelper ticketHelper,
-            ShowingOption showingOption,
+            BetListShowingOption showingOption,
             int licenseeId,
             IEnumerable<int> hiddenColumnIndexes,
             bool isShowSumStake = false)

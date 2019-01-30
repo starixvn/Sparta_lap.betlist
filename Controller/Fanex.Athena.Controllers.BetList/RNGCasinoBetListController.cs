@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.BetList
         protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.Title = GetRNGCasinoBetListTitle(metaModel.TransType);
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };

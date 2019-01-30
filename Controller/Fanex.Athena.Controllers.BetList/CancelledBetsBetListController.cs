@@ -116,7 +116,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.UspKey = UspKey;
 
                 var currencyTitle = GetViewInCurrency(metaModel);
-                metaModel.ShowingOption = new ShowingOption
+                metaModel.ShowingOption = new BetListShowingOption
                 {
                     CustomerCommVisible = metaModel.HasPlayerCom
                 };

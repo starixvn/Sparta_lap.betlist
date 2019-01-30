@@ -59,7 +59,7 @@
                 metaModel.FromDate.ToString(FormatKey.ShortDateFormat),
                 metaModel.ToDate.ToString(FormatKey.ShortDateFormat),
                 viewinCurrency);
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };

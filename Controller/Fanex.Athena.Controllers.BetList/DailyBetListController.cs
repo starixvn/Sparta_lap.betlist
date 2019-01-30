@@ -93,7 +93,7 @@ namespace Fanex.Athena.Controllers.BetList
             //ticketResult.SumComm = ticketResult.MainTicketList.Sum(x => x.Comm);
             //ticketResult.SumPlayerComm = ticketResult.MainTicketList.Sum(x => x.PlayerComm);
 
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };

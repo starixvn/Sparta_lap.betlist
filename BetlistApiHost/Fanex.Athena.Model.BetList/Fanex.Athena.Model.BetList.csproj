@@ -158,7 +158,7 @@
     <Compile Include="MetaModel\MixParlayDetailMetaModel.cs" />
     <Compile Include="MetaModel\MultipleCustomersBetListMetaModel.cs" />
     <Compile Include="MetaModel\RefNoBetListMetaModel.cs" />
-    <Compile Include="MetaModel\ShowingOption.cs" />
+    <Compile Include="MetaModel\BetListShowingOption.cs" />
     <Compile Include="MetaModel\SingleCustomersBetListMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueBetListMetaModel.cs" />
     <Compile Include="MetaModel\DailyBetListMetaModel.cs" />

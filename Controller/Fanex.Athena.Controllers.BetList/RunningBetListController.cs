@@ -113,7 +113,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             metaModel.UspKey = uspKey;
 
-            metaModel.ShowingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
