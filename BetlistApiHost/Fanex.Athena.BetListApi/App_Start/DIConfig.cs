@@ -27,7 +27,7 @@ namespace Fanex.Athena
             var config = GlobalConfiguration.Configuration;
             var assemblies = GetAssemblies();
             var serviceAssemblies = GetServiceAssemblies(assemblies);
-            var apiControllerAssemblies = GetApiControllerAssemblies(assemblies);
+            var apiControllerAssemblies = GetControllerAssemblies(assemblies);
             builder.RegisterAssemblyTypes(serviceAssemblies).AsImplementedInterfaces();
             builder.RegisterControllers(apiControllerAssemblies);
 
@@ -72,13 +72,13 @@ namespace Fanex.Athena
 
         private static Assembly[] GetServiceAssemblies(Assembly[] assemblies)
         {
-            string[] controllerFileNames = new[] { "Fanex.Athena.Controller" };
+            string[] controllerFileNames = new[] { "Fanex.Athena.BetList.Controller" };
             return assemblies.Where(ass => !controllerFileNames.Any(x => ass.FullName.Contains(x))).ToArray();
         }
 
-        private static Assembly[] GetApiControllerAssemblies(Assembly[] assemblies)
+        private static Assembly[] GetControllerAssemblies(Assembly[] assemblies)
         {
-            return assemblies.Where(ass => ass.FullName.Contains("Fanex.Athena.Controller")).ToArray();
+            return assemblies.Where(ass => ass.FullName.Contains("Fanex.Athena.BetList.Controller")).ToArray();
         }
     }
 }

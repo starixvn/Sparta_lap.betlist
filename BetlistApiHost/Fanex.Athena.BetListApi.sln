@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controller", "Fanex.Athena.Controller\Fanex.Athena.Controller.csproj", "{0C22899B-6CE0-4187-9BCF-7F503213F207}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Controller", "BetList\Fanex.Athena.BetList.Controller\Fanex.Athena.BetList.Controller.csproj", "{0C22899B-6CE0-4187-9BCF-7F503213F207}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetList", "Fanex.Athena.DataAccess.BetList\Fanex.Athena.DataAccess.BetList.csproj", "{B269F027-9AE1-4969-89D6-56C401B96051}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.DataAccess", "BetList\Fanex.Athena.BetList.DataAccess\Fanex.Athena.BetList.DataAccess.csproj", "{B269F027-9AE1-4969-89D6-56C401B96051}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.BetList", "Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj", "{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Model", "BetList\Fanex.Athena.BetList.Model\Fanex.Athena.BetList.Model.csproj", "{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetList", "Fanex.Athena.Service.BetList\Fanex.Athena.Service.BetList.csproj", "{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Service", "BetList\Fanex.Athena.BetList.Service\Fanex.Athena.BetList.Service.csproj", "{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel.BetList", "Fanex.Athena.Excel.BetList\Fanex.Athena.Excel.BetList.csproj", "{673F1094-BBF7-4E48-95E2-B4050FCEB8EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Excel", "BetList\Fanex.Athena.BetList.Excel\Fanex.Athena.BetList.Excel.csproj", "{673F1094-BBF7-4E48-95E2-B4050FCEB8EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetListApi", "Fanex.Athena.BetListApi\Fanex.Athena.BetListApi.csproj", "{CE8FBEBC-3312-4881-8486-42C9F70DDADF}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Extension", "..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj", "{71F95E53-36D0-4091-828D-ED14C9939C35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Core", "..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj", "{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BetList", "BetList", "{D562D730-1E02-415F-B28B-E8DE6ED81639}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +84,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{0C22899B-6CE0-4187-9BCF-7F503213F207} = {D562D730-1E02-415F-B28B-E8DE6ED81639}
+		{B269F027-9AE1-4969-89D6-56C401B96051} = {D562D730-1E02-415F-B28B-E8DE6ED81639}
+		{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0} = {D562D730-1E02-415F-B28B-E8DE6ED81639}
+		{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF} = {D562D730-1E02-415F-B28B-E8DE6ED81639}
+		{673F1094-BBF7-4E48-95E2-B4050FCEB8EF} = {D562D730-1E02-415F-B28B-E8DE6ED81639}
 		{CE1F7641-A14D-4AF6-9BD3-CAD4873669B4} = {0B5E1BB5-566B-4814-B7AA-7657430D875D}
 		{6B1431E0-E513-48BB-BE86-0756E5F6F405} = {0B5E1BB5-566B-4814-B7AA-7657430D875D}
 		{17B0022C-4902-4C61-908A-5DB81568DC3A} = {0B5E1BB5-566B-4814-B7AA-7657430D875D}

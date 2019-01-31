@@ -1,0 +1,26 @@
+﻿using Fanex.Athena.BetList.Model.DTO;
+using NPOI.SS.UserModel;
+
+namespace Fanex.Athena.BetList.Excel.Builders
+{
+    public interface IBettingTicketCenterExcelBuilder
+    {
+        void CreateSheet(string sheetName);
+
+        IWorkbook GetWorkbook();
+
+        void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumPlayerComm, decimal? sumLicenseeWL);
+
+        void AddHeader(bool isShowCustomerComm);
+
+        void AddNoInfoRow();
+
+        void AddTitle(string title);
+
+        void AssignRowData(TicketResult ticketResult, LrfTicket ticket, bool isShowCustomerComm, int licenseeId);
+
+        void InitializeCellStyles();
+
+        void InitializeFonts();
+    }
+}
