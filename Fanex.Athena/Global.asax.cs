@@ -12,7 +12,6 @@ namespace Fanex.Athena
     using System.Web;
     using System.Web.Helpers;
     using System.Web.Http;
-    using System.Web.Http.ExceptionHandling;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
@@ -20,14 +19,11 @@ namespace Fanex.Athena
     using Data.Configuration;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
-    using Fanex.BetList.Core;
-    using Fanex.BetList.Core.RemotingRef;
     using Fanex.RemotingRef;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.RemotingRef;
     using Logging.Extensions.Database;
     using Logging.Extensions.Web;
-    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
 
     public class MvcApplication : HttpApplication
@@ -90,7 +86,6 @@ namespace Fanex.Athena
                 RefDataTypeContainer
                .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
                .FromApplication("Fanex.LAP");
-                BetListManager.RegisterRemotingRef(new CacheRef());
                 ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
 
                 Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())

@@ -14,9 +14,6 @@ using Fanex.Athena.Api.Base.Logger;
 using Fanex.Athena.DataAccess.Report;
 using Fanex.Athena.DataAccess.Report.Interfaces;
 using Fanex.Athena.Extension.Utility.Internal;
-using Fanex.BetList.Core.Builder;
-using Fanex.BetList.Core.Entities;
-using Fanex.BetList.Core.TicketHelper;
 using Fanex.Logging;
 using Fanex.Result.Core.MicroGaming;
 using Fanex.Result.Core.PP;
@@ -61,9 +58,6 @@ namespace Fanex.Athena
         private static void RegisterThirdpartyServices(ContainerBuilder builder)
         {
             builder.RegisterType<MaintenanceService>().As<IMaintenanceService>();
-            builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
-            builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
-            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerDependency();
             builder.RegisterType<PPResult>().As<IPPResult>();
 
             builder.RegisterInstance(ParserService.Instance).As<IParserService>();

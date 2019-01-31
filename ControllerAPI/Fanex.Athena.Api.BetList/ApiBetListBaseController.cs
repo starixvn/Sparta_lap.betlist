@@ -10,12 +10,10 @@ namespace Fanex.Athena.Api.BetList
     using System.Threading.Tasks;
     using Base;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Model.Core.DTO.Configuration;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
 
     public class ApiBetListBaseController : BaseApiController
@@ -42,16 +40,6 @@ namespace Fanex.Athena.Api.BetList
         protected IBridgeClientService BridgeClientService
         {
             get { return _bridgeClientService; }
-        }
-
-        protected static void ClearData(TicketResult ticketResult)
-        {
-            ticketResult.MainTicketList.Clear();
-            ticketResult.TicketDataList.Clear();
-            ticketResult.MainTicketList.TrimExcess();
-            ticketResult.TicketDataList.TrimExcess();
-            ticketResult.MainTicketList = null;
-            ticketResult.TicketDataList = null;
         }
 
         protected BalanceUp GetBalanceUp()
