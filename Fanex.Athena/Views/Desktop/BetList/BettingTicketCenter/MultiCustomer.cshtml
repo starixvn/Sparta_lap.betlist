@@ -5,7 +5,7 @@
 }
 @using Fanex.Athena.Model.Core.DataDomain
 @using Fanex.Athena.Constant.DataDomain
-@model Fanex.Athena.Model.BetList.ViewModel.BettingTicketCenterViewModel
+@model Fanex.Athena.BetList.Model.ViewModel.BettingTicketCenterViewModel
 @{
     var productList = Model.ProductOptionList;
     var selectedStatus = string.Join(",", Model.StatusList.Select(x => x.Key).ToArray());

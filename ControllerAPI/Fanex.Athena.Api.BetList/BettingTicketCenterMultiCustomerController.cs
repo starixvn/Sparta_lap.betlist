@@ -5,10 +5,10 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using Athena.BetList.Model.MetaModel;
     using Base;
     using Base.Attributes;
     using Extension.Utility;
-    using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Resources;
     using Service.Core.Common.Interfaces;

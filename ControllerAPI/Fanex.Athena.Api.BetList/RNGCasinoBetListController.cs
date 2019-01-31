@@ -9,7 +9,7 @@ namespace Fanex.Athena.Api.BetList
     using System.Threading.Tasks;
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.Athena.BetList.Model.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;

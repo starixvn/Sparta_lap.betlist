@@ -12,8 +12,8 @@ namespace Fanex.Athena.Controllers.BetList
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.BetList.ViewModel;
+    using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.BetList.Model.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
     using Resources;

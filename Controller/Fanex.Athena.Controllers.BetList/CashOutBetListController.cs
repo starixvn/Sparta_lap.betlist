@@ -3,10 +3,10 @@
     using System;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Athena.BetList.Model.ViewModel;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Model.BetList.ViewModel;
+    using Fanex.Athena.BetList.Model.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;

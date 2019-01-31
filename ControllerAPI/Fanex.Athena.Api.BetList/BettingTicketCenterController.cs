@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using Athena.BetList.Model.MetaModel;
     using Base;
     using Base.Attributes;
-    using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;

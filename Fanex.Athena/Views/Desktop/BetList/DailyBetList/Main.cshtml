@@ -3,7 +3,7 @@
     ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.Report, ViewResources.DailyBetList);
     Layout = "~/Views/Desktop/Shared/_BetListLayout.cshtml";
 }
-@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+@model Fanex.Athena.BetList.Model.ViewModel.BetListBaseViewModel
 @section pagecss {
     <link href="@Url.ContentLinkByEnv("/www/css/build/pages/betlist/betlistdaily.css")" rel="stylesheet" />
 }

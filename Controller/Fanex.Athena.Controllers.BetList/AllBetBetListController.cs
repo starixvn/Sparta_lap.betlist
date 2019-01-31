@@ -6,20 +6,15 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    #region Using
-
     using System;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.Athena.BetList.Model.MetaModel;
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
-
-    #endregion Using
 
     public class AllBetBetListController : BetListBaseController
     {
