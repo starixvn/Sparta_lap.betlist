@@ -7,9 +7,10 @@
     using Athena.Model.Core.DTO.Common;
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
-    using Common;
+    using Common.DataAccess.Interfaces;
     using Data;
     using Fanex.Athena.Extension.Utility.Interfaces;
+    using Fanex.Common;
     using Interfaces;
     using Newtonsoft.Json;
 

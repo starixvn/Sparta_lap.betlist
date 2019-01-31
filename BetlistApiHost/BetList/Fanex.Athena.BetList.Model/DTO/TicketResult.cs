@@ -7,7 +7,7 @@
 namespace Fanex.Athena.BetList.Model.DTO
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Extension.Utility;
+    using Extension.Utility;
     using Fanex.BetList.Core.Entities;
 
     /// <summary>

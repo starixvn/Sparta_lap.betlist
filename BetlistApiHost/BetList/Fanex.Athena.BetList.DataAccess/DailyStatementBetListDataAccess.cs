@@ -5,6 +5,7 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using Common.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Common.Extensions;
@@ -23,8 +24,7 @@
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public DailyStatementBetListDataAccess(
-            IBalanceUpDataAccess balanceUpDataAccess)
+        public DailyStatementBetListDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

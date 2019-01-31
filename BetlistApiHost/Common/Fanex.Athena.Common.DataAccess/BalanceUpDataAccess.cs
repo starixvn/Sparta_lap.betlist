@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.BetList.DataAccess
+﻿namespace Fanex.Athena.Common.DataAccess
 {
     using System;
     using Extension.Utility.Interfaces;

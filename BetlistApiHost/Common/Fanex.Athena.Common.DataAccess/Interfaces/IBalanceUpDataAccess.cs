@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.BetList.DataAccess.Interfaces
+﻿namespace Fanex.Athena.Common.DataAccess.Interfaces
 {
     using Fanex.Athena.Model.Core.DTO.Configuration;
 

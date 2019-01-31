@@ -3,9 +3,10 @@
     using System.Collections.Generic;
     using System.Data;
     using Athena.Model.Core.DataDomain;
-    using Common;
-    using Common.Extensions;
+    using Common.DataAccess;
     using Extension.Helper;
+    using Fanex.Common;
+    using Fanex.Common.Extensions;
     using Interfaces;
     using Model.DTO;
     using Model.MetaModel;

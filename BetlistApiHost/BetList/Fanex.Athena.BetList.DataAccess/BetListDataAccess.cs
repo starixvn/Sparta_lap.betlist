@@ -12,8 +12,8 @@ namespace Fanex.Athena.BetList.DataAccess
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Common.DataAccess.Extensions;
     using Extension.Utility;
-    using Extensions;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;

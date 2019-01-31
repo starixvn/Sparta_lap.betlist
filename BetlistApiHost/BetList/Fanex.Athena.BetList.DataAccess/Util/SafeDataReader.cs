@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Extensions;
+    using Common.DataAccess.Extensions;
     using Fanex.Common.Extensions;
 
     public class SafeDataReader : ISafeDataReader
