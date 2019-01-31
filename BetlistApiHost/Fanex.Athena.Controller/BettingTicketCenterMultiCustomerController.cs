@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Fanex.Athena.Controller.CustomActionResult;
@@ -22,8 +21,6 @@ namespace Fanex.Athena.Controller
     public class BettingTicketCenterMultiCustomerController : BaseController
     {
         private const int RowsExceedLimitErrorCode = 1001;
-
-        private const int ServerBusyErrorCode = 1002;
 
         private readonly IAppSettings _appSettings;
 
@@ -64,13 +61,6 @@ namespace Fanex.Athena.Controller
             var ticketResult = _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList);
 
             return GenerateHtmlViewModel(metaModel, ticketResult, metaModel.HasPlayerCom);
-        }
-
-        private static void ClearData(TicketResult ticketResult)
-        {
-            ticketResult.MainTicketList.Clear();
-            ticketResult.MainTicketList.TrimExcess();
-            ticketResult.MainTicketList = null;
         }
 
         private ActionResult Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
@@ -225,8 +215,8 @@ namespace Fanex.Athena.Controller
         protected FileContentResult ZipContentResult(ZipFile zipFile)
         {
             MemoryStream stream = new MemoryStream();
-           
-                zipFile.Save(stream);
+
+            zipFile.Save(stream);
             var bytes = stream.ToArray();
             return File(bytes, "application/zip", "BettingTicketsCenter_MultiCustomer.zip");
         }

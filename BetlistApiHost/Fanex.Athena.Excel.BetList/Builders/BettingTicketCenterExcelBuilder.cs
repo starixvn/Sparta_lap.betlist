@@ -3,6 +3,7 @@ using Fanex.Athena.Constant.DataDomain;
 using Fanex.Athena.Model.BetList.DTO;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Resources;
+using Fanex.Athena.Service.BetList.Extensions;
 using Fanex.Athena.VendorAdapter.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -20,8 +21,6 @@ namespace Fanex.Athena.Excel.BetList.Builders
         private const int ColumnTotalStart = 6;
 
         private readonly ITicketHelper _ticketHelper;
-
-        private readonly ICacheRefAdapter _cacheRefAdapter;
 
         private bool disposed;
 
@@ -44,13 +43,9 @@ namespace Fanex.Athena.Excel.BetList.Builders
 
         private IFont _mixLiveFont;
 
-        public BettingTicketCenterExcelBuilder(
-            IBetListExcelBuilder builder,
-            ICacheRefAdapter cacheRefAdapter,
-            ITicketHelper ticketHelper)
+        public BettingTicketCenterExcelBuilder(IBetListExcelBuilder builder, ITicketHelper ticketHelper)
         {
             _builder = builder;
-            _cacheRefAdapter = cacheRefAdapter;
             _ticketHelper = ticketHelper;
         }
 
@@ -164,7 +159,7 @@ namespace Fanex.Athena.Excel.BetList.Builders
             _builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellLeftAlign, _evenCellLeftAlign);
             _builder.AddTrans(ticket, _ticketHelper);
             _builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
-            _builder.AddOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName);
+            _builder.AddOdds(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById);
             _builder.AddStake(ticket);
             _builder.AddCustomerWL(ticket, isShowCustomerComm, _winLossFont);
             _builder.AddLicenseeWL(ticket, licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont);

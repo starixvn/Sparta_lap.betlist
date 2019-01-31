@@ -23,6 +23,7 @@ namespace Fanex.Athena.Excel.BetList
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
     using Resources;
+    using Service.BetList.Extensions;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
@@ -44,8 +45,6 @@ namespace Fanex.Athena.Excel.BetList
 
         private readonly BetListShowingOption _showingOption;
 
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-
         private ICellStyle _evenCellStyleLeftAligned;
 
         // Default Fonts
@@ -57,7 +56,6 @@ namespace Fanex.Athena.Excel.BetList
 
         public BetListExcel(BetListShowingOption showingOption, int licenseeId, IEnumerable<int> hiddenColumnIndexes, bool isShowSumStake = false)
         {
-            _cacheRefAdapter = new CacheRefAdapter();
             _appSettings = new AppSettings();
             _licenseeId = licenseeId;
             _ticketHelper = new TicketHelper();
@@ -67,7 +65,6 @@ namespace Fanex.Athena.Excel.BetList
         }
 
         protected internal BetListExcel(
-            ICacheRefAdapter cacheRefAdapter,
             IAppSettings appSettings,
             ITicketHelper ticketHelper,
             BetListShowingOption showingOption,
@@ -75,7 +72,6 @@ namespace Fanex.Athena.Excel.BetList
             IEnumerable<int> hiddenColumnIndexes,
             bool isShowSumStake = false)
         {
-            _cacheRefAdapter = cacheRefAdapter;
             _appSettings = appSettings;
             _licenseeId = licenseeId;
             _ticketHelper = ticketHelper;
@@ -201,7 +197,7 @@ namespace Fanex.Athena.Excel.BetList
             builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned);
             builder.AddTrans(ticket, _ticketHelper);
             builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
-            builder.AddOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName);
+            builder.AddOdds(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById);
             builder.AddStake(ticket);
             builder.AddCustomerWL(ticket, _showingOption.CustomerCommVisible, _winLossFont);
             builder.AddBetEffective(ticket, _winLossFont);

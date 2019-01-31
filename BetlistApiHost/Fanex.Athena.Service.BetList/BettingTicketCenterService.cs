@@ -21,8 +21,6 @@ namespace Fanex.Athena.Service.BetList
 
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
 
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-
         private readonly ITicketHelper _ticketHelper;
 
 #pragma warning disable CS3001 // Argument type is not CLS-compliant
@@ -30,13 +28,11 @@ namespace Fanex.Athena.Service.BetList
         public BettingTicketCenterService(
             IBettingTicketCenterDataAccess dataAccess,
             IBetListHTMLBuilder betlistHtmlBuilder,
-            ICacheRefAdapter cacheRefAdapter,
             ITicketHelper ticketHelper)
 #pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             _dataAccess = dataAccess;
             _betlistHtmlBuilder = betlistHtmlBuilder;
-            _cacheRefAdapter = cacheRefAdapter;
             _ticketHelper = ticketHelper;
         }
 
@@ -101,7 +97,7 @@ namespace Fanex.Athena.Service.BetList
                     SystemId = ticket.UserName,
                     TransTime = _betlistHtmlBuilder.BuildTrans(ticket),
                     Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
-                    Odds = _betlistHtmlBuilder.BuildOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName),
+                    Odds = _betlistHtmlBuilder.BuildOdds(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById),
                     Stake = _betlistHtmlBuilder.BuildStake(ticket),
                     LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),

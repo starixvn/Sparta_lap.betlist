@@ -21,19 +21,15 @@ namespace Fanex.Athena.Controller
 
         private readonly IBetListHTMLBuilder _betListHTMLBuilder;
 
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-
         public CashOutBetListController(
             IBalanceUpDataAccess balanceUpDataAccess,
             ICashOutBetListDataAccess cashOutBetListDataAccess,
             ITicketHelper ticketHelper,
-            IBetListHTMLBuilder betListHTMLBuilder,
-            ICacheRefAdapter cacheRefAdapter)
+            IBetListHTMLBuilder betListHTMLBuilder)
         {
             _cashOutBetListDataAccess = cashOutBetListDataAccess;
             _ticketHelper = ticketHelper;
             _betListHTMLBuilder = betListHTMLBuilder;
-            _cacheRefAdapter = cacheRefAdapter;
         }
 
         [HttpPost]
@@ -112,7 +108,7 @@ namespace Fanex.Athena.Controller
                 TransTime = builder.BuildTrans(ticket),
                 Status = statusHtml.ToString(),
                 Choice = builder.BuildChoice(ticket, _ticketHelper, null, false),
-                Odds = builder.BuildOdds(ticket, null, _cacheRefAdapter.GetOddsTypeName),
+                Odds = builder.BuildOdds(ticket, null, _ticketHelper.GetValidOddsTypeNameById),
                 Stake = builder.BuildStake(ticket),
                 WinLoss = builder.BuildCustomerWL(ticket, hasPlayerComm)
             };

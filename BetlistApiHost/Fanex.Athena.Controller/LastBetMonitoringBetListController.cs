@@ -22,16 +22,12 @@ namespace Fanex.Athena.Controller
 
         private readonly ITicketHelper _ticketHelper;
 
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-
         public LastBetMonitoringBetListController(
             ILastBetsMonitoringBetListService lastBetsMonitoringBetListService,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter)
+            ITicketHelper ticketHelper)
         {
             _lastBetsMonitoringBetListService = lastBetsMonitoringBetListService;
             _ticketHelper = ticketHelper;
-            _cacheRefAdapter = cacheRefAdapter;
         }
 
         [HttpPost]
@@ -126,7 +122,7 @@ namespace Fanex.Athena.Controller
                     ticketResult.TicketDataList,
                     "<td data-name=\"Odds\" class='bl-odds'>",
                     "</td>",
-                    _cacheRefAdapter.GetOddsTypeName);
+                    _ticketHelper.GetValidOddsTypeNameById);
             }
             else
             {
