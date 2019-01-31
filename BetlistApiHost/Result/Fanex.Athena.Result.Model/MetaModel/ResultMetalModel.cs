@@ -8,6 +8,7 @@ namespace Fanex.Athena.Result.Model.MetaModel
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Script.Serialization;
 
     /// <summary>
     /// ResultMetalModel class.
@@ -38,5 +39,14 @@ namespace Fanex.Athena.Result.Model.MetaModel
 
         [Required]
         public int LeagueId { get; set; }
+
+        [ScriptIgnore]
+        public int LicenseeId { get; set; }
+
+        [ScriptIgnore]
+        public string LanguageCode { get; set; }
+
+        [ScriptIgnore]
+        public int UserId { get; set; }
     }
 }

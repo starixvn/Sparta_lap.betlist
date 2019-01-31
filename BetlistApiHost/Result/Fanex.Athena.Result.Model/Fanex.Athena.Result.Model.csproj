@@ -58,6 +58,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +67,7 @@
     <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
     <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
     <Compile Include="MetaModel\Keno\KenoResultMetaModel.cs" />
+    <Compile Include="MetaModel\GetSportResultMetalModel.cs" />
     <Compile Include="MetaModel\ResultMetalModel.cs" />
     <Compile Include="MetaModel\ResultPopupMetalModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +82,12 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+      <Project>{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}</Project>
+      <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

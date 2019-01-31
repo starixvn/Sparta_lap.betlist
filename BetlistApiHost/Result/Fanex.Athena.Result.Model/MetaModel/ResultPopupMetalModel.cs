@@ -45,5 +45,7 @@ namespace Fanex.Athena.Result.Model.MetaModel
         public int Handicap1 { get; set; }
 
         public int Handicap2 { get; set; }
+
+        public string LanguageCode { get; set; }
     }
 }
