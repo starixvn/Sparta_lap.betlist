@@ -2596,4 +2596,10 @@
   <data name="Happy5" xml:space="preserve">
     <value>快乐5</value>
   </data>
+  <data name="Void" xml:space="preserve">
+    <value>作废</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>取消</value>
+  </data>
 </root>

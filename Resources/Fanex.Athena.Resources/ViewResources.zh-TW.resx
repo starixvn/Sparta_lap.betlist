@@ -2617,4 +2617,10 @@
   <data name="ServerBusyMessage" xml:space="preserve">
     <value>由於服務器繁忙，您的請求現在無法處理。請稍後再試。</value>
   </data>
+  <data name="Void" xml:space="preserve">
+    <value>作廢</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>取消</value>
+  </data>
 </root>
