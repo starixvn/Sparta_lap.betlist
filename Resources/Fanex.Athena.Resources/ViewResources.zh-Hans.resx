@@ -1066,9 +1066,6 @@
   <data name="Logout" xml:space="preserve">
     <value>注销</value>
   </data>
-  <data name="Loss" xml:space="preserve">
-    <value>输</value>
-  </data>
   <data name="LrfNotification" xml:space="preserve">
     <value>LRF-通知</value>
   </data>
@@ -1871,9 +1868,6 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>欢迎</value>
-  </data>
-  <data name="Win" xml:space="preserve">
-    <value>独赢</value>
   </data>
   <data name="WinLoss" xml:space="preserve">
     <value>输赢</value>

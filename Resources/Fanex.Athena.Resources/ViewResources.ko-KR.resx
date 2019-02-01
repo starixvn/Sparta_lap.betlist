@@ -1284,9 +1284,6 @@
   <data name="Logout" xml:space="preserve">
     <value>로그아웃</value>
   </data>
-  <data name="Loss" xml:space="preserve">
-    <value>패배</value>
-  </data>
   <data name="LrfNotification" xml:space="preserve">
     <value>LRF-공지</value>
   </data>
@@ -2048,9 +2045,6 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>환영합니다</value>
-  </data>
-  <data name="Win" xml:space="preserve">
-    <value>승리</value>
   </data>
   <data name="WinLoss" xml:space="preserve">
     <value>승리 패배</value>

@@ -4444,15 +4444,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loss.
-        /// </summary>
-        public static string Loss {
-            get {
-                return ResourceManager.GetString("Loss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to LRF-Notification.
         /// </summary>
         public static string LrfNotification {
@@ -8373,15 +8364,6 @@ namespace Fanex.Athena.Resources {
         public static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Win.
-        /// </summary>
-        public static string Win {
-            get {
-                return ResourceManager.GetString("Win", resourceCulture);
             }
         }
         
