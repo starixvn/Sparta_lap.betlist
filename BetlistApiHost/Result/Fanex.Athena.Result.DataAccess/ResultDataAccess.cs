@@ -81,9 +81,9 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("eventdate", DbType.DateTime, dateValue);
-                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("eventdate", dateValue);
+                db.SetParameterValue("licenseeid", licenseeId);
+                db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                 using (var reader = db.ExecuteReader())
                 {
                     var data = new List<Sport>();
@@ -325,7 +325,7 @@ namespace Fanex.Athena.Result.DataAccess
         {
             using (var db = this.GetObjectDb("Lrf_Result_MatchSelByLeague_Detail"))
             {
-                db.AddInParameter("matchid", DbType.Int32, matchId);
+                db.SetParameterValue("matchid", matchId);
                 using (var reader = db.ExecuteReader())
                 {
                     var result = new Sportsbook();

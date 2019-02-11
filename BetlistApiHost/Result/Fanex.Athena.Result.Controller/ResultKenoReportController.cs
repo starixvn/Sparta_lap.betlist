@@ -5,36 +5,58 @@
     using Extension.Utility;
     using Logging;
     using Model.Const;
+    using Model.DTO.Keno;
     using Model.MetaModel.Keno;
     using Service.Interfaces;
 
     public class ResultKenoReportController : Controller
     {
+        private readonly ILogger _logger;
+
         private readonly IAppSettings _appSettings;
 
         private readonly IKenoApi _kenoApi;
 
-        public ResultKenoReportController(IAppSettings appSetting, IKenoApi kenoApi)
+        public ResultKenoReportController(ILogger logger, IAppSettings appSetting, IKenoApi kenoApi)
         {
+            _logger = logger;
             _appSettings = appSetting;
             _kenoApi = kenoApi;
         }
 
         [HttpPost]
-        public ActionResult Index(int userId, int vendorProductId)
+        public string GetKenoResultUrl(KenoMetaModel model)
         {
-            return Json(
-                new
-                {
-                    Url = _kenoApi.CreateKenoResultUrl(GetKenoSetting(vendorProductId), userId.ToString(), DateTime.Now),
-                    UserId = userId
-                });
+            try
+            {
+                return _kenoApi.CreateKenoResultUrl(GetKenoSetting(model.VendorProductId), model.UserId.ToString(), DateTime.Now);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.Message, exception);
+
+                return string.Empty;
+            }
         }
 
         [HttpPost]
-        public JsonResult KeepSession(string userId, int vendorProductId)
+        public JsonResult KeepSession(KenoMetaModel model)
         {
-            return Json(_kenoApi.ExtendToken(GetKenoSetting(vendorProductId), userId));
+            try
+            {
+                var result = _kenoApi.ExtendToken(GetKenoSetting(model.VendorProductId), model.UserId);
+                return Json(result);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.Message, exception);
+
+                return Json(new KenoExtendedToken
+                {
+                    ErrorCode = 1,
+                    ErrorMsg = exception.Message
+                });
+            }
         }
 
         private KenoResultMetaModel GetKenoSetting(int vendorProductId)

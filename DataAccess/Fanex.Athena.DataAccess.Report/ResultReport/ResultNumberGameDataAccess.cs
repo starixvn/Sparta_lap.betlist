@@ -13,11 +13,11 @@ namespace Fanex.Athena.DataAccess.Report.ResultReport
     using Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
-    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Fanex.Result.Core.Happy5.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
-    using Result.Core.Happy5.DTO;
+    using Result.Model.MetaModel;
 
     [CLSCompliant(false)]
     public class ResultNumberGameDataAccess : BaseDataAccess, IResultNumberGameDataAccess

@@ -8,8 +8,8 @@ namespace Fanex.Athena.DataAccess.Report.ResultReport
 {
     using System;
     using System.Collections.Generic;
+    using Result.Model.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
 

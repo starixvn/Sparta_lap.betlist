@@ -18,11 +18,11 @@ namespace Fanex.Athena.DataAccess.Report.ResultReport
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Result.Model.MetaModel;
     using VendorAdapter.Interfaces;
 
     [CLSCompliant(false)]

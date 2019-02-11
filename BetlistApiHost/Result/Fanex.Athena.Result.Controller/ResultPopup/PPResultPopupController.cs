@@ -12,7 +12,7 @@ namespace Fanex.Athena.Result.Controller.ResultPopup
             _resultApi = resultApi;
         }
 
-        [HttpGet]
+        [HttpPost]
         public string Index(string custId, string gamePlayId, string languageCode)
         {
             return _resultApi.GetPPResult(custId, gamePlayId, languageCode);

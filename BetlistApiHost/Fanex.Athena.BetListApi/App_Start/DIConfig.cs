@@ -72,13 +72,15 @@ namespace Fanex.Athena
 
         private static Assembly[] GetServiceAssemblies(Assembly[] assemblies)
         {
-            string[] controllerFileNames = new[] { "Fanex.Athena.BetList.Controller" };
+            string[] controllerFileNames = new[] { "Fanex.Athena.BetList.Controller", "Fanex.Athena.Result.Controller" };
             return assemblies.Where(ass => !controllerFileNames.Any(x => ass.FullName.Contains(x))).ToArray();
         }
 
         private static Assembly[] GetControllerAssemblies(Assembly[] assemblies)
         {
-            return assemblies.Where(ass => ass.FullName.Contains("Fanex.Athena.BetList.Controller")).ToArray();
+            return assemblies.Where(ass => 
+                ass.FullName.Contains("Fanex.Athena.BetList.Controller") ||
+                ass.FullName.Contains("Fanex.Athena.Result.Controller")).ToArray();
         }
     }
 }

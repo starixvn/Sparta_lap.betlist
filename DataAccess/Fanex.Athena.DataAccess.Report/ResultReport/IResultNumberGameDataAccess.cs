@@ -7,9 +7,9 @@
 namespace Fanex.Athena.DataAccess.Report.ResultReport
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Result.Core.Happy5.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
-    using Result.Core.Happy5.DTO;
+    using Result.Model.MetaModel;
 
     [System.CLSCompliant(false)]
     public interface IResultNumberGameDataAccess

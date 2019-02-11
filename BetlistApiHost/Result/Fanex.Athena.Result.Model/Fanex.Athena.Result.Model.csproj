@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3AA658FF-B635-4990-A49C-AE886841A1CA}</ProjectGuid>
+    <ProjectGuid>{3EA0F6A8-79D8-4BFA-A463-3C17144393F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fanex.Athena.Result.Model</RootNamespace>
@@ -66,7 +66,8 @@
     <Compile Include="DTO\Keno\KenoAuthorization.cs" />
     <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
     <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
-    <Compile Include="MetaModel\Keno\KenoResultMetaModel.cs" />
+    <Compile Include="MetaModel\Keno\KenoApiMetaModel.cs" />
+    <Compile Include="MetaModel\Keno\KenoMetaModel.cs" />
     <Compile Include="MetaModel\GetSportResultMetalModel.cs" />
     <Compile Include="MetaModel\ResultMetalModel.cs" />
     <Compile Include="MetaModel\ResultPopupMetalModel.cs" />

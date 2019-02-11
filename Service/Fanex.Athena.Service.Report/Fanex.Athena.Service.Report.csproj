@@ -190,10 +190,7 @@
     <Compile Include="Interfaces\ISubsidiaryPerformanceService.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
     <Compile Include="NotificationService.cs" />
-    <Compile Include="Result\Interfaces\IResultService.cs" />
-    <Compile Include="Result\KenoApi.cs" />
     <Compile Include="ColossusBetsWinLossService.cs" />
-    <Compile Include="Result\ResultService.cs" />
     <Compile Include="SubsidiaryPerformanceService.cs" />
     <Compile Include="WeeklyLiveMatchService.cs" />
     <Compile Include="CustomerTurnoverService.cs" />
@@ -201,7 +198,6 @@
     <Compile Include="MatchWinLossService.cs" />
     <Compile Include="SettledMatchCountService.cs" />
     <Compile Include="TurnoverService.cs" />
-    <Compile Include="Result\Interfaces\IKenoApi.cs" />
     <Compile Include="Interfaces\ICustomerTurnoverService.cs" />
     <Compile Include="Interfaces\ILiveReportService.cs" />
     <Compile Include="Interfaces\IMatchWinLossService.cs" />

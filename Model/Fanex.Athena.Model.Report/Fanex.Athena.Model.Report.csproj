@@ -98,6 +98,7 @@
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -124,9 +125,6 @@
     <Compile Include="DTO\CasinoTurnover.cs" />
     <Compile Include="DTO\ExchangeWinLoss.cs" />
     <Compile Include="DTO\MicroGamingWinLoss.cs" />
-    <Compile Include="DTO\Keno\KenoAuthorization.cs" />
-    <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
-    <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
     <Compile Include="DTO\ActiveCustomer.cs" />
     <Compile Include="DTO\AgCasinoBalance.cs" />
     <Compile Include="DTO\Notification.cs" />
@@ -164,7 +162,6 @@
     <Compile Include="MetaModel\BaseDrilldownReportMetaModel.cs" />
     <Compile Include="MetaModel\CasinoTurnoverMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeWinLossMetaModel.cs" />
-    <Compile Include="MetaModel\Keno\KenoResultMetaModel.cs" />
     <Compile Include="MetaModel\BaseReportMetaModel.cs" />
     <Compile Include="MetaModel\ActiveCustomerMetaModel.cs" />
     <Compile Include="MetaModel\LicenseeWinLossByTimeZoneMetaModel.cs" />
@@ -178,7 +175,6 @@
     <Compile Include="MetaModel\WeeklyLiveMatchMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueMetaModel.cs" />
     <Compile Include="MetaModel\LiveReportMatchListMetalModel.cs" />
-    <Compile Include="MetaModel\ResultMetalModel.cs" />
     <Compile Include="MetaModel\ResultPopupMetalModel.cs" />
     <Compile Include="MetaModel\WinLossByProductMetaModel.cs" />
     <Compile Include="MetaModel\CustomerBalanceMetaModel.cs" />
@@ -215,7 +211,6 @@
     <Compile Include="ViewModel\WinLossByLeagueViewModel.cs" />
     <Compile Include="ViewModel\AgCasinoBalanceViewModel.cs" />
     <Compile Include="ViewModel\LicenseeWinLossGridViewModel.cs" />
-    <Compile Include="ViewModel\ResultReportViewModel.cs" />
     <Compile Include="ViewModel\WinLossByProductViewModel.cs" />
     <Compile Include="ViewModel\CustomerBalanceViewModel.cs" />
     <Compile Include="ViewModel\CustomerPendingFundsViewModel.cs" />

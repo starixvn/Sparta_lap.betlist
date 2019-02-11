@@ -78,7 +78,6 @@ namespace Fanex.Athena.Result.Controller
         [HttpPost]
         public void ResultExcel(ResultMetalModel metalModel)
         {
-            const string FileName = "LRF-Result.xls";
             var response = ControllerContext.HttpContext.Response;
 
             if (ModelState.IsValid)
@@ -92,9 +91,6 @@ namespace Fanex.Athena.Result.Controller
                 {
                     GetData(metalModel);
                 }
-
-                response.ContentType = "application/vnd.ms-excel";
-                response.AddHeader("Content-disposition", "attachment; filename=" + FileName);
 
                 if (_excelStream == null)
                 {
@@ -139,7 +135,7 @@ namespace Fanex.Athena.Result.Controller
 
         #region PopUpPage
 
-        [HttpGet]
+        [HttpPost]
         public string ResultPopup(ResultPopupMetalModel metalModel)
         {
             GetPopUpData(metalModel);
@@ -160,21 +156,21 @@ namespace Fanex.Athena.Result.Controller
             return Json(resultInfo);
         }
 
-        [HttpGet]
+        [HttpPost]
         public string VoidbridgeResult(string custId, string gamePlayId, string languageCode)
         {
             var voidbridgeApi = new VoidbridgeApiImp();
             return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId, languageCode);
         }
 
-        [HttpGet]
+        [HttpPost]
         public string AllBetResult(string transDesc, string betCheck, string betType, string languageCode)
         {
             var allbetResultService = new AllbetResultBuilder();
             return allbetResultService.Render(transDesc, betCheck, betType, languageCode);
         }
 
-        [HttpGet]
+        [HttpPost]
         public string GlobalGamingResult(GlobalGamingDTO param)
         {
             var globalGamingResultApi = new GlobalGamingResultApi();
@@ -188,7 +184,7 @@ namespace Fanex.Athena.Result.Controller
         /// <param name="matchId">The match ID.</param>
         /// /// <param name="sportType">The sport type.</param>
         /// <returns>The html result.</returns>
-        [HttpGet]
+        [HttpPost]
         public string ResultDetail(int matchId, int sportType, string languageCode)
         {
             var detailedData = _resultService.GetSportsbookGameDetail(matchId);
@@ -320,7 +316,7 @@ namespace Fanex.Athena.Result.Controller
 
         #region spots list
 
-        private ActionResult GetNormalSports(GetSportResultMetalModel metalModel)
+        private JsonResult GetNormalSports(GetSportResultMetalModel metalModel)
         {
             var sports = _resultService.GetSports(metalModel.FromDate, metalModel.LicenseeId);
             if (sports.Any())
@@ -342,7 +338,7 @@ namespace Fanex.Athena.Result.Controller
             return Json(string.Empty);
         }
 
-        private ActionResult GetOutRightSports(ResultMetalModel metalModel)
+        private JsonResult GetOutRightSports(ResultMetalModel metalModel)
         {
             var cacheKey = GenerateOutRightCacheKey(metalModel);
             var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? _resultService.GetOutRight(metalModel);
