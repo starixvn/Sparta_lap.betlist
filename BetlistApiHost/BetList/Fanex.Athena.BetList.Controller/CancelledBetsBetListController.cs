@@ -14,9 +14,9 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult GetCustomerList(BetListMetaModel metaModel)
+        public JsonResult GetCustomerList(string agentListXml)
         {
-            var result = _cancelledBetListDataAccess.GetCancelBetCustList(metaModel.AgentListXml);
+            var result = _cancelledBetListDataAccess.GetCancelBetCustList(agentListXml);
             return Json(result);
         }
     }

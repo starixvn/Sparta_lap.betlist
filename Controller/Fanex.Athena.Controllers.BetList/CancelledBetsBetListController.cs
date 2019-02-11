@@ -135,7 +135,10 @@ namespace Fanex.Athena.Controllers.BetList
             }
 
             var betlistAPIUrl = new Uri($"http://localhost:55050/CancelledBetsBetList/GetCustomerList");
-            return await _bridgeClientService.PostAsync<IEnumerable<CustomerCancelBetItem>>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _bridgeClientService.PostAsync<IEnumerable<CustomerCancelBetItem>>(betlistAPIUrl, new
+            {
+                AgentListXml = metaModel.AgentListXml
+            }).ConfigureAwait(false);
         }
 
         private bool HasPermissionOnData(BetListMetaModel metaModel)
