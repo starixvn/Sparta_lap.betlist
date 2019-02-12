@@ -20,7 +20,7 @@ namespace Fanex.Athena.App_Start
             routes.MapRoute(
                 "Default",
                 "{controller}/{action}",
-                new { controller = "BetList", action = "Test" });
+                new { controller = "BetList", action = "Index" });
         }
     }
 }

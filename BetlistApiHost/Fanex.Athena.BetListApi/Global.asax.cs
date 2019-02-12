@@ -58,14 +58,11 @@ namespace Fanex.Athena
 
                 AreaRegistration.RegisterAllAreas();
 
-                //GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
                 RouteTable.Routes.IgnoreRoute("favicon.ico");
+
                 RouteConfig.RegisterRoutes(RouteTable.Routes);
-                /*Web API*/
-                GlobalConfiguration.Configuration.EnableCors();
-                //     GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
+
                 GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-                /*End Web API*/
 
                 AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
 

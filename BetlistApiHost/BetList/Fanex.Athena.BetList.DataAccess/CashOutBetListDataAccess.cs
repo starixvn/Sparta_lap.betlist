@@ -8,12 +8,12 @@ namespace Fanex.Athena.BetList.DataAccess
 {
     using System.Collections.Generic;
     using System.Data;
+    using BetList.Model.DTO;
+    using BetList.Model.ViewModel;
     using Extension.Utility;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Common.Extensions;
     using Interfaces;
-    using BetList.Model.DTO;
-    using BetList.Model.ViewModel;
 
     public class CashOutBetListDataAccess : BaseBetListDataAccess, ICashOutBetListDataAccess
     {

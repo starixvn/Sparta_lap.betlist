@@ -3,13 +3,12 @@
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter.Interfaces;
     using Service.Core.Utility.Interfaces;
+    using VendorAdapter.Interfaces;
 
     public class GlobalGamingBetListController : BetListBaseController
     {

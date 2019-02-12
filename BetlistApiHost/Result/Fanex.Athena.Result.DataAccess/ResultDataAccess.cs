@@ -11,11 +11,11 @@ namespace Fanex.Athena.Result.DataAccess
     using System.Data;
     using System.Globalization;
     using System.Linq;
-    using Constant.Helper;
     using Athena.Model.Core.DTO.Common;
     using Common.DataAccess;
     using Common.DataAccess.Extensions;
     using Common.DataAccess.Interfaces;
+    using Constant.Helper;
     using Extension.Utility;
     using Fanex.Common.Extensions;
     using Fanex.Result.Core.Racing.DTO;

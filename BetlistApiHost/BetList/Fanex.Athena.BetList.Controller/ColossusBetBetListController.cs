@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.DataAccess.Interfaces;
+using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Extension.Utility.Interfaces;
-using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Logging;
 using Newtonsoft.Json.Linq;
 

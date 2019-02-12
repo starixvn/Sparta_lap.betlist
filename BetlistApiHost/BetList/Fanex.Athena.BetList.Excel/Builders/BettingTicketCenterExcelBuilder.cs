@@ -1,10 +1,9 @@
 ﻿using System;
-using Fanex.Athena.Constant.DataDomain;
 using Fanex.Athena.BetList.Model.DTO;
+using Fanex.Athena.BetList.Service.Extensions;
+using Fanex.Athena.Constant.DataDomain;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Resources;
-using Fanex.Athena.BetList.Service.Extensions;
-using Fanex.Athena.VendorAdapter.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 using NPOI.HSSF.UserModel;

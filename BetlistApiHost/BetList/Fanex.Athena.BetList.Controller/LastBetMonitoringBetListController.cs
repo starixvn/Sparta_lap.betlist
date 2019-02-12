@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Fanex.Athena.Constant.DataDomain;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
-using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.VendorAdapter.Interfaces;
+using Fanex.Athena.Constant.DataDomain;
+using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 

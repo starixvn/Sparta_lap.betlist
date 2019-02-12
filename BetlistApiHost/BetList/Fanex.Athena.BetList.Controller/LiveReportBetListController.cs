@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using Fanex.Athena.Extension.Helper;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
+using Fanex.Athena.Extension.Helper;
 
 namespace Fanex.Athena.BetList.Controller
 {
@@ -11,7 +11,7 @@ namespace Fanex.Athena.BetList.Controller
 
         public LiveReportBetListController(IBetListService betListService)
         {
-            _betListService = betListService; ;
+            _betListService = betListService;
         }
 
         [HttpPost]

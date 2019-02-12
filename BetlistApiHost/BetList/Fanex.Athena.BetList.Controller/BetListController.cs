@@ -29,7 +29,13 @@ namespace Fanex.Athena.BetList.Controller
         public BetListController(ICacheRefAdapter cacheRefAdapter, IBetListService betListService)
         {
             _cacheRefAdapter = cacheRefAdapter;
-            _betListService = betListService; ;
+            _betListService = betListService;
+        }
+
+        [HttpGet]
+        public string Index()
+        {
+            return "Betlist Api default page";
         }
 
         [HttpPost]

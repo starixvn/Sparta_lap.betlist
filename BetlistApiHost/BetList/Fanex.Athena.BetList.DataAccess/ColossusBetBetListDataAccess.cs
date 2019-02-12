@@ -8,13 +8,13 @@ namespace Fanex.Athena.BetList.DataAccess
 {
     using System.Collections.Generic;
     using System.Data;
+    using BetList.Model.ViewModel;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.BetList.ColossusBets.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common.Extensions;
     using Interfaces;
-    using BetList.Model.ViewModel;
 
     public class ColossusBetBetListDataAccess : BaseBetListDataAccess, IColossusBetBetListDataAccess
     {
