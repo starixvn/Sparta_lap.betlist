@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Result.Core.MicroGaming.DTO;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -136,11 +135,11 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             if (ModelState.IsValid)
             {
-                var metaModel = new MicroGaming
+                var metaModel = new
                 {
-                    CustId = custId,
+                    custId,
+                    gameId,
                     SiteName = SessionService.LicenseeSession.LicenseeName,
-                    GameId = gameId
                 };
                 var url = new Uri($"http://localhost:55050/ResultReport/MicrogamingResultPopup");
                 var result = await _bridgeClientService.PostAsyncString(url, metaModel).ConfigureAwait(false);
