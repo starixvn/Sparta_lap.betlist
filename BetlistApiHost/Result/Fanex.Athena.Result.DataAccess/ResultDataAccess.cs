@@ -15,7 +15,6 @@ namespace Fanex.Athena.Result.DataAccess
     using Common.DataAccess;
     using Common.DataAccess.Extensions;
     using Common.DataAccess.Interfaces;
-    using Constant.Helper;
     using Extension.Utility;
     using Fanex.Common.Extensions;
     using Fanex.Result.Core.Racing.DTO;
@@ -26,6 +25,9 @@ namespace Fanex.Athena.Result.DataAccess
     [CLSCompliant(false)]
     public class ResultDataAccess : BaseDataAccess, IResultDataAccess
     {
+        private const int FastMarketMinBetType = 221;
+        private const int FastMarketMaxBetType = 227;
+
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -409,6 +411,10 @@ namespace Fanex.Athena.Result.DataAccess
             };
         }
 
+        private static bool IsFastMarket(int bettype) {
+            return bettype >= FastMarketMinBetType && bettype <= FastMarketMaxBetType;
+        }
+
         /// <summary>
         /// Mapping data to Sport-book DTO.
         /// </summary>
@@ -426,7 +432,7 @@ namespace Fanex.Athena.Result.DataAccess
 
                 if (metaModel != null)
                 {
-                    result.BetID = BetTypeHelper.IsFastMarket(metaModel.Bettype) ? metaModel.Handicap1.ToString() : (metaModel.BetId ?? 0).ToString();
+                    result.BetID = IsFastMarket(metaModel.Bettype) ? metaModel.Handicap1.ToString() : (metaModel.BetId ?? 0).ToString();
                     result.Bettype = metaModel.Bettype;
                     result.Handicap2 = metaModel.Handicap2;
                 }

@@ -8,7 +8,7 @@ namespace Fanex.Athena.BetList.Service.Extensions
 {
     using System;
     using System.Collections.Generic;
-    using Constant.DataDomain;
+    using Common.Constant;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.App_GlobalResources;
@@ -16,7 +16,7 @@ namespace Fanex.Athena.BetList.Service.Extensions
     using Fanex.BetList.Core.Entities;
     using Helpers;
     using Resources;
-    
+
     public static class LrfBetListHtmlBuilder
     {
         [CLSCompliant(false)]

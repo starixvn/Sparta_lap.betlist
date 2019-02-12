@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.Service.Helpers
 {
     using System;
-    using Constant.DataDomain;
+    using Common.Constant;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.BetList.Core.Entities;
     using Resources;

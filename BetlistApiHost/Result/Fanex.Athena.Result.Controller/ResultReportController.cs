@@ -210,7 +210,7 @@ namespace Fanex.Athena.Result.Controller
 
         private static bool IsPalayBetType(int betType)
         {
-            return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Constant.DataDomain.BetType.VirtualSports2MixParlay;
+            return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Common.Constant.BetType.VirtualSports2MixParlay;
         }
 
         private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, ProductAccess productAccess)

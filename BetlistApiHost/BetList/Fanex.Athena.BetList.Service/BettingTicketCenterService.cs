@@ -6,7 +6,7 @@ using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.Constant.DataDomain;
+using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
