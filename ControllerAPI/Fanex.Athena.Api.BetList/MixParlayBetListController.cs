@@ -22,9 +22,9 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBridgeClientService bridgeClientService,
+            IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess)
-        : base(sessionService, productService, languageService, bridgeClientService, balanceUpDataAccess)
+        : base(sessionService, productService, languageService, betListApiClient, balanceUpDataAccess)
         {
         }
 
@@ -37,8 +37,7 @@ namespace Fanex.Athena.Api.BetList
                 TransId = transId,
                 UserCurrencyList = UserCurrencyList
             };
-            var betlistAPIUrl = new Uri($"http://localhost:55050/MixParlayBetList/Detail");
-            return await BridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync("/MixParlayBetList/Detail", metaModel).ConfigureAwait(false);
         }
 
         [HttpGet]
@@ -54,8 +53,7 @@ namespace Fanex.Athena.Api.BetList
                 CustId = custId,
                 UserCurrencyList = UserCurrencyList
             };
-            var betlistAPIUrl = new Uri($"http://localhost:55050/MixParlayBetList/NewParlayDetail");
-            return await BridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync("/MixParlayBetList/NewParlayDetail", metaModel).ConfigureAwait(false);
         }
     }
 }

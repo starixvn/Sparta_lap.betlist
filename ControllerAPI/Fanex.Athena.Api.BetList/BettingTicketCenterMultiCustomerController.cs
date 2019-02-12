@@ -22,18 +22,18 @@
 
         private readonly IAppSettings _appSettings;
 
-        private readonly IBridgeClientService _bridgeClientService;
+        private readonly IBetListApiClient _betListApiClient;
 
         public BettingTicketCenterMultiCustomerController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
             IAppSettings appSettings,
-            IBridgeClientService bridgeClientService)
+            IBetListApiClient betListApiClient)
             : base(sessionService, productService, langService)
         {
             _appSettings = appSettings;
-            _bridgeClientService = bridgeClientService;
+            _betListApiClient = betListApiClient;
         }
 
         [HttpPost]
@@ -61,8 +61,7 @@
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = userCurrencyList;
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/BettingTicketCenterMultiCustomer/GetData");
-            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenterMultiCustomer/GetData", metaModel).ConfigureAwait(false);
         }
 
         private static bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)

@@ -18,7 +18,7 @@ namespace Fanex.Athena.Api.BetList
 
     public class ApiBetListBaseController : BaseApiController
     {
-        private readonly IBridgeClientService _bridgeClientService;
+        private readonly IBetListApiClient _betListApiClient;
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -28,18 +28,18 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBridgeClientService bridgeClientService,
+            IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess)
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(sessionService, productService, languageService)
         {
-            _bridgeClientService = bridgeClientService;
+            _betListApiClient = betListApiClient;
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        protected IBridgeClientService BridgeClientService
+        protected IBetListApiClient BridgeClientService
         {
-            get { return _bridgeClientService; }
+            get { return _betListApiClient; }
         }
 
         protected BalanceUp GetBalanceUp()
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Api.BetList
         protected internal virtual async Task<dynamic> GetBetListResult(
             BetListMetaModel metaModel,
             string uspKey,
-            string url = null)
+            string apiPath = null)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
@@ -64,8 +64,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
-            var betlistAPIUrl = new Uri(url ?? $"http://localhost:55050/BetList/GetBetList");
-            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync(apiPath ?? "/BetList/GetBetList", metaModel).ConfigureAwait(false);
         }
 
         protected internal virtual async Task<dynamic> GetPagingBetListResult(
@@ -73,7 +72,7 @@ namespace Fanex.Athena.Api.BetList
             string uspKey,
             int pageIndex,
             int pageSize,
-            string url = null)
+            string apiPath = null)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
@@ -89,8 +88,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
-            var betlistAPIUrl = new Uri(url ?? $"http://localhost:55050/BetList/GetBetListPaging");
-            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync(apiPath ?? "/BetList/GetBetListPaging", metaModel).ConfigureAwait(false);
         }
 
         protected bool IsValidCurrencyId(int currencyId)

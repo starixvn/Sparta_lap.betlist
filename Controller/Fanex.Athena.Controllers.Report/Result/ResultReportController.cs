@@ -20,7 +20,7 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        private readonly IBridgeClientService _bridgeClientService;
+        private readonly IBetListApiClient _betListApiClient;
 
         #region Result-Page
 
@@ -30,11 +30,11 @@ namespace Fanex.Athena.Controllers.Report.Result
             IAppSettings appSetting,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            IBridgeClientService bridgeClientService)
+            IBetListApiClient betListApiClient)
             : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
-            _bridgeClientService = bridgeClientService;
+            _betListApiClient = betListApiClient;
         }
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
@@ -68,8 +68,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             if (ModelState.IsValid)
             {
-                var url = new Uri($"http://localhost:55050/ResultReport/Index");
-                var data = await _bridgeClientService.PostAsyncString(url, metaModel).ConfigureAwait(false);
+                var data = await _betListApiClient.PostAsyncString("/ResultReport/Index", metaModel).ConfigureAwait(false);
 
                 return this.Content(data, "text/html");
             }
@@ -83,8 +82,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             const string FileName = "LRF-Result.xls";
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            var url = new Uri($"http://localhost:55050/ResultReport/ResultExcel");
-            var stream = _bridgeClientService.PostAsyncStream(url, metaModel).Result;
+            var stream = _betListApiClient.PostAsyncStream("/ResultReport/ResultExcel", metaModel).Result;
             return File(stream, "application/vnd.ms-excel", FileName + ".xls");
         }
 
@@ -102,8 +100,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                    SessionService.UserSession.Language,
                    ResultPageGetNormalSportsName);
                 metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
-                var url = new Uri($"http://localhost:55050/ResultReport/GetSports");
-                var result = await _bridgeClientService.PostAsyncString(url, metaModel).ConfigureAwait(false);
+                var result = await _betListApiClient.PostAsyncString("/ResultReport/GetSports", metaModel).ConfigureAwait(false);
 
                 return this.Content(result, "application/json");
             }
@@ -120,8 +117,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             if (ModelState.IsValid)
             {
-                var url = new Uri($"http://localhost:55050/ResultReport/ResultPopup");
-                var result = await _bridgeClientService.PostAsyncString(url, metaModel).ConfigureAwait(false);
+                var result = await _betListApiClient.PostAsyncString("/ResultReport/ResultPopup", metaModel).ConfigureAwait(false);
 
                 ViewBag.Data = result;
                 return View("~/Views/Desktop/Report/Result/Popup/Main.cshtml");
@@ -141,8 +137,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     gameId,
                     SiteName = SessionService.LicenseeSession.LicenseeName,
                 };
-                var url = new Uri($"http://localhost:55050/ResultReport/MicrogamingResultPopup");
-                var result = await _bridgeClientService.PostAsyncString(url, metaModel).ConfigureAwait(false);
+                var result = await _betListApiClient.PostAsyncString("/ResultReport/MicrogamingResultPopup", metaModel).ConfigureAwait(false);
 
                 ViewBag.Data = result;
                 return View("~/Views/Desktop/Report/Result/Popup/Microgaming.cshtml");
@@ -155,8 +150,8 @@ namespace Fanex.Athena.Controllers.Report.Result
         [CustomValidateAntiForgery]
         public async Task<ActionResult> ShowRngCasinoSingleWalletResult(string refNo)
         {
-            var url = new Uri($"http://localhost:55050/ResultReport/ShowRngCasinoSingleWalletResult");
-            var result = await _bridgeClientService.PostAsyncString(url, new
+            var result = await _betListApiClient.PostAsyncString("/ResultReport/ShowRngCasinoSingleWalletResult", 
+                new
             {
                 refNo
             }).ConfigureAwait(false);
@@ -167,14 +162,13 @@ namespace Fanex.Athena.Controllers.Report.Result
         [HttpGet]
         public async Task<string> VoidbridgeResult(string custId, string gamePlayId)
         {
-            var url = new Uri($"http://localhost:55050/ResultReport/VoidbridgeResult");
             var model = new
             {
                 custId,
                 gamePlayId,
                 languageCode = SessionService.UserSession.Language
             };
-            return await _bridgeClientService.PostAsyncString(url, model).ConfigureAwait(false);
+            return await _betListApiClient.PostAsyncString("/ResultReport/VoidbridgeResult", model).ConfigureAwait(false);
         }
 
         [HttpGet]
@@ -187,8 +181,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 betType,
                 languageCode = SessionService.UserSession.Language
             };
-            var url = new Uri($"http://localhost:55050/ResultReport/AllBetResult");
-            ViewBag.Data = await _bridgeClientService.PostAsyncString(url, model).ConfigureAwait(false);
+            ViewBag.Data = await _betListApiClient.PostAsyncString("/ResultReport/AllBetResult", model).ConfigureAwait(false);
             return View("~/Views/Desktop/Report/Result/Popup/AllBet.cshtml");
         }
 
@@ -200,8 +193,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 custId,
                 gameId,
             };
-            var url = new Uri($"http://localhost:55050/ResultReport/GlobalGamingResult");
-            return await _bridgeClientService.PostAsyncString(url, model).ConfigureAwait(false);
+            return await _betListApiClient.PostAsyncString("/ResultReport/GlobalGamingResult", model).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -219,8 +211,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 sportType,
                 languageCode = SessionService.UserSession.Language
             };
-            var url = new Uri($"http://localhost:55050/ResultReport/ResultDetail");
-            var result = await _bridgeClientService.PostAsyncString(url, model).ConfigureAwait(false);
+            var result = await _betListApiClient.PostAsyncString("/ResultReport/ResultDetail", model).ConfigureAwait(false);
 
             if (!string.IsNullOrEmpty(result))
             {

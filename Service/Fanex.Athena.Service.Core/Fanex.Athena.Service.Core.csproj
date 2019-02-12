@@ -158,9 +158,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\SessionService.cs" />
     <Compile Include="Users\UserService.cs" />
-    <Compile Include="Utility\BridgeClientService.cs" />
+    <Compile Include="Utility\BetListApiClient.cs" />
     <Compile Include="Utility\CoreLogger.cs" />
-    <Compile Include="Utility\Interfaces\IBridgeClientService.cs" />
+    <Compile Include="Utility\Interfaces\IBetListApiClient.cs" />
     <Compile Include="Utility\Interfaces\ICoreLogger.cs" />
     <Compile Include="Utility\KeanOceanBusinessHelper.cs" />
   </ItemGroup>

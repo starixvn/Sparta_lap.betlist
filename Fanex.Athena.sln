@@ -1293,8 +1293,8 @@ Global
 		{3EA0F6A8-79D8-4BFA-A463-3C17144393F4} = {2CFDC467-A23E-46AB-A2DD-61D45BC5EBCD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
-		RESX_ShowErrorsInErrorList = False
 		SolutionGuid = {AF850210-126B-4E21-BADB-F5C02AD2CCEE}
+		RESX_ShowErrorsInErrorList = False
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal

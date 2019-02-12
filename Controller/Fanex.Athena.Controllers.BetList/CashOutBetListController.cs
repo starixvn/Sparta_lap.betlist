@@ -14,8 +14,6 @@
 
     public class CashOutBetListController : BetListBaseController
     {
-        private readonly IBridgeClientService _bridgeClientService;
-
 #pragma warning disable S107 // Methods should not have too many parameters
 
         public CashOutBetListController(
@@ -25,11 +23,10 @@
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
-            IBridgeClientService bridgeClientService)
+            IBetListApiClient betListApiClient)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
-            _bridgeClientService = bridgeClientService;
         }
 
         [HttpGet]
@@ -39,8 +36,7 @@
             metaModel.HasPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/CashOutBetList/Detail");
-            var viewModel = await _bridgeClientService.PostAsync<CashOutBetListDetailViewModel>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            var viewModel = await BetListApiClient.PostAsync<CashOutBetListDetailViewModel>("/CashOutBetList/Detail", metaModel).ConfigureAwait(false);
 
             return this.View("~/Views/Desktop/BetList/CashOutDetail/Main.cshtml", viewModel);
         }

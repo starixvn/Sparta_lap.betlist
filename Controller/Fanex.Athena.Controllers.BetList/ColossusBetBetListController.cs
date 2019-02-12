@@ -28,8 +28,6 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportColossusBetsWinLoss)]
     public class ColossusBetBetListController : BetListBaseController
     {
-        private readonly IBridgeClientService _bridgeClientService;
-
 #pragma warning disable S107 // Methods should not have too many parameters
 
         public ColossusBetBetListController(
@@ -40,11 +38,10 @@ namespace Fanex.Athena.Controllers.BetList
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
             ICoreLogger logger,
-            IBridgeClientService bridgeClientService)
+            IBetListApiClient betListApiClient)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
-            _bridgeClientService = bridgeClientService;
         }
 
         [HttpGet]
@@ -54,8 +51,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/ColossusBetBetList/Detail");
-            var viewModel = await _bridgeClientService.PostAsync<ColossusBetDetailViewModel>(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            var viewModel = await BetListApiClient.PostAsync<ColossusBetDetailViewModel>("/ColossusBetBetList/Detail", metaModel).ConfigureAwait(false);
             return this.View("~/Views/Desktop/BetList/ColossusBetDetail/Main.cshtml", viewModel);
         }
     }

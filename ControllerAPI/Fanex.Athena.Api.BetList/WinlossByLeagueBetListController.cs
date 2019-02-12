@@ -23,9 +23,9 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBridgeClientService bridgeClientService,
+            IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess)
-        : base(sessionService, productService, languageService, bridgeClientService, balanceUpDataAccess)
+        : base(sessionService, productService, languageService, betListApiClient, balanceUpDataAccess)
         {
         }
 
@@ -38,8 +38,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
-            var url = "http://localhost:55050/BetList/GetWinLossByLeagueData";
-            return await GetBetListResult(metaModel, UspKey, url).ConfigureAwait(false);
+            return await GetBetListResult(metaModel, UspKey, "/BetList/GetWinLossByLeagueData").ConfigureAwait(false);
         }
     }
 }

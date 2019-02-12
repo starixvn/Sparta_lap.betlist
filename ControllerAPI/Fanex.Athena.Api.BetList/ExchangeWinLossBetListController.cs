@@ -19,7 +19,7 @@
     [ApiFunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossBetListController : BaseApiController
     {
-        private readonly IBridgeClientService _bridgeClientService;
+        private readonly IBetListApiClient _betListApiClient;
 
         private readonly IAuthorizationService _authorizationService;
 
@@ -27,12 +27,12 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBridgeClientService bridgeClientService,
+            IBetListApiClient betListApiClient,
             IAuthorizationService authorizationService)
 
         : base(sessionService, productService, languageService)
         {
-            _bridgeClientService = bridgeClientService;
+            _betListApiClient = betListApiClient;
             _authorizationService = authorizationService;
         }
 
@@ -49,8 +49,7 @@
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/ExchangeWinLossBetList/GetData");
-            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/ExchangeWinLossBetList/GetData", metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
@@ -63,8 +62,7 @@
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/ExchangeWinLossBetList/Detail");
-            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/ExchangeWinLossBetList/Detail", metaModel).ConfigureAwait(false);
         }
 
         private bool IsValidRequest(BaseExchangeBetListMetaModel metaModel)

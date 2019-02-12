@@ -24,8 +24,6 @@ namespace Fanex.Athena.Controllers.BetList
 
     public class SystemParlayBetListController : BetListBaseController
     {
-        private readonly IBridgeClientService _bridgeClientService;
-
 #pragma warning disable S107 // Methods should not have too many parameters
 
         public SystemParlayBetListController(
@@ -35,11 +33,10 @@ namespace Fanex.Athena.Controllers.BetList
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
-            IBridgeClientService bridgeClientService)
+            IBetListApiClient betListApiClient)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
-            _bridgeClientService = bridgeClientService;
         }
 
         [HttpGet]
@@ -50,8 +47,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/SystemParlayBetList/Detail");
-            var data = await _bridgeClientService.PostAsyncString(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            var data = await BetListApiClient.PostAsyncString("/SystemParlayBetList/Detail", metaModel).ConfigureAwait(false);
 
             var viewModel = new SystemParlayDetailViewModel
             {

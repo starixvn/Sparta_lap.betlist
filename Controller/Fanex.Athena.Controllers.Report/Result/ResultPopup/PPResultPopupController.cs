@@ -10,16 +10,16 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
 
     public class PPResultPopupController : BaseController
     {
-        private readonly IBridgeClientService _bridgeClientService;
+        private readonly IBetListApiClient _betListApiClient;
 
         public PPResultPopupController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IBridgeClientService bridgeClientService)
+            IBetListApiClient betListApiClient)
             : base(languageService, sessionService, appSetting)
         {
-            _bridgeClientService = bridgeClientService;
+            _betListApiClient = betListApiClient;
         }
 
         [HttpGet]
@@ -31,8 +31,7 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
                 gamePlayId,
                 languageCode = SessionService.UserSession.Language
             };
-            var url = new Uri($"http://localhost:55050/PPResultPopup/Index");
-            return await _bridgeClientService.PostAsyncString(url, model).ConfigureAwait(false);
+            return await _betListApiClient.PostAsyncString("/PPResultPopup/Index", model).ConfigureAwait(false);
         }
     }
 }

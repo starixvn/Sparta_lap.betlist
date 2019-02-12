@@ -15,6 +15,7 @@
     using Resources;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -37,6 +38,8 @@
 
         private readonly IProductService _productService;
 
+        private readonly IBetListApiClient _betListApiClient;
+
 #pragma warning disable S107 // Methods should not have too many parameters
 
         public BetListBaseController(
@@ -45,13 +48,15 @@
             IAppSettings appSetting,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
+            _betListApiClient = betListApiClient;
         }
 
         protected IDictionary<int, string> UserCurrencyList => SessionService.UserSession.CurrencyList;
@@ -64,6 +69,11 @@
         protected ICacheRefAdapter CacheRefAdapter
         {
             get { return _cacheRefAdapter; }
+        }
+
+        protected IBetListApiClient BetListApiClient
+        {
+            get { return _betListApiClient; }
         }
 
         protected static string GetTitleByTransType(string productTitle, long transType)
@@ -218,10 +228,9 @@
         protected internal virtual ActionResult ProcessExportExcel(
             BetListExcelMetaModel metaModel,
             string fileName,
-            string url = null)
+            string apiPath = null)
         {
-            var betlistAPIUrl = new Uri($"http://localhost:55050" + (url ?? "/BetList/ExportExcel"));
-            var stream = new BridgeClientService().PostAsyncStream(betlistAPIUrl, metaModel).Result;
+            var stream = _betListApiClient.PostAsyncStream(apiPath ?? "/BetList/ExportExcel", metaModel).Result;
             return File(stream, "application/vnd.ms-excel", fileName + ".xls");
         }
 

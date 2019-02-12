@@ -17,7 +17,7 @@
     {
         private readonly ICoreLogger _logger;
 
-        private readonly IBridgeClientService _bridgeClientService;
+        private readonly IBetListApiClient _betListApiClient;
 
         public ResultKenoReportController(
             ILanguageService languageService,
@@ -25,11 +25,11 @@
             IAppSettings appSetting,
             IProductService productService,
             ICoreLogger logger,
-            IBridgeClientService bridgeClientService)
+            IBetListApiClient betListApiClient)
             : base(languageService, sessionService, appSetting, productService)
         {
             _logger = logger;
-            _bridgeClientService = bridgeClientService;
+            _betListApiClient = betListApiClient;
         }
 
         [HttpGet]
@@ -42,8 +42,7 @@
                 VendorProductId = vendorProductId,
                 UserId = userId.ToString()
             };
-            var url = new Uri($"http://localhost:55050/ResultKenoReport/GetKenoResultUrl");
-            var kenoUrl = await _bridgeClientService.PostAsyncString(url, model).ConfigureAwait(false);
+            var kenoUrl = await _betListApiClient.PostAsyncString("/ResultKenoReport/GetKenoResultUrl", model).ConfigureAwait(false);
 
             return Json(
                 new
@@ -72,8 +71,7 @@
                 UserId = userId
             };
 
-            var url = new Uri($"http://localhost:55050/ResultKenoReport/KeepSession");
-            var result = await _bridgeClientService.PostAsync<KenoExtendedToken>(url, model).ConfigureAwait(false);
+            var result = await _betListApiClient.PostAsync<KenoExtendedToken>("/ResultKenoReport/KeepSession", model).ConfigureAwait(false);
             
             if (result.ErrorCode > 0)
             {

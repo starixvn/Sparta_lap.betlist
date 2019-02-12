@@ -24,9 +24,9 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBridgeClientService bridgeClientService,
+            IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess)
-        : base(sessionService, productService, languageService, bridgeClientService, balanceUpDataAccess)
+        : base(sessionService, productService, languageService, betListApiClient, balanceUpDataAccess)
         {
         }
 
@@ -60,8 +60,7 @@ namespace Fanex.Athena.Api.BetList
                 SortBy = sortBy,
                 SortOrder = sortOrder
             };
-            var url = "http://localhost:55050/BetList/GetDailyBetListData";
-            return await GetPagingBetListResult(metaModel, UspKey, page, rows, url).ConfigureAwait(false);
+            return await GetPagingBetListResult(metaModel, UspKey, page, rows, "/BetList/GetDailyBetListData").ConfigureAwait(false);
         }
     }
 }

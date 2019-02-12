@@ -24,10 +24,10 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBridgeClientService bridgeClientService,
+            IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess,
             IReportSettingService reportSettingService)
-        : base(sessionService, productService, languageService, bridgeClientService, balanceUpDataAccess)
+        : base(sessionService, productService, languageService, betListApiClient, balanceUpDataAccess)
         {
             _reportSettingService = reportSettingService;
         }

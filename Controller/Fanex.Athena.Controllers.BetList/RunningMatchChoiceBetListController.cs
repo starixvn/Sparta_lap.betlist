@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.BetList.Model.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     #endregion Using
@@ -27,8 +28,9 @@ namespace Fanex.Athena.Controllers.BetList
             IAppSettings appSetting,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 

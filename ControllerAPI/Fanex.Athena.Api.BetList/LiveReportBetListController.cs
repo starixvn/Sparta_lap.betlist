@@ -31,9 +31,9 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBridgeClientService bridgeClientService,
+            IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess)
-        : base(sessionService, productService, languageService, bridgeClientService, balanceUpDataAccess)
+        : base(sessionService, productService, languageService, betListApiClient, balanceUpDataAccess)
         {
         }
 
@@ -113,8 +113,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
-            var betlistAPIUrl = new Uri($"http://localhost:55050/LiveReportBetList/GetData");
-            return await BridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync("/LiveReportBetList/GetData", metaModel).ConfigureAwait(false);
         }
 
         private async Task<HttpResponseMessage> GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
@@ -128,8 +127,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
-            var betlistAPIUrl = new Uri($"http://localhost:55050/LiveReportBetList/GetPagingData");
-            return await BridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync("/LiveReportBetList/GetPagingData", metaModel).ConfigureAwait(false);
         }
 
         #endregion Utility

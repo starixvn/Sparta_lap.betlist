@@ -15,16 +15,16 @@
     [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterController : BaseApiController
     {
-        private readonly IBridgeClientService _bridgeClientService;
+        private readonly IBetListApiClient _betListApiClient;
 
         public BettingTicketCenterController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
-            IBridgeClientService bridgeClientService)
+            IBetListApiClient betListApiClient)
             : base(sessionService, productService, langService)
         {
-            _bridgeClientService = bridgeClientService;
+            _betListApiClient = betListApiClient;
         }
 
         [HttpPost]
@@ -40,8 +40,7 @@
             metaModel.UserCurrencyList = userCurrencyList;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/BettingTicketCenter/GetBySingleCustomer");
-            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetBySingleCustomer", metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
@@ -56,8 +55,7 @@
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/BettingTicketCenter/GetByRefno");
-            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetByRefno", metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
@@ -74,8 +72,7 @@
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/BettingTicketCenter/GetByRunning");
-            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetByRunning", metaModel).ConfigureAwait(false);
         }
 
         private static bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)

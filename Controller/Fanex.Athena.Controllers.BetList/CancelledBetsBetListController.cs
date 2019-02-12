@@ -6,14 +6,13 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    using System;
-
     #region Using
 
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Athena.BetList.Model.DTO;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.BetList.Model.MetaModel;
@@ -26,7 +25,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
-    using Athena.BetList.Model.DTO;
 
     #endregion Using
 
@@ -34,8 +32,6 @@ namespace Fanex.Athena.Controllers.BetList
     public class CancelledBetsBetListController : BetListBaseController
     {
         private readonly IAuthorizationService _authorizationService;
-
-        private readonly IBridgeClientService _bridgeClientService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -46,13 +42,12 @@ namespace Fanex.Athena.Controllers.BetList
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
-            IAuthorizationService authorizationService,
-            IBridgeClientService bridgeClientService)
+            IBetListApiClient betListApiClient,
+            IAuthorizationService authorizationService)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
             _authorizationService = authorizationService;
-            _bridgeClientService = bridgeClientService;
         }
 
         [HttpGet]
@@ -69,7 +64,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
             if (metaModel.IsExportExcel)
             {
@@ -134,11 +129,11 @@ namespace Fanex.Athena.Controllers.BetList
                 return new List<CustomerCancelBetItem>();
             }
 
-            var betlistAPIUrl = new Uri($"http://localhost:55050/CancelledBetsBetList/GetCustomerList");
-            return await _bridgeClientService.PostAsync<IEnumerable<CustomerCancelBetItem>>(betlistAPIUrl, new
-            {
-                AgentListXml = metaModel.AgentListXml
-            }).ConfigureAwait(false);
+            return await BetListApiClient.PostAsync<IEnumerable<CustomerCancelBetItem>>("/CancelledBetsBetList/GetCustomerList",
+                new
+                {
+                    AgentListXml = metaModel.AgentListXml
+                }).ConfigureAwait(false);
         }
 
         private bool HasPermissionOnData(BetListMetaModel metaModel)

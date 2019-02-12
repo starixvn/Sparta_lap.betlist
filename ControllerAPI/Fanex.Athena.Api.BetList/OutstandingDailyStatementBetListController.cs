@@ -23,7 +23,7 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class OutstandingDailyStatementBetListController : BaseApiController
     {
-        private readonly IBridgeClientService _bridgeClientService;
+        private readonly IBetListApiClient _betListApiClient;
 
         private readonly IAuthorizationService _authorizationService;
 
@@ -31,11 +31,11 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBridgeClientService bridgeClientService,
+            IBetListApiClient betListApiClient,
             IAuthorizationService authorizationService)
         : base(sessionService, productService, languageService)
         {
-            _bridgeClientService = bridgeClientService;
+            _betListApiClient = betListApiClient;
             _authorizationService = authorizationService;
         }
 
@@ -49,8 +49,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             if (_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId))
             {
-                var betlistAPIUrl = new Uri($"http://localhost:55050/OutstandingDailyStatementBetList/GetData");
-                return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+                return await _betListApiClient.PostAsync("/OutstandingDailyStatementBetList/GetData", metaModel).ConfigureAwait(false);
             }
 
             return new List<DailyStatement>();

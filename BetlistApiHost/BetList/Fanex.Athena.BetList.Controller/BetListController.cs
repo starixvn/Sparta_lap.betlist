@@ -32,26 +32,6 @@ namespace Fanex.Athena.BetList.Controller
             _betListService = betListService; ;
         }
 
-        //protected IBetListService BetListService
-        //{
-        //    get { return _betListService; }
-        //}
-
-        //protected ICacheRefAdapter CacheRefAdapter
-        //{
-        //    get { return _cacheRefAdapter; }
-        //}
-
-        [HttpGet]
-        public string Test()
-        {
-            return "aaaaaaaaaaaa";//
-            //return new
-            //{
-            //    sdfsdf = 1212
-            //};
-        }
-
         [HttpPost]
         public JsonResult GetBetList(BetListMetaModel metaModel)
         {

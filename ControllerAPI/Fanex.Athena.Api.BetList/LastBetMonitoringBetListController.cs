@@ -18,7 +18,7 @@
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetMonitoringBetListController : BaseApiController
     {
-        private readonly IBridgeClientService _bridgeClientService;
+        private readonly IBetListApiClient _betListApiClient;
 
         private readonly IMatchService _matchService;
 
@@ -28,12 +28,12 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBridgeClientService bridgeClientService,
+            IBetListApiClient betListApiClient,
             IMatchService matchService,
             ICacheRefAdapter cacheRefAdapter)
         : base(sessionService, productService, languageService)
         {
-            _bridgeClientService = bridgeClientService;
+            _betListApiClient = betListApiClient;
             _matchService = matchService;
             _cacheRefAdapter = cacheRefAdapter;
         }
@@ -82,8 +82,7 @@
             }
 
             metaModel.UserCurrencyList = UserCurrencyList;
-            var betlistAPIUrl = new Uri($"http://localhost:55050/LastBetMonitoringBetList/GetData");
-            return await _bridgeClientService.PostAsync(betlistAPIUrl, metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/LastBetMonitoringBetList/GetData", metaModel).ConfigureAwait(false);
         }
     }
 }

@@ -9,6 +9,7 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
+    using Service.Core.Utility.Interfaces;
 
     public class GlobalGamingBetListController : BetListBaseController
     {
@@ -23,8 +24,9 @@
             IAppSettings appSetting,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
