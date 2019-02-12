@@ -226,10 +226,6 @@
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
-      <Project>{ce1f7641-a14d-4af6-9bd3-cad4873669b4}</Project>
-      <Name>Fanex.Athena.VendorAdapter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
@@ -245,6 +241,10 @@
     <ProjectReference Include="..\..\Common\Fanex.Athena.Common.DataAccess\Fanex.Athena.Common.DataAccess.csproj">
       <Project>{1798FAE2-17EB-4CC9-B0B1-B2363FBCA581}</Project>
       <Name>Fanex.Athena.Common.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Service\Fanex.Athena.Common.Service\Fanex.Athena.Common.Service.csproj">
+      <Project>{90F037EA-E730-44D0-8957-5FCA2295D22E}</Project>
+      <Name>Fanex.Athena.Common.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.BetList.DataAccess\Fanex.Athena.BetList.DataAccess.csproj">
       <Project>{B269F027-9AE1-4969-89D6-56C401B96051}</Project>

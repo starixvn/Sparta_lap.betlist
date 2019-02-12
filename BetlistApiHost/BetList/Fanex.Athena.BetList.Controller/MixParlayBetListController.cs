@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.VendorAdapter.Interfaces;
+using Fanex.Athena.Common.Service.Interfaces;
 
 namespace Fanex.Athena.BetList.Controller
 {

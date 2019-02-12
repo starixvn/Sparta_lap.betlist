@@ -8,6 +8,7 @@ namespace Fanex.Athena.Result.Controller
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
+    using Common.Service.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Result.Core.AllBetCasino;
@@ -21,7 +22,6 @@ namespace Fanex.Athena.Result.Controller
     using Model.MetaModel;
     using Resources;
     using Service.Interfaces;
-    using VendorAdapter.Interfaces;
 
     public class ResultReportController : Controller
     {
