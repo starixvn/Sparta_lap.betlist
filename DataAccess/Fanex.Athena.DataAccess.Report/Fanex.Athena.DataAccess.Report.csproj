@@ -151,10 +151,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BetlistApiHost\Result\Fanex.Athena.Result.Model\Fanex.Athena.Result.Model.csproj">
-      <Project>{3EA0F6A8-79D8-4BFA-A463-3C17144393F4}</Project>
-      <Name>Fanex.Athena.Result.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>

@@ -37,6 +37,10 @@
     <CodeAnalysisRuleSet>Fanex.Athena.Controllers.Report.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.Athena.Result.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BetlistApiHost\SharedDlls\Fanex.Athena.Result.Model.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
@@ -200,10 +204,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BetlistApiHost\Result\Fanex.Athena.Result.Model\Fanex.Athena.Result.Model.csproj">
-      <Project>{3ea0f6a8-79d8-4bfa-a463-3c17144393f4}</Project>
-      <Name>Fanex.Athena.Result.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>

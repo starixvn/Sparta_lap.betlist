@@ -14,6 +14,7 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System.Web.Http;
+    using Athena.BetList.Model.MetaModel;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.BetList.Model.MetaModel;
