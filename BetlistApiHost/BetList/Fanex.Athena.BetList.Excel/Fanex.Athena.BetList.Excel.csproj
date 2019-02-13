@@ -173,7 +173,7 @@
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj">
+    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj">
       <Project>{2B213BAB-B67D-4B66-A64F-AC5E9EC3DE1E}</Project>
       <Name>Fanex.Athena.Common.Constant</Name>
     </ProjectReference>

@@ -3,11 +3,11 @@ using System.Globalization;
 using System.Threading;
 using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.Constant.Helpers;
-using Fanex.Athena.Common.Service.Interfaces;
+using Fanex.Athena.Common.Utility.Interfaces;
 using Fanex.Athena.Resources;
 using Fanex.RemotingRef;
 
-namespace Fanex.Athena.Common.Service
+namespace Fanex.Athena.Common.Utility
 {
     public class CacheRefAdapter : ICacheRefAdapter
     {

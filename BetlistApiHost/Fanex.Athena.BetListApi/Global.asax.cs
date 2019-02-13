@@ -36,7 +36,7 @@ namespace Fanex.Athena
                 var exception = Server.GetLastError();
 
                 // Exception when passing wrong data type to action method
-                if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
+               if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
                     exception.TargetSite.Name == "ExtractParameterFromDictionary")
                 {
                     return;

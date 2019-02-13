@@ -16,7 +16,7 @@ namespace Fanex.Athena.Result.DataAccess
     using Common.DataAccess;
     using Common.DataAccess.Extensions;
     using Common.DataAccess.Interfaces;
-    using Common.Service.Interfaces;
+    using Common.Utility.Interfaces;
     using Extension.Utility;
     using Fanex.Common.Extensions;
     using Fanex.Result.Core.Racing.DTO;

@@ -163,6 +163,7 @@
       <HintPath>..\..\packages\Sunplus.Core.Common.1.1.4505.19054\lib\net40\Sunplus.Core.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.4.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -234,7 +235,7 @@
       <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj">
+    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj">
       <Project>{2B213BAB-B67D-4B66-A64F-AC5E9EC3DE1E}</Project>
       <Name>Fanex.Athena.Common.Constant</Name>
     </ProjectReference>
@@ -242,7 +243,7 @@
       <Project>{1798FAE2-17EB-4CC9-B0B1-B2363FBCA581}</Project>
       <Name>Fanex.Athena.Common.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Service\Fanex.Athena.Common.Service\Fanex.Athena.Common.Service.csproj">
+    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Utility\Fanex.Athena.Common.Utility.csproj">
       <Project>{90F037EA-E730-44D0-8957-5FCA2295D22E}</Project>
       <Name>Fanex.Athena.Common.Service</Name>
     </ProjectReference>

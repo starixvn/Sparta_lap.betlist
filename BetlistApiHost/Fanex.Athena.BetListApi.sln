@@ -35,9 +35,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Controller", "Result\Fanex.Athena.Result.Controller\Fanex.Athena.Result.Controller.csproj", "{BC358F4A-B85D-43A2-A669-D2D2C9F2EEDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Constant", "Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj", "{2B213BAB-B67D-4B66-A64F-AC5E9EC3DE1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Constant", "Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj", "{2B213BAB-B67D-4B66-A64F-AC5E9EC3DE1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Service", "Common\Fanex.Athena.Common.Service\Fanex.Athena.Common.Service\Fanex.Athena.Common.Service.csproj", "{90F037EA-E730-44D0-8957-5FCA2295D22E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Utility", "Common\Fanex.Athena.Common.Utility\Fanex.Athena.Common.Utility.csproj", "{90F037EA-E730-44D0-8957-5FCA2295D22E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

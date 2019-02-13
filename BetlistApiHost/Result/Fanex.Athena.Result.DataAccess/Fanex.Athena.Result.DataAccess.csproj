@@ -144,7 +144,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj">
+    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj">
       <Project>{2B213BAB-B67D-4B66-A64F-AC5E9EC3DE1E}</Project>
       <Name>Fanex.Athena.Common.Constant</Name>
     </ProjectReference>
@@ -152,7 +152,7 @@
       <Project>{1798FAE2-17EB-4CC9-B0B1-B2363FBCA581}</Project>
       <Name>Fanex.Athena.Common.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Service\Fanex.Athena.Common.Service\Fanex.Athena.Common.Service.csproj">
+    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Utility\Fanex.Athena.Common.Utility.csproj">
       <Project>{90F037EA-E730-44D0-8957-5FCA2295D22E}</Project>
       <Name>Fanex.Athena.Common.Service</Name>
     </ProjectReference>

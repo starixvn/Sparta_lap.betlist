@@ -9,7 +9,7 @@ namespace Fanex.Athena.BetList.Controller
     using System;
     using System.Linq;
     using System.Web.Mvc;
-    using Common.Service.Interfaces;
+    using Common.Utility.Interfaces;
     using CustomActionResult;
     using Excel;
     using Fanex.Athena.BetList.Model.DTO;

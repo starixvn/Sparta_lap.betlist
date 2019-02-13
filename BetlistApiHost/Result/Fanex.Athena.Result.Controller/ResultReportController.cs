@@ -8,7 +8,9 @@ namespace Fanex.Athena.Result.Controller
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
-    using Common.Service.Interfaces;
+    using System.Web.SessionState;
+    using Common.Utility.Attributes;
+    using Common.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Result.Core.AllBetCasino;
@@ -23,6 +25,8 @@ namespace Fanex.Athena.Result.Controller
     using Resources;
     using Service.Interfaces;
 
+    [CustomAuth]
+    [SessionState(SessionStateBehavior.ReadOnly)]
     public class ResultReportController : Controller
     {
         private const int ParlayBetType = 9;

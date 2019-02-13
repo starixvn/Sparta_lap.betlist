@@ -1,6 +1,6 @@
 ﻿using Fanex.RemotingRef;
 
-namespace Fanex.Athena.Common.Service.Interfaces
+namespace Fanex.Athena.Common.Utility.Interfaces
 {
     public interface ICacheRefAdapter
     {
