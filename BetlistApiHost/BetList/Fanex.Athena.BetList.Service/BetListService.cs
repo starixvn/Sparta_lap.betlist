@@ -9,6 +9,7 @@ namespace Fanex.Athena.BetList.Service
     using System.Collections.Generic;
     using Common.Constant;
     using Common.DataAccess.Interfaces;
+    using Common.Service.Interfaces;
     using Extensions;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
@@ -17,7 +18,6 @@ namespace Fanex.Athena.BetList.Service
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Helpers;
-    using VendorAdapter.Interfaces;
 
     public class BetListService : IBetListService
     {
