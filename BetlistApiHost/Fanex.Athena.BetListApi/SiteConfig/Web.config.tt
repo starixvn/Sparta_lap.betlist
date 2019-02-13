@@ -4,8 +4,8 @@
 <#@ import namespace="System.Xml" #>
 <#@ output extension=".txt" #>
 <#
-string projectPath = Host.ResolveAssemblyReference("$(SolutionDir)") + @"Fanex.Athena\";
-var environments = new string[] {"DEV", "LOCAL", "UAT", "SIT", "PRO","PROStatic", "BACKUPMNL", "SANDBOX" };
+string projectPath = Host.ResolveAssemblyReference("$(SolutionDir)") + @"Fanex.Athena.BetListApi\";
+var environments = new string[] {"LOCAL", "UAT", "SIT", "PRO", "BACKUPMNL", "SANDBOX" };
 foreach(var environment in environments)
 {
  using(var transform = new Microsoft.Web.XmlTransform.XmlTransformation( projectPath + "SiteConfig\\WebConfigTransforms\\" + environment + ".config"))

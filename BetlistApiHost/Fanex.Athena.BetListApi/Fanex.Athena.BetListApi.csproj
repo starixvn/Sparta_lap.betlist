@@ -459,12 +459,6 @@
     <Content Include="App_Data\Fanex.Result\Kabaddi.xls" />
     <Content Include="App_Data\Fanex.Result\ESport.xls" />
     <Content Include="App_Data\Fanex.Result\Happy5.xls" />
-    <None Include="SiteConfig\Web.AppSettings.BACKUPMNLStatic.config" />
-    <None Include="SiteConfig\Web.ConnectionStrings.BACKUPMNLStatic.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SiteConfig\Web.BACKUPMNLStatic.config" />
-    <Content Include="SiteConfig\WebConfigTransforms\DEV.config" />
     <None Include="SiteConfig\Web.DEV.config" />
     <None Include="SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
