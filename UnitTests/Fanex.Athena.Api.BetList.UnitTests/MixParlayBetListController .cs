@@ -110,7 +110,7 @@
             ticketResult.MainTicketList.Add(lrfTicket);
             BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
-            var ticketText = new List<ParlayDetailTicketText>();
+            var ticketText = new List<string>();
             _controller.When(x => x.BuildParlayDetailTickets(ticketResult, true)).DoNotCallBase();
             _controller.BuildParlayDetailTickets(ticketResult, true).Returns(ticketText);
 
@@ -151,7 +151,7 @@
             ticketResult.MainTicketList.Add(lrfTicket2);
             BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
-            var ticketText = new List<ParlayDetailTicketText>();
+            var ticketText = new List<string>();
             _controller.When(x => x.BuildParlayDetailTickets(ticketResult, true)).DoNotCallBase();
             _controller.BuildParlayDetailTickets(ticketResult, true).Returns(ticketText);
 
