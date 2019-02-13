@@ -45,7 +45,7 @@
                 CurrencyList = GetCurrencyList(),
                 LiveStatusList = GetLiveStatusList(),
                 StatusList = GetStatusList(),
-                ProductOptionList = GetProductOptionList(true),
+                ProductOptionList = GetProductOptionList(FunctionNames.BettingTicketCenterMultiCustomers),
                 MinDate = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
@@ -77,7 +77,7 @@
             var viewModel = new BettingTicketCenterViewModel
             {
                 CurrencyList = GetCurrencyList(),
-                ProductOptionList = GetProductOptionList(),
+                ProductOptionList = GetProductOptionList(FunctionNames.BettingTicketCenterRunning),
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
@@ -130,12 +130,12 @@
             return SessionService.UserSession.CurrencyList;
         }
 
-        private IEnumerable<ProductOption> GetProductOptionList(bool isMultiCustomersTab = false)
+        private IEnumerable<ProductOption> GetProductOptionList(string functionConfigKey = FunctionNames.BettingTicketCenter)
         {
             var productAccess = _productService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                isMultiCustomersTab ? FunctionNames.BettingTicketCenterMultiCustomers: FunctionNames.BettingTicketCenter);
+                functionConfigKey);
 
             return productAccess.ProductList.Select(i => new ProductOption
             {
