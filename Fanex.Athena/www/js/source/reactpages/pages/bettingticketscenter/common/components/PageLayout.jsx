@@ -88,12 +88,12 @@ export class PageLayout extends Component {
                    let choice = "";
                    const length = result.data.length;
                    for(let i = 0; i < length; i++) {
-                       choice += result.data[i].Choice;
+                       choice += result.data[i];
                        if (i < length - 1) {
                            choice += "<div class='line'></div>";
                        }
                    }
-
+                   
                    divEvent.innerHTML = choice;
                    divEvent.style.display = 'block';
                    this.props.toggleLoader(false);
@@ -116,8 +116,9 @@ export class PageLayout extends Component {
             let url = BetList.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam, custId);
             this.props.toggleLoader(true);
             axios.get(url)
-               .then((result) => {               
+               .then((result) => {       
                    let choice = BetList.buildChoiceParlayDetail(result.data);
+                   
                    divEvent.innerHTML = choice;
                    divEvent.style.display = 'block';
                    nameDiv.style.display = 'none';

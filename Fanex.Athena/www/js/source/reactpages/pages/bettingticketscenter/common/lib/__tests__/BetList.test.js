@@ -57,11 +57,11 @@ describe("BetList", function () {
     describe("buildChoiceParlayDetail(response)", function () {
         it("response has data - return correct result", function () {
             const response = {
-                Data: [{Choice:111}, {Choice:222}],
+                Data: ["Choice111", "Choice222"],
                 Texts: ["abc", "def"]
             };
             const result = BetList.buildChoiceParlayDetail(response);
-            expect(result).toBe("abcdef<div class='line'></div>111<div class='line'></div>222");
+            expect(result).toBe("abcdef<div class='line'></div>Choice111<div class='line'></div>Choice222");
         });
 
         it("response has no data - return empty string", function () {

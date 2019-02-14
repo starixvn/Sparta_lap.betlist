@@ -4136,13 +4136,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             var choice = "";
                             var len = response.length;
                             $.each(response, function (index, item) {
-                                if (index === len - 1) {
-                                    choice += item.Choice;
-                                }
-                                else {
-                                    choice += item.Choice + "<div class='line'></div>";
+                                choice += item;
+                                if (index < len - 1) {
+                                    choice += "<div class='line'></div>";
                                 }
                             });
+
                             divEvent.html(choice);
                             divEvent.css("display", "");
                         },
@@ -4192,11 +4191,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                                 choice += "<div class='line'></div>";
 
                                 $.each(response.Data, function (index, item) {
-                                    if (index === length - 1) {
-                                        choice += item.Choice;
-                                    }
-                                    else {
-                                        choice += item.Choice + "<div class='line'></div>";
+                                    choice += item;
+                                    if (index < length - 1) {
+                                        choice += "<div class='line'></div>";
                                     }
                                 });
 
@@ -4395,7 +4392,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             registerBetListGlobalFunctions: function () {
                 window.ViewResult = _me.viewResult;
-
+                // showMP and showCombMP are only for old tickets
                 window.showMP = function (transId, refNo, custId) {
                     var divEvent = $('#divEvent_' + transId);
                     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket

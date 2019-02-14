@@ -9704,7 +9704,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
                     var choice = "";
                     var length = result.data.length;
                     for (var i = 0; i < length; i++) {
-                        choice += result.data[i].Choice;
+                        choice += result.data[i];
                         if (i < length - 1) {
                             choice += "<div class='line'></div>";
                         }
@@ -9735,6 +9735,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 this.props.toggleLoader(true);
                 _axios2.default.get(url).then(function (result) {
                     var choice = _BetList2.default.buildChoiceParlayDetail(result.data);
+
                     divEvent.innerHTML = choice;
                     divEvent.style.display = 'block';
                     nameDiv.style.display = 'none';
@@ -9982,10 +9983,9 @@ var BetList = function () {
 
                 for (var _i = 0; _i < response.Data.length; _i++) {
                     var item = response.Data[_i];
-                    if (_i === length - 1) {
-                        choice += item.Choice;
-                    } else {
-                        choice += item.Choice + "<div class='line'></div>";
+                    choice += item;
+                    if (_i < length - 1) {
+                        choice += "<div class='line'></div>";
                     }
                 }
             }

@@ -62,6 +62,16 @@ namespace Fanex.Athena.Api.BetList
             _betlistHtmlBuilder = betlistHtmlBuilder;
         }
 
+        protected IBetListHTMLBuilder BetListHTMLBuilder
+        {
+            get { return _betlistHtmlBuilder; }
+        }
+
+        protected ITicketHelper TicketHelper
+        {
+            get { return _ticketHelper; }
+        }
+
         protected IBetListService BetListService
         {
             get { return _betListService; }

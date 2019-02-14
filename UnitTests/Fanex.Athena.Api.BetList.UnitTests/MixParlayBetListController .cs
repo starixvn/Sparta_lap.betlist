@@ -46,7 +46,7 @@
             var ticketResult = new TicketResult();
             BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
-            _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
+            _controller.When(x => x.BuildParlayDetailTickets(ticketResult, true)).DoNotCallBase();
 
             // Action
             _controller.Detail(TransId, CustId);
@@ -54,8 +54,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                BetListService.Received().GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId);
-                _controller.Received().Ticket(ticketResult, null, 1, true);
+                BetListService.Received(1).GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId);
+                _controller.Received(1).BuildParlayDetailTickets(ticketResult, true);
             });
         }
 
@@ -110,9 +110,9 @@
             ticketResult.MainTicketList.Add(lrfTicket);
             BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
-            var ticketText = new List<TicketText>();
-            _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
-            _controller.Ticket(ticketResult, null, 1, true).Returns(ticketText);
+            var ticketText = new List<string>();
+            _controller.When(x => x.BuildParlayDetailTickets(ticketResult, true)).DoNotCallBase();
+            _controller.BuildParlayDetailTickets(ticketResult, true).Returns(ticketText);
 
             var expectedText = "<p class='system-parlay-ticket-infor'>"
                                 + $"<span class='system-parlay-combo-type'>{combinationTypeCombo[0]}</span> x "
@@ -151,9 +151,9 @@
             ticketResult.MainTicketList.Add(lrfTicket2);
             BetListService.GetMixParlayDetailTicket(UserCurrencyList, SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
-            var ticketText = new List<TicketText>();
-            _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
-            _controller.Ticket(ticketResult, null, 1, true).Returns(ticketText);
+            var ticketText = new List<string>();
+            _controller.When(x => x.BuildParlayDetailTickets(ticketResult, true)).DoNotCallBase();
+            _controller.BuildParlayDetailTickets(ticketResult, true).Returns(ticketText);
 
             var expectedText = "<p class='system-parlay-ticket-infor'>"
                                 + $"<span class='system-parlay-combo-type'>{combinationTypeCombo[0]}</span> x "

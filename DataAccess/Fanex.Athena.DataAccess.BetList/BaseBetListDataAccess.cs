@@ -72,6 +72,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 // DateTime
                 WinlostDate = reader.GetDateTime("winlostdate", DateTime.Now),
                 TransDate = reader.GetDateTime("transdate", DateTime.Now),
+                EventDate = reader.GetDateTime("eventdate", DateTime.MinValue),
 
                 // Money
                 PlayerComm = reader.GetDecimal(columns["playerCommCol"]),
@@ -132,7 +133,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 "leagueid", "awayid", "homeid", "matchid", "custid", "currencyid", "livehomescore", "liveawayscore",
                 "SpecialLevel", "StatusId", "transid", "betid", "winlostdate", "transdate",
                 "odds", "modds", "hdp1", "hdp2", "transdesc", "currency", "betdaqid", "extrainfo", "originalbettype",
-                "refcode", "wallettype", "oddsspread", "SettlementStatus"
+                "refcode", "wallettype", "oddsspread", "SettlementStatus", "eventdate"
             };
             var result = columns.ToDictionary(x => x, x => x);
             result.Add("playerCommCol", "playercomm" + columnSuffix);

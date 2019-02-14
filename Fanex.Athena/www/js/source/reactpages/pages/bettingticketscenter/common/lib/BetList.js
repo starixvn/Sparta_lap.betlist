@@ -77,11 +77,9 @@ class BetList {
 
             for(let i = 0;i < response.Data.length; i++){
                 let item = response.Data[i];
-                if (i === length - 1) {
-                    choice += item.Choice;
-                }
-                else {
-                    choice += item.Choice + "<div class='line'></div>";
+                choice += item;
+                if (i < length - 1) {
+                    choice += "<div class='line'></div>";
                 }
             }
         }

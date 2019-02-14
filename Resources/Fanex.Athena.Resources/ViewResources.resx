@@ -715,9 +715,6 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
-  <data name="Loss" xml:space="preserve">
-    <value>Loss</value>
-  </data>
   <data name="LrfNotification" xml:space="preserve">
     <value>LRF-Notification</value>
   </data>
@@ -1335,9 +1332,6 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
-  </data>
-  <data name="Win" xml:space="preserve">
-    <value>Win</value>
   </data>
   <data name="WinLoss" xml:space="preserve">
     <value>Win Loss</value>
