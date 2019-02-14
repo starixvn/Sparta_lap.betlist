@@ -24,24 +24,15 @@
 
         public BalanceUp GetBalanceUp()
         {
-            BalanceUp balanceup = null;
-            try
-            {
-                balanceup = _cache.Get<BalanceUp>(CacheKey.MemorycacheCommonBalanceup);
+            var balanceup = _cache.Get<BalanceUp>(CacheKey.MemorycacheCommonBalanceup);
 
-                if (balanceup != null)
-                {
-                    return balanceup;
-                }
-
-                balanceup = GetBalanceUpDayFromDb();
-                _cache.Set(CacheKey.MemorycacheCommonBalanceup, balanceup, CacheTimeoutSeconds);
-            }
-            catch (Exception exception)
+            if (balanceup != null)
             {
-                _logger.Error("BalanceUp: " + exception.Message, exception);
+                return balanceup;
             }
 
+            balanceup = GetBalanceUpDayFromDb();
+            _cache.Set(CacheKey.MemorycacheCommonBalanceup, balanceup, CacheTimeoutSeconds);
             return balanceup;
         }
 

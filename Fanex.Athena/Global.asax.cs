@@ -21,6 +21,7 @@ namespace Fanex.Athena
     using Fanex.Athena.Web.RouterConfig;
     using Logging.Extensions.Database;
     using Logging.Extensions.Web;
+    using RemotingRef;
     using Service.Core.Utility.Interfaces;
 
     public class MvcApplication : HttpApplication
@@ -80,6 +81,9 @@ namespace Fanex.Athena
                 DbSettingProviderManager.Current.Start();
                 log4net.Config.XmlConfigurator.Configure();
                 log4net.LogManager.GetLogger("GeneralLog").Info("Start");
+                RefDataTypeContainer
+                .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
+                .FromApplication("Fanex.LAP");
 
                 Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
                     .IgnoreException<HttpAntiForgeryException>()

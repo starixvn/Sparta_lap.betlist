@@ -46,26 +46,26 @@ namespace Fanex.Athena.Api.BetList
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetCleanSheet)]
-        public dynamic CleanSheet(BetListMetaModel metaModel)
+        public async Task<dynamic> CleanSheet(BetListMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.CleanSheet;
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetToWinToNil)]
-        public dynamic ToWinToNil(BetListMetaModel metaModel)
+        public async Task<dynamic> ToWinToNil(BetListMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.ToWinToNil;
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBet3WayHandicap)]
-        public dynamic ThreeWayHandicap(BetListMetaModel metaModel)
+        public async Task<dynamic> ThreeWayHandicap(BetListMetaModel metaModel)
         {
             metaModel.MultipleBettype = $"{(int)BetType.ThreeWayHandicap},{(int)BetType.FirstHalfThreeWayHandicap}";
-            return ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList");
+            return await ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList").ConfigureAwait(false);
         }
 
         private async Task<dynamic> ProcessRequest(BetListMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
