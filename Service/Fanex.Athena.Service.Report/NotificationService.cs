@@ -66,6 +66,14 @@
 
         public ReportResultModel<ResultAmendment> GetResultAmendment(NotificationMetaModel metaModel)
         {
+            if (string.IsNullOrEmpty(_appSetting.ResultAmendmentApiUrl))
+            {
+                return new ReportResultModel<ResultAmendment>
+                {
+                    DataList = new ResultAmendment[0],
+                };
+            }
+
             var resultAmendmentUrl = string.Format(
                 _appSetting.ResultAmendmentApiUrl,
                 metaModel.FromDate,
