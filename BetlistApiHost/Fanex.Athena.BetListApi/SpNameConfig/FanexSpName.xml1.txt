@@ -2,8 +2,8 @@
 
 // Generated helper templates
 // Generated items
-// Fanex.Athena\SpNameConfig\FanexSpName.PRO.xml
-// Fanex.Athena\SpNameConfig\FanexSpName.SIT.xml
-// Fanex.Athena\SpNameConfig\FanexSpName.UAT.xml
-// Fanex.Athena\SpNameConfig\FanexSpName.LOCAL.xml
-// Fanex.Athena\SpNameConfig\FanexSpName.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.PRO.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.SIT.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.UAT.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.LOCAL.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.xml
