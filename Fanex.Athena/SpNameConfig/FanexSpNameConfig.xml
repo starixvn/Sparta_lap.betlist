@@ -7,13 +7,5 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelParlayDetail" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_RefNo_Mem" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_Running" EnvironmentText="_xtest"></SpNameConfig>
 
 </Root>
