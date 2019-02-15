@@ -3,9 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Athena.Model.Core.DataDomain;
-    using Athena.Model.Core.DTO.Common;
     using BetList.Model.MetaModel;
+    using Common.Constant;
     using Data;
 
     [CLSCompliant(false)]
@@ -114,8 +113,8 @@
             db.SetParameterValue("ShowWin", metaModel.ShowWin);
             db.SetParameterValue("ShowLoss", metaModel.ShowLoss);
             db.SetParameterValue("ShowDraw", metaModel.ShowDraw);
-            db.SetParameterValue("ShowSB", products.Contains(Product.SB));
-            db.SetParameterValue("ShowBA", products.Contains(Product.BA));
+            db.SetParameterValue("ShowSB", products.Contains(ProductCodes.SB));
+            db.SetParameterValue("ShowBA", products.Contains(ProductCodes.BA));
         }
 
         private static void CreateRunningBetListByForeCastMatchParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -210,7 +209,7 @@
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
 
-            var supportedProducts = new[] { Product.SB, Product.NG, Product.BA, Product.VS, Product.VS2 };
+            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.NG, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -223,7 +222,7 @@
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
 
-            var supportedProducts = new[] { Product.SB, Product.BA };
+            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -238,7 +237,7 @@
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
 
-            var supportedProducts = new[] { Product.SB, Product.NG, Product.BA, Product.VS, Product.VS2 };
+            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.NG, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -272,7 +271,7 @@
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue("Bettype", metaModel.BetType);
             db.SetParameterValue("LiveIndicator", metaModel.LiveIndicator);
-            var supportedProducts = new[] { Product.SB, Product.BA, Product.VS2 };
+            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -298,7 +297,7 @@
             db.SetParameterValue("MatchID", metaModel.MatchId);
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue("LiveIndicator", metaModel.LiveIndicator);
-            var supportedProducts = new[] { Product.SB, Product.BA, Product.VS, Product.MGCLC, Product.MGCRNG, Product.VS2 };
+            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS, ProductCodes.MGCLC, ProductCodes.MGCRNG, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -310,7 +309,7 @@
             CreateBetListDateRangeParameters(db, metaModel);
             db.SetParameterValue("MoveBetsDay", metaModel.MoveBetsDay);
             AddLiveReportPagingParams(db, metaModel);
-            var supportedProducts = new[] { Product.SB, Product.BA };
+            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 

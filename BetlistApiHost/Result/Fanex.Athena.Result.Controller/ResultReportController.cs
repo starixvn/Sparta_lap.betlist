@@ -9,9 +9,9 @@ namespace Fanex.Athena.Result.Controller
     using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Common.Model.DTO;
     using Common.Utility.Attributes;
     using Common.Utility.Services.Interfaces;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Result.Core.AllBetCasino;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.GlobalGaming;

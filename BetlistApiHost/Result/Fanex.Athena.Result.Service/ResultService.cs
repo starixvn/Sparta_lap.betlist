@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using Common.Model.DTO;
     using DataAccess;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Result.Core;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.Happy5.DTO;

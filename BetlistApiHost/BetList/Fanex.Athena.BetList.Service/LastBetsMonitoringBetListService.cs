@@ -13,7 +13,6 @@ namespace Fanex.Athena.BetList.Service
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Interfaces;
 
     public class LastBetsMonitoringBetListService : ILastBetsMonitoringBetListService

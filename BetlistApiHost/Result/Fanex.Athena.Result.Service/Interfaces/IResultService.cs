@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Fanex.Athena.Model.Core.DTO.Common;
+    using Common.Model.DTO;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.Happy5.DTO;
     using Fanex.Result.Core.NumberGame.DTO;

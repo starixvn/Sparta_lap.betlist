@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Athena.Model.Core.MetaModel.Product;
+    using Common.Model.MetaModel;
 
     [Serializable]
     public class BettingTicketCenterViewModel

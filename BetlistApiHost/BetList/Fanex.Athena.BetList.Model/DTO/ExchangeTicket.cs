@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.Model.DTO
 {
     using System;
-    using Athena.Model.Core.DataDomain;
+    using Common.Constant;
 
     public class ExchangeTicket
     {

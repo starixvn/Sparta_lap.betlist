@@ -5,7 +5,7 @@ using Fanex.Athena.BetList.Excel;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.Model.Core.DataDomain;
+using Fanex.Athena.Common.Constant;
 
 namespace Fanex.Athena.BetList.Controller
 {

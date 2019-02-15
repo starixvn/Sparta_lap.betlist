@@ -11,7 +11,7 @@ namespace Fanex.Athena.BetList.Excel
     using System.Linq;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
-    using Athena.Model.Core.DataDomain;
+    using Common.Constant;
     using Common.Utility.Services;
     using Common.Utility.Services.Interfaces;
     using Fanex.BetList.Core.Builder;

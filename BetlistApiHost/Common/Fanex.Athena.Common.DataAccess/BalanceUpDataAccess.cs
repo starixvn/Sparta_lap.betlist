@@ -1,15 +1,17 @@
 ﻿namespace Fanex.Athena.Common.DataAccess
 {
     using System;
-    using Utility.Services.Interfaces;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common.Extensions;
     using Interfaces;
     using Logging;
+    using Model.DTO;
+    using Utility.Services.Interfaces;
 
     public class BalanceUpDataAccess : BaseDataAccess, IBalanceUpDataAccess
     {
         private const int CacheTimeoutSeconds = 60;
+
+        private const string BalanceUpCacheKey = "BETLISTAPI_CACHE_BALANCEUP";
 
         private readonly IMemoryCacheService _cache;
 
@@ -21,7 +23,7 @@
 
         public BalanceUp GetBalanceUp()
         {
-            var balanceup = _cache.Get<BalanceUp>(CacheKey.MemorycacheCommonBalanceup);
+            var balanceup = _cache.Get<BalanceUp>(BalanceUpCacheKey);
 
             if (balanceup != null)
             {
@@ -29,7 +31,7 @@
             }
 
             balanceup = GetBalanceUpDayFromDb();
-            _cache.Set(CacheKey.MemorycacheCommonBalanceup, balanceup, CacheTimeoutSeconds);
+            _cache.Set(BalanceUpCacheKey, balanceup, CacheTimeoutSeconds);
             return balanceup;
         }
 

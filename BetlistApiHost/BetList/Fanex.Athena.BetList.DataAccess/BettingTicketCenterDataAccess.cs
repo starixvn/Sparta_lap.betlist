@@ -4,9 +4,9 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Athena.Model.Core.DTO.Common;
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
+    using Common.Constant;
     using Common.DataAccess.Interfaces;
     using Common.Utility.Services.Interfaces;
     using Data;
@@ -108,7 +108,7 @@
             using (var db = GetObjectDb(UspKey))
             {
                 var productCodes = metaModel.ProductCodeList.Split(',');
-                var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
+                var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
                 var balanceUp = _balanceUpDataAccess.GetBalanceUp();
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("FromDate", metaModel.FromDate);
@@ -120,7 +120,7 @@
                 db.SetParameterValue("MatchId", metaModel.MatchId);
                 db.SetParameterValue("StatusIdList", metaModel.StatusList);
                 db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
-                db.SetParameterValue("ShowBA", productCodes.Contains(Product.BA));
+                db.SetParameterValue("ShowBA", productCodes.Contains(ProductCodes.BA));
                 db.SetParameterValue("ProductList", productList);
 
                 db.SetParameterValue("TotalRows", null);
@@ -195,7 +195,7 @@
             using (var db = GetObjectDb(UspKey))
             {
                 var productCodes = metaModel.ProductCodeList.Split(',');
-                var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
+                var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
                 var endOfToDate = metaModel.ToDate.AddDays(1).AddMilliseconds(-2);
 
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
@@ -205,7 +205,7 @@
                 db.SetParameterValue("CurrencyId", metaModel.CurrencyId);
                 db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 db.SetParameterValue("ProductList", productList);
-                db.SetParameterValue("showBA", productCodes.Contains(Product.BA));
+                db.SetParameterValue("showBA", productCodes.Contains(ProductCodes.BA));
                 db.SetParameterValue("PageSize", metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
                 db.SetParameterValue("PageIndex", metaModel.IsExport ? 1 : metaModel.PageIndex);
                 db.SetParameterValue("TotalRows", null);
@@ -256,9 +256,9 @@
         private void AddSingleCustomerParameters(IObjectDb db, SingleCustomersBetListMetaModel metaModel)
         {
             var productCodes = metaModel.ProductCodeList.Split(',');
-            var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
+            var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-            db.SetParameterValue("ShowBA", productCodes.Contains(Product.BA));
+            db.SetParameterValue("ShowBA", productCodes.Contains(ProductCodes.BA));
             db.SetParameterValue("ProductList", productList);
             db.SetParameterValue("FromDate", metaModel.FromDate);
             db.SetParameterValue("ToDate", metaModel.ToDate);
@@ -285,7 +285,7 @@
         private void AddMultiCustomerParameters(IObjectDb db, MultipleCustomersBetListMetaModel metaModel)
         {
             var productCodes = metaModel.ProductCodeList.Split(',');
-            var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
+            var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("FromDate", metaModel.FromDate);
@@ -300,7 +300,7 @@
             db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
             db.SetParameterValue("PageSize", metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
             db.SetParameterValue("PageIndex", metaModel.IsExport ? 1 : metaModel.PageIndex);
-            db.SetParameterValue("ShowBA", productCodes.Contains(Product.BA));
+            db.SetParameterValue("ShowBA", productCodes.Contains(ProductCodes.BA));
             db.SetParameterValue("ProductList", productList);
 
             db.SetParameterValue("TotalRows", null);

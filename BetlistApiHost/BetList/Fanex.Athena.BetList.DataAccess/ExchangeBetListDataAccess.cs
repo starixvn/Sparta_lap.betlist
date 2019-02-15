@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using Athena.Model.Core.DataDomain;
+    using Common.Constant;
     using Common.DataAccess;
     using Common.Utility.Helpers;
     using Fanex.Common;
@@ -13,6 +13,8 @@
 
     public class ExchangeBetListDataAccess : BaseDataAccess, IExchangeBetListDataAccess
     {
+        private const string ExchangeMatchTypeLay = "Lay";
+
         public ExchangeBetListResult GetBetListData(ExchangeBetListMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_Exchange_Mem";
@@ -77,7 +79,7 @@
                     OddsMatched = reader.ToDecimal("OddsMatched")
                 };
 
-                data.Liability = type == ExchangeMatchType.Lay ? NumberHelper.DecFormat((data.OddsMatched - 1) * data.Stake, 2) : "-";
+                data.Liability = type == ExchangeMatchTypeLay ? NumberHelper.DecFormat((data.OddsMatched - 1) * data.Stake, 2) : "-";
                 mainData.Add(data);
             }
 

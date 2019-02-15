@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Common.DataAccess.Interfaces
 {
-    using Fanex.Athena.Model.Core.DTO.Configuration;
+    using Model.DTO;
 
     public interface IBalanceUpDataAccess
     {
