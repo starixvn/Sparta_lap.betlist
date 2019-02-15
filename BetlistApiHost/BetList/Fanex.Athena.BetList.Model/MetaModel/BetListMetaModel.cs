@@ -8,7 +8,6 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Web.Script.Serialization;
 
     public class BetListMetaModel : BaseMetaModel
@@ -32,8 +31,6 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public string ProductCodeList { get; set; } = string.Empty;
 
-        public string ExcelFileName { get; set; }
-
         public bool IsShowSumStake { get; set; }
 
         public bool IsServerPaging { get; set; }
@@ -50,33 +47,9 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public DateTime FromDate { get; set; }
 
-        public string FromDateString
-        {
-            get
-            {
-                return FromDate.ToString(CultureInfo.InvariantCulture);
-            }
-        }
-
         public DateTime ToDate { get; set; }
 
-        public string ToDateString
-        {
-            get
-            {
-                return ToDate.ToString(CultureInfo.InvariantCulture);
-            }
-        }
-
         public DateTime Date { get; set; }
-
-        public string DateString
-        {
-            get
-            {
-                return Date.ToString(CultureInfo.InvariantCulture);
-            }
-        }
 
         public int CustId { get; set; }
 
@@ -84,17 +57,11 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public string ExternalId { get; set; }
 
-        public string BetListName { get; set; }
-
         public DateTime MoveBetsDay { get; set; }
 
         public DateTime BalanceUpDay { get; set; }
 
         public int MatchId { get; set; }
-
-        public int HomeId { get; set; }
-
-        public int AwayId { get; set; }
 
         public int LeagueId { get; set; }
 
@@ -130,7 +97,5 @@ namespace Fanex.Athena.BetList.Model.MetaModel
                     && !string.IsNullOrWhiteSpace(ProductCodeList);
             }
         }
-
-        public bool IsFakeLicensee { get; set; }
     }
 }

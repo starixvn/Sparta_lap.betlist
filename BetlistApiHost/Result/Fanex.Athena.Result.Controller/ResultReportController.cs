@@ -216,15 +216,15 @@ namespace Fanex.Athena.Result.Controller
             return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Common.Constant.BetType.VirtualSports2MixParlay;
         }
 
-        private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, ProductAccess productAccess)
+        private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, IEnumerable<string> productCodes)
         {
             var limitedSports = sports;
-            if (!productAccess.IsAllowNG)
+            if (!productCodes.Contains(Common.Constant.ProductCodes.NG))
             {
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.NumberGame && i.SportId != (int)SportType.Happy5);
             }
 
-            if (!productAccess.IsAllowVS)
+            if (!productCodes.Contains(Common.Constant.ProductCodes.VS))
             {
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.VirtualSports);
             }
@@ -324,12 +324,11 @@ namespace Fanex.Athena.Result.Controller
             var sports = _resultService.GetSports(metalModel.FromDate, metalModel.LicenseeId);
             if (sports.Any())
             {
-                var productList = metalModel.ProductCodeList.Split(',').Select(x => new Product { ProductCode = x }).ToList();
+                var productCodes = metalModel.ProductCodeList.Split(',');
 
-                var productAccess = new ProductAccess(productList);
-                var isAllowAllProducts = productAccess.IsAllowNG && productAccess.IsAllowVS;
+                var isAllowAllProducts = productCodes.Contains(Common.Constant.ProductCodes.NG) && productCodes.Contains(Common.Constant.ProductCodes.VS);
 
-                var limitedSports = isAllowAllProducts ? sports : RemoveNotAllowedSports(sports, productAccess);
+                var limitedSports = isAllowAllProducts ? sports : RemoveNotAllowedSports(sports, productCodes);
 
                 if (limitedSports.Any())
                 {

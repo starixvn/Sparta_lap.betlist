@@ -36,13 +36,5 @@
                     : value.ToLowerInvariant();
             }
         }
-
-        public bool IsConvert
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(BaseCurrency);
-            }
-        }
     }
 }

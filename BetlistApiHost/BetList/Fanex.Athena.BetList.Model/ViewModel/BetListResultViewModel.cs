@@ -10,7 +10,5 @@ namespace Fanex.Athena.BetList.Model.ViewModel
         public BetListTotalData Total { get; set; }
 
         public string LeagueName { get; set; }
-
-        public bool IsShowTotal { get; set; }
     }
 }
