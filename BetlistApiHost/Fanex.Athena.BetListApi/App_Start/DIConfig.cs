@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using Fanex.Athena.Extension.Utility.Internal;
+using Fanex.Athena.Common.Utility.Services.Internal;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.TicketHelper;
@@ -78,7 +78,7 @@ namespace Fanex.Athena
 
         private static Assembly[] GetControllerAssemblies(Assembly[] assemblies)
         {
-            return assemblies.Where(ass => 
+            return assemblies.Where(ass =>
                 ass.FullName.Contains("Fanex.Athena.BetList.Controller") ||
                 ass.FullName.Contains("Fanex.Athena.Result.Controller")).ToArray();
         }

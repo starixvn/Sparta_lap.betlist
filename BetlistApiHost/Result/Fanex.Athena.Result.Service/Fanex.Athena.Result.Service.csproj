@@ -55,10 +55,6 @@
       <HintPath>..\..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Athena.Extension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SharedDlls\Fanex.Athena.Extension.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Athena.Model.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\SharedDlls\Fanex.Athena.Model.Core.dll</HintPath>
@@ -212,6 +208,10 @@
     <ProjectReference Include="..\..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>
       <Name>Fanex.Athena.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Utility\Fanex.Athena.Common.Utility.csproj">
+      <Project>{90F037EA-E730-44D0-8957-5FCA2295D22E}</Project>
+      <Name>Fanex.Athena.Common.Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Result.DataAccess\Fanex.Athena.Result.DataAccess.csproj">
       <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>

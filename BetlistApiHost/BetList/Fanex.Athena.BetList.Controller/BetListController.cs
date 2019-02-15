@@ -9,13 +9,13 @@ namespace Fanex.Athena.BetList.Controller
     using System;
     using System.Linq;
     using System.Web.Mvc;
-    using Common.Utility.Interfaces;
+    using Common.Utility.Helpers;
+    using Common.Utility.Services.Interfaces;
     using CustomActionResult;
     using Excel;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.BetList.Service.Interfaces;
-    using Fanex.Athena.Extension.Helper;
     using Model.ViewModel;
 
     public class BetListController : BaseController

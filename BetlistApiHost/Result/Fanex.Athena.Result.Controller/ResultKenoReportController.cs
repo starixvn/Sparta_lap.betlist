@@ -4,7 +4,7 @@
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Common.Utility.Attributes;
-    using Extension.Utility;
+    using Common.Utility.Services.Interfaces;
     using Logging;
     using Model.Const;
     using Model.DTO.Keno;

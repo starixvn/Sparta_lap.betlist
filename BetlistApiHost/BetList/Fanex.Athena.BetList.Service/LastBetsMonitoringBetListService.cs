@@ -9,7 +9,7 @@ namespace Fanex.Athena.BetList.Service
     using System.Collections.Generic;
     using System.Linq;
     using Common.Constant;
-    using Extension.Utility.Interfaces;
+    using Common.Utility.Services.Interfaces;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;

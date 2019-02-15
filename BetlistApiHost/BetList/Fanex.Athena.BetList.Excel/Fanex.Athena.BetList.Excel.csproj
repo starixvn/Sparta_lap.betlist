@@ -66,10 +66,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.Athena.Extension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SharedDlls\Fanex.Athena.Extension.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Athena.Model.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\SharedDlls\Fanex.Athena.Model.Core.dll</HintPath>
@@ -176,6 +172,10 @@
     <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj">
       <Project>{2B213BAB-B67D-4B66-A64F-AC5E9EC3DE1E}</Project>
       <Name>Fanex.Athena.Common.Constant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Utility\Fanex.Athena.Common.Utility.csproj">
+      <Project>{90F037EA-E730-44D0-8957-5FCA2295D22E}</Project>
+      <Name>Fanex.Athena.Common.Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.BetList.Model\Fanex.Athena.BetList.Model.csproj">
       <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>

@@ -2,8 +2,7 @@
 using System.Web.Mvc;
 using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.MetaModel;
-using Fanex.Athena.Extension.Utility;
-using Fanex.Athena.Extension.Utility.Interfaces;
+using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.Logging;
 using Newtonsoft.Json.Linq;
 

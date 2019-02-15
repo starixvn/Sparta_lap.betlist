@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.Extension.Helper;
+using Fanex.Athena.Common.Utility.Helpers;
 
 namespace Fanex.Athena.BetList.Controller
 {

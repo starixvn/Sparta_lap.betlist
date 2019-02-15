@@ -4,7 +4,7 @@
     using System.Data;
     using Athena.Model.Core.DataDomain;
     using Common.DataAccess;
-    using Extension.Helper;
+    using Common.Utility.Helpers;
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Interfaces;

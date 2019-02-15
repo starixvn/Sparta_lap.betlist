@@ -10,7 +10,7 @@ namespace Fanex.Athena.BetList.DataAccess
     using System.Data;
     using BetList.Model.DTO;
     using BetList.Model.ViewModel;
-    using Extension.Utility;
+    using Common.Utility.Collections;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Common.Extensions;
     using Interfaces;

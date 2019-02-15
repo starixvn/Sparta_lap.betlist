@@ -8,8 +8,8 @@
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
     using Common.DataAccess.Interfaces;
+    using Common.Utility.Services.Interfaces;
     using Data;
-    using Fanex.Athena.Extension.Utility.Interfaces;
     using Fanex.Common;
     using Interfaces;
     using Newtonsoft.Json;

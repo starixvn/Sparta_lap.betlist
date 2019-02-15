@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using Fanex.Athena.Extension.Utility.Interfaces;
+using Fanex.Athena.Common.Utility.Services.Interfaces;
 
-namespace Fanex.Athena.Extension.Utility
+namespace Fanex.Athena.Common.Utility.Services
 {
     public class TempFileService : ITempFileService
     {

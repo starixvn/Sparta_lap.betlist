@@ -12,7 +12,8 @@ namespace Fanex.Athena.BetList.Excel
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
     using Athena.Model.Core.DataDomain;
-    using Extension.Utility;
+    using Common.Utility.Services;
+    using Common.Utility.Services.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;

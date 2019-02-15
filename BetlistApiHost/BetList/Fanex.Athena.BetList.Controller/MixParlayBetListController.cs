@@ -5,10 +5,9 @@ using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.Common.Utility.Interfaces;
+using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
-using Fanex.BetList.Core.TicketHelper;
 
 namespace Fanex.Athena.BetList.Controller
 {
@@ -23,7 +22,7 @@ namespace Fanex.Athena.BetList.Controller
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
 
         public MixParlayBetListController(
-            ICacheRefAdapter cacheRefAdapter, 
+            ICacheRefAdapter cacheRefAdapter,
             IBetListService betListService,
             ITicketHelper ticketHelper,
             IBetListHTMLBuilder betlistHtmlBuilder)

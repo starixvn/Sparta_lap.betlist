@@ -5,7 +5,7 @@
     using System.Text;
     using System.Web;
     using System.Web.Script.Serialization;
-    using Extension.Utility.Interfaces;
+    using Common.Utility.Services.Interfaces;
     using Interfaces;
     using Model.Const;
     using Model.DTO.Keno;

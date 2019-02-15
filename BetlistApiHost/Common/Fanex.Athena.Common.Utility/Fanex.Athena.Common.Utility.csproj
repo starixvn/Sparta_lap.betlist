@@ -42,6 +42,10 @@
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -49,6 +53,7 @@
       <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -106,9 +111,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\CustomAuthAttribute.cs" />
-    <Compile Include="CacheRefAdapter.cs" />
-    <Compile Include="Interfaces\ICacheRefAdapter.cs" />
+    <Compile Include="Extensions\DictionaryExtension.cs" />
+    <Compile Include="Services\CacheRefAdapter.cs" />
+    <Compile Include="Collections\DictionaryPropertyComparer.cs" />
+    <Compile Include="Collections\PropertyComparer.cs" />
+    <Compile Include="Collections\SortableList.cs" />
+    <Compile Include="Helpers\NumberHelper.cs" />
+    <Compile Include="Services\Interfaces\IAppSettings.cs" />
+    <Compile Include="Services\Interfaces\ICacheRefAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AppSettings.cs" />
+    <Compile Include="Services\Interfaces\IMemoryCacheService.cs" />
+    <Compile Include="Services\Interfaces\ITempFileService.cs" />
+    <Compile Include="Services\Interfaces\IWebClientService.cs" />
+    <Compile Include="Services\Internal\CustomMemoryCache.cs" />
+    <Compile Include="Services\Internal\ICustomMemoryCache.cs" />
+    <Compile Include="Services\MemoryCacheService.cs" />
+    <Compile Include="Services\TempFileService.cs" />
+    <Compile Include="Services\WebClientService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

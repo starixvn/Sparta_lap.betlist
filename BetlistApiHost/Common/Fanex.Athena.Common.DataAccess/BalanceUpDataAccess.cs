@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Common.DataAccess
 {
     using System;
-    using Extension.Utility.Interfaces;
+    using Utility.Services.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common.Extensions;
     using Interfaces;
@@ -11,14 +11,11 @@
     {
         private const int CacheTimeoutSeconds = 60;
 
-        private readonly ILogger _logger;
-
         private readonly IMemoryCacheService _cache;
 
         [CLSCompliant(false)]
         public BalanceUpDataAccess(ILogger logger, IMemoryCacheService cache)
         {
-            _logger = logger;
             _cache = cache;
         }
 

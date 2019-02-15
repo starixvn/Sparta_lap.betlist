@@ -50,10 +50,6 @@
     </CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.Athena.Extension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SharedDlls\Fanex.Athena.Extension.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Athena.Model.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\SharedDlls\Fanex.Athena.Model.Core.dll</HintPath>

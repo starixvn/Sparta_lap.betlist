@@ -10,8 +10,7 @@ namespace Fanex.Athena.Result.Controller
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Common.Utility.Attributes;
-    using Common.Utility.Interfaces;
-    using Fanex.Athena.Extension.Utility;
+    using Common.Utility.Services.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Result.Core.AllBetCasino;
     using Fanex.Result.Core.Base;
