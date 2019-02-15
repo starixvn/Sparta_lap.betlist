@@ -10,9 +10,8 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
-    using Excel.Base.Entities;
     using Extension.Utility;
-    using Fanex.Athena.BetList.Model.MetaModel;
+    using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Resources;
     using Service.Core.Common.Interfaces;

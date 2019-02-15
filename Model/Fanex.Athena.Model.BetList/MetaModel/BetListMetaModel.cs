@@ -1,17 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListMetaModel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Web.Script.Serialization;
+using Fanex.Athena.Model.Core.MetaModel;
 
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Web.Script.Serialization;
-    using Model.Core.MetaModel;
-
     public class BetListMetaModel : BaseMetaModel
     {
         public BetListMetaModel()

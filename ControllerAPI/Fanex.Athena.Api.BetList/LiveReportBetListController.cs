@@ -7,23 +7,16 @@
 
 namespace Fanex.Athena.Api.BetList
 {
-    using System;
     using System.Net.Http;
     using System.Threading.Tasks;
-
-    #region Using
-
     using System.Web.Http;
-    using Athena.BetList.Model.MetaModel;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.BetList.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
-
-    #endregion Using
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : ApiBetListBaseController

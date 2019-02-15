@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CustomerCancelBetItem.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Model.BetList.DTO
+﻿namespace Fanex.Athena.Model.BetList.DTO
 {
     public class CustomerCancelBetItem
     {

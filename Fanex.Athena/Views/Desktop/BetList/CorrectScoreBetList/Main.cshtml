@@ -3,7 +3,7 @@
     ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets, ViewResources.CorrectScore);
     Layout = "~/Views/Desktop/Shared/_BetListLayout.cshtml";
 }
-@model Fanex.Athena.BetList.Model.ViewModel.BetListBaseViewModel
+@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 
 @section pagejs {
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/betlistcorrectscore.chunk.js")"></script>

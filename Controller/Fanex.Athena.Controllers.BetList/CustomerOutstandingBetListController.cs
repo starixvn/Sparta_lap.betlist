@@ -10,11 +10,11 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Athena.BetList.Model.MetaModel;
-    using Athena.BetList.Model.ViewModel;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.MetaModel.Product;
+    using Model.BetList.MetaModel;
+    using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Service.Core.Common.Interfaces;

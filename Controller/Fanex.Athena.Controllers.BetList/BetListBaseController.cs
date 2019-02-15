@@ -7,9 +7,9 @@
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Helpers;
     using Extension.Utility;
-    using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Model.BetList.MetaModel;
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
