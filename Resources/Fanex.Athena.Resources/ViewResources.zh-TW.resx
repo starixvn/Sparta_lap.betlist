@@ -1063,9 +1063,6 @@
   <data name="Logout" xml:space="preserve">
     <value>註銷</value>
   </data>
-  <data name="Loss" xml:space="preserve">
-    <value>輸</value>
-  </data>
   <data name="LrfNotification" xml:space="preserve">
     <value>LRF通知</value>
   </data>
@@ -1868,9 +1865,6 @@
   <data name="Welcome" xml:space="preserve">
     <value>歡迎</value>
   </data>
-  <data name="Win" xml:space="preserve">
-    <value>贏</value>
-  </data>
   <data name="WinLoss" xml:space="preserve">
     <value>獨贏</value>
   </data>
@@ -2616,5 +2610,11 @@
   </data>
   <data name="ServerBusyMessage" xml:space="preserve">
     <value>由於服務器繁忙，您的請求現在無法處理。請稍後再試。</value>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>作廢</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>取消</value>
   </data>
 </root>

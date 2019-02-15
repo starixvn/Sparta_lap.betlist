@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Utility.Interfaces;
+using Fanex.BetList.Core.Builder;
+using Fanex.BetList.Core.Entities;
+using Fanex.BetList.Core.TicketHelper;
 
 namespace Fanex.Athena.BetList.Controller
 {
@@ -13,10 +18,20 @@ namespace Fanex.Athena.BetList.Controller
 
         private readonly IBetListService _betListService;
 
-        public MixParlayBetListController(ICacheRefAdapter cacheRefAdapter, IBetListService betListService)
+        private readonly ITicketHelper _ticketHelper;
+
+        private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
+
+        public MixParlayBetListController(
+            ICacheRefAdapter cacheRefAdapter, 
+            IBetListService betListService,
+            ITicketHelper ticketHelper,
+            IBetListHTMLBuilder betlistHtmlBuilder)
         {
             _cacheRefAdapter = cacheRefAdapter;
             _betListService = betListService;
+            _ticketHelper = ticketHelper;
+            _betlistHtmlBuilder = betlistHtmlBuilder;
         }
 
         [HttpPost]
@@ -69,6 +84,26 @@ namespace Fanex.Athena.BetList.Controller
             };
             ClearData(ticketResult);
             return Json(result);
+        }
+
+        protected internal virtual IList<string> BuildParlayDetailTickets(TicketResult ticketResult, bool showOdds = false)
+        {
+            var ticketTextList = new List<string>();
+
+            _ticketHelper.IsShowOddsWithChoice = showOdds;
+
+            foreach (var ticket in ticketResult.MainTicketList)
+            {
+                var statusTemplate = _betlistHtmlBuilder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, _ticketHelper, ticketResult.TicketDataList, isShowVNIP: false);                statusTemplate.ShowIP = null;
+                statusTemplate.StatusResult = null;
+
+                var choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false);
+                var transDateAndStatus = _betlistHtmlBuilder.BuildTransEventDateAndStatusResult(ticket, ticketResult.TicketDataList);
+
+                ticketTextList.Add(choice + transDateAndStatus);
+            }
+
+            return ticketTextList;
         }
     }
 }

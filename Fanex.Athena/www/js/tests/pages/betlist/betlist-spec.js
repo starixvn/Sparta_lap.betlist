@@ -792,7 +792,7 @@
                         .andReturn({
                             'status': 200,
                             'contentType': 'application/json',
-                            'responseText': '[{ "Choice": 1 }, { "Choice": 2 }, { "Choice": 3 }]'
+                            'responseText': '["Choice1", "Choice2", "Choice3"]'
                         });
 
                         BetList.showMixParlayDetail(0, $div, 0);
@@ -817,7 +817,7 @@
                     });
 
                     it("'divEvent' element should contain correct html", function () {
-                        expect($div.html()).toBe('1<div class="line"></div>2<div class="line"></div>3');
+                        expect($div.html()).toBe('Choice1<div class="line"></div>Choice2<div class="line"></div>Choice3');
                     });
                 });
             });
@@ -1168,7 +1168,7 @@
                     spyOn(QueryString, "setParam");
                     spyOn($, "ajax").and.callFake(function (option) {
                         option.success({
-                            Data: [{ Choice: "Choice1" }, { Choice: "Choice2" }],
+                            Data: ["Choice1", "Choice2"],
                             Texts: ["text1", "text2"]
                         });
                     });
