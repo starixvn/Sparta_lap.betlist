@@ -20,7 +20,7 @@ namespace Fanex.Athena.Result.DataAccess
     [CLSCompliant(false)]
     public class ResultNumberGameDataAccess : BaseDataAccess, IResultNumberGameDataAccess
     {
-        public IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel)
+        public IList<NumberGame> GetNumberGameMatches(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelNumberGameByLeague";
             var uspParams = new
@@ -40,7 +40,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public IList<Happy5> GetHappy5Matches(ResultMetalModel metalModel)
+        public IList<Happy5> GetHappy5Matches(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelNumberGameByLeague";
             var uspParams = new

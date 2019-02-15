@@ -27,7 +27,7 @@
             _numberGameDataAccess = numberGameDataAccess;
         }
 
-        public IList<Outright> GetOutRight(ResultMetalModel metal)
+        public IList<Outright> GetOutRight(ResultMetaModel metal)
         {
             return this._dataAccess.GetOutRight(metal);
         }
@@ -63,22 +63,22 @@
 
         #region Report
 
-        public IList<Sportsbook> GetMatches(ResultMetalModel metalModel)
+        public IList<Sportsbook> GetMatches(ResultMetaModel metalModel)
         {
             return this._dataAccess.GetMatches<Sportsbook>(metalModel);
         }
 
-        public IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel)
+        public IList<NumberGame> GetNumberGameMatches(ResultMetaModel metalModel)
         {
             return this._numberGameDataAccess.GetNumberGameMatches(metalModel);
         }
 
-        public IList<Happy5> GetHappy5Matches(ResultMetalModel metalModel)
+        public IList<Happy5> GetHappy5Matches(ResultMetaModel metalModel)
         {
             return this._numberGameDataAccess.GetHappy5Matches(metalModel);
         }
 
-        public IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel)
+        public IList<Racing> GetVirtualSportMatches(ResultMetaModel metalModel)
         {
             return this._dataAccess.GetVirtualSportMatches(metalModel);
         }
@@ -93,13 +93,13 @@
             return this._dataAccess.GetSportsbookGameDetail(matchId);
         }
 
-        public IList<Sportsbook> GetPopUpMatch(ResultPopupMetalModel metalModel)
+        public IList<Sportsbook> GetPopUpMatch(ResultPopupMetaModel metalModel)
         {
             metalModel.RaceNo = null;
             return this._dataAccess.GetPopUpMatches<Sportsbook>(metalModel);
         }
 
-        public IList<Racing> GetPopUpVirtualSportMatch(ResultPopupMetalModel metalModel)
+        public IList<Racing> GetPopUpVirtualSportMatch(ResultPopupMetaModel metalModel)
         {
             return this._dataAccess.GetPopUpMatches<Racing>(metalModel);
         }

@@ -120,6 +120,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\ResultVendorProductTypes.cs" />
     <Compile Include="DTO\CashOutWinLoss.cs" />
     <Compile Include="DTO\CasinoProgressiveWins.cs" />
     <Compile Include="DTO\CasinoTurnover.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="DTO\PlatformWinLossSummary.cs" />
     <Compile Include="DTO\ColossusBetWinLoss.cs" />
     <Compile Include="DTO\LicenseeWinLossByTimeZone.cs" />
+    <Compile Include="DTO\Result\KenoExtendedToken.cs" />
     <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceDetail.cs" />
     <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceDataModel.cs" />
     <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformance.cs" />
@@ -165,6 +167,8 @@
     <Compile Include="MetaModel\BaseReportMetaModel.cs" />
     <Compile Include="MetaModel\ActiveCustomerMetaModel.cs" />
     <Compile Include="MetaModel\LicenseeWinLossByTimeZoneMetaModel.cs" />
+    <Compile Include="MetaModel\Result\GetSportResultMetaModel.cs" />
+    <Compile Include="MetaModel\Result\ResultMetaModel.cs" />
     <Compile Include="MetaModel\SpecialLicenseeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\NotificationAttachmentMetaModel.cs" />
     <Compile Include="MetaModel\NotificationMarkAsReadMetaModel.cs" />
@@ -196,6 +200,7 @@
     <Compile Include="ViewModel\CasinoTurnoverViewModel.cs" />
     <Compile Include="ViewModel\CustomerWinlossViewModel.cs" />
     <Compile Include="ViewModel\ExchangeWinLossViewModel.cs" />
+    <Compile Include="ViewModel\Result\ResultReportViewModel.cs" />
     <Compile Include="ViewModel\SpecialLicenseeWinLossGridViewModel.cs" />
     <Compile Include="ViewModel\SpecialLicenseeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />

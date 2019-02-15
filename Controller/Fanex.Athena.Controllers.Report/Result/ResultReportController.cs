@@ -4,12 +4,13 @@ namespace Fanex.Athena.Controllers.Report.Result
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using Athena.Result.Model.MetaModel;
-    using Athena.Result.Model.ViewModel;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Report.MetaModel;
+    using Model.Report.MetaModel.Result;
+    using Model.Report.ViewModel.Result;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -44,7 +45,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             var model = new ResultReportViewModel
             {
                 Data = string.Empty,
-                Param = new ResultMetalModel
+                Param = new ResultMetaModel
                 {
                     FromDate = DateTime.Now,
                     IsOutRight = false,
@@ -64,7 +65,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public async Task<ActionResult> Index(ResultMetalModel metaModel)
+        public async Task<ActionResult> Index(ResultMetaModel metaModel)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +79,7 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpGet]
-        public ActionResult ResultExcel(ResultMetalModel metaModel)
+        public ActionResult ResultExcel(ResultMetaModel metaModel)
         {
             const string FileName = "LRF-Result.xls";
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -89,7 +90,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpPost]
         [CustomValidateAntiForgery]
-        public async Task<ActionResult> GetSports(GetSportResultMetalModel metaModel)
+        public async Task<ActionResult> GetSports(GetSportResultMetaModel metaModel)
         {
             if (ModelState.IsValid)
             {
@@ -150,11 +151,11 @@ namespace Fanex.Athena.Controllers.Report.Result
         [CustomValidateAntiForgery]
         public async Task<ActionResult> ShowRngCasinoSingleWalletResult(string refNo)
         {
-            var result = await _betListApiClient.PostAsyncString("/ResultReport/ShowRngCasinoSingleWalletResult", 
+            var result = await _betListApiClient.PostAsyncString("/ResultReport/ShowRngCasinoSingleWalletResult",
                 new
-            {
-                refNo
-            }).ConfigureAwait(false);
+                {
+                    refNo
+                }).ConfigureAwait(false);
 
             return this.Content(result, "application/json");
         }

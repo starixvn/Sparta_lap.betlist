@@ -67,12 +67,10 @@
     <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
     <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
     <Compile Include="MetaModel\Keno\KenoApiMetaModel.cs" />
-    <Compile Include="MetaModel\Keno\KenoMetaModel.cs" />
-    <Compile Include="MetaModel\GetSportResultMetalModel.cs" />
-    <Compile Include="MetaModel\ResultMetalModel.cs" />
-    <Compile Include="MetaModel\ResultPopupMetalModel.cs" />
+    <Compile Include="MetaModel\GetSportResultMetaModel.cs" />
+    <Compile Include="MetaModel\ResultMetaModel.cs" />
+    <Compile Include="MetaModel\ResultPopupMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\ResultReportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

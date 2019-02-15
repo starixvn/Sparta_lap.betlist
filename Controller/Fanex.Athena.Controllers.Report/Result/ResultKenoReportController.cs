@@ -1,12 +1,10 @@
 ﻿namespace Fanex.Athena.Controllers.Report.Result
 {
-    using System;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using Athena.Result.Model.DTO.Keno;
-    using Athena.Result.Model.MetaModel.Keno;
     using Extension.Utility;
     using Model.Core.DataDomain;
+    using Model.Report.DTO.Result;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -37,9 +35,9 @@
         public async Task<ActionResult> Index(int vendorProductId)
         {
             var userId = SessionService.UserSession.UserId;
-            var model = new KenoMetaModel
+            var model = new
             {
-                VendorProductId = vendorProductId,
+                vendorProductId,
                 UserId = userId.ToString()
             };
             var kenoUrl = await _betListApiClient.PostAsyncString("/ResultKenoReport/GetKenoResultUrl", model).ConfigureAwait(false);
@@ -65,14 +63,14 @@
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 
-            var model = new KenoMetaModel
+            var model = new
             {
                 VendorProductId = vendorProductId,
                 UserId = userId
             };
 
             var result = await _betListApiClient.PostAsync<KenoExtendedToken>("/ResultKenoReport/KeepSession", model).ConfigureAwait(false);
-            
+
             if (result.ErrorCode > 0)
             {
                 _logger.Error("Keno Session: " + result.ErrorMsg);

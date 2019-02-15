@@ -13,7 +13,7 @@ namespace Fanex.Athena.Result.Model.MetaModel
     /// ResultPopupMetalModel class.
     /// </summary>
     [Serializable]
-    public class ResultPopupMetalModel
+    public class ResultPopupMetaModel
     {
         [Required]
         public int MatchId

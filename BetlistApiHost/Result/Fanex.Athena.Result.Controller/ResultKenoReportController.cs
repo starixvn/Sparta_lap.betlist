@@ -29,11 +29,11 @@
         }
 
         [HttpPost]
-        public string GetKenoResultUrl(KenoMetaModel model)
+        public string GetKenoResultUrl(int vendorProductId, string userId)
         {
             try
             {
-                return _kenoApi.CreateKenoResultUrl(GetKenoSetting(model.VendorProductId), model.UserId.ToString(), DateTime.Now);
+                return _kenoApi.CreateKenoResultUrl(GetKenoSetting(vendorProductId), userId, DateTime.Now);
             }
             catch (Exception exception)
             {
@@ -44,11 +44,11 @@
         }
 
         [HttpPost]
-        public JsonResult KeepSession(KenoMetaModel model)
+        public JsonResult KeepSession(int vendorProductId, string userId)
         {
             try
             {
-                var result = _kenoApi.ExtendToken(GetKenoSetting(model.VendorProductId), model.UserId);
+                var result = _kenoApi.ExtendToken(GetKenoSetting(vendorProductId), userId);
                 return Json(result);
             }
             catch (Exception exception)

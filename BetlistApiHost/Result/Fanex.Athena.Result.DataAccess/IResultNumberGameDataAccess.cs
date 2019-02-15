@@ -14,9 +14,9 @@ namespace Fanex.Athena.Result.DataAccess
     [System.CLSCompliant(false)]
     public interface IResultNumberGameDataAccess
     {
-        IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
+        IList<NumberGame> GetNumberGameMatches(ResultMetaModel metalModel);
 
-        IList<Happy5> GetHappy5Matches(ResultMetalModel metalModel);
+        IList<Happy5> GetHappy5Matches(ResultMetaModel metalModel);
 
         IList<NumberGame> GetPopUpNumberGameMatch(int matchId);
 

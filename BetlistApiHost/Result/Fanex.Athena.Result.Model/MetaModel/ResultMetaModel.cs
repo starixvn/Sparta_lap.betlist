@@ -14,14 +14,8 @@ namespace Fanex.Athena.Result.Model.MetaModel
     /// ResultMetalModel class.
     /// </summary>
     [Serializable]
-    public class ResultMetalModel
+    public class ResultMetaModel
     {
-        public DateTime? BalanceUpDay
-        {
-            get;
-            set;
-        }
-
         [Required]
         public DateTime FromDate { get; set; }
 

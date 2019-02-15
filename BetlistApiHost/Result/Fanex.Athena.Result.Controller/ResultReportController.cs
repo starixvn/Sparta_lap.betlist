@@ -71,7 +71,7 @@ namespace Fanex.Athena.Result.Controller
         }
 
         [HttpPost]
-        public string Index(ResultMetalModel metalModel)
+        public string Index(ResultMetaModel metalModel)
         {
             metalModel.IsExportExcel = false;
             this.GetData(metalModel);
@@ -79,7 +79,7 @@ namespace Fanex.Athena.Result.Controller
         }
 
         [HttpPost]
-        public void ResultExcel(ResultMetalModel metalModel)
+        public void ResultExcel(ResultMetaModel metalModel)
         {
             var response = ControllerContext.HttpContext.Response;
 
@@ -112,7 +112,7 @@ namespace Fanex.Athena.Result.Controller
         }
 
         [HttpPost]
-        public ActionResult GetSports(GetSportResultMetalModel metalModel)
+        public ActionResult GetSports(GetSportResultMetaModel metalModel)
         {
             if (ModelState.IsValid)
             {
@@ -139,7 +139,7 @@ namespace Fanex.Athena.Result.Controller
         #region PopUpPage
 
         [HttpPost]
-        public string ResultPopup(ResultPopupMetalModel metalModel)
+        public string ResultPopup(ResultPopupMetaModel metalModel)
         {
             GetPopUpData(metalModel);
             return _htmlResult;
@@ -236,7 +236,7 @@ namespace Fanex.Athena.Result.Controller
         /// Get data for pop-up page.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
-        private void GetPopUpData(ResultPopupMetalModel metalModel)
+        private void GetPopUpData(ResultPopupMetaModel metalModel)
         {
             var sportType = (SportType)metalModel.SportType;
             var setting = new ResultSetting
@@ -265,7 +265,7 @@ namespace Fanex.Athena.Result.Controller
 
 #pragma warning disable S1541 // Methods and properties should not be too complex
 
-        private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, ResultSetting setting)
+        private void GetNormalPopUpData(ResultPopupMetaModel metalModel, SportType sportType, ResultSetting setting)
 #pragma warning restore S1541 // Methods and properties should not be too complex
         {
             switch (sportType)
@@ -319,7 +319,7 @@ namespace Fanex.Athena.Result.Controller
 
         #region spots list
 
-        private JsonResult GetNormalSports(GetSportResultMetalModel metalModel)
+        private JsonResult GetNormalSports(GetSportResultMetaModel metalModel)
         {
             var sports = _resultService.GetSports(metalModel.FromDate, metalModel.LicenseeId);
             if (sports.Any())
@@ -341,7 +341,7 @@ namespace Fanex.Athena.Result.Controller
             return Json(string.Empty);
         }
 
-        private JsonResult GetOutRightSports(ResultMetalModel metalModel)
+        private JsonResult GetOutRightSports(ResultMetaModel metalModel)
         {
             var cacheKey = GenerateOutRightCacheKey(metalModel);
             var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? _resultService.GetOutRight(metalModel);
@@ -383,7 +383,7 @@ namespace Fanex.Athena.Result.Controller
             return sports.Any() ? sports[0].SportId : 0;
         }
 
-        private void GetOutRightData(ResultMetalModel metalModel)
+        private void GetOutRightData(ResultMetaModel metalModel)
         {
             var setting = GetOutRightResultSetting(metalModel.LanguageCode);
             var cacheKey = GenerateOutRightCacheKey(metalModel);
@@ -409,7 +409,7 @@ namespace Fanex.Athena.Result.Controller
 
 #pragma warning disable S1541 // Methods and properties should not be too complex
 
-        private void GetNormalData(ResultMetalModel metalModel)
+        private void GetNormalData(ResultMetaModel metalModel)
 #pragma warning restore S1541 // Methods and properties should not be too complex
         {
             var setting = GetNormalResultSetting(metalModel);
@@ -456,7 +456,7 @@ namespace Fanex.Athena.Result.Controller
             }
         }
 
-        private MemoryStream ExportNoneData(ResultMetalModel metalModel)
+        private MemoryStream ExportNoneData(ResultMetaModel metalModel)
         {
             if (metalModel.IsOutRight)
             {
@@ -483,7 +483,7 @@ namespace Fanex.Athena.Result.Controller
             };
         }
 
-        private ResultSetting GetNormalResultSetting(ResultMetalModel metalModel)
+        private ResultSetting GetNormalResultSetting(ResultMetaModel metalModel)
         {
             var sportType = (SportType)metalModel.SportId;
             return new ResultSetting
@@ -503,7 +503,7 @@ namespace Fanex.Athena.Result.Controller
         /// Get data from service layer.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
-        private void GetData(ResultMetalModel metalModel)
+        private void GetData(ResultMetaModel metalModel)
         {
             if (metalModel.IsOutRight)
             {
@@ -517,7 +517,7 @@ namespace Fanex.Athena.Result.Controller
 
         #endregion main-page
 
-        private string GenerateOutRightCacheKey(ResultMetalModel metalModel)
+        private string GenerateOutRightCacheKey(ResultMetaModel metalModel)
         {
             const string PatternKey = "{0}{1}Result.OutRight.Data_{2}";
             return string.Format(PatternKey, metalModel.FromDate, metalModel.ToDate, metalModel.UserId);

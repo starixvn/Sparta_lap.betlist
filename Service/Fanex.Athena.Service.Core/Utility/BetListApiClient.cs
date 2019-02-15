@@ -28,7 +28,7 @@ namespace Fanex.Athena.Service.Core.Utility
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+              //  response.EnsureSuccessStatusCode();
 
                 return response;
             }
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Service.Core.Utility
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+             //   response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<T>(json);
             }
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Service.Core.Utility
                 AddHeaderToken(client);
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
-                response.EnsureSuccessStatusCode();
+             //   response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             }
@@ -69,7 +69,7 @@ namespace Fanex.Athena.Service.Core.Utility
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+           //     response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }

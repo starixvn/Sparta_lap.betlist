@@ -4,7 +4,7 @@
     using System.Web.Script.Serialization;
 
     [Serializable]
-    public class GetSportResultMetalModel : ResultMetalModel
+    public class GetSportResultMetaModel : ResultMetaModel
     {
         [ScriptIgnore]
         public string ProductCodeList { get; set; }

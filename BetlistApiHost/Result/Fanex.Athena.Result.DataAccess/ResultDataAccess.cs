@@ -41,7 +41,7 @@ namespace Fanex.Athena.Result.DataAccess
             _appSettings = appSettings;
         }
 
-        public IList<Outright> GetOutRight(ResultMetalModel metal)
+        public IList<Outright> GetOutRight(ResultMetaModel metal)
         {
             const string UspName = "Lrf_Result_Outright";
             var uspParams = new
@@ -135,7 +135,7 @@ namespace Fanex.Athena.Result.DataAccess
         /// <summary>
         /// Get data for VS
         /// </summary>
-        public IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel)
+        public IList<Racing> GetVirtualSportMatches(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_RaceSelByMeeting";
             var uspParams = new
@@ -154,7 +154,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public IList<T> GetPopUpMatches<T>(ResultPopupMetalModel metaModel)
+        public IList<T> GetPopUpMatches<T>(ResultPopupMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelMatchResult";
             var uspParams = new
@@ -285,7 +285,7 @@ namespace Fanex.Athena.Result.DataAccess
         /// <typeparam name="T">Type of result.</typeparam>
         /// <param name="metalModel">Meta model value.</param>
         /// <returns>The result value.</returns>
-        public IList<T> GetMatches<T>(ResultMetalModel metalModel)
+        public IList<T> GetMatches<T>(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelByLeague";
             var uspParams = new
@@ -415,7 +415,7 @@ namespace Fanex.Athena.Result.DataAccess
         /// <param name="bettype">The Bet type ID.</param>
         /// <param name="betid">The Bet ID.</param>
         /// <returns>The sport-book data list.</returns>
-        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, ResultPopupMetalModel metaModel = null)
+        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, ResultPopupMetaModel metaModel = null)
         {
             var results = new List<Sportsbook>();
 

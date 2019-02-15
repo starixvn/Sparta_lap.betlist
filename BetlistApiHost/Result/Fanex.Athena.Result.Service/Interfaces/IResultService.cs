@@ -14,7 +14,7 @@
     [System.CLSCompliant(false)]
     public interface IResultService
     {
-        IList<Outright> GetOutRight(ResultMetalModel metal);
+        IList<Outright> GetOutRight(ResultMetaModel metal);
 
         #region ResultEngine
 
@@ -36,13 +36,13 @@
 
         #region Report
 
-        IList<Sportsbook> GetMatches(ResultMetalModel metalModel);
+        IList<Sportsbook> GetMatches(ResultMetaModel metalModel);
 
-        IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
+        IList<NumberGame> GetNumberGameMatches(ResultMetaModel metalModel);
 
-        IList<Happy5> GetHappy5Matches(ResultMetalModel metalModel);
+        IList<Happy5> GetHappy5Matches(ResultMetaModel metalModel);
 
-        IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel);
+        IList<Racing> GetVirtualSportMatches(ResultMetaModel metalModel);
 
         #endregion Report
 
@@ -50,9 +50,9 @@
 
         Sportsbook GetSportsbookGameDetail(int matchId);
 
-        IList<Sportsbook> GetPopUpMatch(ResultPopupMetalModel metalModel);
+        IList<Sportsbook> GetPopUpMatch(ResultPopupMetaModel metalModel);
 
-        IList<Racing> GetPopUpVirtualSportMatch(ResultPopupMetalModel metalModel);
+        IList<Racing> GetPopUpVirtualSportMatch(ResultPopupMetaModel metalModel);
 
         /// <summary>
         /// Select matches from BetTransM by reference no.
