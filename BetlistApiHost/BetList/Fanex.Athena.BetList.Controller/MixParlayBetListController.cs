@@ -78,7 +78,7 @@ namespace Fanex.Athena.BetList.Controller
 
             var result = new
             {
-                Data = _betListService.BuildTicketTextList(ticketResult: ticketResult, showOdds: true),
+                Data = BuildParlayDetailTickets(ticketResult: ticketResult, showOdds: true),
                 Texts = texts
             };
             ClearData(ticketResult);
