@@ -3,43 +3,45 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Controller", "BetList\Fanex.Athena.BetList.Controller\Fanex.Athena.BetList.Controller.csproj", "{0C22899B-6CE0-4187-9BCF-7F503213F207}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Controller", "BetlistApiHost\BetList\Fanex.Athena.BetList.Controller\Fanex.Athena.BetList.Controller.csproj", "{0C22899B-6CE0-4187-9BCF-7F503213F207}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.DataAccess", "BetList\Fanex.Athena.BetList.DataAccess\Fanex.Athena.BetList.DataAccess.csproj", "{B269F027-9AE1-4969-89D6-56C401B96051}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.DataAccess", "BetlistApiHost\BetList\Fanex.Athena.BetList.DataAccess\Fanex.Athena.BetList.DataAccess.csproj", "{B269F027-9AE1-4969-89D6-56C401B96051}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Model", "BetList\Fanex.Athena.BetList.Model\Fanex.Athena.BetList.Model.csproj", "{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Model", "BetlistApiHost\BetList\Fanex.Athena.BetList.Model\Fanex.Athena.BetList.Model.csproj", "{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Service", "BetList\Fanex.Athena.BetList.Service\Fanex.Athena.BetList.Service.csproj", "{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Service", "BetlistApiHost\BetList\Fanex.Athena.BetList.Service\Fanex.Athena.BetList.Service.csproj", "{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Excel", "BetList\Fanex.Athena.BetList.Excel\Fanex.Athena.BetList.Excel.csproj", "{673F1094-BBF7-4E48-95E2-B4050FCEB8EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Excel", "BetlistApiHost\BetList\Fanex.Athena.BetList.Excel\Fanex.Athena.BetList.Excel.csproj", "{673F1094-BBF7-4E48-95E2-B4050FCEB8EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetListApi", "Fanex.Athena.BetListApi\Fanex.Athena.BetListApi.csproj", "{CE8FBEBC-3312-4881-8486-42C9F70DDADF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetListApi", "BetlistApiHost\Fanex.Athena.BetListApi\Fanex.Athena.BetListApi.csproj", "{CE8FBEBC-3312-4881-8486-42C9F70DDADF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_References", "_References", "{0B5E1BB5-566B-4814-B7AA-7657430D875D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Resources", "..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj", "{17B0022C-4902-4C61-908A-5DB81568DC3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Resources", "Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj", "{17B0022C-4902-4C61-908A-5DB81568DC3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BetList", "BetList", "{D562D730-1E02-415F-B28B-E8DE6ED81639}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Result", "Result", "{D1739030-8AE0-41F2-B05B-D2DDBF0F5171}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Model", "Result\Fanex.Athena.Result.Model\Fanex.Athena.Result.Model.csproj", "{3EA0F6A8-79D8-4BFA-A463-3C17144393F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Model", "BetlistApiHost\Result\Fanex.Athena.Result.Model\Fanex.Athena.Result.Model.csproj", "{3EA0F6A8-79D8-4BFA-A463-3C17144393F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5D657784-E831-455C-A728-AA459368C34D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.DataAccess", "Common\Fanex.Athena.Common.DataAccess\Fanex.Athena.Common.DataAccess.csproj", "{1798FAE2-17EB-4CC9-B0B1-B2363FBCA581}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.DataAccess", "BetlistApiHost\Common\Fanex.Athena.Common.DataAccess\Fanex.Athena.Common.DataAccess.csproj", "{1798FAE2-17EB-4CC9-B0B1-B2363FBCA581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.DataAccess", "Result\Fanex.Athena.Result.DataAccess\Fanex.Athena.Result.DataAccess.csproj", "{5653BC29-0843-4D75-9140-5B370DF2F88C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.DataAccess", "BetlistApiHost\Result\Fanex.Athena.Result.DataAccess\Fanex.Athena.Result.DataAccess.csproj", "{5653BC29-0843-4D75-9140-5B370DF2F88C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Service", "Result\Fanex.Athena.Result.Service\Fanex.Athena.Result.Service.csproj", "{AE7D3FED-BFFF-4AD6-816B-3A1644940511}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Service", "BetlistApiHost\Result\Fanex.Athena.Result.Service\Fanex.Athena.Result.Service.csproj", "{AE7D3FED-BFFF-4AD6-816B-3A1644940511}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Controller", "Result\Fanex.Athena.Result.Controller\Fanex.Athena.Result.Controller.csproj", "{BC358F4A-B85D-43A2-A669-D2D2C9F2EEDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Controller", "BetlistApiHost\Result\Fanex.Athena.Result.Controller\Fanex.Athena.Result.Controller.csproj", "{BC358F4A-B85D-43A2-A669-D2D2C9F2EEDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Constant", "Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj", "{2B213BAB-B67D-4B66-A64F-AC5E9EC3DE1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Constant", "BetlistApiHost\Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj", "{2B213BAB-B67D-4B66-A64F-AC5E9EC3DE1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Utility", "Common\Fanex.Athena.Common.Utility\Fanex.Athena.Common.Utility.csproj", "{90F037EA-E730-44D0-8957-5FCA2295D22E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Utility", "BetlistApiHost\Common\Fanex.Athena.Common.Utility\Fanex.Athena.Common.Utility.csproj", "{90F037EA-E730-44D0-8957-5FCA2295D22E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Model", "Common\Fanex.Athena.Common.Model\Fanex.Athena.Common.Model.csproj", "{30A669BB-5E66-4E1B-8E50-04CFAA382AC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Model", "BetlistApiHost\Common\Fanex.Athena.Common.Model\Fanex.Athena.Common.Model.csproj", "{30A669BB-5E66-4E1B-8E50-04CFAA382AC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{A0F97E7A-417A-4E6F-BFD5-8CF8F7162712}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
