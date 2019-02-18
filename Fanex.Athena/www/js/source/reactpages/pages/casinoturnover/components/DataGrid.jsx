@@ -13,21 +13,9 @@ import Site from '@jsroot/lib/site'
 
 const URL = Site.resolveClientUrl("api/CasinoTurnoverReport/GetData");
 
-const DEFAULT_PAGE_SIZE = 50;
-
 export class DataGrid extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            gridData: {}
-        }
-    }
-
-    componentDidMount() {
-        const param = this.props.requestParam;
-        param.PageSize = DEFAULT_PAGE_SIZE;
-        this.props.setRequestParam(param);
     }
 
     componentDidUpdate(prevProps) {
@@ -37,9 +25,7 @@ export class DataGrid extends Component {
     }
 
     onPaging = (index, size) => {
-        let param = this.props.requestParam;
-        param.PageIndex = index;
-        param.PageSize = size;
+        const param =  Object.assign({}, this.props.requestParam, { PageIndex: index, PageSize: size });
         this._getData(param);
     }
 
@@ -74,70 +60,50 @@ export class DataGrid extends Component {
                         turnover = NumberFormat.formatDecimal(item.Turnover),
                         validBetAmount= NumberFormat.formatDecimal(item.ValidBetAmount),
                         customerWL = NumberFormat.formatDecimal(item.CustomerWL);
-                let indexCell = null;
-                let dateCell = null;
-                let systemIdCell = null;
-                let externalIdCell = null;
-                if(item.RowSpan > 0)
-                {
-                    indexCell = <Cell title={item.Index} rowSpan={item.RowSpan} className="center-align">{item.Index}</Cell>;
-                    dateCell = <Cell title={reportBy} rowSpan={item.RowSpan} className='center-align'>{reportBy}</Cell>;
-                    systemIdCell = <Cell title={item.SystemId} rowSpan={item.RowSpan} className='center-align'>{item.SystemId}</Cell>;
-                    externalIdCell = <Cell title={item.ExternalId} rowSpan={item.RowSpan} className="center-align">{item.ExternalId}</Cell>;
-                }
                     
                 rows.push(
                     <Row key={`tr${i}`}>
-        {indexCell}
-        {dateCell}
-        {systemIdCell}
-        {externalIdCell}
-                    <Cell title={item.Product}>{item.Product}</Cell>
-                    <Cell title={betcount} className='right-align'>{betcount}</Cell>
-                    <Cell title={turnover} className='right-align'>{turnover}</Cell>
-                    <Cell title={validBetAmount} className="right-align">{validBetAmount}</Cell>
-                    <Cell title={customerWL} className="right-align">{customerWL}</Cell>
-                </Row>
+                        { item.RowSpan > 0 && <Cell title={item.Index} rowSpan={item.RowSpan} className="center-align">{item.Index}</Cell> }
+                        { item.RowSpan > 0 && <Cell title={reportBy} rowSpan={item.RowSpan} className='center-align'>{reportBy}</Cell> }
+                        { item.RowSpan > 0 && <Cell title={item.SystemId} rowSpan={item.RowSpan} className='center-align'>{item.SystemId}</Cell> }
+                        { item.RowSpan > 0 && <Cell title={item.ExternalId} rowSpan={item.RowSpan} className="center-align">{item.ExternalId}</Cell> }
+                        <Cell title={item.Product}>{item.Product}</Cell>
+                        <Cell title={betcount} className='right-align'>{betcount}</Cell>
+                        <Cell title={turnover} className='right-align'>{turnover}</Cell>
+                        <Cell title={validBetAmount} className="right-align">{validBetAmount}</Cell>
+                        <Cell title={customerWL} className="right-align">{customerWL}</Cell>
+                    </Row>
             );
         }
 
         return rows;
-        }
+    }
 
     _buildFooter(data, baseCurrency) {
         const item = data;
 
         const betcount = NumberFormat.format(item.BetCount),
-                    turnover = NumberFormat.formatDecimal(item.Turnover),
-                    validBetAmount= NumberFormat.formatDecimal(item.ValidBetAmount),
-                    customerWL = NumberFormat.formatDecimal(item.CustomerWL);
+            turnover = NumberFormat.formatDecimal(item.Turnover),
+            validBetAmount= NumberFormat.formatDecimal(item.ValidBetAmount),
+            customerWL = NumberFormat.formatDecimal(item.CustomerWL);
 
-        return [(
-            <Row className="fixed-table-grant-total" key={1}>
+        return ([
+            <Row className="fixed-table-grant-total" key='1'>
                 <Cell className="center-align" colSpan='5'>{LangHelper.getSingleResource("Totalin") + " " + baseCurrency}</Cell>
                 <Cell title={betcount} className="right-align">{betcount}</Cell>
                 <Cell title={turnover} className="right-align">{turnover}</Cell>
                 <Cell title={validBetAmount} className="right-align">{validBetAmount}</Cell>
                 <Cell title={customerWL} className={"right-align"}>{customerWL}</Cell>
             </Row>
-        )]
-        }
-
-    _renderNoData(){
-        return (
-            <div className='result-content'>
-           
-            
-            </div>
-            )
+        ])
     }
 
     render() {
-        if (!this.props.gridData || !this.props.gridData.Data) {
+        if (!this.props.gridData) {
             return null;
         }
 
-        const { Data } = this.props.gridData;
+        const { Data, Total } = this.props.gridData;
         
         if (!Data) {
             return null;
@@ -152,7 +118,7 @@ export class DataGrid extends Component {
             PageIndex: param.PageIndex,
             PageSize: param.PageSize,
             TotalItem: this.props.gridData.TotalRows,
-            PageList: [DEFAULT_PAGE_SIZE, 100, 200, 300, 400, 500, 1000, 2000]
+            PageList: [50, 100, 200, 300, 400, 500, 1000, 2000]
         };
 
         return (
@@ -162,22 +128,23 @@ export class DataGrid extends Component {
                 bodyHeight={300}
                 header={this._buildHeader()}
                 body={this._buildBody(Data)}
-                footer={this._buildFooter(this.props.gridData.Total, this.props.requestParam.BaseCurrency)}
+                footer={this._buildFooter(Total, param.BaseCurrency)}
                 isPaging={true}
                 pageOption={pageOption}
                 onPaging={this.onPaging}
             />
         );
-      }
-      }
+    }
+}
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(ActionCreators, dispatch);
-                }
+    const { toggleLoader, setRequestParam, getGridData } = ActionCreators;
+    return bindActionCreators({ toggleLoader, setRequestParam, getGridData }, dispatch);
+}
 
 function mapStateToProps(state) {
     const { requestParam, gridData } = state;
     return Object.assign({}, { requestParam, gridData });
-                }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

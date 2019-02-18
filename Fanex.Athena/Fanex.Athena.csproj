@@ -1062,8 +1062,15 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\AppContainer.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\AppContainer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\DataGrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\FormFilter.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\FormFilter.render.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\__test__\service.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.test.js" />
