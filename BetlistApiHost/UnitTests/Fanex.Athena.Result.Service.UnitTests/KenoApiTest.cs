@@ -1,14 +1,14 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
     using System;
-    using Core.Exception;
-    using Extension.Utility.Interfaces;
-    using Model.Core.DataDomain;
-    using Model.Report.DTO.Keno;
-    using Model.Report.MetaModel.Keno;
+    using System.Net;
+    using Common.Utility.Services.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
-    using Result;
+    using Result.Model.Const;
+    using Result.Model.DTO.Keno;
+    using Result.Model.MetaModel.Keno;
+    using Result.Service;
 
     public class KenoApiTest
     {
@@ -39,7 +39,7 @@
             TestDelegate testDelegate = () => _service.ExtendToken(setting, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ServiceException>(testDelegate);
+            var exception = Assert.Throws<WebException>(testDelegate);
             Assert.That(exception.Message.Contains("Value cannot be null"), Is.True);
         }
 
@@ -57,7 +57,7 @@
             TestDelegate testDelegate = () => _service.ExtendToken(setting, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ServiceException>(testDelegate);
+            var exception = Assert.Throws<WebException>(testDelegate);
             Assert.That(exception.Message.Contains("Couldn't get authorized data from: " + ExtendTokenUrl), Is.True);
         }
 
@@ -107,7 +107,7 @@
             TestDelegate testDelegate = () => _service.CreateKenoResultUrl(setting, UserId, DateTime.MinValue);
 
             // Assert
-            var exception = Assert.Throws<ServiceException>(testDelegate);
+            var exception = Assert.Throws<WebException>(testDelegate);
             Assert.That(exception.Message.Contains(ExpectedErrorMsg), Is.True);
         }
 
@@ -169,7 +169,7 @@
             TestDelegate testDelegate = () => _service.Authorize(setting, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ServiceException>(testDelegate);
+            var exception = Assert.Throws<WebException>(testDelegate);
             Assert.That(exception.Message.Contains("Value cannot be null"), Is.True);
         }
 
@@ -186,7 +186,7 @@
             TestDelegate testDelegate = () => _service.Authorize(setting, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ServiceException>(testDelegate);
+            var exception = Assert.Throws<WebException>(testDelegate);
             Assert.That(exception.Message.Contains("Couldn't get authorized data from: " + setting.AuthorizedUrl), Is.True);
         }
 
