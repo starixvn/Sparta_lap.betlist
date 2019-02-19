@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.DataAccess.Report.UnitTests.ResultReport
+﻿namespace Fanex.Athena.Result.DataAccess.UnitTests
 {
     using System;
     using System.Collections.Generic;

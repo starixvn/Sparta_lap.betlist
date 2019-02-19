@@ -4,8 +4,8 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report.Result.ResultPopup;
-    using Result.Core.PP;
-    using Session.Model;
+    using Service.Core.Utility.Interfaces;
+    using UnitTest.Common.Extensions;
 
     [TestFixture]
     public partial class PPResultPopupControllerTest : BaseControllerHelperTest
@@ -17,21 +17,31 @@
             const string CustId = "123";
             const string GamePlayId = "345";
             const string ExpectedResult = "aaaaaaaaaaaa";
-            StubUserSessionData(new UserSession
+            const string Url = "/PPResultPopup/Index";
+            const string Language = "vi-VN";
+            StubUserSessionData(new Session.Model.UserSession
             {
-                Language = "enus"
+                Language = Language
             });
-            var resultApi = Substitute.For<IPPResult>();
+            var betListApiClient = Substitute.For<IBetListApiClient>();
 
-            resultApi.GetPPResult(CustId, GamePlayId, SessionService.UserSession.Language)
-                .Returns(ExpectedResult);
-            using (var controller = new PPResultPopupController(LangService, SessionService, AppSettings, resultApi))
+            betListApiClient.PostAsyncString(Url, Arg.Any<object>()).Returns(ExpectedResult);
+            using (var controller = new PPResultPopupController(LangService, SessionService, AppSettings, betListApiClient))
             {
                 // Action
-                var result = controller.Index(CustId, GamePlayId);
+                var result = controller.Index(CustId, GamePlayId).Result;
 
                 // Assert
-                Assert.That(result, Is.EqualTo(ExpectedResult));
+                Assert.Multiple(() =>
+                {
+                    betListApiClient.Received(1).PostAsyncString(
+                        Url, 
+                        Arg.Is<object>(
+                            x => (string)x.GetValue("custId") == CustId && 
+                                (string)x.GetValue("gamePlayId") == GamePlayId &&
+                                (string)x.GetValue("languageCode") == Language));
+                    Assert.That(result, Is.EqualTo(ExpectedResult));
+                });
             }
         }
     }

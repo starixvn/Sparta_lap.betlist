@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Service.Report.UnitTests
+﻿namespace Fanex.Athena.Result.Service.UnitTests
 {
     using System;
     using System.Net;

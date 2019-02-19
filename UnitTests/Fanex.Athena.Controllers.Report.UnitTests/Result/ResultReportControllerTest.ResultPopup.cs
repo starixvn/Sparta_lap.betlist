@@ -7,10 +7,6 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.Core.Base;
-    using Result.Core.NumberGame.DTO;
-    using Result.Core.Racing.DTO;
-    using Result.Core.Sportsbook.DTO;
 
     [TestFixture]
     public partial class ResultReportControllerTest : BaseControllerHelperTest

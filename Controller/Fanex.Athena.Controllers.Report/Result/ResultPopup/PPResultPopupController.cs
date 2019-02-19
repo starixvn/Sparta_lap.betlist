@@ -25,7 +25,7 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
         [HttpGet]
         public async Task<string> Index(string custId, string gamePlayId)
         {
-            var model = new
+            var model = new 
             {
                 custId,
                 gamePlayId,

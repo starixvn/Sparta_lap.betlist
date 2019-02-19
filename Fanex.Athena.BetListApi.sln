@@ -55,6 +55,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Result", "Result", "{801959
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Service.UnitTests", "BetlistApiHost\UnitTests\Fanex.Athena.Result.Service.UnitTests\Fanex.Athena.Result.Service.UnitTests.csproj", "{342461F7-14F3-427B-B8C8-FEB64C06DD3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Controller.UnitTests", "BetlistApiHost\UnitTests\Fanex.Athena.Result.Controller.UnitTests\Fanex.Athena.Result.Controller.UnitTests.csproj", "{E76D2690-BC0E-465C-87EF-A9C3AD62127B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,10 @@ Global
 		{342461F7-14F3-427B-B8C8-FEB64C06DD3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{342461F7-14F3-427B-B8C8-FEB64C06DD3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{342461F7-14F3-427B-B8C8-FEB64C06DD3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,5 +168,6 @@ Global
 		{F58944D6-A913-4E03-833B-42FDB06C2EE1} = {A0F97E7A-417A-4E6F-BFD5-8CF8F7162712}
 		{8019593A-64CA-4C68-931E-3E267185CBD7} = {A0F97E7A-417A-4E6F-BFD5-8CF8F7162712}
 		{342461F7-14F3-427B-B8C8-FEB64C06DD3B} = {8019593A-64CA-4C68-931E-3E267185CBD7}
+		{E76D2690-BC0E-465C-87EF-A9C3AD62127B} = {8019593A-64CA-4C68-931E-3E267185CBD7}
 	EndGlobalSection
 EndGlobal

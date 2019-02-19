@@ -327,15 +327,14 @@ namespace Fanex.Athena.Result.DataAccess
                 db.SetParameterValue("matchid", matchId);
                 using (var reader = db.ExecuteReader())
                 {
-                    var result = new Sportsbook();
-                    while (reader.Read())
+                    if (reader.Read())
                     {
-                        result = BindSportsbook(reader);
+                        var result = BindSportsbook(reader);
+                        result.GameDetails = GetGameDetails(reader).ToList();
+                        return result;
                     }
-
-                    result.GameDetails = GetGameDetails(reader).ToList();
-
-                    return result;
+                    
+                    return null;
                 }
             }
         }

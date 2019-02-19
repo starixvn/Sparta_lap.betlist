@@ -6,10 +6,9 @@
     using System.Web.Script.Serialization;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
-    using Model.Report.MetaModel;
+    using Model.Report.MetaModel.Result;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.Core.Sportsbook.DTO;
 
     [TestFixture]
     public partial class ResultReportControllerTest : BaseControllerHelperTest
@@ -23,7 +22,7 @@
                 controller.ModelState.AddModelError("error", "hihi");
 
                 // Action
-                var result = controller.GetSports(new ResultMetalModel()) as JsonResult;
+                var result = controller.GetSports(new GetSportResultMetaModel()) as JsonResult;
 
                 // Assert
                 Assert.That(result.Data, Is.EqualTo(string.Empty));
@@ -41,7 +40,7 @@
                 {
                     new Outright { SportType = SportId }
                 };
-                var metaModel = new ResultMetalModel
+                var metaModel = new ResultMetaModel
                 {
                     SportId = SportId,
                     IsOutRight = true
@@ -69,7 +68,7 @@
                 {
                     new Sport { SportId = SportId }
                 };
-                var metaModel = new ResultMetalModel
+                var metaModel = new ResultMetaModel
                 {
                     SportId = 0,
                     FromDate = new DateTime(2017, 1, 1)
@@ -97,7 +96,7 @@
                 {
                     new League()
                 };
-                var metaModel = new ResultMetalModel
+                var metaModel = new ResultMetaModel
                 {
                     SportId = SportId,
                     FromDate = new DateTime(2017, 1, 1)

@@ -11,13 +11,8 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report.Result;
-    using Result.Core.Base;
-    using Result.Core.MicroGaming;
-    using Result.Core.MicroGaming.DTO;
-    using Result.Core.Sportsbook.DTO;
-    using Service.Casino.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Result.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
@@ -29,11 +24,7 @@
 
         private IBalanceUpDataAccess _balanceUpDataAccess;
 
-        private IParserService _microGamingParserService;
-
-        private IResultService _resultService;
-
-        private IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
+        private IBetListApiClient _betListApiClient;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -52,7 +43,7 @@
         [SetUp]
         public void SetUp()
         {
-            _microGamingParserService = Substitute.For<IParserService>();
+            _betListApiClient = Substitute.For<IParserService>();
             _resultService = Substitute.For<IResultService>();
             _rngCasinoSingleWalletService = Substitute.For<IRNGCasinoSingleWalletService>();
         }
@@ -66,7 +57,7 @@
                 const string ExpectedData = "hello cái bô";
                 const int GameId = 1;
                 const int CustId = 2;
-                _microGamingParserService.Parser(Arg.Any<MicroGaming>()).ReturnsForAnyArgs(ExpectedData);
+                _betListApiClient.Parser(Arg.Any<MicroGaming>()).ReturnsForAnyArgs(ExpectedData);
 
                 // Action
                 var viewResult = controller.MicrogamingResultPopup(GameId, CustId) as ViewResult;
@@ -74,7 +65,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _microGamingParserService.Received(1).Parser(Arg.Is<MicroGaming>(x =>
+                    _betListApiClient.Received(1).Parser(Arg.Is<MicroGaming>(x =>
                         x.GameId == GameId && x.CustId == CustId &&
                         x.SiteName == SessionService.LicenseeSession.LicenseeName));
                     Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/Result/Popup/Microgaming.cshtml"));
@@ -181,7 +172,7 @@
                 AppSettings,
                 productService,
                 _balanceUpDataAccess,
-                _microGamingParserService,
+                _betListApiClient,
                 _resultService,
                 _rngCasinoSingleWalletService,
                 Substitute.For<ICacheRefAdapter>());

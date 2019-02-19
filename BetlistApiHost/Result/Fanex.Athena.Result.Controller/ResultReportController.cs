@@ -58,7 +58,6 @@ namespace Fanex.Athena.Result.Controller
         #region Result-Page
 
         public ResultReportController(
-            IAppSettings appSetting,
             IParserService microGamingParserService,
             IResultService resultService,
             IRNGCasinoSingleWalletService rngCasinoSingleWalletService,
@@ -114,24 +113,19 @@ namespace Fanex.Athena.Result.Controller
         [HttpPost]
         public ActionResult GetSports(GetSportResultMetaModel metalModel)
         {
-            if (ModelState.IsValid)
+            if (metalModel.IsOutRight)
             {
-                if (metalModel.IsOutRight)
-                {
-                    return GetOutRightSports(metalModel);
-                }
-
-                if (metalModel.SportId == 0)
-                {
-                    return GetNormalSports(metalModel);
-                }
-                else
-                {
-                    return Json(new { Leagues = _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId) });
-                }
+                return GetOutRightSports(metalModel);
             }
 
-            return Json(string.Empty);
+            if (metalModel.SportId == 0)
+            {
+                return GetNormalSports(metalModel);
+            }
+            else
+            {
+                return Json(new { Leagues = _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId) });
+            }
         }
 
         #endregion Result-Page
