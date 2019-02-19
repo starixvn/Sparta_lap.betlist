@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
+    using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.Core.Sportsbook.DTO;
     using UnitTest.Common.Helpers;
 
     public partial class ResultDataAccessTest
@@ -199,14 +199,6 @@
 
             // Assert
             Assert.That(result[0].Sportbook.Count, Is.EqualTo(2));
-        }
-
-        [Test]
-        public void GetPopUpParalayMatch_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetPopUpParalayMatchSp,
-                () => DataAccess.GetPopUpParalayMatch(0));
         }
     }
 }

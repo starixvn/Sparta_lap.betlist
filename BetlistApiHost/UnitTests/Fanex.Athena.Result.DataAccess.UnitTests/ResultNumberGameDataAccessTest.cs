@@ -2,13 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using Core.UnitTests.TestHelpers;
+    using Common.DataAcces.UnitTests;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
-    using Model.Report.MetaModel;
+    using Fanex.Result.Core.NumberGame.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using Report.ResultReport;
-    using Result.Core.NumberGame.DTO;
+    using Result.DataAccess;
+    using Result.Model.MetaModel;
     using UnitTest.Common.Helpers;
 
     public class ResultNumberGameDataAccessTest : BaseDataAccessHelperTest<ResultNumberGameDataAccess>
@@ -25,7 +25,7 @@
                 { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
             };
 
-        private readonly ResultMetalModel _metaModel = new ResultMetalModel
+        private readonly ResultMetaModel _metaModel = new ResultMetaModel
         {
             FromDate = new DateTime(2017, 1, 1),
             ToDate = new DateTime(2017, 2, 2),
@@ -90,14 +90,6 @@
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
-        }
-
-        [Test]
-        public void GetPopUpNumberGameMatch_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetPopUpNumberGameMatchSp,
-                () => DataAccess.GetPopUpNumberGameMatch(0));
         }
 
         [Test]
@@ -167,14 +159,6 @@
                 Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
                 Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
             });
-        }
-
-        [Test]
-        public void GetNumberGameMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetNumberGameMatchesSp,
-                () => DataAccess.GetNumberGameMatches(_metaModel));
         }
 
         private static NumberGame GetSampleDataItem()

@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
+    using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.Core.Sportsbook.DTO;
     using UnitTest.Common.Helpers;
 
     public partial class ResultDataAccessTest
@@ -81,14 +81,6 @@
 
             // Assert
             Assert.Throws<NotSupportedException>(result, "The type 'object' is not supported.");
-        }
-
-        [Test]
-        public void GetMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetMatchesSp,
-                () => DataAccess.GetMatches<object>(_metaModel));
         }
     }
 }

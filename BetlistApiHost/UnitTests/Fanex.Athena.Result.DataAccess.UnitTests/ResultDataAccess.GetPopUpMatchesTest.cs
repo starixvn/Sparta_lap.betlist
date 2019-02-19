@@ -3,11 +3,11 @@
     using System;
     using System.Collections.Generic;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
-    using Model.Report.MetaModel;
+    using Fanex.Result.Core.Racing.DTO;
+    using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.Core.Racing.DTO;
-    using Result.Core.Sportsbook.DTO;
+    using Result.Model.MetaModel;
     using UnitTest.Common.Helpers;
 
     public partial class ResultDataAccessTest
@@ -120,14 +120,6 @@
             {
                 Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
             });
-        }
-
-        [Test]
-        public void GGetPopUpMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetPopUpMatchesSp,
-                () => DataAccess.GetPopUpMatches<Sportsbook>(new ResultPopupMetalModel()));
         }
 
         [Test]
@@ -319,9 +311,9 @@
             Assert.Throws<NotSupportedException>(result, "The type 'object' is not supported.");
         }
 
-        private ResultPopupMetalModel BuildResultPopupMetalModel()
+        private ResultPopupMetaModel BuildResultPopupMetalModel()
         {
-            return new ResultPopupMetalModel
+            return new ResultPopupMetaModel
             {
                 MatchId = MatchId,
                 RaceNo = RaceNo,

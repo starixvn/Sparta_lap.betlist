@@ -12,3 +12,6 @@ using System.Runtime.CompilerServices;
 
 [assembly: System.CLSCompliant(true)]
 [assembly: AssemblyVersion("1.0.0.0")]
+
+[assembly: InternalsVisibleTo("Fanex.Athena.Common.DataAcces.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.Result.DataAccess.UnitTests")]

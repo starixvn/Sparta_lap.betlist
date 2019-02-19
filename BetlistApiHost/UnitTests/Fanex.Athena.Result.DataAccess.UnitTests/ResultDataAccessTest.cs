@@ -3,20 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Core.Configuration.Interfaces;
-    using Core.UnitTests.TestHelpers;
-    using Extension.Utility;
+    using Common.DataAcces.UnitTests;
+    using Common.DataAccess.Interfaces;
+    using Common.Model.DTO;
+    using Common.Utility.Services.Interfaces;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
-    using Model.Core.DTO.Common;
-    using Model.Core.DTO.Configuration;
-    using Model.Report.MetaModel;
+    using Fanex.Result.Core.Racing.DTO;
+    using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using Report.ResultReport;
-    using Result.Core.NumberGame.DTO;
-    using Result.Core.Racing.DTO;
-    using Result.Core.Sportsbook.DTO;
-    using VendorAdapter.Interfaces;
+    using Result.DataAccess;
+    using Result.Model.MetaModel;
 
     [TestFixture]
     public partial class ResultDataAccessTest : BaseDataAccessHelperTest<ResultDataAccess>
@@ -40,7 +37,7 @@
             BalanceUpDay = new DateTime(2016, 8, 31)
         };
 
-        private readonly ResultMetalModel _metaModel = new ResultMetalModel
+        private readonly ResultMetaModel _metaModel = new ResultMetaModel
         {
             FromDate = new DateTime(2017, 1, 1),
             ToDate = new DateTime(2017, 2, 2)
@@ -121,14 +118,6 @@
         }
 
         [Test]
-        public void GetOutRight_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetOutRightSp,
-                () => DataAccess.GetOutRight(_metaModel));
-        }
-
-        [Test]
         public void GetSports_ParameterPassedCorrectly()
         {
             // Arrange
@@ -143,9 +132,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("eventdate", DbType.DateTime, date);
-                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("eventdate", date);
+                ObjectDb.Received(1).SetParameterValue("licenseeid", licenseeId);
+                ObjectDb.Received(1).SetParameterValue("movebetsday", _balance.MoveBetsDay);
             });
         }
 
@@ -231,14 +220,6 @@
         }
 
         [Test]
-        public void GetLeagues_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLeaguesSp,
-                () => DataAccess.GetLeagues(new DateTime(), 0));
-        }
-
-        [Test]
         public void GetRacingMatches_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -292,14 +273,6 @@
         }
 
         [Test]
-        public void GetRacingMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetVirtualSportMatchesSp,
-                () => DataAccess.GetVirtualSportMatches(_metaModel));
-        }
-
-        [Test]
         public void GetSportsbookGameDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -309,7 +282,7 @@
             DataAccess.GetSportsbookGameDetail(MatchId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("matchid", DbType.Int32, MatchId);
+            ObjectDb.Received(1).SetParameterValue("matchid", MatchId);
         }
 
         [TestCase(true)]

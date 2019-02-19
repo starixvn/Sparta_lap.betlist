@@ -122,10 +122,6 @@
     <Compile Include="ExchangeWinLossDataAccessTest.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneDataAccessTest.cs" />
     <Compile Include="SpecialLicenseeWinLossDataAccessTest.cs" />
-    <Compile Include="ResultReport\ResultNumberGameDataAccessTest.cs" />
-    <Compile Include="ResultReport\ResultDataAccess.GetMatchesTest.cs" />
-    <Compile Include="ResultReport\ResultDataAccess.GetPopUpParalayMatchTest.cs" />
-    <Compile Include="ResultReport\ResultDataAccess.GetPopUpMatchesTest.cs" />
     <Compile Include="SubsidiaryPerformanceDataAccessTest.cs" />
     <Compile Include="GoldDeluxeWinLossDataAccessTest.cs" />
     <Compile Include="Testable\GoldDeluxeWinLossDataAccessTestable.cs" />
@@ -136,7 +132,6 @@
     <Compile Include="TurnoverDataAccessTest.cs" />
     <Compile Include="ThirdPartyWinLossDataAccessTest.cs" />
     <Compile Include="SettledMatchCountDataAccessTest.cs" />
-    <Compile Include="ResultReport\ResultDataAccessTest.cs" />
     <Compile Include="PlatformWinLossDataAccessTest.cs" />
     <Compile Include="MicroGamingWinLossDataAccessTest.cs" />
     <Compile Include="MatchWinLossDataAccessTest.cs" />
