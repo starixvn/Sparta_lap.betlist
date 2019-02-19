@@ -1067,7 +1067,7 @@
     <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\DataGrid.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\DataGrid.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\FormFilter.redux.test.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\FormFilter.render.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\FormFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\__test__\service.test.js" />
