@@ -101,7 +101,7 @@ describe('FormFilter ', () => {
                 const filter = new FormFilter(props);
                 const dateRange = filter._renderDateRange();
 
-                dateRange.props.onChange(newValue, true);
+                dateRange.props.onChange(newValue);
     
                 expect(props.setDateRange).toHaveBeenCalledWith(newValue);
             });

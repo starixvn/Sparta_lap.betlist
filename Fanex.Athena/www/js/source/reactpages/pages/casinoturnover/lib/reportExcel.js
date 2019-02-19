@@ -157,7 +157,7 @@ export default class ReportExcel {
 
         var cellAddress = Excel.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
         this.worksheet[cellAddress] = { t: "s", v: LangHelper.getSingleResource("Totalin") + " " + this.baseCurrency, s: grandTotalCellStyle.center };
-        this._createRowByColumnIndex(totalData, GRAND_TOTAL_SECTION_STYLE, PRODUCT_COLUMN_INDEX, CUSTOMERWL_COLUMN_INDEX);
+        this._createRowByColumnIndex(totalData, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, CUSTOMERWL_COLUMN_INDEX);
     }
 
     _createExcelConfig() {        

@@ -1070,6 +1070,7 @@
     <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\FormFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\__test__\reportExcel.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\__test__\service.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.redux.test.js" />

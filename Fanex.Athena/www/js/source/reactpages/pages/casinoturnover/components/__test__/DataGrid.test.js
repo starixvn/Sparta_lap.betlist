@@ -1,6 +1,7 @@
 import React from 'react'
 import { DataGrid } from '../DataGrid';
 import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import LangHelper from '../../../../lib/langHelper';
 import Site from '../../../../lib/site';
 
@@ -188,12 +189,10 @@ describe('DataGrid ', () => {
                 requestParam: { PageIndex: 1, PageSize: 20, BaseCurrency: 'USD' }
             };
 
-            const dataGrid = new DataGrid({});
-            
-            const grid = renderer.create(dataGrid.render());
-            const result = grid.toJSON();
+            const shallowRenderer = new ShallowRenderer();
+            const grid = shallowRenderer.render(<DataGrid {...props} />);
 
-            expect(result).toMatchSnapshot();
+            expect(grid).toMatchSnapshot();
         })
     })
 })
