@@ -169,7 +169,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 gamePlayId,
                 languageCode = SessionService.UserSession.Language
             };
-            return await _betListApiClient.PostAsyncString("/ResultReport/VoidbridgeResult", model).ConfigureAwait(false);
+            return await _betListApiClient.PostAsyncString("/VoidbridgeResultPopup/Index", model).ConfigureAwait(false);
         }
 
         [HttpGet]
@@ -182,7 +182,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 betType,
                 languageCode = SessionService.UserSession.Language
             };
-            ViewBag.Data = await _betListApiClient.PostAsyncString("/ResultReport/AllBetResult", model).ConfigureAwait(false);
+            ViewBag.Data = await _betListApiClient.PostAsyncString("/AllBetResultPopup/Index", model).ConfigureAwait(false);
             return View("~/Views/Desktop/Report/Result/Popup/AllBet.cshtml");
         }
 
@@ -194,7 +194,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 custId,
                 gameId,
             };
-            return await _betListApiClient.PostAsyncString("/ResultReport/GlobalGamingResult", model).ConfigureAwait(false);
+            return await _betListApiClient.PostAsyncString("/GlobalGamingResultPopup/Index", model).ConfigureAwait(false);
         }
 
         /// <summary>

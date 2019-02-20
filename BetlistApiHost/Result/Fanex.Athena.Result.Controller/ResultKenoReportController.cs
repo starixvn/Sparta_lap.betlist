@@ -2,8 +2,6 @@
 {
     using System;
     using System.Web.Mvc;
-    using System.Web.SessionState;
-    using Common.Utility.Attributes;
     using Common.Utility.Services.Interfaces;
     using Logging;
     using Model.Const;
@@ -11,9 +9,7 @@
     using Model.MetaModel.Keno;
     using Service.Interfaces;
 
-    [CustomAuth]
-    [SessionState(SessionStateBehavior.ReadOnly)]
-    public class ResultKenoReportController : Controller
+    public class ResultKenoReportController : BaseResultController
     {
         private readonly ILogger _logger;
 

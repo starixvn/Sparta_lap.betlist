@@ -8,25 +8,17 @@ namespace Fanex.Athena.Result.Controller
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
-    using System.Web.SessionState;
     using Common.Model.DTO;
-    using Common.Utility.Attributes;
     using Common.Utility.Services.Interfaces;
-    using Fanex.Result.Core.AllBetCasino;
     using Fanex.Result.Core.Base;
-    using Fanex.Result.Core.GlobalGaming;
-    using Fanex.Result.Core.GlobalGaming.DTO;
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
-    using Fanex.Result.Core.Voidbridge;
     using Model.MetaModel;
     using Resources;
     using Service.Interfaces;
 
-    [CustomAuth]
-    [SessionState(SessionStateBehavior.ReadOnly)]
-    public class ResultReportController : Controller
+    public class ResultReportController : BaseResultController
     {
         private const int ParlayBetType = 9;
         private const int SystemParlayBetType = 29;
@@ -151,28 +143,6 @@ namespace Fanex.Athena.Result.Controller
             var resultInfo = _rngCasinoSingleWalletService.GetResultInfo(refNo);
 
             return Json(resultInfo);
-        }
-
-        [HttpPost]
-        public string VoidbridgeResult(string custId, string gamePlayId, string languageCode)
-        {
-            var voidbridgeApi = new VoidbridgeApiImp();
-            return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId, languageCode);
-        }
-
-        [HttpPost]
-        public string AllBetResult(string transDesc, string betCheck, string betType, string languageCode)
-        {
-            var allbetResultService = new AllbetResultBuilder();
-            return allbetResultService.Render(transDesc, betCheck, betType, languageCode);
-        }
-
-        [HttpPost]
-        public string GlobalGamingResult(GlobalGamingDTO param)
-        {
-            var globalGamingResultApi = new GlobalGamingResultApi();
-
-            return globalGamingResultApi.GetResultUrl(param);
         }
 
         /// <summary>
