@@ -112,7 +112,7 @@
                 _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
                 {
                     OriginalTicket = new LrfTicket { TransId = metaModel.TransId, Status = "running" },
-                    CashOutTicketList = new List<CashOutTicket> { new CashOutTicket { Stake = 1, Price = 2, WinLoss = 3, Status = "running" } }
+                    CashOutTicketList = new List<CashOutTicket> { new CashOutTicket { Stake = 1234, Price = 23456.55m, WinLoss = 3456.66m, Status = "running" } }
                 });
 
                 // Action
@@ -124,9 +124,9 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(firstCashOutTicketText.Stake, Is.EqualTo("1.00"));
-                    Assert.That(firstCashOutTicketText.Price, Is.EqualTo("2.00"));
-                    Assert.That(firstCashOutTicketText.WinLoss, Is.EqualTo("3.00"));
+                    Assert.That(firstCashOutTicketText.Stake, Is.EqualTo("1,234"));
+                    Assert.That(firstCashOutTicketText.Price, Is.EqualTo("23,456.55"));
+                    Assert.That(firstCashOutTicketText.WinLoss, Is.EqualTo("3,456.66"));
                 });
             }
         }
