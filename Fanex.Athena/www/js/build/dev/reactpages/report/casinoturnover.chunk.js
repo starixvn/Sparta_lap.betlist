@@ -5438,8 +5438,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var URL = _site2.default.resolveClientUrl("api/CasinoTurnoverReport/GetData");
 
-var DEFAULT_PAGE_SIZE = 50;
-
 var DataGrid = exports.DataGrid = function (_Component) {
     _inherits(DataGrid, _Component);
 
@@ -5449,26 +5447,14 @@ var DataGrid = exports.DataGrid = function (_Component) {
         var _this = _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
 
         _this.onPaging = function (index, size) {
-            var param = _this.props.requestParam;
-            param.PageIndex = index;
-            param.PageSize = size;
+            var param = Object.assign({}, _this.props.requestParam, { PageIndex: index, PageSize: size });
             _this._getData(param);
         };
 
-        _this.state = {
-            gridData: {}
-        };
         return _this;
     }
 
     _createClass(DataGrid, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var param = this.props.requestParam;
-            param.PageSize = DEFAULT_PAGE_SIZE;
-            this.props.setRequestParam(param);
-        }
-    }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps) {
             if (prevProps.gridData.timestamp !== this.props.gridData.timestamp) {
@@ -5546,40 +5532,30 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     turnover = _numberFormat2.default.formatDecimal(item.Turnover),
                     validBetAmount = _numberFormat2.default.formatDecimal(item.ValidBetAmount),
                     customerWL = _numberFormat2.default.formatDecimal(item.CustomerWL);
-                var indexCell = null;
-                var dateCell = null;
-                var systemIdCell = null;
-                var externalIdCell = null;
-                if (item.RowSpan > 0) {
-                    indexCell = _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: item.Index, rowSpan: item.RowSpan, className: 'center-align' },
-                        item.Index
-                    );
-                    dateCell = _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: reportBy, rowSpan: item.RowSpan, className: 'center-align' },
-                        reportBy
-                    );
-                    systemIdCell = _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: item.SystemId, rowSpan: item.RowSpan, className: 'center-align' },
-                        item.SystemId
-                    );
-                    externalIdCell = _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: item.ExternalId, rowSpan: item.RowSpan, className: 'center-align' },
-                        item.ExternalId
-                    );
-                }
 
                 rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
                     { key: 'tr' + i },
-                    indexCell,
-                    dateCell,
-                    systemIdCell,
-                    externalIdCell,
+                    item.RowSpan > 0 && _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.Index, rowSpan: item.RowSpan, className: 'center-align' },
+                        item.Index
+                    ),
+                    item.RowSpan > 0 && _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: reportBy, rowSpan: item.RowSpan, className: 'center-align' },
+                        reportBy
+                    ),
+                    item.RowSpan > 0 && _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.SystemId, rowSpan: item.RowSpan, className: 'center-align' },
+                        item.SystemId
+                    ),
+                    item.RowSpan > 0 && _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.ExternalId, rowSpan: item.RowSpan, className: 'center-align' },
+                        item.ExternalId
+                    ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.Product },
@@ -5622,7 +5598,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
             return [_react2.default.createElement(
                 _fixedTableHeader.Row,
-                { className: 'fixed-table-grant-total', key: 1 },
+                { className: 'fixed-table-grant-total', key: '1' },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { className: 'center-align', colSpan: '5' },
@@ -5651,18 +5627,15 @@ var DataGrid = exports.DataGrid = function (_Component) {
             )];
         }
     }, {
-        key: '_renderNoData',
-        value: function _renderNoData() {
-            return _react2.default.createElement('div', { className: 'result-content' });
-        }
-    }, {
         key: 'render',
         value: function render() {
-            if (!this.props.gridData || !this.props.gridData.Data) {
+            if (!this.props.gridData) {
                 return null;
             }
 
-            var Data = this.props.gridData.Data;
+            var _props$gridData = this.props.gridData,
+                Data = _props$gridData.Data,
+                Total = _props$gridData.Total;
 
 
             if (!Data) {
@@ -5678,7 +5651,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 PageIndex: param.PageIndex,
                 PageSize: param.PageSize,
                 TotalItem: this.props.gridData.TotalRows,
-                PageList: [DEFAULT_PAGE_SIZE, 100, 200, 300, 400, 500, 1000, 2000]
+                PageList: [50, 100, 200, 300, 400, 500, 1000, 2000]
             };
 
             return _react2.default.createElement(_fixedTableHeader.Table, {
@@ -5687,7 +5660,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 bodyHeight: 300,
                 header: this._buildHeader(),
                 body: this._buildBody(Data),
-                footer: this._buildFooter(this.props.gridData.Total, this.props.requestParam.BaseCurrency),
+                footer: this._buildFooter(Total, param.BaseCurrency),
                 isPaging: true,
                 pageOption: pageOption,
                 onPaging: this.onPaging
@@ -5699,7 +5672,11 @@ var DataGrid = exports.DataGrid = function (_Component) {
 }(_react.Component);
 
 function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
+    var toggleLoader = _index.ActionCreators.toggleLoader,
+        setRequestParam = _index.ActionCreators.setRequestParam,
+        getGridData = _index.ActionCreators.getGridData;
+
+    return (0, _redux.bindActionCreators)({ toggleLoader: toggleLoader, setRequestParam: setRequestParam, getGridData: getGridData }, dispatch);
 }
 
 function mapStateToProps(state) {
@@ -5815,17 +5792,13 @@ var FormFilter = exports.FormFilter = function (_Component) {
             }
         };
 
-        _this.exportExcel = function (event) {
-            event.preventDefault();
+        _this.exportExcel = function () {
             var _this$props = _this.props,
                 dateRange = _this$props.dateRange,
                 selectedCurrency = _this$props.selectedCurrency,
                 selectedBaseCurrency = _this$props.selectedBaseCurrency;
 
             var params = Object.assign({ IsExportExcel: true }, _this._getParams());
-            if (!params) {
-                return;
-            }
 
             _this.props.toggleLoader(true);
             _DataService2.default.postData(EXCEL_DATA_URL, params).then(function (response) {
@@ -5890,7 +5863,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 UserName: username,
                 Status: selectedStatus.split(','),
                 PageIndex: 1,
-                PageSize: requestParam.PageSize ? requestParam.PageSize : 50
+                PageSize: requestParam.PageSize
             };
         }
     }, {
@@ -5916,7 +5889,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
             var selectedCurrency = this.props.selectedCurrency;
             var currencyList = _AppData2.default.currencyList;
 
-            return _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlCurrency',
+            return currencyList && currencyList.length && _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlCurrency',
                 name: 'Currency',
                 value: selectedCurrency.value,
                 options: currencyList,
@@ -6201,7 +6174,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var defaultState = Object.assign({}, window.initialState, { reportTitle: '' });
+var defaultState = Object.assign({}, window.initialState, { reportTitle: '', requestParam: { PageSize: 50 } });
 var store = _store2.default.createStore(_index2.default, defaultState);
 
 var App = function (_React$Component) {
@@ -6417,7 +6390,7 @@ var ReportExcel = function () {
 
             var cellAddress = _excel2.default.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
             this.worksheet[cellAddress] = { t: "s", v: _langHelper2.default.getSingleResource("Totalin") + " " + this.baseCurrency, s: _excelStyle.grandTotalCellStyle.center };
-            this._createRowByColumnIndex(totalData, GRAND_TOTAL_SECTION_STYLE, PRODUCT_COLUMN_INDEX, CUSTOMERWL_COLUMN_INDEX);
+            this._createRowByColumnIndex(totalData, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, CUSTOMERWL_COLUMN_INDEX);
         }
     }, {
         key: '_createExcelConfig',
