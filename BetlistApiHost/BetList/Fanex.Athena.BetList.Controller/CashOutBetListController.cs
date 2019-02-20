@@ -77,7 +77,7 @@ namespace Fanex.Athena.BetList.Controller
                 var ticketText = new CashOutTicketText
                 {
                     TransTime = ViewResources.RefNo + ": " + ticket.TransId + Environment.NewLine + "<div class='time'>" + ticket.TransDate + "</div>",
-                    Stake = ticket.Stake.ToString(FormatKey.IntegerFormat),
+                    Stake = ticket.Stake.ToString("#,##0.##"),
                     Price = ticket.Price.ToString(FormatKey.DecimalFormat),
                     WinLoss = ticket.WinLoss.ToString(FormatKey.DecimalFormat),
                     Status = statusHtml.ToString(),
