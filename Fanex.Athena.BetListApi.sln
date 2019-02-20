@@ -57,6 +57,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Result.Controller.UnitTests", "BetlistApiHost\UnitTests\Fanex.Athena.Result.Controller.UnitTests\Fanex.Athena.Result.Controller.UnitTests.csproj", "{E76D2690-BC0E-465C-87EF-A9C3AD62127B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BetList", "BetList", "{2D1DCF79-EDB0-464B-BFF8-9A9AC0FF50EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.DataAccess.UnitTests", "BetlistApiHost\UnitTests\Fanex.Athena.BetList.DataAccess.UnitTests\Fanex.Athena.BetList.DataAccess.UnitTests.csproj", "{45B72065-B9DA-43A2-87C0-83B79E5EB08C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +147,10 @@ Global
 		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45B72065-B9DA-43A2-87C0-83B79E5EB08C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B72065-B9DA-43A2-87C0-83B79E5EB08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B72065-B9DA-43A2-87C0-83B79E5EB08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B72065-B9DA-43A2-87C0-83B79E5EB08C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,5 +177,7 @@ Global
 		{8019593A-64CA-4C68-931E-3E267185CBD7} = {A0F97E7A-417A-4E6F-BFD5-8CF8F7162712}
 		{342461F7-14F3-427B-B8C8-FEB64C06DD3B} = {8019593A-64CA-4C68-931E-3E267185CBD7}
 		{E76D2690-BC0E-465C-87EF-A9C3AD62127B} = {8019593A-64CA-4C68-931E-3E267185CBD7}
+		{2D1DCF79-EDB0-464B-BFF8-9A9AC0FF50EC} = {A0F97E7A-417A-4E6F-BFD5-8CF8F7162712}
+		{45B72065-B9DA-43A2-87C0-83B79E5EB08C} = {2D1DCF79-EDB0-464B-BFF8-9A9AC0FF50EC}
 	EndGlobalSection
 EndGlobal

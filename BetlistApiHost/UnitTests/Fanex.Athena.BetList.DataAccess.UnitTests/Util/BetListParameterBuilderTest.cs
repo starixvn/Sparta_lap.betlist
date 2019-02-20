@@ -1,12 +1,11 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests.Util
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
-    using BetList.Util;
+    using Athena.BetList.DataAccess.Util;
+    using Athena.BetList.Model.MetaModel;
+    using Common.Constant;
     using Data;
-    using Model.BetList.MetaModel;
-    using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -48,18 +47,18 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, metaModel.CustId);
-                _objectDb.Received(1).AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
-                _objectDb.Received(1).AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                _objectDb.Received(1).AddInParameter("Odds", DbType.Decimal, metaModel.Odds);
+                _objectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("CustID", metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("LeagueID", metaModel.LeagueId);
+                _objectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
+                _objectDb.Received(1).SetParameterValue("Odds", metaModel.Odds);
                 AssertDateRangeParameters(_objectDb, metaModel);
                 AssertMoveBetParams(_objectDb, metaModel);
-                _objectDb.Received(1).AddInParameter("ShowWin", DbType.Boolean, metaModel.ShowWin);
-                _objectDb.Received(1).AddInParameter("ShowLoss", DbType.Boolean, metaModel.ShowLoss);
-                _objectDb.Received(1).AddInParameter("ShowDraw", DbType.Boolean, metaModel.ShowDraw);
-                _objectDb.Received(1).AddInParameter("ShowSB", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("ShowBA", DbType.Boolean, false);
+                _objectDb.Received(1).SetParameterValue("ShowWin", metaModel.ShowWin);
+                _objectDb.Received(1).SetParameterValue("ShowLoss", metaModel.ShowLoss);
+                _objectDb.Received(1).SetParameterValue("ShowDraw", metaModel.ShowDraw);
+                _objectDb.Received(1).SetParameterValue("ShowSB", true);
+                _objectDb.Received(1).SetParameterValue("ShowBA", false);
             });
         }
 
@@ -75,8 +74,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("CustID", _metaModel.CustId);
                 AssertPagingParameters(_objectDb, _metaModel);
             });
         }
@@ -93,7 +92,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
                 AssertPagingParameters(_objectDb, _metaModel);
             });
         }
@@ -110,14 +109,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("CustID", _metaModel.CustId);
                 AssertMoveBetParams(_objectDb, _metaModel);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.Received(1).SetParameterValue("showNG", true);
             });
         }
 
@@ -134,11 +133,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
-                _objectDb.Received(1).AddInParameter("date", DbType.DateTime, metaModel.Date);
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("product", DbType.String, metaModel.ProductCode);
-                _objectDb.Received(1).AddInParameter("status", DbType.String, metaModel.DailyBetListStatus);
+                _objectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("date", metaModel.Date);
+                _objectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("product", metaModel.ProductCode);
+                _objectDb.Received(1).SetParameterValue("status", metaModel.DailyBetListStatus);
                 AssertMoveBetParams(_objectDb, metaModel);
                 AssertPagingParameters(_objectDb, metaModel);
                 AssertSummaryParameters(_objectDb);
@@ -157,15 +156,15 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("custid", _metaModel.CustId);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertMoveBetParams(_objectDb, _metaModel);
-                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.Received(1).SetParameterValue("showNG", true);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).AddInParameter("drawfilter", DbType.Int16, _metaModel.DrawFilter);
+                _objectDb.Received(1).SetParameterValue("drawfilter", _metaModel.DrawFilter);
             });
         }
 
@@ -181,8 +180,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("bettype", _metaModel.BetType);
                 AssertPagingParameters(_objectDb, _metaModel);
             });
         }
@@ -199,8 +198,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.String, _metaModel.MultipleBettype);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("bettype", _metaModel.MultipleBettype);
                 AssertPagingParameters(_objectDb, _metaModel);
             });
         }
@@ -220,16 +219,16 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
-                _objectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
-                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("bettype", _metaModel.BetType);
+                _objectDb.Received(1).SetParameterValue("MatchID", _metaModel.MatchId);
+                _objectDb.Received(1).SetParameterValue("liveindicator", expectedLiveIndicator);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).AddInParameter("Date", DbType.DateTime, _metaModel.Date);
-                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).SetParameterValue("Date", _metaModel.Date);
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.Received(1).SetParameterValue("showNG", true);
             });
         }
 
@@ -245,14 +244,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
                 AssertDateRangeParameters(_objectDb, _metaModel);
-                _objectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("MoveBetsDay", _metaModel.MoveBetsDay);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.DidNotReceive().SetParameterValue("showNG", true);
             });
         }
 
@@ -268,15 +267,15 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("bettype", _metaModel.BetType);
+                _objectDb.Received(1).SetParameterValue("MoveBetsDay", _metaModel.MoveBetsDay);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.Received(1).SetParameterValue("showNG", true);
             });
         }
 
@@ -292,16 +291,16 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("custid", _metaModel.CustId);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertMoveBetParams(_objectDb, _metaModel);
-                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.Received(1).SetParameterValue("showNG", true);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).AddInParameter("drawfilter", DbType.Int16, _metaModel.DrawFilter);
-                _objectDb.Received(1).AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
+                _objectDb.Received(1).SetParameterValue("drawfilter", _metaModel.DrawFilter);
+                _objectDb.Received(1).SetParameterValue("PlatformType", _metaModel.PlatformType);
             });
         }
 
@@ -318,14 +317,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("custid", _metaModel.CustId);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb, Enumerable.Empty<string>());
-                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
-                _objectDb.DidNotReceive().AddInParameter("Sort", DbType.String, Arg.Any<string>());
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.Received(1).SetParameterValue("showNG", true);
+                _objectDb.DidNotReceive().SetParameterValue("Sort", Arg.Any<string>());
             });
         }
 
@@ -343,14 +342,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("custid", _metaModel.CustId);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb, Enumerable.Empty<string>());
-                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.Received(1).SetParameterValue("showNG", true);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + " " + _metaModel.SortOrder);
             });
         }
 
@@ -367,8 +366,8 @@
             Assert.Multiple(() =>
             {
                 AssertDailyStatementBetList(_objectDb, _metaModel);
-                _objectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
-                _objectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
+                _objectDb.Received(1).SetParameterValue("ErrCode", null);
+                _objectDb.Received(1).SetParameterValue("ErrMsg", null);
             });
         }
 
@@ -397,12 +396,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("custid", _metaModel.CustId);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
-                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.Received(1).SetParameterValue("showNG", true);
             });
         }
 
@@ -421,12 +420,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("bettype", _metaModel.BetType);
+                _objectDb.Received(1).SetParameterValue("MatchID", _metaModel.MatchId);
                 AssertPagingParameters(_objectDb, _metaModel);
-                _objectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
-                _objectDb.Received(1).AddInParameter("betteam", DbType.String, _metaModel.BetTeam);
+                _objectDb.Received(1).SetParameterValue("liveindicator", expectedLiveIndicator);
+                _objectDb.Received(1).SetParameterValue("betteam", _metaModel.BetTeam);
             });
         }
 
@@ -450,12 +449,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.String, expectedMultipleBettype);
-                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("bettype", expectedMultipleBettype);
+                _objectDb.Received(1).SetParameterValue("MatchID", _metaModel.MatchId);
                 AssertPagingParameters(_objectDb, _metaModel);
-                _objectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
-                _objectDb.Received(1).AddInParameter("betteam", DbType.String, _metaModel.BetTeam);
+                _objectDb.Received(1).SetParameterValue("liveindicator", expectedLiveIndicator);
+                _objectDb.Received(1).SetParameterValue("betteam", _metaModel.BetTeam);
             });
         }
 
@@ -474,14 +473,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("bettype", _metaModel.BetType);
+                _objectDb.Received(1).SetParameterValue("MatchID", _metaModel.MatchId);
                 AssertPagingParameters(_objectDb, _metaModel);
-                _objectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
-                _objectDb.Received(1).AddInParameter("betteam", DbType.String, _metaModel.BetTeam);
-                _objectDb.Received(1).AddInParameter("BetChoice", DbType.String, _metaModel.BetChoice);
-                _objectDb.Received(1).AddInParameter("Handicap", DbType.Decimal, _metaModel.Handicap);
+                _objectDb.Received(1).SetParameterValue("liveindicator", expectedLiveIndicator);
+                _objectDb.Received(1).SetParameterValue("betteam", _metaModel.BetTeam);
+                _objectDb.Received(1).SetParameterValue("BetChoice", _metaModel.BetChoice);
+                _objectDb.Received(1).SetParameterValue("Handicap", _metaModel.Handicap);
             });
         }
 
@@ -523,9 +522,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("bettype", _metaModel.BetType);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertMoveBetParams(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
@@ -546,7 +545,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("Sort", DbType.String, expectedSortBy);
+            _objectDb.Received(1).SetParameterValue("Sort", expectedSortBy);
         }
 
         [Test]
@@ -561,7 +560,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
 
             // Assert
-            _objectDb.DidNotReceive().AddInParameter("Sort", DbType.String, Arg.Any<string>());
+            _objectDb.DidNotReceive().SetParameterValue("Sort", Arg.Any<string>());
         }
 
         [TestCase(true, 1, 100, 1, int.MaxValue - 1)]
@@ -588,8 +587,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("PageSize", DbType.Int32, expectedSize);
-                _objectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, expectedIndex);
+                _objectDb.Received(1).SetParameterValue("PageSize", expectedSize);
+                _objectDb.Received(1).SetParameterValue("PageIndex", expectedIndex);
             });
         }
 
@@ -605,10 +604,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("TransId", DbType.Int64, _metaModel.TransId);
-                _objectDb.Received(1).AddInParameter("RefCode", DbType.Int64, _metaModel.RefCode);
-                _objectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, _metaModel.BaseCurrency);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("TransId", _metaModel.TransId);
+                _objectDb.Received(1).SetParameterValue("RefCode", _metaModel.RefCode);
+                _objectDb.Received(1).SetParameterValue("BaseCurrency", _metaModel.BaseCurrency);
             });
         }
 
@@ -621,45 +620,45 @@
 
             foreach (var param in expectedParams)
             {
-                objectDb.Received(1).AddOutParameter(param, DbType.Currency, 8);
+                objectDb.Received(1).SetParameterValue(param, null);
             }
         }
 
         private static void AssertPagingParameters(IObjectDb objectDb, BetListMetaModel metaModel)
         {
-            objectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            objectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            objectDb.Received(1).AddOutParameter("totalrows", DbType.Int32, 4);
+            objectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
+            objectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
+            objectDb.Received(1).SetParameterValue("totalrows", null);
         }
 
         private static void AssertDateRangeParameters(IObjectDb objectDb, BetListMetaModel metaModel)
         {
-            objectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            objectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+            objectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
+            objectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
         }
 
         private static void AssertMoveBetParams(IObjectDb objectDb, BetListMetaModel metaModel)
         {
-            objectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            objectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
+            objectDb.Received(1).SetParameterValue("MoveBetsDay", metaModel.MoveBetsDay);
+            objectDb.Received(1).SetParameterValue("BalanceUpDay", metaModel.BalanceUpDay);
         }
 
         private static void AssertDailyStatementBetList(IObjectDb objectDb, BetListMetaModel metaModel)
         {
-            objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            objectDb.Received(1).AddInParameter("custid", DbType.Int32, metaModel.CustId);
-            objectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            objectDb.Received(1).AddInParameter("transtype", DbType.Int32, metaModel.TransType);
+            objectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+            objectDb.Received(1).SetParameterValue("custid", metaModel.CustId);
+            objectDb.Received(1).SetParameterValue("fromdate", metaModel.FromDate);
+            objectDb.Received(1).SetParameterValue("transtype", metaModel.TransType);
             AssertPagingParameters(objectDb, metaModel);
             AssertSummaryParameters(objectDb);
         }
 
         private static void AssertCasinoDetailParameters(IObjectDb objectDb, BetListMetaModel metaModel)
         {
-            objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            objectDb.Received(1).AddInParameter("refno", DbType.Int64, metaModel.TransId);
-            objectDb.Received(1).AddInParameter("custid", DbType.Int32, metaModel.CustId);
-            objectDb.Received(1).AddInParameter("transtype", DbType.Int16, metaModel.TransType);
+            objectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+            objectDb.Received(1).SetParameterValue("refno", metaModel.TransId);
+            objectDb.Received(1).SetParameterValue("custid", metaModel.CustId);
+            objectDb.Received(1).SetParameterValue("transtype", metaModel.TransType);
         }
     }
 }

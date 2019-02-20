@@ -15,3 +15,4 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Fanex.Athena.Common.DataAcces.UnitTests")]
 [assembly: InternalsVisibleTo("Fanex.Athena.Result.DataAccess.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.BetList.DataAccess.UnitTests")]

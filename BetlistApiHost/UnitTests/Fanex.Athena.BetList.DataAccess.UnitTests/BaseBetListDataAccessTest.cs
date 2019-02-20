@@ -3,9 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using Core.UnitTests.TestHelpers;
-    using Model.BetList.DTO;
-    using Model.Core.DataDomain;
+    using Athena.BetList.DataAccess;
+    using Athena.BetList.Model.DTO;
+    using Common.Constant;
+    using Common.DataAcces.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;

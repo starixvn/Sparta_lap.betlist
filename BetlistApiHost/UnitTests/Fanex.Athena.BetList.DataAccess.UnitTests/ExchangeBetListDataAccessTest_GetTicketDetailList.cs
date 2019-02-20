@@ -4,9 +4,8 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Core.UnitTests.TestHelpers;
-    using Model.BetList.MetaModel;
-    using Model.Core.DataDomain;
+    using Athena.BetList.Model.MetaModel;
+    using Common.DataAcces.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;

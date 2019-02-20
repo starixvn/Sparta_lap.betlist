@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core.UnitTests.TestHelpers;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
+    using Athena.BetList.DataAccess;
+    using Athena.BetList.Model.MetaModel;
+    using Common.DataAcces.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -12,6 +12,7 @@
     public class LastBetsMonitoringBetListDataAccessTest : BaseDataAccessHelperTest<LastBetsMonitoringBetListDataAccess>
     {
         private const string UspKey = "Lrf_Monitor_BetlistSel_New";
+
         [Test]
         public void GetLastBetsMonitoringData_WhenCall_ParametersPassedCorrectly()
         {

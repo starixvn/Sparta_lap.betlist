@@ -4,11 +4,11 @@
     using System.Collections;
     using System.Data;
     using System.Globalization;
-    using Core.Configuration.Interfaces;
-    using Core.UnitTests.TestHelpers;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
-    using Model.Core.DTO.Configuration;
+    using Athena.BetList.DataAccess;
+    using Athena.BetList.Model.DTO;
+    using Athena.BetList.Model.MetaModel;
+    using Common.DataAcces.UnitTests;
+    using Common.Model.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -55,7 +55,7 @@
                     ExpectedTransTypeHasBetList = false,
                     AllowCustComm = true,
                     Commission = 100,
-                    ExpectedBalance = 88.5, 
+                    ExpectedBalance = 88.5,
                     ExternalId = (string)null,
                     ExpectedExternalId = "0",
                     SystemId = (string)null,

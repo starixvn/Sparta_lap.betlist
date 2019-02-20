@@ -10,7 +10,6 @@ namespace Fanex.Athena
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Web;
-    using System.Web.Helpers;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -36,8 +35,8 @@ namespace Fanex.Athena
                 var exception = Server.GetLastError();
 
                 // Exception when passing wrong data type to action method
-               if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
-                    exception.TargetSite.Name == "ExtractParameterFromDictionary")
+                if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
+                     exception.TargetSite.Name == "ExtractParameterFromDictionary")
                 {
                     return;
                 }
@@ -58,13 +57,9 @@ namespace Fanex.Athena
 
                 AreaRegistration.RegisterAllAreas();
 
-                RouteTable.Routes.IgnoreRoute("favicon.ico");
-
                 RouteConfig.RegisterRoutes(RouteTable.Routes);
 
                 GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-
-                AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
 
                 DbSettingProviderManager
                     .StartNewSession()

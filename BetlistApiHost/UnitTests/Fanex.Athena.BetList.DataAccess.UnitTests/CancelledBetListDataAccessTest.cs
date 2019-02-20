@@ -2,9 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core.UnitTests.TestHelpers;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
+    using Athena.BetList.DataAccess;
+    using Common.DataAcces.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
 
