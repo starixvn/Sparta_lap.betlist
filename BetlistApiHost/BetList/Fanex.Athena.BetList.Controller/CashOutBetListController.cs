@@ -6,6 +6,7 @@ using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Extensions;
+using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.DataAccess.Interfaces;
 using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
@@ -75,10 +76,10 @@ namespace Fanex.Athena.BetList.Controller
                 statusHtml.StatusResult = null;
                 var ticketText = new CashOutTicketText
                 {
-                    TransTime = ViewResources.RefNo + ":" + ticket.TransId + Environment.NewLine + "<div class='time'>" + ticket.TransDate + "</div>",
-                    Stake = ticket.Stake.ToString("0.00"),
-                    Price = ticket.Price.ToString("0.00"),
-                    WinLoss = ticket.WinLoss.ToString("0.00"),
+                    TransTime = ViewResources.RefNo + ": " + ticket.TransId + Environment.NewLine + "<div class='time'>" + ticket.TransDate + "</div>",
+                    Stake = ticket.Stake.ToString(FormatKey.IntegerFormat),
+                    Price = ticket.Price.ToString(FormatKey.DecimalFormat),
+                    WinLoss = ticket.WinLoss.ToString(FormatKey.DecimalFormat),
                     Status = statusHtml.ToString(),
                     IsHighlight = transId == ticket.TransId
                 };
