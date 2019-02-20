@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Report.MetaModel.Result;
+    using Model.Report.ViewModel.Result;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -43,13 +43,16 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                _resultService.HtmlParser(Arg.Any<IList<Sportsbook>>(), null).ReturnsForAnyArgs(HtmlResult);
+                const string Url = "/ResultReport/Index";
+                const string ExpectResult = "dffffffffffffff";
+                var metaModel = new ResultMetaModel();
+                _betListApiClient.PostAsyncString(Url, metaModel).Returns(ExpectResult);
 
                 // Action
-                var viewResult = controller.Index(new ResultMetaModel()) as ContentResult;
+                var viewResult = controller.Index(metaModel).Result as ContentResult;
 
                 // Assert
-                Assert.That(viewResult.Content, Is.EqualTo(HtmlResult));
+                Assert.That(viewResult.Content, Is.EqualTo(ExpectResult));
             }
         }
 
@@ -62,7 +65,7 @@
                 controller.ModelState.AddModelError("error", "hihi");
 
                 // Action
-                var viewResult = controller.Index(new ResultMetaModel()) as ContentResult;
+                var viewResult = controller.Index(new ResultMetaModel()).Result as ContentResult;
 
                 // Assert
                 Assert.That(viewResult.Content, Is.Empty);

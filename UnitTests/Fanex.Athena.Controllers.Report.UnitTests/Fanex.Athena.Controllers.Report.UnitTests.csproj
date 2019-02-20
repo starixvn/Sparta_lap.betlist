@@ -181,6 +181,12 @@
   <ItemGroup>
     <Compile Include="MatchWinLossReportControllerTest_AssignLeagueName.cs" />
     <Compile Include="MatchWinLossReportControllerTest_AssignMatchName.cs" />
+    <Compile Include="Result\ResultKenoReportControllerTest.cs" />
+    <Compile Include="Result\ResultReportControllerTest.cs" />
+    <Compile Include="Result\ResultReportControllerTest.GetSports.cs" />
+    <Compile Include="Result\ResultReportControllerTest.Index.cs" />
+    <Compile Include="Result\ResultReportControllerTest.ResultExcel.cs" />
+    <Compile Include="Result\ResultReportControllerTest.ResultPopup.cs" />
     <Compile Include="Result\ResultReport\PPResultPopupControllerTest.cs" />
     <Compile Include="SubsidiaryPerformanceReportControllerTest.cs" />
     <Compile Include="WeeklyLiveMatchReportControllerTest.cs" />

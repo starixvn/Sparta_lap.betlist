@@ -13,13 +13,11 @@
     using Report.Result;
     using Service.Core.Common.Interfaces;
     using Service.Core.Utility.Interfaces;
-    using VendorAdapter.Interfaces;
+    using UnitTest.Common.Extensions;
 
     [TestFixture]
     public partial class ResultReportControllerTest : BaseControllerHelperTest
     {
-        private const string HtmlResult = "<abc>hello</abc>";
-
         private static readonly DateTime BalanceUpDate = new DateTime(2017, 3, 4);
 
         private IBalanceUpDataAccess _balanceUpDataAccess;
@@ -43,9 +41,7 @@
         [SetUp]
         public void SetUp()
         {
-            _betListApiClient = Substitute.For<IParserService>();
-            _resultService = Substitute.For<IResultService>();
-            _rngCasinoSingleWalletService = Substitute.For<IRNGCasinoSingleWalletService>();
+            _betListApiClient = Substitute.For<IBetListApiClient>();
         }
 
         [Test]
@@ -57,17 +53,22 @@
                 const string ExpectedData = "hello cái bô";
                 const int GameId = 1;
                 const int CustId = 2;
-                _betListApiClient.Parser(Arg.Any<MicroGaming>()).ReturnsForAnyArgs(ExpectedData);
+                const string Url = "/ResultReport/MicrogamingResultPopup";
+                _betListApiClient.PostAsyncString(Url, Arg.Any<object>())
+                    .Returns(ExpectedData);
 
                 // Action
-                var viewResult = controller.MicrogamingResultPopup(GameId, CustId) as ViewResult;
+                var viewResult = controller.MicrogamingResultPopup(GameId, CustId).Result as ViewResult;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _betListApiClient.Received(1).Parser(Arg.Is<MicroGaming>(x =>
-                        x.GameId == GameId && x.CustId == CustId &&
-                        x.SiteName == SessionService.LicenseeSession.LicenseeName));
+                    _betListApiClient.Received(1).PostAsyncString(
+                        Url,
+                        Arg.Is<object>(
+                            x => (int)x.GetValue("custId") == CustId &&
+                                (int)x.GetValue("gameId") == GameId &&
+                                (string)x.GetValue("SiteName") == SessionService.LicenseeSession.LicenseeName));
                     Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/Result/Popup/Microgaming.cshtml"));
                     Assert.That(viewResult.ViewBag.Data, Is.EqualTo(ExpectedData));
                 });
@@ -83,7 +84,7 @@
                 controller.ModelState.AddModelError("error", "hihi");
 
                 // Action
-                var result = controller.MicrogamingResultPopup(0, 0) as RedirectResult;
+                var result = controller.MicrogamingResultPopup(0, 0).Result as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo("~/Utility/Error?err=400"));
@@ -98,13 +99,20 @@
                 // Arrange
                 const string RefNo = "hohoho";
                 const string ExpectedData = "huhuhu";
-                _rngCasinoSingleWalletService.GetResultInfo(RefNo).Returns(ExpectedData);
+                const string Url = "/ResultReport/ShowRngCasinoSingleWalletResult";
+                _betListApiClient.PostAsyncString(Url, Arg.Any<object>()).Returns(ExpectedData);
 
                 // Action
-                var result = controller.ShowRngCasinoSingleWalletResult(RefNo) as JsonResult;
+                var result = controller.ShowRngCasinoSingleWalletResult(RefNo).Result as ContentResult;
 
                 // Assert
-                Assert.That(result.Data, Is.EqualTo(ExpectedData));
+                Assert.Multiple(() =>
+                {
+                    _betListApiClient.Received(1).PostAsyncString(
+                           Url,
+                           Arg.Is<object>(x => (string)x.GetValue("refNo") == RefNo));
+                    Assert.That(result.Content, Is.EqualTo(ExpectedData));
+                });
             }
         }
 
@@ -113,8 +121,12 @@
         {
             using (var controller = CreateController())
             {
+                // Arrange
+                const string Url = "/ResultReport/ResultDetail";
+                _betListApiClient.PostAsyncString(Url, Arg.Any<object>()).Returns(x => (string)null);
+
                 // Action
-                var result = controller.ResultDetail(0, 0) as RedirectResult;
+                var result = controller.ResultDetail(0, 0).Result as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo("~/Utility/Error?err=400"));
@@ -127,27 +139,25 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                const string ExpectedViewBagData = "Abc";
+                const string ExpectedData = "Abc";
                 const int MatchId = 1;
-                const int SportId = (int)SportType.Soccer;
-                var detailedData = new Sportsbook
-                {
-                    MatchId = MatchId
-                };
-                _resultService.GetSportsbookGameDetail(MatchId).Returns(detailedData);
-                _resultService.HtmlGameDetailParser(detailedData, Arg.Any<ResultSetting>()).Returns(ExpectedViewBagData);
+                const int SportId = 11111;
+                const string Url = "/ResultReport/ResultDetail";
+                _betListApiClient.PostAsyncString(Url, Arg.Any<object>()).Returns(ExpectedData);
 
                 // Action
-                var result = controller.ResultDetail(MatchId, SportId) as ViewResult;
+                var result = controller.ResultDetail(MatchId, SportId).Result as ViewResult;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _resultService.Received(1).HtmlGameDetailParser(
-                        detailedData,
-                        Arg.Is<ResultSetting>(x =>
-                            x.SportType == (SportType)SportId &&
-                            x.LanguageCode == SessionService.UserSession.Language));
+                    _betListApiClient.Received(1).PostAsyncString(
+                        Url,
+                        Arg.Is<object>(
+                            x => (int)x.GetValue("matchId") == MatchId &&
+                                (int)x.GetValue("sportType") == SportId &&
+                                (string)x.GetValue("languageCode") == SessionService.UserSession.Language));
+                    Assert.That(result.ViewBag.Data, Is.EqualTo(ExpectedData));
                     Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Report/Result/Popup/Main.cshtml"));
                 });
             }
@@ -172,10 +182,7 @@
                 AppSettings,
                 productService,
                 _balanceUpDataAccess,
-                _betListApiClient,
-                _resultService,
-                _rngCasinoSingleWalletService,
-                Substitute.For<ICacheRefAdapter>());
+                _betListApiClient);
             controller.ControllerContext = ControllerContext;
             return controller;
         }

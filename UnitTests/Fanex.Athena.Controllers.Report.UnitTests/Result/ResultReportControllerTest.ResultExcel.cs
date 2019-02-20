@@ -1,15 +1,13 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
-    using System.Collections.Generic;
     using System.IO;
     using System.Net;
     using System.Text;
+    using System.Web.Mvc;
     using Base.UnitTests;
-    using Model.Report.MetaModel;
+    using Model.Report.MetaModel.Result;
     using NSubstitute;
     using NUnit.Framework;
-    using Resources;
-    using Result.Core.Sportsbook.DTO;
 
     [TestFixture]
     public partial class ResultReportControllerTest : BaseControllerHelperTest
@@ -22,16 +20,13 @@
                 // Arrange
                 controller.ModelState.AddModelError("error", "hihi");
                 var response = controller.HttpContext.Response;
+                var metaModel = new ResultMetaModel();
 
                 // Action
-                controller.ResultExcel(new ResultMetalModel());
+                var result = controller.ResultExcel(metaModel).Result as HttpStatusCodeResult;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(response.StatusCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
-                    Assert.That(response.StatusDescription, Is.EqualTo(ViewResources.InvalidParams));
-                });
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
             }
         }
 
@@ -42,21 +37,19 @@
             const string ExpectedStreamData = "Hello everyone";
             using (var controller = CreateController())
             using (var excelStream = new MemoryStream(Encoding.UTF8.GetBytes(ExpectedStreamData)))
-            using (var outputStream = new MemoryStream())
             {
-                var response = controller.HttpContext.Response;
-                response.OutputStream.Returns(outputStream);
-                _resultService.ExcelParser(new List<Sportsbook>(), null).ReturnsForAnyArgs(excelStream);
+                var metaModel = new ResultMetaModel();
+                const string Url = "/ResultReport/ResultExcel";
+                _betListApiClient.PostAsyncStream(Url, metaModel).Returns(excelStream);
 
                 // Action
-                controller.ResultExcel(new ResultMetalModel());
+                var result = controller.ResultExcel(metaModel).Result as FileStreamResult;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    response.Received(1).AddHeader("Content-disposition", "attachment; filename=LRF-Result.xls");
-                    Assert.That(response.ContentType, Is.EqualTo("application/vnd.ms-excel"));
-                    Assert.That(Encoding.UTF8.GetString(((MemoryStream)response.OutputStream).ToArray()), Is.EqualTo(ExpectedStreamData));
+                    Assert.That(result.FileDownloadName, Is.EqualTo("LRF-Result.xls"));
+                    Assert.That(result.FileStream, Is.EqualTo(excelStream));
                 });
             }
         }

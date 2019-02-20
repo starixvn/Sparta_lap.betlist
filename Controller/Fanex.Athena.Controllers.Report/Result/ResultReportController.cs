@@ -2,6 +2,7 @@ namespace Fanex.Athena.Controllers.Report.Result
 {
     using System;
     using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
@@ -79,12 +80,17 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpGet]
-        public ActionResult ResultExcel(ResultMetaModel metaModel)
+        public async Task<ActionResult> ResultExcel(ResultMetaModel metaModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid model state!");
+            }
+
             const string FileName = "LRF-Result.xls";
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            var stream = _betListApiClient.PostAsyncStream("/ResultReport/ResultExcel", metaModel).Result;
-            return File(stream, "application/vnd.ms-excel", FileName + ".xls");
+            var stream = await _betListApiClient.PostAsyncStream("/ResultReport/ResultExcel", metaModel).ConfigureAwait(false);
+            return File(stream, "application/vnd.ms-excel", FileName);
         }
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
