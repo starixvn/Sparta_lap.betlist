@@ -13,7 +13,6 @@
     [TestFixture]
     public partial class ResultReportControllerTest
     {
-        
         [Test]
         public void GetSports_IsOutRight_ReturnOutrightResult()
         {

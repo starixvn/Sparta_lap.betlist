@@ -88,11 +88,11 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.CurrencyList = UserCurrencyList;
             metaModel.UspKey = UspKey;
 
-            // Sum value by page
-            //ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);
-            //ticketResult.SumLicenseeWL = ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
-            //ticketResult.SumComm = ticketResult.MainTicketList.Sum(x => x.Comm);
-            //ticketResult.SumPlayerComm = ticketResult.MainTicketList.Sum(x => x.PlayerComm);
+            //// Sum value by page
+            ////ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);
+            ////ticketResult.SumLicenseeWL = ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
+            ////ticketResult.SumComm = ticketResult.MainTicketList.Sum(x => x.Comm);
+            ////ticketResult.SumPlayerComm = ticketResult.MainTicketList.Sum(x => x.PlayerComm);
 
             metaModel.ShowingOption = new BetListShowingOption
             {

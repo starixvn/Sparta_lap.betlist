@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace Fanex.Athena.Common.Utility.Services.Interfaces
+﻿namespace Fanex.Athena.Common.Utility.Services.Interfaces
 {
     public interface ITempFileService
     {

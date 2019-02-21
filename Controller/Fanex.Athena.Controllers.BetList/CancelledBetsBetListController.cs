@@ -129,7 +129,8 @@ namespace Fanex.Athena.Controllers.BetList
                 return new List<CustomerCancelBetItem>();
             }
 
-            return await BetListApiClient.PostAsync<IEnumerable<CustomerCancelBetItem>>("/CancelledBetsBetList/GetCustomerList",
+            return await BetListApiClient.PostAsync<IEnumerable<CustomerCancelBetItem>>(
+                "/CancelledBetsBetList/GetCustomerList",
                 new
                 {
                     AgentListXml = metaModel.AgentListXml

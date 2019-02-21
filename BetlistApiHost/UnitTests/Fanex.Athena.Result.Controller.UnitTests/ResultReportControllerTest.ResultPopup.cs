@@ -1,15 +1,14 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
     using System.Collections.Generic;
-    using System.Web.Mvc;
-    using NSubstitute;
-    using NUnit.Framework;
-    using Model.MetaModel;
-    using Fanex.Result.Core.Sportsbook.DTO;
     using Common.Constant;
     using Fanex.Result.Core.Base;
-    using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
+    using Fanex.Result.Core.Racing.DTO;
+    using Fanex.Result.Core.Sportsbook.DTO;
+    using Model.MetaModel;
+    using NSubstitute;
+    using NUnit.Framework;
 
     [TestFixture]
     public partial class ResultReportControllerTest

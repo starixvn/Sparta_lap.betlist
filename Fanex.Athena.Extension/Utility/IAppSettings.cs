@@ -2,9 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
     public interface IAppSettings
     {
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         string BetListApiHostUrl { get; }
 
         bool IsProduction { get; }

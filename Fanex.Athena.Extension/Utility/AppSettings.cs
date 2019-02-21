@@ -22,6 +22,8 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         public string BetListApiHostUrl
         {
             get { return GetValue("BetListApiHostUrl"); }
