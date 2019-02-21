@@ -2,12 +2,13 @@
 {
     using System;
     using System.Collections;
-    using System.Data;
     using System.Globalization;
+    using System.Linq;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAcces.UnitTests;
+    using Common.DataAccess.Interfaces;
     using Common.Model.DTO;
     using NSubstitute;
     using NUnit.Framework;
@@ -119,19 +120,19 @@
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetDailyStatementData(_metaModel, true);
+            DataAccess.GetDailyStatementData(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
-                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, BalanceUp.BalanceUpDay);
-                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                ObjectDb.Received(1).AddOutParameter("totalrows", DbType.Int32, 4);
+                ObjectDb.Received(1).SetParameterValue("CustID", _metaModel.CustId);
+                ObjectDb.Received(1).SetParameterValue("FromDate", _metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("ToDate", _metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("MoveBetsDay", BalanceUp.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("BalanceUpDay", BalanceUp.BalanceUpDay);
+                ObjectDb.Received(1).SetParameterValue("PageSize", _metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", _metaModel.PageIndex);
+                ObjectDb.Received(1).SetParameterValue("totalrows", null);
             });
         }
 
@@ -141,7 +142,7 @@
             // Arrange
             _metaModel.ExternalId = testCaseData.ExternalId;
             _metaModel.SystemId = testCaseData.SystemId;
-
+            _metaModel.HasPlayerCom = testCaseData.AllowCustComm;
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
@@ -151,8 +152,8 @@
             var expected = GetDailyStatementData(_metaModel, testCaseData);
 
             // Action
-            var result = DataAccess.GetDailyStatementData(_metaModel, testCaseData.AllowCustComm);
-            var firstItem = result[0];
+            var result = DataAccess.GetDailyStatementData(_metaModel);
+            var firstItem = result.ElementAt(0);
 
             // Assert
             Assert.Multiple(() =>
@@ -171,14 +172,6 @@
                 Assert.That(firstItem.Commission, Is.EqualTo(expected.Commission));
                 Assert.That(firstItem.Balance, Is.EqualTo(expected.Balance));
             });
-        }
-
-        [Test]
-        public void GetDailyStatementData_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                UspName,
-                () => DataAccess.GetDailyStatementData(_metaModel, true));
         }
 
         private static DailyStatement GetDailyStatementData(BetListMetaModel metaModel, dynamic testCaseData)

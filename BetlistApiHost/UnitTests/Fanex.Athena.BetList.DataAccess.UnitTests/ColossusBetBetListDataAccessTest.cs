@@ -1,14 +1,13 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System;
-    using System.Data;
     using System.Linq;
-    using Core.UnitTests.TestHelpers;
+    using Athena.BetList.DataAccess;
+    using Athena.BetList.Model.MetaModel;
+    using Common.DataAcces.UnitTests;
     using Fanex.BetList.Core.Entities;
-    using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
 
     public class ColossusBetBetListDataAccessTest : BaseDataAccessHelperTest<ColossusBetBetListDataAccess>
     {
@@ -38,19 +37,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
-                ObjectDb.Received(1).AddOutParameter("siteid", DbType.Int32, 0);
+                ObjectDb.Received(1).SetParameterValue("custid", CustId);
+                ObjectDb.Received(1).SetParameterValue("siteid", null);
 
                 Assert.That(result, Is.EqualTo(ExpectedSiteId));
             });
-        }
-
-        [Test]
-        public void GetSiteId_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSiteIdSp,
-                () => DataAccess.GetSiteId(1));
         }
 
         [TestCase(true, 1)]
@@ -89,14 +80,6 @@
                 Assert.That(result.TotalComm, Is.EqualTo(123));
                 Assert.That(result.TotalSoldWinLoss, Is.EqualTo(expectedTotalSoldWinLoss));
             });
-        }
-
-        [Test]
-        public void GetData_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetDataSp,
-                () => DataAccess.GetData(new ColossusBetDetailMetaModel()));
         }
     }
 }

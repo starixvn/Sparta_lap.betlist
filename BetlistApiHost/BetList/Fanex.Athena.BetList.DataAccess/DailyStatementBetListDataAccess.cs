@@ -67,14 +67,17 @@
                 var winlostDate = reader.ToDateTime("winlostdate");
                 var transType = reader.ToString("transtype").ToLower(currentCulture);
                 var transDesc = reader.ToString("transdesc");
+                var isOutstandingBet = transDesc.ToLower(currentCulture) == "outstanding bet";
                 var transTypeId = TransTypeIdMap.ContainsKey(transDesc.ToLower(currentCulture)) ? TransTypeIdMap[transDesc.ToLower(currentCulture)] : 0;
                 var credit = transDesc.ToLower(currentCulture) == "outstanding bet" || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
                 var comm = reader.ToDecimal(commissionColumn);
+                var turnover = reader.ToDecimal(turnoverColumn);
 
                 // Add commission.
                 if (!transType.Equals("gp"))
                 {
-                    balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (metaModel.HasPlayerCom ? comm : 0);
+                    var outstanding = isOutstandingBet ? turnover : 0;
+                    balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (metaModel.HasPlayerCom ? comm : 0) - outstanding;
                 }
 
                 result.Add(new DailyStatement

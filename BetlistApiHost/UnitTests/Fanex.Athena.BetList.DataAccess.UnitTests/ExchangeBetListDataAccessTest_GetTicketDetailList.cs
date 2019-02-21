@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
+    using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAcces.UnitTests;
     using NSubstitute;
@@ -33,9 +33,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("CustId", DbType.Int32, metaModel.CustId);
-                ObjectDb.Received(1).AddInParameter("BetID", DbType.Int64, metaModel.BetId);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
+                ObjectDb.Received(1).SetParameterValue("BetID", metaModel.BetId);
             });
         }
 
@@ -87,8 +87,7 @@
             });
         }
 
-        [TestCase(ExchangeMatchType.Lay, "9.00")]
-        [TestCase(ExchangeMatchType.Back, "-")]
+        [TestCase("Lay", "9.00")]
         [TestCase("WTH", "-")]
         public void GetTicketDetailList_HasData_ReturnCorrectLiability(
             string exchangeMatchType,
@@ -113,14 +112,6 @@
 
             // Assert
             Assert.That(result.ElementAt(0).Liability, Is.EqualTo(expectedLiability));
-        }
-
-        [Test]
-        public void GetTicketDetailList_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                TicketDetailUsp,
-                () => DataAccess.GetTicketDetailList(new ExchangeBetListDetailMetaModel()));
         }
     }
 }

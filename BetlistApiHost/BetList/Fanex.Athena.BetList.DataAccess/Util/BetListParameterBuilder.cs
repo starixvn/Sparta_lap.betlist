@@ -55,15 +55,15 @@
             return SpNameActionMap.ContainsKey(uspKey);
         }
 
-        public static void CreateBetListParameters(IObjectDb db, string uspKey, BetListMetaModel metaModel)
+        public static void CreateBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            if (NonBaseCurrencySpNameActionMap.ContainsKey(uspKey))
+            if (NonBaseCurrencySpNameActionMap.ContainsKey(metaModel.UspKey))
             {
-                NonBaseCurrencySpNameActionMap[uspKey](db, metaModel);
+                NonBaseCurrencySpNameActionMap[metaModel.UspKey](db, metaModel);
             }
             else
             {
-                SpNameActionMap[uspKey](db, metaModel);
+                SpNameActionMap[metaModel.UspKey](db, metaModel);
             }
         }
 

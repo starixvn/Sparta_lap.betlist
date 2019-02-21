@@ -1,11 +1,13 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System.Collections.Generic;
-    using System.Data;
+    using System.Linq;
     using Athena.BetList.DataAccess;
+    using Athena.BetList.Model.DTO;
     using Common.DataAcces.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Extensions;
 
     public class CancelledBetListDataAccessTest : BaseDataAccessHelperTest<CancelledBetListDataAccess>
     {
@@ -18,41 +20,19 @@
         }
 
         [Test]
-        public void GetCancelBetCustList_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            var metaModel = GetFakeBetListMetaModel();
-
-            // Action
-            DataAccess.GetCancelBetCustList(metaModel);
-
-            // Assert
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-        }
-
-        [Test]
         public void GetCancelBetCustList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            var metaModel = GetFakeBetListMetaModel();
+            const string AgentList = "Sdfsdfsdf";
             var expected = GetFakeDataReturn();
-            ObjectDb.Query<CustomerCancelBetItem>().Returns(new List<CustomerCancelBetItem> { expected });
+            ObjectDb.Query<CustomerCancelBetItem>(Arg.Any<object>()).Returns(new List<CustomerCancelBetItem> { expected });
 
             // Action
-            var result = DataAccess.GetCancelBetCustList(metaModel)[0];
+            var result = DataAccess.GetCancelBetCustList(AgentList).ElementAt(0);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
-        }
-
-        private BetListMetaModel GetFakeBetListMetaModel()
-        {
-            return new BetListMetaModel
-            {
-                LicenseeId = 1,
-                UserId = 2,
-                CurrencyId = 3
-            };
+            ObjectDb.Received(1).Query<CustomerCancelBetItem>(Arg.Is<object>(x => (string)x.GetValue("AgentList") == AgentList));
         }
 
         private CustomerCancelBetItem GetFakeDataReturn()

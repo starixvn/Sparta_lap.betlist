@@ -1,11 +1,11 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
-    using System.Data;
     using System.Linq;
-    using Core.UnitTests.TestHelpers;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
-    using Model.Core.DataDomain;
+    using Athena.BetList.DataAccess;
+    using Athena.BetList.Model.DTO;
+    using Athena.BetList.Model.MetaModel;
+    using Common.Constant;
+    using Common.DataAcces.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -33,14 +33,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("CustId", DbType.Int32, metaModel.CustId);
-                ObjectDb.Received(1).AddInParameter("FromDate", DbType.Date, metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("ToDate", DbType.Date, metaModel.ToDate);
-                ObjectDb.Received(1).AddOutParameter("SumWinLost", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("SumWinLostEUR", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("SumWinLostGBP", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("SumWinLostUSD", DbType.Currency, 8);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
+                ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("SumWinLost", null);
+                ObjectDb.Received(1).SetParameterValue("SumWinLostEUR", null);
+                ObjectDb.Received(1).SetParameterValue("SumWinLostGBP", null);
+                ObjectDb.Received(1).SetParameterValue("SumWinLostUSD", null);
             });
         }
 
@@ -161,14 +161,6 @@
                 Assert.That(result.BetPlaced, Is.EqualTo(ticket.BetPlaced));
                 Assert.That(result.BetPlacedDateString, Is.EqualTo(ticket.BetPlaced.ToString(FormatKey.DateTimeFormat)));
             });
-        }
-
-        [Test]
-        public void GetBetListData_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                BetListUsp,
-                () => DataAccess.GetBetListData(new ExchangeBetListMetaModel()));
         }
     }
 }

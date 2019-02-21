@@ -2,8 +2,8 @@
 {
     using System;
     using System.Data;
+    using Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.Entities;
-    using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -29,12 +29,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("refno", DbType.Int64, metaModel.RefNo);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
-                ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
-                ObjectDb.Received(1).AddOutParameter("outstanding", DbType.Currency, 8);
+                ObjectDb.Received(1).SetParameterValue("refno", metaModel.RefNo);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("movebetsday", metaModel.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("balanceupday", metaModel.BalanceUpDay);
+                ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+                ObjectDb.Received(1).SetParameterValue("outstanding", null);
             });
         }
 

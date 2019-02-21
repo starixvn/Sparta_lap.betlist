@@ -48,12 +48,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("UserName", DbType.String, metaModel.UserName);
-                ObjectDb.Received(1).AddInParameter("RefNo", DbType.Int64, metaModel.RefNo);
-                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, BalanceUp.BalanceUpDay);
-                ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
+                ObjectDb.Received(1).SetParameterValue("RefNo", metaModel.RefNo);
+                ObjectDb.Received(1).SetParameterValue("MoveBetsDay", BalanceUp.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("BalanceUpDay", BalanceUp.BalanceUpDay);
+                ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             });
         }
     }

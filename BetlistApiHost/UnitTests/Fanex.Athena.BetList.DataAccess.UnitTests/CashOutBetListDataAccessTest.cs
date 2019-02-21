@@ -2,9 +2,10 @@
 {
     using System.Data;
     using System.Linq;
-    using Core.UnitTests.TestHelpers;
-    using Core.Utilities;
-    using Model.BetList.MetaModel;
+    using Athena.BetList.DataAccess;
+    using Athena.BetList.DataAccess.Util;
+    using Athena.BetList.Model.MetaModel;
+    using Common.DataAcces.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -99,19 +100,6 @@
                 Assert.That(firstCashoutTicket.BetType, Is.EqualTo(dataReader.BetType));
                 Assert.That(firstCashoutTicket.Stake, Is.EqualTo(dataReader.Stake));
             });
-        }
-
-        [Test]
-        public void GetDetail_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                UspName,
-                () => DataAccess.GetDetail(
-                    new CashOutBetListDetailMetaModel
-                    {
-                        BaseCurrency = "usd"
-                    }, 
-                    UserCurrencyList));
         }
     }
 }

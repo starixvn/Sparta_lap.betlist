@@ -108,6 +108,15 @@
   <ItemGroup>
     <Compile Include="BaseBetListDataAccessTest.cs" />
     <Compile Include="BetListDataAccessTest.cs" />
+    <Compile Include="BetListDataAccessTest.GetBetListData.cs" />
+    <Compile Include="BetListDataAccessTest.GetSystemParlayDetail.cs" />
+    <Compile Include="CancelledBetListDataAccessTest.cs" />
+    <Compile Include="CashOutBetListDataAccessTest.cs" />
+    <Compile Include="ColossusBetBetListDataAccessTest.cs" />
+    <Compile Include="DailyStatementBetListDataAccessTest.cs" />
+    <Compile Include="ExchangeBetListDataAccessTest.cs" />
+    <Compile Include="ExchangeBetListDataAccessTest_GetTicketDetailList.cs" />
+    <Compile Include="LastBetsMonitoringBetListDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\BetListParameterBuilderTest.cs" />
   </ItemGroup>

@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System.Collections.Generic;
-    using System.Data;
     using Athena.BetList.DataAccess;
+    using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAcces.UnitTests;
     using NSubstitute;
@@ -26,29 +26,21 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("BetType", DbType.String, metaModel.BetType);
-                ObjectDb.Received(1).AddInParameter("Currency", DbType.String, metaModel.Currency);
-                ObjectDb.Received(1).AddInParameter("SpecialLevel", DbType.String, metaModel.Level);
-                ObjectDb.Received(1).AddInParameter("TransId", DbType.Int64, metaModel.TransId);
-                ObjectDb.Received(1).AddInParameter("LimitRowCount", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received(1).AddInParameter("SportId", DbType.Int32, metaModel.SportId);
-                ObjectDb.Received(1).AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
-                ObjectDb.Received(1).AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                ObjectDb.Received(1).AddInParameter("MinStake", DbType.Decimal, metaModel.StakeFrom);
-                ObjectDb.Received(1).AddInParameter("MaxStake", DbType.Decimal, metaModel.StakeTo);
-                ObjectDb.Received(1).AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveStatus);
-                ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BasedCurrency);
-                ObjectDb.Received(1).AddInParameter("BetFrom", DbType.Byte, metaModel.BetFrom);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("BetType", metaModel.BetType);
+                ObjectDb.Received(1).SetParameterValue("Currency", metaModel.Currency);
+                ObjectDb.Received(1).SetParameterValue("SpecialLevel", metaModel.Level);
+                ObjectDb.Received(1).SetParameterValue("TransId", metaModel.TransId);
+                ObjectDb.Received(1).SetParameterValue("LimitRowCount", metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("SportId", metaModel.SportId);
+                ObjectDb.Received(1).SetParameterValue("LeagueId", metaModel.LeagueId);
+                ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
+                ObjectDb.Received(1).SetParameterValue("MinStake", metaModel.StakeFrom);
+                ObjectDb.Received(1).SetParameterValue("MaxStake", metaModel.StakeTo);
+                ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
+                ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BasedCurrency);
+                ObjectDb.Received(1).SetParameterValue("BetFrom", metaModel.BetFrom);
             });
-        }
-
-        [Test]
-        public void GetLastBetsMonitoringData_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                UspKey,
-                () => DataAccess.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel(), UserCurrencyList));
         }
 
         [Test]

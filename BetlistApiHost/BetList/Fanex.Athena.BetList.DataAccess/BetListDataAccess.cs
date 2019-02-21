@@ -111,7 +111,7 @@ namespace Fanex.Athena.BetList.DataAccess
 
             using (var db = GetObjectDb(metaModel.UspKey))
             {
-                BetListParameterBuilder.CreateBetListParameters(db, metaModel.UspKey, metaModel);
+                BetListParameterBuilder.CreateBetListParameters(db, metaModel);
                 var baseCurrency = BetListParameterBuilder.HasBaseCurrencyOutputColumn(metaModel.UspKey) ?
                     metaModel.BaseCurrency :
                     string.Empty;

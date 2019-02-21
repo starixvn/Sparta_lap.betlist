@@ -40,9 +40,10 @@
             // Arrange
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
             var metaModel = FakeHelper.Create<WinLossByLeagueBetListMetaModel>(x => x.ProductCodeList, "SB,NG");
+            metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -67,9 +68,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelDeleted";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -85,9 +87,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_TotalBets_Sel430";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -102,9 +105,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -126,9 +130,10 @@
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
             var metaModel = FakeHelper.Create<DailyBetListMetaModel>();
+            metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -149,9 +154,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -173,9 +179,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelRunningByBettype";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -191,9 +198,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelRunningByBettypeList";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -212,9 +220,10 @@
             const string UspKey = "Lrf_BetList_MatchWL_Bettype";
 
             _metaModel.LiveIndicator = liveIndicator;
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -237,9 +246,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_MatchWL_Outright";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -260,9 +270,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_MatchWL_Parlay";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -284,9 +295,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -310,9 +322,10 @@
             // Arrange
             const string UspKey = "Lrf_BetList_CustomerList_Mem";
             _metaModel.SortBy = string.Empty;
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -335,9 +348,10 @@
             const string UspKey = "Lrf_BetList_CustomerList_Mem";
             _metaModel.SortBy = "Column";
             _metaModel.SortOrder = "asc";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -358,9 +372,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelByDayAll_Mem";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -376,9 +391,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelByDayAll_Mem_Old";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             AssertDailyStatementBetList(_objectDb, _metaModel);
@@ -389,9 +405,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -413,9 +430,10 @@
             const string UspKey = "Lrf_BetList_SelRunningByBettypeMatch";
 
             _metaModel.LiveIndicator = liveIndicator;
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -442,9 +460,10 @@
 
             _metaModel.MultipleBettype = multipleBettype;
             _metaModel.LiveIndicator = liveIndicator;
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -466,9 +485,10 @@
             const string UspKey = "Lrf_BetList_Forecast_SelByMatch";
 
             _metaModel.LiveIndicator = liveIndicator;
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -489,9 +509,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_RNG_Detail";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             AssertCasinoDetailParameters(_objectDb, _metaModel);
@@ -502,9 +523,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_LC_Detail";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             AssertCasinoDetailParameters(_objectDb, _metaModel);
@@ -515,9 +537,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -539,10 +562,11 @@
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";
 
-            var metaModel = new BetListMetaModel { SortBy = sortBy, BaseCurrency = baseCurrency };
+            var metaModel = new BetListMetaModel { SortBy = sortBy, BaseCurrency = baseCurrency, UspKey = UspKey };
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, metaModel);
 
             // Assert
             _objectDb.Received(1).SetParameterValue("Sort", expectedSortBy);
@@ -554,10 +578,13 @@
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";
 
-            var metaModel = new BetListMetaModel();
+            var metaModel = new BetListMetaModel
+            {
+                UspKey = UspKey
+            };
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, metaModel);
 
             // Assert
             _objectDb.DidNotReceive().SetParameterValue("Sort", Arg.Any<string>());
@@ -578,11 +605,12 @@
             {
                 IsExportExcel = isExportExcel,
                 PageIndex = pageIndex,
-                PageSize = pageSize
+                PageSize = pageSize,
+                UspKey = UspKey
             };
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -597,9 +625,10 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_LicenseeBonus_Detail";
+            _metaModel.UspKey = UspKey;
 
             // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
 
             // Assert
             Assert.Multiple(() =>

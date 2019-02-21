@@ -30,26 +30,26 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("ShowBA", DbType.Boolean, showBA);
-                ObjectDb.Received(1).AddInParameter("ProductList", DbType.String, productList);
-                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("UserName", DbType.String, metaModel.UserName);
-                ObjectDb.Received(1).AddInParameter("StatusIdList", DbType.String, metaModel.Status);
-                ObjectDb.Received(1).AddInParameter("LiveIndicator", DbType.Byte, metaModel.LiveStatus);
-                ObjectDb.Received(1).AddInParameter("Platform", DbType.Byte, metaModel.Platform);
-                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, BalanceUp.BalanceUpDay);
-                ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
-                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received(1).AddOutParameter("TotalRows", DbType.Int32, 4);
-                ObjectDb.Received(1).AddOutParameter("SumStake", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("SumWinLost", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("SumComm", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("SumPlayerComm", DbType.Currency, 8);
+                ObjectDb.Received(1).SetParameterValue("ShowBA", showBA);
+                ObjectDb.Received(1).SetParameterValue("ProductList", productList);
+                ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
+                ObjectDb.Received(1).SetParameterValue("StatusIdList", metaModel.Status);
+                ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
+                ObjectDb.Received(1).SetParameterValue("Platform", metaModel.Platform);
+                ObjectDb.Received(1).SetParameterValue("MoveBetsDay", BalanceUp.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("BalanceUpDay", BalanceUp.BalanceUpDay);
+                ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+                ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
+                ObjectDb.Received(1).AddOutParameter("TotalRows", 4);
+                ObjectDb.Received(1).AddOutParameter("SumStake", 8);
+                ObjectDb.Received(1).AddOutParameter("SumWinLost", 8);
+                ObjectDb.Received(1).AddOutParameter("SumLicenseeWL", 8);
+                ObjectDb.Received(1).AddOutParameter("SumComm", 8);
+                ObjectDb.Received(1).AddOutParameter("SumPlayerComm", 8);
             });
         }
 
@@ -70,8 +70,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, int.MaxValue - 1);
-                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, 1);
+                ObjectDb.Received(1).SetParameterValue("PageSize", int.MaxValue - 1);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", 1);
             });
         }
 
@@ -90,7 +90,7 @@
             DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+            ObjectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + " " + metaModel.SortOrder);
         }
 
         [Test]
