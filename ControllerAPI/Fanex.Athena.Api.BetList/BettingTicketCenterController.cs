@@ -29,17 +29,17 @@
         [HttpPost]
         public async Task<dynamic> GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
-            var userCurrencyList = SessionService.UserSession.CurrencyList;
-            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
+            var userSession = SessionService.UserSession;
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userSession.CurrencyList))
             {
                 return null;
             }
 
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
-            metaModel.UserCurrencyList = userCurrencyList;
+            metaModel.UserCurrencyList = userSession.CurrencyList;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetBySingleCustomer", metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetBySingleCustomer", metaModel, userSession.Language).ConfigureAwait(false);
         }
 
         [HttpPost]
@@ -50,28 +50,29 @@
                 return null;
             }
 
+            var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
-            metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
+            metaModel.UserCurrencyList = userSession.CurrencyList;
 
-            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetByRefno", metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetByRefno", metaModel, userSession.Language).ConfigureAwait(false);
         }
 
         [HttpPost]
         public async Task<dynamic> GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
-            var userCurrencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
 
-            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userSession.CurrencyList))
             {
                 return null;
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
-            metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
+            metaModel.UserCurrencyList = userSession.CurrencyList;
 
-            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetByRunning", metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetByRunning", metaModel, userSession.Language).ConfigureAwait(false);
         }
 
         private static bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)

@@ -50,17 +50,17 @@
                 };
             }
 
-            var userCurrencyList = SessionService.UserSession.CurrencyList;
-            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
+            var userSession = SessionService.UserSession;
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userSession.CurrencyList))
             {
                 return null;
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
-            metaModel.UserCurrencyList = userCurrencyList;
+            metaModel.UserCurrencyList = userSession.CurrencyList;
 
-            return await _betListApiClient.PostAsync("/BettingTicketCenterMultiCustomer/GetData", metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenterMultiCustomer/GetData", metaModel, userSession.Language).ConfigureAwait(false);
         }
 
         private static bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)

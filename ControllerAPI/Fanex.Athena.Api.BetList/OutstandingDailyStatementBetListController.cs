@@ -42,13 +42,14 @@ namespace Fanex.Athena.Api.BetList
         public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            var userSession = SessionService.UserSession;
+            metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             if (_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId))
             {
-                return await _betListApiClient.PostAsync("/OutstandingDailyStatementBetList/GetData", metaModel).ConfigureAwait(false);
+                return await _betListApiClient.PostAsync("/OutstandingDailyStatementBetList/GetData", metaModel, userSession.Language).ConfigureAwait(false);
             }
 
             return new List<DailyStatement>();

@@ -41,7 +41,7 @@
                 const int VendorProductId = 334;
                 const string Url = "/ResultKenoReport/GetKenoResultUrl";
                 const string ExpectedResult = "test-kenourl";
-                _betListApiClient.PostAsyncString(Url, Arg.Any<object>()).ReturnsForAnyArgs(ExpectedResult);
+                _betListApiClient.PostAsyncString(Url, Arg.Any<object>(), Arg.Any<string>()).ReturnsForAnyArgs(ExpectedResult);
 
                 // Action
                 var result = controller.Index(VendorProductId).Result as JsonResult;

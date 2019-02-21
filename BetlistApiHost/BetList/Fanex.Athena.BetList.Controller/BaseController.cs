@@ -6,7 +6,10 @@
 
 namespace Fanex.Athena.BetList.Controller
 {
+    using System.Globalization;
+    using System.Threading;
     using System.Web.Mvc;
+    using System.Web.Routing;
     using System.Web.SessionState;
     using Common.Utility.Attributes;
     using Model.DTO;
@@ -17,6 +20,8 @@ namespace Fanex.Athena.BetList.Controller
     [CheckUMFilter]
     public class BaseController : Controller
     {
+        private const string LANGUAGEKEY = "Language";
+
         protected static void ClearData(TicketResult ticketResult)
         {
             ticketResult.MainTicketList.Clear();
@@ -25,6 +30,17 @@ namespace Fanex.Athena.BetList.Controller
             ticketResult.TicketDataList.TrimExcess();
             ticketResult.MainTicketList = null;
             ticketResult.TicketDataList = null;
+        }
+
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+
+            var languageCode = requestContext.HttpContext.Request.Headers[LANGUAGEKEY];
+            if (!string.IsNullOrWhiteSpace(languageCode))
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageCode);
+            }
         }
     }
 }

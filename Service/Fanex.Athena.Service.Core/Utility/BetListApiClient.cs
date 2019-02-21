@@ -1,17 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Fanex.Athena.Extension.Utility;
-using Fanex.Athena.Service.Core.Utility.Interfaces;
-using Newtonsoft.Json;
-
-namespace Fanex.Athena.Service.Core.Utility
+﻿namespace Fanex.Athena.Service.Core.Utility
 {
+    using System;
+    using System.IO;
+    using System.Net.Http;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Service.Core.Utility.Interfaces;
+    using Newtonsoft.Json;
+
     public class BetListApiClient : IBetListApiClient
     {
         private const string KEYNAME = "BETLIST_TOKEN_KEY";
+
+        private const string LANGUAGEKEY = "Language";
 
         private readonly IAppSettings _appSetting;
 
@@ -20,11 +22,11 @@ namespace Fanex.Athena.Service.Core.Utility
             _appSetting = appSettings;
         }
 
-        public async Task<HttpResponseMessage> PostAsync(string path, object value)
+        public async Task<HttpResponseMessage> PostAsync(string path, object value, string language)
         {
             using (var client = new HttpClient())
             {
-                AddHeaderToken(client);
+                AddHeader(client, language);
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
@@ -34,11 +36,11 @@ namespace Fanex.Athena.Service.Core.Utility
             }
         }
 
-        public async Task<T> PostAsync<T>(string path, object value)
+        public async Task<T> PostAsync<T>(string path, object value, string language)
         {
             using (var client = new HttpClient())
             {
-                AddHeaderToken(client);
+                AddHeader(client, language);
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
@@ -48,11 +50,11 @@ namespace Fanex.Athena.Service.Core.Utility
             }
         }
 
-        public async Task<Stream> PostAsyncStream(string path, object value)
+        public async Task<Stream> PostAsyncStream(string path, object value, string language)
         {
             using (var client = new HttpClient())
             {
-                AddHeaderToken(client);
+                AddHeader(client, language);
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
                 ////   response.EnsureSuccessStatusCode();
@@ -61,11 +63,11 @@ namespace Fanex.Athena.Service.Core.Utility
             }
         }
 
-        public async Task<string> PostAsyncString(string path, object value)
+        public async Task<string> PostAsyncString(string path, object value, string language)
         {
             using (var client = new HttpClient())
             {
-                AddHeaderToken(client);
+                AddHeader(client, language);
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
@@ -80,9 +82,10 @@ namespace Fanex.Athena.Service.Core.Utility
             return new Uri(_appSetting.BetListApiHostUrl + path);
         }
 
-        private void AddHeaderToken(HttpClient client)
+        private void AddHeader(HttpClient client, string language)
         {
             client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
+            client.DefaultRequestHeaders.Add(LANGUAGEKEY, language);
         }
     }
 }

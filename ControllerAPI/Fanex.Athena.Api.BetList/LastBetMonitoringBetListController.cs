@@ -81,7 +81,7 @@
             }
 
             metaModel.UserCurrencyList = UserCurrencyList;
-            return await _betListApiClient.PostAsync("/LastBetMonitoringBetList/GetData", metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/LastBetMonitoringBetList/GetData", metaModel, SessionService.UserSession.Language).ConfigureAwait(false);
         }
     }
 }

@@ -47,7 +47,11 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var data = await BetListApiClient.PostAsyncString("/SystemParlayBetList/Detail", metaModel).ConfigureAwait(false);
+            var data = await BetListApiClient.PostAsyncString(
+                "/SystemParlayBetList/Detail",
+                metaModel,
+                SessionService.UserSession.Language)
+                .ConfigureAwait(false);
 
             var viewModel = new SystemParlayDetailViewModel
             {

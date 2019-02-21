@@ -89,10 +89,7 @@
                 var json = _webClientService.DownloadString(resultAmendmentUrl);
                 if (string.IsNullOrEmpty(json))
                 {
-                    return new ReportResultModel<ResultAmendment>
-                    {
-                        DataList = dataList
-                    };
+                    return new ReportResultModel<ResultAmendment> { DataList = dataList };
                 }
 
                 var jobject = JObject.Parse(json);
@@ -103,7 +100,6 @@
                     var contentKey = "Content" + lang;
 
                     totalRecords = jobject["TotalItems"].Value<int>();
-
                     dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey)));
                 }
             }

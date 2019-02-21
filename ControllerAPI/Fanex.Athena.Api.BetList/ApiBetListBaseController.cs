@@ -53,8 +53,9 @@ namespace Fanex.Athena.Api.BetList
             string apiPath = null)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var balanceUp = GetBalanceUp();
-            var currencyList = SessionService.UserSession.CurrencyList;
+
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
@@ -62,9 +63,9 @@ namespace Fanex.Athena.Api.BetList
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
-            metaModel.CurrencyList = currencyList;
+            metaModel.CurrencyList = userSession.CurrencyList;
             metaModel.UspKey = uspKey;
-            return await _betListApiClient.PostAsync(apiPath ?? "/BetList/GetBetList", metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync(apiPath ?? "/BetList/GetBetList", metaModel, userSession.Language).ConfigureAwait(false);
         }
 
         protected internal virtual async Task<dynamic> GetPagingBetListResult(
@@ -75,8 +76,8 @@ namespace Fanex.Athena.Api.BetList
             string apiPath = null)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var balanceUp = GetBalanceUp();
-            var currencyList = SessionService.UserSession.CurrencyList;
 
             metaModel.IsServerPaging = true;
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
@@ -86,9 +87,9 @@ namespace Fanex.Athena.Api.BetList
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
-            metaModel.CurrencyList = currencyList;
+            metaModel.CurrencyList = userSession.CurrencyList;
             metaModel.UspKey = uspKey;
-            return await _betListApiClient.PostAsync(apiPath ?? "/BetList/GetBetListPaging", metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync(apiPath ?? "/BetList/GetBetListPaging", metaModel, userSession.Language).ConfigureAwait(false);
         }
 
         protected bool IsValidCurrencyId(int currencyId)

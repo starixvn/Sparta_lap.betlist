@@ -102,26 +102,26 @@ namespace Fanex.Athena.Api.BetList
         private async Task<HttpResponseMessage> GetData(LiveReportBetListMetaModel metaModel, string uspKey)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
-            metaModel.CurrencyList = currencyList;
+            metaModel.CurrencyList = userSession.CurrencyList;
             metaModel.UspKey = uspKey;
-            return await BridgeClientService.PostAsync("/LiveReportBetList/GetData", metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync("/LiveReportBetList/GetData", metaModel, userSession.Language).ConfigureAwait(false);
         }
 
         private async Task<HttpResponseMessage> GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
-            metaModel.CurrencyList = currencyList;
+            metaModel.CurrencyList = userSession.CurrencyList;
             metaModel.UspKey = uspKey;
-            return await BridgeClientService.PostAsync("/LiveReportBetList/GetPagingData", metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync("/LiveReportBetList/GetPagingData", metaModel, userSession.Language).ConfigureAwait(false);
         }
 
         #endregion Utility
