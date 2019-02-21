@@ -105,8 +105,7 @@ namespace Fanex.Athena.BetList.DataAccess
             }
         }
 
-        public TicketResult GetBetListData(
-            BetListMetaModel metaModel)
+        public TicketResult GetBetListData(BetListMetaModel metaModel)
         {
             var ticketResult = new TicketResult();
 

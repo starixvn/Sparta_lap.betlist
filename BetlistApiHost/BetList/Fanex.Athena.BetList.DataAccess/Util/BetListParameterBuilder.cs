@@ -417,7 +417,8 @@
             if (!string.IsNullOrWhiteSpace(metaModel.SortBy))
             {
                 var nonBaseCurrencyColumns = new[] { "nickname", "username" };
-                var sortBy = nonBaseCurrencyColumns.Contains(metaModel.SortBy.ToLowerInvariant()) ?
+                var isNonBaseCurrencySp = NonBaseCurrencySpNameActionMap.ContainsKey(metaModel.UspKey);
+                var sortBy = isNonBaseCurrencySp || nonBaseCurrencyColumns.Contains(metaModel.SortBy.ToLowerInvariant()) ?
                     metaModel.SortBy : metaModel.SortBy + metaModel.BaseCurrency;
                 db.SetParameterValue("Sort", sortBy + " " + metaModel.SortOrder);
             }

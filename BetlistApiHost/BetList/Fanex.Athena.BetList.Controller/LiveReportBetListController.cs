@@ -33,7 +33,7 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public dynamic GetPagingData(LiveReportBetListMetaModel metaModel)
+        public JsonResult GetPagingData(LiveReportBetListMetaModel metaModel)
         {
             var ticketResult = _betListService.GetBetListData(metaModel);
 
@@ -65,7 +65,7 @@ namespace Fanex.Athena.BetList.Controller
 
             ClearData(ticketResult);
 
-            return result;
+            return Json(result);
         }
     }
 }
