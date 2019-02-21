@@ -3049,8 +3049,8 @@
     <value>All bettypes, League, and Match filter available only when 1 day is selected</value>
     <comment>80941</comment>
   </data>
-  <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
-    <value>Note: For Sportsbook, the search result includes the related Bonus/Cash tickets.</value>
+  <data name="BettingTicketCenter_RefnoTabNote1" xml:space="preserve">
+    <value>For Sportsbook, the search result includes the related Bonus/Cash tickets.</value>
     <comment>80941</comment>
   </data>
   <data name="MultipleCustomers" xml:space="preserve">
@@ -3136,5 +3136,9 @@
   <data name="Tennis" xml:space="preserve">
     <value>Tennis</value>
     <comment>103698</comment>
+  </data>
+  <data name="BettingTicketCenter_RefnoTabNote2" xml:space="preserve">
+    <value>For Keno, Lottery: Please provide username also in order to search ticket later than {0}</value>
+    <comment>103555</comment>
   </data>
 </root>

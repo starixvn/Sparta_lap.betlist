@@ -2587,9 +2587,6 @@
   <data name="BettingTicketCenter_MultiCustomersTabNote2" xml:space="preserve">
     <value>顯示從{0}開始的資料</value>
   </data>
-  <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
-    <value>注意: 在體育的搜尋結果將包含相關的紅利與現金注單</value>
-  </data>
   <data name="Note" xml:space="preserve">
     <value>注意</value>
   </data>
@@ -2616,5 +2613,8 @@
   </data>
   <data name="Reject" xml:space="preserve">
     <value>取消</value>
+  </data>
+  <data name="BettingTicketCenter_RefnoTabNote1" xml:space="preserve">
+    <value>在體育的搜尋結果將包含相關的紅利與現金注單</value>
   </data>
 </root>

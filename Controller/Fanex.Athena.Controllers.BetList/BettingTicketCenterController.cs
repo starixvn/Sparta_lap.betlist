@@ -67,6 +67,7 @@
 
         public ActionResult RefNo()
         {
+            ViewBag.MoveBetDay = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
             return View(
                 "~/Views/Desktop/BetList/BettingTicketCenter/RefNo.cshtml",
                 SessionService.LicenseeSession.IsAllowedCustomerComm);
