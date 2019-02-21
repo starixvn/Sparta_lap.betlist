@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
@@ -46,7 +47,9 @@ namespace Fanex.Athena.Api.BetList
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
 
             const int RunningTicketTransType = 3;
-            var result = await GetBetListResult(metaModel, uspKey).ConfigureAwait(false);
+            HttpResponseMessage response = await GetBetListResult(metaModel, uspKey).ConfigureAwait(false);
+
+            var result = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
 
             return new
             {

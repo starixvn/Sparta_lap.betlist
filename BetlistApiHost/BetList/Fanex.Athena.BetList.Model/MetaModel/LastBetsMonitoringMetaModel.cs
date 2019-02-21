@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Fanex.Athena.BetList.Model.MetaModel
 {
@@ -21,18 +22,23 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public int MatchId { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string BetType { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Level { get; set; }
 
         public int LiveStatus { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string OddsType { get; set; }
 
         public int TimeZone { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Currency { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string BasedCurrency { get; set; }
 
         public int StakeFrom { get; set; }
