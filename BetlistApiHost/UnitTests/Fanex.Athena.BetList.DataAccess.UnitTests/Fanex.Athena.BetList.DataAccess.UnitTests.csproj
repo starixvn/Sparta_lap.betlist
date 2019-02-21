@@ -110,6 +110,10 @@
     <Compile Include="BetListDataAccessTest.cs" />
     <Compile Include="BetListDataAccessTest.GetBetListData.cs" />
     <Compile Include="BetListDataAccessTest.GetSystemParlayDetail.cs" />
+    <Compile Include="BettingTicketsCenterDataAccessTest.cs" />
+    <Compile Include="BettingTicketsCenterDataAccessTest.GetBetListForMultipleCustomers.cs" />
+    <Compile Include="BettingTicketsCenterDataAccessTest.GetBetListForSingleCustomer.cs" />
+    <Compile Include="BettingTicketsCenterDataAccessTest.GetRunningBetList.cs" />
     <Compile Include="CancelledBetListDataAccessTest.cs" />
     <Compile Include="CashOutBetListDataAccessTest.cs" />
     <Compile Include="ColossusBetBetListDataAccessTest.cs" />

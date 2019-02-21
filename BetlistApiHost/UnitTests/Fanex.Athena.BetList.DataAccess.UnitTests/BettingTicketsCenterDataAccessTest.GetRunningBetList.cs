@@ -1,8 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System.Collections;
-    using System.Data;
-    using Model.BetList.MetaModel;
+    using Athena.BetList.Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -39,8 +38,8 @@
                 ObjectDb.Received(1).SetParameterValue("showBA", showBA);
                 ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
-                ObjectDb.Received(1).AddOutParameter("TotalRows", 4);
-                ObjectDb.Received(1).AddOutParameter("SumStake", 8);
+                ObjectDb.Received(1).SetParameterValue("TotalRows", null);
+                ObjectDb.Received(1).SetParameterValue("SumStake", null);
             });
         }
 

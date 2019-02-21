@@ -1,12 +1,12 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System;
-    using System.Data;
-    using Core.Configuration.Interfaces;
-    using Core.UnitTests.TestHelpers;
-    using Extension.Utility.Interfaces;
-    using Model.BetList.MetaModel;
-    using Model.Core.DTO.Configuration;
+    using Athena.BetList.DataAccess;
+    using Athena.BetList.Model.MetaModel;
+    using Common.DataAcces.UnitTests;
+    using Common.DataAccess.Interfaces;
+    using Common.Model.DTO;
+    using Common.Utility.Services.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
 

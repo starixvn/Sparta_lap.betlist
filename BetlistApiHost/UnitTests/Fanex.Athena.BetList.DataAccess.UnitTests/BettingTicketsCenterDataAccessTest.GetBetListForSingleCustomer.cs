@@ -1,9 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System.Collections;
-    using System.Data;
-    using Model.BetList.MetaModel;
-    using Model.Core.DTO.Configuration;
+    using Athena.BetList.Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -44,12 +42,12 @@
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
-                ObjectDb.Received(1).AddOutParameter("TotalRows", 4);
-                ObjectDb.Received(1).AddOutParameter("SumStake", 8);
-                ObjectDb.Received(1).AddOutParameter("SumWinLost", 8);
-                ObjectDb.Received(1).AddOutParameter("SumLicenseeWL", 8);
-                ObjectDb.Received(1).AddOutParameter("SumComm", 8);
-                ObjectDb.Received(1).AddOutParameter("SumPlayerComm", 8);
+                ObjectDb.Received(1).SetParameterValue("TotalRows", null);
+                ObjectDb.Received(1).SetParameterValue("SumStake", null);
+                ObjectDb.Received(1).SetParameterValue("SumWinLost", null);
+                ObjectDb.Received(1).SetParameterValue("SumLicenseeWL", null);
+                ObjectDb.Received(1).SetParameterValue("SumComm", null);
+                ObjectDb.Received(1).SetParameterValue("SumPlayerComm", null);
             });
         }
 
