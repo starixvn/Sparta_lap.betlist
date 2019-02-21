@@ -6426,8 +6426,10 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'col-9' },
+                        '* ',
                         _langHelper2.default.getSingleResource('BettingTicketCenter_RefnoTabNote1'),
                         _react2.default.createElement('br', null),
+                        '* ',
                         _langHelper2.default.getSingleResource('BettingTicketCenter_RefnoTabNote2').replace('{0}', _AppData2.default.moveBetDay)
                     )
                 )
