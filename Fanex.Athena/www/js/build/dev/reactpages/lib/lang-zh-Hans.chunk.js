@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 1/3/2019 5:04:11 PM
+// Generated at: 2/21/2019 1:37:26 PM
 window._language_zh_Hans = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -395,6 +395,7 @@ window._language_zh_Hans = {
   Handicap: "让球",
   HandicapOverUnderLive: "让球/大小/滚球",
   HandNo: "每局号码",
+  Happy5: "快乐5",
   HD: "主和",
   HDP: "让分盘",
   Here: "这里",
@@ -514,7 +515,6 @@ window._language_zh_Hans = {
   LogInfo: "登入信息",
   Logout: "注销",
   Lose: "输",
-  Loss: "输",
   LrfNotification: "LRF-通知",
   Main: "主",
   ManageAccount: "账号管理",
@@ -686,6 +686,7 @@ window._language_zh_Hans = {
   Refund: "退款",
   RefundFT: "全场退还",
   RefundHT: "上半场退还",
+  Reject: "取消",
   Remark: "备注",
   RemoveFromGroup: "从组中删除",
   RemoveGroupMsg: "您确定要从组中移除此(这些)会员?",
@@ -867,13 +868,13 @@ window._language_zh_Hans = {
   VirtualSpeedway: "Virtual Speedway",
   VirtualSports: "虚拟运动",
   VirtualTennis: "Virtual Tennis",
+  Void: "作废",
   VS: "VS",
   Wap: "WAP",
   We: "We",
   WEB: "WEB",
   Wednesday: "星期三",
   Welcome: "欢迎",
-  Win: "独赢",
   WinLoss: "输赢",
   WinLossByBetType: "投注类别输赢",
   WinLossByBetTypeTitle: "投注类别输赢, {0} --&gt; {1} - {2}",
