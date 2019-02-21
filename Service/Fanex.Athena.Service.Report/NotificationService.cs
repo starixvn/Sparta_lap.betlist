@@ -74,15 +74,7 @@
                 };
             }
 
-            var resultAmendmentUrl = string.Format(
-                _appSetting.ResultAmendmentApiUrl,
-                metaModel.FromDate,
-                metaModel.ToDate,
-                metaModel.UserName,
-                metaModel.LicenseeName,
-                metaModel.IsOnlyUnread,
-                metaModel.PageSize,
-                metaModel.PageIndex - 1);
+            var resultAmendmentUrl = GetResultAmendmentUrl(metaModel);
             var dataList = new List<ResultAmendment>();
             var totalRecords = 0;
 
@@ -192,6 +184,22 @@
             }
 
             return result;
+        }
+
+#pragma warning disable S3995 // URI return values should not be strings
+
+        private string GetResultAmendmentUrl(NotificationMetaModel metaModel)
+#pragma warning restore S3995 // URI return values should not be strings
+        {
+            return string.Format(
+                            _appSetting.ResultAmendmentApiUrl,
+                            metaModel.FromDate,
+                            metaModel.ToDate,
+                            metaModel.UserName,
+                            metaModel.LicenseeName,
+                            metaModel.IsOnlyUnread,
+                            metaModel.PageSize,
+                            metaModel.PageIndex - 1);
         }
 
         private string GetSupportedLanguage(string lang)

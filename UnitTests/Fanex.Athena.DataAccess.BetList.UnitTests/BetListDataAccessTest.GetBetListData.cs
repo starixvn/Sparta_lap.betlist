@@ -148,7 +148,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                 ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
@@ -263,15 +263,17 @@
         [TestCase("LicenseeWL", "LicenseeWLComm")]
         [TestCase("nickname", "ExternalId")]
         [TestCase("Status", "Status")]
-        public void GetBetListData_SortData_SortCorrectProperty(string sortBy, string expectedSortedProp)
+        public void GetBetListData_IsServerPagingFalseSortData_SortCorrectProperty(string sortBy, string expectedSortedProp)
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossNumberGameSp)).Returns(ObjectDb);
+            const string UspKey = "Lrf_BetList_SelWinloss_Mem";
+            DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel();
+            metaModel.IsServerPaging = false;
             metaModel.SortBy = sortBy;
 
             // Action
-            DataAccess.GetBetListData(metaModel, UserCurrencyList, LiveReportWinlossNumberGameSp);
+            DataAccess.GetBetListData(metaModel, UserCurrencyList, UspKey);
 
             // Assert
             Assert.That(metaModel.SortBy, Is.EqualTo(expectedSortedProp));
