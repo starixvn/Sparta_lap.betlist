@@ -558,7 +558,7 @@
 
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
                         "CustomerWinlossBetList/Index&ProductCodeList=CODE1,CODE3&currencyid=0&CurrencyName=USD&BaseCurrency=eur&custid=1&systemid=2&externalid=3&fromdate=01/01/2011&todate=01/11/2011&ishistoryreport=True",
-                        { id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List" });
+                        { id: "betlist-popup", width: 970, height: 700, title: "CustomerBetList" });
                 });
             });
 

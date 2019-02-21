@@ -718,7 +718,7 @@
 
                         var url = 'LicenseeWinLossBetList/Index?fromdate=01/01/2017&todate=01/31/2017&excludetest=true&currencyid=9&currencyname=AUD&' +
                             'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR';
-                        var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "Customer Bet List" };
+                        var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "CustomerBetList" };
 
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
                         var optionResult = args[1];
@@ -741,7 +741,7 @@
 
                         var url = 'LicenseeWinLossBetList/Index?fromdate=01/10/2017&todate=01/15/2017&excludetest=true&currencyid=9&currencyname=AUD&' +
                             'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR';
-                        var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "Customer Bet List" };
+                        var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "CustomerBetList" };
 
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
                         var optionResult = args[1];
@@ -776,7 +776,7 @@
 
                         var url = 'LicenseeWinLossBetList/Index?fromdate=01/01/2017&todate=03/20/2017&excludetest=true&currencyid=9&currencyname=AUD&' +
                             'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR';
-                        var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "Customer Bet List" };
+                        var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "CustomerBetList" };
 
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
                         var optionResult = args[1];
@@ -1085,7 +1085,7 @@
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
                         "LicenseeWinLossBetList/Index&fromdate=01/01/2011&todate=01/11/2011&excludetest=false&CurrencyId=1&CurrencyName=eur&drawfilter=0&custid=2&systemId=3&externalId=4&BaseCurrency=eur",
                         {
-                            id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List"
+                            id: "betlist-popup", width: 970, height: 700, title: "CustomerBetList"
                         });
                 });
 
@@ -1105,7 +1105,7 @@
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
                         "LicenseeWinLossBetList/Index&fromdate=02/01/2011&todate=02/11/2011&excludetest=false&CurrencyId=1&CurrencyName=eur&drawfilter=0&custid=2&systemId=3&externalId=4&BaseCurrency=eur",
                         {
-                            id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List"
+                            id: "betlist-popup", width: 970, height: 700, title: "CustomerBetList"
                         });
                 });
 
@@ -1125,7 +1125,7 @@
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
                         "LicenseeWinLossBetList/Index&fromdate=02/05/2011&todate=02/11/2011&excludetest=false&CurrencyId=1&CurrencyName=eur&drawfilter=0&custid=2&systemId=3&externalId=4&BaseCurrency=eur",
                         {
-                            id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List"
+                            id: "betlist-popup", width: 970, height: 700, title: "CustomerBetList"
                         });
                 });
 
@@ -1145,7 +1145,7 @@
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
                         "LicenseeWinLossBetList/Index&fromdate=02/05/2011&todate=02/28/2011&excludetest=false&CurrencyId=1&CurrencyName=eur&drawfilter=0&custid=2&systemId=3&externalId=4&BaseCurrency=eur",
                         {
-                            id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List"
+                            id: "betlist-popup", width: 970, height: 700, title: "CustomerBetList"
                         });
                 });
             });

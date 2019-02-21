@@ -634,7 +634,7 @@
                     var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
                         return match.toLowerCase();
                     });
-                    var option = { id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List" };
+                    var option = { id: "betlist-popup", width: 970, height: 700, title: "CustomerBetList" };
 
                     CashOutWinLoss.openBetlistPopUp(dataDrilldown);
 
