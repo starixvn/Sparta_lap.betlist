@@ -41,8 +41,7 @@ namespace Fanex.Athena
                     return;
                 }
 
-                var logger = DependencyResolver.Current.GetService<Logging.ILogger>();
-                logger.Error(exception.Message, exception);
+                ExceptionHandler.Handle(exception);
             }
         }
 
