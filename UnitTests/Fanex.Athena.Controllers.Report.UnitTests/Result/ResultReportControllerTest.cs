@@ -54,7 +54,7 @@
                 const int GameId = 1;
                 const int CustId = 2;
                 const string Url = "/ResultReport/MicrogamingResultPopup";
-                _betListApiClient.PostAsyncString(Url, Arg.Any<object>(), Arg.Any<string>())
+                _betListApiClient.PostAsyncString(Url, Arg.Any<object>())
                     .Returns(ExpectedData);
 
                 // Action
@@ -68,8 +68,7 @@
                         Arg.Is<object>(
                             x => (int)x.GetValue("custId") == CustId &&
                                 (int)x.GetValue("gameId") == GameId &&
-                                (string)x.GetValue("SiteName") == SessionService.LicenseeSession.LicenseeName),
-                        Arg.Any<string>());
+                                (string)x.GetValue("SiteName") == SessionService.LicenseeSession.LicenseeName));
                     Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/Result/Popup/Microgaming.cshtml"));
                     Assert.That(viewResult.ViewBag.Data, Is.EqualTo(ExpectedData));
                 });
@@ -101,7 +100,7 @@
                 const string RefNo = "hohoho";
                 const string ExpectedData = "huhuhu";
                 const string Url = "/ResultReport/ShowRngCasinoSingleWalletResult";
-                _betListApiClient.PostAsyncString(Url, Arg.Any<object>(), Arg.Any<string>()).Returns(ExpectedData);
+                _betListApiClient.PostAsyncString(Url, Arg.Any<object>()).Returns(ExpectedData);
 
                 // Action
                 var result = controller.ShowRngCasinoSingleWalletResult(RefNo).Result as ContentResult;
@@ -111,8 +110,7 @@
                 {
                     _betListApiClient.Received(1).PostAsyncString(
                            Url,
-                           Arg.Is<object>(x => (string)x.GetValue("refNo") == RefNo),
-                           Arg.Any<string>());
+                           Arg.Is<object>(x => (string)x.GetValue("refNo") == RefNo));
                     Assert.That(result.Content, Is.EqualTo(ExpectedData));
                 });
             }
@@ -125,7 +123,7 @@
             {
                 // Arrange
                 const string Url = "/ResultReport/ResultDetail";
-                _betListApiClient.PostAsyncString(Url, Arg.Any<object>(), Arg.Any<string>()).Returns(x => (string)null);
+                _betListApiClient.PostAsyncString(Url, Arg.Any<object>()).Returns(x => (string)null);
 
                 // Action
                 var result = controller.ResultDetail(0, 0).Result as RedirectResult;
@@ -145,7 +143,7 @@
                 const int MatchId = 1;
                 const int SportId = 11111;
                 const string Url = "/ResultReport/ResultDetail";
-                _betListApiClient.PostAsyncString(Url, Arg.Any<object>(), Arg.Any<string>()).Returns(ExpectedData);
+                _betListApiClient.PostAsyncString(Url, Arg.Any<object>()).Returns(ExpectedData);
 
                 // Action
                 var result = controller.ResultDetail(MatchId, SportId).Result as ViewResult;
@@ -158,8 +156,7 @@
                         Arg.Is<object>(
                             x => (int)x.GetValue("matchId") == MatchId &&
                                 (int)x.GetValue("sportType") == SportId &&
-                                (string)x.GetValue("languageCode") == SessionService.UserSession.Language),
-                        Arg.Any<string>());
+                                (string)x.GetValue("languageCode") == SessionService.UserSession.Language));
                     Assert.That(result.ViewBag.Data, Is.EqualTo(ExpectedData));
                     Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Report/Result/Popup/Main.cshtml"));
                 });

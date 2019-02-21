@@ -134,9 +134,7 @@ namespace Fanex.Athena.Controllers.BetList
                 new
                 {
                     AgentListXml = metaModel.AgentListXml
-                },
-                SessionService.UserSession.Language)
-                .ConfigureAwait(false);
+                }).ConfigureAwait(false);
         }
 
         private bool HasPermissionOnData(BetListMetaModel metaModel)

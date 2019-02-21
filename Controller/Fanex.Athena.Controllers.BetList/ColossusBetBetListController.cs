@@ -47,15 +47,10 @@ namespace Fanex.Athena.Controllers.BetList
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
         public async Task<ActionResult> Detail(ColossusBetDetailMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
-            metaModel.UserId = userSession.UserId;
+            metaModel.UserId = SessionService.UserSession.UserId;
 
-            var viewModel = await BetListApiClient.PostAsync<ColossusBetDetailViewModel>(
-                "/ColossusBetBetList/Detail",
-                metaModel,
-                userSession.Language)
-                .ConfigureAwait(false);
+            var viewModel = await BetListApiClient.PostAsync<ColossusBetDetailViewModel>("/ColossusBetBetList/Detail", metaModel).ConfigureAwait(false);
             return this.View("~/Views/Desktop/BetList/ColossusBetDetail/Main.cshtml", viewModel);
         }
     }

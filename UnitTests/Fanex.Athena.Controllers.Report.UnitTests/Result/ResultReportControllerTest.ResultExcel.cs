@@ -40,7 +40,7 @@
             {
                 var metaModel = new ResultMetaModel();
                 const string Url = "/ResultReport/ResultExcel";
-                _betListApiClient.PostAsyncStream(Url, metaModel, Arg.Any<string>()).Returns(excelStream);
+                _betListApiClient.PostAsyncStream(Url, metaModel).Returns(excelStream);
 
                 // Action
                 var result = controller.ResultExcel(metaModel).Result as FileStreamResult;

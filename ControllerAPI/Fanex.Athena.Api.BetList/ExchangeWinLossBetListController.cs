@@ -48,7 +48,7 @@
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
-            return await _betListApiClient.PostAsync("/ExchangeWinLossBetList/GetData", metaModel, SessionService.UserSession.Language).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/ExchangeWinLossBetList/GetData", metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
@@ -61,7 +61,7 @@
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
-            return await _betListApiClient.PostAsync("/ExchangeWinLossBetList/Detail", metaModel, SessionService.UserSession.Language).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/ExchangeWinLossBetList/Detail", metaModel).ConfigureAwait(false);
         }
 
         private bool IsValidRequest(BaseExchangeBetListMetaModel metaModel)

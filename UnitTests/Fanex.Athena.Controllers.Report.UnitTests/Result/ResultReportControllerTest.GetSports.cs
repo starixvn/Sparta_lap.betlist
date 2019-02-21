@@ -35,7 +35,7 @@
                 const string ExpectResult = "sssssssssssss";
                 const string Url = "/ResultReport/GetSports";
                 var metaModel = new GetSportResultMetaModel();
-                _betListApiClient.PostAsyncString(Url, metaModel, Arg.Any<string>()).Returns(ExpectResult);
+                _betListApiClient.PostAsyncString(Url, metaModel).Returns(ExpectResult);
 
                 // Action
                 var result = controller.GetSports(metaModel).Result as ContentResult;
