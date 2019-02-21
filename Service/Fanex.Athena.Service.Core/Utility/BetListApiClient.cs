@@ -28,9 +28,8 @@
 
         public async Task<HttpResponseMessage> PostAsync(string path, object value)
         {
-            using (var client = new HttpClient())
+            using (var client = CreateClient())
             {
-                AddHeader(client);
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
@@ -42,9 +41,8 @@
 
         public async Task<T> PostAsync<T>(string path, object value)
         {
-            using (var client = new HttpClient())
+            using (var client = CreateClient())
             {
-                AddHeader(client);
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
@@ -56,9 +54,8 @@
 
         public async Task<Stream> PostAsyncStream(string path, object value)
         {
-            using (var client = new HttpClient())
+            using (var client = CreateClient())
             {
-                AddHeader(client);
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
                 ////   response.EnsureSuccessStatusCode();
@@ -69,9 +66,8 @@
 
         public async Task<string> PostAsyncString(string path, object value)
         {
-            using (var client = new HttpClient())
+            using (var client = CreateClient())
             {
-                AddHeader(client);
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
@@ -86,10 +82,12 @@
             return new Uri(_appSetting.BetListApiHostUrl + path);
         }
 
-        private void AddHeader(HttpClient client)
+        private HttpClient CreateClient()
         {
+            var client = new HttpClient();
             client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
             client.DefaultRequestHeaders.Add(LANGUAGEKEY, _sessionStorage.UserSession.Language);
+            return client;
         }
     }
 }
