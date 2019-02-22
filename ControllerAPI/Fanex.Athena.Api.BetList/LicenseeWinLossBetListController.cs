@@ -13,6 +13,7 @@
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
     [ApiBetListAuthorization]
@@ -24,10 +25,11 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
+            IAuthorizationService authorizationService,
             IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess,
             IReportSettingService reportSettingService)
-        : base(sessionService, productService, languageService, betListApiClient, balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
             _reportSettingService = reportSettingService;
         }

@@ -13,6 +13,7 @@ namespace Fanex.Athena.Api.BetList
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     public class RunningMatchChoiceBetListController : ApiBetListBaseController
     {
@@ -20,9 +21,10 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
+            IAuthorizationService authorizationService,
             IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess)
-        : base(sessionService, productService, languageService, betListApiClient, balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 

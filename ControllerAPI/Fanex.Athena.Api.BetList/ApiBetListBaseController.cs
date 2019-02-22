@@ -15,24 +15,26 @@ namespace Fanex.Athena.Api.BetList
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     public class ApiBetListBaseController : BaseApiController
     {
+        private readonly IAuthorizationService _authorizationService;
+
         private readonly IBetListApiClient _betListApiClient;
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-
-#pragma warning disable S107 // Methods should not have too many parameters
 
         public ApiBetListBaseController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
+            IAuthorizationService authorizationService,
             IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess)
-#pragma warning restore S107 // Methods should not have too many parameters
         : base(sessionService, productService, languageService)
         {
+            _authorizationService = authorizationService;
             _betListApiClient = betListApiClient;
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -47,11 +49,24 @@ namespace Fanex.Athena.Api.BetList
             return _balanceUpDataAccess.GetBalanceUp();
         }
 
+        protected void CheckDataPermission(int custId, long transId)
+        {
+            if (!_authorizationService.HasPermissionOnData(
+                SessionService.LicenseeSession.LicenseeId,
+                custId,
+                transId))
+            {
+                throw new UnauthorizedAccessException();
+            }
+        }
+
         protected internal virtual async Task<dynamic> GetBetListResult(
             BetListMetaModel metaModel,
             string uspKey,
             string apiPath = null)
         {
+            CheckDataPermission(metaModel.CustId, metaModel.TransId);
+
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
             var currencyList = SessionService.UserSession.CurrencyList;
@@ -74,6 +89,8 @@ namespace Fanex.Athena.Api.BetList
             int pageSize,
             string apiPath = null)
         {
+            CheckDataPermission(metaModel.CustId, metaModel.TransId);
+
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
             var currencyList = SessionService.UserSession.CurrencyList;

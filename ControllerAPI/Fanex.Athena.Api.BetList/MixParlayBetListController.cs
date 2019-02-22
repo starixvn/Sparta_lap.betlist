@@ -14,6 +14,7 @@ namespace Fanex.Athena.Api.BetList
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     public class MixParlayBetListController : ApiBetListBaseController
     {
@@ -21,27 +22,33 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
+            IAuthorizationService authorizationService,
             IBetListApiClient betListApiClient,
             IBalanceUpDataAccess balanceUpDataAccess)
-        : base(sessionService, productService, languageService, betListApiClient, balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 
         [HttpGet]
         public async Task<HttpResponseMessage> Detail(long transId, int custId)
         {
+            CheckDataPermission(custId, transId);
+
             var metaModel = new MixParlayDetailMetaModel
             {
                 CustId = custId,
                 TransId = transId,
                 UserCurrencyList = UserCurrencyList
             };
+
             return await BridgeClientService.PostAsync("/MixParlayBetList/Detail", metaModel).ConfigureAwait(false);
         }
 
         [HttpGet]
         public async Task<HttpResponseMessage> NewParlayDetail(long transId, string betTeam, string betCheck, decimal handicap1, decimal handicap2, int custId)
         {
+            CheckDataPermission(custId, transId);
+
             var metaModel = new NewParlayDetailMetaModel
             {
                 TransId = transId,

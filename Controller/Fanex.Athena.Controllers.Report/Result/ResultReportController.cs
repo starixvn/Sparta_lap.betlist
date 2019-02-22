@@ -157,11 +157,10 @@ namespace Fanex.Athena.Controllers.Report.Result
         [CustomValidateAntiForgery]
         public async Task<ActionResult> ShowRngCasinoSingleWalletResult(string refNo)
         {
-            var result = await _betListApiClient.PostAsyncString("/ResultReport/ShowRngCasinoSingleWalletResult",
-                new
-                {
-                    refNo
-                }).ConfigureAwait(false);
+            var result = await _betListApiClient.PostAsyncString(
+                "/ResultReport/ShowRngCasinoSingleWalletResult",
+                new { refNo })
+                .ConfigureAwait(false);
 
             return this.Content(result, "application/json");
         }
