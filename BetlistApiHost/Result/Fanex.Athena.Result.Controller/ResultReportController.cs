@@ -20,6 +20,10 @@ namespace Fanex.Athena.Result.Controller
 
     public class ResultReportController : BaseResultController
     {
+#pragma warning disable S1075 // URIs should not be hardcoded
+        private const string ResultExcelTemplatePath = "~/App_Data/Fanex.Result/";
+#pragma warning restore S1075 // URIs should not be hardcoded
+
         private const int ParlayBetType = 9;
         private const int SystemParlayBetType = 29;
 
@@ -110,14 +114,9 @@ namespace Fanex.Athena.Result.Controller
                 return GetOutRightSports(metalModel);
             }
 
-            if (metalModel.SportId == 0)
-            {
-                return GetNormalSports(metalModel);
-            }
-            else
-            {
-                return Json(new { Leagues = _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId) });
-            }
+            return metalModel.SportId == 0 ?
+                GetNormalSports(metalModel) :
+                Json(new { Leagues = _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId) });
         }
 
         #endregion Result-Page
@@ -440,7 +439,7 @@ namespace Fanex.Athena.Result.Controller
             {
                 IsOutright = true,
                 ExcelTitle = ViewResources.Result,
-                ExcelTemplatePath = HostingEnvironment.MapPath(@"~/App_Data/Fanex.Result/"),
+                ExcelTemplatePath = HostingEnvironment.MapPath(ResultExcelTemplatePath),
                 LanguageCode = languageCode,
                 VisibleMatchCodeIDColumn = true
             };
@@ -453,7 +452,7 @@ namespace Fanex.Athena.Result.Controller
             {
                 SportType = sportType,
                 ExcelTitle = ViewResources.Result,
-                ExcelTemplatePath = HostingEnvironment.MapPath(@"~/App_Data/Fanex.Result/"),
+                ExcelTemplatePath = HostingEnvironment.MapPath(ResultExcelTemplatePath),
                 LanguageCode = LanguageCode,
                 VisibleDetailedLink = true,
                 VisibleFreeHeader = true,

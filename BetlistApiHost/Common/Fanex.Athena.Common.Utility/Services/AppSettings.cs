@@ -17,7 +17,9 @@
 
         #region Configurations
 
+#pragma warning disable S3996 // URI properties should not be strings
         public string BetListApiHostUrl
+#pragma warning restore S3996 // URI properties should not be strings
         {
             get { return GetValue("BetListApiHostUrl"); }
         }

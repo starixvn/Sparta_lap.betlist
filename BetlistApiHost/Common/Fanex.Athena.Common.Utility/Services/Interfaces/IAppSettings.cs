@@ -5,7 +5,9 @@
 
     public interface IAppSettings
     {
+#pragma warning disable S3996 // URI properties should not be strings
         string BetListApiHostUrl { get; }
+#pragma warning restore S3996 // URI properties should not be strings
 
         bool IsProduction { get; }
 
