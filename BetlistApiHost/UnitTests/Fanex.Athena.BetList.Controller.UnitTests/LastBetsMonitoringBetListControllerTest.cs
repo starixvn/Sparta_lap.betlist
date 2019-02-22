@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
+﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
     using System.Collections.Generic;
     using System.Linq;

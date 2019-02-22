@@ -1,17 +1,12 @@
-﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
+﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
     using System;
-    using System.Collections.Generic;
-    using Base.UnitTests;
-    using DataAccess.Core.Configuration.Interfaces;
-    using Model.BetList.MetaModel;
-    using Model.Core.DTO.Configuration;
+    using Common.DataAccess.Interfaces;
+    using Common.Model.DTO;
+    using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.BetList.Interfaces;
-    using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
-    using VendorAdapter.Interfaces;
+    using Service.Interfaces;
 
     public class BetListBaseControllerHelperTest : BaseControllerHelperTest
     {
@@ -22,9 +17,7 @@
         };
 
         protected IBalanceUpDataAccess BalanceUpDataAccess { get; private set; }
-
-        protected IProductService ProductService { get; private set; }
-
+        
         protected IBetListService BetListService { get; private set; }
 
         protected ICacheRefAdapter CacheRefAdapter { get; private set; }
@@ -35,7 +28,6 @@
             base.FixtureSetUp();
 
             BalanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            ProductService = Substitute.For<IProductService>();
             BetListService = Substitute.For<IBetListService>();
             CacheRefAdapter = Substitute.For<ICacheRefAdapter>();
 
@@ -48,7 +40,6 @@
             base.FixtureTearDown();
 
             BalanceUpDataAccess = null;
-            ProductService = null;
             BetListService = null;
         }
 

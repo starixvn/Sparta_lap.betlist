@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
+﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -30,7 +30,7 @@
         {
             using (var controller = CreateController())
             {
-                // Arrang
+                // Arrange
                 var metaModel = new CashOutBetListDetailMetaModel { TransId = 2 };
 
                 _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
