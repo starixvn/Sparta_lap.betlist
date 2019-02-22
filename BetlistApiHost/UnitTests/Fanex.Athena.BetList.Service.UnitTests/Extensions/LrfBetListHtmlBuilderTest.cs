@@ -1,14 +1,14 @@
-﻿namespace Fanex.Athena.Service.BetList.UnitTests.Extensions
+﻿namespace Fanex.Athena.BetList.Service.UnitTests.Extensions
 {
     using System.Collections;
     using System.Collections.Generic;
-    using BetList.Extensions;
-    using Constant.DataDomain;
+    using Athena.BetList.Model.DTO;
+    using Athena.BetList.Model.MetaModel;
+    using Athena.BetList.Service.Extensions;
+    using Common.Constant;
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 

@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests.Util
+﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests.Util
 {
     using System.Collections.Generic;
     using System.Linq;

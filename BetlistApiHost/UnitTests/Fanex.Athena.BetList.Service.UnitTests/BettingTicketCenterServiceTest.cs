@@ -1,18 +1,19 @@
-﻿namespace Fanex.Athena.Service.BetList.UnitTests
+﻿namespace Fanex.Athena.BetList.Service.UnitTests
 {
     using System;
     using System.Collections.Generic;
-    using Constant.DataDomain;
-    using DataAccess.BetList.Interfaces;
+    using Athena.BetList.DataAccess.Interfaces;
+    using Athena.BetList.Model.DTO;
+    using Athena.BetList.Model.MetaModel;
+    using Athena.BetList.Service;
+    using Athena.BetList.Service.Interfaces;
+    using Common.Constant;
+    using Common.Utility.Services.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Interfaces;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
-    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class BettingTicketCenterServiceTest
@@ -21,7 +22,6 @@
 
         private IBettingTicketCenterDataAccess _bettingTicketCenterDataAccess;
         private IBetListHTMLBuilder _betlistHtmlBuilder;
-        private ICacheRefAdapter _cacheRefAdapter;
         private ITicketHelper _ticketHelper;
         private IBettingTicketCenterService _bettingTicketCenterService;
 
@@ -30,16 +30,14 @@
         {
             _bettingTicketCenterDataAccess = Substitute.For<IBettingTicketCenterDataAccess>();
             _betlistHtmlBuilder = Substitute.For<IBetListHTMLBuilder>();
-            _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _ticketHelper = Substitute.For<ITicketHelper>();
-            _bettingTicketCenterService = new BettingTicketCenterService(_bettingTicketCenterDataAccess, _betlistHtmlBuilder, _cacheRefAdapter, _ticketHelper);
+            _bettingTicketCenterService = new BettingTicketCenterService(_bettingTicketCenterDataAccess, _betlistHtmlBuilder, _ticketHelper);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
             _bettingTicketCenterDataAccess = null;
-            _cacheRefAdapter = null;
             _bettingTicketCenterService = null;
         }
 

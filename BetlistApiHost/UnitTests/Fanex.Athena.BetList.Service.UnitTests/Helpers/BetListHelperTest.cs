@@ -1,9 +1,9 @@
-﻿namespace Fanex.Athena.Service.BetList.UnitTests.Helpers
+﻿namespace Fanex.Athena.BetList.Service.UnitTests.Helpers
 {
-    using BetList.Helpers;
-    using Constant.DataDomain;
+    using Athena.BetList.Model.DTO;
+    using Athena.BetList.Service.Helpers;
+    using Common.Constant;
     using Fanex.BetList.Core.Entities;
-    using Model.BetList.DTO;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -122,7 +122,7 @@
         {
             // Arrange
             var tickerHelper = Substitute.For<ITicketHelper>();
-            
+
             var ticket = new LrfTicket
             {
                 TransId = 1,

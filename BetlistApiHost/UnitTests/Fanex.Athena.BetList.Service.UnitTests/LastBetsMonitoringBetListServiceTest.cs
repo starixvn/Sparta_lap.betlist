@@ -1,14 +1,14 @@
-﻿namespace Fanex.Athena.Service.BetList.UnitTests
+﻿namespace Fanex.Athena.BetList.Service.UnitTests
 {
     using System;
     using System.Collections.Generic;
-    using Constant.DataDomain;
-    using DataAccess.BetList.Interfaces;
-    using Extension.Utility.Interfaces;
-    using Interfaces;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
-    using Model.Core.DataDomain;
+    using Athena.BetList.DataAccess.Interfaces;
+    using Athena.BetList.Model.DTO;
+    using Athena.BetList.Model.MetaModel;
+    using Athena.BetList.Service;
+    using Athena.BetList.Service.Interfaces;
+    using Common.Constant;
+    using Common.Utility.Services.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -62,7 +62,7 @@
                 new LastBetsMonitoringMetaModel
                 {
                     OddsType = string.Empty
-                }, 
+                },
                 _currencyList);
 
             // Assert
@@ -212,7 +212,7 @@
                 new LastBetsMonitoringMetaModel
                 {
                     OddsType = "dec"
-                }, 
+                },
                 _currencyList);
 
             // Assert
@@ -248,7 +248,7 @@
                 new LastBetsMonitoringMetaModel
                 {
                     OddsType = "my"
-                }, 
+                },
                 _currencyList);
 
             // Assert
@@ -282,7 +282,7 @@
                 {
                     OddsType = "my",
                     TimeZone = 0
-                }, 
+                },
                 _currencyList);
 
             // Assert
@@ -316,7 +316,7 @@
                 {
                     OddsType = "my",
                     TimeZone = -5
-                }, 
+                },
                 _currencyList);
 
             // Assert

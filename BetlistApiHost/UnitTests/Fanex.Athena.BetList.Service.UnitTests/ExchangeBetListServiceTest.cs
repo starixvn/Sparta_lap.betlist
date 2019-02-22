@@ -1,11 +1,12 @@
-﻿namespace Fanex.Athena.Service.BetList.UnitTests
+﻿namespace Fanex.Athena.BetList.Service.UnitTests
 {
     using System.Collections.Generic;
     using System.Linq;
-    using DataAccess.BetList.Interfaces;
-    using Interfaces;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
+    using Athena.BetList.DataAccess.Interfaces;
+    using Athena.BetList.Model.DTO;
+    using Athena.BetList.Model.MetaModel;
+    using Athena.BetList.Service;
+    using Athena.BetList.Service.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;

@@ -172,6 +172,12 @@ namespace Fanex.Athena.Result.Controller
 
         #region Utilities
 
+        private static string GenerateOutRightCacheKey(ResultMetaModel metalModel)
+        {
+            const string PatternKey = "{0}{1}Result.OutRight.Data_{2}";
+            return string.Format(PatternKey, metalModel.FromDate, metalModel.ToDate, metalModel.UserId);
+        }
+
         #region popup-page
 
         private static bool IsPalayBetType(int betType)
@@ -478,12 +484,6 @@ namespace Fanex.Athena.Result.Controller
         }
 
         #endregion main-page
-
-        private string GenerateOutRightCacheKey(ResultMetaModel metalModel)
-        {
-            const string PatternKey = "{0}{1}Result.OutRight.Data_{2}";
-            return string.Format(PatternKey, metalModel.FromDate, metalModel.ToDate, metalModel.UserId);
-        }
 
         #endregion Utilities
     }
