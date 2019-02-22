@@ -6,11 +6,9 @@
     using System.Web.Routing;
     using System.Web.SessionState;
     using Fanex.Athena.Common.Utility.Attributes;
-    using ONEbook.UM.Filters;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CustomAuth]
-    [CheckUMFilter]
     public class BaseResultController : Controller
     {
         private const string LANGUAGEKEY = "Language";

@@ -16,8 +16,6 @@ using Fanex.Result.Core.AllBetCasino;
 using Fanex.Result.Core.MicroGaming;
 using Fanex.Result.Core.PP;
 using Fanex.Result.Core.Voidbridge;
-using ONEbook.UM.Services;
-using ONEbook.UM.Services.Impl;
 
 namespace Fanex.Athena
 {
@@ -47,7 +45,6 @@ namespace Fanex.Athena
 
         private static void RegisterThirdpartyServices(ContainerBuilder builder)
         {
-            builder.RegisterType<MaintenanceService>().As<IMaintenanceService>();
             builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
             builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
             builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerDependency();

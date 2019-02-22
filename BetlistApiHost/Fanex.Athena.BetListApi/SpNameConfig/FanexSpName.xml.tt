@@ -3,7 +3,7 @@
 <#@ include file="SpNameConfiguration.ttinclude" #>
 <#
 	string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
-	Directory.SetCurrentDirectory(path);
+	Directory.SetCurrentDirectory(path + "BetlistApiHost");
 	var manager = TemplateFileManager.Create(this);	
 	var allSpName = Helper.GetAllSpName();
 	var listOfConfig = Helper.GetListOfConfig();

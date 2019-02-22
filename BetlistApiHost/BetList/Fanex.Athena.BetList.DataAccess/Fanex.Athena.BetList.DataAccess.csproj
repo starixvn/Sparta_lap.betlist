@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Fanex.Athena.BetList.DataAccess.ruleset" />
     <None Include="Fanex.Athena.DataAccess.BetList.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

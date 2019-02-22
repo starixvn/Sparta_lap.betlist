@@ -61,6 +61,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BetList", "BetList", "{2D1D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.DataAccess.UnitTests", "BetlistApiHost\UnitTests\Fanex.Athena.BetList.DataAccess.UnitTests\Fanex.Athena.BetList.DataAccess.UnitTests.csproj", "{45B72065-B9DA-43A2-87C0-83B79E5EB08C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{E01A3CB6-13F2-495B-AEAC-8F26EC6D4655}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\LRFCSharp.ruleset = SonarQube\LRFCSharp.ruleset
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

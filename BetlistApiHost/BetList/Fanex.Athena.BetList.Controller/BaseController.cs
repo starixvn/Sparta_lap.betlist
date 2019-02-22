@@ -13,11 +13,9 @@ namespace Fanex.Athena.BetList.Controller
     using System.Web.SessionState;
     using Common.Utility.Attributes;
     using Model.DTO;
-    using ONEbook.UM.Filters;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CustomAuth]
-    [CheckUMFilter]
     public class BaseController : Controller
     {
         private const string LANGUAGEKEY = "Language";
