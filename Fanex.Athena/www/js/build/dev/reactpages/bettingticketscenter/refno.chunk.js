@@ -3503,7 +3503,7 @@ var Pager = function (_Component) {
             return _react2.default.createElement(
                 'span',
                 { className: 'page-info' },
-                'View ' + viewFrom + '-' + (viewTo > totalItem ? totalItem : viewTo) + ' of ' + totalItem
+                'View ' + viewFrom + '-' + (viewTo > totalItem ? totalItem : viewTo) + ' of ' + totalItem.toLocaleString()
             );
         }
     }, {
@@ -6430,7 +6430,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                         _langHelper2.default.getSingleResource('BettingTicketCenter_RefnoTabNote1'),
                         _react2.default.createElement('br', null),
                         '* ',
-                        _langHelper2.default.getSingleResource('BettingTicketCenter_RefnoTabNote2').replace('{0}', _AppData2.default.moveBetDay)
+                        _langHelper2.default.getSingleResource('BettingTicketCenter_RefnoTabNote2').replace('{0}', _AppData2.default.balanceUpDay)
                     )
                 )
             );

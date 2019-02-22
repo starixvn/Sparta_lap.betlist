@@ -949,7 +949,7 @@ var Pager = function (_Component) {
             return _react2.default.createElement(
                 'span',
                 { className: 'page-info' },
-                'View ' + viewFrom + '-' + (viewTo > totalItem ? totalItem : viewTo) + ' of ' + totalItem
+                'View ' + viewFrom + '-' + (viewTo > totalItem ? totalItem : viewTo) + ' of ' + totalItem.toLocaleString()
             );
         }
     }, {
