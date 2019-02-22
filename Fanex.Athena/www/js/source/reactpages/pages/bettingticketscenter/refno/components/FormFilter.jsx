@@ -148,7 +148,7 @@ export class FormFilter extends Component {
                         <div className="col-9">
                             * {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote1')}
                             <br />
-                            * {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote2').replace('{0}', AppData.moveBetDay)}
+                            * {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote2').replace('{0}', AppData.balanceUpDay)}
                         </div>
                </div>
             </div>
