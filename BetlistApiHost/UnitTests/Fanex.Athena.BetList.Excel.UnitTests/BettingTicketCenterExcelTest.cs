@@ -1,13 +1,13 @@
-﻿using Fanex.Athena.Excel.BetList.Builders;
-using Fanex.Athena.Excel.BetList.Model;
-using Fanex.Athena.Model.BetList.DTO;
+﻿using Fanex.Athena.BetList.Excel.Builders;
+using Fanex.Athena.BetList.Excel.Model;
+using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.Resources;
 using Fanex.Athena.UnitTest.Common.Helpers;
 using NPOI.SS.UserModel;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Fanex.Athena.Excel.BetList.UnitTests
+namespace Fanex.Athena.BetList.Excel.UnitTests
 {
     [TestFixture]
     internal class BettingTicketCenterExcelTest

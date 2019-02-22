@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Excel.BetList.Builders.UnitTests
 {
-    using Athena.Model.BetList.DTO;
-    using Athena.Model.Core.DataDomain;
-    using Constant.DataDomain;
+    using Athena.BetList.Excel.Builders;
+    using Athena.BetList.Model.DTO;
+    using Common.Constant;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NPOI.HSSF.UserModel;
@@ -13,7 +13,6 @@
     using NUnit.Framework;
     using Resources;
     using UnitTest.Common.Helpers;
-    using VendorAdapter.Interfaces;
 
     public class BettingTicketCenterExcelTest
     {
@@ -31,13 +30,11 @@
         [SetUp]
         public void Setup()
         {
-            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _ticketHelper = Substitute.For<ITicketHelper>();
             _builder = Substitute.For<IBetListExcelBuilder>();
 
             _excelBuilder = Substitute.ForPartsOf<BettingTicketCenterExcelBuilder>(
                 _builder,
-                cacheRefAdapter,
                 _ticketHelper);
 
             _oddStyle = Substitute.For<ICellStyle>();

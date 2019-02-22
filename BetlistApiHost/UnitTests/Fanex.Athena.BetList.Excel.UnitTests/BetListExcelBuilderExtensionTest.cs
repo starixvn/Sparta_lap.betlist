@@ -1,8 +1,9 @@
-﻿namespace Fanex.Athena.Excel.BetList.UnitTests
+﻿namespace Fanex.Athena.BetList.Excel.UnitTests
 {
     using System.Linq;
-    using Athena.Model.BetList.DTO;
-    using Constant.DataDomain;
+    using Athena.BetList.Excel;
+    using Athena.BetList.Model.DTO;
+    using Common.Constant;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NPOI.SS.UserModel;

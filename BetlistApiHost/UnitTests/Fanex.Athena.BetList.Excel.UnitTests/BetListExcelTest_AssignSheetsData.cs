@@ -1,27 +1,25 @@
-﻿using Fanex.Athena.Excel.Base.Entities;
-using Fanex.Athena.Extension.Utility;
-using Fanex.Athena.Model.BetList.DTO;
-using Fanex.Athena.Model.Core.DataDomain;
-using Fanex.Athena.VendorAdapter.Interfaces;
+﻿using Fanex.Athena.BetList.Excel;
+using Fanex.Athena.BetList.Model.DTO;
+using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.Common.Constant;
+using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 using NPOI.SS.UserModel;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Fanex.Athena.Excel.BetList.UnitTests
+namespace Fanex.Athena.BetList.Excel.UnitTests
 {
     [TestFixture]
     internal class BetListExcelTest_AssignSheetdata
     {
-        private ICacheRefAdapter _cacheRefAdapter;
         private ITicketHelper _ticketHelper;
         private IBetListExcelBuilder _builder;
 
         [SetUp]
         public void Setup()
         {
-            _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _ticketHelper = Substitute.For<ITicketHelper>();
             _builder = Substitute.For<IBetListExcelBuilder>();
         }
@@ -51,7 +49,7 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
         {
             // Arrange
             const string Title = "aaaa";
-            var betListExcel = CreateBetListExcel(showingOption: new ShowingOption { GrandTotalVisible = true });
+            var betListExcel = CreateBetListExcel(showingOption: new BetListShowingOption { GrandTotalVisible = true });
             betListExcel.When(x => x.BuildTicket(Arg.Any<IBetListExcelBuilder>(), Arg.Any<TicketResult>(), Arg.Any<LrfTicket>())).DoNotCallBase();
             var ticketResult = new TicketResult
             {
@@ -89,14 +87,13 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
 
         private BetListExcel CreateBetListExcel(
             bool isShowSumStake = false,
-            ShowingOption showingOption = null,
+            BetListShowingOption showingOption = null,
             int[] hiddenColumnIndexes = null)
         {
             var betListExcel = Substitute.ForPartsOf<BetListExcel>(
-                _cacheRefAdapter,
                 Substitute.For<IAppSettings>(),
                 _ticketHelper,
-                showingOption ?? new ShowingOption(),
+                showingOption ?? new BetListShowingOption(),
                 LicenseeIdentity.OneTwoBet,
                 hiddenColumnIndexes ?? new int[] { },
                 isShowSumStake);

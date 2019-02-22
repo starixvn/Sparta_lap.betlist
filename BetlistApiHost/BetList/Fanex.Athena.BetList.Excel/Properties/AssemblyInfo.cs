@@ -9,4 +9,4 @@ using System.Runtime.CompilerServices;
 
 [assembly: System.CLSCompliant(false)]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: InternalsVisibleTo("Fanex.Athena.Excel.BetList.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.BetList.Excel.UnitTests")]

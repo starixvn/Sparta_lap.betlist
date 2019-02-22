@@ -1,21 +1,20 @@
-﻿using Fanex.Athena.Excel.Base.Entities;
-using Fanex.Athena.Extension.Utility;
-using Fanex.Athena.Model.BetList.DTO;
+﻿using Fanex.Athena.BetList.Excel;
+using Fanex.Athena.BetList.Model.DTO;
+using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.Athena.Resources;
-using Fanex.Athena.VendorAdapter.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 using NPOI.SS.UserModel;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Fanex.Athena.Excel.BetList.UnitTests
+namespace Fanex.Athena.BetList.Excel.UnitTests
 {
     [TestFixture]
     internal class BetListExcelTest
     {
         private const int LicenseeId = 9999;
-        private ICacheRefAdapter _cacheRefAdapter;
         private IAppSettings _appSettings;
         private ITicketHelper _ticketHelper;
         private IBetListExcelBuilder _builder;
@@ -23,7 +22,6 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
         [SetUp]
         public void Setup()
         {
-            _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _appSettings = Substitute.For<IAppSettings>();
             _ticketHelper = Substitute.For<ITicketHelper>();
             _builder = Substitute.For<IBetListExcelBuilder>();
@@ -139,13 +137,12 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
             });
         }
 
-        private BetListExcel CreateBetListExcel(ShowingOption showingOption = null, int[] hiddenColumns = null)
+        private BetListExcel CreateBetListExcel(BetListShowingOption showingOption = null, int[] hiddenColumns = null)
         {
             var betListExcel = Substitute.ForPartsOf<BetListExcel>(
-                _cacheRefAdapter,
                 _appSettings,
                 _ticketHelper,
-                showingOption ?? new ShowingOption(),
+                showingOption ?? new BetListShowingOption(),
                 LicenseeId,
                 hiddenColumns ?? new int[] { },
                 false);
