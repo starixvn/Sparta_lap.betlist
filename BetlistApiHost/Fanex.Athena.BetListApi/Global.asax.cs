@@ -67,7 +67,7 @@ namespace Fanex.Athena
                     .Run();
                 RefDataTypeContainer
                .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
-               .FromApplication("Fanex.LAP");
+               .FromApplication("Fanex.LAP.BetListApi");
                 BetListManager.RegisterRemotingRef(new CacheRef());
                 ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
 
