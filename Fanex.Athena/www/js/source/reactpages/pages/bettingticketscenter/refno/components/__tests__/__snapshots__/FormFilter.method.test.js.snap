@@ -232,9 +232,24 @@ exports[`FormFilter  render correctly 1`] = `
     className="row"
   >
     <div
-      className="col-11"
+      className="col-1"
+      style={
+        Object {
+          "flex": "0 0 4%",
+        }
+      }
     >
-      BettingTicketCenter_RefnoTabNote
+      Note
+      :
+    </div>
+    <div
+      className="col-9"
+    >
+      * 
+      BettingTicketCenter_RefnoTabNote1
+      <br />
+      * 
+      BettingTicketCenter_RefnoTabNote2
     </div>
   </div>
 </div>
