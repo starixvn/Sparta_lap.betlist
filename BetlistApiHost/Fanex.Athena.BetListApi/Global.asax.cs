@@ -28,66 +28,47 @@ namespace Fanex.Athena
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public void Application_Error(object sender, EventArgs e)
         {
-            var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
-            if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
+            // Code that runs when an unhandled error occurs
+            var exception = Server.GetLastError();
+
+            // Exception when passing wrong data type to action method
+            if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
+                 exception.TargetSite.Name == "ExtractParameterFromDictionary")
             {
-                // Code that runs when an unhandled error occurs
-                var exception = Server.GetLastError();
-
-                // Exception when passing wrong data type to action method
-                if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
-                     exception.TargetSite.Name == "ExtractParameterFromDictionary")
-                {
-                    return;
-                }
-
-                ExceptionHandler.Handle(exception);
+                return;
             }
+
+            ExceptionHandler.Handle(exception);
         }
 
         [SuppressMessage("Sonar Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Reviewed.")]
         public void Application_Start(object sender, EventArgs e)
         {
-            var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
-            if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
-            {
-                ViewEngines.Engines.Clear();
-                ViewEngines.Engines.Add(new RazorViewEngine());
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
 
-                AreaRegistration.RegisterAllAreas();
+            AreaRegistration.RegisterAllAreas();
 
-                RouteConfig.RegisterRoutes(RouteTable.Routes);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-                GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+            GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 
-                DbSettingProviderManager
-                    .StartNewSession()
-                    .UseDefaultConnectionStringProvider()
-                    .UseDefaultDbSettingProvider(resourcePath: "~/SpNameConfig/FanexSpName.xml")
-                    .Run();
-                RefDataTypeContainer
-               .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
-               .FromApplication("Fanex.LAP.BetListApi");
-                BetListManager.RegisterRemotingRef(new CacheRef());
-                ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
+            DbSettingProviderManager
+                .StartNewSession()
+                .UseDefaultConnectionStringProvider()
+                .UseDefaultDbSettingProvider(resourcePath: "~/SpNameConfig/FanexSpName.xml")
+                .Run();
+            RefDataTypeContainer
+           .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
+           .FromApplication("Fanex.LAP.BetListApi");
+            BetListManager.RegisterRemotingRef(new CacheRef());
+            ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
 
-                Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
-                    .IgnoreException<HttpAntiForgeryException>()
-                    .GetHttpHeaderInfo()
-                    .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
-                DIConfig.Register();
-            }
-        }
-
-        /// <summary>
-        /// End request.
-        /// </summary>
-        protected void Application_EndRequest()
-        {
-            Response.Headers.Remove("X-AspNet-Version");
-            Response.Headers.Remove("X-AspNetMvc-Version");
-            Response.Headers.Remove("Server");
-            Response.Headers.Remove("X-Powered-By");
+            Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
+                .IgnoreException<HttpAntiForgeryException>()
+                .GetHttpHeaderInfo()
+                .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+            DIConfig.Register();
         }
     }
 }

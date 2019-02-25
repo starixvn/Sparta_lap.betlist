@@ -3,6 +3,7 @@
     using System;
     using Common.DataAccess.Interfaces;
     using Common.Model.DTO;
+    using Common.Utility.Services.Interfaces;
     using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -45,8 +46,6 @@
 
         protected void AssertDefaultBetListViewModel(BetListMetaModel viewModel, BetListMetaModel metaModel)
         {
-            Assert.That(viewModel.LicenseeId, Is.EqualTo(DefaultLicenseeSession.LicenseeId));
-            Assert.That(viewModel.UserId, Is.EqualTo(DefaultUserSession.UserId));
             Assert.That(viewModel.BalanceUpDay.Date, Is.EqualTo(BalanceUp.BalanceUpDay.Date));
             Assert.That(viewModel.MoveBetsDay.Date, Is.EqualTo(BalanceUp.MoveBetsDay.Date));
             Assert.That(viewModel.FromDate.Date, Is.EqualTo(metaModel.FromDate.Date));
