@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Api.BetList.UnitTests
 {
     using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -10,66 +12,73 @@
     {
         private const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
 
-        private PendingFundsBetListController _controller;
+        private const string ApiPath = "/BetList/GetBetList";
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
-            base.FixtureSetUp();
+            MockSessionData();
 
-            _controller = Substitute.ForPartsOf<PendingFundsBetListController>(
-                SessionService,
-                ProductService,
-                LangService,
-                BridgeClientService,
-                BalanceUpDataAccess);
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            base.FixtureTearDown();
-
-            _controller = null;
+            AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [Test]
-        public void Detail_InvalidCurrency_ReturnNull()
+        public async Task Detail_InvalidCurrency_ReturnNull()
         {
-            // Arrange
-            var metaModel = new BetListMetaModel { CurrencyId = 1 };
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = new BetListMetaModel { CurrencyId = 1 };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void Detail_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
+        public async Task Detail_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
         {
-            // Arrange
-            var metaModel = new BetListMetaModel { CurrencyId = currencyId };
-
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
-            SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
-
-            _controller.When(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();
-
-            // Action
-            _controller.Index(metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                _controller.Received().GetBetListResult(metaModel, UspKey);
-                Assert.That(metaModel.ToDate, Is.EqualTo(metaModel.FromDate.AddYears(2)));
-            });
+                // Arrange
+                var metaModel = new BetListMetaModel { CurrencyId = currencyId };
+
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(Arg.Any<WinLossByLeagueBetListMetaModel>(), ApiPath, expect);
+
+                // Action
+                var actual = await controller.Index(metaModel);
+
+                // Assert
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
+                    Assert.That(metaModel.ToDate, Is.EqualTo(metaModel.FromDate.AddYears(2)));
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                });
+            }
+        }
+
+        private PendingFundsBetListController CreateController()
+        {
+            return new PendingFundsBetListController(
+                SessionService,
+                ProductService,
+                LangService,
+                AuthorizationService,
+                BetListApiClient,
+                BalanceUpDataAccess);
         }
     }
 }

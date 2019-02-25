@@ -1,43 +1,66 @@
 ﻿namespace Fanex.Athena.Api.BetList.UnitTests
 {
-    using System;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class DailyBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
         private const string UspKey = "Lrf_BetList_SelWinlossDaily";
 
+        private const string ApiPath = "/BetList/GetDailyBetListData";
+
+        [SetUp]
+        public void SetUp()
+        {
+            MockSessionData();
+
+            AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+        }
+
         [TestCase(null, "")]
         [TestCase("test", "test")]
-        public void Index_WhenCall_GetBetListResultWithCorrectParameter(string baseCurrency, string expectedBaseCurrency)
+        public async Task Index_WhenCall_CallBetListApiWithCorrectParameters(string baseCurrency, string expectedBaseCurrency)
         {
-            // Arrange
-            var controller = Substitute.ForPartsOf<DailyBetListController>(
+            using (var controller = new DailyBetListController(
                 SessionService,
                 ProductService,
                 LangService,
-                BridgeClientService,
-                BalanceUpDataAccess);
+                AuthorizationService,
+                BetListApiClient,
+                BalanceUpDataAccess))
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<DailyBetListMetaModel>();
 
-            const int Page = 1;
-            const int Rows = 50;
-            var date = new DateTime(2018, 1, 1);
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(Arg.Any<DailyBetListMetaModel>(), ApiPath, expect);
 
-            SessionService.GenerateAgentListXml(0).Returns("<Xml/>");
+                // Action
+                var actual = await controller.Index(
+                    metaModel.PageIndex,
+                    metaModel.PageSize,
+                    metaModel.CurrencyId,
+                    metaModel.CurrencyName,
+                    baseCurrency,
+                    metaModel.Date,
+                    metaModel.ProductCode,
+                    metaModel.DailyBetListStatus,
+                    metaModel.SortBy,
+                    metaModel.SortOrder);
 
-            controller.When(x => x.GetPagingBetListResult(Arg.Any<DailyBetListMetaModel>(), UspKey, Page, Rows)).DoNotCallBase();
-
-            // Action
-            controller.Index(Page, Rows, 0, string.Empty, baseCurrency, date, string.Empty, string.Empty);
-
-            // Assert
-            controller.Received().GetPagingBetListResult(
-                Arg.Is<DailyBetListMetaModel>(x => x.BaseCurrency == expectedBaseCurrency && x.Date == date.Date && x.FromDate == date.Date && x.ToDate == date.Date),
-                UspKey,
-                Page,
-                Rows);
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    BetListApiClient.Received().PostAsync(
+                        ApiPath,
+                        Arg.Is<DailyBetListMetaModel>(x => x.BaseCurrency == expectedBaseCurrency && x.UspKey == UspKey));
+                });
+            }
         }
     }
 }

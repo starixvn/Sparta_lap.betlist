@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -11,73 +13,88 @@
     {
         private const string UspKey = "Lrf_BetList_SelWinLossByBetType";
 
-        private WinlossByBetTypeBetListController _controller;
+        private const string ApiPath = "/BetList/GetBetListPaging";
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
-            base.FixtureSetUp();
+            MockSessionData();
 
-            _controller = Substitute.ForPartsOf<WinlossByBetTypeBetListController>(
-                SessionService,
-                ProductService,
-                LangService,
-                BridgeClientService,
-                BalanceUpDataAccess);
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            base.FixtureTearDown();
-
-            _controller = null;
+            AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [Test]
-        public void Detail_InvalidCurrency_ReturnNull()
+        public async Task Detail_InvalidCurrency_ReturnNull()
         {
-            // Arrange
-            const int CurrencyId = 1;
+            using (var controller = CreateController())
+            {
+                // Arrange
+                const int CurrencyId = 1;
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
-            // Action
-            var result = _controller.Index(1, 50, CurrencyId, string.Empty, string.Empty, DateTime.Today, DateTime.Today, 1);
+                // Action
+                var result = await controller.Index(1, 50, CurrencyId, string.Empty, string.Empty, DateTime.Today, DateTime.Today, 1);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [TestCase(0, "usd", "usd")]
         [TestCase(1, null, "")]
         [TestCase(2, "", "")]
-        public void Detail_WhenCall_GetBetListResultWithCorrectParameter(int currencyId, string baseCurrency, string expectedBaseCurrency)
+        public async Task Detail_WhenCall_CallBetListApiWithCorrectParameters(int currencyId, string baseCurrency, string expectedBaseCurrency)
         {
-            // Arrange
-            const int Page = 2;
-            const int Rows = 50;
-            const string CurrencyName = "USD";
-            var fromDate = new DateTime(2018, 1, 1);
-            var toDate = new DateTime(2018, 1, 2);
-            const int BetType = 1;
-            const string SortBy = "Index";
-            const string SortOrder = "asc";
+            using (var controller = CreateController())
+            {
+                // Arrange
+                const int Page = 2;
+                const int Rows = 50;
+                const string CurrencyName = "USD";
+                var fromDate = new DateTime(2018, 1, 1);
+                var toDate = new DateTime(2018, 1, 2);
+                const int BetType = 1;
+                const string SortBy = "Index";
+                const string SortOrder = "asc";
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
-            SessionService.GenerateAgentListXml(currencyId).Returns("<Xml/>");
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
 
-            _controller.When(x => x.GetPagingBetListResult(Arg.Any<BetListMetaModel>(), UspKey, Page, Rows)).DoNotCallBase();
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(Arg.Any<BetListMetaModel>(), ApiPath, expect);
 
-            // Action
-            _controller.Index(Page, Rows, currencyId, CurrencyName, baseCurrency, fromDate, toDate, BetType, SortBy, SortOrder);
+                // Action
+                var actual = await controller.Index(Page, Rows, currencyId, CurrencyName, baseCurrency, fromDate, toDate, BetType, SortBy, SortOrder);
 
-            // Assert
-            _controller.Received().GetPagingBetListResult(
-                Arg.Is<BetListMetaModel>(x => x.CurrencyName == CurrencyName && x.BaseCurrency == expectedBaseCurrency && x.SortBy == SortBy && x.SortOrder == SortOrder),
-                UspKey,
-                Page,
-                Rows);
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    BetListApiClient.Received().PostAsync(
+                        ApiPath,
+                        Arg.Is<BetListMetaModel>(x => x.UspKey == UspKey
+                            && x.PageIndex == Page
+                            && x.PageSize == Rows
+                            && x.BetType == BetType
+                            && x.FromDate == fromDate
+                            && x.ToDate == toDate
+                            && x.CurrencyName == CurrencyName
+                            && x.BaseCurrency == expectedBaseCurrency
+                            && x.SortBy == SortBy
+                            && x.SortOrder == SortOrder));
+                });
+            }
+        }
+
+        private WinlossByBetTypeBetListController CreateController()
+        {
+            return new WinlossByBetTypeBetListController(
+                SessionService,
+                ProductService,
+                LangService,
+                AuthorizationService,
+                BetListApiClient,
+                BalanceUpDataAccess);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{195AD258-DE51-497C-BA3B-1645AE32CAB6}"
 EndProject
@@ -209,6 +209,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Report.UnitTests", "UnitTests\Fanex.Athena.Service.Report.UnitTests\Fanex.Athena.Service.Report.UnitTests.csproj", "{342461F7-14F3-427B-B8C8-FEB64C06DD3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.Report.UnitTests", "UnitTests\Fanex.Athena.Controllers.Report.UnitTests\Fanex.Athena.Controllers.Report.UnitTests.csproj", "{E76D2690-BC0E-465C-87EF-A9C3AD62127B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.BetList.UnitTests", "UnitTests\Fanex.Athena.Api.BetList.UnitTests\Fanex.Athena.Api.BetList.UnitTests.csproj", "{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1182,6 +1184,18 @@ Global
 		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Release|x86.ActiveCfg = Release|Any CPU
 		{E76D2690-BC0E-465C-87EF-A9C3AD62127B}.Release|x86.Build.0 = Release|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Debug|x86.Build.0 = Debug|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Release|x86.ActiveCfg = Release|Any CPU
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1274,10 +1288,11 @@ Global
 		{A30D3AFD-76C0-48E8-87B7-CDB25B490BC3} = {4D5CED10-CCDF-4520-8FE1-E599D3DB18D6}
 		{342461F7-14F3-427B-B8C8-FEB64C06DD3B} = {8A922757-8C4B-44C0-9D3E-9B68E6AE956B}
 		{E76D2690-BC0E-465C-87EF-A9C3AD62127B} = {62FD2471-9E6A-4BD1-9AB3-8C4C6FF658A1}
+		{CEA2BA6E-D525-48CC-B55E-CD6C1CC3D501} = {8124F11D-CD42-4473-AE75-80290172BE0A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
-		RESX_ShowErrorsInErrorList = False
 		SolutionGuid = {AF850210-126B-4E21-BADB-F5C02AD2CCEE}
+		RESX_ShowErrorsInErrorList = False
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal
