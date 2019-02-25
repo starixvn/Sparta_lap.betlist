@@ -1,6 +1,6 @@
-﻿using Fanex.Athena.BetList.Excel;
-using Fanex.Athena.BetList.Model.DTO;
+﻿using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.BetList.Core.Builder;
@@ -8,7 +8,6 @@ using Fanex.BetList.Core.Entities;
 using NPOI.SS.UserModel;
 using NSubstitute;
 using NUnit.Framework;
-using Fanex.Athena.BetList.Service.Extensions;
 
 namespace Fanex.Athena.BetList.Excel.UnitTests
 {

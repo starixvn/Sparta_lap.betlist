@@ -33,7 +33,7 @@
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
-            //    response.EnsureSuccessStatusCode();
+                response.EnsureSuccessStatusCode();
 
                 return response;
             }
@@ -46,7 +46,7 @@
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
-            //    response.EnsureSuccessStatusCode();
+                response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<T>(json);
             }
@@ -58,7 +58,7 @@
             {
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
-             //   response.EnsureSuccessStatusCode();
+                response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             }
@@ -71,7 +71,7 @@
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
-            //    response.EnsureSuccessStatusCode();
+                response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }

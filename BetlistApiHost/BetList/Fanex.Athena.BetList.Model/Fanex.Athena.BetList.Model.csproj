@@ -177,7 +177,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Fanex.Athena.BetList.Model.ruleset" />
-    <None Include="Fanex.Athena.Model.BetList.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

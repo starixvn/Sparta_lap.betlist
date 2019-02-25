@@ -208,7 +208,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Fanex.Athena.BetList.Excel.ruleset" />
-    <None Include="Fanex.Athena.Excel.BetList.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
