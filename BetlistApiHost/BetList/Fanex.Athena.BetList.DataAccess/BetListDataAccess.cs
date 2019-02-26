@@ -127,12 +127,7 @@ namespace Fanex.Athena.BetList.DataAccess
                     SortData(metaModel, ticketResult.MainTicketList);
                 }
 
-                var outSqlParams = db.GetOuputParams();
-
-                if (outSqlParams == null)
-                {
-                    outSqlParams = new Hashtable();
-                }
+                Hashtable outSqlParams = db.GetOuputParams() ?? new Hashtable();
 
                 UpdateSummaryData(ticketResult, outSqlParams, baseCurrency);
 

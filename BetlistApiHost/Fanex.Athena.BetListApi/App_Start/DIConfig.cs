@@ -80,8 +80,8 @@ namespace Fanex.Athena
         private static Assembly[] GetControllerAssemblies(Assembly[] assemblies)
         {
             return assemblies.Where(ass =>
-                ass.FullName.Contains("Fanex.Athena.BetList.Controller") ||
-                ass.FullName.Contains("Fanex.Athena.Result.Controller")).ToArray();
+                ass.FullName.Contains("Fanex.Athena.BetList.Controller")
+                || ass.FullName.Contains("Fanex.Athena.Result.Controller")).ToArray();
         }
     }
 }
