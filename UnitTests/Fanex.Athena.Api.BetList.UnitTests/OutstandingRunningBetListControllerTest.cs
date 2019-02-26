@@ -2,9 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Session.Model;
@@ -15,104 +16,115 @@
 
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
-        private OutstandingRunningBetListController _controller;
+        private const string ApiPath = "/BetList/GetBetList";
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
-            base.FixtureSetUp();
+            MockSessionData();
 
-            _controller = Substitute.ForPartsOf<OutstandingRunningBetListController>(
-                SessionService,
-                ProductService,
-                LangService,
-                BridgeClientService,
-                BalanceUpDataAccess);
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            base.FixtureTearDown();
-
-            _controller = null;
+            AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [Test]
-        public void Detail_InvalidCurrency_ReturnNull()
+        public async Task Detail_InvalidCurrency_ReturnNull()
         {
-            // Arrange
-            var metaModel = new BetListMetaModel { CurrencyId = 1, ProductCodeList = "1,2,3" };
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = new BetListMetaModel { CurrencyId = 1, ProductCodeList = "1,2,3" };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [Test]
-        public void Detail_InvalidDate_ReturnNull()
+        public async Task Detail_InvalidDate_ReturnNull()
         {
-            // Arrange
-            var metaModel = new BetListMetaModel { CurrencyId = 1, FromDate = new DateTime(2018, 1, 3), ToDate = new DateTime(2018, 1, 1) };
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = new BetListMetaModel { CurrencyId = 1, FromDate = new DateTime(2018, 1, 3), ToDate = new DateTime(2018, 1, 1) };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [Test]
-        public void Detail_InvalidProductCodeList_ReturnNull()
+        public async Task Detail_InvalidProductCodeList_ReturnNull()
         {
-            // Arrange
-            var metaModel = new BetListMetaModel { CurrencyId = 1, ProductCodeList = string.Empty };
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = new BetListMetaModel { CurrencyId = 1, ProductCodeList = string.Empty };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { metaModel.CurrencyId, "Currency" } } });
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { metaModel.CurrencyId, "Currency" } } });
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void Detail_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
+        public async Task Detail_WhenCall_CallBetListApiWithCorrectParameters(int currencyId)
         {
-            // Arrange
-            var metaModel = new BetListMetaModel { CurrencyId = currencyId, ProductCodeList = "Product1,Product2" };
-
-            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
-            StubUserSessionData(new UserSession { Language = SessionLanguage, CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
-            SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
-
-            ProductService.GetProductAccess(
-                SessionLicenseeId,
-                SessionLanguage,
-                BetListCustomerOutstandingRunningName)
-            .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = "Product1" }, new Product { ProductCode = "Product3" } }));
-
-            _controller.When(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();
-
-            // Action
-            _controller.Index(metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                _controller.Received().GetBetListResult(metaModel, UspKey);
-                Assert.That(metaModel.ToDate.Hour, Is.EqualTo(23));
-                Assert.That(metaModel.ProductCodeList, Is.EqualTo("Product1"));
-            });
+                // Arrange
+                var metaModel = new BetListMetaModel { CurrencyId = currencyId, ProductCodeList = "Product1,Product2" };
+
+                StubUserSessionData(new UserSession { Language = SessionLanguage, CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
+
+                ProductService.GetProductAccess(
+                    SessionLicenseeId,
+                    SessionLanguage,
+                    BetListCustomerOutstandingRunningName)
+                .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = "Product1" }, new Product { ProductCode = "Product3" } }));
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(Arg.Any<BetListMetaModel>(), ApiPath, expect);
+
+                // Action
+                var actual = await controller.Index(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.ToDate.Hour, Is.EqualTo(23));
+                    Assert.That(metaModel.ProductCodeList, Is.EqualTo("Product1"));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                });
+            }
+        }
+
+        private OutstandingRunningBetListController CreateController()
+        {
+            return new OutstandingRunningBetListController(
+                SessionService,
+                ProductService,
+                LangService,
+                AuthorizationService,
+                BetListApiClient,
+                BalanceUpDataAccess);
         }
     }
 }

@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Api.Base.UnitTests;
-    using Model.BetList.MetaModel;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;

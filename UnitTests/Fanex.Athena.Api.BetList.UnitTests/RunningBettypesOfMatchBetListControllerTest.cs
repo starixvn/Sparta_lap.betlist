@@ -53,7 +53,7 @@
                 StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
 
                 var expect = new HttpResponseMessage();
-                StubBetListApiPostAsync(Arg.Any<WinLossByLeagueBetListMetaModel>(), ApiPath, expect);
+                StubBetListApiPostAsync(Arg.Any<BetListMetaModel>(), ApiPath, expect);
 
                 // Action
                 var actual = await controller.Index(metaModel);

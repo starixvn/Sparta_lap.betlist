@@ -43,7 +43,7 @@
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public async Task Detail_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
+        public async Task Detail_WhenCall_CallBetListApiWithCorrectParameters(int currencyId)
         {
             using (var controller = CreateController())
             {
@@ -53,12 +53,11 @@
                 StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
 
                 var expect = new HttpResponseMessage();
-                StubBetListApiPostAsync(Arg.Any<WinLossByLeagueBetListMetaModel>(), ApiPath, expect);
+                StubBetListApiPostAsync(Arg.Any<BetListMetaModel>(), ApiPath, expect);
 
                 // Action
                 var actual = await controller.Index(metaModel);
 
-                // Assert
                 // Assert
                 Assert.Multiple(() =>
                 {
