@@ -26,10 +26,5 @@
         {
             return reader[fieldName] != DBNull.Value ? reader.ToInt(fieldName) : defaultValue;
         }
-
-        public static decimal? ToNullableDecimal(this IDataReader reader, string fieldName, decimal? defaultValue = null)
-        {
-            return reader[fieldName] != DBNull.Value ? reader.ToDecimal(fieldName) : defaultValue;
-        }
     }
 }
