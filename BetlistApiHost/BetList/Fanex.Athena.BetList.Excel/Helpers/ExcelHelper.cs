@@ -2,7 +2,7 @@
 
 namespace Fanex.Athena.BetList.Excel.Helpers
 {
-    public class ExcelHelper
+    public static class ExcelHelper
     {
         public static void HideColumn(ISheet sheet, params int[] columnIndex)
         {

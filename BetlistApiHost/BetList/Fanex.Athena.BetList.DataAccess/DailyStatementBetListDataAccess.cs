@@ -6,6 +6,7 @@
     using System.Globalization;
     using System.Linq;
     using Common.DataAccess.Interfaces;
+    using Common.Utility.Extensions;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Common.Extensions;
@@ -50,7 +51,9 @@
             }
         }
 
+#pragma warning disable S3776 // Cognitive Complexity of methods should not be too high
         private static IEnumerable<DailyStatement> ReadData(BetListMetaModel metaModel, IDataReader reader)
+#pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
         {
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
             var index = 1;
@@ -68,8 +71,8 @@
                 var transType = reader.ToString("transtype").ToLower(currentCulture);
                 var transDesc = reader.ToString("transdesc");
                 var isOutstandingBet = transDesc.ToLower(currentCulture) == "outstanding bet";
-                var transTypeId = TransTypeIdMap.ContainsKey(transDesc.ToLower(currentCulture)) ? TransTypeIdMap[transDesc.ToLower(currentCulture)] : 0;
-                var credit = transDesc.ToLower(currentCulture) == "outstanding bet" || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
+                var transTypeId = TransTypeIdMap.GetValueOrDefault(transDesc.ToLower(currentCulture), 0);
+                var credit = isOutstandingBet || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
                 var comm = reader.ToDecimal(commissionColumn);
                 var turnover = reader.ToDecimal(turnoverColumn);
 
@@ -91,7 +94,7 @@
                     Index = index++,
                     Date = winlostDate.ToString("MM/dd/yyyy"),
                     Remark = string.Format(FormatRemark, transType.ToUpper(currentCulture), transDesc),
-                    Turnover = NumberReport(reader.ToDecimal(turnoverColumn)),
+                    Turnover = NumberReport(turnover),
                     CreditDebit = NumberReport(credit),
                     Commission = NumberReport(comm),
                     Balance = NumberReport(balance)
