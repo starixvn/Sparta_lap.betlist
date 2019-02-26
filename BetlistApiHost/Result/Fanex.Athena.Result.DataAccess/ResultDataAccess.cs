@@ -11,7 +11,6 @@ namespace Fanex.Athena.Result.DataAccess
     using System.Data;
     using System.Globalization;
     using System.Linq;
-    using Common.Constant.Helpers;
     using Common.DataAccess;
     using Common.DataAccess.Extensions;
     using Common.DataAccess.Interfaces;
@@ -333,7 +332,7 @@ namespace Fanex.Athena.Result.DataAccess
                         result.GameDetails = GetGameDetails(reader).ToList();
                         return result;
                     }
-                    
+
                     return null;
                 }
             }
@@ -424,7 +423,7 @@ namespace Fanex.Athena.Result.DataAccess
 
                 if (metaModel != null)
                 {
-                    result.BetID = BetTypeHelper.IsFastMarket(metaModel.Bettype) ? metaModel.Handicap1.ToString() : (metaModel.BetId ?? 0).ToString();
+                    result.BetID = IsFastMarket(metaModel.Bettype) ? metaModel.Handicap1.ToString() : (metaModel.BetId ?? 0).ToString();
                     result.Bettype = metaModel.Bettype;
                     result.Handicap2 = metaModel.Handicap2;
                 }
@@ -446,6 +445,13 @@ namespace Fanex.Athena.Result.DataAccess
             }
 
             return results;
+        }
+
+        private static bool IsFastMarket(int bettype)
+        {
+            const int FastMarketMinBetType = 221;
+            const int FastMarketMaxBetType = 227;
+            return bettype >= FastMarketMinBetType && bettype <= FastMarketMaxBetType;
         }
 
         private static IList<Racing> ReadVirtualSportMatches(IDataReader reader)
