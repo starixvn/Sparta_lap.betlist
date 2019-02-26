@@ -4,6 +4,7 @@ namespace Fanex.Athena.Controllers.Report.Result
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
+    using System.Web;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -187,7 +188,9 @@ namespace Fanex.Athena.Controllers.Report.Result
                 betType,
                 languageCode = SessionService.UserSession.Language
             };
-            ViewBag.Data = await _betListApiClient.PostAsyncString("/AllBetResultPopup/Index", model).ConfigureAwait(false);
+            var data = await _betListApiClient.PostAsyncString("/AllBetResultPopup/Index", model).ConfigureAwait(false);
+            data = data.Replace("{rootUrl}/", HttpRuntime.AppDomainAppVirtualPath);
+            ViewBag.Data = data;
             return View("~/Views/Desktop/Report/Result/Popup/AllBet.cshtml");
         }
 
