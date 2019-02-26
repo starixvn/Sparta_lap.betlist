@@ -140,7 +140,7 @@
             db.AddInParameter("betteam", DbType.String, metaModel.BetTeam);
             CreateBetListPagingParameters(db, metaModel);
         }
-        
+
         private static void CreateRunningBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
@@ -281,7 +281,7 @@
         {
             var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
 
-            CreateBetListSortingParameters(db, metaModel);
+            CreateBetListSortingParameters(db, metaModel, false);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
@@ -414,13 +414,18 @@
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
         }
 
-        private static void CreateBetListSortingParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateBetListSortingParameters(IObjectDb db, BetListMetaModel metaModel, bool hasBaseCurrency = true)
         {
             if (!string.IsNullOrWhiteSpace(metaModel.SortBy))
             {
-                var nonBaseCurrencyColumns = new[] { "nickname", "username" };
-                var sortBy = nonBaseCurrencyColumns.Contains(metaModel.SortBy.ToLowerInvariant()) ?
-                    metaModel.SortBy : metaModel.SortBy + metaModel.BaseCurrency;
+                var sortBy = metaModel.SortBy;
+                if (hasBaseCurrency)
+                {
+                    var nonBaseCurrencyColumns = new[] { "nickname", "username" };
+                    sortBy += nonBaseCurrencyColumns.Contains(metaModel.SortBy.ToLowerInvariant()) ?
+                        string.Empty : metaModel.BaseCurrency;
+                }
+
                 db.AddInParameter("Sort", DbType.String, sortBy + " " + metaModel.SortOrder);
             }
         }

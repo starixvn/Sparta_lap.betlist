@@ -42,13 +42,9 @@ export class FormFilter extends Component {
         }
     }
 
-    exportExcel = (event) => {
-        event.preventDefault();
+    exportExcel = () => {
         const { dateRange, selectedCurrency, selectedBaseCurrency } = this.props;
         const params = Object.assign({ IsExportExcel: true }, this._getParams());
-        if (!params) {
-            return;
-        }
 
         this.props.toggleLoader(true);
         DataService.postData(EXCEL_DATA_URL, params).then(response => {
@@ -100,7 +96,7 @@ export class FormFilter extends Component {
             UserName: username,
             Status: selectedStatus.split(','),
             PageIndex: 1,
-            PageSize: requestParam.PageSize ? requestParam.PageSize : 50
+            PageSize: requestParam.PageSize
         }
     }
 
@@ -124,11 +120,13 @@ export class FormFilter extends Component {
         const selectedCurrency = this.props.selectedCurrency;
         const currencyList = AppData.currencyList;
 
-        return <Select instanceId='ddlCurrency'
+        return currencyList && currencyList.length && (
+            <Select instanceId='ddlCurrency'
                     name='Currency'
                     value={selectedCurrency.value}
                     options={currencyList}
                     onChange={(item) => this.props.setSelectedCurrency(item)} />
+        );
     }
 
     _renderBaseCurrency() {

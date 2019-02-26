@@ -862,11 +862,20 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: For Sportsbook, the search result includes the related Bonus/Cash tickets..
+        ///   Looks up a localized string similar to For Sportsbook, the search result includes the related Bonus/Cash tickets..
         /// </summary>
-        public static string BettingTicketCenter_RefnoTabNote {
+        public static string BettingTicketCenter_RefnoTabNote1 {
             get {
-                return ResourceManager.GetString("BettingTicketCenter_RefnoTabNote", resourceCulture);
+                return ResourceManager.GetString("BettingTicketCenter_RefnoTabNote1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For Keno, Lottery: Please provide username also in order to search ticket later than {0}.
+        /// </summary>
+        public static string BettingTicketCenter_RefnoTabNote2 {
+            get {
+                return ResourceManager.GetString("BettingTicketCenter_RefnoTabNote2", resourceCulture);
             }
         }
         

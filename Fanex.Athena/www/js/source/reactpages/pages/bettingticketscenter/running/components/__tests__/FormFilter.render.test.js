@@ -12,16 +12,13 @@ import AutoComplete from '@jsroot/components/auto-complete';
 
 jest.mock('@jsroot/lib/AppData');
 
-const DateRange = { fromDate: '06/01/2018', toDate: '07/27/2018'};
-
 describe('FormFilter ', () => {
     beforeAll(() => {
         LangHelper.getSingleResource = jest.fn((resource) => resource);
         Object.assign(AppData, 
             { 
                 productOptions: ["SB", "BA"],
-                baseCurrencyList: ['EUR'],
-                dateConstraint: { minDate: '06/01/2012', maxDate: '07/27/2018', limitedMonthRange: 3 }
+                baseCurrencyList: ['EUR']
             });
     });
 
@@ -123,7 +120,7 @@ describe('FormFilter ', () => {
 
     describe('_getParams ', () => {
         it('model is invalid - return null' ,() => {
-            const props = { dateRange: DateRange, requestParam: {}, selectedCurrency: {} };
+            const props = { requestParam: {}, selectedCurrency: {} };
 
             const filter = new FormFilter(props);
 
@@ -133,7 +130,6 @@ describe('FormFilter ', () => {
         it('model is valid - return correct result' ,() => {
             const props = {
                 selectedProduct: "BA,SB",
-                dateRange: DateRange,
                 selectedCurrency: {value: 1, label: "abc"},
                 requestParam: {
                     PageSize: 1,
@@ -146,8 +142,6 @@ describe('FormFilter ', () => {
 
             const expected = {
                 ProductCodeList: props.selectedProduct,
-                FromDate: Site.convertDateToString(DateRange.fromDate),
-                ToDate: Site.convertDateToString(DateRange.toDate),
                 PageSize: props.requestParam.PageSize,
                 PageIndex: 1,
                 Username: props.username,
@@ -179,50 +173,6 @@ describe('FormFilter ', () => {
         });
     })
 
-    describe('_renderDateRange', () => {
-        it('component props should be correct', () => {
-            const props = { dateRange: DateRange, setDateRange: jest.fn() };
-            const expectedResult = {
-                startDate: props.dateRange.fromDate,
-                endDate: props.dateRange.toDate,
-                minDate: AppData.dateConstraint.minDate,
-                maxDate: AppData.dateConstraint.maxDate,
-                limitedMonthRange: 3
-            };
-
-            const formFilter = new FormFilter(props);
-            const dateRange = formFilter._renderDateRange();
-
-            const { startDate, endDate, minDate, maxDate, limitedMonthRange } = dateRange.props;
-            const result = { startDate, endDate, minDate, maxDate, limitedMonthRange };
-
-            expect(result).toEqual(expectedResult);
-        })
-
-        it('onChange - is invalid month range - alert warning message', () => {
-            window.alert = jest.fn();
-            const props = { dateRange: DateRange, setDateRange: jest.fn() };
-            const formFilter = new FormFilter(props);
-            const expecteMessage = 'DateRangeExceedMsg';
-
-            const dateRange = formFilter._renderDateRange();
-            dateRange.props.onChange({}, false);
-
-            expect(window.alert).toHaveBeenCalledWith(expecteMessage);
-        })
-
-        it('onChange - is valid month range - change date range state', () => {
-            const props = { dateRange: DateRange, setDateRange: jest.fn() };
-            const formFilter = new FormFilter(props);
-            const newDate = { fromDate: '02/02/2017', toDate: '12/12/2017' };
-
-            const dateRange = formFilter._renderDateRange();
-            dateRange.props.onChange(newDate);
-
-            expect(props.setDateRange).toHaveBeenCalledWith(newDate);
-        })
-    })
-
     describe('Event handler ', () => {
         
         it('onChange in Product filter - setSelectedProduct should be called with correct parameter', () => {
@@ -236,7 +186,7 @@ describe('FormFilter ', () => {
         })
 
         it('onSelect AutoComplete input - update username' ,() => {
-            const props = { username: 'abc', setUsername: jest.fn(), dateRange: DateRange, selectedCurrency: {} };
+            const props = { username: 'abc', setUsername: jest.fn(), selectedCurrency: {} };
 
             const filter = new FormFilter(props);
             const component = renderer.create(filter.render());
@@ -249,7 +199,7 @@ describe('FormFilter ', () => {
         });
 
         it('onInput AutoComplete input - update username' ,() => {
-            const props = { username: 'abc', setUsername: jest.fn(), dateRange: DateRange, selectedCurrency: {} };
+            const props = { username: 'abc', setUsername: jest.fn(), selectedCurrency: {} };
 
             const filter = new FormFilter(props);
             const component = renderer.create(filter.render());
@@ -266,8 +216,7 @@ describe('FormFilter ', () => {
                 selectedCurrency: {},
                 selectedBaseCurrency: 'EUR', 
                 setSelectedCurrency: jest.fn(), 
-                setSelectedBaseCurrency: jest.fn(), 
-                dateRange: DateRange};
+                setSelectedBaseCurrency: jest.fn()};
 
             const filter = new FormFilter(props);
             const component = renderer.create(filter.render());
@@ -284,8 +233,7 @@ describe('FormFilter ', () => {
                 selectedCurrency: {},
                 selectedBaseCurrency: 'EUR', 
                 setSelectedCurrency: jest.fn(), 
-                setSelectedBaseCurrency: jest.fn(), 
-                dateRange: DateRange};
+                setSelectedBaseCurrency: jest.fn()};
 
             const filter = new FormFilter(props);
             const component = renderer.create(filter.render());
@@ -298,7 +246,7 @@ describe('FormFilter ', () => {
         });
 
         it('onClick submit button - call submit method' ,() => {
-            const props = { refno: '1', dateRange: DateRange, selectedCurrency: {} };
+            const props = { refno: '1', selectedCurrency: {} };
 
             const filter = new FormFilter(props);
             filter.submit = jest.fn();
@@ -311,7 +259,7 @@ describe('FormFilter ', () => {
         });
 
         it('onClick excel button - call exportExcel method' ,() => {
-            const props = { refno: '1', dateRange: DateRange, selectedCurrency: {} };
+            const props = { refno: '1', selectedCurrency: {} };
 
             const filter = new FormFilter(props);
             filter.exportExcel = jest.fn();

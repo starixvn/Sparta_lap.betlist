@@ -19,7 +19,6 @@ describe('connect ', () => {
 
     it('props should be mapped correctly', () => {
         const expectedResult = {
-            dateRange: {}, 
             requestParam: "123", 
             selectedBaseCurrency: "USD",
             selectedCurrency: {}, 
@@ -27,7 +26,6 @@ describe('connect ', () => {
             username: "Test"};
 
         const state = {
-            dateRange: {}, 
             requestParam: "123", 
             selectedBaseCurrency: "USD",
             selectedCurrency: {}, 

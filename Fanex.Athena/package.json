@@ -75,7 +75,7 @@
     "build-react-both": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js && webpack --config www/webpackconfig/build/webpack.react.dev.conf.js",
     "test-react": "jest --coverage --setupTestFrameworkScriptFile=raf/polyfill",
     "test-react-one": "jest \".*1\\.test\\.js\" --watch --u  --setupTestFrameworkScriptFile=raf/polyfill",
-    "test-react-watch": "jest --watch",
+    "test-react-watch": "jest --watch --setupTestFrameworkScriptFile=raf/polyfill",
     "jest-install": "npm install jest-cli -g",
     "jest-up-ss": "jest --updateSnapshot",
     "lint": "eslint ./www/js/source/reactpages"
@@ -84,7 +84,7 @@
   "license": "vn",
   "dependencies": {
     "@9softstudio/react-breadcrumb": "^1.0.2",
-    "@9softstudio/react-multiselect": "^1.0.4",
+    "@9softstudio/react-multiselect": "^1.0.5",
     "@9softstudio/react-simple-tab": "^1.0.0",
     "axios": "^0.16.2",
     "classnames": "^2.2.5",

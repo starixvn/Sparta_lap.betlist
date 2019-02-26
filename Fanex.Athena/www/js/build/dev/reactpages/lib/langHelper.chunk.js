@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 1/3/2019 5:04:11 PM
+// Generated at: 2/21/2019 1:37:26 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -187,7 +187,8 @@ window._language_en_US = {
   BettingTicketCenter: "Betting Ticket Center",
   BettingTicketCenter_MultiCustomersTabNote1: "All bettypes, League, and Match filter available only when 1 day is selected",
   BettingTicketCenter_MultiCustomersTabNote2: "Data is available from {0}",
-  BettingTicketCenter_RefnoTabNote: "Note: For Sportsbook, the search result includes the related Bonus/Cash tickets.",
+  BettingTicketCenter_RefnoTabNote1: "For Sportsbook, the search result includes the related Bonus/Cash tickets.",
+  BettingTicketCenter_RefnoTabNote2: "For Keno, Lottery: Please provide username also in order to search ticket later than {0}",
   BetTrade: "Bet Trade",
   BetTradeCommission: "Bet Trade Commission",
   BetTradeNotOfferCurrency: "BetTrade is not offered for this currency.",
@@ -458,6 +459,7 @@ window._language_en_US = {
   Handicap: "Handicap",
   HandicapOverUnderLive: "Handicap/Over Under/Live",
   HandNo: "Hand No",
+  Happy5: "Happy 5",
   HarnessAustTote: "Harness Aust Tote",
   HD: "HD",
   HDP: "HDP",
@@ -584,7 +586,6 @@ window._language_en_US = {
   LogInfo: "Log Info",
   Logout: "Logout",
   Lose: "Lose",
-  Loss: "Loss",
   LrfNotification: "LRF-Notification",
   Macau: "Macau",
   MacauNotOfferCurrency: "Macau is not offered for this currency.",
@@ -868,6 +869,7 @@ window._language_en_US = {
   SingleCustomer: "Single Customer",
   Site: "Site",
   SixMonth: "6 months",
+  Soccer: "Soccer",
   SortBy: "Sort by",
   Sorting: "Sorting",
   SpecialLevel: "Special Level",
@@ -897,6 +899,7 @@ window._language_en_US = {
   Tablet: "Tablet",
   TableType: "Table Type",
   Team: "Team",
+  Tennis: "Tennis",
   TF: "TF",
   Th: "Th",
   ThereIsNoSelectedItem: "There is no selected item.",
@@ -1019,7 +1022,6 @@ window._language_en_US = {
   Wednesday: "Wednesday",
   WeeklyLiveMatches: "Weekly Live Matches",
   Welcome: "Welcome",
-  Win: "Win",
   WinLoss: "Win Loss",
   WinLossByBetType: "Win Loss By Bet Type",
   WinLossByBetTypeTitle: "Win Loss By Bet Type, {0} --&gt; {1} - {2}",

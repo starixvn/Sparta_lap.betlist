@@ -31,8 +31,6 @@
             {
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 ObjectDb.Received(1).AddInParameter("UserName", DbType.String, metaModel.UserName);
-                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate.AddDays(1).AddMilliseconds(-2));
                 ObjectDb.Received(1).AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                 ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
                 ObjectDb.Received(1).AddInParameter("ProductList", DbType.String, productList);

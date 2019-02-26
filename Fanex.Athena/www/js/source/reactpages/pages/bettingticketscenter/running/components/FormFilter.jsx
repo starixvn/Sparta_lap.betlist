@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 
 import Select from 'react-select'
 import MultipleSelect from '@9softstudio/react-multiselect'
-import { DateRange } from '@jsroot/components/date-range/index'
 import AutoComplete from '@jsroot/components/auto-complete'
 
 import { ActionCreators } from '../actions/index.js'
@@ -34,7 +33,7 @@ export class FormFilter extends Component {
             return;
         }
 
-        this.props.setReportTitle(Service.getTitle(params.FromDate, params.ToDate, params.CurrencyName, params.BaseCurrency));
+        this.props.setReportTitle(Service.getTitle(null, null, params.CurrencyName, params.BaseCurrency));
         this.props.setRequestParam(params);
         this.props.toggleLoader(true);
         this.props.getGridData(ApiUrl.RUNNING_DATA_URL, params);
@@ -45,14 +44,11 @@ export class FormFilter extends Component {
             return null;
         }
 
-        const { fromDate, toDate } = this.props.dateRange;
         const { PageSize, SortBy, SortOrder } = this.props.requestParam;
 
         return {
             PageSize: PageSize,
             PageIndex: 1,
-            FromDate: Site.convertDateToString(fromDate),
-            ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
             Username: this.props.username,
             CurrencyId: this.props.selectedCurrency.value,
@@ -65,16 +61,6 @@ export class FormFilter extends Component {
 
     productChangeHandler = (currentItem, selectedItemsKey) => {
         this.props.setSelectedProduct(selectedItemsKey)
-    }
-
-    applyDateRangeHandler = (date, isValidMonthRange = true) => {
-        if (isValidMonthRange) {
-            this.props.setDateRange(date);
-        }
-        else {
-            const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", AppData.dateConstraint.limitedMonthRange);
-            alert(message);
-        }
     }
 
     onChangeCurrency = (currency) => {
@@ -118,18 +104,6 @@ export class FormFilter extends Component {
         });
     }
 
-    _renderDateRange() {
-        const dateRange = this.props.dateRange;
-        const dateConstraint = AppData.dateConstraint;
-
-        return (
-            <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
-                minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
-                today={dateRange.toDate} limitedMonthRange={dateConstraint.limitedMonthRange}
-                onChange={this.applyDateRangeHandler} />
-        )
-    }
-
     _renderProductSelectList() {
         const productOptions = AppData.productOptions;
 
@@ -167,13 +141,6 @@ export class FormFilter extends Component {
         return (
             <div className="page-filter">
                 <div className="row">
-
-                     <div className="col-12 col-md-6 col-sm-6 col-lg-4 col-xl-3">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
-                            {this._renderDateRange()}
-                        </div>
-                    </div>
 
                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
@@ -228,8 +195,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { requestParam, dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username } = state;
-    return Object.assign({}, { requestParam, dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username });
+    const { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username } = state;
+    return Object.assign({}, { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

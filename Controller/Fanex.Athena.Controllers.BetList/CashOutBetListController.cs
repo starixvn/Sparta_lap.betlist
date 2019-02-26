@@ -12,6 +12,7 @@
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Model.BetList.DTO;
+    using Model.Core.DataDomain;
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -87,10 +88,10 @@
                 statusHtml.StatusResult = null;
                 var ticketText = new CashOutTicketText
                 {
-                    TransTime = ViewResources.RefNo + ":" + ticket.TransId + Environment.NewLine + "<div class='time'>" + ticket.TransDate + "</div>",
-                    Stake = ticket.Stake.ToString("0.00"),
-                    Price = ticket.Price.ToString("0.00"),
-                    WinLoss = ticket.WinLoss.ToString("0.00"),
+                    TransTime = ViewResources.RefNo + ": " + ticket.TransId + Environment.NewLine + "<div class='time'>" + ticket.TransDate + "</div>",
+                    Stake = ticket.Stake.ToString("#,##0.##"),
+                    Price = ticket.Price.ToString(FormatKey.DecimalFormat),
+                    WinLoss = ticket.WinLoss.ToString(FormatKey.DecimalFormat),
                     Status = statusHtml.ToString(),
                     IsHighlight = transId == ticket.TransId
                 };

@@ -198,12 +198,9 @@
             {
                 var productCodes = metaModel.ProductCodeList.Split(',');
                 var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
-                var endOfToDate = metaModel.ToDate.AddDays(1).AddMilliseconds(-2);
 
                 db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-                db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                db.AddInParameter("ToDate", DbType.DateTime, endOfToDate);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                 db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
                 db.AddInParameter("ProductList", DbType.String, productList);
