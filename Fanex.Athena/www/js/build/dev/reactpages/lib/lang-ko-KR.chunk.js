@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 1/3/2019 5:04:11 PM
+// Generated at: 2/21/2019 1:37:26 PM
 window._language_ko_KR = {
   AA: "AA",
   AccessDeniedMsg: "죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
@@ -463,7 +463,6 @@ window._language_ko_KR = {
   LogInfo: "로그 정보",
   Logout: "로그아웃",
   Lose: "패배",
-  Loss: "패배",
   LrfNotification: "LRF-공지",
   Main: "주요",
   ManageAccount: "계정관리",
@@ -790,7 +789,6 @@ window._language_ko_KR = {
   WEB: "WEB",
   Wednesday: "수요일",
   Welcome: "환영합니다",
-  Win: "승리",
   WinLoss: "승리 패배",
   WinLossByBetType: "배팅 유형에 따른 승리 패배",
   WinLossByBetTypeTitle: "승리유형에 따른 승리 패배, {0}--&gt; {1} - {2}",

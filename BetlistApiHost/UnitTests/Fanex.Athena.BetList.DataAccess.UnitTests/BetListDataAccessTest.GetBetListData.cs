@@ -280,8 +280,8 @@
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel(UspKey);
-            metaModel.SortBy = sortBy;
             metaModel.IsServerPaging = false;
+            metaModel.SortBy = sortBy;
 
             // Action
             DataAccess.GetBetListData(metaModel);

@@ -109,7 +109,7 @@ export default class Pager extends Component {
     _renderPageInfo(index, pageSize, totalItem) {
         const viewFrom = ((index - 1) * pageSize) + 1;
         const viewTo = index * pageSize;
-        return (<span className="page-info">{`View ${viewFrom}-${viewTo > totalItem ? totalItem : viewTo} of ${totalItem}`}</span>);
+        return (<span className="page-info">{`View ${viewFrom}-${viewTo > totalItem ? totalItem : viewTo} of ${totalItem.toLocaleString()}`}</span>);
     }
 
     render() {

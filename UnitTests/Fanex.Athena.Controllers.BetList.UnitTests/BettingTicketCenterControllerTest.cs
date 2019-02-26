@@ -84,7 +84,7 @@
                 _productService.GetSingleWalletProductAccess(
                     DefaultLicenseeSession.LicenseeId,
                     DefaultUserSession.Language,
-                    FunctionNames.BettingTicketCenter).Returns(new ProductAccess(productCodes));
+                    FunctionNames.BettingTicketCenterRunning).Returns(new ProductAccess(productCodes));
 
                 // Action
                 var result = controller.Running() as ViewResult;
@@ -104,7 +104,7 @@
                 _productService.GetSingleWalletProductAccess(
                     DefaultLicenseeSession.LicenseeId,
                     DefaultUserSession.Language,
-                    FunctionNames.BettingTicketCenter).Returns(new ProductAccess(productCodes));
+                    FunctionNames.BettingTicketCenterRunning).Returns(new ProductAccess(productCodes));
 
                 // Action
                 var result = controller.Running() as ViewResult;
@@ -184,7 +184,7 @@
                 _productService.GetSingleWalletProductAccess(
                     DefaultLicenseeSession.LicenseeId,
                     DefaultUserSession.Language,
-                    FunctionNames.BettingTicketCenter).Returns(new ProductAccess(productCodes));
+                    FunctionNames.BettingTicketCenterMultiCustomers).Returns(new ProductAccess(productCodes));
 
                 // Action
                 var result = controller.MultipleCustomers() as ViewResult;
@@ -204,7 +204,7 @@
                 _productService.GetSingleWalletProductAccess(
                     DefaultLicenseeSession.LicenseeId,
                     DefaultUserSession.Language,
-                    FunctionNames.BettingTicketCenter).Returns(new ProductAccess(productCodes));
+                    FunctionNames.BettingTicketCenterMultiCustomers).Returns(new ProductAccess(productCodes));
 
                 // Action
                 var result = controller.MultipleCustomers() as ViewResult;

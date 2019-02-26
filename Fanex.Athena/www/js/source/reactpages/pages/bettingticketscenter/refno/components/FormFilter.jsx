@@ -142,9 +142,14 @@ export class FormFilter extends Component {
                     </div>
                </div>
                 <div className="row">
-                    <div className="col-11">
-                        {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote')}
-                    </div>
+                    <div className="col-1" style={{flex: "0 0 4%"}}>
+                    {LangHelper.getSingleResource('Note')}:
+                        </div>
+                        <div className="col-9">
+                            * {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote1')}
+                            <br />
+                            * {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote2').replace('{0}', AppData.balanceUpDay)}
+                        </div>
                </div>
             </div>
         )

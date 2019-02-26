@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 1/3/2019 5:04:11 PM
+// Generated at: 2/21/2019 1:37:26 PM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -174,7 +174,7 @@ window._language_zh_TW = {
   BettingTicketCenter: "注單中心",
   BettingTicketCenter_MultiCustomersTabNote1: "所有投注類別，聯賽和比賽過濾器僅支援1個選定日期",
   BettingTicketCenter_MultiCustomersTabNote2: "顯示從{0}開始的資料",
-  BettingTicketCenter_RefnoTabNote: "注意: 在體育的搜尋結果將包含相關的紅利與現金注單",
+  BettingTicketCenter_RefnoTabNote1: "在體育的搜尋結果將包含相關的紅利與現金注單",
   BetType: "投注類別",
   BONTeamToScore: "雙方/一方/兩者皆不得分",
   Bonus: "紅利",
@@ -520,7 +520,6 @@ window._language_zh_TW = {
   LogInfo: "登入信息",
   Logout: "註銷",
   Lose: "輸",
-  Loss: "輸",
   LrfNotification: "LRF通知",
   Main: "主",
   ManageAccount: "賬號管理",
@@ -693,6 +692,7 @@ window._language_zh_TW = {
   Refund: "退款",
   RefundFT: "全場退還",
   RefundHT: "上半場退還",
+  Reject: "取消",
   Remark: "備註",
   RemoveFromGroup: "從組中刪除",
   RemoveGroupMsg: "您確定要從組中移除此（這些）會員?",
@@ -875,13 +875,13 @@ window._language_zh_TW = {
   VirtualSpeedway: "Virtual Speedway",
   VirtualSports: "虛擬運動",
   VirtualTennis: "Virtual Tennis",
+  Void: "作廢",
   VS: "VS",
   Wap: "WAP",
   We: "We",
   WEB: "WEB",
   Wednesday: "星期三",
   Welcome: "歡迎",
-  Win: "贏",
   WinLoss: "獨贏",
   WinLossByBetType: "投注類別輸贏",
   WinLossByBetTypeTitle: "投注類別輸贏, {0} --&gt; {1} - {2}",

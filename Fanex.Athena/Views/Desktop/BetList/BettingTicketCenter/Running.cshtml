@@ -28,7 +28,6 @@
 
 @section globaljscode{
     window.initialState = {
-        dateRange: { fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         selectedProduct: '@(selectedProductCode)',
         username: '',        
         selectedCurrency: @Html.Raw(currencyList.First().ToJson()),       
@@ -39,8 +38,7 @@
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productOptions: @Html.Raw(productOptions.ToJson()),
         currencyList: @Html.Raw(currencyList.ToJson()),
-        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
-        dateConstraint: { minDate: '1/1/2017', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 12 }
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson())
     };
 }
 <div id="app-container">

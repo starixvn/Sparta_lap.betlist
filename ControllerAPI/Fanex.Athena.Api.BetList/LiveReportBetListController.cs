@@ -63,6 +63,7 @@ namespace Fanex.Athena.Api.BetList
         {
             if (IsValidCurrencyId(metaModel.CurrencyId))
             {
+                metaModel.IsServerPaging = true;
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
 
                 return await GetPagingData(metaModel, UspKey, page, rows).ConfigureAwait(false);
