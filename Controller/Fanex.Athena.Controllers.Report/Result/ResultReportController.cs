@@ -189,8 +189,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 languageCode = SessionService.UserSession.Language
             };
             var data = await _betListApiClient.PostAsyncString("/AllBetResultPopup/Index", model).ConfigureAwait(false);
-            data = data.Replace("{rootUrl}/", HttpRuntime.AppDomainAppVirtualPath);
-            ViewBag.Data = data;
+            ViewBag.Data = data.Replace("{rootUrl}", HttpRuntime.AppDomainAppVirtualPath.TrimEnd('/'));
             return View("~/Views/Desktop/Report/Result/Popup/AllBet.cshtml");
         }
 
