@@ -16,7 +16,7 @@
         private readonly IMemoryCacheService _cache;
 
         [CLSCompliant(false)]
-        public BalanceUpDataAccess(ILogger logger, IMemoryCacheService cache)
+        public BalanceUpDataAccess(IMemoryCacheService cache)
         {
             _cache = cache;
         }
