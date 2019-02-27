@@ -1,10 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Entities;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -49,8 +46,11 @@
         {
             using (var controller = CreateController())
             {
+                // Arrange
+                var metaModel = CreateMetaModel();
+
                 // Action
-                var result = controller.MixParlay(null) as ViewResult;
+                var result = controller.MixParlay(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -58,7 +58,7 @@
                 {
                     Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/MixParlay.cshtml"));
                     Assert.That(result.ViewBag.SportName, Is.Null);
-                    AssertDefaultBetListViewModel(model, new BetListMetaModel());
+                    AssertDefaultBetListViewModel(model, metaModel);
                 });
             }
         }
@@ -183,13 +183,13 @@
                 var betlistCaption = "Home vs Away ";
                 var expectedTitle = $"{ViewResources.BetList} - {betlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
 
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossByMatch", metaModel, controller);
+                SetUpForExportingExcel(metaModel, controller);
 
                 // Action
                 controller.Match(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
+                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossByMatch", controller);
             }
         }
 
@@ -219,13 +219,13 @@
                 var betlistCaption = string.Empty;
                 var expectedTitle = $"{ViewResources.BetList} - {betlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
 
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossParlay", metaModel, controller);
+                SetUpForExportingExcel(metaModel, controller);
 
                 // Action
                 controller.MixParlay(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
+                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossParlay", controller);
             }
         }
 
@@ -253,13 +253,13 @@
                 var betlistCaption = ViewResources.Outright;
                 var expectedTitle = $"{ViewResources.BetList} - {betlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
 
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossOutright", metaModel, controller);
+                SetUpForExportingExcel(metaModel, controller);
 
                 // Action
                 controller.Outright(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
+                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossOutright", controller);
             }
         }
 
@@ -287,13 +287,13 @@
                 var betlistCaption = ViewResources.ProductNG;
                 var expectedTitle = $"{ViewResources.BetList} - {betlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
 
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossNumberGame", metaModel, controller);
+                SetUpForExportingExcel(metaModel, controller);
 
                 // Action
                 controller.NumberGame(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
+                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossNumberGame", controller);
             }
         }
 
@@ -322,45 +322,39 @@
                 var viewInCaption = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.BetList} - {BetlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
 
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossVHRacing", metaModel, controller);
+                SetUpForExportingExcel(metaModel, controller);
 
                 // Action
                 controller.VirtualSports(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
+                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossVHRacing", controller);
             }
         }
 
-        private TicketResult SetUpForExportingExcel(string uspKey, LiveReportBetListMetaModel metaModel, LiveReportBetListController controller)
+        private void SetUpForExportingExcel(LiveReportBetListMetaModel metaModel, LiveReportBetListController controller)
         {
-            var ticketResult = new TicketResult();
-            BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, uspKey).Returns(ticketResult);
-
             SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
             controller.When(x => x.ProcessExportExcel(
-                Arg.Any<ShowingOption>(),
-                Arg.Any<BetListMetaModel>(),
-                Arg.Any<TicketResult>(),
-                Arg.Any<IEnumerable<int>>(),
+                Arg.Any<BetListExcelMetaModel>(),
                 Arg.Any<string>(),
-                Arg.Any<string>(),
-                Arg.Any<int>())).DoNotCallBase();
-
-            return ticketResult;
+                Arg.Any<string>())).DoNotCallBase();
         }
 
-        private void AssertExcelParameters(int expectedStartIndex, string expectedTitle, TicketResult ticketResult, LiveReportBetListController controller)
+        private void AssertExcelParameters(int expectedStartIndex, string expectedTitle, string uspKey, LiveReportBetListController controller)
         {
             controller.Received().ProcessExportExcel(
-                Arg.Is<ShowingOption>(x => x.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm),
-                Arg.Is<BetListMetaModel>(x => x.LicenseeId == DefaultLicenseeSession.LicenseeId && !x.IsShowSumStake && x.AgentListXml == AgentListXml),
-                ticketResult,
-                Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "8"),
-                expectedTitle,
+                Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
+                    && x.Title == expectedTitle
+                    && x.UspKey == uspKey
+                    && string.Join(",", x.HiddenColumns) == "8"
+                    && x.StartIndex == expectedStartIndex
+                    && x.LicenseeId == DefaultLicenseeSession.LicenseeId
+                    && !x.IsShowSumStake
+                    && x.AgentListXml == AgentListXml),
                 "LiveReportBetList",
-                expectedStartIndex);
+                null);
         }
 
         private LiveReportBetListMetaModel CreateMetaModel()
@@ -375,15 +369,14 @@
 
         private LiveReportBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<LiveReportBetListController>(
+            return Substitute.ForPartsOf<LiveReportBetListController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
-                CacheRefAdapter);
-            return controller;
+                CacheRefAdapter,
+                BetListApiClient);
         }
     }
 }

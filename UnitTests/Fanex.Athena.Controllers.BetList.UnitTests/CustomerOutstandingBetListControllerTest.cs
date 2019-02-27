@@ -12,6 +12,10 @@
 
     public class CustomerOutstandingBetListControllerTest : BetListBaseControllerHelperTest
     {
+        private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
+
+        private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -40,7 +44,7 @@
         }
 
         [Test]
-        public void Index_WhenFirstCall_ReturnCorrectViewModel()
+        public void Index_FirstTimeLoading_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -99,7 +103,7 @@
                 // Arrange
                 var metaModel = new BetListMetaModel { ProductCodeList = "AB, AA, BB", BetListName = "betlistrunning" };
 
-                ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())
+                ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>(), BetListCustomerOutstandingRunningName)
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
@@ -107,7 +111,11 @@
                 var model = (BetListBaseViewModel)result.Model;
 
                 // Assert
-                Assert.That(model.Param.FromDate.Date, Is.Not.EqualTo(BalanceUp.MoveBetsDay.AddDays(1)));
+                Assert.Multiple(() =>
+                {
+                    Assert.That(model.Param.FromDate.Date, Is.Not.EqualTo(BalanceUp.MoveBetsDay.AddDays(1)));
+                    ProductService.Received().GetProductAccess(Arg.Any<int>(), Arg.Any<string>(), BetListCustomerOutstandingRunningName);
+                });
             }
         }
 
@@ -119,7 +127,7 @@
                 // Arrange
                 var metaModel = new BetListMetaModel { ProductCodeList = "AB, AA, BB" };
 
-                ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())
+                ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>(), BetListCustomerOutstandingName)
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
@@ -127,21 +135,24 @@
                 var model = (BetListBaseViewModel)result.Model;
 
                 // Assert
-                Assert.That(model.Param.FromDate.Date, Is.EqualTo(BalanceUp.MoveBetsDay.AddDays(1)));
+                Assert.Multiple(() =>
+                {
+                    Assert.That(model.Param.FromDate.Date, Is.EqualTo(BalanceUp.MoveBetsDay.AddDays(1)));
+                    ProductService.Received().GetProductAccess(Arg.Any<int>(), Arg.Any<string>(), BetListCustomerOutstandingName);
+                });
             }
         }
 
         private CustomerOutstandingBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<CustomerOutstandingBetListController>(
+            return Substitute.ForPartsOf<CustomerOutstandingBetListController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
-                CacheRefAdapter);
-            return controller;
+                CacheRefAdapter,
+                BetListApiClient);
         }
     }
 }

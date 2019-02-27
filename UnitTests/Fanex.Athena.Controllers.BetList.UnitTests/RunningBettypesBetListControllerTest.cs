@@ -3,8 +3,6 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using Excel.Base.Entities;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Model.Core.DTO.Common;
@@ -35,7 +33,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     MultipleBettype = ((int)BetType.CombinationMixParlay).ToString()
                 };
@@ -54,7 +52,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     MultipleBettype = "24,151,186,410,431"
                 };
@@ -73,7 +71,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     MultipleBettype = "26,145,146,170,188,427,433"
                 };
@@ -92,7 +90,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = -1000,
@@ -116,7 +114,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = 0,
@@ -130,13 +128,13 @@
                 var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = "MixParlay - " + currencyTitle;
 
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_SelRunningByBettypeList", metaModel, controller);
+                SetUpForExportingExcel(metaModel, controller);
 
                 // Action
                 controller.MixParlay(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, ticketResult, controller);
+                AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
             }
         }
 
@@ -147,7 +145,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = 0,
@@ -161,13 +159,13 @@
                 var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = "DoubleChange - " + currencyTitle;
 
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_SelRunningByBettypeList", metaModel, controller);
+                SetUpForExportingExcel(metaModel, controller);
 
                 // Action
                 controller.DoubleChange(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, ticketResult, controller);
+                AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
             }
         }
 
@@ -178,7 +176,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = 0,
@@ -192,45 +190,38 @@
                 var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = "BONTeamToScore - " + currencyTitle;
 
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_SelRunningByBettypeList", metaModel, controller);
+                SetUpForExportingExcel(metaModel, controller);
 
                 // Action
                 controller.BONTeamToScore(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, ticketResult, controller);
+                AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
             }
         }
 
-        private TicketResult SetUpForExportingExcel(string uspKey, BetListMetaModel metaModel, RunningBettypesBetListController controller)
+        private void SetUpForExportingExcel(BetListMetaModel metaModel, RunningBettypesBetListController controller)
         {
-            var ticketResult = new TicketResult();
-            BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, uspKey).Returns(ticketResult);
-
             SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
             controller.When(x => x.ProcessExportExcel(
-                Arg.Any<ShowingOption>(),
-                Arg.Any<BetListMetaModel>(),
-                Arg.Any<TicketResult>(),
-                Arg.Any<IEnumerable<int>>(),
+                Arg.Any<BetListExcelMetaModel>(),
                 Arg.Any<string>(),
-                Arg.Any<string>(),
-                Arg.Any<int>())).DoNotCallBase();
-
-            return ticketResult;
+                Arg.Any<string>())).DoNotCallBase();
         }
 
-        private void AssertExcelParameters(string expectedTitle, TicketResult ticketResult, RunningBettypesBetListController controller)
+        private void AssertExcelParameters(string expectedTitle, string uspKey, RunningBettypesBetListController controller)
         {
             controller.Received().ProcessExportExcel(
-                Arg.Is<ShowingOption>(x => x.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm),
-                Arg.Is<BetListMetaModel>(x => x.LicenseeId == DefaultLicenseeSession.LicenseeId && x.IsShowSumStake && x.AgentListXml == AgentListXml),
-                ticketResult,
-                Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "7,8,9"),
-                expectedTitle,
+                Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
+                    && x.Title == expectedTitle
+                    && x.UspKey == uspKey
+                    && string.Join(",", x.HiddenColumns) == "7,8,9"
+                    && x.LicenseeId == DefaultLicenseeSession.LicenseeId
+                    && x.IsShowSumStake
+                    && x.AgentListXml == AgentListXml),
                 "RunningBetList",
-                1);
+                null);
         }
 
         private void AssertViewResult(string reportTitle, string userGuide, BetListMetaModel metaModel, ViewResult viewResult)
@@ -251,15 +242,14 @@
 
         private RunningBettypesBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<RunningBettypesBetListController>(
+            return Substitute.ForPartsOf<RunningBettypesBetListController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
-                CacheRefAdapter);
-            return controller;
+                CacheRefAdapter,
+                BetListApiClient);
         }
     }
 }

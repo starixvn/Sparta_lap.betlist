@@ -1,11 +1,8 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Excel.Base.Entities;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -105,45 +102,40 @@
                 var currencyTitle = currencyId == 0 ? ViewResources.AllCurrencies : string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.CustomerBetList} - 1/1/2018 → 1/2/2018 - External{(isFakeLicensee ? "" : "(System)")} - {currencyTitle}";
 
-                var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_WinlostByLeague_Mem").Returns(ticketResult);
-
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
+
                 controller.When(x => x.ProcessExportExcel(
-                    Arg.Any<ShowingOption>(),
-                    Arg.Any<BetListMetaModel>(),
-                    Arg.Any<TicketResult>(),
-                    Arg.Any<IEnumerable<int>>(),
+                    Arg.Any<BetListExcelMetaModel>(),
                     Arg.Any<string>(),
-                    Arg.Any<string>(),
-                    Arg.Any<int>())).DoNotCallBase();
+                    Arg.Any<string>())).DoNotCallBase();
 
                 // Action
                 controller.Index(metaModel);
 
                 // Assert
                 controller.Received().ProcessExportExcel(
-                    Arg.Is<ShowingOption>(x => x.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm),
-                    Arg.Is<BetListMetaModel>(x => x.LicenseeId == DefaultLicenseeSession.LicenseeId && !x.IsShowSumStake && x.AgentListXml == AgentListXml),
-                    ticketResult,
-                    Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "1,2,8"),
-                    expectedTitle,
+                    Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
+                        && x.Title == expectedTitle
+                        && x.UspKey == "Lrf_BetList_WinlostByLeague_Mem"
+                        && string.Join(",", x.HiddenColumns) == "1,2,8"
+                        && x.LicenseeId == DefaultLicenseeSession.LicenseeId
+                        && !x.IsShowSumStake
+                        && x.AgentListXml == AgentListXml),
                     "WinLossByLeagueBetList",
-                    1);
+                    "/BetList/ExportExcelWinlossByLeague");
             }
         }
 
         private WinlossByLeagueBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<WinlossByLeagueBetListController>(
+            return Substitute.ForPartsOf<WinlossByLeagueBetListController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
-                CacheRefAdapter);
-            return controller;
+                CacheRefAdapter,
+                BetListApiClient);
         }
     }
 }

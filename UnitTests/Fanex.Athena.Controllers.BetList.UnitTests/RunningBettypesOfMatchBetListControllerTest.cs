@@ -1,10 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Entities;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -26,7 +23,7 @@
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.Index(new BetListMetaModel()) as ViewResult;
+                var result = controller.Index(new BetListExcelMetaModel()) as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/RunningBettypesOfMatchBetList/Main.cshtml"));
@@ -39,7 +36,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     FromDate = new DateTime(2018, 2, 1),
                     ToDate = new DateTime(2018, 2, 10),
@@ -61,7 +58,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = -1000
@@ -77,16 +74,16 @@
             }
         }
 
-        [TestCase("USD", null, "USD", 0, "1,2,3", true)]
-        [TestCase("USD", "eur", "EUR", 1, "2", false)]
-        [TestCase("USD", "eur", "EUR", 0, "", false)]
-        public void Index_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expCurrency, int betType, string multiBetType, bool hasMainTickets)
+        [TestCase("USD", null, "USD", 0, "1,2,3")]
+        [TestCase("USD", "eur", "EUR", 1, "2")]
+        [TestCase("USD", "eur", "EUR", 0, "")]
+        public void Index_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expCurrency, int betType, string multiBetType)
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 const string AgentListXml = "<xml/>";
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyName = currency,
@@ -95,41 +92,33 @@
                     MultipleBettype = multiBetType
                 };
 
-                var expectedTitle = GetExpectedExcelTitle(expCurrency, betType, multiBetType, hasMainTickets);
+                var expectedTitle = GetExpectedExcelTitle(expCurrency, betType, multiBetType);
 
-                var ticketResult = new TicketResult();
-                if (hasMainTickets)
-                {
-                    ticketResult.MainTicketList.Add(new LrfTicket { LeagueId = 2 });
-                }
-
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_SelRunningByMultipleBettypeMatch").Returns(ticketResult);
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
+
                 controller.When(x => x.ProcessExportExcel(
-                    Arg.Any<ShowingOption>(),
-                    Arg.Any<BetListMetaModel>(),
-                    Arg.Any<TicketResult>(),
-                    Arg.Any<IEnumerable<int>>(),
+                    Arg.Any<BetListExcelMetaModel>(),
                     Arg.Any<string>(),
-                    Arg.Any<string>(),
-                    Arg.Any<int>())).DoNotCallBase();
+                    Arg.Any<string>())).DoNotCallBase();
 
                 // Action
                 controller.Index(metaModel);
 
                 // Assert
                 controller.Received().ProcessExportExcel(
-                    Arg.Is<ShowingOption>(x => x.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm),
-                    Arg.Is<BetListMetaModel>(x => x.LicenseeId == DefaultLicenseeSession.LicenseeId && !x.IsShowSumStake && x.AgentListXml == AgentListXml),
-                    ticketResult,
-                    Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "7,8,9"),
-                    expectedTitle,
+                    Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
+                        && x.Title == expectedTitle
+                        && x.UspKey == "Lrf_BetList_SelRunningByMultipleBettypeMatch"
+                        && string.Join(",", x.HiddenColumns) == "7,8,9"
+                        && x.LicenseeId == DefaultLicenseeSession.LicenseeId
+                        && !x.IsShowSumStake
+                        && x.AgentListXml == AgentListXml),
                     "RunningBetList",
-                    1);
+                    null);
             }
         }
 
-        private string GetExpectedExcelTitle(string expCurrency, int betType, string multiBetType, bool hasMainTickets)
+        private string GetExpectedExcelTitle(string expCurrency, int betType, string multiBetType)
         {
             CacheRefAdapter.GetLeagueName(Arg.Any<int>()).Returns("League");
             CacheRefAdapter.GetBettype(betType).Returns("BetType");
@@ -141,20 +130,19 @@
                 bettypeName = "FirstMultipleBettype";
             }
 
-            return $"{(hasMainTickets ? "League" : string.Empty)} - {bettypeName} - {string.Format(ViewResources.Viewin, expCurrency)}";
+            return $"(LEAGUENAME) - {bettypeName} - {string.Format(ViewResources.Viewin, expCurrency)}";
         }
 
         private RunningBettypesOfMatchBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<RunningBettypesOfMatchBetListController>(
+            return Substitute.ForPartsOf<RunningBettypesOfMatchBetListController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
-                CacheRefAdapter);
-            return controller;
+                CacheRefAdapter,
+                BetListApiClient);
         }
     }
 }

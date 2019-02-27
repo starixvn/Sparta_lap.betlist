@@ -1,11 +1,8 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Excel.Base.Entities;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -27,7 +24,7 @@
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.Index(new BetListMetaModel()) as ViewResult;
+                var result = controller.Index(new BetListExcelMetaModel()) as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CustomerWl/Main.cshtml"));
@@ -40,7 +37,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     FromDate = new DateTime(2018, 2, 1),
                     ToDate = new DateTime(2018, 2, 10),
@@ -62,7 +59,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = -1000
@@ -86,7 +83,7 @@
             {
                 // Arrange
                 const string AgentListXml = "<xml/>";
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyName = currency,
@@ -104,45 +101,39 @@
                 var expectedTitle = $"{ViewResources.Customer} {ViewResources.BetList} - 11/11/2018 --> 12/12/2018 - "
                     + $"External{(isFakeLicensee ? "" : "(System)")} - {currencyTitle}";
 
-                var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_SelWinLossByDate_Mem").Returns(ticketResult);
-
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
                 controller.When(x => x.ProcessExportExcel(
-                    Arg.Any<ShowingOption>(),
-                    Arg.Any<BetListMetaModel>(),
-                    Arg.Any<TicketResult>(),
-                    Arg.Any<IEnumerable<int>>(),
+                    Arg.Any<BetListExcelMetaModel>(),
                     Arg.Any<string>(),
-                    Arg.Any<string>(),
-                    Arg.Any<int>())).DoNotCallBase();
+                    Arg.Any<string>())).DoNotCallBase();
 
                 // Action
                 controller.Index(metaModel);
 
                 // Assert
                 controller.Received().ProcessExportExcel(
-                    Arg.Is<ShowingOption>(x => x.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm),
-                    Arg.Is<BetListMetaModel>(x => x.LicenseeId == DefaultLicenseeSession.LicenseeId && !x.IsShowSumStake && x.AgentListXml == AgentListXml),
-                    ticketResult,
-                    Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "1,2"),
-                    expectedTitle,
+                    Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
+                        && x.Title == expectedTitle
+                        && x.UspKey == "Lrf_BetList_SelWinLossByDate_Mem"
+                        && string.Join(",", x.HiddenColumns) == "1,2"
+                        && x.LicenseeId == DefaultLicenseeSession.LicenseeId
+                        && !x.IsShowSumStake
+                        && x.AgentListXml == AgentListXml),
                     "CustomerWinLossBetList",
-                    1);
+                    null);
             }
         }
 
         private CustomerWinLossBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<CustomerWinLossBetListController>(
+            return Substitute.ForPartsOf<CustomerWinLossBetListController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
-                CacheRefAdapter);
-            return controller;
+                CacheRefAdapter,
+                BetListApiClient);
         }
     }
 }

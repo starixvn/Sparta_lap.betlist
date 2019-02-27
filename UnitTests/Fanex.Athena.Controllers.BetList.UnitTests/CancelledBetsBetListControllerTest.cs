@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
-    using Excel.Base.Entities;
-    using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
@@ -18,14 +18,11 @@
     {
         private IAuthorizationService _authorizationService;
 
-        private ICancelledBetListDataAccess _cancelledBetListDataAccess;
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
             _authorizationService = Substitute.For<IAuthorizationService>();
-            _cancelledBetListDataAccess = Substitute.For<ICancelledBetListDataAccess>();
 
             ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>())
                 .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.AB } }));
@@ -58,8 +55,8 @@
             {
                 // Arrange
                 _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-                _cancelledBetListDataAccess.GetCancelBetCustList(Arg.Any<BetListMetaModel>())
-                    .Returns(new List<CustomerCancelBetItem>());
+
+                StubGetCustomerData(Enumerable.Empty<CustomerCancelBetItem>());
 
                 // Action
                 var result = controller.Index() as ViewResult;
@@ -85,9 +82,8 @@
                 _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
 
                 var cancelBetCust = new CustomerCancelBetItem { CustId = 2 };
-                var cancelBetCustList = new List<CustomerCancelBetItem> { cancelBetCust };
-
-                _cancelledBetListDataAccess.GetCancelBetCustList(Arg.Any<BetListMetaModel>()).Returns(cancelBetCustList);
+                IEnumerable<CustomerCancelBetItem> cancelBetCustList = new List<CustomerCancelBetItem> { cancelBetCust };
+                StubGetCustomerData(cancelBetCustList);
 
                 // Action
                 var result = controller.Index() as ViewResult;
@@ -111,7 +107,7 @@
                 _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
                 // Action
-                var result = controller.Index(new BetListMetaModel()) as ViewResult;
+                var result = controller.Index(new BetListExcelMetaModel()) as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml"));
@@ -125,10 +121,9 @@
             {
                 // Arrange
                 _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-                _cancelledBetListDataAccess.GetCancelBetCustList(Arg.Any<BetListMetaModel>())
-                    .Returns(new List<CustomerCancelBetItem>());
+                StubGetCustomerData(Enumerable.Empty<CustomerCancelBetItem>());
 
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     FromDate = new DateTime(2018, 2, 1),
                     ToDate = new DateTime(2018, 2, 10),
@@ -156,7 +151,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = -1000
@@ -181,7 +176,7 @@
                 // Arrange
                 const string AgentListXml = "<xml/>";
 
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = 0,
@@ -192,48 +187,47 @@
                 var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.CancelledBets} - {currencyTitle}";
 
-                var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_SelDeleted").Returns(ticketResult);
-
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
                 controller.When(x => x.ProcessExportExcel(
-                    Arg.Any<ShowingOption>(),
-                    Arg.Any<BetListMetaModel>(),
-                    Arg.Any<TicketResult>(),
-                    Arg.Any<IEnumerable<int>>(),
+                    Arg.Any<BetListExcelMetaModel>(),
                     Arg.Any<string>(),
-                    Arg.Any<string>(),
-                    Arg.Any<int>())).DoNotCallBase();
+                    Arg.Any<string>())).DoNotCallBase();
 
                 // Action
                 controller.Index(metaModel);
 
                 // Assert
                 controller.Received().ProcessExportExcel(
-                    Arg.Is<ShowingOption>(x => x.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm),
-                    Arg.Is<BetListMetaModel>(x => x.LicenseeId == DefaultLicenseeSession.LicenseeId && !x.IsShowSumStake && x.AgentListXml == AgentListXml),
-                    ticketResult,
-                    Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "7,8,9"),
-                    expectedTitle,
+                    Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
+                        && string.Join(",", x.HiddenColumns) == "7,8,9"
+                        && x.Title == expectedTitle
+                        && x.UspKey == "Lrf_BetList_SelDeleted"
+                        && x.LicenseeId == DefaultLicenseeSession.LicenseeId
+                        && !x.IsShowSumStake
+                        && x.AgentListXml == AgentListXml),
                     "CancelledBetList",
-                    1);
+                    null);
             }
+        }
+
+        private void StubGetCustomerData(IEnumerable<CustomerCancelBetItem> cancelBetCustList)
+        {
+            BetListApiClient.PostAsync<IEnumerable<CustomerCancelBetItem>>("/CancelledBetsBetList/GetCustomerList", Arg.Any<object>())
+                .Returns(Task.FromResult(cancelBetCustList));
         }
 
         private CancelledBetsBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<CancelledBetsBetListController>(
+            return Substitute.ForPartsOf<CancelledBetsBetListController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
                 CacheRefAdapter,
-                _authorizationService,
-                _cancelledBetListDataAccess);
-            return controller;
+                BetListApiClient,
+                _authorizationService);
         }
     }
 }

@@ -181,7 +181,12 @@
         [TestCase(0, 1, 50, 1, 50)]
         [TestCase(1, -1, 100, DefaultPageIndex, 100)]
         [TestCase(2, 2, -1, 2, DefaultPageSize)]
-        public async Task NumberGame_ValidCurrency_CallBetListApiWithCorrectParameters(int currencyId, int pageIndex, int pageSize, int expectedPageIndex, int expectedPageSize)
+        public async Task NumberGame_ValidCurrency_CallBetListApiWithCorrectParameters(
+            int currencyId,
+            int pageIndex,
+            int pageSize,
+            int expectedPageIndex,
+            int expectedPageSize)
         {
             using (var controller = CreateController())
             {
@@ -209,7 +214,12 @@
         [TestCase(0, 1, 50, 1, 50)]
         [TestCase(1, -1, 100, DefaultPageIndex, 100)]
         [TestCase(2, 2, -1, 2, DefaultPageSize)]
-        public async Task MixParlay_ValidCurrency_CallBetListApiWithCorrectParameters(int currencyId, int pageIndex, int pageSize, int expectedPageIndex, int expectedPageSize)
+        public async Task MixParlay_ValidCurrency_CallBetListApiWithCorrectParameters(
+            int currencyId,
+            int pageIndex,
+            int pageSize,
+            int expectedPageIndex,
+            int expectedPageSize)
         {
             using (var controller = CreateController())
             {
@@ -237,7 +247,12 @@
         [TestCase(0, 1, 50, 1, 50)]
         [TestCase(1, -1, 100, DefaultPageIndex, 100)]
         [TestCase(2, 2, -1, 2, DefaultPageSize)]
-        public async Task VirtualSports_ValidCurrency_CallBetListApiWithCorrectParameters(int currencyId, int pageIndex, int pageSize, int expectedPageIndex, int expectedPageSize)
+        public async Task VirtualSports_ValidCurrency_CallBetListApiWithCorrectParameters(
+            int currencyId,
+            int pageIndex,
+            int pageSize,
+            int expectedPageIndex,
+            int expectedPageSize)
         {
             using (var controller = CreateController())
             {
