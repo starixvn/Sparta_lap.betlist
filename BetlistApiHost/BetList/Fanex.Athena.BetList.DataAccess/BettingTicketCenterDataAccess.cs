@@ -196,12 +196,9 @@
             {
                 var productCodes = metaModel.ProductCodeList.Split(',');
                 var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
-                var endOfToDate = metaModel.ToDate.AddDays(1).AddMilliseconds(-2);
 
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("UserName", metaModel.UserName);
-                db.SetParameterValue("FromDate", metaModel.FromDate);
-                db.SetParameterValue("ToDate", endOfToDate);
                 db.SetParameterValue("CurrencyId", metaModel.CurrencyId);
                 db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 db.SetParameterValue("ProductList", productList);
