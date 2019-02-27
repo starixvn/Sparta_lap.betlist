@@ -61,6 +61,8 @@
     <Setting Key="Lrf_BetList_Licensee" SpName="Lrf_BetList_Licensee" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Licensee_TotalRows" SpName="Lrf_BetList_Licensee_TotalRows" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
-
+  <Misc>
+    <Setting Key="Acc_CustomerSelSiteByCustId" SpName="Acc_CustomerSelSiteByCustId" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+  </Misc>
 </Functions>
 		
