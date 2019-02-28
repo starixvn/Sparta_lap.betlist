@@ -11,7 +11,7 @@ namespace Fanex.Athena.Service.Core.Utility.Interfaces
 
         Task<T> PostAsync<T>(string path, object value);
 
-        Task<Stream> PostAsyncStream(string path, object value);
+        Task<Stream> PostAsyncStream(string path, object value, TimeSpan timeout = default(TimeSpan));
 
         Task<string> PostAsyncString(string path, object value);
     }

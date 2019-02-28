@@ -52,9 +52,9 @@
             }
         }
 
-        public async Task<Stream> PostAsyncStream(string path, object value)
+        public async Task<Stream> PostAsyncStream(string path, object value, TimeSpan timeout = default(TimeSpan))
         {
-            using (var client = CreateClient())
+            using (var client = CreateClient(timeout))
             {
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
@@ -82,11 +82,16 @@
             return new Uri(_appSetting.BetListApiHostUrl + path);
         }
 
-        private HttpClient CreateClient()
+        private HttpClient CreateClient(TimeSpan timeout = default(TimeSpan))
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
             client.DefaultRequestHeaders.Add(LANGUAGEKEY, _sessionStorage.UserSession.Language);
+
+            if (timeout != default(TimeSpan))
+            {
+                client.Timeout = timeout;
+            }
             return client;
         }
     }
