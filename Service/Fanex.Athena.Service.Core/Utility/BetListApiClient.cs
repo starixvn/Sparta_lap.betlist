@@ -64,20 +64,14 @@
 
         public async Task<Stream> PostAsyncStream(string path, object value)
         {
-            return await Handle<Stream>(path, value, async (x) =>
-            {
-                return await x.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            }).ConfigureAwait(false);
+            return await Handle(path, value, async (x) => await x.Content.ReadAsStreamAsync().ConfigureAwait(false)).ConfigureAwait(false);
 
 
         }
 
         public async Task<string> PostAsyncString(string path, object value)
         {
-            return await Handle<string>(path, value, async (x) =>
-            {
-                return await x.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }).ConfigureAwait(false);
+            return await Handle(path, value, async (x) => await x.Content.ReadAsStringAsync().ConfigureAwait(false)).ConfigureAwait(false);
         }
 
         private Uri GetFullUri(string path)
@@ -87,8 +81,10 @@
 
         private HttpClient CreateClient()
         {
-            var client = new HttpClient();
-            client.Timeout = TimeSpan.FromMinutes(5);
+            var client = new HttpClient
+            {
+                Timeout = TimeSpan.FromMinutes(5)
+            };
             client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
             client.DefaultRequestHeaders.Add(LANGUAGEKEY, _sessionStorage.UserSession.Language);
 
