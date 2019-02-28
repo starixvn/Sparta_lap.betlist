@@ -1,175 +1,366 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
-    using Fanex.Athena.DataAccess.BetList.Interfaces;
+    using Common.Constant;
+    using DataAccess.Interfaces;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Builder.StatusBuilder;
     using Fanex.BetList.Core.Entities;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
-    using Model.BetList.ViewModel;
+    using Fanex.BetList.Core.Templates;
+    using Model.DTO;
+    using Model.MetaModel;
+    using Model.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
+    using UnitTest.Common.Helpers;
 
-    internal class CashOutBetListControllerTest : BetListBaseControllerHelperTest
+    public class CashOutBetListControllerTest
     {
         private ICashOutBetListDataAccess _cashOutBetListDataAccess;
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        private ITicketHelper _ticketHelper;
+
+        private IBetListHTMLBuilder _betListHTMLBuilder;
+
+        [SetUp]
+        public void SetUp()
         {
-            base.FixtureSetUp();
-
             _cashOutBetListDataAccess = Substitute.For<ICashOutBetListDataAccess>();
+            _ticketHelper = Substitute.For<ITicketHelper>();
+            _betListHTMLBuilder = Substitute.For<IBetListHTMLBuilder>();
+        }
 
-            SetUpDefaultFakeData();
+        [TearDown]
+        public void TearDown()
+        {
+            _cashOutBetListDataAccess = null;
+            _ticketHelper = null;
+            _betListHTMLBuilder = null;
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectView()
+        public void Detail_BuilOriginalTicketText_OriginalTicketIsEmpty_ReturnEmptyObject()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new CashOutBetListDetailMetaModel { TransId = 2 };
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
-                {
-                    OriginalTicket = new LrfTicket { TransId = metaModel.TransId, Status = "running" },
-                    CashOutTicketList = new List<CashOutTicket>()
-                });
+                var viewModel = new CashOutBetListDetailViewModel();
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
 
                 // Action
-                var result = controller.Detail(metaModel) as ViewResult;
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CashOutDetail/Main.cshtml"));
+                Assert.That(result.OriginalTicketText.Choice, Is.Null);
             }
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectViewModel()
+        public void Detail_BuildCashOutTicketTextList_CashoutTicketIsNull_ReturnEmptyObject()
         {
             using (var controller = CreateController())
             {
-                // Arrang
-                var metaModel = new CashOutBetListDetailMetaModel { TransId = 2, IsCashOut = true };
+                // Arrange
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
-                {
-                    OriginalTicket = new LrfTicket { TransId = metaModel.TransId, Status = "running" },
-                    CashOutTicketList = new List<CashOutTicket>()
-                });
+                var viewModel = new CashOutBetListDetailViewModel();
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
 
                 // Action
-                var result = controller.Detail(metaModel) as ViewResult;
-                var model = (CashOutBetListDetailViewModel)result.Model;
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(model.IsCashOut, Is.True);
-                    Assert.That(model.IsHighlightOriginalTicket, Is.True);
-                    Assert.That(model.CashOutTicketTextList, Is.Empty);
-                });
+                Assert.That(result.CashOutTicketTextList, Is.Empty);
             }
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectOriginalTicketText()
+        public void Detail_BuildCashOutTicketTextList_CashoutTicketIsEmpty_ReturnEmptyObject()
         {
             using (var controller = CreateController())
             {
-                var metaModel = new CashOutBetListDetailMetaModel { TransId = 2 };
+                // Arrange
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
-                {
-                    OriginalTicket = new LrfTicket { TransId = metaModel.TransId, Status = "running", ExternalId = "Test", UserName = "Test" },
-                    CashOutTicketList = new List<CashOutTicket>()
-                });
+                var viewModel = new CashOutBetListDetailViewModel { CashOutTicketList = Enumerable.Empty<CashOutTicket>() };
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
 
                 // Action
-                var result = controller.Detail(metaModel) as ViewResult;
-                var model = (CashOutBetListDetailViewModel)result.Model;
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(model.OriginalTicketText.ExternalId, Is.EqualTo(model.OriginalTicket.ExternalId));
-                    Assert.That(model.OriginalTicketText.SystemId, Is.EqualTo(model.OriginalTicket.UserName));
-                });
+                Assert.That(result.CashOutTicketTextList, Is.Empty);
             }
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectCashOutTicketText()
+        public void Detail_BuildCashOutTicketTextList_ReturnCorrectOriginalTicketText()
         {
             using (var controller = CreateController())
             {
-                // Arrang
-                var metaModel = new CashOutBetListDetailMetaModel { TransId = 2 };
+                // Arrange
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
+                metaModel.BetdaqId = 0;
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
-                {
-                    OriginalTicket = new LrfTicket { TransId = metaModel.TransId, Status = "running" },
-                    CashOutTicketList = new List<CashOutTicket> { new CashOutTicket { Stake = 1, Price = 2, WinLoss = 3, Status = "running" } }
-                });
+                var originalTicket = FakeHelper.Create<LrfTicket>();
+                originalTicket.TransId = 0;
+                originalTicket.Status = "running";
+                var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+
+                var statusHtml = FakeHelper.Create<Status_Template>();
+                var status = Substitute.For<IStatus>();
+                status.Render(originalTicket, _ticketHelper, null, true).Returns(statusHtml);
+                _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
+
+                var transTime = FakeHelper.Create<string>();
+                _betListHTMLBuilder.BuildTrans(originalTicket).Returns(transTime);
+
+                var choice = FakeHelper.Create<string>();
+                _betListHTMLBuilder.BuildChoice(originalTicket, _ticketHelper, null, false).Returns(choice);
+
+                var odds = FakeHelper.Create<string>();
+                _betListHTMLBuilder.BuildOdds(originalTicket, null, Arg.Any<GetCachePropertyById>()).Returns(odds);
+
+                var stake = FakeHelper.Create<string>();
+                _betListHTMLBuilder.BuildStake(originalTicket).Returns(stake);
+
+                var winloss = "-";
 
                 // Action
-                var result = controller.Detail(metaModel) as ViewResult;
-                var model = (CashOutBetListDetailViewModel)result.Model;
-                var firstCashOutTicketText = model.CashOutTicketTextList.ElementAt(0);
-                var firstCashOutTicket = model.CashOutTicketList.ElementAt(0);
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var originalTicketText = result.OriginalTicketText;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(firstCashOutTicketText.Stake, Is.EqualTo("1.00"));
-                    Assert.That(firstCashOutTicketText.Price, Is.EqualTo("2.00"));
-                    Assert.That(firstCashOutTicketText.WinLoss, Is.EqualTo("3.00"));
+                    Assert.That(originalTicketText.ExternalId, Is.EqualTo(originalTicket.ExternalId));
+                    Assert.That(originalTicketText.SystemId, Is.EqualTo(originalTicket.UserName));
+                    Assert.That(originalTicketText.TransTime, Is.EqualTo(transTime));
+                    Assert.That(originalTicketText.Status, Is.EqualTo(statusHtml.ToString()));
+                    Assert.That(originalTicketText.Choice, Is.EqualTo(choice));
+                    Assert.That(originalTicketText.Odds, Is.EqualTo(odds));
+                    Assert.That(originalTicketText.Stake, Is.EqualTo(stake));
+                    Assert.That(originalTicketText.WinLoss, Is.EqualTo(winloss));
                 });
             }
         }
 
-        [TestCase(1, 900, false)]
-        [TestCase(1, 912, false)]
-        [TestCase(0, 913, false)]
-        [TestCase(1, 913, true)]
-        public void Detail_WhenCall_ReturnCorrectIsHighlightOriginalTicket(long betdaqid, int betType, bool expected)
+        [TestCase(1, 2, false)]
+        [TestCase(2, 2, true)]
+        public void Detail_BuildCashOutTicketTextList_ReturnCorrectCashOutTicketText(int metaModelTransId, int ticketTransId, bool expectedIsHighlight)
         {
             using (var controller = CreateController())
             {
-                // Arrang
-                var metaModel = new CashOutBetListDetailMetaModel { TransId = 2, BetdaqId = betdaqid, BetType = betType };
+                // Arrange
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
+                metaModel.BetdaqId = 0;
+                metaModel.TransId = metaModelTransId;
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, UserCurrencyList).Returns(new CashOutBetListDetailViewModel
-                {
-                    OriginalTicket = new LrfTicket { TransId = 3, Status = "running" },
-                    CashOutTicketList = new List<CashOutTicket>()
-                });
+                var cashOutTicket = FakeHelper.Create<CashOutTicket>();
+                cashOutTicket.TransId = ticketTransId;
+                var cashOutTicketList = new List<CashOutTicket> { cashOutTicket };
+                var viewModel = new CashOutBetListDetailViewModel { CashOutTicketList = cashOutTicketList };
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+
+                var statusHtml = FakeHelper.Create<Status_Template>();
+                var status = Substitute.For<IStatus>();
+                status.Render(Arg.Any<LrfTicket>(), _ticketHelper, null, true).Returns(statusHtml);
+                _betListHTMLBuilder.CreateStatusBuilder(cashOutTicket.BetType).Returns(status);
+
+                var expectedTranstime = ViewResources.RefNo + ": " + cashOutTicket.TransId + Environment.NewLine + "<div class='time'>" + cashOutTicket.TransDate + "</div>";
 
                 // Action
-                var result = controller.Detail(metaModel) as ViewResult;
-                var model = (CashOutBetListDetailViewModel)result.Model;
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var cashoutTicketText = result.CashOutTicketTextList.ElementAt(0);
 
                 // Assert
-                Assert.That(model.IsHighlightOriginalTicket, Is.EqualTo(expected));
+                Assert.Multiple(() =>
+                {
+                    Assert.That(cashoutTicketText.TransTime, Is.EqualTo(expectedTranstime));
+                    Assert.That(cashoutTicketText.Stake, Is.EqualTo(cashOutTicket.Stake.ToString("#,##0.##")));
+                    Assert.That(cashoutTicketText.Price, Is.EqualTo(cashOutTicket.Price.ToString(FormatKey.DecimalFormat)));
+                    Assert.That(cashoutTicketText.WinLoss, Is.EqualTo(cashOutTicket.WinLoss.ToString(FormatKey.DecimalFormat)));
+                    Assert.That(cashoutTicketText.Status, Is.EqualTo(statusHtml.ToString()));
+                    Assert.That(cashoutTicketText.IsHighlight, Is.EqualTo(expectedIsHighlight));
+
+                    status.Received().Render(Arg.Is<LrfTicket>(x => x.BetTypeId == cashOutTicket.BetType && x.Status == cashOutTicket.Status),
+                        _ticketHelper,
+                        null,
+                        true);
+                });
+            }
+        }
+
+        [TestCase(2, 1)]
+        [TestCase(1, 2)]
+        public void Detail_IsNotOriginalTicket_DoNotHighlightOriginalTicket(int metaModelTransId, int ticketTransId)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
+                metaModel.BetdaqId = 0;
+                metaModel.TransId = metaModelTransId;
+
+                var originalTicket = FakeHelper.Create<LrfTicket>();
+                originalTicket.TransId = ticketTransId;
+                originalTicket.Status = "running";
+
+                var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+
+                var statusHtml = FakeHelper.Create<Status_Template>();
+                var status = Substitute.For<IStatus>();
+                status.Render(originalTicket, _ticketHelper, null, true).Returns(statusHtml);
+                _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
+
+                // Action
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+
+                // Assert
+                Assert.That(result.IsHighlightOriginalTicket, Is.False);
+            }
+        }
+
+        [Test]
+        public void Detail_BetdaqidIsZero_DoNotHighlightOriginalTicket()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
+                metaModel.BetdaqId = 0;
+
+                var originalTicket = FakeHelper.Create<LrfTicket>();
+                originalTicket.TransId = metaModel.TransId - 1;
+                originalTicket.Status = "running";
+
+                var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+
+                var statusHtml = FakeHelper.Create<Status_Template>();
+                var status = Substitute.For<IStatus>();
+                status.Render(originalTicket, _ticketHelper, null, true).Returns(statusHtml);
+                _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
+
+                // Action
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+
+                // Assert
+                Assert.That(result.IsHighlightOriginalTicket, Is.False);
+            }
+        }
+
+        [TestCase(900)]
+        [TestCase(912)]
+        public void Detail_IsNotSpecialCashoutBettype_DoNotHighlightOriginalTicket(int bettype)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
+                metaModel.BetdaqId = 1;
+                metaModel.BetType = bettype;
+
+                var originalTicket = FakeHelper.Create<LrfTicket>();
+                originalTicket.TransId = metaModel.TransId - 1;
+                originalTicket.Status = "running";
+
+                var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+
+                var statusHtml = FakeHelper.Create<Status_Template>();
+                var status = Substitute.For<IStatus>();
+                status.Render(originalTicket, _ticketHelper, null, true).Returns(statusHtml);
+                _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
+
+                // Action
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+
+                // Assert
+                Assert.That(result.IsHighlightOriginalTicket, Is.False);
+            }
+        }
+
+        [Test]
+        public void Detail_IsOriginalTicket_HighlightOriginalTicket()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
+                metaModel.BetdaqId = 1;
+                metaModel.BetType = 1;
+
+                var originalTicket = FakeHelper.Create<LrfTicket>();
+                originalTicket.TransId = metaModel.TransId;
+                originalTicket.Status = "running";
+
+                var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+
+                var statusHtml = FakeHelper.Create<Status_Template>();
+                var status = Substitute.For<IStatus>();
+                status.Render(originalTicket, _ticketHelper, null, true).Returns(statusHtml);
+                _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
+
+                // Action
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+
+                // Assert
+                Assert.That(result.IsHighlightOriginalTicket, Is.True);
+            }
+        }
+
+        [Test]
+        public void Detail_IsCashoutBettype_HighlightOriginalTicket()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
+                metaModel.BetdaqId = 1;
+                metaModel.BetType = 1;
+
+                var originalTicket = FakeHelper.Create<LrfTicket>();
+                originalTicket.TransId = metaModel.TransId - 1;
+                originalTicket.Status = "running";
+
+                var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
+
+                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+
+                var statusHtml = FakeHelper.Create<Status_Template>();
+                var status = Substitute.For<IStatus>();
+                status.Render(originalTicket, _ticketHelper, null, true).Returns(statusHtml);
+                _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
+
+                // Action
+                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+
+                // Assert
+                Assert.That(result.IsHighlightOriginalTicket, Is.True);
             }
         }
 
         private CashOutBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<CashOutBetListController>(
-                LangService,
-                SessionService,
-                AppSettings,
-                ProductService,
-                BetListService,
-                BalanceUpDataAccess,
-                CacheRefAdapter,
-                _cashOutBetListDataAccess,
-                Substitute.For<ITicketHelper>());
-            return controller;
+            return new CashOutBetListController(_cashOutBetListDataAccess, _ticketHelper, _betListHTMLBuilder);
         }
     }
 }

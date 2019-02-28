@@ -7,7 +7,6 @@ using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.Common.Constant;
-using Fanex.Athena.Common.DataAccess.Interfaces;
 using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -23,7 +22,6 @@ namespace Fanex.Athena.BetList.Controller
         private readonly IBetListHTMLBuilder _betListHTMLBuilder;
 
         public CashOutBetListController(
-            IBalanceUpDataAccess balanceUpDataAccess,
             ICashOutBetListDataAccess cashOutBetListDataAccess,
             ITicketHelper ticketHelper,
             IBetListHTMLBuilder betListHTMLBuilder)
@@ -43,7 +41,7 @@ namespace Fanex.Athena.BetList.Controller
                     IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
             }
 
-            viewModel.OriginalTicketText = BuilOriginalTicketText(viewModel.OriginalTicket, metaModel.HasPlayerComm);
+            viewModel.OriginalTicketText = BuildOriginalTicketText(viewModel.OriginalTicket, metaModel.HasPlayerComm);
             viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.TransId);
 
             viewModel.IsCashOut = metaModel.IsCashOut;
@@ -90,28 +88,27 @@ namespace Fanex.Athena.BetList.Controller
             return ticketTextList;
         }
 
-        private TicketText BuilOriginalTicketText(LrfTicket ticket, bool hasPlayerComm)
+        private TicketText BuildOriginalTicketText(LrfTicket ticket, bool hasPlayerComm)
         {
             if (ticket == null)
             {
                 return new TicketText();
             }
 
-            var builder = new BetListHTMLBuilder();
             _ticketHelper.HideStatusCashOutHistory = true;
 
-            var statusHtml = builder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, _ticketHelper, null, true);
+            var statusHtml = _betListHTMLBuilder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, _ticketHelper, null, true);
             statusHtml.StatusResult = null;
             return new TicketText
             {
                 ExternalId = ticket.ExternalId,
                 SystemId = ticket.UserName,
-                TransTime = builder.BuildTrans(ticket),
+                TransTime = _betListHTMLBuilder.BuildTrans(ticket),
                 Status = statusHtml.ToString(),
-                Choice = builder.BuildChoice(ticket, _ticketHelper, null, false),
-                Odds = builder.BuildOdds(ticket, null, _ticketHelper.GetValidOddsTypeNameById),
-                Stake = builder.BuildStake(ticket),
-                WinLoss = builder.BuildCustomerWL(ticket, hasPlayerComm)
+                Choice = _betListHTMLBuilder.BuildChoice(ticket, _ticketHelper, null, false),
+                Odds = _betListHTMLBuilder.BuildOdds(ticket, null, _ticketHelper.GetValidOddsTypeNameById),
+                Stake = _betListHTMLBuilder.BuildStake(ticket),
+                WinLoss = _betListHTMLBuilder.BuildCustomerWL(ticket, hasPlayerComm)
             };
         }
     }

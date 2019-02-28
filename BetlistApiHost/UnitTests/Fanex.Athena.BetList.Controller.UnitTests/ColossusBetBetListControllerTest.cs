@@ -1,54 +1,44 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
     using System;
-    using System.Web.Mvc;
-    using DataAccess.BetList.Interfaces;
-    using Model.BetList.MetaModel;
-    using Model.BetList.ViewModel;
+    using Common.Utility.Services.Interfaces;
+    using DataAccess.Interfaces;
+    using Logging;
+    using Model.MetaModel;
+    using Model.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Utility.Interfaces;
 
-    public class ColossusBetBetListControllerTest : BetListBaseControllerHelperTest
+    public class ColossusBetBetListControllerTest
     {
-        private ICoreLogger _logger;
+        private IAppSettings _appSettings;
 
-        private IColossusBetBetListDataAccess _dataAccess;
+        private ILogger _logger;
+
+        private IColossusBetBetListDataAccess _colossusBetBetListDataAccess;
 
         private IWebClientService _webClientService;
 
         [SetUp]
         public void SetUp()
         {
-            _logger = Substitute.For<ICoreLogger>();
-            _dataAccess = Substitute.For<IColossusBetBetListDataAccess>();
+            _appSettings = Substitute.For<IAppSettings>();
+            _logger = Substitute.For<ILogger>();
+            _colossusBetBetListDataAccess = Substitute.For<IColossusBetBetListDataAccess>();
             _webClientService = Substitute.For<IWebClientService>();
-
-            SetUpDefaultFakeData();
         }
 
-        [Test]
-        public void Detail_WhenCall_ReturnCorrectView()
+        [TearDown]
+        public void TearDown()
         {
-            using (var controller = CreateController())
-            {
-                // Arrang
-                var metaModel = new ColossusBetDetailMetaModel();
-
-                _dataAccess.GetData(metaModel).Returns(new ColossusBetDetailViewModel());
-
-                SetUpForGetIframeUrl(metaModel);
-
-                // Action
-                var result = controller.Detail(metaModel) as ViewResult;
-
-                // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/ColossusBetDetail/Main.cshtml"));
-            }
+            _appSettings = null;
+            _logger = null;
+            _colossusBetBetListDataAccess = null;
+            _webClientService = null;
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectViewModel()
+        public void Detail_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -56,12 +46,12 @@
                 var metaModel = new ColossusBetDetailMetaModel();
 
                 var viewModel = new ColossusBetDetailViewModel();
-                _dataAccess.GetData(metaModel).Returns(viewModel);
+                _colossusBetBetListDataAccess.GetData(metaModel).Returns(viewModel);
 
                 var expectedIframeUrl = SetUpForGetIframeUrl(metaModel);
 
                 // Action
-                var result = controller.Detail(metaModel) as ViewResult;
+                var result = (ColossusBetDetailViewModel)(controller.Detail(metaModel).Data);
 
                 // Assert
                 Assert.That(viewModel.IframeUrl, Is.EqualTo(expectedIframeUrl));
@@ -78,15 +68,18 @@
                 var metaModel = new ColossusBetDetailMetaModel();
 
                 var viewModel = new ColossusBetDetailViewModel();
-                _dataAccess.GetData(metaModel).Returns(viewModel);
+                _colossusBetBetListDataAccess.GetData(metaModel).Returns(viewModel);
+
+                var tokenApiUrl = "{0} {1}";
+                _appSettings.GetValue("ColossusBetTokenAPI").Returns(tokenApiUrl);
 
                 _webClientService.When(x => x.DownloadString(Arg.Any<string>())).Throw(exception);
 
                 // Action
-                var result = controller.Detail(metaModel) as ViewResult;
+                controller.Detail(metaModel);
 
                 // Assert
-                _logger.Received(1).Error(exception, Arg.Any<string>());
+                _logger.Received(1).Error("ColossusBet Get Token Error - ApiUrl: " + string.Format(tokenApiUrl, metaModel.UserId, metaModel.CustId), exception);
             }
         }
 
@@ -98,11 +91,11 @@
             const string Api = "API{0}{1}";
             const string Token = "token";
 
-            _dataAccess.GetSiteId(metaModel.CustId).Returns(SiteId);
+            _colossusBetBetListDataAccess.GetSiteId(metaModel.CustId).Returns(SiteId);
 
-            StubGetValueAppSettings("CBIframeUrlSiteId1", Url);
-            StubGetValueAppSettings("ColossusBetSiteId", BetSiteId);
-            StubGetValueAppSettings("ColossusBetTokenAPI", Api);
+            _appSettings.GetValue("CBIframeUrlSiteId1").Returns(Url);
+            _appSettings.GetValue("ColossusBetSiteId").Returns(BetSiteId);
+            _appSettings.GetValue("ColossusBetTokenAPI").Returns(Api);
 
             _webClientService.DownloadString(Arg.Any<string>()).Returns("{'data':{'authorization':'token'}}");
 
@@ -111,18 +104,12 @@
 
         private ColossusBetBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<ColossusBetBetListController>(
-                LangService,
-                SessionService,
-                AppSettings,
-                ProductService,
-                BetListService,
-                BalanceUpDataAccess,
-                CacheRefAdapter,
+            return new ColossusBetBetListController(
+                _appSettings,
                 _logger,
                 _webClientService,
-                _dataAccess);
-            return controller;
+                _colossusBetBetListDataAccess);
+
         }
     }
 }

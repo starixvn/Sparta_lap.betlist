@@ -1,81 +1,106 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
-    using Base.UnitTests;
-    using DataAccess.Core.Common.Interfaces;
-    using Model.BetList.ViewModel;
+    using Common.Utility.Collections;
+    using Fanex.BetList.Core.Entities;
+    using Model.DTO;
+    using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Interfaces;
+    using UnitTest.Common.Helpers;
 
     public class LastBetsMonitoringBetListControllerTest : BaseControllerHelperTest
     {
-        private ISportTypeDataAccess _sportTypeDataAccess;
+        private ILastBetsMonitoringBetListService _lastBetsMonitoringBetListService;
+
+        private ITicketHelper _ticketHelper;
 
         [OneTimeSetUp]
-        public override void FixtureSetUp()
+        public void FixtureSetUp()
         {
-            base.FixtureSetUp();
+            _lastBetsMonitoringBetListService = Substitute.For<ILastBetsMonitoringBetListService>();
 
-            _sportTypeDataAccess = Substitute.For<ISportTypeDataAccess>();
-
-            SetUpDefaultFakeData();
-
-            StubGetValueAppSettings("BaseUsdLicensees", "usd");
+            _ticketHelper = Substitute.For<ITicketHelper>();
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectView()
+        public void GetData_NoData_ReturnNoNewData()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                _sportTypeDataAccess.GetAllSports().Returns(new Dictionary<int, string>());
+                var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
+
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(new TicketResult());
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = controller.GetData(metaModel).Data;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LastBetsMonitoringNew/Main.cshtml"));
+                Assert.That(result.GetType().GetProperty("NewRow").GetValue(result, null), Is.False);
             }
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewModel()
+        public void GetData_HasData_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                const string ParlayId = "999";
+                var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
 
-                var sports = new Dictionary<int, string> { { 1, "Test Sport" } };
-                _sportTypeDataAccess.GetAllSports().Returns(sports);
+                var ticket = FakeHelper.Create<LrfTicket>();
+                ticket.BetTypeId = 1;
+                var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
-                var result = controller.Index() as ViewResult;
-                var model = (LastBetsMonitoringViewModel)result.Model;
+                var result = controller.GetData(metaModel).Data;
 
                 // Assert
-                Assert.Multiple(() =>
+                Assert.Multiple(() => 
                 {
-                    Assert.That(model.Param.LicenseeId, Is.EqualTo(DefaultLicenseeSession.LicenseeId));
-                    Assert.That(model.SportsList.Count, Is.EqualTo(3));
-                    Assert.That(model.SportsList.ElementAt(0).Value, Is.EqualTo("0"));
-                    Assert.That(model.SportsList.ElementAt(1).Value, Is.EqualTo(sports.ElementAt(0).Key.ToString()));
-                    Assert.That(model.SportsList.ElementAt(2).Value, Is.EqualTo(ParlayId));
+                    AssertClearData(ticketResult);
+                    Assert.That(result.GetType().GetProperty("NewRow").GetValue(result, null), Is.True);
+                    Assert.That(result.GetType().GetProperty("Rows").GetValue(result, null), Is.Not.Null);
+                    Assert.That(result.GetType().GetProperty("LastTransId").GetValue(result, null), Is.EqualTo(ticket.TransId));
                 });
             }
         }
 
-        private LastBetsMonitoringBetListController CreateController()
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(12)]
+        [TestCase(20)]
+        public void GetData_BuildOdds_DecimalOddsBetType_BuildCorrectOddString(int betType)
         {
-            var controller = Substitute.ForPartsOf<LastBetsMonitoringBetListController>(
-                LangService,
-                SessionService,
-                AppSettings,
-                _sportTypeDataAccess);
-            return controller;
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
+
+                var ticket = FakeHelper.Create<LrfTicket>();
+                ticket.BetTypeId = betType;
+                var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+
+                // Action
+                var result = controller.GetData(metaModel).Data;
+                var data = (string)result.GetType().GetProperty("Rows").GetValue(result, null);
+
+                // Assert
+                Assert.That(data.Contains("underdog"), Is.True);
+            }
+        }
+
+        private LastBetMonitoringBetListController CreateController()
+        {
+            return new LastBetMonitoringBetListController(
+                 _lastBetsMonitoringBetListService,
+                 _ticketHelper);
         }
     }
 }

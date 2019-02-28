@@ -1,44 +1,18 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
-    using System.Web.Mvc;
-    using Common.Utility.Services.Interfaces;
-    using NSubstitute;
+    using Model.DTO;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public abstract class BaseControllerHelperTest
     {
-        protected UrlHelper Url { get; set; }
-
-        protected ControllerContext ControllerContext { get; set; }
-
-        protected IAppSettings AppSettings { get; set; }
-
-        [OneTimeSetUp]
-        public virtual void FixtureSetUp()
+        protected void AssertClearData(TicketResult ticketResult)
         {
-            AppSettings = Substitute.For<IAppSettings>();
-            SetUpForContexts();
-        }
-
-        [OneTimeTearDown]
-        public virtual void FixtureTearDown()
-        {
-            Url = null;
-            ControllerContext = null;
-            AppSettings = null;
-        }
-
-        protected void StubGetValueAppSettings(string valueName, string fakeValue)
-        {
-            AppSettings.GetValue(valueName).Returns(fakeValue);
-        }
-
-        private void SetUpForContexts()
-        {
-            ControllerContext = MvcHelper.CreateControllerContext();
-            Url = MvcHelper.CreateUrlHelper(ControllerContext.HttpContext);
+            Assert.Multiple(() =>
+            {
+                Assert.That(ticketResult.MainTicketList, Is.Null);
+                Assert.That(ticketResult.TicketDataList, Is.Null);
+            });
         }
     }
 }

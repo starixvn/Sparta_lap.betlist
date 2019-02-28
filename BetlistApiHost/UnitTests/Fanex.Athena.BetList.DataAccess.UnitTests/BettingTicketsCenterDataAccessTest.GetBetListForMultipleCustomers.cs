@@ -8,11 +8,8 @@
 
     public partial class BettingTicketsCenterDataAccessTest
     {
-        [TestCase("", "", false)]
-        [TestCase("P1,SB,P2", "P1,SB,P2", false)]
-        [TestCase("BA,P1,P2", "P1,P2", true)]
-        [TestCase("P1,BA,P2,SB", "P1,P2,SB", true)]
-        public void GetBetListForMultipleCustomers_WhenCall_ParametersPassedCorrectly(string productCode, string productList, bool showBA)
+        [Test]
+        public void GetBetListForMultipleCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListByMultiCustomerUspKey)).Returns(ObjectDb);
@@ -20,7 +17,7 @@
             Reader.Read().Returns(false);
             ObjectDb.GetOuputParams().Returns(new Hashtable());
 
-            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.ProductCodeList, productCode);
+            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
             metaModel.IsExport = false;
 
             // Action
@@ -42,8 +39,7 @@
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
-                ObjectDb.Received(1).SetParameterValue("ShowBA", showBA);
-                ObjectDb.Received(1).SetParameterValue("ProductList", productList);
+                ObjectDb.Received(1).SetParameterValue("Product", metaModel.ProductCodeList);
 
                 ObjectDb.Received(1).SetParameterValue("TotalRows", null);
                 ObjectDb.Received(1).SetParameterValue("SumStake", null);
