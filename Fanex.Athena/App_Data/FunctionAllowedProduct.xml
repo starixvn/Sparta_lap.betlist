@@ -28,7 +28,7 @@
     <Function Name="BetList_DailyBetList" Product="SB,BA,NG,VS,KN,VS2,LT"></Function>
     <Function Name="BettingTicketCenter" Product="SB,BA,NG,VS,VS2,KN,LT,CO"></Function>
     <Function Name="BettingTicketCenter_Running" Product="SB,BA,NG,VS,VS2,KN,LT"></Function>
-    <Function Name="BettingTicketCenter_MultiCustomers" Product="SB,BA"></Function>
+    <Function Name="BettingTicketCenter_MultiCustomers" Product="SB,BA,NG,VS,VS2,KN,LT,CO"></Function>
   </Group>
 
   <Group Name="API">
