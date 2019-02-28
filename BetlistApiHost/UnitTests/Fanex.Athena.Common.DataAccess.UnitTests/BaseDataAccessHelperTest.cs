@@ -65,11 +65,5 @@ namespace Fanex.Athena.Common.DataAccess.UnitTests
         {
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
         }
-
-        protected void StubGetResultInfo(int errCode, string errMsg)
-        {
-            ObjectDb.GetParameterValue("ErrCode").Returns(errCode);
-            ObjectDb.GetParameterValue("ErrMsg").Returns(errMsg);
-        }
     }
 }

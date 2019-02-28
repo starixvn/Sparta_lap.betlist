@@ -74,16 +74,16 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                 db.AddInParameter("productcode", DbType.String, productCode);
-                db.AddInParameter("langkey", DbType.String, languageCode);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
                     {
+                        var bettypeId = int.Parse(reader["Bettype"].ToString());
                         results.Add(new CheckedItem
                         {
                             Checked = true,
-                            ID = int.Parse(reader["BettypeID"].ToString()),
-                            Name = reader["BettypeName"].ToString()
+                            ID = bettypeId,
+                            Name = _cacheRefAdapter.GetBettype(bettypeId)
                         });
                     }
                 }

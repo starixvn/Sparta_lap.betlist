@@ -107,8 +107,6 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                var productCodes = metaModel.ProductCodeList.Split(',');
-                var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
                 var balanceUp = _balanceUpDataAccess.GetBalanceUp();
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("FromDate", metaModel.FromDate);
@@ -120,8 +118,7 @@
                 db.SetParameterValue("MatchId", metaModel.MatchId);
                 db.SetParameterValue("StatusIdList", metaModel.StatusList);
                 db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
-                db.SetParameterValue("ShowBA", productCodes.Contains(ProductCodes.BA));
-                db.SetParameterValue("ProductList", productList);
+                db.SetParameterValue("ProductList", metaModel.ProductCodeList);
 
                 db.SetParameterValue("TotalRows", null);
 
@@ -281,8 +278,6 @@
 
         private void AddMultiCustomerParameters(IObjectDb db, MultipleCustomersBetListMetaModel metaModel)
         {
-            var productCodes = metaModel.ProductCodeList.Split(',');
-            var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("FromDate", metaModel.FromDate);
@@ -297,8 +292,7 @@
             db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
             db.SetParameterValue("PageSize", metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
             db.SetParameterValue("PageIndex", metaModel.IsExport ? 1 : metaModel.PageIndex);
-            db.SetParameterValue("ShowBA", productCodes.Contains(ProductCodes.BA));
-            db.SetParameterValue("ProductList", productList);
+            db.SetParameterValue("Product", metaModel.ProductCodeList);
 
             db.SetParameterValue("TotalRows", null);
             db.SetParameterValue("SumStake", null);

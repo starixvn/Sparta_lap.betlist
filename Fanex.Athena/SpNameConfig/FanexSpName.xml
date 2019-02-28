@@ -195,9 +195,9 @@
     <Setting Key="Lrf_SelBetTypeBySport" SpName="Lrf_SelBetTypeBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelLeagueBySport" SpName="Lrf_SelLeagueBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelMatchByLeague" SpName="Lrf_SelMatchByLeague" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_SelSportDetail" SpName="Lrf_SelSportDetail" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_SelSportDetail" SpName="Lrf_SelSportDetail_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Acc_ShowNotificationWhenProcessingData" SpName="Acc_ShowNotificationWhenProcessingData" DbName="DBTXN.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_SelBetTypesByProduct" SpName="Lrf_SelBetTypesByProduct" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_SelBetTypesByProduct" SpName="Lrf_SelBetTypesByProduct_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerLog">
