@@ -32,12 +32,16 @@
         private async Task<T> Handle<T>(string path, object value, Func<HttpResponseMessage, Task<T>> codeBlock)
         {
             using (var source = new CancellationTokenSource())
-            using (var client = CreateClient())
+            using (var client = new HttpClient())
             {
                 try
                 {
+                    client.Timeout = TimeSpan.FromMinutes(5);
+                    client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
+                    client.DefaultRequestHeaders.Add(LANGUAGEKEY, _sessionStorage.UserSession.Language);
+                    var url = new Uri(_appSetting.BetListApiHostUrl + path);
                     var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
-                    var response = await client.PostAsync(GetFullUri(path), stringContent, source.Token).ConfigureAwait(false);
+                    var response = await client.PostAsync(url, stringContent, source.Token).ConfigureAwait(false);
                     response.EnsureSuccessStatusCode();
                     return await codeBlock(response).ConfigureAwait(false);
                 }
@@ -74,21 +78,5 @@
             return await Handle(path, value, async (x) => await x.Content.ReadAsStringAsync().ConfigureAwait(false)).ConfigureAwait(false);
         }
 
-        private Uri GetFullUri(string path)
-        {
-            return new Uri(_appSetting.BetListApiHostUrl + path);
-        }
-
-        private HttpClient CreateClient()
-        {
-            var client = new HttpClient
-            {
-                Timeout = TimeSpan.FromMinutes(5)
-            };
-            client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
-            client.DefaultRequestHeaders.Add(LANGUAGEKEY, _sessionStorage.UserSession.Language);
-
-            return client;
-        }
     }
 }
