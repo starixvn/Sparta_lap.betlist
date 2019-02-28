@@ -26,9 +26,9 @@
             _sessionStorage = sessionStorage;
         }
 
-        public async Task<HttpResponseMessage> PostAsync(string path, object value)
+        public async Task<HttpResponseMessage> PostAsync(string path, object value, TimeSpan timeout = default(TimeSpan))
         {
-            using (var client = CreateClient())
+            using (var client = CreateClient(timeout))
             {
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
@@ -39,9 +39,9 @@
             }
         }
 
-        public async Task<T> PostAsync<T>(string path, object value)
+        public async Task<T> PostAsync<T>(string path, object value, TimeSpan timeout = default(TimeSpan))
         {
-            using (var client = CreateClient())
+            using (var client = CreateClient(timeout))
             {
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
@@ -64,9 +64,9 @@
             }
         }
 
-        public async Task<string> PostAsyncString(string path, object value)
+        public async Task<string> PostAsyncString(string path, object value, TimeSpan timeout = default(TimeSpan))
         {
-            using (var client = CreateClient())
+            using (var client = CreateClient(timeout))
             {
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
