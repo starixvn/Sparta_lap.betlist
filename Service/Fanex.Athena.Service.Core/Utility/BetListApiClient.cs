@@ -50,7 +50,7 @@
 
         public async Task<HttpResponseMessage> PostAsync(string path, object value)
         {
-            return await Handle(path, value, async (x) => { return x; }).ConfigureAwait(false);
+            return await Handle(path, value, async (x) => await Task.FromResult(x).ConfigureAwait(false)).ConfigureAwait(false);
         }
 
         public async Task<T> PostAsync<T>(string path, object value)
