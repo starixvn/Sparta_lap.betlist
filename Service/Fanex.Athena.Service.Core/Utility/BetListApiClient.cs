@@ -105,7 +105,7 @@
         private HttpClient CreateClient()
         {
             var client = new HttpClient();
-            client.Timeout = TimeSpan.FromMinutes(1);
+            client.Timeout = TimeSpan.FromMinutes(5);
             client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
             client.DefaultRequestHeaders.Add(LANGUAGEKEY, _sessionStorage.UserSession.Language);
 
