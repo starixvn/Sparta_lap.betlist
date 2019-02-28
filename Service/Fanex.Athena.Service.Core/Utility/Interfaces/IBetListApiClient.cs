@@ -7,12 +7,12 @@ namespace Fanex.Athena.Service.Core.Utility.Interfaces
 {
     public interface IBetListApiClient
     {
-        Task<HttpResponseMessage> PostAsync(string path, object value, TimeSpan timeout = default(TimeSpan));
+        Task<HttpResponseMessage> PostAsync(string path, object value);
 
-        Task<T> PostAsync<T>(string path, object value, TimeSpan timeout = default(TimeSpan));
+        Task<T> PostAsync<T>(string path, object value);
 
-        Task<Stream> PostAsyncStream(string path, object value, TimeSpan timeout = default(TimeSpan));
+        Task<Stream> PostAsyncStream(string path, object value);
 
-        Task<string> PostAsyncString(string path, object value, TimeSpan timeout = default(TimeSpan));
+        Task<string> PostAsyncString(string path, object value);
     }
 }

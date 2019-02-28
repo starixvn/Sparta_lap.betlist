@@ -61,7 +61,7 @@
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = userCurrencyList;
 
-            return await _betListApiClient.PostAsync("/BettingTicketCenterMultiCustomer/GetData", metaModel, TimeSpan.FromMinutes(4)).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenterMultiCustomer/GetData", metaModel).ConfigureAwait(false);
         }
 
         private static bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)
