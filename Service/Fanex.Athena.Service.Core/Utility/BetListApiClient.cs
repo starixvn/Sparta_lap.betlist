@@ -28,7 +28,6 @@
             _sessionStorage = sessionStorage;
         }
 
-
         private async Task<T> Handle<T>(string path, object value, Func<HttpResponseMessage, Task<T>> codeBlock)
         {
             using (var source = new CancellationTokenSource())
@@ -36,7 +35,7 @@
             {
                 try
                 {
-                    client.Timeout = TimeSpan.FromMinutes(5);
+                    client.Timeout = TimeSpan.FromMinutes(_appSetting.BetListApiClientTimeOutMinutes);
                     client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
                     client.DefaultRequestHeaders.Add(LANGUAGEKEY, _sessionStorage.UserSession.Language);
                     var url = new Uri(_appSetting.BetListApiHostUrl + path);
@@ -59,7 +58,10 @@
 
         public async Task<T> PostAsync<T>(string path, object value)
         {
-            return await Handle<T>(path, value, async (x) =>
+            return await Handle<T>(
+                path,
+                value,
+                async (x) =>
              {
                  var data = await x.Content.ReadAsStringAsync().ConfigureAwait(false);
                  return JsonConvert.DeserializeObject<T>(data);
@@ -69,14 +71,11 @@
         public async Task<Stream> PostAsyncStream(string path, object value)
         {
             return await Handle(path, value, async (x) => await x.Content.ReadAsStreamAsync().ConfigureAwait(false)).ConfigureAwait(false);
-
-
         }
 
         public async Task<string> PostAsyncString(string path, object value)
         {
             return await Handle(path, value, async (x) => await x.Content.ReadAsStringAsync().ConfigureAwait(false)).ConfigureAwait(false);
         }
-
     }
 }

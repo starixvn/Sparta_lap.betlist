@@ -6,6 +6,8 @@
 
     public interface IAppSettings
     {
+        int BetListApiClientTimeOutMinutes { get; }
+
         [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         string BetListApiHostUrl { get; }
