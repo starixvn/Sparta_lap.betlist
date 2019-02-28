@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Common.DataAcces.UnitTests;
+    using Common.DataAccess.UnitTests;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Fanex.Result.Core.NumberGame.DTO;
     using NSubstitute;

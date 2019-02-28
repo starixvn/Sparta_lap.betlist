@@ -161,9 +161,9 @@
       <Project>{3EA0F6A8-79D8-4BFA-A463-3C17144393F4}</Project>
       <Name>Fanex.Athena.Result.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Common.DataAcces.UnitTests\Fanex.Athena.Common.DataAcces.UnitTests.csproj">
+    <ProjectReference Include="..\Fanex.Athena.Common.DataAccess.UnitTests\Fanex.Athena.Common.DataAccess.UnitTests.csproj">
       <Project>{EF93477D-9D07-4B4B-9193-DB4C1F4021E3}</Project>
-      <Name>Fanex.Athena.Common.DataAcces.UnitTests</Name>
+      <Name>Fanex.Athena.Common.DataAccess.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

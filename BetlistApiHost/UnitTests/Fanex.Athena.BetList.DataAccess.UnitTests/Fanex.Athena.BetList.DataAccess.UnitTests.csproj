@@ -161,9 +161,9 @@
       <Project>{90F037EA-E730-44D0-8957-5FCA2295D22E}</Project>
       <Name>Fanex.Athena.Common.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Common.DataAcces.UnitTests\Fanex.Athena.Common.DataAcces.UnitTests.csproj">
+    <ProjectReference Include="..\Fanex.Athena.Common.DataAccess.UnitTests\Fanex.Athena.Common.DataAccess.UnitTests.csproj">
       <Project>{EF93477D-9D07-4B4B-9193-DB4C1F4021E3}</Project>
-      <Name>Fanex.Athena.Common.DataAcces.UnitTests</Name>
+      <Name>Fanex.Athena.Common.DataAccess.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

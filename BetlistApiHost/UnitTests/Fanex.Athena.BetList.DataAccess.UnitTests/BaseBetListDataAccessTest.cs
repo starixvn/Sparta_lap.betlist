@@ -6,7 +6,7 @@
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.DTO;
     using Common.Constant;
-    using Common.DataAcces.UnitTests;
+    using Common.DataAccess.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;

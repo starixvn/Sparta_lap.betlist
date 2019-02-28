@@ -2,9 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using Common.DataAcces.UnitTests;
     using Common.DataAccess.Interfaces;
+    using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
     using Common.Utility.Services.Interfaces;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;

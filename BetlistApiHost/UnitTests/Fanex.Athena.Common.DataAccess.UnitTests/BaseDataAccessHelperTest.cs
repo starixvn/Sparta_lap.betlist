@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using Fanex.Athena.Common.DataAccess;
 using Fanex.Athena.UnitTest.Common.Helpers;
 using Fanex.Data;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Fanex.Athena.Common.DataAcces.UnitTests
+namespace Fanex.Athena.Common.DataAccess.UnitTests
 {
     public class BaseDataAccessHelperTest<T> where T : BaseDataAccess
     {

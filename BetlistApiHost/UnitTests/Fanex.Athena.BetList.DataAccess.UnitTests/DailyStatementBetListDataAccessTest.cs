@@ -7,8 +7,8 @@
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
-    using Common.DataAcces.UnitTests;
     using Common.DataAccess.Interfaces;
+    using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
     using NSubstitute;
     using NUnit.Framework;

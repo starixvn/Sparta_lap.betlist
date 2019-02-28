@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Common.DataAcces.UnitTests
+﻿namespace Fanex.Athena.Common.DataAccess.UnitTests
 {
     using System;
     using Data;
