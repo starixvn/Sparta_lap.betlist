@@ -5,6 +5,7 @@
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Web;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Core.Utility.Interfaces;
     using Fanex.Athena.Session.Interfaces;
@@ -33,7 +34,7 @@
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+                await EnsureSuccessStatusCodeAsync(response).ConfigureAwait(false);
 
                 return response;
             }
@@ -46,7 +47,8 @@
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+                await EnsureSuccessStatusCodeAsync(response).ConfigureAwait(false);
+
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<T>(json);
             }
@@ -58,7 +60,8 @@
             {
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
-                response.EnsureSuccessStatusCode();
+
+                await EnsureSuccessStatusCodeAsync(response).ConfigureAwait(false);
 
                 return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             }
@@ -71,10 +74,27 @@
                 var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(GetFullUri(path), stringContent).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+                await EnsureSuccessStatusCodeAsync(response).ConfigureAwait(false);
 
                 return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
+        }
+
+        private static async Task EnsureSuccessStatusCodeAsync(HttpResponseMessage response)
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                return;
+            }
+
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (response.Content != null)
+            {
+                response.Content.Dispose();
+            }
+
+            throw new HttpException((int)response.StatusCode, content);
         }
 
         private Uri GetFullUri(string path)
