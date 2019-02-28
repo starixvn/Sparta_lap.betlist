@@ -30,8 +30,6 @@
             {
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
                 ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
-                ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
-                ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate.AddDays(1).AddMilliseconds(-2));
                 ObjectDb.Received(1).SetParameterValue("CurrencyId", metaModel.CurrencyId);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 ObjectDb.Received(1).SetParameterValue("ProductList", productList);
