@@ -64,9 +64,11 @@
                 {
                     Assert.That(data, Is.EqualTo(ticketText));
                     Assert.That(total.GetType().GetProperty("SumWinLoss").GetValue(total, null), Is.EqualTo(sumWL));
-                    Assert.That(total.GetType().GetProperty("SumLicenseeWL").GetValue(total, null),
+                    Assert.That(
+                        total.GetType().GetProperty("SumLicenseeWL").GetValue(total, null),
                         Is.EqualTo((ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat)));
-                    Assert.That(total.GetType().GetProperty("SumStake").GetValue(total, null),
+                    Assert.That(
+                        total.GetType().GetProperty("SumStake").GetValue(total, null),
                         Is.EqualTo(ticketResult.SumStake.ToString(FormatKey.DecimalFormat)));
                     Assert.That(totalRows, Is.EqualTo(ticketResult.TotalRows));
                 });
@@ -250,7 +252,8 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(data, Is.EqualTo(ticketText));
-                    Assert.That(total.GetType().GetProperty("SumStake").GetValue(total, null),
+                    Assert.That(
+                        total.GetType().GetProperty("SumStake").GetValue(total, null),
                         Is.EqualTo(ticketResult.SumStake.ToString(FormatKey.DecimalFormat)));
                     Assert.That(totalRows, Is.EqualTo(ticketResult.TotalRows));
                 });

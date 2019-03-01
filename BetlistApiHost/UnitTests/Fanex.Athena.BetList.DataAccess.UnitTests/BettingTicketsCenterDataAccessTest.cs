@@ -3,8 +3,8 @@
     using System;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
-    using Common.DataAccess.UnitTests;
     using Common.DataAccess.Interfaces;
+    using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
     using Common.Utility.Services.Interfaces;
     using NSubstitute;

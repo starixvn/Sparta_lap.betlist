@@ -51,7 +51,7 @@
                 var expectedIframeUrl = SetUpForGetIframeUrl(metaModel);
 
                 // Action
-                var result = (ColossusBetDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (ColossusBetDetailViewModel)controller.Detail(metaModel).Data;
 
                 // Assert
                 Assert.That(viewModel.IframeUrl, Is.EqualTo(expectedIframeUrl));
@@ -109,7 +109,6 @@
                 _logger,
                 _webClientService,
                 _colossusBetBetListDataAccess);
-
         }
     }
 }

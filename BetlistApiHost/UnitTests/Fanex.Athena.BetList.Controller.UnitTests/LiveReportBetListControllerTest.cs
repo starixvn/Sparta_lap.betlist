@@ -1,389 +1,145 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
-    using Excel.Base.Entities;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
+    using System.Linq;
+    using Common.Utility.Helpers;
+    using Model.DTO;
+    using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Resources;
+    using Service.Interfaces;
+    using UnitTest.Common.Helpers;
 
-    public class LiveReportBetListControllerTest : BetListBaseControllerHelperTest
+    public class LiveReportBetListControllerTest : BaseControllerHelperTest
     {
         private const string AgentListXml = "<xml/>";
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
-        {
-            base.FixtureSetUp();
+        private IBetListService _betListService;
 
-            SetUpDefaultFakeData();
+        [SetUp]
+        public void SetUp()
+        {
+            _betListService = Substitute.For<IBetListService>();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _betListService = Substitute.For<IBetListService>();
         }
 
         [Test]
-        public void Match_WhenCall_ReturnCorrectViewResult()
+        public void GetData_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = CreateMetaModel();
+                var metaModel = FakeHelper.Create<LiveReportBetListMetaModel>();
+
+                var ticketResult = new TicketResult
+                {
+                    SumWinLoss = FakeHelper.Create<decimal>(),
+                    SumPlayerComm = FakeHelper.Create<decimal>(),
+                    SumLicenseeWL = FakeHelper.Create<decimal>(),
+                    SumComm = FakeHelper.Create<decimal>(),
+                };
+                _betListService.GetBetListData(metaModel).Returns(ticketResult);
+
+                var ticketText = FakeHelper.CreateMany<TicketText>(2);
+                _betListService.BuildTicketTextList(ticketResult).Returns(ticketText.ToList());
 
                 // Action
-                var result = controller.Match(metaModel) as ViewResult;
-                var model = (BetListMetaModel)result.Model;
+                var result = controller.GetData(metaModel).Data;
+                var main = result.GetType().GetProperty("Main").GetValue(result, null);
+                var total = result.GetType().GetProperty("Total").GetValue(result, null);
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/Match.cshtml"));
-                    Assert.That(result.ViewBag.SportName, Is.Null);
-                    AssertDefaultBetListViewModel(model, metaModel);
+                    Assert.That(main, Is.EqualTo(ticketText));
+                    Assert.That(total.GetType().GetProperty("SumWinLoss").GetValue(total, null), Is.EqualTo(ticketResult.SumWinLoss + ticketResult.SumPlayerComm));
+                    Assert.That(total.GetType().GetProperty("SumLicenseeWl").GetValue(total, null), Is.EqualTo(ticketResult.SumLicenseeWL + ticketResult.SumComm));
+                    AssertClearData(ticketResult);
                 });
             }
         }
 
-        [Test]
-        public void MixParlay_WhenCall_ReturnCorrectViewResult()
+        [TestCase(1, 20, 50, 1, 3)]
+        [TestCase(2, 30, 60, 31, 2)]
+        [TestCase(3, 10, 60, 21, 6)]
+        public void GetPagingData_WhenCall_ReturnCorrectData(int pageIndex, int pageSize, int totalRows, int startIndex, int totalPage)
         {
             using (var controller = CreateController())
             {
+                // Arrange
+                var metaModel = FakeHelper.Create<LiveReportBetListMetaModel>();
+                metaModel.PageIndex = pageIndex;
+                metaModel.PageSize = pageSize;
+                metaModel.TotalRows = totalRows;
+
+                var ticketResult = new TicketResult();
+                _betListService.GetBetListData(metaModel).Returns(ticketResult);
+
+                var ticketText = FakeHelper.CreateMany<TicketText>(2);
+                _betListService.BuildTicketTextList(ticketResult, metaModel, startIndex).Returns(ticketText.ToList());
+
                 // Action
-                var result = controller.MixParlay(null) as ViewResult;
-                var model = (BetListMetaModel)result.Model;
+                var result = controller.GetPagingData(metaModel).Data;
+                var page = result.GetType().GetProperty("page").GetValue(result, null);
+                var total = result.GetType().GetProperty("total").GetValue(result, null);
+                var records = result.GetType().GetProperty("records").GetValue(result, null);
+                var rows = result.GetType().GetProperty("rows").GetValue(result, null);
+                var isHasCustComm = result.GetType().GetProperty("IsHasCustComm").GetValue(result, null);
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/MixParlay.cshtml"));
-                    Assert.That(result.ViewBag.SportName, Is.Null);
-                    AssertDefaultBetListViewModel(model, new BetListMetaModel());
+                    Assert.That(page, Is.EqualTo(pageIndex));
+                    Assert.That(total, Is.EqualTo(totalPage));
+                    Assert.That(records, Is.EqualTo(totalRows));
+                    Assert.That(rows, Is.EqualTo(ticketText));
+                    Assert.That(isHasCustComm, Is.EqualTo(metaModel.HasPlayerCom));
+                    AssertClearData(ticketResult);
                 });
             }
         }
 
-        [Test]
-        public void Outright_WhenCall_ReturnCorrectViewResult()
+        [TestCase(1.123, 2.345, "3.47")]
+        [TestCase(1.123, 2.34, "3.46")]
+        [TestCase(-1.123, -2.345, "<span class='negative-number'>-3.47</span>")]
+        public void GetPagingData_WhenCall_ReturnCorrectLicenseeWLText(decimal sumLicenseeWL, decimal sumComm, string expectedLicenseeWLText)
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = CreateMetaModel();
+                var metaModel = FakeHelper.Create<LiveReportBetListMetaModel>();
+                metaModel.SumLicenseeWL = sumLicenseeWL;
+                metaModel.SumComm = sumComm;
+
+                var ticketResult = new TicketResult();
+                _betListService.GetBetListData(metaModel).Returns(ticketResult);
+
+                var ticketText = FakeHelper.CreateMany<TicketText>(2);
+                _betListService.BuildTicketTextList(ticketResult, metaModel, Arg.Any<int>()).Returns(ticketText.ToList());
+
+                var expectedWinloss = NumberHelper.DecFormat(metaModel.SumWinlost + metaModel.SumPlayerComm, 2);
 
                 // Action
-                var result = controller.Outright(metaModel) as ViewResult;
-                var model = (BetListMetaModel)result.Model;
+                var result = controller.GetPagingData(metaModel).Data;
+                var userdata = result.GetType().GetProperty("userdata").GetValue(result, null);
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/Outright.cshtml"));
-                    Assert.That(result.ViewBag.SportName, Is.Null);
-                    AssertDefaultBetListViewModel(model, metaModel);
+                    Assert.That(userdata.GetType().GetProperty("WinLoss").GetValue(userdata, null), Is.EqualTo(expectedWinloss));
+                    Assert.That(userdata.GetType().GetProperty("LicenseeWL").GetValue(userdata, null), Is.EqualTo(expectedLicenseeWLText));
                 });
             }
-        }
-
-        [Test]
-        public void NumberGame_WhenCall_ReturnCorrectViewResult()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = CreateMetaModel();
-
-                // Action
-                var result = controller.NumberGame(metaModel) as ViewResult;
-                var model = (BetListMetaModel)result.Model;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/NumberGame.cshtml"));
-                    Assert.That(result.ViewBag.SportName, Is.Null);
-                    AssertDefaultBetListViewModel(model, metaModel);
-                });
-            }
-        }
-
-        [Test]
-        public void VirtualSports_WhenCall_ReturnCorrectViewResult()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const string SportName = "VirtualSports";
-
-                var metaModel = CreateMetaModel();
-                CacheRefAdapter.GetSportName(metaModel.SportType).Returns(SportName);
-
-                // Action
-                var result = controller.VirtualSports(metaModel) as ViewResult;
-                var model = (BetListMetaModel)result.Model;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/VirtualSports.cshtml"));
-                    Assert.That(result.ViewBag.SportName, Is.EqualTo(SportName));
-                    AssertDefaultBetListViewModel(model, metaModel);
-                });
-            }
-        }
-
-        [Test]
-        public void Match_ExportExcel_InvalidCurrency_ReturnEmptyResult()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    IsExportExcel = true,
-                    CurrencyId = -1000
-                };
-
-                controller.When(x => x.EmptyExcel()).DoNotCallBase();
-
-                // Action
-                controller.Match(metaModel);
-
-                // Assert
-                controller.Received().EmptyExcel();
-            }
-        }
-
-        [TestCase("USD", null, "USD")]
-        [TestCase("USD", "eur", "EUR")]
-        public void Match_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    IsExportExcel = true,
-                    CurrencyId = 0,
-                    CurrencyName = currency,
-                    BaseCurrency = baseCurrency,
-                    FromDate = new DateTime(2018, 11, 11),
-                    ToDate = new DateTime(2018, 12, 12),
-                    PageIndex = 2,
-                    PageSize = 10,
-                    HomeId = 2,
-                    AwayId = 3
-                };
-                var startIndex = 11;
-
-                CacheRefAdapter.GetTeamName(metaModel.HomeId).Returns("Home");
-                CacheRefAdapter.GetTeamName(metaModel.AwayId).Returns("Away");
-
-                var viewInCaption = string.Format(ViewResources.Viewin, expectedCurrency);
-                var betlistCaption = "Home vs Away ";
-                var expectedTitle = $"{ViewResources.BetList} - {betlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
-
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossByMatch", metaModel, controller);
-
-                // Action
-                controller.Match(metaModel);
-
-                // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
-            }
-        }
-
-        [TestCase("USD", null, "USD")]
-        [TestCase("USD", "eur", "EUR")]
-        public void MixParlay_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    IsExportExcel = true,
-                    CurrencyId = 0,
-                    CurrencyName = currency,
-                    BaseCurrency = baseCurrency,
-                    FromDate = new DateTime(2018, 11, 11),
-                    ToDate = new DateTime(2018, 12, 12),
-                    PageIndex = 3,
-                    PageSize = 20,
-                    HomeId = 2,
-                    AwayId = 0
-                };
-                var startIndex = 41;
-
-                var viewInCaption = string.Format(ViewResources.Viewin, expectedCurrency);
-                var betlistCaption = string.Empty;
-                var expectedTitle = $"{ViewResources.BetList} - {betlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
-
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossParlay", metaModel, controller);
-
-                // Action
-                controller.MixParlay(metaModel);
-
-                // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
-            }
-        }
-
-        [TestCase("USD", null, "USD")]
-        [TestCase("USD", "eur", "EUR")]
-        public void Outright_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    IsExportExcel = true,
-                    CurrencyId = 0,
-                    CurrencyName = currency,
-                    BaseCurrency = baseCurrency,
-                    FromDate = new DateTime(2018, 11, 11),
-                    ToDate = new DateTime(2018, 12, 12),
-                    PageIndex = 1,
-                    PageSize = 20
-                };
-                var startIndex = 1;
-
-                var viewInCaption = string.Format(ViewResources.Viewin, expectedCurrency);
-                var betlistCaption = ViewResources.Outright;
-                var expectedTitle = $"{ViewResources.BetList} - {betlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
-
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossOutright", metaModel, controller);
-
-                // Action
-                controller.Outright(metaModel);
-
-                // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
-            }
-        }
-
-        [TestCase("USD", null, "USD")]
-        [TestCase("USD", "eur", "EUR")]
-        public void NumberGame_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    IsExportExcel = true,
-                    CurrencyId = 0,
-                    CurrencyName = currency,
-                    BaseCurrency = baseCurrency,
-                    FromDate = new DateTime(2018, 11, 11),
-                    ToDate = new DateTime(2018, 12, 12),
-                    PageIndex = 1,
-                    PageSize = 20
-                };
-                var startIndex = 1;
-
-                var viewInCaption = string.Format(ViewResources.Viewin, expectedCurrency);
-                var betlistCaption = ViewResources.ProductNG;
-                var expectedTitle = $"{ViewResources.BetList} - {betlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
-
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossNumberGame", metaModel, controller);
-
-                // Action
-                controller.NumberGame(metaModel);
-
-                // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
-            }
-        }
-
-        [TestCase("USD", null, "USD")]
-        [TestCase("USD", "eur", "EUR")]
-        public void VirtualSports_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    IsExportExcel = true,
-                    CurrencyId = 0,
-                    CurrencyName = currency,
-                    BaseCurrency = baseCurrency,
-                    FromDate = new DateTime(2018, 11, 11),
-                    ToDate = new DateTime(2018, 12, 12),
-                    PageIndex = 1,
-                    PageSize = 20
-                };
-                var startIndex = 1;
-
-                const string BetlistCaption = "VirtualSports";
-                CacheRefAdapter.GetSportName(metaModel.SportType).Returns(BetlistCaption);
-                var viewInCaption = string.Format(ViewResources.Viewin, expectedCurrency);
-                var expectedTitle = $"{ViewResources.BetList} - {BetlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
-
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossVHRacing", metaModel, controller);
-
-                // Action
-                controller.VirtualSports(metaModel);
-
-                // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
-            }
-        }
-
-        private TicketResult SetUpForExportingExcel(string uspKey, LiveReportBetListMetaModel metaModel, LiveReportBetListController controller)
-        {
-            var ticketResult = new TicketResult();
-            BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, uspKey).Returns(ticketResult);
-
-            SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
-
-            controller.When(x => x.ProcessExportExcel(
-                Arg.Any<ShowingOption>(),
-                Arg.Any<BetListMetaModel>(),
-                Arg.Any<TicketResult>(),
-                Arg.Any<IEnumerable<int>>(),
-                Arg.Any<string>(),
-                Arg.Any<string>(),
-                Arg.Any<int>())).DoNotCallBase();
-
-            return ticketResult;
-        }
-
-        private void AssertExcelParameters(int expectedStartIndex, string expectedTitle, TicketResult ticketResult, LiveReportBetListController controller)
-        {
-            controller.Received().ProcessExportExcel(
-                Arg.Is<ShowingOption>(x => x.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm),
-                Arg.Is<BetListMetaModel>(x => x.LicenseeId == DefaultLicenseeSession.LicenseeId && !x.IsShowSumStake && x.AgentListXml == AgentListXml),
-                ticketResult,
-                Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "8"),
-                expectedTitle,
-                "LiveReportBetList",
-                expectedStartIndex);
-        }
-
-        private LiveReportBetListMetaModel CreateMetaModel()
-        {
-            return new LiveReportBetListMetaModel
-            {
-                FromDate = new DateTime(2018, 2, 1),
-                ToDate = new DateTime(2018, 2, 10),
-                Date = new DateTime(2018, 2, 5)
-            };
         }
 
         private LiveReportBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<LiveReportBetListController>(
-                LangService,
-                SessionService,
-                AppSettings,
-                ProductService,
-                BetListService,
-                BalanceUpDataAccess,
-                CacheRefAdapter);
-            return controller;
+            return new LiveReportBetListController(_betListService);
         }
     }
 }

@@ -62,6 +62,15 @@ namespace Fanex.Athena.BetList.Controller
             return GenerateHtmlViewModel(metaModel, ticketResult, metaModel.HasPlayerCom);
         }
 
+        protected internal virtual ExcelResult ReturnExcel(BettingTicketCenterExcelModel excelModel, TicketResult ticketResult)
+        {
+            var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
+            var workbook = excel.Export(excelModel);
+            excelModel.Data = null;
+            ClearData(ticketResult);
+            return new ExcelResult(workbook);
+        }
+
         private ActionResult Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
         {
             var title = _service.GetTitle(metaModel);
@@ -112,11 +121,7 @@ namespace Fanex.Athena.BetList.Controller
                 Title = title
             };
 
-            var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-            var workbook = excel.Export(excelModel);
-            excelModel.Data = null;
-            ClearData(ticketResult);
-            return new ExcelResult(workbook);
+            return ReturnExcel(excelModel, ticketResult);
         }
 
         private BettingTicketCenterExcelModel CreateBettingTicketCenterExcelModel(GroupTicketResult groupData, string dataPath, string title, bool hasPlayerComm)

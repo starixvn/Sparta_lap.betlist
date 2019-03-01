@@ -138,6 +138,15 @@ namespace Fanex.Athena.BetList.Controller
             return ProcessExportExcel(metaModel, ticketResult);
         }
 
+        protected internal virtual ExcelResult Export(BetListExcelMetaModel metaModel, TicketResult ticketResult)
+        {
+            var excel = new BetListExcel(metaModel.ShowingOption, metaModel.LicenseeId, metaModel.HiddenColumns, metaModel.IsShowSumStake);
+
+            var workbook = excel.Export(ticketResult, metaModel.Title, metaModel.StartIndex);
+
+            return new ExcelResult(workbook);
+        }
+
         protected internal virtual ExcelResult ProcessExportExcel(
             BetListExcelMetaModel metaModel,
             TicketResult ticketResult)
@@ -150,11 +159,7 @@ namespace Fanex.Athena.BetList.Controller
                 metaModel.Title = metaModel.Title.Replace(LeagueNamePlaceHolder, leagueName);
             }
 
-            var excel = new BetListExcel(metaModel.ShowingOption, metaModel.LicenseeId, metaModel.HiddenColumns, metaModel.IsShowSumStake);
-
-            var workbook = excel.Export(ticketResult, metaModel.Title, metaModel.StartIndex);
-
-            return new ExcelResult(workbook);
+            return Export(metaModel, ticketResult);
         }
     }
 }

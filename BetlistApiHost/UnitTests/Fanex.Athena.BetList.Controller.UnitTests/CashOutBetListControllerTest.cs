@@ -54,7 +54,7 @@
                 _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
 
                 // Assert
                 Assert.That(result.OriginalTicketText.Choice, Is.Null);
@@ -74,7 +74,7 @@
                 _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
 
                 // Assert
                 Assert.That(result.CashOutTicketTextList, Is.Empty);
@@ -94,7 +94,7 @@
                 _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
 
                 // Assert
                 Assert.That(result.CashOutTicketTextList, Is.Empty);
@@ -107,8 +107,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
-                metaModel.BetdaqId = 0;
+                var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>(x => x.BetdaqId, 0);
 
                 var originalTicket = FakeHelper.Create<LrfTicket>();
                 originalTicket.TransId = 0;
@@ -137,7 +136,7 @@
                 var winloss = "-";
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
                 var originalTicketText = result.OriginalTicketText;
 
                 // Assert
@@ -181,7 +180,7 @@
                 var expectedTranstime = ViewResources.RefNo + ": " + cashOutTicket.TransId + Environment.NewLine + "<div class='time'>" + cashOutTicket.TransDate + "</div>";
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
                 var cashoutTicketText = result.CashOutTicketTextList.ElementAt(0);
 
                 // Assert
@@ -194,7 +193,8 @@
                     Assert.That(cashoutTicketText.Status, Is.EqualTo(statusHtml.ToString()));
                     Assert.That(cashoutTicketText.IsHighlight, Is.EqualTo(expectedIsHighlight));
 
-                    status.Received().Render(Arg.Is<LrfTicket>(x => x.BetTypeId == cashOutTicket.BetType && x.Status == cashOutTicket.Status),
+                    status.Received().Render(
+                        Arg.Is<LrfTicket>(x => x.BetTypeId == cashOutTicket.BetType && x.Status == cashOutTicket.Status),
                         _ticketHelper,
                         null,
                         true);
@@ -227,7 +227,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.False);
@@ -257,7 +257,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.False);
@@ -289,7 +289,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.False);
@@ -320,7 +320,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.True);
@@ -351,7 +351,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)(controller.Detail(metaModel).Data);
+                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.True);
