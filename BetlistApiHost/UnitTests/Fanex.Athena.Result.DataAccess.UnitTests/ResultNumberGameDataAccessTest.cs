@@ -127,27 +127,11 @@
             Reader.FieldCount.Returns(1);
             Reader.GetName(0).Returns("isrefund");
 
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "leagueid", 1 }, { "matchid", 2 }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
-                { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
-            };
-            MapReaderData(readerDataMapping);
+            MapReaderData(_readerDataMapping);
 
             var expectedResult = new List<NumberGame>
             {
-                new NumberGame
-                {
-                    LeagueId = 1,
-                    MatchId = 2,
-                    EventStatus = "win",
-                    EventDate = new DateTime(2017, 3, 16),
-                    IsPending = true,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    MatchCode = "test",
-                    Seg = new List<int> { 3, 3 },
-                    Ball = new List<int> { 4, 4 }
-                }
+                GetSampleDataItem()
             };
 
             // Action
