@@ -118,7 +118,7 @@
                 db.SetParameterValue("MatchId", metaModel.MatchId);
                 db.SetParameterValue("StatusIdList", metaModel.StatusList);
                 db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
-                db.SetParameterValue("ProductList", metaModel.ProductCodeList);
+                db.SetParameterValue("Product", metaModel.ProductCodeList);
 
                 db.SetParameterValue("TotalRows", null);
 
