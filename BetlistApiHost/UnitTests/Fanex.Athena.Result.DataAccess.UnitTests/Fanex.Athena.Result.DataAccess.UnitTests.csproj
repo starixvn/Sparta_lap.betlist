@@ -171,17 +171,6 @@
       <Name>Fanex.Athena.Common.DataAccess.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="fanex.result.css" />
-    <Content Include="img\btn-close.png" />
-    <Content Include="img\favicon.ico" />
-    <Content Include="img\icon-calendar.png" />
-    <Content Include="img\icon-question.png" />
-    <Content Include="img\loading.gif" />
-    <Content Include="img\lotto_ball.png" />
-    <Content Include="img\sprites.png" />
-    <Content Include="img\user.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
