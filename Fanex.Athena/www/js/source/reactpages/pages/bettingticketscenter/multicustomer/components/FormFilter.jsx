@@ -40,6 +40,11 @@ export class FormFilter extends Component {
         toast.success(<ToastMsg />);
     }
 
+    _isEnableLeagueMatch = () => {
+        const productCode = this.props.selectedProduct;
+        return (productCode === 'SB' || productCode === 'BA') && this.isSingleDate();
+    }
+
     get isValidModel() {
         return !!this.props.selectedProduct;
     }
@@ -154,7 +159,7 @@ export class FormFilter extends Component {
         if (isValidMonthRange) {
             this.props.setDateRange(date);
             this.props.getBettypeList(this.props.selectedProduct, this.isSingleDate({fromDate: date.startDate, toDate: date.endDate}));
-            if(this.isSingleDate()){
+            if(this._isEnableLeagueMatch()){
                 this.props.getLeagueList(this.props.selectedSport.value, date.startDate);
             }
         }
@@ -194,7 +199,7 @@ export class FormFilter extends Component {
 
     _onChangeSport = (sportId) => {
         this.props.setSelectedSport(sportId);
-        if(this.isSingleDate()){
+        if(this._isEnableLeagueMatch()){
             this.props.getLeagueList(sportId, this.props.dateRange.fromDate);
         }
     }
@@ -210,15 +215,15 @@ export class FormFilter extends Component {
         );
     }
 
-    _renderLeagueSelectList() {
-        const leagueList = this.props.leagueList;
+      _renderLeagueSelectList() {
+         const leagueList = this.props.leagueList;
        
         return leagueList && leagueList.length && (
-                <Select disabled={!this.isSingleDate()} instanceId="LeagueList"
-                    value={this.props.selectedLeague}
-                    options={leagueList}
-                    onChange={(item) => this._onChangeLeague(item.value)} />
-                    );
+            <Select disabled={!this._isEnableLeagueMatch()} instanceId="LeagueList"
+            value={this.props.selectedLeague}
+            options={leagueList}
+            onChange={(item) => this._onChangeLeague(item.value)} />
+         );
       }
 
     _onChangeLeague = (leagueId) => {
@@ -228,15 +233,15 @@ export class FormFilter extends Component {
         }
     }
 
-     _renderMatchSelectList() {
-         const matchList = this.props.matchList;
+    _renderMatchSelectList() {
+        const matchList = this.props.matchList;
        
-         return matchList && matchList.length && (
-                <Select disabled={!this.isSingleDate()} instanceId="MatchList"
-                    value={this.props.selectedMatch}
-                    options={matchList}
-                    onChange={(item) => this.props.setSelectedMatch(item.value)} />
-             );
+        return matchList && matchList.length && (
+                <Select disabled={!this._isEnableLeagueMatch()} instanceId="MatchList"
+            value={this.props.selectedMatch}
+            options={matchList}
+            onChange={(item) => this.props.setSelectedMatch(item.value)} />
+        );
      }
     
     _renderCurrencySelectList() {

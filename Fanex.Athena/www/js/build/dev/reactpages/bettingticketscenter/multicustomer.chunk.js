@@ -10955,6 +10955,11 @@ var FormFilter = exports.FormFilter = function (_Component) {
             _reactToastify.toast.success(_react2.default.createElement(ToastMsg, null));
         };
 
+        _this._isEnableLeagueMatch = function () {
+            var productCode = _this.props.selectedProduct;
+            return (productCode === 'SB' || productCode === 'BA') && _this.isSingleDate();
+        };
+
         _this.isSingleDate = function (dateRange) {
             var _ref = dateRange || _this.props.dateRange,
                 fromDate = _ref.fromDate,
@@ -11025,7 +11030,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
             if (isValidMonthRange) {
                 _this.props.setDateRange(date);
                 _this.props.getBettypeList(_this.props.selectedProduct, _this.isSingleDate({ fromDate: date.startDate, toDate: date.endDate }));
-                if (_this.isSingleDate()) {
+                if (_this._isEnableLeagueMatch()) {
                     _this.props.getLeagueList(_this.props.selectedSport.value, date.startDate);
                 }
             } else {
@@ -11042,7 +11047,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
         _this._onChangeSport = function (sportId) {
             _this.props.setSelectedSport(sportId);
-            if (_this.isSingleDate()) {
+            if (_this._isEnableLeagueMatch()) {
                 _this.props.getLeagueList(sportId, _this.props.dateRange.fromDate);
             }
         };
@@ -11179,7 +11184,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             var leagueList = this.props.leagueList;
 
-            return leagueList && leagueList.length && _react2.default.createElement(_reactSelect2.default, { disabled: !this.isSingleDate(), instanceId: 'LeagueList',
+            return leagueList && leagueList.length && _react2.default.createElement(_reactSelect2.default, { disabled: !this._isEnableLeagueMatch(), instanceId: 'LeagueList',
                 value: this.props.selectedLeague,
                 options: leagueList,
                 onChange: function onChange(item) {
@@ -11193,7 +11198,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             var matchList = this.props.matchList;
 
-            return matchList && matchList.length && _react2.default.createElement(_reactSelect2.default, { disabled: !this.isSingleDate(), instanceId: 'MatchList',
+            return matchList && matchList.length && _react2.default.createElement(_reactSelect2.default, { disabled: !this._isEnableLeagueMatch(), instanceId: 'MatchList',
                 value: this.props.selectedMatch,
                 options: matchList,
                 onChange: function onChange(item) {
