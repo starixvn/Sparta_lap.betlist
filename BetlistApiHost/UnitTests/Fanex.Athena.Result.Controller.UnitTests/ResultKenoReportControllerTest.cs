@@ -26,12 +26,13 @@
 
         private IKenoApi _kenoApi;
 
-        [OneTimeSetUp]
-        public void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
             _logger = Substitute.For<ILogger>();
             _appSettings = Substitute.For<IAppSettings>();
             _kenoApi = Substitute.For<IKenoApi>();
+            _appSettings.GetValue(Arg.Any<string>()).ReturnsForAnyArgs(x => x[0]);
         }
 
         [TearDown]
@@ -48,7 +49,6 @@
                 // Arrange
                 const string Url = "http://abc";
                 _kenoApi.CreateKenoResultUrl(Arg.Any<KenoResultMetaModel>(), UserId, Arg.Any<DateTime>()).ReturnsForAnyArgs(Url);
-                _appSettings.GetValue(Arg.Any<string>()).ReturnsForAnyArgs(x => x[0]);
 
                 // Action
                 var result = controller.GetKenoResultUrl(VendorProductId, UserId);
@@ -64,9 +64,6 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                _appSettings.GetValue(Arg.Any<string>()).ReturnsForAnyArgs(x => x[0]);
-
                 // Action
                 var result = controller.GetKenoResultUrl(vendorProductId, UserId);
 
@@ -89,6 +86,25 @@
         }
 
         [Test]
+        public void GetKenoResultUrl_ApiThrowException_WriteLog()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var exception = new Exception("Test");
+                _kenoApi.CreateKenoResultUrl(Arg.Any<KenoResultMetaModel>(), Arg.Any<string>(), Arg.Any<DateTime>())
+                    .Returns(x => { throw exception; });
+
+                // Action
+                var result = controller.GetKenoResultUrl(0, string.Empty);
+
+                // Assert
+                _logger.Received(1).Error(exception.Message, exception);
+                Assert.That(result, Is.Empty);
+            }
+        }
+
+        [Test]
         public void KeepSession_WhenCall_ReturnResultFromApi()
         {
             using (var controller = CreateController())
@@ -106,6 +122,25 @@
 
                 // Assert
                 Assert.That((result.Data as KenoExtendedToken).ErrorCode, Is.EqualTo(expectedResult.ErrorCode));
+            }
+        }
+
+        [Test]
+        public void KeepSession_ApiThrowException_WriteLog()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var exception = new Exception("Test");
+                _kenoApi.ExtendToken(Arg.Any<KenoResultMetaModel>(), Arg.Any<string>())
+                    .Returns(x => { throw exception; });
+
+                // Action
+                var result = controller.KeepSession(0, string.Empty) as JsonResult;
+
+                // Assert
+                _logger.Received(1).Error(exception.Message, exception);
+                Assert.That((result.Data as KenoExtendedToken).ErrorCode, Is.EqualTo(1));
             }
         }
 
