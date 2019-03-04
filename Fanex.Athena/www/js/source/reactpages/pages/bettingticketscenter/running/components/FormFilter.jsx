@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import MultipleSelect from '@9softstudio/react-multiselect'
 import AutoComplete from '@jsroot/components/auto-complete'
+import CollapsiblePanel from '@jsroot/components/collapsible-panel'
 
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '@jsroot/lib/langHelper'
@@ -138,7 +139,7 @@ export class FormFilter extends Component {
 
     render() {
         return (
-            <div className="page-filter">
+            <CollapsiblePanel className="page-filter" isShowHandler={true}>
                 <div className="row">
 
                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
@@ -185,7 +186,7 @@ export class FormFilter extends Component {
                         <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
                     </div>
                </div>
-            </div>
+            </CollapsiblePanel>
         )
     }
 }

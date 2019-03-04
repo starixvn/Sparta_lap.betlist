@@ -6,6 +6,7 @@ import Select from 'react-select'
 import { DateRange } from '@jsroot/components/date-range/index'
 import AutoComplete from '@jsroot/components/auto-complete'
 import CheckBox from '@jsroot/components/CheckBox'
+import CollapsiblePanel from '@jsroot/components/collapsible-panel'
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '@jsroot/lib/langHelper'
 import Site from '@jsroot/lib/site'
@@ -92,7 +93,7 @@ export class FormFilter extends Component {
 
     render() {
         return (
-            <div className="page-filter">
+            <CollapsiblePanel className="page-filter" isShowHandler={true}>
                 <div className="row">
                     <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-2">
                         <div className="form-group">
@@ -151,7 +152,7 @@ export class FormFilter extends Component {
                             * {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote2').replace('{0}', AppData.balanceUpDay)}
                         </div>
                </div>
-            </div>
+            </CollapsiblePanel>
         )
     }
 }

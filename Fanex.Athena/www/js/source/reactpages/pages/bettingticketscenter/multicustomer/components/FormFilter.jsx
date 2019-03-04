@@ -9,11 +9,13 @@ import MultipleSelect from '@9softstudio/react-multiselect'
 import { DateRange } from '@jsroot/components/date-range/index'
 import AutoComplete from '@jsroot/components/auto-complete'
 import CheckBox from '@jsroot/components/CheckBox'
+import CollapsiblePanel from '@jsroot/components/collapsible-panel'
 
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '@jsroot/lib/langHelper'
 import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
+
 import DataService from '@jsroot/lib/DataService.js'
 import Service from '../../common/lib/Service'
 import ApiUrl from '../../common/constants/apiUrl'
@@ -305,9 +307,9 @@ export class FormFilter extends Component {
         );
     }
 
-    render() {
+        render() {
         return (
-            <div className="page-filter">
+        <CollapsiblePanel className="page-filter" isShowHandler={true}>
                 <div className="row">
                     <ToastContainer 
                             autoClose={10000} 
@@ -409,19 +411,20 @@ export class FormFilter extends Component {
                         * {LangHelper.getSingleResource('BettingTicketCenter_MultiCustomersTabNote2').replace("{0}", AppData.dateConstraint.minDate)}
                     </div>
                </div>
-            </div>
+
+            </CollapsiblePanel>
         )
-    }
-}
+               }
+               }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
-}
+               }
 function mapStateToProps(state) {
     const { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
         selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus } = state;
         return Object.assign({}, { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
             selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus });
-};
+               };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
