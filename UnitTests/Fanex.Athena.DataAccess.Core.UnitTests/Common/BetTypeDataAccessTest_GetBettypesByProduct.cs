@@ -15,9 +15,12 @@
         private const string ProductCode = "VS";
         private const string LanguageCode = "en-US";
 
+        private ICacheRefAdapter _cacheRefAdapter;
+
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<BetTypeDataAccess>(Substitute.For<ICacheRefAdapter>());
+            _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            DataAccess = Substitute.ForPartsOf<BetTypeDataAccess>(_cacheRefAdapter);
         }
 
         [OneTimeSetUp]
@@ -39,7 +42,6 @@
             {
                 ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, LicenseeId);
                 ObjectDb.Received(1).AddInParameter("productcode", DbType.String, ProductCode);
-                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, LanguageCode);
             });
         }
 
@@ -48,11 +50,10 @@
         {
             // Arrange
             var expected = new CheckedItem { Checked = true, ID = 1, Name = "BettypeNameTest" };
-
+            _cacheRefAdapter.GetBettype(expected.ID).Returns(expected.Name);
             MapReaderData(new
             {
-                BettypeID = expected.ID,
-                BettypeName = expected.Name
+                Bettype = expected.ID
             });
             Reader.Read().Returns(true, false);
 
