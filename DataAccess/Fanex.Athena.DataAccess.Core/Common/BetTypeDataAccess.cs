@@ -59,7 +59,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                         if (MapBettypeSportBySport.ContainsKey(bettypeId))
                         {
                             var suffix = _cacheRefAdapter.GetSportName(MapBettypeSportBySport[bettypeId], languageCode);
-                            bettypeName += "(" + suffix + ")";
+                            bettypeName += " (" + suffix + ")";
                         }
 
                         results.Add(new CheckedItem
@@ -93,7 +93,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                         if (MapBettypeSportByProduct.ContainsKey(id))
                         {
                             var suffix = _cacheRefAdapter.GetSportName(MapBettypeSportByProduct[id], languageCode);
-                            name += "(" + suffix + ")";
+                            name += " (" + suffix + ")";
                         }
 
                         results.Add(new CheckedItem
