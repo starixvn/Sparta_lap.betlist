@@ -111,12 +111,11 @@ export class FormFilter extends Component {
 
         return productOptions && productOptions.length && (
             <MultipleSelect id="ProductList"
+                language={LangHelper.currentLanguage}
                 dataSource={productOptions}
                 keyField={"Code"}
                 valueField={"Name"}
                 statusField={"Status"}
-                optionAllLabel={LangHelper.getSingleResource("All")}
-                noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                 onChange={(currentItem, selectedItemsKey) => this.props.setSelectedProduct(selectedItemsKey)} />
         );
     }
@@ -137,12 +136,11 @@ export class FormFilter extends Component {
 
         return statusList && statusList.length && (
                 <MultipleSelect id="StatusList"
+                    language={LangHelper.currentLanguage}
                     dataSource={statusList}
                     keyField={"Id"}
                     valueField={"Value"}
                     statusField={"Status"}
-                    optionAllLabel={LangHelper.getSingleResource("All")}
-                    noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                     onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
     }
 

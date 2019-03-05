@@ -11235,12 +11235,11 @@ var FormFilter = exports.FormFilter = function (_Component) {
             var statusList = _AppData2.default.statusList;
 
             return statusList && statusList.length && _react2.default.createElement(_reactMultiselect2.default, { id: 'StatusList',
+                language: _langHelper2.default.currentLanguage,
                 dataSource: statusList,
                 keyField: "Id",
                 valueField: "Value",
                 statusField: "Status",
-                optionAllLabel: _langHelper2.default.getSingleResource("All"),
-                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
                 onChange: function onChange(currentItem, selectedItemsKey) {
                     return _this8.props.setSelectedStatus(selectedItemsKey);
                 } });

@@ -286,12 +286,11 @@ export class FormFilter extends Component {
 
         return statusList && statusList.length && (
                 <MultipleSelect id="StatusList"
+                    language={LangHelper.currentLanguage}
                     dataSource={statusList}
                     keyField={"Id"}
                     valueField={"Value"}
                     statusField={"Status"}
-                    optionAllLabel={LangHelper.getSingleResource("All")}
-                    noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                     onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
     }
 
