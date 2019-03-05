@@ -17,6 +17,7 @@
     });
 
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+    var selectedStatus = string.Join(",", Model.StatusList.Select(x => x.Key).ToArray());
 }
 @section pagecss {
     <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/betlist/index.css")" rel="stylesheet" type="text/css" />
@@ -32,13 +33,15 @@
         username: '',        
         selectedCurrency: @Html.Raw(currencyList.First().ToJson()),       
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
-        isLoading: false
+        isLoading: false,
+        selectedStatus: '@(selectedStatus)',
     };
     window._AppData = {
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productOptions: @Html.Raw(productOptions.ToJson()),
         currencyList: @Html.Raw(currencyList.ToJson()),
-        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson())
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
     };
 }
 <div id="app-container">

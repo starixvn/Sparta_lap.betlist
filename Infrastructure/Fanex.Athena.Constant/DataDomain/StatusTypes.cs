@@ -4,6 +4,8 @@
     {
         public const int Running = 0;
         public const int Waiting = 1;
+        public const int ResultPending = 2;
+        public const int UnderSettlement = 3;
         public const int Reject = 101;
         public const int Void = 102;
         public const int Refund = 103;

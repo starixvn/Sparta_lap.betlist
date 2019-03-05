@@ -77,12 +77,23 @@
         {
             var viewModel = new BettingTicketCenterViewModel
             {
+                StatusList = GetRunningStatusList(),
                 CurrencyList = GetCurrencyList(),
                 ProductOptionList = GetProductOptionList(FunctionNames.BettingTicketCenterRunning),
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
             return View("~/Views/Desktop/BetList/BettingTicketCenter/Running.cshtml", viewModel);
+        }
+
+        private static IDictionary<int, string> GetRunningStatusList()
+        {
+            return new Dictionary<int, string>
+            {
+                { StatusTypes.Waiting, ViewResources.Running },
+                { StatusTypes.ResultPending , ViewResources.ResultPending },
+                { StatusTypes.UnderSettlement, ViewResources.UnderSettlement }
+            };
         }
 
         private static IDictionary<int, string> GetStatusList()

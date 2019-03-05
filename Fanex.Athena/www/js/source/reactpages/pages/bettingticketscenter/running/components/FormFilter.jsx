@@ -55,6 +55,7 @@ export class FormFilter extends Component {
             CurrencyId: this.props.selectedCurrency.value,
             CurrencyName: this.props.selectedCurrency.label,
             BaseCurrency: this.props.selectedBaseCurrency,
+            Status: this.props.selectedStatus,
             SortBy: SortBy,
             SortOrder: SortOrder
         }
@@ -137,6 +138,19 @@ export class FormFilter extends Component {
         );
     }
 
+    _renderStatusSelectList() {
+        const statusList = AppData.statusList;
+
+        return statusList && statusList.length && (
+                        <MultipleSelect id="StatusList"
+                                language={LangHelper.currentLanguage}
+            dataSource={statusList}
+            keyField={"Id"}
+            valueField={"Value"}
+            statusField={"Status"}
+            onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
+    }
+
      render() {
          const excelButton = <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
          
@@ -175,6 +189,13 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("Status")}</label>
+                        {this._renderStatusSelectList()}
+                        </div>
+                    </div>
+
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-1">
                         <div className="form-group">
                             <div className="button-group">
@@ -192,8 +213,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username } = state;
-    return Object.assign({}, { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username });
+    const { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus } = state;
+    return Object.assign({}, { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

@@ -6523,6 +6523,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Result Pending.
+        /// </summary>
+        public static string ResultPending {
+            get {
+                return ResourceManager.GetString("ResultPending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results.
         /// </summary>
         public static string Results {
@@ -7797,6 +7806,15 @@ namespace Fanex.Athena.Resources {
         public static string UndermaintenanceMsg {
             get {
                 return ResourceManager.GetString("UndermaintenanceMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Under Settlement.
+        /// </summary>
+        public static string UnderSettlement {
+            get {
+                return ResourceManager.GetString("UnderSettlement", resourceCulture);
             }
         }
         

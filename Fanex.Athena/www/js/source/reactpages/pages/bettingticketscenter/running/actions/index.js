@@ -6,6 +6,7 @@ import * as baseCurrencyAction from '@jsroot/actions/baseCurrencyAction'
 import * as loaderAction from '@jsroot/actions/loaderAction'
 import * as requestParamAction from '@jsroot/actions/requestParamAction'
 import * as reportTitleAction from '@jsroot/actions/reportTitleAction'
+import * as statusAction from '@jsroot/actions/statusAction'
 
 export const ActionCreators = Object.assign({},
     gridDataAction,
@@ -15,5 +16,6 @@ export const ActionCreators = Object.assign({},
     baseCurrencyAction,
     loaderAction,
     requestParamAction,
-    reportTitleAction
+    reportTitleAction,
+    statusAction
 );
