@@ -843,6 +843,8 @@
     <Content Include="www\css\build\dev\reactpages\casinoturnover\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\casinoturnover\index.css.map" />
     <Content Include="www\js\build\dev\reactpages\report\casinoturnover.chunk.js.map" />
+    <Content Include="www\js\source\reactpages\components\collapsible-panel\index.jsx" />
+    <Content Include="www\js\source\reactpages\components\collapsible-panel\CollapsiblePanel.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

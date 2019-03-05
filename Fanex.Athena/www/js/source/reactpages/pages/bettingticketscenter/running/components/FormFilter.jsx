@@ -137,9 +137,11 @@ export class FormFilter extends Component {
         );
     }
 
-    render() {
+     render() {
+         const excelButton = <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+         
         return (
-            <CollapsiblePanel className="page-filter" isShowHandler={true}>
+            <CollapsiblePanel className="page-filter" stickyFooter={excelButton}>
                 <div className="row">
 
                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
@@ -181,11 +183,6 @@ export class FormFilter extends Component {
                         </div>
                     </div>
                 </div>
-                 <div className="row">
-                    <div className="caret-block">
-                        <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
-                    </div>
-               </div>
             </CollapsiblePanel>
         )
     }

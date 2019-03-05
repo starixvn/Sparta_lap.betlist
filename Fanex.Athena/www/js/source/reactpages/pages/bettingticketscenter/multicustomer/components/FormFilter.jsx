@@ -307,9 +307,11 @@ export class FormFilter extends Component {
         );
     }
 
-        render() {
-        return (
-        <CollapsiblePanel className="page-filter" isShowHandler={true}>
+    render() {
+        const excelButton = <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+
+       return (
+            <CollapsiblePanel className="page-filter" stickyFooter={excelButton}>
                 <div className="row">
                     <ToastContainer 
                             autoClose={10000} 
@@ -396,11 +398,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
                 </div>
-                 <div className="row">
-                    <div className="caret-block">
-                        <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
-                    </div>
-               </div>
+               
                <div className="row">
                    <div className="col-1" style={{flex: "0 0 4%"}}>
                        {LangHelper.getSingleResource('Note')}:

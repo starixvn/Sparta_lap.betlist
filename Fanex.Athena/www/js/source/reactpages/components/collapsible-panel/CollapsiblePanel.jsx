@@ -11,7 +11,7 @@ export default class CollapsiblePanel extends React.Component {
     };
 
     static propTypes = {
-        isShowHandler: PropTypes.bool
+        stickyFooter: PropTypes.node,
     }
 
     onClick = () => {
@@ -23,27 +23,29 @@ export default class CollapsiblePanel extends React.Component {
     }
 
     render() {
-        const { isShowHandler } = this.props;
+        const { stickyFooter } = this.props;
         let handler = null;
-        if (isShowHandler) {
-            const arrowStyle = { 
-                transform: this.state.isCollapsed ? null : 'rotate(180deg)',
-                color:'#fff', 
-                textAlign: 'center', 
-                marginTop: '10px', 
-                background: '#4c6274', 
-                height: "20px",
-                width: "25px", 
-                float: 'left'};
+        
+        const arrowStyle = { 
+            transform: this.state.isCollapsed ? null : 'rotate(180deg)',
+            color:'#fff', 
+            textAlign: 'center', 
+            marginTop: '10px', 
+            background: '#4c6274', 
+            height: "20px",
+            width: "25px", 
+            float: 'left'};
 
-            handler = (<div className="filter-handle" style={{height: "20px",width: "25px", margin: 'auto', cursor: 'pointer'}}>
+        
+        return (<div className={`${ this.props.className }`}>
+{ !this.state.isCollapsed && this.props.children }
+                    
+    <div className='caret-block'>
+        {stickyFooter} 
+    </div>
+            <div className="filter-handle" style={{height: "20px",width: "25px", margin: 'auto', cursor: 'pointer'}}>
                     <i className="icon-arrow" onClick={this.onClick} style={arrowStyle}></i>
-                    </div>);
-        }
-
-         return (<div className={`${ this.props.className }`}>
-            { !this.state.isCollapsed && this.props.children }
-                    {handler}
+                    </div>
            </div>)
-    }
+}
 }
