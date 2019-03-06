@@ -32,6 +32,7 @@ define(["jquery", "common/site", "lib/jquery.multiselect"], function ($, Site) {
                 isCheckAll: isCheckAll,
                 checkAllText: Site.getSingleResource('All'),
                 selectedText: Site.getSingleResource('SelectedItemCount'),
+                noneSelectedText: Site.getSingleResource('SelectOptions'),
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {
