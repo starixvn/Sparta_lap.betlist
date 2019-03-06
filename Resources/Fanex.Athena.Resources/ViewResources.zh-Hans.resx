@@ -2597,6 +2597,9 @@
     <value>取消</value>
   </data>
   <data name="BettingTicketCenter_RefnoTabNote2" xml:space="preserve">
-    <value>关于快乐彩以及彩票：请输入用户名，以便搜寻MM / DD / YYYY之后的注单</value>
+    <value>关于快乐彩以及彩票：请输入用户名，以便搜寻{0}之后的注单</value>
+  </data>
+  <data name="BettingTicketCenter_RefnoTabNote1" xml:space="preserve">
+    <value>在体育的搜寻结果将包含相关的红利与现金注单</value>
   </data>
 </root>

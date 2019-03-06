@@ -2618,6 +2618,6 @@
     <value>在體育的搜尋結果將包含相關的紅利與現金注單</value>
   </data>
   <data name="BettingTicketCenter_RefnoTabNote2" xml:space="preserve">
-    <value>關於快樂彩以及彩票：請輸入用戶名，以便搜尋MM / DD / YYYY之後的注單</value>
+    <value>關於快樂彩以及彩票：請輸入用戶名，以便搜尋{0}之後的注單</value>
   </data>
 </root>
