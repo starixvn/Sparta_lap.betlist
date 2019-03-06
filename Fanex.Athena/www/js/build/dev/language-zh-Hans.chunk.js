@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/6/2019 9:43:16 AM
+﻿// Generated at: 3/6/2019 11:46:18 AM
 window._language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -171,7 +171,8 @@ BettingLimit:"投注限额",
 BettingTicketCenter:"注单中心",
 BettingTicketCenter_MultiCustomersTabNote1:"所有投注类别，联赛和比赛过滤器仅支援1个选定日期",
 BettingTicketCenter_MultiCustomersTabNote2:"显示从{0}开始的资料",
-BettingTicketCenter_RefnoTabNote2:"关于快乐彩以及彩票：请输入用户名，以便搜寻MM / DD / YYYY之后的注单",
+BettingTicketCenter_RefnoTabNote1:"在体育的搜寻结果将包含相关的红利与现金注单",
+BettingTicketCenter_RefnoTabNote2:"关于快乐彩以及彩票：请输入用户名，以便搜寻{0}之后的注单",
 BetType:"投注类别",
 BONTeamToScore:"双方/一方/两者皆不得分",
 Bonus:"红利",
