@@ -6,6 +6,8 @@
 
     public interface IAppSettings
     {
+        bool HasAmountDueToColumn { get; }
+
         int BetListApiClientTimeOutMinutes { get; }
 
         [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",

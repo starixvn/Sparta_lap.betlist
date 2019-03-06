@@ -22,6 +22,11 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public bool HasAmountDueToColumn
+        {
+            get { return GetValue("HasAmountDueToColumn") == "1"; }
+        }
+
         public int BetListApiClientTimeOutMinutes
         {
             get { return int.Parse(GetValue("BetListApiClientTimeOutMinutes")); }

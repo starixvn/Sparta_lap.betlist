@@ -37,5 +37,7 @@ namespace Fanex.Athena.Excel.Base.Entities
         public bool BTVisible { get; set; }
 
         public bool ABVisible { get; set; }
+
+        public bool HasAmountDueToColumn { get; set; }
     }
 }

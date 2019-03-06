@@ -5233,6 +5233,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 WinLossByProductOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
                 WinLossByProductOption.IsAllowBA = Site.asBool($("#IsAllowedBACommission").val());
                 WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+                WinLossByProductOption.HasAmountDueToColumn = Site.asBool($("#HasAmountDueToColumn").val());
             },
 
             initAutoComplete: function () {
@@ -5802,6 +5803,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         externalIdIndex: 2,
         customerWlIndex: 8,
         hasCustomerComm: true,
+        HasAmountDueToColumn: true,
         IsAllowBA: true,
         pageSize: 50,
         nonePagingSize: 3000,
@@ -5843,6 +5845,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     _me.getColModel = function (level, reportBy) {
         level = Number(level);
+        amtDueToColumn.hidden = !_me.HasAmountDueToColumn;
         // Column hidden by customer comm
         customerWlTotalColumn.hidden = !_me.hasCustomerComm;
         playerCommColumn.hidden = !_me.hasCustomerComm;

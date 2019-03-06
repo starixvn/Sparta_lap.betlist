@@ -89,7 +89,8 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess,
                 Sports = sports.ToDictionary(x => x.ID, y => y.Name),
                 Leagues = leagues.ToDictionary(x => x.LeagueId, y => y.LeagueName),
-                Matches = matches.ToDictionary(x => x.MatchId, y => y.MatchName)
+                Matches = matches.ToDictionary(x => x.MatchId, y => y.MatchName),
+                HasAmountDueToColumn = AppSettings.HasAmountDueToColumn
             };
 
             return View("~/Views/Desktop/Report/WinLossByLeague/Main.cshtml", viewModel);

@@ -198,7 +198,8 @@ namespace Fanex.Athena.Api.Report
                 TotalData = resultModel.TotalData,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                 BAVisible = productAccess.IsAllowBA,
-                SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
+                SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId),
+                HasAmountDueToColumn = _appSettings.HasAmountDueToColumn
             };
 
             var winlossByProduct = CreateExcel(templatePath, excelModel);

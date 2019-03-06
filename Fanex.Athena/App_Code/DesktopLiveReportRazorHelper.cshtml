@@ -48,8 +48,10 @@ if (model.ProductAccess.IsAllowBA)
     var licenseeComm = data.LicenseeComm.ToStringExt();
         <td class="right-align" title="@licenseeComm">@licenseeComm</td>
 }
-
+    if (model.HasAmountDueToColumn)
+    {
     <td class="right-align" title="@amountDue">@amountDue</td>
+    }
 }
 
 @helper RenderHeader(BaseViewModel model, string firstColumnHeader)
@@ -67,7 +69,10 @@ var colspanText = model.IsAllowedCustomerCommission ? "colspan=3" : "";
         {
             <th class="header-small" @rowspanText>@ViewResources.Comm</th>
         }
+        @if (model.HasAmountDueToColumn)
+        {
         <th @rowspanText>@ViewResources.AmountDueTo</th>
+        }
     </tr>
 
 if (model.IsAllowedCustomerCommission)

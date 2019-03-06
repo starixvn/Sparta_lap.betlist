@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.Report
                 ReportBy = ReportByType.Daily,
                 ProductOptions = ToProductOptions(productAccess.ProductList)
             };
-
+            
             SetConvetedUSDCurrencyId(metaModel);
 
             var model = new WinLossByProductViewModel
@@ -57,9 +57,10 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
-                IsFakeLicensee = IsFakeLicensee()
+                IsFakeLicensee = IsFakeLicensee(),
+                HasAmountDueToColumn = AppSettings.HasAmountDueToColumn
             };
-
+            
             return View("~/Views/Desktop/Report/WinLossByProduct/Main.cshtml", model);
         }
     }
