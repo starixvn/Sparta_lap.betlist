@@ -577,14 +577,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
                 $bdiv.css("max-height", gridHeight);
             },
-            updateGridWidth: function ($grid) {
+            updateGridWidth: function ($grid, shrinkToFit) {
                 var $container = $grid.closest(".theme_jqGrid");
                 if ($container.find(".ui-jqgrid-hbox").length === 0) {
                     return;
                 }
 
                 $grid.setGridParam({
-                    shrinkToFit: false
+                    shrinkToFit: shrinkToFit === true
                 });
 
                 var parentWidth = $container.width();
