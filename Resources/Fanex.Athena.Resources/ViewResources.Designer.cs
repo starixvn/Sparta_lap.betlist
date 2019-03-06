@@ -5983,6 +5983,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PP Promotion Prize.
+        /// </summary>
+        public static string PPPromotionPrize {
+            get {
+                return ResourceManager.GetString("PPPromotionPrize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pre Game.
         /// </summary>
         public static string PreGame {

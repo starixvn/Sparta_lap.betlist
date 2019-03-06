@@ -281,6 +281,7 @@
             var baseCurrency = metaModel.BaseCurrency;
             var isMonthly = metaModel.ReportBy == ReportByType.Monthly;
             var index = 1;
+            var sumPromotionPrize = 0;
             while (reader.Read())
             {
                 var currencyId = reader.ToInt("currency");
@@ -307,6 +308,7 @@
                     AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
                     Date = drilldown ? metaModel.DrillDownFromDate : ConvertHelper.ToDateTime(reader.ToString("reporttype"), isMonthly)
                 };
+                sumPromotionPrize += reader.ToInt("PromotionPrize");
 
                 dataList.Add(item);
                 ReadSummaryTotal(reader, metaModel.ProductOptions, summaryTotal);
@@ -316,7 +318,8 @@
             {
                 DataList = dataList,
                 TotalDataList = CalculateTotal(dataList),
-                SummaryTotal = summaryTotal
+                SummaryTotal = summaryTotal,
+                AdditionalInfo = sumPromotionPrize.ToString()
             };
         }
     }

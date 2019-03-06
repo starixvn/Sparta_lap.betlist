@@ -75,7 +75,8 @@ namespace Fanex.Athena.Api.Report
                 Data = new List<LicenseeWinLossGridViewModel>(),
                 Total = new List<LicenseeWinLossGridViewModel>(),
                 SummaryTotal = new Dictionary<string, LicenseeWinLossGridViewModel>(),
-                ProductOptions = productOptions.ToJson()
+                ProductOptions = productOptions.ToJson(),
+                PromotionPrize = 0
             };
         }
 
@@ -311,7 +312,8 @@ namespace Fanex.Athena.Api.Report
                         Data = result.DataList.Select(MapToGridView).ToList(),
                         Total = result.TotalDataList.Select(MapToGridView).ToList(),
                         SummaryTotal = summaryTotalView,
-                        ProductOptions = metaModel.ProductOptions.ToJson()
+                        ProductOptions = metaModel.ProductOptions.ToJson(),
+                        PromotionPrize = result.AdditionalInfo
                     };
                 }
             }

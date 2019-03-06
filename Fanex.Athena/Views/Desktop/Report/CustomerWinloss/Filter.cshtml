@@ -56,12 +56,13 @@
                     <a href="javascript:;" id="history-report-link">@ViewResources.ToViewHistoryRptMsg</a>
                 </span>
             </div>
-            <div class="col right icon-block">
+            <div class="col right right-filter-menu">
                 @if (!Model.IsFakeLicensee)
                 {
                 <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
                 }
                 <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+                <a class="right" href="javascript:;" id="ExportPromotionPrizeLink" style="display: none;">@ViewResources.PPPromotionPrize</a>
             </div>
         </div>
     </form>

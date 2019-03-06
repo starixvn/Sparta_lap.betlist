@@ -56,7 +56,8 @@
             {
                 Data = result.DataList,
                 Total = result.TotalData,
-                TotalRows = result.TotalRows
+                TotalRows = result.TotalRows,
+                PromotionPrize = result.AdditionalInfo
             };
         }
 
