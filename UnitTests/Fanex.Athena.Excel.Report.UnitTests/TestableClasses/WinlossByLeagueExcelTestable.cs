@@ -12,8 +12,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
         public WinlossByLeagueExcelTestable(
                                  string templatePath,
                                  ReportResultModel<WinLossByLeague> resultModel,
-                                 WinLossByLeagueMetaModel metaModel)
-            : base(templatePath, resultModel, metaModel)
+                                 WinLossByLeagueMetaModel metaModel,
+                                 bool hasAmountDueToColumn)
+            : base(templatePath, resultModel, metaModel, hasAmountDueToColumn)
         {
         }
 

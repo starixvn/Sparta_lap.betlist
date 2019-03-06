@@ -158,6 +158,11 @@ namespace Fanex.Athena.Excel.Report
             {
                 sheet.HideColumn(ColumnLicenseeComm);
             }
+
+            if (!ShowingOption.HasAmountDueToColumn)
+            {
+                sheet.HideColumn(ColumnAmountDue);
+            }
         }
 
         private static void AssignCommonData(IRow row, LiveReport liveReport)

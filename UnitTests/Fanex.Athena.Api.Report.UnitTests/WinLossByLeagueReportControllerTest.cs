@@ -11,6 +11,7 @@
     using DataAccess.Core.Configuration.Interfaces;
     using DataAccess.Report.Interfaces;
     using Excel.Report;
+    using Extension.Utility;
     using Model.Core.DTO.Configuration;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -34,9 +35,16 @@
 
             var productService = Substitute.For<IProductService>();
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            var appSettings = Substitute.For<IAppSettings>();
             _dataAccess = Substitute.For<IWinLossByLeagueDataAccess>();
 
-            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(SessionService, ProductService, LangService, balanceUpDataAccess, _dataAccess);
+            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(
+                SessionService, 
+                ProductService, 
+                LangService, 
+                balanceUpDataAccess, 
+                _dataAccess,
+                appSettings);
             _controller.Request = new HttpRequestMessage();
 
             balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp());
@@ -163,7 +171,8 @@
                     DataList = new List<WinLossByLeague>(),
                     TotalData = new WinLossByLeague()
                 },
-                metaModel);
+                metaModel,
+                true);
             excel.When(x => x.Export()).DoNotCallBase();
 
             ReportResultModel<WinLossByLeague> resultModel = null;

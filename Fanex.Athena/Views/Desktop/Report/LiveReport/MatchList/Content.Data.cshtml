@@ -48,8 +48,10 @@
                 var licenseeComm = item.LicenseeComm.ToStringExt();
                 <td class="right-align" title="@licenseeComm">@licenseeComm</td>
             }
-
+            @if (Model.HasAmountDueToColumn)
+            {
             <td class="right-align" title="@amountDue">@amountDue</td>
+            }
         </tr>
     }
 }

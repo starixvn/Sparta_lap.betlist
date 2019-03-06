@@ -17,5 +17,7 @@ namespace Fanex.Athena.Model.Core.ViewModel
         public IDictionary<int, string> CurrencyList { get; set; }
 
         public bool ShowEmptyContent { get; set; }
+
+        public bool HasAmountDueToColumn { get; set; }
     }
 }

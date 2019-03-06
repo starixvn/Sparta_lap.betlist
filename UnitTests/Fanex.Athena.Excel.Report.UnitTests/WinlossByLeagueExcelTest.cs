@@ -214,7 +214,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                     DataList = new[] { DataItem },
                     TotalData = TotalData
                 },
-                MetaModel);
+                MetaModel,
+                true);
             excel.Level = level;
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());
             return excel;

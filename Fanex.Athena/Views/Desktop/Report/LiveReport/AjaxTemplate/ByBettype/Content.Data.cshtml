@@ -1,11 +1,16 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
 
 @{ 
-    var columnCount = Model.IsAllowedCustomerCommission ? 8 : 6;
+    var columnCount = Model.IsAllowedCustomerCommission ? 7 : 5;
 
     if (Model.ProductAccess.IsAllowBA)
     {
         columnCount += 1;
+    }
+
+    if (Model.HasAmountDueToColumn)
+    {
+        columnCount++;
     }
 }
 

@@ -138,7 +138,7 @@
                         WinLossByLeague.resizeGrid();
 
                         expect(jqGridAdditional.updateGridHeight).toHaveBeenCalled();
-                        expect(jqGridAdditional.updateGridWidth).toHaveBeenCalledWith($("#ReportGrid"));
+                        expect(jqGridAdditional.updateGridWidth).toHaveBeenCalledWith($("#ReportGrid"), true);
                     });
                 });
 
@@ -147,7 +147,6 @@
                         var titleExpected = 'WinLossByLeague, 2/01/2016 → 2/29/2016 - Currency:  undefined - MinimumOdds : 1';
 
                         setFixtures("<div class='report-title' id='caption' />");
-                        var minOddStr = Site.getSingleResource("MinimumOdds") + " : 1";
 
                         WinLossByLeague.setReportTitle(0, 1, "2016/02/01", "2016/02/29");
 
@@ -158,7 +157,6 @@
                         var titleExpected = 'null &gt; CustomerWinLoss, 2/01/2016 → 2/29/2016 - Currency:  undefined - MinimumOdds : 1';
 
                         setFixtures("<div class='report-title' id='caption' />");
-                        var minOddStr = Site.getSingleResource("MinimumOdds") + " : 1";
 
                         WinLossByLeague.setReportTitle(1, 1, "2016/02/01", "2016/02/29");
 

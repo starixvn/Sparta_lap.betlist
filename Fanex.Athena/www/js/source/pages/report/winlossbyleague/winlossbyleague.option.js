@@ -141,6 +141,7 @@
     ];
 
     var me = {
+        HasAmountDueToColumn: true,
         currencyIndex: 4,
         systemIdIndex: 3,
         externalIdIndex: 2,
@@ -181,6 +182,7 @@
     };
 
     me.getColModel = function (level) {
+        amtDueToColumn.hidden = !me.HasAmountDueToColumn;
         return colModels[level];
     };
 

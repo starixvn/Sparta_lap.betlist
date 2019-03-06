@@ -182,6 +182,11 @@ namespace Fanex.Athena.Excel.Report
             {
                 sheet.HideColumn(ColumnExternalId);
             }
+
+            if (!_excelModel.HasAmountDueToColumn)
+            {
+                sheet.HideColumn(ColumnAmtDueTo);
+            }
         }
 
         private static void AssignCommonData(IRow row, WinLossByProduct dataItem)
