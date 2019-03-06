@@ -82,8 +82,7 @@
             resizeGrid: function () {
                 var reportGrid = $("#ReportGrid");
                 jqGridAdditional.updateGridHeight();
-                jqGridAdditional.updateGridWidth(reportGrid, true);
-                
+                jqGridAdditional.updateGridWidth(reportGrid, _level == 0);
             },
 
             setReportTitle: function (level, minOdds, fromdate, todate) {
