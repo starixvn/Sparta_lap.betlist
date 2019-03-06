@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var productAccess = GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
-            var model = CreateViewModel(licenseeSession, userSession, metaModel, productAccess);
+            var model = CreateViewModel(licenseeSession.IsAllowedCustomerComm, userSession.CurrencyList, metaModel, productAccess);
 
             return View("~/Views/Desktop/Report/LiveReport/Main.cshtml", model);
         }
@@ -85,7 +85,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = GetProductAccess(metaModel.LicenseeId, userSession.Language);
             metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
 
-            var model = CreateViewModel(licenseeSession, userSession, metaModel, productAccess);
+            var model = CreateViewModel(licenseeSession.IsAllowedCustomerComm, userSession.CurrencyList, metaModel, productAccess);
             model.MainResult = _liveReportService.GetLiveReportSummary(metaModel);
             model.ShowEmptyContent = false;
             return metaModel.IsExportExcel
@@ -142,16 +142,20 @@ namespace Fanex.Athena.Controllers.Report
                 });
         }
 
-        private LiveReportViewModel CreateViewModel(LicenseeSession licenseeSession, UserSession userSession, LiveReportMetaModel metaModel, ProductAccess productAccess)
+        private LiveReportViewModel CreateViewModel(
+            bool isAllowedCustomerComm,
+            IDictionary<int, string> currencyList,
+            LiveReportMetaModel metaModel, 
+            ProductAccess productAccess)
         {
             return new LiveReportViewModel
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = currencyList,
                 IsAllowedNumberGame = productAccess.IsAllowNG,
                 BalanceUpDate = GetBalanceUpDay(),
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                IsAllowedCustomerCommission = isAllowedCustomerComm,
                 ProductAccess = productAccess,
                 IsFakeLicensee = IsFakeLicensee(),
                 HasAmountDueToColumn = AppSettings.HasAmountDueToColumn
