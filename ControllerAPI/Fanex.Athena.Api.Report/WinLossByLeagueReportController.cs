@@ -16,6 +16,7 @@ namespace Fanex.Athena.Api.Report
     using DataAccess.Core.Configuration.Interfaces;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -32,16 +33,20 @@ namespace Fanex.Athena.Api.Report
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
+        private readonly IAppSettings _appSettings;
+        
         public WinLossByLeagueReportController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            IWinLossByLeagueDataAccess winlossByLeagueService)
+            IWinLossByLeagueDataAccess winlossByLeagueService,
+            IAppSettings appSetting)
             : base(sessionService, productService, langService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _winlossByLeagueDataAccess = winlossByLeagueService;
+            _appSettings = appSetting;
         }
 
         [HttpPost]
@@ -87,7 +92,7 @@ namespace Fanex.Athena.Api.Report
             ReportResultModel<WinLossByLeague> resultModel,
             WinLossByLeagueMetaModel metaModel)
         {
-            return new WinlossByLeagueExcel(templatePath, resultModel, metaModel)
+            return new WinlossByLeagueExcel(templatePath, resultModel, metaModel, _appSettings.HasAmountDueToColumn)
             {
                 Level = metaModel.Level
             };

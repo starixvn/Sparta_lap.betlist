@@ -39,12 +39,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly IEnumerable<WinLossByLeague> _dataList;
         private readonly WinLossByLeague _totalData;
 
+        private readonly bool _hasAmountDueToColumn;
+
         public WinlossByLeagueExcel(
                                     string templatePath,
                                     ReportResultModel<WinLossByLeague> resultModel,
-                                    WinLossByLeagueMetaModel metaModel)
+                                    WinLossByLeagueMetaModel metaModel,
+                                    bool hasAmountDueToColumn)
             : base(templatePath, resultModel.DataList.Count())
         {
+            _hasAmountDueToColumn = hasAmountDueToColumn;
             _metaModel = metaModel;
             _dataList = resultModel.DataList;
             _totalData = resultModel.TotalData;
@@ -147,7 +151,8 @@ namespace Fanex.Athena.Excel.Report
             {
                 sheet.HideColumn(ColumnExternalId, ColumnSystemId);
             }
-            else
+
+            if (Level != 0 || !_hasAmountDueToColumn)
             {
                 sheet.HideColumn(ColumnMatch, ColumnAmtDueTo);
             }

@@ -31,14 +31,14 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
 
                 $bdiv.css("max-height", gridHeight);
             },
-            updateGridWidth: function ($grid) {
+            updateGridWidth: function ($grid, shrinkToFit) {
                 var $container = $grid.closest(".theme_jqGrid");
                 if ($container.find(".ui-jqgrid-hbox").length === 0) {
                     return;
                 }
 
                 $grid.setGridParam({
-                    shrinkToFit: false
+                    shrinkToFit: shrinkToFit === true
                 });
 
                 var parentWidth = $container.width();

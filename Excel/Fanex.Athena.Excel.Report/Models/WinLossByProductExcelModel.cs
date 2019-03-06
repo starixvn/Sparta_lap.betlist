@@ -26,5 +26,7 @@
         public bool BAVisible { get; set; }
 
         public bool SystemIdVisible { get; set; }
+
+        public bool HasAmountDueToColumn { get; set; }
     }
 }

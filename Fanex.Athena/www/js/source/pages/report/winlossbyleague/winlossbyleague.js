@@ -29,7 +29,7 @@
                 Site.initialize();
                 _me.initEvent();
                 WinLossByLeagueFilter.initialize();
-
+                WinLossByLeagueOption.HasAmountDueToColumn = Site.asBool($("#HasAmountDueToColumn").val());
                 window.WinLossByLeague = {
                     ajaxPaging: _me.ajaxPaging
                 };
@@ -82,7 +82,8 @@
             resizeGrid: function () {
                 var reportGrid = $("#ReportGrid");
                 jqGridAdditional.updateGridHeight();
-                jqGridAdditional.updateGridWidth(reportGrid);
+                jqGridAdditional.updateGridWidth(reportGrid, true);
+                
             },
 
             setReportTitle: function (level, minOdds, fromdate, todate) {

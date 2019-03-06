@@ -25,6 +25,7 @@ namespace Fanex.Athena.Controllers.Report
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
+    using Session.Model;
 
     [FunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportController : ReportBaseController
@@ -67,17 +68,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var productAccess = GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
-            var model = new LiveReportViewModel
-            {
-                ShowEmptyContent = true,
-                Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
-                IsAllowedNumberGame = productAccess.IsAllowNG,
-                BalanceUpDate = GetBalanceUpDay(),
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                ProductAccess = productAccess,
-                IsFakeLicensee = IsFakeLicensee()
-            };
+            var model = CreateViewModel(licenseeSession, userSession, metaModel, productAccess);
 
             return View("~/Views/Desktop/Report/LiveReport/Main.cshtml", model);
         }
@@ -93,18 +84,10 @@ namespace Fanex.Athena.Controllers.Report
 
             var productAccess = GetProductAccess(metaModel.LicenseeId, userSession.Language);
             metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
-            var model = new LiveReportViewModel
-            {
-                Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
-                IsAllowedNumberGame = productAccess.IsAllowNG,
-                BalanceUpDate = GetBalanceUpDay(),
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                ProductAccess = productAccess,
-                MainResult = _liveReportService.GetLiveReportSummary(metaModel),
-                IsFakeLicensee = IsFakeLicensee()
-            };
 
+            var model = CreateViewModel(licenseeSession, userSession, metaModel, productAccess);
+            model.MainResult = _liveReportService.GetLiveReportSummary(metaModel);
+            model.ShowEmptyContent = false;
             return metaModel.IsExportExcel
                        ? Excel(model)
                        : View("~/Views/Desktop/Report/LiveReport/Main.cshtml", model);
@@ -159,6 +142,22 @@ namespace Fanex.Athena.Controllers.Report
                 });
         }
 
+        private LiveReportViewModel CreateViewModel(LicenseeSession licenseeSession, UserSession userSession, LiveReportMetaModel metaModel, ProductAccess productAccess)
+        {
+            return new LiveReportViewModel
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                CurrencyList = userSession.CurrencyList,
+                IsAllowedNumberGame = productAccess.IsAllowNG,
+                BalanceUpDate = GetBalanceUpDay(),
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                ProductAccess = productAccess,
+                IsFakeLicensee = IsFakeLicensee(),
+                HasAmountDueToColumn = AppSettings.HasAmountDueToColumn
+            };
+        }
+
         private LiveReportDetailResultModel GetDetailResult(LiveReportMetaModel metaModel, ProductAccess productAccess, string productCode)
         {
             IEnumerable<Product> productList;
@@ -186,7 +185,8 @@ namespace Fanex.Athena.Controllers.Report
             var showingOption = new ShowingOption
             {
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
-                BAVisible = productAccess.IsAllowBA
+                BAVisible = productAccess.IsAllowBA,
+                HasAmountDueToColumn = AppSettings.HasAmountDueToColumn
             };
             var convertingOption = new ConvertingOption
             {

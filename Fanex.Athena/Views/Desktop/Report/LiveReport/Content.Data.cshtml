@@ -55,5 +55,8 @@
         <td class="right-align" title="@sumLicenseeComm">@sumLicenseeComm</td>
     }
 
+    @if (Model.HasAmountDueToColumn)
+    {
     <td class="right-align" title="@sumAmountDue">@sumAmountDue</td>
+    }
 </tr>

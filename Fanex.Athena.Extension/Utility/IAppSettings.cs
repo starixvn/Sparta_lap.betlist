@@ -5,6 +5,8 @@
 
     public interface IAppSettings
     {
+        bool HasAmountDueToColumn { get; }
+
         bool IsProduction { get; }
 
         bool IsDisableExportLargeBetList { get; }

@@ -57,6 +57,7 @@
                 WinLossByProductOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
                 WinLossByProductOption.IsAllowBA = Site.asBool($("#IsAllowedBACommission").val());
                 WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+                WinLossByProductOption.HasAmountDueToColumn = Site.asBool($("#HasAmountDueToColumn").val());
             },
 
             initAutoComplete: function () {
