@@ -48,7 +48,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return !!this.props.selectedProduct;
+        return !!this.props.selectedProduct && !!this.props.selectedStatus;
     }
 
     isSingleDate = (dateRange) => {
@@ -300,11 +300,13 @@ export class FormFilter extends Component {
           const liveStatusList = AppData.liveStatusList;
 
           return liveStatusList && liveStatusList.length && (
-            <Select instanceId="LiveStatusList"
-                value={this.props.selectedLiveStatus}
-                options={liveStatusList}
-                onChange={(item) => this.props.setSelectedLiveStatus(item.value)} />
-        );
+                <MultipleSelect id="LiveStatusList"
+                    language={LangHelper.currentLanguage}
+                    dataSource={liveStatusList}
+                    keyField={"Id"}
+                    valueField={"Value"}
+                    statusField={"Status"}
+                    onChange={(currentItem, selectedItemsKey) => this.props.setSelectedLiveStatus(selectedItemsKey)} />);
     }
 
     render() {

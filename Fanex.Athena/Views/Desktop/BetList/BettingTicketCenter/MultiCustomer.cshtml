@@ -9,6 +9,7 @@
 @{
     var productList = Model.ProductOptionList;
     var selectedStatus = string.Join(",", Model.StatusList.Select(x => x.Key).ToArray());
+    var selectedLiveStatus = string.Join(",", Model.LiveStatusList.Select(x => x.Key).ToArray());
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
     var currencyList = Model.CurrencyList.Select(c => new { value = c.Key, label = c.Value }).ToList();
     currencyList.Insert(0, new
@@ -33,7 +34,7 @@
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         isLoading: false,
         selectedStatus: '@(selectedStatus)',
-        selectedLiveStatus: @LiveStatusTypes.All,
+        selectedLiveStatus: '@(selectedLiveStatus)',
         sportList: [],
         selectedSport: 0,
         selectedMatch: 0,
@@ -43,7 +44,7 @@
     };
     window._AppData = {
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
-        liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),
+        liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
         statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productList: @Html.Raw(Model.ProductOptionList.Select(x => new { value = x.Code, label = x.Name }).ToJson()),

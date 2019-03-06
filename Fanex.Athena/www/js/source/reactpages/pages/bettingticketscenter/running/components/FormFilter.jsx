@@ -24,7 +24,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return !!this.props.selectedProduct;
+        return !!this.props.selectedProduct && !!this.props.selectedStatus;
     }
 
     submit = (event) => {
