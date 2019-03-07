@@ -105,6 +105,7 @@
     <Compile Include="CustomerTurnoverDataAccessTest.cs" />
     <Compile Include="ExchangeWinLossDataAccessTest.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneDataAccessTest.cs" />
+    <Compile Include="PromotionPrizeDataAccessTest.cs" />
     <Compile Include="SpecialLicenseeWinLossDataAccessTest.cs" />
     <Compile Include="SubsidiaryPerformanceDataAccessTest.cs" />
     <Compile Include="GoldDeluxeWinLossDataAccessTest.cs" />

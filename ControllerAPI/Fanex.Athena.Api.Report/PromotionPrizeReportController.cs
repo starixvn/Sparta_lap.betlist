@@ -35,7 +35,7 @@
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        protected internal HttpResponseMessage CreareExcel(string template, string title, string fileName, ReportResultModel<PromotionPrize> data)
+        protected internal virtual HttpResponseMessage CreareExcel(string template, string title, string fileName, ReportResultModel<PromotionPrize> data)
         {
             var excel = new PromotionPrizeExcel(template, title, data);
             excel.Export();
@@ -50,7 +50,9 @@
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
 
-            var data = _dataAccess.GetData(metaModel, SessionService.UserSession.CurrencyList);
+            var data = ValidateRequest(metaModel)
+                ? _dataAccess.GetData(metaModel, SessionService.UserSession.CurrencyList)
+                : new ReportResultModel<PromotionPrize>();
 
             var title = ReportExcelHelper.GenerateReportTitle(
                 ViewResources.ProductPP + " - " + _cacheRefAdapter.GetBettype(BetType.PromotionPrizeWin),
@@ -59,6 +61,11 @@
                 metaModel.CurrencyId <= 0 ? ViewResources.AllCurrencies : metaModel.CurrencyName);
 
             return CreareExcel(templatePath, title, FileName, data);
+        }
+
+        private bool ValidateRequest(PromotionPrizeMetaModel metaModel)
+        {
+            return metaModel.FromDate <= metaModel.ToDate && IsValidRequest(metaModel.CurrencyId);
         }
     }
 }

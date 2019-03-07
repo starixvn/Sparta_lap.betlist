@@ -118,6 +118,7 @@
     <Compile Include="PlatformWinLossReportController_ExportExcelTest.cs" />
     <Compile Include="PlatformWinLossReportControllerTest.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneReportControllerTest.cs" />
+    <Compile Include="PromotionPrizeReportControllerTest.cs" />
     <Compile Include="SpecialLicenseeWinLossReportControllerTest.cs" />
     <Compile Include="SubsidiaryPerformanceReportControllerTest.Detail.cs" />
     <Compile Include="SubsidiaryPerformanceReportControllerTest.cs" />
