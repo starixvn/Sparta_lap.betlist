@@ -92,15 +92,27 @@ namespace Fanex.Athena
             }
         }
 
-        /// <summary>
-        /// End request.
-        /// </summary>
-        protected void Application_EndRequest()
+        protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            Response.Headers.Remove("X-AspNet-Version");
-            Response.Headers.Remove("X-AspNetMvc-Version");
-            Response.Headers.Remove("Server");
-            Response.Headers.Remove("X-Powered-By");
+            string[] headers = { "Server", "X-AspNet-Version", "X-AspNetMvc-Version" };
+
+            if (!Response.HeadersWritten)
+            {
+                Response.AddOnSendingHeaders((c) =>
+                {
+                    if (c != null && c.Response != null && c.Response.Headers != null)
+                    {
+                        foreach (string header in headers)
+                        {
+                            if (c.Response.Headers[header] != null)
+                            {
+                                c.Response.Headers.Remove(header);
+                            }
+                        }
+                    }
+                });
+            }
+
         }
     }
 }
