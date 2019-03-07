@@ -40,5 +40,14 @@ namespace Fanex.Athena.BetList.Controller
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageCode);
             }
         }
+
+        protected new JsonResult Json(object data)
+        {
+            return new JsonResult
+            {
+                Data = data,
+                MaxJsonLength = int.MaxValue
+            };
+        }
     }
 }

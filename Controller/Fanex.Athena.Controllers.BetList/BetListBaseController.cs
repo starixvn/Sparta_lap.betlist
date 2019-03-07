@@ -179,26 +179,6 @@
             return defaultMetaModel;
         }
 
-        /// <summary>
-        /// Override the max JSON Length.
-        /// </summary>
-        /// <param name="data">The data object.</param>
-        /// <param name="contentType">The content type.</param>
-        /// <param name="contentEncoding">The encoding.</param>
-        /// <param name="behavior">The JSON request behavior.</param>
-        /// <returns>The JSON result.</returns>
-        protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
-        {
-            return new JsonResult
-            {
-                Data = data,
-                ContentType = contentType,
-                ContentEncoding = contentEncoding,
-                JsonRequestBehavior = behavior,
-                MaxJsonLength = int.MaxValue
-            };
-        }
-
         protected bool IsValidCurrency(int currencyId)
         {
             return currencyId == BaseCurrencyType.All ||

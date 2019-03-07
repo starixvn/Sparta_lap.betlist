@@ -59,7 +59,7 @@ namespace Fanex.Athena.BetList.Controller
 
             var ticketResult = _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList);
 
-            return GenerateHtmlViewModel(metaModel, ticketResult, metaModel.HasPlayerCom);
+            return GenerateJsonResult(metaModel, ticketResult, metaModel.HasPlayerCom);
         }
 
         protected internal virtual ExcelResult ReturnExcel(BettingTicketCenterExcelModel excelModel, TicketResult ticketResult)
@@ -91,7 +91,7 @@ namespace Fanex.Athena.BetList.Controller
             return ExportZip(ticketResult, title, metaModel.HasPlayerCom);
         }
 
-        private JsonResult GenerateHtmlViewModel(MultipleCustomersBetListMetaModel metaModel, TicketResult ticketResult, bool isAllowedCustomerComm)
+        private JsonResult GenerateJsonResult(MultipleCustomersBetListMetaModel metaModel, TicketResult ticketResult, bool isAllowedCustomerComm)
         {
             var result = new
             {
