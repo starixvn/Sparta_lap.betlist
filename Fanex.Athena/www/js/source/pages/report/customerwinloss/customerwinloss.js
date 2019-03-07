@@ -23,6 +23,7 @@
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xls";
+        var EXCEL_PP_FILENAME = "PP_PromotionPrizeWin.xls";
         var SORTING_CODE = {
             "ExternalId": 2,
             "SystemId": 1,
@@ -77,7 +78,8 @@
             HistoryLink: "#history-report-link",
             CurrentLink: "#current-report-link",
             BetListLink: ".bet-list-link",
-            Username: "#Username"
+            Username: "#Username",
+            PromotionPrizeLink: "#ExportPromotionPrizeLink"
         };
 
         function initialize() {
@@ -119,24 +121,22 @@
                 data.PageIndex = 1;
                 data.isExportExcel = true;
 
-                var option = {
-                    type: "POST",
-                    data: data,
-                    dataType: "binary",
-                    responseType: "blob",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                    cache: false,
-                    url: Site.resolveClientUrl(CustomerWinLossOption.urlExcelData),
-                    success: function (response) {
-                        Downloader.download(response, EXCEL_FILENAME);
-                    },
-                    beforeSend: function () {
-                        Toast.show();
-                    }
-                };
-                $.ajax(option);
+                exportExcel(CustomerWinLossOption.urlExcelData, data, EXCEL_FILENAME);
+            });
 
-                return false;
+            $(_selector.PromotionPrizeLink).click(function () {
+                var filterData = getPostData();
+                var data = {
+                    __RequestVerificationToken: filterData.__RequestVerificationToken,
+                    FromDate: filterData.FromDate,
+                    ToDate: filterData.ToDate,
+                    CurrencyId: filterData.CurrencyId,
+                    CurrencyName: filterData.CurrencyName,
+                    Username: filterData.Username,
+                    IsExcludedTestData: filterData.IsExcludedTestData
+                };
+
+                exportExcel(CustomerWinLossOption.urlPromotionPrizeExcelData, data, EXCEL_PP_FILENAME);
             });
 
             $(_selector.HistoryLink).click(function () {
@@ -163,6 +163,27 @@
             $(window).on("unload", function () {
                 $(window).off("resize");
             });
+        }
+
+        function exportExcel(url, data, fileName) {
+            var option = {
+                type: "POST",
+                data: data,
+                dataType: "binary",
+                responseType: "blob",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                cache: false,
+                url: Site.resolveClientUrl(url),
+                success: function (response) {
+                    Downloader.download(response, fileName);
+                },
+                beforeSend: function () {
+                    Toast.show();
+                }
+            };
+            $.ajax(option);
+
+            return false;
         }
 
         function initSetting() {
@@ -223,6 +244,7 @@
             if (response.TotalRows === 0) {
                 jqGridAdditional.setNoInfo();
                 Site.unBlockUI();
+                showPromotionPrizeLink(false);
                 return;
             }
 
@@ -242,6 +264,8 @@
             reportGrid.jqGrid(gridOption);
 
             CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
+            var pprizeCount = response.PromotionPrize;
+            showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
         }
 
         function ajaxPaging() {
@@ -296,6 +320,15 @@
 
             $(_selector.Title).html(title);
             $(_selector.Header).removeClass("hide");
+        }
+
+        function showPromotionPrizeLink(isShow) {
+            if (isShow) {
+                $(_selector.PromotionPrizeLink).show();
+            }
+            else {
+                $(_selector.PromotionPrizeLink).hide();
+            }
         }
 
         function createPaging(totalRows) {

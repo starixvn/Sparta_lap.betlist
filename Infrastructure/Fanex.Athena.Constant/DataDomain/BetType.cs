@@ -259,6 +259,8 @@ namespace Fanex.Athena.Constant.DataDomain
 
         VirtualBasketballFirstHalfHandicap = 2806,
 
-        NumberGameHappy5OddEven = 8102
+        NumberGameHappy5OddEven = 8102,
+
+        PromotionPrizeWin = 4300
     }
 }
