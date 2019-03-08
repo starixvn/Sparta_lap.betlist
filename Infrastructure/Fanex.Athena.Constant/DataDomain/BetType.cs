@@ -261,6 +261,6 @@ namespace Fanex.Athena.Constant.DataDomain
 
         NumberGameHappy5OddEven = 8102,
 
-        PromotionPrizeWin = 4300
+        PromotionPrize = 4300
     }
 }

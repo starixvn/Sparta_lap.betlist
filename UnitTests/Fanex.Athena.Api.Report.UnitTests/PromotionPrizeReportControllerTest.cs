@@ -67,7 +67,7 @@
                 FromDate = DateTime.Today,
                 ToDate = DateTime.Today.AddDays(-1)
             };
-            _cacheRefAdapter.GetBettype(BetType.PromotionPrizeWin).Returns(FakeHelper.Create<string>());
+            _cacheRefAdapter.GetBettype(BetType.PromotionPrize).Returns(FakeHelper.Create<string>());
 
             // Action
             var result = _controller.ExportExcel(model);
@@ -92,7 +92,7 @@
             model.CurrencyId = currencyId;
 
             var bettypeName = FakeHelper.Create<string>();
-            _cacheRefAdapter.GetBettype(BetType.PromotionPrizeWin).Returns(bettypeName);
+            _cacheRefAdapter.GetBettype(BetType.PromotionPrize).Returns(bettypeName);
 
             var expectedTitle = $"{ViewResources.ProductPP} - {bettypeName}, "
                 + $"{model.FromDate.ToString(FormatKey.DateFormat)} --> {model.ToDate.ToString(FormatKey.DateFormat)} - "
@@ -121,7 +121,7 @@
             model.CurrencyId = currencyId;
 
             var bettypeName = FakeHelper.Create<string>();
-            _cacheRefAdapter.GetBettype(BetType.PromotionPrizeWin).Returns(bettypeName);
+            _cacheRefAdapter.GetBettype(BetType.PromotionPrize).Returns(bettypeName);
 
             var expectedTitle = $"{ViewResources.ProductPP} - {bettypeName}, "
                 + $"{model.FromDate.ToString(FormatKey.DateFormat)} --> {model.ToDate.ToString(FormatKey.DateFormat)} - "
