@@ -26,6 +26,8 @@ namespace Fanex.Athena
 
     public class MvcApplication : HttpApplication
     {
+        private static readonly string[] RemovedHeaderKeys = { "Server", "X-AspNet-Version", "X-AspNetMvc-Version" };
+
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public void Application_Error(object sender, EventArgs e)
         {
@@ -94,25 +96,27 @@ namespace Fanex.Athena
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            string[] headers = { "Server", "X-AspNet-Version", "X-AspNetMvc-Version" };
-
             if (!Response.HeadersWritten)
             {
                 Response.AddOnSendingHeaders((c) =>
                 {
-                    if (c != null && c.Response != null && c.Response.Headers != null)
-                    {
-                        foreach (string header in headers)
-                        {
-                            if (c.Response.Headers[header] != null)
-                            {
-                                c.Response.Headers.Remove(header);
-                            }
-                        }
-                    }
+                    RemoveSensitiveHeaders(c);
                 });
             }
+        }
 
+        private static void RemoveSensitiveHeaders(HttpContext httpContext)
+        {
+            if (httpContext != null && httpContext.Response != null && httpContext.Response.Headers != null)
+            {
+                foreach (string header in RemovedHeaderKeys)
+                {
+                    if (httpContext.Response.Headers[header] != null)
+                    {
+                        httpContext.Response.Headers.Remove(header);
+                    }
+                }
+            }
         }
     }
 }
