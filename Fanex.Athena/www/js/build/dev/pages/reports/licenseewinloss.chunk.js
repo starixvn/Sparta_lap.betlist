@@ -7796,6 +7796,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
         var EXCEL_FILENAME = "LicenseeWinLoss.xls";
+        var EXCEL_PP_FILENAME = "PP_PromotionPrizeWin.xls";
 
         var cacheData = {};
         var ajaxRequest = null;
@@ -7804,6 +7805,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var _level = 0;
         var _reportBy = null;
         var _submitData; // cache submit data of level 0.
+        var drillDownData = {};
 
         var _me = {
             initialize: function () {
@@ -7901,26 +7903,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         data.sortOrder = _sortOrder;
                     }
 
-                    var option = {
-                        type: "POST",
-                        data: data,
-                        dataType: "binary",
-                        responseType: "blob",
-                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                        cache: false,
-                        url: Site.resolveClientUrl(LicenseeWinLossOption.urlExcelData),
-                        success: function (response) {
-                            Downloader.download(response, EXCEL_FILENAME);
-                        },
-                        beforeSend: function () {
-                            Toast.show();
-                        }
+                    _me.exportExcel(LicenseeWinLossOption.urlExcelData, data, EXCEL_FILENAME);
+                });
+
+                $('#ExportPromotionPrizeLink').click(function () {
+                    var filterData = {};
+
+                    if (_level === 0) {
+                        filterData = $("#licenseewinloss").serializeObject()
+                    }
+                    else {
+                        filterData = drillDownData;
+                    }
+
+                    var data = {
+                        __RequestVerificationToken: Site.getXsrfToken(),
+                        FromDate: filterData.FromDate,
+                        ToDate: filterData.ToDate,
+                        CurrencyId: filterData.CurrencyId,
+                        CurrencyName: filterData.CurrencyName,
+                        IsExcludedTestData: filterData.IsExcludedTestData,
+                        AgentId: filterData.AgentId
                     };
 
-                    $.ajax(option);
-
-                    return false;
-                });
+                    _me.exportExcel(LicenseeWinLossOption.urlPromotionPrizeExcelData, data, EXCEL_PP_FILENAME);
+                })
 
                 $("#level-link-container").on("click", ".level-link", function () {
                     var level = Number($(this).attr("data-level"));
@@ -7939,13 +7946,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 });
             },
 
+            exportExcel: function(url, data, fileName) {
+                var option = {
+                    type: "POST",
+                    data: data,
+                    dataType: "binary",
+                    responseType: "blob",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    cache: false,
+                    url: Site.resolveClientUrl(url),
+                    success: function (response) {
+                        Downloader.download(response, fileName);
+                    },
+                    beforeSend: function () {
+                        Toast.show();
+                    }
+                };
+
+                $.ajax(option);
+
+                return false;
+            },
+
             //#region Layout
             setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
                 var temp = 'api/LicenseeWinLossReport/Index';
                 if (level > 0) {
                     temp += "?level=" + level + "&currencyId="
-                    + currencyId + "&custId=" + custId + "&fdate=" + moment(fdate).format("MM/DD/YYYY")
-                     + "&tdate=" + moment(tdate).format("MM/DD/YYYY") + "&currencyName=" + currencyName;
+                    + currencyId + "&custId=" + custId + "&fdate=" + fdate
+                     + "&tdate=" + tdate + "&currencyName=" + currencyName;
                 }
                 LicenseeWinLossOption.urlExcelData = temp;
             },
@@ -7960,6 +7989,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     currencyNameOnTitle);
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
+            },
+
+            showPromotionPrizeLink: function (isShow) {
+                if (isShow) {
+                    $("#ExportPromotionPrizeLink").show();
+                }
+                else {
+                    $("#ExportPromotionPrizeLink").hide();
+                }
             },
             //#end
 
@@ -7977,6 +8015,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                     Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
                     _me.bindData(level, reportBy, response);
+
+                    var pprizeCount = response.PromotionPrize;
+                    _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
+                }
+                else {
+                    _me.showPromotionPrizeLink(false);
                 }
             },
 
@@ -8051,6 +8095,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 };
                 var drilldownDate = new Date(datetime);
                 var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
+                var drillDownFDate = moment(dateRange.FromDate).format("MM/DD/YYYY");
+                var drillDownTDate = moment(dateRange.ToDate).format("MM/DD/YYYY");
                 var postData = JSON.stringify(param);
                 var option = {
                     type: "POST",
@@ -8061,7 +8107,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                     url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
                         "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
-                        moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY")),
+                        drillDownFDate + "&tdate=" + drillDownTDate),
                     success: function (response) {
                         _me.ajaxComplete(level, response);
                         if (response !== null && response.Data.length > 0) {
@@ -8074,7 +8120,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         }
 
                         //update excel ULR
-                        _me.setExcelUrl(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                        _me.setExcelUrl(level, currencyId, customerId, drillDownFDate, drillDownTDate, currencyName);
+                        _me.updateDrilldownData(currencyId, currencyName, drillDownFDate, drillDownTDate, customerId, _submitData.IsExcludedTestData);
                     },
                     beforeSend: function () {
                         Site.blockUI();
@@ -8089,16 +8136,33 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 ajaxRequest = $.ajax(option);
             },
 
+            updateDrilldownData: function (currencyId, currencyName, fromDate, toDate, agentId) {
+                drillDownData = {
+                    CurrencyId: currencyId,
+                    CurrencyName: currencyName,
+                    FromDate: fromDate,
+                    ToDate: toDate,
+                    AgentId: agentId,
+                    IsExcludedTestData: _submitData.IsExcludedTestData
+                }
+            },
+
             goBack: function (level) {
                 var reportBy = _submitData.ReportBy;
                 Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
-                _me.bindData(level, reportBy, cacheData[level]);
+
+                var data = cacheData[level];
+                _me.bindData(level, reportBy, data);
+
+                var pprizeCount = data.PromotionPrize;
+                _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
 
                 if (level === 0) {
                     _me.setExcelUrl(0, 0, 0, "", "", "");
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
                 else if (level === 1) {
+                    _me.updateDrilldownData(drillDownData.CurrencyId, drillDownData.CurrencyName, drillDownData.FromDate, drillDownData.ToDate, 0);
                     LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
                 }
             },
@@ -8298,6 +8362,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             //level 0,1,2
             urlData: 'api/LicenseeWinLossReport/Index',
             urlExcelData: 'api/LicenseeWinLossReport/Index',
+            urlPromotionPrizeExcelData: "api/PromotionPrizeReport/ExportExcel",
             gridOption:
             {
                 datatype: 'local',
