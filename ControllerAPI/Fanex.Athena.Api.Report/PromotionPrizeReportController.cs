@@ -45,8 +45,8 @@
 
         public HttpResponseMessage ExportExcel(PromotionPrizeMetaModel metaModel)
         {
-            const string FileName = "PP_PromotionPrizeWin.xls";
-            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/PP_PromotionPrizeWin.xls");
+            const string FileName = "PP_PromotionPrize.xls";
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/PP_PromotionPrize.xls");
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
 

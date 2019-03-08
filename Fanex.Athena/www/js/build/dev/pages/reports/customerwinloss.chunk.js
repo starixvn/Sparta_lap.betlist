@@ -6235,7 +6235,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xls";
-        var EXCEL_PP_FILENAME = "PP_PromotionPrizeWin.xls";
+        var EXCEL_PP_FILENAME = "PP_PromotionPrize.xls";
         var SORTING_CODE = {
             "ExternalId": 2,
             "SystemId": 1,

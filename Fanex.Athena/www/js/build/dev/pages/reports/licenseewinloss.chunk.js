@@ -7796,7 +7796,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
         var EXCEL_FILENAME = "LicenseeWinLoss.xls";
-        var EXCEL_PP_FILENAME = "PP_PromotionPrizeWin.xls";
+        var EXCEL_PP_FILENAME = "PP_PromotionPrize.xls";
 
         var cacheData = {};
         var ajaxRequest = null;

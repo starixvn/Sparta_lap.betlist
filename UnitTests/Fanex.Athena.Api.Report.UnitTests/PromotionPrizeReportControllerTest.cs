@@ -16,7 +16,7 @@
 
     public class PromotionPrizeReportControllerTest : BaseApiControllerHelperTest
     {
-        private const string FileName = "PP_PromotionPrizeWin.xls";
+        private const string FileName = "PP_PromotionPrize.xls";
 
         private ICacheRefAdapter _cacheRefAdapter;
 
