@@ -2036,7 +2036,7 @@
     <value>玩家</value>
   </data>
   <data name="RefNo" xml:space="preserve">
-    <value>参考号码</value>
+    <value>注单号码</value>
   </data>
   <data name="Resultswithpictures" xml:space="preserve">
     <value>参考号码</value>

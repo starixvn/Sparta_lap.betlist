@@ -2035,7 +2035,7 @@
     <value>圖式結果</value>
   </data>
   <data name="RefNo" xml:space="preserve">
-    <value>參考號碼</value>
+    <value>注單號碼</value>
   </data>
   <data name="RoundType" xml:space="preserve">
     <value> 每局類型</value>

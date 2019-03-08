@@ -54,7 +54,7 @@
             var userCurrencyList = SessionService.UserSession.CurrencyList;
             if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
             {
-                return null;
+                throw new ArgumentException(ViewResources.InvalidRequestMsg);
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
