@@ -16,9 +16,7 @@
             PageSize = 50;
         }
 
-        public int CurrencyId { get; set; }
-
-        public string CurrencyName { get; set; }
+        public string CurrencyIdList { get; set; }
 
         public string BaseCurrency
         {

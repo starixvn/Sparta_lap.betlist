@@ -52,8 +52,7 @@ export class FormFilter extends Component {
             PageIndex: 1,
             ProductCodeList: this.props.selectedProduct,
             Username: this.props.username,
-            CurrencyId: this.props.selectedCurrency.value,
-            CurrencyName: this.props.selectedCurrency.label,
+            CurrencyIdList: this.props.selectedCurrency,
             BaseCurrency: this.props.selectedBaseCurrency,
             Status: this.props.selectedStatus,
             SortBy: SortBy,
@@ -63,25 +62,6 @@ export class FormFilter extends Component {
 
     productChangeHandler = (currentItem, selectedItemsKey) => {
         this.props.setSelectedProduct(selectedItemsKey)
-    }
-
-    onChangeCurrency = (currency) => {
-        const currencyName = currency.label;
-        let baseCurrency = currencyName;
-
-        if (currency.value == 0) {
-            this.baseCurrencyList = AppData.baseCurrencyList;
-            baseCurrency = this.baseCurrencyList.find(x => x.label === this.props.selectedBaseCurrency) ?
-                            this.props.selectedBaseCurrency :
-                            this.defaultBaseCurrency;
-        }
-        else if(!this.baseCurrencyList.find(x => x.label === currencyName)){
-            this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
-            this.baseCurrencyList.push({value: currencyName, label: currencyName});      
-        }
-
-        this.props.setSelectedCurrency(currency)
-        this.props.setSelectedBaseCurrency(baseCurrency);
     }
 
     exportExcel = (event) => {
@@ -120,12 +100,42 @@ export class FormFilter extends Component {
         ) : null;
     }
 
-     _renderCurrencySelectList() {
-        return <Select instanceId="ddlCurrency"
-                value={this.props.selectedCurrency.value}
-                options={AppData.currencyList}
-                onChange={this.onChangeCurrency} />
+    _renderCurrencySelectList() {
+        const currencyList = AppData.currencyList;
+       
+        return currencyList && currencyList.length && (
+                <MultipleSelect id="ddlCurrency"
+                language={LangHelper.currentLanguage}
+                dataSource={currencyList}
+                keyField={"Id"}
+                valueField={"Value"}
+                statusField={"Status"}
+                onChange={(currentItem, selectedItemsKey) => this._onChangeCurrency(selectedItemsKey)} />);
     }
+
+     _onChangeCurrency = (currencyIdList) => {
+         let baseCurrency = "";
+
+         if(!currencyIdList || currencyIdList.indexOf(',') > 0){ // none or multi currencies
+             this.baseCurrencyList = AppData.baseCurrencyList;
+             baseCurrency = this.baseCurrencyList.find(x => x.label === this.props.selectedBaseCurrency) ?
+                             this.props.selectedBaseCurrency :
+                             this.defaultBaseCurrency;
+        }
+        else
+        {
+             const currencyName =  AppData.currencyList.find(x => x.Id == currencyIdList).Value;
+             baseCurrency = currencyName;
+             if(!this.baseCurrencyList.find(x => x.label === currencyName)){
+                 this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
+                 this.baseCurrencyList.push({value: currencyName, label: currencyName});      
+             }
+        }
+
+        this.props.setSelectedCurrency(currencyIdList)
+        this.props.setSelectedBaseCurrency(baseCurrency);
+    }
+
 
     _renderBaseCurrencySelectList() {
         const baseCurrencyList = this.baseCurrencyList;
@@ -142,13 +152,13 @@ export class FormFilter extends Component {
         const statusList = AppData.statusList;
 
         return statusList && statusList.length && (
-                        <MultipleSelect id="StatusList"
-                                language={LangHelper.currentLanguage}
-            dataSource={statusList}
-            keyField={"Id"}
-            valueField={"Value"}
-            statusField={"Status"}
-            onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
+            <MultipleSelect id="StatusList"
+                language={LangHelper.currentLanguage}
+                dataSource={statusList}
+                keyField={"Id"}
+                valueField={"Value"}
+                statusField={"Status"}
+                onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
     }
 
      render() {

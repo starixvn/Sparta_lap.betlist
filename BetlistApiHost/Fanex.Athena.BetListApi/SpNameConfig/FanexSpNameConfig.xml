@@ -8,4 +8,6 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
 
+  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_Running" EnvironmentText="_xpre"></SpNameConfig>
 </Root>

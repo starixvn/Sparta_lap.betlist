@@ -85,8 +85,7 @@ export class FormFilter extends Component {
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
-            CurrencyId: this.props.selectedCurrency.value,
-            CurrencyName: this.props.selectedCurrency.label,
+            CurrencyIdList: this.props.selectedCurrency,
             BaseCurrency: this.props.selectedBaseCurrency,
             StatusList: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
@@ -247,28 +246,38 @@ export class FormFilter extends Component {
      }
     
     _renderCurrencySelectList() {
-        return <Select instanceId="ddlCurrency"
-        value={this.props.selectedCurrency.value}
-        options={AppData.currencyList}
-        onChange={this._onChangeCurrency} />
+        const currencyList = AppData.currencyList;
+       
+        return currencyList && currencyList.length && (
+                <MultipleSelect id="ddlCurrency"
+                language={LangHelper.currentLanguage}
+                dataSource={currencyList}
+                keyField={"Id"}
+                valueField={"Value"}
+                statusField={"Status"}
+                onChange={(currentItem, selectedItemsKey) => this._onChangeCurrency(selectedItemsKey)} />);
     }
 
-    _onChangeCurrency = (currency) => {
-        const currencyName = currency.label;
-        let baseCurrency = currencyName;
+    _onChangeCurrency = (currencyIdList) => {
+        let baseCurrency = "";
 
-        if (currency.value == 0) {
+        if(!currencyIdList || currencyIdList.indexOf(',') > 0){ // none or multi currencies
             this.baseCurrencyList = AppData.baseCurrencyList;
             baseCurrency = this.baseCurrencyList.find(x => x.label === this.props.selectedBaseCurrency) ?
                             this.props.selectedBaseCurrency :
                             this.defaultBaseCurrency;
         }
-        else if(!this.baseCurrencyList.find(x => x.label === currencyName)){
-            this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
-            this.baseCurrencyList.push({value: currencyName, label: currencyName});      
+        else
+        {
+            const currencyName =  AppData.currencyList.find(x => x.Id == currencyIdList).Value;
+            baseCurrency = currencyName;
+            if(!this.baseCurrencyList.find(x => x.label === currencyName)){
+                this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
+                this.baseCurrencyList.push({value: currencyName, label: currencyName});      
+            }
         }
 
-        this.props.setSelectedCurrency(currency)
+        this.props.setSelectedCurrency(currencyIdList)
         this.props.setSelectedBaseCurrency(baseCurrency);
     }
 

@@ -56,8 +56,8 @@
     <Setting Key="Lrf_BetList_Exchange_Detail" SpName="Lrf_BetList_Exchange_Detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_CustomerList_Mem" SpName="Lrf_BetList_CustomerList_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_RefNo_Mem" SpName="Lrf_BetList_RefNo_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_Running" SpName="Lrf_BetList_Running" DbName="DB042.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_Mem" SpName="Lrf_BetList_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_Running" SpName="Lrf_BetList_Running_xpre" DbName="DB042.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_Mem" SpName="Lrf_BetList_Mem_xpre" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Licensee" SpName="Lrf_BetList_Licensee" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Licensee_TotalRows" SpName="Lrf_BetList_Licensee_TotalRows" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_WinlostByLeague_Mem" SpName="Lrf_BetList_WinlostByLeague_Mem"  DbName="DBACC.bodb02.bodbLicenseeNet" />

@@ -11,12 +11,7 @@
     var selectedStatus = string.Join(",", Model.StatusList.Select(x => x.Key).ToArray());
     var selectedLiveStatus = string.Join(",", Model.LiveStatusList.Select(x => x.Key).ToArray());
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
-    var currencyList = Model.CurrencyList.Select(c => new { value = c.Key, label = c.Value }).ToList();
-    currencyList.Insert(0, new
-    {
-        value = 0,
-        label = ViewResources.All
-    });
+    var selectedCurrency = string.Join(",", Model.CurrencyList.Select(x => x.Key).ToArray());
 }
 @section pagecss {
     <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/betlist/index.css")" rel="stylesheet" type="text/css" />
@@ -30,7 +25,7 @@
     window.initialState = {
         dateRange: { fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         selectedProduct: '@Html.Raw(productList.First().Code)',
-        selectedCurrency: @Html.Raw(currencyList.First().ToJson()),   
+        selectedCurrency:  '@(selectedCurrency)',
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         isLoading: false,
         selectedStatus: '@(selectedStatus)',
@@ -48,7 +43,7 @@
         statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productList: @Html.Raw(Model.ProductOptionList.Select(x => new { value = x.Code, label = x.Name }).ToJson()),
-        currencyList: @Html.Raw(currencyList.ToJson()),
+        currencyList: @Html.Raw(Model.CurrencyList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
         dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 3 }
 };
         }

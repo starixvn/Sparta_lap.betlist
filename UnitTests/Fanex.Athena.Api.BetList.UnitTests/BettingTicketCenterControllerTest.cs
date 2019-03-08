@@ -131,8 +131,9 @@
             }
         }
 
-        [Test]
-        public async Task GetByRunning_InvalidCurrency_ReturnNull()
+        [TestCase(null)]
+        [TestCase("-100")]
+        public async Task GetByRunning_InvalidCurrency_ReturnNull(string currencyIdList)
         {
             using (var controller = CreateController())
             {
@@ -142,7 +143,7 @@
                     FromDate = DateTime.Today,
                     ToDate = DateTime.Today,
                     ProductCodeList = "C1,C2",
-                    CurrencyId = -100
+                    CurrencyIdList = currencyIdList
                 };
 
                 // Action
@@ -165,7 +166,7 @@
                     FromDate = DateTime.Today,
                     ToDate = DateTime.Today,
                     ProductCodeList = "C1,C2",
-                    CurrencyId = BaseCurrencyType.All
+                    CurrencyIdList = BaseCurrencyType.Eur.ToString()
                 };
 
                 var expect = new HttpResponseMessage();
@@ -194,7 +195,7 @@
                     FromDate = DateTime.Today,
                     ToDate = DateTime.Today,
                     ProductCodeList = "C1,C2",
-                    CurrencyId = 2,
+                    CurrencyIdList = "-2",
                     UserName = FakeHelper.Create<string>()
                 };
 
@@ -259,7 +260,7 @@
                     FromDate = DateTime.Today,
                     ToDate = DateTime.Today,
                     ProductCodeList = "C1,C2",
-                    CurrencyId = SessionService.UserSession.CurrencyList.Select(x => x.Key).FirstOrDefault(),
+                    CurrencyIdList = SessionService.UserSession.CurrencyList.Select(x => x.Key).FirstOrDefault().ToString(),
                     UserName = FakeHelper.Create<string>()
                 };
 
