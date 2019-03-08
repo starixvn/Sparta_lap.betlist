@@ -14,7 +14,7 @@ namespace Fanex.Athena.BetList.Controller.CustomActionResult
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             var response = context.HttpContext.Response;
@@ -28,7 +28,6 @@ namespace Fanex.Athena.BetList.Controller.CustomActionResult
                 response.ContentEncoding = ContentEncoding;
             }
 
-            // If you need special handling, you can call another form of SerializeObject below
             var serializedObject = JsonConvert.SerializeObject(Data, Formatting.Indented);
             response.Write(serializedObject);
         }
