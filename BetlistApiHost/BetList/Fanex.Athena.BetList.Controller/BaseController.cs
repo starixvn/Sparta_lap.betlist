@@ -12,6 +12,7 @@ namespace Fanex.Athena.BetList.Controller
     using System.Web.Routing;
     using System.Web.SessionState;
     using Common.Utility.Attributes;
+    using Fanex.Athena.BetList.Controller.CustomActionResult;
     using Model.DTO;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -43,7 +44,7 @@ namespace Fanex.Athena.BetList.Controller
 
         protected new JsonResult Json(object data)
         {
-            return new JsonResult
+            return new JsonNetResult
             {
                 Data = data,
                 MaxJsonLength = int.MaxValue
