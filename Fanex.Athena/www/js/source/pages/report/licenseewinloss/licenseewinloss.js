@@ -334,7 +334,7 @@
 
                         //update excel ULR
                         _me.setExcelUrl(level, currencyId, customerId, drillDownFDate, drillDownTDate, currencyName);
-                        _me.updateDrilldownData(currencyId, currencyName, drillDownFDate, drillDownTDate, customerId, _submitData.IsExcludedTestData);
+                        _me.updateDrilldownData(currencyId, currencyName, drillDownFDate, drillDownTDate, customerId);
                     },
                     beforeSend: function () {
                         Site.blockUI();
