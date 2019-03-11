@@ -58,6 +58,8 @@
             }
         }
 
+        public string Status { get; set; }
+
         public bool IsExport { get; set; }
 
         public string SortBy { get; set; }

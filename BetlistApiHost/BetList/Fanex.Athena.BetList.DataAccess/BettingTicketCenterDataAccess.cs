@@ -196,12 +196,12 @@
 
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("UserName", metaModel.UserName);
-                db.SetParameterValue("CurrencyId", metaModel.CurrencyId);
                 db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 db.SetParameterValue("ProductList", productList);
                 db.SetParameterValue("showBA", productCodes.Contains(ProductCodes.BA));
                 db.SetParameterValue("PageSize", metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
                 db.SetParameterValue("PageIndex", metaModel.IsExport ? 1 : metaModel.PageIndex);
+                db.SetParameterValue("StatusFilter", metaModel.Status);
                 db.SetParameterValue("TotalRows", null);
                 db.SetParameterValue("SumStake", null);
                 AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
