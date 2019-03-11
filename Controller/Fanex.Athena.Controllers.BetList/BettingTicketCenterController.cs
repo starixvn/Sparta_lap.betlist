@@ -105,6 +105,7 @@
                 new CheckedItem { ID = StatusTypes.Lose, Name = ViewResources.Lose, Checked = true },
                 new CheckedItem { ID = StatusTypes.Draw, Name = ViewResources.Draw, Checked = true },
                 new CheckedItem { ID = StatusTypes.Void, Name = ViewResources.Void },
+                new CheckedItem { ID = StatusTypes.AbnormalBet, Name = ViewResources.AbnormalBet },
                 new CheckedItem { ID = StatusTypes.Reject, Name = ViewResources.Reject },
                 new CheckedItem { ID = StatusTypes.Refund, Name = ViewResources.Refund }
             };

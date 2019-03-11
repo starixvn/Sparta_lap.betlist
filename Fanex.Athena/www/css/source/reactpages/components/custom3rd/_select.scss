@@ -19,6 +19,9 @@ $selected-option-color: #4c6375;
     .Select-clear-zone {
         display: none;
     }
+    &.is-disabled > .Select-control {
+        background-color: #ddd;
+    }
 
     &.is-focused:not(.is-open) > .Select-control {
         border: none;

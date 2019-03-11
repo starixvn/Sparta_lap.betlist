@@ -3149,4 +3149,8 @@
     <value>Under Settlement</value>
     <comment>108717</comment>
   </data>
+  <data name="AbnormalBet" xml:space="preserve">
+    <value>Abnormal Bet</value>
+    <comment>108717</comment>
+  </data>
 </root>

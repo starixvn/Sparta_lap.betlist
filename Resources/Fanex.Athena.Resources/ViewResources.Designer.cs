@@ -79,6 +79,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Abnormal Bet.
+        /// </summary>
+        public static string AbnormalBet {
+            get {
+                return ResourceManager.GetString("AbnormalBet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, You don&apos;t have permission to access this page..
         /// </summary>
         public static string AccessDeniedMsg {
