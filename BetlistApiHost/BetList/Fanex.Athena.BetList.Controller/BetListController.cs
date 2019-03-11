@@ -117,25 +117,25 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public ExcelResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var ticketResult = _betListService.GetBetListData(metaModel);
+            return ProcessExportExcel(metaModel);
+        }
 
-            return ProcessExportExcel(metaModel, ticketResult);
+        [HttpPost]
+        public ExcelResult ExportExcelLiveReport(LiveReportBetListMetaModel metaModel)
+        {
+            return ProcessExportExcel(metaModel);
         }
 
         [HttpPost]
         public ExcelResult ExportExcelDailyBetList(DailyBetListMetaModel metaModel)
         {
-            var ticketResult = _betListService.GetBetListData(metaModel);
-
-            return ProcessExportExcel(metaModel, ticketResult);
+            return ProcessExportExcel(metaModel);
         }
 
         [HttpPost]
         public ExcelResult ExportExcelWinlossByLeague(WinLossByLeagueBetListMetaModel metaModel)
         {
-            var ticketResult = _betListService.GetBetListData(metaModel);
-
-            return ProcessExportExcel(metaModel, ticketResult);
+            return ProcessExportExcel(metaModel);
         }
 
         protected internal virtual ExcelResult Export(BetListExcelMetaModel metaModel, TicketResult ticketResult)
@@ -147,10 +147,10 @@ namespace Fanex.Athena.BetList.Controller
             return new ExcelResult(workbook);
         }
 
-        protected internal virtual ExcelResult ProcessExportExcel(
-            BetListExcelMetaModel metaModel,
-            TicketResult ticketResult)
+        protected internal virtual ExcelResult ProcessExportExcel(BetListExcelMetaModel metaModel)
         {
+            var ticketResult = _betListService.GetBetListData(metaModel);
+
             const string LeagueNamePlaceHolder = "(LEAGUENAME)";
             if (metaModel.Title.Contains(LeagueNamePlaceHolder))
             {

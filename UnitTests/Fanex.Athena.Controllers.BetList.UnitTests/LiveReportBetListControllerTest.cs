@@ -354,7 +354,7 @@
                     && !x.IsShowSumStake
                     && x.AgentListXml == AgentListXml),
                 "LiveReportBetList",
-                null);
+                "/BetList/ExportExcelLiveReport");
         }
 
         private LiveReportBetListMetaModel CreateMetaModel()

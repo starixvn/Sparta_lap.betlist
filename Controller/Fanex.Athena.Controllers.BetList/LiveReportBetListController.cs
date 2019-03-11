@@ -111,7 +111,7 @@
             return EmptyExcel();
         }
 
-        private ActionResult Excel(BetListExcelMetaModel metaModel, string uspKey, string title)
+        private ActionResult Excel(LiveReportBetListMetaModel metaModel, string uspKey, string title)
         {
             // Sum value by page
             metaModel.UspKey = uspKey;
@@ -122,7 +122,7 @@
             };
             metaModel.StartIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
             metaModel.HiddenColumns = HiddenColumns;
-            return ProcessExportExcel(metaModel, "LiveReportBetList");
+            return ProcessExportExcel(metaModel, "LiveReportBetList", "/BetList/ExportExcelLiveReport");
         }
 
         private string GetExcelTitle(LiveReportBetListMetaModel metaModel, string caption = null)
