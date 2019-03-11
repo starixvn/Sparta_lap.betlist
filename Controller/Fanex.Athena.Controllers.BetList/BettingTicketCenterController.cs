@@ -8,6 +8,7 @@
     using Extension.Utility;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
     using Resources;
     using Service.Core.Common.Interfaces;
@@ -86,26 +87,26 @@
             return View("~/Views/Desktop/BetList/BettingTicketCenter/Running.cshtml", viewModel);
         }
 
-        private static IDictionary<int, string> GetRunningStatusList()
+        private static IEnumerable<CheckedItem> GetRunningStatusList()
         {
-            return new Dictionary<int, string>
+            return new List<CheckedItem>
             {
-                { StatusTypes.Waiting, ViewResources.Running },
-                { StatusTypes.ResultPending , ViewResources.ResultPending },
-                { StatusTypes.UnderSettlement, ViewResources.UnderSettlement }
+                new CheckedItem { ID = StatusTypes.Waiting, Name = ViewResources.Running, Checked = true },
+                new CheckedItem { ID = StatusTypes.ResultPending , Name = ViewResources.ResultPending, Checked = true },
+                new CheckedItem { ID = StatusTypes.UnderSettlement, Name = ViewResources.UnderSettlement, Checked = true }
             };
         }
 
-        private static IDictionary<int, string> GetStatusList()
+        private static IEnumerable<CheckedItem> GetStatusList()
         {
-            return new Dictionary<int, string>
+            return new List<CheckedItem>
             {
-                { StatusTypes.Won, ViewResources.Won },
-                { StatusTypes.Lose, ViewResources.Lose },
-                { StatusTypes.Draw, ViewResources.Draw },
-                { StatusTypes.Void, ViewResources.Void },
-                { StatusTypes.Reject, ViewResources.Reject },
-                { StatusTypes.Refund, ViewResources.Refund },
+                new CheckedItem { ID = StatusTypes.Won, Name = ViewResources.Won, Checked = true },
+                new CheckedItem { ID = StatusTypes.Lose, Name = ViewResources.Lose, Checked = true },
+                new CheckedItem { ID = StatusTypes.Draw, Name = ViewResources.Draw, Checked = true },
+                new CheckedItem { ID = StatusTypes.Void, Name = ViewResources.Void },
+                new CheckedItem { ID = StatusTypes.Reject, Name = ViewResources.Reject },
+                new CheckedItem { ID = StatusTypes.Refund, Name = ViewResources.Refund }
             };
         }
 

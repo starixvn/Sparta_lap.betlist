@@ -8,7 +8,7 @@
 @model Fanex.Athena.Model.BetList.ViewModel.BettingTicketCenterViewModel
 @{
     var productList = Model.ProductOptionList;
-    var selectedStatus = string.Join(",", Model.StatusList.Select(x => x.Key).ToArray());
+    var selectedStatus = string.Join(",", Model.StatusList.Where(x => x.Checked).Select(x => x.ID).ToArray());
     var selectedLiveStatus = string.Join(",", Model.LiveStatusList.Select(x => x.Key).ToArray());
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
     var selectedCurrency = string.Join(",", Model.CurrencyList.Select(x => x.Key).ToArray());
@@ -40,7 +40,7 @@
     window._AppData = {
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
-        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
+        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.ID, Value = x.Name, Status = x.Checked }).ToJson()),
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productList: @Html.Raw(Model.ProductOptionList.Select(x => new { value = x.Code, label = x.Name }).ToJson()),
         currencyList: @Html.Raw(Model.CurrencyList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),

@@ -11,7 +11,7 @@
 
     var selectedCurrency = string.Join(",", Model.CurrencyList.Select(x => x.Key).ToArray());
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
-    var selectedStatus = string.Join(",", Model.StatusList.Select(x => x.Key).ToArray());
+    var selectedStatus = string.Join(",", Model.StatusList.Where(x => x.Checked).Select(x => x.ID).ToArray());
 }
 @section pagecss {
     <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/betlist/index.css")" rel="stylesheet" type="text/css" />
@@ -35,7 +35,7 @@
         productOptions: @Html.Raw(productOptions.ToJson()),
         currencyList: @Html.Raw(Model.CurrencyList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
-        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
+        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.ID, Value = x.Name, Status = x.Checked }).ToJson()),
     };
 }
 <div id="app-container">

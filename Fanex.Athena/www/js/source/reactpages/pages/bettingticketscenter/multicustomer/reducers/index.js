@@ -13,6 +13,7 @@ import * as sportReducer from './sportReducer'
 import * as bettypeReducer from './bettypeReducer'
 import * as leagueReducer from './leagueReducer'
 import * as matchReducer from './matchReducer'
+import * as usernameReducer from '@jsroot/reducers/usernameReducer'
 
 export default combineReducers(Object.assign(
     gridDataReducer,
@@ -28,5 +29,6 @@ export default combineReducers(Object.assign(
     sportReducer,
     bettypeReducer,
     leagueReducer,
-    matchReducer
+    matchReducer,
+    usernameReducer
 ));

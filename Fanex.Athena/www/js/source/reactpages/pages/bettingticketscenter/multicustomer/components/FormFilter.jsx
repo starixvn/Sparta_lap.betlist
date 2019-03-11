@@ -48,7 +48,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return !!this.props.selectedProduct && !!this.props.selectedStatus;
+        return !!this.props.selectedProduct && !!this.props.selectedStatus && !!this.props.selectedLiveStatus;
     }
 
     isSingleDate = (dateRange) => {
@@ -85,6 +85,7 @@ export class FormFilter extends Component {
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
+            Username: this.props.username,
             CurrencyIdList: this.props.selectedCurrency,
             BaseCurrency: this.props.selectedBaseCurrency,
             StatusList: this.props.selectedStatus,
@@ -373,6 +374,16 @@ export class FormFilter extends Component {
                     
                     </div>
                     <div className="row">
+
+                        <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("Username")} *</label>
+                            <AutoComplete url={ApiUrl.CUSTOMER_SEARCH_URL} 
+                            onSelect={(value) => this.props.setUsername(value)}
+                            onInput={(value) => this.props.setUsername(value)}
+                            htmlAttributes={{placeholder:LangHelper.getSingleResource("ExternalIdOrSystemId")}} />
+                    </div>
+                     </div>
                      <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Currency")}</label>
@@ -431,9 +442,10 @@ function mapDispatchToProps(dispatch) {
                }
 function mapStateToProps(state) {
     const { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus } = state;
-        return Object.assign({}, { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-            selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus });
-               };
+        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus, username } = state;
+
+    return Object.assign({}, { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
+        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus, username });
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

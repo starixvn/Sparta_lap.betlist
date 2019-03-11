@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Core.DTO.Common;
     using Core.MetaModel.Product;
 
     [Serializable]
@@ -29,7 +30,7 @@
 
         public IDictionary<int, string> CurrencyList { get; set; }
 
-        public IDictionary<int, string> StatusList { get; set; }
+        public IEnumerable<CheckedItem> StatusList { get; set; }
 
         public IDictionary<int, string> PlatformList { get; set; }
 
