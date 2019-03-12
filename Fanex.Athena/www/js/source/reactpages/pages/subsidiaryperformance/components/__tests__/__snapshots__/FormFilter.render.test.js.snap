@@ -36,9 +36,8 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           hasAllOption={true}
           hasSearchBox={true}
           keyField="Name"
-          noneSelectedLabel="SelectOptions"
+          language="en-US"
           onChange={[Function]}
-          optionAllLabel="All"
           statusField="Checked"
           valueField="Name"
         />
@@ -104,9 +103,8 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           hasAllOption={true}
           hasSearchBox={false}
           keyField="Code"
-          noneSelectedLabel="SelectOptions"
+          language="en-US"
           onChange={[Function]}
-          optionAllLabel="All"
           statusField="Status"
           valueField="Name"
         />

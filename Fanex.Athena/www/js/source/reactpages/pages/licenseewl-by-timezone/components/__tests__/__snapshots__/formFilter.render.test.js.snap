@@ -141,6 +141,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           hasSearchBox={false}
           id="ProductList"
           keyField="Code"
+          language="en-US"
           noneSelectedLabel="SelectOptions"
           onChange={[Function]}
           optionAllLabel="All"
@@ -738,6 +739,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           hasSearchBox={false}
           id="ProductList"
           keyField="Code"
+          language="en-US"
           noneSelectedLabel="SelectOptions"
           onChange={[Function]}
           optionAllLabel="All"
