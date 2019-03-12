@@ -142,9 +142,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           id="ProductList"
           keyField="Code"
           language="en-US"
-          noneSelectedLabel="SelectOptions"
           onChange={[Function]}
-          optionAllLabel="All"
           statusField="Status"
           valueField="Name"
         />
@@ -740,9 +738,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           id="ProductList"
           keyField="Code"
           language="en-US"
-          noneSelectedLabel="SelectOptions"
           onChange={[Function]}
-          optionAllLabel="All"
           statusField="Status"
           valueField="Name"
         />

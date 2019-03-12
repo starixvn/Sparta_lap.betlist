@@ -242,9 +242,7 @@ exports[`FormFilter  render render with correct props 1`] = `
           id="ProductList"
           keyField="Code"
           language="en-US"
-          noneSelectedLabel="SelectOptions"
           onChange={[Function]}
-          optionAllLabel="All"
           statusField="Status"
           valueField="Name"
         />
@@ -313,9 +311,7 @@ exports[`FormFilter  render render with correct props 1`] = `
           id="StatusList"
           keyField="Code"
           language="en-US"
-          noneSelectedLabel="SelectOptions"
           onChange={[Function]}
-          optionAllLabel="All"
           statusField="Status"
           valueField="Name"
         />
