@@ -75,9 +75,11 @@ export default class BaseDataGrid extends Component {
                     <Cell title={item.Index} className="center-align">{item.Index}</Cell>                  
                     <Cell>{item.ExternalId}</Cell>
                     <Cell>{item.SystemId}</Cell>
+                    <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.RefNo }}></Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.TransTime }}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Choice}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Odds}}></Cell>
+                    <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.OddsType}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Stake}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.WinLoss}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.LicenseeWL}}></Cell>
