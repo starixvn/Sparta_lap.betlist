@@ -5931,12 +5931,11 @@ var FormFilter = exports.FormFilter = function (_Component) {
             var productOptions = _AppData2.default.productOptions;
 
             return productOptions && productOptions.length && _react2.default.createElement(_reactMultiselect2.default, { id: 'ProductList',
+                language: _langHelper2.default.currentLanguage,
                 dataSource: productOptions,
                 keyField: 'Code',
                 valueField: 'Name',
                 statusField: 'Status',
-                optionAllLabel: _langHelper2.default.getSingleResource('All'),
-                noneSelectedLabel: _langHelper2.default.getSingleResource('SelectOptions'),
                 onChange: this.onProductChange });
         }
     }, {
@@ -5959,12 +5958,11 @@ var FormFilter = exports.FormFilter = function (_Component) {
             var statusList = _AppData2.default.statusList;
 
             return statusList && statusList.length && _react2.default.createElement(_reactMultiselect2.default, { id: 'StatusList',
+                language: _langHelper2.default.currentLanguage,
                 dataSource: statusList,
                 keyField: 'Code',
                 valueField: 'Name',
                 statusField: 'Status',
-                optionAllLabel: _langHelper2.default.getSingleResource('All'),
-                noneSelectedLabel: _langHelper2.default.getSingleResource('SelectOptions'),
                 onChange: this.onStatusChange });
         }
     }, {

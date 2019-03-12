@@ -3996,12 +3996,11 @@ var FormFilter = exports.FormFilter = function (_Component) {
         value: function _renderProductSelectList() {
             var productOptions = _AppData2.default.productOptions;
             return productOptions && productOptions.length && _react2.default.createElement(_reactMultiselect2.default, { id: 'ProductList',
+                language: _langHelper2.default.currentLanguage,
                 dataSource: productOptions,
                 keyField: "Code",
                 valueField: "Name",
                 statusField: "Status",
-                optionAllLabel: _langHelper2.default.getSingleResource("All"),
-                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
                 onChange: this.productChangeHandler });
         }
     }, {
