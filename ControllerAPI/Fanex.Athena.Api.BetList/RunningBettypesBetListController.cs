@@ -6,20 +6,20 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
+
     #region Using
 
     using System.Web.Http;
     using Base.Attributes;
     using Constant.DataDomain;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
+    using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter.Interfaces;
+    using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     #endregion Using
 
@@ -37,45 +37,43 @@ namespace Fanex.Athena.Api.BetList
         private const string DoubleChangeBettypes = "24,151,186,431,410";
 
         private const string BONTeamToScoreBettypes = "26,145,146,433,170,188,427";
-        
+
         public RunningBettypesBetListController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IAuthorizationService authorizationService,
+            IBetListApiClient betListApiClient,
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
-        public dynamic MixParlay(BetListMetaModel metaModel)
+        public async Task<dynamic> MixParlay(BetListMetaModel metaModel)
         {
             metaModel.MultipleBettype = ((int)BetType.CombinationMixParlay).ToString();
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetDoubleChance)]
-        public dynamic DoubleChange(BetListMetaModel metaModel)
+        public async Task<dynamic> DoubleChange(BetListMetaModel metaModel)
         {
             metaModel.MultipleBettype = DoubleChangeBettypes;
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetBONTeamToScore)]
-        public dynamic BONTeamToScore(BetListMetaModel metaModel)
+        public async Task<dynamic> BONTeamToScore(BetListMetaModel metaModel)
         {
             metaModel.MultipleBettype = BONTeamToScoreBettypes;
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
-        private dynamic ProcessRequest(BetListMetaModel metaModel)
+        private async Task<dynamic> ProcessRequest(BetListMetaModel metaModel)
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -83,7 +81,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             const string UspKey = "Lrf_BetList_SelRunningByBettypeList";
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }
     }
 }

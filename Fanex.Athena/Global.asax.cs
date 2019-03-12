@@ -12,7 +12,6 @@ namespace Fanex.Athena
     using System.Web;
     using System.Web.Helpers;
     using System.Web.Http;
-    using System.Web.Http.ExceptionHandling;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
@@ -20,18 +19,15 @@ namespace Fanex.Athena
     using Data.Configuration;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
-    using Fanex.BetList.Core;
-    using Fanex.BetList.Core.RemotingRef;
-    using Fanex.RemotingRef;
-    using Fanex.Result.Core.Base;
-    using Fanex.Result.Core.RemotingRef;
     using Logging.Extensions.Database;
     using Logging.Extensions.Web;
-    using Service.Core.Utility;
+    using RemotingRef;
     using Service.Core.Utility.Interfaces;
 
     public class MvcApplication : HttpApplication
     {
+        private static readonly string[] RemovedHeaderKeys = { "Server", "X-AspNet-Version", "X-AspNetMvc-Version" };
+
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public void Application_Error(object sender, EventArgs e)
         {
@@ -88,10 +84,8 @@ namespace Fanex.Athena
                 log4net.Config.XmlConfigurator.Configure();
                 log4net.LogManager.GetLogger("GeneralLog").Info("Start");
                 RefDataTypeContainer
-               .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
-               .FromApplication("Fanex.LAP");
-                BetListManager.RegisterRemotingRef(new CacheRef());
-                ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
+                .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
+                .FromApplication("Fanex.LAP");
 
                 Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
                     .IgnoreException<HttpAntiForgeryException>()
@@ -100,15 +94,29 @@ namespace Fanex.Athena
             }
         }
 
-        /// <summary>
-        /// End request.
-        /// </summary>
-        protected void Application_EndRequest()
+        protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            Response.Headers.Remove("X-AspNet-Version");
-            Response.Headers.Remove("X-AspNetMvc-Version");
-            Response.Headers.Remove("Server");
-            Response.Headers.Remove("X-Powered-By");
+            if (!Response.HeadersWritten)
+            {
+                Response.AddOnSendingHeaders((c) =>
+                {
+                    RemoveSensitiveHeaders(c);
+                });
+            }
+        }
+
+        private static void RemoveSensitiveHeaders(HttpContext httpContext)
+        {
+            if (httpContext != null && httpContext.Response != null && httpContext.Response.Headers != null)
+            {
+                foreach (string header in RemovedHeaderKeys)
+                {
+                    if (httpContext.Response.Headers[header] != null)
+                    {
+                        httpContext.Response.Headers.Remove(header);
+                    }
+                }
+            }
         }
     }
 }

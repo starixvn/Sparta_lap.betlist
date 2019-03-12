@@ -587,6 +587,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 isCheckAll: isCheckAll,
                 checkAllText: Site.getSingleResource('All'),
                 selectedText: Site.getSingleResource('SelectedItemCount'),
+                noneSelectedText: Site.getSingleResource('SelectOptions'),
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {
@@ -5534,7 +5535,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 });
 
                 var popH = Math.min($(window).height() - 100, 500), popW = 920;
-                var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 50, title: "Customer Bet List" };
+                var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },

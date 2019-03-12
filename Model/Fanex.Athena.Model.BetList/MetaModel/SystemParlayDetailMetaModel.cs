@@ -1,17 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SystemParlayDetailMetaModel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using Fanex.Athena.Model.Core.MetaModel;
 
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
-    using System;
-    using Model.Core.MetaModel;
-
-    /// <summary>
-    /// SystemParlayDetailMetaModel class.
-    /// </summary>
     public class SystemParlayDetailMetaModel : BaseMetaModel
     {
         public long RefNo { get; set; }

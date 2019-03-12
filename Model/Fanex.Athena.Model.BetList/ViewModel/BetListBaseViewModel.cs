@@ -1,15 +1,9 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListBaseViewModel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Model.BetList.ViewModel
+﻿namespace Fanex.Athena.Model.BetList.ViewModel
 {
     using System.Collections.Generic;
     using Core.MetaModel.Product;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Model.Core.ViewModel;
+    using Core.ViewModel;
+    using MetaModel;
 
     public class BetListBaseViewModel : BaseViewModel
     {

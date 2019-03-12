@@ -1,15 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListMetaModel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Web.Script.Serialization;
+using Fanex.Athena.Model.Core.MetaModel;
 
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
-    using System;
-    using System.Globalization;
-    using Model.Core.MetaModel;
-
     public class BetListMetaModel : BaseMetaModel
     {
         public BetListMetaModel()
@@ -20,6 +16,14 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             PageIndex = 1;
             PageSize = int.MaxValue - 1;
         }
+
+        public bool HasPlayerCom { get; set; }
+
+        [ScriptIgnore]
+        public IDictionary<int, string> CurrencyList { get; set; }
+
+        [ScriptIgnore]
+        public string UspKey { get; set; }
 
         public string ProductCodeList { get; set; } = string.Empty;
 

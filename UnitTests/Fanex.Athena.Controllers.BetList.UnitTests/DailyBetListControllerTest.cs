@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Entities;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Model.Core.DTO.Common;
@@ -108,50 +106,42 @@
                 var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.DailyBetList} {ViewResources.On} 01/01/2018 - {currencyTitle}";
 
-                var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_SelWinlossDaily").Returns(ticketResult);
-
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
                 controller.When(x => x.ProcessExportExcel(
-                    Arg.Any<ShowingOption>(),
-                    Arg.Any<BetListMetaModel>(),
-                    Arg.Any<TicketResult>(),
-                    Arg.Any<IEnumerable<int>>(),
+                    Arg.Any<BetListExcelMetaModel>(),
                     Arg.Any<string>(),
-                    Arg.Any<string>(),
-                    Arg.Any<int>())).DoNotCallBase();
+                    Arg.Any<string>())).DoNotCallBase();
 
                 // Action
                 controller.Index(metaModel);
 
                 // Assert
                 controller.Received().ProcessExportExcel(
-                    Arg.Is<ShowingOption>(x => x.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm),
-                    Arg.Is<BetListMetaModel>(x => x.LicenseeId == DefaultLicenseeSession.LicenseeId 
-                        && !x.IsShowSumStake 
-                        && x.AgentListXml == AgentListXml 
-                        && x.IsServerPaging 
+                    Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
+                        && x.Title == expectedTitle
+                        && string.Join(",", x.HiddenColumns) == "8"
+                        && x.UspKey == "Lrf_BetList_SelWinlossDaily"
+                        && x.LicenseeId == DefaultLicenseeSession.LicenseeId
+                        && !x.IsShowSumStake
+                        && x.AgentListXml == AgentListXml
+                        && x.IsServerPaging
                         && x.PageIndex == 1),
-                    ticketResult,
-                    Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "8"),
-                    expectedTitle,
                     "DailyBetList",
-                    1);
+                    "/BetList/ExportExcelDailyBetList");
             }
         }
 
         private DailyBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<DailyBetListController>(
+            return Substitute.ForPartsOf<DailyBetListController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
-                CacheRefAdapter);
-            return controller;
+                CacheRefAdapter,
+                BetListApiClient);
         }
     }
 }

@@ -6,20 +6,20 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
+
     #region Using
 
     using System.Web.Http;
     using Base.Attributes;
     using Constant.DataDomain;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
+    using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter.Interfaces;
+    using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     #endregion Using
 
@@ -39,47 +39,45 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IAuthorizationService authorizationService,
+            IBetListApiClient betListApiClient,
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetCleanSheet)]
-        public dynamic CleanSheet(BetListMetaModel metaModel)
+        public async Task<dynamic> CleanSheet(BetListMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.CleanSheet;
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetToWinToNil)]
-        public dynamic ToWinToNil(BetListMetaModel metaModel)
+        public async Task<dynamic> ToWinToNil(BetListMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.ToWinToNil;
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBet3WayHandicap)]
-        public dynamic ThreeWayHandicap(BetListMetaModel metaModel)
+        public async Task<dynamic> ThreeWayHandicap(BetListMetaModel metaModel)
         {
             metaModel.MultipleBettype = $"{(int)BetType.ThreeWayHandicap},{(int)BetType.FirstHalfThreeWayHandicap}";
-            return ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList");
+            return await ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList").ConfigureAwait(false);
         }
 
-        private dynamic ProcessRequest(BetListMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
+        private async Task<dynamic> ProcessRequest(BetListMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            return GetBetListResult(metaModel, uspKey);
+            return await GetBetListResult(metaModel, uspKey).ConfigureAwait(false);
         }
     }
 }

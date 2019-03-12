@@ -2,13 +2,12 @@
 {
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
-    using Excel.Base.Entities;
     using Extension.Utility;
     using Model.BetList.MetaModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class BonusBetListController : BetListBaseController
@@ -18,28 +17,26 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListExcelMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/BonusDetail/Main.cshtml", "Lrf_BetList_LicenseeBonus_Detail");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/BonusDetail/Main.cshtml", "Lrf_BetList_LicenseeBonus_Detail");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            return ProcessExportExcel(
-                new ShowingOption { GrandTotalVisible = false, CustomerCommVisible = true },
-                metaModel,
-                BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey),
-                new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn },
-                ViewResources.TransactionDetail,
-                "BonusTransactionDetail");
+            metaModel.ShowingOption = new BetListShowingOption { GrandTotalVisible = false, CustomerCommVisible = metaModel.HasPlayerCom };
+            metaModel.HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
+            metaModel.Title = ViewResources.TransactionDetail;
+            return ProcessExportExcel(metaModel, "BonusTransactionDetail");
         }
     }
 }

@@ -1,14 +1,13 @@
 ﻿namespace Fanex.Athena.Controllers.Report.Result
 {
-    using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Model.Core.DataDomain;
-    using Model.Report.MetaModel.Keno;
+    using Model.Report.DTO.Result;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
-    using Service.Report.Result.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ReportResults)]
@@ -16,7 +15,7 @@
     {
         private readonly ICoreLogger _logger;
 
-        private readonly IKenoApi _kenoApi;
+        private readonly IBetListApiClient _betListApiClient;
 
         public ResultKenoReportController(
             ILanguageService languageService,
@@ -24,22 +23,29 @@
             IAppSettings appSetting,
             IProductService productService,
             ICoreLogger logger,
-            IKenoApi kenoApi)
+            IBetListApiClient betListApiClient)
             : base(languageService, sessionService, appSetting, productService)
         {
             _logger = logger;
-            _kenoApi = kenoApi;
+            _betListApiClient = betListApiClient;
         }
 
         [HttpGet]
         [AjaxRequest]
-        public ActionResult Index(int vendorProductId)
+        public async Task<ActionResult> Index(int vendorProductId)
         {
             var userId = SessionService.UserSession.UserId;
+            var model = new
+            {
+                vendorProductId,
+                UserId = userId.ToString()
+            };
+            var kenoUrl = await _betListApiClient.PostAsyncString("/ResultKenoReport/GetKenoResultUrl", model).ConfigureAwait(false);
+
             return Json(
                 new
                 {
-                    Url = _kenoApi.CreateKenoResultUrl(GetKenoSetting(vendorProductId), userId.ToString(), DateTime.Now),
+                    Url = kenoUrl,
                     UserId = userId
                 },
             JsonRequestBehavior.AllowGet);
@@ -48,7 +54,7 @@
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public string KeepSession(string userId, int vendorProductId)
+        public async Task<string> KeepSession(string userId, int vendorProductId)
         {
             if (string.IsNullOrEmpty(userId) || !SessionService.UserSession.UserId.ToString().Equals(userId))
             {
@@ -57,7 +63,13 @@
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 
-            var result = _kenoApi.ExtendToken(GetKenoSetting(vendorProductId), userId);
+            var model = new
+            {
+                VendorProductId = vendorProductId,
+                UserId = userId
+            };
+
+            var result = await _betListApiClient.PostAsync<KenoExtendedToken>("/ResultKenoReport/KeepSession", model).ConfigureAwait(false);
 
             if (result.ErrorCode > 0)
             {
@@ -66,23 +78,6 @@
             }
 
             return string.Empty;
-        }
-
-        private KenoResultMetaModel GetKenoSetting(int vendorProductId)
-        {
-            return new KenoResultMetaModel
-            {
-                Language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
-                SiteID = AppSettings.GetValue("KenoSiteID"),
-                AuthorizedUrl = AppSettings.GetValue("KenoAuthorizedUrl"),
-                ExpireTokenUrl = AppSettings.GetValue("KenoExpireTokenUrl"),
-                ExtendTokenUrl = AppSettings.GetValue("KenoExtendTokenUrl"),
-                VenderKey = AppSettings.GetValue("KenoVenderKey"),
-                Vendor = AppSettings.GetValue("KenoVendor"),
-                ResultUrl = vendorProductId == ResultVendorProductTypes.Keno ? AppSettings.GetValue("KenoResultUrl") : AppSettings.GetValue("LotteryResultUrl"),
-                KickOutUrl = Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme),
-                VendorProduct = vendorProductId
-            };
         }
     }
 }

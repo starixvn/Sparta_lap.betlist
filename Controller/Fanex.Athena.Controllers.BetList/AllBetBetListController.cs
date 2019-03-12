@@ -6,22 +6,16 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    #region Using
-
     using System;
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.BetList.MetaModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
-
-    #endregion Using
 
     public class AllBetBetListController : BetListBaseController
     {
@@ -30,18 +24,18 @@ namespace Fanex.Athena.Controllers.BetList
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListExcelMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/AGCasinoDetail/Main.cshtml", "Lrf_BetList_LC_Detail");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/AGCasinoDetail/Main.cshtml", "Lrf_BetList_LC_Detail");
         }
 
         protected override void AssignViewBag(BetListMetaModel model)
@@ -49,20 +43,18 @@ namespace Fanex.Athena.Controllers.BetList
             ViewBag.BetListTitle = GetTitle(model.Date);
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 GrandTotalVisible = false,
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+            metaModel.HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+            metaModel.Title = GetTitle(metaModel.Date);
 
-            var title = GetTitle(metaModel.Date);
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, hiddenColumns, title, "AllBetDetail");
+            return ProcessExportExcel(metaModel, "AllBetDetail");
         }
 
         private static string GetTitle(DateTime date)

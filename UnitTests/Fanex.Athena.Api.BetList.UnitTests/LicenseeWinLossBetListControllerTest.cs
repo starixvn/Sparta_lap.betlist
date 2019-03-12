@@ -2,10 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
@@ -14,84 +15,110 @@
     public class LicenseeWinLossBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
         private const string UspKey = "Lrf_BetList_SelWinloss_Mem";
-        private IReportSettingService _reportSettingService;
 
-        private LicenseeWinLossBetListController _controller;
+        private const string ApiPath = "/BetList/GetBetList";
+
+        private IReportSettingService _reportSettingService;
 
         [SetUp]
         public void SetUp()
         {
-            _reportSettingService = Substitute.For<IReportSettingService>();
-            _controller = Substitute.ForPartsOf<LicenseeWinLossBetListController>(
-                SessionService,
-                ProductService,
-                LangService,
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder,
-                _reportSettingService);
+            MockSessionData();
 
-            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
+            _reportSettingService = Substitute.For<IReportSettingService>();
+
+            AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _reportSettingService = null;
         }
 
         [Test]
-        public void Index_InvalidDateRange_ReturnNull()
+        public async Task Index_InvalidDateRange_ReturnNull()
         {
-            // Arrange
-            var metaModel = new BetListMetaModel { FromDate = new DateTime(2018, 1, 1) };
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = new BetListMetaModel { FromDate = new DateTime(2018, 1, 1) };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
-            _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
+
+                _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting
                 {
                     MinDate = new DateTime(2018, 2, 2),
                     MaxDate = new DateTime(2018, 3, 3)
                 });
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [Test]
-        public void Index_InvalidCurrency_ReturnNull()
+        public async Task Index_InvalidCurrency_ReturnNull()
         {
-            // Arrange
-            var metaModel = new BetListMetaModel { CurrencyId = 1 };
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = new BetListMetaModel { CurrencyId = 1 };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void Index_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
+        public async Task Index_WhenCall_CallBetListApiWithCorrectParameters(int currencyId)
         {
-            // Arrange
-            var metaModel = new BetListMetaModel { CurrencyId = currencyId };
-
-            StubUserSessionData(new UserSession
+            using (var controller = CreateController())
             {
-                CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
-            });
-            SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
+                // Arrange
+                var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
-            _controller.WhenForAnyArgs(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();
+                StubUserSessionData(new UserSession
+                {
+                    CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
+                });
 
-            // Action
-            _controller.Index(metaModel);
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, ApiPath, expect);
 
-            // Assert
-            _controller.Received().GetBetListResult(metaModel, UspKey);
+                // Action
+                var actual = await controller.Index(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                });
+            }
+        }
+
+        private LicenseeWinLossBetListController CreateController()
+        {
+            return new LicenseeWinLossBetListController(
+                SessionService,
+                ProductService,
+                LangService,
+                AuthorizationService,
+                BetListApiClient,
+                BalanceUpDataAccess,
+                _reportSettingService);
         }
     }
 }

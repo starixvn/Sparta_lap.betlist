@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Resources;
     using Fanex.Athena.Service.Core.Utility.Interfaces;
@@ -68,10 +69,7 @@
         {
             if (string.IsNullOrEmpty(_appSetting.ResultAmendmentApiUrl))
             {
-                return new ReportResultModel<ResultAmendment>
-                {
-                    DataList = new ResultAmendment[0],
-                };
+                return new ReportResultModel<ResultAmendment> { DataList = new ResultAmendment[0] };
             }
 
             var resultAmendmentUrl = GetResultAmendmentUrl(metaModel);
@@ -83,10 +81,7 @@
                 var json = _webClientService.DownloadString(resultAmendmentUrl);
                 if (string.IsNullOrEmpty(json))
                 {
-                    return new ReportResultModel<ResultAmendment>
-                    {
-                        DataList = dataList
-                    };
+                    return new ReportResultModel<ResultAmendment> { DataList = dataList };
                 }
 
                 var jobject = JObject.Parse(json);
@@ -97,7 +92,6 @@
                     var contentKey = "Content" + lang;
 
                     totalRecords = jobject["TotalItems"].Value<int>();
-
                     dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey)));
                 }
             }

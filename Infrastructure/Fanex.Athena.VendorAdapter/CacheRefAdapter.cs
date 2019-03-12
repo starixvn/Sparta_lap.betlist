@@ -5,8 +5,6 @@ using Fanex.Athena.Constant.DataDomain;
 using Fanex.Athena.Constant.Helper;
 using Fanex.Athena.Resources;
 using Fanex.Athena.VendorAdapter.Interfaces;
-using Fanex.BetList.Core.Entities;
-using Fanex.BetList.Core.TicketHelper;
 using Fanex.RemotingRef;
 
 namespace Fanex.Athena.VendorAdapter
@@ -16,13 +14,9 @@ namespace Fanex.Athena.VendorAdapter
         private const string MicrogamingResourceKey = "MG_Casino";
 
         private readonly Lazy<IRemotingRefService> _remotingRefService = new Lazy<IRemotingRefService>(() => new RemotingRefService());
-        private readonly Lazy<ITicketHelper> _ticketHelper = new Lazy<ITicketHelper>(() => new TicketHelper());
 
         public static CacheRefAdapter Instance { get; } = new CacheRefAdapter();
 
-#pragma warning disable CS3003 // Type is not CLS-compliant
-        public ITicketHelper TicketHelper => _ticketHelper.Value;
-#pragma warning restore CS3003 // Type is not CLS-compliant
 #pragma warning disable CS3003 // Type is not CLS-compliant
         public IRemotingRefService RemotingRefService => _remotingRefService.Value;
 #pragma warning restore CS3003 // Type is not CLS-compliant
@@ -122,16 +116,6 @@ namespace Fanex.Athena.VendorAdapter
         public string[] GetCombinationTypeCombo(string betTeam, string betCheck, decimal handicap1, decimal handicap2)
         {
             return RemotingRefService.GetCombinationTypeCombo(betTeam, betCheck, Convert.ToInt32(handicap1), Convert.ToInt32(handicap2), GetCurrentIBCLanguageCode());
-        }
-
-        public string GetOddsTypeName(object oddsTypeId)
-        {
-            if (!IsValidId(oddsTypeId))
-            {
-                return string.Empty;
-            }
-
-            return TicketHelper.GetOddsTypeNameById(oddsTypeId);
         }
 
         private static string GetNumberGameBettypeName(int betType, bool liveIndicator, string betTypeName)

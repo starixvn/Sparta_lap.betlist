@@ -1,18 +1,18 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
+
     #region Using
 
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
+    using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter.Interfaces;
+    using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     #endregion Using
 
@@ -20,22 +20,20 @@
     public class OutstandingRunningBetListController : ApiBetListBaseController
     {
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
-        
+
         public OutstandingRunningBetListController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IAuthorizationService authorizationService,
+            IBetListApiClient betListApiClient,
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -46,7 +44,7 @@
 
             const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }
     }
 }

@@ -1,30 +1,37 @@
 namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
 {
+    using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
-    using Fanex.Result.Core.PP;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
 
     public class PPResultPopupController : BaseController
     {
-        private readonly IPPResult _resultApi;
+        private readonly IBetListApiClient _betListApiClient;
 
         public PPResultPopupController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IPPResult resultApi)
+            IBetListApiClient betListApiClient)
             : base(languageService, sessionService, appSetting)
         {
-            _resultApi = resultApi;
+            _betListApiClient = betListApiClient;
         }
 
         [HttpGet]
-        public string Index(string custId, string gamePlayId)
+        public async Task<string> Index(string custId, string gamePlayId)
         {
-            var languageCode = SessionService.UserSession.Language;
-            return _resultApi.GetPPResult(custId, gamePlayId, languageCode);
+            var model = new 
+            {
+                custId,
+                gamePlayId,
+                languageCode = SessionService.UserSession.Language
+            };
+            return await _betListApiClient.PostAsyncString("/PPResultPopup/Index", model).ConfigureAwait(false);
         }
     }
 }

@@ -42,16 +42,15 @@ describe('FormFilter ', () => {
                 const formFilter = new FormFilter(formFilterPropsForRender);
                 const multipleSelectComponent = formFilter._renderProductSelectList();
                 const expectedResult = {
+                    language: "en-US",
                     dataSource: AppData.productOptions,
                     keyField: "Code",
                     valueField: "Name",
-                    statusField: "Status",
-                    optionAllLabel: "All",
-                    noneSelectedLabel: "SelectOptions"
+                    statusField: "Status"
                 }
 
-                const { dataSource, keyField, valueField, statusField, optionAllLabel, noneSelectedLabel } = multipleSelectComponent.props;
-                const result = { dataSource, keyField, valueField, statusField, optionAllLabel, noneSelectedLabel };
+                const { language, dataSource, keyField, valueField, statusField } = multipleSelectComponent.props;
+                const result = { language, dataSource, keyField, valueField, statusField };
 
                 expect(result).toEqual(expectedResult);
             });

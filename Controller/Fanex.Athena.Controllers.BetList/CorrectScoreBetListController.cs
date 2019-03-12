@@ -11,15 +11,14 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.BetList.MetaModel;
+    using Model.BetList.ViewModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     #endregion Using
@@ -32,10 +31,10 @@ namespace Fanex.Athena.Controllers.BetList
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
@@ -63,7 +62,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var currencies = SessionService.UserSession.CurrencyList;
@@ -71,20 +70,18 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 const string UspKey = "Lrf_TotalBets_Sel430";
 
-                var excelModel = CreateDefaultMetaModel(metaModel);
-                excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
-                excelModel.IsShowSumStake = true;
+                CreateDefaultMetaModel(metaModel);
+                metaModel.IsShowSumStake = true;
+                metaModel.UspKey = UspKey;
 
-                var ticketResult = BetListService.GetBetListData(excelModel, UserCurrencyList, UspKey);
-
-                var showingOption = new ShowingOption
+                metaModel.ShowingOption = new BetListShowingOption
                 {
                     CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                 };
 
-                var title = ViewResources.CorrectScore + " - " + GetViewInCurrency(excelModel);
-
-                return ProcessExportExcel(showingOption, excelModel, ticketResult, HiddenColumnIndexes, title, "CorrectScoreBetList");
+                metaModel.Title = ViewResources.CorrectScore + " - " + GetViewInCurrency(metaModel);
+                metaModel.HiddenColumns = HiddenColumnIndexes;
+                return ProcessExportExcel(metaModel, "CorrectScoreBetList");
             }
 
             return EmptyExcel();

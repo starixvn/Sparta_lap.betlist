@@ -1,0 +1,30 @@
+﻿namespace Fanex.Athena.Api.BetList.UnitTests
+{
+    using System;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Fanex.Athena.Api.Base.UnitTests;
+    using Model.Core.DTO.Configuration;
+    using NSubstitute;
+    using NUnit.Framework;
+    using Service.Core.Utility.Interfaces;
+
+    public class ApiBetListBaseControllerHelperTest : BaseApiControllerHelperTest
+    {
+        protected readonly BalanceUp DefaultBalanceUp = new BalanceUp { BalanceUpDay = new DateTime(2018, 1, 1), MoveBetsDay = new DateTime(2018, 1, 2) };
+
+        protected IBridgeClientService BridgeClientService { get; private set; }
+
+        protected IBalanceUpDataAccess BalanceUpDataAccess { get; private set; }
+
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
+        {
+            base.FixtureSetUp();
+
+            BridgeClientService = Substitute.For<IBridgeClientService>();
+            BalanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+
+            BalanceUpDataAccess.GetBalanceUp().Returns(DefaultBalanceUp);
+        }
+    }
+}

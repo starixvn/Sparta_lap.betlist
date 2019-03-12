@@ -168,7 +168,7 @@
             var transId = Math.Abs(FakeHelper.Create<int>()) + 1;
 
             // Action
-            var result = _authorizationService.HasPermissionOnData(licenseeId, custId, transId);
+            _authorizationService.HasPermissionOnData(licenseeId, custId, transId);
 
             // Assert
             _authorizationDataAccess.Received().IsCustomerBelonging(licenseeId, custId, transId);

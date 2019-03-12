@@ -6,21 +6,16 @@
 
 namespace Fanex.Athena.Api.BetList
 {
-    #region Using
-
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
+    using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter.Interfaces;
-
-    #endregion Using
+    using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinlossByLeagueBetListController : ApiBetListBaseController
@@ -29,17 +24,15 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IAuthorizationService authorizationService,
+            IBetListApiClient betListApiClient,
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 
         [HttpPost]
-        public dynamic Index(WinLossByLeagueBetListMetaModel metaModel)
+        public async Task<dynamic> Index(WinLossByLeagueBetListMetaModel metaModel)
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -47,7 +40,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey, "/BetList/GetWinLossByLeagueData").ConfigureAwait(false);
         }
     }
 }

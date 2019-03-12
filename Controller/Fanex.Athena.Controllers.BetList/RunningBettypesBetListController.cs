@@ -13,15 +13,14 @@ namespace Fanex.Athena.Controllers.BetList
     using Constant.DataDomain;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.BetList.MetaModel;
+    using Model.BetList.ViewModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     #endregion Using
@@ -46,16 +45,16 @@ namespace Fanex.Athena.Controllers.BetList
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
-        public ActionResult MixParlay(BetListMetaModel metaModel)
+        public ActionResult MixParlay(BetListExcelMetaModel metaModel)
         {
             metaModel.MultipleBettype = ((int)BetType.CombinationMixParlay).ToString();
             ViewBag.ReportTitle = Menu.Menu_12;
@@ -65,7 +64,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetDoubleChance)]
-        public ActionResult DoubleChange(BetListMetaModel metaModel)
+        public ActionResult DoubleChange(BetListExcelMetaModel metaModel)
         {
             metaModel.MultipleBettype = DoubleChangeBettypes;
             ViewBag.ReportTitle = ViewResources.DoubleChance;
@@ -75,7 +74,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetBONTeamToScore)]
-        public ActionResult BONTeamToScore(BetListMetaModel metaModel)
+        public ActionResult BONTeamToScore(BetListExcelMetaModel metaModel)
         {
             metaModel.MultipleBettype = BONTeamToScoreBettypes;
             ViewBag.ReportTitle = ViewResources.BONTeamToScore;
@@ -83,53 +82,54 @@ namespace Fanex.Athena.Controllers.BetList
             return ProcessRequest(metaModel);
         }
 
-        private ActionResult ProcessRequest(BetListMetaModel metaModel)
+        private ActionResult ProcessRequest(BetListExcelMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var viewParam = CreateDefaultMetaModel(metaModel);
+            CreateDefaultMetaModel(metaModel);
             var currencies = userSession.CurrencyList;
 
-            if (viewParam.IsExportExcel)
+            if (metaModel.IsExportExcel)
             {
-                if (viewParam.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(viewParam.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
-                    viewParam.AgentListXml = SessionService.GenerateAgentListXml(viewParam.CurrencyId);
-                    return Excel(viewParam);
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                    return Excel(metaModel);
                 }
 
                 return EmptyExcel();
             }
 
-            SetConvetedUSDCurrencyName(viewParam);
+            SetConvetedUSDCurrencyName(metaModel);
 
             var model = new BetListBaseViewModel
             {
                 ShowEmptyContent = true,
-                Param = viewParam,
+                Param = metaModel,
                 CurrencyList = currencies,
-                ProductAccess = ProductService.GetProductAccess(viewParam.LicenseeId, userSession.Language),
+                ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
             return View("~/Views/Desktop/BetList/RunningBetListMultipleBettypes/Main.cshtml", model);
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListExcelMetaModel metaModel)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, "Lrf_BetList_SelRunningByBettypeList");
+            metaModel.UspKey = "Lrf_BetList_SelRunningByBettypeList";
 
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
             var firstBettype = metaModel.MultipleBettype.Split(',').FirstOrDefault();
-            var title = $"{CacheRefAdapter.GetBettype(firstBettype)} - {GetViewInCurrency(metaModel)}";
+            metaModel.Title = $"{CacheRefAdapter.GetBettype(firstBettype)} - {GetViewInCurrency(metaModel)}";
 
             metaModel.IsShowSumStake = true;
+            metaModel.HiddenColumns = HiddenColumnIndexes;
 
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
+            return ProcessExportExcel(metaModel, "RunningBetList");
         }
     }
 }

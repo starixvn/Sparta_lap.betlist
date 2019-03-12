@@ -3,12 +3,11 @@
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.BetList.MetaModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class VoidbridgeBetListController : BetListBaseController
@@ -23,17 +22,18 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListExcelMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/VoidbridgeDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/VoidbridgeDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
         }
 
         protected override void AssignViewBag(BetListMetaModel model)
@@ -41,14 +41,15 @@
             ViewBag.BetListTitle = _title;
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, _title, "MacauGamesDetail");
+            metaModel.Title = _title;
+            metaModel.HiddenColumns = HiddenColumns;
+            return ProcessExportExcel(metaModel, "MacauGamesDetail");
         }
     }
 }

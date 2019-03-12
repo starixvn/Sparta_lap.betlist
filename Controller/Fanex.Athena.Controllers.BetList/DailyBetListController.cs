@@ -8,20 +8,17 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.BetList.MetaModel;
+    using Model.BetList.ViewModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     #endregion Using
@@ -38,10 +35,10 @@ namespace Fanex.Athena.Controllers.BetList
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
@@ -79,7 +76,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/Desktop/BetList/DailyBetList/Main.cshtml", model);
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListExcelMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 
@@ -87,22 +84,24 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.IsServerPaging = true;
             metaModel.PageSize = MaxPageSize;
             metaModel.PageIndex = 1;
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey);
+            metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            metaModel.CurrencyList = UserCurrencyList;
+            metaModel.UspKey = UspKey;
 
-            // Sum value by page
-            ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);
-            ticketResult.SumLicenseeWL = ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
-            ticketResult.SumComm = ticketResult.MainTicketList.Sum(x => x.Comm);
-            ticketResult.SumPlayerComm = ticketResult.MainTicketList.Sum(x => x.PlayerComm);
+            //// Sum value by page
+            ////ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);
+            ////ticketResult.SumLicenseeWL = ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
+            ////ticketResult.SumComm = ticketResult.MainTicketList.Sum(x => x.Comm);
+            ////ticketResult.SumPlayerComm = ticketResult.MainTicketList.Sum(x => x.PlayerComm);
 
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
             var currencyTitle = GetViewInCurrency(metaModel);
-            var title = $"{ViewResources.DailyBetList} {ViewResources.On} {metaModel.Date.ToString("MM/dd/yyyy")} - {currencyTitle}";
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, new List<int> { BetEffectiveColumn }, title, "DailyBetList");
+            metaModel.Title = $"{ViewResources.DailyBetList} {ViewResources.On} {metaModel.Date.ToString("MM/dd/yyyy")} - {currencyTitle}";
+            metaModel.HiddenColumns = new[] { BetEffectiveColumn };
+            return ProcessExportExcel(metaModel, "DailyBetList", "/BetList/ExportExcelDailyBetList");
         }
     }
 }

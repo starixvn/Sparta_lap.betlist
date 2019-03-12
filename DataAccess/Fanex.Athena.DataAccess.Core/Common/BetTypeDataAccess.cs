@@ -16,11 +16,21 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class BetTypeDataAccess : BaseDataAccess, IBetTypeDataAccess
     {
-        private static readonly IDictionary<int, int> MapBettypeSportSuffix = new Dictionary<int, int>
+        private static readonly IDictionary<int, int> MapBettypeSportBySport = new Dictionary<int, int>
         {
             { 1204, (int)SportType.Soccer },
             { 1235, (int)SportType.Tennis },
             { 8102, (int)SportType.NumberGameHappy5 }
+        };
+
+        private static readonly IDictionary<int, int> MapBettypeSportByProduct = new Dictionary<int, int>
+        {
+            { 1235, (int)SportType.Tennis },
+            { 8102, (int)SportType.NumberGameHappy5 },
+            { 2803, (int)SportType.VirtualBasketball },
+            { 2804, (int)SportType.VirtualBasketball },
+            { 2805, (int)SportType.VirtualBasketball },
+            { 2806, (int)SportType.VirtualBasketball }
         };
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -46,10 +56,10 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     {
                         var bettypeId = int.Parse(reader["BettypeID"].ToString());
                         var bettypeName = reader["BettypeName"].ToString();
-                        if (MapBettypeSportSuffix.ContainsKey(bettypeId))
+                        if (MapBettypeSportBySport.ContainsKey(bettypeId))
                         {
-                            var suffix = _cacheRefAdapter.GetSportName(MapBettypeSportSuffix[bettypeId], languageCode);
-                            bettypeName += "(" + suffix + ")";
+                            var suffix = _cacheRefAdapter.GetSportName(MapBettypeSportBySport[bettypeId], languageCode);
+                            bettypeName += " (" + suffix + ")";
                         }
 
                         results.Add(new CheckedItem
@@ -74,16 +84,23 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                 db.AddInParameter("productcode", DbType.String, productCode);
-                db.AddInParameter("langkey", DbType.String, languageCode);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
                     {
+                        var id = int.Parse(reader["Bettype"].ToString());
+                        var name = _cacheRefAdapter.GetBettype(id);
+                        if (MapBettypeSportByProduct.ContainsKey(id))
+                        {
+                            var suffix = _cacheRefAdapter.GetSportName(MapBettypeSportByProduct[id], languageCode);
+                            name += " (" + suffix + ")";
+                        }
+
                         results.Add(new CheckedItem
                         {
                             Checked = true,
-                            ID = int.Parse(reader["BettypeID"].ToString()),
-                            Name = reader["BettypeName"].ToString()
+                            ID = id,
+                            Name = name
                         });
                     }
                 }

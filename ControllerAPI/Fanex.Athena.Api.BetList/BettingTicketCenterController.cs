@@ -1,177 +1,82 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
-    using System.Net;
-    using System.Net.Http;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base;
     using Base.Attributes;
-    using Excel.BetList;
-    using Excel.BetList.Model;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterController : BaseApiController
     {
-        private readonly IBettingTicketCenterService _service;
-
-        private readonly IBettingTicketCenterExcel _bettingTicketCenterExcel;
+        private readonly IBetListApiClient _betListApiClient;
 
         public BettingTicketCenterController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
-            IBettingTicketCenterService service,
-            IBettingTicketCenterExcel bettingTicketCenterExcel)
+            IBetListApiClient betListApiClient)
             : base(sessionService, productService, langService)
         {
-            _service = service;
-            _bettingTicketCenterExcel = bettingTicketCenterExcel;
+            _betListApiClient = betListApiClient;
         }
 
         [HttpPost]
-        public dynamic GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
+        public async Task<dynamic> GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
             var userCurrencyList = SessionService.UserSession.CurrencyList;
-            var isAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
-            TicketResult ticketResult;
-            if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
             {
-                ticketResult = new TicketResult();
-            }
-            else
-            {
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                ticketResult = _service.GetBetListForSingleCustomer(metaModel, userCurrencyList);
+                return null;
             }
 
-            if (metaModel.IsExport)
-            {
-                var excelModel = new BettingTicketCenterExcelModel
-                {
-                    Data = ticketResult,
-                    ShowTotal = true,
-                    ShowSumStake = true,
-                    ShowLicenseeWl = true,
-                    ShowWinLoss = true,
-                    CustomerCommVisible = isAllowedCustomerComm,
-                    Title = _service.GetTitle(metaModel)
-                };
-                return Export(excelModel);
-            }
+            metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            metaModel.UserCurrencyList = userCurrencyList;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            return new
-            {
-                Data = _service.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
-                Total = new
-                {
-                    SumWinLoss = _service.BuildSumWinLoss(ticketResult, isAllowedCustomerComm),
-                    SumLicenseeWL = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
-                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
-                },
-                TotalRows = ticketResult.TotalRows
-            };
+            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetBySingleCustomer", metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public dynamic GetByRefno(RefNoBetListMetaModel metaModel)
+        public async Task<dynamic> GetByRefno(RefNoBetListMetaModel metaModel)
         {
-            TicketResult ticketResult;
-            var userCurrencyList = SessionService.UserSession.CurrencyList;
-
             if (!metaModel.IsValid)
             {
-                ticketResult = new TicketResult();
-            }
-            else
-            {
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                ticketResult = _service.GetBetListByRefno(metaModel, userCurrencyList);
+                return null;
             }
 
-            if (metaModel.IsExport)
-            {
-                var excelModel = new BettingTicketCenterExcelModel
-                {
-                    Data = ticketResult,
-                    ShowTotal = false,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    Title = _service.GetTitle(metaModel)
-                };
-                return Export(excelModel);
-            }
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
 
-            var result = new
-            {
-                Data = _service.BuildTicketText(ticketResult, metaModel, SessionService.LicenseeSession.IsAllowedCustomerComm)
-            };
-            ClearData(ticketResult);
-            return result;
+            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetByRefno", metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public dynamic GetByRunning(BaseBettingTicketMetaModel metaModel)
+        public async Task<dynamic> GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
-            TicketResult ticketResult;
             var userCurrencyList = SessionService.UserSession.CurrencyList;
-            var isAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
 
-            if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
             {
-                ticketResult = new TicketResult();
-            }
-            else
-            {
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                ticketResult = _service.GetRunningBetList(metaModel, userCurrencyList);
+                return null;
             }
 
-            if (metaModel.IsExport)
-            {
-                var excelModel = new BettingTicketCenterExcelModel
-                {
-                    Data = ticketResult,
-                    ShowTotal = true,
-                    ShowSumStake = true,
-                    CustomerCommVisible = isAllowedCustomerComm,
-                    Title = _service.GetTitle(metaModel)
-                };
-                return Export(excelModel);
-            }
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
 
-            return new
-            {
-                Data = _service.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
-                Total = new
-                {
-                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
-                },
-                TotalRows = ticketResult.TotalRows
-            };
+            return await _betListApiClient.PostAsync("/BettingTicketCenter/GetByRunning", metaModel).ConfigureAwait(false);
         }
 
-        private static void ClearData(TicketResult ticketResult)
+        private static bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)
         {
-            ticketResult.MainTicketList.Clear();
-            ticketResult.MainTicketList.TrimExcess();
-            ticketResult.MainTicketList = null;
-        }
-
-        private HttpResponseMessage Export(BettingTicketCenterExcelModel excelModel)
-        {
-            if (excelModel.Data.MainTicketList.Count == 0)
-            {
-                return new HttpResponseMessage(HttpStatusCode.NoContent);
-            }
-
-            var workbook = _bettingTicketCenterExcel.Export(excelModel);
-            ClearData(excelModel.Data);
-            excelModel.Data = null;
-            return ExcelStream(workbook, string.Empty);
+            return currencyId == BaseCurrencyType.All || currencyList.ContainsKey(currencyId);
         }
     }
 }

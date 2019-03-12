@@ -1,13 +1,11 @@
 ﻿namespace Fanex.Athena.Api.BetList.UnitTests
 {
-    using System.Collections;
-    using Extension.Helper;
-    using Fanex.BetList.Core.Entities;
-    using Model.BetList.DTO;
+    using System;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Model;
     using UnitTest.Common.Helpers;
 
     public class ApiBetListBaseControllerTest : ApiBetListBaseControllerHelperTest
@@ -16,200 +14,120 @@
 
         private const int DefaultPageIndex = 1;
 
-        private static IEnumerable GetPagingBetListTestCaseValue
+        [SetUp]
+        public void SetUp()
         {
-            get
-            {
-                yield return new TestCaseData(new
-                {
-                    CurrencyId = 0,
-                    InPutPageIndex = 1,
-                    InPutPageSize = 50,
-                    TotalRows = 90,
-                    MetaModelPageIndex = 1,
-                    MetaModelPageSize = 50,
-                    ResultTotalPage = 2,
-                    SumLicenseeWL = 2,
-                    SumComm = 1,
-                    SumWinLoss = 3,
-                    SumPlayerComm = 4,
-                    SumLicenseeWLText = "3.00",
-                });
-                yield return new TestCaseData(new
-                {
-                    CurrencyId = 1,
-                    InPutPageIndex = 0,
-                    InPutPageSize = 0,
-                    TotalRows = 100,
-                    MetaModelPageIndex = 0,
-                    MetaModelPageSize = DefaultPageSize,
-                    ResultTotalPage = 1,
-                    SumLicenseeWL = -2,
-                    SumComm = 1,
-                    SumWinLoss = 3,
-                    SumPlayerComm = 4,
-                    SumLicenseeWLText = "<span class='negative-number'>-1.00</span>",
-                });
-                yield return new TestCaseData(new
-                {
-                    CurrencyId = 1,
-                    InPutPageIndex = 3,
-                    InPutPageSize = 50,
-                    TotalRows = 100,
-                    MetaModelPageIndex = 2,
-                    MetaModelPageSize = 50,
-                    ResultTotalPage = 2,
-                    SumLicenseeWL = 2,
-                    SumComm = -3,
-                    SumWinLoss = 3,
-                    SumPlayerComm = 4,
-                    SumLicenseeWLText = "<span class='negative-number'>-1.00</span>",
-                });
-            }
-        }
+            MockSessionData();
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
-        {
-            base.FixtureSetUp();
-
-            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            base.FixtureTearDown();
+            AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [Test]
-        public void Ticket_WhenCall_ReturnCorrectResult()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                const string ExpectedTransTime = "Abc";
-                const string ExpectedChoice = "Def";
-                var metaModel = new BetListMetaModel();
-
-                var ticket = FakeHelper.Create<LrfTicket>();
-                var ticketResult = new TicketResult();
-                ticketResult.MainTicketList.Add(ticket);
-
-                BetListHTMLBuilder.BuildTrans(ticket).Returns(ExpectedTransTime);
-                BetListHTMLBuilder.BuildChoice(ticket, TicketHelper, ticketResult.TicketDataList, false).Returns(ExpectedChoice);
-
-                // Action
-                var result = controller.Ticket(ticketResult, metaModel);
-                var ticketText = result[0];
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(ticketText.Index, Is.EqualTo(1));
-                    Assert.That(ticketText.ExternalId, Is.EqualTo(ticket.ExternalId));
-                    Assert.That(ticketText.SystemId, Is.EqualTo(ticket.UserName));
-                    Assert.That(ticketText.TransTime, Is.EqualTo(ExpectedTransTime));
-                    Assert.That(ticketText.Choice, Is.EqualTo(ExpectedChoice));
-                });
-            }
-        }
-
-        [Test]
-        public void GetBetListResult_NoData_ReturnCorrectResult()
+        public void CheckDataPermission_NoPermission_ThrowException()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                const string UspKey = "Usp_Key";
-                var metaModel = new BetListMetaModel();
+                var custId = FakeHelper.Create<int>();
+                var transId = FakeHelper.Create<long>();
 
-                var ticketResult = new TicketResult();
-                BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey).Returns(ticketResult);
-
-                // Action
-                var result = controller.GetBetListResult(metaModel, UspKey);
+                AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(result.LeagueName, Is.EqualTo(string.Empty));
-                    Assert.That(result.Total.SumWinLoss, Is.Zero);
-                    Assert.That(result.Total.SumLicenseeWl, Is.Zero);
-                    Assert.That(result.Total.SumBetEffective, Is.Zero);
-                    Assert.That(result.Total.SumStake, Is.Zero);
-                });
+                Assert.Throws<UnauthorizedAccessException>(() => controller.CheckDataPermission(custId, transId));
             }
         }
 
         [Test]
-        public void GetBetListResult_HasData_ReturnCorrectResult()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                const string UspKey = "Usp_Key";
-                var metaModel = new BetListMetaModel();
-
-                var ticketResult = new TicketResult { SumWinLoss = 1, SumPlayerComm = 2, SumLicenseeWL = 3, SumComm = 4, SumBetEffective = 5 };
-                var ticket = new LrfTicket { LeagueId = 1, Stake = 1.123m, Status = BetStatus.Won };
-                ticketResult.MainTicketList.Add(ticket);
-                BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey).Returns(ticketResult);
-
-                const string LeagueName = "Name";
-                CacheRefAdapter.GetLeagueName(ticket.LeagueId).Returns(LeagueName);
-
-                // Action
-                var result = controller.GetBetListResult(metaModel, UspKey);
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(result.LeagueName, Is.EqualTo(LeagueName));
-                    Assert.That(result.Total.SumWinLoss, Is.EqualTo(ticketResult.SumWinLoss + ticketResult.SumPlayerComm));
-                    Assert.That(result.Total.SumLicenseeWl, Is.EqualTo(ticketResult.SumLicenseeWL + ticketResult.SumComm));
-                    Assert.That(result.Total.SumBetEffective, Is.EqualTo(ticketResult.SumBetEffective));
-                    Assert.That(result.Total.SumStake, Is.EqualTo(1.12));
-                });
-            }
-        }
-
-        [TestCaseSource(nameof(GetPagingBetListTestCaseValue))]
-        public void GetPagingBetListResult_WhenCall_ReturnCorrectResult(dynamic testCaseData)
+        public void CheckDataPermission_HasPermission_DoNotThing()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                const string UspKey = "Usp_Key";
-
-                var metaModel = new BetListMetaModel();
-
-                var ticketResult = new TicketResult
-                {
-                    TotalRows = testCaseData.TotalRows,
-                    SumWinLoss = testCaseData.SumWinLoss,
-                    SumPlayerComm = testCaseData.SumPlayerComm,
-                    SumLicenseeWL = testCaseData.SumLicenseeWL,
-                    SumComm = testCaseData.SumComm
-                };
-                BetListService.GetBetListData(metaModel, UserCurrencyList, UspKey).Returns(ticketResult);
+                var custId = FakeHelper.Create<int>();
+                var transId = FakeHelper.Create<long>();
 
                 // Action
-                var result = controller.GetPagingBetListResult(metaModel, UspKey, testCaseData.InPutPageIndex, testCaseData.InPutPageSize);
+                controller.CheckDataPermission(custId, transId);
 
                 // Assert
-                var sumWinLossText = NumberHelper.DecFormat(ticketResult.SumWinLoss + ticketResult.SumPlayerComm, 2);
+                AuthorizationService.Received().HasPermissionOnData(SessionLicenseeId, custId, transId);
+            }
+        }
 
+        [Test]
+        public async Task GetBetListResult_WhenCall_CallBetListApiWithCorrectParameters()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var apiPath = FakeHelper.Create<string>();
+                var uspKey = FakeHelper.Create<string>();
+                var metaModel = new BetListMetaModel();
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, apiPath, expect);
+
+                // Action
+                var actual = await controller.GetBetListResult(metaModel, uspKey, apiPath);
+
+                // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.total, Is.EqualTo(testCaseData.ResultTotalPage));
-                    Assert.That(result.records, Is.EqualTo(ticketResult.TotalRows));
-                    Assert.That(result.userdata.WinLoss, Is.EqualTo(sumWinLossText));
-                    Assert.That(result.userdata.LicenseeWL, Is.EqualTo(testCaseData.SumLicenseeWLText));
+                    Assert.Multiple(() =>
+                    {
+                        Assert.That(expect, Is.EqualTo(actual));
+                        Assert.That(metaModel.PageIndex, Is.EqualTo(1));
+                        Assert.That(metaModel.PageSize, Is.EqualTo(int.MaxValue - 1));
+                        Assert.That(metaModel.LicenseeId, Is.EqualTo(SessionLicenseeId));
+                        Assert.That(metaModel.BalanceUpDay, Is.EqualTo(DateTime.SpecifyKind(DefaultBalanceUp.BalanceUpDay.Date, DateTimeKind.Utc)));
+                        Assert.That(metaModel.MoveBetsDay, Is.EqualTo(DateTime.SpecifyKind(DefaultBalanceUp.MoveBetsDay.Date, DateTimeKind.Utc)));
+                        Assert.That(metaModel.AgentListXml, Is.EqualTo(AgentListXml));
+                        Assert.That(metaModel.HasPlayerCom, Is.EqualTo(SessionService.LicenseeSession.IsAllowedCustomerComm));
+                        Assert.That(metaModel.CurrencyList, Is.EqualTo(UserCurrencyList));
+                        Assert.That(metaModel.UspKey, Is.EqualTo(uspKey));
+                        BetListApiClient.Received().PostAsync(apiPath, metaModel);
+                    });
+                });
+            }
+        }
 
-                    Assert.That(metaModel.PageIndex, Is.EqualTo(testCaseData.MetaModelPageIndex));
-                    Assert.That(metaModel.PageSize, Is.EqualTo(testCaseData.MetaModelPageSize));
-                    Assert.That(metaModel.IsServerPaging, Is.True);
+        [TestCase(1, 50, 1, 50)]
+        [TestCase(-1, 100, DefaultPageIndex, 100)]
+        [TestCase(2, -1, 2, DefaultPageSize)]
+        public async Task GetPagingBetListResult_WhenCall_CallBetListApiWithCorrectParameters(int pageIndex, int pageSize, int expectedPageIndex, int expectedPageSize)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var apiPath = FakeHelper.Create<string>();
+                var uspKey = FakeHelper.Create<string>();
+                var metaModel = new BetListMetaModel();
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, apiPath, expect);
+
+                // Action
+                var actual = await controller.GetPagingBetListResult(metaModel, uspKey, pageIndex, pageSize, apiPath);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.Multiple(() =>
+                    {
+                        Assert.That(expect, Is.EqualTo(actual));
+                        Assert.That(metaModel.IsServerPaging, Is.True);
+                        Assert.That(metaModel.PageIndex, Is.EqualTo(expectedPageIndex));
+                        Assert.That(metaModel.PageSize, Is.EqualTo(expectedPageSize));
+                        Assert.That(metaModel.LicenseeId, Is.EqualTo(SessionLicenseeId));
+                        Assert.That(metaModel.BalanceUpDay, Is.EqualTo(DateTime.SpecifyKind(DefaultBalanceUp.BalanceUpDay.Date, DateTimeKind.Utc)));
+                        Assert.That(metaModel.MoveBetsDay, Is.EqualTo(DateTime.SpecifyKind(DefaultBalanceUp.MoveBetsDay.Date, DateTimeKind.Utc)));
+                        Assert.That(metaModel.AgentListXml, Is.EqualTo(AgentListXml));
+                        Assert.That(metaModel.HasPlayerCom, Is.EqualTo(SessionService.LicenseeSession.IsAllowedCustomerComm));
+                        Assert.That(metaModel.CurrencyList, Is.EqualTo(UserCurrencyList));
+                        Assert.That(metaModel.UspKey, Is.EqualTo(uspKey));
+                        BetListApiClient.Received().PostAsync(apiPath, metaModel);
+                    });
                 });
             }
         }
@@ -220,11 +138,9 @@
                 SessionService,
                 ProductService,
                 LangService,
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder);
+                AuthorizationService,
+                BetListApiClient,
+                BalanceUpDataAccess);
         }
     }
 }

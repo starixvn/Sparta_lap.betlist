@@ -68,6 +68,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,7 +81,6 @@
     <Compile Include="DataDomain\CurrencyType.cs" />
     <Compile Include="DataDomain\DrawFilterType.cs" />
     <Compile Include="DataDomain\ErrorType.cs" />
-    <Compile Include="DataDomain\ExchangeMatchType.cs" />
     <Compile Include="DataDomain\FormatKey.cs" />
     <Compile Include="DataDomain\OneAuthorizationErrorCode.cs" />
     <Compile Include="DataDomain\PermissionKeys.cs" />
@@ -143,7 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
-      <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
+      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">

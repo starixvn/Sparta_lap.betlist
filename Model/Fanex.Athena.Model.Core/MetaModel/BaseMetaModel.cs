@@ -8,6 +8,7 @@ namespace Fanex.Athena.Model.Core.MetaModel
 {
     using System;
     using System.ComponentModel;
+    using System.Web.Script.Serialization;
     using Fanex.Athena.Model.Core.DataDomain;
 
     [Serializable]
@@ -15,6 +16,7 @@ namespace Fanex.Athena.Model.Core.MetaModel
     {
         private string _baseCurrency = string.Empty;
 
+        [ScriptIgnore]
         public string AgentListXml { get; set; }
 
         public int LicenseeId { get; set; }

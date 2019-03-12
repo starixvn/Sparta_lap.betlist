@@ -101,7 +101,7 @@ describe('FormFilter ', () => {
         it('parameter is valid - call service to download excel file' ,() => {
             const event = { preventDefault: jest.fn() };
 
-            const response = { data: 'excel' };
+            const response = { data: 'excel', headers: { 'content-type': 'abc' } };
             const promise = Promise.resolve(response);
             DataService.getFile = jest.fn(() => promise);
             Site.downloadFile = jest.fn();

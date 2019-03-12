@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Extension.Utility;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
@@ -78,7 +77,7 @@
 
             StubUserSessionData(userSession);
             StubLicenseeSessionData(licenseeSession);
-            SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("XmlData");
+            SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(AgentListXml);
         }
 
         protected void StubSingleWalletProductAccess(string[] productCode)

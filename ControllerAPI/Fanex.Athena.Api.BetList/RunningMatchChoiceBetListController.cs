@@ -6,19 +6,14 @@
 
 namespace Fanex.Athena.Api.BetList
 {
-    #region Using
-
+    using System.Threading.Tasks;
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
-    using Service.BetList.Interfaces;
+    using Model.BetList.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter.Interfaces;
-
-    #endregion Using
+    using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     public class RunningMatchChoiceBetListController : ApiBetListBaseController
     {
@@ -26,24 +21,22 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IAuthorizationService authorizationService,
+            IBetListApiClient betListApiClient,
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            return GetBetListResult(metaModel, "Lrf_BetList_Forecast_SelByMatch");
+            return await GetBetListResult(metaModel, "Lrf_BetList_Forecast_SelByMatch").ConfigureAwait(false);
         }
     }
 }

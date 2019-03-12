@@ -1,8 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LastBetsMonitoringMetaModel.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.Collections.Generic;
 
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
@@ -44,5 +40,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         public int BetFrom { get; set; }
 
         public string AgentListXml { get; set; }
+
+        public IDictionary<int, string> UserCurrencyList { get; set; }
     }
 }

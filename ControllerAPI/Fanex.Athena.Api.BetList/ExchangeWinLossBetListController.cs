@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base;
     using Base.Attributes;
@@ -9,32 +10,33 @@
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossBetListController : BaseApiController
     {
-        private readonly IExchangeBetListService _service;
+        private readonly IBetListApiClient _betListApiClient;
 
         private readonly IAuthorizationService _authorizationService;
-        
+
         public ExchangeWinLossBetListController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IExchangeBetListService service,
+            IBetListApiClient betListApiClient,
             IAuthorizationService authorizationService)
+
         : base(sessionService, productService, languageService)
         {
-            _service = service;
+            _betListApiClient = betListApiClient;
             _authorizationService = authorizationService;
         }
 
         [HttpPost]
-        public ExchangeBetListViewModel Index(ExchangeBetListMetaModel metaModel)
+        public async Task<dynamic> Index(ExchangeBetListMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
             {
@@ -46,11 +48,11 @@
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
-            return _service.GetBetListData(metaModel);
+            return await _betListApiClient.PostAsync("/ExchangeWinLossBetList/GetData", metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public IEnumerable<ExchangeTicketDetail> Detail(ExchangeBetListDetailMetaModel metaModel)
+        public async Task<dynamic> Detail(ExchangeBetListDetailMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
             {
@@ -59,7 +61,7 @@
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
-            return _service.GetTicketDetailList(metaModel);
+            return await _betListApiClient.PostAsync("/ExchangeWinLossBetList/Detail", metaModel).ConfigureAwait(false);
         }
 
         private bool IsValidRequest(BaseExchangeBetListMetaModel metaModel)

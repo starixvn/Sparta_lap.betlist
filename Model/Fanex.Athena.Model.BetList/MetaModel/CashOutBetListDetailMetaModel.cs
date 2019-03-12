@@ -1,8 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CashOutBetListDetailMetaModel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.Collections.Generic;
 
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
@@ -21,5 +17,9 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         public string AgentListXml { get; set; }
 
         public bool IsCashOut { get; set; }
+
+        public bool HasPlayerComm { get; set; }
+
+        public IDictionary<int, string> UserCurrencyList { get; set; }
     }
 }

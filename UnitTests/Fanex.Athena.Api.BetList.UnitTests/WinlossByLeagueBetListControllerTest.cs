@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Api.BetList.UnitTests
 {
     using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -10,65 +12,72 @@
     {
         private const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
 
-        private WinlossByLeagueBetListController _controller;
+        private const string ApiPath = "/BetList/GetWinLossByLeagueData";
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
-            base.FixtureSetUp();
+            MockSessionData();
 
-            _controller = Substitute.ForPartsOf<WinlossByLeagueBetListController>(
-                SessionService,
-                ProductService,
-                LangService,
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder);
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            base.FixtureTearDown();
-
-            _controller = null;
+            AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [Test]
-        public void Detail_InvalidCurrency_ReturnNull()
+        public async Task Detail_InvalidCurrency_ReturnNull()
         {
-            // Arrange
-            var metaModel = new WinLossByLeagueBetListMetaModel { CurrencyId = 1 };
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = new WinLossByLeagueBetListMetaModel { CurrencyId = 1 };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void Detail_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
+        public async Task Detail_WhenCall_CallBetListApiWithCorrectParameters(int currencyId)
         {
-            // Arrange
-            var metaModel = new WinLossByLeagueBetListMetaModel { CurrencyId = currencyId };
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = new WinLossByLeagueBetListMetaModel { CurrencyId = currencyId };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
-            SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
 
-            _controller.When(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(Arg.Any<WinLossByLeagueBetListMetaModel>(), ApiPath, expect);
 
-            // Action
-            _controller.Index(metaModel);
+                // Action
+                var actual = await controller.Index(metaModel);
 
-            // Assert
-            _controller.Received().GetBetListResult(metaModel, UspKey);
+                // Assert
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                });
+            }
+        }
+
+        private WinlossByLeagueBetListController CreateController()
+        {
+            return new WinlossByLeagueBetListController(
+                SessionService,
+                ProductService,
+                LangService,
+                AuthorizationService,
+                BetListApiClient,
+                BalanceUpDataAccess);
         }
     }
 }

@@ -1,16 +1,14 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.BetList.MetaModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
@@ -25,18 +23,18 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/WinlossByBetType/Main.cshtml", "Lrf_BetList_SelWinLossByBetType");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/WinlossByBetType/Main.cshtml", "Lrf_BetList_SelWinLossByBetType");
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)
@@ -47,27 +45,27 @@
                 model.FromDate.Date == model.ToDate.Date;
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
 
             // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
-            var title = string.Format(
+            metaModel.Title = string.Format(
                 "{0} - {1} - {2} → {3} - {4}",
                 ViewResources.BetList,
                 CacheRefAdapter.GetBettype(metaModel.BetType),
                 metaModel.FromDate.ToString(FormatKey.ShortDateFormat),
                 metaModel.ToDate.ToString(FormatKey.ShortDateFormat),
                 viewinCurrency);
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, new List<int> { BetEffectiveColumn }, title, "WinLossByBetTypeBetList");
+            metaModel.HiddenColumns = new[] { BetEffectiveColumn };
+            return ProcessExportExcel(metaModel, "WinLossByBetTypeBetList");
         }
     }
 }

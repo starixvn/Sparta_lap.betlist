@@ -1,10 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Entities;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -26,7 +23,7 @@
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.Index(new BetListMetaModel()) as ViewResult;
+                var result = controller.Index(new BetListExcelMetaModel()) as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/WinlossByBetType/Main.cshtml"));
@@ -39,7 +36,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     FromDate = new DateTime(2018, 2, 1),
                     ToDate = new DateTime(2018, 2, 10),
@@ -63,7 +60,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = currencyId,
@@ -90,7 +87,7 @@
                 // Arrange
                 const string AgentListXml = "<xml/>";
 
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     CurrencyId = 1,
@@ -105,47 +102,41 @@
                 var viewinCurrency = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.BetList} - BetType - 1/1/2018 → 1/1/2018 - {viewinCurrency}";
 
-                var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_BetList_SelWinLossByBetType").Returns(ticketResult);
-
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
                 controller.When(x => x.ProcessExportExcel(
-                    Arg.Any<ShowingOption>(),
-                    Arg.Any<BetListMetaModel>(),
-                    Arg.Any<TicketResult>(),
-                    Arg.Any<IEnumerable<int>>(),
+                    Arg.Any<BetListExcelMetaModel>(),
                     Arg.Any<string>(),
-                    Arg.Any<string>(),
-                    Arg.Any<int>())).DoNotCallBase();
+                    Arg.Any<string>())).DoNotCallBase();
 
                 // Action
                 controller.Index(metaModel);
 
                 // Assert
                 controller.Received().ProcessExportExcel(
-                    Arg.Any<ShowingOption>(),
-                    Arg.Is<BetListMetaModel>(x => x.LicenseeId == DefaultLicenseeSession.LicenseeId && !x.IsShowSumStake 
-                        && x.AgentListXml == AgentListXml && x.PageIndex == 1 && x.PageSize == int.MaxValue - 1),
-                    ticketResult,
-                    Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "8"),
-                    expectedTitle,
+                    Arg.Is<BetListExcelMetaModel>(x => x.Title == expectedTitle
+                        && x.UspKey == "Lrf_BetList_SelWinLossByBetType"
+                        && string.Join(",", x.HiddenColumns) == "8"
+                        && x.LicenseeId == DefaultLicenseeSession.LicenseeId
+                        && !x.IsShowSumStake
+                        && x.AgentListXml == AgentListXml
+                        && x.PageIndex == 1
+                        && x.PageSize == int.MaxValue - 1),
                     "WinLossByBetTypeBetList",
-                    1);
+                    null);
             }
         }
 
         private WinlossByBetTypeBetListController CreateController()
         {
-            var controller = Substitute.ForPartsOf<WinlossByBetTypeBetListController>(
+            return Substitute.ForPartsOf<WinlossByBetTypeBetListController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
-                CacheRefAdapter);
-            return controller;
+                CacheRefAdapter,
+                BetListApiClient);
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿namespace Fanex.Athena.Api.BetList.UnitTests
 {
-    using System.Collections;
     using System.Collections.Generic;
-    using Extension.Helper;
-    using Model.BetList.DTO;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -26,279 +25,257 @@
 
         private const int DefaultPageIndex = 1;
 
-        private readonly IList<TicketText> _ticketTexts = new List<TicketText>();
+        private const string ApiPath = "/LiveReportBetList/GetData";
 
-        private LiveReportBetListController _controller;
+        private const string PageApiPath = "/LiveReportBetList/GetPagingData";
 
-        private static IEnumerable GetPagingDataTestCaseValue
+        [SetUp]
+        public void SetUp()
         {
-            get
+            MockSessionData();
+
+            AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+        }
+
+        [Test]
+        public async Task Match_InvalidCurrency_ReturnNull()
+        {
+            using (var controller = CreateController())
             {
-                yield return new TestCaseData(new
+                // Arrange
+                var metaModel = CreateInvalidCurrencyMetaModel();
+
+                // Action
+                var result = await controller.Match(metaModel);
+
+                // Assert
+                Assert.That(result, Is.Null);
+            }
+        }
+
+        [Test]
+        public async Task Outright_InvalidCurrency_ReturnNull()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = CreateInvalidCurrencyMetaModel();
+
+                // Action
+                var result = await controller.Outright(metaModel);
+
+                // Assert
+                Assert.That(result, Is.Null);
+            }
+        }
+
+        [Test]
+        public async Task NumberGame_InvalidCurrency_ReturnNull()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var page = FakeHelper.Create<int>();
+                var rows = FakeHelper.Create<int>();
+
+                var metaModel = CreateInvalidCurrencyMetaModel();
+
+                // Action
+                var result = await controller.NumberGame(metaModel, page, rows);
+
+                // Assert
+                Assert.That(result, Is.Null);
+            }
+        }
+
+        [Test]
+        public async Task MixParlay_InvalidCurrency_ReturnNull()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var page = FakeHelper.Create<int>();
+                var rows = FakeHelper.Create<int>();
+
+                var metaModel = CreateInvalidCurrencyMetaModel();
+
+                // Action
+                var result = await controller.MixParlay(metaModel, page, rows);
+
+                // Assert
+                Assert.That(result, Is.Null);
+            }
+        }
+
+        [Test]
+        public async Task VirtualSports_InvalidCurrency_ReturnNull()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var page = FakeHelper.Create<int>();
+                var rows = FakeHelper.Create<int>();
+
+                var metaModel = CreateInvalidCurrencyMetaModel();
+
+                // Action
+                var result = await controller.VirtualSports(metaModel, page, rows);
+
+                // Assert
+                Assert.That(result, Is.Null);
+            }
+        }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        public async Task Match_ValidCurrency_CallBetListApiWithCorrectParameters(int currencyId)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = CreateValidCurrencyMetaModel(currencyId);
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, ApiPath, expect);
+
+                // Action
+                var actual = await controller.Match(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
                 {
-                    CurrencyId = 0,
-                    Page = 1,
-                    Rows = 50,
-                    TotalRows = 90,
-                    MetaModelPageIndex = 1,
-                    MetaModelPageSize = 50,
-                    ResultTotalPage = 2,
-                    SumLicenseeWL = 2,
-                    SumComm = 1,
-                    SumLicenseeWLText = "3.00",
-                });
-                yield return new TestCaseData(new
-                {
-                    CurrencyId = 1,
-                    Page = 0,
-                    Rows = 0,
-                    TotalRows = 100,
-                    MetaModelPageIndex = DefaultPageIndex,
-                    MetaModelPageSize = DefaultPageSize,
-                    ResultTotalPage = 1,
-                    SumLicenseeWL = -2,
-                    SumComm = 1,
-                    SumLicenseeWLText = "<span class='negative-number'>-1.00</span>",
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossByMatchUsp));
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
                 });
             }
         }
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
-        {
-            base.FixtureSetUp();
-
-            _controller = Substitute.ForPartsOf<LiveReportBetListController>(
-                SessionService,
-                ProductService,
-                LangService,
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder);
-
-            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            base.FixtureTearDown();
-
-            _controller = null;
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            BetListService.ClearReceivedCalls();
-        }
-
-        [Test]
-        public void Match_InvalidCurrency_ReturnNull()
-        {
-            // Arrange
-            var metaModel = CreateInvalidCurrencyMetaModel();
-
-            // Action
-            var result = _controller.Match(metaModel);
-
-            // Assert
-            Assert.That(result, Is.Null);
-        }
-
-        [Test]
-        public void Outright_InvalidCurrency_ReturnNull()
-        {
-            // Arrange
-            var metaModel = CreateInvalidCurrencyMetaModel();
-
-            // Action
-            var result = _controller.Outright(metaModel);
-
-            // Assert
-            Assert.That(result, Is.Null);
-        }
-
-        [Test]
-        public void NumberGame_InvalidCurrency_ReturnNull()
-        {
-            // Arrange
-            var page = FakeHelper.Create<int>();
-            var rows = FakeHelper.Create<int>();
-
-            var metaModel = CreateInvalidCurrencyMetaModel();
-
-            // Action
-            var result = _controller.NumberGame(metaModel, page, rows);
-
-            // Assert
-            Assert.That(result, Is.Null);
-        }
-
-        [Test]
-        public void MixParlay_InvalidCurrency_ReturnNull()
-        {
-            // Arrange
-            var page = FakeHelper.Create<int>();
-            var rows = FakeHelper.Create<int>();
-
-            var metaModel = CreateInvalidCurrencyMetaModel();
-
-            // Action
-            var result = _controller.MixParlay(metaModel, page, rows);
-
-            // Assert
-            Assert.That(result, Is.Null);
-        }
-
-        [Test]
-        public void VirtualSports_InvalidCurrency_ReturnNull()
-        {
-            // Arrange
-            var page = FakeHelper.Create<int>();
-            var rows = FakeHelper.Create<int>();
-
-            var metaModel = CreateInvalidCurrencyMetaModel();
-
-            // Action
-            var result = _controller.VirtualSports(metaModel, page, rows);
-
-            // Assert
-            Assert.That(result, Is.Null);
-        }
-
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void Match_ValidCurrency_ReturnCorrectResult(int currencyId)
+        public async Task Outright_ValidCurrency_CallBetListApiWithCorrectParameters(int currencyId)
         {
-            // Arrange
-            var metaModel = CreateValidCurrencyMetaModel(currencyId);
-            BetListService.GetBetListData(metaModel, UserCurrencyList, SelWinlossByMatchUsp).Returns(CreateTicketResult());
-
-            // Action
-            var result = _controller.Match(metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                BetListService.Received(1).GetBetListData(metaModel, UserCurrencyList, SelWinlossByMatchUsp);
-                AssertData(result);
-            });
+                // Arrange
+                var metaModel = CreateValidCurrencyMetaModel(currencyId);
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, ApiPath, expect);
+
+                // Action
+                var actual = await controller.Outright(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossOutrightUsp));
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                });
+            }
         }
 
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void Outright_ValidCurrency_ReturnCorrectResult(int currencyId)
+        [TestCase(0, 1, 50, 1, 50)]
+        [TestCase(1, -1, 100, DefaultPageIndex, 100)]
+        [TestCase(2, 2, -1, 2, DefaultPageSize)]
+        public async Task NumberGame_ValidCurrency_CallBetListApiWithCorrectParameters(
+            int currencyId,
+            int pageIndex,
+            int pageSize,
+            int expectedPageIndex,
+            int expectedPageSize)
         {
-            // Arrange
-            var metaModel = CreateValidCurrencyMetaModel(currencyId);
-            BetListService.GetBetListData(metaModel, UserCurrencyList, SelWinlossOutrightUsp).Returns(CreateTicketResult());
-
-            // Action
-            var result = _controller.Outright(metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                BetListService.Received(1).GetBetListData(metaModel, UserCurrencyList, SelWinlossOutrightUsp);
-                AssertData(result);
-            });
+                // Arrange
+                var metaModel = CreateValidCurrencyMetaModel(currencyId);
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, PageApiPath, expect);
+
+                // Action
+                var actual = await controller.NumberGame(metaModel, pageIndex, pageSize);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossNumberGameUsp));
+                    Assert.That(metaModel.PageIndex, Is.EqualTo(expectedPageIndex));
+                    Assert.That(metaModel.PageSize, Is.EqualTo(expectedPageSize));
+                    BetListApiClient.Received().PostAsync(PageApiPath, metaModel);
+                });
+            }
         }
 
-        [TestCaseSource(nameof(GetPagingDataTestCaseValue))]
-        public void NumberGame_ValidCurrency_ReturnCorrectResult(dynamic testCaseData)
+        [TestCase(0, 1, 50, 1, 50)]
+        [TestCase(1, -1, 100, DefaultPageIndex, 100)]
+        [TestCase(2, 2, -1, 2, DefaultPageSize)]
+        public async Task MixParlay_ValidCurrency_CallBetListApiWithCorrectParameters(
+            int currencyId,
+            int pageIndex,
+            int pageSize,
+            int expectedPageIndex,
+            int expectedPageSize)
         {
-            // Arrange
-            var metaModel = CreateValidCurrencyMetaModel(testCaseData.CurrencyId);
-            metaModel.TotalRows = testCaseData.TotalRows;
-            metaModel.SumLicenseeWL = testCaseData.SumLicenseeWL;
-            metaModel.SumComm = testCaseData.SumComm;
-            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), UserCurrencyList, SelWinlossNumberGameUsp).Returns(CreateTicketResult());
-
-            // Action
-            var result = _controller.NumberGame(metaModel, testCaseData.Page, testCaseData.Rows);
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                BetListService.Received(1).GetBetListData(metaModel, UserCurrencyList, SelWinlossNumberGameUsp);
-                AssertPagingData(
-                result,
-                metaModel,
-                testCaseData.MetaModelPageSize,
-                testCaseData.MetaModelPageIndex,
-                testCaseData.ResultTotalPage,
-                testCaseData.SumLicenseeWLText);
-            });
+                // Arrange
+                LiveReportBetListMetaModel metaModel = CreateValidCurrencyMetaModel(currencyId);
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, PageApiPath, expect);
+
+                // Action
+                var actual = await controller.MixParlay(metaModel, pageIndex, pageSize);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossParlayUsp));
+                    Assert.That(metaModel.PageIndex, Is.EqualTo(expectedPageIndex));
+                    Assert.That(metaModel.PageSize, Is.EqualTo(expectedPageSize));
+                    BetListApiClient.Received().PostAsync(PageApiPath, metaModel);
+                });
+            }
         }
 
-        [TestCaseSource(nameof(GetPagingDataTestCaseValue))]
-        public void MixParlay_ValidCurrency_ReturnCorrectResult(dynamic testCaseData)
+        [TestCase(0, 1, 50, 1, 50)]
+        [TestCase(1, -1, 100, DefaultPageIndex, 100)]
+        [TestCase(2, 2, -1, 2, DefaultPageSize)]
+        public async Task VirtualSports_ValidCurrency_CallBetListApiWithCorrectParameters(
+            int currencyId,
+            int pageIndex,
+            int pageSize,
+            int expectedPageIndex,
+            int expectedPageSize)
         {
-            // Arrange
-            LiveReportBetListMetaModel metaModel = CreateValidCurrencyMetaModel(testCaseData.CurrencyId);
-            metaModel.TotalRows = testCaseData.TotalRows;
-            metaModel.SumLicenseeWL = testCaseData.SumLicenseeWL;
-            metaModel.SumComm = testCaseData.SumComm;
-            var ticketResult = CreateTicketResult();
-            BetListService.GetBetListData(metaModel, Arg.Any<IDictionary<int, string>>(), SelWinlossParlayUsp).Returns(ticketResult);
-
-            // Action
-            var result = _controller.MixParlay(metaModel, testCaseData.Page, testCaseData.Rows);
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                BetListService.Received(1).GetBetListData(metaModel, UserCurrencyList, SelWinlossParlayUsp);
-                AssertPagingData(
-                result,
-                metaModel,
-                testCaseData.MetaModelPageSize,
-                testCaseData.MetaModelPageIndex,
-                testCaseData.ResultTotalPage,
-                testCaseData.SumLicenseeWLText);
-            });
+                // Arrange
+                LiveReportBetListMetaModel metaModel = CreateValidCurrencyMetaModel(currencyId);
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, PageApiPath, expect);
+
+                // Action
+                var actual = await controller.VirtualSports(metaModel, pageIndex, pageSize);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossVHRacingUsp));
+                    Assert.That(metaModel.PageIndex, Is.EqualTo(expectedPageIndex));
+                    Assert.That(metaModel.PageSize, Is.EqualTo(expectedPageSize));
+                    BetListApiClient.Received().PostAsync(PageApiPath, metaModel);
+                });
+            }
         }
-
-        [TestCaseSource(nameof(GetPagingDataTestCaseValue))]
-        public void RVirtualSports_ValidCurrency_ReturnCorrectResult(dynamic testCaseData)
-        {
-            // Arrange
-            var metaModel = CreateValidCurrencyMetaModel(testCaseData.CurrencyId);
-            metaModel.TotalRows = testCaseData.TotalRows;
-            metaModel.SumLicenseeWL = testCaseData.SumLicenseeWL;
-            metaModel.SumComm = testCaseData.SumComm;
-            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), Arg.Any<IDictionary<int, string>>(), SelWinlossVHRacingUsp).Returns(CreateTicketResult());
-
-            // Action
-            var result = _controller.VirtualSports(metaModel, testCaseData.Page, testCaseData.Rows);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                BetListService.Received(1).GetBetListData(metaModel, UserCurrencyList, SelWinlossVHRacingUsp);
-                AssertPagingData(
-                    result,
-                    metaModel,
-                    testCaseData.MetaModelPageSize,
-                    testCaseData.MetaModelPageIndex,
-                    testCaseData.ResultTotalPage,
-                    testCaseData.SumLicenseeWLText);
-            });
-        }
-
-        private static TicketResult CreateTicketResult() =>
-            new TicketResult
-            {
-                SumComm = 1,
-                SumPlayerComm = 2,
-                SumLicenseeWL = 3,
-                SumWinLoss = 4
-            };
 
         private LiveReportBetListMetaModel CreateInvalidCurrencyMetaModel()
         {
@@ -314,42 +291,15 @@
             return new LiveReportBetListMetaModel { CurrencyId = currency };
         }
 
-        private void SetUpForGetBetListResult()
+        private LiveReportBetListController CreateController()
         {
-            SessionService.GenerateAgentListXml(Arg.Any<int>()).Returns("<Xml/>");
-
-            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), UserCurrencyList, Arg.Any<string>()).Returns(CreateTicketResult());
-
-            _controller.When(x => x.Ticket(Arg.Any<TicketResult>(), Arg.Any<BetListMetaModel>(), Arg.Any<int>(), Arg.Any<bool>())).DoNotCallBase();
-            _controller.Ticket(Arg.Any<TicketResult>(), Arg.Any<BetListMetaModel>(), Arg.Any<int>(), Arg.Any<bool>()).Returns(_ticketTexts);
-        }
-
-        private void AssertData(dynamic result)
-        {
-            var ticketResult = CreateTicketResult();
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Main, Is.EqualTo(_ticketTexts));
-                Assert.That(result.Total.SumWinLoss, Is.EqualTo(ticketResult.SumWinLoss + ticketResult.SumPlayerComm));
-                Assert.That(result.Total.SumLicenseeWl, Is.EqualTo(ticketResult.SumLicenseeWL + ticketResult.SumComm));
-            });
-        }
-
-        private void AssertPagingData(dynamic result, LiveReportBetListMetaModel metaModel, int pageSize, int pageIndex, int totalPage, string sumLicenseeWlText)
-        {
-            var sumWinLossText = NumberHelper.DecFormat(metaModel.SumWinlost, 2);
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.rows, Is.EqualTo(_ticketTexts));
-                Assert.That(result.total, Is.EqualTo(totalPage));
-                Assert.That(result.records, Is.EqualTo(metaModel.TotalRows));
-                Assert.That(result.userdata.WinLoss, Is.EqualTo(sumWinLossText));
-                Assert.That(result.userdata.LicenseeWL, Is.EqualTo(sumLicenseeWlText));
-
-                Assert.That(metaModel.PageIndex, Is.EqualTo(pageIndex));
-                Assert.That(metaModel.PageSize, Is.EqualTo(pageSize));
-            });
+            return new LiveReportBetListController(
+                SessionService,
+                ProductService,
+                LangService,
+                AuthorizationService,
+                BetListApiClient,
+                BalanceUpDataAccess);
         }
     }
 }

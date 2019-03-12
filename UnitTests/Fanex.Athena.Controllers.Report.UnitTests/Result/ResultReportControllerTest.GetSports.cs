@@ -1,15 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
-    using System;
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
     using Base.UnitTests;
-    using Model.Core.DTO.Common;
-    using Model.Report.MetaModel;
+    using Model.Report.MetaModel.Result;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.Core.Sportsbook.DTO;
 
     [TestFixture]
     public partial class ResultReportControllerTest : BaseControllerHelperTest
@@ -23,7 +19,7 @@
                 controller.ModelState.AddModelError("error", "hihi");
 
                 // Action
-                var result = controller.GetSports(new ResultMetalModel()) as JsonResult;
+                var result = controller.GetSports(new GetSportResultMetaModel()).Result as JsonResult;
 
                 // Assert
                 Assert.That(result.Data, Is.EqualTo(string.Empty));
@@ -31,86 +27,21 @@
         }
 
         [Test]
-        public void GetSports_IsOutRight_ReturnOutrightResult()
+        public void GetSports_ValidModel_ReturnOutrightResult()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                const int SportId = 99;
-                var dataList = new List<Outright>
-                {
-                    new Outright { SportType = SportId }
-                };
-                var metaModel = new ResultMetalModel
-                {
-                    SportId = SportId,
-                    IsOutRight = true
-                };
-                _resultService.GetOutRight(metaModel).Returns(dataList);
+                const string ExpectResult = "sssssssssssss";
+                const string Url = "/ResultReport/GetSports";
+                var metaModel = new GetSportResultMetaModel();
+                _betListApiClient.PostAsyncString(Url, metaModel).Returns(ExpectResult);
 
                 // Action
-                var result = controller.GetSports(metaModel) as JsonResult;
+                var result = controller.GetSports(metaModel).Result as ContentResult;
 
                 // Assert
-                Assert.That(
-                        new JavaScriptSerializer().Serialize(result.Data),
-                        Is.EqualTo(@"{""Sports"":[{""SportId"":99,""SportName"":""""}],""Leagues"":[{""LeagueId"":0,""LeagueName"":"""",""IsOutRight"":false}]}"));
-            }
-        }
-
-        [Test]
-        public void GetSports_SportIdIsZero_ReturnNormalSportsResult()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const int SportId = 99;
-                var dataList = new List<Sport>
-                {
-                    new Sport { SportId = SportId }
-                };
-                var metaModel = new ResultMetalModel
-                {
-                    SportId = 0,
-                    FromDate = new DateTime(2017, 1, 1)
-                };
-                _resultService.GetSports(metaModel.FromDate, SessionService.LicenseeSession.LicenseeId).Returns(dataList);
-
-                // Action
-                var result = controller.GetSports(metaModel) as JsonResult;
-
-                // Assert
-                Assert.That(
-                        new JavaScriptSerializer().Serialize(result.Data),
-                        Is.EqualTo(@"{""Sports"":[{""SportId"":99,""SportName"":null}],""Leagues"":[]}"));
-            }
-        }
-
-        [Test]
-        public void GetSports_SportIdIsNotZero_ReturnCorrectResult()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const int SportId = 99;
-                var dataList = new List<League>
-                {
-                    new League()
-                };
-                var metaModel = new ResultMetalModel
-                {
-                    SportId = SportId,
-                    FromDate = new DateTime(2017, 1, 1)
-                };
-                _resultService.GetLeagues(metaModel.FromDate, SportId).Returns(dataList);
-
-                // Action
-                var result = controller.GetSports(metaModel) as JsonResult;
-
-                // Assert
-                Assert.That(
-                        new JavaScriptSerializer().Serialize(result.Data),
-                        Is.EqualTo(@"{""Leagues"":[{""LeagueId"":0,""LeagueName"":null,""IsOutRight"":false}]}"));
+                Assert.That(result.Content, Is.EqualTo(ExpectResult));
             }
         }
     }

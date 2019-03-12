@@ -47,22 +47,6 @@
       <HintPath>..\..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Base, Version=2.1.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.8\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Result.Core.NumberGame">
-      <HintPath>..\..\packages\Fanex.Result.Core-NumberGame.1.0.3\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Result.Core.Racing, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-Racing.1.1.0\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.1.1.5\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
@@ -122,10 +106,6 @@
     <Compile Include="ExchangeWinLossDataAccessTest.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneDataAccessTest.cs" />
     <Compile Include="SpecialLicenseeWinLossDataAccessTest.cs" />
-    <Compile Include="ResultReport\ResultNumberGameDataAccessTest.cs" />
-    <Compile Include="ResultReport\ResultDataAccess.GetMatchesTest.cs" />
-    <Compile Include="ResultReport\ResultDataAccess.GetPopUpParalayMatchTest.cs" />
-    <Compile Include="ResultReport\ResultDataAccess.GetPopUpMatchesTest.cs" />
     <Compile Include="SubsidiaryPerformanceDataAccessTest.cs" />
     <Compile Include="GoldDeluxeWinLossDataAccessTest.cs" />
     <Compile Include="Testable\GoldDeluxeWinLossDataAccessTestable.cs" />
@@ -136,7 +116,6 @@
     <Compile Include="TurnoverDataAccessTest.cs" />
     <Compile Include="ThirdPartyWinLossDataAccessTest.cs" />
     <Compile Include="SettledMatchCountDataAccessTest.cs" />
-    <Compile Include="ResultReport\ResultDataAccessTest.cs" />
     <Compile Include="PlatformWinLossDataAccessTest.cs" />
     <Compile Include="MicroGamingWinLossDataAccessTest.cs" />
     <Compile Include="MatchWinLossDataAccessTest.cs" />

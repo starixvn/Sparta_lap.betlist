@@ -129,12 +129,11 @@ export class FormFilter extends Component {
         const productOptions = AppData.productOptions;
         return productOptions && productOptions.length && (
             <MultipleSelect id="ProductList"
+                language={LangHelper.currentLanguage}
                 dataSource={productOptions}
                 keyField={"Code"}
                 valueField={"Name"}
                 statusField={"Status"}
-                optionAllLabel={LangHelper.getSingleResource("All")}
-                noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                 onChange={this.productChangeHandler} />
         );
                     }

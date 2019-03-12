@@ -132,9 +132,8 @@ exports[`FormFilter  render() - match with snapshot 1`] = `
           hasSearchBox={false}
           id="ProductList"
           keyField="Code"
-          noneSelectedLabel="SelectOptions"
+          language="en-US"
           onChange={[Function]}
-          optionAllLabel="All"
           statusField="Status"
           valueField="Name"
         />

@@ -2036,7 +2036,7 @@
     <value>玩家</value>
   </data>
   <data name="RefNo" xml:space="preserve">
-    <value>参考号码</value>
+    <value>注单号码</value>
   </data>
   <data name="Resultswithpictures" xml:space="preserve">
     <value>参考号码</value>
@@ -2104,7 +2104,7 @@
     <comment>6294</comment>
   </data>
   <data name="SelectOptions" xml:space="preserve">
-    <value>Select options</value>
+    <value>选择一个选项</value>
     <comment>6294</comment>
   </data>
   <data name="ThereIsNoSelectedItem" xml:space="preserve">
@@ -2595,5 +2595,11 @@
   </data>
   <data name="Reject" xml:space="preserve">
     <value>取消</value>
+  </data>
+  <data name="BettingTicketCenter_RefnoTabNote2" xml:space="preserve">
+    <value>关于快乐彩以及彩票：请输入用户名，以便搜寻{0}之后的注单</value>
+  </data>
+  <data name="BettingTicketCenter_RefnoTabNote1" xml:space="preserve">
+    <value>在体育的搜寻结果将包含相关的红利与现金注单</value>
   </data>
 </root>

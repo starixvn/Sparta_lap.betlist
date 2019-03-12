@@ -10,21 +10,20 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.DataAccess.BetList.Interfaces;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetList.DTO;
+    using Model.BetList.MetaModel;
+    using Model.BetList.ViewModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
     #endregion Using
@@ -34,24 +33,21 @@ namespace Fanex.Athena.Controllers.BetList
     {
         private readonly IAuthorizationService _authorizationService;
 
-        private readonly ICancelledBetListDataAccess _cancelledBetListDataAccess;
-
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public CancelledBetsBetListController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
-            IAuthorizationService authorizationService,
-            ICancelledBetListDataAccess cancelledBetListDataAccess)
+            IBetListApiClient betListApiClient,
+            IAuthorizationService authorizationService)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
             _authorizationService = authorizationService;
-            _cancelledBetListDataAccess = cancelledBetListDataAccess;
         }
 
         [HttpGet]
@@ -68,7 +64,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
             if (metaModel.IsExportExcel)
             {
@@ -82,57 +78,63 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
-        private CancelledBetsBetListViewModel CreateViewModel(BetListMetaModel viewParam)
+        private CancelledBetsBetListViewModel CreateViewModel(BetListMetaModel metaModel)
         {
-            viewParam.AgentListXml = SessionService.GenerateAgentListXml(viewParam.CurrencyId);
-            var customers = GetData(viewParam);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var customers = GetData(metaModel).Result;
 
             if (customers.Any())
             {
-                viewParam.CustId = customers.First().CustId;
+                metaModel.CustId = customers.First().CustId;
             }
 
             var userSession = SessionService.UserSession;
             return new CancelledBetsBetListViewModel
             {
                 ShowEmptyContent = true,
-                Param = viewParam,
+                Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                ProductAccess = ProductService.GetProductAccess(viewParam.LicenseeId, userSession.Language),
+                ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                 CustomerList = customers
             };
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListExcelMetaModel metaModel)
         {
             if (metaModel.CurrencyId == BaseCurrencyType.All ||
                 SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
-                var excelModel = CreateDefaultMetaModel(metaModel);
-                excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
+                CreateDefaultMetaModel(metaModel);
+                metaModel.UspKey = UspKey;
 
-                var ticketResult = BetListService.GetBetListData(excelModel, UserCurrencyList, UspKey);
-
-                var showingOption = new ShowingOption
+                var currencyTitle = GetViewInCurrency(metaModel);
+                metaModel.ShowingOption = new BetListShowingOption
                 {
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = metaModel.HasPlayerCom
                 };
-                var currencyTitle = GetViewInCurrency(excelModel);
-                var title = $"{ViewResources.CancelledBets} - {currencyTitle}";
-
-                return ProcessExportExcel(showingOption, excelModel, ticketResult, HiddenColumnIndexes, title, "CancelledBetList");
+                metaModel.HiddenColumns = HiddenColumnIndexes;
+                metaModel.Title = $"{ViewResources.CancelledBets} - {currencyTitle}";
+                return ProcessExportExcel(metaModel, "CancelledBetList");
             }
 
             return EmptyExcel();
         }
 
-        private IEnumerable<CustomerCancelBetItem> GetData(BetListMetaModel metaModel)
+        private async Task<IEnumerable<CustomerCancelBetItem>> GetData(BetListMetaModel metaModel)
         {
-            return HasPermissionOnData(metaModel) ?
-                _cancelledBetListDataAccess.GetCancelBetCustList(metaModel) :
-                new List<CustomerCancelBetItem>();
+            if (!HasPermissionOnData(metaModel))
+            {
+                return new List<CustomerCancelBetItem>();
+            }
+
+            return await BetListApiClient.PostAsync<IEnumerable<CustomerCancelBetItem>>(
+                "/CancelledBetsBetList/GetCustomerList",
+                new
+                {
+                    AgentListXml = metaModel.AgentListXml
+                }).ConfigureAwait(false);
         }
 
         private bool HasPermissionOnData(BetListMetaModel metaModel)

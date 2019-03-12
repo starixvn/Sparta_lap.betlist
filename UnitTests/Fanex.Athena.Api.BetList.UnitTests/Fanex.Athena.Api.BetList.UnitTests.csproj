@@ -43,38 +43,9 @@
       <HintPath>..\..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.BetTrade, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.79.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.79.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.79.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute, Version=3.1.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NSubstitute.3.1.0\lib\net46\NSubstitute.dll</HintPath>
@@ -84,14 +55,6 @@
       <HintPath>..\..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Sunplus.Core.Common, Version=1.1.4505.19054, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Core.Common.1.1.4505.19054\lib\net40\Sunplus.Core.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -99,58 +62,12 @@
     </Reference>
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="TplCore, Version=1.0.4854.17253, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TplCore.1.0.4854.17254\lib\net40\TplCore.dll</HintPath>
-      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -162,40 +79,41 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="BettingTicketCenterControllerTest.cs" />
-    <Compile Include="ExchangeWinLossBetListControllerTest.cs" />
-    <Compile Include="FakeApiBetListBaseController.cs" />
-    <Compile Include="ApiBetListBaseControllerTest.cs" />
-    <Compile Include="CancelledBetsBetListControllerTest.cs" />
     <Compile Include="AGCasinoBetListControllerTest.cs" />
     <Compile Include="ApiBetListBaseControllerHelperTest.cs" />
-    <Compile Include="OutStandingCompletedBetListControllerTest.cs" />
-    <Compile Include="OutstandingDailyStatementBetListControllerTest.cs" />
-    <Compile Include="PendingFundsBetListControllerTest.cs" />
-    <Compile Include="OutstandingRunningBetListControllerTest.cs" />
-    <Compile Include="LiveReportBetListControllerTest.cs" />
-    <Compile Include="MatchWinLossBetListControllerTest.cs" />
-    <Compile Include="MixParlayBetListController .cs" />
-    <Compile Include="RunningBettypesBetListControllerTest.cs" />
-    <Compile Include="RunningBetListControllerTest.cs" />
-    <Compile Include="RunningBettypesOfMatchBetListControllerTest.cs" />
-    <Compile Include="RunningMatchBetListControllerTest.cs" />
-    <Compile Include="PragmaticPlayBetListControllerTest.cs" />
-    <Compile Include="WinlossByBetTypeBetListControllerTest.cs" />
-    <Compile Include="WinlossByLeagueBetListControllerTest.cs" />
-    <Compile Include="VoidbridgeBetListControllerTest.cs" />
-    <Compile Include="RunningMatchChoiceBetListControllerTest.cs" />
-    <Compile Include="RNGCasinoBetListControllerTest.cs" />
+    <Compile Include="ApiBetListBaseControllerTest.cs" />
+    <Compile Include="BettingTicketCenterControllerTest.cs" />
+    <Compile Include="BonusBetListControllerTest.cs" />
+    <Compile Include="CancelledBetsBetListControllerTest.cs" />
     <Compile Include="CorrectScoreBetListControllerTest.cs" />
     <Compile Include="CustomerWinLossBetListControllerTest.cs" />
     <Compile Include="DailyBetListControllerTest.cs" />
     <Compile Include="DailyStatementBetListControllerTest.cs" />
+    <Compile Include="ExchangeWinLossBetListControllerTest.cs" />
+    <Compile Include="FakeApiBetListBaseController.cs" />
     <Compile Include="GlobalGamingBetListControllerTest.cs" />
     <Compile Include="LastBetMonitoringBetListControllerTest.cs" />
-    <Compile Include="PlatformWinLossBetListControllerTest.cs" />
     <Compile Include="LicenseeWinLossBetListControllerTest.cs" />
+    <Compile Include="LiveReportBetListControllerTest.cs" />
+    <Compile Include="MatchWinLossBetListControllerTest.cs" />
     <Compile Include="MicroGamingRngBetListControllerTest.cs" />
+    <Compile Include="MixParlayBetListControllerTest.cs" />
+    <Compile Include="OutStandingCompletedBetListControllerTest.cs" />
+    <Compile Include="OutstandingDailyStatementBetListControllerTest.cs" />
+    <Compile Include="OutstandingRunningBetListControllerTest.cs" />
+    <Compile Include="PendingFundsBetListControllerTest.cs" />
+    <Compile Include="PlatformWinLossBetListControllerTest.cs" />
+    <Compile Include="PragmaticPlayBetListControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RNGCasinoBetListControllerTest.cs" />
+    <Compile Include="RunningBetListControllerTest.cs" />
+    <Compile Include="RunningBettypesBetListControllerTest.cs" />
+    <Compile Include="RunningBettypesOfMatchBetListControllerTest.cs" />
+    <Compile Include="RunningMatchBetListControllerTest.cs" />
+    <Compile Include="RunningMatchChoiceBetListControllerTest.cs" />
+    <Compile Include="VoidbridgeBetListControllerTest.cs" />
+    <Compile Include="WinlossByBetTypeBetListControllerTest.cs" />
+    <Compile Include="WinlossByLeagueBetListControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -212,21 +130,13 @@
       <Project>{0c22899b-6ce0-4187-9bcf-7f503213f207}</Project>
       <Name>Fanex.Athena.Api.BetList</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.BetList\Fanex.Athena.DataAccess.BetList.csproj">
-      <Project>{B269F027-9AE1-4969-89D6-56C401B96051}</Project>
-      <Name>Fanex.Athena.DataAccess.BetList</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.BetList\Fanex.Athena.Excel.BetList.csproj">
-      <Project>{673f1094-bbf7-4e48-95e2-b4050fceb8ef}</Project>
-      <Name>Fanex.Athena.Excel.BetList</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
-      <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
-      <Name>Fanex.Athena.Extension</Name>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
+      <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
+      <Name>Fanex.Athena.Model.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.StatelessCore\Fanex.Athena.Service.StatelessCore.csproj">
       <Project>{DA9A50E3-C62D-4F12-96C2-3AC289D423FE}</Project>
@@ -248,21 +158,9 @@
       <Project>{ce1f7641-a14d-4af6-9bd3-cad4873669b4}</Project>
       <Name>Fanex.Athena.VendorAdapter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
-      <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
-      <Name>Fanex.Athena.Model.BetList</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
-      <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
-      <Name>Fanex.Athena.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.BetList\Fanex.Athena.Service.BetList.csproj">
-      <Project>{20dee0ca-7487-4fa5-9af3-3d1e02f1faaf}</Project>
-      <Name>Fanex.Athena.Service.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>

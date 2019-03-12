@@ -1,7 +1,7 @@
-﻿namespace Fanex.Athena.Model.BetList.MetaModel
-{
-    using System;
+﻿using System;
 
+namespace Fanex.Athena.Model.BetList.MetaModel
+{
     public class ExchangeBetListMetaModel : BaseExchangeBetListMetaModel
     {
         public DateTime FromDate { get; set; }

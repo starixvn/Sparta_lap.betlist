@@ -27,6 +27,18 @@ namespace Fanex.Athena.Extension.Utility
             get { return GetValue("HasAmountDueToColumn") == "1"; }
         }
 
+        public int BetListApiClientTimeOutMinutes
+        {
+            get { return int.Parse(GetValue("BetListApiClientTimeOutMinutes")); }
+        }
+
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public string BetListApiHostUrl
+        {
+            get { return GetValue("BetListApiHostUrl"); }
+        }
+
         public bool IsProduction
         {
             get { return GetValue("Environment") == "PRO"; }

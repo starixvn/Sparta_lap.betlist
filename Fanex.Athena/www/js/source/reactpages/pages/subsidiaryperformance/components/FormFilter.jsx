@@ -110,13 +110,12 @@ export class FormFilter extends Component {
 
         return subsidiaryList && subsidiaryList.length ? (
             <MultipleSelect
+                language={LangHelper.currentLanguage}
                 hasSearchBox={true}
                 dataSource={subsidiaryList}
                 keyField={"Name"}
                 valueField={"Name"}
                 statusField={"Checked"}
-                optionAllLabel={LangHelper.getSingleResource("All")}
-                noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                 onChange={this.subsidiaryChangeHandler} />
         ) : null;
     }
@@ -125,12 +124,11 @@ export class FormFilter extends Component {
         const productOptions = AppData.productOptions;
         return productOptions && productOptions.length && (
             <MultipleSelect
+                language={LangHelper.currentLanguage}
                 dataSource={productOptions}
                 keyField={"Code"}
                 valueField={"Name"}
                 statusField={"Status"}
-                optionAllLabel={LangHelper.getSingleResource("All")}
-                noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                 onChange={this.productChangeHandler} />
         );
     }

@@ -1,7 +1,7 @@
 {
   "ServerUri": "http://sonarqube.nexdev.net/",
   "Organization": null,
-  "ProjectKey": "LRF",
+  "ProjectKey": "LAP.BETLIST",
   "Profiles": {
     "CSharp": {
       "ProfileKey": "cs-sonar-way-80515",

@@ -660,7 +660,7 @@
 
                         WinLossByProduct.openBetlistPopUp(dataDrillDown);
 
-                        expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { id: "betlist-popup", width: 950, height: 250, title: "Customer Bet List" });
+                        expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { id: "betlist-popup", width: 950, height: 250, title: "CustomerBetList" });
                     });
 
                     it("Popup.openPopupWithIframe should be called with correct params", function () {
@@ -673,7 +673,7 @@
 
                         WinLossByProduct.openBetlistPopUp(dataDrillDown);
 
-                        expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { id: "betlist-popup", width: 950, height: 250, title: "Customer Bet List" });
+                        expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { id: "betlist-popup", width: 950, height: 250, title: "CustomerBetList" });
                     });
                 });
 

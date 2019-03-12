@@ -2,259 +2,302 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.BetList.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using Service.StatelessCore.Interfaces;
     using Session.Model;
 
     public class ExchangeWinLossBetListControllerTest : BaseApiControllerHelperTest
     {
-        private IExchangeBetListService _service;
+        private const string MainApiPath = "/ExchangeWinLossBetList/GetData";
+
+        private const string DetailApiPath = "/ExchangeWinLossBetList/Detail";
+
+        private IBetListApiClient _betListApiClient;
 
         private IAuthorizationService _authorizationService;
-
-        private ExchangeWinLossBetListController _controller;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
 
+            _betListApiClient = Substitute.For<IBetListApiClient>();
+            _authorizationService = Substitute.For<IAuthorizationService>();
+
             MockSessionData();
         }
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
         {
-            _service = Substitute.For<IExchangeBetListService>();
-            _authorizationService = Substitute.For<IAuthorizationService>();
+            base.FixtureTearDown();
 
-            _controller = Substitute.ForPartsOf<ExchangeWinLossBetListController>(
-                SessionService,
-                ProductService,
-                LangService,
-                _service,
-                _authorizationService);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _service = null;
+            _betListApiClient = null;
             _authorizationService = null;
-            _controller = null;
         }
 
         [Test]
-        public void Index_InValidDateRange_ReturnNullData()
+        public async Task Index_InValidDateRange_ReturnNullData()
         {
-            // Arrange
-            var metaModel = new ExchangeBetListMetaModel
+            using (var controller = CreateController())
             {
-                FromDate = new DateTime(2018, 1, 2),
-                ToDate = new DateTime(2018, 1, 1)
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListMetaModel
+                {
+                    FromDate = new DateTime(2018, 1, 2),
+                    ToDate = new DateTime(2018, 1, 1)
+                };
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result.MainData, Is.Null);
+                // Assert
+                Assert.That(result.MainData, Is.Null);
+            }
         }
 
         [Test]
-        public void Index_InValidCurrency_ReturnNullData()
+        public async Task Index_InValidCurrency_ReturnNullData()
         {
-            // Arrange
-            var metaModel = new ExchangeBetListMetaModel
+            using (var controller = CreateController())
             {
-                FromDate = new DateTime(2018, 1, 1),
-                ToDate = new DateTime(2018, 1, 2),
-                CurrencyId = 1
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListMetaModel
+                {
+                    FromDate = new DateTime(2018, 1, 1),
+                    ToDate = new DateTime(2018, 1, 2),
+                    CurrencyId = 1
+                };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result.MainData, Is.Null);
+                // Assert
+                Assert.That(result.MainData, Is.Null);
+            }
         }
 
         [Test]
-        public void Index_NoPermission_ReturnNullData()
+        public async Task Index_NoPermission_ReturnNullData()
         {
-            // Arrange
-            var metaModel = new ExchangeBetListMetaModel
+            using (var controller = CreateController())
             {
-                FromDate = new DateTime(2018, 1, 1),
-                ToDate = new DateTime(2018, 1, 2),
-                CurrencyId = 0,
-                CustId = 1
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListMetaModel
+                {
+                    FromDate = new DateTime(2018, 1, 1),
+                    ToDate = new DateTime(2018, 1, 2),
+                    CurrencyId = 0,
+                    CustId = 1
+                };
 
-            _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CurrencyId, 0).Returns(false);
+                _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CurrencyId, 0).Returns(false);
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result.MainData, Is.Null);
+                // Assert
+                Assert.That(result.MainData, Is.Null);
+            }
         }
 
         [Test]
-        public void Index_NoCustId_ReturnNullData()
+        public async Task Index_NoCustId_ReturnNullData()
         {
-            // Arrange
-            var metaModel = new ExchangeBetListMetaModel
+            using (var controller = CreateController())
             {
-                FromDate = new DateTime(2018, 1, 1),
-                ToDate = new DateTime(2018, 1, 2),
-                CurrencyId = 0,
-                CustId = 0
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListMetaModel
+                {
+                    FromDate = new DateTime(2018, 1, 1),
+                    ToDate = new DateTime(2018, 1, 2),
+                    CurrencyId = 0,
+                    CustId = 0
+                };
 
-            // Action
-            var result = _controller.Index(metaModel);
+                // Action
+                var result = await controller.Index(metaModel);
 
-            // Assert
-            Assert.That(result.MainData, Is.Null);
+                // Assert
+                Assert.That(result.MainData, Is.Null);
+            }
         }
 
         [TestCase(0, null, "")]
         [TestCase(1, "usd", "USD")]
         [TestCase(2, "usD", "USD")]
-        public void Index_ValidRequest_CallServiceWithCorrectParam(int currencyId, string inputBaseCurrency, string expectedBaseCurrency)
+        public async Task Index_ValidRequest_CallBetListApiWithCorrectParameters(int currencyId, string inputBaseCurrency, string expectedBaseCurrency)
         {
-            // Arrange
-            var metaModel = new ExchangeBetListMetaModel
+            using (var controller = CreateController())
             {
-                FromDate = new DateTime(2018, 1, 1),
-                ToDate = new DateTime(2018, 1, 2),
-                CurrencyId = currencyId,
-                CustId = 100,
-                BaseCurrency = inputBaseCurrency
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListMetaModel
+                {
+                    FromDate = new DateTime(2018, 1, 1),
+                    ToDate = new DateTime(2018, 1, 2),
+                    CurrencyId = currencyId,
+                    CustId = 100,
+                    BaseCurrency = inputBaseCurrency
+                };
 
-            StubUserSessionData(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
-            });
+                StubUserSessionData(new UserSession
+                {
+                    CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
+                });
 
-            _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CustId, 0).Returns(true);
+                _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CustId, 0).Returns(true);
 
-            // Action
-            _controller.Index(metaModel);
+                var expect = new HttpResponseMessage();
+                _betListApiClient.PostAsync(MainApiPath, metaModel).Returns(Task.FromResult(expect));
 
-            // Assert
-            _service.Received().GetBetListData(Arg.Is<ExchangeBetListMetaModel>(x => x == metaModel && x.BaseCurrency == expectedBaseCurrency));
+                // Action
+                var actual = await controller.Index(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    _betListApiClient.Received().PostAsync(MainApiPath, Arg.Is<ExchangeBetListMetaModel>(x => x == metaModel && x.BaseCurrency == expectedBaseCurrency));
+                });
+            }
         }
 
         [Test]
-        public void Detail_InValidCurrency_ReturnEmptyData()
+        public async Task Detail_InValidCurrency_ReturnEmptyData()
         {
-            // Arrange
-            var metaModel = new ExchangeBetListDetailMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = 1,
-                BetId = 1,
-                CustId = 1,
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListDetailMetaModel
+                {
+                    CurrencyId = 1,
+                    BetId = 1,
+                    CustId = 1,
+                };
 
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
+                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
-            // Action
-            var result = _controller.Detail(metaModel);
+                // Action
+                var result = await controller.Detail(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Empty);
+                // Assert
+                Assert.That(result, Is.Empty);
+            }
         }
 
         [Test]
-        public void Detail_NoPermission_ReturnEmptyData()
+        public async Task Detail_NoPermission_ReturnEmptyData()
         {
-            // Arrange
-            var metaModel = new ExchangeBetListDetailMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = 0,
-                CustId = 1,
-                BetId = 1,
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListDetailMetaModel
+                {
+                    CurrencyId = 0,
+                    CustId = 1,
+                    BetId = 1,
+                };
 
-            _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CurrencyId, 0).Returns(false);
+                _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CurrencyId, 0).Returns(false);
 
-            // Action
-            var result = _controller.Detail(metaModel);
+                // Action
+                var result = await controller.Detail(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Empty);
+                // Assert
+                Assert.That(result, Is.Empty);
+            }
         }
 
         [Test]
-        public void Detail_NoBetId_ReturnEmptyData()
+        public async Task Detail_NoBetId_ReturnEmptyData()
         {
-            // Arrange
-            var metaModel = new ExchangeBetListDetailMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = 0,
-                CustId = 1,
-                BetId = 0
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListDetailMetaModel
+                {
+                    CurrencyId = 0,
+                    CustId = 1,
+                    BetId = 0
+                };
 
-            // Action
-            var result = _controller.Detail(metaModel);
+                // Action
+                var result = await controller.Detail(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Empty);
+                // Assert
+                Assert.That(result, Is.Empty);
+            }
         }
 
         [Test]
-        public void Detail_NoCustId_ReturnEmptyData()
+        public async Task Detail_NoCustId_ReturnEmptyData()
         {
-            // Arrange
-            var metaModel = new ExchangeBetListDetailMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = 0,
-                CustId = 0,
-                BetId = 1
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListDetailMetaModel
+                {
+                    CurrencyId = 0,
+                    CustId = 0,
+                    BetId = 1
+                };
 
-            // Action
-            var result = _controller.Detail(metaModel);
+                // Action
+                var result = await controller.Detail(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Empty);
+                // Assert
+                Assert.That(result, Is.Empty);
+            }
         }
 
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void Detail_ValidRequest_ReturnDataFromService(int currencyId)
+        public async Task Detail_ValidRequest_CallBetListApiWithCorrectParameters(int currencyId)
         {
-            // Arrange
-            var metaModel = new ExchangeBetListDetailMetaModel
+            using (var controller = CreateController())
             {
-                BetId = 1,
-                CurrencyId = currencyId,
-                CustId = 200
-            };
+                // Arrange
+                var metaModel = new ExchangeBetListDetailMetaModel
+                {
+                    BetId = 1,
+                    CurrencyId = currencyId,
+                    CustId = 200
+                };
 
-            StubUserSessionData(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
-            });
+                StubUserSessionData(new UserSession
+                {
+                    CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
+                });
 
-            _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CustId, 0).Returns(true);
+                _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CustId, 0).Returns(true);
 
-            // Action
-            _controller.Detail(metaModel);
+                var expect = new HttpResponseMessage();
+                _betListApiClient.PostAsync(DetailApiPath, metaModel).Returns(Task.FromResult(expect));
 
-            // Assert
-            _service.Received().GetTicketDetailList(metaModel);
+                // Action
+                var actual = await controller.Detail(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    _betListApiClient.Received().PostAsync(DetailApiPath, metaModel);
+                });
+            }
+        }
+
+        private ExchangeWinLossBetListController CreateController()
+        {
+            return new ExchangeWinLossBetListController(SessionService, ProductService, LangService, _betListApiClient, _authorizationService);
         }
     }
 }

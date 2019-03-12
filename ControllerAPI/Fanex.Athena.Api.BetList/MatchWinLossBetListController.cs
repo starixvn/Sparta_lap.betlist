@@ -9,17 +9,16 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
+    using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter.Interfaces;
+    using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     #endregion Using
 
@@ -30,17 +29,15 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IAuthorizationService authorizationService,
+            IBetListApiClient betListApiClient,
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 
         [HttpGet]
-        public dynamic MatchBetType(
+        public async Task<dynamic> MatchBetType(
             int page,
             int rows,
             [FromUri]BetListMetaModel metaModel)
@@ -52,7 +49,7 @@ namespace Fanex.Athena.Api.BetList
 
             const string UspKey = "Lrf_BetList_MatchWL_Bettype";
 
-            return GetPagingBetListResult(metaModel, UspKey, page, rows);
+            return await GetPagingBetListResult(metaModel, UspKey, page, rows).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -61,14 +58,14 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">Meta model object.</param>
         /// <returns>Bet list data for match win loss outright.</returns>
         [HttpPost]
-        public dynamic Outright(BetListMetaModel metaModel)
+        public async Task<dynamic> Outright(BetListMetaModel metaModel)
         {
             if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 metaModel.IsServerPaging = true;
 
                 const string UspKey = "Lrf_BetList_MatchWL_Outright";
-                return GetBetListResult(metaModel, UspKey);
+                return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
             }
 
             return null;
@@ -76,7 +73,7 @@ namespace Fanex.Athena.Api.BetList
 
         [HttpGet]
 #pragma warning disable S107 // Methods should not have too many parameters
-        public dynamic MixParlay(
+        public async Task<dynamic> MixParlay(
             int page,
             int rows,
             int currencyId,
@@ -106,7 +103,7 @@ namespace Fanex.Athena.Api.BetList
                     ProductCodeList = productCodeList
                 };
 
-                return GetPagingBetListResult(metaModel, UspKey, page, rows);
+                return await GetPagingBetListResult(metaModel, UspKey, page, rows).ConfigureAwait(false);
             }
 
             return null;

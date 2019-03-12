@@ -241,9 +241,8 @@ exports[`FormFilter  render render with correct props 1`] = `
           hasSearchBox={false}
           id="ProductList"
           keyField="Code"
-          noneSelectedLabel="SelectOptions"
+          language="en-US"
           onChange={[Function]}
-          optionAllLabel="All"
           statusField="Status"
           valueField="Name"
         />
@@ -311,9 +310,8 @@ exports[`FormFilter  render render with correct props 1`] = `
           hasSearchBox={false}
           id="StatusList"
           keyField="Code"
-          noneSelectedLabel="SelectOptions"
+          language="en-US"
           onChange={[Function]}
-          optionAllLabel="All"
           statusField="Status"
           valueField="Name"
         />

@@ -8,14 +8,13 @@ namespace Fanex.Athena.Controllers.BetList
 {
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
-    using Excel.Base.Entities;
     using Extension.Utility;
-    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.BetList.MetaModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
@@ -29,27 +28,25 @@ namespace Fanex.Athena.Controllers.BetList
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
         [HttpGet]
         public ActionResult Index(WinLossByLeagueBetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/WinlossByLeague/Main.cshtml", "Lrf_BetList_WinlostByLeague_Mem");
+            CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/WinlossByLeague/Main.cshtml", "Lrf_BetList_WinlostByLeague_Mem");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
-            var title = string.Format(
+            metaModel.Title = string.Format(
                 "{0} - {1} → {2} - {3}{4} - {5}",
                 ViewResources.CustomerBetList,
                 metaModel.FromDate.ToString(FormatKey.ShortDateFormat),
@@ -57,12 +54,12 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.ExternalId,
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 viewinCurrency);
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "WinLossByLeagueBetList");
+            metaModel.HiddenColumns = HiddenColumns;
+            return ProcessExportExcel(metaModel, "WinLossByLeagueBetList", "/BetList/ExportExcelWinlossByLeague");
         }
     }
 }

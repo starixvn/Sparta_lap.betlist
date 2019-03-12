@@ -1,14 +1,5 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DailyStatement.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Model.BetList.DTO
+﻿namespace Fanex.Athena.Model.BetList.DTO
 {
-    /// <summary>
-    /// LRFTicket class.
-    /// </summary>
     public class DailyStatement
     {
         public int Index { get; set; }

@@ -1,16 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
-    using Model.Report.MetaModel;
-    using Model.Report.ViewModel;
+    using Model.Report.MetaModel.Result;
+    using Model.Report.ViewModel.Result;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.Core.Base;
-    using Result.Core.NumberGame.DTO;
-    using Result.Core.Racing.DTO;
-    using Result.Core.Sportsbook.DTO;
 
     [TestFixture]
     public partial class ResultReportControllerTest : BaseControllerHelperTest
@@ -48,13 +43,16 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                _resultService.HtmlParser(Arg.Any<IList<Sportsbook>>(), null).ReturnsForAnyArgs(HtmlResult);
+                const string Url = "/ResultReport/Index";
+                const string ExpectResult = "dffffffffffffff";
+                var metaModel = new ResultMetaModel();
+                _betListApiClient.PostAsyncString(Url, metaModel).Returns(ExpectResult);
 
                 // Action
-                var viewResult = controller.Index(new ResultMetalModel()) as ContentResult;
+                var viewResult = controller.Index(metaModel).Result as ContentResult;
 
                 // Assert
-                Assert.That(viewResult.Content, Is.EqualTo(HtmlResult));
+                Assert.That(viewResult.Content, Is.EqualTo(ExpectResult));
             }
         }
 
@@ -67,90 +65,10 @@
                 controller.ModelState.AddModelError("error", "hihi");
 
                 // Action
-                var viewResult = controller.Index(new ResultMetalModel()) as ContentResult;
+                var viewResult = controller.Index(new ResultMetaModel()).Result as ContentResult;
 
                 // Assert
                 Assert.That(viewResult.Content, Is.Empty);
-            }
-        }
-
-        [Test]
-        public void IndexPost_IsOutRight_ResultContentIsCorrect()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const int SportId = 1;
-                var metaModel = new ResultMetalModel
-                {
-                    SportId = SportId,
-                    IsOutRight = true
-                };
-                var dataList = new List<Outright>
-                {
-                    new Outright
-                    {
-                        SportType = SportId
-                    }
-                };
-                _resultService.GetOutRight(metaModel).Returns(dataList);
-                _resultService.HtmlParser(Arg.Any<IList<Outright>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
-
-                // Action
-                var viewResult = controller.Index(metaModel) as ContentResult;
-
-                // Assert
-                Assert.That(viewResult.Content, Is.EqualTo(HtmlResult));
-            }
-        }
-
-        [TestCase((int)SportType.VirtualHorseRacing)]
-        [TestCase((int)SportType.VirtualGreyhounds)]
-        [TestCase((int)SportType.VirtualMotorRacing)]
-        [TestCase((int)SportType.VirtualCycling)]
-        [TestCase((int)SportType.VirtualSpeedway)]
-        public void IndexPost_VirtualSport_ResultContentIsCorrect(int sportId)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new ResultMetalModel
-                {
-                    SportId = sportId,
-                    IsOutRight = false
-                };
-                var dataList = new List<Racing> { new Racing() };
-                _resultService.GetVirtualSportMatches(metaModel).Returns(dataList);
-                _resultService.HtmlParser(Arg.Any<IList<Racing>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
-
-                // Action
-                var viewResult = controller.Index(metaModel) as ContentResult;
-
-                // Assert
-                Assert.That(viewResult.Content, Is.EqualTo(HtmlResult));
-            }
-        }
-
-        [Test]
-        public void IndexPost_NumberGame_ResultContentIsCorrect()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new ResultMetalModel
-                {
-                    SportId = (int)SportType.NumberGame,
-                    IsOutRight = false
-                };
-                var dataList = new List<NumberGame> { new NumberGame() };
-                _resultService.GetNumberGameMatches(metaModel).Returns(dataList);
-                _resultService.HtmlParser(Arg.Any<IList<NumberGame>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
-
-                // Action
-                var viewResult = controller.Index(metaModel) as ContentResult;
-
-                // Assert
-                Assert.That(viewResult.Content, Is.EqualTo(HtmlResult));
             }
         }
     }

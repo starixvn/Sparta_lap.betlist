@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Api.BetList.UnitTests
 {
     using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Model.BetList.MetaModel;
     using NSubstitute;
@@ -11,126 +13,147 @@
     {
         private const string UspKey = "Lrf_BetList_SelRunningByBettypeList";
 
-        private RunningBettypesBetListController _controller;
+        private const string DoubleChangeBettypes = "24,151,186,431,410";
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        private const string BONTeamToScoreBettypes = "26,145,146,433,170,188,427";
+
+        private const string ApiPath = "/BetList/GetBetList";
+
+        [SetUp]
+        public void SetUp()
         {
-            base.FixtureSetUp();
+            MockSessionData();
 
-            _controller = Substitute.ForPartsOf<RunningBettypesBetListController>(
-                SessionService,
-                ProductService,
-                LangService,
-                BetListService,
-                BalanceUpDataAccess,
-                TicketHelper,
-                CacheRefAdapter,
-                BetListHTMLBuilder);
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            base.FixtureTearDown();
-
-            _controller = null;
+            AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [Test]
-        public void MixParlay_InvalidCurrency_ReturnNull()
+        public async Task MixParlay_InvalidCurrency_ReturnNull()
         {
-            // Arrange
-            var metaModel = SetUpForGetBetListResult(1, new Dictionary<int, string>());
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = SetUpForGetBetListResult(1, new Dictionary<int, string>());
 
-            // Action
-            var result = _controller.MixParlay(metaModel);
+                // Action
+                var result = await controller.MixParlay(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [Test]
-        public void DoubleChange_InvalidCurrency_ReturnNull()
+        public async Task DoubleChange_InvalidCurrency_ReturnNull()
         {
-            // Arrange
-            var metaModel = SetUpForGetBetListResult(2, new Dictionary<int, string>());
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = SetUpForGetBetListResult(2, new Dictionary<int, string>());
 
-            // Action
-            var result = _controller.DoubleChange(metaModel);
+                // Action
+                var result = await controller.DoubleChange(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [Test]
-        public void BONTeamToScore_InvalidCurrency_ReturnNull()
+        public async Task BONTeamToScore_InvalidCurrency_ReturnNull()
         {
-            // Arrange
-            var metaModel = SetUpForGetBetListResult(3, new Dictionary<int, string>());
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = SetUpForGetBetListResult(3, new Dictionary<int, string>());
 
-            // Action
-            var result = _controller.BONTeamToScore(metaModel);
+                // Action
+                var result = await controller.BONTeamToScore(metaModel);
 
-            // Assert
-            Assert.That(result, Is.Null);
+                // Assert
+                Assert.That(result, Is.Null);
+            }
         }
 
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void MixParlay_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
+        public async Task MixParlay_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
         {
-            // Arrange
-            var metaModel = SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } });
-
-            // Action
-            _controller.MixParlay(metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                _controller.Received().GetBetListResult(metaModel, UspKey);
-                Assert.That(metaModel.MultipleBettype, Is.EqualTo(((int)BetType.CombinationMixParlay).ToString()));
-            });
+                // Arrange
+                var metaModel = SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } });
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, ApiPath, expect);
+
+                // Action
+                var actual = await controller.MixParlay(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
+                    Assert.That(metaModel.MultipleBettype, Is.EqualTo(((int)BetType.CombinationMixParlay).ToString()));
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                });
+            }
         }
 
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void DoubleChange_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
+        public async Task DoubleChange_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
         {
-            // Arrange
-            var metaModel = SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } });
-
-            // Action
-            _controller.DoubleChange(metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                _controller.Received().GetBetListResult(metaModel, UspKey);
-                Assert.That(metaModel.MultipleBettype, Is.EqualTo("24,151,186,431,410"));
-            });
+                // Arrange
+                var metaModel = SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } });
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, ApiPath, expect);
+
+                // Action
+                var actual = await controller.DoubleChange(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
+                    Assert.That(metaModel.MultipleBettype, Is.EqualTo(DoubleChangeBettypes));
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                });
+            }
         }
 
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void BONTeamToScore_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
+        public async Task BONTeamToScore_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
         {
-            // Arrange
-            var metaModel = SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } });
-
-            // Action
-            _controller.BONTeamToScore(metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                _controller.Received().GetBetListResult(metaModel, UspKey);
-                Assert.That(metaModel.MultipleBettype, Is.EqualTo("26,145,146,433,170,188,427"));
-            });
+                // Arrange
+                var metaModel = SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } });
+
+                var expect = new HttpResponseMessage();
+                StubBetListApiPostAsync(metaModel, ApiPath, expect);
+
+                // Action
+                var actual = await controller.BONTeamToScore(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(expect, Is.EqualTo(actual));
+                    Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
+                    Assert.That(metaModel.MultipleBettype, Is.EqualTo(BONTeamToScoreBettypes));
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                });
+            }
         }
 
         private BetListMetaModel SetUpForGetBetListResult(int currencyId, Dictionary<int, string> sessionCurrencyList)
@@ -138,11 +161,19 @@
             var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
             StubUserSessionData(new UserSession { CurrencyList = sessionCurrencyList });
-            SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
-
-            _controller.When(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();
 
             return metaModel;
+        }
+
+        private RunningBettypesBetListController CreateController()
+        {
+            return new RunningBettypesBetListController(
+                SessionService,
+                ProductService,
+                LangService,
+                AuthorizationService,
+                BetListApiClient,
+                BalanceUpDataAccess);
         }
     }
 }

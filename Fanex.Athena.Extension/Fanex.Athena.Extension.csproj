@@ -79,8 +79,8 @@
     <Reference Include="Microsoft.Web.Optimization">
       <HintPath>..\packages\Microsoft.Web.Optimization.0.1\lib\net40\Microsoft.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -151,11 +151,11 @@
     <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Utility\AntiForgeryService.cs" />
     <Compile Include="Utility\AppSettings.cs" />
+    <Compile Include="Utility\Interfaces\IWebClientService.cs" />
     <Compile Include="Utility\Internal\CustomMemoryCache.cs" />
     <Compile Include="Utility\IAntiForgeryService.cs" />
     <Compile Include="Utility\Internal\ICustomMemoryCache.cs" />
     <Compile Include="Utility\Interfaces\IMemoryCacheService.cs" />
-    <Compile Include="Utility\Interfaces\ITempFileService.cs" />
     <Compile Include="Utility\MemoryCacheService.cs" />
     <Compile Include="Utility\CookiesHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -168,7 +168,7 @@
     <Compile Include="Utility\Interfaces\IHttpContextService.cs" />
     <Compile Include="Utility\Interfaces\IFormsAuthenticationService.cs" />
     <Compile Include="Utility\Interfaces\IFileSystem.cs" />
-    <Compile Include="Utility\TempFileService.cs" />
+    <Compile Include="Utility\WebClientService.cs" />
     <Compile Include="Utility\XDocumentWrapper.cs" />
     <Compile Include="Utility\Interfaces\IXDocumentWrapper.cs" />
     <Compile Include="Utility\PropertyComparer.cs" />

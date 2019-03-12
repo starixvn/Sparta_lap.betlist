@@ -1,17 +1,13 @@
-﻿using System;
-using Fanex.BetList.Core.Entities;
-using Fanex.RemotingRef;
+﻿using Fanex.RemotingRef;
 
 namespace Fanex.Athena.VendorAdapter.Interfaces
 {
     public interface ICacheRefAdapter
     {
 #pragma warning disable CS3003 // Type is not CLS-compliant
-        ITicketHelper TicketHelper { get; }
-#pragma warning restore CS3003 // Type is not CLS-compliant
-#pragma warning disable CS3003 // Type is not CLS-compliant
         IRemotingRefService RemotingRefService { get; }
 #pragma warning restore CS3003 // Type is not CLS-compliant
+
         string GetBettype(object bettypeId);
 
         string GetBettype(int betType, bool liveIndicator);
@@ -27,7 +23,5 @@ namespace Fanex.Athena.VendorAdapter.Interfaces
         string GetSportName(object sportId, string languageCode = null);
 
         string GetTeamName(object teamId);
-
-        string GetOddsTypeName(object oddsTypeId);
     }
 }

@@ -6,20 +6,20 @@
 
 namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
+
     #region Using
 
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
-    using Service.BetList.Interfaces;
+    using Model.BetList.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
-    using VendorAdapter.Interfaces;
+    using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     #endregion Using
 
@@ -30,17 +30,15 @@ namespace Fanex.Athena.Api.BetList
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IAuthorizationService authorizationService,
+            IBetListApiClient betListApiClient,
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public async Task<dynamic> Index(BetListMetaModel metaModel)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
@@ -50,7 +48,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }
     }
 }

@@ -1,31 +1,22 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
-    #region Using
-
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Configuration.Interfaces;
-    using Excel.Base.Entities;
     using Excel.Base.Helpers;
-    using Excel.BetList;
     using Extension.Utility;
-    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Model.BetList.DTO;
+    using Model.BetList.MetaModel;
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
-    using Web.ResultExtension;
-
-    #endregion Using
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -39,8 +30,7 @@
         protected const int BetEffectiveColumn = 8;
         protected const int LicenseeWLColumn = 9;
 
-        protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
-            new ReadOnlyCollection<int>(new[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
+        protected static readonly int[] HiddenColumnIndexes = new[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -48,7 +38,7 @@
 
         private readonly IProductService _productService;
 
-        private readonly IBetListService _betListService;
+        private readonly IBetListApiClient _betListApiClient;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -57,16 +47,16 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
-            _betListService = betListService;
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
+            _betListApiClient = betListApiClient;
         }
 
         protected IDictionary<int, string> UserCurrencyList => SessionService.UserSession.CurrencyList;
@@ -81,9 +71,9 @@
             get { return _cacheRefAdapter; }
         }
 
-        protected IBetListService BetListService
+        protected IBetListApiClient BetListApiClient
         {
-            get { return _betListService; }
+            get { return _betListApiClient; }
         }
 
         protected static string GetTitleByTransType(string productTitle, long transType)
@@ -173,36 +163,20 @@
             var defaultMetaModel = metaModel ?? new BetListMetaModel();
             defaultMetaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             defaultMetaModel.UserId = SessionService.UserSession.UserId;
+            defaultMetaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
 
             var balanceUp = GetBalanceUp();
-            defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
-            defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
-            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Utc);
-            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Utc);
-            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Utc);
+            defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Unspecified);
 
             defaultMetaModel.IsFakeLicensee = IsFakeLicensee();
-            return defaultMetaModel;
-        }
+            defaultMetaModel.CurrencyList = UserCurrencyList;
+            defaultMetaModel.AgentListXml = SessionService.GenerateAgentListXml(defaultMetaModel.CurrencyId);
 
-        /// <summary>
-        /// Override the max JSON Length.
-        /// </summary>
-        /// <param name="data">The data object.</param>
-        /// <param name="contentType">The content type.</param>
-        /// <param name="contentEncoding">The encoding.</param>
-        /// <param name="behavior">The JSON request behavior.</param>
-        /// <returns>The JSON result.</returns>
-        protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
-        {
-            return new JsonResult
-            {
-                Data = data,
-                ContentType = contentType,
-                ContentEncoding = contentEncoding,
-                JsonRequestBehavior = behavior,
-                MaxJsonLength = int.MaxValue
-            };
+            return defaultMetaModel;
         }
 
         protected bool IsValidCurrency(int currencyId)
@@ -217,7 +191,7 @@
             return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        protected virtual ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected virtual ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
             return null;
         }
@@ -232,22 +206,15 @@
         }
 
         protected internal virtual ActionResult ProcessExportExcel(
-            ShowingOption showingOption,
-            BetListMetaModel metaModel,
-            TicketResult ticketResult,
-            IEnumerable<int> hiddenColumns,
-            string title,
+            BetListExcelMetaModel metaModel,
             string fileName,
-            int startIndex = 1)
+            string apiPath = null)
         {
-            var excel = new BetListExcel(showingOption, SessionService.LicenseeSession.LicenseeId, hiddenColumns, metaModel.IsShowSumStake);
-
-            var workbook = excel.Export(ticketResult, title, startIndex);
-
-            return new ExcelResult(workbook, fileName);
+            var stream = _betListApiClient.PostAsyncStream(apiPath ?? "/BetList/ExportExcel", metaModel).Result;
+            return File(stream, "application/vnd.ms-excel", fileName + ".xls");
         }
 
-        protected ActionResult ProcessDefaultRequest(BetListMetaModel model, string viewPath, string uspKey)
+        protected ActionResult ProcessDefaultRequest(BetListExcelMetaModel model, string viewPath, string uspKey)
         {
             if (!model.IsExportExcel)
             {
@@ -257,8 +224,8 @@
 
             if (IsValidExportExcel(model))
             {
-                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                return ExportExcel(model, uspKey);
+                model.UspKey = uspKey;
+                return ExportExcel(model);
             }
 
             return EmptyExcel();

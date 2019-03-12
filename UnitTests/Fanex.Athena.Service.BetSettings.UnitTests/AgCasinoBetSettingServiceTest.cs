@@ -7,6 +7,7 @@
     using Core.Utility.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Model.BetSettings.DTO;
     using Model.BetSettings.DTO.AgCasino;
     using Model.Core.DTO.Common;

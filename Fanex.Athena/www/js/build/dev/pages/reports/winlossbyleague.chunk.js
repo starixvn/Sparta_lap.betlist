@@ -587,6 +587,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 isCheckAll: isCheckAll,
                 checkAllText: Site.getSingleResource('All'),
                 selectedText: Site.getSingleResource('SelectedItemCount'),
+                noneSelectedText: Site.getSingleResource('SelectOptions'),
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {

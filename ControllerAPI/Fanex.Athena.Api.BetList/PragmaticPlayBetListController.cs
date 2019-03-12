@@ -1,14 +1,13 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
+    using System.Threading.Tasks;
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
-    using Service.BetList.Interfaces;
+    using Model.BetList.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter.Interfaces;
+    using Service.Core.Utility.Interfaces;
+    using Service.StatelessCore.Interfaces;
 
     public class PragmaticPlayBetListController : ApiBetListBaseController
     {
@@ -16,20 +15,18 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
-            IBetListService betListService,
-            IBalanceUpDataAccess balanceUpDataAccess,
-            ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter,
-            IBetListHTMLBuilder betlistHtmlBuilder)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+            IAuthorizationService authorizationService,
+            IBetListApiClient betListApiClient,
+            IBalanceUpDataAccess balanceUpDataAccess)
+        : base(sessionService, productService, languageService, authorizationService, betListApiClient, balanceUpDataAccess)
         {
         }
 
         [HttpPost]
-        public dynamic Detail(BetListMetaModel metaModel)
+        public async Task<dynamic> Detail(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_RNG_Detail";
-            return GetBetListResult(metaModel, UspKey);
+            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }
     }
 }

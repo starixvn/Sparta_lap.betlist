@@ -7,9 +7,6 @@
     {
         public TicketText OriginalTicketText { get; set; }
 
-        [System.CLSCompliant(false)]
-        public LrfTicket OriginalTicket { get; set; }
-
         public IEnumerable<CashOutTicket> CashOutTicketList { get; set; }
 
         public IEnumerable<CashOutTicketText> CashOutTicketTextList { get; set; }

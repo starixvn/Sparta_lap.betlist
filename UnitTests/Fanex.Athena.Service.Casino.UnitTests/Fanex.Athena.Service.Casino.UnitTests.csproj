@@ -124,7 +124,6 @@
     <Compile Include="CasinoSettingServiceTest.cs" />
     <Compile Include="CasinoCustomerServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RNGCasinoSingleWalletServiceTest.cs" />
     <Compile Include="Wrappers\ApiMethodOperationHandlerTest.cs" />
   </ItemGroup>
   <ItemGroup>

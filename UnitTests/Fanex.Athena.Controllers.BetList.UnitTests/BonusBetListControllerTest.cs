@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Entities;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -32,7 +30,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = new BetListMetaModel();
+                var metaModel = new BetListExcelMetaModel();
 
                 // Action
                 var result = controller.Detail(metaModel) as ViewResult;
@@ -50,41 +48,31 @@
             {
                 // Arrange
                 const string AgentListXml = "<xml/>";
-                var metaModel = new BetListMetaModel
+                var metaModel = new BetListExcelMetaModel
                 {
                     IsExportExcel = true,
                     FromDate = new DateTime(2018, 11, 11),
                     ToDate = new DateTime(2018, 12, 12)
                 };
 
-                var ticketResult = new TicketResult();
-                BetListService.GetBetListData(
-                    Arg.Any<BetListMetaModel>(), 
-                    Arg.Any<IDictionary<int, string>>(),
-                    "Lrf_BetList_LicenseeBonus_Detail")
-                .Returns(ticketResult);
-
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
                 controller.When(x => x.ProcessExportExcel(
-                    Arg.Any<ShowingOption>(),
-                    Arg.Any<BetListMetaModel>(),
-                    Arg.Any<TicketResult>(),
-                    Arg.Any<IEnumerable<int>>(),
+                    Arg.Any<BetListExcelMetaModel>(),
                     Arg.Any<string>(),
-                    Arg.Any<string>(),
-                    Arg.Any<int>())).DoNotCallBase();
+                    Arg.Any<string>())).DoNotCallBase();
 
                 // Action
                 controller.Detail(metaModel);
 
                 // Assert
                 controller.Received().ProcessExportExcel(
-                    Arg.Is<ShowingOption>(x => x.CustomerCommVisible && !x.GrandTotalVisible),
-                    Arg.Is<BetListMetaModel>(x => x.AgentListXml == AgentListXml),
-                    ticketResult,
-                    Arg.Is<IEnumerable<int>>(x => string.Join(",", x) == "1,2,8"),
-                    ViewResources.TransactionDetail,
-                    "BonusTransactionDetail");
+                    Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == metaModel.HasPlayerCom
+                        && !x.ShowingOption.GrandTotalVisible
+                        && x.Title == ViewResources.TransactionDetail
+                        && string.Join(",", x.HiddenColumns) == "1,2,8"
+                        && x.AgentListXml == AgentListXml),
+                    "BonusTransactionDetail",
+                    null);
             }
         }
 
@@ -95,9 +83,9 @@
                 SessionService,
                 AppSettings,
                 ProductService,
-                BetListService,
                 BalanceUpDataAccess,
-                CacheRefAdapter);
+                CacheRefAdapter,
+                BetListApiClient);
             return controller;
         }
     }

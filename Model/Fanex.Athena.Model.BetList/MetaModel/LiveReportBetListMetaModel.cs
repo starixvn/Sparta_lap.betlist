@@ -1,12 +1,6 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LiveReportBetListMetaModel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Model.BetList.MetaModel
+﻿namespace Fanex.Athena.Model.BetList.MetaModel
 {
-    public class LiveReportBetListMetaModel : BetListMetaModel
+    public class LiveReportBetListMetaModel : BetListExcelMetaModel
     {
         public int SportType { get; set; }
 

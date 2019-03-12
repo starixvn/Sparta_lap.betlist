@@ -1,4 +1,4 @@
-﻿// Generated at: 2/21/2019 1:37:26 PM
+﻿// Generated at: 3/6/2019 11:46:18 AM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -77,6 +77,7 @@ BettingTicketCenter:"注單中心",
 BettingTicketCenter_MultiCustomersTabNote1:"所有投注類別，聯賽和比賽過濾器僅支援1個選定日期",
 BettingTicketCenter_MultiCustomersTabNote2:"顯示從{0}開始的資料",
 BettingTicketCenter_RefnoTabNote1:"在體育的搜尋結果將包含相關的紅利與現金注單",
+BettingTicketCenter_RefnoTabNote2:"關於快樂彩以及彩票：請輸入用戶名，以便搜尋{0}之後的注單",
 BetType:"投注類別",
 BONTeamToScore:"雙方/一方/兩者皆不得分",
 Bonus:"紅利",
@@ -640,7 +641,7 @@ SelectedItemCount:"已選  # 個項目",
 SelectGroup:"選擇組",
 Selection:"選項",
 SelectLicenseeMsg:"請選擇一個被許可",
-SelectOptions:"Select options",
+SelectOptions:"選擇一個選項",
 SelectProduct:"選擇產品",
 SelectSite:"選擇網站",
 SelectTop:"選擇最大",

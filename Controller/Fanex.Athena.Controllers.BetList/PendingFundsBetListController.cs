@@ -12,13 +12,12 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.BetList.MetaModel;
     using Resources;
-    using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
@@ -35,20 +34,20 @@ namespace Fanex.Athena.Controllers.BetList
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListApiClient betListApiClient)
+        : base(languageService, sessionService, appSetting, productService, balanceUpDataAccess, cacheRefAdapter, betListApiClient)
         {
         }
 
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(BetListExcelMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            model.FromDate = DateTime.Today.AddYears(-10);
-            model.ToDate = DateTime.Today.AddYears(10);
-            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem");
+            CreateDefaultMetaModel(metaModel);
+            metaModel.FromDate = DateTime.Today.AddYears(-10);
+            metaModel.ToDate = DateTime.Today.AddYears(10);
+            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem");
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)
@@ -57,23 +56,21 @@ namespace Fanex.Athena.Controllers.BetList
             return model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId);
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
-
-            var showingOption = new ShowingOption
+            metaModel.ShowingOption = new BetListShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
-            var title = "Running " + ViewResources.BetList
+            metaModel.Title = "Running " + ViewResources.BetList
                 + string.Format(
                 " - {0}{1} - {2}",
                 metaModel.ExternalId,
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 GetViewInCurrency(metaModel));
-
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColList, title, "CustomerPendingFundsBetList");
+            metaModel.HiddenColumns = HiddenColList;
+            return ProcessExportExcel(metaModel, "CustomerPendingFundsBetList");
         }
     }
 }
