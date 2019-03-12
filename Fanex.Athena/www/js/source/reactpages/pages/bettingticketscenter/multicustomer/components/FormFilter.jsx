@@ -88,7 +88,7 @@ export class FormFilter extends Component {
             Username: this.props.username,
             CurrencyIdList: this.props.selectedCurrency,
             BaseCurrency: this.props.selectedBaseCurrency,
-            StatusList: this.props.selectedStatus,
+            Status: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
             SportId: this.props.selectedSport,
             BetTypeId: this.props.selectedBettype,
