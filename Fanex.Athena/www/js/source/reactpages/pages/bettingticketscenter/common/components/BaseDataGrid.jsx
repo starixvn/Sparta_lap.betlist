@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react'
 
-import { Table, Row, Cell } from '@jsroot/components/fixed-table-header'
+import { Table, Row, Cell } from '@9softstudio/react-grid'
 import ReportTitle from '@jsroot/components/ReportTitle'
 import Popup from '@jsroot/components/popup'
 import LangHelper from '@jsroot/lib/langHelper'
