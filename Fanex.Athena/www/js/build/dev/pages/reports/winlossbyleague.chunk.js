@@ -6256,7 +6256,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizeGrid: function () {
                 var reportGrid = $("#ReportGrid");
                 jqGridAdditional.updateGridHeight();
-                jqGridAdditional.updateGridWidth(reportGrid, _level == 0);
+                jqGridAdditional.updateGridWidth(reportGrid, _level === 0);
             },
 
             setReportTitle: function (level, minOdds, fromdate, todate) {
