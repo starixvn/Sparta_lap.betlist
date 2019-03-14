@@ -19,6 +19,10 @@ export class DataGrid extends BaseDataGrid {
         return ApiUrl.RUNNING_DATA_URL;
     }
 
+    get hasWinLossColumns(){
+        return false;
+    }
+
     _buildFooter() {
         const item = this.props.gridData.Total;
         const colSpan = 8;
@@ -51,8 +55,6 @@ export class DataGrid extends BaseDataGrid {
                 <HeaderCell colWidth={100} title={headerText.Stake} sortBy={'Stake'}>
                     {headerText.Stake}
                 </HeaderCell>
-                <HeaderCell colWidth={100} title={winlossText}>{winlossText}</HeaderCell>
-                <HeaderCell colWidth={100} title={licenseeWLText}>{licenseeWLText}</HeaderCell>
                 <HeaderCell colWidth={80} title={headerText.Status}>{headerText.Status}</HeaderCell>
                 <HeaderCell colWidth={80} title={headerText.Platform}>{headerText.Platform}</HeaderCell>
                 <HeaderCell colWidth={80} title={headerText.Live}>{headerText.Live}</HeaderCell>

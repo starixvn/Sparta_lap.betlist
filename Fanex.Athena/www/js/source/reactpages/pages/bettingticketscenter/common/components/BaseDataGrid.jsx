@@ -28,6 +28,11 @@ export default class BaseDataGrid extends Component {
     get dataUrl(){
         // This property should be override in child class.
     }
+    
+    get hasWinLossColumns(){
+        // This property may be override in child class.
+        return true;
+    }
 
     onPaging = (index, size) => {
         let param = this.props.requestParam;
@@ -67,8 +72,9 @@ export default class BaseDataGrid extends Component {
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Odds}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.OddsType}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Stake}}></Cell>
-                    <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.WinLoss}}></Cell>
-                    <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.LicenseeWL}}></Cell>
+
+    {this.hasWinLossColumns && <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.WinLoss}}></Cell>}
+    {this.hasWinLossColumns && <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.LicenseeWL}}></Cell>}
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Status}}></Cell>
                     <Cell className="center-align">{item.Platform}</Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Live}}></Cell>
@@ -100,13 +106,13 @@ export default class BaseDataGrid extends Component {
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-        }
+    }
 
         const { Data } = this.props.gridData;
         
         if (!Data.length) {
             return this._renderNodata();
-        }
+    }
 
         const param = this.props.requestParam;
         const pageOption = {
