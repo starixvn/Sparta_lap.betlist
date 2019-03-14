@@ -84,7 +84,7 @@
   "license": "vn",
   "dependencies": {
     "@9softstudio/react-breadcrumb": "^1.0.2",
-    "@9softstudio/react-grid": "^1.0.3",
+    "@9softstudio/react-grid": "^1.0.8",
     "@9softstudio/react-multiselect": "^1.0.10",
     "@9softstudio/react-simple-tab": "^1.0.0",
     "axios": "^0.16.2",
