@@ -35,7 +35,8 @@
                 ObjectDb.Received(1).SetParameterValue("LeagueId", metaModel.LeagueId);
                 ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-                ObjectDb.Received(1).SetParameterValue("StatusIdList", metaModel.StatusList);
+                ObjectDb.Received(1).SetParameterValue("StatusIdList", metaModel.Status);
+                ObjectDb.Received(1).SetParameterValue("Username", metaModel.UserName);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);

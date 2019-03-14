@@ -116,7 +116,8 @@
                 db.SetParameterValue("BetType", metaModel.BetTypeId);
                 db.SetParameterValue("LeagueId", metaModel.LeagueId);
                 db.SetParameterValue("MatchId", metaModel.MatchId);
-                db.SetParameterValue("StatusIdList", metaModel.StatusList);
+                db.SetParameterValue("StatusIdList", metaModel.Status);
+                db.SetParameterValue("Username", metaModel.UserName);
                 db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 db.SetParameterValue("Product", metaModel.ProductCodeList);
 
@@ -288,8 +289,9 @@
             db.SetParameterValue("LeagueId", metaModel.LeagueId);
             db.SetParameterValue("MatchId", metaModel.MatchId);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-            db.SetParameterValue("StatusIdList", metaModel.StatusList);
+            db.SetParameterValue("StatusIdList", metaModel.Status);
             db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
+            db.SetParameterValue("Username", metaModel.UserName);
             db.SetParameterValue("PageSize", metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
             db.SetParameterValue("PageIndex", metaModel.IsExport ? 1 : metaModel.PageIndex);
             db.SetParameterValue("Product", metaModel.ProductCodeList);

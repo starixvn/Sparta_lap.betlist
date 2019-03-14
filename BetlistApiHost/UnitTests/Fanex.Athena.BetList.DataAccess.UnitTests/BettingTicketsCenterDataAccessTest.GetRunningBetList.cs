@@ -30,7 +30,6 @@
             {
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
                 ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
-                ObjectDb.Received(1).SetParameterValue("CurrencyId", metaModel.CurrencyId);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 ObjectDb.Received(1).SetParameterValue("ProductList", productList);
                 ObjectDb.Received(1).SetParameterValue("showBA", showBA);
