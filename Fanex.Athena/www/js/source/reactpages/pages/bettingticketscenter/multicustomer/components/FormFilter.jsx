@@ -79,6 +79,7 @@ export class FormFilter extends Component {
         const { fromDate, toDate } = this.props.dateRange;
         const { PageSize, SortBy, SortOrder } = this.props.requestParam;
 
+        const isEnableLeagueMatch = this._isEnableLeagueMatch();
         return {
             PageSize: PageSize,
             PageIndex: 1,
@@ -92,8 +93,8 @@ export class FormFilter extends Component {
             LiveStatus: this.props.selectedLiveStatus,
             SportId: this.props.selectedSport,
             BetTypeId: this.props.selectedBettype,
-            LeagueId: this.props.selectedLeague,
-            MatchId: this.props.selectedMatch,
+            LeagueId: isEnableLeagueMatch ? this.props.selectedLeague : 0,
+            MatchId: isEnableLeagueMatch ? this.props.selectedMatch : 0,
             SortBy: SortBy,
             SortOrder: SortOrder
         }
