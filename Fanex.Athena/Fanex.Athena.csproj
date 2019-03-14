@@ -771,7 +771,6 @@
     <Content Include="Views\Desktop\Report\Notification\Notification.cshtml" />
     <Content Include="www\css\source\reactpages\pages\notification\index.scss" />
     <Content Include="www\css\source\reactpages\components\_collapsibleRow.scss" />
-    <Content Include="www\css\source\reactpages\components\_paging.scss" />
     <Content Include="www\css\source\reactpages\vendors\notification.scss" />
     <Content Include="Views\Desktop\Customer\BetSetting\Exchange.cshtml" />
     <Content Include="Views\Desktop\Report\ExchangeWinLoss\Main.cshtml" />
@@ -814,7 +813,6 @@
     <Content Include="www\css\build\dev\reactpages\bettingticketscenter\index.css.map" />
     <Content Include="www\js\source\reactpages\components\CheckBox.jsx" />
     <Content Include="Views\Desktop\BetList\BettingTicketCenter\SingleCustomer.cshtml" />
-    <Content Include="www\css\source\reactpages\components\_sortable-header.scss" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\multicustomer.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\refno.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\running.chunk.js.map" />
@@ -845,24 +843,12 @@
     <Content Include="www\js\build\dev\reactpages\report\casinoturnover.chunk.js.map" />
     <Content Include="www\js\source\reactpages\components\collapsible-panel\index.jsx" />
     <Content Include="www\js\source\reactpages\components\collapsible-panel\CollapsiblePanel.jsx" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Header.jsx" />
-    <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
-    <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
-    <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\Calendar.eventhandler.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\Calendar.render.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\DateRange.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\DayCell.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\defaultOptions.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\PredefinedRanges.test.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Cell.test.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Pager.test.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Row.test.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\RowLayout.test.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Table.test.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\tableSection.test.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\constants.js" />
     <Content Include="www\js\source\reactpages\components\popup\constants.js" />
     <Content Include="www\js\source\reactpages\components\radio\__tests__\RadioGroup.test.js" />
     <Content Include="www\js\source\reactpages\components\radio\__tests__\Radio.test.js" />
@@ -1086,7 +1072,7 @@
     <Content Include="www\css\source\reactpages\components\forms\_checkbox.scss" />
     <Content Include="www\css\source\reactpages\components\_button.scss" />
     <Content Include="www\css\source\reactpages\components\_fixed-table-header.scss" />
-    <Content Include="www\css\source\reactpages\components\_table.scss" />
+    <Content Include="www\css\source\reactpages\components\_paging.scss" />
     <None Include="www\css\source\reactpages\main.scss" />
     <Content Include="www\css\build\dev\reactpages\vendor.css" />
     <Content Include="www\css\build\pro\reactpages\vendor.css" />
@@ -2485,9 +2471,7 @@
     <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js.map" />
     <Content Include="www\css\source\reactpages\components\date-range\styles.scss" />
     <Content Include="www\css\source\reactpages\pages\subsidiaryperformance\index.scss" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\tableSection.js" />
     <Content Include="www\js\source\reactpages\components\Loader.jsx" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\index.jsx" />
     <Content Include="www\js\source\reactpages\components\NoDataTitle.jsx" />
     <Content Include="www\js\source\reactpages\components\ReportTitle.jsx" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\AppContainer.jsx" />
@@ -2500,7 +2484,6 @@
     <Content Include="www\js\source\reactpages\components\CollapsibleRow.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\index.jsx" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Pager.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\FormFilter.jsx" />
