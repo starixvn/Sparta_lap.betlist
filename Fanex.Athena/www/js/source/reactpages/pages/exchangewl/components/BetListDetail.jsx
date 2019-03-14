@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import NoDataTitle from '../../../components/NoDataTitle'
-import { Table, Row, Cell } from '../../../components/fixed-table-header'
+import { Table, HeaderRow, HeaderCell, Row, Cell } from '@9softstudio/react-grid'
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
 
@@ -17,13 +17,13 @@ export default class BetListDetail extends Component {
 
     _buildHeader() {
         return (
-            <Row style={{ height: 32 }}>
-                <Cell colWidth={100} header={true}>{LangHelper.getSingleResource("BetTaken")}</Cell>
-                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("OddsReq")}</Cell>
-                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("Stake")}</Cell>
-                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("Liability")}</Cell>
-                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("OddsMatched")}</Cell>
-            </Row>
+            <HeaderRow style={{ height: 32 }}>
+                <HeaderCell colWidth={100}>{LangHelper.getSingleResource("BetTaken")}</HeaderCell>
+                <HeaderCell colWidth={70}>{LangHelper.getSingleResource("OddsReq")}</HeaderCell>
+                <HeaderCell colWidth={70}>{LangHelper.getSingleResource("Stake")}</HeaderCell>
+                <HeaderCell colWidth={70}>{LangHelper.getSingleResource("Liability")}</HeaderCell>
+                <HeaderCell colWidth={70}>{LangHelper.getSingleResource("OddsMatched")}</HeaderCell>
+            </HeaderRow>
         )
     }
 

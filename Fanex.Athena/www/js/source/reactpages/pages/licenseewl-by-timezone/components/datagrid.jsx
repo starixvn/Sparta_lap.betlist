@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import { Table, Row, Cell } from '@jsroot/components/fixed-table-header'
+import { Table, HeaderRow, HeaderCell, Row, Cell } from '@9softstudio/react-grid'
 import LangHelper from '@jsroot/lib/langHelper'
 import NumberFormat from '@jsroot/lib/numberFormat'
 import ReportTitle from '@jsroot/components/ReportTitle'
@@ -36,21 +36,21 @@ export class DataGrid extends Component {
         const headerText = service.getHeaderText(this.selectedReportBy, this.groupBy);
 
         const reportByCell = this.selectedReportBy !== SettingConst.ReportBySummary &&
-                            <Cell colWidth={150} header={true} title={headerText.ReportBy}>{headerText.ReportBy}</Cell>
+                            <HeaderCell colWidth={150} title={headerText.ReportBy}>{headerText.ReportBy}</HeaderCell>
 
         return (
-            <Row style={{ height: 32 }}>
-                <Cell colWidth={50} header={true} title="#">{headerText.Index}</Cell>
+            <HeaderRow style={{ height: 32 }}>
+                <HeaderCell colWidth={50} title="#">{headerText.Index}</HeaderCell>
                 {reportByCell}
-                <Cell colWidth={150} header={true} title={headerText.GroupBy}>{headerText.GroupBy}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.BetCount}>{headerText.BetCount}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.Turnover}>{headerText.Turnover}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.CustomerComm}>{headerText.CustomerComm}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.LicenseeWL}>{headerText.LicenseeWL}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.LicenseeComm}>{headerText.LicenseeComm}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.LicenseeNetWL}>{headerText.LicenseeNetWL}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.Margin}>{headerText.Margin}</Cell>
-            </Row>
+                <HeaderCell colWidth={150} title={headerText.GroupBy}>{headerText.GroupBy}</HeaderCell>
+                <HeaderCell colWidth={150} title={headerText.BetCount}>{headerText.BetCount}</HeaderCell>
+                <HeaderCell colWidth={200} title={headerText.Turnover}>{headerText.Turnover}</HeaderCell>
+                <HeaderCell colWidth={200} title={headerText.CustomerComm}>{headerText.CustomerComm}</HeaderCell>
+                <HeaderCell colWidth={200} title={headerText.LicenseeWL}>{headerText.LicenseeWL}</HeaderCell>
+                <HeaderCell colWidth={200} title={headerText.LicenseeComm}>{headerText.LicenseeComm}</HeaderCell>
+                <HeaderCell colWidth={200} title={headerText.LicenseeNetWL}>{headerText.LicenseeNetWL}</HeaderCell>
+                <HeaderCell colWidth={200} title={headerText.Margin}>{headerText.Margin}</HeaderCell>
+            </HeaderRow>
         )
     }
 

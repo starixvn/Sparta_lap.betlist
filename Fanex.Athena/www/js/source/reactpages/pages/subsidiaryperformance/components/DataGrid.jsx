@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import { Table, Row, Cell } from '../../../components/fixed-table-header'
+import { Table, HeaderRow, HeaderCell, Row, Cell } from '@9softstudio/react-grid'
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
 import NoDataTitle from '../../../components/NoDataTitle'
@@ -57,17 +57,17 @@ export class DataGrid extends Component {
         const customerLevel = this.level === ReportLevel.CUSTOMER;
 
         return (
-            <Row style={{ height: 32 }}>
-                { customerLevel && <Cell colWidth={30} header={true} title={HeaderText.Index}>{HeaderText.Index}</Cell> }
-                <Cell colWidth={150} header={true} title={customerLevel ? HeaderText.ExternalId : HeaderText.Subsidiary}>{customerLevel ? HeaderText.ExternalId : HeaderText.Subsidiary}</Cell>
-                { customerLevel && <Cell colWidth={150} header={true} title={HeaderText.SystemId}>{HeaderText.SystemId}</Cell> }
-                <Cell colWidth={150} header={true} title={HeaderText.CurrencyName}>{HeaderText.CurrencyName}</Cell>
-                { !customerLevel && <Cell colWidth={200} header={true} title={HeaderText.Product}>{HeaderText.Product}</Cell> }
-                <Cell colWidth={150} header={true} title={HeaderText.BetCount}>{HeaderText.BetCount}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.Turnover}>{HeaderText.Turnover}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.CustomerWinLoss}>{HeaderText.CustomerWinLoss}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.SubsidiaryWinLoss}>{HeaderText.SubsidiaryWinLoss}</Cell>
-            </Row>
+            <HeaderRow style={{ height: 32 }}>
+                { customerLevel && <HeaderCell colWidth={30} title={HeaderText.Index}>{HeaderText.Index}</HeaderCell> }
+                <HeaderCell colWidth={150} title={customerLevel ? HeaderText.ExternalId : HeaderText.Subsidiary}>{customerLevel ? HeaderText.ExternalId : HeaderText.Subsidiary}</HeaderCell>
+                { customerLevel && <HeaderCell colWidth={150} title={HeaderText.SystemId}>{HeaderText.SystemId}</HeaderCell> }
+                <HeaderCell colWidth={150} title={HeaderText.CurrencyName}>{HeaderText.CurrencyName}</HeaderCell>
+                { !customerLevel && <HeaderCell colWidth={200} title={HeaderText.Product}>{HeaderText.Product}</HeaderCell> }
+                <HeaderCell colWidth={150} title={HeaderText.BetCount}>{HeaderText.BetCount}</HeaderCell>
+                <HeaderCell colWidth={200} title={HeaderText.Turnover}>{HeaderText.Turnover}</HeaderCell>
+                <HeaderCell colWidth={200} title={HeaderText.CustomerWinLoss}>{HeaderText.CustomerWinLoss}</HeaderCell>
+                <HeaderCell colWidth={200} title={HeaderText.SubsidiaryWinLoss}>{HeaderText.SubsidiaryWinLoss}</HeaderCell>
+            </HeaderRow>
         )
     }
 
