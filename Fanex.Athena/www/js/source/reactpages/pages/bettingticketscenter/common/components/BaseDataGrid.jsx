@@ -44,20 +44,6 @@ export default class BaseDataGrid extends Component {
         this.props.setRequestParam(param);
     }
 
-    _sort(sortBy){
-        let param = this.props.requestParam;
-
-        if (!param.SortBy || param.SortBy != sortBy) {
-            param.SortBy = sortBy;
-            param.SortOrder = 'asc';
-        }
-        else {
-            param.SortOrder = param.SortOrder == 'asc' ? 'desc' : 'asc';
-        }
-
-        this._getData(param);
-    }
-
     _buildHeader() {
         // This method should be override in child class.
         return [];
@@ -102,6 +88,15 @@ export default class BaseDataGrid extends Component {
         )
     }
 
+    onSort= (sortBy, sortOrder) =>{
+        let param = this.props.requestParam;
+
+        param.SortBy = sortBy;
+        param.SortOrder = sortOrder;
+        
+        this._getData(param);
+    }
+
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
@@ -125,6 +120,7 @@ export default class BaseDataGrid extends Component {
             <div className="betlist-container result-content">
                 <ReportTitle content={this.props.reportTitle} />
                 <Table
+                    onSort={this.onSort}
                     minWidth={960}
                     autoWidth={true}
                     bodyHeight={300}

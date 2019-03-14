@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { ActionCreators } from '../actions'
-import { Row, Header, Cell } from '@jsroot/components/fixed-table-header'
+import { HeaderRow, Row, HeaderCell, Cell } from '@9softstudio/react-grid'
 import LangHelper from '../../../../lib/langHelper'
 import BaseDataGrid from '../../common/components/BaseDataGrid'
 import Service from '../../common/lib/Service'
@@ -42,26 +42,26 @@ export class DataGrid extends BaseDataGrid {
         const { SortBy, SortOrder } = this.props.requestParam;
 
         return (
-            <Row style={{ height: 32 }}>
-                <Header colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Header>               
-                <Header colWidth={120} header={true} title={headerText.ExternalId}>{headerText.ExternalId}</Header>
-                <Header colWidth={120} header={true} title={headerText.SystemId}>{headerText.SystemId}</Header>
-                <Header colWidth={150} header={true} title={headerText.TransTime}>{headerText.TransTime}</Header>
-                <Header colWidth={400} header={true} title={headerText.Choice}>{headerText.Choice}</Header>
-                <Header colWidth={70} header={true} title={headerText.Odds}>{headerText.Odds}</Header>
-                <Header colWidth={100} header={true} title={headerText.Stake} sortable={true} sorting={SortBy=='Stake'} asc={SortOrder=='asc'} onClick={()=>this._sort('Stake')}>
+            <HeaderRow style={{ height: 32 }}>
+                <HeaderCell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</HeaderCell>               
+                <HeaderCell colWidth={120} header={true} title={headerText.ExternalId}>{headerText.ExternalId}</HeaderCell>
+                <HeaderCell colWidth={120} header={true} title={headerText.SystemId}>{headerText.SystemId}</HeaderCell>
+                <HeaderCell colWidth={150} header={true} title={headerText.TransTime}>{headerText.TransTime}</HeaderCell>
+                <HeaderCell colWidth={400} header={true} title={headerText.Choice}>{headerText.Choice}</HeaderCell>
+                <HeaderCell colWidth={70} header={true} title={headerText.Odds}>{headerText.Odds}</HeaderCell>
+                <HeaderCell colWidth={100} header={true} title={headerText.Stake} sortBy={'Stake'}>
                     {headerText.Stake}
-                </Header>
-                <Header colWidth={100} header={true} title={winlossText} sortable={true} sorting={SortBy=='WinLost'} asc={SortOrder=='asc'} onClick={()=>this._sort('WinLost')}>
+                </HeaderCell>
+                <HeaderCell colWidth={100} header={true} title={winlossText} sortBy={'WinLost'}>
                     {winlossText}
-                </Header>
-                <Header colWidth={100} header={true} title={licenseeWLText} sortable={true} sorting={SortBy=='LicenseeWL'} asc={SortOrder=='asc'} onClick={()=>this._sort('LicenseeWL')}>
+                </HeaderCell>
+                <HeaderCell colWidth={100} header={true} title={licenseeWLText} sortBy={'LicenseeWL'}>
                     {licenseeWLText}
-                </Header>
-                <Header colWidth={80} header={true} title={headerText.Status}>{headerText.Status}</Header>
-                <Header colWidth={80} header={true} title={headerText.Platform}>{headerText.Platform}</Header>
-                <Header colWidth={80} header={true} title={headerText.Live}>{headerText.Live}</Header>
-            </Row>
+                </HeaderCell>
+                <HeaderCell colWidth={80} header={true} title={headerText.Status}>{headerText.Status}</HeaderCell>
+                <HeaderCell colWidth={80} header={true} title={headerText.Platform}>{headerText.Platform}</HeaderCell>
+                <HeaderCell colWidth={80} header={true} title={headerText.Live}>{headerText.Live}</HeaderCell>
+            </HeaderRow>
         )
         }
   }
