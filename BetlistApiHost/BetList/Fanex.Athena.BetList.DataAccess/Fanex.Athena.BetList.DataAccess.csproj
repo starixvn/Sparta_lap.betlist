@@ -118,12 +118,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BettingTicketCenterMultiCustomerDataAccess.cs" />
     <Compile Include="BettingTicketCenterDataAccess.cs" />
     <Compile Include="BetListDataAccess.cs" />
     <Compile Include="CancelledBetListDataAccess.cs" />
     <Compile Include="CashOutBetListDataAccess.cs" />
     <Compile Include="DailyStatementBetListDataAccess.cs" />
     <Compile Include="ExchangeBetListDataAccess.cs" />
+    <Compile Include="Interfaces\IBettingTicketCenterMultiCustomerDataAccess.cs" />
     <Compile Include="Interfaces\IBettingTicketCenterDataAccess.cs" />
     <Compile Include="Interfaces\IDailyStatementBetListDataAccess.cs" />
     <Compile Include="Interfaces\ICashOutBetListDataAccess.cs" />

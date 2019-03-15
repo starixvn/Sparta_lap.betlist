@@ -6,7 +6,6 @@
     using Common.DataAccess.Interfaces;
     using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
-    using Common.Utility.Services.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -15,7 +14,6 @@
         private const string BetListByRefnoUspKey = "Lrf_BetList_RefNo_Mem";
         private const string RunningBetListUspKey = "Lrf_BetList_Running";
         private const string BetListBySingleCustomerUspKey = "Lrf_BetList_Mem";
-        private const string BetListByMultiCustomerUspKey = "Lrf_BetList_Licensee";
 
         private static readonly BalanceUp BalanceUp = new BalanceUp
         {
@@ -28,8 +26,7 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
             DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(
-                balanceUpDataAccess,
-                Substitute.For<ITempFileService>());
+                balanceUpDataAccess);
         }
 
         [Test]

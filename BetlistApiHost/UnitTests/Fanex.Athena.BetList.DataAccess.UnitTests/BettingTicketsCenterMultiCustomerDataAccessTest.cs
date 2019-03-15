@@ -1,13 +1,35 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
+    using System;
     using System.Collections;
     using Athena.BetList.Model.MetaModel;
+    using Common.DataAccess.Interfaces;
+    using Common.DataAccess.UnitTests;
+    using Common.Model.DTO;
+    using Common.Utility.Services.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
 
-    public partial class BettingTicketsCenterDataAccessTest
+    public class BettingTicketsCenterMultiCustomerDataAccessTest : BaseDataAccessHelperTest<BettingTicketCenterMultiCustomerDataAccess>
     {
+        private const string BetListByMultiCustomerUspKey = "Lrf_BetList_Licensee";
+
+        private static readonly BalanceUp BalanceUp = new BalanceUp
+        {
+            MoveBetsDay = new DateTime(2016, 1, 1),
+            BalanceUpDay = new DateTime(2016, 2, 1)
+        };
+
+        protected override void SetUpDataAccess()
+        {
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
+            DataAccess = Substitute.ForPartsOf<BettingTicketCenterMultiCustomerDataAccess>(
+                balanceUpDataAccess,
+                Substitute.For<ITempFileService>());
+        }
+
         [Test]
         public void GetBetListForMultipleCustomers_WhenCall_ParametersPassedCorrectly()
         {

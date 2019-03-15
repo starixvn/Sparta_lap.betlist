@@ -17,6 +17,8 @@ namespace Fanex.Athena.BetList.Service
     {
         private readonly IBettingTicketCenterDataAccess _dataAccess;
 
+        private readonly IBettingTicketCenterMultiCustomerDataAccess _multiCustomerDataAccess;
+
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
 
         private readonly ITicketHelper _ticketHelper;
@@ -25,11 +27,13 @@ namespace Fanex.Athena.BetList.Service
 
         public BettingTicketCenterService(
             IBettingTicketCenterDataAccess dataAccess,
+            IBettingTicketCenterMultiCustomerDataAccess multiCustomerDataAccess,
             IBetListHTMLBuilder betlistHtmlBuilder,
             ITicketHelper ticketHelper)
 #pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             _dataAccess = dataAccess;
+            _multiCustomerDataAccess = multiCustomerDataAccess;
             _betlistHtmlBuilder = betlistHtmlBuilder;
             _ticketHelper = ticketHelper;
         }
@@ -39,17 +43,17 @@ namespace Fanex.Athena.BetList.Service
             int rowPerGroup,
             IDictionary<int, string> currencyList)
         {
-            return _dataAccess.GetBetListForMultipleCustomers(metaModel, rowPerGroup, currencyList);
+            return _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, rowPerGroup, currencyList);
         }
 
         public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _dataAccess.GetBetListForMultipleCustomers(metaModel, currencyList);
+            return _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, currencyList);
         }
 
         public int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
-            return _dataAccess.GetTotalRowForMultipleCustomers(metaModel);
+            return _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel);
         }
 
         public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
