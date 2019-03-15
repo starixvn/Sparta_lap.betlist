@@ -1071,7 +1071,7 @@
     <Content Include="www\css\source\reactpages\components\custom3rd\_select.scss" />
     <Content Include="www\css\source\reactpages\components\forms\_checkbox.scss" />
     <Content Include="www\css\source\reactpages\components\_button.scss" />
-    <Content Include="www\css\source\reactpages\components\_fixed-table-header.scss" />
+    <Content Include="www\css\source\reactpages\components\_react-grid.scss" />
     <Content Include="www\css\source\reactpages\components\_paging.scss" />
     <None Include="www\css\source\reactpages\main.scss" />
     <Content Include="www\css\build\dev\reactpages\vendor.css" />
