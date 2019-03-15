@@ -89,6 +89,7 @@
     "@9softstudio/react-simple-tab": "^1.0.0",
     "axios": "^0.16.2",
     "classnames": "^2.2.5",
+    "jest-cli": "^24.5.0",
     "moment": "^2.19.3",
     "prop-types": "^15.5.10",
     "react": "^16.8.4",

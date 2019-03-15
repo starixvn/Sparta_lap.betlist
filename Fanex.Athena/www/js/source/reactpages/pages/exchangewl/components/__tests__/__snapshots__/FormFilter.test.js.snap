@@ -33,7 +33,6 @@ exports[`FormFilter  ExchangeWL FormFilter render whole component match to snaps
           specialDays={Array []}
           startDate="01/01/2017"
           theme={Object {}}
-          today={undefined}
           twoStepChange={false}
         />
       </div>

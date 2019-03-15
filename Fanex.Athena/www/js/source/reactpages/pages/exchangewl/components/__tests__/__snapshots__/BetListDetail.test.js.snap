@@ -82,7 +82,7 @@ exports[`BetListDetail  render  show grid when gridData is not empty - match sna
           Object {
             "maxHeight": undefined,
             "minWidth": undefined,
-            "width": 700,
+            "width": 670,
           }
         }
       >
@@ -93,7 +93,7 @@ exports[`BetListDetail  render  show grid when gridData is not empty - match sna
             className="table"
             style={
               Object {
-                "width": 681,
+                "width": 651,
               }
             }
           >
@@ -104,35 +104,35 @@ exports[`BetListDetail  render  show grid when gridData is not empty - match sna
                 <td
                   style={
                     Object {
-                      "width": "179.21052631578945px",
+                      "width": "171.31578947368422px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "125.44736842105263px",
+                      "width": "119.92105263157896px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "125.44736842105263px",
+                      "width": "119.92105263157896px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "125.44736842105263px",
+                      "width": "119.92105263157896px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "125.44736842105263px",
+                      "width": "119.92105263157896px",
                     }
                   }
                 />
@@ -170,7 +170,7 @@ exports[`BetListDetail  render  show grid when gridData is not empty - match sna
           Object {
             "maxHeight": 350,
             "minWidth": undefined,
-            "width": 700,
+            "width": 670,
           }
         }
       >
@@ -181,7 +181,7 @@ exports[`BetListDetail  render  show grid when gridData is not empty - match sna
             className="table"
             style={
               Object {
-                "width": 681,
+                "width": 651,
               }
             }
           >
@@ -192,35 +192,35 @@ exports[`BetListDetail  render  show grid when gridData is not empty - match sna
                 <td
                   style={
                     Object {
-                      "width": "179.21052631578945px",
+                      "width": "171.31578947368422px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "125.44736842105263px",
+                      "width": "119.92105263157896px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "125.44736842105263px",
+                      "width": "119.92105263157896px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "125.44736842105263px",
+                      "width": "119.92105263157896px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "125.44736842105263px",
+                      "width": "119.92105263157896px",
                     }
                   }
                 />

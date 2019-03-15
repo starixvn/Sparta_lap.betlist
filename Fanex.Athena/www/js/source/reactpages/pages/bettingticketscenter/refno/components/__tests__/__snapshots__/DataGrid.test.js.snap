@@ -8,138 +8,132 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
     }
   }
 >
-  <Cell
-    asc={true}
+  <t
     colWidth={40}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="#"
   >
     #
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={120}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="ExternalId"
   >
     ExternalId
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={120}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="SystemId"
   >
     SystemId
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={150}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
+    title="TransTime"
+  >
+    RefNo
+  </t>
+  <t
+    colWidth={150}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="TransTime"
   >
     TransTime
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={400}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Choice"
   >
     Choice
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={70}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Odds"
   >
     Odds
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
+    colWidth={70}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
+    title="Odds"
+  >
+    OddsType
+  </t>
+  <t
     colWidth={100}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Stake"
   >
     Stake
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={100}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="WinLoss"
   >
     WinLoss
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={100}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="LicenseeWL/Comm"
   >
     LicenseeWL/Comm
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={80}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Status"
   >
     Status
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={80}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Platform"
   >
     Platform
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={80}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Live"
   >
     Live
-  </Cell>
+  </t>
 </tr>
 `;
 
@@ -151,137 +145,131 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
     }
   }
 >
-  <Cell
-    asc={true}
+  <t
     colWidth={40}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="#"
   >
     #
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={120}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="ExternalId"
   >
     ExternalId
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={120}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="SystemId"
   >
     SystemId
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={150}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
+    title="TransTime"
+  >
+    RefNo
+  </t>
+  <t
+    colWidth={150}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="TransTime"
   >
     TransTime
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={400}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Choice"
   >
     Choice
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={70}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Odds"
   >
     Odds
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
+    colWidth={70}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
+    title="Odds"
+  >
+    OddsType
+  </t>
+  <t
     colWidth={100}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Stake"
   >
     Stake
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={100}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="WinLoss/Comm"
   >
     WinLoss/Comm
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={100}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="LicenseeWL/Comm"
   >
     LicenseeWL/Comm
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={80}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Status"
   >
     Status
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={80}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Platform"
   >
     Platform
-  </Cell>
-  <Cell
-    asc={true}
+  </t>
+  <t
     colWidth={80}
-    header={true}
-    onClick={[Function]}
-    sortable={false}
-    sorting={false}
+    onSort={[Function]}
+    sortBy={null}
+    sortOrder={null}
     title="Live"
   >
     Live
-  </Cell>
+  </t>
 </tr>
 `;

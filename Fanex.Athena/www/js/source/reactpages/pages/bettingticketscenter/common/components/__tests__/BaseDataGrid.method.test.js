@@ -1,12 +1,12 @@
-﻿import React from 'react';
-import axios from 'axios'
-
-import BaseDataGrid from '../BaseDataGrid';
+﻿import BaseDataGrid from '../BaseDataGrid';
 
 const DefaultProps = { 
     requestParam: {},
     setRequestParam: jest.fn()
 };
+const SortBy = "stake";
+const SortOrder = "asc";
+
 describe('BaseDataGrid methods ', () => {
     it('componentDidMount - call setRequestParam action with PageSize: 50', () => { 
         const dataGrid = new BaseDataGrid(DefaultProps);
@@ -43,47 +43,43 @@ describe('BaseDataGrid methods ', () => {
         expect(props.setRequestParam).toHaveBeenCalledWith(param);
     });
 
-    it('_sort(sortBy) - grid was NOT sorted: call _getData() with correct param', () => { 
-        const SortBy = "stake";
+    it('onSort(sortBy, sortOrder) - grid was NOT sorted: call _getData() with correct param', () => { 
         const props = { requestParam: {} };
         const dataGrid = new BaseDataGrid(props);
         dataGrid._getData = jest.fn();
 
-        dataGrid._sort(SortBy);
+        dataGrid.onSort(SortBy, SortOrder);
 
-        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: 'asc'});
+        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: SortOrder});
     });
 
-    it('_sort(sortBy) - grid was sorted: call _getData() with correct param', () => { 
-        const SortBy = "stake";
-        const props = { requestParam: { SortBy: 'stake', SortOrder: 'asc' } };
+    it('onSort(sortBy, sortOrder) - grid was sorted: call _getData() with correct param', () => { 
+        const props = { requestParam: { } };
         const dataGrid = new BaseDataGrid(props);
         dataGrid._getData = jest.fn();
 
-        dataGrid._sort(SortBy);
+        dataGrid.onSort(SortBy, SortOrder);
 
-        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: 'desc'});
+        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: SortOrder});
     });
 
-    it('_sort(sortBy) - grid was sorted: call _getData() with correct param', () => { 
-        const SortBy = "stake";
-        const props = { requestParam: { SortBy: 'stake', SortOrder: 'desc' } };
+    it('onSort(sortBy, sortOrder) - grid was sorted: call _getData() with correct param', () => { 
+        const props = { requestParam: { } };
         const dataGrid = new BaseDataGrid(props);
         dataGrid._getData = jest.fn();
 
-        dataGrid._sort(SortBy);
+        dataGrid.onSort(SortBy, SortOrder);
 
-        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: 'asc'});
+        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: SortOrder});
     });
 
-    it('_sort(sortBy) - grid was sorted: call _getData() with correct param', () => { 
-        const SortBy = "winloss";
-        const props = { requestParam: { SortBy: 'stake', SortOrder: 'desc' } };
+    it('onSort(sortBy, sortOrder) - grid was sorted: call _getData() with correct param', () => { 
+        const props = { requestParam: { } };
         const dataGrid = new BaseDataGrid(props);
         dataGrid._getData = jest.fn();
 
-        dataGrid._sort(SortBy);
+        dataGrid.onSort(SortBy, SortOrder);
 
-        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: 'asc'});
+        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: SortOrder});
     });
 });

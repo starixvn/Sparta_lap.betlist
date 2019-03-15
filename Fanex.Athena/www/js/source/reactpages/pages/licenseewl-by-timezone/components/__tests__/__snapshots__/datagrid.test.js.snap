@@ -501,30 +501,14 @@ exports[`DataGrid Data is not empty _buildHeader - ReportBySummary - render corr
   <th
     title="#"
   />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
+  <th />
+  <th />
+  <th />
+  <th />
+  <th />
+  <th />
+  <th />
+  <th />
 </tr>
 `;
 
@@ -539,33 +523,15 @@ exports[`DataGrid Data is not empty _buildHeader - render correct header content
   <th
     title="#"
   />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
-  <th
-    title={undefined}
-  />
+  <th />
+  <th />
+  <th />
+  <th />
+  <th />
+  <th />
+  <th />
+  <th />
+  <th />
 </tr>
 `;
 
@@ -697,33 +663,15 @@ exports[`DataGrid Data is not empty grid data should be rendered correctly 1`] =
                 <th
                   title="#"
                 />
-                <th
-                  title={undefined}
-                />
-                <th
-                  title={undefined}
-                />
-                <th
-                  title={undefined}
-                />
-                <th
-                  title={undefined}
-                />
-                <th
-                  title={undefined}
-                />
-                <th
-                  title={undefined}
-                />
-                <th
-                  title={undefined}
-                />
-                <th
-                  title={undefined}
-                />
-                <th
-                  title={undefined}
-                />
+                <th />
+                <th />
+                <th />
+                <th />
+                <th />
+                <th />
+                <th />
+                <th />
+                <th />
               </tr>
             </thead>
           </table>

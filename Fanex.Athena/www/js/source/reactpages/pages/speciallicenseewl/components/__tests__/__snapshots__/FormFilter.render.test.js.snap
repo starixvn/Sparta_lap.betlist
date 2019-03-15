@@ -85,7 +85,6 @@ exports[`FormFilter  render() - match with snapshot 1`] = `
           onSelectResetsInput={true}
           openOnClick={true}
           optionComponent={[Function]}
-          options={undefined}
           pageSize={5}
           placeholder="Select..."
           removeSelected={true}
@@ -302,7 +301,6 @@ exports[`FormFilter  render() - productOptions is empty - no render dropdown for
           onSelectResetsInput={true}
           openOnClick={true}
           optionComponent={[Function]}
-          options={undefined}
           pageSize={5}
           placeholder="Select..."
           removeSelected={true}

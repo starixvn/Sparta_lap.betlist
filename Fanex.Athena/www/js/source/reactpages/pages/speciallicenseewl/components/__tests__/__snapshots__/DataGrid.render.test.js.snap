@@ -46,63 +46,63 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
               <td
                 style={
                   Object {
-                    "width": "-1.7132867132867133px",
+                    "width": "-1.715686274509804px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.13986013986014px",
+                    "width": "-5.147058823529412px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.4265734265734267px",
+                    "width": "-3.431372549019608px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.794117647058824px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-4.454545454545455px",
+                    "width": "-4.46078431372549px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
@@ -120,63 +120,263 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 #
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Date
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Date
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Currency
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Currency
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 colSpan={1}
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Turnover
-                <button
-                  className="header-button btn "
-                  onClick={[Function]}
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
                 >
-                  <i
-                    className="btn-icon icon-arrow"
+                  Turnover
+                  <button
+                    className="header-button btn "
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="btn-icon icon-arrow"
+                    />
+                  </button>
+                </div>
+                <span
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
                   />
-                </button>
-                <span
-                  className=""
-                />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                TotalTransaction
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  TotalTransaction
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                CustomerW_L
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  CustomerW_L
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
                 colSpan={3}
@@ -201,31 +401,151 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
               }
             >
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                ProductSB
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  ProductSB
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                ProductNG
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  ProductNG
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Total
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Total
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
             </tr>
           </thead>
@@ -260,63 +580,63 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
               <td
                 style={
                   Object {
-                    "width": "-1.7132867132867133px",
+                    "width": "-1.715686274509804px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.13986013986014px",
+                    "width": "-5.147058823529412px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.4265734265734267px",
+                    "width": "-3.431372549019608px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.794117647058824px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-4.454545454545455px",
+                    "width": "-4.46078431372549px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
@@ -465,63 +785,63 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
               <td
                 style={
                   Object {
-                    "width": "-1.7132867132867133px",
+                    "width": "-1.715686274509804px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.13986013986014px",
+                    "width": "-5.147058823529412px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.4265734265734267px",
+                    "width": "-3.431372549019608px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.794117647058824px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-4.454545454545455px",
+                    "width": "-4.46078431372549px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
@@ -719,63 +1039,63 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
               <td
                 style={
                   Object {
-                    "width": "-1.7132867132867133px",
+                    "width": "-1.715686274509804px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.13986013986014px",
+                    "width": "-5.147058823529412px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.4265734265734267px",
+                    "width": "-3.431372549019608px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-4.454545454545455px",
+                    "width": "-4.46078431372549px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.794117647058824px",
                   }
                 }
               />
@@ -793,24 +1113,104 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 #
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Date
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Date
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Currency
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Currency
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
                 colSpan={3}
@@ -827,43 +1227,163 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 </button>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                TotalTransaction
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  TotalTransaction
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                CustomerW_L
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  CustomerW_L
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 colSpan={1}
                 onClick={[Function]}
                 rowSpan={2}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                LicenseeW_L
-                <button
-                  className="header-button btn "
-                  onClick={[Function]}
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
                 >
-                  <i
-                    className="btn-icon icon-arrow"
-                  />
-                </button>
+                  LicenseeW_L
+                  <button
+                    className="header-button btn "
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="btn-icon icon-arrow"
+                    />
+                  </button>
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
             </tr>
             <tr
@@ -874,31 +1394,151 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
               }
             >
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                ProductSB
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  ProductSB
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                ProductNG
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  ProductNG
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Total
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Total
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
             </tr>
           </thead>
@@ -933,63 +1573,63 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
               <td
                 style={
                   Object {
-                    "width": "-1.7132867132867133px",
+                    "width": "-1.715686274509804px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.13986013986014px",
+                    "width": "-5.147058823529412px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.4265734265734267px",
+                    "width": "-3.431372549019608px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-4.454545454545455px",
+                    "width": "-4.46078431372549px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.794117647058824px",
                   }
                 }
               />
@@ -1138,63 +1778,63 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
               <td
                 style={
                   Object {
-                    "width": "-1.7132867132867133px",
+                    "width": "-1.715686274509804px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.13986013986014px",
+                    "width": "-5.147058823529412px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.4265734265734267px",
+                    "width": "-3.431372549019608px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-4.454545454545455px",
+                    "width": "-4.46078431372549px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.862745098039216px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.853146853146853px",
+                    "width": "-6.794117647058824px",
                   }
                 }
               />
@@ -1452,64 +2092,304 @@ exports[`DataGrid   gridData length is greater than 0 - have 1 product only - re
                 #
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Date
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Date
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Currency
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Currency
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Turnover
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Turnover
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                TotalTransaction
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  TotalTransaction
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                CustomerW_L
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  CustomerW_L
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                LicenseeW_L
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  LicenseeW_L
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
             </tr>
           </thead>
@@ -1915,49 +2795,49 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
               <td
                 style={
                   Object {
-                    "width": "-2.378640776699029px",
+                    "width": "-2.387914230019493px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.135922330097087px",
+                    "width": "-7.163742690058479px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-4.757281553398058px",
+                    "width": "-4.775828460038986px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-9.514563106796116px",
+                    "width": "-9.456140350877192px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.184466019417475px",
+                    "width": "-6.208576998050682px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-9.514563106796116px",
+                    "width": "-9.551656920077972px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-9.514563106796116px",
+                    "width": "-9.456140350877192px",
                   }
                 }
               />
@@ -1975,82 +2855,322 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
                 #
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Date
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Date
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Currency
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  Currency
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 colSpan={1}
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                Turnover
-                <button
-                  className="header-button btn "
-                  onClick={[Function]}
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
                 >
-                  <i
-                    className="btn-icon icon-arrow"
+                  Turnover
+                  <button
+                    className="header-button btn "
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="btn-icon icon-arrow"
+                    />
+                  </button>
+                </div>
+                <span
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
                   />
-                </button>
-                <span
-                  className=""
-                />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                TotalTransaction
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  TotalTransaction
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                CustomerW_L
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                >
+                  CustomerW_L
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
               <th
-                className="sortable "
+                className="sortable sorting"
                 colSpan={1}
                 onClick={[Function]}
                 rowSpan={1}
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
               >
-                LicenseeW_L
-                <button
-                  className="header-button btn "
-                  onClick={[Function]}
+                <div
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
                 >
-                  <i
-                    className="btn-icon icon-arrow"
-                  />
-                </button>
+                  LicenseeW_L
+                  <button
+                    className="header-button btn "
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="btn-icon icon-arrow"
+                    />
+                  </button>
+                </div>
                 <span
-                  className=""
-                />
+                  style={
+                    Object {
+                      "float": "right",
+                      "position": "absolute",
+                      "right": "2px",
+                      "top": "40%",
+                    }
+                  }
+                >
+                  <div
+                    className="asc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                      }
+                    }
+                  />
+                  <div
+                    className="desc"
+                    style={
+                      Object {
+                        "color": "#777",
+                        "display": "block",
+                        "marginTop": "2px",
+                      }
+                    }
+                  />
+                </span>
               </th>
             </tr>
           </thead>
@@ -2085,49 +3205,49 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
               <td
                 style={
                   Object {
-                    "width": "-2.378640776699029px",
+                    "width": "-2.387914230019493px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.135922330097087px",
+                    "width": "-7.163742690058479px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-4.757281553398058px",
+                    "width": "-4.775828460038986px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-9.514563106796116px",
+                    "width": "-9.456140350877192px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.184466019417475px",
+                    "width": "-6.208576998050682px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-9.514563106796116px",
+                    "width": "-9.551656920077972px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-9.514563106796116px",
+                    "width": "-9.456140350877192px",
                   }
                 }
               />
@@ -2252,49 +3372,49 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
               <td
                 style={
                   Object {
-                    "width": "-2.378640776699029px",
+                    "width": "-2.387914230019493px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.135922330097087px",
+                    "width": "-7.163742690058479px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-4.757281553398058px",
+                    "width": "-4.775828460038986px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-9.514563106796116px",
+                    "width": "-9.456140350877192px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.184466019417475px",
+                    "width": "-6.208576998050682px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-9.514563106796116px",
+                    "width": "-9.551656920077972px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-9.514563106796116px",
+                    "width": "-9.456140350877192px",
                   }
                 }
               />

@@ -426,7 +426,6 @@ exports[`DataGrid  Data is not empty Level CUSTOMER render correct content 1`] =
               <td
                 className="center-align"
                 colSpan="1"
-                title={undefined}
               />
               <td
                 className="right-align"
@@ -459,7 +458,6 @@ exports[`DataGrid  Data is not empty Level CUSTOMER render correct content 1`] =
               <td
                 className="center-align"
                 colSpan="1"
-                title={undefined}
               />
               <td
                 className="right-align"

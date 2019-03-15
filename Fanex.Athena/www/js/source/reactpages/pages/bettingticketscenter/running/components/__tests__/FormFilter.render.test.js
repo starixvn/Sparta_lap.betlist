@@ -12,13 +12,17 @@ import AutoComplete from '@jsroot/components/auto-complete';
 
 jest.mock('@jsroot/lib/AppData');
 
+const CurrencyId = 111;
+const CurrencyName = "ABC";
+
 describe('FormFilter ', () => {
     beforeAll(() => {
         LangHelper.getSingleResource = jest.fn((resource) => resource);
         Object.assign(AppData, 
             { 
                 productOptions: ["SB", "BA"],
-                baseCurrencyList: ['EUR']
+                baseCurrencyList: ['EUR'],
+                currencyList: [{Id: CurrencyId, Value: CurrencyName}]
             });
     });
 
@@ -31,8 +35,8 @@ describe('FormFilter ', () => {
             expect(filter.isValidModel).toBe(false);
         });
 
-        it('selectedProduct is not empty - return true' ,() => {
-            const props = { selectedProduct: '123' };
+        it('selectedProduct, selectedStatus are not empty - return true' ,() => {
+            const props = { selectedProduct: '123', selectedStatus: '1' };
 
             const filter = new FormFilter(props);
 
@@ -130,6 +134,7 @@ describe('FormFilter ', () => {
         it('model is valid - return correct result' ,() => {
             const props = {
                 selectedProduct: "BA,SB",
+                selectedStatus: '1',
                 selectedCurrency: {value: 1, label: "abc"},
                 requestParam: {
                     PageSize: 1,
@@ -145,9 +150,9 @@ describe('FormFilter ', () => {
                 PageSize: props.requestParam.PageSize,
                 PageIndex: 1,
                 Username: props.username,
-                CurrencyId: props.selectedCurrency.value,
-                CurrencyName: props.selectedCurrency.label,
+                CurrencyIdList: props.selectedCurrency,
                 BaseCurrency: props.selectedBaseCurrency,
+                Status: '1',
                 SortBy: props.requestParam.SortBy,
                 SortOrder: props.requestParam.SortOrder
             }
@@ -220,15 +225,15 @@ describe('FormFilter ', () => {
 
             const filter = new FormFilter(props);
             const component = renderer.create(filter.render());
-            const currency = { value : 0, label: 'All'};
+            const currencyIdList = CurrencyId + ",222";
 
-            filter.onChangeCurrency(currency);
+            filter._onChangeCurrency(currencyIdList);
 
-            expect(props.setSelectedCurrency).toHaveBeenCalledWith(currency);
+            expect(props.setSelectedCurrency).toHaveBeenCalledWith(currencyIdList);
             expect(props.setSelectedBaseCurrency).toHaveBeenCalledWith('EUR');
         });
 
-        it('onChangeCurrency - select item "XXX" - update currency and base currency' ,() => {
+        it('_onChangeCurrency - select item "ABC" - update currency and base currency' ,() => {
             const props = { 
                 selectedCurrency: {},
                 selectedBaseCurrency: 'EUR', 
@@ -237,12 +242,11 @@ describe('FormFilter ', () => {
 
             const filter = new FormFilter(props);
             const component = renderer.create(filter.render());
-            const currency = { value : 1, label: 'XXX'};
+            const currencyIdList = CurrencyId.toString();
+            filter._onChangeCurrency(currencyIdList);
 
-            filter.onChangeCurrency(currency);
-
-            expect(props.setSelectedCurrency).toHaveBeenCalledWith(currency);
-            expect(props.setSelectedBaseCurrency).toHaveBeenCalledWith('XXX');
+            expect(props.setSelectedCurrency).toHaveBeenCalledWith(currencyIdList);
+            expect(props.setSelectedBaseCurrency).toHaveBeenCalledWith(CurrencyName);
         });
 
         it('onClick submit button - call submit method' ,() => {
