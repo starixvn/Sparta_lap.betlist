@@ -104,7 +104,7 @@
                     expect(CustomerWinLoss.submit).not.toHaveBeenCalled();
                 });
 
-                describe("Export excel", function () {
+                describe("export report", function () {
                     var ajaxOption;
 
                     beforeEach(function () {
@@ -117,21 +117,24 @@
                         });
                     });
 
-                    it("ExcelHelper.exportExcel should not be called if ExportToExcel button is clicked with no product selected", function () {
+                    it("CustomerWinLoss.exportExcel should not be called if ExportToExcel button is clicked with no product selected", function () {
                         setFixtures('<div id="ExportToExcel"></div>');
                         spyOn(Report, "ValidProducts").and.returnValues(false);
-                        spyOn(ExcelHelper, "exportExcel");
 
                         CustomerWinLoss.initEvent();
                         $('#ExportToExcel').click();
 
-                        expect(ExcelHelper.exportExcel).not.toHaveBeenCalled();
+                        expect(Downloader.download).not.toHaveBeenCalled();
                     });
 
                     it("#ExportToExcel click - ajax settings should be correct", function () {
                         setFixtures('<div id="ExportToExcel"></div>');
                         spyOn(Report, "ValidProducts").and.returnValues(true);
-                        var postData = { PageIndex: 1, PageSize: 500, OrderItem: 2, IsAscSort: true, Username: '', isExportExcel: true };
+
+                        var postData = { PageSize: 500, OrderItem: 2, IsAscSort: true, Username: '' };
+                        spyOn($.fn, "serializeObject").and.returnValue(postData);
+
+                        var expectedPostData = { PageSize: 500, OrderItem: 2, IsAscSort: true, Username: '', PageIndex: 1, isExportExcel: true };
 
                         CustomerWinLoss.initEvent();
                         $('#ExportToExcel').click();
@@ -140,12 +143,15 @@
                         expect(ajaxOption.dataType).toBe("binary");
                         expect(ajaxOption.responseType).toBe("blob");
                         expect(ajaxOption.url).toBe(CustomerWinLossOption.urlExcelData);
-                        expect(ajaxOption.data).toEqual(postData);
+                        expect(ajaxOption.data).toEqual(expectedPostData);
                     });
 
                     it("#ExportToExcel click - beforeSend - Toast.show should be called", function () {
                         setFixtures('<div id="ExportToExcel"></div>');
                         spyOn(Report, "ValidProducts").and.returnValues(true);
+
+                        var postData = { PageSize: 500, OrderItem: 2, IsAscSort: true, Username: '' };
+                        spyOn($.fn, "serializeObject").and.returnValue(postData);
 
                         CustomerWinLoss.initEvent();
                         $('#ExportToExcel').click();
@@ -157,14 +163,75 @@
                         setFixtures('<div id="ExportToExcel"></div>');
                         spyOn(Report, "ValidProducts").and.returnValues(true);
 
+                        var postData = { PageSize: 500, OrderItem: 2, IsAscSort: true, Username: '' };
+                        spyOn($.fn, "serializeObject").and.returnValue(postData);
+
                         CustomerWinLoss.initEvent();
                         $('#ExportToExcel').click();
 
-                        var fileName = "CustomerWinLoss.xls";
                         var response = "Binary Data";
                         ajaxOption.success(response);
 
-                        expect(Downloader.download).toHaveBeenCalledWith(response, fileName);
+                        expect(Downloader.download).toHaveBeenCalledWith(response, "CustomerWinLoss.xls");
+                    });
+                });
+
+                describe("export PP-Promotion Prize data", function () {
+                    var ajaxOption;
+
+                    beforeEach(function () {
+                        spyOn(Downloader, "download");
+                        spyOn(Toast, "show");
+
+                        spyOn($, "ajax").and.callFake(function (option) {
+                            option.beforeSend();
+                            ajaxOption = option;
+                        });
+                    });
+
+                    it("#ExportPromotionPrizeLink click - ajax settings should be correct", function () {
+                        setFixtures('<div id="ExportPromotionPrizeLink"></div>');
+
+                        var postData = { FromDate: '01/01/2019', ToDate: '01/02/2019', CurrencyId: 0, CurrencyName: 'All', Username: '', IsExcludedTestData: true, __RequestVerificationToken: '123' };
+                        spyOn($.fn, "serializeObject").and.returnValue(postData);
+
+                        var expectedPostData = { FromDate: '01/01/2019', ToDate: '01/02/2019', CurrencyId: 0, CurrencyName: 'All', Username: '', IsExcludedTestData: true, __RequestVerificationToken: '123' };
+
+                        CustomerWinLoss.initEvent();
+                        $('#ExportPromotionPrizeLink').click();
+
+                        expect(ajaxOption.type).toBe("POST");
+                        expect(ajaxOption.dataType).toBe("binary");
+                        expect(ajaxOption.responseType).toBe("blob");
+                        expect(ajaxOption.url).toBe(CustomerWinLossOption.urlPromotionPrizeExcelData);
+                        expect(ajaxOption.data).toEqual(expectedPostData);
+                    });
+
+                    it("#ExportPromotionPrizeLink click - beforeSend - Toast.show should be called", function () {
+                        setFixtures('<div id="ExportPromotionPrizeLink"></div>');
+
+                        var postData = { PageSize: 500, OrderItem: 2, IsAscSort: true, Username: '' };
+                        spyOn($.fn, "serializeObject").and.returnValue(postData);
+
+                        CustomerWinLoss.initEvent();
+                        $('#ExportPromotionPrizeLink').click();
+
+                        expect(Toast.show).toHaveBeenCalled();
+                    });
+
+                    it("#ExportPromotionPrizeLink click - call success os ajax function - Downloader.download should be called with correct parameter", function () {
+                        setFixtures('<div id="ExportPromotionPrizeLink"></div>');
+
+                        var postData = { PageSize: 500, OrderItem: 2, IsAscSort: true, Username: '' };
+                        spyOn($.fn, "serializeObject").and.returnValue(postData);
+
+                        CustomerWinLoss.initEvent();
+                        $('#ExportPromotionPrizeLink').click();
+
+                        var response = "Binary Data";
+                        ajaxOption.success(response);
+
+                        expect(Downloader.download).toHaveBeenCalledWith(response, "PP_PromotionPrize.xls");
                     });
                 });
 
@@ -355,6 +422,14 @@
                     expect(CustomerWinLossOption.setGroupHeaderColumns).not.toHaveBeenCalled();
                 });
 
+                it("Promotion Prize link should be hide if response data is empty", function () {
+                    setFixtures('<div id="ExportPromotionPrizeLink"></div>');
+
+                    CustomerWinLoss.bindData({ TotalRows: 0 });
+
+                    expect($("#ExportPromotionPrizeLink").css("display")).toEqual("none");
+                });
+
                 it("grid should be rendered if response data is not empty", function () {
                     CustomerWinLoss.bindData({ TotalRows: 2000, Data: [1] });
 
@@ -372,6 +447,22 @@
                     CustomerWinLoss.bindData({ TotalRows: 2000, Data: [1] });
 
                     expect(PagingHelper.render).toHaveBeenCalled();
+                });
+
+                it("Promotion Prize link should be hide if no Promotion Prize ticket counted", function () {
+                    setFixtures('<div id="ExportPromotionPrizeLink"></div>');
+
+                    CustomerWinLoss.bindData({ TotalRows: 1, Data: [1], PromotionPrize: '' });
+
+                    expect($("#ExportPromotionPrizeLink").css("display")).toEqual("none");
+                });
+
+                it("Promotion Prize link should be shown if Promotion Prize ticket counted", function () {
+                    setFixtures('<div id="ExportPromotionPrizeLink" style="{display: none}"></div>');
+
+                    CustomerWinLoss.bindData({ TotalRows: 1, Data: [1], PromotionPrize: '1' });
+
+                    expect($("#ExportPromotionPrizeLink").css("display")).toEqual("block");
                 });
 
                 describe("gridOption.onSortCol(index)", function () {
