@@ -21,7 +21,7 @@ describe('FormFilter ', () => {
             { 
                 statusList: ["Win", "Lose", "Draw"],
                 platformList: ["Asia", "China", "US"],
-                liveStatusList: ["Live", "NonLive"],
+                liveStatusList: [{"Id":0,"Value":"Non-Live","Status":true}],
                 productOptions: ["SB", "BA"],
                 baseCurrencyList: ['EUR'],
                 dateConstraint: { minDate: '06/01/2012', maxDate: '07/27/2018', limitedMonthRange: 3 }
@@ -37,8 +37,8 @@ describe('FormFilter ', () => {
             expect(filter.isValidModel).toBe(false);
         });
 
-        it('selectedProduct and username are not empty - return true' ,() => {
-            const props = { selectedProduct: '123', username: 'test' };
+        it('required filter not empty - return true' ,() => {
+            const props = { username: 'abc', selectedProduct: '123', selectedStatus: 'test', selectedLiveStatus: '34' };
 
             const filter = new FormFilter(props);
 
@@ -267,7 +267,7 @@ describe('FormFilter ', () => {
             const formFilter = new FormFilter(props);
             
             const selectList = formFilter._renderLiveStatusSelectList();
-            selectList.props.onChange({value: "123"});
+            selectList.props.onChange(null, "123");
 
             expect(props.setSelectedLiveStatus).toHaveBeenCalledWith("123");
         });
