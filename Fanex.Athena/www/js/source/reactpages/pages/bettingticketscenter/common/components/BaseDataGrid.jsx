@@ -73,8 +73,8 @@ export default class BaseDataGrid extends Component {
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.OddsType}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Stake}}></Cell>
 
-    {this.hasWinLossColumns && <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.WinLoss}}></Cell>}
-    {this.hasWinLossColumns && <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.LicenseeWL}}></Cell>}
+                    {this.hasWinLossColumns && <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.WinLoss}}></Cell>}
+                    {this.hasWinLossColumns && <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.LicenseeWL}}></Cell>}
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Status}}></Cell>
                     <Cell className="center-align">{item.Platform}</Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Live}}></Cell>

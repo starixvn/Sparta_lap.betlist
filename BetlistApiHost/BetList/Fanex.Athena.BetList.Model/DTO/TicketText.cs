@@ -16,9 +16,13 @@ namespace Fanex.Athena.BetList.Model.DTO
 
         public string TransTime { get; set; }
 
+        public string RefNo { get; set; }
+
         public string Choice { get; set; }
 
         public string Odds { get; set; }
+
+        public string OddsType { get; set; }
 
         public string Stake { get; set; }
 

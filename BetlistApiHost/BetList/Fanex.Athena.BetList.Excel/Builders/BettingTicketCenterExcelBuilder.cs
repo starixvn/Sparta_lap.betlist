@@ -14,9 +14,9 @@ namespace Fanex.Athena.BetList.Excel.Builders
 {
     public class BettingTicketCenterExcelBuilder : IBettingTicketCenterExcelBuilder, IDisposable
     {
-        private const int NumberOfColumns = 12;
+        private const int NumberOfColumns = 14;
 
-        private const int ColumnTotalStart = 6;
+        private const int ColumnTotalStart = 8;
 
         private readonly ITicketHelper _ticketHelper;
 
@@ -88,9 +88,11 @@ namespace Fanex.Athena.BetList.Excel.Builders
                 "#",
                 ViewResources.ExternalId,
                 ViewResources.SystemId,
+                ViewResources.RefNo,
                 ViewResources.TransTime,
                 ViewResources.Choice,
                 ViewResources.Odds,
+                ViewResources.OddsType,
                 ViewResources.Stake,
                 ViewResources.WinLoss + (isShowCustomerComm ? "/" + ViewResources.Comm : string.Empty),
                 ViewResources.LicenseeWL + "/" + ViewResources.Comm,
@@ -98,7 +100,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
                 ViewResources.Platform,
                 ViewResources.Live
             };
-            var columWidths = new short[] { 1500, 4800, 4800, 5400, 15500, 2600, 4200, 4200, 5400, 5400, 3400, 3400 };
+            var columWidths = new short[] { 1500, 4800, 4800, 5400, 5400, 15500, 2600, 2600, 4200, 4200, 5400, 5400, 3400, 3400 };
 
             for (int i = 0; i < captions.Length; i++)
             {
@@ -155,9 +157,11 @@ namespace Fanex.Athena.BetList.Excel.Builders
             _builder.AddIndex(_ticketHelper, _ticketHelper.Index);
             _builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellLeftAlign, _evenCellLeftAlign);
             _builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellLeftAlign, _evenCellLeftAlign);
-            _builder.AddTrans(ticket, _ticketHelper);
+            _builder.AddRefNo(ticket, _ticketHelper);
+            _builder.AddTransTime(ticket, _ticketHelper);
             _builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
-            _builder.AddOdds(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById);
+            _builder.AddOddsValue(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById);
+            _builder.AddOddsType(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById);
             _builder.AddStake(ticket);
             _builder.AddCustomerWL(ticket, isShowCustomerComm, _winLossFont);
             _builder.AddLicenseeWL(ticket, licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont);
