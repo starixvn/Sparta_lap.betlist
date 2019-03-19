@@ -58,7 +58,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
     SystemId
   </t>
   <t
-    colWidth={150}
+    colWidth={120}
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
@@ -67,7 +67,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
     RefNo
   </t>
   <t
-    colWidth={150}
+    colWidth={120}
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
@@ -177,7 +177,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
     SystemId
   </t>
   <t
-    colWidth={150}
+    colWidth={120}
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
@@ -186,7 +186,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
     RefNo
   </t>
   <t
-    colWidth={150}
+    colWidth={120}
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
