@@ -113,10 +113,13 @@ namespace Fanex.Athena.BetList.Controller
             var excelModel = new BettingTicketCenterExcelModel
             {
                 Data = ticketResult,
-                ShowTotal = true,
-                ShowSumStake = true,
-                ShowLicenseeWl = true,
-                ShowWinLoss = true,
+                Option = new BettingTicketCenterExcelOption
+                {
+                    ShowTotal = true,
+                    ShowSumStake = true,
+                    ShowLicenseeWl = true,
+                    ShowWinLoss = true
+                },
                 CustomerCommVisible = hasPlayerComm,
                 Title = title
             };
@@ -145,10 +148,13 @@ namespace Fanex.Athena.BetList.Controller
             return new BettingTicketCenterExcelModel
             {
                 Data = dataBySheet,
-                ShowTotal = true,
-                ShowSumStake = true,
-                ShowLicenseeWl = true,
-                ShowWinLoss = true,
+                Option = new BettingTicketCenterExcelOption
+                {
+                    ShowTotal = true,
+                    ShowSumStake = true,
+                    ShowLicenseeWl = true,
+                    ShowWinLoss = true
+                },
                 CustomerCommVisible = hasPlayerComm,
                 Title = title
             };

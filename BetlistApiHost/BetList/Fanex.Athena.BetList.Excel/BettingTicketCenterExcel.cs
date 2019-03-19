@@ -29,10 +29,10 @@
             }
             else
             {
-                _builder.CreateSheet(ViewResources.BettingTicketCenter);
-                _builder.AddTitle(excelModel.Title);
-                _builder.AddHeader(excelModel.CustomerCommVisible);
-                _builder.AddNoInfoRow();
+                _builder.CreateSheet(ViewResources.BettingTicketCenter, excelModel.Option);
+                _builder.AddTitle(excelModel.Title, excelModel.Option);
+                _builder.AddHeader(excelModel.CustomerCommVisible, excelModel.Option);
+                _builder.AddNoInfoRow(excelModel.Option);
             }
 
             return _builder.GetWorkbook();
@@ -43,15 +43,15 @@
             var numOfSheets = (int)Math.Ceiling((double)excelModel.Data.MainTicketList.Count / SystemConstants.SheetSizeExcel);
             for (int sheetIndex = 0; sheetIndex < numOfSheets; sheetIndex++)
             {
-                _builder.CreateSheet(ViewResources.Page + (sheetIndex + 1));
-                _builder.AddTitle(excelModel.Title);
-                _builder.AddHeader(excelModel.CustomerCommVisible);
+                _builder.CreateSheet(ViewResources.Page + (sheetIndex + 1), excelModel.Option);
+                _builder.AddTitle(excelModel.Title, excelModel.Option);
+                _builder.AddHeader(excelModel.CustomerCommVisible, excelModel.Option);
 
                 var endIndex = Math.Min((sheetIndex + 1) * SystemConstants.SheetSizeExcel, excelModel.Data.MainTicketList.Count);
 
                 AssignSheetData(excelModel, sheetIndex, endIndex);
 
-                if (excelModel.ShowTotal)
+                if (excelModel.Option.ShowTotal)
                 {
                     AddFooter(excelModel);
                 }
@@ -68,16 +68,17 @@
                     excelModel.Data,
                     excelModel.Data.MainTicketList[i],
                     excelModel.CustomerCommVisible,
-                    excelModel.LicenseeId);
+                    excelModel.LicenseeId,
+                    excelModel.Option);
             }
         }
 
         protected internal virtual void AddFooter(BettingTicketCenterExcelModel excelModel)
         {
-            var sumStake = excelModel.ShowSumStake ? excelModel.Data.SumStake : (decimal?)null;
-            var sumWinLoss = excelModel.ShowWinLoss ? excelModel.Data.SumWinLoss : (decimal?)null;
-            var sumPlayerComm = excelModel.ShowWinLoss && excelModel.CustomerCommVisible ? excelModel.Data.SumPlayerComm : (decimal?)null;
-            var sumLicenseeWL = excelModel.ShowLicenseeWl ? (excelModel.Data.SumLicenseeWL + excelModel.Data.SumComm) : (decimal?)null;
+            var sumStake = excelModel.Option.ShowSumStake ? excelModel.Data.SumStake : (decimal?)null;
+            var sumWinLoss = excelModel.Option.ShowWinLoss ? excelModel.Data.SumWinLoss : (decimal?)null;
+            var sumPlayerComm = excelModel.Option.ShowWinLoss && excelModel.CustomerCommVisible ? excelModel.Data.SumPlayerComm : (decimal?)null;
+            var sumLicenseeWL = excelModel.Option.ShowLicenseeWl ? (excelModel.Data.SumLicenseeWL + excelModel.Data.SumComm) : (decimal?)null;
 
             _builder.AddFooter(sumStake, sumWinLoss, sumPlayerComm, sumLicenseeWL);
         }

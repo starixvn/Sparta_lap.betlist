@@ -168,10 +168,10 @@
                 {
                     controller.Received().ReturnExcel(
                         Arg.Is<BettingTicketCenterExcelModel>(x => x.Title == title
-                            && x.ShowTotal
-                            && x.ShowSumStake
-                            && x.ShowLicenseeWl
-                            && x.ShowWinLoss
+                            && x.Option.ShowTotal
+                            && x.Option.ShowSumStake
+                            && x.Option.ShowLicenseeWl
+                            && x.Option.ShowWinLoss
                             && x.CustomerCommVisible == metaModel.HasPlayerCom
                             && x.Data == ticketResult),
                         ticketResult);

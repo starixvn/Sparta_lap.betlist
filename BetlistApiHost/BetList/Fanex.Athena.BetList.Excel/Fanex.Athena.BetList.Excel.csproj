@@ -156,6 +156,7 @@
     <Compile Include="Builders\IBettingTicketCenterExcelBuilder.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="IBettingTicketCenterExcel.cs" />
+    <Compile Include="Model\BettingTicketCenterExcelOption.cs" />
     <Compile Include="Model\BettingTicketCenterExcelModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

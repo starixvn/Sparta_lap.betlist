@@ -33,10 +33,13 @@ namespace Fanex.Athena.BetList.Controller
                 var excelModel = new BettingTicketCenterExcelModel
                 {
                     Data = ticketResult,
-                    ShowTotal = true,
-                    ShowSumStake = true,
-                    ShowLicenseeWl = true,
-                    ShowWinLoss = true,
+                    Option = new BettingTicketCenterExcelOption
+                    {
+                        ShowTotal = true,
+                        ShowSumStake = true,
+                        ShowLicenseeWl = true,
+                        ShowWinLoss = true
+                    },
                     CustomerCommVisible = metaModel.HasPlayerCom,
                     Title = _service.GetTitle(metaModel)
                 };
@@ -66,7 +69,10 @@ namespace Fanex.Athena.BetList.Controller
                 var excelModel = new BettingTicketCenterExcelModel
                 {
                     Data = ticketResult,
-                    ShowTotal = false,
+                    Option = new BettingTicketCenterExcelOption
+                    {
+                        ShowTotal = false
+                    },
                     CustomerCommVisible = metaModel.HasPlayerCom,
                     Title = _service.GetTitle(metaModel)
                 };
@@ -91,9 +97,12 @@ namespace Fanex.Athena.BetList.Controller
                 var excelModel = new BettingTicketCenterExcelModel
                 {
                     Data = ticketResult,
-                    ShowTotal = true,
-                    ShowSumStake = true,
-                    CustomerCommVisible = metaModel.HasPlayerCom,
+                    Option = new BettingTicketCenterExcelOption
+                    {
+                        ShowTotal = true,
+                        ShowSumStake = true
+                    },
+                    CustomerCommVisible = false,
                     Title = _service.GetTitle(metaModel)
                 };
                 return Export(excelModel);
