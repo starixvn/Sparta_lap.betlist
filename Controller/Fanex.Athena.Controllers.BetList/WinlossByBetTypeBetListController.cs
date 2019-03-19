@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -31,10 +32,10 @@
         }
 
         [HttpGet]
-        public ActionResult Index(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
             CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/WinlossByBetType/Main.cshtml", "Lrf_BetList_SelWinLossByBetType");
+            return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/WinlossByBetType/Main.cshtml", "Lrf_BetList_SelWinLossByBetType").ConfigureAwait(false);
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)
@@ -45,7 +46,7 @@
                 model.FromDate.Date == model.ToDate.Date;
         }
 
-        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
+        protected override async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
@@ -65,7 +66,7 @@
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             metaModel.HiddenColumns = new[] { BetEffectiveColumn };
-            return ProcessExportExcel(metaModel, "WinLossByBetTypeBetList");
+            return await ProcessExportExcel(metaModel, "WinLossByBetTypeBetList").ConfigureAwait(false);
         }
     }
 }

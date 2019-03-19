@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Mvc;
@@ -43,7 +44,7 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index(DailyBetListMetaModel metaModel)
+        public async Task<ActionResult> Index(DailyBetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -57,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
-                    return Excel(metaModel);
+                    return await Excel(metaModel).ConfigureAwait(false);
                 }
 
                 return EmptyExcel();
@@ -76,7 +77,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/Desktop/BetList/DailyBetList/Main.cshtml", model);
         }
 
-        private ActionResult Excel(BetListExcelMetaModel metaModel)
+        private async Task<ActionResult> Excel(BetListExcelMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 
@@ -101,7 +102,7 @@ namespace Fanex.Athena.Controllers.BetList
             var currencyTitle = GetViewInCurrency(metaModel);
             metaModel.Title = $"{ViewResources.DailyBetList} {ViewResources.On} {metaModel.Date.ToString("MM/dd/yyyy")} - {currencyTitle}";
             metaModel.HiddenColumns = new[] { BetEffectiveColumn };
-            return ProcessExportExcel(metaModel, "DailyBetList", "/BetList/ExportExcelDailyBetList");
+            return await ProcessExportExcel(metaModel, "DailyBetList", "/BetList/ExportExcelDailyBetList").ConfigureAwait(false);
         }
     }
 }

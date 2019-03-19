@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetList
     #region Using
 
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using DataAccess.Core.Configuration.Interfaces;
@@ -54,35 +55,35 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
-        public ActionResult MixParlay(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> MixParlay(BetListExcelMetaModel metaModel)
         {
             metaModel.MultipleBettype = ((int)BetType.CombinationMixParlay).ToString();
             ViewBag.ReportTitle = Menu.Menu_12;
             ViewBag.UserGuideName = "TotalBetsMixParlay";
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetDoubleChance)]
-        public ActionResult DoubleChange(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> DoubleChange(BetListExcelMetaModel metaModel)
         {
             metaModel.MultipleBettype = DoubleChangeBettypes;
             ViewBag.ReportTitle = ViewResources.DoubleChance;
             ViewBag.UserGuideName = "TotalBetsDoubleChance";
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetBONTeamToScore)]
-        public ActionResult BONTeamToScore(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> BONTeamToScore(BetListExcelMetaModel metaModel)
         {
             metaModel.MultipleBettype = BONTeamToScoreBettypes;
             ViewBag.ReportTitle = ViewResources.BONTeamToScore;
             ViewBag.UserGuideName = "TotalBetsBON";
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
-        private ActionResult ProcessRequest(BetListExcelMetaModel metaModel)
+        private async Task<ActionResult> ProcessRequest(BetListExcelMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -94,7 +95,7 @@ namespace Fanex.Athena.Controllers.BetList
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
                     metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                    return Excel(metaModel);
+                    return await Excel(metaModel).ConfigureAwait(false);
                 }
 
                 return EmptyExcel();
@@ -114,7 +115,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/Desktop/BetList/RunningBetListMultipleBettypes/Main.cshtml", model);
         }
 
-        private ActionResult Excel(BetListExcelMetaModel metaModel)
+        private async Task<ActionResult> Excel(BetListExcelMetaModel metaModel)
         {
             metaModel.UspKey = "Lrf_BetList_SelRunningByBettypeList";
 
@@ -129,7 +130,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.IsShowSumStake = true;
             metaModel.HiddenColumns = HiddenColumnIndexes;
 
-            return ProcessExportExcel(metaModel, "RunningBetList");
+            return await ProcessExportExcel(metaModel, "RunningBetList").ConfigureAwait(false);
         }
     }
 }

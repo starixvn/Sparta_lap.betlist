@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.BetList.MetaModel;
     using NSubstitute;
@@ -18,12 +19,12 @@
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectView()
+        public async Task Detail_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.Detail(new BetListExcelMetaModel()) as ViewResult;
+                var result = await controller.Detail(new BetListExcelMetaModel()) as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/VoidbridgeDetail/Main.cshtml"));
@@ -31,7 +32,7 @@
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectViewModel()
+        public async Task Detail_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -44,7 +45,7 @@
                 };
 
                 // Action
-                var result = controller.Detail(metaModel) as ViewResult;
+                var result = await controller.Detail(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -53,7 +54,7 @@
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectViewBag()
+        public async Task Detail_WhenCall_ReturnCorrectViewBag()
         {
             using (var controller = CreateController())
             {
@@ -61,7 +62,7 @@
                 var expectedTitle = $"{ViewResources.ProductVB} - {ViewResources.BetList} - {ViewResources.DetailTickets}";
 
                 // Action
-                var result = controller.Detail(new BetListExcelMetaModel()) as ViewResult;
+                var result = await controller.Detail(new BetListExcelMetaModel()) as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewBag.BetListTitle, Is.EqualTo(expectedTitle));
@@ -69,7 +70,7 @@
         }
 
         [Test]
-        public void Detail_ExportExcel_InvalidCurrency_ReturnEmptyResult()
+        public async Task Detail_ExportExcel_InvalidCurrency_ReturnEmptyResult()
         {
             using (var controller = CreateController())
             {
@@ -83,7 +84,7 @@
                 controller.When(x => x.EmptyExcel()).DoNotCallBase();
 
                 // Action
-                controller.Detail(metaModel);
+                await controller.Detail(metaModel);
 
                 // Assert
                 controller.Received().EmptyExcel();
@@ -91,7 +92,7 @@
         }
 
         [Test]
-        public void Detail_ExportExcel_PassCorrectParam()
+        public async Task Detail_ExportExcel_PassCorrectParam()
         {
             using (var controller = CreateController())
             {
@@ -108,16 +109,16 @@
 
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
-                controller.When(x => x.ProcessExportExcel(
+                controller.When(async x => await x.ProcessExportExcel(
                     Arg.Any<BetListExcelMetaModel>(),
                     Arg.Any<string>(),
                     Arg.Any<string>())).DoNotCallBase();
 
                 // Action
-                controller.Detail(metaModel);
+                await controller.Detail(metaModel);
 
                 // Assert
-                controller.Received().ProcessExportExcel(
+                await controller.Received().ProcessExportExcel(
                     Arg.Is<BetListExcelMetaModel>(x => x.Title == expectedTitle
                         && x.UspKey == "Lrf_BetList_RNG_Detail"
                         && string.Join(",", x.HiddenColumns) == "1,2,8,9"

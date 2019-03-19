@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using DataAccess.Core.Configuration.Interfaces;
@@ -46,36 +47,36 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetCleanSheet)]
-        public ActionResult CleanSheet(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> CleanSheet(BetListExcelMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.CleanSheet;
             ViewBag.ReportTitle = ViewResources.CleanSheet;
             ViewBag.UserGuideName = "TotalBetsCleanSheet";
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetToWinToNil)]
-        public ActionResult ToWinToNil(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> ToWinToNil(BetListExcelMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.ToWinToNil;
             ViewBag.ReportTitle = ViewResources.ToWinToNil;
             ViewBag.UserGuideName = "TotalBetsToWinToNil";
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBet3WayHandicap)]
-        public ActionResult ThreeWayHandicap(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> ThreeWayHandicap(BetListExcelMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.ThreeWayHandicap;
             metaModel.MultipleBettype = $"{(int)BetType.ThreeWayHandicap},{(int)BetType.FirstHalfThreeWayHandicap}";
             ViewBag.ReportTitle = ViewResources.lbl3WayHandicap;
             ViewBag.UserGuideName = "TotalBets3WayHandicap";
-            return ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList");
+            return await ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList").ConfigureAwait(false);
         }
 
-        private ActionResult ProcessRequest(BetListExcelMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
+        private async Task<ActionResult> ProcessRequest(BetListExcelMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
         {
             var userSession = SessionService.UserSession;
             CreateDefaultMetaModel(metaModel);
@@ -86,7 +87,7 @@ namespace Fanex.Athena.Controllers.BetList
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
                     metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                    return Excel(metaModel, uspKey);
+                    return await Excel(metaModel, uspKey).ConfigureAwait(false);
                 }
 
                 return EmptyExcel();
@@ -106,7 +107,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/Desktop/BetList/RunningBetList/Main.cshtml", model);
         }
 
-        private ActionResult Excel(BetListExcelMetaModel metaModel, string uspKey)
+        private async Task<ActionResult> Excel(BetListExcelMetaModel metaModel, string uspKey)
         {
             metaModel.UspKey = uspKey;
 
@@ -120,7 +121,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             metaModel.IsShowSumStake = true;
             metaModel.HiddenColumns = HiddenColumnIndexes;
-            return ProcessExportExcel(metaModel, "RunningBetList");
+            return await ProcessExportExcel(metaModel, "RunningBetList").ConfigureAwait(false);
         }
     }
 }

@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Mvc;
@@ -40,28 +41,28 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult MatchBetType(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> MatchBetType(BetListExcelMetaModel metaModel)
         {
-            return ProcessRequest(metaModel, null, "~/Views/Desktop/BetList/MatchWl/MatchBetType.cshtml");
+            return await ProcessRequest(metaModel, null, "~/Views/Desktop/BetList/MatchWl/MatchBetType.cshtml").ConfigureAwait(false);
         }
 
         [HttpGet]
-        public ActionResult MixParlay(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> MixParlay(BetListExcelMetaModel metaModel)
         {
-            return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Parlay", "~/Views/Desktop/BetList/MatchWl/MixParlay.cshtml");
+            return await ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Parlay", "~/Views/Desktop/BetList/MatchWl/MixParlay.cshtml").ConfigureAwait(false);
         }
 
         [HttpGet]
-        public ActionResult Outright(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Outright(BetListExcelMetaModel metaModel)
         {
-            return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Outright", "~/Views/Desktop/BetList/MatchWl/Outright.cshtml");
+            return await ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Outright", "~/Views/Desktop/BetList/MatchWl/Outright.cshtml").ConfigureAwait(false);
         }
 
-        private ActionResult ProcessRequest(BetListExcelMetaModel metaModel, string uspKey, string viewPath)
+        private async Task<ActionResult> ProcessRequest(BetListExcelMetaModel metaModel, string uspKey, string viewPath)
         {
             CreateDefaultMetaModel(metaModel);
             metaModel.IsServerPaging = true;
-            return ProcessDefaultRequest(metaModel, viewPath, uspKey);
+            return await ProcessDefaultRequest(metaModel, viewPath, uspKey).ConfigureAwait(false);
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)
@@ -70,7 +71,7 @@ namespace Fanex.Athena.Controllers.BetList
             return model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId);
         }
 
-        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
+        protected override async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
@@ -98,7 +99,7 @@ namespace Fanex.Athena.Controllers.BetList
                 currencyTitle);
             metaModel.HiddenColumns = HiddenColumns;
 
-            return ProcessExportExcel(metaModel, "MatchWinLossBetList");
+            return await ProcessExportExcel(metaModel, "MatchWinLossBetList").ConfigureAwait(false);
         }
     }
 }

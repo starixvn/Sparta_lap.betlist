@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Model.BetList.MetaModel;
@@ -28,7 +29,7 @@
         }
 
         [Test]
-        public void CleanSheet_WhenCall_ReturnCorrectViewResult()
+        public async Task CleanSheet_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -39,7 +40,7 @@
                 };
 
                 // Action
-                var result = controller.CleanSheet(metaModel) as ViewResult;
+                var result = await controller.CleanSheet(metaModel) as ViewResult;
 
                 // Assert
                 AssertViewResult(ViewResources.CleanSheet, "TotalBetsCleanSheet", metaModel, result);
@@ -47,7 +48,7 @@
         }
 
         [Test]
-        public void ToWinToNil_WhenCall_ReturnCorrectViewResult()
+        public async Task ToWinToNil_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -58,7 +59,7 @@
                 };
 
                 // Action
-                var result = controller.ToWinToNil(metaModel) as ViewResult;
+                var result = await controller.ToWinToNil(metaModel) as ViewResult;
 
                 // Assert
                 AssertViewResult(ViewResources.ToWinToNil, "TotalBetsToWinToNil", metaModel, result);
@@ -66,7 +67,7 @@
         }
 
         [Test]
-        public void ThreeWayHandicap_WhenCall_ReturnCorrectViewResult()
+        public async Task ThreeWayHandicap_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -78,7 +79,7 @@
                 };
 
                 // Action
-                var result = controller.ThreeWayHandicap(metaModel) as ViewResult;
+                var result = await controller.ThreeWayHandicap(metaModel) as ViewResult;
 
                 // Assert
                 AssertViewResult(ViewResources.lbl3WayHandicap, "TotalBets3WayHandicap", metaModel, result);
@@ -86,7 +87,7 @@
         }
 
         [Test]
-        public void CleanSheet_ExportExcel_InvalidCurrency_ReturnEmptyResult()
+        public async Task CleanSheet_ExportExcel_InvalidCurrency_ReturnEmptyResult()
         {
             using (var controller = CreateController())
             {
@@ -100,7 +101,7 @@
                 controller.When(x => x.EmptyExcel()).DoNotCallBase();
 
                 // Action
-                controller.CleanSheet(metaModel);
+                await controller.CleanSheet(metaModel);
 
                 // Assert
                 controller.Received().EmptyExcel();
@@ -109,7 +110,7 @@
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void CleanSheet_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task CleanSheet_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -130,16 +131,16 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.CleanSheet(metaModel);
+                await controller.CleanSheet(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettype", controller);
+                await AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettype", controller);
             }
         }
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void ToWinToNil_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task ToWinToNil_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -160,16 +161,16 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.ToWinToNil(metaModel);
+                await controller.ToWinToNil(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettype", controller);
+                await AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettype", controller);
             }
         }
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void ThreeWayHandicap_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task ThreeWayHandicap_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -190,10 +191,10 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.ThreeWayHandicap(metaModel);
+                await controller.ThreeWayHandicap(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
+                await AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
             }
         }
 
@@ -201,15 +202,15 @@
         {
             SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
-            controller.When(x => x.ProcessExportExcel(
+            controller.When(async x => await x.ProcessExportExcel(
                 Arg.Any<BetListExcelMetaModel>(),
                 Arg.Any<string>(),
                 Arg.Any<string>())).DoNotCallBase();
         }
 
-        private void AssertExcelParameters(string expectedTitle, string uspKey, RunningBetListController controller)
+        private async Task AssertExcelParameters(string expectedTitle, string uspKey, RunningBetListController controller)
         {
-            controller.Received().ProcessExportExcel(
+            await controller.Received().ProcessExportExcel(
                 Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
                     && x.Title == expectedTitle
                     && x.UspKey == uspKey

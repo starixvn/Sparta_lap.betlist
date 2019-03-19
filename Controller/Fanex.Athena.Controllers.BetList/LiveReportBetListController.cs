@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -30,53 +31,53 @@
         }
 
         [HttpGet]
-        public ActionResult Match(LiveReportBetListMetaModel metaModel)
+        public async Task<ActionResult> Match(LiveReportBetListMetaModel metaModel)
         {
-            return ProcessRequest(
+            return await ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossByMatch",
-                "~/Views/Desktop/BetList/LiveReport/Match.cshtml");
+                "~/Views/Desktop/BetList/LiveReport/Match.cshtml").ConfigureAwait(false);
         }
 
         [HttpGet]
-        public ActionResult MixParlay(LiveReportBetListMetaModel metaModel)
+        public async Task<ActionResult> MixParlay(LiveReportBetListMetaModel metaModel)
         {
-            return ProcessRequest(
+            return await ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossParlay",
-                "~/Views/Desktop/BetList/LiveReport/MixParlay.cshtml");
+                "~/Views/Desktop/BetList/LiveReport/MixParlay.cshtml").ConfigureAwait(false);
         }
 
         [HttpGet]
-        public ActionResult Outright(LiveReportBetListMetaModel metaModel)
+        public async Task<ActionResult> Outright(LiveReportBetListMetaModel metaModel)
         {
-            return ProcessRequest(
+            return await ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossOutright",
                 "~/Views/Desktop/BetList/LiveReport/Outright.cshtml",
-                ViewResources.Outright);
+                ViewResources.Outright).ConfigureAwait(false);
         }
 
         [HttpGet]
-        public ActionResult NumberGame(LiveReportBetListMetaModel metaModel)
+        public async Task<ActionResult> NumberGame(LiveReportBetListMetaModel metaModel)
         {
-            return ProcessRequest(
+            return await ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossNumberGame",
                 "~/Views/Desktop/BetList/LiveReport/NumberGame.cshtml",
-                ViewResources.ProductNG);
+                ViewResources.ProductNG).ConfigureAwait(false);
         }
 
         [HttpGet]
-        public ActionResult VirtualSports(LiveReportBetListMetaModel metaModel)
+        public async Task<ActionResult> VirtualSports(LiveReportBetListMetaModel metaModel)
         {
             var sportName = CacheRefAdapter.GetSportName(metaModel.SportType);
-            return ProcessRequest(
+            return await ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossVHRacing",
                 "~/Views/Desktop/BetList/LiveReport/VirtualSports.cshtml",
                 sportName,
-                sportName);
+                sportName).ConfigureAwait(false);
         }
 
         private string GetMatchName(LiveReportBetListMetaModel model)
@@ -86,7 +87,7 @@
                 string.Empty;
         }
 
-        private ActionResult ProcessRequest(
+        private async Task<ActionResult> ProcessRequest(
             LiveReportBetListMetaModel metaModel,
             string uspKey,
             string viewPath,
@@ -105,13 +106,13 @@
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 var title = GetExcelTitle(metaModel, caption);
-                return Excel(metaModel, uspKey, title);
+                return await Excel(metaModel, uspKey, title).ConfigureAwait(false);
             }
 
             return EmptyExcel();
         }
 
-        private ActionResult Excel(LiveReportBetListMetaModel metaModel, string uspKey, string title)
+        private async Task<ActionResult> Excel(LiveReportBetListMetaModel metaModel, string uspKey, string title)
         {
             // Sum value by page
             metaModel.UspKey = uspKey;
@@ -122,7 +123,7 @@
             };
             metaModel.StartIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
             metaModel.HiddenColumns = HiddenColumns;
-            return ProcessExportExcel(metaModel, "LiveReportBetList", "/BetList/ExportExcelLiveReport");
+            return await ProcessExportExcel(metaModel, "LiveReportBetList", "/BetList/ExportExcelLiveReport").ConfigureAwait(false);
         }
 
         private string GetExcelTitle(LiveReportBetListMetaModel metaModel, string caption = null)

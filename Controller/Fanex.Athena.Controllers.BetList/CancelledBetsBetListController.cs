@@ -64,11 +64,11 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
             if (metaModel.IsExportExcel)
             {
-                return Excel(metaModel);
+                return await Excel(metaModel).ConfigureAwait(false);
             }
 
             var viewParam = CreateDefaultMetaModel(metaModel);
@@ -100,7 +100,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
         }
 
-        private ActionResult Excel(BetListExcelMetaModel metaModel)
+        private async Task<ActionResult> Excel(BetListExcelMetaModel metaModel)
         {
             if (metaModel.CurrencyId == BaseCurrencyType.All ||
                 SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
@@ -116,7 +116,7 @@ namespace Fanex.Athena.Controllers.BetList
                 };
                 metaModel.HiddenColumns = HiddenColumnIndexes;
                 metaModel.Title = $"{ViewResources.CancelledBets} - {currencyTitle}";
-                return ProcessExportExcel(metaModel, "CancelledBetList");
+                return await ProcessExportExcel(metaModel, "CancelledBetList").ConfigureAwait(false);
             }
 
             return EmptyExcel();
