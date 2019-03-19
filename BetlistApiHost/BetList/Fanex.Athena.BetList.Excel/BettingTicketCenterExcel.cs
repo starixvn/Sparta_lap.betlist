@@ -80,7 +80,7 @@
             var sumPlayerComm = excelModel.Option.ShowWinLoss && excelModel.CustomerCommVisible ? excelModel.Data.SumPlayerComm : (decimal?)null;
             var sumLicenseeWL = excelModel.Option.ShowLicenseeWl ? (excelModel.Data.SumLicenseeWL + excelModel.Data.SumComm) : (decimal?)null;
 
-            _builder.AddFooter(sumStake, sumWinLoss, sumPlayerComm, sumLicenseeWL);
+            _builder.AddFooter(sumStake, sumWinLoss, sumPlayerComm, sumLicenseeWL, excelModel.Option.TotalText);
         }
 
         public void Dispose()

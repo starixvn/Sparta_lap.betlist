@@ -6,6 +6,7 @@ import Select from 'react-select'
 import MultipleSelect from '@9softstudio/react-multiselect'
 import AutoComplete from '@jsroot/components/auto-complete'
 import CollapsiblePanel from '@jsroot/components/collapsible-panel'
+import CheckBox from '@jsroot/components/CheckBox'
 
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '@jsroot/lib/langHelper'
@@ -56,7 +57,8 @@ export class FormFilter extends Component {
             BaseCurrency: this.props.selectedBaseCurrency,
             Status: this.props.selectedStatus,
             SortBy: SortBy,
-            SortOrder: SortOrder
+            SortOrder: SortOrder,
+            IsConvertAll: this.props.isConvertAll
         }
     }
 
@@ -168,7 +170,7 @@ export class FormFilter extends Component {
             <CollapsiblePanel className="page-filter" stickyFooter={excelButton}>
                 <div className="row">
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
                             {this._renderProductSelectList()}
@@ -185,21 +187,30 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Currency")}</label>
                             {this._renderCurrencySelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
                             {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2">
+                        <div className="form-group">
+                        <CheckBox id="IsConvertAll"
+                            checked={this.props.isConvertAll}
+                            onChange={(checked) => this.props.changeIsConvertAll(checked)}
+                            label={LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")} />
+                    </div>    
+                    </div>
+
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Status")}</label>
                         {this._renderStatusSelectList()}
@@ -223,8 +234,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus } = state;
-    return Object.assign({}, { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus });
+    const { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus, isConvertAll } = state;
+    return Object.assign({}, { requestParam, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus, isConvertAll });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

@@ -29,6 +29,7 @@
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         isLoading: false,
         selectedStatus: '@(selectedStatus)',
+        isConvertAll: true
     };
     window._AppData = {
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),

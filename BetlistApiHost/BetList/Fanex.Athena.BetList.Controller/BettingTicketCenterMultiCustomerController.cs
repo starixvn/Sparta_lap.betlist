@@ -11,6 +11,7 @@ using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
+using Fanex.Athena.Resources;
 using Ionic.Zip;
 using Newtonsoft.Json;
 using NPOI.SS.UserModel;
@@ -74,6 +75,7 @@ namespace Fanex.Athena.BetList.Controller
         private ActionResult Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
         {
             var title = _service.GetTitle(metaModel);
+            var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}";
 
             if (totalRow <= MaxRowPerFile)
             {
@@ -83,12 +85,12 @@ namespace Fanex.Athena.BetList.Controller
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
                 }
 
-                return ExportXls(normalTicketResult, title, metaModel.HasPlayerCom);
+                return ExportXls(normalTicketResult, title, metaModel.HasPlayerCom, totalText);
             }
 
             var ticketResult = _service.GetBetListForMultipleCustomers(metaModel, MaxRowPerFile, userCurrencyList);
 
-            return ExportZip(ticketResult, title, metaModel.HasPlayerCom);
+            return ExportZip(ticketResult, title, metaModel.HasPlayerCom, totalText);
         }
 
         private JsonResult GenerateJsonResult(MultipleCustomersBetListMetaModel metaModel, TicketResult ticketResult, bool isAllowedCustomerComm)
@@ -100,7 +102,7 @@ namespace Fanex.Athena.BetList.Controller
                 {
                     SumWinLoss = _service.BuildSumWinLoss(ticketResult, isAllowedCustomerComm),
                     SumLicenseeWL = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
-                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
+                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat),
                 },
                 TotalRows = ticketResult.TotalRows
             };
@@ -108,7 +110,7 @@ namespace Fanex.Athena.BetList.Controller
             return Json(result);
         }
 
-        private ExcelResult ExportXls(TicketResult ticketResult, string title, bool hasPlayerComm)
+        private ExcelResult ExportXls(TicketResult ticketResult, string title, bool hasPlayerComm, string totalText)
         {
             var excelModel = new BettingTicketCenterExcelModel
             {
@@ -118,7 +120,8 @@ namespace Fanex.Athena.BetList.Controller
                     ShowTotal = true,
                     ShowSumStake = true,
                     ShowLicenseeWl = true,
-                    ShowWinLoss = true
+                    ShowWinLoss = true,
+                    TotalText = totalText
                 },
                 CustomerCommVisible = hasPlayerComm,
                 Title = title
@@ -127,7 +130,12 @@ namespace Fanex.Athena.BetList.Controller
             return ReturnExcel(excelModel, ticketResult);
         }
 
-        private BettingTicketCenterExcelModel CreateBettingTicketCenterExcelModel(GroupTicketResult groupData, string dataPath, string title, bool hasPlayerComm)
+        private BettingTicketCenterExcelModel CreateBettingTicketCenterExcelModel(
+            GroupTicketResult groupData,
+            string dataPath,
+            string title,
+            bool hasPlayerComm,
+            string totalText)
         {
             var contentData = _tempFileService.ReadString(dataPath);
             if (string.IsNullOrEmpty(contentData))
@@ -153,14 +161,15 @@ namespace Fanex.Athena.BetList.Controller
                     ShowTotal = true,
                     ShowSumStake = true,
                     ShowLicenseeWl = true,
-                    ShowWinLoss = true
+                    ShowWinLoss = true,
+                    TotalText = totalText
                 },
                 CustomerCommVisible = hasPlayerComm,
                 Title = title
             };
         }
 
-        private FileContentResult ExportZip(GroupTicketResult ticketResult, string title, bool hasPlayerComm)
+        private FileContentResult ExportZip(GroupTicketResult ticketResult, string title, bool hasPlayerComm, string totalText)
         {
             IWorkbook workbook = null;
             var excelFiles = new List<string>();
@@ -173,7 +182,7 @@ namespace Fanex.Athena.BetList.Controller
                     var builder = DependencyResolver.Current.GetService<IBettingTicketCenterExcelBuilder>();
                     using (var excelService = new BettingTicketCenterExcel(builder))
                     {
-                        var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title, hasPlayerComm);
+                        var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title, hasPlayerComm, totalText);
                         if (excelModel != null)
                         {
                             workbook = excelService.Export(excelModel);

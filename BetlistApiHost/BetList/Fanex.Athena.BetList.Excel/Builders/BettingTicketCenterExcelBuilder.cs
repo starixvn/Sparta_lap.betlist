@@ -112,13 +112,13 @@ namespace Fanex.Athena.BetList.Excel.Builders
             AddHeaderCell(ViewResources.Live, 3400, headerStyle);
         }
 
-        public void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumPlayerComm, decimal? sumLicenseeWL)
+        public void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumPlayerComm, decimal? sumLicenseeWL, string totalText)
         {
             var footerStyle = _builder.CreateFooterCellStyle();
             var cols = NumberOfColumns;
             var totalColIndex = ColumnTotalStart;
 
-            var rtfTotal = new HSSFRichTextString(ViewResources.Total);
+            var rtfTotal = new HSSFRichTextString(totalText);
             for (int i = 0; i < ColumnTotalStart; i++)
             {
                 _builder.AddCell(rtfTotal, footerStyle);

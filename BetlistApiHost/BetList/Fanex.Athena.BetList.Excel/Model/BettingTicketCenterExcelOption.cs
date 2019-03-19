@@ -9,5 +9,7 @@
         public bool ShowWinLoss { get; set; }
 
         public bool ShowLicenseeWl { get; set; }
+
+        public string TotalText { get; set; }
     }
 }

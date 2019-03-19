@@ -74,5 +74,7 @@
 
         [ScriptIgnore]
         public IDictionary<int, string> UserCurrencyList { get; set; }
+
+        public bool IsConvertAll { get; set; }
     }
 }

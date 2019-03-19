@@ -10,7 +10,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         IWorkbook GetWorkbook();
 
-        void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumPlayerComm, decimal? sumLicenseeWL);
+        void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumPlayerComm, decimal? sumLicenseeWL, string totalText);
 
         void AddHeader(bool isShowCustomerComm, BettingTicketCenterExcelOption option);
 

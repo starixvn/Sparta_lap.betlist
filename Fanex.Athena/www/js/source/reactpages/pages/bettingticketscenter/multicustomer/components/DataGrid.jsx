@@ -22,10 +22,11 @@ export class DataGrid extends BaseDataGrid {
     _buildFooter() {
         const item = this.props.gridData.Total;
         const isNegativeWL = item.SumLicenseeWL.substring(0, 1) === '-';
+        const baseCurrency = this.props.requestParam.BaseCurrency;
         
         return [(
             <Row className="fixed-table-grant-total" key={1}>
-               <Cell className="right-align" colSpan={8}>{LangHelper.getSingleResource("Total")}</Cell>
+               <Cell className="right-align" colSpan={8}>{LangHelper.getSingleResource("Totalin") + " " + baseCurrency}</Cell>
                <Cell className="right-align">{item.SumStake}</Cell>
                <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.SumWinLoss}}></Cell>
                <Cell className={`right-align ${isNegativeWL ? "negative" : ""}`}>{item.SumLicenseeWL}</Cell>

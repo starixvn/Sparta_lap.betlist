@@ -211,7 +211,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(SumStake, SumWinLoss, SumPlayerComm, SumLicenseeWL);
+            _excelBuilder.AddFooter(SumStake, SumWinLoss, SumPlayerComm, SumLicenseeWL, FakeHelper.Create<string>());
 
             // Assert
             Assert.Multiple(() =>
@@ -237,7 +237,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(original, null, null, null);
+            _excelBuilder.AddFooter(original, null, null, null, FakeHelper.Create<string>());
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
@@ -254,7 +254,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(null, original, null, null);
+            _excelBuilder.AddFooter(null, original, null, null, FakeHelper.Create<string>());
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
@@ -271,7 +271,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(null, originalWL, originalComm, null);
+            _excelBuilder.AddFooter(null, originalWL, originalComm, null, FakeHelper.Create<string>());
 
             // Assert
              _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
@@ -288,7 +288,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(null, null, null, original);
+            _excelBuilder.AddFooter(null, null, null, original, FakeHelper.Create<string>());
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());

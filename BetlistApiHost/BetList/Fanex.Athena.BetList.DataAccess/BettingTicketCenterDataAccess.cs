@@ -92,6 +92,7 @@
                 db.SetParameterValue("PageSize", metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
                 db.SetParameterValue("PageIndex", metaModel.IsExport ? 1 : metaModel.PageIndex);
                 db.SetParameterValue("StatusFilter", metaModel.Status);
+                db.SetParameterValue("ConvertToBaseCur", metaModel.IsConvertAll);
                 db.SetParameterValue("TotalRows", null);
                 db.SetParameterValue("SumStake", null);
                 AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);

@@ -6,6 +6,7 @@ using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Constant;
+using Fanex.Athena.Resources;
 
 namespace Fanex.Athena.BetList.Controller
 {
@@ -38,7 +39,8 @@ namespace Fanex.Athena.BetList.Controller
                         ShowTotal = true,
                         ShowSumStake = true,
                         ShowLicenseeWl = true,
-                        ShowWinLoss = true
+                        ShowWinLoss = true,
+                        TotalText = ViewResources.Total
                     },
                     CustomerCommVisible = metaModel.HasPlayerCom,
                     Title = _service.GetTitle(metaModel)
@@ -100,7 +102,8 @@ namespace Fanex.Athena.BetList.Controller
                     Option = new BettingTicketCenterExcelOption
                     {
                         ShowTotal = true,
-                        ShowSumStake = true
+                        ShowSumStake = true,
+                        TotalText = $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}"
                     },
                     CustomerCommVisible = false,
                     Title = _service.GetTitle(metaModel)

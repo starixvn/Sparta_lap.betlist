@@ -96,7 +96,8 @@ export class FormFilter extends Component {
             LeagueId: isEnableLeagueMatch ? this.props.selectedLeague : 0,
             MatchId: isEnableLeagueMatch ? this.props.selectedMatch : 0,
             SortBy: SortBy,
-            SortOrder: SortOrder
+            SortOrder: SortOrder,
+            IsConvertAll: this.props.isConvertAll
         }
     }
 
@@ -331,7 +332,7 @@ export class FormFilter extends Component {
                             pauseOnFocusLoss={false} 
                             style={{width:"500px"}}
                             transition={Flip}/>
-                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                     <div className="col-12 col-md-3 col-sm-6 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
                             {this._renderDateRange()}
@@ -399,6 +400,15 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2">
+                        <div className="form-group">
+                            <CheckBox id="IsConvertAll"
+                            checked={this.props.isConvertAll}
+                            onChange={(checked) => this.props.changeIsConvertAll(checked)}
+                            label={LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")} />
+                        </div>    
+                    </div>
+
                      <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Status")}</label>
@@ -406,7 +416,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Live")}</label>
                         {this._renderLiveStatusSelectList()}
@@ -435,18 +445,18 @@ export class FormFilter extends Component {
 
             </CollapsiblePanel>
         )
-               }
-               }
+    }
+}
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
                }
 function mapStateToProps(state) {
     const { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus, username } = state;
+        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus, username, isConvertAll } = state;
 
     return Object.assign({}, { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus, username });
+        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus, username, isConvertAll });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

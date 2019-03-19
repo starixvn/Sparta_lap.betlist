@@ -180,7 +180,8 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
                 {
                     ShowSumStake = isShowSumStake,
                     ShowWinLoss = isShowSumWL,
-                    ShowLicenseeWl = isShowSumLicenseeWL
+                    ShowLicenseeWl = isShowSumLicenseeWL,
+                    TotalText = FakeHelper.Create<string>()
                 },
                 CustomerCommVisible = isShowPlayerComm,
                 Data = new TicketResult
@@ -201,7 +202,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             _excel.AddFooter(model);
 
             // Assert
-            _builder.Received(1).AddFooter(expectedSumStake, expectedSumWL, expectedSumPlayerComm, expectedSumLicenseeWL);
+            _builder.Received(1).AddFooter(expectedSumStake, expectedSumWL, expectedSumPlayerComm, expectedSumLicenseeWL, model.Option.TotalText);
         }
     }
 }
