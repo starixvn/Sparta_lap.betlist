@@ -72,6 +72,11 @@ namespace Fanex.Athena.DataAccess.Report
                 return " (" + ViewResources.Happy5 + ")";
             }
 
+            if (bettype == (int)BetType.LotteryPenaltyShootOut || bettype == (int)BetType.LotteryPenaltyShootOut2)
+            {
+                return " (" + ViewResources.ProductLT + ")";
+            }
+
             return string.Empty;
         }
 
