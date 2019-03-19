@@ -8,7 +8,7 @@ exports[`DataGrid  _buildFooter  render correctly 1`] = `
     className="right-align"
     colSpan={8}
   >
-    Total
+    Totalin USD
   </td>
   <td
     className="right-align"

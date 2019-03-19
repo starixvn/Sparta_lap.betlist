@@ -15,11 +15,17 @@ describe('FormFilter ', () => {
         setSelectedBaseCurrency: jest.fn(),
         gridData: [],
         dateRange: { fromDate: '06/01/2018', toDate: '07/27/2018'},
-        selectedCurrency:{value: 1}};
+        selectedCurrency:{value: 1},
+        isConvertAll: true
+    };
 
     beforeAll(() => {
         LangHelper.getSingleResource = jest.fn((resource) => resource);
-        Object.assign(AppData,             {                 baseCurrencyList: ['EUR'],                 dateConstraint: { minDate: '06/01/2012', maxDate: '07/27/2018', limitedMonthRange: 12 }            });
+        Object.assign(AppData, 
+            { 
+                baseCurrencyList: ['EUR'], 
+                dateConstraint: { minDate: '06/01/2012', maxDate: '07/27/2018', limitedMonthRange: 12 }
+            });
     });
 
     it('render correctly', () => {

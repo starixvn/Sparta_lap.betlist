@@ -210,13 +210,15 @@
             _builder.LastContentRow.Returns(lastRow);
             _excelBuilder.InitializeFonts();
 
+            var totalText = FakeHelper.Create<string>();
+
             // Action
-            _excelBuilder.AddFooter(SumStake, SumWinLoss, SumPlayerComm, SumLicenseeWL, FakeHelper.Create<string>());
+            _excelBuilder.AddFooter(SumStake, SumWinLoss, SumPlayerComm, SumLicenseeWL, totalText);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _builder.Received(ColumnTotalStart).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.Total), Arg.Any<ICellStyle>());
+                _builder.Received(ColumnTotalStart).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == totalText), Arg.Any<ICellStyle>());
                 _builder.Received(NumberOfColumns - ColumnTotalStart - 3).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
                 _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumStake.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
                 _builder.Received(1).AddCell(

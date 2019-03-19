@@ -43,7 +43,7 @@ exports[`FormFilter  render correctly 1`] = `
       transition={[Function]}
     />
     <div
-      className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2"
+      className="col-12 col-md-3 col-sm-6 col-lg-4 col-xl-2"
     >
       <div
         className="form-group"
@@ -248,6 +248,21 @@ exports[`FormFilter  render correctly 1`] = `
       </div>
     </div>
     <div
+      className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2"
+    >
+      <div
+        className="form-group"
+      >
+        <CheckBox
+          checked={true}
+          disabled={false}
+          id="IsConvertAll"
+          label="ConvertAllFiguresToBaseCurrency"
+          onChange={[Function]}
+        />
+      </div>
+    </div>
+    <div
       className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2"
     >
       <div
@@ -261,7 +276,7 @@ exports[`FormFilter  render correctly 1`] = `
       </div>
     </div>
     <div
-      className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2"
+      className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2"
     >
       <div
         className="form-group"

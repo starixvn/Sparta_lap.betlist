@@ -8,6 +8,7 @@ import Site from '@jsroot/lib/site';
 import Service from '../../../common/lib/Service';
 import renderer from 'react-test-renderer';
 import Select from 'react-select';
+import CheckBox from '@jsroot/components/CheckBox';
 
 jest.mock('@jsroot/lib/AppData');
 
@@ -155,7 +156,8 @@ describe('FormFilter ', () => {
                 selectedBaseCurrency: 'USD',
                 selectedStatus: 'status',
                 selectedLiveStatus: 'Live',
-                username: 'abc'
+                username: 'abc',
+                isConvertAll: false
             };
 
             const expected = {
@@ -174,7 +176,8 @@ describe('FormFilter ', () => {
                 LeagueId: 0,
                 MatchId: 0,
                 SortBy: props.requestParam.SortBy,
-                SortOrder: props.requestParam.SortOrder
+                SortOrder: props.requestParam.SortOrder,
+                IsConvertAll: props.isConvertAll
             }
 
             const filter = new FormFilter(props);
@@ -317,6 +320,19 @@ describe('FormFilter ', () => {
             selectList.props.onChange(null, SelectedLiveStatus);
 
             expect(props.setSelectedLiveStatus).toHaveBeenCalledWith(SelectedLiveStatus);
+        });
+
+        it('onChange Convert All check box - update value' ,() => {
+            const props = { isConvertAll: false, changeIsConvertAll: jest.fn(), dateRange: DateRange, selectedCurrency: {} };
+
+            const filter = new FormFilter(props);
+            const component = renderer.create(filter.render());
+
+            const newValue = true;
+            const checkBox = component.root.findByType(CheckBox);
+            checkBox.props.onChange(newValue);
+
+            expect(props.changeIsConvertAll).toHaveBeenCalledWith(newValue);
         });
 
         it('onClick submit button - call submit method' ,() => {

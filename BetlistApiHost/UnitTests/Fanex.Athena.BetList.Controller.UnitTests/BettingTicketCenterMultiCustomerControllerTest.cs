@@ -12,6 +12,7 @@
     using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
     using Service.Interfaces;
     using UnitTest.Common.Helpers;
 
@@ -172,6 +173,7 @@
                             && x.Option.ShowSumStake
                             && x.Option.ShowLicenseeWl
                             && x.Option.ShowWinLoss
+                            && x.Option.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}"
                             && x.CustomerCommVisible == metaModel.HasPlayerCom
                             && x.Data == ticketResult),
                         ticketResult);
