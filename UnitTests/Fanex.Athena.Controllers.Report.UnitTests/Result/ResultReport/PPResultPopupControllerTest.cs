@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
@@ -11,7 +12,7 @@
     public partial class PPResultPopupControllerTest : BaseControllerHelperTest
     {
         [Test]
-        public void Index_WhenCall_RedirectToErrorPage()
+        public async Task Index_WhenCall_RedirectToErrorPage()
         {
             // Arrange
             const string CustId = "123";
@@ -29,7 +30,7 @@
             using (var controller = new PPResultPopupController(LangService, SessionService, AppSettings, betListApiClient))
             {
                 // Action
-                var result = controller.Index(CustId, GamePlayId).Result;
+                var result = await controller.Index(CustId, GamePlayId);
 
                 // Assert
                 Assert.Multiple(() =>

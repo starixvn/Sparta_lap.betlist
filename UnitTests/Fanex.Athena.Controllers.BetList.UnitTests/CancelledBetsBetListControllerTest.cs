@@ -33,7 +33,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectView()
+        public async Task Index_WhenGet_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -41,7 +41,7 @@
                 _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml"));
@@ -49,7 +49,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectViewModel()
+        public async Task Index_WhenGet_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -59,7 +59,7 @@
                 StubGetCustomerData(Enumerable.Empty<CustomerCancelBetItem>());
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
                 var model = (CancelledBetsBetListViewModel)result.Model;
 
                 // Assert
@@ -74,7 +74,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectCustId()
+        public async Task Index_WhenGet_ReturnCorrectCustId()
         {
             using (var controller = CreateController())
             {
@@ -86,7 +86,7 @@
                 StubGetCustomerData(cancelBetCustList);
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
                 var model = (CancelledBetsBetListViewModel)result.Model;
 
                 // Assert

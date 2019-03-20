@@ -51,13 +51,13 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var viewParam = CreateDefaultMetaModel();
 
             SetConvetedUSDCurrencyName(viewParam);
 
-            var model = CreateViewModel(viewParam);
+            var model = await CreateViewModel(viewParam).ConfigureAwait(false);
 
             return View("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
@@ -73,15 +73,15 @@ namespace Fanex.Athena.Controllers.BetList
 
             var viewParam = CreateDefaultMetaModel(metaModel);
 
-            var model = CreateViewModel(viewParam);
+            var model = await CreateViewModel(viewParam).ConfigureAwait(false);
 
             return View("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
-        private CancelledBetsBetListViewModel CreateViewModel(BetListMetaModel metaModel)
+        private async Task<CancelledBetsBetListViewModel> CreateViewModel(BetListMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var customers = GetData(metaModel).Result;
+            var customers = await GetData(metaModel).ConfigureAwait(false);
 
             if (customers.Any())
             {
