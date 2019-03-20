@@ -81,9 +81,7 @@ namespace Fanex.Athena.Controllers.BetList
         private async Task<CancelledBetsBetListViewModel> CreateViewModel(BetListMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-#pragma warning disable S3216 // "ConfigureAwait(false)" should be used (to access session)
-            var customers = await GetData(metaModel);
-#pragma warning restore S3216 // "ConfigureAwait(false)" should be used
+            var customers = await GetData(metaModel).ConfigureAwait(true);
 
             if (customers.Any())
             {

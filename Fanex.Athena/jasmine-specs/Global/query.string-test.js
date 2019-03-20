@@ -22,8 +22,8 @@
 
     describe("getRawUrl(url)", function () {
         it("return the raw url from an url", function () {
-            var result = QueryString.getRawUrl("http://localhost?a=1");
-            expect(result).toBe("http://localhost");
+            var result = QueryString.getRawUrl("localhost?a=1");
+            expect(result).toBe("localhost");
         });
 
         it("return the url param if it does not contain '?' character", function () {
@@ -34,29 +34,29 @@
 
     describe("setParam(url, name, value)", function () {
         it("add new value to a query string if it does not exist", function () {
-            var result = QueryString.setParam("http://localhost", "a", 2);
-            expect(result).toBe("http://localhost?a=2");
+            var result = QueryString.setParam("localhost", "a", 2);
+            expect(result).toBe("localhost?a=2");
         });
 
         it("update value in a query string if it exists", function () {
-            var result = QueryString.setParam("http://localhost?a=1", "a", 2);
-            expect(result).toBe("http://localhost?a=2");
+            var result = QueryString.setParam("localhost?a=1", "a", 2);
+            expect(result).toBe("localhost?a=2");
         });
 
         it("remove null value", function () {
-            var result = QueryString.setParam("http://localhost?a=1", "a", null);
-            expect(result).toBe("http://localhost?");
+            var result = QueryString.setParam("localhost?a=1", "a", null);
+            expect(result).toBe("localhost?");
         });
     });
 
     describe("getParam(url, name)", function () {
         it("return a correct value if it exists", function () {
-            var result = QueryString.getParam("http://localhost?a=1", "a");
+            var result = QueryString.getParam("localhost?a=1", "a");
             expect(result).toBe("1");
         });
 
         it("return a null if it does not exist", function () {
-            var result = QueryString.getParam("http://localhost", "a");
+            var result = QueryString.getParam("localhost", "a");
             expect(result).toBe(null);
         });
     });

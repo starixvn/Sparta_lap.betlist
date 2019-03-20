@@ -9,7 +9,9 @@ using NUnit.Framework;
 namespace Fanex.Athena.Excel.Report.UnitTests
 {
     [TestFixture]
-    public partial class MatchWinLossExcelTest : BaseReportExcelTest
+#pragma warning disable S3881 // "IDisposable" should be implemented correctly
+    public partial class MatchWinLossExcelTest
+#pragma warning restore S3881 // "IDisposable" should be implemented correctly
     {
         [Test]
         public void AssignMatchData_MatchInfoListEmpty_ReturnCurrencyRow()
@@ -58,7 +60,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             const string MatchName = "Sample Match Name";
             const int CurrentIndex = 10;
             var currentRow = 20;
-            var columns = new[] 
+            var columns = new[]
             {
                 "turnover", "betcount", "memberwinlost", "playercomm", "totalwl", "licenseewl",
                 "commba", "amtduetoba"
@@ -92,7 +94,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             const string MatchName = "Sample\n Match Name";
             const int CurrentIndex = 10;
             var currentRow = 20;
-            var columns = new[] 
+            var columns = new[]
             {
                 "turnover", "betcount", "memberwinlost", "playercomm", "totalwl", "licenseewl",
                 "commba", "amtduetoba"

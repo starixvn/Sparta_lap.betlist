@@ -89,7 +89,7 @@
         }
 
         [Test]
-        public async Task GetByRunning_DateRangeIsInvalid_ReturnNull()
+        public void GetByRunning_DateRangeIsInvalid_ThrowException()
         {
             using (var controller = CreateController())
             {
@@ -101,17 +101,17 @@
                 };
 
                 // Action
-                var result = await controller.GetByRunning(metaModel);
+                AsyncTestDelegate testDelegate = async () => await controller.GetByRunning(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
-        public async Task GetByRunning_NoProduct_ReturnNull(string productCode)
+        public void GetByRunning_NoProduct_ThrowException(string productCode)
         {
             using (var controller = CreateController())
             {
@@ -124,16 +124,16 @@
                 };
 
                 // Action
-                var result = await controller.GetByRunning(metaModel);
+                AsyncTestDelegate testDelegate = async () => await controller.GetByRunning(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
         [TestCase(null)]
         [TestCase("-100")]
-        public async Task GetByRunning_InvalidCurrency_ReturnNull(string currencyIdList)
+        public void GetByRunning_InvalidCurrency_ThrowException(string currencyIdList)
         {
             using (var controller = CreateController())
             {
@@ -147,10 +147,10 @@
                 };
 
                 // Action
-                var result = await controller.GetByRunning(metaModel);
+                AsyncTestDelegate testDelegate = async () => await controller.GetByRunning(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 

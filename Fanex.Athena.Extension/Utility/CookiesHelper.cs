@@ -33,6 +33,7 @@ namespace Fanex.Athena.Extension.Utility
         public static void SetCookies(string name, string value)
         {
             var cookie = new HttpCookie(name, value);
+            cookie.HttpOnly = true;
 
             var cache = HttpContext.Current.Response.Cache;
             cache.SetNoStore();
