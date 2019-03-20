@@ -1150,6 +1150,8 @@ ul {
     padding-left: 0; }
   .Select .Select-clear-zone {
     display: none; }
+  .Select.is-disabled > .Select-control {
+    background-color: #ddd; }
   .Select.is-focused:not(.is-open) > .Select-control {
     border: none;
     border-bottom: 1px solid #9e9e9e;
