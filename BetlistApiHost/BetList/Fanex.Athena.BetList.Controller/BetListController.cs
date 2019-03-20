@@ -22,6 +22,8 @@ namespace Fanex.Athena.BetList.Controller
     {
         protected const int PageSizeExcel = 63000;
 
+        private const string DefaultPage = "Betlist Api default page";
+
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         private readonly IBetListService _betListService;
@@ -35,7 +37,7 @@ namespace Fanex.Athena.BetList.Controller
         [HttpGet]
         public string Index()
         {
-            return "Betlist Api default page";
+            return DefaultPage;
         }
 
         [HttpPost]

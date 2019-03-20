@@ -50,7 +50,7 @@ namespace Fanex.Athena.BetList.Controller
             var ticketResult = _betListService.GetMixParlayDetailTicket(metaModel);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
 
-            var textRenderPattern = "<p class='system-parlay-ticket-infor'>"
+            const string TextRenderPattern = "<p class='system-parlay-ticket-infor'>"
                                     + "<span class='system-parlay-combo-type'>{0}</span> x "
                                     + "<span class='system-parlay-unit-stake'>{1} {2}</span>"
                                     + "</p>";
@@ -60,7 +60,7 @@ namespace Fanex.Athena.BetList.Controller
                 {
                     // System Parlay.
                     var ticket = tickets.FirstOrDefault();
-                    texts[0] = string.Format(textRenderPattern, texts[0], ticket.Currency, ticket.Stake.ToString("N0"));
+                    texts[0] = string.Format(TextRenderPattern, texts[0], ticket.Currency, ticket.Stake.ToString("N0"));
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace Fanex.Athena.BetList.Controller
                     {
                         var text = texts[i];
                         var ticket = tickets[i];
-                        texts[i] = string.Format(textRenderPattern, text, ticket.Currency, ticket.Stake.ToString("N0"));
+                        texts[i] = string.Format(TextRenderPattern, text, ticket.Currency, ticket.Stake.ToString("N0"));
                     }
                 }
             }

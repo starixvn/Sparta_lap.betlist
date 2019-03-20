@@ -60,26 +60,24 @@
 
         protected static int CompareAscending(object x, object y)
         {
-            int result;
-
             if (y == null)
             {
-                result = 0;
-            }
-            else if (x == null)
-            {
-                result = -1;
-            }
-            else
-            {
-                var value = x as IComparable;
-
-                result = value != null
-                    ? value.CompareTo(y)
-                    : (x.Equals(y) ? 0 : string.Compare(x.ToString(), y.ToString(), StringComparison.OrdinalIgnoreCase));
+                return 0;
             }
 
-            return result;
+            if (x == null)
+            {
+                return -1;
+            }
+
+            var value = x as IComparable;
+
+            if (value != null)
+            {
+                return value.CompareTo(y);
+            }
+
+            return x.Equals(y) ? 0 : string.Compare(x.ToString(), y.ToString(), StringComparison.OrdinalIgnoreCase);
         }
 
         protected static int CompareDescending(object x, object y)

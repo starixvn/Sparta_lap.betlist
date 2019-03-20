@@ -19,6 +19,8 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         private const int ColumnTotalStart = 8;
 
+        private const int ContentRowIndex = 2;
+
         private readonly ITicketHelper _ticketHelper;
 
         private bool disposed;
@@ -66,7 +68,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
             var mergeCol = NumberOfColumns - 1 - (option.ShowWinLoss ? 0 : 1) - (option.ShowLicenseeWl ? 0 : 1);
             _builder.AddCell(new HSSFRichTextString(ViewResources.NoInfo), titleStyle);
-            _builder.MergeCell(new CellRangeAddress(2, 2, 0, mergeCol));
+            _builder.MergeCell(new CellRangeAddress(ContentRowIndex, ContentRowIndex, 0, mergeCol));
         }
 
         public void AddTitle(string title, BettingTicketCenterExcelOption option)
@@ -197,6 +199,8 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         public void InitializeFonts()
         {
+            const short MixLiveColor = 13311;
+
             _negativeWinLossFont = _builder.CreateFont();
             _negativeWinLossFont.Boldweight = (short)FontBoldWeight.Bold;
             _negativeWinLossFont.Color = (short)FontColor.Red;
@@ -209,7 +213,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
             _liveFont.Color = (short)FontColor.Red;
 
             _mixLiveFont = _builder.CreateFont();
-            _mixLiveFont.Color = 13311;
+            _mixLiveFont.Color = MixLiveColor;
         }
 
         private void AddPlatfromCell(LrfTicket ticket)
@@ -220,11 +224,13 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         private void AddLiveCell(LrfTicket ticket)
         {
-            var liveStatus = ticket.BetTypeId == (int)BetType.MixParlay || ticket.BetTypeId == (int)BetType.CombinationMixParlay
-                ? ticket.LiveHomeScore
-                : (ticket.IsLive ? LiveStatusTypes.Live : 0);
+            var liveStatus = ticket.IsLive ? LiveStatusTypes.Live : 0;
 
-            switch (liveStatus)
+            var status = ticket.BetTypeId == (int)BetType.MixParlay || ticket.BetTypeId == (int)BetType.CombinationMixParlay
+                ? ticket.LiveHomeScore
+                : liveStatus;
+
+            switch (status)
             {
                 case LiveStatusTypes.Live:
                     var rtfLive = new HSSFRichTextString(ViewResources.Live);

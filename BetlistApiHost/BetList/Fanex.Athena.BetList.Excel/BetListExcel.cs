@@ -31,6 +31,10 @@ namespace Fanex.Athena.BetList.Excel
 
         private const int ColumnWinlossIndex = 7;
 
+        private const int NumberOfColumn = 11;
+
+        private const int ContentRowIndex = 2;
+
         private readonly IEnumerable<int> _hiddenColumnIndexes;
 
         private readonly int _licenseeId;
@@ -98,7 +102,7 @@ namespace Fanex.Athena.BetList.Excel
             titleStyle.Alignment = HorizontalAlignment.Center;
 
             builder.AddCell(new HSSFRichTextString(ViewResources.NoInfo), titleStyle);
-            builder.MergeCell(new CellRangeAddress(2, 2, 0, 9));
+            builder.MergeCell(new CellRangeAddress(ContentRowIndex, ContentRowIndex, 0, NumberOfColumn - 1));
         }
 
         private static void AddTitle(IBetListExcelBuilder builder, string title)
@@ -112,7 +116,7 @@ namespace Fanex.Athena.BetList.Excel
             titleStyle.SetFont(font);
 
             builder.AddCell(new HSSFRichTextString(title), titleStyle);
-            builder.MergeCell(new CellRangeAddress(0, 0, 0, 10));
+            builder.MergeCell(new CellRangeAddress(0, 0, 0, NumberOfColumn - 1));
         }
 
         protected internal virtual void Build(IBetListExcelBuilder builder, TicketResult ticketResult, string title, int startIndex = 1)
@@ -127,7 +131,7 @@ namespace Fanex.Athena.BetList.Excel
             }
             else
             {
-                builder.BuildWorksheet(ViewResources.BetList, 11);
+                builder.BuildWorksheet(ViewResources.BetList, NumberOfColumn);
                 AddTitle(builder, title);
                 AddHeader(builder);
                 AddNoInfoRow(builder);
@@ -154,7 +158,7 @@ namespace Fanex.Athena.BetList.Excel
             var numOfSheets = (int)Math.Ceiling((double)ticketResult.MainTicketList.Count / SystemConstants.SheetSizeExcel);
             for (int sheetIndex = 0; sheetIndex < numOfSheets; sheetIndex++)
             {
-                builder.BuildWorksheet(ViewResources.Page + (sheetIndex + 1), 11);
+                builder.BuildWorksheet(ViewResources.Page + (sheetIndex + 1), NumberOfColumn);
                 AddTitle(builder, title);
                 AddHeader(builder);
 

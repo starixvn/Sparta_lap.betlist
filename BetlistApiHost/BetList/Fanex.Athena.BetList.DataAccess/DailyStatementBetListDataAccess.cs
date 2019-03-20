@@ -51,9 +51,7 @@
             }
         }
 
-#pragma warning disable S3776 // Cognitive Complexity of methods should not be too high
         private static IEnumerable<DailyStatement> ReadData(BetListMetaModel metaModel, IDataReader reader)
-#pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
         {
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
             var index = 1;
@@ -64,7 +62,6 @@
             var currentCulture = CultureInfo.CurrentCulture;
 
             var result = new List<DailyStatement>();
-
             while (reader.Read())
             {
                 var winlostDate = reader.ToDateTime("winlostdate");
@@ -76,11 +73,13 @@
                 var comm = reader.ToDecimal(commissionColumn);
                 var turnover = reader.ToDecimal(turnoverColumn);
 
-                // Add commission.
-                if (!transType.Equals("gp"))
+                if (transType == "bal")
                 {
-                    var outstanding = isOutstandingBet ? turnover : 0;
-                    balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (metaModel.HasPlayerCom ? comm : 0) - outstanding;
+                    balance = reader.ToDecimal(totalAmtColumn);
+                }
+                else if (!transType.Equals("gp"))
+                {
+                    balance = balance + credit + (metaModel.HasPlayerCom ? comm : 0) - (isOutstandingBet ? turnover : 0);
                 }
 
                 result.Add(new DailyStatement

@@ -136,7 +136,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 "odds", "modds", "hdp1", "hdp2", "transdesc", "currency", "betdaqid", "extrainfo", "originalbettype",
                 "refcode", "wallettype", "oddsspread", "SettlementStatus", "eventdate"
             };
-            var result = columns.ToDictionary(x => x, x => x);
+            var result = columns.ToDictionary(x => x, y => y);
             result.Add("playerCommCol", "playercomm" + columnSuffix);
             result.Add("commCol", "comm" + columnSuffix);
             result.Add("licenseeWlCol", "licenseewl" + columnSuffix);
