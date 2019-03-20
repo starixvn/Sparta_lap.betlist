@@ -48,7 +48,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return !!this.props.selectedProduct && !!this.props.selectedStatus && !!this.props.selectedLiveStatus;
+        return !!this.props.selectedProduct && !!this.props.selectedStatus && !!this.props.selectedLiveStatus && !!this.props.selectedCurrency;
     }
 
     isSingleDate = (dateRange) => {

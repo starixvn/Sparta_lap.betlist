@@ -33,8 +33,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ColumnBuyBackAmountBA,
                 ColumnBetTradeCommission,
                 ColumnBuyBackAmountSportsbook,
-                ColumnBuyBackAmountBA,
-                ColumnBuyBackAmountTotal,
                 ColumnActualStake,
                 ColumnAmtDueToBetTrade,
                 ColumnBaCommission,

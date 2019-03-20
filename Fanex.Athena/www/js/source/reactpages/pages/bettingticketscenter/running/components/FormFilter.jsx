@@ -25,7 +25,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return !!this.props.selectedProduct && !!this.props.selectedStatus;
+        return !!this.props.selectedProduct && !!this.props.selectedStatus && !!this.props.selectedCurrency;
     }
 
     submit = (event) => {

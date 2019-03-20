@@ -127,7 +127,7 @@ export default class BaseDataGrid extends Component {
                 <ReportTitle content={this.props.reportTitle} />
                 <Table
                     onSort={this.onSort}
-                    minWidth={960}
+                    minWidth={980}
                     autoWidth={true}
                     bodyHeight={300}
                     header={this._buildHeader()}

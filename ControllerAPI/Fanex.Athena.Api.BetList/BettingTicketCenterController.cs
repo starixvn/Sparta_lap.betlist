@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http;
@@ -8,6 +9,7 @@
     using Helpers;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
+    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -61,7 +63,7 @@
             var currencyList = metaModel.CurrencyIdList?.Split(',').Select(x => int.Parse(x)).ToArray();
             if (!metaModel.IsValid || !BetListHelper.IsValidCurrencyId(currencyList, userCurrencyList))
             {
-                return null;
+                throw new ArgumentException(ViewResources.InvalidRequestMsg);
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(currencyList);

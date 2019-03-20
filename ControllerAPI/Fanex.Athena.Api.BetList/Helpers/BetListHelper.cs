@@ -6,7 +6,7 @@ namespace Fanex.Athena.Api.BetList.Helpers
     {
         public static bool IsValidCurrencyId(int[] currencyList, IDictionary<int, string> userCurrencyList)
         {
-            if (currencyList == null)
+            if (currencyList == null || currencyList.Length == 0)
             {
                 return false;
             }

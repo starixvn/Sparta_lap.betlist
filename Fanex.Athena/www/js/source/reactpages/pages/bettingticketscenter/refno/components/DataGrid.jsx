@@ -28,11 +28,11 @@ export class DataGrid extends BaseDataGrid {
                 <HeaderCell colWidth={40} title={headerText.Index}>{headerText.Index}</HeaderCell>               
                 <HeaderCell colWidth={120} title={headerText.ExternalId}>{headerText.ExternalId}</HeaderCell>
                 <HeaderCell colWidth={120} title={headerText.SystemId}>{headerText.SystemId}</HeaderCell>
-                <HeaderCell colWidth={120} title={headerText.TransTime}>{headerText.RefNo}</HeaderCell>
-                <HeaderCell colWidth={120} title={headerText.TransTime}>{headerText.TransTime}</HeaderCell>
+                <HeaderCell colWidth={110} title={headerText.RefNo}>{headerText.RefNo}</HeaderCell>
+                <HeaderCell colWidth={150} title={headerText.TransTime}>{headerText.TransTime}</HeaderCell>
                 <HeaderCell colWidth={400} title={headerText.Choice}>{headerText.Choice}</HeaderCell>
                 <HeaderCell colWidth={70} title={headerText.Odds}>{headerText.Odds}</HeaderCell>
-                <HeaderCell colWidth={70} title={headerText.Odds}>{headerText.OddsType}</HeaderCell>
+                <HeaderCell colWidth={70} title={headerText.OddsType}>{headerText.OddsType}</HeaderCell>
                 <HeaderCell colWidth={100} title={headerText.Stake}>{headerText.Stake}</HeaderCell>
                 <HeaderCell colWidth={100} title={winlossText}>{winlossText}</HeaderCell>
                 <HeaderCell colWidth={100} title={licenseeWLText}>{licenseeWLText}</HeaderCell>
