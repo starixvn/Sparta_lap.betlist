@@ -39,7 +39,7 @@ describe('FormFilter ', () => {
         });
 
         it('required filter not empty - return true' ,() => {
-            const props = { selectedProduct: '123', selectedStatus: 'test', selectedLiveStatus: '34' };
+            const props = { selectedProduct: '123', selectedStatus: 'test', selectedLiveStatus: '34', selectedCurrency: '1' };
 
             const filter = new FormFilter(props);
 

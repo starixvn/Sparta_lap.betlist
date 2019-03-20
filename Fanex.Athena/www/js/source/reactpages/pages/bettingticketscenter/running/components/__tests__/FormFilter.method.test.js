@@ -36,8 +36,8 @@ describe('FormFilter ', () => {
             expect(filter.isValidModel).toBe(false);
         });
 
-        it('selectedProduct, selectedStatus are not empty - return true' ,() => {
-            const props = { selectedProduct: '123', selectedStatus: '1' };
+        it('selectedProduct, selectedStatus, selectedCurrency are not empty - return true' ,() => {
+            const props = { selectedProduct: '123', selectedStatus: '1', selectedCurrency: '1' };
 
             const filter = new FormFilter(props);
 

@@ -36,16 +36,16 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
     SystemId
   </t>
   <t
-    colWidth={120}
+    colWidth={110}
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
-    title="TransTime"
+    title="RefNo"
   >
     RefNo
   </t>
   <t
-    colWidth={120}
+    colWidth={150}
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
@@ -76,7 +76,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
-    title="Odds"
+    title="OddsType"
   >
     OddsType
   </t>
@@ -173,16 +173,16 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
     SystemId
   </t>
   <t
-    colWidth={120}
+    colWidth={110}
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
-    title="TransTime"
+    title="RefNo"
   >
     RefNo
   </t>
   <t
-    colWidth={120}
+    colWidth={150}
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
@@ -213,7 +213,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
     onSort={[Function]}
     sortBy={null}
     sortOrder={null}
-    title="Odds"
+    title="OddsType"
   >
     OddsType
   </t>
