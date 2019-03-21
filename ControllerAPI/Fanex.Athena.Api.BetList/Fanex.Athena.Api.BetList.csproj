@@ -194,7 +194,6 @@
     <Compile Include="WinlossByLeagueBetListController.cs" />
     <Compile Include="RunningBettypesOfMatchBetListController.cs" />
     <Compile Include="RunningBettypesBetListController.cs" />
-    <Compile Include="MicroGamingRngBetListController.cs" />
     <Compile Include="CancelledBetsBetListController.cs" />
     <Compile Include="OutstandingDailyStatementBetListController.cs" />
     <Compile Include="RunningMatchBetListController.cs" />

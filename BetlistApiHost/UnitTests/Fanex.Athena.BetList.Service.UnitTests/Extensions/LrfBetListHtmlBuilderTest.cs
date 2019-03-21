@@ -26,7 +26,6 @@
             get
             {
                 yield return new TestCaseData(BetType.P2PGames, SportType.AllBet, BetStatus.Running, CoreBetList.running);
-                yield return new TestCaseData(BetType.MiniGames, SportType.MicroGaming, BetStatus.Reject, CoreBetList.reject);
                 yield return new TestCaseData(BetType.CorrectScore, SportType.Keno, BetStatus.Won, CoreBetList.won);
                 yield return new TestCaseData(BetType.P2PGames, SportType.Keno, BetStatus.Lose, CoreBetList.lose);
                 yield return new TestCaseData(BetType.Handicap, SportType.Keno, BetStatus.Draw, CoreBetList.draw);

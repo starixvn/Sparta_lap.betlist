@@ -794,7 +794,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="SiteConfig\Web.BACKUPMNLStatic.config" />
-    <Content Include="Views\Desktop\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\Desktop\Report\Result\Popup\AllBet.cshtml" />
     <Content Include="Views\Desktop\BetList\BettingTicketCenter\MultiCustomer.cshtml" />
     <Content Include="www\css\source\reactpages\pages\bettingticketscenter\index.scss" />
@@ -1379,7 +1378,6 @@
     <Content Include="www\css\source\components\select2\select2.min.css" />
     <Content Include="www\css\source\pages\betlist\AGCasino.css" />
     <Content Include="www\css\source\pages\betlist\Allbet.css" />
-    <Content Include="www\css\source\pages\betlist\Microgaming.css" />
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
     <Content Include="www\css\source\pages\login\login.css" />
@@ -2124,7 +2122,6 @@
     <Content Include="Views\Desktop\BetList\AGCasinoDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\ColossusBetDetail\Main.cshtml" />
     <Content Include="www\css\source\pages\betlist\colossusbetdetail.scss" />
-    <Content Include="Views\Desktop\BetList\MicroGamingRngDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\SystemParlayDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\VoidbridgeDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Shared\_SessionScript.cshtml" />
