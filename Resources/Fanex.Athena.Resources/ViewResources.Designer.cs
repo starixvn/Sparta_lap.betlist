@@ -2464,24 +2464,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable Microgaming Live Casino.
-        /// </summary>
-        public static string EnableMicrogamingLiveCasino {
-            get {
-                return ResourceManager.GetString("EnableMicrogamingLiveCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable Microgaming RNG Casino.
-        /// </summary>
-        public static string EnableMicrogamingRNGCasino {
-            get {
-                return ResourceManager.GetString("EnableMicrogamingRNGCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enable {0}.
         /// </summary>
         public static string EnableProduct {
@@ -4755,42 +4737,6 @@ namespace Fanex.Athena.Resources {
         public static string Microgaming {
             get {
                 return ResourceManager.GetString("Microgaming", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming-Live Casino.
-        /// </summary>
-        public static string MicrogamingLiveCasino {
-            get {
-                return ResourceManager.GetString("MicrogamingLiveCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming Live Casino is not offered for this currency..
-        /// </summary>
-        public static string MicroGamingLiveCasinoNotOfferCurrency {
-            get {
-                return ResourceManager.GetString("MicroGamingLiveCasinoNotOfferCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming-RNG Casino.
-        /// </summary>
-        public static string MicrogamingRNGCasino {
-            get {
-                return ResourceManager.GetString("MicrogamingRNGCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming RNG Casino is not offered for this currency..
-        /// </summary>
-        public static string MicroGamingRNGCasinoNotOfferCurrency {
-            get {
-                return ResourceManager.GetString("MicroGamingRNGCasinoNotOfferCurrency", resourceCulture);
             }
         }
         

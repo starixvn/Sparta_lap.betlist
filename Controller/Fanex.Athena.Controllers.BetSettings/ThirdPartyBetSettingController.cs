@@ -24,8 +24,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         private static readonly IDictionary<int, string> ProductViewFileMap = new Dictionary<int, string>
             {
                 { ProductTypes.Macau, "Macau" },
-                { ProductTypes.MicroGamingLiveCasino, "MicroGamingLiveCasino" },
-                { ProductTypes.MicrogamingRNGCasino, "MicroGamingRNGCasino" },
                 { ProductTypes.BetTrade, "BetTrade" },
                 { ProductTypes.ColossusBets, "ColossusBets" },
                 { ProductTypes.CashOut, "CashOut" },
@@ -71,20 +69,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
         {
             return UpdateThirdPartyProductStatus(ProductTypes.Macau, custId, nickName, status);
-        }
-
-        [HttpPost]
-        [CustomValidateAntiForgery]
-        public JsonResult UpdateMicroGamingLiveCasinoStatus(int custId, string nickName, int status)
-        {
-            return UpdateThirdPartyProductStatus(ProductTypes.MicroGamingLiveCasino, custId, nickName, status);
-        }
-
-        [HttpPost]
-        [CustomValidateAntiForgery]
-        public JsonResult UpdateMicroGamingRNGCasinoStatus(int custId, string nickName, int status)
-        {
-            return UpdateThirdPartyProductStatus(ProductTypes.MicrogamingRNGCasino, custId, nickName, status);
         }
 
         [HttpPost]

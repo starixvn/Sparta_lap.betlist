@@ -3,13 +3,11 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
     function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
         var Product = Constant.Product;
         var CHECKBOX_SELECTOR = "#enable-product";
-        var PRODUCT_CONTAIN_CHECKBOX = [Product.MgcLiveCasino, Product.MgcRngCasino, Product.BetTrade, Product.Cashout];
+        var PRODUCT_CONTAIN_CHECKBOX = [Product.BetTrade, Product.Cashout];
 
         var ProductUpdateStatusUrlMap = {};
         ProductUpdateStatusUrlMap[Product.Macau] = "ThirdPartyBetSetting/UpdateMacauStatus";
-        ProductUpdateStatusUrlMap[Product.MgcLiveCasino] = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
         ProductUpdateStatusUrlMap[Product.Colossusbets] = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
-        ProductUpdateStatusUrlMap[Product.MgcRngCasino] = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
         ProductUpdateStatusUrlMap[Product.BetTrade] = "ThirdPartyBetSetting/UpdateBetTradeStatus";
         ProductUpdateStatusUrlMap[Product.Cashout] = "ThirdPartyBetSetting/UpdateCashOutStatus";
         ProductUpdateStatusUrlMap[Product.GoldDeluxe] = "ThirdPartyBetSetting/UpdateGoldDeluxeStatus";

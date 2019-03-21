@@ -2440,16 +2440,8 @@
   <data name="BetTradeNotOfferCurrency" xml:space="preserve">
     <value>BetTrade is not offered for this currency.</value>
   </data>
-  <data name="MicroGamingLiveCasinoNotOfferCurrency" xml:space="preserve">
-    <value>Microgaming Live Casino is not offered for this currency.</value>
-    <comment>#46454</comment>
-  </data>
   <data name="DisableMicrogaming" xml:space="preserve">
     <value>Disable Microgaming</value>
-  </data>
-  <data name="EnableMicrogamingLiveCasino" xml:space="preserve">
-    <value>Enable Microgaming Live Casino</value>
-    <comment>#46454</comment>
   </data>
   <data name="EnableBetTrade" xml:space="preserve">
     <value>Enable BetTrade</value>
@@ -2483,14 +2475,6 @@
   <data name="ProductMGCRNG" xml:space="preserve">
     <value>Microgaming-RNG Casino</value>
     <comment>#46454, #49196</comment>
-  </data>
-  <data name="EnableMicrogamingRNGCasino" xml:space="preserve">
-    <value>Enable Microgaming RNG Casino</value>
-    <comment>#46454</comment>
-  </data>
-  <data name="MicroGamingRNGCasinoNotOfferCurrency" xml:space="preserve">
-    <value>Microgaming RNG Casino is not offered for this currency.</value>
-    <comment>#46454</comment>
   </data>
   <data name="ReferenceNo" xml:space="preserve">
     <value>Reference No</value>
@@ -2541,14 +2525,6 @@
   <data name="Macau" xml:space="preserve">
     <value>Macau</value>
     <comment>#49196</comment>
-  </data>
-  <data name="MicrogamingLiveCasino" xml:space="preserve">
-    <value>Microgaming-Live Casino</value>
-    <comment>#46454</comment>
-  </data>
-  <data name="MicrogamingRNGCasino" xml:space="preserve">
-    <value>Microgaming-RNG Casino</value>
-    <comment>#46454</comment>
   </data>
   <data name="ProductSB" xml:space="preserve">
     <value>Sportsbook</value>
