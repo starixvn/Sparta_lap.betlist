@@ -220,8 +220,8 @@
                 {
                     _bettingTicketCenterExcel.Received().Export(Arg.Is<BettingTicketCenterExcelModel>(x => !x.Option.ShowTotal
                        && !x.Option.ShowSumStake
-                       && !x.Option.ShowLicenseeWl
-                       && !x.Option.ShowWinLoss
+                       && x.Option.ShowLicenseeWl
+                       && x.Option.ShowWinLoss
                        && x.CustomerCommVisible == metaModel.HasPlayerCom
                        && x.Title == title));
                     AssertClearData(ticketResult);

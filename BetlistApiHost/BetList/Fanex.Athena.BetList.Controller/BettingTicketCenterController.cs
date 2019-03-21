@@ -73,6 +73,8 @@ namespace Fanex.Athena.BetList.Controller
                     Data = ticketResult,
                     Option = new BettingTicketCenterExcelOption
                     {
+                        ShowLicenseeWl = true,
+                        ShowWinLoss = true,
                         ShowTotal = false
                     },
                     CustomerCommVisible = metaModel.HasPlayerCom,
