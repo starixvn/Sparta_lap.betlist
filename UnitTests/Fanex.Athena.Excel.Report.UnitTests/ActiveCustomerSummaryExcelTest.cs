@@ -74,7 +74,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var offeredProducts = new[]
             {
                 Product.SB, Product.NG, Product.BA, Product.VS, Product.CS, Product.KN, Product.PTCS, Product.AGC,
-                Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT, Product.PP
+                Product.CB, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT, Product.PP
             };
             var row1 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, ReportBase.RowHeaderTemplate);
             var row2 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, ReportBase.RowHeaderTemplate + 1);
