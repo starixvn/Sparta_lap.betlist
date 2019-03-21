@@ -28,11 +28,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess
     {
-        private static readonly IEnumerable<string> IgnoredProductInBettypeSection = new[]
-        {
-            Product.MGCLC, Product.MGCRNG
-        };
-
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -287,8 +282,7 @@ namespace Fanex.Athena.DataAccess.Report
             var result = new List<LiveReportByBetType>();
             if (dataList.Any())
             {
-                var supportedProducts = products.Where(p => !IgnoredProductInBettypeSection.Contains(p.ProductCode));
-                result = supportedProducts.Join(
+                result = products.Join(
                     dataList,
                     p => p.ProductCode,
                     d => d.ProductCode,
