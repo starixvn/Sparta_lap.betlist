@@ -2468,14 +2468,6 @@
     <value>Detailed Bet list</value>
     <comment>#43078</comment>
   </data>
-  <data name="ProductMGCLC" xml:space="preserve">
-    <value>Microgaming-Live Casino</value>
-    <comment>#46454, #49196</comment>
-  </data>
-  <data name="ProductMGCRNG" xml:space="preserve">
-    <value>Microgaming-RNG Casino</value>
-    <comment>#46454, #49196</comment>
-  </data>
   <data name="ReferenceNo" xml:space="preserve">
     <value>Reference No</value>
     <comment>#47601</comment>

@@ -18,8 +18,6 @@ namespace Fanex.Athena.VendorAdapter.Interfaces
 
         string GetLeagueName(object leagueId);
 
-        string GetMicroGamingGameName(string resourceId);
-
         string GetSportName(object sportId, string languageCode = null);
 
         string GetTeamName(object teamId);

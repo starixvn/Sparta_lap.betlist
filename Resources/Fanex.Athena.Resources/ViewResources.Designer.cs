@@ -6046,24 +6046,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Microgaming-Live Casino.
-        /// </summary>
-        public static string ProductMGCLC {
-            get {
-                return ResourceManager.GetString("ProductMGCLC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming-RNG Casino.
-        /// </summary>
-        public static string ProductMGCRNG {
-            get {
-                return ResourceManager.GetString("ProductMGCRNG", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Number Game.
         /// </summary>
         public static string ProductNG {

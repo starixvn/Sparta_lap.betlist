@@ -30,11 +30,7 @@ namespace Fanex.Athena.Constant.DataDomain
 
         public const int BetTrade = 13;
 
-        public const int MicroGamingLiveCasino = 14;
-
         public const int ColossusBets = 15;
-
-        public const int MicrogamingRNGCasino = 17;
 
         public const int AllBet = 21;
 

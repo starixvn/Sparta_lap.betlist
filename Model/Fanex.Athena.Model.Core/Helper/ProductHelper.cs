@@ -23,8 +23,6 @@
                 { Product.BA, nameof(ViewResources.ProductBA) },
                 { Product.NG, nameof(ViewResources.ProductNG) },
                 { Product.SB, nameof(ViewResources.Sportsbook) },
-                { Product.MGCLC, nameof(ViewResources.ProductMGCLC) },
-                { Product.MGCRNG, nameof(ViewResources.ProductMGCRNG) },
                 { Product.VS, nameof(ViewResources.ProductVS) },
                 { "VS180", nameof(ViewResources.VirtualSoccer) },
                 { "VS181", nameof(ViewResources.VirtualHorseRacing) },
