@@ -32,7 +32,7 @@ namespace Fanex.Athena.Controllers
 
         private static readonly int[] CasinoProducts = new[]
         {
-            ProductTypes.MicroGamingLiveCasino, ProductTypes.MicrogamingRNGCasino, ProductTypes.AllBet, ProductTypes.RngCasino, ProductTypes.Voidbridge
+            ProductTypes.AllBet, ProductTypes.RngCasino, ProductTypes.Voidbridge
         };
 
         private readonly IProductService _productService;
