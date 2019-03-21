@@ -46,12 +46,6 @@ module.exports = function (config) {
 		 // --------- Report --------- //
 		'Scripts/Report/agcasinobalance*.js',
 		'jasmine-specs/Report/agcasinobalance*-test.js',
-		
-		'Scripts/Report/CasinoProgressiveWins*.js',
-		'jasmine-specs/Report/casinoprogressivewins*-test.js',
-		
-		'Scripts/Report/microgamingwinloss*.js',
-		'jasmine-specs/Report/microgamingwinloss*-test.js',
 	
 		//'Scripts/Report/report*.js',
 		 'jasmine-specs/Report/report*-test.js',

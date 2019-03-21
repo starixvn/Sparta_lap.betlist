@@ -511,24 +511,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Microgaming Win Loss.
-        /// </summary>
-        public static string Menu_67 {
-            get {
-                return ResourceManager.GetString("Menu_67", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Casino Progressive Wins.
-        /// </summary>
-        public static string Menu_68 {
-            get {
-                return ResourceManager.GetString("Menu_68", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Weekly Live Matches.
         /// </summary>
         public static string Menu_69 {

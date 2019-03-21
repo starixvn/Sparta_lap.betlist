@@ -122,10 +122,8 @@
   <ItemGroup>
     <Compile Include="Constants\ResultVendorProductTypes.cs" />
     <Compile Include="DTO\CashOutWinLoss.cs" />
-    <Compile Include="DTO\CasinoProgressiveWins.cs" />
     <Compile Include="DTO\CasinoTurnover.cs" />
     <Compile Include="DTO\ExchangeWinLoss.cs" />
-    <Compile Include="DTO\MicroGamingWinLoss.cs" />
     <Compile Include="DTO\ActiveCustomer.cs" />
     <Compile Include="DTO\AgCasinoBalance.cs" />
     <Compile Include="DTO\Notification.cs" />
@@ -207,9 +205,6 @@
     <Compile Include="ViewModel\SpecialLicenseeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\ActiveCustomerViewModel.cs" />
-    <Compile Include="ViewModel\CasinoProgressiveWinsViewModel.cs" />
-    <Compile Include="ViewModel\CasinoProgressiveWinsGridViewModel.cs" />
-    <Compile Include="ViewModel\MicroGamingWinLossViewModel.cs" />
     <Compile Include="ViewModel\ColossusBetWinLossViewModel.cs" />
     <Compile Include="ViewModel\LicenseeWinLossByTimeZoneViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />

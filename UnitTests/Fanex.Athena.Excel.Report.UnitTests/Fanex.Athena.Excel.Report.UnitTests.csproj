@@ -118,7 +118,6 @@
     <Compile Include="TestableClasses\WeeklyLiveMatchExcelTestable.cs" />
     <Compile Include="TestableClasses\TurnoverExcelTestable.cs" />
     <Compile Include="ThirdPartyWinLossExcelTest.cs" />
-    <Compile Include="MicroGamingWinLossExcelTest.cs" />
     <Compile Include="PlatformWinLossSummaryExcelTest.cs" />
     <Compile Include="PlatformWinLossMemberExcelTest.cs" />
     <Compile Include="CustomerWinLossExcelTest.cs" />
@@ -126,11 +125,9 @@
     <Compile Include="CustomerPendingFundsExcelTest.cs" />
     <Compile Include="CustomerBalanceExcelTest.cs" />
     <Compile Include="ColossusBetsWinLossExcelTest.cs" />
-    <Compile Include="CasinoProgressiveWinsExcelTest.cs" />
     <Compile Include="CashOutWinLossExcelTest.cs" />
     <Compile Include="LiveReportExcelTest.cs" />
     <Compile Include="TestableClasses\ThirdPartyWinLossExcelTestable.cs" />
-    <Compile Include="TestableClasses\MicroGamingWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\PlatformWinLossSummaryExcelTestable.cs" />
     <Compile Include="TestableClasses\PlatformWinLossMemberExcelTestable.cs" />
     <Compile Include="TestableClasses\LiveReportExcelTestable.cs" />
@@ -142,7 +139,6 @@
     <Compile Include="TestableClasses\CustomerPendingFundsExcelTestable.cs" />
     <Compile Include="TestableClasses\CustomerBalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\ColossusBetsWinLossExcelTestable.cs" />
-    <Compile Include="TestableClasses\CasinoProgressiveWinsExcelTestable.cs" />
     <Compile Include="TestableClasses\CashOutWinLossExcelTestable.cs" />
     <Compile Include="TurnoverExcelTest.cs" />
   </ItemGroup>

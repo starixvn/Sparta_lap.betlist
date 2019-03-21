@@ -1186,24 +1186,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Casino Progressive Wins.
-        /// </summary>
-        public static string CasinoProgressiveWins {
-            get {
-                return ResourceManager.GetString("CasinoProgressiveWins", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This report supports up-to-date data. You can filter data up to 12 months per query..
-        /// </summary>
-        public static string CasinoProgressiveWinsGuidelineContent {
-            get {
-                return ResourceManager.GetString("CasinoProgressiveWinsGuidelineContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Casino Transfer.
         /// </summary>
         public static string CasinoTransfer {
@@ -4809,24 +4791,6 @@ namespace Fanex.Athena.Resources {
         public static string MicroGamingRNGCasinoNotOfferCurrency {
             get {
                 return ResourceManager.GetString("MicroGamingRNGCasinoNotOfferCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming Win Loss.
-        /// </summary>
-        public static string MicrogamingWinLoss {
-            get {
-                return ResourceManager.GetString("MicrogamingWinLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This report supports up-to-date data. You can filter data up to 3 months per query..
-        /// </summary>
-        public static string MicrogamingWinLossGuidelineContent {
-            get {
-                return ResourceManager.GetString("MicrogamingWinLossGuidelineContent", resourceCulture);
             }
         }
         

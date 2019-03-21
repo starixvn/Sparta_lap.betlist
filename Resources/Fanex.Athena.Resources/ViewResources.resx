@@ -2460,9 +2460,6 @@
   <data name="BetTradeCommission" xml:space="preserve">
     <value>Bet Trade Commission</value>
   </data>
-  <data name="MicrogamingWinLoss" xml:space="preserve">
-    <value>Microgaming Win Loss</value>
-  </data>
   <data name="DetailTickets" xml:space="preserve">
     <value>Detail Tickets</value>
     <comment>#43078</comment>
@@ -2494,9 +2491,6 @@
   <data name="MicroGamingRNGCasinoNotOfferCurrency" xml:space="preserve">
     <value>Microgaming RNG Casino is not offered for this currency.</value>
     <comment>#46454</comment>
-  </data>
-  <data name="CasinoProgressiveWins" xml:space="preserve">
-    <value>Casino Progressive Wins</value>
   </data>
   <data name="ReferenceNo" xml:space="preserve">
     <value>Reference No</value>
@@ -2723,14 +2717,6 @@
   </data>
   <data name="GoldDeluxeWinLossGuidelineContent" xml:space="preserve">
     <value>Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 3 months per query.</value>
-    <comment>#71725</comment>
-  </data>
-  <data name="CasinoProgressiveWinsGuidelineContent" xml:space="preserve">
-    <value>This report supports up-to-date data. You can filter data up to 12 months per query.</value>
-    <comment>#71725</comment>
-  </data>
-  <data name="MicrogamingWinLossGuidelineContent" xml:space="preserve">
-    <value>This report supports up-to-date data. You can filter data up to 3 months per query.</value>
     <comment>#71725</comment>
   </data>
   <data name="ProductCO" xml:space="preserve">

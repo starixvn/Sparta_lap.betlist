@@ -53,8 +53,6 @@
         public const string ReportAGCasinoBalance = "AGCasinoBalance63";
         public const string ReportActiveCustomerSummary = "ActiveCustomerSummary64";
         public const string ReportGoldDeluxeWinloss = "GoldDeluxeWinloss65";
-        public const string ReportMicrogamingWinloss = "MicrogamingWinloss67";
-        public const string ReportCasinoProgressiveWins = "CasinoProgressiveWins68";
         public const string ReportWeeklyLiveMatches = "WeeklyLiveMatches69";
         public const string ReportCustomerTurnover = "CustomerTurnover51";
         public const string ReportPlatformWinLoss = "MobileWinLoss53";

@@ -12,7 +12,6 @@
     <Function Name="CustomerBalance" Product="SB,BA,NG,VS,CS,KN,BT,AGC,VB,AB,CB,FW,CO,VS2,LT,PP"></Function>
     <Function Name="CustomerPendingFunds" Product="SB,BA,NG,VS,CS,KN,AGC,VB,AB,CB,FW,VS2,LT,PP"></Function>
     <Function Name="CustomerWinLoss" Product="SB,BA,NG,VS,CS,KN,BT,AGC,VB,AB,FW,CO,VS2,LT,PP"></Function>
-    <Function Name="CasinoProgressiveWins" Product="MGCRNG"></Function>
     <Function Name="MatchWinLoss" Product="SB,BA,NG,VS,VS2"></Function>
     <Function Name="PlatformWinloss" Product="SB,BA,NG,VS,KN,CS,VB,AB,FW,VS2,LT,PP"></Function>
     <Function Name="Turnover" Product="SB,BA,NG,VS,CS,KN,BT,AGC,VB,AB,CB,FW,CO,VS2,LT,PP"></Function>

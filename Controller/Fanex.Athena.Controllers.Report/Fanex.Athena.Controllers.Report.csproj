@@ -176,14 +176,12 @@
     <Compile Include="ActiveCustomerSummaryReportController.cs" />
     <Compile Include="AgCasinoBalanceReportController.cs" />
     <Compile Include="AgCasinoWinLossReportController.cs" />
-    <Compile Include="CasinoProgressiveWinsReportController.cs" />
     <Compile Include="CustomerBalanceReportController.cs" />
     <Compile Include="CustomerPendingFundsReportController.cs" />
     <Compile Include="CustomerTurnoverReportController.cs" />
     <Compile Include="CustomerWinLossReportController.cs" />
     <Compile Include="GoldDeluxeWinLossReportController.cs" />
     <Compile Include="MatchWinLossReportController.cs" />
-    <Compile Include="MicrogamingWinlossReportController.cs" />
     <Compile Include="PlatformWinLossReportController.cs" />
     <Compile Include="Result\ResultKenoReportController.cs" />
     <Compile Include="Result\ResultReportController.cs" />

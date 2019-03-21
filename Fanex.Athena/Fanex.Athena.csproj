@@ -575,7 +575,6 @@
     <Content Include="Content\Plugin\Toast\toast.min.css">
       <DependentUpon>toast.css</DependentUpon>
     </Content>
-    <Content Include="Content\Report\microgamingwinLoss.css" />
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="robots.txt" />
     <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
@@ -1930,7 +1929,6 @@
     <None Include="SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Content\Report\casinoprogressivewins.css" />
     <Content Include="Content\jasmine\jasmine.css" />
     <Content Include="Content\jasmine\jasmine_favicon.png" />
     <Content Include="Content\Report\agcasinobalance.css" />
@@ -2013,10 +2011,6 @@
     <Content Include="jasmine-specs\Global\site-test.js" />
     <Content Include="jasmine-specs\Report\agcasinobalance-test.js" />
     <Content Include="jasmine-specs\Report\agcasinobalance.option-test.js" />
-    <Content Include="jasmine-specs\Report\casinoprogressivewins-test.js" />
-    <Content Include="jasmine-specs\Report\casinoprogressivewins.option-test.js" />
-    <Content Include="jasmine-specs\Report\microgamingwinloss-test.js" />
-    <Content Include="jasmine-specs\Report\microgamingwinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\report-test.js" />
     <Content Include="jasmine-specs\setup.js" />
     <Content Include="Jasmine\SpecRunner.html" />
@@ -2048,10 +2042,6 @@
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
     <Content Include="Scripts\Report\agcasinobalance.js" />
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
-    <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
-    <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
-    <Content Include="Scripts\Report\microgamingwinloss.js" />
-    <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
       <SubType>Designer</SubType>
@@ -2074,12 +2064,6 @@
     <Content Include="Views\Report\AgCasinoBalance\Content.cshtml" />
     <Content Include="Views\Report\AgCasinoBalance\Filter.cshtml" />
     <Content Include="Views\Report\AgCasinoBalance\Main.cshtml" />
-    <Content Include="Views\Report\MicrogamingWinLoss\Content.cshtml" />
-    <Content Include="Views\Report\MicrogamingWinLoss\Main.cshtml" />
-    <Content Include="Views\Report\MicrogamingWinLoss\Filter.cshtml" />
-    <Content Include="Views\Report\CasinoProgressiveWins\Content.cshtml" />
-    <Content Include="Views\Report\CasinoProgressiveWins\Filter.cshtml" />
-    <Content Include="Views\Report\CasinoProgressiveWins\Main.cshtml" />
     <Content Include="SiteConfig\WebConfigTransforms\BACKUPMNL.config" />
     <Content Include="SiteConfig\WebConfigTransforms\LOCAL.config" />
     <Content Include="SiteConfig\WebConfigTransforms\PRO.config" />

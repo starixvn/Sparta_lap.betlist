@@ -204,7 +204,6 @@
     <Compile Include="TurnoverReportControllerTest.cs" />
     <Compile Include="SettledMatchCountReportControllerTest.cs" />
     <Compile Include="PlatformWinLossReportControllerTest.cs" />
-    <Compile Include="MicrogamingWinlossReportControllerTest.cs" />
     <Compile Include="MatchWinLossReportControllerTest.cs" />
     <Compile Include="LiveReportControllerTest.cs" />
     <Compile Include="GoldDeluxeWinLossReportControllerTest.cs" />
@@ -213,7 +212,6 @@
     <Compile Include="CustomerPendingFundsReportControllerTest.cs" />
     <Compile Include="CustomerBalanceReportControllerTest.cs" />
     <Compile Include="ColossusBetsWinLossReportControllerTest.cs" />
-    <Compile Include="CasinoProgressiveWinsReportControllerTest.cs" />
     <Compile Include="CashOutWinLossReportControllerTest.cs" />
     <Compile Include="AgCasinoWinLossReportControllerTest.cs" />
     <Compile Include="AgCasinoBalanceReportControllerTest.cs" />
