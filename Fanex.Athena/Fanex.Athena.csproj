@@ -655,7 +655,6 @@
     <Content Include="www\css\source\reactpages\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\tab_topbg.gif" />
-    <Content Include="www\js\build\dev\language-ko-KR.chunk.js" />
     <Content Include="www\js\build\dev\language-zh-CN.chunk.js" />
     <Content Include="www\js\build\dev\language-zh-Hans.chunk.js" />
     <Content Include="www\js\build\dev\language-zh-TW.chunk.js" />
@@ -668,7 +667,6 @@
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\singlecustomer.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\common.chunk.js" />
-    <Content Include="www\js\build\dev\reactpages\lib\lang-ko-KR.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-CN.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-Hans.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-TW.chunk.js" />
@@ -679,7 +677,6 @@
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\report\speciallicenseewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
-    <Content Include="www\js\build\pro\language-ko-KR.chunk.js" />
     <Content Include="www\js\build\pro\language-zh-CN.chunk.js" />
     <Content Include="www\js\build\pro\language-zh-Hans.chunk.js" />
     <Content Include="www\js\build\pro\language-zh-TW.chunk.js" />
@@ -692,7 +689,6 @@
     <Content Include="www\js\build\pro\reactpages\bettingticketscenter\singlecustomer.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\common.chunk.js" />
-    <Content Include="www\js\build\pro\reactpages\lib\lang-ko-KR.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\lang-zh-CN.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\lang-zh-Hans.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\lang-zh-TW.chunk.js" />
@@ -821,11 +817,9 @@
     <Content Include="www\js\build\dev\language-zh-CN.chunk.js.map" />
     <Content Include="www\js\build\dev\language-zh-Hans.chunk.js.map" />
     <Content Include="www\js\build\dev\language-zh-TW.chunk.js.map" />
-    <Content Include="www\js\build\dev\reactpages\lib\lang-ko-KR.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-CN.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-Hans.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-TW.chunk.js.map" />
-    <Content Include="www\js\build\dev\language-ko-KR.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\lib\common.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\lib\jqgrid.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\common.chunk.js.map" />
@@ -1599,9 +1593,6 @@
     <Content Include="www\js\source\common\languages\ViewResources.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
-    <Content Include="www\js\source\common\languages\ViewResources.ko-KR.js">
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
     <Content Include="www\js\source\common\languages\ViewResources.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewResources.txt</LastGenOutput>
@@ -2034,9 +2025,6 @@
     <Content Include="package.json" />
     <Content Include="karma.conf.js" />
     <Content Include="Scripts\Languages\ViewResources.js">
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Languages\ViewResources.ko-KR.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\Languages\ViewResources.txt">

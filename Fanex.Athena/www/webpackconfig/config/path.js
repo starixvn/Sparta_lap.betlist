@@ -68,7 +68,6 @@ var scriptPaths = {
     languageCN: "common/languages/ViewResources.zh-CN.js", 
     languageTW: "common/languages/ViewResources.zh-TW.js", 
     languageHans: "common/languages/ViewResources.zh-Hans.js",
-    languageKR: "common/languages/ViewResources.ko-KR.js",
     home: ["./www/js/source/components/navbar.js", "./www/js/source/components/sidebar.js", "malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js", "./www/js/source/pages/home/main.js"],
     signin: ["./www/js/source/pages/signin/main.js"],
 

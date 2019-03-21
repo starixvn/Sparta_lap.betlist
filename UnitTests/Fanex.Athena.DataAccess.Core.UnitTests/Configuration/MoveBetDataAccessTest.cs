@@ -37,7 +37,6 @@
                 Content_CN = "nee how",
                 Content_TH = "sawa dee-krap",
                 Content_JP = "konnichi ha",
-                Content_KO = "ahn nyeong ha se yo",
                 Content_VI = "xin chao",
             };
             MapReaderData(data);
@@ -56,7 +55,6 @@
                 Assert.That(result.ContentByLanguage["zh-Hans"], Is.EqualTo(data.Content_CN));
                 Assert.That(result.ContentByLanguage["th-TH"], Is.EqualTo(data.Content_TH));
                 Assert.That(result.ContentByLanguage["ja-JP"], Is.EqualTo(data.Content_JP));
-                Assert.That(result.ContentByLanguage["ko-KR"], Is.EqualTo(data.Content_KO));
                 Assert.That(result.ContentByLanguage["vi-VN"], Is.EqualTo(data.Content_VI));
             });
         }

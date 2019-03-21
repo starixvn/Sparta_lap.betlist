@@ -358,7 +358,6 @@
         [TestCase("zhcn", "zh-Hans")]
         [TestCase("jp", "ja-JP")]
         [TestCase("th", "th-TH")]
-        [TestCase("ko", "ko-KR")]
         [TestCase("vn", "vi-VN")]
         [TestCase("invalid", "en-Us")]
         public void SignIn_IsAuthenticatedAndIsSameSession_LanguageIsChanged_UpdateLanguage(string tokenLanguage, string expectedLanguageChanged)

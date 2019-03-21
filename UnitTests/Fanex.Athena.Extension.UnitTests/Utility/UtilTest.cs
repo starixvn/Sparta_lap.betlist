@@ -9,7 +9,6 @@
         [TestCase("en-US", true)]
         [TestCase("zh-TW", true)]
         [TestCase("zh-CN", true)]
-        [TestCase("ko-KR", true)]
         [TestCase("zh-Hans", true)]
         [TestCase("en-us", false)]
         [TestCase("vi-VN", false)]

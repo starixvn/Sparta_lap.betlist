@@ -21,7 +21,6 @@ var scriptPaths = {
     languageResource: ["./www/js/source/reactpages/lib/langHelper.js",
         "./www/js/source/common/languages/ViewResources.js",
     ],
-    langKR: "./www/js/source/common/languages/ViewResources.ko-KR.js",
     langCN: "./www/js/source/common/languages/ViewResources.zh-CN.js",
     langHans: "./www/js/source/common/languages/ViewResources.zh-Hans.js",
     langTW: "./www/js/source/common/languages/ViewResources.zh-TW.js",

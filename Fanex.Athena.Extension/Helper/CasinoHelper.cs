@@ -17,10 +17,6 @@
                     suffix = "_Ct";
                     break;
 
-                case "ko-KR":
-                    suffix = "_Ko";
-                    break;
-
                 default:
                     suffix = "_En";
                     break;

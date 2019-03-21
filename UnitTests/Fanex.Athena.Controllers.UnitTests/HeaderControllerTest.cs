@@ -139,7 +139,6 @@
         [TestCase("")]
         [TestCase("Invalid")]
         [TestCase("en-US")]
-        [TestCase("ko-KR")]
         public void ChangeLanguage_InvalidLanguageCode_ReturnZero(string languagesite)
         {
             using (var controller = CreateController())
@@ -165,7 +164,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                LangService.GetCurrentLanguage().Returns("ko-KR");
+                LangService.GetCurrentLanguage().Returns("zh-TW");
                 LangService.ChangeLanguage(Arg.Any<string>()).Returns(true);
 
                 // Action

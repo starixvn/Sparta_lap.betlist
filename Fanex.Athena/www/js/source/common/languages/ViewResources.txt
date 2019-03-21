@@ -6,5 +6,4 @@
 // Fanex.Athena\www\js\source\common\languages\ViewResources.zh-Hans.js
 // Fanex.Athena\www\js\source\common\languages\ViewResources.zh-CN.js
 // Fanex.Athena\www\js\source\common\languages\ViewResources.js
-// Fanex.Athena\www\js\source\common\languages\ViewResources.ko-KR.js
 
