@@ -175,7 +175,6 @@
     <Compile Include="LastBetsMonitoringBetListController.cs" />
     <Compile Include="LiveReportBetListController.cs" />
     <Compile Include="MatchWinLossBetListController.cs" />
-    <Compile Include="MicroGamingRngBetListController.cs" />
     <Compile Include="PendingFundsBetListController.cs" />
     <Compile Include="PlatformWinLossBetListController.cs" />
     <Compile Include="PragmaticPlayBetListBetListController.cs" />

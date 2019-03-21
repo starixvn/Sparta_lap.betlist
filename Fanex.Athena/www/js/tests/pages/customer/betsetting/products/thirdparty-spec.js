@@ -3,9 +3,7 @@ var modulePath = ["jquery", "common/site", basePath + "common/betsettingbase", b
 
 define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, ThirdPartyBetSetting) {
     var MACAU_PRODUCT = 12;
-    var MGCLIVECASINO_PRODUCT = 14;
     var COLOSSUSBETS_PRODUCT = 15;
-    var MGCRNGCASINO_PRODUCT = 17;
     var BETTRADE_PRODUCT = 13;
     var CASHOUT_PRODUCT = 25;
 
@@ -92,19 +90,10 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, ThirdPar
                 assertByProductAndUrl(MACAU_PRODUCT, expectedUrl);
             });
 
-            it("Product is MgcLiveCasino - BetSettingStatus.update() should be called with correct parameter", function () {
-                var expectedUrl = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
-                assertByProductAndUrl(MGCLIVECASINO_PRODUCT, expectedUrl);
-            });
 
             it("Product is Colossusbets - BetSettingStatus.update() should be called with correct parameter", function () {
                 var expectedUrl = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
                 assertByProductAndUrl(COLOSSUSBETS_PRODUCT, expectedUrl);
-            });
-
-            it("Product is MgcRngCasino - BetSettingStatus.update() should be called with correct parameter", function () {
-                var expectedUrl = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
-                assertByProductAndUrl(MGCRNGCASINO_PRODUCT, expectedUrl);
             });
 
             it("Product is BetTrade - BetSettingStatus.update() should be called with correct parameter", function () {
@@ -121,16 +110,6 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, ThirdPar
                 initialize(1);
 
                 expect(ThirdPartyBetSetting.updateStatus).toThrow("Invalid product id: 1");
-            });
-
-            it("Product is MgcLiveCasino - param has more status property - BetSettingStatus.update() should be called with correct parameter", function () {
-                var expectedUrl = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
-                var expectedParam = { status: 1 };
-                initialize(MGCLIVECASINO_PRODUCT, true);
-
-                ThirdPartyBetSetting.updateStatus();
-
-                expect(BetSettingStatus.update).toHaveBeenCalledWith(expectedUrl, expectedParam);
             });
         });
     });

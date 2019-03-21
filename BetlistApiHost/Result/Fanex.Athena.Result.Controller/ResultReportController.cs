@@ -12,8 +12,6 @@ namespace Fanex.Athena.Result.Controller
     using Common.Model.DTO;
     using Common.Utility.Services.Interfaces;
     using Fanex.Result.Core.Base;
-    using Fanex.Result.Core.MicroGaming;
-    using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
     using Model.MetaModel;
     using Resources;
@@ -41,8 +39,6 @@ namespace Fanex.Athena.Result.Controller
             SportType.VirtualCycling
         };
 
-        private readonly IParserService _microGamingParserService;
-
         private readonly IResultService _resultService;
 
         private readonly IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
@@ -55,12 +51,10 @@ namespace Fanex.Athena.Result.Controller
         #region Result-Page
 
         public ResultReportController(
-            IParserService microGamingParserService,
             IResultService resultService,
             IRNGCasinoSingleWalletService rngCasinoSingleWalletService,
             ICacheRefAdapter cacheRefAdapter)
         {
-            _microGamingParserService = microGamingParserService;
             _resultService = resultService;
             _rngCasinoSingleWalletService = rngCasinoSingleWalletService;
             _cacheRefAdapter = cacheRefAdapter;
@@ -129,12 +123,6 @@ namespace Fanex.Athena.Result.Controller
         {
             await GetPopUpData(metalModel).ConfigureAwait(false);
             return _htmlResult;
-        }
-
-        [HttpPost]
-        public string MicrogamingResultPopup(MicroGaming param)
-        {
-            return _microGamingParserService.Parser(param);
         }
 
         [HttpPost]

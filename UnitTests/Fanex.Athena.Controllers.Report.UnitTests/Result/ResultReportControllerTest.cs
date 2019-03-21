@@ -45,53 +45,6 @@
         }
 
         [Test]
-        public void MicrogamingResultPopup_ValidModelState_ResultIsCorrect()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const string ExpectedData = "hello cái bô";
-                const int GameId = 1;
-                const int CustId = 2;
-                const string Url = "/ResultReport/MicrogamingResultPopup";
-                _betListApiClient.PostAsyncString(Url, Arg.Any<object>())
-                    .Returns(ExpectedData);
-
-                // Action
-                var viewResult = controller.MicrogamingResultPopup(GameId, CustId).Result as ViewResult;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    _betListApiClient.Received(1).PostAsyncString(
-                        Url,
-                        Arg.Is<object>(
-                            x => (int)x.GetValue("custId") == CustId &&
-                                (int)x.GetValue("gameId") == GameId &&
-                                (string)x.GetValue("SiteName") == SessionService.LicenseeSession.LicenseeName));
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/Result/Popup/Microgaming.cshtml"));
-                    Assert.That(viewResult.ViewBag.Data, Is.EqualTo(ExpectedData));
-                });
-            }
-        }
-
-        [Test]
-        public void MicrogamingResultPopup_InvalidModelState_RedirectToErrorPage()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                controller.ModelState.AddModelError("error", "hihi");
-
-                // Action
-                var result = controller.MicrogamingResultPopup(0, 0).Result as RedirectResult;
-
-                // Assert
-                Assert.That(result.Url, Is.EqualTo("~/Utility/Error?err=400"));
-            }
-        }
-
-        [Test]
         public void ShowRngCasinoSingleWalletResult_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController())

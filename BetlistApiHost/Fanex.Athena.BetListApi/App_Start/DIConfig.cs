@@ -12,7 +12,6 @@ using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.TicketHelper;
 using Fanex.Logging;
 using Fanex.Result.Core.AllBetCasino;
-using Fanex.Result.Core.MicroGaming;
 using Fanex.Result.Core.PP;
 using Fanex.Result.Core.Voidbridge;
 
@@ -50,7 +49,6 @@ namespace Fanex.Athena
             builder.RegisterType<VoidbridgeApiImp>().As<VoidbridgeApi>();
             builder.RegisterType<AllbetResultBuilder>().As<IAllbetResultBuilder>();
 
-            builder.RegisterInstance(ParserService.Instance).As<IParserService>();
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
         }
 

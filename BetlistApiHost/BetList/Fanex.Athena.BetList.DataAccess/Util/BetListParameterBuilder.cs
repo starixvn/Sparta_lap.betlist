@@ -297,7 +297,7 @@
             db.SetParameterValue("MatchID", metaModel.MatchId);
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue("LiveIndicator", metaModel.LiveIndicator);
-            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS, ProductCodes.MGCLC, ProductCodes.MGCRNG, ProductCodes.VS2 };
+            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 

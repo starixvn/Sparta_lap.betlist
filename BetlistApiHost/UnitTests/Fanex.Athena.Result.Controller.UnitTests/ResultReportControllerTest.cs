@@ -5,8 +5,6 @@
     using System.Web.Mvc;
     using Common.Utility.Services.Interfaces;
     using Fanex.Result.Core.Base;
-    using Fanex.Result.Core.MicroGaming;
-    using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
     using NUnit.Framework;
@@ -22,8 +20,6 @@
 
         private static readonly DateTime BalanceUpDate = new DateTime(2017, 3, 4);
 
-        private IParserService _microGamingParserService;
-
         private IResultService _resultService;
 
         private IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
@@ -31,27 +27,8 @@
         [SetUp]
         public void SetUp()
         {
-            _microGamingParserService = Substitute.For<IParserService>();
             _resultService = Substitute.For<IResultService>();
             _rngCasinoSingleWalletService = Substitute.For<IRNGCasinoSingleWalletService>();
-        }
-
-        [Test]
-        public void MicrogamingResultPopup_ValidModelState_ResultIsCorrect()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const string ExpectedData = "hello cái bô";
-                _microGamingParserService.Parser(Arg.Any<MicroGaming>()).ReturnsForAnyArgs(ExpectedData);
-                var metaModel = new MicroGaming();
-
-                // Action
-                var result = controller.MicrogamingResultPopup(metaModel);
-
-                // Assert
-                Assert.That(result, Is.EqualTo(ExpectedData));
-            }
         }
 
         [Test]
@@ -125,7 +102,6 @@
         private ResultReportController CreateController(string productCodeList = null)
         {
             var controller = new ResultReportController(
-                _microGamingParserService,
                 _resultService,
                 _rngCasinoSingleWalletService,
                 Substitute.For<ICacheRefAdapter>());

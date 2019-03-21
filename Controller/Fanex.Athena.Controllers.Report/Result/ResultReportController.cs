@@ -134,26 +134,6 @@ namespace Fanex.Athena.Controllers.Report.Result
             return Redirect("~/Utility/Error?err=400");
         }
 
-        [HttpGet]
-        public async Task<ActionResult> MicrogamingResultPopup(int gameId, int custId)
-        {
-            if (ModelState.IsValid)
-            {
-                var metaModel = new
-                {
-                    custId,
-                    gameId,
-                    SiteName = SessionService.LicenseeSession.LicenseeName,
-                };
-                var result = await _betListApiClient.PostAsyncString("/ResultReport/MicrogamingResultPopup", metaModel).ConfigureAwait(false);
-
-                ViewBag.Data = result;
-                return View("~/Views/Desktop/Report/Result/Popup/Microgaming.cshtml");
-            }
-
-            return Redirect("~/Utility/Error?err=400");
-        }
-
         [HttpPost]
         [CustomValidateAntiForgery]
         public async Task<ActionResult> ShowRngCasinoSingleWalletResult(string refNo)
