@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
@@ -29,9 +30,9 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult GetData(LastBetsMonitoringMetaModel metaModel)
+        public async Task<JsonResult> GetData(LastBetsMonitoringMetaModel metaModel)
         {
-            var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList);
+            var ticketResult = await _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
 
             if (ticketResult.MainTicketList.Any())
             {

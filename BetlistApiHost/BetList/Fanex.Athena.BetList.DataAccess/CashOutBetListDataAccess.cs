@@ -8,6 +8,7 @@ namespace Fanex.Athena.BetList.DataAccess
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using BetList.Model.DTO;
     using BetList.Model.ViewModel;
     using Common.Utility.Collections;
@@ -17,7 +18,7 @@ namespace Fanex.Athena.BetList.DataAccess
 
     public class CashOutBetListDataAccess : BaseBetListDataAccess, ICashOutBetListDataAccess
     {
-        public CashOutBetListDetailViewModel GetDetail(
+        public async Task<CashOutBetListDetailViewModel> GetDetail(
             CashOutBetListDetailMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
@@ -34,7 +35,7 @@ namespace Fanex.Athena.BetList.DataAccess
                     AgentList = metaModel.AgentListXml,
                     metaModel.BaseCurrency
                 };
-                using (var reader = db.ExecuteReader(param))
+                using (var reader = await db.ExecuteReaderAsync(param).ConfigureAwait(false))
                 {
                     var viewModel = new CashOutBetListDetailViewModel
                     {

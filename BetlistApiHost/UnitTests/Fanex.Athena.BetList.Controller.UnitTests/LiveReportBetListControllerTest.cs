@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.Utility.Helpers;
     using Model.DTO;
     using Model.MetaModel;
@@ -29,7 +30,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectData()
+        public async Task GetData_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -49,7 +50,7 @@
                 _betListService.BuildTicketTextList(ticketResult).Returns(ticketText.ToList());
 
                 // Action
-                var result = controller.GetData(metaModel).Data;
+                var result = (await controller.GetData(metaModel)).Data;
                 var main = result.GetType().GetProperty("Main").GetValue(result, null);
                 var total = result.GetType().GetProperty("Total").GetValue(result, null);
 
@@ -67,7 +68,7 @@
         [TestCase(1, 20, 50, 1, 3)]
         [TestCase(2, 30, 60, 31, 2)]
         [TestCase(3, 10, 60, 21, 6)]
-        public void GetPagingData_WhenCall_ReturnCorrectData(int pageIndex, int pageSize, int totalRows, int startIndex, int totalPage)
+        public async Task GetPagingData_WhenCall_ReturnCorrectData(int pageIndex, int pageSize, int totalRows, int startIndex, int totalPage)
         {
             using (var controller = CreateController())
             {
@@ -84,7 +85,7 @@
                 _betListService.BuildTicketTextList(ticketResult, metaModel, startIndex).Returns(ticketText.ToList());
 
                 // Action
-                var result = controller.GetPagingData(metaModel).Data;
+                var result = (await controller.GetPagingData(metaModel)).Data;
                 var page = result.GetType().GetProperty("page").GetValue(result, null);
                 var total = result.GetType().GetProperty("total").GetValue(result, null);
                 var records = result.GetType().GetProperty("records").GetValue(result, null);
@@ -107,7 +108,7 @@
         [TestCase(1.123, 2.345, "3.47")]
         [TestCase(1.123, 2.34, "3.46")]
         [TestCase(-1.123, -2.345, "<span class='negative-number'>-3.47</span>")]
-        public void GetPagingData_WhenCall_ReturnCorrectLicenseeWLText(decimal sumLicenseeWL, decimal sumComm, string expectedLicenseeWLText)
+        public async Task GetPagingData_WhenCall_ReturnCorrectLicenseeWLText(decimal sumLicenseeWL, decimal sumComm, string expectedLicenseeWLText)
         {
             using (var controller = CreateController())
             {
@@ -125,7 +126,7 @@
                 var expectedWinloss = NumberHelper.DecFormat(metaModel.SumWinlost + metaModel.SumPlayerComm, 2);
 
                 // Action
-                var result = controller.GetPagingData(metaModel).Data;
+                var result = (await controller.GetPagingData(metaModel)).Data;
                 var userdata = result.GetType().GetProperty("userdata").GetValue(result, null);
 
                 // Assert

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
@@ -34,20 +35,20 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult Detail(MixParlayDetailMetaModel metaModel)
+        public async Task<JsonResult> Detail(MixParlayDetailMetaModel metaModel)
         {
-            var ticketResult = _betListService.GetMixParlayDetailTicket(metaModel);
+            var ticketResult = await _betListService.GetMixParlayDetailTicket(metaModel).ConfigureAwait(false);
             var result = _betListService.BuildTicketTextList(ticketResult: ticketResult, showOdds: true);
             ClearData(ticketResult);
             return Json(result);
         }
 
         [HttpPost]
-        public JsonResult NewParlayDetail(NewParlayDetailMetaModel metaModel)
+        public async Task<JsonResult> NewParlayDetail(NewParlayDetailMetaModel metaModel)
         {
             var texts = (string[])_cacheRefAdapter.GetCombinationTypeCombo(metaModel.BetTeam, metaModel.BetCheck, metaModel.Handicap1, metaModel.Handicap2).Clone();
 
-            var ticketResult = _betListService.GetMixParlayDetailTicket(metaModel);
+            var ticketResult = await _betListService.GetMixParlayDetailTicket(metaModel);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
 
             const string TextRenderPattern = "<p class='system-parlay-ticket-infor'>"

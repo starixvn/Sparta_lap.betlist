@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.MetaModel;
 
@@ -14,9 +15,9 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult GetData(BetListMetaModel metaModel)
+        public async Task<JsonResult> GetData(BetListMetaModel metaModel)
         {
-            var dataList = _dailyStatementBetListDataAccess.GetDailyStatementData(metaModel);
+            var dataList = await _dailyStatementBetListDataAccess.GetDailyStatementData(metaModel).ConfigureAwait(false);
             return Json(new
             {
                 Main = dataList,

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.MetaModel;
 
@@ -14,9 +15,9 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult GetCustomerList(string agentListXml)
+        public async Task<JsonResult> GetCustomerList(string agentListXml)
         {
-            var result = _cancelledBetListDataAccess.GetCancelBetCustList(agentListXml);
+            var result = await _cancelledBetListDataAccess.GetCancelBetCustList(agentListXml);
             return Json(result);
         }
     }

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
     using System.Collections;
+    using System.Threading.Tasks;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.Entities;
@@ -17,7 +18,7 @@
         private const string LiveReportWinlossParlaySp = "Lrf_BetList_LiveReport_SelWinlossParlay";
 
         [Test]
-        public void GetBetListData_CalledByLiveReportBetListByMatch_ParametersPassedCorrectly()
+        public async Task GetBetListData_CalledByLiveReportBetListByMatch_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossByMatchSp)).Returns(ObjectDb);
@@ -26,7 +27,7 @@
             ObjectDb.GetOuputParams().Returns(x => { return null; });
 
             // Action
-            DataAccess.GetBetListData(metaModel);
+            await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -42,7 +43,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByLiveReportBetListByMatch_OutSqlParamIsNull_ReturnCorrectTicketDataList()
+        public async Task GetBetListData_CalledByLiveReportBetListByMatch_OutSqlParamIsNull_ReturnCorrectTicketDataList()
         {
             // Arrange
             var expectResult = new TicketData
@@ -69,7 +70,7 @@
             };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel);
+            var result = await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -80,7 +81,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByLiveReportBetListByMatch_ReturnCorrectTicketDataList()
+        public async Task GetBetListData_CalledByLiveReportBetListByMatch_ReturnCorrectTicketDataList()
         {
             // Arrange
             var expectResult = new TicketData
@@ -108,7 +109,7 @@
             };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel);
+            var result = await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -119,14 +120,14 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByLiveReportOutRightBetlist_ParametersPassedCorrectly()
+        public async Task GetBetListData_CalledByLiveReportOutRightBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossOutrightSp)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel(LiveReportWinlossOutrightSp);
 
             // Action
-            DataAccess.GetBetListData(metaModel);
+            await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -143,14 +144,14 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByLiveReportNumberGameBetlist_ParametersPassedCorrectly()
+        public async Task GetBetListData_CalledByLiveReportNumberGameBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossNumberGameSp)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel(LiveReportWinlossNumberGameSp);
 
             // Action
-            DataAccess.GetBetListData(metaModel);
+            await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -167,14 +168,14 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByLiveReportParlayBetlist_ParametersPassedCorrectly()
+        public async Task GetBetListData_CalledByLiveReportParlayBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossParlaySp)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel(LiveReportWinlossParlaySp);
 
             // Action
-            DataAccess.GetBetListData(metaModel);
+            await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -194,7 +195,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByLiveReportVHRacingBetlist_ParametersPassedCorrectly()
+        public async Task GetBetListData_CalledByLiveReportVHRacingBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
@@ -202,7 +203,7 @@
             var metaModel = GetLiveReportBetListMetaModel(UspKey);
 
             // Action
-            DataAccess.GetBetListData(metaModel);
+            await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -228,7 +229,11 @@
 
         [TestCase(true, "Team1", true, 2)]
         [TestCase(false, "", false, 0)]
-        public void GetBetListData_ReadLrfReferneceTicket_ReturnCorrectData(bool hasOrdinalBetTeam, string expectedBetTeam, bool hasOrdinalStake, decimal expectedStake)
+        public async Task GetBetListData_ReadLrfReferneceTicket_ReturnCorrectData(
+            bool hasOrdinalBetTeam, 
+            string expectedBetTeam, 
+            bool hasOrdinalStake, 
+            decimal expectedStake)
         {
             // Arrange
             var expectResult = new TicketData
@@ -261,7 +266,7 @@
             };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel);
+            var result = await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -274,7 +279,7 @@
         [TestCase("LicenseeWL", "LicenseeWLComm")]
         [TestCase("nickname", "ExternalId")]
         [TestCase("Status", "Status")]
-        public void GetBetListData_IsServerPagingFalseSortData_SortCorrectProperty(string sortBy, string expectedSortedProp)
+        public async Task GetBetListData_IsServerPagingFalseSortData_SortCorrectProperty(string sortBy, string expectedSortedProp)
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
@@ -284,7 +289,7 @@
             metaModel.SortBy = sortBy;
 
             // Action
-            DataAccess.GetBetListData(metaModel);
+            await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(metaModel.SortBy, Is.EqualTo(expectedSortedProp));
@@ -292,7 +297,7 @@
 
         [TestCase("Lrf_BetList_RNG_Detail")]
         [TestCase("Lrf_BetList_LicenseeBonus_Detail")]
-        public void GetBetListData_CallSpDoesNotHaveOutPutParam_SumDataToGetSummaryResult(string uspName)
+        public async Task GetBetListData_CallSpDoesNotHaveOutPutParam_SumDataToGetSummaryResult(string uspName)
         {
             // Arrange
             var expectResult = new LrfTicket
@@ -321,7 +326,7 @@
             var metaModel = new BetListMetaModel { BaseCurrency = string.Empty, UspKey = uspName };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel);
+            var result = await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -337,7 +342,7 @@
 
         [TestCase("Lrf_BetList_SelWinLossByDate_Mem")]
         [TestCase("Lrf_BetList_SelWinloss_Mem")]
-        public void GetBetListData_CallSpHaveOutPutParamBaseOnCurrency_GetSummaryFromOutputParamsWithBaseCurrency(string uspName)
+        public async Task GetBetListData_CallSpHaveOutPutParamBaseOnCurrency_GetSummaryFromOutputParamsWithBaseCurrency(string uspName)
         {
             // Arrange
             const string BaseCurrency = "usd";
@@ -373,14 +378,14 @@
             var metaModel = new BetListMetaModel { BaseCurrency = BaseCurrency, UspKey = uspName };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel);
+            var result = await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             AssertTicketResult(result, expectSummaryResult, BaseCurrency);
         }
 
         [TestCase("Lrf_BetList_CustomerList_Mem")]
-        public void GetBetListData_CallSpHaveOnlyOriginalOutPutParam_GetSummaryFromOriginalOutputParams(string uspName)
+        public async Task GetBetListData_CallSpHaveOnlyOriginalOutPutParam_GetSummaryFromOriginalOutputParams(string uspName)
         {
             // Arrange
             const string BaseCurrency = "usd";
@@ -411,7 +416,7 @@
             var metaModel = new BetListMetaModel { BaseCurrency = BaseCurrency, UspKey = uspName };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel);
+            var result = await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             AssertTicketResult(result, expectSummaryResult);

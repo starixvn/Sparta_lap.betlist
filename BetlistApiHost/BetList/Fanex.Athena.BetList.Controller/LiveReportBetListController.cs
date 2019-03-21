@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Utility.Helpers;
@@ -15,9 +16,9 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult GetData(LiveReportBetListMetaModel metaModel)
+        public async Task<JsonResult> GetData(LiveReportBetListMetaModel metaModel)
         {
-            var ticketResult = _betListService.GetBetListData(metaModel);
+            var ticketResult = await _betListService.GetBetListData(metaModel).ConfigureAwait(false);
 
             var result = new
             {
@@ -33,9 +34,9 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult GetPagingData(LiveReportBetListMetaModel metaModel)
+        public async Task<JsonResult> GetPagingData(LiveReportBetListMetaModel metaModel)
         {
-            var ticketResult = _betListService.GetBetListData(metaModel);
+            var ticketResult = await _betListService.GetBetListData(metaModel).ConfigureAwait(false);
 
             var totalPage = metaModel.TotalRows % metaModel.PageSize == 0
                 ? metaModel.TotalRows / metaModel.PageSize

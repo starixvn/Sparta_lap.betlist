@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.MetaModel;
@@ -31,9 +32,9 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult Detail(ColossusBetDetailMetaModel metaModel)
+        public async Task<JsonResult> Detail(ColossusBetDetailMetaModel metaModel)
         {
-            var viewModel = _colossusBetBetListDataAccess.GetData(metaModel);
+            var viewModel = await _colossusBetBetListDataAccess.GetData(metaModel).ConfigureAwait(false);
 
             var iframeUrl = GetIframeUrl(metaModel.UserId, metaModel.BetCheck, metaModel.CustId);
             viewModel.IframeUrl = iframeUrl;

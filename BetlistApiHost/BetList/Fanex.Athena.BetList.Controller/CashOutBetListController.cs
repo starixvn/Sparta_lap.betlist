@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.DTO;
@@ -32,9 +33,9 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult Detail(CashOutBetListDetailMetaModel metaModel)
+        public async Task<JsonResult> Detail(CashOutBetListDetailMetaModel metaModel)
         {
-            var viewModel = _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList);
+            var viewModel = await _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
             if (viewModel.OriginalTicket != null)
             {
                 viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId ||

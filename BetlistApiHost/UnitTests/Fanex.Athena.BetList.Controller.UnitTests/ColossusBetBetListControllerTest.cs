@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using Common.Utility.Services.Interfaces;
     using DataAccess.Interfaces;
     using Logging;
@@ -38,7 +39,7 @@
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectData()
+        public async Task Detail_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -51,7 +52,7 @@
                 var expectedIframeUrl = SetUpForGetIframeUrl(metaModel);
 
                 // Action
-                var result = (ColossusBetDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (ColossusBetDetailViewModel)(await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.That(viewModel.IframeUrl, Is.EqualTo(expectedIframeUrl));
@@ -59,7 +60,7 @@
         }
 
         [Test]
-        public void Detail_GetTokenThrowException_LogError()
+        public async Task Detail_GetTokenThrowException_LogError()
         {
             using (var controller = CreateController())
             {
@@ -76,7 +77,7 @@
                 _webClientService.When(x => x.DownloadString(Arg.Any<string>())).Throw(exception);
 
                 // Action
-                controller.Detail(metaModel);
+                await controller.Detail(metaModel);
 
                 // Assert
                 _logger.Received(1).Error("ColossusBet Get Token Error - ApiUrl: " + string.Format(tokenApiUrl, metaModel.UserId, metaModel.CustId), exception);

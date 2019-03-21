@@ -5,6 +5,7 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.DataAccess.Interfaces;
     using Common.Utility.Extensions;
     using Fanex.Athena.BetList.Model.DTO;
@@ -30,7 +31,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IEnumerable<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel)
+        public async Task<IEnumerable<DailyStatement>> GetDailyStatementData(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_Statement_Mem";
 
@@ -44,7 +45,7 @@
                 BetListParameterBuilder.CreateBetListDateRangeParameters(db, metaModel);
                 BetListParameterBuilder.CreateBetlistBUParameters(db, metaModel);
                 BetListParameterBuilder.CreateBetListPagingParameters(db, metaModel);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadData(metaModel, reader);
                 }

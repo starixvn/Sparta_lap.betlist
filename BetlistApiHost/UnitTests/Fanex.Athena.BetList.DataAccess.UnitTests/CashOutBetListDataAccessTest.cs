@@ -2,6 +2,7 @@
 {
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.DataAccess.Util;
     using Athena.BetList.Model.MetaModel;
@@ -21,7 +22,7 @@
         }
 
         [Test]
-        public void GetDetail_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
@@ -37,17 +38,17 @@
 
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
             object param = null;
-            ObjectDb.ExecuteReader(Arg.Do<object>(x => param = x));
+            await ObjectDb.ExecuteReaderAsync(Arg.Do<object>(x => param = x));
 
             // Action
-            DataAccess.GetDetail(metaModel, UserCurrencyList);
+            await DataAccess.GetDetail(metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.That(param, Tobe.SameProperties(expectedParam));
         }
 
         [Test]
-        public void GetDetail_WhenCall_OriginalTicketReturnCorrectly()
+        public async Task GetDetail_WhenCall_OriginalTicketReturnCorrectly()
         {
             // Arrange
             const string UserName = "user1";
@@ -63,7 +64,7 @@
             safeReader.GetDecimal("playercomm").Returns(PlayerComm);
 
             // Action
-            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel(), UserCurrencyList);
+            var result = await DataAccess.GetDetail(new CashOutBetListDetailMetaModel(), UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -74,7 +75,7 @@
         }
 
         [Test]
-        public void GetDetail_WhenCall_CashOutTicketListReturnCorrectly()
+        public async Task GetDetail_WhenCall_CashOutTicketListReturnCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
@@ -90,7 +91,7 @@
             MapReaderData(dataReader);
 
             // Action
-            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel(), UserCurrencyList);
+            var result = await DataAccess.GetDetail(new CashOutBetListDetailMetaModel(), UserCurrencyList).ConfigureAwait(false);
 
             var firstCashoutTicket = result.CashOutTicketList.First();
 

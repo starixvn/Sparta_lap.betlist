@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.DTO;
     using Common.DataAccess.UnitTests;
@@ -20,19 +21,19 @@
         }
 
         [Test]
-        public void GetCancelBetCustList_WhenCall_DataReturnedCorrectly()
+        public async Task GetCancelBetCustList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             const string AgentList = "Sdfsdfsdf";
             var expected = GetFakeDataReturn();
-            ObjectDb.Query<CustomerCancelBetItem>(Arg.Any<object>()).Returns(new List<CustomerCancelBetItem> { expected });
+            ObjectDb.QueryAsync<CustomerCancelBetItem>(Arg.Any<object>()).Returns(new List<CustomerCancelBetItem> { expected });
 
             // Action
-            var result = DataAccess.GetCancelBetCustList(AgentList).ElementAt(0);
+            var result = (await DataAccess.GetCancelBetCustList(AgentList)).ElementAt(0);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
-            ObjectDb.Received(1).Query<CustomerCancelBetItem>(Arg.Is<object>(x => (string)x.GetValue("AgentList") == AgentList));
+            await ObjectDb.Received(1).QueryAsync<CustomerCancelBetItem>(Arg.Is<object>(x => (string)x.GetValue("AgentList") == AgentList));
         }
 
         private CustomerCancelBetItem GetFakeDataReturn()

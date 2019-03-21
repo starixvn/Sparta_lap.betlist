@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
@@ -14,14 +15,14 @@
         private const string UspKey = "Lrf_Monitor_BetlistSel_New";
 
         [Test]
-        public void GetLastBetsMonitoringData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetLastBetsMonitoringData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
 
             // Action
-            DataAccess.GetLastBetsMonitoringData(metaModel, UserCurrencyList);
+            await DataAccess.GetLastBetsMonitoringData(metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -44,7 +45,7 @@
         }
 
         [Test]
-        public void GetMatchList_WhenCall_DataReturnedCorrectly()
+        public async Task GetMatchList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Any<string>()).Returns(ObjectDb);
@@ -52,7 +53,7 @@
             ObjectDb.Query<BetListMatch>().Returns(new List<BetListMatch> { expected });
 
             // Action
-            var result = DataAccess.GetMatchList("SPNameTest")[0];
+            var result = (await DataAccess.GetMatchList("SPNameTest").ConfigureAwait(false))[0];
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

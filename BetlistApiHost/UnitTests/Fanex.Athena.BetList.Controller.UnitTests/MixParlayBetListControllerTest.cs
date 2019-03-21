@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.Utility.Collections;
     using Common.Utility.Services.Interfaces;
     using Fanex.BetList.Core.Builder;
@@ -49,7 +50,7 @@
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnCorrectData()
+        public async Task Detail_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -63,7 +64,7 @@
                 _betListService.BuildTicketTextList(ticketResult: ticketResult, showOdds: true).Returns(ticketText);
 
                 // Action
-                var result = controller.Detail(metaModel).Data;
+                var result = (await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -75,7 +76,7 @@
         }
 
         [Test]
-        public void NewParlayDetail_NoMainTicket_ReturnEmptyResult()
+        public async Task NewParlayDetail_NoMainTicket_ReturnEmptyResult()
         {
             using (var controller = CreateController())
             {
@@ -89,7 +90,7 @@
                 _betListService.GetMixParlayDetailTicket(metaModel).Returns(ticketResult);
 
                 // Action
-                var result = controller.NewParlayDetail(metaModel).Data;
+                var result = (await controller.NewParlayDetail(metaModel)).Data;
                 var data = result.GetType().GetProperty("Data").GetValue(result, null);
                 var texts = result.GetType().GetProperty("Texts").GetValue(result, null);
 
@@ -104,7 +105,7 @@
         }
 
         [Test]
-        public void NewParlayDetail_NoParlayTicket_NoRenderParlayContent()
+        public async Task NewParlayDetail_NoParlayTicket_NoRenderParlayContent()
         {
             using (var controller = CreateController())
             {
@@ -133,7 +134,7 @@
                 var expectedData = new List<string> { choice + transDateAndStatus };
 
                 // Action
-                var result = controller.NewParlayDetail(metaModel).Data;
+                var result = (await controller.NewParlayDetail(metaModel)).Data;
                 var data = result.GetType().GetProperty("Data").GetValue(result, null);
                 var texts = result.GetType().GetProperty("Texts").GetValue(result, null);
 
@@ -148,7 +149,7 @@
         }
 
         [Test]
-        public void NewParlayDetail_HasSystemParlayTicket_RenderParlayContent()
+        public async Task NewParlayDetail_HasSystemParlayTicket_RenderParlayContent()
         {
             using (var controller = CreateController())
             {
@@ -174,7 +175,7 @@
                 var expectedTexts = new List<string> { string.Format(TextRenderPattern, texts[0], ticket.Currency, ticket.Stake.ToString("N0")), texts[1] };
 
                 // Action
-                var result = controller.NewParlayDetail(metaModel).Data;
+                var result = (await controller.NewParlayDetail(metaModel)).Data;
                 var actualTexts = result.GetType().GetProperty("Texts").GetValue(result, null);
 
                 // Assert
@@ -186,7 +187,7 @@
         }
 
         [Test]
-        public void NewParlayDetail_HasComboParlayTicket_RenderParlayContent()
+        public async Task NewParlayDetail_HasComboParlayTicket_RenderParlayContent()
         {
             using (var controller = CreateController())
             {
@@ -220,7 +221,7 @@
                 };
 
                 // Action
-                var result = controller.NewParlayDetail(metaModel).Data;
+                var result = (await controller.NewParlayDetail(metaModel)).Data;
                 var actualTexts = result.GetType().GetProperty("Texts").GetValue(result, null);
 
                 // Assert

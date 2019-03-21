@@ -12,6 +12,7 @@ namespace Fanex.Athena.BetList.DataAccess
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.DataAccess.Extensions;
     using Common.Utility.Collections;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
@@ -24,7 +25,7 @@ namespace Fanex.Athena.BetList.DataAccess
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
-        public TicketResult GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel)
+        public async Task<TicketResult> GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";
 
@@ -32,7 +33,7 @@ namespace Fanex.Athena.BetList.DataAccess
             {
                 db.SetParameterValue("TransId", metaModel.TransId);
                 db.SetParameterValue("CustId", metaModel.CustId);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = new TicketResult();
                     result.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.UserCurrencyList, string.Empty));
@@ -44,7 +45,7 @@ namespace Fanex.Athena.BetList.DataAccess
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [System.CLSCompliant(false)]
-        public SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
+        public async Task<SystemParlayData> GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelCombinationParlayDetail";
 
@@ -56,7 +57,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 db.SetParameterValue("balanceupday", metaModel.BalanceUpDay);
                 db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 db.SetParameterValue("outstanding", null);
-                var dataSet = db.ExecuteDataSet();
+                var dataSet = await db.ExecuteDataSetAsync().ConfigureAwait(false);
                 var systemParlayData = new SystemParlayData
                 {
                     TicketList = new List<ISystemParlayTicket>(),
@@ -105,7 +106,7 @@ namespace Fanex.Athena.BetList.DataAccess
             }
         }
 
-        public TicketResult GetBetListData(BetListMetaModel metaModel)
+        public async Task<TicketResult> GetBetListData(BetListMetaModel metaModel)
         {
             var ticketResult = new TicketResult();
 
@@ -116,7 +117,7 @@ namespace Fanex.Athena.BetList.DataAccess
                     metaModel.BaseCurrency :
                     string.Empty;
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.CurrencyList, baseCurrency, metaModel.CustId));
                     if (reader.NextResult())

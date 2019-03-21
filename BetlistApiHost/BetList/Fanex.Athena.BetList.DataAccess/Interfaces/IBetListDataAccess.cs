@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.BetList.DataAccess.Interfaces
 {
-    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.Entities;
@@ -14,10 +14,10 @@ namespace Fanex.Athena.BetList.DataAccess.Interfaces
     [System.CLSCompliant(false)]
     public interface IBetListDataAccess
     {
-        TicketResult GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel);
+        Task<TicketResult> GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel);
 
-        SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);
+        Task<SystemParlayData> GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);
 
-        TicketResult GetBetListData(BetListMetaModel metaModel);
+        Task<TicketResult> GetBetListData(BetListMetaModel metaModel);
     }
 }

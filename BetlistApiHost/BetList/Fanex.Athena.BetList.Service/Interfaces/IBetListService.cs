@@ -7,6 +7,7 @@
 namespace Fanex.Athena.BetList.Service.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.Entities;
@@ -16,11 +17,11 @@ namespace Fanex.Athena.BetList.Service.Interfaces
     {
         string GetLeagueName(int leagueId);
 
-        SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);
+        Task<SystemParlayData> GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);
 
-        TicketResult GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel);
+        Task<TicketResult> GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel);
 
-        TicketResult GetBetListData(BetListMetaModel metaModel);
+        Task<TicketResult> GetBetListData(BetListMetaModel metaModel);
 
         List<TicketText> BuildTicketTextList(
             TicketResult ticketResult,

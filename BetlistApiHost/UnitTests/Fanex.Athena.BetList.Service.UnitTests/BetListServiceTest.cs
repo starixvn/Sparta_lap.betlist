@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.Service.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess.Interfaces;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
@@ -52,7 +53,7 @@
         }
 
         [Test]
-        public void GetMixParlayDetailTicket_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetMixParlayDetailTicket_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var expectedResult = new TicketResult();
@@ -60,14 +61,14 @@
             _betlistDataAccess.GetMixParlayDetailTicket(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _betListService.GetMixParlayDetailTicket(metaModel);
+            var result = await _betListService.GetMixParlayDetailTicket(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetSystemParlayDetail_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetSystemParlayDetail_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var expectedResult = new SystemParlayData { Outstanding = 999 };
@@ -75,14 +76,14 @@
             _betlistDataAccess.GetSystemParlayDetail(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _betListService.GetSystemParlayDetail(metaModel);
+            var result = await _betListService.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetBetListData_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetBetListData_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var expectedResult = new TicketResult
@@ -94,7 +95,7 @@
             _betlistDataAccess.GetBetListData(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _betListService.GetBetListData(metaModel);
+            var result = await _betListService.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
