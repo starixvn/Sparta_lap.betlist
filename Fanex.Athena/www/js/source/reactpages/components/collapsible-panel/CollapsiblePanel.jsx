@@ -38,10 +38,11 @@ export default class CollapsiblePanel extends React.Component {
 
         
         return (<div className={`${ this.props.className }`}>
-{ !this.state.isCollapsed && this.props.children }
-                    
+    <div style={{display: this.state.isCollapsed ? 'none' : 'block'}}>
+{ this.props.children }
+         </div>           
     <div className='caret-block'>
-        {stickyFooter} 
+{stickyFooter} 
     </div>
             <div className="filter-handle" style={{height: "20px",width: "25px", margin: 'auto', cursor: 'pointer'}}>
                     <i className="icon-arrow" onClick={this.onClick} style={arrowStyle}></i>

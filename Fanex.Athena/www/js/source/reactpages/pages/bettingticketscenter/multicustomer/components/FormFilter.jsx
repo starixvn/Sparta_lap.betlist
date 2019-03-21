@@ -379,7 +379,7 @@ export class FormFilter extends Component {
 
                         <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Username")} *</label>
+                            <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
                             <AutoComplete url={ApiUrl.CUSTOMER_SEARCH_URL} 
                             onSelect={(value) => this.props.setUsername(value)}
                             onInput={(value) => this.props.setUsername(value)}
