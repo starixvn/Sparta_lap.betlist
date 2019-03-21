@@ -5347,7 +5347,11 @@ function (_React$Component) {
       };
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "".concat(this.props.className)
-      }, !this.state.isCollapsed && this.props.children, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          display: this.state.isCollapsed ? 'none' : 'block'
+        }
+      }, this.props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "caret-block"
       }, stickyFooter), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter-handle",
@@ -10059,7 +10063,7 @@ function (_Component) {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "label-text"
-      }, _jsroot_lib_langHelper__WEBPACK_IMPORTED_MODULE_12__["default"].getSingleResource("Username"), " *"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_jsroot_components_auto_complete__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      }, _jsroot_lib_langHelper__WEBPACK_IMPORTED_MODULE_12__["default"].getSingleResource("Username")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_jsroot_components_auto_complete__WEBPACK_IMPORTED_MODULE_8__["default"], {
         url: _common_constants_apiUrl__WEBPACK_IMPORTED_MODULE_17__["default"].CUSTOMER_SEARCH_URL,
         onSelect: function onSelect(value) {
           return _this11.props.setUsername(value);

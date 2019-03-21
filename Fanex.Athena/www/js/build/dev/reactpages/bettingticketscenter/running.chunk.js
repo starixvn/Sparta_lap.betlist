@@ -1195,7 +1195,11 @@ function (_React$Component) {
       };
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "".concat(this.props.className)
-      }, !this.state.isCollapsed && this.props.children, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          display: this.state.isCollapsed ? 'none' : 'block'
+        }
+      }, this.props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "caret-block"
       }, stickyFooter), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter-handle",
