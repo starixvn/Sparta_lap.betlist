@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Common.Constant;
     using Common.DataAccess;
     using Common.Utility.Helpers;
@@ -15,7 +16,7 @@
     {
         private const string ExchangeMatchTypeLay = "Lay";
 
-        public ExchangeBetListResult GetBetListData(ExchangeBetListMetaModel metaModel)
+        public async Task<ExchangeBetListResult> GetBetListDataAsync(ExchangeBetListMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_Exchange_Mem";
 
@@ -33,7 +34,7 @@
                 var baseCurrency = GetBaseCurrency(metaModel.BaseCurrency);
                 var result = new ExchangeBetListResult();
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     result.SumWinLossList = ReadSumWinLossData(reader, baseCurrency);
                     result.TicketList = ReadTicketData(reader, baseCurrency);
@@ -44,7 +45,7 @@
             }
         }
 
-        public IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListDetailMetaModel metaModel)
+        public async Task<IEnumerable<ExchangeTicketDetail>> GetTicketDetailListAsync(ExchangeBetListDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_Exchange_Detail";
 
@@ -54,7 +55,7 @@
                 db.SetParameterValue("CustId", metaModel.CustId);
                 db.SetParameterValue("BetID", metaModel.BetId);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var baseCurrency = GetBaseCurrency(metaModel.BaseCurrency);
 

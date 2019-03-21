@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
@@ -22,13 +23,13 @@
         }
 
         [Test]
-        public void GetBetListData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetBetListData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             var metaModel = FakeHelper.Create<ExchangeBetListMetaModel>();
 
             // Action
-            DataAccess.GetBetListData(metaModel);
+            await DataAccess.GetBetListDataAsync(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -45,14 +46,14 @@
         }
 
         [Test]
-        public void GetBetListData_NoData_ReturnEmptyResult()
+        public async Task GetBetListData_NoData_ReturnEmptyResult()
         {
             // Arrange
             Reader.Read().Returns(false);
             ObjectDb.GetParameterValue("SumWinLost").Returns(0);
 
             // Action
-            var result = DataAccess.GetBetListData(new ExchangeBetListMetaModel());
+            var result = await DataAccess.GetBetListDataAsync(new ExchangeBetListMetaModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -68,7 +69,7 @@
         [TestCase("usd", 1.5, 4.5, 4.5)]
         [TestCase("eur", 3.25, 5.1, 5.1)]
         [TestCase("gbp", 2.45, 2.58, 2.58)]
-        public void GetBetListData_HasSumWinLossListData_ReturnCorrectResult(
+        public async Task GetBetListData_HasSumWinLossListData_ReturnCorrectResult(
             string baseCurrency,
             decimal winlossComm,
             decimal baseCurrencyWinlossComm,
@@ -102,7 +103,7 @@
             };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel);
+            var result = await DataAccess.GetBetListDataAsync(metaModel).ConfigureAwait(false);
             var firstSumWL = result.SumWinLossList.ElementAt(0);
 
             // Assert
@@ -125,7 +126,7 @@
         [TestCase("usd", 1.5, 4.5, 4.5)]
         [TestCase("eur", 3.25, 5.1, 5.1)]
         [TestCase("gbp", 2.45, 2.58, 2.58)]
-        public void GetBetListData_HasTicketDataData_ReturnCorrectResult(string baseCurrency, decimal figure, decimal baseCurrencyFigure, decimal expectedFigure)
+        public async Task GetBetListData_HasTicketDataData_ReturnCorrectResult(string baseCurrency, decimal figure, decimal baseCurrencyFigure, decimal expectedFigure)
         {
             // Arrange
             var ticket = FakeHelper.Create<ExchangeTicket>();
@@ -145,7 +146,7 @@
             };
 
             // Action
-            var result = DataAccess.GetBetListData(metaModel).TicketList.ElementAt(0);
+            var result = (await DataAccess.GetBetListDataAsync(metaModel).ConfigureAwait(false)).TicketList.ElementAt(0);
 
             // Assert
             Assert.Multiple(() =>

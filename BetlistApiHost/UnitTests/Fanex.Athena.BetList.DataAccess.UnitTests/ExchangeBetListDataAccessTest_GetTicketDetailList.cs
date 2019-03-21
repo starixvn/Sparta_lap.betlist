@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.UnitTests;
@@ -22,13 +23,13 @@
         }
 
         [Test]
-        public void GetTicketDetailList_WhenCall_ParametersPassedCorrectly()
+        public async Task GetTicketDetailList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             var metaModel = FakeHelper.Create<ExchangeBetListDetailMetaModel>();
 
             // Action
-            DataAccess.GetTicketDetailList(metaModel);
+            await DataAccess.GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -40,20 +41,20 @@
         }
 
         [Test]
-        public void GetTicketDetailList_NoData_ReturnEmptyResult()
+        public async Task GetTicketDetailList_NoData_ReturnEmptyResult()
         {
             // Arrange
             Reader.Read().Returns(false);
 
             // Action
-            var result = DataAccess.GetTicketDetailList(new ExchangeBetListDetailMetaModel());
+            var result = await DataAccess.GetTicketDetailListAsync(new ExchangeBetListDetailMetaModel()).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Is.Empty);
         }
 
         [Test]
-        public void GetTicketDetailList_HasData_ReturnCorrectResult()
+        public async Task GetTicketDetailList_HasData_ReturnCorrectResult()
         {
             // Arrange
             const string BaseCurrency = "usd";
@@ -74,7 +75,7 @@
             };
 
             // Action
-            var result = DataAccess.GetTicketDetailList(metaModel);
+            var result = await DataAccess.GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
             var firstItem = result.ElementAt(0);
 
             // Assert
@@ -89,7 +90,7 @@
 
         [TestCase("Lay", "9.00")]
         [TestCase("WTH", "-")]
-        public void GetTicketDetailList_HasData_ReturnCorrectLiability(
+        public async Task GetTicketDetailList_HasData_ReturnCorrectLiability(
             string exchangeMatchType,
             string expectedLiability)
         {
@@ -108,7 +109,7 @@
             };
 
             // Action
-            var result = DataAccess.GetTicketDetailList(metaModel);
+            var result = await DataAccess.GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result.ElementAt(0).Liability, Is.EqualTo(expectedLiability));

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using DataAccess.Interfaces;
     using Interfaces;
     using Model.DTO;
@@ -17,9 +18,9 @@
             _dataAccess = dataAccess;
         }
 
-        public ExchangeBetListViewModel GetBetListData(ExchangeBetListMetaModel metaModel)
+        public async Task<ExchangeBetListViewModel> GetBetListDataAsync(ExchangeBetListMetaModel metaModel)
         {
-            var betList = _dataAccess.GetBetListData(metaModel);
+            var betList = await _dataAccess.GetBetListDataAsync(metaModel).ConfigureAwait(false);
 
             if (betList.SumWinLossList.Any() && betList.TicketList.Any())
             {
@@ -39,9 +40,9 @@
             return new ExchangeBetListViewModel();
         }
 
-        public IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListDetailMetaModel metaModel)
+        public async Task<IEnumerable<ExchangeTicketDetail>> GetTicketDetailListAsync(ExchangeBetListDetailMetaModel metaModel)
         {
-            return _dataAccess.GetTicketDetailList(metaModel);
+            return await _dataAccess.GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
         }
     }
 }

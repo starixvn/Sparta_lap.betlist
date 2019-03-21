@@ -1,14 +1,15 @@
 ﻿namespace Fanex.Athena.BetList.Service.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
     using BetList.Model.ViewModel;
 
     public interface IExchangeBetListService
     {
-        ExchangeBetListViewModel GetBetListData(ExchangeBetListMetaModel metaModel);
+        Task<ExchangeBetListViewModel> GetBetListDataAsync(ExchangeBetListMetaModel metaModel);
 
-        IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListDetailMetaModel metaModel);
+        Task<IEnumerable<ExchangeTicketDetail>> GetTicketDetailListAsync(ExchangeBetListDetailMetaModel metaModel);
     }
 }

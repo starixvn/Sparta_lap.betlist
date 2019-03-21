@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess.Interfaces;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
@@ -24,30 +25,30 @@
         }
 
         [Test]
-        public void GetTicketDetailList_WhenCall_CallDataAccess()
+        public async Task GetTicketDetailList_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = FakeHelper.Create<ExchangeBetListDetailMetaModel>();
 
             // Action
-            _service.GetTicketDetailList(metaModel);
+            await _service.GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
 
             // Assert
-            _dataAccess.Received().GetTicketDetailList(metaModel);
+            await _dataAccess.Received().GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
         }
 
         [Test]
-        public void GetTicketDetailList_WhenCall_ReturnCorrectData()
+        public async Task GetTicketDetailList_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expectedData = new List<ExchangeTicketDetail>
             {
                 new ExchangeTicketDetail { BetTaken = new System.DateTime(2018, 5, 16), OddsReq = 1, Stake = 2, Liability = "3", OddsMatched = 4 }
             };
-            _dataAccess.GetTicketDetailList(Arg.Any<ExchangeBetListDetailMetaModel>()).Returns(expectedData);
+            _dataAccess.GetTicketDetailListAsync(Arg.Any<ExchangeBetListDetailMetaModel>()).Returns(expectedData);
 
             // Action
-            var result = _service.GetTicketDetailList(new ExchangeBetListDetailMetaModel());
+            var result =  await _service.GetTicketDetailListAsync(new ExchangeBetListDetailMetaModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -58,24 +59,24 @@
         }
 
         [Test]
-        public void GetBetListData_WhenCall_CallDataAccess()
+        public async Task GetBetListData_WhenCall_CallDataAccess()
         {
             // Action
-            _service.GetBetListData(new ExchangeBetListMetaModel());
+            await _service.GetBetListDataAsync(new ExchangeBetListMetaModel()).ConfigureAwait(false);
 
             // Assert
-            _dataAccess.Received().GetBetListData(Arg.Any<ExchangeBetListMetaModel>());
+            await _dataAccess.Received().GetBetListDataAsync(Arg.Any<ExchangeBetListMetaModel>()).ConfigureAwait(false);
         }
 
         [Test]
-        public void GetBetListData_NoDataReturnedFromDataAccess_ReturnEmptyData()
+        public async Task GetBetListData_NoDataReturnedFromDataAccess_ReturnEmptyData()
         {
             // Arrange
-            _dataAccess.GetBetListData(Arg.Any<ExchangeBetListMetaModel>())
+            _dataAccess.GetBetListDataAsync(Arg.Any<ExchangeBetListMetaModel>())
                 .Returns(new ExchangeBetListResult { SumWinLossList = new List<ExchangeSumWinLoss>(), TicketList = new List<ExchangeTicket>() });
 
             // Action
-            var result = _service.GetBetListData(new ExchangeBetListMetaModel());
+            var result = await _service.GetBetListDataAsync(new ExchangeBetListMetaModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -86,7 +87,7 @@
         }
 
         [Test]
-        public void GetBetListData_HasDataReturnedFromDataAccess_ReturnCorrectData()
+        public async Task GetBetListData_HasDataReturnedFromDataAccess_ReturnCorrectData()
         {
             // Arrange
             var sumWinLossList = new List<ExchangeSumWinLoss>()
@@ -104,11 +105,11 @@
                 new ExchangeTicket { UserId = "1", MarketId = "3", EventId = 3, BetId = 4, SelectionName = "Selection4" }
             };
 
-            _dataAccess.GetBetListData(Arg.Any<ExchangeBetListMetaModel>())
+            _dataAccess.GetBetListDataAsync(Arg.Any<ExchangeBetListMetaModel>())
                 .Returns(new ExchangeBetListResult { SumWinLossList = sumWinLossList, TicketList = ticketList });
 
             // Action
-            var result = _service.GetBetListData(new ExchangeBetListMetaModel());
+            var result = await _service.GetBetListDataAsync(new ExchangeBetListMetaModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
