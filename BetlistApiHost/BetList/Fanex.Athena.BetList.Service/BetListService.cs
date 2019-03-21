@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.BetList.Service
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Common.Constant;
@@ -57,7 +58,7 @@ namespace Fanex.Athena.BetList.Service
             return await _betlistDataAccess.GetMixParlayDetailTicket(metaModel);
         }
 
-        [System.CLSCompliant(false)]
+        [CLSCompliant(false)]
         public async Task<SystemParlayData> GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
             return await _betlistDataAccess.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
@@ -65,7 +66,7 @@ namespace Fanex.Athena.BetList.Service
 
         public async Task<TicketResult> GetBetListData(BetListMetaModel metaModel)
         {
-            AssignBalanceUpDates(metaModel);
+            await AssignBalanceUpDates(metaModel).ConfigureAwait(false);
 
             return await _betlistDataAccess.GetBetListData(metaModel).ConfigureAwait(false);
         }
@@ -111,9 +112,9 @@ namespace Fanex.Athena.BetList.Service
             return ticketTextList;
         }
 
-        private void AssignBalanceUpDates(BetListMetaModel metaModel)
+        private async Task AssignBalanceUpDates(BetListMetaModel metaModel)
         {
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
         }

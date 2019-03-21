@@ -50,7 +50,7 @@
             // Arrange
             DataAccess.GetObjectDb(Arg.Any<string>()).Returns(ObjectDb);
             var expected = new BetListMatch { MatchId = 1, LeagueId = 2 };
-            ObjectDb.Query<BetListMatch>().Returns(new List<BetListMatch> { expected });
+            ObjectDb.QueryAsync<BetListMatch>().Returns(new List<BetListMatch> { expected });
 
             // Action
             var result = (await DataAccess.GetMatchList("SPNameTest").ConfigureAwait(false))[0];

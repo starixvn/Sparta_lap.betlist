@@ -38,7 +38,7 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                AddMultiCustomerParameters(db, metaModel);
+                await AddMultiCustomerParameters(db, metaModel).ConfigureAwait(false);
 
                 using (var reader = await db.ExecuteReaderAsync())
                 {
@@ -82,7 +82,7 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                AddMultiCustomerParameters(db, metaModel);
+                await AddMultiCustomerParameters(db, metaModel).ConfigureAwait(false);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -101,13 +101,13 @@
             return ticketResult;
         }
 
-        public int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        public async Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Licensee_TotalRows";
 
             using (var db = GetObjectDb(UspKey))
             {
-                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+                var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("FromDate", metaModel.FromDate);
                 db.SetParameterValue("ToDate", metaModel.ToDate);
@@ -123,7 +123,7 @@
 
                 db.SetParameterValue("TotalRows", null);
 
-                db.ExecuteNonQueryAsync();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var outSqlParams = db.GetOuputParams();
                 return Converter.ToInt(outSqlParams["totalrows"]);
@@ -158,9 +158,9 @@
             ticket.MainTicketList.TrimExcess();
         }
 
-        private void AddMultiCustomerParameters(IObjectDb db, MultipleCustomersBetListMetaModel metaModel)
+        private async Task AddMultiCustomerParameters(IObjectDb db, MultipleCustomersBetListMetaModel metaModel)
         {
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("FromDate", metaModel.FromDate);
             db.SetParameterValue("ToDate", metaModel.ToDate);

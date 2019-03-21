@@ -35,7 +35,7 @@
         {
             const string UspKey = "Lrf_Statement_Mem";
 
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
 

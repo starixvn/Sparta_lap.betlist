@@ -17,7 +17,7 @@ namespace Fanex.Athena.BetList.Service.Interfaces
 
         Task<TicketResult> GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList);
 
-        int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
+        Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
 
         string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm);
 

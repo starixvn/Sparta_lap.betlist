@@ -11,6 +11,6 @@
 
         Task<GroupTicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, int rowPerGroup, IDictionary<int, string> currencyList);
 
-        int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
+        Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading.Tasks;
     using Common.Model.DTO;
     using DataAccess;
     using Fanex.Result.Core;
@@ -32,14 +33,14 @@
             return this._dataAccess.GetOutRight(metal);
         }
 
-        public IList<Sport> GetSports(DateTime dateValue, int licenseeId)
+        public async Task<IList<Sport>> GetSports(DateTime dateValue, int licenseeId)
         {
-            return this._dataAccess.GetSports(dateValue, licenseeId);
+            return await this._dataAccess.GetSports(dateValue, licenseeId).ConfigureAwait(false);
         }
 
-        public IList<League> GetLeagues(DateTime dateValue, int sportId)
+        public async Task<IList<League>> GetLeagues(DateTime dateValue, int sportId)
         {
-            return this._dataAccess.GetLeagues(dateValue, sportId);
+            return await this._dataAccess.GetLeagues(dateValue, sportId).ConfigureAwait(false);
         }
 
         #region ResultEngine wrapping
@@ -63,9 +64,9 @@
 
         #region Report
 
-        public IList<Sportsbook> GetMatches(ResultMetaModel metalModel)
+        public async Task<IList<Sportsbook>> GetMatches(ResultMetaModel metalModel)
         {
-            return this._dataAccess.GetMatches<Sportsbook>(metalModel);
+            return await this._dataAccess.GetMatches<Sportsbook>(metalModel).ConfigureAwait(false);
         }
 
         public IList<NumberGame> GetNumberGameMatches(ResultMetaModel metalModel)

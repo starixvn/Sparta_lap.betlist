@@ -8,6 +8,7 @@ namespace Fanex.Athena.Result.DataAccess
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Common.Model.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -20,15 +21,15 @@ namespace Fanex.Athena.Result.DataAccess
 
         #region Filter
 
-        IList<Sport> GetSports(DateTime dateValue, int licenseeId);
+        Task<IList<Sport>> GetSports(DateTime dateValue, int licenseeId);
 
-        IList<League> GetLeagues(DateTime dateValue, int sportId);
+        Task<IList<League>> GetLeagues(DateTime dateValue, int sportId);
 
         #endregion Filter
 
         #region Report
 
-        IList<T> GetMatches<T>(ResultMetaModel metalModel);
+        Task<IList<T>> GetMatches<T>(ResultMetaModel metalModel);
 
         IList<Racing> GetVirtualSportMatches(ResultMetaModel metalModel);
 

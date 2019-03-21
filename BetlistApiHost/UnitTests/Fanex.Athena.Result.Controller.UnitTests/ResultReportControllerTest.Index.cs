@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.NumberGame.DTO;
@@ -14,7 +15,7 @@
     public partial class ResultReportControllerTest
     {
         [Test]
-        public void Index_ValidModelState_ResultContentIsCorrect()
+        public async Task Index_ValidModelState_ResultContentIsCorrect()
         {
             using (var controller = CreateController())
             {
@@ -22,7 +23,7 @@
                 _resultService.HtmlParser(Arg.Any<IList<Sportsbook>>(), null).ReturnsForAnyArgs(HtmlResult);
 
                 // Action
-                var result = controller.Index(new ResultMetaModel());
+                var result = await controller.Index(new ResultMetaModel()).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(HtmlResult));
@@ -30,7 +31,7 @@
         }
 
         [Test]
-        public void Index_IsOutRight_ResultContentIsCorrect()
+        public async Task Index_IsOutRight_ResultContentIsCorrect()
         {
             using (var controller = CreateController())
             {
@@ -52,7 +53,7 @@
                 _resultService.HtmlParser(Arg.Any<IList<Outright>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
-                var result = controller.Index(metaModel);
+                var result = await controller.Index(metaModel).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(HtmlResult));
@@ -64,7 +65,7 @@
         [TestCase((int)SportType.VirtualMotorRacing)]
         [TestCase((int)SportType.VirtualCycling)]
         [TestCase((int)SportType.VirtualSpeedway)]
-        public void IndexPost_VirtualSport_ResultContentIsCorrect(int sportId)
+        public async Task IndexPost_VirtualSport_ResultContentIsCorrect(int sportId)
         {
             using (var controller = CreateController())
             {
@@ -79,7 +80,7 @@
                 _resultService.HtmlParser(Arg.Any<IList<Racing>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
-                var result = controller.Index(metaModel);
+                var result = await controller.Index(metaModel).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(HtmlResult));
@@ -87,7 +88,7 @@
         }
 
         [Test]
-        public void IndexPost_NumberGame_ResultContentIsCorrect()
+        public async Task IndexPost_NumberGame_ResultContentIsCorrect()
         {
             using (var controller = CreateController())
             {
@@ -102,7 +103,7 @@
                 _resultService.HtmlParser(Arg.Any<IList<NumberGame>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
-                var result = controller.Index(metaModel);
+                var result = await controller.Index(metaModel).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(HtmlResult));

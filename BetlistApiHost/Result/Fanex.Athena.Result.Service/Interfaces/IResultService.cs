@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading.Tasks;
     using Common.Model.DTO;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.Happy5.DTO;
@@ -28,15 +29,15 @@
 
         #region Filter
 
-        IList<Sport> GetSports(DateTime dateValue, int licenseeId);
+        Task<IList<Sport>> GetSports(DateTime dateValue, int licenseeId);
 
-        IList<League> GetLeagues(DateTime dateValue, int sportId);
+        Task<IList<League>> GetLeagues(DateTime dateValue, int sportId);
 
         #endregion Filter
 
         #region Report
 
-        IList<Sportsbook> GetMatches(ResultMetaModel metalModel);
+        Task<IList<Sportsbook>> GetMatches(ResultMetaModel metalModel);
 
         IList<NumberGame> GetNumberGameMatches(ResultMetaModel metalModel);
 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Common.DataAccess.Interfaces;
     using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
@@ -117,7 +118,7 @@
         }
 
         [Test]
-        public void GetSports_ParameterPassedCorrectly()
+        public async Task GetSports_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSportsSp)).Returns(ObjectDb);
@@ -126,7 +127,7 @@
             var licenseeId = 1;
 
             // Action
-            DataAccess.GetSports(date, licenseeId);
+            await DataAccess.GetSports(date, licenseeId).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -138,7 +139,7 @@
         }
 
         [Test]
-        public void GetSports_ReturnCorrectData()
+        public async Task GetSports_ReturnCorrectData()
         {
             // Arrange
             const int SportId = 111;
@@ -158,14 +159,14 @@
             var licenseeId = 1;
 
             // Action
-            var result = DataAccess.GetSports(date, licenseeId);
+            var result = await DataAccess.GetSports(date, licenseeId).ConfigureAwait(false);
 
             // Assert
             Assert.That(result[0].SportId, Is.EqualTo(expectedResult[0].SportId));
         }
 
         [Test]
-        public void GetLeagues_WhenCall_ParametersPassedCorrectly()
+        public async Task GetLeagues_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLeaguesSp)).Returns(ObjectDb);
@@ -183,7 +184,7 @@
             };
 
             // Action
-            DataAccess.GetLeagues(date, sportId);
+            await DataAccess.GetLeagues(date, sportId).ConfigureAwait(false);
             var result = param;
 
             // Assert
@@ -191,7 +192,7 @@
         }
 
         [Test]
-        public void GetLeagues_WhenCall_ReturnCorrectData()
+        public async Task GetLeagues_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLeaguesSp)).Returns(ObjectDb);
@@ -212,7 +213,7 @@
             var sportId = 1;
 
             // Action
-            var result = DataAccess.GetLeagues(date, sportId);
+            var result = await DataAccess.GetLeagues(date, sportId).ConfigureAwait(false);
 
             // Assert
             Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));

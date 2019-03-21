@@ -52,9 +52,9 @@ namespace Fanex.Athena.BetList.Service
             return await _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, currencyList);
         }
 
-        public int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        public async Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
-            return _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel);
+            return await _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false);
         }
 
         public async Task<TicketResult> GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)

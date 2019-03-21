@@ -11,6 +11,7 @@ namespace Fanex.Athena.Result.DataAccess
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.DataAccess;
     using Common.DataAccess.Extensions;
     using Common.DataAccess.Interfaces;
@@ -73,15 +74,16 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public IList<Sport> GetSports(DateTime dateValue, int licenseeId)
+        public async Task<IList<Sport>> GetSports(DateTime dateValue, int licenseeId)
         {
             const string UspName = "Lrf_Result_SportSelByDate";
 
             using (var db = this.GetObjectDb(UspName))
             {
+                var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
                 db.SetParameterValue("eventdate", dateValue);
                 db.SetParameterValue("licenseeid", licenseeId);
-                db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("movebetsday", balanceUp.MoveBetsDay);
                 using (var reader = db.ExecuteReader())
                 {
                     var data = new List<Sport>();
@@ -100,15 +102,16 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public IList<League> GetLeagues(DateTime dateValue, int sportId)
+        public async Task<IList<League>> GetLeagues(DateTime dateValue, int sportId)
         {
             const string UspName = "Lrf_Result_LeagueSelByDate";
+            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             var uspParams = new
             {
                 eventdate = dateValue,
                 sporttype = sportId,
                 isshowall = !_appSettings.IsProduction,
-                movebetsday = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay
+                movebetsday = balanceUp.MoveBetsDay
             };
 
             using (var db = this.GetObjectDb(UspName))
@@ -284,15 +287,16 @@ namespace Fanex.Athena.Result.DataAccess
         /// <typeparam name="T">Type of result.</typeparam>
         /// <param name="metalModel">Meta model value.</param>
         /// <returns>The result value.</returns>
-        public IList<T> GetMatches<T>(ResultMetaModel metalModel)
+        public async Task<IList<T>> GetMatches<T>(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelByLeague";
+            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             var uspParams = new
             {
                 fromdate = metalModel.FromDate,
                 sporttype = metalModel.SportId,
                 leagueid = metalModel.LeagueId,
-                movebetsday = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay
+                movebetsday = balanceUp.MoveBetsDay
             };
 
             using (var db = this.GetObjectDb(UspName))

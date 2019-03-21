@@ -5,6 +5,7 @@ namespace Fanex.Athena.Result.Controller
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
@@ -66,15 +67,15 @@ namespace Fanex.Athena.Result.Controller
         }
 
         [HttpPost]
-        public string Index(ResultMetaModel metalModel)
+        public async Task<string> Index(ResultMetaModel metalModel)
         {
             metalModel.IsExportExcel = false;
-            this.GetData(metalModel);
+            await this.GetData(metalModel).ConfigureAwait(false);
             return _htmlResult;
         }
 
         [HttpPost]
-        public void ResultExcel(ResultMetaModel metalModel)
+        public async Task ResultExcel(ResultMetaModel metalModel)
         {
             var response = ControllerContext.HttpContext.Response;
 
@@ -82,12 +83,12 @@ namespace Fanex.Athena.Result.Controller
             {
                 metalModel.IsExportExcel = true;
                 metalModel.SportId = metalModel.SportId == 0 ?
-                    GetSportId(metalModel.FromDate, metalModel.LicenseeId) :
+                    await GetSportId(metalModel.FromDate, metalModel.LicenseeId).ConfigureAwait(false) :
                     metalModel.SportId;
 
                 if (metalModel.SportId > 0)
                 {
-                    GetData(metalModel);
+                    await GetData(metalModel).ConfigureAwait(false);
                 }
 
                 if (_excelStream == null)
@@ -107,7 +108,7 @@ namespace Fanex.Athena.Result.Controller
         }
 
         [HttpPost]
-        public ActionResult GetSports(GetSportResultMetaModel metalModel)
+        public async Task<ActionResult> GetSports(GetSportResultMetaModel metalModel)
         {
             if (metalModel.IsOutRight)
             {
@@ -115,8 +116,8 @@ namespace Fanex.Athena.Result.Controller
             }
 
             return metalModel.SportId == 0 ?
-                GetNormalSports(metalModel) :
-                Json(new { Leagues = _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId) });
+                await GetNormalSports(metalModel).ConfigureAwait(false) :
+                Json(new { Leagues = await _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId).ConfigureAwait(false) });
         }
 
         #endregion Result-Page
@@ -288,9 +289,9 @@ namespace Fanex.Athena.Result.Controller
 
         #region spots list
 
-        private JsonResult GetNormalSports(GetSportResultMetaModel metalModel)
+        private async Task<JsonResult> GetNormalSports(GetSportResultMetaModel metalModel)
         {
-            var sports = _resultService.GetSports(metalModel.FromDate, metalModel.LicenseeId);
+            var sports = await _resultService.GetSports(metalModel.FromDate, metalModel.LicenseeId).ConfigureAwait(false);
             if (sports.Any())
             {
                 var productCodes = metalModel.ProductCodeList.Split(',');
@@ -301,7 +302,7 @@ namespace Fanex.Athena.Result.Controller
 
                 if (limitedSports.Any())
                 {
-                    var leagues = _resultService.GetLeagues(metalModel.FromDate, limitedSports.First().SportId);
+                    var leagues = await _resultService.GetLeagues(metalModel.FromDate, limitedSports.First().SportId).ConfigureAwait(false);
                     return Json(new { Sports = limitedSports, Leagues = leagues });
                 }
             }
@@ -345,9 +346,9 @@ namespace Fanex.Athena.Result.Controller
 
         #region main-page
 
-        private int GetSportId(DateTime fromDate, int licenseeId)
+        private async Task<int> GetSportId(DateTime fromDate, int licenseeId)
         {
-            var sports = _resultService.GetSports(fromDate, licenseeId);
+            var sports = await _resultService.GetSports(fromDate, licenseeId).ConfigureAwait(false);
             return sports.Any() ? sports[0].SportId : 0;
         }
 
@@ -377,7 +378,7 @@ namespace Fanex.Athena.Result.Controller
 
 #pragma warning disable S1541 // Methods and properties should not be too complex
 
-        private void GetNormalData(ResultMetaModel metalModel)
+        private async Task GetNormalData(ResultMetaModel metalModel)
 #pragma warning restore S1541 // Methods and properties should not be too complex
         {
             var setting = GetNormalResultSetting(metalModel);
@@ -403,7 +404,7 @@ namespace Fanex.Athena.Result.Controller
                     break;
 
                 default:
-                    var data = _resultService.GetMatches(metalModel);
+                    var data = await _resultService.GetMatches(metalModel).ConfigureAwait(false);
                     ParseResult(data, setting, metalModel.IsExportExcel);
                     break;
             }
@@ -471,7 +472,7 @@ namespace Fanex.Athena.Result.Controller
         /// Get data from service layer.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
-        private void GetData(ResultMetaModel metalModel)
+        private async Task GetData(ResultMetaModel metalModel)
         {
             if (metalModel.IsOutRight)
             {
@@ -479,7 +480,7 @@ namespace Fanex.Athena.Result.Controller
             }
             else
             {
-                this.GetNormalData(metalModel);
+                await this.GetNormalData(metalModel).ConfigureAwait(false);
             }
         }
 
