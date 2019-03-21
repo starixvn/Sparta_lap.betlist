@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
     using Common.Constant;
@@ -19,7 +20,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public TicketResult GetBetListForSingleCustomer(
+        public async Task<TicketResult> GetBetListForSingleCustomer(
             SingleCustomersBetListMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
@@ -31,7 +32,7 @@
             {
                 AddSingleCustomerParameters(db, metaModel);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                 }
@@ -48,7 +49,7 @@
             return ticketResult;
         }
 
-        public TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_RefNo_Mem";
 
@@ -64,7 +65,7 @@
                 db.SetParameterValue("BalanceUpDay", balanceUp.BalanceUpDay);
                 db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                 }
@@ -73,7 +74,7 @@
             return ticketResult;
         }
 
-        public TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_Running";
 
@@ -97,7 +98,7 @@
                 db.SetParameterValue("SumStake", null);
                 AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync())
                 {
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                 }

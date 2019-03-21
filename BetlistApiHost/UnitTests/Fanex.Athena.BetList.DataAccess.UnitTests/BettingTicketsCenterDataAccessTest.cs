@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.Interfaces;
@@ -30,7 +31,7 @@
         }
 
         [Test]
-        public void GetBetListByRefno_WhenCall_ParameterIsPassesCorrectly()
+        public async Task GetBetListByRefno_WhenCall_ParameterIsPassesCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListByRefnoUspKey)).Returns(ObjectDb);
@@ -40,7 +41,7 @@
             var metaModel = new RefNoBetListMetaModel();
 
             // Action
-            DataAccess.GetBetListByRefno(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListByRefno(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>

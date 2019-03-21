@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Common.Constant;
     using Common.Utility.Collections;
@@ -37,7 +38,7 @@
         }
 
         [Test]
-        public void GetBySingleCustomer_WhenGet_ReturnData()
+        public async Task GetBySingleCustomer_WhenGet_ReturnData()
         {
             using (var controller = CreateController())
             {
@@ -55,7 +56,7 @@
                 _service.BuildSumWinLoss(ticketResult, metaModel.HasPlayerCom).Returns(sumWL);
 
                 // Action
-                var result = (controller.GetBySingleCustomer(metaModel) as JsonResult).Data;
+                var result = (await controller.GetBySingleCustomer(metaModel) as JsonResult).Data;
                 var data = result.GetType().GetProperty("Data").GetValue(result, null);
                 var total = result.GetType().GetProperty("Total").GetValue(result, null);
                 var totalRows = result.GetType().GetProperty("TotalRows").GetValue(result, null);
@@ -77,7 +78,7 @@
         }
 
         [Test]
-        public void GetBySingleCustomer_WhenExport_EmptyData_ReturnNoContentStatus()
+        public async Task GetBySingleCustomer_WhenExport_EmptyData_ReturnNoContentStatus()
         {
             using (var controller = CreateController())
             {
@@ -91,7 +92,7 @@
                 _service.GetTitle(metaModel).Returns(string.Empty);
 
                 // Action
-                var result = controller.GetBySingleCustomer(metaModel) as HttpStatusCodeResult;
+                var result = await controller.GetBySingleCustomer(metaModel) as HttpStatusCodeResult;
 
                 // Assert
                 Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.NoContent));
@@ -99,7 +100,7 @@
         }
 
         [Test]
-        public void GetBySingleCustomer_WhenExport_ExportCorrectData()
+        public async Task GetBySingleCustomer_WhenExport_ExportCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -123,7 +124,7 @@
                 _bettingTicketCenterExcel.Export(Arg.Any<BettingTicketCenterExcelModel>()).Returns(workbook);
 
                 // Action
-                controller.GetBySingleCustomer(metaModel);
+                await controller.GetBySingleCustomer(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -141,7 +142,7 @@
         }
 
         [Test]
-        public void GetByRefno_WhenGet_ReturnData()
+        public async Task GetByRefno_WhenGet_ReturnData()
         {
             using (var controller = CreateController())
             {
@@ -156,7 +157,7 @@
                 _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
 
                 // Action
-                var result = (controller.GetByRefno(metaModel) as JsonResult).Data;
+                var result = (await controller.GetByRefno(metaModel) as JsonResult).Data;
                 var data = result.GetType().GetProperty("Data").GetValue(result, null);
 
                 // Assert
@@ -169,7 +170,7 @@
         }
 
         [Test]
-        public void GetByRefno_WhenExport_EmptyData_ReturnNoContentStatus()
+        public async Task GetByRefno_WhenExport_EmptyData_ReturnNoContentStatus()
         {
             using (var controller = CreateController())
             {
@@ -181,7 +182,7 @@
                 _service.GetBetListByRefno(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
-                var result = controller.GetByRefno(metaModel) as HttpStatusCodeResult;
+                var result = await controller.GetByRefno(metaModel) as HttpStatusCodeResult;
 
                 // Assert
                 Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.NoContent));
@@ -189,7 +190,7 @@
         }
 
         [Test]
-        public void GetByRefno_WhenExport_ExportCorrectData()
+        public async Task GetByRefno_WhenExport_ExportCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -213,7 +214,7 @@
                 _bettingTicketCenterExcel.Export(Arg.Any<BettingTicketCenterExcelModel>()).Returns(workbook);
 
                 // Action
-                controller.GetByRefno(metaModel);
+                await controller.GetByRefno(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -230,7 +231,7 @@
         }
 
         [Test]
-        public void GetByRunning_WhenGet_ReturnData()
+        public async Task GetByRunning_WhenGet_ReturnData()
         {
             using (var controller = CreateController())
             {
@@ -245,7 +246,7 @@
                 _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
 
                 // Action
-                var result = (controller.GetByRunning(metaModel) as JsonResult).Data;
+                var result = (await controller.GetByRunning(metaModel) as JsonResult).Data;
                 var data = result.GetType().GetProperty("Data").GetValue(result, null);
                 var total = result.GetType().GetProperty("Total").GetValue(result, null);
                 var totalRows = result.GetType().GetProperty("TotalRows").GetValue(result, null);
@@ -263,7 +264,7 @@
         }
 
         [Test]
-        public void GetByRunning_WhenExport_EmptyData_ReturnNoContentStatus()
+        public async Task GetByRunning_WhenExport_EmptyData_ReturnNoContentStatus()
         {
             using (var controller = CreateController())
             {
@@ -277,7 +278,7 @@
                 _service.GetTitle(metaModel).Returns(string.Empty);
 
                 // Action
-                var result = controller.GetByRunning(metaModel) as HttpStatusCodeResult;
+                var result = await controller.GetByRunning(metaModel) as HttpStatusCodeResult;
 
                 // Assert
                 Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.NoContent));
@@ -285,7 +286,7 @@
         }
 
         [Test]
-        public void GetByRunning_WhenExport_ExportCorrectData()
+        public async Task GetByRunning_WhenExport_ExportCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -309,7 +310,7 @@
                 _bettingTicketCenterExcel.Export(Arg.Any<BettingTicketCenterExcelModel>()).Returns(workbook);
 
                 // Action
-                controller.GetByRunning(metaModel);
+                await controller.GetByRunning(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>

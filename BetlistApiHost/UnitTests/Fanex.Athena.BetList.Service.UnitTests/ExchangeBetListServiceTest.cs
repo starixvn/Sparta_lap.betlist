@@ -48,7 +48,7 @@
             _dataAccess.GetTicketDetailListAsync(Arg.Any<ExchangeBetListDetailMetaModel>()).Returns(expectedData);
 
             // Action
-            var result =  await _service.GetTicketDetailListAsync(new ExchangeBetListDetailMetaModel()).ConfigureAwait(false);
+            var result = await _service.GetTicketDetailListAsync(new ExchangeBetListDetailMetaModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

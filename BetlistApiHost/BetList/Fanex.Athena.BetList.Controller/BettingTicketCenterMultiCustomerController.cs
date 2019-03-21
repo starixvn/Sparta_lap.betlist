@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.Controller.CustomActionResult;
@@ -42,7 +43,7 @@ namespace Fanex.Athena.BetList.Controller
         private int MaxRowPerFile => int.Parse(_appSettings.GetValue("MaxRowPerExcelFile"));
 
         [HttpPost]
-        public ActionResult GetData(MultipleCustomersBetListMetaModel metaModel)
+        public async Task<ActionResult> GetData(MultipleCustomersBetListMetaModel metaModel)
         {
             if (metaModel.IsExport)
             {
@@ -55,10 +56,10 @@ namespace Fanex.Athena.BetList.Controller
                     });
                 }
 
-                return Export(metaModel, metaModel.UserCurrencyList, totalRow);
+                return await Export(metaModel, metaModel.UserCurrencyList, totalRow);
             }
 
-            var ticketResult = _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList);
+            var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList);
 
             return GenerateJsonResult(metaModel, ticketResult, metaModel.HasPlayerCom);
         }
@@ -72,14 +73,14 @@ namespace Fanex.Athena.BetList.Controller
             return new ExcelResult(workbook);
         }
 
-        private ActionResult Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
+        private async Task<ActionResult> Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
         {
             var title = _service.GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}";
 
             if (totalRow <= MaxRowPerFile)
             {
-                var normalTicketResult = _service.GetBetListForMultipleCustomers(metaModel, userCurrencyList);
+                var normalTicketResult = await _service.GetBetListForMultipleCustomers(metaModel, userCurrencyList).ConfigureAwait(true);
                 if (normalTicketResult.MainTicketList.Count == 0)
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
@@ -88,7 +89,7 @@ namespace Fanex.Athena.BetList.Controller
                 return ExportXls(normalTicketResult, title, metaModel.HasPlayerCom, totalText);
             }
 
-            var ticketResult = _service.GetBetListForMultipleCustomers(metaModel, MaxRowPerFile, userCurrencyList);
+            var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, MaxRowPerFile, userCurrencyList).ConfigureAwait(false);
 
             return ExportZip(ticketResult, title, metaModel.HasPlayerCom, totalText);
         }

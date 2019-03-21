@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
     using Common.DataAccess.Interfaces;
@@ -24,7 +25,7 @@
             _tempFileService = tempFileService;
         }
 
-        public GroupTicketResult GetBetListForMultipleCustomers(
+        public async Task<GroupTicketResult> GetBetListForMultipleCustomers(
             MultipleCustomersBetListMetaModel metaModel,
             int rowPerGroup,
             IDictionary<int, string> currencyList)
@@ -39,7 +40,7 @@
             {
                 AddMultiCustomerParameters(db, metaModel);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync())
                 {
                     var count = 0;
                     var ticket = new TicketResult();
@@ -73,7 +74,7 @@
             }
         }
 
-        public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_Licensee";
 
@@ -83,7 +84,7 @@
             {
                 AddMultiCustomerParameters(db, metaModel);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                 }
@@ -122,7 +123,7 @@
 
                 db.SetParameterValue("TotalRows", null);
 
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
 
                 var outSqlParams = db.GetOuputParams();
                 return Converter.ToInt(outSqlParams["totalrows"]);
