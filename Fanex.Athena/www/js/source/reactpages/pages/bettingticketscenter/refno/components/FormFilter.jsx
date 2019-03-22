@@ -100,7 +100,7 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("RefNo")} *</label>
-                            <input className="input-text" id="RefNo" name="RefNo" type="text" value={this.props.refno} placeholder={LangHelper.getSingleResource("RefNo")}
+                            <input className="input-text" id="RefNo" name="RefNo" type="number" value={this.props.refno} placeholder={LangHelper.getSingleResource("RefNo")}
                                 onChange={(event) => this.props.setRefno(event.target.value)} />
                         </div>
                     </div>

@@ -719,6 +719,14 @@ ul {
   .input-text:focus:not([readonly]) {
     border-bottom: 1px solid #6790b0;
     box-shadow: 0 1px 0 0 #6790b0; }
+  .input-text::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */ }
+  .input-text[type=number] {
+    -moz-appearance: textfield;
+    /* Firefox */ }
 
 /**
  * React Select

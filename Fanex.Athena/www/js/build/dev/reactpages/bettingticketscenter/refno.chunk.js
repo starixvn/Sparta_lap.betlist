@@ -5080,7 +5080,7 @@ function (_Component) {
         className: "input-text",
         id: "RefNo",
         name: "RefNo",
-        type: "text",
+        type: "number",
         value: this.props.refno,
         placeholder: _jsroot_lib_langHelper__WEBPACK_IMPORTED_MODULE_9__["default"].getSingleResource("RefNo"),
         onChange: function onChange(event) {

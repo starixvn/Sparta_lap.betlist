@@ -20,4 +20,14 @@
         border-bottom: 1px solid $input-focus-color;
         box-shadow: 0 1px 0 0 $input-focus-color;
     }
+
+    // hide up/down arrow in number input
+    &::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+    &[type=number] {
+        -moz-appearance:textfield; /* Firefox */
+    }
 }
