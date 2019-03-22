@@ -35,7 +35,7 @@
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListByRefnoUspKey)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader().Returns(Reader);
+            ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
 
             var metaModel = new RefNoBetListMetaModel();

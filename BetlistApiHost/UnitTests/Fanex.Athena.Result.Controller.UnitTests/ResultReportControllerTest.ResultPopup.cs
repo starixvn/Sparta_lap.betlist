@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Common.Constant;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.NumberGame.DTO;
@@ -14,7 +15,7 @@
     public partial class ResultReportControllerTest
     {
         [Test]
-        public void ResultPopup_ValidModelState_ResultIsCorrect()
+        public async Task ResultPopup_ValidModelState_ResultIsCorrect()
         {
             using (var controller = CreateController())
             {
@@ -22,7 +23,7 @@
                 _resultService.HtmlParser(Arg.Any<IList<Sportsbook>>(), null).ReturnsForAnyArgs(HtmlResult);
 
                 // Action
-                var result = controller.ResultPopup(new ResultPopupMetaModel());
+                var result = await controller.ResultPopup(new ResultPopupMetaModel()).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(HtmlResult));
@@ -32,7 +33,7 @@
         [TestCase(1, true, (int)BetType.VirtualSports2MixParlay, true)]
         [TestCase(0, false, 123, false)]
         [TestCase(null, false, BetType.MixParlay, true)]
-        public void ResultPopup_ValidModelState_CreateCorrectResultSetting(
+        public async Task ResultPopup_ValidModelState_CreateCorrectResultSetting(
             int inputOutRight,
             bool expectedIsOutRight,
             int bettype,
@@ -49,7 +50,7 @@
                 };
 
                 // Action
-                var result = controller.ResultPopup(new ResultPopupMetaModel());
+                var result = await controller.ResultPopup(new ResultPopupMetaModel()).ConfigureAwait(false);
 
                 // Assert
                 _resultService.HtmlParser(
@@ -67,7 +68,7 @@
         [TestCase(1, HtmlResult)]
         [TestCase(0, HtmlResult)]
         [TestCase(null, null)]
-        public void ResultPopup_IsParlayPopup_ResultIsCorrect(long? refNo, string expectedHtmlResult)
+        public async Task ResultPopup_IsParlayPopup_ResultIsCorrect(long? refNo, string expectedHtmlResult)
         {
             using (var controller = CreateController())
             {
@@ -82,7 +83,7 @@
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
-                var result = controller.ResultPopup(metaModel);
+                var result = await controller.ResultPopup(metaModel).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(expectedHtmlResult));
@@ -94,7 +95,7 @@
         [TestCase(Fanex.Result.Core.Base.SportType.VirtualGreyhounds)]
         [TestCase(Fanex.Result.Core.Base.SportType.VirtualSpeedway)]
         [TestCase(Fanex.Result.Core.Base.SportType.VirtualCycling)]
-        public void ResultPopup_VirtualSport_ResultIsCorrect(Fanex.Result.Core.Base.SportType sportType)
+        public async Task ResultPopup_VirtualSport_ResultIsCorrect(Fanex.Result.Core.Base.SportType sportType)
         {
             using (var controller = CreateController())
             {
@@ -105,7 +106,7 @@
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
-                var result = controller.ResultPopup(metaModel);
+                var result = await controller.ResultPopup(metaModel).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(HtmlResult));
@@ -113,7 +114,7 @@
         }
 
         [Test]
-        public void ResultPopup_NumberGameSport_ResultIsCorrect()
+        public async Task ResultPopup_NumberGameSport_ResultIsCorrect()
         {
             using (var controller = CreateController())
             {
@@ -124,7 +125,7 @@
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
-                var result = controller.ResultPopup(metaModel);
+                var result = await controller.ResultPopup(metaModel).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(HtmlResult));
@@ -132,7 +133,7 @@
         }
 
         [Test]
-        public void ResultPopup_SportBookSports_ResultIsCorrect()
+        public async Task ResultPopup_SportBookSports_ResultIsCorrect()
         {
             using (var controller = CreateController())
             {
@@ -143,7 +144,7 @@
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
-                var result = controller.ResultPopup(metaModel);
+                var result = await controller.ResultPopup(metaModel).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(HtmlResult));

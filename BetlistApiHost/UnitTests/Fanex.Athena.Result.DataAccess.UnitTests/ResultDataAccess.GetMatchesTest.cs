@@ -17,7 +17,7 @@
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMatchesSp)).Returns(ObjectDb);
             dynamic param = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(x => param = x));
             _metaModel.SportId = 1;
             _metaModel.LeagueId = 2;
 

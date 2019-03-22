@@ -17,7 +17,7 @@ namespace Fanex.Athena.Result.DataAccess
     [System.CLSCompliant(false)]
     public interface IResultDataAccess
     {
-        IList<Outright> GetOutRight(ResultMetaModel metal);
+        Task<IList<Outright>> GetOutRight(ResultMetaModel metal);
 
         #region Filter
 
@@ -31,17 +31,17 @@ namespace Fanex.Athena.Result.DataAccess
 
         Task<IList<T>> GetMatches<T>(ResultMetaModel metalModel);
 
-        IList<Racing> GetVirtualSportMatches(ResultMetaModel metalModel);
+        Task<IList<Racing>> GetVirtualSportMatches(ResultMetaModel metalModel);
 
         #endregion Report
 
         #region Popup
 
-        IList<T> GetPopUpMatches<T>(ResultPopupMetaModel metaModel);
+        Task<IList<T>> GetPopUpMatches<T>(ResultPopupMetaModel metaModel);
 
-        IList<Parlay> GetPopUpParalayMatch(long refNo);
+        Task<IList<Parlay>> GetPopUpParalayMatch(long refNo);
 
-        Sportsbook GetSportsbookGameDetail(int matchId);
+        Task<Sportsbook> GetSportsbookGameDetail(int matchId);
 
         #endregion Popup
     }

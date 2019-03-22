@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Threading.Tasks;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.Interfaces;
     using Common.DataAccess.UnitTests;
@@ -31,11 +32,11 @@
         }
 
         [Test]
-        public void GetBetListForMultipleCustomers_WhenCall_ParametersPassedCorrectly()
+        public async Task GetBetListForMultipleCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListByMultiCustomerUspKey)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader().Returns(Reader);
+            ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
             ObjectDb.GetOuputParams().Returns(new Hashtable());
 
@@ -43,7 +44,7 @@
             metaModel.IsExport = false;
 
             // Action
-            DataAccess.GetBetListForMultipleCustomers(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListForMultipleCustomers(metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

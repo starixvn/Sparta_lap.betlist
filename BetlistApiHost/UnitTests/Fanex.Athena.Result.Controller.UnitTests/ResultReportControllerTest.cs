@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Common.Utility.Services.Interfaces;
     using Fanex.Result.Core.Base;
@@ -72,17 +73,17 @@
         }
 
         [Test]
-        public void ResultDetail_DataIsNull_ReturnEmptyResult()
+        public async Task ResultDetail_DataIsNull_ReturnEmptyResult()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 const int MatchId = 23;
                 const int SportType = 45445;
-                _resultService.GetSportsbookGameDetail(MatchId).Returns(x => null);
+                _resultService.GetSportsbookGameDetail(MatchId).Returns(x => Task.FromResult<Sportsbook>(null));
 
                 // Action
-                var result = controller.ResultDetail(MatchId, SportType, LanguageCode);
+                var result = await controller.ResultDetail(MatchId, SportType, LanguageCode).ConfigureAwait(false);
 
                 // Assert
                 Assert.That(result, Is.Empty);
@@ -90,7 +91,7 @@
         }
 
         [Test]
-        public void ResultDetail_WhenCall_ReturnCorrectResult()
+        public async Task ResultDetail_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -106,7 +107,7 @@
                 _resultService.HtmlGameDetailParser(detailedData, Arg.Any<ResultSetting>()).Returns(ExpectedHtmlGameDetail);
 
                 // Action
-                var result = controller.ResultDetail(MatchId, SportId, LanguageCode);
+                var result = await controller.ResultDetail(MatchId, SportId, LanguageCode).ConfigureAwait(false);
 
                 // Assert
                 Assert.Multiple(() =>

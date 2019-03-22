@@ -41,7 +41,7 @@ namespace Fanex.Athena.Result.DataAccess
             _appSettings = appSettings;
         }
 
-        public IList<Outright> GetOutRight(ResultMetaModel metal)
+        public async Task<IList<Outright>> GetOutRight(ResultMetaModel metal)
         {
             const string UspName = "Lrf_Result_Outright";
             var uspParams = new
@@ -53,7 +53,7 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     var data = new List<Outright>();
 
@@ -84,7 +84,7 @@ namespace Fanex.Athena.Result.DataAccess
                 db.SetParameterValue("eventdate", dateValue);
                 db.SetParameterValue("licenseeid", licenseeId);
                 db.SetParameterValue("movebetsday", balanceUp.MoveBetsDay);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var data = new List<Sport>();
                     while (reader.Read())
@@ -116,7 +116,7 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     var data = new List<League>();
                     while (reader.Read())
@@ -137,7 +137,7 @@ namespace Fanex.Athena.Result.DataAccess
         /// <summary>
         /// Get data for VS
         /// </summary>
-        public IList<Racing> GetVirtualSportMatches(ResultMetaModel metalModel)
+        public async Task<IList<Racing>> GetVirtualSportMatches(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_RaceSelByMeeting";
             var uspParams = new
@@ -149,14 +149,14 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     return ReadVirtualSportMatches(reader);
                 }
             }
         }
 
-        public IList<T> GetPopUpMatches<T>(ResultPopupMetaModel metaModel)
+        public async Task<IList<T>> GetPopUpMatches<T>(ResultPopupMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelMatchResult";
             var uspParams = new
@@ -169,7 +169,7 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     var type = typeof(T);
 
@@ -198,14 +198,14 @@ namespace Fanex.Athena.Result.DataAccess
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
-        public IList<Parlay> GetPopUpParalayMatch(long refNo)
+        public async Task<IList<Parlay>> GetPopUpParalayMatch(long refNo)
         {
             const string UspName = "Lrf_BetList_SelMatchResultParlay";
             var uspParams = new { refno = refNo };
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     var results = new List<Parlay>();
 
@@ -301,7 +301,7 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     var type = typeof(T);
 
@@ -323,12 +323,12 @@ namespace Fanex.Athena.Result.DataAccess
         /// <param name="matchId">The match ID.</param>
         /// <returns>The SPORTSBOOK data.</returns>
         [System.CLSCompliant(false)]
-        public Sportsbook GetSportsbookGameDetail(int matchId)
+        public async Task<Sportsbook> GetSportsbookGameDetail(int matchId)
         {
             using (var db = this.GetObjectDb("Lrf_Result_MatchSelByLeague_Detail"))
             {
                 db.SetParameterValue("matchid", matchId);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     if (reader.Read())
                     {

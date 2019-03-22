@@ -17,7 +17,7 @@
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader().Returns(Reader);
+            ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
             ObjectDb.GetOuputParams().Returns(new Hashtable());
 
@@ -46,7 +46,7 @@
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader().Returns(Reader);
+            ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
             ObjectDb.GetOuputParams().Returns(new Hashtable());
 
@@ -68,7 +68,7 @@
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader().Returns(Reader);
+            ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
             ObjectDb.GetOuputParams().Returns(new Hashtable());
 
@@ -86,7 +86,7 @@
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader().Returns(Reader);
+            ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
 
             var outPut = new Hashtable

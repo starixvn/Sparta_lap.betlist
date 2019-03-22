@@ -10,6 +10,7 @@ namespace Fanex.Athena.Result.DataAccess
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.DataAccess;
     using Common.DataAccess.Extensions;
     using Fanex.Common.Extensions;
@@ -20,7 +21,7 @@ namespace Fanex.Athena.Result.DataAccess
     [CLSCompliant(false)]
     public class ResultNumberGameDataAccess : BaseDataAccess, IResultNumberGameDataAccess
     {
-        public IList<NumberGame> GetNumberGameMatches(ResultMetaModel metalModel)
+        public async Task<IList<NumberGame>> GetNumberGameMatches(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelNumberGameByLeague";
             var uspParams = new
@@ -33,14 +34,14 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     return ReadNumberGameMatches(reader);
                 }
             }
         }
 
-        public IList<Happy5> GetHappy5Matches(ResultMetaModel metalModel)
+        public async Task<IList<Happy5>> GetHappy5Matches(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelNumberGameByLeague";
             var uspParams = new
@@ -53,14 +54,14 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     return ReadHappy5Matches(reader);
                 }
             }
         }
 
-        public IList<NumberGame> GetPopUpNumberGameMatch(int matchId)
+        public async Task<IList<NumberGame>> GetPopUpNumberGameMatch(int matchId)
         {
             const string UspName = "Lrf_BetList_SelMatchResultNumberGame";
             var uspParams = new
@@ -70,14 +71,14 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     return ReadNumberGameMatches(reader);
                 }
             }
         }
 
-        public IList<Happy5> GetPopUpHappy5Match(int matchId)
+        public async Task<IList<Happy5>> GetPopUpHappy5Match(int matchId)
         {
             const string UspName = "Lrf_BetList_SelMatchResultNumberGame";
             var uspParams = new
@@ -87,7 +88,7 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     return ReadHappy5Matches(reader);
                 }

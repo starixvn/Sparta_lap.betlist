@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Result.DataAccess
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Result.Core.Happy5.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Model.MetaModel;
@@ -14,12 +15,12 @@ namespace Fanex.Athena.Result.DataAccess
     [System.CLSCompliant(false)]
     public interface IResultNumberGameDataAccess
     {
-        IList<NumberGame> GetNumberGameMatches(ResultMetaModel metalModel);
+        Task<IList<NumberGame>> GetNumberGameMatches(ResultMetaModel metalModel);
 
-        IList<Happy5> GetHappy5Matches(ResultMetaModel metalModel);
+        Task<IList<Happy5>> GetHappy5Matches(ResultMetaModel metalModel);
 
-        IList<NumberGame> GetPopUpNumberGameMatch(int matchId);
+        Task<IList<NumberGame>> GetPopUpNumberGameMatch(int matchId);
 
-        IList<Happy5> GetPopUpHappy5Match(int matchId);
+        Task<IList<Happy5>> GetPopUpHappy5Match(int matchId);
     }
 }

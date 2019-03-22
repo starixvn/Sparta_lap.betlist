@@ -45,8 +45,6 @@ namespace Fanex.Athena.Common.DataAccess.UnitTests
         {
             ObjectDb.ClearReceivedCalls();
             Reader = Substitute.For<IDataReader>();
-            ObjectDb.ExecuteReader().Returns(Reader);
-            ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(Reader);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             ObjectDb.ExecuteReaderAsync(Arg.Any<object>()).Returns(Reader);
         }

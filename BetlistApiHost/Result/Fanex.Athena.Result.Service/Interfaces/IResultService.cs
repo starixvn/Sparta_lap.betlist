@@ -15,7 +15,7 @@
     [System.CLSCompliant(false)]
     public interface IResultService
     {
-        IList<Outright> GetOutRight(ResultMetaModel metal);
+        Task<IList<Outright>> GetOutRight(ResultMetaModel metal);
 
         #region ResultEngine
 
@@ -39,21 +39,21 @@
 
         Task<IList<Sportsbook>> GetMatches(ResultMetaModel metalModel);
 
-        IList<NumberGame> GetNumberGameMatches(ResultMetaModel metalModel);
+        Task<IList<NumberGame>> GetNumberGameMatches(ResultMetaModel metalModel);
 
-        IList<Happy5> GetHappy5Matches(ResultMetaModel metalModel);
+        Task<IList<Happy5>> GetHappy5Matches(ResultMetaModel metalModel);
 
-        IList<Racing> GetVirtualSportMatches(ResultMetaModel metalModel);
+        Task<IList<Racing>> GetVirtualSportMatches(ResultMetaModel metalModel);
 
         #endregion Report
 
         #region Popup
 
-        Sportsbook GetSportsbookGameDetail(int matchId);
+        Task<Sportsbook> GetSportsbookGameDetail(int matchId);
 
-        IList<Sportsbook> GetPopUpMatch(ResultPopupMetaModel metalModel);
+        Task<IList<Sportsbook>> GetPopUpMatch(ResultPopupMetaModel metalModel);
 
-        IList<Racing> GetPopUpVirtualSportMatch(ResultPopupMetaModel metalModel);
+        Task<IList<Racing>> GetPopUpVirtualSportMatch(ResultPopupMetaModel metalModel);
 
         /// <summary>
         /// Select matches from BetTransM by reference no.
@@ -61,16 +61,16 @@
         /// </summary>
         /// <param name="refNo">The reference no.</param>
         /// <returns>The parlay list.</returns>
-        IList<Parlay> GetPopUpParlayMatch(long refNo);
+        Task<IList<Parlay>> GetPopUpParlayMatch(long refNo);
 
         /// <summary>
         ///  Get match result of number game.
         /// </summary>
         /// <param name="matchId">The match id.</param>
         /// <returns>The match info.</returns>
-        IList<NumberGame> GetPopUpNumberGameMatchs(int matchId);
+        Task<IList<NumberGame>> GetPopUpNumberGameMatchs(int matchId);
 
-        IList<Happy5> GetPopUpHappy5Matches(int matchId);
+        Task<IList<Happy5>> GetPopUpHappy5Matches(int matchId);
 
         #endregion Popup
     }

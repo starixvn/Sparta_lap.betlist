@@ -47,7 +47,7 @@ namespace Fanex.Athena.BetList.Controller
         {
             if (metaModel.IsExport)
             {
-                var totalRow = await _service.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false);
+                var totalRow = await _service.GetTotalRowForMultipleCustomers(metaModel);
                 if (totalRow > MaxRowSupportExportExcel)
                 {
                     return Json(new

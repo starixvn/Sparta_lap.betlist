@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
@@ -11,12 +12,12 @@
     public partial class ResultDataAccessTest
     {
         [Test]
-        public void GetPopUpParalayMatch_WhenCall_ParameterPassedCorrectly()
+        public async Task GetPopUpParalayMatch_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
             dynamic result = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(x => result = x));
             var refNo = 1;
             var expected = new
             {
@@ -24,14 +25,14 @@
             };
 
             // Action
-            DataAccess.GetPopUpParalayMatch(refNo);
+            await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
         }
 
         [Test]
-        public void GetPopUpParalayMatch_WhenCall_ReturnCorrectData()
+        public async Task GetPopUpParalayMatch_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
@@ -70,7 +71,7 @@
             };
 
             // Action
-            var result = DataAccess.GetPopUpParalayMatch(refNo);
+            var result = await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -81,7 +82,7 @@
         }
 
         [Test]
-        public void GetPopUpParalayMatch_SomeColumnsAreNotExist_ReturnCorrectData()
+        public async Task GetPopUpParalayMatch_SomeColumnsAreNotExist_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
@@ -117,7 +118,7 @@
             };
 
             // Action
-            var result = DataAccess.GetPopUpParalayMatch(refNo);
+            var result = await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -128,7 +129,7 @@
         }
 
         [Test]
-        public void GetPopUpParalayMatch_SomeColumnsReturnedNullValue_ReturnCorrectData()
+        public async Task GetPopUpParalayMatch_SomeColumnsReturnedNullValue_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
@@ -167,7 +168,7 @@
             var expectedResult = new List<Parlay> { parlay };
 
             // Action
-            var result = DataAccess.GetPopUpParalayMatch(refNo);
+            var result = await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -178,7 +179,7 @@
         }
 
         [Test]
-        public void GetPopUpParalayMatch_ParlayItemHasMultipleSportsbookItems_ReturnCorrectLengthOfSportsbookList()
+        public async Task GetPopUpParalayMatch_ParlayItemHasMultipleSportsbookItems_ReturnCorrectLengthOfSportsbookList()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
@@ -195,7 +196,7 @@
             DataAccessTestHelper.MapReaderData(Reader, dataMapping);
 
             // Action
-            var result = DataAccess.GetPopUpParalayMatch(refNo);
+            var result = await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.That(result[0].Sportbook.Count, Is.EqualTo(2));
