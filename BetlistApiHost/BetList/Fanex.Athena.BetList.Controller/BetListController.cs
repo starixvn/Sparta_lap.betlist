@@ -106,15 +106,15 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public dynamic GetDailyBetListData(DailyBetListMetaModel metaModel)
+        public async Task<dynamic> GetDailyBetListData(DailyBetListMetaModel metaModel)
         {
-            return GetBetListPaging(metaModel);
+            return await GetBetListPaging(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public dynamic GetWinLossByLeagueData(WinLossByLeagueBetListMetaModel metaModel)
+        public async Task<dynamic> GetWinLossByLeagueData(WinLossByLeagueBetListMetaModel metaModel)
         {
-            return GetBetList(metaModel);
+            return await GetBetList(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
