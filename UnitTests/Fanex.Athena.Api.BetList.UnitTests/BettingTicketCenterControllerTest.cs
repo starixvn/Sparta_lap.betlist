@@ -43,7 +43,7 @@
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-80)]
-        public async Task GetByRefno_RefNoIsInvalid_ReturnNull(int refNo)
+        public void GetByRefno_RefNoIsInvalid_ReturnNull(int refNo)
         {
             using (var controller = CreateController())
             {
@@ -54,10 +54,10 @@
                 };
 
                 // Action
-                var result = await controller.GetByRefno(metaModel);
+                AsyncTestDelegate testDelegate = () => controller.GetByRefno(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
@@ -208,7 +208,7 @@
         }
 
         [Test]
-        public async Task GetBySingleCustomer_DateRangeIsInvalid_ReturnNull()
+        public void GetBySingleCustomer_DateRangeIsInvalid_ReturnNull()
         {
             using (var controller = CreateController())
             {
@@ -221,15 +221,15 @@
                 };
 
                 // Action
-                var result = await controller.GetBySingleCustomer(metaModel);
+                AsyncTestDelegate testDelegate = () => controller.GetBySingleCustomer(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
         [Test]
-        public async Task GetBySingleCustomer_UserNameIsEmpty_ReturnNull()
+        public void GetBySingleCustomer_UserNameIsEmpty_ReturnNull()
         {
             using (var controller = CreateController())
             {
@@ -241,10 +241,10 @@
                 };
 
                 // Action
-                var result = await controller.GetBySingleCustomer(metaModel);
+                AsyncTestDelegate testDelegate = () => controller.GetBySingleCustomer(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
