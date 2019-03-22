@@ -32,6 +32,11 @@
         [HttpPost]
         public async Task<dynamic> GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
+            if (!metaModel.IsValid)
+            {
+                throw new ArgumentException(ViewResources.InvalidRequestMsg);
+            }
+
             var userCurrencyList = SessionService.UserSession.CurrencyList;
 
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
@@ -46,7 +51,7 @@
         {
             if (!metaModel.IsValid)
             {
-                return null;
+                throw new ArgumentException(ViewResources.InvalidRequestMsg);
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
