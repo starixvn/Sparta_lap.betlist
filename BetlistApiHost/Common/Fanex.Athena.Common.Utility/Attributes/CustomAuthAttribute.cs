@@ -15,7 +15,15 @@ namespace Fanex.Athena.Common.Utility.Attributes
             var token = request.Headers.Get(KEYNAME);
             if (token != ConfigurationManager.AppSettings["BetListApiTokenValue"])
             {
-                throw new UnauthorizedAccessException("Invalid token");
+                filterContext.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                filterContext.Result = new JsonResult
+                {
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                    Data = new
+                    {
+                        Error = "Invalid token"
+                    }
+                };
             }
         }
     }

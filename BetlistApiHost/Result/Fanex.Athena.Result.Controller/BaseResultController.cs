@@ -9,6 +9,7 @@
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CustomAuth]
+    [HandleJsonException]
     public class BaseResultController : Controller
     {
         private const string LANGUAGEKEY = "Language";
