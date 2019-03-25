@@ -10,7 +10,7 @@ describe('DataGrid ', () => {
     beforeEach(() => {
         Service.sort = jest.fn();
         Service.showErrorMsg = jest.fn();
-        Service.setReportTitle = jest.fn();
+        Service.getReportTitle = jest.fn();
         LangHelper.getSingleResource = jest.fn((resource) => resource);
     })
 
@@ -40,7 +40,7 @@ describe('DataGrid ', () => {
 
     describe('_getGridData', () => {
         it('fetch data successfully - response data has one row - do not call sort function', () => {
-            const props = { params: { SortBy: 'Id', SortOrder: 'asc' }, xsrfToken: '123', ...defaultGridProps };
+            const props = { params: { SortBy: 'Id', SortOrder: 'asc' }, xsrfToken: '123', setReportTitle: jest.fn(), ...defaultGridProps };
             const fakeResponse = { data: { Data: [{ Id: 1 }]} };
             const promise = Promise.resolve(fakeResponse);
             Report.fetchGridData = jest.fn(() => promise);
@@ -52,12 +52,12 @@ describe('DataGrid ', () => {
             
             Promise.resolve().then(()=>{
                 expect(Service.sort).not.toHaveBeenCalled();
-                expect(Service.setReportTitle).toHaveBeenCalled();
+                expect(props.setReportTitle).toHaveBeenCalled(); 
             });
         })
 
         it('fetch data successfully - response data has one row - call sort function', () => {
-            const props = { params: { SortBy: 'Id', SortOrder: 'asc' }, xsrfToken: '123', ...defaultGridProps };
+            const props = { params: { SortBy: 'Id', SortOrder: 'asc' }, xsrfToken: '123', setReportTitle: jest.fn(), ...defaultGridProps };
             const fakeResponse = { data: { Data: [{ Id: 1 }, { Id: 2 }]} };
             const promise = Promise.resolve(fakeResponse);
             Report.fetchGridData = jest.fn(() => promise);
@@ -69,21 +69,22 @@ describe('DataGrid ', () => {
             
             Promise.resolve().then(()=>{
                 expect(Service.sort).toHaveBeenCalled();
-                expect(Service.setReportTitle).toHaveBeenCalled();
+                expect(props.setReportTitle).toHaveBeenCalled();
             });
         })
 
         it('fetch data failed - show error', () => {
             const props = { params: { SortBy: 'Id', SortOrder: 'asc' }, xsrfToken: '123', ...defaultGridProps };
-            const promise = Promise.reject('error');
+            const promise = Promise.reject('fetch data failed - show error');
+           
             Report.fetchGridData = jest.fn(() => promise);
 
             const dataGrid = new DataGrid(props);
             dataGrid.setState = jest.fn();
 
             dataGrid._getGridData();
-            
-            Promise.reject().catch(()=>{
+
+            Promise.resolve().then().catch((err)=>{
                 expect(Service.showErrorMsg).toHaveBeenCalled();
             });
         })

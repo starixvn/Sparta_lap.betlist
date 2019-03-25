@@ -141,7 +141,7 @@ describe('PageLayout methods ', () => {
             expect(divEvent.classList.toString()).toBe('mx-parlay');
         });
 
-        it('divEvent is hidden - get choice from server fail - log error',(done) =>{
+        it('divEvent is hidden - get choice from server fail - log error',() =>{
             divEvent.style.display = "none";
 
             const promise = Promise.reject("error");
@@ -151,11 +151,10 @@ describe('PageLayout methods ', () => {
 
             Promise.reject().catch(() => {
                 expect(pageLayout.props.toggleLoader).not.toHaveBeenCalledWith(false);
-                done();
             });
         });
 
-        it('divEvent is hidden - get choice from server and append to divEvent',(done) =>{
+        it('divEvent is hidden - get choice from server and append to divEvent',() =>{
             divEvent.style.display = "none";
             const expectedParlayDetailUrl = "www.alskdlf.com";
 
@@ -176,7 +175,6 @@ describe('PageLayout methods ', () => {
                 expect(divEvent.innerHTML).toBe("abc");
                 expect(divEvent.style.display).toBe('block');
                 expect(nameDiv.style.display).toBe('none');
-                done();
             });
         });
 
