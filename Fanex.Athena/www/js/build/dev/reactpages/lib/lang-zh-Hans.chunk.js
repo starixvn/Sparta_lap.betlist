@@ -93,9 +93,10 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Generated at: 3/6/2019 11:46:18 AM
+// Generated at: 3/25/2019 10:05:30 AM
 window._language_zh_Hans = {
   AA: "客客",
+  AbnormalBet: "非正规注单",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
   Account: "账号",
   AccountManagement: "帐户管理",
@@ -681,7 +682,7 @@ window._language_zh_Hans = {
   RBComm: "赛马佣金",
   RCCommission: "赛马赛事佣金",
   RecommendBrowserOnReportPageMsg: "若页面大小 &gt; 1,000, 请您考虑使用火狐或Chrome以获得更好的体验",
-  RefNo: "参考号码",
+  RefNo: "注单号码",
   Refund: "退款",
   RefundFT: "全场退还",
   RefundHT: "上半场退还",
@@ -699,6 +700,7 @@ window._language_zh_Hans = {
   ResetPassword: "重设密码",
   ResetPasswordSuccessMsg: "重置密码成功!",
   Result: "赛果",
+  ResultPending: "赛果待定",
   Results: "赛果",
   Resultswithpictures: "参考号码",
   Revenue: "所得",
@@ -829,6 +831,7 @@ window._language_zh_Hans = {
   Under: "下盘",
   UnderMaintenance: "维护中",
   UndermaintenanceMsg: "我们正进行伺服器维护, 网站于{0} 至 {1} 将无法使用. 非常抱歉造成您的不便!",
+  UnderSettlement: "结算中",
   Unfreeze: "Unfreeze",
   Update: "更新",
   UpdateAccountSuccessMsg: "更新账号成功!",

@@ -2602,4 +2602,13 @@
   <data name="BettingTicketCenter_RefnoTabNote1" xml:space="preserve">
     <value>在体育的搜寻结果将包含相关的红利与现金注单</value>
   </data>
+  <data name="AbnormalBet" xml:space="preserve">
+    <value>非正规注单</value>
+  </data>
+  <data name="ResultPending" xml:space="preserve">
+    <value>赛果待定</value>
+  </data>
+  <data name="UnderSettlement" xml:space="preserve">
+    <value>结算中</value>
+  </data>
 </root>
