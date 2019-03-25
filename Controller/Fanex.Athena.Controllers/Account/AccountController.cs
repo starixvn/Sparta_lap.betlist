@@ -25,9 +25,6 @@ namespace Fanex.Athena.Controllers.Account
     using Session.Enum;
     using Web.ActionFilter;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.AccountManageAccount)]
     [AuthorizeRestriction(AppMode.Self)]
@@ -80,9 +77,9 @@ namespace Fanex.Athena.Controllers.Account
         public ActionResult EditAccount()
         {
             var userSession = SessionService.UserSession;
-            int userId;
+            int userId = GetUserId();
 
-            if (int.TryParse(Request.Params["UserId"], out userId) && userId > 0 && userId != userSession.UserId)
+            if (userId > 0 && userId != userSession.UserId)
             {
                 var user = _userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
 
@@ -143,11 +140,7 @@ namespace Fanex.Athena.Controllers.Account
                 }
             }
 
-            return Json(new ResultInfo
-            {
-                Code = -1,
-                Message = ViewResources.InvalidRequestMsg
-            });
+            return JsonErrorResult(ViewResources.InvalidRequestMsg);
         }
 
         #endregion Edit Account
@@ -163,7 +156,7 @@ namespace Fanex.Athena.Controllers.Account
         {
             var model = new ResetPasswordMetaModel
             {
-                UserId = int.Parse(this.Request.Params["UserId"]),
+                UserId = GetUserId(),
                 UserName = this.Request.Params["UserName"],
                 FirstName = this.Request.Params["FirstName"],
                 LastName = this.Request.Params["LastName"]
@@ -178,11 +171,7 @@ namespace Fanex.Athena.Controllers.Account
         {
             if (!ModelState.IsValid)
             {
-                return Json(new ResultInfo
-                {
-                    Code = -1,
-                    Message = ViewResources.InvalidRequestMsg
-                });
+                return JsonErrorResult(ViewResources.InvalidRequestMsg);
             }
 
             var userSession = SessionService.UserSession;
@@ -190,20 +179,12 @@ namespace Fanex.Athena.Controllers.Account
 
             if (user == null || user.IsInternal != userSession.IsInternal)
             {
-                return Json(new ResultInfo
-                {
-                    Code = -4,
-                    Message = ViewResources.InvalidRequestMsg
-                });
+                return JsonErrorResult(ViewResources.InvalidRequestMsg);
             }
 
             if (!Util.IsPasswordValid(model.Password))
             {
-                return Json(new ResultInfo
-                {
-                    Code = -2,
-                    Message = ViewResources.PasswordNoteMsg
-                });
+                return JsonErrorResult(ViewResources.PasswordNoteMsg);
             }
 
             user.Request = new Request
@@ -229,8 +210,8 @@ namespace Fanex.Athena.Controllers.Account
         [HttpGet]
         public ActionResult PermissionPage()
         {
-            int userId;
-            if (int.TryParse(Request.Params["UserId"], out userId) && ValidatePermissionRestriction(userId))
+            var userId = GetUserId();
+            if (userId > 0 && ValidatePermissionRestriction(userId))
             {
                 var user = _userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
 
@@ -248,8 +229,8 @@ namespace Fanex.Athena.Controllers.Account
         [HttpGet]
         public ActionResult EditPermission()
         {
-            int userId;
-            if (int.TryParse(Request.Params["UserId"], out userId) && userId > 0 && ValidatePermissionRestriction(userId))
+            int userId = GetUserId();
+            if (userId > 0 && ValidatePermissionRestriction(userId))
             {
                 var licenseeSession = SessionService.LicenseeSession;
                 var user = _userService.GetUserInfo(licenseeSession.LicenseeId, userId);
@@ -282,11 +263,7 @@ namespace Fanex.Athena.Controllers.Account
 
             if (!isValid)
             {
-                return Json(new ResultInfo
-                {
-                    Code = -1,
-                    Message = ViewResources.FunctionDeniedMsg
-                });
+                return JsonErrorResult(ViewResources.FunctionDeniedMsg);
             }
 
             var userSession = SessionService.UserSession;
@@ -305,11 +282,7 @@ namespace Fanex.Athena.Controllers.Account
                 return Json(result);
             }
 
-            return Json(new ResultInfo
-            {
-                Code = -2,
-                Message = ViewResources.InvalidRequestMsg
-            });
+            return JsonErrorResult(ViewResources.InvalidRequestMsg);
         }
 
         #endregion Edit Permission
@@ -405,6 +378,23 @@ namespace Fanex.Athena.Controllers.Account
             return string.Format(XmlPattern, xmlElementBuilder);
         }
 
+        private JsonResult JsonErrorResult(string message)
+        {
+            return Json(new ResultInfo
+            {
+                Code = -1,
+                Message = message
+            });
+        }
+
+        private int GetUserId()
+        {
+            var userId = 0;
+            int.TryParse(Request.Params["UserId"], out userId);
+            return userId;
+        }
+
+
         /// <summary>
         /// Validate permission restriction.
         /// </summary>
@@ -436,10 +426,6 @@ namespace Fanex.Athena.Controllers.Account
             return true;
         }
 
-        /// <summary>
-        /// Get all functions of user.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
         private void InitializeFunctions(int userId)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
