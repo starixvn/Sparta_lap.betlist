@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Linq;
     using Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -26,30 +25,24 @@ namespace Fanex.Athena.DataAccess.Report
         public ActiveCustomerSummaryResultModel GetActiveCustomers(ActiveCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_ActiveMember";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel);
+                db.SetParameterValue("TotalActive", null);
+                SortableList<ActiveCustomer> data;
+                using (var reader = db.ExecuteReader())
                 {
-                    UpdateUspParams(db, metaModel);
-                    db.SetParameterValue("TotalActive", null);
-                    SortableList<ActiveCustomer> data;
-                    using (var reader = db.ExecuteReader())
-                    {
-                        data = GetData(reader, metaModel);
-                    }
-
-                    var totalCustomer = Convert.ToInt32(db.GetParameterValue("TotalActive"));
-
-                    return new ActiveCustomerSummaryResultModel
-                    {
-                        DataList = data,
-                        TotalCustomer = totalCustomer
-                    };
+                    data = GetData(reader, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+
+                var totalCustomer = Convert.ToInt32(db.GetParameterValue("TotalActive"));
+
+                return new ActiveCustomerSummaryResultModel
+                {
+                    DataList = data,
+                    TotalCustomer = totalCustomer
+                };
             }
         }
 

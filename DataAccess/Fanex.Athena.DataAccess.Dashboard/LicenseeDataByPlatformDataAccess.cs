@@ -3,8 +3,6 @@
     using System.Collections.Generic;
     using System.Data;
     using Core;
-    using Core.Exception;
-    using Data;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Fanex.Common.Extensions;
     using Model.Core.DataDomain;
@@ -47,27 +45,20 @@
 
         private WidgetByPlatformViewModel GetData(DashboardBaseModel metaModel, string uspName, string winlossColumnName)
         {
-            try
+            using (var db = this.GetObjectDb(uspName))
             {
-                using (var db = this.GetObjectDb(uspName))
+                var param = new
                 {
-                    var param = new
-                    {
-                        LicenseeID = metaModel.LicenseeId,
-                        metaModel.CurrencyIDList,
-                        FromDate = metaModel.FromDate,
-                        ToDate = metaModel.ToDate
-                    };
+                    LicenseeID = metaModel.LicenseeId,
+                    metaModel.CurrencyIDList,
+                    FromDate = metaModel.FromDate,
+                    ToDate = metaModel.ToDate
+                };
 
-                    using (var reader = db.ExecuteReader(param))
-                    {
-                        return ReadData(reader, winlossColumnName, metaModel.BaseCurrency);
-                    }
+                using (var reader = db.ExecuteReader(param))
+                {
+                    return ReadData(reader, winlossColumnName, metaModel.BaseCurrency);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, uspName, metaModel);
             }
         }
     }

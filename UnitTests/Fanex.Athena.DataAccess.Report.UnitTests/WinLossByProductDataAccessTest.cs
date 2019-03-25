@@ -117,14 +117,6 @@
         }
 
         [Test]
-        public void GetWinlossByProducts_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetWinlossByProductsSp,
-                () => DataAccess.GetWinlossByProducts(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
         public void GetWinlossByProductAgents_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -139,14 +131,6 @@
                 ObjectDb.Received(1).SetParameterValue("CustID", _metaModel.MemberId);
                 AssertCommonSpParameters(isDrilldown: true);
             });
-        }
-
-        [Test]
-        public void GetWinlossByProductAgents_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetWinlossByProductAgentsSp,
-                () => DataAccess.GetWinlossByProductAgents(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -165,14 +149,6 @@
                 ObjectDb.Received(1).SetParameterValue("MemberID", _metaModel.MemberId);
                 AssertCommonSpParameters(isDrilldown: true);
             });
-        }
-
-        [Test]
-        public void GetWinlossByProductCustomers_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetWinlossByProductCustomersSp,
-                () => DataAccess.GetWinlossByProductCustomers(_metaModel, UserCurrencyList));
         }
 
         [Test]

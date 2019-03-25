@@ -94,9 +94,9 @@
             });
         }
 
-        [TestCase("UpdateMinMaxBet", true, DbType.Boolean)]
-        [TestCase("Test", 1, DbType.Decimal)]
-        public void UpdateBetSetting_WhenCall_ParametersPassedCorrectly(string paramterName, object parameterValue, DbType expectedType)
+        [TestCase("UpdateMinMaxBet", true)]
+        [TestCase("Test", 1)]
+        public void UpdateBetSetting_WhenCall_ParametersPassedCorrectly(string paramterName, object parameterValue)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_All")).Returns(ObjectDb);
@@ -121,7 +121,7 @@
                 ObjectDb.Received(1).SetParameterValue("language", data.Language);
                 ObjectDb.Received(1).SetParameterValue("userid", data.UserId);
                 ObjectDb.Received(1).SetParameterValue("custid", data.CustId);
-                ObjectDb.Received(1).SetParameterValue(paramterName, expectedType, parameterValue);
+                ObjectDb.Received(1).SetParameterValue(paramterName, parameterValue);
                 ObjectDb.Received(1).SetParameterValue("ErrCode", null);
                 ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
             });

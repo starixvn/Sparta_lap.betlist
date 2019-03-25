@@ -120,7 +120,7 @@
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("userid", userId);
                 db.SetParameterValue("speciallevel", level);
-                db.SetParameterValue(nameof(ip), DbType.String, ip);
+                db.SetParameterValue("ip", ip);
                 db.SetParameterValue("langkey", language);
                 AddResultParam(db);
                 db.ExecuteNonQuery();
@@ -138,7 +138,7 @@
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("userid", userId);
                 db.SetParameterValue("oddsgroup", group);
-                db.SetParameterValue(nameof(ip), DbType.String, ip);
+                db.SetParameterValue("ip", ip);
                 db.SetParameterValue("langkey", language);
                 AddResultParam(db);
                 db.ExecuteNonQuery();

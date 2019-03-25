@@ -87,14 +87,6 @@
             });
         }
 
-        [Test]
-        public void GetSummary_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSummarySp,
-                () => DataAccess.GetSummary(new WinLossByLeagueMetaModel()));
-        }
-
         [TestCase(true, true)]
         [TestCase(false, false)]
         public void GetCustomers_WhenCall_ParametersPassedCorrectly(bool showSB, bool showBA)
@@ -247,14 +239,6 @@
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).CustomerId, Is.EqualTo(readerDataMapping.custid));
-        }
-
-        [Test]
-        public void GetCustomers_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetCustomersSp,
-                () => DataAccess.GetCustomers(new WinLossByLeagueMetaModel()));
         }
 
         private void AssertCommonSpParam(WinLossByLeagueMetaModel metaModel, bool showSB, bool showBA)

@@ -93,14 +93,6 @@
             });
         }
 
-        [Test]
-        public void GetActiveCustomers_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetActiveCustomers(_metaModel));
-        }
-
         private void ConfigureReaderForGetActiveCustomersMethod(ActiveCustomer expected)
         {
             Reader.Read().Returns(true, false);

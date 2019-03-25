@@ -83,15 +83,6 @@
             });
         }
 
-        [Test]
-        public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            const string SpName = "Summary2";
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList, SpName));
-        }
-
         [TestCase("Test", "Test")]
         public void GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
         {
@@ -137,15 +128,6 @@
                 Assert.That(result.DataList.Count, Is.EqualTo(1));
                 Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(readerDataMapping.winlostUSD));
             });
-        }
-
-        [Test]
-        public void GetCustomerWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            const string SpName = "Detail2";
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList, SpName));
         }
 
         [TestCase("Test", "Test")]
@@ -289,15 +271,6 @@
 
             // Assert
             Assert.That(result.DataList.First().Date, Is.EqualTo(readerDataMapping.winlostdate));
-        }
-
-        [Test]
-        public void GetAgentWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            const string SpName = "Agent6";
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName));
         }
     }
 }

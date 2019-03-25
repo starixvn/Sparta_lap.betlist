@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Linq;
     using Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -29,21 +28,15 @@ namespace Fanex.Athena.DataAccess.Report
             IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_AGCasinoBalance";
-            try
-            {
-                using (var db = GetObjectDb(UspName))
-                {
-                    UpdateUspParams(db, metaModel, false);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                UpdateUspParams(db, metaModel, false);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    return GetData(reader, currencyList, metaModel);
+                }
             }
         }
 
@@ -52,50 +45,38 @@ namespace Fanex.Athena.DataAccess.Report
             IDictionary<int, string> currencyList)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Mem";
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
+                db.SetParameterValue("pagesize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
+                db.SetParameterValue("pageindex", metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
+                db.SetParameterValue("TotalRows", null);
+
+                UpdateUspParams(db, metaModel, true);
+                SortableReportResultModel<AgCasinoBalance> result;
+                using (var reader = db.ExecuteReader())
                 {
-                    db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
-                    db.SetParameterValue("pagesize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
-                    db.SetParameterValue("pageindex", metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
-                    db.SetParameterValue("TotalRows", null);
-
-                    UpdateUspParams(db, metaModel, true);
-                    SortableReportResultModel<AgCasinoBalance> result;
-                    using (var reader = db.ExecuteReader())
-                    {
-                        result = GetData(reader, currencyList, metaModel);
-                    }
-
-                    result.TotalRows = (int)db.GetParameterValue("TotalRows");
-
-                    return result;
+                    result = GetData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+
+                result.TotalRows = (int)db.GetParameterValue("TotalRows");
+
+                return result;
             }
         }
 
         public SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Ag";
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = db.ExecuteReader())
                 {
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel);
-                    }
+                    return GetData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 

@@ -11,13 +11,11 @@ namespace Fanex.Athena.DataAccess.Report
     using Constant.Helper;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Resources;
     using VendorAdapter.Interfaces;
 
@@ -47,19 +45,12 @@ namespace Fanex.Athena.DataAccess.Report
                 balanceUp.BalanceUpDay
             };
 
-            try
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                using (var reader = db.ExecuteReader(uspParams))
                 {
-                    using (var reader = db.ExecuteReader(uspParams))
-                    {
-                        return ReadData(reader, metaModel.BaseCurrency);
-                    }
+                    return ReadData(reader, metaModel.BaseCurrency);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, uspParams);
             }
         }
 

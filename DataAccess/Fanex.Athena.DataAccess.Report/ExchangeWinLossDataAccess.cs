@@ -5,7 +5,6 @@
     using System.Linq;
     using Common.Extensions;
     using Core;
-    using Core.Exception;
     using Core.Extensions;
     using Data;
     using Extension.Utility;
@@ -20,65 +19,47 @@
         public ReportResultModel<ExchangeWinLoss> GetMainWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss";
-            try
-            {
-                using (var db = GetObjectDb(UspName))
-                {
-                    db.SetParameterValue("ReportType", metaModel.ReportBy);
-                    UpdateUspParams(db, metaModel);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, metaModel, currencyList);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                db.SetParameterValue("ReportType", metaModel.ReportBy);
+                UpdateUspParams(db, metaModel);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    return GetData(reader, metaModel, currencyList);
+                }
             }
         }
 
         public ReportResultModel<ExchangeWinLoss> GetCustomerWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss_Mem";
-            try
-            {
-                using (var db = GetObjectDb(UspName))
-                {
-                    db.SetParameterValue("CustID", metaModel.CustId);
-                    UpdateUspParams(db, metaModel);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, metaModel, currencyList);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                db.SetParameterValue("CustID", metaModel.CustId);
+                UpdateUspParams(db, metaModel);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    return GetData(reader, metaModel, currencyList);
+                }
             }
         }
 
         public ReportResultModel<ExchangeWinLoss> GetLicenseeWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss_Ag";
-            try
-            {
-                using (var db = GetObjectDb(UspName))
-                {
-                    UpdateUspParams(db, metaModel);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, metaModel, currencyList);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                UpdateUspParams(db, metaModel);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    return GetData(reader, metaModel, currencyList);
+                }
             }
         }
 

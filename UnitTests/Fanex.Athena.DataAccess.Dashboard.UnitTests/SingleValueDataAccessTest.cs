@@ -70,14 +70,6 @@
         }
 
         [Test]
-        public void GetPendingFunds_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetPendingFundsSp,
-                () => DataAccess.GetPendingFunds(new DashboardBaseModel()));
-        }
-
-        [Test]
         public void GetTodayWithdrawal_WhenCall_PassCorrectParam()
         {
             // Arrange
@@ -123,14 +115,6 @@
         }
 
         [Test]
-        public void GetTodayWithdrawal_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetTodayWithdrawalSp,
-                () => DataAccess.GetTodayWithdrawal(new DashboardBaseModel()));
-        }
-
-        [Test]
         public void GetCustomerBalance_WhenCall_PassCorrectParam()
         {
             // Arrange
@@ -170,14 +154,6 @@
         }
 
         [Test]
-        public void GetCustomerBalance_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetCustomerBalanceSp,
-                () => DataAccess.GetCustomerBalance(new DashboardBaseModel()));
-        }
-
-        [Test]
         public void GetTodayDeposit_WhenCall_PassCorrectParam()
         {
             // Arrange
@@ -214,14 +190,6 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void GetTodayDeposit_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetTodayDepositSp,
-                () => DataAccess.GetTodayDeposit(new DashboardBaseModel()));
         }
     }
 }

@@ -106,14 +106,6 @@
             });
         }
 
-        [Test]
-        public void GetByLicensee_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetByLicenseeSp,
-                () => DataAccess.GetByLicensee(1, true));
-        }
-
         [TestCase(true, 1)]
         [TestCase(false, 1)]
         [TestCase(true, 0)]

@@ -64,14 +64,6 @@
         }
 
         [Test]
-        public void GetMainWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetMainWinlossSp,
-                () => DataAccess.GetMainWinloss(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
         public void GetMainWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
@@ -150,14 +142,6 @@
         }
 
         [Test]
-        public void GetLicenseeWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLicenseeWinlossSp,
-                () => DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
         public void GetLicenseeWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
@@ -198,14 +182,6 @@
                 ObjectDb.Received(1).SetParameterValue("CustID", _metaModel.CustId);
                 AssertCommonSpParameters();
             });
-        }
-
-        [Test]
-        public void GetCustomerWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetCustomerWinlossSp,
-                () => DataAccess.GetCustomerWinloss(_metaModel, UserCurrencyList));
         }
 
         [Test]

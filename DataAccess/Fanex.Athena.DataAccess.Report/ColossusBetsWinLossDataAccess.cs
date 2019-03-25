@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Core;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -58,20 +57,13 @@ namespace Fanex.Athena.DataAccess.Report
 
         private SortableReportResultModel<ColossusBetWinLoss> GetData(string spname, IDictionary<int, string> currencyList, ColossusBetsWinLossMetaModel metaModel)
         {
-            try
+            using (var db = this.GetObjectDb(spname))
             {
-                using (var db = this.GetObjectDb(spname))
+                UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0);
+                using (var reader = db.ExecuteReader())
                 {
-                    UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return ReadData(reader, currencyList, metaModel);
-                    }
+                    return ReadData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, spname, metaModel);
             }
         }
 

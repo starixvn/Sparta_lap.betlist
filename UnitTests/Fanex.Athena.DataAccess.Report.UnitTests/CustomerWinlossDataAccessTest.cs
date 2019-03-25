@@ -157,14 +157,6 @@
             });
         }
 
-        [Test]
-        public void GetDataList_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetDataList(_metaModel));
-        }
-
         private IList<ProductOption> GetProductOptions()
         {
             return new List<ProductOption>

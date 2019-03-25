@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Linq;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Data;
@@ -19,23 +18,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess
     {
-        public IList<CurrencyUser> GetCurrencies(int licenseeId)
-        {
-            const string UspName = "Lrf_SelCurrencyByLicensee";
-            var uspParams = new { LicenseeId = licenseeId };
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    return BindCurrencyUser(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, uspParams);
-            }
-        }
-
         /// <summary>
         /// Assign currencies by user.
         /// </summary>

@@ -7,7 +7,6 @@
     using Common.Extensions;
     using Core;
     using Core.Configuration.Interfaces;
-    using Core.Exception;
     using Data;
     using Interfaces;
     using Model.Core.DataDomain;
@@ -31,36 +30,30 @@
 
             IEnumerable<CasinoTurnover> dataList = null;
             CasinoTurnover totalData = null;
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                AddParams(metaModel, db);
+                using (var reader = db.ExecuteReader())
                 {
-                    AddParams(metaModel, db);
-                    using (var reader = db.ExecuteReader())
+                    dataList = ReadData(reader, metaModel.IsConvertAll);
+                    if (dataList.Any())
                     {
-                        dataList = ReadData(reader, metaModel.IsConvertAll);
-                        if (dataList.Any())
+                        reader.NextResult();
+                        if (reader.Read())
                         {
-                            reader.NextResult();
-                            if (reader.Read())
-                            {
-                                totalData = ReadTotalData(reader);
-                            }
+                            totalData = ReadTotalData(reader);
                         }
                     }
-
-                    var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
-                    return new ReportResultModel<CasinoTurnover>
-                    {
-                        DataList = dataList,
-                        TotalData = totalData,
-                        TotalRows = totalRows
-                    };
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+
+                var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
+                return new ReportResultModel<CasinoTurnover>
+                {
+                    DataList = dataList,
+                    TotalData = totalData,
+                    TotalRows = totalRows
+                };
             }
         }
 

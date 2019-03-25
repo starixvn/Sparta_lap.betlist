@@ -71,14 +71,6 @@
         }
 
         [Test]
-        public void GetSummary_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSummaryWinlossSp,
-                () => DataAccess.GetSummaryWinloss(new ColossusBetsWinLossMetaModel(), UserCurrencyList));
-        }
-
-        [Test]
         public void GetWinlossDetail_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
@@ -114,14 +106,6 @@
 
             // Assert
             AssertDataReturned(result, expected);
-        }
-
-        [Test]
-        public void GetWinlossDetail_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetWinlossDetailSp,
-                () => DataAccess.GetWinlossDetail(new ColossusBetsWinLossMetaModel(), UserCurrencyList));
         }
 
         [Test]

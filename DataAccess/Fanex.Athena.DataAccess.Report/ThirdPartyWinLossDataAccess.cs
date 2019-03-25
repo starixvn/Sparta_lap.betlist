@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Linq;
     using Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -26,69 +25,48 @@ namespace Fanex.Athena.DataAccess.Report
     {
         public ReportResultModel<T> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList, string spname)
         {
-            try
+            using (var db = this.GetObjectDb(spname))
             {
-                using (var db = this.GetObjectDb(spname))
-                {
-                    UpdateUspParams(db, metaModel, false);
-                    db.SetParameterValue("ReportType", metaModel.ReportBy);
+                UpdateUspParams(db, metaModel, false);
+                db.SetParameterValue("ReportType", metaModel.ReportBy);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        var result = GetData(reader, currencyList, metaModel, -1);
-                        AddRowSpan(result.DataList);
-                        return result;
-                    }
+                using (var reader = db.ExecuteReader())
+                {
+                    var result = GetData(reader, currencyList, metaModel, -1);
+                    AddRowSpan(result.DataList);
+                    return result;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, spname, metaModel);
             }
         }
 
         public ReportResultModel<T> GetCustomerWinlossDetail(
-            ThirdPartyWinLossMetaModel metaModel, 
-            IDictionary<int, string> currencyList, 
+            ThirdPartyWinLossMetaModel metaModel,
+            IDictionary<int, string> currencyList,
             string spname)
         {
-            try
+            using (var db = this.GetObjectDb(spname))
             {
-                using (var db = this.GetObjectDb(spname))
+                db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = db.ExecuteReader())
                 {
-                    db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel);
-                    }
+                    return GetData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, spname, metaModel);
             }
         }
 
         public ReportResultModel<T> GetAgentWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
-            IDictionary<int, string> currencyList, 
+            IDictionary<int, string> currencyList,
             string spname)
         {
-            try
+            using (var db = this.GetObjectDb(spname))
             {
-                using (var db = this.GetObjectDb(spname))
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = db.ExecuteReader())
                 {
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel);
-                    }
+                    return GetData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, spname, metaModel);
             }
         }
 

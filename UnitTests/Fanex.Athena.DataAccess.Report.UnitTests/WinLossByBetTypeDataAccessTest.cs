@@ -89,14 +89,6 @@
             });
         }
 
-        [Test]
-        public void GetDataList_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetDataList(new WinLossByBetTypeMetaModel()));
-        }
-
         [TestCase(1201, " (Virtual Sports)")]
         [TestCase(2700, " (Virtual Sports 2)")]
         public void GetDataList_WhenCall_ReturnCorrectBetTypeName(int bettype, string expectedBetTypeName)

@@ -65,14 +65,6 @@
         }
 
         [Test]
-        public void GetData_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                Sp,
-                () => DataAccess.GetData(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
         public void ReadData_WhenCall_ReturnCorrectResult()
         {
             // Arrange

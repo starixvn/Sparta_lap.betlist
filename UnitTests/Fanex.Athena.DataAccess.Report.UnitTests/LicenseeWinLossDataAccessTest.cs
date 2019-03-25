@@ -81,14 +81,6 @@
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSummaryWinlossSp,
-                () => DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
         public void ReadData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
@@ -179,14 +171,6 @@
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetCustomerWinlossDetailSp,
-                () => DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
         public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -197,14 +181,6 @@
 
             // Assert
             AssertCommonSpParameters(isDrilldown: true);
-        }
-
-        [Test]
-        public void GetAgentWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetAgentWinlossDetailSp,
-                () => DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList));
         }
 
         private void AssertCommonSpParameters(bool isDrilldown)

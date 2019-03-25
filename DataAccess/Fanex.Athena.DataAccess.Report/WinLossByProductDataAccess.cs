@@ -12,7 +12,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Helper;
@@ -38,76 +37,58 @@ namespace Fanex.Athena.DataAccess.Report
         public WinLossByProductResultModel GetWinlossByProducts(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_WinlossByProduct";
-            try
-            {
-                WinLossByProductResultModel data;
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.SetParameterValue("reporttype", metaModel.ReportBy);
-                    db.SetParameterValue("username", metaModel.Username);
-                    db.SetParameterValue("SystemName", null);
-                    db.SetParameterValue("CustID", null);
-                    UpdateUspParams(db, metaModel, false);
-                    AddResultParam(db);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        data = GetData(reader, currencyList, metaModel, false);
-                    }
 
-                    var resultInfo = GetResult(db);
-                    resultInfo.ExtendedData = db.GetParameterValue("CustID") + ";" + db.GetParameterValue("SystemName");
-                    data.ResultInfo = resultInfo;
+            WinLossByProductResultModel data;
+            using (var db = this.GetObjectDb(UspName))
+            {
+                db.SetParameterValue("reporttype", metaModel.ReportBy);
+                db.SetParameterValue("username", metaModel.Username);
+                db.SetParameterValue("SystemName", null);
+                db.SetParameterValue("CustID", null);
+                UpdateUspParams(db, metaModel, false);
+                AddResultParam(db);
+                using (var reader = db.ExecuteReader())
+                {
+                    data = GetData(reader, currencyList, metaModel, false);
                 }
 
-                return data;
+                var resultInfo = GetResult(db);
+                resultInfo.ExtendedData = db.GetParameterValue("CustID") + ";" + db.GetParameterValue("SystemName");
+                data.ResultInfo = resultInfo;
             }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
-            }
+
+            return data;
         }
 
         public WinLossByProductResultModel GetWinlossByProductAgents(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_WinlossByProductDetail_Ag";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel, true);
+                db.SetParameterValue("CustID", metaModel.MemberId);
+                using (var reader = db.ExecuteReader())
                 {
-                    UpdateUspParams(db, metaModel, true);
-                    db.SetParameterValue("CustID", metaModel.MemberId);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, true);
-                    }
+                    return GetData(reader, currencyList, metaModel, true);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
         public WinLossByProductResultModel GetWinlossByProductCustomers(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_WinlossByProductDetail";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.SetParameterValue("custid", metaModel.CustomerId);
-                    db.SetParameterValue("MemberID", metaModel.MemberId);
-                    UpdateUspParams(db, metaModel, true);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, true);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                db.SetParameterValue("custid", metaModel.CustomerId);
+                db.SetParameterValue("MemberID", metaModel.MemberId);
+                UpdateUspParams(db, metaModel, true);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    return GetData(reader, currencyList, metaModel, true);
+                }
             }
         }
 

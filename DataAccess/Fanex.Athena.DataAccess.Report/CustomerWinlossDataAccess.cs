@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Linq;
     using Core.Configuration.Interfaces;
-    using Core.Exception;
     using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -35,44 +34,38 @@ namespace Fanex.Athena.DataAccess.Report
         public ReportResultModel<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinLoss";
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+
+                using (var reader = db.ExecuteReader())
                 {
-                    AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-
-                    using (var reader = db.ExecuteReader())
+                    var dataList = new List<CustomerWinLoss>();
+                    var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
+                    while (reader.Read())
                     {
-                        var dataList = new List<CustomerWinLoss>();
-                        var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-                        while (reader.Read())
-                        {
-                            dataList.Add(ReadDataItem(reader, metaModel.BaseCurrency, index++));
-                        }
-
-                        var result = new ReportResultModel<CustomerWinLoss>
-                        {
-                            DataList = dataList
-                        };
-
-                        if (dataList.Any() && reader.NextResult() && reader.Read())
-                        {
-                            result.TotalData = ReadTotalData(reader, metaModel.BaseCurrency);
-                            result.TotalRows = reader.ToInt("TotalRows");
-                            result.AdditionalInfo = reader.ToString("SumPromotionPrize");
-                        }
-                        else
-                        {
-                            result.TotalData = new CustomerWinLoss();
-                        }
-
-                        return result;
+                        dataList.Add(ReadDataItem(reader, metaModel.BaseCurrency, index++));
                     }
+
+                    var result = new ReportResultModel<CustomerWinLoss>
+                    {
+                        DataList = dataList
+                    };
+
+                    if (dataList.Any() && reader.NextResult() && reader.Read())
+                    {
+                        result.TotalData = ReadTotalData(reader, metaModel.BaseCurrency);
+                        result.TotalRows = reader.ToInt("TotalRows");
+						result.AdditionalInfo = reader.ToString("SumPromotionPrize");
+                    }
+                    else
+                    {
+                        result.TotalData = new CustomerWinLoss();
+                    }
+
+                    return result;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 

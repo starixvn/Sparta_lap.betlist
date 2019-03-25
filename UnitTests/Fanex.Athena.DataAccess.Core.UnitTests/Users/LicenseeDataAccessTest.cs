@@ -116,14 +116,6 @@
         }
 
         [Test]
-        public void GetByUser_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                IsLicenseeBelongToUserSp,
-                () => DataAccess.GetByUser(0));
-        }
-
-        [Test]
         public void GetLicenseeByName_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange
@@ -139,14 +131,6 @@
 
             // Assert
             Assert.That(result.Id, Is.EqualTo(expected.Id));
-        }
-
-        [Test]
-        public void GetLicenseeByName_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLicenseeByNameSp,
-                () => DataAccess.GetLicenseeByName(string.Empty));
         }
     }
 }

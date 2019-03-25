@@ -156,14 +156,6 @@
         }
 
         [Test]
-        public void GetSummary_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSummarySp,
-                () => DataAccess.GetSummary(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
         public void GetDetail_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
@@ -199,14 +191,6 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
-        }
-
-        [Test]
-        public void GetDetail_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetDetailSp,
-                () => DataAccess.GetDetail(_metaModel, UserCurrencyList));
         }
 
         private static Dictionary<string, object> CreateFakeData()

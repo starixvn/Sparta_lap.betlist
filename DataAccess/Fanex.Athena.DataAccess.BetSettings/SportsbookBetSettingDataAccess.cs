@@ -71,7 +71,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("custid", data.CustId);
                 foreach (var item in setting)
                 {
-                    db.SetParameterValue(item.Key, item.Key.Contains("UpdateMinMaxBet") ? DbType.Boolean : DbType.Decimal, item.Value);
+                    db.SetParameterValue(item.Key, item.Value);
                 }
 
                 db.SetParameterValue("ErrCode", null);

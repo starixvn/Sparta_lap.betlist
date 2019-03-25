@@ -12,11 +12,9 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Constant.DataDomain;
-    using Constant.Helper;
     using Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO.LiveReports;
@@ -44,36 +42,30 @@ namespace Fanex.Athena.DataAccess.Report
         {
             const string UspName = "Lrf_Rpt_LiveReportSummary";
             var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                AddParameters(db, metaModel, moveBetsDate);
+                using (var reader = db.ExecuteReader())
                 {
-                    AddParameters(db, metaModel, moveBetsDate);
-                    using (var reader = db.ExecuteReader())
+                    var list = new List<LiveReport>();
+                    var currency = metaModel.BaseCurrency;
+                    while (reader.Read())
                     {
-                        var list = new List<LiveReport>();
-                        var currency = metaModel.BaseCurrency;
-                        while (reader.Read())
+                        var productName = reader.ToString("ProductName");
+                        var productCode = reader.ToString("ProductCode");
+
+                        var item = new LiveReport
                         {
-                            var productName = reader.ToString("ProductName");
-                            var productCode = reader.ToString("ProductCode");
-
-                            var item = new LiveReport
-                            {
-                                ProductName = ProductHelper.GetProductName(productCode, productName),
-                                ProductCode = productCode
-                            };
-                            ReadCommonColumns(reader, currency, item);
-                            list.Add(item);
-                        }
-
-                        return list;
+                            ProductName = ProductHelper.GetProductName(productCode, productName),
+                            ProductCode = productCode
+                        };
+                        ReadCommonColumns(reader, currency, item);
+                        list.Add(item);
                     }
+
+                    return list;
                 }
-            }
-            catch (ObjectDbException exception)
-            {
-                throw new DataAccessException(exception, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 
@@ -81,34 +73,28 @@ namespace Fanex.Athena.DataAccess.Report
         {
             const string UspName = "Lrf_Rpt_LiveReportBySport";
             var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
-            try
-            {
-                var currency = metaModel.BaseCurrency;
-                var list = new List<LiveReport>();
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    AddParameters(db, metaModel, moveBetsDate);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var sportType = reader.ToString("SportType");
-                            var item = new LiveReport
-                            {
-                                ProductName = GetProductNameBySport(sportType),
-                                ProductCode = sportType
-                            };
-                            ReadCommonColumns(reader, currency, item);
-                            list.Add(item);
-                        }
 
-                        return list;
-                    }
-                }
-            }
-            catch (ObjectDbException exception)
+            var currency = metaModel.BaseCurrency;
+            var list = new List<LiveReport>();
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(exception, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+                AddParameters(db, metaModel, moveBetsDate);
+                using (var reader = db.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var sportType = reader.ToString("SportType");
+                        var item = new LiveReport
+                        {
+                            ProductName = GetProductNameBySport(sportType),
+                            ProductCode = sportType
+                        };
+                        ReadCommonColumns(reader, currency, item);
+                        list.Add(item);
+                    }
+
+                    return list;
+                }
             }
         }
 
@@ -120,24 +106,18 @@ namespace Fanex.Athena.DataAccess.Report
             var currency = metaModel.BaseCurrency;
             const string UspName = "Lrf_Rpt_LiveReportSummaryDetail";
             var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                AddParameters(db, metaModel, moveBetsDate);
+                using (var reader = db.ExecuteReader())
                 {
-                    AddParameters(db, metaModel, moveBetsDate);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        var resultByCurrency = ReadDetailByCurrency(reader, currencyList, currency);
+                    var resultByCurrency = ReadDetailByCurrency(reader, currencyList, currency);
 
-                        var resultByBettype = reader.NextResult() ? ReadDetailByBettype(reader, products, currency) : new List<LiveReportByBetType>();
+                    var resultByBettype = reader.NextResult() ? ReadDetailByBettype(reader, products, currency) : new List<LiveReportByBetType>();
 
-                        return new Tuple<IList<LiveReport>, IList<LiveReportByBetType>>(resultByCurrency, resultByBettype);
-                    }
+                    return new Tuple<IList<LiveReport>, IList<LiveReportByBetType>>(resultByCurrency, resultByBettype);
                 }
-            }
-            catch (ObjectDbException exception)
-            {
-                throw new DataAccessException(exception, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 
@@ -147,54 +127,48 @@ namespace Fanex.Athena.DataAccess.Report
         {
             const string UspName = "Lrf_Rpt_LiveReportWinlossByMatch";
             var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("fromdate", metaModel.FromDate);
+                db.SetParameterValue("todate", metaModel.ToDate);
+                db.SetParameterValue("movebetsday", moveBetsDate);
+                db.SetParameterValue("sportid", metaModel.SportId);
+                db.SetParameterValue("liveindicator", metaModel.LiveIndicator);
+                var productList = metaModel.ProductCodeList.Split(',');
+                foreach (var product in productList)
                 {
-                    db.SetParameterValue("AgentList", metaModel.AgentListXml);
-                    db.SetParameterValue("fromdate", metaModel.FromDate);
-                    db.SetParameterValue("todate", metaModel.ToDate);
-                    db.SetParameterValue("movebetsday", moveBetsDate);
-                    db.SetParameterValue("sportid", metaModel.SportId);
-                    db.SetParameterValue("liveindicator", metaModel.LiveIndicator);
-                    var productList = metaModel.ProductCodeList.Split(',');
-                    foreach (var product in productList)
-                    {
-                        db.SetParameterValue("show" + product, true);
-                    }
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        var currency = metaModel.BaseCurrency;
-                        var data = new List<LiveReportWinLossByMatch>();
-
-                        while (reader.Read())
-                        {
-                            data.Add(new LiveReportWinLossByMatch
-                            {
-                                MatchId = reader.ToLong("matchid"),
-                                HomeId = reader.ToInt("homeid"),
-                                AwayId = reader.ToInt("awayid"),
-                                BetType = reader.ToInt("bettype"),
-                                ShowTime = reader.ToString("showtime"),
-                                BetCount = reader.ToInt("Betcount"),
-                                TurnOver = reader.ToDecimal("Turnover" + currency),
-                                CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
-                                CustomerComm = reader.ToDecimal("PlayerComm" + currency),
-                                LicenseeComm = reader.ToDecimal("Comm" + currency),
-                                LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency),
-                                AmountDue = reader.ToDecimal("AmtDueto3rd" + currency),
-                                SportId = metaModel.SportId
-                            });
-                        }
-
-                        return data;
-                    }
+                    db.SetParameterValue("show" + product, true);
                 }
-            }
-            catch (ObjectDbException ex)
-            {
-                throw new DataAccessException(ex, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+
+                using (var reader = db.ExecuteReader())
+                {
+                    var currency = metaModel.BaseCurrency;
+                    var data = new List<LiveReportWinLossByMatch>();
+
+                    while (reader.Read())
+                    {
+                        data.Add(new LiveReportWinLossByMatch
+                        {
+                            MatchId = reader.ToLong("matchid"),
+                            HomeId = reader.ToInt("homeid"),
+                            AwayId = reader.ToInt("awayid"),
+                            BetType = reader.ToInt("bettype"),
+                            ShowTime = reader.ToString("showtime"),
+                            BetCount = reader.ToInt("Betcount"),
+                            TurnOver = reader.ToDecimal("Turnover" + currency),
+                            CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
+                            CustomerComm = reader.ToDecimal("PlayerComm" + currency),
+                            LicenseeComm = reader.ToDecimal("Comm" + currency),
+                            LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency),
+                            AmountDue = reader.ToDecimal("AmtDueto3rd" + currency),
+                            SportId = metaModel.SportId
+                        });
+                    }
+
+                    return data;
+                }
             }
         }
 

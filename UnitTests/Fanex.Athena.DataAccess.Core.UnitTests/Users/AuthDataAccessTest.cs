@@ -71,14 +71,6 @@
         }
 
         [Test]
-        public void Logout_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                "Lrf_UserLogout",
-                () => DataAccess.Logout(0));
-        }
-
-        [Test]
         public void ValidateUserForLrfSystem_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange

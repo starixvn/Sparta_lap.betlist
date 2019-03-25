@@ -75,14 +75,6 @@
         }
 
         [Test]
-        public void GetWinLoss_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLicenseeWLByPlatformSp,
-                () => DataAccess.GetWinLoss(new DashboardBaseModel()));
-        }
-
-        [Test]
         public void GetTurnover_WhenCall_PassCorrectParam()
         {
             // Arrange
@@ -128,14 +120,6 @@
                 Assert.That(result.Data[0].Key, Is.EqualTo(expected.Data[0].Key));
                 Assert.That(result.Data[0].Value, Is.EqualTo(expected.Data[0].Value));
             });
-        }
-
-        [Test]
-        public void GetTurnover_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLicenseeTurnoverByPlatformSp,
-                () => DataAccess.GetTurnover(new DashboardBaseModel()));
         }
 
         private static void AssertPassedParameter(object passedParam, DashboardBaseModel metaModel)

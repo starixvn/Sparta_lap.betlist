@@ -119,14 +119,6 @@
         }
 
         [Test]
-        public void GetLiveReportSummary_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLiveReportSummarySp,
-                () => DataAccess.GetLiveReportSummary(_metaModel));
-        }
-
-        [Test]
         public void GetDetailBySport_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -191,14 +183,6 @@
 
             // Assert
             _cacheRefAdapter.Received(1).GetBettypeWithProductName((int)BetType.VirtualSports2MixParlay);
-        }
-
-        [Test]
-        public void GetDetailBySport_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetDetailBySportSp,
-                () => DataAccess.GetDetailBySport(_metaModel));
         }
 
         [Test]
@@ -314,14 +298,6 @@
         }
 
         [Test]
-        public void GetDetailByCurrencyAndBettype_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetDetailByCurrencyAndBettypeSp,
-                () => DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, null));
-        }
-
-        [Test]
         public void GetLiveReportWinlossByMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -380,14 +356,6 @@
                 Assert.That(result[0].HomeId, Is.EqualTo(3));
                 Assert.That(result[0].AwayId, Is.EqualTo(4));
             });
-        }
-
-        [Test]
-        public void GetLiveReportWinlossByMatch_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLiveReportWinlossByMatch,
-                () => DataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel()));
         }
 
         private void AssertCommonSetParameterValues()

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data;
-using Fanex.Athena.DataAccess.Core.Exception;
 using Fanex.Athena.DataAccess.Core.Users.Interfaces;
 using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.DTO.Users;
@@ -33,16 +31,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
         {
             const string UspName = "Lrf_UserLogout";
             var uspParams = new { On_Userid = userId };
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.ExecuteNonQuery(uspParams);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, uspParams);
+                db.ExecuteNonQuery(uspParams);
             }
         }
 

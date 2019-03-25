@@ -10,7 +10,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -35,60 +34,48 @@ namespace Fanex.Athena.DataAccess.Report
         public IEnumerable<WinLossByLeague> GetSummary(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlostByLeague";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    AddCommonParams(metaModel, db);
-                    db.SetParameterValue("balanceupday", metaModel.BalanceUpDay);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetMatches(reader, metaModel.BaseCurrency);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                AddCommonParams(metaModel, db);
+                db.SetParameterValue("balanceupday", metaModel.BalanceUpDay);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    return GetMatches(reader, metaModel.BaseCurrency);
+                }
             }
         }
 
         public ReportResultModel<WinLossByLeague> GetCustomers(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlossByLeagueDetail";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                AddCommonParams(metaModel, db);
+                db.SetParameterValue("pageindex", metaModel.PageIndex);
+                db.SetParameterValue("pagesize", metaModel.PageSize);
+
+                db.SetParameterValue("totalrows", null);
+
+                IEnumerable<WinLossByLeague> dataList = null;
+                WinLossByLeague totalData;
+
+                using (var reader = db.ExecuteReader())
                 {
-                    AddCommonParams(metaModel, db);
-                    db.SetParameterValue("pageindex", metaModel.PageIndex);
-                    db.SetParameterValue("pagesize", metaModel.PageSize);
-
-                    db.SetParameterValue("totalrows", null);
-
-                    IEnumerable<WinLossByLeague> dataList = null;
-                    WinLossByLeague totalData;
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        dataList = GetCustomers(reader, metaModel.BaseCurrency);
-                        reader.NextResult();
-                        totalData = GetTotalData(reader, metaModel.BaseCurrency);
-                    }
-
-                    var totalRows = Converter.ToInt(db.GetParameterValue("totalrows"));
-                    return new ReportResultModel<WinLossByLeague>
-                    {
-                        DataList = dataList,
-                        TotalData = totalData,
-                        TotalRows = totalRows
-                    };
+                    dataList = GetCustomers(reader, metaModel.BaseCurrency);
+                    reader.NextResult();
+                    totalData = GetTotalData(reader, metaModel.BaseCurrency);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+
+                var totalRows = Converter.ToInt(db.GetParameterValue("totalrows"));
+                return new ReportResultModel<WinLossByLeague>
+                {
+                    DataList = dataList,
+                    TotalData = totalData,
+                    TotalRows = totalRows
+                };
             }
         }
 

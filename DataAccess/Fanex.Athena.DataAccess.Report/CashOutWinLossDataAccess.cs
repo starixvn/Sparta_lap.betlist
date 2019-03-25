@@ -13,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Core;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -35,48 +34,36 @@ namespace Fanex.Athena.DataAccess.Report
         }
 
         public SortableReportResultModel<CashOutWinLoss> GetSummary(
-            ThirdPartyWinLossMetaModel metaModel, 
+            ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    UpdateUspParams(db, metaModel, false);
-                    db.SetParameterValue("ReportType", metaModel.ReportBy);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        var result = GetData(reader, currencyList, metaModel);
-                        AssignRowSpan(result.DataList);
-                        return result;
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                UpdateUspParams(db, metaModel, false);
+                db.SetParameterValue("ReportType", metaModel.ReportBy);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    var result = GetData(reader, currencyList, metaModel);
+                    AssignRowSpan(result.DataList);
+                    return result;
+                }
             }
         }
 
         public SortableReportResultModel<CashOutWinLoss> GetDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss_Detail";
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = db.ExecuteReader())
                 {
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel);
-                    }
+                    return GetData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 

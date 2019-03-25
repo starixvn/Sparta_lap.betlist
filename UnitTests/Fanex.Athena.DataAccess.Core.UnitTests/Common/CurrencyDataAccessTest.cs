@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using Core.Common;
     using Model.Core.DTO.Users;
@@ -12,54 +11,8 @@
 
     public class CurrencyDataAccessTest : BaseDataAccessHelperTest<CurrencyDataAccess>
     {
-        private const string GetCurrenciesSp = "Lrf_SelCurrencyByLicensee";
         private const string AssignCurrenciesByUserSp = "Lrf_CurrencyCustIns";
         private const string GetCurrenciesByUser = "Lrf_SelCurrencyByLicenseeUser";
-
-        [Test]
-        public void GetCurrencies_WhenCall_ExecuteReaderMethodIsCalled()
-        {
-            // Arrange
-            const int LicenseeId = 1;
-
-            DataAccess.GetObjectDb(Arg.Is(GetCurrenciesSp)).Returns(ObjectDb);
-
-            // Action
-            DataAccess.GetCurrencies(LicenseeId);
-
-            // Assert
-            ObjectDb.ReceivedWithAnyArgs().Query<CurrencyUser>();
-        }
-
-        [Test]
-        public void GetCurrencies_WhenCall_DataReturnCorrectly()
-        {
-            // Arrange
-            const int LicenseeId = 1;
-
-            ObjectDb.Query<CurrencyUser>().Returns(new List<CurrencyUser>
-                {
-                    new CurrencyUser { CurrencyId = 1, AgentId = 100 },
-                    new CurrencyUser { CurrencyId = 1, AgentId = 200 }
-                });
-            DataAccess.GetObjectDb(Arg.Is(GetCurrenciesSp)).Returns(ObjectDb);
-
-            // Action
-            var result = DataAccess.GetCurrencies(LicenseeId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].AgentIdList.Count(), Is.EqualTo(2));
-            });
-        }
-
-        [Test]
-        public void GetCurrencies_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(GetCurrenciesSp, () => DataAccess.GetCurrencies(1));
-        }
 
         [Test]
         public void AssignCurrenciesByUser_WhenCall_ParametersPassedCorrectly()

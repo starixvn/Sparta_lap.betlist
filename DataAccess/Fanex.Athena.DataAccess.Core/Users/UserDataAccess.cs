@@ -8,16 +8,13 @@ namespace Fanex.Athena.DataAccess.Core.Users
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
 
     public class UserDataAccess : BaseDataAccess, IUserDataAccess
     {
@@ -44,38 +41,32 @@ namespace Fanex.Athena.DataAccess.Core.Users
         {
             const string UspName = "Lrf_UserAccessSel";
             var uspParams = new { LicenseeID = licenseeId, IsInternal = isInternal };
-            try
-            {
-                var entityList = new List<User>();
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    using (var reader = db.ExecuteReader(uspParams))
-                    {
-                        while (reader.Read())
-                        {
-                            var entity = new User
-                            {
-                                UserID = Convert.ToInt32(reader["UserID"]),
-                                Username = reader.ToString("username"),
-                                FirstName = reader.ToString("firstname"),
-                                LastName = reader.ToString("lastname"),
-                                Status = reader.ToString("status"),
-                                IsManageAccount = Convert.ToBoolean(reader["ismanageaccount"]),
-                                Licensee = new Licensee { Id = licenseeId },
-                                IsInternal = Converter.ToBool(reader["isinternal"])
-                            };
 
-                            entityList.Add(entity);
-                        }
+            var entityList = new List<User>();
+            using (var db = this.GetObjectDb(UspName))
+            {
+                using (var reader = db.ExecuteReader(uspParams))
+                {
+                    while (reader.Read())
+                    {
+                        var entity = new User
+                        {
+                            UserID = Convert.ToInt32(reader["UserID"]),
+                            Username = reader.ToString("username"),
+                            FirstName = reader.ToString("firstname"),
+                            LastName = reader.ToString("lastname"),
+                            Status = reader.ToString("status"),
+                            IsManageAccount = Convert.ToBoolean(reader["ismanageaccount"]),
+                            Licensee = new Licensee { Id = licenseeId },
+                            IsInternal = Converter.ToBool(reader["isinternal"])
+                        };
+
+                        entityList.Add(entity);
                     }
                 }
+            }
 
-                return entityList;
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, uspParams);
-            }
+            return entityList;
         }
 
         public User GetByUsername(string userName, bool isInternal, int licenseeId = 0)

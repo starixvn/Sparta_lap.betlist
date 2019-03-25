@@ -5,7 +5,6 @@
     using System.Linq;
     using Core;
     using Core.Configuration.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Helper;
@@ -36,63 +35,45 @@
             LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             var uspName = "Lrf_Rpt_LicWinloss";
-            try
-            {
-                using (var db = this.GetObjectDb(uspName))
-                {
-                    db.SetParameterValue("reporttype", metaModel.ReportBy);
-                    UpdateUspParams(db, metaModel, false);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, false);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(uspName))
             {
-                throw new DataAccessException(sqlException, uspName, metaModel);
+                db.SetParameterValue("reporttype", metaModel.ReportBy);
+                UpdateUspParams(db, metaModel, false);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    return GetData(reader, currencyList, metaModel, false);
+                }
             }
         }
 
         public SortableReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = db.ExecuteReader())
                 {
-                    db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, true);
-                    }
+                    return GetData(reader, currencyList, metaModel, true);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
         public SortableReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail_Ag";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = db.ExecuteReader())
                 {
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, true);
-                    }
+                    return GetData(reader, currencyList, metaModel, true);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
@@ -230,7 +211,7 @@
 
             foreach (var product in metaModel.ProductOptions)
             {
-                db.SetParameterValue("show" + product.Code, DbType.Boolean, product.Status);
+                db.SetParameterValue("show" + product.Code, product.Status);
             }
         }
 
