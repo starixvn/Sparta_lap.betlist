@@ -16,7 +16,7 @@ namespace Fanex.Athena
     using System.Web.Optimization;
     using System.Web.Routing;
     using Api.Base.Attributes;
-    using Data.Configuration;
+    using Data;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
     using Logging.Extensions.Database;
@@ -80,7 +80,12 @@ namespace Fanex.Athena
 
                 AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
 
-                DbSettingProviderManager.Current.Start();
+                DbSettingProviderManager
+                    .StartNewSession()
+                    .UseDefaultConnectionStringProvider()
+                    .UseDefaultDbSettingProvider(resourcePath: "~/SpNameConfig/FanexSpName.xml")
+                    .Run();
+
                 log4net.Config.XmlConfigurator.Configure();
                 log4net.LogManager.GetLogger("GeneralLog").Info("Start");
                 RefDataTypeContainer
