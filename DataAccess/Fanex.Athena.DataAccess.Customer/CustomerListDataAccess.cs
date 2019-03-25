@@ -154,7 +154,7 @@
             objectDb.SetParameterValue("LicenseeID", metaModel.LicenseeId);
             objectDb.SetParameterValue("username", metaModel.Username);
             objectDb.SetParameterValue("PageSize", metaModel.PageSize);
-            objectDb.SetParameterValue("PageIndex ", metaModel.PageIndex);
+            objectDb.SetParameterValue("PageIndex", metaModel.PageIndex);
             objectDb.SetParameterValue("BAFilter", metaModel.BAFilter);
             objectDb.SetParameterValue("CustStatus", metaModel.CustStatus ?? string.Empty);
             objectDb.SetParameterValue("SpecialLevel", metaModel.SpecialLevel);

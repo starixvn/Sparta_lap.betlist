@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.Customer
             {
                 db.SetParameterValue("username", metaModel.Username);
                 db.SetParameterValue("PageSize", metaModel.PageSize);
-                db.SetParameterValue("PageIndex ", metaModel.PageIndex);
+                db.SetParameterValue("PageIndex", metaModel.PageIndex);
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("TotalRows", null);
 
