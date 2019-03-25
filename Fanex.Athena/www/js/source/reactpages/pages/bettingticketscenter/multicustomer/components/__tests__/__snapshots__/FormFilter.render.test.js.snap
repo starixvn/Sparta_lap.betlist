@@ -152,7 +152,6 @@ exports[`FormFilter  render correctly 1`] = `
           className="label-text"
         >
           Username
-           *
         </label>
         <AutoComplete
           cache={true}

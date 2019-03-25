@@ -82,7 +82,7 @@ exports[`FormFilter  render correctly 1`] = `
           name="RefNo"
           onChange={[Function]}
           placeholder="RefNo"
-          type="text"
+          type="number"
         />
       </div>
     </div>

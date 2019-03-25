@@ -125,6 +125,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -175,6 +176,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -226,6 +228,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -284,6 +287,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -334,6 +338,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -405,6 +410,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 onClick={[Function]}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -454,6 +460,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 onClick={[Function]}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -503,6 +510,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 onClick={[Function]}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -1118,6 +1126,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -1168,6 +1177,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -1232,6 +1242,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -1282,6 +1293,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -1333,6 +1345,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 rowSpan={2}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -1398,6 +1411,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 onClick={[Function]}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -1447,6 +1461,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 onClick={[Function]}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -1496,6 +1511,7 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 onClick={[Function]}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -2097,6 +2113,7 @@ exports[`DataGrid   gridData length is greater than 0 - have 1 product only - re
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -2147,6 +2164,7 @@ exports[`DataGrid   gridData length is greater than 0 - have 1 product only - re
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -2197,6 +2215,7 @@ exports[`DataGrid   gridData length is greater than 0 - have 1 product only - re
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -2247,6 +2266,7 @@ exports[`DataGrid   gridData length is greater than 0 - have 1 product only - re
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -2297,6 +2317,7 @@ exports[`DataGrid   gridData length is greater than 0 - have 1 product only - re
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -2347,6 +2368,7 @@ exports[`DataGrid   gridData length is greater than 0 - have 1 product only - re
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -2860,6 +2882,7 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -2910,6 +2933,7 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -2961,6 +2985,7 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -3019,6 +3044,7 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -3069,6 +3095,7 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
@@ -3120,6 +3147,7 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
                 rowSpan={1}
                 style={
                   Object {
+                    "backgroundClip": "padding-box",
                     "position": "relative",
                   }
                 }
