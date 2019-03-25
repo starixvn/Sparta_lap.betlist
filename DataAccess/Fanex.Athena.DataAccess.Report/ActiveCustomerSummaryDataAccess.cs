@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.Report
                 using (var db = this.GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel);
-                    db.AddOutParameter("TotalActive", DbType.Int32, 10);
+                    db.SetParameterValue("TotalActive", null);
                     SortableList<ActiveCustomer> data;
                     using (var reader = db.ExecuteReader())
                     {
@@ -84,10 +84,10 @@ namespace Fanex.Athena.DataAccess.Report
         private static void UpdateUspParams(IObjectDb db, ActiveCustomerMetaModel metaModel)
         {
             var productCodes = metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code).ToArray();
-            db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.Date, metaModel.ToDate);
-            db.AddInParameter("products", DbType.String, string.Join(",", productCodes));
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("products", string.Join(",", productCodes));
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
         }
     }
 }

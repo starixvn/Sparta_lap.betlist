@@ -55,12 +55,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
-                ObjectDb.Received(1).AddInParameter("productCodes", DbType.String, string.Join(",", _metaModel.ProductCodeList));
-                ObjectDb.Received(1).AddInParameter("currencylist", DbType.String, _metaModel.CurrencyListXml);
-                ObjectDb.Received(1).AddInParameter("siteName", DbType.String, _metaModel.SiteName);
+                ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", _metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("reporttype", _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("productCodes", string.Join(",", _metaModel.ProductCodeList));
+                ObjectDb.Received(1).SetParameterValue("currencylist", _metaModel.CurrencyListXml);
+                ObjectDb.Received(1).SetParameterValue("siteName", _metaModel.SiteName);
             });
         }
 

@@ -74,8 +74,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
-                ObjectDb.Received(1).AddInParameter("username", DbType.String, _metaModel.Username);
+                ObjectDb.Received(1).SetParameterValue("reporttype", _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("username", _metaModel.Username);
                 AssertCommonSpParameters(isDrilldown: false);
             });
         }
@@ -136,7 +136,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.MemberId);
+                ObjectDb.Received(1).SetParameterValue("CustID", _metaModel.MemberId);
                 AssertCommonSpParameters(isDrilldown: true);
             });
         }
@@ -161,8 +161,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustomerId);
-                ObjectDb.Received(1).AddInParameter("MemberID", DbType.Int32, _metaModel.MemberId);
+                ObjectDb.Received(1).SetParameterValue("custid", _metaModel.CustomerId);
+                ObjectDb.Received(1).SetParameterValue("MemberID", _metaModel.MemberId);
                 AssertCommonSpParameters(isDrilldown: true);
             });
         }
@@ -267,12 +267,12 @@
 
         private void AssertCommonSpParameters(bool isDrilldown)
         {
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate.Date : _metaModel.FromDate.Date);
-            ObjectDb.Received(1).AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate.Date : _metaModel.ToDate.Date);
-            ObjectDb.Received(1).AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
-            ObjectDb.Received(1).AddInParameter("productList", DbType.String, "SB,PP");
+            ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("fromdate", isDrilldown ? _metaModel.DrillDownFromDate.Date : _metaModel.FromDate.Date);
+            ObjectDb.Received(1).SetParameterValue("todate", isDrilldown ? _metaModel.DrillDownToDate.Date : _metaModel.ToDate.Date);
+            ObjectDb.Received(1).SetParameterValue("drawfilter", _metaModel.DrawFilter);
+            ObjectDb.Received(1).SetParameterValue("movebetsday", _balanceUp.MoveBetsDay);
+            ObjectDb.Received(1).SetParameterValue("productList", "SB,PP");
         }
     }
 }

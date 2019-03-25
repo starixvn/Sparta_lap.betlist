@@ -19,11 +19,11 @@ namespace Fanex.Athena.DataAccess.Customer
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("username", DbType.String, metaModel.Username);
-                db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                db.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddOutParameter("TotalRows", DbType.Int32, 4);
+                db.SetParameterValue("username", metaModel.Username);
+                db.SetParameterValue("PageSize", metaModel.PageSize);
+                db.SetParameterValue("PageIndex ", metaModel.PageIndex);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("TotalRows", null);
 
                 var dataList = ReadDormantCustomerList(db, metaModel);
                 var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));

@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.Report
                 using (var db = this.GetObjectDb(spname))
                 {
                     UpdateUspParams(db, metaModel, false);
-                    db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
+                    db.SetParameterValue("ReportType", metaModel.ReportBy);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -56,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(spname))
                 {
-                    db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
+                    db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
@@ -115,12 +115,12 @@ namespace Fanex.Athena.DataAccess.Report
         [CLSCompliant(false)]
         protected virtual void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             if (metaModel.ProductId > 0)
             {
-                db.AddInParameter("productid", DbType.Int32, metaModel.ProductId);
+                db.SetParameterValue("productid", metaModel.ProductId);
             }
         }
 

@@ -32,11 +32,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
         {
             using (var db = this.GetObjectDb("Lrf_SelLeagueBySport"))
             {
-                db.AddInParameter("sportId", DbType.Int32, metaModel.SportId);
-                db.AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
-                db.AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("IsIncludeTestLeague", DbType.Boolean, !_appSettings.IsProduction);
+                db.SetParameterValue("sportId", metaModel.SportId);
+                db.SetParameterValue("Fromdate", metaModel.FromDate);
+                db.SetParameterValue("Todate", metaModel.ToDate);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("IsIncludeTestLeague", !_appSettings.IsProduction);
                 return ReadLeagues(db);
             }
         }
@@ -46,9 +46,9 @@ namespace Fanex.Athena.DataAccess.Core.Common
             const string UspName = "Lrf_LeagueSelRunning";
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, agentList);
-                db.AddInParameter("betTypes", DbType.String, betTypes);
-                db.AddInParameter("IsIncludeTestLeague", DbType.Boolean, !_appSettings.IsProduction);
+                db.SetParameterValue("AgentList", agentList);
+                db.SetParameterValue("betTypes", betTypes);
+                db.SetParameterValue("IsIncludeTestLeague", !_appSettings.IsProduction);
                 return ReadLeagues(db);
             }
         }

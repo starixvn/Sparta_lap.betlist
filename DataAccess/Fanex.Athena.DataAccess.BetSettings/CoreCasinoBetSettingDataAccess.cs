@@ -33,14 +33,14 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
-                db.AddInParameter("sportid", DbType.Int32, sportId);
-                db.AddInParameter("language", DbType.String, metaModel.Language);
-                db.AddInParameter("ip", DbType.String, metaModel.Ip);
-                db.AddInParameter("status", DbType.Int32, metaModel.Status);
-                db.AddOutParameter("ErrCode", DbType.String, 5);
-                db.AddOutParameter("ErrMsg", DbType.String, 6000);
+                db.SetParameterValue("userid", metaModel.UserId);
+                db.SetParameterValue("custid", metaModel.CustId);
+                db.SetParameterValue("sportid", sportId);
+                db.SetParameterValue("language", metaModel.Language);
+                db.SetParameterValue("ip", metaModel.Ip);
+                db.SetParameterValue("status", metaModel.Status);
+                db.SetParameterValue("ErrCode", null);
+                db.SetParameterValue("ErrMsg", null);
 
                 db.ExecuteNonQuery();
 

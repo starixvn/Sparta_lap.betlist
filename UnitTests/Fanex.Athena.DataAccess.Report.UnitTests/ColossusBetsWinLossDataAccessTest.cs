@@ -311,12 +311,12 @@
 
         private void AssertUspParameters(ColossusBetsWinLossMetaModel metaModel)
         {
-            ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
-            ObjectDb.Received(1).AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
-            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _moveBetsDay);
-            ObjectDb.Received(1).AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("TicketType", DbType.Int32, metaModel.TicketType);
+            ObjectDb.Received(1).SetParameterValue("fromdate", metaModel.DrillDownFromDate);
+            ObjectDb.Received(1).SetParameterValue("todate", metaModel.DrillDownToDate);
+            ObjectDb.Received(1).SetParameterValue("movebetsday", _moveBetsDay);
+            ObjectDb.Received(1).SetParameterValue("ReportType", metaModel.ReportBy);
+            ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("TicketType", metaModel.TicketType);
         }
     }
 }

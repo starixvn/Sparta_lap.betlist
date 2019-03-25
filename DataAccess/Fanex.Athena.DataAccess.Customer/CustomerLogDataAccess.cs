@@ -21,13 +21,13 @@ namespace Fanex.Athena.DataAccess.Customer
             const string SpName = "Lrf_CustomerSettingLog_Sel";
             using (var db = this.GetObjectDb(SpName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-                db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("FilterBy", DbType.Int16, metaModel.ViewById);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("UserName", metaModel.UserName);
+                db.SetParameterValue("FromDate", metaModel.FromDate);
+                db.SetParameterValue("ToDate", metaModel.ToDate);
+                db.SetParameterValue("FilterBy", metaModel.ViewById);
+                db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
+                db.SetParameterValue("siteName", metaModel.SiteName);
 
                 return db.Query<CustomerLog>().ToList();
             }
@@ -44,10 +44,10 @@ namespace Fanex.Athena.DataAccess.Customer
 
             using (var db = this.GetObjectDb(SpName))
             {
-                db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
+                db.SetParameterValue("FromDate", metaModel.FromDate);
+                db.SetParameterValue("ToDate", metaModel.ToDate);
+                db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
+                db.SetParameterValue("siteName", metaModel.SiteName);
                 return db.Query<CustomerLog>().ToList();
             }
         }

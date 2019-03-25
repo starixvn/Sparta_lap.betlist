@@ -25,9 +25,9 @@ namespace Fanex.Athena.DataAccess.Core.Users
             var isAllow = false;
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("langkey", DbType.String, request.Language);
-                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                db.AddOutParameter("isallow", DbType.Boolean, sizeof(bool));
+                db.SetParameterValue("langkey", request.Language);
+                db.SetParameterValue("LicenseeID", licenseeId);
+                db.SetParameterValue("isallow", null);
 
                 AddResultParam(db);
                 db.ExecuteNonQuery();

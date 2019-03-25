@@ -77,12 +77,12 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void UpdateUspParams(IObjectDb db, ColossusBetsWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("TicketType", DbType.Int32, metaModel.TicketType);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("ReportType", metaModel.ReportBy);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("TicketType", metaModel.TicketType);
         }
 
         private SortableReportResultModel<ColossusBetWinLoss> ReadData(

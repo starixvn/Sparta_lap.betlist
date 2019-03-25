@@ -26,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
+                db.SetParameterValue("licenseeid", licenseeId);
 
                 using (var reader = db.ExecuteReader())
                 {

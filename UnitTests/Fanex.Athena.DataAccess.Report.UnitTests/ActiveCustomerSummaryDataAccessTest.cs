@@ -48,14 +48,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-                ObjectDb.AddInParameter("userid", DbType.Int32, _metaModel.UserId);
-                ObjectDb.AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
-                ObjectDb.AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
-                ObjectDb.AddInParameter("todate", DbType.Date, _metaModel.ToDate);
-                ObjectDb.AddInParameter("products", DbType.String, "SB, NG");
-                ObjectDb.AddInParameter("excludetest", DbType.Boolean, _metaModel.IsExcludeTest);
-                ObjectDb.AddOutParameter("TotalActive", DbType.Int32, 10);
+                ObjectDb.SetParameterValue("licenseeid", _metaModel.LicenseeId);
+                ObjectDb.SetParameterValue("userid", _metaModel.UserId);
+                ObjectDb.SetParameterValue("currencyid", _metaModel.CurrencyId);
+                ObjectDb.SetParameterValue("fromdate", _metaModel.FromDate);
+                ObjectDb.SetParameterValue("todate", _metaModel.ToDate);
+                ObjectDb.SetParameterValue("products", "SB, NG");
+                ObjectDb.SetParameterValue("excludetest", _metaModel.IsExcludeTest);
+                ObjectDb.SetParameterValue("TotalActive", null);
             });
         }
 

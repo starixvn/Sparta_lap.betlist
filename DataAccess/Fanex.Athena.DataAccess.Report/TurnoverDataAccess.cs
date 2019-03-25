@@ -69,13 +69,13 @@ namespace Fanex.Athena.DataAccess.Report
         {
             foreach (var item in metaModel.ProductOptions)
             {
-                db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+                db.SetParameterValue("show" + item.Code, item.Status);
             }
 
-            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("username", DbType.String, metaModel.Username);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("username", metaModel.Username);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
         }
     }
 }

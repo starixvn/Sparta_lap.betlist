@@ -42,12 +42,12 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("Date", metaModel.Date);
+                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                 foreach (var item in metaModel.ProductOptions)
                 {
-                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+                    db.SetParameterValue("show" + item.Code, item.Status);
                 }
 
                 using (var reader = db.ExecuteReader())
@@ -63,15 +63,15 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("FromDate", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("ToDate", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-                db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("FromDate", metaModel.Date);
+                db.SetParameterValue("ToDate", metaModel.Date);
+                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("PageSize", metaModel.PageSize);
 
                 foreach (var item in metaModel.ProductOptions)
                 {
-                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+                    db.SetParameterValue("show" + item.Code, item.Status);
                 }
 
                 return db.ExecuteDataSet();
@@ -84,15 +84,15 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
-                db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("MatchId", metaModel.MatchId);
+                db.SetParameterValue("Date", metaModel.Date);
+                db.SetParameterValue("LeagueId", metaModel.LeagueId);
+                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
                 foreach (var item in metaModel.ProductCodeList.Split(','))
                 {
-                    db.AddInParameter("show" + item, DbType.Boolean, true);
+                    db.SetParameterValue("show" + item, true);
                 }
 
                 using (var reader = db.ExecuteReader())
@@ -112,12 +112,12 @@ namespace Fanex.Athena.DataAccess.Report
                 var showBa = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.BA);
                 var showVS2 = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.VS2);
 
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-                db.AddInParameter("showsb", DbType.Boolean, showSb);
-                db.AddInParameter("showba", DbType.Boolean, showBa);
-                db.AddInParameter("showVS2", DbType.Boolean, showVS2);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("Date", metaModel.Date);
+                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("showsb", showSb);
+                db.SetParameterValue("showba", showBa);
+                db.SetParameterValue("showVS2", showVS2);
 
                 using (var reader = db.ExecuteReader())
                 {

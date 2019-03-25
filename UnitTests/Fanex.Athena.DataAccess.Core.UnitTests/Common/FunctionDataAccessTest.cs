@@ -94,7 +94,7 @@
             DataAccess.GetLicenseeFunctionList(LicenseeId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, LicenseeId);
+            ObjectDb.Received(1).SetParameterValue("licenseeid", LicenseeId);
         }
 
         [Test]
@@ -130,8 +130,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
-                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, UserId);
+                ObjectDb.Received(1).SetParameterValue("LicenseeId", LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("UserId", UserId);
             });
         }
 
@@ -168,14 +168,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("UserID", DbType.Int32, UserId);
-                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-                ObjectDb.Received(1).AddInParameter("FunctionID", DbType.Int32, FunctionId);
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, CustId);
-                ObjectDb.Received(1).AddInParameter("LangKey", DbType.String, LangKey);
-                ObjectDb.Received(1).AddInParameter("IP", DbType.String, Ip);
-                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).SetParameterValue("UserID", UserId);
+                ObjectDb.Received(1).SetParameterValue("LicenseeID", LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("FunctionID", FunctionId);
+                ObjectDb.Received(1).SetParameterValue("CustID", CustId);
+                ObjectDb.Received(1).SetParameterValue("LangKey", LangKey);
+                ObjectDb.Received(1).SetParameterValue("IP", Ip);
+                ObjectDb.Received(1).SetParameterValue("ErrCode", null);
+                ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
             });
         }
 
@@ -209,14 +209,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("UserID", DbType.Int32, UserId);
-                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-                ObjectDb.Received(1).AddInParameter("FunctionID", DbType.Int32, FunctionId);
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, CustId);
-                ObjectDb.Received(1).AddInParameter("LangKey", DbType.String, LangKey);
-                ObjectDb.Received(1).AddInParameter("IP", DbType.String, Ip);
-                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).SetParameterValue("UserID", UserId);
+                ObjectDb.Received(1).SetParameterValue("LicenseeID", LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("FunctionID", FunctionId);
+                ObjectDb.Received(1).SetParameterValue("CustID", CustId);
+                ObjectDb.Received(1).SetParameterValue("LangKey", LangKey);
+                ObjectDb.Received(1).SetParameterValue("IP", Ip);
+                ObjectDb.Received(1).SetParameterValue("ErrCode", null);
+                ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
             });
         }
 

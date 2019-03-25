@@ -21,11 +21,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("UserName", DbType.String, metaModel.UserName);
-                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("FilterBy", DbType.Int16, metaModel.ViewById);
-                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
+                ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("FilterBy", metaModel.ViewById);
+                ObjectDb.Received(1).SetParameterValue("LicenseeId", metaModel.LicenseeId);
             });
         }
 
@@ -42,9 +42,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("LicenseeId", metaModel.LicenseeId);
             });
         }
     }

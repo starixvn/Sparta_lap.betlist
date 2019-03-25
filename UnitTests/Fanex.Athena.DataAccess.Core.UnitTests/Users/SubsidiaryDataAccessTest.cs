@@ -31,7 +31,7 @@
             DataAccess.GetSubsidiaryList(LisenseeName);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("LicenseeName", DbType.String, LisenseeName);
+            ObjectDb.Received(1).SetParameterValue("LicenseeName", LisenseeName);
         }
 
         [Test]

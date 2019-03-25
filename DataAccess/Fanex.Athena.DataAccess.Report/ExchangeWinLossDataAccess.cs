@@ -24,7 +24,7 @@
             {
                 using (var db = GetObjectDb(UspName))
                 {
-                    db.AddInParameter("ReportType", DbType.Byte, metaModel.ReportBy);
+                    db.SetParameterValue("ReportType", metaModel.ReportBy);
                     UpdateUspParams(db, metaModel);
 
                     using (var reader = db.ExecuteReader())
@@ -46,7 +46,7 @@
             {
                 using (var db = GetObjectDb(UspName))
                 {
-                    db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
+                    db.SetParameterValue("CustID", metaModel.CustId);
                     UpdateUspParams(db, metaModel);
 
                     using (var reader = db.ExecuteReader())
@@ -84,10 +84,10 @@
 
         private static void UpdateUspParams(IObjectDb db, ExchangeWinLossMetaModel metaModel)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("Fromdate", DbType.Date, metaModel.FromDate.Date);
-            db.AddInParameter("Todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("Fromdate", metaModel.FromDate.Date);
+            db.SetParameterValue("Todate", metaModel.ToDate.Date);
+            db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
         }
 
         private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ExchangeWinLoss> summaryTotal)

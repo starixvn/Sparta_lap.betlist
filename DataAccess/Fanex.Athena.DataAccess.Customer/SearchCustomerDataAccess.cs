@@ -11,10 +11,10 @@ namespace Fanex.Athena.DataAccess.Customer
         {
             using (var db = this.GetObjectDb("Lrf_CustomerSelUserSearch"))
             {
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("username", DbType.String, userName);
-                db.AddInParameter("AgentList", DbType.String, agentListXml);
-                db.AddInParameter("IsIncludeDormant", DbType.Boolean, isIncludeDormant);
+                db.SetParameterValue("userid", userId);
+                db.SetParameterValue("username", userName);
+                db.SetParameterValue("AgentList", agentListXml);
+                db.SetParameterValue("IsIncludeDormant", isIncludeDormant);
                 return db.Query<string>();
             }
         }

@@ -205,16 +205,16 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
         {
-            db.AddInParameter("PlatformType", DbType.Byte, metaModel.PlatformType);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
-            db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.SetParameterValue("PlatformType", metaModel.PlatformType);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("DrawFilter", metaModel.DrawFilter);
+            db.SetParameterValue("FromDate", metaModel.FromDate);
+            db.SetParameterValue("ToDate", metaModel.ToDate);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
 
             foreach (var product in metaModel.ProductOptions)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.SetParameterValue("show" + product.Code, product.Status);
             }
         }
 

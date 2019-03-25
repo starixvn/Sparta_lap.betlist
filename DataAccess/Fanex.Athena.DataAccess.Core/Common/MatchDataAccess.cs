@@ -76,8 +76,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = GetObjectDb("Lrf_LeagueMatchSelRunning"))
             {
-                db.AddInParameter("sporttype", DbType.Int32, sportId);
-                db.AddInParameter("IsIncludeTestLeague", DbType.Boolean, !_appSettings.IsProduction);
+                db.SetParameterValue("sporttype", sportId);
+                db.SetParameterValue("IsIncludeTestLeague", !_appSettings.IsProduction);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())

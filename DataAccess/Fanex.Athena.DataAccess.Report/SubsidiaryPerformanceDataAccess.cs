@@ -183,13 +183,13 @@
 
         private void AssignParameter(IObjectDb objectDb, SubsidiaryPerformanceMetaModel metaModel)
         {
-            objectDb.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            objectDb.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            objectDb.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            objectDb.AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            objectDb.AddInParameter("IncludeRaw", DbType.Boolean, metaModel.IncludeRaw);
-            objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            objectDb.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+            objectDb.SetParameterValue("FromDate", metaModel.FromDate);
+            objectDb.SetParameterValue("ToDate", metaModel.ToDate);
+            objectDb.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            objectDb.SetParameterValue("ProductList", metaModel.ProductCodeList);
+            objectDb.SetParameterValue("IncludeRaw", metaModel.IncludeRaw);
+            objectDb.SetParameterValue("AgentList", metaModel.AgentListXml);
+            objectDb.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
         }
     }
 }

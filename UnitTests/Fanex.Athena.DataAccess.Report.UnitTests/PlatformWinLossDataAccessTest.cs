@@ -140,12 +140,12 @@
         {
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
-                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("DrawFilter", DbType.Int16, _metaModel.DrawFilter);
-                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("PlatformType", _metaModel.PlatformType);
+                ObjectDb.Received(1).SetParameterValue("movebetsday", _balance.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("DrawFilter", _metaModel.DrawFilter);
+                ObjectDb.Received(1).SetParameterValue("FromDate", _metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("ToDate", _metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
             });
         }
     }

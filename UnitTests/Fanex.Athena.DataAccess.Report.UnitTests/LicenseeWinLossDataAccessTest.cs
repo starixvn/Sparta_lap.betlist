@@ -75,7 +75,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("reporttype", _metaModel.ReportBy);
                 AssertCommonSpParameters(isDrilldown: false);
             });
         }
@@ -173,7 +173,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
+                ObjectDb.Received(1).SetParameterValue("custid", _metaModel.DrillDownCustomerId);
                 AssertCommonSpParameters(isDrilldown: true);
             });
         }
@@ -209,13 +209,13 @@
 
         private void AssertCommonSpParameters(bool isDrilldown)
         {
-            ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate : _metaModel.FromDate);
-            ObjectDb.Received(1).AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate : _metaModel.ToDate);
-            ObjectDb.Received(1).AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-            ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-            ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
+            ObjectDb.Received(1).SetParameterValue("licenseeid", _metaModel.LicenseeId);
+            ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("fromdate", isDrilldown ? _metaModel.DrillDownFromDate : _metaModel.FromDate);
+            ObjectDb.Received(1).SetParameterValue("todate", isDrilldown ? _metaModel.DrillDownToDate : _metaModel.ToDate);
+            ObjectDb.Received(1).SetParameterValue("drawfilter", _metaModel.DrawFilter);
+            ObjectDb.Received(1).SetParameterValue("showSB", true);
+            ObjectDb.Received(1).SetParameterValue("showNG", false);
         }
 
         private IList<ProductOption> GetProductOptions()

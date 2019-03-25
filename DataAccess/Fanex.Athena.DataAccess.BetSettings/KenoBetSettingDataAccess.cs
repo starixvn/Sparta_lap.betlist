@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("CustID", DbType.Int32, custId);
+                db.SetParameterValue("CustID", custId);
                 using (var reader = db.ExecuteReader())
                 {
                     return ReadBetSetting(reader);
@@ -45,13 +45,13 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("language", DbType.String, language);
-                db.AddInParameter("ip", DbType.String, ip);
-                db.AddInParameter("dataxml", DbType.String, xmlData);
-                db.AddOutParameter("errcode", DbType.Int32, 4);
-                db.AddOutParameter("errmsg", DbType.String, 8000);
+                db.SetParameterValue("custid", custId);
+                db.SetParameterValue("userid", userId);
+                db.SetParameterValue("language", language);
+                db.SetParameterValue("ip", ip);
+                db.SetParameterValue("dataxml", xmlData);
+                db.SetParameterValue("errcode", null);
+                db.SetParameterValue("errmsg", null);
                 db.ExecuteNonQuery();
 
                 return GetResult(db);

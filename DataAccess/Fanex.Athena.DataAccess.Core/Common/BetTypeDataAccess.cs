@@ -47,9 +47,9 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                db.AddInParameter("sportlist", DbType.String, xmlSportList);
-                db.AddInParameter("langkey", DbType.String, languageCode);
+                db.SetParameterValue("licenseeid", licenseeId);
+                db.SetParameterValue("sportlist", xmlSportList);
+                db.SetParameterValue("langkey", languageCode);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
@@ -82,8 +82,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                db.AddInParameter("productcode", DbType.String, productCode);
+                db.SetParameterValue("licenseeid", licenseeId);
+                db.SetParameterValue("productcode", productCode);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())

@@ -82,14 +82,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("UserID", DbType.Int32, dataModel.UserId);
-                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, dataModel.LicenseeId);
-                ObjectDb.Received(1).AddInParameter("CurrencyXML", DbType.String, dataModel.CurrencyList);
-                ObjectDb.Received(1).AddInParameter("ModifyBy", DbType.Int32, dataModel.ModifyBy);
-                ObjectDb.Received(1).AddInParameter("LangKey", DbType.String, dataModel.LangKey);
-                ObjectDb.Received(1).AddInParameter("IP", DbType.String, dataModel.IP);
-                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).SetParameterValue("UserID", dataModel.UserId);
+                ObjectDb.Received(1).SetParameterValue("LicenseeID", dataModel.LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("CurrencyXML", dataModel.CurrencyList);
+                ObjectDb.Received(1).SetParameterValue("ModifyBy", dataModel.ModifyBy);
+                ObjectDb.Received(1).SetParameterValue("LangKey", dataModel.LangKey);
+                ObjectDb.Received(1).SetParameterValue("IP", dataModel.IP);
+                ObjectDb.Received(1).SetParameterValue("ErrCode", null);
+                ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
             });
         }
 
@@ -125,8 +125,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-                ObjectDb.Received(1).AddInParameter("UserID", DbType.Int32, UserId);
+                ObjectDb.Received(1).SetParameterValue("LicenseeID", LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("UserID", UserId);
             });
         }
 

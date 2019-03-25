@@ -56,10 +56,10 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = GetObjectDb(UspName))
                 {
-                    db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
-                    db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
-                    db.AddInParameter("pageindex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
-                    db.AddOutParameter("TotalRows", DbType.Int32, 10);
+                    db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
+                    db.SetParameterValue("pagesize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
+                    db.SetParameterValue("pageindex", metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
+                    db.SetParameterValue("TotalRows", null);
 
                     UpdateUspParams(db, metaModel, true);
                     SortableReportResultModel<AgCasinoBalance> result;
@@ -116,9 +116,9 @@ namespace Fanex.Athena.DataAccess.Report
 
         private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
         }
 
         private SortableReportResultModel<AgCasinoBalance> GetData(

@@ -151,16 +151,16 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                    db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                    db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
-                    db.AddInParameter("sportid", DbType.Int32, metaModel.SportId);
-                    db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
+                    db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                    db.SetParameterValue("fromdate", metaModel.FromDate);
+                    db.SetParameterValue("todate", metaModel.ToDate);
+                    db.SetParameterValue("movebetsday", moveBetsDate);
+                    db.SetParameterValue("sportid", metaModel.SportId);
+                    db.SetParameterValue("liveindicator", metaModel.LiveIndicator);
                     var productList = metaModel.ProductCodeList.Split(',');
                     foreach (var product in productList)
                     {
-                        db.AddInParameter("show" + product, DbType.Boolean, true);
+                        db.SetParameterValue("show" + product, true);
                     }
 
                     using (var reader = db.ExecuteReader())
@@ -200,12 +200,12 @@ namespace Fanex.Athena.DataAccess.Report
 
         private static void AddParameters(IObjectDb db, LiveReportMetaModel metaModel, DateTime moveBetsDate)
         {
-            db.AddInParameter("ProductCodes", DbType.String, metaModel.ProductCodeList);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
-            db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
+            db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("movebetsday", moveBetsDate);
+            db.SetParameterValue("liveindicator", metaModel.LiveIndicator);
         }
 
         private static void ReadCommonColumns(IDataReader reader, string currency, LiveReport item)

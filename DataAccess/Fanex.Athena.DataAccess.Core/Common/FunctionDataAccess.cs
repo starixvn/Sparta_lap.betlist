@@ -72,7 +72,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             var functionList = new List<Function>();
             using (var db = this.GetObjectDb("Lrf_LicenseeFunctionsSel"))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
+                db.SetParameterValue("licenseeid", licenseeId);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
@@ -95,8 +95,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = this.GetObjectDb("Lrf_LicenseeUserFunctionsSel"))
             {
-                db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-                db.AddInParameter("UserId", DbType.Int32, userId);
+                db.SetParameterValue("LicenseeId", licenseeId);
+                db.SetParameterValue("UserId", userId);
 
                 using (var reader = db.ExecuteReader())
                 {
@@ -135,12 +135,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
         {
             using (var db = GetObjectDb(uspName))
             {
-                db.AddInParameter("UserID", DbType.Int32, userId);
-                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                db.AddInParameter("FunctionID", DbType.Int32, functionId);
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("LangKey", DbType.String, langKey);
-                db.AddInParameter("IP", DbType.String, ip);
+                db.SetParameterValue("UserID", userId);
+                db.SetParameterValue("LicenseeID", licenseeId);
+                db.SetParameterValue("FunctionID", functionId);
+                db.SetParameterValue("CustID", custId);
+                db.SetParameterValue("LangKey", langKey);
+                db.SetParameterValue("IP", ip);
 
                 AddResultParam(db);
                 db.ExecuteNonQuery();

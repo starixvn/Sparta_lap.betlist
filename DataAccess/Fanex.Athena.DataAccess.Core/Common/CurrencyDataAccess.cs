@@ -47,12 +47,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("UserID", DbType.Int32, request.UserId);
-                db.AddInParameter("LicenseeID", DbType.Int32, request.LicenseeId);
-                db.AddInParameter("CurrencyXML", DbType.String, request.CurrencyList);
-                db.AddInParameter("ModifyBy", DbType.Int32, request.ModifyBy);
-                db.AddInParameter("LangKey", DbType.String, request.LangKey);
-                db.AddInParameter("IP", DbType.String, request.IP);
+                db.SetParameterValue("UserID", request.UserId);
+                db.SetParameterValue("LicenseeID", request.LicenseeId);
+                db.SetParameterValue("CurrencyXML", request.CurrencyList);
+                db.SetParameterValue("ModifyBy", request.ModifyBy);
+                db.SetParameterValue("LangKey", request.LangKey);
+                db.SetParameterValue("IP", request.IP);
 
                 AddResultParam(db);
                 db.ExecuteNonQuery();
@@ -67,8 +67,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("UserID", DbType.Int32, userId);
-                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
+                db.SetParameterValue("UserID", userId);
+                db.SetParameterValue("LicenseeID", licenseeId);
 
                 return BindCurrencyUser(db);
             }

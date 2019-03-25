@@ -45,11 +45,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("sportId", DbType.Int32, metaModel.SportId);
-                ObjectDb.Received(1).AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("IsIncludeTestLeague", DbType.Boolean, !isProduction);
+                ObjectDb.Received(1).SetParameterValue("sportId", metaModel.SportId);
+                ObjectDb.Received(1).SetParameterValue("Fromdate", metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("Todate", metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("IsIncludeTestLeague", !isProduction);
             });
         }
 
@@ -93,9 +93,9 @@
             DataAccess.GetRunningLeagues(AgentList, BetTypes);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, AgentList);
-            ObjectDb.Received(1).AddInParameter("betTypes", DbType.String, BetTypes);
-            ObjectDb.Received(1).AddInParameter("IsIncludeTestLeague", DbType.Boolean, !isProduction);
+            ObjectDb.Received(1).SetParameterValue("AgentList", AgentList);
+            ObjectDb.Received(1).SetParameterValue("betTypes", BetTypes);
+            ObjectDb.Received(1).SetParameterValue("IsIncludeTestLeague", !isProduction);
         }
     }
 }

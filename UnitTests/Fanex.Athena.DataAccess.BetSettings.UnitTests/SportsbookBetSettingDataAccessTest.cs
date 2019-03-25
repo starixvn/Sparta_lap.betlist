@@ -42,7 +42,7 @@
             DataAccess.GetBetSetting(CustId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, CustId);
+            ObjectDb.Received(1).SetParameterValue("CustID", CustId);
         }
 
         [Test]
@@ -116,14 +116,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
-                ObjectDb.Received(1).AddInParameter("ip", DbType.String, data.Ip);
-                ObjectDb.Received(1).AddInParameter("language", DbType.String, data.Language);
-                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, data.UserId);
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, data.CustId);
-                ObjectDb.Received(1).AddInParameter(paramterName, expectedType, parameterValue);
-                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
-                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
+                ObjectDb.Received(1).SetParameterValue("licenseeid", data.LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("ip", data.Ip);
+                ObjectDb.Received(1).SetParameterValue("language", data.Language);
+                ObjectDb.Received(1).SetParameterValue("userid", data.UserId);
+                ObjectDb.Received(1).SetParameterValue("custid", data.CustId);
+                ObjectDb.Received(1).SetParameterValue(paramterName, expectedType, parameterValue);
+                ObjectDb.Received(1).SetParameterValue("ErrCode", null);
+                ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
             });
         }
 

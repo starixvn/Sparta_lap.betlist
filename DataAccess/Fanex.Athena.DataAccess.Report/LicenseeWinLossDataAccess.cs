@@ -40,7 +40,7 @@
             {
                 using (var db = this.GetObjectDb(uspName))
                 {
-                    db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
+                    db.SetParameterValue("reporttype", metaModel.ReportBy);
                     UpdateUspParams(db, metaModel, false);
 
                     using (var reader = db.ExecuteReader())
@@ -62,7 +62,7 @@
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
+                    db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
@@ -221,16 +221,16 @@
 
         private void UpdateUspParams(IObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("licenseeid", metaModel.LicenseeId);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            db.SetParameterValue("drawfilter", metaModel.DrawFilter);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.SetParameterValue("show" + product.Code, DbType.Boolean, product.Status);
             }
         }
 

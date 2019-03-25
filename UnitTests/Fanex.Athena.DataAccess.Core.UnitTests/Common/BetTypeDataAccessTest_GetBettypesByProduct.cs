@@ -40,8 +40,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, LicenseeId);
-                ObjectDb.Received(1).AddInParameter("productcode", DbType.String, ProductCode);
+                ObjectDb.Received(1).SetParameterValue("licenseeid", LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("productcode", ProductCode);
             });
         }
 

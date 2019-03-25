@@ -91,8 +91,8 @@
             DataAccess.GetAllRunningMatch(SportId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("sporttype", DbType.Int32, SportId);
-            ObjectDb.Received(1).AddInParameter("IsIncludeTestLeague", DbType.Boolean, !isProduction);
+            ObjectDb.Received(1).SetParameterValue("sporttype", SportId);
+            ObjectDb.Received(1).SetParameterValue("IsIncludeTestLeague", !isProduction);
         }
 
         [Test]

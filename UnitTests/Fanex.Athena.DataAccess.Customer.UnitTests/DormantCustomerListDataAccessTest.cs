@@ -31,11 +31,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("username", DbType.String, metaModel.Username);
-                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received(1).AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddOutParameter("TotalRows", DbType.Int32, 4);
+                ObjectDb.Received(1).SetParameterValue("username", metaModel.Username);
+                ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("PageIndex ", metaModel.PageIndex);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("TotalRows", null);
             });
         }
 

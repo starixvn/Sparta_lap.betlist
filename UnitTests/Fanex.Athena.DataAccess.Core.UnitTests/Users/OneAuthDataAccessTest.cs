@@ -29,11 +29,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("VendorID", DbType.String, VendorId);
-                ObjectDb.Received(1).AddInParameter("UserSEQ", DbType.Int32, UserSEQ);
-                ObjectDb.Received(1).AddOutParameter("UserLevel", DbType.Byte, 0);
-                ObjectDb.Received(1).AddOutParameter("SubsidiaryEnabled", DbType.Boolean, 0);
-                ObjectDb.Received(1).AddOutParameter("OperatorID", DbType.String, 50);
+                ObjectDb.Received(1).SetParameterValue("VendorID", VendorId);
+                ObjectDb.Received(1).SetParameterValue("UserSEQ", UserSEQ);
+                ObjectDb.Received(1).SetParameterValue("UserLevel", null);
+                ObjectDb.Received(1).SetParameterValue("SubsidiaryEnabled", null);
+                ObjectDb.Received(1).SetParameterValue("OperatorID", null);
             });
         }
 

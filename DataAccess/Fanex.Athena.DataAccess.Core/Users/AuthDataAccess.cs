@@ -18,11 +18,11 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CustID", DbType.Int32, requestUser.UserID);
-                db.AddInParameter("NetSessionID", DbType.String, netSessionId);
-                db.AddInParameter("ServerID", DbType.Int32, serverId);
-                db.AddOutParameter("On_UserID", DbType.Int32, 4);
-                db.AddInParameter("IP", DbType.String, requestUser.Request.Ip);
+                db.SetParameterValue("CustID", requestUser.UserID);
+                db.SetParameterValue("NetSessionID", netSessionId);
+                db.SetParameterValue("ServerID", serverId);
+                db.SetParameterValue("On_UserID", null);
+                db.SetParameterValue("IP", requestUser.Request.Ip);
                 db.ExecuteNonQuery();
 
                 return Convert.ToInt32(db.GetParameterValue("On_UserID"));
@@ -53,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             using (var db = this.GetObjectDb(UspName))
             {
                 AddCommonParameters(requestUser, db);
-                db.AddInParameter("langkey", DbType.String, requestUser.Request.Language);
+                db.SetParameterValue("langkey", requestUser.Request.Language);
 
                 var user = ReadUser(db);
                 var resultInfo = GetResult<User>(db);
@@ -64,14 +64,14 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
         private static void AddCommonParameters(User requestUser, IObjectDb db)
         {
-            db.AddInParameter("UserName", DbType.String, requestUser.Username);
-            db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-            db.AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
-            db.AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
-            db.AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
-            db.AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
+            db.SetParameterValue("UserName", requestUser.Username);
+            db.SetParameterValue("LoginIP", requestUser.Request.Ip);
+            db.SetParameterValue("LoginDomain", requestUser.Request.Domain);
+            db.SetParameterValue("BrowserName", requestUser.Request.Browser);
+            db.SetParameterValue("Platform", requestUser.Request.Platform);
+            db.SetParameterValue("CountryCode", requestUser.Request.CountryCode);
             AddResultParam(db);
-            db.AddOutParameter("ServerID", DbType.Int32, 4);
+            db.SetParameterValue("ServerID", null);
         }
 
         private static User ReadUser(IObjectDb db)

@@ -48,7 +48,7 @@
         protected override void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             base.UpdateUspParams(db, metaModel, drilldown);
-            db.AddInParameter("licenseeId", DbType.Int32, metaModel.LicenseeId);
+            db.SetParameterValue("licenseeId", metaModel.LicenseeId);
         }
 
         protected override void PostReadItem(IDataReader reader, GoldDeluxeWinLoss item, string baseCurrency)

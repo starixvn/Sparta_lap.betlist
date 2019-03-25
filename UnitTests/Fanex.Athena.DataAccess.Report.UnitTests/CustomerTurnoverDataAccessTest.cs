@@ -53,22 +53,22 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("odds", DbType.Decimal, _metaModel.Odds);
-                ObjectDb.Received(1).AddInParameter("reportby", DbType.Int32, _metaModel.ReportBy);
-                ObjectDb.Received(1).AddInParameter("username", DbType.String, expectedUser);
-                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("Langkey", DbType.String, LanguageCode);
-                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                ObjectDb.Received(1).AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
-                ObjectDb.Received(1).AddInParameter("IsExportExcel", DbType.Boolean, _metaModel.IsExportExcel);
-                ObjectDb.Received(1).AddInParameter("showwin", DbType.Boolean, _metaModel.ShowWin);
-                ObjectDb.Received(1).AddInParameter("showloss", DbType.Boolean, _metaModel.ShowLoss);
-                ObjectDb.Received(1).AddInParameter("showdraw", DbType.Boolean, _metaModel.ShowDraw);
-                ObjectDb.Received(1).AddInParameter("Product", DbType.String, _metaModel.ProductParameters);
-                ObjectDb.Received(1).AddInParameter("Bettype", DbType.String, _metaModel.BettypeParameters);
+                ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", _metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("odds", _metaModel.Odds);
+                ObjectDb.Received(1).SetParameterValue("reportby", _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("username", expectedUser);
+                ObjectDb.Received(1).SetParameterValue("movebetsday", _balance.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("Langkey", LanguageCode);
+                ObjectDb.Received(1).SetParameterValue("PageSize", _metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", _metaModel.PageIndex);
+                ObjectDb.Received(1).SetParameterValue("currencyid", _metaModel.CurrencyId);
+                ObjectDb.Received(1).SetParameterValue("IsExportExcel", _metaModel.IsExportExcel);
+                ObjectDb.Received(1).SetParameterValue("showwin", _metaModel.ShowWin);
+                ObjectDb.Received(1).SetParameterValue("showloss", _metaModel.ShowLoss);
+                ObjectDb.Received(1).SetParameterValue("showdraw", _metaModel.ShowDraw);
+                ObjectDb.Received(1).SetParameterValue("Product", _metaModel.ProductParameters);
+                ObjectDb.Received(1).SetParameterValue("Bettype", _metaModel.BettypeParameters);
             });
         }
 

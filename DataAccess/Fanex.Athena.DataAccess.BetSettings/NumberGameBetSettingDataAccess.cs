@@ -30,7 +30,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("CustID", DbType.Int32, custId);
+                db.SetParameterValue("CustID", custId);
                 using (var reader = db.ExecuteReader())
                 {
                     if (reader.Read())
@@ -49,14 +49,14 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("custid", DbType.Int32, param.CustId);
-                db.AddInParameter("userid", DbType.Int32, param.UserId);
-                db.AddInParameter("minbetv161", DbType.Decimal, param.MinBet);
-                db.AddInParameter("maxbetv161", DbType.Decimal, param.MaxBet);
-                db.AddInParameter("maxpermatchv161", DbType.Decimal, param.MaxPerMatch);
-                db.AddInParameter("maxperballv161", DbType.Decimal, param.MaxPerBall);
-                db.AddInParameter("language", DbType.String, param.Language);
-                db.AddInParameter("ip", DbType.String, param.Ip);
+                db.SetParameterValue("custid", param.CustId);
+                db.SetParameterValue("userid", param.UserId);
+                db.SetParameterValue("minbetv161", param.MinBet);
+                db.SetParameterValue("maxbetv161", param.MaxBet);
+                db.SetParameterValue("maxpermatchv161", param.MaxPerMatch);
+                db.SetParameterValue("maxperballv161", param.MaxPerBall);
+                db.SetParameterValue("language", param.Language);
+                db.SetParameterValue("ip", param.Ip);
                 AddResultParam(db);
                 db.ExecuteNonQuery();
 

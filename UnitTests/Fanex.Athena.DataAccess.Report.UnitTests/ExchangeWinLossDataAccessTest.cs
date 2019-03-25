@@ -58,7 +58,7 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(GetMainWinlossSp);
-                ObjectDb.Received(1).AddInParameter("ReportType", DbType.Byte, _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("ReportType", _metaModel.ReportBy);
                 AssertCommonSpParameters();
             });
         }
@@ -195,7 +195,7 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(GetCustomerWinlossSp);
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                ObjectDb.Received(1).SetParameterValue("CustID", _metaModel.CustId);
                 AssertCommonSpParameters();
             });
         }
@@ -407,10 +407,10 @@
 
         private void AssertCommonSpParameters()
         {
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
-            ObjectDb.Received(1).AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
-            ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, _metaModel.LicenseeId);
+            ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("Fromdate", _metaModel.FromDate.Date);
+            ObjectDb.Received(1).SetParameterValue("Todate", _metaModel.ToDate.Date);
+            ObjectDb.Received(1).SetParameterValue("LicenseeId", _metaModel.LicenseeId);
         }
 
         private void AssertSummaryTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency)

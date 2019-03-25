@@ -28,9 +28,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, request.Language);
-                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-                ObjectDb.Received(1).AddOutParameter("isallow", DbType.Boolean, sizeof(bool));
+                ObjectDb.Received(1).SetParameterValue("langkey", request.Language);
+                ObjectDb.Received(1).SetParameterValue("LicenseeID", LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("isallow", null);
             });
         }
 

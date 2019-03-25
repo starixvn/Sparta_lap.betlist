@@ -100,23 +100,23 @@ namespace Fanex.Athena.DataAccess.Report
         private void AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
         {
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
-            db.AddInParameter("reportby", DbType.Int32, metaModel.ReportBy);
-            db.AddInParameter("username", DbType.String, string.IsNullOrWhiteSpace(metaModel.Username) ? null : metaModel.Username);
-            db.AddInParameter("movebetsday", DbType.DateTime, balanceUp.MoveBetsDay);
-            db.AddInParameter("Langkey", DbType.String, languageCode);
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("IsExportExcel", DbType.Boolean, metaModel.IsExportExcel);
-            db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
-            db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
-            db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
-            db.AddInParameter("Product", DbType.String, metaModel.ProductParameters);
-            db.AddInParameter("Bettype", DbType.String, metaModel.BettypeParameters);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("odds", metaModel.Odds);
+            db.SetParameterValue("reportby", metaModel.ReportBy);
+            db.SetParameterValue("username", string.IsNullOrWhiteSpace(metaModel.Username) ? null : metaModel.Username);
+            db.SetParameterValue("movebetsday", balanceUp.MoveBetsDay);
+            db.SetParameterValue("Langkey", languageCode);
+            db.SetParameterValue("PageSize", metaModel.PageSize);
+            db.SetParameterValue("PageIndex", metaModel.PageIndex);
+            db.SetParameterValue("currencyid", metaModel.CurrencyId);
+            db.SetParameterValue("IsExportExcel", metaModel.IsExportExcel);
+            db.SetParameterValue("showwin", metaModel.ShowWin);
+            db.SetParameterValue("showloss", metaModel.ShowLoss);
+            db.SetParameterValue("showdraw", metaModel.ShowDraw);
+            db.SetParameterValue("Product", metaModel.ProductParameters);
+            db.SetParameterValue("Bettype", metaModel.BettypeParameters);
         }
     }
 }

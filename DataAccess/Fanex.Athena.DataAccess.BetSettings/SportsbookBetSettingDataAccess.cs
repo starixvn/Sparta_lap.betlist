@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             var uspName = "Lrf_CustomerSelEditCustomer";
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("CustID", DbType.Int32, custId);
+                db.SetParameterValue("CustID", custId);
                 using (var reader = db.ExecuteReader())
                 {
                     if (reader.Read())
@@ -64,18 +64,18 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
-                db.AddInParameter("ip", DbType.String, data.Ip);
-                db.AddInParameter("language", DbType.String, data.Language);
-                db.AddInParameter("userid", DbType.Int32, data.UserId);
-                db.AddInParameter("custid", DbType.Int32, data.CustId);
+                db.SetParameterValue("licenseeid", data.LicenseeId);
+                db.SetParameterValue("ip", data.Ip);
+                db.SetParameterValue("language", data.Language);
+                db.SetParameterValue("userid", data.UserId);
+                db.SetParameterValue("custid", data.CustId);
                 foreach (var item in setting)
                 {
-                    db.AddInParameter(item.Key, item.Key.Contains("UpdateMinMaxBet") ? DbType.Boolean : DbType.Decimal, item.Value);
+                    db.SetParameterValue(item.Key, item.Key.Contains("UpdateMinMaxBet") ? DbType.Boolean : DbType.Decimal, item.Value);
                 }
 
-                db.AddOutParameter("ErrCode", DbType.String, 600);
-                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+                db.SetParameterValue("ErrCode", null);
+                db.SetParameterValue("ErrMsg", null);
 
                 db.ExecuteNonQuery();
 

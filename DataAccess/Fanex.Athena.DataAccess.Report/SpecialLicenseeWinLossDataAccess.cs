@@ -155,12 +155,12 @@
 
         private static void UpdateUspParams(IObjectDb db, SpecialLicenseeWinLossMetaModel metaModel)
         {
-            db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
-            db.AddInParameter("productCodes", DbType.String, string.Join(",", metaModel.ProductCodeList));
-            db.AddInParameter("currencylist", DbType.String, metaModel.CurrencyListXml);
-            db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
+            db.SetParameterValue("fromdate", metaModel.FromDate.Date);
+            db.SetParameterValue("todate", metaModel.ToDate.Date);
+            db.SetParameterValue("reporttype", metaModel.ReportBy);
+            db.SetParameterValue("productCodes", string.Join(",", metaModel.ProductCodeList));
+            db.SetParameterValue("currencylist", metaModel.CurrencyListXml);
+            db.SetParameterValue("siteName", metaModel.SiteName);
         }
 
         private ReportResultModel<LicenseeWinLoss> ReadData(

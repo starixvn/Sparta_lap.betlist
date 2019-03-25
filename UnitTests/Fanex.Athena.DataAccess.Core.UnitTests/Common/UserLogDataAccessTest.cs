@@ -30,14 +30,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("UserID", DbType.Int32, metaModel.UserId);
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, metaModel.CustID);
-                ObjectDb.Received(1).AddInParameter("SPName", DbType.String, metaModel.SPName);
-                ObjectDb.Received(1).AddInParameter("ActionID", DbType.Int32, metaModel.ActionID);
-                ObjectDb.Received(1).AddInParameter("Doing", DbType.String, metaModel.Doing);
-                ObjectDb.Received(1).AddInParameter("TrackingValue", DbType.String, metaModel.TrackingValue1);
-                ObjectDb.Received(1).AddInParameter("TrackingValue2", DbType.String, metaModel.TrackingValue2);
-                ObjectDb.Received(1).AddInParameter("Duration", DbType.Int32, 0);
+                ObjectDb.Received(1).SetParameterValue("UserID", metaModel.UserId);
+                ObjectDb.Received(1).SetParameterValue("CustID", metaModel.CustID);
+                ObjectDb.Received(1).SetParameterValue("SPName", metaModel.SPName);
+                ObjectDb.Received(1).SetParameterValue("ActionID", metaModel.ActionID);
+                ObjectDb.Received(1).SetParameterValue("Doing", metaModel.Doing);
+                ObjectDb.Received(1).SetParameterValue("TrackingValue", metaModel.TrackingValue1);
+                ObjectDb.Received(1).SetParameterValue("TrackingValue2", metaModel.TrackingValue2);
+                ObjectDb.Received(1).SetParameterValue("Duration", 0);
             });
         }
 

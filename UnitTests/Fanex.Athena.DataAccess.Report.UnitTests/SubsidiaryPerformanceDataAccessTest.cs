@@ -265,13 +265,13 @@
 
         private void AssertParamsPassCorrectly(SubsidiaryPerformanceMetaModel metaModel)
         {
-            ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            ObjectDb.Received(1).AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("IncludeRaw", DbType.Boolean, metaModel.IncludeRaw);
-            ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+            ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
+            ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
+            ObjectDb.Received(1).SetParameterValue("MoveBetsDay", _balance.MoveBetsDay);
+            ObjectDb.Received(1).SetParameterValue("ProductList", metaModel.ProductCodeList);
+            ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("IncludeRaw", metaModel.IncludeRaw);
+            ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
         }
     }
 }

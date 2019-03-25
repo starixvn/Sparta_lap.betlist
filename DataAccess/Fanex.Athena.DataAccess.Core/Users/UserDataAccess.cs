@@ -27,11 +27,11 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("UserName", DbType.String, requestUser.Username);
-                db.AddInParameter("OldPwd", DbType.String, oldPassword);
-                db.AddInParameter("NewPwd", DbType.String, newPassword);
-                db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-                db.AddInParameter("UserSalt", DbType.String, salt);
+                db.SetParameterValue("UserName", requestUser.Username);
+                db.SetParameterValue("OldPwd", oldPassword);
+                db.SetParameterValue("NewPwd", newPassword);
+                db.SetParameterValue("LoginIP", requestUser.Request.Ip);
+                db.SetParameterValue("UserSalt", salt);
                 AddResultParam(db);
 
                 db.ExecuteNonQuery();
@@ -125,8 +125,8 @@ namespace Fanex.Athena.DataAccess.Core.Users
             bool isKickedOut;
             using (var db = GetObjectDb(UspName, 30))
             {
-                db.AddInParameter("On_Userid", DbType.Int32, userId);
-                db.AddOutParameter("IsKickedOut", DbType.Boolean, 0);
+                db.SetParameterValue("On_Userid", userId);
+                db.SetParameterValue("IsKickedOut", null);
                 db.ExecuteNonQuery();
 
                 // get OnUserId
@@ -142,13 +142,13 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                db.AddInParameter("UserId", DbType.Int32, user.UserID);
-                db.AddInParameter("UpdateBy", DbType.Int32, resetPwdBy);
-                db.AddInParameter("Pwd", DbType.String, user.Password);
-                db.AddInParameter("UserSalt", DbType.String, salt);
-                db.AddInParameter("langkey", DbType.String, user.Request.Language);
-                db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+                db.SetParameterValue("LicenseeID", user.Licensee.Id);
+                db.SetParameterValue("UserId", user.UserID);
+                db.SetParameterValue("UpdateBy", resetPwdBy);
+                db.SetParameterValue("Pwd", user.Password);
+                db.SetParameterValue("UserSalt", salt);
+                db.SetParameterValue("langkey", user.Request.Language);
+                db.SetParameterValue("LoginIP", user.Request.Ip);
 
                 AddResultParam(db);
 
@@ -164,14 +164,14 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                db.AddInParameter("UserId", DbType.Int32, user.UserID);
-                db.AddInParameter("UpdateBy", DbType.Int32, updatedBy);
-                db.AddInParameter("FirstName", DbType.String, user.FirstName);
-                db.AddInParameter("LastName", DbType.String, user.LastName);
-                db.AddInParameter("Status", DbType.String, user.Status);
-                db.AddInParameter("langkey", DbType.String, user.Request.Language);
-                db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+                db.SetParameterValue("LicenseeID", user.Licensee.Id);
+                db.SetParameterValue("UserId", user.UserID);
+                db.SetParameterValue("UpdateBy", updatedBy);
+                db.SetParameterValue("FirstName", user.FirstName);
+                db.SetParameterValue("LastName", user.LastName);
+                db.SetParameterValue("Status", user.Status);
+                db.SetParameterValue("langkey", user.Request.Language);
+                db.SetParameterValue("LoginIP", user.Request.Ip);
                 AddResultParam(db);
 
                 db.ExecuteNonQuery();

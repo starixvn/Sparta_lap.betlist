@@ -39,9 +39,9 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("licenseeId", DbType.Int32, licenseeId);
-                db.AddInParameter("langkey", DbType.String, languageCode);
-                db.AddInParameter("ProductCodes", DbType.String, productCodes);
+                db.SetParameterValue("licenseeId", licenseeId);
+                db.SetParameterValue("langkey", languageCode);
+                db.SetParameterValue("ProductCodes", productCodes);
                 using (var reader = db.ExecuteReader())
                 {
                     var result = new List<SportProductItem>();

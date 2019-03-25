@@ -23,9 +23,9 @@ namespace Fanex.Athena.DataAccess.Customer
 
             using (var db = this.GetObjectDb(SpName))
             {
-                db.AddInParameter("UserName", DbType.String, string.IsNullOrEmpty(username) ? string.Empty : username.Trim());
-                db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-                db.AddInParameter("AgentList", DbType.String, agentListXml);
+                db.SetParameterValue("UserName", string.IsNullOrEmpty(username) ? string.Empty : username.Trim());
+                db.SetParameterValue("LicenseeId", licenseeId);
+                db.SetParameterValue("AgentList", agentListXml);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())

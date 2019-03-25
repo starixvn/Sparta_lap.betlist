@@ -47,11 +47,11 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(expectedSpName);
-                ObjectDb.Received(1).AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("ReportType", _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("productid", _metaModel.ProductId);
+                ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", _metaModel.ToDate);
             });
         }
 
@@ -105,11 +105,11 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(expectedSpName);
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+                ObjectDb.Received(1).SetParameterValue("custid", _metaModel.DrillDownCustomerId);
+                ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("productid", _metaModel.ProductId);
+                ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.DrillDownFromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", _metaModel.DrillDownToDate);
             });
         }
 
@@ -162,10 +162,10 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(expectedSpName);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.DidNotReceive().AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+                ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                ObjectDb.DidNotReceive().SetParameterValue("productid", _metaModel.ProductId);
+                ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.DrillDownFromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", _metaModel.DrillDownToDate);
             });
         }
 

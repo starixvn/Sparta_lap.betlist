@@ -49,9 +49,9 @@
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter(nameof(licenseeId), DbType.Int32, licenseeId);
-                db.AddInParameter("siteName", DbType.String, siteName);
+                db.SetParameterValue("custid", custId);
+                db.SetParameterValue("licenseeId", licenseeId);
+                db.SetParameterValue("siteName", siteName);
 
                 return db.QueryEntity<LogInfo>();
             }
@@ -65,11 +65,11 @@
         {
             using (var db = this.GetObjectDb("Lrf_CustomerUpdUgroup"))
             {
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("CustId", DbType.Int32, metaModel.CustId);
-                db.AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);
-                db.AddInParameter("IP", DbType.String, metaModel.Ip);
-                db.AddInParameter("Langkey", DbType.String, metaModel.Language);
+                db.SetParameterValue("UserId", metaModel.UserId);
+                db.SetParameterValue("CustId", metaModel.CustId);
+                db.SetParameterValue("OddsGroup", metaModel.OddsGroup);
+                db.SetParameterValue("IP", metaModel.Ip);
+                db.SetParameterValue("Langkey", metaModel.Language);
 
                 AddResultParam(db);
                 db.ExecuteNonQuery();
@@ -94,13 +94,13 @@
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                db.AddInParameter("CustID", DbType.String, custId);
-                db.AddInParameter("ModifyBy", DbType.String, modifiedBy);
-                db.AddInParameter("IsBA", DbType.Boolean, allowBA);
-                db.AddInParameter("langkey", DbType.String, request.Language);
-                db.AddInParameter("IP", DbType.String, request.Ip);
-                db.AddOutParameter("OddsGroup", DbType.String, 10);
+                db.SetParameterValue("LicenseeID", licenseeId);
+                db.SetParameterValue("CustID", custId);
+                db.SetParameterValue("ModifyBy", modifiedBy);
+                db.SetParameterValue("IsBA", allowBA);
+                db.SetParameterValue("langkey", request.Language);
+                db.SetParameterValue("IP", request.Ip);
+                db.SetParameterValue("OddsGroup", null);
                 AddResultParam(db);
                 db.ExecuteNonQuery();
 
@@ -117,11 +117,11 @@
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("speciallevel", DbType.Int32, level);
-                db.AddInParameter(nameof(ip), DbType.String, ip);
-                db.AddInParameter("langkey", DbType.String, language);
+                db.SetParameterValue("custid", custId);
+                db.SetParameterValue("userid", userId);
+                db.SetParameterValue("speciallevel", level);
+                db.SetParameterValue(nameof(ip), DbType.String, ip);
+                db.SetParameterValue("langkey", language);
                 AddResultParam(db);
                 db.ExecuteNonQuery();
 
@@ -135,11 +135,11 @@
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("oddsgroup", DbType.String, group);
-                db.AddInParameter(nameof(ip), DbType.String, ip);
-                db.AddInParameter("langkey", DbType.String, language);
+                db.SetParameterValue("custid", custId);
+                db.SetParameterValue("userid", userId);
+                db.SetParameterValue("oddsgroup", group);
+                db.SetParameterValue(nameof(ip), DbType.String, ip);
+                db.SetParameterValue("langkey", language);
                 AddResultParam(db);
                 db.ExecuteNonQuery();
 
@@ -151,16 +151,16 @@
 
         private static void AddCustomerParam(IObjectDb objectDb, CustomerListMetaModel metaModel)
         {
-            objectDb.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
-            objectDb.AddInParameter("username", DbType.String, metaModel.Username);
-            objectDb.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            objectDb.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-            objectDb.AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
-            objectDb.AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
-            objectDb.AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
-            objectDb.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
-            objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            objectDb.AddOutParameter("TotalRows", DbType.Int32, 4);
+            objectDb.SetParameterValue("LicenseeID", metaModel.LicenseeId);
+            objectDb.SetParameterValue("username", metaModel.Username);
+            objectDb.SetParameterValue("PageSize", metaModel.PageSize);
+            objectDb.SetParameterValue("PageIndex ", metaModel.PageIndex);
+            objectDb.SetParameterValue("BAFilter", metaModel.BAFilter);
+            objectDb.SetParameterValue("CustStatus", metaModel.CustStatus ?? string.Empty);
+            objectDb.SetParameterValue("SpecialLevel", metaModel.SpecialLevel);
+            objectDb.SetParameterValue("GroupCommId", metaModel.GroupCommId);
+            objectDb.SetParameterValue("AgentList", metaModel.AgentListXml);
+            objectDb.SetParameterValue("TotalRows", null);
         }
 
         private static void AddOddsGroupParam(IObjectDb objectDb, CustomerListMetaModel metaModel)
@@ -170,7 +170,7 @@
             {
                 var selectedOddsGroups = oddsGroups.Where(g => g.Checked).Select(g => g.Name).ToArray();
                 var oddsGroupValues = string.Join(",", selectedOddsGroups);
-                objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroupValues);
+                objectDb.SetParameterValue("OddsGroups", oddsGroupValues);
             }
         }
 
@@ -219,11 +219,11 @@
         {
             using (var db = GetObjectDb(uspName))
             {
-                db.AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-                db.AddInParameter("UserId", DbType.String, metaModel.ModifyById);
-                db.AddInParameter("CustId", DbType.String, metaModel.CustId);
-                db.AddInParameter("IP", DbType.String, metaModel.Ip);
-                db.AddInParameter(statusParamName, DbType.String, metaModel.IsOn);
+                db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
+                db.SetParameterValue("UserId", metaModel.ModifyById);
+                db.SetParameterValue("CustId", metaModel.CustId);
+                db.SetParameterValue("IP", metaModel.Ip);
+                db.SetParameterValue(statusParamName, metaModel.IsOn);
 
                 AddResultParam(db);
                 db.ExecuteNonQuery();

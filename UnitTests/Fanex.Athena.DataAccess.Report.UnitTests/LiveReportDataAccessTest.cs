@@ -80,7 +80,7 @@
             DataAccess.GetLiveReportSummary(_metaModel);
 
             // Assert
-            AssertCommonAddInParameters();
+            AssertCommonSetParameterValues();
         }
 
         [Test]
@@ -137,7 +137,7 @@
             DataAccess.GetDetailBySport(_metaModel);
 
             // Assert
-            AssertCommonAddInParameters();
+            AssertCommonSetParameterValues();
         }
 
         [Test]
@@ -212,7 +212,7 @@
             DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, new List<Product>());
 
             // Assert
-            AssertCommonAddInParameters();
+            AssertCommonSetParameterValues();
         }
 
         [Test]
@@ -342,13 +342,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
-                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("sportid", DbType.Int32, metaModel.SportId);
-                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("fromdate", metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("liveindicator", metaModel.LiveIndicator);
+                ObjectDb.Received(1).SetParameterValue("movebetsday", _balance.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("sportid", metaModel.SportId);
+                ObjectDb.Received(1).SetParameterValue("showNG", true);
             });
         }
 
@@ -390,14 +390,14 @@
                 () => DataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel()));
         }
 
-        private void AssertCommonAddInParameters()
+        private void AssertCommonSetParameterValues()
         {
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate.Date);
-            ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
-            ObjectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
-            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            ObjectDb.Received(1).AddInParameter("ProductCodes", DbType.String, _metaModel.ProductCodeList);
+            ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.FromDate.Date);
+            ObjectDb.Received(1).SetParameterValue("todate", _metaModel.ToDate.Date);
+            ObjectDb.Received(1).SetParameterValue("liveindicator", _metaModel.LiveIndicator);
+            ObjectDb.Received(1).SetParameterValue("movebetsday", _balance.MoveBetsDay);
+            ObjectDb.Received(1).SetParameterValue("ProductCodes", _metaModel.ProductCodeList);
         }
     }
 }

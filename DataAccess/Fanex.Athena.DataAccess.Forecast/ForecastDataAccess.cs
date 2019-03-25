@@ -43,8 +43,8 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("matchid", DbType.Int32, matchId);
-                db.AddInParameter("betType", DbType.Int32, betType);
+                db.SetParameterValue("matchid", matchId);
+                db.SetParameterValue("betType", betType);
                 var item = db.QueryEntity<ForecastAH>();
                 AssignTeamNames(item);
                 return item;
@@ -56,9 +56,9 @@ namespace Fanex.Athena.DataAccess.Forecast
             const string UspName = "Lrf_Forecast_SelHDP";
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-                db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("matchid", metaModel.MatchId);
+                db.SetParameterValue("betType", metaModel.BetType);
                 var dataset = db.ExecuteDataSet();
                 return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
             }
@@ -70,9 +70,9 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-                db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("matchid", metaModel.MatchId);
+                db.SetParameterValue("betType", metaModel.BetType);
                 var dataset = db.ExecuteDataSet();
                 return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
             }
@@ -88,8 +88,8 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("LeagueId", metaModel.LeagueId);
 
                 using (var reader = db.ExecuteReader())
                 {
@@ -104,9 +104,9 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-                db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("matchid", metaModel.MatchId);
+                db.SetParameterValue("betType", metaModel.BetType);
 
                 using (var reader = db.ExecuteReader())
                 {
@@ -149,11 +149,11 @@ namespace Fanex.Athena.DataAccess.Forecast
         {
             using (var db = this.GetObjectDb("Lrf_Forecast_MatchTotalForecast"))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                db.AddOutParameter("HomeScore", DbType.Int32, 4);
-                db.AddOutParameter("AwayScore", DbType.Int32, 4);
-                db.AddOutParameter("MatchTime", DbType.DateTime, 4);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("MatchId", metaModel.MatchId);
+                db.SetParameterValue("HomeScore", null);
+                db.SetParameterValue("AwayScore", null);
+                db.SetParameterValue("MatchTime", null);
                 using (var ds = db.ExecuteDataSet())
                 {
                     var forecastData = new NewForecastHdpOuData();

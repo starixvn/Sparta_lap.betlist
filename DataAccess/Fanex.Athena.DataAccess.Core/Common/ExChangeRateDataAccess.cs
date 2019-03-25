@@ -19,8 +19,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
             const string UspName = "Lrf_GetExchangeRateByDate";
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CurrencyCode", DbType.String, currenyCode);
-                db.AddInParameter("Date", DbType.DateTime, datetime);
+                db.SetParameterValue("CurrencyCode", currenyCode);
+                db.SetParameterValue("Date", datetime);
 
                 using (var reader = db.ExecuteReader())
                 {

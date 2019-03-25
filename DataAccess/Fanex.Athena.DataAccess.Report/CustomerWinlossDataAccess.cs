@@ -98,19 +98,19 @@ namespace Fanex.Athena.DataAccess.Report
 
         private static void AddParameters(IObjectDb db, CustomerWinLossMetaModel metaModel, DateTime moveBetsDay)
         {
-            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? PageSizeExcel : metaModel.PageSize);
-            db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-            db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDay);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("username", DbType.String, metaModel.Username);
-            db.AddInParameter("OrderItem", DbType.Int16, metaModel.OrderItem);
-            db.AddInParameter("IsAscSort", DbType.Boolean, metaModel.IsAscSort);
-            db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency.ToUpperInvariant());
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("pagesize", metaModel.IsExportExcel ? PageSizeExcel : metaModel.PageSize);
+            db.SetParameterValue("pageindex", metaModel.PageIndex);
+            db.SetParameterValue("movebetsday", moveBetsDay);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("username", metaModel.Username);
+            db.SetParameterValue("OrderItem", metaModel.OrderItem);
+            db.SetParameterValue("IsAscSort", metaModel.IsAscSort);
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency.ToUpperInvariant());
             foreach (var item in metaModel.ProductOptions)
             {
-                db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+                db.SetParameterValue("show" + item.Code, item.Status);
             }
         }
 

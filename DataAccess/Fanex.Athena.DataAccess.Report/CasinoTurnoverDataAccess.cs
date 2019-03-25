@@ -122,18 +122,18 @@
 
         private void AddParams(CasinoTurnoverMetaModel metaModel, IObjectDb db)
         {
-            db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("basecurrency", DbType.String, metaModel.BaseCurrency);
-            db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-            db.AddInParameter("StatusList", DbType.String, string.Join(",", metaModel.Status));
-            db.AddInParameter("ProductCodes", DbType.String, string.Join(",", metaModel.ProductCode));
-            db.AddInParameter("MoveBetsDay", DbType.Date, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", metaModel.FromDate.Date);
+            db.SetParameterValue("todate", metaModel.ToDate.Date);
+            db.SetParameterValue("basecurrency", metaModel.BaseCurrency);
+            db.SetParameterValue("UserName", metaModel.UserName);
+            db.SetParameterValue("StatusList", string.Join(",", metaModel.Status));
+            db.SetParameterValue("ProductCodes", string.Join(",", metaModel.ProductCode));
+            db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
 
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
-            db.AddOutParameter("TotalRows", DbType.Int32, 10);
+            db.SetParameterValue("PageSize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
+            db.SetParameterValue("PageIndex", metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
+            db.SetParameterValue("TotalRows", null);
         }
     }
 }

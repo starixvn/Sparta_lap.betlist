@@ -22,10 +22,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, UserId);
-                ObjectDb.Received(1).AddInParameter("username", DbType.String, UserName);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, string.Empty);
-                ObjectDb.Received(1).AddInParameter("IsIncludeDormant", DbType.Boolean, true);
+                ObjectDb.Received(1).SetParameterValue("userid", UserId);
+                ObjectDb.Received(1).SetParameterValue("username", UserName);
+                ObjectDb.Received(1).SetParameterValue("AgentList", string.Empty);
+                ObjectDb.Received(1).SetParameterValue("IsIncludeDormant", true);
             });
         }
     }

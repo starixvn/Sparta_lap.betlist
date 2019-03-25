@@ -23,8 +23,8 @@
             DataAccess.GetExChangeRate(CurrencyCode, datetime);
 
             // Assert
-            ObjectDb.AddInParameter("CurrencyCode", DbType.String, CurrencyCode);
-            ObjectDb.AddInParameter("Date", DbType.DateTime, datetime);
+            ObjectDb.SetParameterValue("CurrencyCode", CurrencyCode);
+            ObjectDb.SetParameterValue("Date", datetime);
         }
 
         [Test]

@@ -60,10 +60,10 @@
             var uspName = "Acc_Dep_CustSetting_StatusSettingSelect";
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, productId);
-                db.AddInParameter("SettingType", DbType.Int32, ProductStatusSettingType);
-                db.AddInParameter("RoleID", DbType.Int32, MemberRoleId);
+                db.SetParameterValue("CustID", custId);
+                db.SetParameterValue("ProductId", productId);
+                db.SetParameterValue("SettingType", ProductStatusSettingType);
+                db.SetParameterValue("RoleID", MemberRoleId);
 
                 using (var reader = db.ExecuteReader())
                 {
@@ -83,13 +83,13 @@
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("IsDisabled", DbType.String, BuildProductStatusXml(productId, status));
-                db.AddInParameter("ip", DbType.String, ip);
+                db.SetParameterValue("custid", custId);
+                db.SetParameterValue("userid", userId);
+                db.SetParameterValue("IsDisabled", BuildProductStatusXml(productId, status));
+                db.SetParameterValue("ip", ip);
 
-                db.AddOutParameter("ErrCode", DbType.Int32, 8);
-                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+                db.SetParameterValue("ErrCode", null);
+                db.SetParameterValue("ErrMsg", null);
 
                 db.ExecuteNonQuery();
 
@@ -107,8 +107,8 @@
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter("productid", DbType.Int32, productId);
+                db.SetParameterValue("custid", custId);
+                db.SetParameterValue("productid", productId);
 
                 var reader = db.ExecuteReader();
                 while (reader.Read())
@@ -140,12 +140,12 @@
 
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("ip", DbType.String, ip);
-                db.AddInParameter("betlimit", DbType.String, xmlData);
-                db.AddOutParameter("errcode", DbType.Int32, 4);
-                db.AddOutParameter("errmsg", DbType.String, 8000);
+                db.SetParameterValue("custid", custId);
+                db.SetParameterValue("userid", userId);
+                db.SetParameterValue("ip", ip);
+                db.SetParameterValue("betlimit", xmlData);
+                db.SetParameterValue("errcode", null);
+                db.SetParameterValue("errmsg", null);
                 db.ExecuteNonQuery();
 
                 var result = GetResult(db);

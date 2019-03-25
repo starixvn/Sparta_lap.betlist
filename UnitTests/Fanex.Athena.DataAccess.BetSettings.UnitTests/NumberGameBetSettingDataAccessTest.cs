@@ -34,7 +34,7 @@
             DataAccess.GetBetSetting(custId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
+            ObjectDb.Received(1).SetParameterValue("CustID", custId);
         }
 
         [Test]
@@ -81,16 +81,16 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, param.CustId);
-                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, param.UserId);
-                ObjectDb.Received(1).AddInParameter("minbetv161", DbType.Decimal, param.MinBet);
-                ObjectDb.Received(1).AddInParameter("maxbetv161", DbType.Decimal, param.MaxBet);
-                ObjectDb.Received(1).AddInParameter("maxpermatchv161", DbType.Decimal, param.MaxPerMatch);
-                ObjectDb.Received(1).AddInParameter("maxperballv161", DbType.Decimal, param.MaxPerBall);
-                ObjectDb.Received(1).AddInParameter("language", DbType.String, param.Language);
-                ObjectDb.Received(1).AddInParameter("ip", DbType.String, param.Ip);
-                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).SetParameterValue("custid", param.CustId);
+                ObjectDb.Received(1).SetParameterValue("userid", param.UserId);
+                ObjectDb.Received(1).SetParameterValue("minbetv161", param.MinBet);
+                ObjectDb.Received(1).SetParameterValue("maxbetv161", param.MaxBet);
+                ObjectDb.Received(1).SetParameterValue("maxpermatchv161", param.MaxPerMatch);
+                ObjectDb.Received(1).SetParameterValue("maxperballv161", param.MaxPerBall);
+                ObjectDb.Received(1).SetParameterValue("language", param.Language);
+                ObjectDb.Received(1).SetParameterValue("ip", param.Ip);
+                ObjectDb.Received(1).SetParameterValue("ErrCode", null);
+                ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
             });
         }
 

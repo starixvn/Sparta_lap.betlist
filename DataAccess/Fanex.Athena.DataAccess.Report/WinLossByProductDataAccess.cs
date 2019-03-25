@@ -43,10 +43,10 @@ namespace Fanex.Athena.DataAccess.Report
                 WinLossByProductResultModel data;
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
-                    db.AddInParameter("username", DbType.String, metaModel.Username);
-                    db.AddOutParameter("SystemName", DbType.String, 100);
-                    db.AddOutParameter("CustID", DbType.Int32, 10);
+                    db.SetParameterValue("reporttype", metaModel.ReportBy);
+                    db.SetParameterValue("username", metaModel.Username);
+                    db.SetParameterValue("SystemName", null);
+                    db.SetParameterValue("CustID", null);
                     UpdateUspParams(db, metaModel, false);
                     AddResultParam(db);
                     using (var reader = db.ExecuteReader())
@@ -75,7 +75,7 @@ namespace Fanex.Athena.DataAccess.Report
                 using (var db = this.GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel, true);
-                    db.AddInParameter("CustID", DbType.Int32, metaModel.MemberId);
+                    db.SetParameterValue("CustID", metaModel.MemberId);
                     using (var reader = db.ExecuteReader())
                     {
                         return GetData(reader, currencyList, metaModel, true);
@@ -95,8 +95,8 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    db.AddInParameter("custid", DbType.Int32, metaModel.CustomerId);
-                    db.AddInParameter("MemberID", DbType.Int32, metaModel.MemberId);
+                    db.SetParameterValue("custid", metaModel.CustomerId);
+                    db.SetParameterValue("MemberID", metaModel.MemberId);
                     UpdateUspParams(db, metaModel, true);
 
                     using (var reader = db.ExecuteReader())
@@ -178,12 +178,12 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void UpdateUspParams(IObjectDb db, WinLossByProductMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate.Date : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate.Date : metaModel.ToDate.Date);
-            db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            db.AddInParameter("productList", DbType.String, string.Join(",", metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code)));
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate.Date : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate.Date : metaModel.ToDate.Date);
+            db.SetParameterValue("drawfilter", metaModel.DrawFilter);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("productList", string.Join(",", metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code)));
         }
 
         private WinLossByProductResultModel GetData(

@@ -99,15 +99,15 @@
 
         private void AssignParameter(IObjectDb objectDb, LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
-            objectDb.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            objectDb.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            objectDb.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            objectDb.AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            objectDb.AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
-            objectDb.AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
-            objectDb.AddInParameter("GroupBy", DbType.Byte, metaModel.GroupBy);
-            objectDb.AddInParameter("IncludeDraw", DbType.Boolean, metaModel.IsIncludeDrawData);
+            objectDb.SetParameterValue("FromDate", metaModel.FromDate);
+            objectDb.SetParameterValue("ToDate", metaModel.ToDate);
+            objectDb.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            objectDb.SetParameterValue("ProductList", metaModel.ProductCodeList);
+            objectDb.SetParameterValue("AgentList", metaModel.AgentListXml);
+            objectDb.SetParameterValue("TimeZone", metaModel.TimeZone);
+            objectDb.SetParameterValue("ReportBy", metaModel.ReportBy);
+            objectDb.SetParameterValue("GroupBy", metaModel.GroupBy);
+            objectDb.SetParameterValue("IncludeDraw", metaModel.IsIncludeDrawData);
         }
     }
 }

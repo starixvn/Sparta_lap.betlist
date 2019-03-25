@@ -58,18 +58,18 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-                ObjectDb.Received(1).AddInParameter("basecurrency", DbType.String, metaModel.BaseCurrency);
-                ObjectDb.Received(1).AddInParameter("UserName", DbType.String, metaModel.UserName);
-                ObjectDb.Received(1).AddInParameter("StatusList", DbType.String, string.Join(",", metaModel.Status));
-                ObjectDb.Received(1).AddInParameter("ProductCodes", DbType.String, string.Join(",", metaModel.ProductCode));
-                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.Date, _moveBetsDay);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("fromdate", metaModel.FromDate.Date);
+                ObjectDb.Received(1).SetParameterValue("todate", metaModel.ToDate.Date);
+                ObjectDb.Received(1).SetParameterValue("basecurrency", metaModel.BaseCurrency);
+                ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
+                ObjectDb.Received(1).SetParameterValue("StatusList", string.Join(",", metaModel.Status));
+                ObjectDb.Received(1).SetParameterValue("ProductCodes", string.Join(",", metaModel.ProductCode));
+                ObjectDb.Received(1).SetParameterValue("MoveBetsDay", _moveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
 
-                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
-                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
-                ObjectDb.Received(1).AddOutParameter("TotalRows", DbType.Int32, 10);
+                ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
+                ObjectDb.Received(1).SetParameterValue("TotalRows", null);
             });
         }
 
