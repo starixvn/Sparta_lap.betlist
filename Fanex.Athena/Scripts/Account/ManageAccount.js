@@ -30,7 +30,7 @@ var ManageAccount = (function ($) {
 
         editPermission: function (sender) {
             var target = $(sender);
-            var url = Site.resolveClientUrl("Account/PermissionPage");
+            var url = Site.resolveClientUrl("AccountPermission/PermissionPage");
             url += "?UserId=" + target.attr("data-custid");
 
             window.location.href = url;

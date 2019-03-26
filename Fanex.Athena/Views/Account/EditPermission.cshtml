@@ -5,7 +5,7 @@
 @model Fanex.Athena.Model.Core.MetaModel.Account.EditPermissionMetaModel
 
 <div id="function-tab">
-    @using (Html.BeginForm("EditPermission", "Account", FormMethod.Post, new { id = "EditPermissionForm" }))
+    @using (Html.BeginForm("EditPermission", "AccountPermission", FormMethod.Post, new { id = "EditPermissionForm" }))
     {
         <div class="permissionBox">
             @if (Model.AllMasterFunctions != null && Model.AllFunctionMap != null && Model.AllUserFunctions != null)

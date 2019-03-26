@@ -11,7 +11,7 @@
     using Resources;
     using Session.Model;
 
-    public partial class AccountControllerTest
+    public partial class AccountPermissionControllerTest
     {
         [Test]
         public void AssignCurrency_WhenGetWithoutEnableAssignCurrency_ReturnEmptyResult()

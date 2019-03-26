@@ -7,7 +7,7 @@
 }
 
 <div id="currency-tab">
-    @using (Html.BeginForm("AssignCurrency", "Account", FormMethod.Post, new { id = "AssignCurrencyForm" }))
+    @using (Html.BeginForm("AssignCurrency", "AccountPermission", FormMethod.Post, new { id = "AssignCurrencyForm" }))
     {
         var check = "checked=checked";
         var colUrl = Url.ContentLink("/Resources/Images/collapse.png");

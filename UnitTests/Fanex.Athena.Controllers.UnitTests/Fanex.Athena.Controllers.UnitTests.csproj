@@ -157,6 +157,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AccountPermissionControllerTest.cs" />
     <Compile Include="HeaderControllerTest.cs" />
     <Compile Include="HomeControllerTest.cs" />
     <Compile Include="LicenseeListControllerTest.cs" />
@@ -166,8 +167,8 @@
     <Compile Include="AuthorizationControllerTest.SignIn.cs" />
     <Compile Include="AuthorizationControllerTest.cs" />
     <Compile Include="AccountControllerTest.cs" />
-    <Compile Include="AccountControllerTest.AssignCurrency.cs" />
-    <Compile Include="AccountControllerTest.EditPermission.cs" />
+    <Compile Include="AccountPermissionControllerTest.AssignCurrency.cs" />
+    <Compile Include="AccountPermissionControllerTest.EditPermission.cs" />
     <Compile Include="AccountControllerTest.EditAccount.cs" />
     <Compile Include="OneAuthorizationControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

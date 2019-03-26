@@ -150,6 +150,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AccountBaseController.cs" />
+    <Compile Include="Account\AccountPermissionController.cs" />
     <Compile Include="Account\AccountController.cs" />
     <Compile Include="AuthorizationController.cs" />
     <Compile Include="HeaderController.cs" />

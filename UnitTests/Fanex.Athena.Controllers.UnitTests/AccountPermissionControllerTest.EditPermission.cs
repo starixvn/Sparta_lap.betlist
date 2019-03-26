@@ -11,7 +11,7 @@
     using NUnit.Framework;
     using Resources;
 
-    public partial class AccountControllerTest
+    public partial class AccountPermissionControllerTest
     {
         [Test]
         public void EditPermission_WhenGetWithUserIdIsSameWithSessionUserId_RedirectToAccessDenied()
@@ -51,7 +51,7 @@
             SetUpUserRequestParameter();
             using (var controller = CreateController())
             {
-                StubGetUserInfo(x => null);
+                _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => null);
 
                 // Action
                 var result = controller.EditPermission() as RedirectResult;
@@ -68,7 +68,7 @@
             SetUpUserRequestParameter();
             using (var controller = CreateController())
             {
-                StubGetUserInfo(x => new User { Username = "Superman" });
+                _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User { Username = "Superman" });
 
                 // Action
                 var viewResult = controller.EditPermission() as ViewResult;
