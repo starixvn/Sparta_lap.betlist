@@ -29,12 +29,12 @@ namespace Fanex.Athena.Service.Core.Utility
         {
             var data = GetCustomInfo();
             var jsonData = new JavaScriptSerializer().Serialize(data);
-            _logger.Error(message + "\n" + jsonData);
+            _logger.ErrorAsync(message + "\n" + jsonData);
         }
 
         public void Info(string message)
         {
-            _logger.Info(message);
+            _logger.InfoAsync(message);
         }
 
         private IDictionary<string, object> GetCustomInfo(string message = null)

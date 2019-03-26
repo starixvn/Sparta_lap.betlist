@@ -7,6 +7,7 @@
 namespace Fanex.Athena
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Web;
@@ -19,8 +20,10 @@ namespace Fanex.Athena
     using Data;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
+    using Logging;
     using Logging.Extensions.Database;
     using Logging.Extensions.Web;
+    using Logging.RabbitMQ;
     using RemotingRef;
     using Service.Core.Utility.Interfaces;
 
@@ -36,11 +39,6 @@ namespace Fanex.Athena
             {
                 // Code that runs when an unhandled error occurs
                 var exception = Server.GetLastError();
-
-                Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
-                    .IgnoreException<HttpAntiForgeryException>()
-                    .GetHttpHeaderInfo()
-                    .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
 
                 // Exception when passing wrong data type to action method
                 if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
@@ -60,7 +58,12 @@ namespace Fanex.Athena
             var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
             if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
             {
-                DIConfig.Register();
+                LogManager
+                    .SetDefaultLogCategory(ConfigurationManager.AppSettings["Fanex.Logging-LogCategory"])
+                    .Use(new List<ILogEngine>
+                     {
+                         new RabbitMQLogging(ConfigurationManager.AppSettings["RabbitMQ-ConnectionString"])
+                     });
 
                 ViewEngines.Engines.Clear();
                 ViewEngines.Engines.Add(new RazorViewEngine());
@@ -92,10 +95,12 @@ namespace Fanex.Athena
                 .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
                 .FromApplication("Fanex.LAP");
 
-                Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
+                ExceptionHandler.UseConfig(new LoggingConfiguration())
                     .IgnoreException<HttpAntiForgeryException>()
                     .GetHttpHeaderInfo()
                     .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+
+                DIConfig.Register();
             }
         }
 
