@@ -10,14 +10,6 @@
     [TestFixture]
     public class SingleValueDataAccessTest : BaseDataAccessHelperTest<SingleValueDataAccess>
     {
-        private const string GetCustomerBalanceSp = "Lrf_GetCustomerBalance";
-
-        private const string GetPendingFundsSp = "Lrf_GetLicenseePendingFunds";
-
-        private const string GetTodayDepositSp = "Lrf_GetLicenseeTodayDeposit";
-
-        private const string GetTodayWithdrawalSp = "Lrf_GetLicenseeTodayWithdrawal";
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {

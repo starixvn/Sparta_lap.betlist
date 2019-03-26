@@ -9,7 +9,7 @@
     using UnitTest.Common.Extensions;
 
     [TestFixture]
-    public partial class SearchCustomerApiControllerTest : BaseControllerHelperTest
+    public partial class SearchCustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
         public void SearchCustomer_WhenCall_ReturnCorrectData()

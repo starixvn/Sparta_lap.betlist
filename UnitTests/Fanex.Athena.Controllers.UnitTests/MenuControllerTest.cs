@@ -10,7 +10,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public partial class MenuControllerTest : BaseControllerHelperTest
+    public partial class MenuControllerTest : CultureBaseControllerHelperTest
     {
         private IFunctionService _functionService;
 

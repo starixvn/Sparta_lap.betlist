@@ -13,7 +13,7 @@
     using Service.Core.Utility.Interfaces;
 
     [TestFixture]
-    public class OneAuthorizationControllerTest : BaseControllerHelperTest
+    public class OneAuthorizationControllerTest : CultureBaseControllerHelperTest
     {
         private IMaintenanceService _maintenanceService;
         private IOneAuthenticationService _oneAuthenticationService;

@@ -22,7 +22,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public class WinLossByBetTypeReportControllerTest : BaseControllerHelperTest
+    public class WinLossByBetTypeReportControllerTest : CultureBaseControllerHelperTest
     {
         private const int CurrencyId = 999;
 

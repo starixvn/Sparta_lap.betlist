@@ -8,7 +8,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public partial class ResultReportControllerTest : BaseControllerHelperTest
+    public partial class ResultReportControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
         public void GetSports_InvalidModelState_ReturnEmptyResult()

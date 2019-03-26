@@ -23,7 +23,7 @@
         PermissionKeys.CustomerInfoCustomerLog,
         PermissionKeys.CustomerInfoCustomerList,
         PermissionKeys.BettingTicketCenter)]
-    public class SearchCustomerAPIController : BaseController
+    public class SearchCustomerAPIController : ContentBaseController
     {
         private readonly ISearchCustomerDataAccess _searchCustomerDataAccess;
 

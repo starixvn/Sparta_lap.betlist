@@ -9,7 +9,7 @@
     using UnitTest.Common.Extensions;
 
     [TestFixture]
-    public partial class PPResultPopupControllerTest : BaseControllerHelperTest
+    public partial class PPResultPopupControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
         public async Task Index_WhenCall_RedirectToErrorPage()

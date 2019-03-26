@@ -7,7 +7,7 @@
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
 
-    public partial class CustomerLogControllerTest : BaseControllerHelperTest
+    public partial class CustomerLogControllerTest : CultureBaseControllerHelperTest
     {
         private IProductService _productService;
 

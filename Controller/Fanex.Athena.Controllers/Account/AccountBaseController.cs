@@ -19,7 +19,7 @@ namespace Fanex.Athena.Controllers.Account
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.AccountManageAccount)]
     [AuthorizeRestriction(AppMode.Self)]
-    public class AccountBaseController : BaseController
+    public class AccountBaseController : CultureBaseController
     {
         public AccountBaseController(
             ILanguageService languageService,

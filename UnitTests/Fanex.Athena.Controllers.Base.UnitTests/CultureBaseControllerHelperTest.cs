@@ -11,7 +11,7 @@
     using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public abstract class BaseControllerHelperTest
+    public abstract class CultureBaseControllerHelperTest
     {
         protected static readonly UserSession DefaultUserSession = new UserSession
         {

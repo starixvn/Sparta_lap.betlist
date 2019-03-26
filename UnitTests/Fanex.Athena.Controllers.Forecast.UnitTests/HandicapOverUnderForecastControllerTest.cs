@@ -12,7 +12,7 @@
     using NUnit.Framework;
     using Service.Forecast.Interfaces;
 
-    public class HandicapOverUnderForecastControllerTest : BaseControllerHelperTest
+    public class HandicapOverUnderForecastControllerTest : CultureBaseControllerHelperTest
     {
         private IForecastService _forecastService;
 

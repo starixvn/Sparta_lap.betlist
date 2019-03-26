@@ -13,7 +13,7 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Resources;
 
-    public partial class ReportAPIController : DefaultCultureBaseController
+    public partial class ReportAPIController : NonCultureBaseController
     {
         [HttpPost]
         [FunctionAuthorization(PermissionKeys.ReportTurnover)]

@@ -19,7 +19,7 @@
     using UnitTest.Common.Extensions;
 
     [TestFixture]
-    public partial class CustomerApiControllerTest : BaseControllerHelperTest
+    public partial class CustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         private ICoreLogger _logger;
         private ICustomerCommService _customerCommService;

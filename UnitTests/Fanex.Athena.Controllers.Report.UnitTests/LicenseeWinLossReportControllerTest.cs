@@ -15,7 +15,7 @@
     using Service.Core.Configuration.Interfaces;
 
     [TestFixture]
-    public class LicenseeWinLossReportControllerTest : BaseControllerHelperTest
+    public class LicenseeWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [OneTimeSetUp]
         public override void FixtureSetUp()

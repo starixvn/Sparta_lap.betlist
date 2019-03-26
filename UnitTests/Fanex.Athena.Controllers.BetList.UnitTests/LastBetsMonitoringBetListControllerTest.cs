@@ -9,7 +9,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class LastBetsMonitoringBetListControllerTest : BaseControllerHelperTest
+    public class LastBetsMonitoringBetListControllerTest : CultureBaseControllerHelperTest
     {
         private ISportTypeDataAccess _sportTypeDataAccess;
 

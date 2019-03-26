@@ -11,7 +11,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public class ActiveCustomerSummaryReportControllerTest : BaseControllerHelperTest
+    public class ActiveCustomerSummaryReportControllerTest : CultureBaseControllerHelperTest
     {
         [OneTimeSetUp]
         public override void FixtureSetUp()

@@ -7,7 +7,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class HeaderControllerTest : BaseControllerHelperTest
+    public class HeaderControllerTest : CultureBaseControllerHelperTest
     {
         private ILicenseeDataAccess _licenseeDataAccess;
 

@@ -8,7 +8,7 @@
     using Session.Model;
 
     [TestFixture]
-    public partial class HomeControllerTest : BaseControllerHelperTest
+    public partial class HomeControllerTest : CultureBaseControllerHelperTest
     {
         private ILicenseeSettingService _licenseeSettingService;
 

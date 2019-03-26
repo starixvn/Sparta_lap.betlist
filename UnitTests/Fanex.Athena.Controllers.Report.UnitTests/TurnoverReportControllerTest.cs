@@ -19,7 +19,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public class TurnoverReportControllerTest : BaseControllerHelperTest
+    public class TurnoverReportControllerTest : CultureBaseControllerHelperTest
     {
         private const int CurrencyId = 999;
 

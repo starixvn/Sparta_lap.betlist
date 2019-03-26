@@ -16,7 +16,7 @@
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.BettingTicketCenter)]
-    public class BettingTicketCenterController : BaseController
+    public class BettingTicketCenterController : ContentBaseController
     {
         private readonly IProductService _productService;
 

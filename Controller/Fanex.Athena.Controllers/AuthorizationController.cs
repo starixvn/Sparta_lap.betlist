@@ -32,7 +32,7 @@ namespace Fanex.Athena.Controllers
     using Resources;
     using Service.Core.Common.Interfaces;
 
-    public class AuthorizationController : BaseController
+    public class AuthorizationController : CultureBaseController
     {
         #region Constant
 

@@ -16,7 +16,7 @@
     using UnitTest.Common.Extensions;
 
     [TestFixture]
-    public partial class ResultReportControllerTest : BaseControllerHelperTest
+    public partial class ResultReportControllerTest : CultureBaseControllerHelperTest
     {
         private static readonly DateTime BalanceUpDate = new DateTime(2017, 3, 4);
 

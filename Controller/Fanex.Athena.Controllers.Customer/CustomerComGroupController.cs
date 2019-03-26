@@ -26,7 +26,7 @@
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
-    public class CustomerComGroupController : BaseController
+    public class CustomerComGroupController : ContentBaseController
     {
         private readonly IGroupComService _groupComService;
         private readonly IProductService _productService;

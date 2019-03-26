@@ -10,7 +10,7 @@
     using Service.Core.Utility.Interfaces;
 
     [TestFixture]
-    public class ResultKenoReportControllerTest : BaseControllerHelperTest
+    public class ResultKenoReportControllerTest : CultureBaseControllerHelperTest
     {
         private ICoreLogger _logger;
 

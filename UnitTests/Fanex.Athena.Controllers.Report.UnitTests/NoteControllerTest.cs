@@ -14,7 +14,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public class NoteControllerTest : BaseControllerHelperTest
+    public class NoteControllerTest : CultureBaseControllerHelperTest
     {
         private IBalanceUpDataAccess _balanceUpDataAccess;
         private IProductService _productService;

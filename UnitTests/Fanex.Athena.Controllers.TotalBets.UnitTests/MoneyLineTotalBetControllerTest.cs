@@ -14,7 +14,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class MoneyLineTotalBetControllerTest : BaseControllerHelperTest
+    public class MoneyLineTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IMoneyLineDataAccess _moneyLineDataAccess;
 

@@ -11,7 +11,7 @@
     using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
 
-    public class BetListBaseControllerHelperTest : BaseControllerHelperTest
+    public class BetListBaseControllerHelperTest : CultureBaseControllerHelperTest
     {
         protected static readonly BalanceUp BalanceUp = new BalanceUp
         {

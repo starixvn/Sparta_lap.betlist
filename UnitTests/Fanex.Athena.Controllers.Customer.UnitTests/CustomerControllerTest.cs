@@ -18,7 +18,7 @@
     using Service.Report.Interfaces;
     using Session.Model;
 
-    public partial class CustomerControllerTest : BaseControllerHelperTest
+    public partial class CustomerControllerTest : CultureBaseControllerHelperTest
     {
         private ICustomerListService _customerListService;
         private IGroupComService _groupComService;

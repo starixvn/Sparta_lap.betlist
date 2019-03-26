@@ -35,7 +35,7 @@ namespace Fanex.Athena.Controllers.Customer
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class CustomerApiController : BaseController
+    public class CustomerApiController : ContentBaseController
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
 

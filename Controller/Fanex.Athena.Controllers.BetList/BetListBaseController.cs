@@ -21,7 +21,7 @@
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
-    public class BetListBaseController : BaseController
+    public class BetListBaseController : ContentBaseController
     {
         protected const int PageSizeExcel = 63000;
 

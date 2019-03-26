@@ -21,7 +21,7 @@
     using VendorAdapter.Interfaces;
 
     [TestFixture]
-    public partial class MatchWinLossReportControllerTest : BaseControllerHelperTest
+    public partial class MatchWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         private const int CurrencyId = 999;
 

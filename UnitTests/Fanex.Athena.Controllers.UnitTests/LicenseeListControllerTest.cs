@@ -9,7 +9,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class LicenseeListControllerTest : BaseControllerHelperTest
+    public class LicenseeListControllerTest : CultureBaseControllerHelperTest
     {
         private ILicenseeDataAccess _licenseeDataAccess;
 

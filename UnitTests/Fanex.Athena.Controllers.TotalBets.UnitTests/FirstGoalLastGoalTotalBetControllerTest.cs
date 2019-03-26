@@ -14,7 +14,7 @@
     using TotalBets;
 
     [TestFixture]
-    public class FirstGoalLastGoalTotalBetControllerTest : BaseControllerHelperTest
+    public class FirstGoalLastGoalTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IFirstGoalLastGoalDataAccess _firstGoalLastGoalDataAccess;
 

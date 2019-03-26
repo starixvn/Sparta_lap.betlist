@@ -14,7 +14,7 @@
     using TotalBets;
 
     [TestFixture]
-    public class OddEvenDrawNoDrawTotalBetControllerTest : BaseControllerHelperTest
+    public class OddEvenDrawNoDrawTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IOddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;
 

@@ -157,9 +157,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="BaseControllerHelperTest.cs" />
-    <Compile Include="BaseControllerTest.cs" />
-    <Compile Include="FakeBaseController.cs" />
+    <Compile Include="CultureBaseControllerHelperTest.cs" />
+    <Compile Include="ContentBaseControllerTest.cs" />
+    <Compile Include="CultureBaseControllerTest.cs" />
+    <Compile Include="FakeCultureBaseController.cs" />
+    <Compile Include="FakeContentBaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

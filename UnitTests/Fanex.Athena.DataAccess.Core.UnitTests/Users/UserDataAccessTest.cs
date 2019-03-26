@@ -74,7 +74,7 @@
             DataAccess.GetByLicensee(LicenseeId, IsInternal);
 
             // Assert
-            ObjectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            ObjectDb.ReceivedWithAnyArgs().ExecuteReader();
         }
 
         [Test]
@@ -157,7 +157,7 @@
             DataAccess.GetUserInfo(LicenseeId, UserId);
 
             // Assert
-            ObjectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            ObjectDb.ReceivedWithAnyArgs().ExecuteReader();
         }
 
         [Test]

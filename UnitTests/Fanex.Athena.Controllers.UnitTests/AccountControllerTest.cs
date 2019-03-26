@@ -11,7 +11,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public partial class AccountControllerTest : BaseControllerHelperTest
+    public partial class AccountControllerTest : CultureBaseControllerHelperTest
     {
         private const string AccessDeniedUrl = "~/Utility/AccessDenied";
 

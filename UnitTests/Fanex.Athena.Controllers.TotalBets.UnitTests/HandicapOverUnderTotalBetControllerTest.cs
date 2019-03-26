@@ -14,7 +14,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class HandicapOverUnderTotalBetControllerTest : BaseControllerHelperTest
+    public class HandicapOverUnderTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IHandicapOverUnderDataAccess _handicapOverUnderDataAccess;
 

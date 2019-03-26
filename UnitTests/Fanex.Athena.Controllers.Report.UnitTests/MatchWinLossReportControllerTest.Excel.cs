@@ -11,7 +11,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public partial class MatchWinLossReportControllerTest : BaseControllerHelperTest
+    public partial class MatchWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [TestCase("BA,NG,SB,VS,KN", true)]
         [TestCase("hihi", false)]

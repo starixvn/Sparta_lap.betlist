@@ -15,7 +15,7 @@
     using Service.Forecast.Interfaces;
     using VendorAdapter.Interfaces;
 
-    public class NewHandicapOverUnderForecastControllerTest : BaseControllerHelperTest
+    public class NewHandicapOverUnderForecastControllerTest : CultureBaseControllerHelperTest
     {
         private IForecastService _forecastService;
 

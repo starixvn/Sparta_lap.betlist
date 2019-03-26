@@ -12,7 +12,7 @@
     using ONEbook.UM.Models;
     using ONEbook.UM.Services;
 
-    public class UtilityControllerTest : BaseControllerHelperTest
+    public class UtilityControllerTest : CultureBaseControllerHelperTest
     {
         private IMaintenanceService _maintenanceService;
 

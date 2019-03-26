@@ -9,11 +9,11 @@
     [CustomAuthorize]
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
-    public class DefaultCultureBaseController : Controller
+    public class NonCultureBaseController : Controller
     {
         private readonly ISessionService _sessionService;
 
-        public DefaultCultureBaseController(ISessionService sessionService)
+        public NonCultureBaseController(ISessionService sessionService)
         {
             _sessionService = sessionService;
         }

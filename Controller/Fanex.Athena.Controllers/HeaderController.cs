@@ -18,7 +18,7 @@ namespace Fanex.Athena.Controllers
     using Web.ActionFilter;
 
     [AuthorizeRestriction(AppMode.Self)]
-    public class HeaderController : BaseController
+    public class HeaderController : CultureBaseController
     {
         private readonly ILicenseeDataAccess _licenseeDataAccess;
 
@@ -32,10 +32,6 @@ namespace Fanex.Athena.Controllers
             _licenseeDataAccess = licenseeDataAccess;
         }
 
-        /// <summary>
-        /// Header page.
-        /// </summary>
-        /// <returns>The header page.</returns>
         [HttpGet]
         public ActionResult Index()
         {

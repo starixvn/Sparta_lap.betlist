@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class CustomerController : BaseController
+    public class CustomerController : ContentBaseController
     {
         private const string GROUP = "Group";
         private const string BASTATUS = "BAStatus";

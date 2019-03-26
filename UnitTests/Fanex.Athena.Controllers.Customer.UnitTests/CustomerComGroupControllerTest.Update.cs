@@ -10,7 +10,7 @@
     using Resources;
 
     [TestFixture]
-    public partial class CustomerComGroupControllerTest : BaseControllerHelperTest
+    public partial class CustomerComGroupControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
         public void UpdateGet_WhenCall_ReturnCorrectResult()

@@ -11,7 +11,7 @@
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
 
-    public class BetSettingBaseControllerHelperTest : BaseControllerHelperTest
+    public class BetSettingBaseControllerHelperTest : CultureBaseControllerHelperTest
     {
         protected ICoreBetSettingService CoreBetSettingService { get; private set; }
 

@@ -19,7 +19,7 @@
     using Session.Enum;
 
     [TestFixture]
-    public class SubsidiaryPerformanceReportControllerTest : BaseControllerHelperTest
+    public class SubsidiaryPerformanceReportControllerTest : CultureBaseControllerHelperTest
     {
         private const string FakeProductCode = "TestingCode";
         private const string FakeProductName = "Testing Product Name";

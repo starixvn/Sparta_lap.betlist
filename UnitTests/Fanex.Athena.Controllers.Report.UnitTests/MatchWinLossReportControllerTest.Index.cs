@@ -12,7 +12,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public partial class MatchWinLossReportControllerTest : BaseControllerHelperTest
+    public partial class MatchWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
         public void Index_WhenGet_ReturnCorrectViewResult()

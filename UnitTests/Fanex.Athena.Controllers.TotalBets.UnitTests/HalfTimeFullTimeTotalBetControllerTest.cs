@@ -14,7 +14,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class HalfTimeFullTimeTotalBetControllerTest : BaseControllerHelperTest
+    public class HalfTimeFullTimeTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IHalfTimeFullTimeDataAccess _halfTimeFullTimeDataAccess;
 

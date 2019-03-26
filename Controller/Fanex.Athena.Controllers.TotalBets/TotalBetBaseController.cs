@@ -15,7 +15,7 @@ namespace Fanex.Athena.Controllers.TotalBets
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
-    public class TotalBetBaseController : BaseController
+    public class TotalBetBaseController : ContentBaseController
     {
         public TotalBetBaseController(
             ILanguageService languageService,

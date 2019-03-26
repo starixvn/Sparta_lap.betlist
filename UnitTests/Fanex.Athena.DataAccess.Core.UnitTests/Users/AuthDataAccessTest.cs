@@ -67,7 +67,7 @@
             DataAccess.Logout(UserId);
 
             // Assert
-            ObjectDb.ReceivedWithAnyArgs().ExecuteNonQuery(null);
+            ObjectDb.ReceivedWithAnyArgs().ExecuteNonQuery();
         }
 
         [Test]

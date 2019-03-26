@@ -17,7 +17,7 @@
     using Session.Model;
 
     [TestFixture]
-    public partial class AuthorizationControllerTest : BaseControllerHelperTest
+    public partial class AuthorizationControllerTest : CultureBaseControllerHelperTest
     {
         private IMaintenanceService _maintenanceService;
         private IUserService _userService;

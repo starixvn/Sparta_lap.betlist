@@ -10,7 +10,7 @@
     using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public partial class ReportAPIControllerTest : BaseControllerHelperTest
+    public partial class ReportAPIControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
         public void Turnover_WhenCall_ReturnCorrectViewResult()

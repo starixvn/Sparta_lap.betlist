@@ -82,7 +82,7 @@
             DataAccess.GetByUser(UserId);
 
             // Assert
-            ObjectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            ObjectDb.ReceivedWithAnyArgs().ExecuteReader();
         }
 
         [Test]

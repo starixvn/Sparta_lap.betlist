@@ -14,7 +14,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class TotalGoalTotalBetControllerTest : BaseControllerHelperTest
+    public class TotalGoalTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private ITotalGoalDataAccess _totalGoalDataAccess;
 

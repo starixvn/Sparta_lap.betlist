@@ -2,18 +2,17 @@
 {
     using Model.Core.DataDomain;
     using Model.Core.MetaModel;
-    using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
-    public class BaseControllerTest : BaseControllerHelperTest
+    public class ContentBaseControllerTest : CultureBaseControllerHelperTest
     {
-        private FakeBaseController _controller;
+        private FakeContentBaseController _controller;
 
         [SetUp]
         public void SetUp()
         {
-            _controller = new FakeBaseController(LangService, SessionService, AppSettings)
+            _controller = new FakeContentBaseController(LangService, SessionService, AppSettings)
             {
                 ControllerContext = ControllerContext
             };
@@ -99,20 +98,6 @@
 
             // Assert
             Assert.That(metaModel.BaseCurrency, Is.EqualTo(ExpectedBaseCurrency));
-        }
-
-        [Test]
-        public void Initialize_WhenCall_SetPageCulture()
-        {
-            // Arrange
-            const string Language = "en";
-            LangService.GetCurrentLanguage().Returns(Language);
-
-            // Action
-            _controller.Initialize(Url.RequestContext);
-
-            // Assert
-            LangService.Received().SetPageCulture(Language);
         }
     }
 }

@@ -14,7 +14,7 @@
     using Service.Core.Common.Interfaces;
     using UnitTest.Common.Helpers;
 
-    public class BettingTicketCenterControllerTest : BaseControllerHelperTest
+    public class BettingTicketCenterControllerTest : CultureBaseControllerHelperTest
     {
         private static readonly DateTime BalanceUpDate = new DateTime(2018, 11, 2);
 

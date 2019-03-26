@@ -8,7 +8,7 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
 
-    public class PPResultPopupController : BaseController
+    public class PPResultPopupController : ContentBaseController
     {
         private readonly IBetListApiClient _betListApiClient;
 

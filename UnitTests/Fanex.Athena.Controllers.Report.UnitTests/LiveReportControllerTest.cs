@@ -24,7 +24,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public class LiveReportControllerTest : BaseControllerHelperTest
+    public class LiveReportControllerTest : CultureBaseControllerHelperTest
     {
         private const int CurrencyId = 999;
 

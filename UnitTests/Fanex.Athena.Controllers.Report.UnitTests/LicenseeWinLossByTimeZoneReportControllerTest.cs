@@ -10,7 +10,7 @@
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
 
-    public class LicenseeWinLossByTimeZoneReportControllerTest : BaseControllerHelperTest
+    public class LicenseeWinLossByTimeZoneReportControllerTest : CultureBaseControllerHelperTest
     {
         private IProductService _productService;
 

@@ -12,7 +12,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class HomeDrawAwayNoBetTotalBetControllerTest : BaseControllerHelperTest
+    public class HomeDrawAwayNoBetTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IHomeDrawAwayNoBetDataAccess _homeDrawAwayNoBetDataAccess;
 

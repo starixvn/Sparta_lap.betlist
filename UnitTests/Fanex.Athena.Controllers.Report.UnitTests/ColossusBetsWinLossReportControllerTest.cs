@@ -13,7 +13,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public class ColossusBetsWinLossReportControllerTest : BaseControllerHelperTest
+    public class ColossusBetsWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [OneTimeSetUp]
         public override void FixtureSetUp()

@@ -18,7 +18,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public class CustomerTurnoverReportControllerTest : BaseControllerHelperTest
+    public class CustomerTurnoverReportControllerTest : CultureBaseControllerHelperTest
     {
         private ISportTypeDataAccess _sportTypeDataAccess;
 

@@ -17,7 +17,7 @@ namespace Fanex.Athena.Controllers
     using Web.ActionFilter;
 
     [AuthorizeRestriction(AppMode.Self)]
-    public class MenuController : BaseController
+    public class MenuController : CultureBaseController
     {
         private readonly IFunctionService _functionService;
 

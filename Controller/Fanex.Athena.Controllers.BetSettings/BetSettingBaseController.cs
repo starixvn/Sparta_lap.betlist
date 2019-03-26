@@ -26,7 +26,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class BetSettingBaseController : BaseController
+    public class BetSettingBaseController : ContentBaseController
     {
         private readonly ICoreBetSettingService _coreBetSettingService;
 

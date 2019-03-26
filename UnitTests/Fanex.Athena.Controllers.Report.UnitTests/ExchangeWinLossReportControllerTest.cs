@@ -11,7 +11,7 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
 
-    public class ExchangeWinLossReportControllerTest : BaseControllerHelperTest
+    public class ExchangeWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         private readonly DateTime _minDate = new DateTime(2017, 1, 1);
         private readonly DateTime _maxDate = new DateTime(2018, 1, 3);

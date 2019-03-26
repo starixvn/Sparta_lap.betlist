@@ -18,7 +18,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public partial class CustomerComGroupControllerTest : BaseControllerHelperTest
+    public partial class CustomerComGroupControllerTest : CultureBaseControllerHelperTest
     {
         private IGroupComService _groupComService;
         private IProductService _productService;

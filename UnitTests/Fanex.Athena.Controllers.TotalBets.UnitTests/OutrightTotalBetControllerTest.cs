@@ -12,7 +12,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class OutrightTotalBetControllerTest : BaseControllerHelperTest
+    public class OutrightTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IOutrightDataAccess _outrightDataAccess;
 

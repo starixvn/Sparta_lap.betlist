@@ -13,7 +13,7 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
 
-    public partial class ReportAPIController : DefaultCultureBaseController
+    public partial class ReportAPIController : NonCultureBaseController
     {
         [HttpPost]
         [AjaxRequest]

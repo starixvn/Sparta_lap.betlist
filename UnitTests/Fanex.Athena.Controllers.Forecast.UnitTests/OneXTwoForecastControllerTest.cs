@@ -12,7 +12,7 @@
     using NUnit.Framework;
     using Service.Forecast.Interfaces;
 
-    public class OneXTwoForecastControllerTest : BaseControllerHelperTest
+    public class OneXTwoForecastControllerTest : CultureBaseControllerHelperTest
     {
         private IForecastService _forecastService;
 

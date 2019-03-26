@@ -12,7 +12,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public class GoldDeluxeWinLossReportControllerTest : BaseControllerHelperTest
+    public class GoldDeluxeWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [OneTimeSetUp]
         public override void FixtureSetUp()

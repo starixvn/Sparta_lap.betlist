@@ -17,7 +17,7 @@
     using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class WinLossByLeagueReportControllerTest : BaseControllerHelperTest
+    public class WinLossByLeagueReportControllerTest : CultureBaseControllerHelperTest
     {
         private ISportTypeDataAccess _sportTypeDataAccess;
 

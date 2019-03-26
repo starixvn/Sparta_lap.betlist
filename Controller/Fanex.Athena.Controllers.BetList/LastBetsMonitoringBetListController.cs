@@ -28,7 +28,7 @@ namespace Fanex.Athena.Controllers.BetList
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
-    public class LastBetsMonitoringBetListController : BaseController
+    public class LastBetsMonitoringBetListController : ContentBaseController
     {
         private readonly ISportTypeDataAccess _sportTypeDataAccess;
 

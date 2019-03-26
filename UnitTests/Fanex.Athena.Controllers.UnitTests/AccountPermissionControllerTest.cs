@@ -13,7 +13,7 @@
     using Session.Model;
 
     [TestFixture]
-    public partial class AccountPermissionControllerTest : BaseControllerHelperTest
+    public partial class AccountPermissionControllerTest : CultureBaseControllerHelperTest
     {
         private const string AccessDeniedUrl = "~/Utility/AccessDenied";
 

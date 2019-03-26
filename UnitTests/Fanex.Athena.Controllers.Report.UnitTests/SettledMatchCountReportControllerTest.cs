@@ -12,7 +12,7 @@
     using Service.Report.Interfaces;
 
     [TestFixture]
-    public class SettledMatchCountReportControllerTest : BaseControllerHelperTest
+    public class SettledMatchCountReportControllerTest : CultureBaseControllerHelperTest
     {
         private ISettledMatchCountService _settledMatchCountService;
 

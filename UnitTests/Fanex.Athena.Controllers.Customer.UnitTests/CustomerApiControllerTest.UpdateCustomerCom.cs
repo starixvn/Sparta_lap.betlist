@@ -14,7 +14,7 @@
     using Session.Model;
 
     [TestFixture]
-    public partial class CustomerApiControllerTest : BaseControllerHelperTest
+    public partial class CustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
         public void UpdateCustomerCom_NotAllowedCustomerComm_ReturnErrorResult()

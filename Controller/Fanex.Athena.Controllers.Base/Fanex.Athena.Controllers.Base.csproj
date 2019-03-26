@@ -132,8 +132,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseController.cs" />
-    <Compile Include="DefaultCultureBaseController.cs" />
+    <Compile Include="CultureBaseController.cs" />
+    <Compile Include="ContentBaseController.cs" />
+    <Compile Include="NonCultureBaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

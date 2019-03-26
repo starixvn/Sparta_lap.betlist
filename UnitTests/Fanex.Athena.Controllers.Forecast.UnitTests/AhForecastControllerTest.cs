@@ -12,7 +12,7 @@
     using Resources;
     using Service.Forecast.Interfaces;
 
-    public class AhForecastControllerTest : BaseControllerHelperTest
+    public class AhForecastControllerTest : CultureBaseControllerHelperTest
     {
         private IForecastService _forecastService;
 

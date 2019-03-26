@@ -8,7 +8,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public partial class ResultReportControllerTest : BaseControllerHelperTest
+    public partial class ResultReportControllerTest : CultureBaseControllerHelperTest
     {
         [TestCase("CS", true, false, false)]
         [TestCase("KN", false, true, false)]

@@ -15,7 +15,7 @@
     using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public partial class ReportAPIControllerTest : BaseControllerHelperTest
+    public partial class ReportAPIControllerTest : CultureBaseControllerHelperTest
     {
         private const int CurrencyId = 134;
         private const string AgentListXml = "Xml";
