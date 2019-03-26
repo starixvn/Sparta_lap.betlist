@@ -7,6 +7,7 @@
 namespace Fanex.Athena
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Web;
@@ -20,8 +21,10 @@ namespace Fanex.Athena
     using Fanex.RemotingRef;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.RemotingRef;
+    using Logging;
     using Logging.Extensions.Database;
     using Logging.Extensions.Web;
+    using Logging.RabbitMQ;
 
     public class MvcApplication : HttpApplication
     {
@@ -63,6 +66,13 @@ namespace Fanex.Athena
            .FromApplication("Fanex.LAP.BetListApi");
             BetListManager.RegisterRemotingRef(new CacheRef());
             ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
+
+            LogManager
+                .SetDefaultLogCategory(ConfigurationManager.AppSettings["Fanex.Logging-LogCategory"])
+                .Use(new List<ILogEngine>
+                 {
+                     new RabbitMQLogging(ConfigurationManager.AppSettings["RabbitMQ-ConnectionString"])
+                 });
 
             Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
                 .IgnoreException<HttpAntiForgeryException>()

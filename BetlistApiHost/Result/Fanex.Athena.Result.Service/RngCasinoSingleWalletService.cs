@@ -106,7 +106,7 @@ namespace Fanex.Athena.Result.Service
             }
             catch (Exception exception)
             {
-                _logger.Error(exception.Message, exception);
+                _logger.ErrorAsync(exception.Message, exception);
             }
 
             return string.Empty;

@@ -63,7 +63,7 @@ namespace Fanex.Athena.BetList.Controller
             }
             catch (Exception exception)
             {
-                _logger.Error("ColossusBet Get Token Error - ApiUrl: " + tokenApiUrl, exception);
+                _logger.ErrorAsync("ColossusBet Get Token Error - ApiUrl: " + tokenApiUrl, exception);
                 return string.Empty;
             }
 
@@ -72,7 +72,7 @@ namespace Fanex.Athena.BetList.Controller
             if (token == null)
             {
                 var message = $"Errors from Colossus Bets API (memberid: {memberId}).\r\n" + jobject;
-                _logger.Error(message);
+                _logger.ErrorAsync(message);
                 return string.Empty;
             }
 

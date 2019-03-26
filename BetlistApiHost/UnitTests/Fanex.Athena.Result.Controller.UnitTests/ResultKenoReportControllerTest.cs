@@ -99,7 +99,7 @@
                 var result = controller.GetKenoResultUrl(0, string.Empty);
 
                 // Assert
-                _logger.Received(1).Error(exception.Message, exception);
+                _logger.Received(1).ErrorAsync(exception.Message, exception);
                 Assert.That(result, Is.Empty);
             }
         }
@@ -139,7 +139,7 @@
                 var result = controller.KeepSession(0, string.Empty) as JsonResult;
 
                 // Assert
-                _logger.Received(1).Error(exception.Message, exception);
+                _logger.Received(1).ErrorAsync(exception.Message, exception);
                 Assert.That((result.Data as KenoExtendedToken).ErrorCode, Is.EqualTo(1));
             }
         }
