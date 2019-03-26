@@ -33,7 +33,7 @@
             {
                 ObjectDb.Received(1).SetParameterValue("username", metaModel.Username);
                 ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
-                ObjectDb.Received(1).SetParameterValue("PageIndex ", metaModel.PageIndex);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
                 ObjectDb.Received(1).SetParameterValue("TotalRows", null);
             });
