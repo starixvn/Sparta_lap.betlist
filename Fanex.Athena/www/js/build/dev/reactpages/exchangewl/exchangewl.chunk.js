@@ -4056,7 +4056,7 @@ function (_Component) {
             className: "center-align"
           }, SelectionName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_9softstudio_react_grid__WEBPACK_IMPORTED_MODULE_6__["Cell"], {
             title: Type,
-            className: "center-align ".concat(Type.toLowerCase() === "lay" && "negative")
+            className: "center-align ".concat(Type.toLowerCase() === "lay" ? "negative" : "")
           }, Type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_9softstudio_react_grid__WEBPACK_IMPORTED_MODULE_6__["Cell"], {
             title: BetPlacedDateString,
             className: "center-align"
@@ -4074,9 +4074,9 @@ function (_Component) {
             rowSpan: dataDetailCount,
             className: "right-align"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-            className: WinLost < 0 && "negative"
+            className: WinLost < 0 ? "negative" : ""
           }, WinLostSumString), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-            className: Commission < 0 && "negative"
+            className: Commission < 0 ? "negative" : ""
           }, CommissionString))));
           isFirstRow = false;
         };
@@ -4099,7 +4099,7 @@ function (_Component) {
         className: "right-align"
       }, _lib_langHelper__WEBPACK_IMPORTED_MODULE_12__["default"].getSingleResource("GrandTotal")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_9softstudio_react_grid__WEBPACK_IMPORTED_MODULE_6__["Cell"], {
         title: GrandTotalString,
-        className: "right-align ".concat(this.props.data.GrandTotal < 0 && "negative")
+        className: "right-align ".concat(this.props.data.GrandTotal < 0 ? "negative" : "")
       }, GrandTotalString))];
     }
   }, {
@@ -4403,7 +4403,7 @@ function (_Component) {
         data: _this.betlistParams
       };
       var viewIn = _lib_langHelper_js__WEBPACK_IMPORTED_MODULE_17__["default"].getSingleResource("Viewin").replace("{0}", BaseCurrency ? BaseCurrency : CurrencyName);
-      _this.betlistTitle = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, CUSTOMER_BETLIST_TEXT, " ", moment__WEBPACK_IMPORTED_MODULE_11___default()(FromDate).format("M/D/YYYY"), " \u2192 ", moment__WEBPACK_IMPORTED_MODULE_11___default()(ToDate).format("M/D/YYYY"), " - ", externalId, "(", systemId, ") -", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      _this.betlistTitle = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, CUSTOMER_BETLIST_TEXT, " ", FromDate, " \u2192 ", ToDate, " - ", externalId, "(", systemId, ") -", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "base-currency-title"
       }, viewIn));
 

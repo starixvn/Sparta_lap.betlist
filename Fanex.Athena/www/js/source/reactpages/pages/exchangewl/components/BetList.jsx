@@ -76,7 +76,7 @@ export class BetList extends Component {
                             <a href="javascript:;" onClick={() => this._showTicketDetail(BetId, Type)}>{BetId}</a>
                         </Cell>
                         <Cell title={SelectionName} className="center-align">{SelectionName}</Cell>
-                        <Cell title={Type} className={`center-align ${Type.toLowerCase() === "lay" && "negative"}`}>{Type}</Cell>
+                        <Cell title={Type} className={`center-align ${Type.toLowerCase() === "lay" ? "negative" : ""}`}>{Type}</Cell>
                         <Cell title={BetPlacedDateString} className="center-align">{BetPlacedDateString}</Cell>
                         <Cell title={OddsAvgString} className="right-align">{OddsAvgString}</Cell>
                         <Cell title={StakeString} className="right-align">{NumberFormat.formatDecimal(Stake)}</Cell>
@@ -84,9 +84,9 @@ export class BetList extends Component {
                         {
                             isFirstRow &&
                             <Cell title={`${WinLostSumString}/${CommissionString}`} rowSpan={dataDetailCount} className="right-align">
-                                <span className={WinLost < 0 && "negative"}>{WinLostSumString}</span>
+                                <span className={WinLost < 0 ? "negative" : ""}>{WinLostSumString}</span>
                                 <br />
-                                <span className={Commission < 0 && "negative"}>{CommissionString}</span>
+                                <span className={Commission < 0 ? "negative" : ""}>{CommissionString}</span>
                             </Cell>}
                     </Row>
                 );
@@ -127,7 +127,7 @@ export class BetList extends Component {
         return [
             <Row key="betlist-footer">
                 <Cell colSpan='9' className="right-align">{LangHelper.getSingleResource("GrandTotal")}</Cell>
-                <Cell title={GrandTotalString} className={`right-align ${this.props.data.GrandTotal < 0 && "negative"}`}>{GrandTotalString}</Cell>
+                <Cell title={GrandTotalString} className={`right-align ${this.props.data.GrandTotal < 0 ? "negative" : ""}`}>{GrandTotalString}</Cell>
             </Row >
                 ]
                 }
