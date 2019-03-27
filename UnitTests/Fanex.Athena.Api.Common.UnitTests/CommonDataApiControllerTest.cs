@@ -100,7 +100,7 @@
         }
 
         [Test]
-        public void GetLeagues_WhenCall_ReturnCorrectData()
+        public async Task GetLeagues_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -112,10 +112,10 @@
                     .Returns(new List<League> { league });
 
                 // action
-                var result = controller.GetLeagues(
+                var result = (await controller.GetLeagues(
                     FakeHelper.Create<DateTime>(),
                     FakeHelper.Create<DateTime>(),
-                    FakeHelper.Create<int>()).ElementAt(0);
+                    FakeHelper.Create<int>())).ElementAt(0);
 
                 // assert
                 Assert.Multiple(() =>
@@ -127,7 +127,7 @@
         }
 
         [Test]
-        public void GetMatchs_WhenCall_ReturnCorrectData()
+        public async Task GetMatchs_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -142,7 +142,7 @@
                     .Returns(new List<Match> { match });
 
                 // action
-                var result = controller.GetMatches(fromDate, toDate, leagueId).ElementAt(0);
+                var result = (await controller.GetMatches(fromDate, toDate, leagueId)).ElementAt(0);
 
                 // assert
                 Assert.Multiple(() =>

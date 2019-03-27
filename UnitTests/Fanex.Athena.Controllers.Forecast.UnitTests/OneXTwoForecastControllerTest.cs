@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -25,7 +26,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectViewResult()
+        public async Task Index_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -39,7 +40,7 @@
                 _forecastService.GetForecastOneXTwoByLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
                 var viewModel = (ForecastOneXTwoViewModel)result.Model;
 
                 // Assert
@@ -59,7 +60,7 @@
         [TestCase(new[] { 1, 2 }, 1)]
         [TestCase(new[] { 1, 2 }, 3)]
         [TestCase(new int[0], 3)]
-        public void Index_WhenPost_ReturnCorrectViewResult(int[] leagueIDList, int leagueId)
+        public async Task Index_WhenPost_ReturnCorrectViewResult(int[] leagueIDList, int leagueId)
         {
             using (var controller = CreateController())
             {
@@ -74,7 +75,7 @@
                 var metaModel = new ForecastOneXTwoMetaModel { LeagueId = leagueId, MatchId = 1 };
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastOneXTwoViewModel)result.Model;
 
                 // Assert
@@ -94,7 +95,7 @@
         [TestCase(new[] { 1, 2 }, 1)]
         [TestCase(new[] { 1, 2 }, 3)]
         [TestCase(new int[0], 3)]
-        public void Popup_WhenCall_ReturnCorrectViewResult(int[] leagueIDList, int leagueId)
+        public async Task Popup_WhenCall_ReturnCorrectViewResult(int[] leagueIDList, int leagueId)
         {
             using (var controller = CreateController())
             {
@@ -109,7 +110,7 @@
                 var metaModel = new ForecastOneXTwoMetaModel { LeagueId = leagueId, MatchId = 1 };
 
                 // Action
-                var result = controller.Popup(metaModel) as ViewResult;
+                var result = await controller.Popup(metaModel) as ViewResult;
                 var viewModel = (ForecastOneXTwoViewModel)result.Model;
 
                 // Assert

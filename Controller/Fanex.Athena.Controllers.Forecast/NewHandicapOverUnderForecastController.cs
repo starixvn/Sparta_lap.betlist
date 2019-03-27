@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -52,7 +53,7 @@ namespace Fanex.Athena.Controllers.Forecast
         }
 
         [HttpGet]
-        public ActionResult Index(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
+        public async Task<ActionResult> Index(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             if (AppSettings.LicenseeOfferNewForecast.Contains(licenseeId))
@@ -75,7 +76,8 @@ namespace Fanex.Athena.Controllers.Forecast
                     metaModel.BaseCurrency = baseCurrency;
                 }
 
-                return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
+                var viewModel = await GetViewModel(metaModel).ConfigureAwait(false);
+                return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", viewModel);
             }
             else
             {
@@ -85,24 +87,25 @@ namespace Fanex.Athena.Controllers.Forecast
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(NewForecastHandicapOverUnderMetaModel metaModel)
+        public async Task<ActionResult> Index(NewForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
+            var viewModel = await this.GetViewModel(metaModel).ConfigureAwait(false);
+            return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", viewModel);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ViewResult GetMatchListByLeague(int leagueId)
+        public async Task<ViewResult> GetMatchListByLeague(int leagueId)
         {
-            var matchList = _matchService.GetForecastMatchListByLeague(leagueId).OrderBy(x => x.MatchName).ToList();
+            var matchList = (await _matchService.GetForecastMatchListByLeague(leagueId).ConfigureAwait(false)).OrderBy(x => x.MatchName).ToList();
             return View("~/Views/Desktop/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        private NewForecastHdpOuViewModel GetViewModel(NewForecastHandicapOverUnderMetaModel metaModel)
+        private async Task<NewForecastHdpOuViewModel> GetViewModel(NewForecastHandicapOverUnderMetaModel metaModel)
         {
             IList<Match> matchList = new List<Match>();
             IList<League> leagueList = new List<League>();
@@ -122,7 +125,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
                 if (!Request.IsAjaxRequest())
                 {
-                    AssignDataForNonAjaxRequest(metaModel, model);
+                    await AssignDataForNonAjaxRequest(metaModel, model).ConfigureAwait(false);
                 }
 
                 metaModel.HomeTeamName = _cacheRefAdapter.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
@@ -138,24 +141,24 @@ namespace Fanex.Athena.Controllers.Forecast
             return model;
         }
 
-        private void AssignDataForNonAjaxRequest(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
+        private async Task AssignDataForNonAjaxRequest(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
         {
-            model.LeagueList = ForecastService.GetForecastRunningLeague(metaModel);
+            model.LeagueList = await ForecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(false);
             if (model.LeagueList.Any())
             {
                 metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);
                 if (metaModel.LeagueId > 0)
                 {
-                    AssignMatchData(metaModel, model);
+                    await AssignMatchData(metaModel, model).ConfigureAwait(false);
                 }
             }
 
             model.Param = metaModel;
         }
 
-        private void AssignMatchData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
+        private async Task AssignMatchData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
         {
-            model.MatchList = _matchService.GetForecastMatchListByLeague(metaModel.LeagueId).OrderBy(x => x.MatchName).ToList();
+            model.MatchList = (await _matchService.GetForecastMatchListByLeague(metaModel.LeagueId).ConfigureAwait(false)).OrderBy(x => x.MatchName).ToList();
 
             if (model.MatchList.Count > 0)
             {

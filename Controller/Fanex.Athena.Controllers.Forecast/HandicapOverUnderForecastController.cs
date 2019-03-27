@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
@@ -30,7 +31,7 @@ namespace Fanex.Athena.Controllers.Forecast
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var liceseeSession = SessionService.LicenseeSession;
             if (AppSettings.LicenseeOfferNewForecast.Contains(liceseeSession.LicenseeId))
@@ -46,24 +47,24 @@ namespace Fanex.Athena.Controllers.Forecast
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var model = this.GetViewModel(metaModel);
+            var model = await GetViewModel(metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Forecast/ForecastHDPOU/Main.cshtml", model);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(ForecastHandicapOverUnderMetaModel metaModel)
+        public async Task<ActionResult> Index(ForecastHandicapOverUnderMetaModel metaModel)
         {
-            var model = this.GetViewModel(metaModel);
+            var model = await GetViewModel(metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Forecast/ForecastHDPOU/Main.cshtml", model);
         }
 
-        private ForecastHdpOuViewModel GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
+        private async Task<ForecastHdpOuViewModel> GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var leagueList = ForecastService.GetForecastRunningLeague(metaModel);
+            var leagueList = await ForecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(true);
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
             var forecastHdpOuByLeague = ForecastService.GetForecastHandicapOverUnder(metaModel);

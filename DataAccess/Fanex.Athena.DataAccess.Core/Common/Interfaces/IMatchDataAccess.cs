@@ -8,17 +8,15 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public interface IMatchDataAccess
     {
-        IList<Match> GetForecastMatchListByLeague(int leagueId);
+        Task<IList<Match>> GetForecastMatchListByLeague(int leagueId);
 
-        IList<Match> GetAllRunningMatch(int sportId);
+        Task<IList<Match>> GetAllRunningMatch(int sportId);
 
-        IList<Match> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate, int sportId = 0);
+        Task<IList<Match>> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate, int sportId = 0);
     }
 }

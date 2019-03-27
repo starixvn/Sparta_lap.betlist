@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -33,7 +34,7 @@
 
         [TestCase("chf", "chf")]
         [TestCase("", "usd")]
-        public void Index_WhenGet_LicenseeOffersNewForecase_ReturnCorrectViewResult(string baseCurrency, string expectedBaseCurrency)
+        public async Task Index_WhenGet_LicenseeOffersNewForecase_ReturnCorrectViewResult(string baseCurrency, string expectedBaseCurrency)
         {
             using (var controler = CreateController())
             {
@@ -52,7 +53,7 @@
                     Arg.Do<NewForecastHdpOuMatchInfo>(x => headerInfo = x)).Returns(mainData);
 
                 // Action
-                var result = controler.Index(baseCurrency: baseCurrency) as ViewResult;
+                var result = await controler.Index(baseCurrency: baseCurrency) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -66,7 +67,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_NoRunningLeague_NoDataIsAssigned()
+        public async Task Index_IsNotAjaxRequest_NoRunningLeague_NoDataIsAssigned()
         {
             using (var controler = CreateController())
             {
@@ -84,7 +85,7 @@
                 _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(Enumerable.Empty<League>());
 
                 // Action
-                var result = controler.Index() as ViewResult;
+                var result = await controler.Index() as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -101,7 +102,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_NoValidLeague_NoMatchDataIsAssigned()
+        public async Task Index_IsNotAjaxRequest_NoValidLeague_NoMatchDataIsAssigned()
         {
             using (var controler = CreateController())
             {
@@ -122,7 +123,7 @@
                 _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
 
                 // Action
-                var result = controler.Index(leagueId: LeagueId) as ViewResult;
+                var result = await controler.Index(leagueId: LeagueId) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -139,7 +140,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_NoMatchList_NoMatchDataIsAssigned()
+        public async Task Index_IsNotAjaxRequest_NoMatchList_NoMatchDataIsAssigned()
         {
             using (var controler = CreateController())
             {
@@ -159,10 +160,10 @@
                 var leagueList = new List<League> { new League { LeagueId = LeagueId } };
                 _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
 
-                _matchService.GetForecastMatchListByLeague(LeagueId).Returns(Enumerable.Empty<Match>());
+                _matchService.GetForecastMatchListByLeague(LeagueId).Returns(Task.FromResult<IList<Match>>(new List<Match>()));
 
                 // Action
-                var result = controler.Index(leagueId: LeagueId) as ViewResult;
+                var result = await controler.Index(leagueId: LeagueId) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -179,7 +180,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_NoMatchFoundInMatchList_MatchDataIsAssignedFromFirstMatchOfList()
+        public async Task Index_IsNotAjaxRequest_NoMatchFoundInMatchList_MatchDataIsAssignedFromFirstMatchOfList()
         {
             using (var controler = CreateController())
             {
@@ -205,7 +206,7 @@
                 _matchService.GetForecastMatchListByLeague(LeagueId).Returns(matchList);
 
                 // Action
-                var result = controler.Index(leagueId: LeagueId, matchId: MatchId) as ViewResult;
+                var result = await controler.Index(leagueId: LeagueId, matchId: MatchId) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -222,7 +223,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_MatchFoundInMatchList_MatchDataIsAssignedFromFoundMatchOfList()
+        public async Task Index_IsNotAjaxRequest_MatchFoundInMatchList_MatchDataIsAssignedFromFoundMatchOfList()
         {
             using (var controler = CreateController())
             {
@@ -248,7 +249,7 @@
                 _matchService.GetForecastMatchListByLeague(LeagueId).Returns(matchList);
 
                 // Action
-                var result = controler.Index(leagueId: LeagueId, matchId: MatchId) as ViewResult;
+                var result = await controler.Index(leagueId: LeagueId, matchId: MatchId) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -265,7 +266,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_LicenseeDoesNotOffersNewForecase_RedirectToAction()
+        public async Task Index_WhenGet_LicenseeDoesNotOffersNewForecase_RedirectToAction()
         {
             using (var controler = CreateController())
             {
@@ -273,7 +274,7 @@
                 AppSettings.LicenseeOfferNewForecast.Returns(new int[0]);
 
                 // Action
-                var result = controler.Index() as RedirectToRouteResult;
+                var result = await controler.Index() as RedirectToRouteResult;
 
                 // Assert
                 Assert.That(result.RouteValues["action"], Is.EqualTo("ForecastHandicapOverUnder"));
@@ -282,7 +283,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Index_WhenPost_ReturnCorrectViewResult(bool isNeutral)
+        public async Task Index_WhenPost_ReturnCorrectViewResult(bool isNeutral)
         {
             using (var controler = CreateController())
             {
@@ -313,7 +314,7 @@
                     Arg.Do<NewForecastHdpOuMatchInfo>(x => headerInfo = x)).Returns(mainData);
 
                 // Action
-                var result = controler.Index(metaModel) as ViewResult;
+                var result = await controler.Index(metaModel) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -327,7 +328,7 @@
         }
 
         [Test]
-        public void GetMatchListByLeague_WhenCall_ReturnCorrectViewResult()
+        public async Task GetMatchListByLeague_WhenCall_ReturnCorrectViewResult()
         {
             using (var controler = CreateController())
             {
@@ -342,7 +343,7 @@
                 var expectedMatchNames = "A,B,C";
 
                 // Action
-                var result = controler.GetMatchListByLeague(0) as ViewResult;
+                var result = await controler.GetMatchListByLeague(0) as ViewResult;
                 var viewModel = (List<Match>)result.Model;
 
                 // Assert

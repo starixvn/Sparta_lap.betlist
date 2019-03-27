@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using DataAccess.Core.Common.Interfaces;
     using DataAccess.Forecast.Interfaces;
     using Model.Core.DTO.Common;
@@ -304,7 +305,7 @@
         }
 
         [Test]
-        public void GetForecastRunningLeague_WhenCall_ReturnCorrectData()
+        public async Task GetForecastRunningLeague_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var metaModel = new ForecastBaseMetaModel
@@ -316,7 +317,7 @@
             _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).Returns(expectedResult);
 
             // Action
-            var result = _forecastService.GetForecastRunningLeague(metaModel);
+            var result = await _forecastService.GetForecastRunningLeague(metaModel);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

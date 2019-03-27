@@ -84,7 +84,7 @@
         /// <param name="sportId"></param>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<object> GetLeagues(DateTime fromDate, DateTime toDate, int sportId = 0)
+        public async Task<IEnumerable<object>> GetLeagues(DateTime fromDate, DateTime toDate, int sportId = 0)
         {
             var metaModel = new LeagueMetaModel
             {
@@ -96,15 +96,15 @@
                 AgentListXml = _sessionService.GenerateAgentListXml()
             };
 
-            var leagues = _leagueDataAccess.GetLeaguesBySport(metaModel);
+            var leagues = await _leagueDataAccess.GetLeaguesBySport(metaModel).ConfigureAwait(false);
 
             return leagues.Select(x => new { value = x.LeagueId, label = x.LeagueName });
         }
 
         [HttpGet]
-        public IEnumerable<object> GetMatches(DateTime fromDate, DateTime toDate, int leagueid, int sportId = 0)
+        public async Task<IEnumerable<object>> GetMatches(DateTime fromDate, DateTime toDate, int leagueid, int sportId = 0)
         {
-            var matches = _matchDataAccess.GetMatchesByLeague(leagueid, fromDate, toDate, sportId);
+            var matches = await _matchDataAccess.GetMatchesByLeague(leagueid, fromDate, toDate, sportId).ConfigureAwait(false);
 
             return matches.Select(x => new { value = x.MatchId, label = x.MatchName });
         }

@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Forecast.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Model.Forecast.DTO.Forecast1X2;
@@ -29,7 +30,7 @@ namespace Fanex.Athena.Service.Forecast.Interfaces
 
         #region Forecast 1 x 2
 
-        IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
+        Task<IEnumerable<League>> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
 
         IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel);
 

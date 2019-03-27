@@ -8,7 +8,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
+    using System.Threading.Tasks;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
@@ -28,7 +28,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _appSettings = appSettings;
         }
 
-        public IList<Match> GetForecastMatchListByLeague(int leagueId)
+        public async Task<IList<Match>> GetForecastMatchListByLeague(int leagueId)
         {
             const string UspName = "Lrf_Forecast_MatchList";
             IList<Match> result = new List<Match>();
@@ -40,24 +40,21 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParam))
+                using (var reader = await db.ExecuteReaderAsync(uspParam).ConfigureAwait(false))
                 {
-                    if (reader != null)
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        var match = new Match
                         {
-                            var match = new Match
-                            {
-                                LeagueId = leagueId,
-                                MatchId = reader.ToInt("matchid"),
-                                HomeId = reader.ToInt("homeid"),
-                                AwayId = reader.ToInt("awayid"),
-                                IsNeutral = reader.ToBool("IsNeutral"),
-                            };
-                            match.MatchName = GetMatchName(match);
+                            LeagueId = leagueId,
+                            MatchId = reader.ToInt("matchid"),
+                            HomeId = reader.ToInt("homeid"),
+                            AwayId = reader.ToInt("awayid"),
+                            IsNeutral = reader.ToBool("IsNeutral"),
+                        };
+                        match.MatchName = GetMatchName(match);
 
-                            result.Add(match);
-                        }
+                        result.Add(match);
                     }
                 }
             }
@@ -70,7 +67,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
         /// </summary>
         /// <param name="sportId">Sport ID value.</param>
         /// <returns>The result value.</returns>
-        public IList<Match> GetAllRunningMatch(int sportId)
+        public async Task<IList<Match>> GetAllRunningMatch(int sportId)
         {
             var result = new List<Match>();
 
@@ -78,7 +75,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 db.SetParameterValue("sporttype", sportId);
                 db.SetParameterValue("IsIncludeTestLeague", !_appSettings.IsProduction);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
@@ -105,7 +102,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
         /// <summary>
         /// Get matches by league id (only for SB)
         /// </summary>
-        public IList<Match> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate, int sportId = 0)
+        public async Task<IList<Match>> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate, int sportId = 0)
         {
             var result = new List<Match>();
 
@@ -118,7 +115,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     FromDate = fromDate,
                     ToDate = toDate
                 };
-                using (var reader = db.ExecuteReader(uspParam))
+                using (var reader = await db.ExecuteReaderAsync(uspParam).ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {

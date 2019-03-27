@@ -7,7 +7,7 @@
 namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
-    using System.Data;
+    using System.Threading.Tasks;
     using Data;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -28,7 +28,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _appSettings = appSettings;
         }
 
-        public IEnumerable<League> GetLeaguesBySport(LeagueMetaModel metaModel)
+        public async Task<IEnumerable<League>> GetLeaguesBySport(LeagueMetaModel metaModel)
         {
             using (var db = this.GetObjectDb("Lrf_SelLeagueBySport"))
             {
@@ -37,11 +37,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("Todate", metaModel.ToDate);
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("IsIncludeTestLeague", !_appSettings.IsProduction);
-                return ReadLeagues(db);
+                return await ReadLeagues(db).ConfigureAwait(false);
             }
         }
 
-        public IEnumerable<League> GetRunningLeagues(string agentList, string betTypes)
+        public async Task<IEnumerable<League>> GetRunningLeagues(string agentList, string betTypes)
         {
             const string UspName = "Lrf_LeagueSelRunning";
             using (var db = this.GetObjectDb(UspName))
@@ -49,14 +49,14 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("AgentList", agentList);
                 db.SetParameterValue("betTypes", betTypes);
                 db.SetParameterValue("IsIncludeTestLeague", !_appSettings.IsProduction);
-                return ReadLeagues(db);
+                return await ReadLeagues(db).ConfigureAwait(false);
             }
         }
 
-        private IEnumerable<League> ReadLeagues(IObjectDb db)
+        private async Task<IEnumerable<League>> ReadLeagues(IObjectDb db)
         {
             var dataList = new List<League>();
-            using (var reader = db.ExecuteReader())
+            using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
             {
                 while (reader.Read())
                 {

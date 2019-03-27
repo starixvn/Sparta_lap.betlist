@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.DataAccess.Core.Common
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Extension.Utility;

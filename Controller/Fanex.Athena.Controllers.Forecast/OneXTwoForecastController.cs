@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Forecast
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
@@ -29,7 +30,7 @@ namespace Fanex.Athena.Controllers.Forecast
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var metaModel = new ForecastOneXTwoMetaModel
             {
@@ -38,39 +39,39 @@ namespace Fanex.Athena.Controllers.Forecast
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            return ProcessAction(metaModel);
+            return await ProcessAction(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(ForecastOneXTwoMetaModel metaModel)
+        public async Task<ActionResult> Index(ForecastOneXTwoMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            return ProcessAction(metaModel);
+            return await ProcessAction(metaModel).ConfigureAwait(false);
         }
 
-        public ActionResult Popup(ForecastOneXTwoMetaModel metaModel)
+        public async Task<ActionResult> Popup(ForecastOneXTwoMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            return ProcessAction(metaModel);
+            return await ProcessAction(metaModel).ConfigureAwait(false);
         }
 
-        private ActionResult ProcessAction(ForecastOneXTwoMetaModel metaModel)
+        private async Task<ActionResult> ProcessAction(ForecastOneXTwoMetaModel metaModel)
         {
-            var model = GetViewModel(metaModel);
+            var model = await GetViewModel(metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Forecast/Forecast1X2/Main.cshtml", model);
         }
 
-        private ForecastOneXTwoViewModel GetViewModel(ForecastOneXTwoMetaModel metaModel)
+        private async Task<ForecastOneXTwoViewModel> GetViewModel(ForecastOneXTwoMetaModel metaModel)
         {
             var model = new ForecastOneXTwoViewModel();
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var leagueList = ForecastService.GetForecastRunningLeague(metaModel);
+            var leagueList = await ForecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(true);
             var currentLeagueId = metaModel.LeagueId;
 
             if (metaModel.MatchId != 0)

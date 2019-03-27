@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
@@ -48,7 +49,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -68,7 +69,7 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyId(metaModel);
             var sports = this._sportTypeDataAccess.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, Product.SB)
                 .Where(x => x.ParentId >= 0);
-            var leagues = this._leagueDataAccess.GetLeaguesBySport(
+            var leagues = await this._leagueDataAccess.GetLeaguesBySport(
                             new LeagueMetaModel
                             {
                                 LicenseeId = licenseeSession.LicenseeId,
@@ -76,12 +77,12 @@ namespace Fanex.Athena.Controllers.Report
                                 FromDate = metaModel.FromDate,
                                 ToDate = metaModel.ToDate,
                                 AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId)
-                            });
+                            }).ConfigureAwait(false);
 
             var firstLeague = leagues.FirstOrDefault();
 
             var matches = firstLeague == null ? new List<Match>()
-                            : this._matchService.GetMatchesByLeague(firstLeague.LeagueId, metaModel.FromDate, metaModel.ToDate);
+                            : await this._matchService.GetMatchesByLeague(firstLeague.LeagueId, metaModel.FromDate, metaModel.ToDate).ConfigureAwait(false);
             var viewModel = new WinLossByLeagueViewModel
             {
                 Param = metaModel,
@@ -99,22 +100,22 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public ActionResult GetLeaguesBySport(LeagueMetaModel metaModel)
+        public async Task<ActionResult> GetLeaguesBySport(LeagueMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            return Json(
-                _leagueDataAccess.GetLeaguesBySport(metaModel)
-                .Select(x => new { Key = x.LeagueId, Value = x.LeagueName }));
+            var leagues = (await _leagueDataAccess.GetLeaguesBySport(metaModel).ConfigureAwait(false))
+                            .Select(x => new { Key = x.LeagueId, Value = x.LeagueName });
+            return Json(leagues);
         }
 
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public ActionResult GetMatchesByLeague(int leagueid, DateTime fromDate, DateTime toDate)
+        public async Task<ActionResult> GetMatchesByLeague(int leagueid, DateTime fromDate, DateTime toDate)
         {
-            var matches = _matchService.GetMatchesByLeague(leagueid, fromDate, toDate);
+            var matches = await _matchService.GetMatchesByLeague(leagueid, fromDate, toDate).ConfigureAwait(false);
             matches.Insert(0, new Match { MatchName = ViewResources.All, MatchId = 0 });
 
             return Json(matches.Select(x => new { Key = x.MatchId, Value = x.MatchName }));

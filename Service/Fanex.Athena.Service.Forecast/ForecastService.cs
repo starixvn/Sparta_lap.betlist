@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using DataAccess.Forecast;
@@ -131,9 +132,9 @@ namespace Fanex.Athena.Service.Forecast
 
         #region Forecast 1 x 2
 
-        public IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
+        public async Task<IEnumerable<League>> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
         {
-            return _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString);
+            return await _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(false);
         }
 
         public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel)

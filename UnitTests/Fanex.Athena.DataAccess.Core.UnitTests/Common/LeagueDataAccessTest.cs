@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Common;
     using Extension.Utility;
     using Model.Core.MetaModel.Common;
@@ -26,7 +27,7 @@
 
         [TestCase(false)]
         [TestCase(true)]
-        public void GetLeaguesBySport_WhenCall_ParametersPassedCorrectly(bool isProduction)
+        public async Task GetLeaguesBySport_WhenCall_ParametersPassedCorrectly(bool isProduction)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_SelLeagueBySport")).Returns(ObjectDb);
@@ -40,7 +41,7 @@
             };
 
             // Action
-            DataAccess.GetLeaguesBySport(metaModel);
+            await DataAccess.GetLeaguesBySport(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -54,7 +55,7 @@
         }
 
         [Test]
-        public void GetLeaguesBySport_WhenCall_ReturnData()
+        public async Task GetLeaguesBySport_WhenCall_ReturnData()
         {
             // Arrange
             const int LeagueId = 1234;
@@ -68,7 +69,7 @@
             _cacheRef.GetLeagueName(LeagueId).Returns(LeagueName);
 
             // Action
-            var result = DataAccess.GetLeaguesBySport(new LeagueMetaModel());
+            var result = await DataAccess.GetLeaguesBySport(new LeagueMetaModel());
             var firstItem = result.First();
 
             // Assert
@@ -81,7 +82,7 @@
 
         [TestCase(false)]
         [TestCase(true)]
-        public void GetRunningLeagues_WhenCall_ParametersPassedCorrectly(bool isProduction)
+        public async Task GetRunningLeagues_WhenCall_ParametersPassedCorrectly(bool isProduction)
         {
             // Arrange
             const string AgentList = "<sdfsdfml>";
@@ -90,7 +91,7 @@
             _appSettings.IsProduction.Returns(isProduction);
 
             // Action
-            DataAccess.GetRunningLeagues(AgentList, BetTypes);
+            await DataAccess.GetRunningLeagues(AgentList, BetTypes);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("AgentList", AgentList);
