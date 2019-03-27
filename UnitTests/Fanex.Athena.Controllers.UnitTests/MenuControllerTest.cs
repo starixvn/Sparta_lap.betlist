@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -29,15 +30,15 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectView()
+        public async Task Index_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                _functionService.Functions.Returns(new List<Function>());
+                _functionService.GetFunctions().Returns(new List<Function>());
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
 
                 // Assert
                 StringAssert.Contains("Menu/Index.cshtml", result.ViewName);
@@ -45,17 +46,17 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewModel()
+        public async Task Index_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 SessionService.UserSession.FunctionIdList = new int[] { 1, 2, 3 };
-                _functionService.Functions.Returns(new List<Function>());
+                _functionService.GetFunctions().Returns(new List<Function>());
                 AppSettings.FakeLicenseeList.Returns(new[] { DefaultLicenseeSession.LicenseeId });
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
                 var viewModel = result.Model as MenuViewModel;
 
                 // Assert

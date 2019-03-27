@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System;
-    using System.Data;
+    using System.Threading.Tasks;
     using Core.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -12,7 +12,7 @@
         private const string UspName = "Lrf_GetExchangeRateByDate";
 
         [Test]
-        public void GetExChangeRate_WhenCall_ParameterPassedCorrectly()
+        public async Task GetExChangeRate_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             const string CurrencyCode = "USD";
@@ -20,7 +20,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetExChangeRate(CurrencyCode, datetime);
+            await DataAccess.GetExChangeRate(CurrencyCode, datetime);
 
             // Assert
             ObjectDb.SetParameterValue("CurrencyCode", CurrencyCode);
@@ -28,7 +28,7 @@
         }
 
         [Test]
-        public void GetExChangeRate_WhenCall_DataReturnCorrectly()
+        public async Task GetExChangeRate_WhenCall_DataReturnCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
@@ -41,7 +41,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = DataAccess.GetExChangeRate(Arg.Any<string>(), Arg.Any<DateTime>());
+            var result = await DataAccess.GetExChangeRate(Arg.Any<string>(), Arg.Any<DateTime>());
 
             // Assert
             Assert.Multiple(() =>

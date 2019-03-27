@@ -47,6 +47,8 @@
             Reader = Substitute.For<IDataReader>();
             ObjectDb.ExecuteReader().Returns(Reader);
             ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(Reader);
+            ObjectDb.ExecuteReaderAsync().Returns(Reader);
+            ObjectDb.ExecuteReaderAsync(Arg.Any<object>()).Returns(Reader);
         }
 
         [TearDown]

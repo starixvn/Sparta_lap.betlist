@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Web;
     using Constant.DataDomain;
     using DataAccess.Core.Common.Interfaces;
@@ -82,7 +83,7 @@ namespace Fanex.Athena.Service.Core.Users
             _sessionStorage.AssignSessions(userSession, licenseeSession);
         }
 
-        public void CreateNewSession(
+        public async Task CreateNewSession(
             int userId,
             int onuserId,
             string userName,
@@ -91,7 +92,7 @@ namespace Fanex.Athena.Service.Core.Users
             string language = "en-US")
         {
             var licenseeList = _licenseeDataAccess.GetByUser(userId);
-            var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
+            var functionList = await _functionService.GetUserFunctionList(licenseeId, userId).ConfigureAwait(false);
             var functionIdList = functionList.Select(f => f.FunctionId).ToArray();
             var userSession = new UserSession
             {
@@ -107,14 +108,14 @@ namespace Fanex.Athena.Service.Core.Users
                 ApplicationMode = AppMode.Self
             };
 
-            AssignCurrenciesToUserSession(userSession, licenseeId);
+            await AssignCurrenciesToUserSession(userSession, licenseeId).ConfigureAwait(false);
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
             var licenseeSession = licenseeId > 0 && selectedLicensee != null ? GenerateLicenseeInfo(selectedLicensee) : null;
 
             AssignSessions(userSession, licenseeSession);
         }
 
-        public void UpdateLiceseeSession(int licenseeId)
+        public async Task UpdateLiceseeSession(int licenseeId)
         {
             var userSession = UserSession;
             var licenseeList = _licenseeDataAccess.GetByUser(userSession.UserId);
@@ -122,13 +123,13 @@ namespace Fanex.Athena.Service.Core.Users
             if (licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
-                var functionList = _functionService.GetUserFunctionList(licenseeId, userSession.UserId);
+                var functionList = await _functionService.GetUserFunctionList(licenseeId, userSession.UserId).ConfigureAwait(true);
                 var functionIdList = functionList.Select(f => f.FunctionId).ToArray();
 
                 userSession.FunctionIdList = functionIdList;
                 userSession.DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList);
 
-                AssignCurrenciesToUserSession(userSession, licenseeId);
+                await AssignCurrenciesToUserSession(userSession, licenseeId).ConfigureAwait(true);
 
                 AssignSessions(userSession, GenerateLicenseeInfo(selectedLicensee));
             }
@@ -254,9 +255,9 @@ namespace Fanex.Athena.Service.Core.Users
             };
         }
 
-        public void AssignCurrenciesToUserSession(UserSession userSession, int licenseeId, IEnumerable<CurrencyUser> currencyUserList = null)
+        public async Task AssignCurrenciesToUserSession(UserSession userSession, int licenseeId, IEnumerable<CurrencyUser> currencyUserList = null)
         {
-            var currencyUsers = currencyUserList ?? _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId);
+            var currencyUsers = currencyUserList ?? await _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId).ConfigureAwait(true);
 
             if (licenseeId == LicenseeIdentity.KeenOcean)
             {

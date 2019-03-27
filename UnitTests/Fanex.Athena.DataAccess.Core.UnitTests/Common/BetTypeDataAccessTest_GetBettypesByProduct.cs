@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Common;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -32,10 +33,10 @@
         }
 
         [Test]
-        public void GetBettypesByProduct_WhenCall_PassCorrectParameters()
+        public async Task GetBettypesByProduct_WhenCall_PassCorrectParameters()
         {
             // Action
-            DataAccess.GetBettypesByProduct(LicenseeId, ProductCode, LanguageCode);
+            await DataAccess.GetBettypesByProduct(LicenseeId, ProductCode, LanguageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -46,7 +47,7 @@
         }
 
         [Test]
-        public void GetBettypesByProduct_WhenCall_DataReturnedCorrectly()
+        public async Task GetBettypesByProduct_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var expected = new CheckedItem { Checked = true, ID = 1, Name = "BettypeNameTest" };
@@ -58,7 +59,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = DataAccess.GetBettypesByProduct(LicenseeId, ProductCode, LanguageCode);
+            var result = await DataAccess.GetBettypesByProduct(LicenseeId, ProductCode, LanguageCode).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

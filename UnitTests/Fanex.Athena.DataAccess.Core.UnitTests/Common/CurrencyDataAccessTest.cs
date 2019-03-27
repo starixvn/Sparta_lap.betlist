@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Common;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Account;
@@ -65,7 +66,7 @@
         }
 
         [Test]
-        public void GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
+        public async Task GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             const int LicenseeId = 1;
@@ -73,7 +74,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetCurrenciesByUser)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetCurrenciesByUser(LicenseeId, UserId);
+            await DataAccess.GetCurrenciesByUser(LicenseeId, UserId);
 
             // Assert
             Assert.Multiple(() =>
@@ -84,10 +85,10 @@
         }
 
         [Test]
-        public void GetCurrenciesByUser_WhenCall_ReturnCorrectData()
+        public async Task GetCurrenciesByUser_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            DataAccess.GetObjectDb(GetCurrenciesByUser).Query<CurrencyUser>()
+            DataAccess.GetObjectDb(GetCurrenciesByUser).QueryAsync<CurrencyUser>()
                 .Returns(new List<CurrencyUser>
                 {
                     new CurrencyUser { CurrencyId = 1, AgentId = 100 },
@@ -95,7 +96,7 @@
                 });
 
             // Action
-            var currencyList = DataAccess.GetCurrenciesByUser(0, 0);
+            var currencyList = await DataAccess.GetCurrenciesByUser(0, 0).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

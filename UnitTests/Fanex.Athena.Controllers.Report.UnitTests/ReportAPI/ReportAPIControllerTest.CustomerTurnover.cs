@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -35,12 +36,12 @@
         }
 
         [Test]
-        public void GetBettypesBySport_EmptySport_ReturnCorrectViewResult()
+        public async Task GetBettypesBySport_EmptySport_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.GetBettypesBySport(new List<SportProductItem>()) as JsonResult;
+                var result = await controller.GetBettypesBySport(new List<SportProductItem>()) as JsonResult;
                 var resultData = result.Data as IEnumerable<SportProductItem>;
 
                 // Assert
@@ -49,7 +50,7 @@
         }
 
         [Test]
-        public void GetBettypesBySport_WhenCall_ReturnCorrectViewResult()
+        public async Task GetBettypesBySport_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -62,13 +63,14 @@
                 {
                     new CheckedItem()
                 };
+
                 _betTypeService.GetBettypes(
                     SessionService.LicenseeSession.LicenseeId,
                     sports,
                     SessionService.UserSession.Language).Returns(dataList);
 
                 // Action
-                var result = controller.GetBettypesBySport(sports) as JsonResult;
+                var result = await controller.GetBettypesBySport(sports) as JsonResult;
                 var resultData = result.Data as IEnumerable<CheckedItem>;
 
                 // Assert

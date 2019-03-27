@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Web.ActionFilter;
@@ -19,14 +20,14 @@ namespace Fanex.Athena.Controllers.Report
         [AjaxRequest]
         [FunctionAuthorization(PermissionKeys.ReportCustomerTurnover)]
         [CustomValidateAntiForgery]
-        public ActionResult GetBettypesBySport(IList<SportProductItem> sports)
+        public async Task<ActionResult> GetBettypesBySport(IList<SportProductItem> sports)
         {
             if (sports == null || sports.Count == 0)
             {
                 return Json(new List<SportProductItem>());
             }
 
-            var data = _betTypeService.GetBettypes(SessionService.LicenseeSession.LicenseeId, sports, SessionService.UserSession.Language);
+            var data = await _betTypeService.GetBettypes(SessionService.LicenseeSession.LicenseeId, sports, SessionService.UserSession.Language).ConfigureAwait(false);
 
             return Json(data);
         }

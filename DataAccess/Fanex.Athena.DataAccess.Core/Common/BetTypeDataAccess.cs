@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
@@ -40,7 +41,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IList<CheckedItem> GetBettypes(int licenseeId, string xmlSportList, string languageCode)
+        public async Task<IList<CheckedItem>> GetBettypes(int licenseeId, string xmlSportList, string languageCode)
         {
             const string UspName = "Lrf_SelBetTypeBySport";
             IList<CheckedItem> results = new List<CheckedItem>();
@@ -50,7 +51,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("licenseeid", licenseeId);
                 db.SetParameterValue("sportlist", xmlSportList);
                 db.SetParameterValue("langkey", languageCode);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
@@ -75,7 +76,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return results;
         }
 
-        public IList<CheckedItem> GetBettypesByProduct(int licenseeId, string productCode, string languageCode)
+        public async Task<IList<CheckedItem>> GetBettypesByProduct(int licenseeId, string productCode, string languageCode)
         {
             const string UspName = "Lrf_SelBetTypesByProduct";
             IList<CheckedItem> results = new List<CheckedItem>();
@@ -84,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 db.SetParameterValue("licenseeid", licenseeId);
                 db.SetParameterValue("productcode", productCode);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {

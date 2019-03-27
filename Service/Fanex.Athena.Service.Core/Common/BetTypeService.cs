@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.Core.Common
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -32,7 +33,7 @@ namespace Fanex.Athena.Service.Core.Common
         /// <param name="sports">The sports.</param>
         /// <param name="languageCode">The language code.</param>
         /// <returns>The bet type list.</returns>
-        public IList<CheckedItem> GetBettypes(int licenseeId, IList<SportProductItem> sports, string languageCode)
+        public async Task<IList<CheckedItem>> GetBettypes(int licenseeId, IList<SportProductItem> sports, string languageCode)
         {
             const string SportXMLItemPattern = "<product ID=\"{0}\" Sport=\"{1}\"> </product>";
             var sportItemXML = new StringBuilder();
@@ -54,15 +55,15 @@ namespace Fanex.Athena.Service.Core.Common
                 }
 
                 var sportsParameters = "<products>" + sportItemXML + "</products>";
-                return _betTypeDataAccess.GetBettypes(licenseeId, sportsParameters, languageCode);
+                return await _betTypeDataAccess.GetBettypes(licenseeId, sportsParameters, languageCode).ConfigureAwait(false);
             }
 
             return new List<CheckedItem>();
         }
 
-        public IList<CheckedItem> GetBettypesByProduct(int licenseeId, string productCode, string languageCode)
+        public async Task<IList<CheckedItem>> GetBettypesByProduct(int licenseeId, string productCode, string languageCode)
         {
-            return _betTypeDataAccess.GetBettypesByProduct(licenseeId, productCode, languageCode);
+            return await _betTypeDataAccess.GetBettypesByProduct(licenseeId, productCode, languageCode).ConfigureAwait(false);
         }
     }
 }

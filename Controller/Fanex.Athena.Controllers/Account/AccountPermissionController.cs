@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Account
     using System.Globalization;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
@@ -71,7 +72,7 @@ namespace Fanex.Athena.Controllers.Account
         }
 
         [HttpGet]
-        public ActionResult EditPermission()
+        public async Task<ActionResult> EditPermission()
         {
             int userId = GetUserId();
             if (userId > 0 && ValidatePermissionRestriction(userId))
@@ -81,7 +82,7 @@ namespace Fanex.Athena.Controllers.Account
 
                 if (user != null)
                 {
-                    InitializeFunctions(userId);
+                    await InitializeFunctions(userId).ConfigureAwait(false);
 
                     var model = new EditPermissionMetaModel
                     {
@@ -134,7 +135,7 @@ namespace Fanex.Athena.Controllers.Account
         #region Assign Currency
 
         [HttpGet]
-        public ActionResult AssignCurrency(int userId)
+        public async Task<ActionResult> AssignCurrency(int userId)
         {
             if (!AppSettings.EnableAssignCurrency)
             {
@@ -143,7 +144,7 @@ namespace Fanex.Athena.Controllers.Account
 
             if (userId > 0)
             {
-                var currencies = _currencyDataAccess.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
+                var currencies = await _currencyDataAccess.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId).ConfigureAwait(false);
                 if (SessionService.LicenseeSession.LicenseeId == LicenseeIdentity.KeenOcean)
                 {
                     KeanOceanBusinessHelper.KeepHKDCurrencyName(currencies);
@@ -158,7 +159,7 @@ namespace Fanex.Athena.Controllers.Account
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult AssignCurrency(AssignCurrencyMetaModel model)
+        public async Task<ActionResult> AssignCurrency(AssignCurrencyMetaModel model)
         {
             if (model.UserId <= 0 || string.IsNullOrEmpty(model.CurrencyList))
             {
@@ -186,7 +187,7 @@ namespace Fanex.Athena.Controllers.Account
             model.ModifyBy = userSession.UserId;
 
             // convert currencies into xml
-            var currencyDict = _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId);
+            var currencyDict = await _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId).ConfigureAwait(false);
             model.CurrencyList = BuildCurrencyListXmlString(currencyDict, model.CurrencyList.Split(',').ToList());
 
             var result = _currencyDataAccess.AssignCurrenciesByUser(model);
@@ -249,21 +250,21 @@ namespace Fanex.Athena.Controllers.Account
             return true;
         }
 
-        private void InitializeFunctions(int userId)
+        private async Task InitializeFunctions(int userId)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
             // get all functions of licensee
-            var allLicenseeFunctionList = _functionService.GetLicenseeFunctionList(licenseeId);
+            var allLicenseeFunctionList = await _functionService.GetLicenseeFunctionList(licenseeId).ConfigureAwait(false);
 
             // get all master functions
-            _allMasterFunctionList = _functionService.GetMasterFunctions(allLicenseeFunctionList);
+            _allMasterFunctionList = await _functionService.GetMasterFunctions(allLicenseeFunctionList).ConfigureAwait(false);
 
             // map each function with its sub functions
-            _allFunctionMap = _functionService.GetSubFunctions(allLicenseeFunctionList);
+            _allFunctionMap = await _functionService.GetSubFunctions(allLicenseeFunctionList).ConfigureAwait(false);
 
             // get all function of editing user
-            _allUserFunctionList = _functionService.GetUserFunctionList(licenseeId, userId);
+            _allUserFunctionList = await _functionService.GetUserFunctionList(licenseeId, userId).ConfigureAwait(false);
         }
     }
 }

@@ -6,8 +6,9 @@
 
 namespace Fanex.Athena.DataAccess.Core.Common
 {
+    using System.Collections;
     using System.Collections.Generic;
-    using System.Data;
+    using System.Threading.Tasks;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
@@ -24,12 +25,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _appSettings = appSetting;
         }
 
-        public IList<Function> GetFunctionList()
+        public async Task<IList<Function>> GetFunctionList()
         {
             var functionList = new List<Function>();
             using (var db = this.GetObjectDb("Lrf_FunctionsSel"))
             {
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var isProduction = _appSettings.Environment.Equals("PRO", System.StringComparison.OrdinalIgnoreCase);
                     while (reader.Read())
@@ -62,18 +63,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        /// <summary>
-        /// Get licensee function list.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <returns>The result value.</returns>
-        public IList<Function> GetLicenseeFunctionList(int licenseeId)
+        public async Task<IList<Function>> GetLicenseeFunctionList(int licenseeId)
         {
             var functionList = new List<Function>();
             using (var db = this.GetObjectDb("Lrf_LicenseeFunctionsSel"))
             {
                 db.SetParameterValue("licenseeid", licenseeId);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
@@ -89,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        public IList<Function> GetUserFunctionList(int licenseeId, int userId)
+        public async Task<IList<Function>> GetUserFunctionList(int licenseeId, int userId)
         {
             var functionList = new List<Function>();
 
@@ -98,7 +94,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("LicenseeId", licenseeId);
                 db.SetParameterValue("UserId", userId);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
@@ -143,7 +139,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("IP", ip);
 
                 AddResultParam(db);
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
 
                 return GetResult(db);
             }

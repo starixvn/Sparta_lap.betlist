@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -18,11 +19,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess
     {
-        /// <summary>
-        /// Assign currencies by user.
-        /// </summary>
-        /// <param name="request">Request value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo AssignCurrenciesByUser(AssignCurrencyMetaModel request)
         {
             const string UspName = "Lrf_CurrencyCustIns";
@@ -37,13 +33,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("IP", request.IP);
 
                 AddResultParam(db);
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
 
                 return GetResult(db);
             }
         }
 
-        public IList<CurrencyUser> GetCurrenciesByUser(int licenseeId, int userId)
+        public async Task<IList<CurrencyUser>> GetCurrenciesByUser(int licenseeId, int userId)
         {
             const string UspName = "Lrf_SelCurrencyByLicenseeUser";
 
@@ -52,13 +48,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("UserID", userId);
                 db.SetParameterValue("LicenseeID", licenseeId);
 
-                return BindCurrencyUser(db);
+                return await BindCurrencyUser(db).ConfigureAwait(false);
             }
         }
 
-        private static IList<CurrencyUser> BindCurrencyUser(IObjectDb db)
+        private static async Task<IList<CurrencyUser>> BindCurrencyUser(IObjectDb db)
         {
-            var currencyList = db.Query<CurrencyUser>();
+            var currencyList = await db.QueryAsync<CurrencyUser>().ConfigureAwait(false);
             return currencyList.GroupBy(x => x.CurrencyId).Select(x => new CurrencyUser
             {
                 CurrencyId = x.Key,

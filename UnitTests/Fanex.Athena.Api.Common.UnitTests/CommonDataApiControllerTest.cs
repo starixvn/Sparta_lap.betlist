@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base;
     using DataAccess.Core.Common.Interfaces;
     using Model.Core.DTO.Common;
@@ -72,7 +73,7 @@
         }
 
         [Test]
-        public void GetBetTypes_WhenCall_ReturnCorrectData()
+        public async Task GetBetTypes_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -87,7 +88,7 @@
                  .Returns(new List<CheckedItem> { item });
 
                 // action
-                var result = controller.GetBetTypes(productCode).ElementAt(0);
+                var result = (await controller.GetBetTypes(productCode)).ElementAt(0);
 
                 // assert
                 Assert.Multiple(() =>

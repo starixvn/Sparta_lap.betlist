@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using DataAccess.Core.Common.Interfaces;
     using Model.Core.DataDomain;
@@ -65,12 +66,12 @@
         }
 
         [HttpGet]
-        public IEnumerable<object> GetBetTypes(string productCode)
+        public async Task<IEnumerable<object>> GetBetTypes(string productCode)
         {
-            var bettypes = _betTypeService.GetBettypesByProduct(
+            var bettypes = await _betTypeService.GetBettypesByProduct(
                 _sessionService.LicenseeSession.LicenseeId,
                 productCode,
-                _sessionService.UserSession.Language);
+                _sessionService.UserSession.Language).ConfigureAwait(false);
 
             return bettypes.Select(x => new { value = x.ID, label = x.Name });
         }

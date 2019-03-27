@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.Core.Common
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -31,67 +32,55 @@ namespace Fanex.Athena.Service.Core.Common
 
         #region Property
 
-        public IEnumerable<Function> Functions
+        public async Task<IEnumerable<Function>> GetFunctions()
         {
-            get
-            {
-                return _functionStorage.FunctionList;
-            }
+            return await _functionStorage.GetFunctionList().ConfigureAwait(false);
         }
 
-        private IEnumerable<Function> MasterFunctions
+        private async Task<IEnumerable<Function>> GetMasterFunctions()
         {
-            get
-            {
-                return _functionStorage.MasterFunctions;
-            }
+            return await _functionStorage.GetMasterFunctions().ConfigureAwait(false);
         }
 
-        private IDictionary<int, IEnumerable<Function>> SubFunctions
+        private async Task<IDictionary<int, IEnumerable<Function>>> GetSubFunctions()
         {
-            get
-            {
-                return _functionStorage.SubFunctions;
-            }
+            return await _functionStorage.GetSubFunctions().ConfigureAwait(false);
         }
 
         #endregion Property
 
         #region Licensee Function
 
-        public IEnumerable<Function> GetLicenseeFunctionList(int licenseeId)
+        public async Task<IEnumerable<Function>> GetLicenseeFunctionList(int licenseeId)
         {
-            var functionIdList = _functionDataAccess.GetLicenseeFunctionList(licenseeId)
-                                                    .Select(i => i.FunctionId);
-
-            return Functions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
+            var functionIdList = (await _functionDataAccess.GetLicenseeFunctionList(licenseeId).ConfigureAwait(false))
+                                        .Select(i => i.FunctionId);
+            var allFunctions = await GetFunctions().ConfigureAwait(false);
+            return allFunctions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
         }
 
-        /// <summary>
-        /// Get function list of user.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <returns>The function list.</returns>
-        public IEnumerable<Function> GetUserFunctionList(int licenseeId, int userId)
+        public async Task<IEnumerable<Function>> GetUserFunctionList(int licenseeId, int userId)
         {
-            var userFunctionIdData = _functionDataAccess.GetUserFunctionList(licenseeId, userId);
-            var licenseeFunctionData = _functionDataAccess.GetLicenseeFunctionList(licenseeId);
+            var userFunctionIdData = await _functionDataAccess.GetUserFunctionList(licenseeId, userId).ConfigureAwait(false);
+            var licenseeFunctionData = await _functionDataAccess.GetLicenseeFunctionList(licenseeId).ConfigureAwait(false);
 
             var userFunctionIdList = userFunctionIdData.AsEnumerable().Select(f => f.FunctionId);
             var licenseeFunctionIdList = licenseeFunctionData.AsEnumerable().Select(f => f.FunctionId);
 
             var functionIdList = licenseeFunctionIdList.Where(l => userFunctionIdList.Any(u => u == l)).ToList();
-            var functionList = Functions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
+            var allFunctions = await GetFunctions().ConfigureAwait(false);
+            var functionList = allFunctions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
 
-            foreach (var masterFunction in MasterFunctions)
+            var masterFunctions = await GetMasterFunctions().ConfigureAwait(false);
+            var subFunctions = await GetSubFunctions().ConfigureAwait(false);
+            foreach (var masterFunction in masterFunctions)
             {
                 if (functionList.Any(f => f.FunctionId == masterFunction.FunctionId))
                 {
                     continue;
                 }
 
-                var subFunctionCount = SubFunctions[masterFunction.FunctionId].Count();
+                var subFunctionCount = subFunctions[masterFunction.FunctionId].Count();
                 var userSubFunctionCount = functionList.Count(f => f.ParentId == masterFunction.FunctionId);
 
                 // User has permission on all sub functions, so he/she has permission on parent function
@@ -104,10 +93,11 @@ namespace Fanex.Athena.Service.Core.Common
             return functionList;
         }
 
-        public IResultInfo AssignUserFunctions(int licenseeId, int custId, IEnumerable<int> functionIdList, int userId, string ip, string langKey)
+        public async Task<IResultInfo> AssignUserFunctions(int licenseeId, int custId, IEnumerable<int> functionIdList, int userId, string ip, string langKey)
         {
-            var correctFunctionIdList = functionIdList.Where(f => Functions.Any(l => l.FunctionId == f)).ToList();
-            var userFunctionList = GetUserFunctionList(licenseeId, custId).Select(f => f.FunctionId);
+            var functions = await GetFunctions().ConfigureAwait(false);
+            var correctFunctionIdList = functionIdList.Where(f => functions.Any(l => l.FunctionId == f)).ToList();
+            var userFunctionList = (await GetUserFunctionList(licenseeId, custId).ConfigureAwait(false)).Select(f => f.FunctionId);
             var addingIdList = correctFunctionIdList.Except(userFunctionList);
             var removingIdList = userFunctionList.Except(correctFunctionIdList);
 
@@ -139,24 +129,20 @@ namespace Fanex.Athena.Service.Core.Common
         /// </summary>
         /// <param name="functionList">The function list.</param>
         /// <returns>The master function.</returns>
-        public IEnumerable<Function> GetMasterFunctions(IEnumerable<Function> functionList)
+        public async Task<IEnumerable<Function>> GetMasterFunctions(IEnumerable<Function> functionList)
         {
-            return MasterFunctions.Where(
+            var masterFunctions = await GetMasterFunctions().ConfigureAwait(false);
+            return masterFunctions.Where(
                     f => functionList.Any(l => l.ParentId == f.FunctionId || l.FunctionId == f.FunctionId))
                                 .OrderBy(f => f.DisplayOrder)
                                 .ToList();
         }
 
-        /// <summary>
-        /// Get sub functions.
-        /// </summary>
-        /// <param name="functionList">The functions.</param>
-        /// <returns>The sub functions.</returns>
-        public IDictionary<int, IEnumerable<Function>> GetSubMenus(IEnumerable<Function> functionList)
+        public async Task<IDictionary<int, IEnumerable<Function>>> GetSubMenus(IEnumerable<Function> functionList)
         {
             var detailFunctions = new Dictionary<int, IEnumerable<Function>>();
-
-            foreach (var function in MasterFunctions)
+            var masterFunctions = await GetMasterFunctions().ConfigureAwait(false);
+            foreach (var function in masterFunctions)
             {
                 var subFuntions = functionList.Where(f => f.ParentId == function.FunctionId && f.IsMenu)
                                               .OrderBy(f => f.DisplayOrder)
@@ -170,11 +156,11 @@ namespace Fanex.Athena.Service.Core.Common
             return detailFunctions;
         }
 
-        public IDictionary<int, IEnumerable<Function>> GetSubFunctions(IEnumerable<Function> functionList)
+        public async Task<IDictionary<int, IEnumerable<Function>>> GetSubFunctions(IEnumerable<Function> functionList)
         {
             var detailFunctions = new Dictionary<int, IEnumerable<Function>>();
-
-            foreach (var function in MasterFunctions)
+            var masterFunctions = await GetMasterFunctions().ConfigureAwait(false);
+            foreach (var function in masterFunctions)
             {
                 var subFuntions = functionList.Where(f => f.ParentId == function.FunctionId && f.IsFunction)
                                               .OrderBy(f => f.DisplayOrder)
