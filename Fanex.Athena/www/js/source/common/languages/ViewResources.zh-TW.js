@@ -1,4 +1,4 @@
-﻿// Generated at: 3/25/2019 10:05:30 AM
+﻿// Generated at: 03/27/2019 11:36:21 AM
 window._language_zh_TW = {
 AA:"客客",
 AbnormalBet:"非正規註單",
@@ -580,6 +580,7 @@ ProductNG:"百練賽",
 ProductSB:"體育博彩",
 ProductVS:"虛擬運動",
 ProductVS2:"虛擬運動2",
+PromotionPrize:"活動獎金",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",

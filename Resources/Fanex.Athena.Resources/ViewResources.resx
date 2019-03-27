@@ -3153,8 +3153,8 @@
     <value>Abnormal Bet</value>
     <comment>108717</comment>
   </data>
-  <data name="PPPromotionPrize" xml:space="preserve">
-    <value>PP Promotion Prize</value>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>Promotion Prize</value>
     <comment>109471</comment>
   </data>
 </root>

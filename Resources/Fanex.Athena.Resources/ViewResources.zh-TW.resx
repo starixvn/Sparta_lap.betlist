@@ -2629,4 +2629,8 @@
   <data name="UnderSettlement" xml:space="preserve">
     <value>結算中</value>
   </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>活動獎金</value>
+    <comment>109471</comment>
+  </data>
 </root>

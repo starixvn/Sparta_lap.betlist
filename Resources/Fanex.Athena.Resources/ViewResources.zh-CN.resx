@@ -2641,4 +2641,8 @@
   <data name="UnderSettlement" xml:space="preserve">
     <value>结算中</value>
   </data>
+  <data name="PromotionPrize" xml:space="preserve">
+    <value>活动奖金</value>
+    <comment>109471</comment>
+  </data>
 </root>

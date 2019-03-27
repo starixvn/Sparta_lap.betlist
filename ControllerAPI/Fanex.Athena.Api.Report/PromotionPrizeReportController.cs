@@ -55,7 +55,7 @@
                 : new ReportResultModel<PromotionPrize>();
 
             var title = ReportExcelHelper.GenerateReportTitle(
-                ViewResources.ProductPP + " - " + _cacheRefAdapter.GetBettype(BetType.PromotionPrize),
+                ViewResources.ProductPP + " - " + @ViewResources.PromotionPrize,
                 metaModel.FromDate,
                 metaModel.ToDate,
                 metaModel.CurrencyId <= 0 ? ViewResources.AllCurrencies : metaModel.CurrencyName);
