@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetSettings
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Extension.Utility;
@@ -35,7 +36,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var viewModel = _betSettingService.GetViewModel(licenseeSession.LicenseeId, metaModel.CustId, licenseeSession.LicenseeName);
@@ -44,15 +45,15 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return Redirect("~/Utility/AccessDenied");
             }
 
-            AssignRequiredProperties(viewModel, metaModel);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
             return View("~/Views/Desktop/Customer/BetSetting/AgCasino.cshtml", viewModel);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateStatus(int custId, string nickName, int status)
+        public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status)
         {
-            if (!ProductAccess.IsAllow(ProductTypes.AgCasino) || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(ProductTypes.AgCasino) || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }
@@ -76,9 +77,9 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateBetSetting(string nickName, string group)
+        public async Task<JsonResult> UpdateBetSetting(string nickName, string group)
         {
-            if (!ProductAccess.IsAllow(ProductTypes.AgCasino) || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(ProductTypes.AgCasino) || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }

@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.BetSettings.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Model.Customer.DTO;
 
@@ -14,8 +15,8 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     {
         CustomerInfo GetCustomerInfo(int custId);
 
-        bool IsBetSettingEditable();
+        Task<bool> IsBetSettingEditable();
 
-        IEnumerable<BetSettingProduct> GetBetSettingProducts(int custId);
+        Task<IEnumerable<BetSettingProduct>> GetBetSettingProducts(int custId);
     }
 }

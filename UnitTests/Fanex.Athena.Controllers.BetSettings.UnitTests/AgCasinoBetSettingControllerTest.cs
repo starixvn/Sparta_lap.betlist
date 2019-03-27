@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetSettings.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Model.BetSettings.DTO;
@@ -31,7 +32,7 @@
         }
 
         [Test]
-        public void Index_NoPermission_RedirectToAccessDeniedPage()
+        public async Task Index_NoPermission_RedirectToAccessDeniedPage()
         {
             using (var controller = CreateController())
             {
@@ -42,7 +43,7 @@
                     .Returns(x => { return null; });
 
                 // Action
-                var result = controller.Index(metaModel) as RedirectResult;
+                var result = await controller.Index(metaModel) as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo("~/Utility/AccessDenied"));
@@ -50,7 +51,7 @@
         }
 
         [Test]
-        public void Index_HasPermission_ReturnCorrectViewResult()
+        public async Task Index_HasPermission_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -61,7 +62,7 @@
                     .Returns(new AgCasinoBetSettingViewModel());
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -73,7 +74,7 @@
         }
 
         [Test]
-        public void UpdateStatus_NoPermission_ReturnAccessDeniedResult()
+        public async Task UpdateStatus_NoPermission_ReturnAccessDeniedResult()
         {
             using (var controller = CreateController())
             {
@@ -82,7 +83,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -95,7 +96,7 @@
         }
 
         [Test]
-        public void UpdateStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
+        public async Task UpdateStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -114,7 +115,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
 
                 // Action
-                var result = controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -127,7 +128,7 @@
         }
 
         [Test]
-        public void UpdateStatus_UpdateFailed_ReturnFailedResultInfo()
+        public async Task UpdateStatus_UpdateFailed_ReturnFailedResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -146,7 +147,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
-                var result = controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -155,7 +156,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_NoPermission_ReturnAccessDeniedResult()
+        public async Task UpdateBetSetting_NoPermission_ReturnAccessDeniedResult()
         {
             using (var controller = CreateController())
             {
@@ -164,7 +165,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty, string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty, string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -177,7 +178,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_UpdateSuccessfully_ReturnSuccessfullResultInfo()
+        public async Task UpdateBetSetting_UpdateSuccessfully_ReturnSuccessfullResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -192,7 +193,7 @@
                    Arg.Any<string>()).Returns(new ResultInfo { Code = 0 });
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty, string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty, string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -205,7 +206,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_UpdateFailed_ReturnFailedResultInfo()
+        public async Task UpdateBetSetting_UpdateFailed_ReturnFailedResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -220,7 +221,7 @@
                    Arg.Any<string>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty, string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty, string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Model.BetSettings.MetaModel;
@@ -31,7 +32,7 @@
         }
 
         [Test]
-        public void Index_NoPermission_RedirectToAccessDeniedPage()
+        public async Task Index_NoPermission_RedirectToAccessDeniedPage()
         {
             using (var controller = CreateController())
             {
@@ -42,7 +43,7 @@
                     .Returns(x => { return null; });
 
                 // Action
-                var result = controller.Index(metaModel) as RedirectResult;
+                var result = await controller.Index(metaModel) as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo("~/Utility/AccessDenied"));
@@ -54,7 +55,7 @@
         [TestCase(ProductTypes.ColossusBets, "~/Views/Desktop/Customer/BetSetting/ColossusBets.cshtml")]
         [TestCase(ProductTypes.CashOut, "~/Views/Desktop/Customer/BetSetting/CashOut.cshtml")]
         [TestCase(ProductTypes.GoldDeluxe, "~/Views/Desktop/Customer/BetSetting/GoldDeluxe.cshtml")]
-        public void Index_HasPermission_ReturnCorrectViewResult(int productId, string viewName)
+        public async Task Index_HasPermission_ReturnCorrectViewResult(int productId, string viewName)
         {
             using (var controller = CreateController())
             {
@@ -65,7 +66,7 @@
                     .Returns(new ThirdPartyBetSettingViewModel());
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -91,15 +92,15 @@
                     .Returns(new ThirdPartyBetSettingViewModel());
 
                 // Action
-                TestDelegate testDelegate = () => controller.Index(metaModel);
+                AsyncTestDelegate testDelegate = () => controller.Index(metaModel);
 
                 // Assert
-                Assert.Throws<ArgumentException>(testDelegate, "Not a thirdparty product.");
+                Assert.ThrowsAsync<ArgumentException>(testDelegate, "Not a thirdparty product.");
             }
         }
 
         [Test]
-        public void UpdateMacauStatus_NoPermission_ReturnAccessDeniedResult()
+        public async Task UpdateMacauStatus_NoPermission_ReturnAccessDeniedResult()
         {
             using (var controller = CreateController())
             {
@@ -108,7 +109,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -121,7 +122,7 @@
         }
 
         [Test]
-        public void UpdateMacauStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
+        public async Task UpdateMacauStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -141,7 +142,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
 
                 // Action
-                var result = controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -154,7 +155,7 @@
         }
 
         [Test]
-        public void UpdateMacauStatus_UpdateFailed_ReturnFailedResultInfo()
+        public async Task UpdateMacauStatus_UpdateFailed_ReturnFailedResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -174,7 +175,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
-                var result = controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -183,7 +184,7 @@
         }
 
         [Test]
-        public void UpdateBetTradeStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
+        public async Task UpdateBetTradeStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -203,7 +204,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
 
                 // Action
-                var result = controller.UpdateBetTradeStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateBetTradeStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -216,7 +217,7 @@
         }
 
         [Test]
-        public void UpdateBetTradeStatus_UpdateFailed_ReturnFailedResultInfo()
+        public async Task UpdateBetTradeStatus_UpdateFailed_ReturnFailedResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -236,7 +237,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
-                var result = controller.UpdateBetTradeStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateBetTradeStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -245,7 +246,7 @@
         }
 
         [Test]
-        public void UpdateColossusBetsStatus_NoPermission_ReturnAccessDeniedResult()
+        public async Task UpdateColossusBetsStatus_NoPermission_ReturnAccessDeniedResult()
         {
             using (var controller = CreateController())
             {
@@ -254,7 +255,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -267,7 +268,7 @@
         }
 
         [Test]
-        public void UpdateColossusBetsStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
+        public async Task UpdateColossusBetsStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -287,7 +288,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
 
                 // Action
-                var result = controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -300,7 +301,7 @@
         }
 
         [Test]
-        public void UpdateColossusBetsStatus_UpdateFailed_ReturnFailedResultInfo()
+        public async Task UpdateColossusBetsStatus_UpdateFailed_ReturnFailedResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -320,7 +321,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
-                var result = controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -329,7 +330,7 @@
         }
 
         [Test]
-        public void UpdateCashOutStatus_NoPermission_ReturnAccessDeniedResult()
+        public async Task UpdateCashOutStatus_NoPermission_ReturnAccessDeniedResult()
         {
             using (var controller = CreateController())
             {
@@ -338,7 +339,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -351,7 +352,7 @@
         }
 
         [Test]
-        public void UpdateCashOutStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
+        public async Task UpdateCashOutStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -371,7 +372,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
 
                 // Action
-                var result = controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -384,7 +385,7 @@
         }
 
         [Test]
-        public void UpdateCashOutStatus_UpdateFailed_ReturnFailedResultInfo()
+        public async Task UpdateCashOutStatus_UpdateFailed_ReturnFailedResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -404,7 +405,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
-                var result = controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;
+                var result = await controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert

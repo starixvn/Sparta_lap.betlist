@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Data;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
@@ -35,21 +36,21 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
             var customer = GetCustomerInfo(metaModel.CustId);
             var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language);
-            AssignRequiredProperties(viewModel, metaModel);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Customer/BetSetting/RngCasino.cshtml", viewModel);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateBetSetting(int custId, string gameTypeChangedList)
+        public async Task<JsonResult> UpdateBetSetting(int custId, string gameTypeChangedList)
         {
             var customer = ProductAccess.IsAllowCS ? GetCustomerInfo(custId) : null;
-            if (customer == null || !customer.SyncCasino || !IsBetSettingEditable())
+            if (customer == null || !customer.SyncCasino || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }
@@ -85,11 +86,11 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateStatus(int custId, string nickName, int status)
+        public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status)
         {
             if (!ProductAccess.IsAllowCS ||
                 !GetCustomerInfo(custId).SyncCasino ||
-                !IsBetSettingEditable())
+                !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }

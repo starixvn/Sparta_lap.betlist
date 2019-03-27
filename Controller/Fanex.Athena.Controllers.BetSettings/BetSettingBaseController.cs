@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Extension.Utility;
@@ -67,12 +68,12 @@ namespace Fanex.Athena.Controllers.BetSettings
             return _coreBetSettingService.GetCustomerInfo(custId);
         }
 
-        protected void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
+        protected async Task AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
         {
             metaModel.IsFakeLicensee = IsFakeLicensee();
             viewModel.Param = metaModel;
-            viewModel.Editable = IsBetSettingEditable();
-            viewModel.BetSettingProducts = _coreBetSettingService.GetBetSettingProducts(metaModel.CustId);
+            viewModel.Editable = await IsBetSettingEditable().ConfigureAwait(false);
+            viewModel.BetSettingProducts = await _coreBetSettingService.GetBetSettingProducts(metaModel.CustId).ConfigureAwait(false);
         }
 
         protected CommonBetSetting GetBetSettingCommonParam()
@@ -91,9 +92,9 @@ namespace Fanex.Athena.Controllers.BetSettings
             return commonItem;
         }
 
-        protected bool IsBetSettingEditable()
+        protected async Task<bool> IsBetSettingEditable()
         {
-            return _coreBetSettingService.IsBetSettingEditable();
+            return await _coreBetSettingService.IsBetSettingEditable().ConfigureAwait(false);
         }
 
         protected decimal GetDecimalRequest(string name, decimal defaultValue)

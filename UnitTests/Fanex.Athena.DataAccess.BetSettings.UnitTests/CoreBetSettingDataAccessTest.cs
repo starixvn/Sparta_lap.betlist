@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
     using NSubstitute;
@@ -11,16 +12,16 @@
     public class CoreBetSettingDataAccessTest : BaseDataAccessHelperTest<CoreBetSettingDataAccess>
     {
         [Test]
-        public void GetBetSettingProducts_WhenCall_DataReturnedCorrectly()
+        public async Task GetBetSettingProducts_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeProductSel")).Returns(ObjectDb);
             var licenseeId = 1;
             var expected = new BetSettingProduct { ProductId = 1, IsEnable = true, ProductCode = "CODE" };
-            ObjectDb.Query<BetSettingProduct>(Arg.Any<object>()).Returns(new List<BetSettingProduct> { expected });
+            ObjectDb.QueryAsync<BetSettingProduct>(Arg.Any<object>()).Returns(new List<BetSettingProduct> { expected });
 
             // Action
-            var result = DataAccess.GetBetSettingProducts(licenseeId).ElementAt(0);
+            var result = (await DataAccess.GetBetSettingProducts(licenseeId)).ElementAt(0);
 
             // Assert
             Assert.Multiple(() =>

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.Users.Interfaces;
     using Customer.Interfaces;
@@ -101,7 +102,7 @@
         }
 
         [Test]
-        public void GetBetSettingProducts_IsSyncCasino_ReturnCorrectData()
+        public async Task GetBetSettingProducts_IsSyncCasino_ReturnCorrectData()
         {
             // Arrange
             const int CustId = 3434;
@@ -110,7 +111,7 @@
             _coreBetSettingDataAccess.GetBetSettingProducts(LicenseeId).Returns(GetSampleBetSettingProducts());
 
             // Action
-            var result = _coreBetSettingService.GetBetSettingProducts(CustId);
+            var result = await _coreBetSettingService.GetBetSettingProducts(CustId);
 
             // Assert
             Assert.That(
@@ -119,7 +120,7 @@
         }
 
         [Test]
-        public void GetBetSettingProducts_IsNotSyncCasino_ReturnCorrectData()
+        public async Task GetBetSettingProducts_IsNotSyncCasino_ReturnCorrectData()
         {
             // Arrange
             const int CustId = 3434;
@@ -128,7 +129,7 @@
             _coreBetSettingDataAccess.GetBetSettingProducts(LicenseeId).Returns(GetSampleBetSettingProducts());
 
             // Action
-            var result = _coreBetSettingService.GetBetSettingProducts(CustId);
+            var result = await _coreBetSettingService.GetBetSettingProducts(CustId).ConfigureAwait(false);
 
             // Assert
             Assert.That(

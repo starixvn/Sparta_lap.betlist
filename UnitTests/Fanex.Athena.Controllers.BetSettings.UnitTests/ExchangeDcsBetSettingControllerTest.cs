@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.BetSettings.UnitTests
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
@@ -33,7 +34,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Index_CallApiSuccessfully_ReturnCorrectViewResult(bool isEnabled)
+        public async Task Index_CallApiSuccessfully_ReturnCorrectViewResult(bool isEnabled)
         {
             using (var controller = CreateController())
             {
@@ -48,7 +49,7 @@
                     .Returns(new ResultInfo<double> { ExtendedData = ExtendedData });
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ExchangeBetSettingViewModel)result.Model;
 
                 // Assert
@@ -64,7 +65,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Index_CallApiFailed_ReturnCorrectViewResult(bool isEnabled)
+        public async Task Index_CallApiFailed_ReturnCorrectViewResult(bool isEnabled)
         {
             using (var controller = CreateController())
             {
@@ -78,7 +79,7 @@
                     .Returns(new ResultInfo<double> { Code = 1, Message = "Error" });
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ExchangeBetSettingViewModel)result.Model;
 
                 // Assert

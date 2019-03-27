@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetSettings.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
@@ -32,7 +33,7 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewResult()
+        public async Task Index_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -42,7 +43,7 @@
                 _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId).Returns(new BetSettingViewModel());
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (BetSettingViewModel)result.Model;
 
                 // Assert
@@ -55,7 +56,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_NoPermission_ReturnAccessDeniedResult()
+        public async Task UpdateBetSetting_NoPermission_ReturnAccessDeniedResult()
         {
             using (var controller = CreateController())
             {
@@ -64,7 +65,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -79,7 +80,7 @@
         [TestCase("0", "2")]
         [TestCase("1", "0")]
         [TestCase("0", "0")]
-        public void UpdateBetSetting_InvalidParam_ReturnInvalidParamsResult(string id, string custid)
+        public async Task UpdateBetSetting_InvalidParam_ReturnInvalidParamsResult(string id, string custid)
         {
             using (var controller = CreateController())
             {
@@ -93,7 +94,7 @@
                 controller.HttpContext.Request["custid"].Returns(custid);
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -106,7 +107,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_UpdateSuccessfully_ReturnSuccessfullResultInfo()
+        public async Task UpdateBetSetting_UpdateSuccessfully_ReturnSuccessfullResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -127,7 +128,7 @@
                    Arg.Any<KenoBetSetting>()).Returns(new ResultInfo { Code = 0 });
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -140,7 +141,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_PassCorrectParam()
+        public async Task UpdateBetSetting_WhenCall_PassCorrectParam()
         {
             using (var controller = CreateController())
             {
@@ -172,7 +173,7 @@
                    Arg.Do<KenoBetSetting>(x => param = x)).Returns(new ResultInfo { Code = 0 });
 
                 // Action
-                controller.UpdateBetSetting(string.Empty);
+                await controller.UpdateBetSetting(string.Empty);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -186,7 +187,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_UpdateFailed_ReturnFailedResultInfo()
+        public async Task UpdateBetSetting_UpdateFailed_ReturnFailedResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -207,7 +208,7 @@
                    Arg.Any<KenoBetSetting>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert

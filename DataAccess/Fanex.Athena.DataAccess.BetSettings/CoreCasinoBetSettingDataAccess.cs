@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("ErrCode", null);
                 db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
 
                 var errorCode = Converter.ToInt(db.GetParameterValue("ErrCode"));
                 var errorMessage = Converter.ToString2(db.GetParameterValue("ErrMsg"));

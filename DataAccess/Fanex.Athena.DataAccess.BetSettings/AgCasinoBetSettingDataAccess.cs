@@ -28,7 +28,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("IsLineEnabled", null);
                 db.SetParameterValue("CheckedGroups", null);
 
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
 
                 return new AgCasinoBetSetting
                 {
@@ -56,7 +56,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("ErrCode", null);
                 db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
 
                 return GetResult(db);
             }
@@ -77,7 +77,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("ErrCode", null);
                 db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
 
                 return GetResult(db);
             }

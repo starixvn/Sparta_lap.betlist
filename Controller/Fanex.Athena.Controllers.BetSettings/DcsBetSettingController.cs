@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Extension.Utility;
@@ -71,7 +72,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
             if (!ProductViewNameMap.ContainsKey(metaModel.ProductId))
             {
@@ -79,7 +80,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             var viewModel = new BetSettingViewModel();
-            AssignRequiredProperties(viewModel, metaModel);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
             var viewName = ProductViewNameMap[metaModel.ProductId];
             var viewPath = $"~/Views/Desktop/Customer/BetSetting/{viewName}.cshtml";
@@ -99,9 +100,9 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateStatus(int custId, string nickName, int status, int productId)
+        public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status, int productId)
         {
-            if (!ProductAccess.IsAllow(productId) || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(productId) || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }
@@ -125,9 +126,9 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateBetSetting(int productId, string nickName)
+        public async Task<JsonResult> UpdateBetSetting(int productId, string nickName)
         {
-            if (!ProductAccess.IsAllow(productId) || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(productId) || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }

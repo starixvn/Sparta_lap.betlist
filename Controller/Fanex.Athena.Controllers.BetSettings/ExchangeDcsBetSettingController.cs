@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -42,13 +43,13 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
             var viewModel = new ExchangeBetSettingViewModel
             {
                 CommissionList = ValidComms
             };
-            AssignRequiredProperties(viewModel, metaModel);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
             const string ViewPath = "~/Views/Desktop/Customer/BetSetting/Exchange.cshtml";
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             viewModel.IsEnabled = _betSettingService.GetStatus(licenseeId, metaModel.CustId, metaModel.ProductId);

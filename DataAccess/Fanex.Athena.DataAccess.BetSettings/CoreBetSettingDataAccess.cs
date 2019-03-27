@@ -8,13 +8,14 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.BetSettings.DTO;
 
     public class CoreBetSettingDataAccess : BaseDataAccess, ICoreBetSettingDataAccess
     {
-        public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
+        public async Task<IEnumerable<BetSettingProduct>> GetBetSettingProducts(int licenseeId)
         {
             var uspName = "Lrf_LicenseeProductSel";
             using (var db = this.GetObjectDb(uspName))
@@ -23,7 +24,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 {
                     { "licenseeid", licenseeId }
                 };
-                return db.Query<BetSettingProduct>(param);
+                return await db.QueryAsync<BetSettingProduct>(param).ConfigureAwait(false);
             }
         }
     }

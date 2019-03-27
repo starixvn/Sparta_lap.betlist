@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Extension.Utility;
@@ -46,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
             if (!ProductViewFileMap.ContainsKey(metaModel.ProductId))
             {
@@ -59,49 +60,49 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
-            AssignRequiredProperties(viewModel, metaModel);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
             var viewPath = $"~/Views/Desktop/Customer/BetSetting/{ProductViewFileMap[metaModel.ProductId]}.cshtml";
             return View(viewPath, viewModel);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
+        public async Task<JsonResult> UpdateMacauStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus(ProductTypes.Macau, custId, nickName, status);
+            return await UpdateThirdPartyProductStatus(ProductTypes.Macau, custId, nickName, status).ConfigureAwait(false);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateBetTradeStatus(int custId, string nickName, int status)
+        public async Task<JsonResult> UpdateBetTradeStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus(ProductTypes.BetTrade, custId, nickName, status);
+            return await UpdateThirdPartyProductStatus(ProductTypes.BetTrade, custId, nickName, status).ConfigureAwait(false);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateColossusBetsStatus(int custId, string nickName, int status)
+        public async Task<JsonResult> UpdateColossusBetsStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus(ProductTypes.ColossusBets, custId, nickName, status);
+            return await UpdateThirdPartyProductStatus(ProductTypes.ColossusBets, custId, nickName, status).ConfigureAwait(false);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateCashOutStatus(int custId, string nickName, int status)
+        public async Task<JsonResult> UpdateCashOutStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus(ProductTypes.CashOut, custId, nickName, status);
+            return await UpdateThirdPartyProductStatus(ProductTypes.CashOut, custId, nickName, status).ConfigureAwait(false);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateGoldDeluxeStatus(int custId, string nickName, int status)
+        public async Task<JsonResult> UpdateGoldDeluxeStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus(ProductTypes.GoldDeluxe, custId, nickName, status);
+            return await UpdateThirdPartyProductStatus(ProductTypes.GoldDeluxe, custId, nickName, status).ConfigureAwait(false);
         }
 
-        private JsonResult UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)
+        private async Task<JsonResult> UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)
         {
-            if (!ProductAccess.IsAllow(productId) || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(productId) || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }

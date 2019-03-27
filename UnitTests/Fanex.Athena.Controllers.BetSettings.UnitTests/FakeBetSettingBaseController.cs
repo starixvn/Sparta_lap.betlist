@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.BetSettings.UnitTests
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Model.BetSettings.DTO;
@@ -32,9 +33,9 @@
             return base.GetCustomerInfo(custId);
         }
 
-        internal new void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
+        internal new async void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
         {
-            base.AssignRequiredProperties(viewModel, metaModel);
+            await base.AssignRequiredProperties(viewModel, metaModel);
         }
 
         internal new CommonBetSetting GetBetSettingCommonParam()
@@ -42,9 +43,9 @@
             return base.GetBetSettingCommonParam();
         }
 
-        internal new bool IsBetSettingEditable()
+        internal new async Task<bool> IsBetSettingEditable()
         {
-            return base.IsBetSettingEditable();
+            return await base.IsBetSettingEditable().ConfigureAwait(false);
         }
 
         internal new decimal GetDecimalRequest(string name, decimal defaultValue)
