@@ -91,12 +91,14 @@
   !*** ./www/js/source/common/languages/ViewResources.zh-Hans.js ***!
   \*****************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// Generated at: 3/25/2019 10:05:30 AM
+"use strict";
+
+
+// Generated at: 03/27/2019 11:36:21 AM
 window._language_zh_Hans = {
   AA: "客客",
-  AbnormalBet: "非正规注单",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
   Account: "账号",
   AccountManagement: "帐户管理",
@@ -670,6 +672,7 @@ window._language_zh_Hans = {
   ProductSB: "体育博彩",
   ProductVS: "虚拟运动",
   ProductVS2: "虚拟运动2",
+  PromotionPrize: "活动奖金",
   PShare: "P.Share",
   PWin: "P.Win",
   Q1: "1Q",
@@ -700,7 +703,6 @@ window._language_zh_Hans = {
   ResetPassword: "重设密码",
   ResetPasswordSuccessMsg: "重置密码成功!",
   Result: "赛果",
-  ResultPending: "赛果待定",
   Results: "赛果",
   Resultswithpictures: "参考号码",
   Revenue: "所得",
@@ -831,7 +833,6 @@ window._language_zh_Hans = {
   Under: "下盘",
   UnderMaintenance: "维护中",
   UndermaintenanceMsg: "我们正进行伺服器维护, 网站于{0} 至 {1} 将无法使用. 非常抱歉造成您的不便!",
-  UnderSettlement: "结算中",
   Unfreeze: "Unfreeze",
   Update: "更新",
   UpdateAccountSuccessMsg: "更新账号成功!",

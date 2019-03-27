@@ -8121,7 +8121,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                         //update excel ULR
                         _me.setExcelUrl(level, currencyId, customerId, drillDownFDate, drillDownTDate, currencyName);
-                        _me.updateDrilldownData(currencyId, currencyName, drillDownFDate, drillDownTDate, customerId, _submitData.IsExcludedTestData);
+                        _me.updateDrilldownData(currencyId, currencyName, drillDownFDate, drillDownTDate, customerId);
                     },
                     beforeSend: function () {
                         Site.blockUI();

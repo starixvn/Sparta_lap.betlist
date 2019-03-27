@@ -93,10 +93,9 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/25/2019 10:05:30 AM
+﻿// Generated at: 03/27/2019 11:36:21 AM
 window._language_zh_TW = {
 AA:"客客",
-AbnormalBet:"非正規註單",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
 Account:"賬號",
 AccountManagement:"帳戶管理",
@@ -675,6 +674,7 @@ ProductNG:"百練賽",
 ProductSB:"體育博彩",
 ProductVS:"虛擬運動",
 ProductVS2:"虛擬運動2",
+PromotionPrize:"活動獎金",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",
@@ -705,7 +705,6 @@ Reset:"重設",
 ResetPassword:"重設密碼",
 ResetPasswordSuccessMsg:"重置密碼成功!",
 Result:"賽果",
-ResultPending:"賽果待定",
 Results:"賽果",
 Resultswithpictures:"圖式結果",
 Revenue:"所得",
@@ -836,7 +835,6 @@ UncheckAll:"Uncheck All",
 Under:"下盤",
 UnderMaintenance:"維護中",
 UndermaintenanceMsg:"我們正進行伺服器維護，網站於{0}至{1}將無法使用。非常抱歉造成您的不便!",
-UnderSettlement:"結算中",
 Unfreeze:"Unfreeze",
 Update:"更新",
 UpdateAccountSuccessMsg:"更新賬號成功!",

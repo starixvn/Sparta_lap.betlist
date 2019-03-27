@@ -93,11 +93,10 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/25/2019 10:05:30 AM
+﻿// Generated at: 03/27/2019 11:36:21 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
-AbnormalBet:"Abnormal Bet",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
 Account:"Account",
 AccountManagement:"Account Management",
@@ -783,6 +782,7 @@ ProductVS2:"Virtual Sports 2",
 ProgressiveContribution:"Progressive Contribution",
 ProgressiveFee:"Progressive Fee",
 ProgressivePayout:"Progressive Payout",
+PromotionPrize:"Promotion Prize",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",
@@ -814,7 +814,6 @@ Reset:"Reset",
 ResetPassword:"Reset Password",
 ResetPasswordSuccessMsg:"Reset password successfully!",
 Result:"Result",
-ResultPending:"Result Pending",
 Results:"Results",
 Resultswithpictures:"Results with pictures",
 Revenue:"Revenue",
@@ -957,7 +956,6 @@ UncheckAll:"Uncheck All",
 Under:"Under",
 UnderMaintenance:"Under Maintenance",
 UndermaintenanceMsg:"We are having server maintenance, website will be unavailable from {0} until {1}. Sorry for the inconveniences caused!",
-UnderSettlement:"Under Settlement",
 Unfreeze:"Unfreeze",
 Update:"Update",
 UpdateAccountSuccessMsg:"Update account successfully!",
