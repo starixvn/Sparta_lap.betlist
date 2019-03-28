@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Net;
+    using System.Threading.Tasks;
 
     public interface IWebClientService
     {
@@ -17,5 +18,7 @@
         byte[] DownloadData(string url);
 
         string UploadString(Uri address, string parameters, IDictionary<HttpRequestHeader, string> headers);
+
+        Task<string> UploadStringAsync(Uri address, string parameters);
     }
 }

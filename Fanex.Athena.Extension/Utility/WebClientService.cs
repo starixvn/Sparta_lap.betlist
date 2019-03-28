@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Net;
+    using System.Threading.Tasks;
     using Interfaces;
 
     public class WebClientService : IWebClientService
@@ -50,6 +51,15 @@
                 }
               
                 return webClient.UploadString(address, parameters);
+            }
+        }
+
+        public async Task<string> UploadStringAsync(Uri address, string parameters)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                return await webClient.UploadStringTaskAsync(address, parameters);
             }
         }
     }

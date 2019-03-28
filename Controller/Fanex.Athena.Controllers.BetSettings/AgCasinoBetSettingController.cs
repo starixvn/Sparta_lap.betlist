@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var viewModel = _betSettingService.GetViewModel(licenseeSession.LicenseeId, metaModel.CustId, licenseeSession.LicenseeName);
+            var viewModel = await _betSettingService.GetViewModel(licenseeSession.LicenseeId, metaModel.CustId, licenseeSession.LicenseeName).ConfigureAwait(false);
             if (viewModel == null)
             {
                 return Redirect("~/Utility/AccessDenied");
@@ -59,13 +59,13 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateStatus(
+            var result = await _betSettingService.UpdateStatus(
                 SessionService.LicenseeSession.LicenseeId,
                 userSession.UserId,
                 custId,
                 userSession.Language,
                 Request.UserHostAddress,
-                status == 1);
+                status == 1).ConfigureAwait(false);
 
             if (result.Code == 0)
             {
@@ -85,7 +85,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             var setting = GetBetSettingCommonParam();
-            var result = _betSettingService.UpdateAgCasinoBetSetting(setting, group);
+            var result = await _betSettingService.UpdateAgCasinoBetSetting(setting, group).ConfigureAwait(false);
 
             if (result.Code == 0)
             {

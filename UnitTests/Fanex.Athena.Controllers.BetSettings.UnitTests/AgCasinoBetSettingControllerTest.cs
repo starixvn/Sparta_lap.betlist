@@ -40,7 +40,7 @@
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
 
                 _betSettingService.GetViewModel(DefaultLicenseeSession.LicenseeId, metaModel.CustId, DefaultLicenseeSession.LicenseeName)
-                    .Returns(x => { return null; });
+                    .Returns(Task.FromResult<AgCasinoBetSettingViewModel>(null));
 
                 // Action
                 var result = await controller.Index(metaModel) as RedirectResult;
@@ -104,7 +104,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(Task.FromResult(true));
 
                 _betSettingService.UpdateStatus(
                    DefaultLicenseeSession.LicenseeId,
@@ -112,7 +112,7 @@
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
                 var result = await controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
@@ -136,7 +136,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(Task.FromResult(true));
 
                 _betSettingService.UpdateStatus(
                    DefaultLicenseeSession.LicenseeId,
@@ -144,7 +144,7 @@
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 1, Message = "Error" }));
 
                 // Action
                 var result = await controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
@@ -186,11 +186,11 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(Task.FromResult(true));
 
                 _betSettingService.UpdateAgCasinoBetSetting(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Any<string>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<string>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
                 var result = await controller.UpdateBetSetting(string.Empty, string.Empty) as JsonResult;
@@ -214,11 +214,11 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(Task.FromResult(true));
 
                 _betSettingService.UpdateAgCasinoBetSetting(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Any<string>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Any<string>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 1, Message = "Error" }));
 
                 // Action
                 var result = await controller.UpdateBetSetting(string.Empty, string.Empty) as JsonResult;

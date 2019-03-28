@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.BetSettings
 {
+    using System.Threading.Tasks;
     using Common;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.BetSettings.DTO.AgCasino;
@@ -15,7 +16,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class AgCasinoBetSettingDataAccess : BaseDataAccess, IAgCasinoBetSettingDataAccess
     {
-        public AgCasinoBetSetting GetBetSetting(int custId)
+        public async Task<AgCasinoBetSetting> GetBetSetting(int custId)
         {
             var uspName = "Lrf_AGC_SelCustSetting";
 
@@ -28,7 +29,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("IsLineEnabled", null);
                 db.SetParameterValue("CheckedGroups", null);
 
-                db.ExecuteNonQueryAsync();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return new AgCasinoBetSetting
                 {
@@ -41,7 +42,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        public IResultInfo UpdateBetSetting(CommonBetSetting data, string group)
+        public async Task<IResultInfo> UpdateBetSetting(CommonBetSetting data, string group)
         {
             var uspName = "Lrf_AGC_UpdCustSetting";
 
@@ -56,13 +57,13 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("ErrCode", null);
                 db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQueryAsync();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return GetResult(db);
             }
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public async Task<IResultInfo> UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
             var uspName = "Lrf_AGC_UpdCustStatus";
 
@@ -77,7 +78,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("ErrCode", null);
                 db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQueryAsync();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return GetResult(db);
             }

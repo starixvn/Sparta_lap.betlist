@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
     using NSubstitute;
@@ -10,14 +10,14 @@
     public class AgCasinoBetSettingDataAccessTest : BaseDataAccessHelperTest<AgCasinoBetSettingDataAccess>
     {
         [Test]
-        public void GetBetSetting_WhenCall_ParameterPassedCorrectly()
+        public async Task GetBetSetting_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_SelCustSetting")).Returns(ObjectDb);
             var custId = 1;
 
             // Action
-            DataAccess.GetBetSetting(custId);
+            await DataAccess.GetBetSetting(custId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("CustID", custId);
@@ -29,7 +29,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_ParameterPassedCorrectly()
+        public async Task UpdateBetSetting_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustSetting")).Returns(ObjectDb);
@@ -43,7 +43,7 @@
             };
 
             // Action
-            DataAccess.UpdateBetSetting(data, group);
+            await DataAccess.UpdateBetSetting(data, group);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("aggroup", group);
@@ -56,7 +56,7 @@
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_ParameterPassedCorrectly()
+        public async Task UpdateStatus_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustStatus")).Returns(ObjectDb);
@@ -67,7 +67,7 @@
             var isEnabled = true;
 
             // Action
-            DataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
+            await DataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("isenabled", isEnabled);

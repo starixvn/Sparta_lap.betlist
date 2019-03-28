@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.BetSettings
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Xml.Linq;
     using Common;
     using Core.Utility.Interfaces;
@@ -47,67 +48,66 @@ namespace Fanex.Athena.Service.BetSettings
             _webClientService = webClientService;
         }
 
-        public AgCasinoBetSettingViewModel GetViewModel(int licenseeId, int custId, string licenseeName)
+        public async Task<AgCasinoBetSettingViewModel> GetViewModel(int licenseeId, int custId, string licenseeName)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
 
-            var betSetting = _betSettingDataAccess.GetBetSetting(custId);
+            var betSetting = await _betSettingDataAccess.GetBetSetting(custId).ConfigureAwait(false);
 
-            var viewModel = new AgCasinoBetSettingViewModel
-            {
-                BetSetting = betSetting,
-                Games = GetGroupBettings(custId, licenseeName, betSetting.CurrencyId)
-            };
             if (!betSetting.CheckedGroups.Contains(betSetting.AgGroup))
             {
                 betSetting.CheckedGroups = betSetting.CheckedGroups.Concat(new[] { betSetting.AgGroup })
                     .OrderBy(x => x).ToArray();
             }
 
-            viewModel.IsEnabled = betSetting.IsEnabled;
-            return viewModel;
+            return new AgCasinoBetSettingViewModel
+            {
+                BetSetting = betSetting,
+                Games = await GetGroupBettings(custId, licenseeName, betSetting.CurrencyId),
+                IsEnabled = betSetting.IsEnabled
+            };
         }
 
-        public IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group)
+        public async Task<IResultInfo> UpdateAgCasinoBetSetting(CommonBetSetting setting, string group)
         {
             if (setting == null)
             {
                 return ErrorResult("Invalid parameter. AG Casino is null");
             }
 
-            var agcasinoSetting = _betSettingDataAccess.GetBetSetting(setting.CustId);
+            var agcasinoSetting = await _betSettingDataAccess.GetBetSetting(setting.CustId).ConfigureAwait(false);
 
             if (!agcasinoSetting.IsEnabled || !HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            return _betSettingDataAccess.UpdateBetSetting(setting, group);
+            return await _betSettingDataAccess.UpdateBetSetting(setting, group);
         }
 
-        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string language, string ip, bool isEnabled)
+        public async Task<IResultInfo> UpdateStatus(int licenseeId, int userId, int custId, string language, string ip, bool isEnabled)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            return _betSettingDataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
+            return await _betSettingDataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IList<AgCasinoGame> GetGroupBettings(int custId, string siteName, int currency)
+        private async Task<IList<AgCasinoGame>> GetGroupBettings(int custId, string siteName, int currency)
         {
             var uri = new Uri(_appSettings.GetValue("AGCasinoApiUrl"));
             var parameters = string.Format("SiteName={0}&Currency={1}", siteName, currency);
             var games = new List<AgCasinoGame>();
             try
             {
-                var apiResult = _webClientService.UploadString(uri, parameters);
+                var apiResult = await _webClientService.UploadStringAsync(uri, parameters).ConfigureAwait(false);
 
                 var xml = XDocument.Parse(apiResult);
 
