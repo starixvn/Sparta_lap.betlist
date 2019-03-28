@@ -12,7 +12,7 @@
     public class CoreBetSettingDataAccessTest : BaseDataAccessHelperTest<CoreBetSettingDataAccess>
     {
         [Test]
-        public async Task GetBetSettingProducts_WhenCall_DataReturnedCorrectly()
+        public async Task GetBetSettingProductsAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeProductSel")).Returns(ObjectDb);
@@ -21,7 +21,7 @@
             ObjectDb.QueryAsync<BetSettingProduct>(Arg.Any<object>()).Returns(new List<BetSettingProduct> { expected });
 
             // Action
-            var result = (await DataAccess.GetBetSettingProducts(licenseeId)).ElementAt(0);
+            var result = (await DataAccess.GetBetSettingProductsAsync(licenseeId)).ElementAt(0);
 
             // Assert
             Assert.Multiple(() =>

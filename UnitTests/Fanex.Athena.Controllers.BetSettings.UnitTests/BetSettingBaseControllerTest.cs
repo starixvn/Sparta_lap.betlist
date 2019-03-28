@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Model.BetSettings.DTO;
@@ -56,7 +57,7 @@
         }
 
         [Test]
-        public void AssignRequiredProperties_WhenCall_ReturnCorrectData()
+        public async Task AssignRequiredProperties_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -66,7 +67,7 @@
                 var metaModel = new BetSettingMetaModel();
 
                 // Action
-                controller.AssignRequiredProperties(viewModel, metaModel);
+                await controller.AssignRequiredProperties(viewModel, metaModel);
 
                 // Assert
                 AssertRequiredProperties(viewModel, metaModel);
@@ -75,7 +76,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void AssignRequiredProperties_IsNotSyncCasino_DisableRngCasinoProduct(bool isEnableRngCasino)
+        public async Task AssignRequiredProperties_IsNotSyncCasino_DisableRngCasinoProduct(bool isEnableRngCasino)
         {
             using (var controller = CreateController())
             {
@@ -86,11 +87,14 @@
                 CoreBetSettingService.GetCustomerInfo(metaModel.CustId)
                     .Returns(new CustomerInfo { SyncCasino = false });
 
-                CoreBetSettingService.GetBetSettingProducts(DefaultLicenseeSession.LicenseeId)
-                    .Returns(new List<BetSettingProduct> { new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino } });
+                CoreBetSettingService.GetBetSettingProductsAsync(DefaultLicenseeSession.LicenseeId)
+                    .Returns(Task.FromResult<IEnumerable<BetSettingProduct>>(new List<BetSettingProduct>
+                    {
+                        new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino
+                    }}));
 
                 // Action
-                controller.AssignRequiredProperties(viewModel, metaModel);
+                await controller.AssignRequiredProperties(viewModel, metaModel);
 
                 // Assert
                 Assert.That(viewModel.BetSettingProducts.Any(x => x.ProductId == ProductTypes.RngCasino), Is.False);

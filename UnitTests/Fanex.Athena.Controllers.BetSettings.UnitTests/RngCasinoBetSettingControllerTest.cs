@@ -65,7 +65,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product>()));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
 
                 // Action
                 var result = await controller.UpdateBetSetting(0, string.Empty) as JsonResult;
@@ -87,7 +87,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
 
                 CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = false });
 
@@ -111,11 +111,11 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
 
                 CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -145,11 +145,11 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
 
                 CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -179,11 +179,11 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
 
                 CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
                 const int CustId = 1;
                 var gameTypes = new[] { 1, 2 };
@@ -223,7 +223,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product>()));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
 
                 // Action
                 var result = await controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
@@ -245,7 +245,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
 
                 CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = false });
 
@@ -269,13 +269,14 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
 
                 CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(Arg.Any<BetSettingCasinoStatusMetaModel>()).Returns(new ResultInfo { Code = 0 });
+                _betSettingService.UpdateStatusAsync(Arg.Any<BetSettingCasinoStatusMetaModel>())
+                    .Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
                 var result = await controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
@@ -297,13 +298,14 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
 
                 CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(Arg.Any<BetSettingCasinoStatusMetaModel>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                _betSettingService.UpdateStatusAsync(Arg.Any<BetSettingCasinoStatusMetaModel>())
+                    .Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 1, Message = "Error" }));
 
                 // Action
                 var result = await controller.UpdateStatus(0, string.Empty, 0) as JsonResult;

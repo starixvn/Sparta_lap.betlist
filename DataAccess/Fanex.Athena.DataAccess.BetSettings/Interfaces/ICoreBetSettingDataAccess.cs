@@ -12,6 +12,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 
     public interface ICoreBetSettingDataAccess
     {
-        Task<IEnumerable<BetSettingProduct>> GetBetSettingProducts(int licenseeId);
+        Task<IEnumerable<BetSettingProduct>> GetBetSettingProductsAsync(int licenseeId);
     }
 }

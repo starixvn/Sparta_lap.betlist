@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
+    using System.Threading.Tasks;
     using DataAccess.BetSettings.Interfaces;
     using Interfaces;
     using Model.Core.DTO.Common;
@@ -38,52 +39,52 @@
         }
 
         [Test]
-        public void GetStatus_WhenCallWithCorrectPermission_ReturnCorrectData()
+        public async Task GetStatusAsync_WhenCallWithCorrectPermission_ReturnCorrectData()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).Returns(true);
-            _betSettingDataAccess.GetStatus(_custId, _productId).Returns(true);
+            _betSettingDataAccess.GetStatusAsync(_custId, _productId).Returns(Task.FromResult((bool?)true));
 
             // Action
-            var result = _dcsBettingService.GetStatus(_licenseeId, _custId, _productId);
+            var result = await _dcsBettingService.GetStatusAsync(_licenseeId, _custId, _productId);
 
             // Assert
             Assert.That(result, Is.True);
         }
 
         [Test]
-        public void GetStatus_HaveNoPermission_ReturnNull()
+        public async Task GetStatusAsync_HaveNoPermission_ReturnNull()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).Returns(false);
 
             // Action
-            var result = _dcsBettingService.GetStatus(_licenseeId, _custId, _productId);
+            var result = await _dcsBettingService.GetStatusAsync(_licenseeId, _custId, _productId);
 
             // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
-        public void UpdateStatus_WhenCallWithCorrectPermission_ReturnCorrectResult()
+        public async Task UpdateStatusAsync_WhenCallWithCorrectPermission_ReturnCorrectResult()
         {
             // Arrange
             var ip = FakeHelper.Create<string>();
             var status = FakeHelper.Create<bool>();
             var expectedResult = FakeHelper.Create<ResultInfo>();
 
-            _betSettingDataAccess.UpdateStatus(_userId, _custId, ip, status, _productId).Returns(expectedResult);
+            _betSettingDataAccess.UpdateStatusAsync(_userId, _custId, ip, status, _productId).Returns(Task.FromResult<IResultInfo>(expectedResult));
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).Returns(true);
 
             // Action
-            var result = _dcsBettingService.UpdateStatus(_licenseeId, _userId, _custId, ip, status, _productId);
+            var result = await _dcsBettingService.UpdateStatusAsync(_licenseeId, _userId, _custId, ip, status, _productId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void UpdateStatus_HaveNoPermission_ReturnCorrectResult()
+        public async Task UpdateStatusAsync_HaveNoPermission_ReturnCorrectResult()
         {
             // Arrange
             var ip = FakeHelper.Create<string>();
@@ -93,7 +94,7 @@
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _dcsBettingService.UpdateStatus(_licenseeId, _userId, _custId, ip, status, _productId);
+            var result = await _dcsBettingService.UpdateStatusAsync(_licenseeId, _userId, _custId, ip, status, _productId);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(expectedResult.Code));

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
@@ -21,7 +22,7 @@
         }
 
         [Test]
-        public void GetBetSetting_WhenCall_ParametersPassedCorrectly()
+        public async Task GetBetSettingAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitSettingSelect")).Returns(ObjectDb);
@@ -29,7 +30,7 @@
             var productId = 5;
 
             // Action
-            DataAccess.GetBetSetting(custId, productId);
+            await DataAccess.GetBetSettingAsync(custId, productId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("custid", custId);
@@ -37,7 +38,7 @@
         }
 
         [Test]
-        public void GetBetSetting_WhenCall_DataReturnedCorrectly()
+        public async Task GetBetSettingAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitSettingSelect")).Returns(ObjectDb);
@@ -49,21 +50,22 @@
             ConfigureReaderForGetBetSettingMethod(reader, expected);
 
             // Action
-            var result = DataAccess.GetBetSetting(custId, productId)[0];
+            var result = await DataAccess.GetBetSettingAsync(custId, productId);
+            var firstItem = result[0];
 
             // Assert
-            Assert.That(result.MaxBet, Is.EqualTo(expected.MaxBet));
-            Assert.That(result.MinBet, Is.EqualTo(expected.MinBet));
-            Assert.That(result.MaxPerMatchMax, Is.EqualTo(expected.MaxPerMatchMax));
-            Assert.That(result.MaxPerMatch, Is.EqualTo(expected.MaxPerMatch));
-            Assert.That(result.BetValueMax, Is.EqualTo(expected.BetValueMax));
-            Assert.That(result.BetValueMin, Is.EqualTo(expected.BetValueMin));
-            Assert.That(result.SportId, Is.EqualTo(expected.SportId));
-            Assert.That(result.BetType, Is.EqualTo(expected.BetType));
+            Assert.That(firstItem.MaxBet, Is.EqualTo(expected.MaxBet));
+            Assert.That(firstItem.MinBet, Is.EqualTo(expected.MinBet));
+            Assert.That(firstItem.MaxPerMatchMax, Is.EqualTo(expected.MaxPerMatchMax));
+            Assert.That(firstItem.MaxPerMatch, Is.EqualTo(expected.MaxPerMatch));
+            Assert.That(firstItem.BetValueMax, Is.EqualTo(expected.BetValueMax));
+            Assert.That(firstItem.BetValueMin, Is.EqualTo(expected.BetValueMin));
+            Assert.That(firstItem.SportId, Is.EqualTo(expected.SportId));
+            Assert.That(firstItem.BetType, Is.EqualTo(expected.BetType));
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_ParametersPassedCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitUpd")).Returns(ObjectDb);
@@ -73,7 +75,7 @@
             var xmlData = "XMLDataTest";
 
             // Action
-            DataAccess.UpdateBetSetting(custId, userId, ip, xmlData);
+            await DataAccess.UpdateBetSettingAsync(custId, userId, ip, xmlData);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("custid", custId);
@@ -85,7 +87,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_DataReturnedCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitUpd")).Returns(ObjectDb);
@@ -103,7 +105,7 @@
             ObjectDb.GetParameterValue("ErrMsg").Returns(expected.Message);
 
             // Action
-            var result = DataAccess.UpdateBetSetting(custId, userId, ip, xmlData);
+            var result = await DataAccess.UpdateBetSettingAsync(custId, userId, ip, xmlData);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(expected.Code));

@@ -41,7 +41,7 @@ namespace Fanex.Athena.Service.BetSettings
             return _customerService.GetCustomerInfo(_sessionService.LicenseeSession.LicenseeId, custId);
         }
 
-        public async Task<bool> IsBetSettingEditable()
+        public async Task<bool> IsBetSettingEditableAsync()
         {
             var userSession = _sessionService.UserSession;
             return userSession.ApplicationMode == AppMode.Parasitic ?
@@ -49,12 +49,12 @@ namespace Fanex.Athena.Service.BetSettings
                       await _authorizationService.HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<BetSettingProduct>> GetBetSettingProducts(int custId)
+        public async Task<IEnumerable<BetSettingProduct>> GetBetSettingProductsAsync(int custId)
         {
             var licenseeId = _sessionService.LicenseeSession.LicenseeId;
             var customerInfo = _customerService.GetCustomerInfo(licenseeId, custId);
 
-            var betSettingProducts = await _coreBetSettingDataAccess.GetBetSettingProducts(licenseeId).ConfigureAwait(false);
+            var betSettingProducts = await _coreBetSettingDataAccess.GetBetSettingProductsAsync(licenseeId).ConfigureAwait(false);
 
             if (!customerInfo.SyncCasino)
             {

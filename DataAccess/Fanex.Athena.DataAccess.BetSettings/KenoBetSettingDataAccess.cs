@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -25,21 +26,21 @@ namespace Fanex.Athena.DataAccess.BetSettings
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IList<BetSetting> GetBetSettings(int custId)
+        public async Task<IList<BetSetting>> GetBetSettingsAsync(int custId)
         {
             var uspName = "Lrf_CustomerSelEditKN";
 
             using (var db = this.GetObjectDb(uspName))
             {
                 db.SetParameterValue("CustID", custId);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync())
                 {
                     return ReadBetSetting(reader);
                 }
             }
         }
 
-        public IResultInfo UpdateBetSetting(int custId, int userId, string language, string ip, string xmlData)
+        public async Task<IResultInfo> UpdateBetSettingAsync(int custId, int userId, string language, string ip, string xmlData)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBetKN";
 
@@ -52,7 +53,8 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("dataxml", xmlData);
                 db.SetParameterValue("errcode", null);
                 db.SetParameterValue("errmsg", null);
-                db.ExecuteNonQuery();
+
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return GetResult(db);
             }

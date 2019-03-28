@@ -16,7 +16,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class AgCasinoBetSettingDataAccess : BaseDataAccess, IAgCasinoBetSettingDataAccess
     {
-        public async Task<AgCasinoBetSetting> GetBetSetting(int custId)
+        public async Task<AgCasinoBetSetting> GetBetSettingAsync(int custId)
         {
             var uspName = "Lrf_AGC_SelCustSetting";
 
@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        public async Task<IResultInfo> UpdateBetSetting(CommonBetSetting data, string group)
+        public async Task<IResultInfo> UpdateBetSettingAsync(CommonBetSetting data, string group)
         {
             var uspName = "Lrf_AGC_UpdCustSetting";
 
@@ -63,7 +63,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        public async Task<IResultInfo> UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public async Task<IResultInfo> UpdateStatusAsync(int userId, int custId, string language, string ip, bool isEnabled)
         {
             var uspName = "Lrf_AGC_UpdCustStatus";
 

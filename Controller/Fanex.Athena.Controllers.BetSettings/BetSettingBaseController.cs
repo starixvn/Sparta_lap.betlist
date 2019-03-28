@@ -66,7 +66,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             metaModel.IsFakeLicensee = IsFakeLicensee();
             viewModel.Param = metaModel;
             viewModel.Editable = await IsBetSettingEditable().ConfigureAwait(false);
-            viewModel.BetSettingProducts = await _coreBetSettingService.GetBetSettingProducts(metaModel.CustId).ConfigureAwait(false);
+            viewModel.BetSettingProducts = await _coreBetSettingService.GetBetSettingProductsAsync(metaModel.CustId).ConfigureAwait(false);
         }
 
         protected CommonBetSetting GetBetSettingCommonParam()
@@ -87,7 +87,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         protected async Task<bool> IsBetSettingEditable()
         {
-            return await _coreBetSettingService.IsBetSettingEditable().ConfigureAwait(false);
+            return await _coreBetSettingService.IsBetSettingEditableAsync().ConfigureAwait(false);
         }
 
         protected decimal GetDecimalRequest(string name, decimal defaultValue)

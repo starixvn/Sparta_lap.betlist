@@ -64,7 +64,7 @@
         }
 
         [Test]
-        public void IsBetSettingEditable_IsParasiticMode_GetPermissionFromPortalFunctionList()
+        public async Task IsBetSettingEditable_IsParasiticMode_GetPermissionFromPortalFunctionList()
         {
             // Arrange
             var userSession = new UserSession
@@ -76,14 +76,14 @@
             _sessionService.UserSession.Returns(userSession);
 
             // Action
-            _coreBetSettingService.IsBetSettingEditable();
+            await _coreBetSettingService.IsBetSettingEditableAsync();
 
             // Assert
             _authorizationService.Received(1).HasPermissions(userSession.PortalFunctionList, PermissionKeys.CustomerInfoEditBetSetting);
         }
 
         [Test]
-        public void IsBetSettingEditable_IsNotParasiticMode_GetPermissionFromFunctionIdList()
+        public async Task IsBetSettingEditable_IsNotParasiticMode_GetPermissionFromFunctionIdList()
         {
             // Arrange
             var userSession = new UserSession
@@ -95,7 +95,7 @@
             _sessionService.UserSession.Returns(userSession);
 
             // Action
-            _coreBetSettingService.IsBetSettingEditable();
+            await _coreBetSettingService.IsBetSettingEditableAsync();
 
             // Assert
             _authorizationService.Received(1).HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting);
@@ -108,10 +108,10 @@
             const int CustId = 3434;
             _customerService.GetCustomerInfo(LicenseeId, CustId).Returns(new CustomerInfo { SyncCasino = true });
 
-            _coreBetSettingDataAccess.GetBetSettingProducts(LicenseeId).Returns(GetSampleBetSettingProducts());
+            _coreBetSettingDataAccess.GetBetSettingProductsAsync(LicenseeId).Returns(Task.FromResult(GetSampleBetSettingProducts()));
 
             // Action
-            var result = await _coreBetSettingService.GetBetSettingProducts(CustId);
+            var result = await _coreBetSettingService.GetBetSettingProductsAsync(CustId);
 
             // Assert
             Assert.That(
@@ -126,10 +126,10 @@
             const int CustId = 3434;
             _customerService.GetCustomerInfo(LicenseeId, CustId).Returns(new CustomerInfo { SyncCasino = false });
 
-            _coreBetSettingDataAccess.GetBetSettingProducts(LicenseeId).Returns(GetSampleBetSettingProducts());
+            _coreBetSettingDataAccess.GetBetSettingProductsAsync(LicenseeId).Returns(Task.FromResult(GetSampleBetSettingProducts()));
 
             // Action
-            var result = await _coreBetSettingService.GetBetSettingProducts(CustId).ConfigureAwait(false);
+            var result = await _coreBetSettingService.GetBetSettingProductsAsync(CustId).ConfigureAwait(false);
 
             // Assert
             Assert.That(

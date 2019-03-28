@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 throw new ArgumentException("Not a thirdparty product.");
             }
 
-            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId);
+            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
             if (viewModel == null)
             {
                 return this.Redirect("~/Utility/AccessDenied");
@@ -110,14 +110,14 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             var userSession = SessionService.UserSession;
             var isEnabled = status == 1;
-            var result = _betSettingService.UpdateStatus(
+            var result = await _betSettingService.UpdateStatusAsync(
                 SessionService.LicenseeSession.LicenseeId,
                 productId,
                 userSession.UserId,
                 custId,
                 userSession.Language,
                 Request.UserHostAddress,
-                isEnabled);
+                isEnabled).ConfigureAwait(false);
 
             if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
             {

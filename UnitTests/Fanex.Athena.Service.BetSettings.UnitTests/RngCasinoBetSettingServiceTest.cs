@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using BetSettings;
     using Casino.Interfaces;
     using Casino.Wrappers;
@@ -120,7 +121,7 @@
         }
 
         [Test]
-        public void UpdateStatus_NoPermission_ReturnErrorResult()
+        public async Task UpdateStatusAsync_NoPermission_ReturnErrorResult()
         {
             // Arrange
             var metaModel = new BetSettingCasinoStatusMetaModel
@@ -132,19 +133,19 @@
             _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _service.UpdateStatus(metaModel);
+            var result = await _service.UpdateStatusAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.DidNotReceive().UpdateStatus(metaModel);
+                _dataAccess.DidNotReceive().UpdateStatusAsync(metaModel);
                 Assert.That(result.IsSuccessful, Is.False);
                 Assert.That(result.Message, Is.EqualTo(ViewResources.AccessDeniedMsg));
             });
         }
 
         [Test]
-        public void UpdateStatus_UpdateSettingIsNotAvailable_ReturnErrorResult()
+        public async Task UpdateStatusAsync_UpdateSettingIsNotAvailable_ReturnErrorResult()
         {
             // Arrange
             var metaModel = new BetSettingCasinoStatusMetaModel
@@ -157,19 +158,19 @@
             _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, Arg.Any<long>()).Returns(true);
 
             // Action
-            var result = _service.UpdateStatus(metaModel);
+            var result = await _service.UpdateStatusAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.DidNotReceive().UpdateStatus(metaModel);
+                _dataAccess.DidNotReceive().UpdateStatusAsync(metaModel);
                 Assert.That(result.IsSuccessful, Is.False);
                 Assert.That(result.Message, Is.EqualTo(ViewResources.RNGCasinoUpdateSettingUnAvailableMsg));
             });
         }
 
         [Test]
-        public void UpdateStatus_ApiReturnsFalse_ReturnErrorResult()
+        public async Task UpdateStatusAsync_ApiReturnsFalse_ReturnErrorResult()
         {
             // Arrange
             var metaModel = new BetSettingCasinoStatusMetaModel
@@ -185,19 +186,19 @@
                 .Returns(false);
 
             // Action
-            var result = _service.UpdateStatus(metaModel);
+            var result = await _service.UpdateStatusAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.DidNotReceive().UpdateStatus(metaModel);
+                _dataAccess.DidNotReceive().UpdateStatusAsync(metaModel);
                 Assert.That(result.IsSuccessful, Is.False);
                 Assert.That(result.Message, Is.EqualTo(ViewResources.UpdateUnSuccess));
             });
         }
 
         [Test]
-        public void UpdateStatus_ApiReturnsTrue_CallDataAccessMethod()
+        public async Task UpdateStatusAsync_ApiReturnsTrue_CallDataAccessMethod()
         {
             // Arrange
             var metaModel = new BetSettingCasinoStatusMetaModel
@@ -213,10 +214,10 @@
                 .Returns(true);
 
             // Action
-            var result = _service.UpdateStatus(metaModel);
+            var result = await _service.UpdateStatusAsync(metaModel);
 
             // Assert
-            _dataAccess.Received().UpdateStatus(metaModel);
+            _dataAccess.Received().UpdateStatusAsync(metaModel);
         }
 
         [Test]

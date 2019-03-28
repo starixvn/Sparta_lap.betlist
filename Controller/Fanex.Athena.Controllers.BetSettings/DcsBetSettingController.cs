@@ -87,12 +87,12 @@ namespace Fanex.Athena.Controllers.BetSettings
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             if (ProductsHasStatus.Contains(metaModel.ProductId))
             {
-                viewModel.IsEnabled = _betSettingService.GetStatus(licenseeId, metaModel.CustId, metaModel.ProductId);
+                viewModel.IsEnabled = await  _betSettingService.GetStatusAsync(licenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
             }
 
             if (ProductsHasBetLimit.Contains(metaModel.ProductId))
             {
-                viewModel.MainData = _betSettingService.GetBetSettings(licenseeId, metaModel.CustId, metaModel.ProductId);
+                viewModel.MainData = await _betSettingService.GetBetSettingsAsync(licenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
             }
 
             return View(viewPath, viewModel);
@@ -109,13 +109,13 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateStatus(
+            var result = await _betSettingService.UpdateStatusAsync(
                 SessionService.LicenseeSession.LicenseeId,
                 userSession.UserId,
                 custId,
                 Request.UserHostAddress,
                 status == 1,
-                productId);
+                productId).ConfigureAwait(false);
 
             if (result.Code == 0)
             {
@@ -143,12 +143,12 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
             }
 
-            var result = _betSettingService.UpdateBetSetting(
+            var result = await _betSettingService.UpdateBetSettingAsync(
                 commonParam.LicenseeId,
                 commonParam.CustId,
                 commonParam.UserId,
                 commonParam.Ip,
-                parameters);
+                parameters).ConfigureAwait(false);
 
             if (result.Code == 0)
             {

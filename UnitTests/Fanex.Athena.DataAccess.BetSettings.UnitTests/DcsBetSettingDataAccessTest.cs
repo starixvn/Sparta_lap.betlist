@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.UnitTests.TestHelpers;
     using NSubstitute;
@@ -19,7 +20,7 @@
         }
 
         [Test]
-        public void GetStatus_WhenCall_ParameterPassedCorrectly()
+        public void GetStatusAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_StatusSettingSelect")).Returns(ObjectDb);
@@ -27,7 +28,7 @@
             const int ProductId = 2;
 
             // Action
-            DataAccess.GetStatus(CustId, ProductId);
+            DataAccess.GetStatusAsync(CustId, ProductId);
 
             // Assert
             Assert.Multiple(() =>
@@ -41,7 +42,7 @@
         [TestCase(true, 1, false)]
         [TestCase(false, 0, null)]
         [TestCase(false, 1, null)]
-        public void GetStatus_WhenCall_DataReturnCorrectly(bool hasData, int? isDisabled, bool? expectedResult)
+        public void GetStatusAsync_WhenCall_DataReturnCorrectly(bool hasData, int? isDisabled, bool? expectedResult)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_StatusSettingSelect")).Returns(ObjectDb);
@@ -53,14 +54,14 @@
             const int ProductId = 2;
 
             // Action
-            var result = DataAccess.GetStatus(CustId, ProductId);
+            var result = DataAccess.GetStatusAsync(CustId, ProductId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_ParameterPassedCorrectly()
+        public void UpdateStatusAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             const string ExpectedIsDisabledParam = @"<ROOT><ProductStatus SportType=""211"" BetType=""2401"" IsDisabled=""0"" IsDisabledDownline=""0"" /></ROOT>";
@@ -73,7 +74,7 @@
             ObjectDb.GetParameterValue("ErrCode").Returns(1);
 
             // Action
-            DataAccess.UpdateStatus(userId, custId, ip, status, productId);
+            DataAccess.UpdateStatusAsync(userId, custId, ip, status, productId);
 
             // Assert
             Assert.Multiple(() =>
@@ -88,7 +89,7 @@
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_DataReturnCorrectly()
+        public async Task UpdateStatusAsync_WhenCall_DataReturnCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_DisableStatUpd")).Returns(ObjectDb);
@@ -96,7 +97,7 @@
             ObjectDb.GetParameterValue("ErrMsg").Returns("abc");
 
             // Action
-            var result = DataAccess.UpdateStatus(0, 0, string.Empty, false, ProductTypes.AllBet);
+            var result = await DataAccess.UpdateStatusAsync(0, 0, string.Empty, false, ProductTypes.AllBet);
 
             // Assert
             Assert.Multiple(() =>
@@ -107,7 +108,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_ParameterPassedCorrectly()
+        public void UpdateBetSettingAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             const int CustId = 1;
@@ -120,7 +121,7 @@
             ObjectDb.GetParameterValue("ErrMsg").Returns(string.Empty);
 
             // Action
-            DataAccess.UpdateBetSetting(CustId, UserId, Ip, XmlData);
+            DataAccess.UpdateBetSettingAsync(CustId, UserId, Ip, XmlData);
 
             // Assert
             Assert.Multiple(() =>
@@ -135,7 +136,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_DataReturnCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_DataReturnCorrectly()
         {
             // Arrange
             const int CustId = 1;
@@ -148,7 +149,7 @@
             ObjectDb.GetParameterValue("ErrMsg").Returns("<Root Msg='Error'></Root>");
 
             // Action
-            var result = DataAccess.UpdateBetSetting(CustId, UserId, Ip, XmlData);
+            var result = await DataAccess.UpdateBetSettingAsync(CustId, UserId, Ip, XmlData);
 
             // Assert
             Assert.Multiple(() =>

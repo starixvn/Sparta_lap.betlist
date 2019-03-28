@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using BetSettings.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.Service.StatelessCore.Interfaces;
@@ -28,11 +29,18 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = betSettingDataAccess;
         }
 
-        public BetSettingViewModel GetViewModel(int licenseeId, int custId)
+        public async Task<BetSettingViewModel> GetViewModelAsync(int licenseeId, int custId)
         {
-            var betSettings = HasPermissionOnData(licenseeId, custId)
-                        ? _betSettingDataAccess.GetBetSetting(custId)
-                        : new List<BetSetting>();
+            if (!HasPermissionOnData(licenseeId, custId))
+            {
+                return new BetSettingViewModel
+                {
+                    MainData = new List<BetSetting>()
+                };
+            }
+
+            var betSettings = await _betSettingDataAccess.GetBetSettingAsync(custId).ConfigureAwait(false);
+
             return new BetSettingViewModel
             {
                 MainData = betSettings
@@ -45,7 +53,7 @@ namespace Fanex.Athena.Service.BetSettings
         /// <param name="setting">The metal model.</param>
         /// <param name="data">The parameter.</param>
         /// <returns>The information of result.</returns>
-        public IResultInfo UpdateBetSetting(CommonBetSetting setting, Hashtable data)
+        public async Task<IResultInfo> UpdateBetSettingAsync(CommonBetSetting setting, Hashtable data)
         {
             if (!HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
@@ -69,7 +77,7 @@ namespace Fanex.Athena.Service.BetSettings
                 MaxPerBall = (decimal)data["maxperball"]
             };
 
-            return _betSettingDataAccess.UpdateBetSetting(numberGameBetSetting);
+            return await _betSettingDataAccess.UpdateBetSettingAsync(numberGameBetSetting);
         }
     }
 }

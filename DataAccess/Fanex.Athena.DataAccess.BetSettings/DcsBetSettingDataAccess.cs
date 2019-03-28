@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
+    using System.Threading.Tasks;
     using System.Xml.Linq;
     using Constant.DataDomain;
     using Core;
@@ -55,7 +55,7 @@
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public bool? GetStatus(int custId, int productId)
+        public async Task<bool?> GetStatusAsync(int custId, int productId)
         {
             var uspName = "Acc_Dep_CustSetting_StatusSettingSelect";
             using (var db = this.GetObjectDb(uspName))
@@ -65,7 +65,7 @@
                 db.SetParameterValue("SettingType", ProductStatusSettingType);
                 db.SetParameterValue("RoleID", MemberRoleId);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     if (reader.Read())
                     {
@@ -77,7 +77,7 @@
             return null;
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, string ip, bool status, int productId)
+        public async Task<IResultInfo> UpdateStatusAsync(int userId, int custId, string ip, bool status, int productId)
         {
             var uspName = "Acc_Dep_CustSetting_DisableStatUpd";
 
@@ -91,7 +91,7 @@
                 db.SetParameterValue("ErrCode", null);
                 db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var result = GetResult(db);
                 result.Message = GetErrorMessage(result.Message);
@@ -99,7 +99,7 @@
             }
         }
 
-        public IList<BetSetting> GetBetSetting(int custId, int productId)
+        public async Task<IList<BetSetting>> GetBetSettingAsync(int custId, int productId)
         {
             var uspName = "Acc_Dep_CustSetting_BetLimitSettingSelect";
 
@@ -110,31 +110,33 @@
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("productid", productId);
 
-                var reader = db.ExecuteReader();
-                while (reader.Read())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    var sportId = reader.ToString("sporttype");
-                    var virtualSportsItem = new BetSetting
+                    while (reader.Read())
                     {
-                        MinBet = reader.ToDecimal("minbet"),
-                        BetValueMin = reader.ToDecimal("minbetmin"),
-                        MaxBet = reader.ToDecimal("maxbet"),
-                        BetValueMax = reader.ToDecimal("maxbetmax"),
-                        MaxPerMatch = reader.ToDecimal("maxpermatch"),
-                        MaxPerMatchMax = reader.ToDecimal("maxpermatchmax"),
-                        SportId = sportId,
-                        BetSettingType = _cacheRefAdapter.GetSportName(sportId),
-                        BetType = reader.ToInt("bettype")
-                    };
+                        var sportId = reader.ToString("sporttype");
+                        var virtualSportsItem = new BetSetting
+                        {
+                            MinBet = reader.ToDecimal("minbet"),
+                            BetValueMin = reader.ToDecimal("minbetmin"),
+                            MaxBet = reader.ToDecimal("maxbet"),
+                            BetValueMax = reader.ToDecimal("maxbetmax"),
+                            MaxPerMatch = reader.ToDecimal("maxpermatch"),
+                            MaxPerMatchMax = reader.ToDecimal("maxpermatchmax"),
+                            SportId = sportId,
+                            BetSettingType = _cacheRefAdapter.GetSportName(sportId),
+                            BetType = reader.ToInt("bettype")
+                        };
 
-                    dataList.Add(virtualSportsItem);
+                        dataList.Add(virtualSportsItem);
+                    }
                 }
             }
 
             return dataList;
         }
 
-        public IResultInfo UpdateBetSetting(int custId, int userId, string ip, string xmlData)
+        public async Task<IResultInfo> UpdateBetSettingAsync(int custId, int userId, string ip, string xmlData)
         {
             var uspName = "Acc_Dep_CustSetting_BetLimitUpd";
 
@@ -146,7 +148,8 @@
                 db.SetParameterValue("betlimit", xmlData);
                 db.SetParameterValue("errcode", null);
                 db.SetParameterValue("errmsg", null);
-                db.ExecuteNonQuery();
+
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var result = GetResult(db);
                 result.Message = GetErrorMessage(result.Message);

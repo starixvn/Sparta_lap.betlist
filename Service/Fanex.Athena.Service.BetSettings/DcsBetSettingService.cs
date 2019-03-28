@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections.Generic;
     using System.Text;
+    using System.Threading.Tasks;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Interfaces;
@@ -25,17 +26,17 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = betSettingDataAccess;
         }
 
-        public bool? GetStatus(int licenseeId, int custId, int productId)
+        public async Task<bool?> GetStatusAsync(int licenseeId, int custId, int productId)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
 
-            return _betSettingDataAccess.GetStatus(custId, productId);
+            return await _betSettingDataAccess.GetStatusAsync(custId, productId);
         }
 
-        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string ip, bool status, int productId)
+        public async Task<IResultInfo> UpdateStatusAsync(int licenseeId, int userId, int custId, string ip, bool status, int productId)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
@@ -46,17 +47,20 @@ namespace Fanex.Athena.Service.BetSettings
                 };
             }
 
-            return _betSettingDataAccess.UpdateStatus(userId, custId, ip, status, productId);
+            return await _betSettingDataAccess.UpdateStatusAsync(userId, custId, ip, status, productId);
         }
 
-        public IList<BetSetting> GetBetSettings(int licenseeId, int custId, int productId)
+        public async Task<IList<BetSetting>> GetBetSettingsAsync(int licenseeId, int custId, int productId)
         {
-            return HasPermissionOnData(licenseeId, custId)
-                        ? _betSettingDataAccess.GetBetSetting(custId, productId)
-                        : new List<BetSetting>();
+            if (!HasPermissionOnData(licenseeId, custId))
+            {
+                return new List<BetSetting>();
+            }
+
+            return await _betSettingDataAccess.GetBetSettingAsync(custId, productId);
         }
 
-        public IResultInfo UpdateBetSetting(int licenseeId, int custId, int userId, string ip, IEnumerable<DcsBetSetting> betSettings)
+        public async Task<IResultInfo> UpdateBetSettingAsync(int licenseeId, int custId, int userId, string ip, IEnumerable<DcsBetSetting> betSettings)
         {
             const string XMLPattern = "<ROOT>{0}</ROOT>";
             const string XMLElement = "<BetLimit SportType=\"{0}\" BetType=\"{1}\" MinBet=\"{2}\" MaxBet=\"{3}\" MaxPerMatch=\"{4}\" ></BetLimit>";
@@ -74,7 +78,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             var xmlparam = string.Format(XMLPattern, xmlElementBuilder);
 
-            return _betSettingDataAccess.UpdateBetSetting(
+            return await _betSettingDataAccess.UpdateBetSettingAsync(
                 custId,
                 userId,
                 ip,

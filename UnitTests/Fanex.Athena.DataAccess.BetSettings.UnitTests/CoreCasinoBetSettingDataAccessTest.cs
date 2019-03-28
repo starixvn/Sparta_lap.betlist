@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Common.Constants;
     using Core.Common.Interfaces;
     using Core.UnitTests.TestHelpers;
@@ -29,7 +30,7 @@
         }
 
         [Test]
-        public void UpdateCasinoStatus_WhenCall_ParametersPassedCorrectly()
+        public async Task UpdateCasinoStatusAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdCasinoStatus")).Returns(ObjectDb);
@@ -44,7 +45,7 @@
             var sportId = 3;
 
             // Action
-            DataAccess.UpdateCasinoStatus(metaModel, sportId);
+            await DataAccess.UpdateCasinoStatusAsync(metaModel, sportId);
 
             // Assert
             Assert.Multiple(() =>
@@ -62,7 +63,7 @@
 
         [TestCase(1, 0)]
         [TestCase(2, 1)]
-        public void WriteLogUpdatingAction_WhenCall_ParametersPassedCorrectly(int status, int expectedTrackingStatus1)
+        public async Task WriteLogUpdatingAction_WhenCall_ParametersPassedCorrectly(int status, int expectedTrackingStatus1)
         {
             // Arrange
             const string TrackingValueTemplate = "<Lrf_CustomerUpdCasinoStatus UserID=\"1\" CustID=\"2\" SportID=\"3\" "
@@ -80,7 +81,7 @@
             const int SportId = 3;
 
             // Action
-            DataAccess.UpdateCasinoStatus(metaModel, SportId);
+            await DataAccess.UpdateCasinoStatusAsync(metaModel, SportId);
 
             Func<UserLogMetaModel, bool> matchUserInfo = x =>
                 x.ActionID == UserLogAction.LiveCasinoBetSetting &&

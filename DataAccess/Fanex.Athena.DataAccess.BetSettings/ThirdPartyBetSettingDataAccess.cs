@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.BetSettings
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Common;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.BetSettings.DTO;
@@ -15,7 +15,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class ThirdPartyBetSettingDataAccess : BaseDataAccess, IThirdPartyBetSettingDataAccess
     {
-        public ThirdPartyBetSetting GetBetSetting(int custId, int productid)
+        public async Task<ThirdPartyBetSetting> GetBetSettingAsync(int custId, int productid)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
             using (var db = this.GetObjectDb(uspName))
@@ -26,7 +26,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("IsLineEnabled", null);
                 db.SetParameterValue("Currency", null);
 
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return new ThirdPartyBetSetting
                 {
@@ -37,7 +37,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        public IResultInfo UpdateStatus(
+        public async Task<IResultInfo> UpdateStatusAsync(
             int productId,
             int userId,
             int custId,
@@ -58,7 +58,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
                 db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var errorMessage = db.GetParameterValue("ErrMsg");
 

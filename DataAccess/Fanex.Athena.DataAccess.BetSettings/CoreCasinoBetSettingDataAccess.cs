@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.BetSettings
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Common;
     using Core.Common.Constants;
     using Core.Common.Interfaces;
@@ -27,7 +27,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             _userLogDataAccess = userLogDataAccess;
         }
 
-        public IResultInfo UpdateCasinoStatus(CoreCasinoStatusMetaModel metaModel, int sportId)
+        public async Task<IResultInfo> UpdateCasinoStatusAsync(CoreCasinoStatusMetaModel metaModel, int sportId)
         {
             var uspName = "Lrf_CustomerUpdCasinoStatus";
 
@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.SetParameterValue("ErrCode", null);
                 db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQueryAsync();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var errorCode = Converter.ToInt(db.GetParameterValue("ErrCode"));
                 var errorMessage = Converter.ToString2(db.GetParameterValue("ErrMsg"));

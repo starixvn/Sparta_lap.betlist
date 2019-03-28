@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
@@ -24,21 +25,21 @@
         }
 
         [Test]
-        public void GetBetSetting_WhenCall_ParametersPassedCorrectly()
+        public async Task GetBetSettingAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditNG")).Returns(ObjectDb);
             var custId = 1;
 
             // Action
-            DataAccess.GetBetSetting(custId);
+            await DataAccess.GetBetSettingAsync(custId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("CustID", custId);
         }
 
         [Test]
-        public void GetBetSetting_WhenCall_DataReturnedCorrectly()
+        public async Task GetBetSettingAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditNG")).Returns(ObjectDb);
@@ -46,14 +47,15 @@
             Reader.FieldCount.Returns(1);
 
             // Action
-            var result = DataAccess.GetBetSetting(0)[0];
+            var result = await DataAccess.GetBetSettingAsync(0);
+            var firstItem = result[0];
 
             // Assert
-            Assert.That(result.SportId, Is.EqualTo(((int)SportType.NumberGame).ToString()));
+            Assert.That(firstItem.SportId, Is.EqualTo(((int)SportType.NumberGame).ToString()));
         }
 
         [Test]
-        public void GetBetSetting_WhenCall_FieldCountIsZero_ReturnNull()
+        public async Task GetBetSettingAsync_WhenCall_FieldCountIsZero_ReturnNull()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditNG")).Returns(ObjectDb);
@@ -62,21 +64,21 @@
             Reader.FieldCount.Returns(0);
 
             // Action
-            var result = DataAccess.GetBetSetting(0);
+            var result = await DataAccess.GetBetSettingAsync(0);
 
             // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_ParametersPassedCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_MinMaxBet161")).Returns(ObjectDb);
             var param = GetNumberGameBetSetting();
 
             // Action
-            DataAccess.UpdateBetSetting(param);
+            await DataAccess.UpdateBetSettingAsync(param);
 
             // Assert
             Assert.Multiple(() =>
@@ -95,7 +97,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_DataReturnedCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_MinMaxBet161")).Returns(ObjectDb);
@@ -109,7 +111,7 @@
             ObjectDb.GetParameterValue("ErrMsg").Returns(expected.Message);
 
             // Action
-            var result = DataAccess.UpdateBetSetting(param);
+            var result = await DataAccess.UpdateBetSettingAsync(param);
 
             // Assert
             Assert.Multiple(() =>

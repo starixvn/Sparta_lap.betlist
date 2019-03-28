@@ -10,14 +10,14 @@
     public class AgCasinoBetSettingDataAccessTest : BaseDataAccessHelperTest<AgCasinoBetSettingDataAccess>
     {
         [Test]
-        public async Task GetBetSetting_WhenCall_ParameterPassedCorrectly()
+        public async Task GetBetSettingAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_SelCustSetting")).Returns(ObjectDb);
             var custId = 1;
 
             // Action
-            await DataAccess.GetBetSetting(custId);
+            await DataAccess.GetBetSettingAsync(custId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("CustID", custId);
@@ -29,7 +29,7 @@
         }
 
         [Test]
-        public async Task UpdateBetSetting_WhenCall_ParameterPassedCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustSetting")).Returns(ObjectDb);
@@ -43,7 +43,7 @@
             };
 
             // Action
-            await DataAccess.UpdateBetSetting(data, group);
+            await DataAccess.UpdateBetSettingAsync(data, group);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("aggroup", group);
@@ -56,7 +56,7 @@
         }
 
         [Test]
-        public async Task UpdateStatus_WhenCall_ParameterPassedCorrectly()
+        public async Task UpdateStatusAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustStatus")).Returns(ObjectDb);
@@ -67,7 +67,7 @@
             var isEnabled = true;
 
             // Action
-            await DataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
+            await DataAccess.UpdateStatusAsync(userId, custId, language, ip, isEnabled);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("isenabled", isEnabled);

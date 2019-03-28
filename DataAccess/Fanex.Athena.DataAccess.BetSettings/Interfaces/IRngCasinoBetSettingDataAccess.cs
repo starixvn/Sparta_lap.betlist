@@ -6,11 +6,12 @@
 
 namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Model.BetSettings.MetaModel;
 
     public interface IRngCasinoBetSettingDataAccess
     {
-        IResultInfo UpdateStatus(CoreCasinoStatusMetaModel metaModel);
+        Task<IResultInfo> UpdateStatusAsync(CoreCasinoStatusMetaModel metaModel);
     }
 }

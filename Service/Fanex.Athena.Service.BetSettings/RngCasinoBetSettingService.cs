@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Casino.Interfaces;
     using Casino.Wrappers;
     using DataAccess.BetSettings.Interfaces;
@@ -57,7 +58,7 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IResultInfo UpdateStatus(BetSettingCasinoStatusMetaModel metaModel)
+        public async Task<IResultInfo> UpdateStatusAsync(BetSettingCasinoStatusMetaModel metaModel)
         {
             if (!HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId))
             {
@@ -71,7 +72,7 @@ namespace Fanex.Athena.Service.BetSettings
                     return ErrorResult(ViewResources.UpdateUnSuccess);
                 }
 
-                return _betSettingDataAccess.UpdateStatus(metaModel);
+                return await _betSettingDataAccess.UpdateStatusAsync(metaModel);
             }
 
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };

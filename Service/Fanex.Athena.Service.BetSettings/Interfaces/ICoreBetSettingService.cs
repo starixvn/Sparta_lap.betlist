@@ -15,8 +15,8 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     {
         CustomerInfo GetCustomerInfo(int custId);
 
-        Task<bool> IsBetSettingEditable();
+        Task<bool> IsBetSettingEditableAsync();
 
-        Task<IEnumerable<BetSettingProduct>> GetBetSettingProducts(int custId);
+        Task<IEnumerable<BetSettingProduct>> GetBetSettingProductsAsync(int custId);
     }
 }

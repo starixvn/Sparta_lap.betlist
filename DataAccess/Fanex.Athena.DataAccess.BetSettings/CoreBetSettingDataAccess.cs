@@ -15,7 +15,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class CoreBetSettingDataAccess : BaseDataAccess, ICoreBetSettingDataAccess
     {
-        public async Task<IEnumerable<BetSettingProduct>> GetBetSettingProducts(int licenseeId)
+        public async Task<IEnumerable<BetSettingProduct>> GetBetSettingProductsAsync(int licenseeId)
         {
             var uspName = "Lrf_LicenseeProductSel";
             using (var db = this.GetObjectDb(uspName))
@@ -24,7 +24,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 {
                     { "licenseeid", licenseeId }
                 };
-                return await db.QueryAsync<BetSettingProduct>(param).ConfigureAwait(false);
+                return await db.QueryAsync<BetSettingProduct>(param);
             }
         }
     }

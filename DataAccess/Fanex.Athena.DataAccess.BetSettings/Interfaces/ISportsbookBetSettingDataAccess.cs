@@ -7,14 +7,15 @@
 namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Model.BetSettings.ViewModel;
 
     public interface ISportsbookBetSettingDataAccess
     {
-        BetSettingViewModel GetBetSetting(int custId);
+        Task<BetSettingViewModel> GetBetSettingAsync(int custId);
 
-        IResultInfo UpdateBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
+        Task<IResultInfo> UpdateBetSettingAsync(CommonBetSetting data, IDictionary<string, object> setting);
     }
 }

@@ -13,10 +13,10 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 
     public interface IAgCasinoBetSettingDataAccess
     {
-        Task<AgCasinoBetSetting> GetBetSetting(int custId);
+        Task<AgCasinoBetSetting> GetBetSettingAsync(int custId);
 
-        Task<IResultInfo> UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        Task<IResultInfo> UpdateStatusAsync(int userId, int custId, string language, string ip, bool isEnabled);
 
-        Task<IResultInfo> UpdateBetSetting(CommonBetSetting data, string group);
+        Task<IResultInfo> UpdateBetSettingAsync(CommonBetSetting data, string group);
     }
 }

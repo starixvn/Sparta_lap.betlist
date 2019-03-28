@@ -111,7 +111,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 UserName = userSession.UserName,
                 IsSyncCasino = customer.SyncCasino
             };
-            var result = _betSettingService.UpdateStatus(metaModel);
+            var result = await _betSettingService.UpdateStatusAsync(metaModel).ConfigureAwait(false);
 
             if (result.Code == 0)
             {

@@ -3,13 +3,13 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Fanex.Athena.Extension.Utility;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Interfaces;
     using Utility;
 
     [TestFixture]
@@ -32,21 +32,21 @@
         }
 
         [Test]
-        public void GetBetSetting_WhenCall_ParametersPassedCorrectly()
+        public async Task GetBetSettingAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditCustomer")).Returns(ObjectDb);
             const int CustId = 1;
 
             // Action
-            DataAccess.GetBetSetting(CustId);
+            await DataAccess.GetBetSettingAsync(CustId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("CustID", CustId);
         }
 
         [Test]
-        public void GetBetSetting_ReaderNotHaveData_ReturnDefaultResult()
+        public async Task GetBetSettingAsync_ReaderNotHaveData_ReturnDefaultResult()
         {
             // Arrange
             _appSetting.IsShowMixedSport.Returns(true);
@@ -55,7 +55,7 @@
             Reader.Read().Returns(false);
 
             // Action
-            var result = DataAccess.GetBetSetting(Arg.Any<int>());
+            var result = await DataAccess.GetBetSettingAsync(Arg.Any<int>());
 
             // Assert
             Assert.Multiple(() =>
@@ -66,7 +66,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void GetBetSetting_WhenCall_DataReturnCorrectly(bool isShowMixedSport)
+        public async Task GetBetSettingAsync_WhenCall_DataReturnCorrectly(bool isShowMixedSport)
         {
             // Arrange
             _appSetting.IsShowMixedSport.Returns(isShowMixedSport);
@@ -84,7 +84,7 @@
             }
 
             // Action
-            var result = DataAccess.GetBetSetting(CustId);
+            var result = await DataAccess.GetBetSettingAsync(CustId);
             var sportIdList = string.Join(",", result.MainData.Select(x => x.SportId));
 
             // Assert
@@ -96,7 +96,7 @@
 
         [TestCase("UpdateMinMaxBet", true)]
         [TestCase("Test", 1)]
-        public void UpdateBetSetting_WhenCall_ParametersPassedCorrectly(string paramterName, object parameterValue)
+        public async Task UpdateBetSettingAsync_WhenCall_ParametersPassedCorrectly(string paramterName, object parameterValue)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_All")).Returns(ObjectDb);
@@ -111,7 +111,7 @@
             var setting = new Dictionary<string, object> { { paramterName, parameterValue } };
 
             // Action
-            DataAccess.UpdateBetSetting(data, setting);
+            await DataAccess.UpdateBetSettingAsync(data, setting);
 
             // Assert
             Assert.Multiple(() =>
@@ -128,7 +128,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_DataReturnedCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_All")).Returns(ObjectDb);
@@ -149,7 +149,7 @@
             StubGetResultInfo(expected.Code, expected.Message);
 
             // Action
-            var result = DataAccess.UpdateBetSetting(data, setting);
+            var result = await DataAccess.UpdateBetSettingAsync(data, setting);
 
             // Assert
             // Assert

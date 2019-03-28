@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Interfaces;
     using Model.BetSettings.MetaModel;
@@ -25,7 +26,7 @@
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_CallCoreCasinoBetSettingDataAccess()
+        public async Task UpdateStatusAsync_WhenCall_CallCoreCasinoBetSettingDataAccess()
         {
             // Arrange
             var metaModel = new BetSettingCasinoStatusMetaModel
@@ -39,10 +40,10 @@
             const int RngCasinoSportId = 251;
 
             // Action
-            DataAccess.UpdateStatus(metaModel);
+            await DataAccess.UpdateStatusAsync(metaModel);
 
             // Assert
-            _coreCasinoBetSettingDataAccess.Received().UpdateCasinoStatus(metaModel, RngCasinoSportId);
+            _coreCasinoBetSettingDataAccess.Received().UpdateCasinoStatusAsync(metaModel, RngCasinoSportId);
         }
     }
 }

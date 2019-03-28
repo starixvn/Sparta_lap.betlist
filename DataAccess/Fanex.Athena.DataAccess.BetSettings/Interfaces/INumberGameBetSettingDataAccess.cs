@@ -7,13 +7,14 @@
 namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DTO.Common;
 
     public interface INumberGameBetSettingDataAccess
     {
-        IList<BetSetting> GetBetSetting(int custId);
+        Task<IList<BetSetting>> GetBetSettingAsync(int custId);
 
-        IResultInfo UpdateBetSetting(NumberGameBetSetting param);
+        Task<IResultInfo> UpdateBetSettingAsync(NumberGameBetSetting param);
     }
 }

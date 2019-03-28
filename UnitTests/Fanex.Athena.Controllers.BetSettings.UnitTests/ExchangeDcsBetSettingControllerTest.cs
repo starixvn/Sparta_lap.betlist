@@ -34,15 +34,15 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public async Task Index_CallApiSuccessfully_ReturnCorrectViewResult(bool isEnabled)
+        public async Task Index_CallApiSuccessfully_ReturnCorrectViewResult(bool? isEnabled)
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
 
-                _betSettingService.GetStatus(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
-                    .Returns(isEnabled);
+                _betSettingService.GetStatusAsync(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
+                    .Returns(Task.FromResult(isEnabled));
 
                 const double ExtendedData = 10d;
                 _exchangeCommApiService.GetCommission(DefaultLicenseeSession.LicenseeId, metaModel.CustId)
@@ -65,15 +65,15 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public async Task Index_CallApiFailed_ReturnCorrectViewResult(bool isEnabled)
+        public async Task Index_CallApiFailed_ReturnCorrectViewResult(bool? isEnabled)
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
 
-                _betSettingService.GetStatus(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
-                    .Returns(isEnabled);
+                _betSettingService.GetStatusAsync(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
+                    .Returns(Task.FromResult(isEnabled));
 
                 _exchangeCommApiService.GetCommission(DefaultLicenseeSession.LicenseeId, metaModel.CustId)
                     .Returns(new ResultInfo<double> { Code = 1, Message = "Error" });
@@ -96,7 +96,7 @@
         [TestCase(1)]
         [TestCase(1.5)]
         [TestCase(7.5)]
-        public void UpdateComm_InvalidNewCommissionValue_ReturnFailedResult(double newComm)
+        public async Task UpdateComm_InvalidNewCommissionValue_ReturnFailedResult(double newComm)
         {
             using (var controller = CreateController())
             {
@@ -104,7 +104,7 @@
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
 
                 // Action
-                var result = controller.UpdateComm(0, 0, newComm) as JsonResult;
+                var result = await controller.UpdateComm(0, 0, newComm) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -119,7 +119,7 @@
         [TestCase(2)]
         [TestCase(3.5)]
         [TestCase(5.5)]
-        public void UpdateComm_ValidNewCommissionValue_ReturnCorrectResult(double newComm)
+        public async Task UpdateComm_ValidNewCommissionValue_ReturnCorrectResult(double newComm)
         {
             using (var controller = CreateController())
             {
@@ -127,11 +127,11 @@
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
                 var expectedResultInfo = new ResultInfo<double> { Code = 1, Message = "Test" };
 
-                _exchangeCommApiService.UpdateCommission(DefaultLicenseeSession.LicenseeId, DefaultUserSession.UserId, 0, 0, newComm)
-                    .Returns(expectedResultInfo);
+                _exchangeCommApiService.UpdateCommissionAsync(DefaultLicenseeSession.LicenseeId, DefaultUserSession.UserId, 0, 0, newComm)
+                    .Returns(Task.FromResult<IResultInfo<double>>(expectedResultInfo));
 
                 // Action
-                var result = controller.UpdateComm(0, 0, newComm) as JsonResult;
+                var result = await controller.UpdateComm(0, 0, newComm) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert

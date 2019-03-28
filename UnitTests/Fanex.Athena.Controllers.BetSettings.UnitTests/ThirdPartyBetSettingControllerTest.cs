@@ -39,8 +39,8 @@
                 // Arrange
                 var metaModel = new BetSettingMetaModel { ProductId = ProductTypes.Macau, CustId = 100 };
                 
-                _betSettingService.GetViewModel(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
-                    .Returns(x => { return null; });
+                _betSettingService.GetViewModelAsync(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
+                    .Returns(Task.FromResult<ThirdPartyBetSettingViewModel>(null));
 
                 // Action
                 var result = await controller.Index(metaModel) as RedirectResult;
@@ -62,8 +62,8 @@
                 // Arrange
                 var metaModel = new BetSettingMetaModel { ProductId = productId };
 
-                _betSettingService.GetViewModel(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
-                    .Returns(new ThirdPartyBetSettingViewModel());
+                _betSettingService.GetViewModelAsync(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
+                    .Returns(Task.FromResult(new ThirdPartyBetSettingViewModel()));
 
                 // Action
                 var result = await controller.Index(metaModel) as ViewResult;
@@ -88,8 +88,8 @@
                 // Arrange
                 var metaModel = new BetSettingMetaModel { ProductId = productId };
 
-                _betSettingService.GetViewModel(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
-                    .Returns(new ThirdPartyBetSettingViewModel());
+                _betSettingService.GetViewModelAsync(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
+                    .Returns(Task.FromResult(new ThirdPartyBetSettingViewModel()));
 
                 // Action
                 AsyncTestDelegate testDelegate = () => controller.Index(metaModel);
@@ -106,7 +106,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product>()));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
 
                 // Action
                 var result = await controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
@@ -128,18 +128,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    Arg.Any<int>(),
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
                 var result = await controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
@@ -161,18 +161,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    Arg.Any<int>(),
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 1, Message = "Error" }));
 
                 // Action
                 var result = await controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
@@ -190,18 +190,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    Arg.Any<int>(),
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
                 var result = await controller.UpdateBetTradeStatus(0, string.Empty, 0) as JsonResult;
@@ -223,18 +223,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    Arg.Any<int>(),
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 1, Message = "Error" }));
 
                 // Action
                 var result = await controller.UpdateBetTradeStatus(0, string.Empty, 0) as JsonResult;
@@ -252,7 +252,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product>()));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
 
                 // Action
                 var result = await controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
@@ -274,18 +274,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    Arg.Any<int>(),
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
                 var result = await controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
@@ -307,18 +307,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    Arg.Any<int>(),
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 1, Message = "Error" }));
 
                 // Action
                 var result = await controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
@@ -336,7 +336,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product>()));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
 
                 // Action
                 var result = await controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;
@@ -358,18 +358,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    Arg.Any<int>(),
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
                 var result = await controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;
@@ -391,18 +391,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    Arg.Any<int>(),
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    DefaultUserSession.Language,
                    Arg.Any<string>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Any<bool>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 1, Message = "Error" }));
 
                 // Action
                 var result = await controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;

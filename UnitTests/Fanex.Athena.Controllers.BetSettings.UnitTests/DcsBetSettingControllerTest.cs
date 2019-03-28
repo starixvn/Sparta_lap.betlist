@@ -73,14 +73,15 @@
                 if (hasStatus)
                 {
                     expectedStatus = true;
-                    _betSettingService.GetStatus(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId).Returns(expectedStatus);
+                    _betSettingService.GetStatusAsync(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
+                        .Returns(Task.FromResult(expectedStatus));
                 }
 
                 if (hasBetLimit)
                 {
                     expectedNumberOfMainData = 1;
-                    _betSettingService.GetBetSettings(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
-                        .Returns(new List<BetSetting> { new BetSetting() });
+                    _betSettingService.GetBetSettingsAsync(DefaultLicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId)
+                        .Returns(Task.FromResult<IList<BetSetting>>(new List<BetSetting> { new BetSetting() }));
                 }
 
                 // Action
@@ -143,15 +144,15 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = productId } }));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    Arg.Any<string>(),
                    Arg.Any<bool>(),
-                   productId).Returns(new ResultInfo { Code = 0 });
+                   productId).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
                 var result = await controller.UpdateStatus(0, string.Empty, 0, productId) as JsonResult;
@@ -182,15 +183,15 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = productId } }));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
-                _betSettingService.UpdateStatus(
+                _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
                    DefaultUserSession.UserId,
                    Arg.Any<int>(),
                    Arg.Any<string>(),
                    Arg.Any<bool>(),
-                   productId).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   productId).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 1, Message = "Error" }));
 
                 // Action
                 var result = await controller.UpdateStatus(0, string.Empty, 0, productId) as JsonResult;
@@ -215,7 +216,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product>()));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
 
                 // Action
                 var result = await controller.UpdateBetSetting(productId, string.Empty) as JsonResult;
@@ -239,17 +240,17 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = productId } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = productId } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(true);
 
                 IEnumerable<DcsBetSetting> param = null;
-                _betSettingService.UpdateBetSetting(
+                _betSettingService.UpdateBetSettingAsync(
                    Arg.Any<int>(),
                    Arg.Any<int>(),
                    Arg.Any<int>(),
                    Arg.Any<string>(),
-                   Arg.Do<IEnumerable<DcsBetSetting>>(x => param = x)).Returns(new ResultInfo { Code = 0 });
+                   Arg.Do<IEnumerable<DcsBetSetting>>(x => param = x)).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -271,9 +272,9 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = productId } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = productId } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
                 // Action
                 var result = await controller.UpdateBetSetting(productId, string.Empty) as JsonResult;
@@ -295,9 +296,9 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.VirtualSports } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.VirtualSports } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("0");
 
@@ -321,18 +322,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Lottery } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Lottery } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
-                _betSettingService.UpdateBetSetting(
+                _betSettingService.UpdateBetSettingAsync(
                    Arg.Any<int>(),
                    Arg.Any<int>(),
                    Arg.Any<int>(),
                    Arg.Any<string>(),
-                   Arg.Any<IEnumerable<DcsBetSetting>>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<IEnumerable<DcsBetSetting>>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
                 var result = await controller.UpdateBetSetting(ProductTypes.Lottery, string.Empty) as JsonResult;
@@ -354,18 +355,18 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Lottery } }));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Lottery } })));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
-                _betSettingService.UpdateBetSetting(
+                _betSettingService.UpdateBetSettingAsync(
                    Arg.Any<int>(),
                    Arg.Any<int>(),
                    Arg.Any<int>(),
                    Arg.Any<string>(),
-                   Arg.Any<IEnumerable<DcsBetSetting>>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Any<IEnumerable<DcsBetSetting>>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 1, Message = "Error" }));
 
                 // Action
                 var result = await controller.UpdateBetSetting(ProductTypes.Lottery, string.Empty) as JsonResult;

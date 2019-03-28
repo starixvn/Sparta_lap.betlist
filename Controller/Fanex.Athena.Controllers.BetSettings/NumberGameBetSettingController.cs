@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
+            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId).ConfigureAwait(false);
             await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Customer/BetSetting/NumberGame.cshtml", viewModel);
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             var numberGame = GetBetSettingCommonParam();
             var hashData = GetNumberGameParam();
-            var result = _betSettingService.UpdateBetSetting(numberGame, hashData);
+            var result = await _betSettingService.UpdateBetSettingAsync(numberGame, hashData).ConfigureAwait(false);
 
             if (result.Code == 0)
             {

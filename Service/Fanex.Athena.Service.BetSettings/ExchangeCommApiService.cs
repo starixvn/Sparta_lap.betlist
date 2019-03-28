@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.BetSettings
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CitiXchangeLibrary;
     using Constant.DataDomain;
     using Core.Users.Interfaces;
@@ -78,14 +79,14 @@ namespace Fanex.Athena.Service.BetSettings
             }
         }
 
-        public IResultInfo<double> UpdateCommission(int licenseeId, int userId, int custId, double oldCommission, double newCommission)
+        public async Task<IResultInfo<double>> UpdateCommissionAsync(int licenseeId, int userId, int custId, double oldCommission, double newCommission)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return CreateAccessDeniedResult();
             }
 
-            var isEnable = _betSettingDataAccess.GetStatus(custId, ProductTypes.Exchange);
+            var isEnable = await _betSettingDataAccess.GetStatusAsync(custId, ProductTypes.Exchange).ConfigureAwait(false);
 
             if (isEnable != true)
             {
