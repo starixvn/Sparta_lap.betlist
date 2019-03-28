@@ -55,12 +55,12 @@
         }
 
         [HttpGet]
-        public IEnumerable<object> GetSports(string productCode)
+        public async Task<IEnumerable<object>> GetSports(string productCode)
         {
-            var sports = _sportTypeDataAccess.GetSportsAndProducts(
+            var sports = await _sportTypeDataAccess.GetSportsAndProducts(
                  _sessionService.LicenseeSession.LicenseeId,
                  _sessionService.UserSession.Language,
-                 productCode);
+                 productCode).ConfigureAwait(false);
 
             return sports.Where(x => x.ParentId > -1).Select(x => new { value = x.ID, label = x.Name });
         }

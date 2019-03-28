@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Common.Interfaces;
@@ -26,7 +27,7 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectView()
+        public async Task Index_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -34,7 +35,7 @@
                 _sportTypeDataAccess.GetAllSports().Returns(new Dictionary<int, string>());
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LastBetsMonitoringNew/Main.cshtml"));
@@ -42,7 +43,7 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewModel()
+        public async Task Index_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -53,7 +54,7 @@
                 _sportTypeDataAccess.GetAllSports().Returns(sports);
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
                 var model = (LastBetsMonitoringViewModel)result.Model;
 
                 // Assert

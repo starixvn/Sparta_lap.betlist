@@ -46,7 +46,7 @@
         }
 
         [Test]
-        public void GetSports_WhenCall_ReturnCorrectData()
+        public async Task GetSports_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -61,7 +61,7 @@
                  productCode).Returns(new List<SportProductItem> { parent, child });
 
                 // action
-                var result = controller.GetSports(productCode).ElementAt(0);
+                var result = (await controller.GetSports(productCode).ConfigureAwait(false)).ElementAt(0);
 
                 // assert
                 Assert.Multiple(() =>

@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.DataAccess.Core.Common
 {
-    using System.Data;
     using Interfaces;
     using Model.Core.MetaModel.Common;
 
@@ -27,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("TrackingValue2", metaModel.TrackingValue2);
                 db.SetParameterValue("Duration", 0);
 
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
             }
         }
     }

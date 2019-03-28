@@ -51,7 +51,7 @@
             DataAccess.WriteLog(metaModel);
 
             // Assert
-            ObjectDb.Received(1).ExecuteNonQuery();
+            ObjectDb.Received(1).ExecuteNonQueryAsync();
         }
     }
 }

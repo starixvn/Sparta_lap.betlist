@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
-            var productAccess = await ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
+            var productAccess = await ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(true);
             var productList = productAccess.ProductList.Where(x => x.ProductCode == Product.SB || x.ProductCode == Product.BA);
             var metaModel = new WinLossByLeagueMetaModel
             {
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
-            var sports = this._sportTypeDataAccess.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, Product.SB)
+            var sports = (await this._sportTypeDataAccess.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, Product.SB).ConfigureAwait(true))
                 .Where(x => x.ParentId >= 0);
             var leagues = await this._leagueDataAccess.GetLeaguesBySport(
                             new LeagueMetaModel
@@ -82,7 +82,7 @@ namespace Fanex.Athena.Controllers.Report
             var firstLeague = leagues.FirstOrDefault();
 
             var matches = firstLeague == null ? new List<Match>()
-                            : await this._matchService.GetMatchesByLeague(firstLeague.LeagueId, metaModel.FromDate, metaModel.ToDate).ConfigureAwait(false);
+                            : await this._matchService.GetMatchesByLeague(firstLeague.LeagueId, metaModel.FromDate, metaModel.ToDate).ConfigureAwait(true);
             var viewModel = new WinLossByLeagueViewModel
             {
                 Param = metaModel,

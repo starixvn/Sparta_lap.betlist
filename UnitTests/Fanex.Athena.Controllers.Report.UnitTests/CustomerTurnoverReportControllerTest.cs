@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Common.Interfaces;
@@ -55,7 +56,7 @@
         }
 
         [Test]
-        public void GetSportsAndProducts_WhenCall_ReturnCorrectResult()
+        public async Task GetSportsAndProducts_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -72,7 +73,7 @@
                     .Returns(expectedData);
 
                 // Action
-                var result = controller.GetSportsAndProducts() as JsonResult;
+                var result = await controller.GetSportsAndProducts() as JsonResult;
 
                 // Assert
                 Assert.That(result.Data, Is.EqualTo(expectedData));

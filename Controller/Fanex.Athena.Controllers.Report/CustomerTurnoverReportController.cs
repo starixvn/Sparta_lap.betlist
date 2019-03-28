@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Common.Interfaces;
@@ -65,12 +66,15 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         [AjaxRequest]
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        public ActionResult GetSportsAndProducts()
+        public async Task<ActionResult> GetSportsAndProducts()
         {
             var productCode = $"{Product.SB},{Product.NG},{Product.VS},{Product.VS2}";
-            return Json(
-                _sportTypeDataAccess.GetSportsAndProducts(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, productCode),
-                JsonRequestBehavior.AllowGet);
+            var data = await _sportTypeDataAccess.GetSportsAndProducts(
+                SessionService.LicenseeSession.LicenseeId, 
+                SessionService.UserSession.Language, 
+                productCode)
+                .ConfigureAwait(false);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

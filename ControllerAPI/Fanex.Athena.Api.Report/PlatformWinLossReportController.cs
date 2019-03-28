@@ -14,7 +14,6 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
@@ -119,7 +118,7 @@ namespace Fanex.Athena.Api.Report
 
             var productAccess = await ProductService.GetProductAccess(
                 licenseeSession.LicenseeId,
-                userSession.Language, 
+                userSession.Language,
                 FunctionNames.PlatformWinloss)
                 .ConfigureAwait(false);
 

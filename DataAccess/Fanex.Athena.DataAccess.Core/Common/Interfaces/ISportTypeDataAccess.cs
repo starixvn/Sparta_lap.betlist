@@ -7,17 +7,15 @@
 namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public interface ISportTypeDataAccess
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
-        IDictionary<int, string> GetAllSports();
+        Task<IDictionary<int, string>> GetAllSports();
 
-        IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "");
+        Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "");
     }
 }

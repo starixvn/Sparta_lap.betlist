@@ -8,8 +8,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
@@ -33,7 +33,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "")
+        public async Task<IEnumerable<SportProductItem>> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "")
         {
             const string UspName = "Lrf_SelSportDetail";
 
@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("licenseeId", licenseeId);
                 db.SetParameterValue("langkey", languageCode);
                 db.SetParameterValue("ProductCodes", productCodes);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = new List<SportProductItem>();
                     while (reader.Read())
@@ -65,18 +65,14 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
         }
 
-        /// <summary>
-        /// Get all sports type.
-        /// </summary>
-        /// <returns>The result value.</returns>
-        public IDictionary<int, string> GetAllSports()
+        public async Task<IDictionary<int, string>> GetAllSports()
         {
             const string UspName = "Lrf_SportsGetAll";
             var result = new SortedDictionary<int, string>();
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
