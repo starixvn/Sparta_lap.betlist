@@ -49,7 +49,8 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateBetSetting(int custId, string gameTypeChangedList)
         {
-            var customer = ProductAccess.IsAllowCS ? GetCustomerInfo(custId) : null;
+            var productAccess = await GetProductAccess().ConfigureAwait(false);
+            var customer = productAccess.IsAllowCS ? GetCustomerInfo(custId) : null;
             if (customer == null || !customer.SyncCasino || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
@@ -88,7 +89,8 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status)
         {
-            if (!ProductAccess.IsAllowCS ||
+            var productAccess = await GetProductAccess().ConfigureAwait(false);
+            if (!productAccess.IsAllowCS ||
                 !GetCustomerInfo(custId).SyncCasino ||
                 !(await IsBetSettingEditable().ConfigureAwait(false)))
             {

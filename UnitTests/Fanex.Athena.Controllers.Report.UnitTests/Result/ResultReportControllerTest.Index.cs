@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Report.MetaModel.Result;
@@ -13,7 +14,7 @@
         [TestCase("CS", true, false, false)]
         [TestCase("KN", false, true, false)]
         [TestCase("LT", false, false, true)]
-        public void Index_WhenGet_ReturnCorrectViewResult(
+        public async Task Index_WhenGet_ReturnCorrectViewResult(
             string productCodeList,
             bool isAllowRng,
             bool isAllowKeno,
@@ -22,7 +23,7 @@
             using (var controller = CreateController(productCodeList))
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as ResultReportViewModel;
 
                 // Assert

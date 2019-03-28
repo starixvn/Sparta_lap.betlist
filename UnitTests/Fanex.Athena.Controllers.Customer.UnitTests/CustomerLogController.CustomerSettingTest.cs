@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.Customer.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -12,7 +13,7 @@
     public partial class CustomerLogControllerTest
     {
         [Test]
-        public void CustomerSetting_WhenCall_ReturnCorrectView()
+        public async Task CustomerSetting_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -21,7 +22,7 @@
                 const string ExpectedViewName = "Customer/CustomerLog/CustomerSettingLog/Main.cshtml";
 
                 // Action
-                var result = controller.CustomerSetting() as ViewResult;
+                var result = await controller.CustomerSetting() as ViewResult;
 
                 // Assert
                 StringAssert.Contains(ExpectedViewName, result.ViewName);
@@ -29,7 +30,7 @@
         }
 
         [Test]
-        public void CustomerSetting_WhenCall_ReturnCorrectViewData()
+        public async Task CustomerSetting_WhenCall_ReturnCorrectViewData()
         {
             using (var controller = CreateController())
             {
@@ -44,7 +45,7 @@
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.BA } }));
 
                 // Action
-                var result = (CustomerLogViewModel)(controller.CustomerSetting() as ViewResult).Model;
+                var result = (CustomerLogViewModel)(await controller.CustomerSetting() as ViewResult).Model;
 
                 // Assert
                 Assert.Multiple(() =>

@@ -52,7 +52,8 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateBetSetting(string nickName)
         {
-            if (!ProductAccess.IsAllowSB || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var productAccess = await GetProductAccess().ConfigureAwait(false);
+            if (!productAccess.IsAllowSB || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }

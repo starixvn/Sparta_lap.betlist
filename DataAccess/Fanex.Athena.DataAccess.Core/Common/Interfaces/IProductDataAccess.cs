@@ -7,10 +7,11 @@
 namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
 
     public interface IProductDataAccess
     {
-        IList<Product> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false);
+        Task<IList<Product>> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false);
     }
 }

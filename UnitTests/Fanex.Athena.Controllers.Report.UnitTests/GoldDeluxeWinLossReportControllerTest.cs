@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -23,12 +24,12 @@
         }
 
         [Test]
-        public void Index_GoldDeluxeIsNotAvaiable_ReturnAccessDenied()
+        public async Task Index_GoldDeluxeIsNotAvaiable_ReturnAccessDenied()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.Index() as RedirectResult;
+                var result = await controller.Index() as RedirectResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -39,7 +40,7 @@
         }
 
         [Test]
-        public void Index_GoldDeluxeIsAvaiable_ReturnCorrectViewResult()
+        public async Task Index_GoldDeluxeIsAvaiable_ReturnCorrectViewResult()
         {
             // Arrange 
             var product = new Product
@@ -51,7 +52,7 @@
             using (var controller = CreateController(product))
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as ThirdPartyWinLossViewModel;
 
                 // Assert

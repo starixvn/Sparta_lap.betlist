@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.Customer
 {
+    using System.Threading.Tasks;
     using DataAccess.Customer.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -81,7 +82,7 @@ namespace Fanex.Athena.Service.Customer
             return _customerListDataAccess.UpdateOddsGroup(metaModel);
         }
 
-        public IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode)
+        public async Task<IResultInfo> UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode)
         {
             if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
@@ -90,7 +91,7 @@ namespace Fanex.Athena.Service.Customer
 
             var customerInfo = _customerDataAccess.GetCustomerInfo(metaModel.CustId);
             var closeCasinoResult = true;
-            var productAccess = this._productService.GetProductAccess(metaModel.LicenseeId, languageCode);
+            var productAccess = await this._productService.GetProductAccess(metaModel.LicenseeId, languageCode).ConfigureAwait(false);
             var casinoSupported = productAccess.IsAllowCS;
 
             if (customerInfo.SyncCasino && casinoSupported)
@@ -119,7 +120,7 @@ namespace Fanex.Athena.Service.Customer
                 : new ResultInfo { Code = 1, Message = "Error when update closed status on casino db" };
         }
 
-        public IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode)
+        public async Task<IResultInfo> UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode)
         {
             if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
@@ -128,7 +129,7 @@ namespace Fanex.Athena.Service.Customer
 
             var customerInfo = _customerDataAccess.GetCustomerInfo(metaModel.CustId);
             var suspendCasinoResult = true;
-            var productAccess = this._productService.GetProductAccess(metaModel.LicenseeId, languageCode);
+            var productAccess = await this._productService.GetProductAccess(metaModel.LicenseeId, languageCode).ConfigureAwait(false);
             var casinoSupported = productAccess.IsAllowCS;
 
             if (customerInfo.SyncCasino && casinoSupported)

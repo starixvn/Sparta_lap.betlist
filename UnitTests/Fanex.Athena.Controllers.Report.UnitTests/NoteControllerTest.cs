@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
@@ -29,7 +30,7 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewResult()
+        public async Task Index_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -49,7 +50,7 @@
                     SessionService.UserSession.Language).Returns(productList);
 
                 // Action
-                var viewResult = controller.Index(ViewName) as ViewResult;
+                var viewResult = await controller.Index(ViewName) as ViewResult;
                 var viewModel = viewResult.Model as NoteViewModel;
 
                 // Assert

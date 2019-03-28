@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
@@ -47,7 +48,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -66,7 +67,7 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
-                ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
+                ProductAccess = await ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false),
             };
 
             ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
@@ -76,7 +77,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(WinLossByBetTypeMetaModel metaModel)
+        public async Task<ActionResult> Index(WinLossByBetTypeMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -87,7 +88,7 @@ namespace Fanex.Athena.Controllers.Report
                        : new SortableList<WinLossByBetType>();
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = await ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
             var total = GetTotal(reportData);
             var model = new WinLossByBetTypeViewModel
             {
@@ -104,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
             ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
 
             return metaModel.IsExportExcel ?
-                Excel(model) :
+                await Excel(model).ConfigureAwait(false) :
                 View("~/Views/Desktop/Report/WinLossByBetType/Main.cshtml", model);
         }
 
@@ -137,7 +138,7 @@ namespace Fanex.Athena.Controllers.Report
             return columnCount;
         }
 
-        private ActionResult Excel(WinLossByBetTypeViewModel viewModel)
+        private async Task<ActionResult> Excel(WinLossByBetTypeViewModel viewModel)
         {
             const string FileName = nameof(WinLossByBetType);
 
@@ -150,7 +151,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = viewModel.Param.CurrencyName
             };
 
-            var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = await ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
 
             var showingOption = new ShowingOption
             {

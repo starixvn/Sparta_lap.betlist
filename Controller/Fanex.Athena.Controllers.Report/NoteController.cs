@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Configuration.Interfaces;
@@ -36,11 +37,11 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [ChildActionOnly]
-        public ActionResult Index(string viewName)
+        public async Task<ActionResult> Index(string viewName)
         {
             var balanceUp = this._balanceUpDataAccess.GetBalanceUp();
             var licenseeId = this.SessionService.LicenseeSession.LicenseeId;
-            var productList = this._productService.GetProductList(licenseeId, SessionService.UserSession.Language);
+            var productList = await this._productService.GetProductList(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
             var model = new NoteViewModel
             {
                 MoveBetsDate = balanceUp.MoveBetsDay,

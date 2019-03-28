@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -29,11 +30,11 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = this.ProductService.GetProductAccessForActiveCustomerSummary(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = await this.ProductService.GetProductAccessForActiveCustomerSummary(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
             var defaultDate = DateTime.Now.AddDays(-1);
             var metaModel = new ActiveCustomerMetaModel
             {

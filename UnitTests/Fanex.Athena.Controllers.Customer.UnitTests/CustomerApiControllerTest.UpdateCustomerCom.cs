@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Fanex.Athena.UnitTest.Common.Extensions;
@@ -17,7 +18,7 @@
     public partial class CustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void UpdateCustomerCom_NotAllowedCustomerComm_ReturnErrorResult()
+        public async Task UpdateCustomerCom_NotAllowedCustomerComm_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -28,7 +29,7 @@
                 });
 
                 // Action
-                var result = controller.UpdateCustomerCom(null) as JsonResult;
+                var result = await controller.UpdateCustomerCom(null) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
@@ -41,7 +42,7 @@
         }
 
         [Test]
-        public void UpdateCustomerCom_CustomerListEmpty_ReturnErrorResult()
+        public async Task UpdateCustomerCom_CustomerListEmpty_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -52,7 +53,7 @@
                 });
 
                 // Action
-                var result = controller.UpdateCustomerCom(new UpdatedCustomerComMetaModel()) as JsonResult;
+                var result = await controller.UpdateCustomerCom(new UpdatedCustomerComMetaModel()) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert
@@ -65,7 +66,7 @@
         }
 
         [Test]
-        public void UpdateCustomerCom_CommNotValid_ReturnErrorResult()
+        public async Task UpdateCustomerCom_CommNotValid_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -81,7 +82,7 @@
                 };
 
                 // Action
-                var result = controller.UpdateCustomerCom(metaModel) as JsonResult;
+                var result = await controller.UpdateCustomerCom(metaModel) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert
@@ -94,7 +95,7 @@
         }
 
         [Test]
-        public void UpdateCustomerCom_WhenCall_CallUpdateCustomerComm()
+        public async Task UpdateCustomerCom_WhenCall_CallUpdateCustomerComm()
         {
             using (var controller = CreateController())
             {
@@ -112,7 +113,7 @@
                 };
 
                 // Action
-                var result = controller.UpdateCustomerCom(metaModel) as JsonResult;
+                var result = await controller.UpdateCustomerCom(metaModel) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert
@@ -125,7 +126,7 @@
         }
 
         [Test]
-        public void UpdateCustomerCom_SameOldComm_ReturnCorrectErrorMessage()
+        public async Task UpdateCustomerCom_SameOldComm_ReturnCorrectErrorMessage()
         {
             using (var controller = CreateController())
             {
@@ -147,7 +148,7 @@
                 });
 
                 // Action
-                var result = controller.UpdateCustomerCom(metaModel) as JsonResult;
+                var result = await controller.UpdateCustomerCom(metaModel) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert

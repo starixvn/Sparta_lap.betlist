@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
@@ -72,7 +73,7 @@
         }
 
         [Test]
-        public void Running_WhenCall_ReturnCorrectView()
+        public async Task Running_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -87,7 +88,7 @@
                     FunctionNames.BettingTicketCenterRunning).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = controller.Running() as ViewResult;
+                var result = await controller.Running() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/Running.cshtml"));
@@ -95,7 +96,7 @@
         }
 
         [Test]
-        public void Running_WhenCall_ReturnCorrectViewModel()
+        public async Task Running_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -107,7 +108,7 @@
                     FunctionNames.BettingTicketCenterRunning).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = controller.Running() as ViewResult;
+                var result = await controller.Running() as ViewResult;
                 var viewModel = result.Model as BettingTicketCenterViewModel;
 
                 // Assert
@@ -121,7 +122,7 @@
         }
 
         [Test]
-        public void SingleCustomer_WhenCall_ReturnCorrectView()
+        public async Task SingleCustomer_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -136,7 +137,7 @@
                     FunctionNames.BettingTicketCenter).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = controller.SingleCustomer() as ViewResult;
+                var result = await controller.SingleCustomer() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/SingleCustomer.cshtml"));
@@ -144,7 +145,7 @@
         }
 
         [Test]
-        public void SingleCustomer_WhenCall_ReturnCorrectViewModel()
+        public async Task SingleCustomer_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -156,7 +157,7 @@
                     FunctionNames.BettingTicketCenter).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = controller.SingleCustomer() as ViewResult;
+                var result = await controller.SingleCustomer() as ViewResult;
                 var viewModel = result.Model as BettingTicketCenterViewModel;
 
                 // Assert
@@ -172,7 +173,7 @@
         }
 
         [Test]
-        public void MultipleCustomers_WhenCall_ReturnCorrectView()
+        public async Task MultipleCustomers_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -187,7 +188,7 @@
                     FunctionNames.BettingTicketCenterMultiCustomers).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = controller.MultipleCustomers() as ViewResult;
+                var result = await controller.MultipleCustomers() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/MultiCustomer.cshtml"));
@@ -195,7 +196,7 @@
         }
 
         [Test]
-        public void MultipleCustomers_WhenCall_ReturnCorrectViewModel()
+        public async Task MultipleCustomers_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -207,7 +208,7 @@
                     FunctionNames.BettingTicketCenterMultiCustomers).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = controller.MultipleCustomers() as ViewResult;
+                var result = await controller.MultipleCustomers() as ViewResult;
                 var viewModel = result.Model as BettingTicketCenterViewModel;
 
                 // Assert

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DataDomain;
@@ -25,12 +26,12 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectViewResult()
+        public async Task Index_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as CustomerWinLossViewModel;
 
                 // Assert
@@ -43,12 +44,12 @@
         }
 
         [Test]
-        public void History_WhenGet_ReturnCorrectViewResult()
+        public async Task History_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.History() as ViewResult;
+                var viewResult = await controller.History() as ViewResult;
                 var viewModel = viewResult.Model as CustomerWinLossViewModel;
 
                 // Assert

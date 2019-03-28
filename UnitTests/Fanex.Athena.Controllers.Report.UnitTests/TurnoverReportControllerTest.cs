@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Excel.Base.Entities;
@@ -46,12 +47,12 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectViewResult()
+        public async Task Index_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController("SB,BA"))
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as TurnoverViewModel;
 
                 // Assert
@@ -94,7 +95,7 @@
         }
 
         [Test]
-        public void Excel_WhenCall_ReturnCorrectResult()
+        public async Task Excel_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController("BA"))
             {
@@ -116,7 +117,7 @@
                 _turnoverService.SumTotalData(expectedData).Returns(expectedTotalData);
 
                 // Action
-                var result = controller.Excel(metaModel);
+                var result = await controller.Excel(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>

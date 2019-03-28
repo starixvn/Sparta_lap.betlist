@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.Customer.CustomerLog
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
@@ -15,10 +16,10 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     public partial class CustomerLogController
     {
         [HttpGet]
-        public ActionResult CustomerSetting()
+        public async Task<ActionResult> CustomerSetting()
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var productOption = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productOption = await _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
 
             var model = new CustomerLogViewModel
             {

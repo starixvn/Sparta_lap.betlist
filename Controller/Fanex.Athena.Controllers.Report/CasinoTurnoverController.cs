@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Extension.Utility;
@@ -31,12 +32,12 @@
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var productAccess = ProductService.GetSingleWalletProductAccess(
+            var productAccess = await ProductService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                FunctionNames.CasinoTurnover);
+                FunctionNames.CasinoTurnover).ConfigureAwait(false);
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportCasinoTurnover);
 
             var viewModel = new CasinoTurnoverViewModel

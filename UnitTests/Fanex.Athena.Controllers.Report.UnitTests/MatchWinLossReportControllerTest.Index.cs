@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Report.DTO;
@@ -15,12 +16,12 @@
     public partial class MatchWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void Index_WhenGet_ReturnCorrectViewResult()
+        public async Task Index_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as MatchWinLossViewModel;
 
                 // Assert
@@ -37,7 +38,7 @@
         [TestCase("", false, 6)]
         [TestCase("BA", false, 8)]
         [TestCase("BA", true, 10)]
-        public void IndexPost_NotExportExcel_ReturnCorrectViewResult(
+        public async Task IndexPost_NotExportExcel_ReturnCorrectViewResult(
             string productCodeList,
             bool isAllowedCustomerComm,
             int expectedColumnCount)
@@ -59,7 +60,7 @@
                 _matchWinLossService.GetDataList(metaModel).Returns(expectedData);
 
                 // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
+                var viewResult = await controller.Index(metaModel) as ViewResult;
                 var viewModel = viewResult.Model as MatchWinLossViewModel;
 
                 // Assert
@@ -75,7 +76,7 @@
         }
 
         [Test]
-        public void IndexPost_ExportExcelWithInvalidCurrency_ReturnEmptyFile()
+        public async Task IndexPost_ExportExcelWithInvalidCurrency_ReturnEmptyFile()
         {
             using (var controller = CreateController())
             {
@@ -87,7 +88,7 @@
                 };
 
                 // Action
-                var result = controller.Index(metaModel) as FileContentResult;
+                var result = await controller.Index(metaModel) as FileContentResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -99,7 +100,7 @@
         }
 
         [Test]
-        public void IndexPost_ExportExcel_ReturnExcelResult()
+        public async Task IndexPost_ExportExcel_ReturnExcelResult()
         {
             using (var controller = CreateController())
             {
@@ -119,7 +120,7 @@
                 _matchWinLossService.GetDetailDataSet(metaModel).Returns(expectedData);
 
                 // Action
-                var result = controller.Index(metaModel);
+                var result = await controller.Index(metaModel);
 
                 // Assert
                 Assert.That(result, Is.InstanceOf<ExcelResult>());

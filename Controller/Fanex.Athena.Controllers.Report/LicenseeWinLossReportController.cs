@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Helper;
     using Extension.Utility;
@@ -39,14 +40,14 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             if (IsFakeLicensee())
             {
-                return MapToFakeView();
+                return await MapToFakeView().ConfigureAwait(false);
             }
 
-            return MapToView();
+            return await MapToView().ConfigureAwait(false);
         }
 
         private static IDictionary<int, string> GetFakeBaseCurrencies(string baseCurrencySetting)
@@ -70,21 +71,21 @@ namespace Fanex.Athena.Controllers.Report
                 reportSetting.TimeZone.HasValue ? DateTime.UtcNow.AddHours(reportSetting.TimeZone.Value) : DateTime.Now);
         }
 
-        private ProductAccess GetProducts(int licenseeId, string lang)
+        private async Task<ProductAccess> GetProducts(int licenseeId, string lang)
         {
-            return ProductService.GetSingleWalletProductAccess(
+            return await ProductService.GetSingleWalletProductAccess(
                 licenseeId,
                 lang,
-                FunctionNames.LicenseeWinLoss);
+                FunctionNames.LicenseeWinLoss).ConfigureAwait(false);
         }
 
-        private ActionResult MapToView()
+        private async Task<ActionResult> MapToView()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
             var selectedDate = GetSelectedDate(reportSetting);
-            var productAccess = GetProducts(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = await GetProducts(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
 
             var param = new LicenseeWinLossMetaModel
             {
@@ -109,12 +110,12 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Desktop/Report/LicenseeWinLoss/Main.cshtml", model);
         }
 
-        private ActionResult MapToFakeView()
+        private async Task<ActionResult> MapToFakeView()
         {
             var userSession = SessionService.UserSession;
             var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
             var selectedDate = GetSelectedDate(reportSetting);
-            var productAccess = GetProducts(SessionService.LicenseeSession.LicenseeId, userSession.Language);
+            var productAccess = await GetProducts(SessionService.LicenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
 
             var param = new LicenseeWinLossMetaModel
             {

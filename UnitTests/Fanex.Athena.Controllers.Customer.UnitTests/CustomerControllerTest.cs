@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.Customer.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Users.Interfaces;
     using Excel.Customer;
@@ -83,7 +84,7 @@
         }
 
         [Test]
-        public void LogInfo_WhenCall_ReturnCorrectResult()
+        public async Task LogInfo_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateContoller())
             {
@@ -100,7 +101,7 @@
                 _customerListService.GetCustomerLoginInfo(CustId, DefaultLicenseeSession.LicenseeId, DefaultLicenseeSession.LicenseeName).Returns(logInfo);
 
                 // Action
-                var result = controller.LogInfo(CustId) as ViewResult;
+                var result = await controller.LogInfo(CustId) as ViewResult;
                 var model = (LogInfoViewModel)result.Model;
 
                 // Assert
@@ -114,12 +115,12 @@
         }
 
         [Test]
-        public void ExportExcel_ParameterIsNull_ReturnNull()
+        public async Task ExportExcel_ParameterIsNull_ReturnNull()
         {
             using (var controller = CreateContoller())
             {
                 // Action
-                var result = controller.ExportExcel(null);
+                var result = await controller.ExportExcel(null);
 
                 // Assert
                 Assert.That(result, Is.Null);
@@ -127,7 +128,7 @@
         }
 
         [Test]
-        public void ExportExcel_GridColumnIsEmpty_ReturnEmptyFile()
+        public async Task ExportExcel_GridColumnIsEmpty_ReturnEmptyFile()
         {
             using (var controller = CreateContoller())
             {
@@ -136,7 +137,7 @@
                 const string ExcelParam = "{'GridColumns': []}";
 
                 // Action
-                var result = controller.ExportExcel(ExcelParam) as FileContentResult;
+                var result = await controller.ExportExcel(ExcelParam) as FileContentResult;
 
                 // Assert
                 Assert.That(result.FileDownloadName, Is.EqualTo(ExcelFileName));

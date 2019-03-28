@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Extension.Utility;
@@ -29,14 +30,14 @@
             _subsidiaryService = subsidiaryService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = this.ProductService.GetSingleWalletProductAccess(
+            var productAccess = await this.ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.SubsidiaryPerformance);
+                FunctionNames.SubsidiaryPerformance).ConfigureAwait(false);
             var subsidiaryNames = userSession.IsManageableSubsidiary ? _subsidiaryService.GetSubsidiaryNames() : null;
 
             var model = new SubsidiaryPerformanceViewModel

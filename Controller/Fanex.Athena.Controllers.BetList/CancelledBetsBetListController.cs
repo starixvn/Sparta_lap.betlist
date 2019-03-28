@@ -94,7 +94,7 @@ namespace Fanex.Athena.Controllers.BetList
                 ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
+                ProductAccess = await ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language).ConfigureAwait(false),
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                 CustomerList = customers
             };

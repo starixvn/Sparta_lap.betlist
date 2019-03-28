@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Constant.DataDomain;
@@ -24,12 +25,12 @@
         }
 
         [Test]
-        public void Index_ProductListNotContainColossusBets_RedirectToAccessDenied()
+        public async Task Index_ProductListNotContainColossusBets_RedirectToAccessDenied()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.Index() as RedirectResult;
+                var result = await controller.Index() as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo("~/Utility/AccessDenied"));
@@ -37,12 +38,12 @@
         }
 
         [Test]
-        public void Index_ProductListContainColossusBets_ReturnCorrectViewResult()
+        public async Task Index_ProductListContainColossusBets_ReturnCorrectViewResult()
         {
             using (var controller = CreateController(new[] { ProductTypes.ColossusBets }))
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as ThirdPartyWinLossViewModel;
 
                 // Assert

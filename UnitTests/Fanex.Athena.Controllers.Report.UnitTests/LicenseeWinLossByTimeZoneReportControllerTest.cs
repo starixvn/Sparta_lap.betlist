@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -26,12 +27,12 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectViewName()
+        public async Task Index_WhenGet_ReturnCorrectViewName()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
 
                 // Assert
                 Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/LicenseeWinLossByTimeZone/Main.cshtml"));
@@ -39,7 +40,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectViewModel()
+        public async Task Index_WhenGet_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -56,7 +57,7 @@
                     .Returns(new ProductAccess(productList));
 
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var model = (LicenseeWinLossByTimeZoneViewModel)viewResult.Model;
 
                 // Assert

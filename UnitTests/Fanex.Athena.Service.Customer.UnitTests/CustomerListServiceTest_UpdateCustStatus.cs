@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Model.Core.DTO.Common;
     using Model.Customer.DTO;
     using Model.Customer.MetaModel;
@@ -13,7 +14,7 @@
     public partial class CustomerListServiceTest
     {
         [Test]
-        public void UpdateCustClosed_HaveNoPermission_ReturnCorrectResultInfo()
+        public async Task UpdateCustClosed_HaveNoPermission_ReturnCorrectResultInfo()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -22,7 +23,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = ViewResources.UpdateSpecialLevelMsg };
 
             // Action
-            var result = _customerListService.UpdateCustClosed(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustClosed(metaModel, string.Empty).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -33,7 +34,7 @@
         }
 
         [Test]
-        public void UpdateCustClosed_NotSyncCasinoInCustomerInfo_NoUpdateCasinoCustomer()
+        public async Task UpdateCustClosed_NotSyncCasinoInCustomerInfo_NoUpdateCasinoCustomer()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -48,7 +49,7 @@
             _customerListDataAccess.UpdateCustClosed(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.UpdateCustClosed(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustClosed(metaModel, string.Empty).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -59,7 +60,7 @@
         }
 
         [Test]
-        public void UpdateCustClosed_NotSupportCasino_NoUpdateCasinoCustomer()
+        public async Task UpdateCustClosed_NotSupportCasino_NoUpdateCasinoCustomer()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -74,7 +75,7 @@
             _customerListDataAccess.UpdateCustClosed(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.UpdateCustClosed(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustClosed(metaModel, string.Empty).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -85,7 +86,7 @@
         }
 
         [Test]
-        public void UpdateCustClosed_IsUpdateCasinoCustomer_IsDisableRngCasinoInAppSetting_NoUpdateCasinoCustomer()
+        public async Task UpdateCustClosed_IsUpdateCasinoCustomer_IsDisableRngCasinoInAppSetting_NoUpdateCasinoCustomer()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -100,7 +101,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = "RNG Casino Database is not currently available. Please try again later." };
 
             // Action
-            var result = _customerListService.UpdateCustClosed(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustClosed(metaModel, string.Empty).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -112,7 +113,7 @@
         }
 
         [Test]
-        public void UpdateCustClosed_IsUpdateCasinoCustomer_CloseCasinoSuccess_ReturnResultInfoFromDataAccess()
+        public async Task UpdateCustClosed_IsUpdateCasinoCustomer_CloseCasinoSuccess_ReturnResultInfoFromDataAccess()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -131,7 +132,7 @@
             _customerListDataAccess.UpdateCustClosed(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.UpdateCustClosed(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustClosed(metaModel, string.Empty);
 
             // Assert
             Assert.Multiple(() =>
@@ -148,7 +149,7 @@
         }
 
         [Test]
-        public void UpdateCustClosed_IsUpdateCasinoCustomer_CloseCasinoFailed_DoNotCallDataAccessAndReturnErrorResult()
+        public async Task UpdateCustClosed_IsUpdateCasinoCustomer_CloseCasinoFailed_DoNotCallDataAccessAndReturnErrorResult()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -166,7 +167,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = "Error when update closed status on casino db" };
 
             // Action
-            var result = _customerListService.UpdateCustClosed(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustClosed(metaModel, string.Empty).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -185,7 +186,7 @@
         }
 
         [Test]
-        public void UpdateCustSuspend_HaveNoPermission_ReturnCorrectResultInfo()
+        public async Task UpdateCustSuspend_HaveNoPermission_ReturnCorrectResultInfo()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -194,7 +195,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = ViewResources.UpdateSpecialLevelMsg };
 
             // Action
-            var result = _customerListService.UpdateCustSuspend(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustSuspend(metaModel, string.Empty).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -205,7 +206,7 @@
         }
 
         [Test]
-        public void UpdateCustSuspend_NotSyncCasinoInCustomerInfo_NoUpdateCasinoCustomer()
+        public async Task UpdateCustSuspend_NotSyncCasinoInCustomerInfo_NoUpdateCasinoCustomer()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -220,7 +221,7 @@
             _customerListDataAccess.UpdateCustSuspend(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.UpdateCustSuspend(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustSuspend(metaModel, string.Empty);
 
             // Assert
             Assert.Multiple(() =>
@@ -231,7 +232,7 @@
         }
 
         [Test]
-        public void UpdateCustSuspend_NotSupportCasino_NoUpdateCasinoCustomer()
+        public async Task UpdateCustSuspend_NotSupportCasino_NoUpdateCasinoCustomer()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -246,7 +247,7 @@
             _customerListDataAccess.UpdateCustSuspend(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.UpdateCustSuspend(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustSuspend(metaModel, string.Empty);
 
             // Assert
             Assert.Multiple(() =>
@@ -257,7 +258,7 @@
         }
 
         [Test]
-        public void UpdateCustSuspend_IsUpdateCasinoCustomer_IsDisableRngCasinoInAppSetting_NoUpdateCasinoCustomer()
+        public async Task UpdateCustSuspend_IsUpdateCasinoCustomer_IsDisableRngCasinoInAppSetting_NoUpdateCasinoCustomer()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -272,7 +273,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = "RNG Casino Database is not currently available. Please try again later." };
 
             // Action
-            var result = _customerListService.UpdateCustSuspend(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustSuspend(metaModel, string.Empty);
 
             // Assert
             Assert.Multiple(() =>
@@ -284,7 +285,7 @@
         }
 
         [Test]
-        public void UpdateCustSuspend_IsUpdateCasinoCustomer_CloseCasinoSuccess_ReturnResultInfoFromDataAccess()
+        public async Task UpdateCustSuspend_IsUpdateCasinoCustomer_CloseCasinoSuccess_ReturnResultInfoFromDataAccess()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -303,7 +304,7 @@
             _customerListDataAccess.UpdateCustSuspend(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.UpdateCustSuspend(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustSuspend(metaModel, string.Empty);
 
             // Assert
             Assert.Multiple(() =>
@@ -320,7 +321,7 @@
         }
 
         [Test]
-        public void UpdateCustSuspend_IsUpdateCasinoCustomer_CloseCasinoFailed_DoNotCallDataAccessAndReturnErrorResult()
+        public async Task UpdateCustSuspend_IsUpdateCasinoCustomer_CloseCasinoFailed_DoNotCallDataAccessAndReturnErrorResult()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
@@ -338,7 +339,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = "Error when update suspend status on casino db" };
 
             // Action
-            var result = _customerListService.UpdateCustSuspend(metaModel, string.Empty);
+            var result = await _customerListService.UpdateCustSuspend(metaModel, string.Empty).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

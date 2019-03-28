@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var model = new ResultReportViewModel
             {
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay
                 }
             };
-            var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = await ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
             ViewBag.IsAllowedRNG = productAccess.IsAllowCS;
             ViewBag.IsAllowedKeno = productAccess.IsAllowKN;
             ViewBag.IsAllowedLottery = productAccess.IsAllow(Product.LT);
@@ -103,10 +103,10 @@ namespace Fanex.Athena.Controllers.Report.Result
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-                var productAccess = ProductService.GetProductAccess(
+                var productAccess = await ProductService.GetProductAccess(
                    metaModel.LicenseeId,
                    SessionService.UserSession.Language,
-                   ResultPageGetNormalSportsName);
+                   ResultPageGetNormalSportsName).ConfigureAwait(false);
                 metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
                 var result = await _betListApiClient.PostAsyncString("/ResultReport/GetSports", metaModel).ConfigureAwait(false);
 

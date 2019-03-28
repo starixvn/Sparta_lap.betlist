@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -25,7 +26,7 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewResult()
+        public async Task Index_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -41,7 +42,7 @@
                     Arg.Any<ProductAccess>()).Returns(expectedData);
 
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as IList<SettledMatchCountViewModel>;
 
                 // Assert

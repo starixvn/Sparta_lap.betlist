@@ -72,7 +72,7 @@
             ProductService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), FunctionKey).Returns(productAccess);
 
             // Action
-            TestDelegate testDelegate = () => _controller.CheckValidProducts(FunctionKey, productCodeList);
+            AsyncTestDelegate testDelegate = () => _controller.CheckValidProducts(FunctionKey, productCodeList);
 
             // Assert
             Assert.That(testDelegate, Throws.Nothing);
@@ -95,10 +95,10 @@
             ProductService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), FunctionKey).Returns(productAccess);
 
             // Action
-            TestDelegate testDelegate = () => _controller.CheckValidProducts(FunctionKey, productCodeList);
+            AsyncTestDelegate testDelegate = () => _controller.CheckValidProducts(FunctionKey, productCodeList);
 
             // Assert
-            Assert.Throws<ArgumentException>(testDelegate, "Invalid product: XXX");
+            Assert.ThrowsAsync<ArgumentException>(testDelegate, "Invalid product: XXX");
         }
 
         [TestCase("")]
@@ -109,10 +109,10 @@
             MockSessionData();
 
             // Action
-            TestDelegate testDelegate = () => _controller.CheckValidProducts("any string", productCodeList);
+            AsyncTestDelegate testDelegate = () => _controller.CheckValidProducts("any string", productCodeList);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(testDelegate);
+            Assert.ThrowsAsync<ArgumentNullException>(testDelegate);
         }
     }
 }

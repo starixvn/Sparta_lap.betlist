@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
@@ -42,7 +43,7 @@
         }
 
         [Test]
-        public void Index_IsManageableSubsidiaryIsTrue_CallServiceToGetSubsidiaryList()
+        public async Task Index_IsManageableSubsidiaryIsTrue_CallServiceToGetSubsidiaryList()
         {
             using (var controller = CreateController())
             {
@@ -70,7 +71,7 @@
                 HttpContext.Current = GetHttpContext();
 
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var modelResult = _serializer.Serialize(viewResult.Model);
 
                 // Assert
@@ -80,7 +81,7 @@
         }
 
         [Test]
-        public void Index_IsManageableSubsidiaryIsFalse_SubsidiaryListIsNull()
+        public async Task Index_IsManageableSubsidiaryIsFalse_SubsidiaryListIsNull()
         {
             using (var controller = CreateController())
             {
@@ -105,7 +106,7 @@
                 HttpContext.Current = GetHttpContext();
 
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var modelResult = _serializer.Serialize(viewResult.Model);
 
                 // Assert

@@ -11,6 +11,7 @@ namespace Fanex.Athena.Api.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -166,7 +167,7 @@ namespace Fanex.Athena.Api.Report
 
         #region ProcessRequest
 
-        private HttpResponseMessage ExportExcel(
+        private async Task<HttpResponseMessage> ExportExcel(
             WinLossByProductMetaModel metaModel,
             WinLossByProductResultModel resultModel,
             string systemId)
@@ -175,7 +176,7 @@ namespace Fanex.Athena.Api.Report
             var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/WinLossByProducts.xls");
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = await ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
 
             metaModel.FromDate = metaModel.Level == 0 ? metaModel.FromDate : metaModel.DrillDownFromDate;
             metaModel.ToDate = metaModel.Level == 0 ? metaModel.ToDate : metaModel.DrillDownToDate;

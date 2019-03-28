@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -41,17 +42,17 @@ namespace Fanex.Athena.Controllers.BetList
         {
         }
 
-        public ActionResult Index(BetListMetaModel metaModel)
+        public async Task<ActionResult> Index(BetListMetaModel metaModel)
         {
             var isRunningBetlist = !string.IsNullOrEmpty(metaModel.BetListName) && metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
             var viewParam = CreateDefaultMetaModel(metaModel);
 
             viewParam.FromDate = isRunningBetlist ? new DateTime(DateTime.Now.Year - 1, 1, 1) : viewParam.MoveBetsDay.AddDays(1);
 
-            var productAccess = ProductService.GetProductAccess(
+            var productAccess = await ProductService.GetProductAccess(
                 viewParam.LicenseeId,
                 SessionService.UserSession.Language,
-                isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
+                isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName).ConfigureAwait(false);
 
             var viewModel = new BetListBaseViewModel
             {

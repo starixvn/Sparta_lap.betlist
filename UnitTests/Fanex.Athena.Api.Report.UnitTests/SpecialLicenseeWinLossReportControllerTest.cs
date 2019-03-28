@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
@@ -55,7 +56,7 @@
         }
 
         [Test]
-        public void Index_InvalidDateRange_ReturnEmptyData()
+        public async Task Index_InvalidDateRange_ReturnEmptyData()
         {
             // Arrange
             var model = new SpecialLicenseeWinLossMetaModel
@@ -65,7 +66,7 @@
             };
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -77,7 +78,7 @@
         }
 
         [Test]
-        public void Index_EmptyProductCode_ReturnEmptyData()
+        public async Task Index_EmptyProductCode_ReturnEmptyData()
         {
             // Arrange
             var model = new SpecialLicenseeWinLossMetaModel
@@ -88,7 +89,7 @@
             };
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -100,7 +101,7 @@
         }
 
         [Test]
-        public void Index_InvalidProductCode_ReturnEmptyData()
+        public async Task Index_InvalidProductCode_ReturnEmptyData()
         {
             // Arrange
             ProductService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())
@@ -120,7 +121,7 @@
             };
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -132,7 +133,7 @@
         }
 
         [Test]
-        public void Index_InvalidCurrency_ReturnEmptyData()
+        public async Task Index_InvalidCurrency_ReturnEmptyData()
         {
             // Arrange
             ProductService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())
@@ -155,7 +156,7 @@
             };
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -208,7 +209,7 @@
         }
 
         [Test]
-        public void Index_ValidRequest_ReturnCorrectData()
+        public async Task Index_ValidRequest_ReturnCorrectData()
         {
             // Arrange
             ProductService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())
@@ -232,7 +233,7 @@
             _dataAccess.GetData(model, UserCurrencyList).Returns(data);
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             AssertReturnedData(data, result);

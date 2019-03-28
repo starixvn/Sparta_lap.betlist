@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using DataAccess.Report;
@@ -60,7 +61,7 @@
             };
         }
 
-        private HttpResponseMessage ExportExcel(CustomerBalanceMetaModel metaModel)
+        private async Task<HttpResponseMessage> ExportExcel(CustomerBalanceMetaModel metaModel)
         {
             const string FileName = "CustomerBalance.xls";
             const string TemplatePath = @"~/App_Data/Template/CustomerReports/CustomerBalance.xls";
@@ -68,7 +69,11 @@
             var templatePath = HostingEnvironment.MapPath(TemplatePath);
 
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.CustomerBalance);
+            var productAccess = await ProductService.GetSingleWalletProductAccess(
+                licenseeSession.LicenseeId, 
+                SessionService.UserSession.Language, 
+                FunctionNames.CustomerBalance)
+                .ConfigureAwait(false);
 
             var showingOption = new ShowingOption
             {

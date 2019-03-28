@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Customer;
@@ -50,7 +51,7 @@
         }
 
         [Test]
-        public void UpdateCustStatus_LicenseeNotAllowStatusFunction_ReturnErrorResult()
+        public async Task UpdateCustStatus_LicenseeNotAllowStatusFunction_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -58,7 +59,7 @@
                 AppSettings.GetValue("LicenseeOfferStatusFunction").Returns("0");
 
                 // Action
-                var result = controller.UpdateCustStatus(0, false, false) as JsonResult;
+                var result = await controller.UpdateCustStatus(0, false, false) as JsonResult;
                 var resultInfo = result.Data as ResultInfo;
 
                 // Assert
@@ -71,7 +72,7 @@
         }
 
         [Test]
-        public void UpdateCustStatus_LicenseeAllowStatusFunction_ReturnErrorResult()
+        public async Task UpdateCustStatus_LicenseeAllowStatusFunction_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -83,7 +84,7 @@
                 AppSettings.LicenseeOfferStatusFunction.Returns(new[] { licenseeId });
 
                 // Action
-                controller.UpdateCustStatus(CustId, isClosed, isSuspended);
+                await controller.UpdateCustStatus(CustId, isClosed, isSuspended);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -114,7 +115,7 @@
         }
 
         [Test]
-        public void UpdateCustStatus_HasException_WriteLogAndReturnError()
+        public async Task UpdateCustStatus_HasException_WriteLogAndReturnError()
         {
             using (var controller = CreateController())
             {
@@ -126,7 +127,7 @@
                     .Throw(exception);
 
                 // Action
-                var result = controller.UpdateCustStatus(0, false, false) as JsonResult;
+                var result = await controller.UpdateCustStatus(0, false, false) as JsonResult;
                 var resultInfo = result.Data as ResultInfo;
 
                 // Assert
@@ -239,7 +240,7 @@
         }
 
         [Test]
-        public void RemoveFromGroupCom_NotAllowedCustomerComm_ReturnErrorResult()
+        public async Task RemoveFromGroupCom_NotAllowedCustomerComm_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -250,7 +251,7 @@
                 });
 
                 // Action
-                var result = controller.RemoveFromGroupCom(string.Empty, false) as JsonResult;
+                var result = await controller.RemoveFromGroupCom(string.Empty, false) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
@@ -263,7 +264,7 @@
         }
 
         [Test]
-        public void RemoveFromGroupCom_WhenCall_CallRemoveCustomerComm()
+        public async Task RemoveFromGroupCom_WhenCall_CallRemoveCustomerComm()
         {
             using (var controller = CreateController())
             {
@@ -277,7 +278,7 @@
                 });
 
                 // Action
-                var result = controller.RemoveFromGroupCom(CustmerIds, isRemovePlayerComm) as JsonResult;
+                var result = await controller.RemoveFromGroupCom(CustmerIds, isRemovePlayerComm) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert

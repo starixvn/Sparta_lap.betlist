@@ -2,9 +2,9 @@
 {
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
@@ -61,7 +61,7 @@
             };
         }
 
-        private HttpResponseMessage ExportExcel(CustomerWinLossMetaModel metaModel)
+        private async Task<HttpResponseMessage> ExportExcel(CustomerWinLossMetaModel metaModel)
         {
             const string FileName = "CustomerWinLoss.xls";
             const string TemplatePath = @"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls";
@@ -69,7 +69,11 @@
             var templatePath = HostingEnvironment.MapPath(TemplatePath);
 
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.CustomerBalance);
+            var productAccess = await ProductService.GetSingleWalletProductAccess(
+                licenseeSession.LicenseeId, 
+                SessionService.UserSession.Language, 
+                FunctionNames.CustomerBalance)
+                .ConfigureAwait(false);
 
             var convertingOption = new ConvertingOption
             {

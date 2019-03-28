@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.SessionState;
@@ -46,10 +47,10 @@
         #region Get data
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
+            var productAccess = await _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
             var model = _groupComService.GetAll(licenseeId);
 
             ViewBag.IsAllowNG = productAccess.IsAllowNG;
@@ -63,11 +64,11 @@
         #region Create group
 
         [HttpGet]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             var model = new GroupCommMetaModel();
 
-            CreateMetaModel(model);
+            await CreateMetaModel(model).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Customer/CustomerComm/CreateNewGroup.cshtml", model);
         }
@@ -189,11 +190,11 @@
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
+        public async Task<JsonResult> Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
-            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
+            var productAccess = await _productService.GetProductAccess(licenseeId, userSession.Language).ConfigureAwait(false);
 
             var result = _groupComService.DeleteGroup(
                 new DeleteGroupMetaModel
@@ -237,13 +238,13 @@
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult ExportExcel()
+        public async Task<ActionResult> ExportExcel()
         {
             const string FileName = "CustomerCommGroup";
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/CustomerGroup/CustomerCommGroup.xls");
 
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
+            var productAccess = await _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
             var showingOption = new ShowingOption
             {
                 SBVisible = productAccess.IsAllowSB,
@@ -270,10 +271,10 @@
 
         #region Utility
 
-        private void CreateMetaModel(GroupCommMetaModel metaModel)
+        private async Task CreateMetaModel(GroupCommMetaModel metaModel)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
+            var productAccess = await _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
             var groupList = _groupComService.GetAll(licenseeId);
             var defaultGroupId = groupList.FirstOrDefault(x => x.IsDefaultGroup)?.GroupCommId ?? 0;
 

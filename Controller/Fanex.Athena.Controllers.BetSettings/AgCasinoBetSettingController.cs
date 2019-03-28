@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
-    using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -53,7 +52,8 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status)
         {
-            if (!ProductAccess.IsAllow(ProductTypes.AgCasino) || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var productAccess = await GetProductAccess().ConfigureAwait(false);
+            if (!productAccess.IsAllow(ProductTypes.AgCasino) || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }
@@ -79,7 +79,8 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateBetSetting(string nickName, string group)
         {
-            if (!ProductAccess.IsAllow(ProductTypes.AgCasino) || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var productAccess = await GetProductAccess().ConfigureAwait(false);
+            if (!productAccess.IsAllow(ProductTypes.AgCasino) || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }

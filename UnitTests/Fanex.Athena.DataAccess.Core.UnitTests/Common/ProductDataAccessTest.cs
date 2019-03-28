@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Common;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -30,7 +31,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void GetProductAccessList_WhenCall_DataReturnedCorrectly(bool isActiveCustomerSummaryReport)
+        public async Task GetProductAccessList_WhenCall_DataReturnedCorrectly(bool isActiveCustomerSummaryReport)
         {
             // Arrange
             var uspName = Arg.Is<string>(name => name == SpNameActive || name == SpName);
@@ -47,7 +48,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport);
+            var result = await DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

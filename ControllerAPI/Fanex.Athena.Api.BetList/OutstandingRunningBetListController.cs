@@ -40,7 +40,7 @@
                 return null;
             }
 
-            metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingRunningName);
+            metaModel.ProductCodeList = await RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingRunningName).ConfigureAwait(false);
 
             const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);

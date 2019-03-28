@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers.BetSettings
 {
-    using System;
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.SessionState;
@@ -32,7 +31,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         private readonly ICoreBetSettingService _coreBetSettingService;
 
         private readonly IProductService _productService;
-        private readonly Lazy<ProductAccess> _productAccess;
 
         protected BetSettingBaseController(
             ILanguageService languageService,
@@ -44,18 +42,13 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             _coreBetSettingService = coreBetSettingService;
             _productService = productService;
-            _productAccess = new Lazy<ProductAccess>(() =>
-                _productService.GetProductAccess(
-                    SessionService.LicenseeSession.LicenseeId,
-                    SessionService.UserSession.Language));
         }
 
-        protected ProductAccess ProductAccess
+        protected async Task<ProductAccess> GetProductAccess()
         {
-            get
-            {
-                return _productAccess.Value;
-            }
+            return await _productService.GetProductAccess(
+                    SessionService.LicenseeSession.LicenseeId,
+                    SessionService.UserSession.Language).ConfigureAwait(false);
         }
 
         protected JsonResult AccessDenied()

@@ -1,11 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Fanex.Athena.UnitTest.Common.Extensions;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
@@ -15,7 +15,7 @@
     public partial class CustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void UpdateBAStatus_FakeLicensee_ReturnErrorResult()
+        public async Task UpdateBAStatus_FakeLicensee_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -27,7 +27,7 @@
                     SessionService.UserSession.Language).Returns(productAccess);
 
                 // Action
-                var result = controller.UpdateBAStatus(0, isAllowBa) as JsonResult;
+                var result = await controller.UpdateBAStatus(0, isAllowBa) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
@@ -43,7 +43,7 @@
         }
 
         [Test]
-        public void UpdateBAStatus_NotSpecialBaAndNotAllowUpdateBa_ReturnErrorResult()
+        public async Task UpdateBAStatus_NotSpecialBaAndNotAllowUpdateBa_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -65,7 +65,7 @@
                     });
 
                 // Action
-                var result = controller.UpdateBAStatus(0, isAllowBa) as JsonResult;
+                var result = await controller.UpdateBAStatus(0, isAllowBa) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
@@ -81,7 +81,7 @@
         }
 
         [Test]
-        public void UpdateBAStatus_WhenCall_CallUpdateBaStatus()
+        public async Task UpdateBAStatus_WhenCall_CallUpdateBaStatus()
         {
             using (var controller = CreateController())
             {
@@ -104,7 +104,7 @@
                     });
 
                 // Action
-                var result = controller.UpdateBAStatus(CustId, isAllowBa) as JsonResult;
+                var result = await controller.UpdateBAStatus(CustId, isAllowBa) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert

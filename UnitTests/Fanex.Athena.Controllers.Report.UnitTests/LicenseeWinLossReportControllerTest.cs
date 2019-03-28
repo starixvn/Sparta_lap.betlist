@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DataDomain;
@@ -26,7 +27,7 @@
         }
 
         [Test]
-        public void Index_WhenGetRealLicensee_ReturnCorrectViewResult()
+        public async Task Index_WhenGetRealLicensee_ReturnCorrectViewResult()
         {
             // Arrange
             var reportSettingService = Substitute.For<IReportSettingService>();
@@ -37,7 +38,7 @@
             using (var controller = CreateController(reportSettingService))
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as LicenseeWinLossViewModel;
 
                 // Assert
@@ -52,7 +53,7 @@
         }
 
         [Test]
-        public void Index_WhenGetFakeLicensee_ReturnCorrectViewResult()
+        public async Task Index_WhenGetFakeLicensee_ReturnCorrectViewResult()
         {
             // Arrange
             var reportSettingService = Substitute.For<IReportSettingService>();
@@ -63,7 +64,7 @@
             using (var controller = CreateController(reportSettingService))
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as SpecialLicenseeWinLossViewModel;
 
                 // Assert

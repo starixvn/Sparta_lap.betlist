@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
@@ -51,7 +52,7 @@
         }
 
         [Test]
-        public void Detail_WhenGet_ReturnCorrectViewResult()
+        public async Task Detail_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -67,7 +68,7 @@
                 _matchWinLossService.GetDetailDataList(metaModel).Returns(dataList);
 
                 // Action
-                var viewResult = controller.Detail(metaModel) as ViewResult;
+                var viewResult = await controller.Detail(metaModel) as ViewResult;
                 var viewModel = viewResult.Model as MatchWinLossViewModel;
 
                 // Assert

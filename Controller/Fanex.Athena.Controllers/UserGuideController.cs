@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Constant.DataDomain;
@@ -59,13 +60,13 @@ namespace Fanex.Athena.Controllers
         }
 
         [AjaxRequest]
-        public ActionResult Index(string resourceName)
+        public async Task<ActionResult> Index(string resourceName)
         {
             var content = GetFileContent(resourceName);
             var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             content = content.Replace("{rooturl}", Url.Content("~"));
-            content = AddSpecialProducts(content, products);
+            content = await AddSpecialProducts(content, products).ConfigureAwait(false);
             content = AddBalanceUpDate(content);
             content = AddPPPromotionPrizeLink(content, products);
 

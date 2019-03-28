@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
@@ -25,12 +26,12 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectView()
+        public async Task Index_WhenGet_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CorrectScoreBetList/Main.cshtml"));
@@ -38,12 +39,12 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectViewModel()
+        public async Task Index_WhenGet_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
                 var model = (BetListBaseViewModel)result.Model;
 
                 // Assert
@@ -56,7 +57,7 @@
         }
 
         [Test]
-        public void Index_ExportExcel_InvalidCurrency_ReturnEmptyResult()
+        public async Task Index_ExportExcel_InvalidCurrency_ReturnEmptyResult()
         {
             using (var controller = CreateController())
             {
@@ -70,7 +71,7 @@
                 controller.When(x => x.EmptyExcel()).DoNotCallBase();
 
                 // Action
-                controller.Index(metaModel);
+                await controller.Index(metaModel);
 
                 // Assert
                 controller.Received().EmptyExcel();
@@ -79,7 +80,7 @@
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void Index_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task Index_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -99,16 +100,16 @@
 
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
-                controller.When(x => x.ProcessExportExcel(
+                controller.When(async x => await x.ProcessExportExcel(
                     Arg.Any<BetListExcelMetaModel>(),
                     Arg.Any<string>(),
-                    Arg.Any<string>())).DoNotCallBase();
+                    Arg.Any<string>()).ConfigureAwait(false)).DoNotCallBase();
 
                 // Action
-                controller.Index(metaModel);
+                await controller.Index(metaModel);
 
                 // Assert
-                controller.Received().ProcessExportExcel(
+                await controller.Received().ProcessExportExcel(
                     Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
                         && string.Join(",", x.HiddenColumns) == "7,8,9"
                         && x.Title == expectedTitle

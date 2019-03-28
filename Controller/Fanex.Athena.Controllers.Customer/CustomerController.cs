@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using DataAccess.Core.Users.Interfaces;
@@ -87,11 +88,11 @@ namespace Fanex.Athena.Controllers.Customer
         #region Action
 
         [HttpGet]
-        public ActionResult CustomerList(string userName = "", int groupId = -1)
+        public async Task<ActionResult> CustomerList(string userName = "", int groupId = -1)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
-            var productAccess = this._productService.GetProductAccess(licenseeId, userSession.Language);
+            var productAccess = await this._productService.GetProductAccess(licenseeId, userSession.Language).ConfigureAwait(false);
             var allowLicensees = AppSettings.LicenseeOfferStatusFunction;
             var placeholderUsername = IsFakeLicensee() ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             var metaModel = new CustomerListMetaModel
@@ -106,11 +107,11 @@ namespace Fanex.Athena.Controllers.Customer
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var model = CreateCustomerViewModel(metaModel);
+            var model = await CreateCustomerViewModel(metaModel).ConfigureAwait(false);
 
             if (!model.IsSubsidiary)
             {
-                this.SetValueForBaStatus(model);
+                await this.SetValueForBaStatus(model).ConfigureAwait(false);
             }
 
             ViewBag.ProductList = productAccess.ProductList.Select(x => x.ProductCode);
@@ -157,7 +158,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult ExportExcel(string excelParam)
+        public async Task<ActionResult> ExportExcel(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))
             {
@@ -176,7 +177,7 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
 
-                    var model = GetCustomers(metaModel);
+                    var model = await GetCustomers(metaModel).ConfigureAwait(false);
                     var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
                     var reportTitle = ViewResources.CustomerList + " - "
                         + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
@@ -228,7 +229,7 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         [CustomValidateAntiForgery]
-        public ActionResult LogInfo(int custId)
+        public async Task<ActionResult> LogInfo(int custId)
         {
             var licenseeSession = SessionService.LicenseeSession;
 
@@ -237,7 +238,7 @@ namespace Fanex.Athena.Controllers.Customer
             var model = new LogInfoViewModel
             {
                 LogInfo = logInfo,
-                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language)
+                ProductAccess = await this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false)
             };
 
             return View("~/Views/Desktop/Customer/CustomerDialog/LogInfo.cshtml", model);
@@ -286,7 +287,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
         }
 
-        private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel)
+        private async Task<CustomerListViewModel> CreateCustomerViewModel(CustomerListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -297,7 +298,7 @@ namespace Fanex.Athena.Controllers.Customer
             {
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
+                ProductAccess = await this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false),
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -319,9 +320,9 @@ namespace Fanex.Athena.Controllers.Customer
             return model;
         }
 
-        private CustomerListViewModel GetCustomers(CustomerListMetaModel metaModel)
+        private async Task<CustomerListViewModel> GetCustomers(CustomerListMetaModel metaModel)
         {
-            var model = CreateCustomerViewModel(metaModel);
+            var model = await CreateCustomerViewModel(metaModel).ConfigureAwait(false);
 
             var result = _customerListService.GetActiveCustomers(model.Param);
             model.DataList = result.DataList;
@@ -337,12 +338,12 @@ namespace Fanex.Athena.Controllers.Customer
         ///     for the user who Martin-Justin has turned off.
         /// </summary>
         /// <param name="model">The view model.</param>
-        private void SetValueForBaStatus(CustomerListViewModel model)
+        private async Task SetValueForBaStatus(CustomerListViewModel model)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var specialBaPermission = SessionService.IsAllowedSpecialBA(userSession);
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = await _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
             var request = new Request
             {
                 Language = userSession.Language,

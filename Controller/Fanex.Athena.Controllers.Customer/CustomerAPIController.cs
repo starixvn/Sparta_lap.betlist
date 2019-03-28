@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Users.Interfaces;
@@ -75,18 +76,11 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Level & Status API
 
-        /// <summary>
-        /// Update customer status.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="isClosed">Close customer if ISCLOSED equal true.</param>
-        /// <param name="isSuspended">TClose customer if ISSUSPENDEND equal true.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
+        public async Task<ActionResult> UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
         {
             try
             {
@@ -105,11 +99,11 @@ namespace Fanex.Athena.Controllers.Customer
                         Ip = Request.UserHostAddress
                     };
 
-                    var result = _customerListService.UpdateCustClosed(customerStatusMetaModel, userSession.Language);
+                    var result = await _customerListService.UpdateCustClosed(customerStatusMetaModel, userSession.Language).ConfigureAwait(false);
                     if (result.Code == 0)
                     {
                         customerStatusMetaModel.IsOn = isSuspended;
-                        result = _customerListService.UpdateCustSuspend(customerStatusMetaModel, userSession.Language);
+                        result = await _customerListService.UpdateCustSuspend(customerStatusMetaModel, userSession.Language).ConfigureAwait(false);
                     }
 
                     return Json(result);
@@ -127,12 +121,6 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(new ResultInfo { Code = 1, Message = ViewResources.HttpError_Default });
         }
 
-        /// <summary>
-        /// Update customer level.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="level">The customer level.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
@@ -180,12 +168,6 @@ namespace Fanex.Athena.Controllers.Customer
             });
         }
 
-        /// <summary>
-        /// Update customer group.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="oddsGroup">The customer group.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
@@ -244,11 +226,11 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public ActionResult UpdateBAStatus(int custId, bool isAllowBA)
+        public async Task<ActionResult> UpdateBAStatus(int custId, bool isAllowBA)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = await _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
             if (!productAccess.IsAllowBA)
             {
                 return CreateUpdatingBaResult(isAllowBA, false, ViewResources.NotAllowBA);
@@ -289,11 +271,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Customer Comm API
 
-        /// <summary>
-        /// Update customer commission.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
@@ -302,7 +279,7 @@ namespace Fanex.Athena.Controllers.Customer
          "StyleCop.CSharp.StylecopPlus.Rules",
          "SP2101:MethodMustNotContainMoreLinesThan",
          Justification = "Reviewed. Suppression is OK here.")]
-        public ActionResult UpdateCustomerCom(UpdatedCustomerComMetaModel metaModel)
+        public async Task<ActionResult> UpdateCustomerCom(UpdatedCustomerComMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             if (!licenseeSession.IsAllowedCustomerComm)
@@ -324,7 +301,7 @@ namespace Fanex.Athena.Controllers.Customer
                                 metaModel.CSComm);
                 var userSession = SessionService.UserSession;
 
-                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+                var productAccess = await _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
                 if (isvalid)
                 {
                     metaModel.LicenseeId = licenseeSession.LicenseeId;
@@ -351,17 +328,11 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(result);
         }
 
-        /// <summary>
-        /// Remove customer from group commission.
-        /// </summary>
-        /// <param name="customerIds">Customer id list.</param>
-        /// <param name="isRemovePlayercomm">Remove Player commission or not.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
-        public ActionResult RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
+        public async Task<ActionResult> RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
         {
             var licenseeSession = SessionService.LicenseeSession;
             if (!licenseeSession.IsAllowedCustomerComm)
@@ -371,10 +342,10 @@ namespace Fanex.Athena.Controllers.Customer
 
             var userSession = SessionService.UserSession;
 
-            var productAccess = _productService.GetProductAccess(
+            var productAccess = await _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                CustomerAPIRemoveFromGroupComName);
+                CustomerAPIRemoveFromGroupComName).ConfigureAwait(false);
             var metaModel = new RemoveFromGroupComMetaModel
             {
                 CustomerIds = customerIds,
@@ -405,17 +376,11 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(result);
         }
 
-        /// <summary>
-        /// Move customer in a group commission.
-        /// </summary>
-        /// <param name="customerIds">Customer id list.</param>
-        /// <param name="groupComId">Group commission id.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
-        public ActionResult MoveToGroupCom(string customerIds, int groupComId)
+        public async Task<ActionResult> MoveToGroupCom(string customerIds, int groupComId)
         {
             var licenseeSession = SessionService.LicenseeSession;
             if (!licenseeSession.IsAllowedCustomerComm)
@@ -424,10 +389,10 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             var userSession = SessionService.UserSession;
-            var productAccess = _productService.GetProductAccess(
+            var productAccess = await _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                CustomerAPIRemoveFromGroupComName);
+                CustomerAPIRemoveFromGroupComName).ConfigureAwait(false);
 
             var metaModel = new MoveToGroupComMetaModel(productAccess)
             {
@@ -493,11 +458,6 @@ namespace Fanex.Athena.Controllers.Customer
 #pragma warning restore S1067 // Expressions should not be too complex
         }
 
-        /// <summary>
-        /// Process updating customer commission.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="result">The result view model.</param>
         private void ProcessUpdatingCustomerCom(UpdatedCustomerComMetaModel metaModel, ResultViewModel result)
         {
             metaModel.Language = SessionService.UserSession.Language;

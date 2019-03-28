@@ -49,7 +49,7 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingName);
+            metaModel.ProductCodeList = await RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingName).ConfigureAwait(false);
             return await GetPagingBetListResult(metaModel, "Lrf_BetList_CustomerList_Mem", page, rows).ConfigureAwait(false);
         }
     }

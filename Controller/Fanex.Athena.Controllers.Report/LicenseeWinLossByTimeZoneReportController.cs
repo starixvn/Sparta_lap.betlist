@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Model.Report.ViewModel;
@@ -20,14 +21,14 @@ namespace Fanex.Athena.Controllers.Report
         {
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = this.ProductService.GetSingleWalletProductAccess(
+            var productAccess = await this.ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.WinLossByTimeZone);
+                FunctionNames.WinLossByTimeZone).ConfigureAwait(false);
 
             var model = new LicenseeWinLossByTimeZoneViewModel
             {

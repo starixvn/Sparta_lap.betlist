@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -13,7 +14,7 @@
     public partial class CustomerComGroupControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void CreateGet_Whencall_ReturnCorrectResult()
+        public async Task CreateGet_Whencall_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -39,7 +40,7 @@
                     });
 
                 // Action
-                var result = controller.Create() as ViewResult;
+                var result = await controller.Create() as ViewResult;
                 var model = result.Model as GroupCommMetaModel;
 
                 // Assert

@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -196,7 +197,7 @@ namespace Fanex.Athena.Api.Report
             return productOptions.Any(x => x.Status && x.Code == productCode) && productAccess.IsAllow(productCode);
         }
 
-        private HttpResponseMessage ExportExcel(
+        private async Task<HttpResponseMessage> ExportExcel(
             LicenseeWinLossMetaModel metaModel,
             SortableReportResultModel<LicenseeWinLoss> data)
         {
@@ -204,7 +205,7 @@ namespace Fanex.Athena.Api.Report
             var userSession = SessionService.UserSession;
             const string FileName = "LicenseeWinLoss.xls";
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = await ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
 
             var convertingOption = new ConvertingOption
             {
