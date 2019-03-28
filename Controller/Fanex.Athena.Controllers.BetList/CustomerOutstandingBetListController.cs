@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers.BetList
         public async Task<ActionResult> Index(BetListMetaModel metaModel)
         {
             var isRunningBetlist = !string.IsNullOrEmpty(metaModel.BetListName) && metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
-            var viewParam = CreateDefaultMetaModel(metaModel);
+            var viewParam = await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
 
             viewParam.FromDate = isRunningBetlist ? new DateTime(DateTime.Now.Year - 1, 1, 1) : viewParam.MoveBetsDay.AddDays(1);
 

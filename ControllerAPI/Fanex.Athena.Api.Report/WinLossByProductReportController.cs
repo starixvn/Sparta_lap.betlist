@@ -68,9 +68,9 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] WinLossByProductMetaModel metaModel)
+        public async Task<dynamic> Index([FromBody] WinLossByProductMetaModel metaModel)
         {
-            return ProcessRequest(metaModel, null, null);
+            return await ProcessRequest(metaModel, null, null).ConfigureAwait(false);
         }
 
         protected internal virtual WinlossByProductExcel CreateExcel(string templatePath, WinLossByProductExcelModel excelModel)
@@ -209,7 +209,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(winlossByProduct.Workbook, FileName);
         }
 
-        private WinLossByProductResultModel GetData(WinLossByProductMetaModel metaModel)
+        private async Task<WinLossByProductResultModel> GetData(WinLossByProductMetaModel metaModel)
         {
             if (!metaModel.IsValid)
             {
@@ -225,15 +225,15 @@ namespace Fanex.Athena.Api.Report
             var userCurrencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.Level == 0)
             {
-                return _winlossByProductDataAccess.GetWinlossByProducts(metaModel, userCurrencyList);
+                return await _winlossByProductDataAccess.GetWinlossByProducts(metaModel, userCurrencyList).ConfigureAwait(false);
             }
             else if (SessionService.LicenseeSession.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2)
             {
-                return _winlossByProductDataAccess.GetWinlossByProductCustomers(metaModel, userCurrencyList);
+                return await _winlossByProductDataAccess.GetWinlossByProductCustomers(metaModel, userCurrencyList).ConfigureAwait(false);
             }
             else
             {
-                return _winlossByProductDataAccess.GetWinlossByProductAgents(metaModel, userCurrencyList);
+                return await _winlossByProductDataAccess.GetWinlossByProductAgents(metaModel, userCurrencyList).ConfigureAwait(false);
             }
         }
 
@@ -242,7 +242,7 @@ namespace Fanex.Athena.Api.Report
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
 #pragma warning disable S107 // Methods should not have too many parameters
-        private dynamic ProcessRequest(
+        private async Task<dynamic> ProcessRequest(
             WinLossByProductMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -273,7 +273,7 @@ namespace Fanex.Athena.Api.Report
 
             AssignDrilldownDates(metaModel, fdate, tdate);
 
-            var result = GetData(metaModel);
+            var result = await GetData(metaModel).ConfigureAwait(false);
 
             result.ResultInfo.Message = GetErrorMessage(result.ResultInfo.Code);
 

@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -38,10 +39,10 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel)
+        public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportSummary";
-            var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
+            var moveBetsDate = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay;
 
             using (var db = this.GetObjectDb(UspName))
             {
@@ -69,10 +70,10 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public IList<LiveReport> GetDetailBySport(LiveReportMetaModel metaModel)
+        public async Task<IList<LiveReport>> GetDetailBySport(LiveReportMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportBySport";
-            var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
+            var moveBetsDate = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay;
 
             var currency = metaModel.BaseCurrency;
             var list = new List<LiveReport>();
@@ -98,14 +99,14 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public Tuple<IList<LiveReport>, IList<LiveReportByBetType>> GetDetailByCurrencyAndBettype(
+        public async Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>> GetDetailByCurrencyAndBettype(
             LiveReportMetaModel metaModel,
             IDictionary<int, string> currencyList,
              IEnumerable<Product> products)
         {
             var currency = metaModel.BaseCurrency;
             const string UspName = "Lrf_Rpt_LiveReportSummaryDetail";
-            var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
+            var moveBetsDate = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay;
 
             using (var db = this.GetObjectDb(UspName))
             {
@@ -123,10 +124,10 @@ namespace Fanex.Athena.DataAccess.Report
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
                     Justification = "Reviewed. Suppression is OK here.")]
-        public IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel)
+        public async Task<IList<LiveReportWinLossByMatch>> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportWinlossByMatch";
-            var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
+            var moveBetsDate = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay;
 
             using (var db = this.GetObjectDb(UspName))
             {

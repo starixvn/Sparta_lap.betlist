@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
@@ -34,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public WinLossByProductResultModel GetWinlossByProducts(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<WinLossByProductResultModel> GetWinlossByProducts(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_WinlossByProduct";
 
@@ -45,7 +46,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.SetParameterValue("username", metaModel.Username);
                 db.SetParameterValue("SystemName", null);
                 db.SetParameterValue("CustID", null);
-                UpdateUspParams(db, metaModel, false);
+                await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
                 AddResultParam(db);
                 using (var reader = db.ExecuteReader())
                 {
@@ -60,13 +61,13 @@ namespace Fanex.Athena.DataAccess.Report
             return data;
         }
 
-        public WinLossByProductResultModel GetWinlossByProductAgents(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<WinLossByProductResultModel> GetWinlossByProductAgents(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_WinlossByProductDetail_Ag";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                UpdateUspParams(db, metaModel, true);
+                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
                 db.SetParameterValue("CustID", metaModel.MemberId);
                 using (var reader = db.ExecuteReader())
                 {
@@ -75,7 +76,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public WinLossByProductResultModel GetWinlossByProductCustomers(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<WinLossByProductResultModel> GetWinlossByProductCustomers(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_WinlossByProductDetail";
 
@@ -83,7 +84,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 db.SetParameterValue("custid", metaModel.CustomerId);
                 db.SetParameterValue("MemberID", metaModel.MemberId);
-                UpdateUspParams(db, metaModel, true);
+                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
 
                 using (var reader = db.ExecuteReader())
                 {
@@ -157,13 +158,13 @@ namespace Fanex.Athena.DataAccess.Report
             return temp.OrderBy(i => i.CurrencyName).ToList();
         }
 
-        private void UpdateUspParams(IObjectDb db, WinLossByProductMetaModel metaModel, bool drilldown)
+        private async Task UpdateUspParams(IObjectDb db, WinLossByProductMetaModel metaModel, bool drilldown)
         {
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate.Date : metaModel.FromDate.Date);
             db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate.Date : metaModel.ToDate.Date);
             db.SetParameterValue("drawfilter", metaModel.DrawFilter);
-            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("movebetsday", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
             db.SetParameterValue("productList", string.Join(",", metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code)));
         }
 

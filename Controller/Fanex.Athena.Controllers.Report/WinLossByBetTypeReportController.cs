@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var model = new WinLossByBetTypeViewModel
             {
-                BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay,
+                BalanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay,
                 ShowEmptyContent = true,
                 Param = metaModel,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -84,7 +84,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var reportData = metaModel.IsValid
-                       ? _winLossByBetTypeDataAccess.GetDataList(metaModel)
+                       ? await _winLossByBetTypeDataAccess.GetDataList(metaModel).ConfigureAwait(false)
                        : new SortableList<WinLossByBetType>();
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Controllers.Report
             var total = GetTotal(reportData);
             var model = new WinLossByBetTypeViewModel
             {
-                BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay,
+                BalanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay,
                 Param = metaModel,
                 MainResult = reportData,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,

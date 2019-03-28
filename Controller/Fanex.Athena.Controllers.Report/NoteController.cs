@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.Report
         [ChildActionOnly]
         public async Task<ActionResult> Index(string viewName)
         {
-            var balanceUp = this._balanceUpDataAccess.GetBalanceUp();
+            var balanceUp = await this._balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             var licenseeId = this.SessionService.LicenseeSession.LicenseeId;
             var productList = await this._productService.GetProductList(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
             var model = new NoteViewModel

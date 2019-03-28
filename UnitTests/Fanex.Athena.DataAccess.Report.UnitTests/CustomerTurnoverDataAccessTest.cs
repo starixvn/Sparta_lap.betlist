@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DTO.Configuration;
@@ -73,14 +74,14 @@
         }
 
         [Test]
-        public void GetDataList_NoData_ReturnEmptyResult()
+        public async Task GetDataList_NoData_ReturnEmptyResult()
         {
             // Arrange
             Reader.Read().Returns(false);
             Reader.NextResult().Returns(false);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
+            var result = await DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -91,7 +92,7 @@
         }
 
         [Test]
-        public void GetDataList_NoTotalDataReturned_DataReturnedCorrectly()
+        public async Task GetDataList_NoTotalDataReturned_DataReturnedCorrectly()
         {
             // Arrange
             var expectedResult = new CustTurnover
@@ -105,7 +106,7 @@
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
+            var result = await DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -116,7 +117,7 @@
         }
 
         [Test]
-        public void GetDataList_WhenCall_DataReturnedCorrectly()
+        public async Task GetDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             Reader.Read().Returns(true, false, true, false);
@@ -140,7 +141,7 @@
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
+            var result = await DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
             var firstItem = result.DataList.First();
             var totalData = result.TotalData;
 

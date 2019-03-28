@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Configuration
 {
     using System;
+    using System.Threading.Tasks;
     using Core.Configuration;
     using Data;
     using Extension.Utility.Interfaces;
@@ -38,7 +39,7 @@
         }
 
         [Test]
-        public void GetBalanceUp_NoCache_ReturnDataFromDB()
+        public async Task GetBalanceUp_NoCache_ReturnDataFromDB()
         {
             // Arrange
             var balanceUpDay = new DateTime(2017, 1, 1);
@@ -53,7 +54,7 @@
             _cache.Get<BalanceUp>(Arg.Any<string>()).Returns(x => { return null; });
 
             // Action
-            var result = DataAccess.GetBalanceUp();
+            var result = await DataAccess.GetBalanceUp();
 
             // Assert
             Assert.Multiple(() =>
@@ -68,7 +69,7 @@
         }
 
         [Test]
-        public void GetBalanceUp_NoCache_DataFromDBIsEmpty_ReturnEmptyData()
+        public async Task GetBalanceUp_NoCache_DataFromDBIsEmpty_ReturnEmptyData()
         {
             // Arrange
             Reader.Read().Returns(false);
@@ -78,7 +79,7 @@
             var expectedBalanceUp = new BalanceUp();
 
             // Action
-            var result = DataAccess.GetBalanceUp();
+            var result = await DataAccess.GetBalanceUp();
 
             // Assert
             Assert.Multiple(() =>
@@ -89,7 +90,7 @@
         }
 
         [Test]
-        public void GetBalanceUp_Cached_ReturnDataFromCache()
+        public async Task GetBalanceUp_Cached_ReturnDataFromCache()
         {
             // Arrange
             var balanceUp = new BalanceUp
@@ -100,14 +101,14 @@
             _cache.Get<BalanceUp>(Arg.Any<string>()).Returns(balanceUp);
 
             // Action
-            var result = DataAccess.GetBalanceUp();
+            var result = await DataAccess.GetBalanceUp();
 
             // Assert
             Assert.That(result, Is.EqualTo(balanceUp));
         }
 
         [Test]
-        public void GetBalanceUpDay_WhenObjectDbThrowsException_WriteLog()
+        public async Task GetBalanceUpDay_WhenObjectDbThrowsException_WriteLog()
         {
             // Arrange
             var exception = new ObjectDbException();
@@ -116,7 +117,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw exception; });
 
             // Action
-            DataAccess.GetBalanceUp();
+            await DataAccess.GetBalanceUp();
 
             // Assert
             _logger.Received(1).Error(Arg.Any<string>(), exception);

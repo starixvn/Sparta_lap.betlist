@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DataDomain;
@@ -58,7 +59,7 @@
         }
 
         [Test]
-        public void GetSummaryData_WhenCall_ReturnCorrectResult()
+        public async Task GetSummaryData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryDataSp)).Returns(ObjectDb);
@@ -74,7 +75,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryData(_metaModel);
+            var result = await DataAccess.GetSummaryData(_metaModel);
             var firstItem = result.DataList.First();
             var secondItem = result.DataList.ElementAt(1);
 
@@ -95,20 +96,20 @@
         }
 
         [Test]
-        public void GetMemberData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetMemberData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMemberDataSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetMemberData(_metaModel, UserCurrencyList);
+            await DataAccess.GetMemberData(_metaModel, UserCurrencyList);
 
             // Assert
             AssertSpParameters();
         }
 
         [Test]
-        public void GetMemberData_WhenCall_ReturnCorrectResult()
+        public async Task GetMemberData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMemberDataSp)).Returns(ObjectDb);
@@ -123,7 +124,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetMemberData(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetMemberData(_metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

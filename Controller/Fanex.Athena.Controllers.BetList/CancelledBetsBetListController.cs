@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var viewParam = CreateDefaultMetaModel();
+            var viewParam = await CreateDefaultMetaModel().ConfigureAwait(false);
 
             SetConvetedUSDCurrencyName(viewParam);
 
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers.BetList
                 return await Excel(metaModel).ConfigureAwait(false);
             }
 
-            var viewParam = CreateDefaultMetaModel(metaModel);
+            var viewParam = await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
 
             var model = await CreateViewModel(viewParam).ConfigureAwait(false);
 

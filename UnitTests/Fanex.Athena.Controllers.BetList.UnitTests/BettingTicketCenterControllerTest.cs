@@ -47,12 +47,12 @@
         }
 
         [Test]
-        public void RefNo_WhenCall_ReturnCorrectView()
+        public async Task RefNo_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.RefNo() as ViewResult;
+                var result = await controller.RefNo() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/RefNo.cshtml"));
@@ -60,12 +60,12 @@
         }
 
         [Test]
-        public void RefNo_WhenCall_ReturnCorrectViewModel()
+        public async Task RefNo_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.RefNo() as ViewResult;
+                var result = await controller.RefNo() as ViewResult;
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo(DefaultLicenseeSession.IsAllowedCustomerComm));

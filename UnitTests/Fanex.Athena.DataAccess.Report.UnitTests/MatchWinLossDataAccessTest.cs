@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DTO.Configuration;
@@ -52,13 +53,13 @@
         }
 
         [Test]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetDataList(_metaModel);
+            await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -72,7 +73,7 @@
         }
 
         [Test]
-        public void SetToList_WhenCall_ReturnCorrectResult()
+        public async Task SetToList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
@@ -90,7 +91,7 @@
             MapReaderData(expected);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel);
+            var result = await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -104,7 +105,7 @@
         }
 
         [Test]
-        public void SetToList_HasCustomerComm_ReturnCorrectData()
+        public async Task SetToList_HasCustomerComm_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
@@ -120,14 +121,14 @@
             MapReaderData(expected);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel);
+            var result = await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.That(result[0].CustomerComm, Is.EqualTo(expected.PlayerCommUSD));
         }
 
         [Test]
-        public void SetToList_HasBetTypeColumn_ReturnCorrectData()
+        public async Task SetToList_HasBetTypeColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
@@ -143,14 +144,14 @@
             MapReaderData(expected);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel);
+            var result = await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.That(result[0].BetType, Is.EqualTo(expected.bettype));
         }
 
         [Test]
-        public void SetToList_HasProductNameColumn_ReturnCorrectData()
+        public async Task SetToList_HasProductNameColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
@@ -166,14 +167,14 @@
             MapReaderData(expected);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel);
+            var result = await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.That(result[0].ProductName, Is.EqualTo(expected.productname));
         }
 
         [Test]
-        public void SetToList_HasLiveIndicatorColumn_ReturnCorrectData()
+        public async Task SetToList_HasLiveIndicatorColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
@@ -189,14 +190,14 @@
             MapReaderData(expected);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel);
+            var result = await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.That(result[0].IsLive, Is.EqualTo(expected.liveindicator));
         }
 
         [Test]
-        public void SetToList_HasShowTimeColumn_ReturnCorrectData()
+        public async Task SetToList_HasShowTimeColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
@@ -212,14 +213,14 @@
             MapReaderData(expected);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel);
+            var result = await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.That(result[0].ShowTime, Is.EqualTo(expected.showtime));
         }
 
         [Test]
-        public void SetToList_HasSportTypeColumn_ReturnCorrectData()
+        public async Task SetToList_HasSportTypeColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
@@ -235,14 +236,14 @@
             MapReaderData(expected);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel);
+            var result = await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.That(result[0].SportType, Is.EqualTo(expected.sporttype));
         }
 
         [Test]
-        public void SetToList_HasKickOffTimeColumn_ReturnCorrectData()
+        public async Task SetToList_HasKickOffTimeColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
@@ -258,20 +259,20 @@
             MapReaderData(expected);
 
             // Action
-            var result = DataAccess.GetDataList(_metaModel);
+            var result = await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.That(result[0].KickOffTime, Is.EqualTo(expected.KickoffTime));
         }
 
         [Test]
-        public void GetDetailDataSet_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDetailDataSet_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailDataSetSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetDetailDataSet(_metaModel);
+            await DataAccess.GetDetailDataSet(_metaModel);
 
             // Assert
             Assert.Multiple(() =>

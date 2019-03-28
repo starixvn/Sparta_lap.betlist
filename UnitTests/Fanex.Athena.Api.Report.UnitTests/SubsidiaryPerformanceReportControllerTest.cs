@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Constant.DataDomain;
     using Fanex.Athena.Service.Report.Interfaces;
@@ -149,7 +150,7 @@
         }
 
         [Test]
-        public void Index_BaseCurrencyIsEmpty_DoNotCallService()
+        public async Task Index_BaseCurrencyIsEmpty_DoNotCallService()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -160,27 +161,27 @@
             };
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
             _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
         }
 
         [Test]
-        public void Index_MetaModelIsNotValid_ReturnEmptyList()
+        public async Task Index_MetaModelIsNotValid_ReturnEmptyList()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel();
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.Empty);
         }
 
         [Test]
-        public void Index_InvalidSubsidiaryList_ReturnEmptyList()
+        public async Task Index_InvalidSubsidiaryList_ReturnEmptyList()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -193,7 +194,7 @@
             };
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.Empty);

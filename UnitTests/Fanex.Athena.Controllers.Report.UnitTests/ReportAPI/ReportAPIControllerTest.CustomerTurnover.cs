@@ -79,7 +79,7 @@
         }
 
         [Test]
-        public void CustomerTurnover_WhenCall_ReturnCorrectViewResult()
+        public async Task CustomerTurnover_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -101,7 +101,7 @@
                 _customerTurnoverService.GetDataList(metaModel, UserCurrencyList, SessionService.UserSession.Language).Returns(data);
 
                 // Action
-                var result = controller.CustomerTurnover(metaModel) as JsonResult;
+                var result = await controller.CustomerTurnover(metaModel) as JsonResult;
                 var resultData = ObjectHelper.ToDictionary(result.Data);
 
                 // Assert

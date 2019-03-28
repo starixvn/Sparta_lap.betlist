@@ -64,7 +64,7 @@
             var userSession = SessionService.UserSession;
             var metaModel = new MatchWinLossMetaModel
             {
-                BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay.ToShortDateString(),
+                BalanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay.ToShortDateString(),
                 LicenseeId = licenseeSession.LicenseeId
             };
 
@@ -106,12 +106,12 @@
                 return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
 
-            var reportData = _matchWinLossService.GetDataList(metaModel);
+            var reportData = await _matchWinLossService.GetDataList(metaModel).ConfigureAwait(false);
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
             if (metaModel.ProductOptions.Any(i => i.Status && (i.Code == Product.BA || i.Code == Product.SB || i.Code == Product.VS2)))
             {
-                reportDataOutrightParlay = _matchWinLossService.GetOutrightParlayList(metaModel).ToList();
+                reportDataOutrightParlay = (await _matchWinLossService.GetOutrightParlayList(metaModel).ConfigureAwait(false)).ToList();
             }
 
             var total = GetTotal(reportData);
@@ -143,7 +143,7 @@
         {
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var reportData = _matchWinLossService.GetDetailDataList(metaModel);
+            var reportData = await _matchWinLossService.GetDetailDataList(metaModel).ConfigureAwait(false);
             var model = new MatchWinLossViewModel
             {
                 MainResult = reportData,
@@ -190,7 +190,7 @@
             };
 
             metaModel.PageSize = PageSize;
-            var reportData = _matchWinLossService.GetDetailDataSet(metaModel);
+            var reportData = await _matchWinLossService.GetDetailDataSet(metaModel).ConfigureAwait(false);
             var mainTable = reportData.Tables[0];
             mainTable = AddColumnsForSorting(mainTable);
             mainTable.DefaultView.Sort = $"{NewProductIdColumnName} asc, leaguename asc, matchname ASC";

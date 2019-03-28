@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Model.Core.ResultModel;
@@ -32,7 +33,7 @@
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ReturnCorrectData()
+        public async Task GetSummaryWinloss_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var metaModel = new ColossusBetsWinLossMetaModel();
@@ -48,7 +49,7 @@
             var expectedRowSpan = new[] { 2, -1, 1 };
 
             // Action
-            var result = _service.GetSummaryWinloss(metaModel, _currencyList);
+            var result = await _service.GetSummaryWinloss(metaModel, _currencyList);
 
             // Assert
             Assert.Multiple(() =>

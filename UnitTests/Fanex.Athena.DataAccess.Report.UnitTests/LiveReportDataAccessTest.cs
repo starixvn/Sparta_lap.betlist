@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
@@ -70,21 +71,21 @@
         }
 
         [Test]
-        public void GetLiveReportSummary_WhenCall_ParametersPassedCorrectly()
+        public async Task GetLiveReportSummary_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLiveReportSummarySp)).Returns(ObjectDb);
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            DataAccess.GetLiveReportSummary(_metaModel);
+            await DataAccess.GetLiveReportSummary(_metaModel);
 
             // Assert
             AssertCommonSetParameterValues();
         }
 
         [Test]
-        public void GetLiveReportSummary_WhenCall_ReturnCorrectResult()
+        public async Task GetLiveReportSummary_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLiveReportSummarySp)).Returns(ObjectDb);
@@ -100,7 +101,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetLiveReportSummary(_metaModel);
+            var result = await DataAccess.GetLiveReportSummary(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -119,21 +120,21 @@
         }
 
         [Test]
-        public void GetDetailBySport_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDetailBySport_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailBySportSp)).Returns(ObjectDb);
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            DataAccess.GetDetailBySport(_metaModel);
+            await DataAccess.GetDetailBySport(_metaModel);
 
             // Assert
             AssertCommonSetParameterValues();
         }
 
         [Test]
-        public void GetDetailBySport_WhenCall_ReturnCorrectResult()
+        public async Task GetDetailBySport_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailBySportSp)).Returns(ObjectDb);
@@ -148,7 +149,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailBySport(_metaModel);
+            var result = await DataAccess.GetDetailBySport(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -186,21 +187,21 @@
         }
 
         [Test]
-        public void GetDetailByCurrencyAndBettype_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDetailByCurrencyAndBettype_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailByCurrencyAndBettypeSp)).Returns(ObjectDb);
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, new List<Product>());
+            await DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, new List<Product>());
 
             // Assert
             AssertCommonSetParameterValues();
         }
 
         [Test]
-        public void GetDetailByCurrencyAndBettype_WhenCall_ReturnCorrectResult()
+        public async Task GetDetailByCurrencyAndBettype_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             var productList = new List<Product>
@@ -222,7 +223,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
+            var result = await DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
 
             // Assert
             Assert.Multiple(() =>
@@ -241,7 +242,7 @@
         [TestCase("2804")]
         [TestCase("2805")]
         [TestCase("2806")]
-        public void GetDetailByCurrencyAndBettype_BettypeOfVirtualBasketball_ReturnCorrectBetTypeName(string betType)
+        public async Task GetDetailByCurrencyAndBettype_BettypeOfVirtualBasketball_ReturnCorrectBetTypeName(string betType)
         {
             // Arrange
             var productList = new List<Product>
@@ -266,14 +267,14 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
+            var result = await DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
 
             // Assert
             Assert.That(result.Item2[0].LiveReports[0].ProductName, Is.EqualTo($"{betType} (Virtual Basketball)"));
         }
 
         [Test]
-        public void GetDetailByCurrencyAndBettype_NoData_ReturnEmptyResult()
+        public async Task GetDetailByCurrencyAndBettype_NoData_ReturnEmptyResult()
         {
             // Arrange
             var productList = new List<Product>
@@ -287,7 +288,7 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
+            var result = await DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
 
             // Assert
             Assert.Multiple(() =>
@@ -298,7 +299,7 @@
         }
 
         [Test]
-        public void GetLiveReportWinlossByMatch_WhenCall_ParametersPassedCorrectly()
+        public async Task GetLiveReportWinlossByMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLiveReportWinlossByMatch)).Returns(ObjectDb);
@@ -313,7 +314,7 @@
             };
 
             // Action
-            DataAccess.GetLiveReportWinlossByMatch(metaModel);
+            await DataAccess.GetLiveReportWinlossByMatch(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -329,7 +330,7 @@
         }
 
         [Test]
-        public void GetLiveReportWinlossByMatch_WhenCall_ReturnCorrectResult()
+        public async Task GetLiveReportWinlossByMatch_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLiveReportWinlossByMatch)).Returns(ObjectDb);
@@ -346,7 +347,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel());
+            var result = await DataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel());
 
             // Assert
             Assert.Multiple(() =>

@@ -35,12 +35,12 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [FunctionAuthorization(PermissionKeys.ReportCustomerTurnover)]
         [CustomValidateAntiForgery]
-        public ActionResult CustomerTurnover(CustomerTurnoverMetaModel metaModel)
+        public async Task<ActionResult> CustomerTurnover(CustomerTurnoverMetaModel metaModel)
         {
             metaModel.IsExportExcel = false;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var userSession = SessionService.UserSession;
-            var result = _customerTurnoverService.GetDataList(metaModel, userSession.CurrencyList, userSession.Language);
+            var result = await _customerTurnoverService.GetDataList(metaModel, userSession.CurrencyList, userSession.Language).ConfigureAwait(false);
 
             return Json(new { Data = result.DataList, Total = result.TotalData, TotalRow = result.TotalRows });
         }

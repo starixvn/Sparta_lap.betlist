@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common;
     using Common.Extensions;
     using Core;
@@ -24,7 +25,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<CasinoTurnover> GetData(CasinoTurnoverMetaModel metaModel)
+        public async Task<ReportResultModel<CasinoTurnover>> GetData(CasinoTurnoverMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_CasinoTurnover";
 
@@ -33,7 +34,7 @@
 
             using (var db = GetObjectDb(UspName))
             {
-                AddParams(metaModel, db);
+                await AddParams(metaModel, db).ConfigureAwait(false);
                 using (var reader = db.ExecuteReader())
                 {
                     dataList = ReadData(reader, metaModel.IsConvertAll);
@@ -113,7 +114,7 @@
             }
         }
 
-        private void AddParams(CasinoTurnoverMetaModel metaModel, IObjectDb db)
+        private async Task AddParams(CasinoTurnoverMetaModel metaModel, IObjectDb db)
         {
             db.SetParameterValue("fromdate", metaModel.FromDate.Date);
             db.SetParameterValue("todate", metaModel.ToDate.Date);
@@ -121,7 +122,7 @@
             db.SetParameterValue("UserName", metaModel.UserName);
             db.SetParameterValue("StatusList", string.Join(",", metaModel.Status));
             db.SetParameterValue("ProductCodes", string.Join(",", metaModel.ProductCode));
-            db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
 
             db.SetParameterValue("PageSize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);

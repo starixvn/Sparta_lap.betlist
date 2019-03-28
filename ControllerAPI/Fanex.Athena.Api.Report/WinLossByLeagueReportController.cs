@@ -9,6 +9,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -50,14 +51,14 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] WinLossByLeagueMetaModel metaModel)
+        public async Task<dynamic> Index([FromBody] WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel.CurrencyId))
             {
                 return BadRequest(ViewResources.InvalidParams);
             }
 
-            var resultModel = GetData(metaModel);
+            var resultModel = await GetData(metaModel).ConfigureAwait(false);
             return new
             {
                 TotalRows = resultModel.TotalRows,
@@ -67,7 +68,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public HttpResponseMessage Excel(WinLossByLeagueMetaModel metaModel)
+        public async Task<HttpResponseMessage> Excel(WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel.CurrencyId))
             {
@@ -77,7 +78,7 @@ namespace Fanex.Athena.Api.Report
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
 
-            var resultModel = GetData(metaModel);
+            var resultModel = await GetData(metaModel).ConfigureAwait(false);
             const string FileName = "WinLossByLeague.xls";
             var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/WinLossByLeagues.xls");
 
@@ -114,9 +115,9 @@ namespace Fanex.Athena.Api.Report
             return total;
         }
 
-        private ReportResultModel<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel)
+        private async Task<ReportResultModel<WinLossByLeague>> GetData(WinLossByLeagueMetaModel metaModel)
         {
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;

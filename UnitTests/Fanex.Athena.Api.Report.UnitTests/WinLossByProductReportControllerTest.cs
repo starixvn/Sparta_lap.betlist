@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Http.Results;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
@@ -44,13 +45,13 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnBadRequestWithCorrectMessage()
+        public async Task Index_InvalidModel_ReturnBadRequestWithCorrectMessage()
         {
             // Arrange
             var metaModel = new WinLossByProductMetaModel { CurrencyId = 1 };
 
             // Action
-            var result = _controller.Index(metaModel) as BadRequestErrorMessageResult;
+            var result = await _controller.Index(metaModel) as BadRequestErrorMessageResult;
 
             // Assert
             Assert.That(result.Message, Is.EqualTo(ViewResources.InvalidParams));
@@ -83,9 +84,9 @@
             var result = _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
 
             // Assert
-            Assert.Multiple(() =>
+            Assert.Multiple(async () =>
             {
-                _dataAccess.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), Arg.Any<IDictionary<int, string>>());
+                await _dataAccess.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), Arg.Any<IDictionary<int, string>>());
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
                 Assert.That(result.ErrorMessage, Is.EqualTo(ViewResources.ResourceManager.GetString(errorMessageKey)));
@@ -140,7 +141,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
+                _dataAccess.Received(1).GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });
@@ -169,9 +170,9 @@
             var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
-            Assert.Multiple(() =>
+            Assert.Multiple(async () =>
             {
-                _dataAccess.Received().GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
+                await _dataAccess.Received(1).GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });

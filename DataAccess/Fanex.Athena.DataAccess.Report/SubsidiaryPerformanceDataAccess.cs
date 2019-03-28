@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Core.Configuration.Interfaces;
     using Data;
@@ -22,14 +23,14 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<IEnumerable<SubsidiaryPerformance>> GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
             var dataList = new List<SubsidiaryPerformance>();
 
             using (var objectDb = GetObjectDb(SpName))
             {
-                AssignParameter(objectDb, metaModel);
+                await AssignParameter(objectDb, metaModel).ConfigureAwait(false);
 
                 using (var reader = objectDb.ExecuteReader())
                 {
@@ -45,7 +46,7 @@
             return dataList;
         }
 
-        public ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<SubsidiaryPerformanceDetail>> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
             var dataList = new List<SubsidiaryPerformanceDetail>();
@@ -53,7 +54,7 @@
 
             using (var objectDb = GetObjectDb(SpName))
             {
-                AssignParameter(objectDb, metaModel);
+                await AssignParameter(objectDb, metaModel).ConfigureAwait(false);
 
                 using (var reader = objectDb.ExecuteReader())
                 {
@@ -181,11 +182,11 @@
             };
         }
 
-        private void AssignParameter(IObjectDb objectDb, SubsidiaryPerformanceMetaModel metaModel)
+        private async Task AssignParameter(IObjectDb objectDb, SubsidiaryPerformanceMetaModel metaModel)
         {
             objectDb.SetParameterValue("FromDate", metaModel.FromDate);
             objectDb.SetParameterValue("ToDate", metaModel.ToDate);
-            objectDb.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            objectDb.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
             objectDb.SetParameterValue("ProductList", metaModel.ProductCodeList);
             objectDb.SetParameterValue("IncludeRaw", metaModel.IncludeRaw);
             objectDb.SetParameterValue("AgentList", metaModel.AgentListXml);

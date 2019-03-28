@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [ValidateInput(false)]
         [CustomValidateAntiForgery]
-        public ActionResult Excel(string excelParam)
+        public async Task<ActionResult> Excel(string excelParam)
         {
             const string FileName = "CustomerTurnover";
 
@@ -110,7 +110,7 @@ namespace Fanex.Athena.Controllers.Report
             var currencyName = userSession.CurrencyList
                 .Where(i => i.Key == metaModel.CurrencyId).Select(i => i.Value).SingleOrDefault();
 
-            var result = _customerTurnoverService.GetDataList(metaModel, userSession.CurrencyList, userSession.Language);
+            var result = await _customerTurnoverService.GetDataList(metaModel, userSession.CurrencyList, userSession.Language).ConfigureAwait(false);
 
             var reportTitle = GenerateReportTitle(metaModel, currencyName);
             var excel = CreateExcel(templatePath, formatDateTime, showingOption, result, reportTitle);

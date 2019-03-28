@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DTO.Common;
@@ -55,7 +56,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectData()
+        public async Task GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var metaModel = GetDefaultMetaModel();
@@ -72,7 +73,7 @@
             MapReaderData(expectedData, metaModel.BaseCurrency);
 
             // Action
-            var result = DataAccess.GetData(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetData(metaModel, UserCurrencyList);
             var firstItem = result.DataList.ElementAt(0);
             var total = result.TotalData;
 
@@ -86,7 +87,7 @@
         }
 
         [Test]
-        public void GetData_DoNotConvertAll_ReturnCorrectData()
+        public async Task GetData_DoNotConvertAll_ReturnCorrectData()
         {
             // Arrange
             var metaModel = GetDefaultMetaModel();
@@ -116,7 +117,7 @@
             MapReaderData(expectedBaseData, metaModel.BaseCurrency);
 
             // Action
-            var result = DataAccess.GetData(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetData(metaModel, UserCurrencyList);
             var firstItem = result.DataList.ElementAt(0);
             var total = result.TotalData;
 
@@ -130,7 +131,7 @@
         }
 
         [Test]
-        public void GetData_ReportByIsNotSummary_ReturnCorrectReportByData()
+        public async Task GetData_ReportByIsNotSummary_ReturnCorrectReportByData()
         {
             // Arrange
             var metaModel = GetDefaultMetaModel();
@@ -148,7 +149,7 @@
             var expected = new DateTime(2017, 1, 1);
 
             // Action
-            var result = DataAccess.GetData(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetData(metaModel, UserCurrencyList);
             var firstItem = result.DataList.ElementAt(0);
 
             // Assert
@@ -156,7 +157,7 @@
         }
 
         [Test]
-        public void GetData_GroupByProduct_ReturnCorrectGroupByData()
+        public async Task GetData_GroupByProduct_ReturnCorrectGroupByData()
         {
             // Arrange
             var metaModel = GetDefaultMetaModel();
@@ -169,7 +170,7 @@
             MapReaderData(data, string.Empty);
 
             // Action
-            var result = DataAccess.GetData(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetData(metaModel, UserCurrencyList);
             var firstItem = result.DataList.ElementAt(0);
 
             // Assert

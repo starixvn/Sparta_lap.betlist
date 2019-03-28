@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
@@ -35,11 +36,11 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public ReportResultModel<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, IDictionary<int, string> currencyList, string languageCode)
+        public async Task<ReportResultModel<CustTurnover>> GetDataList(CustomerTurnoverMetaModel metaModel, IDictionary<int, string> currencyList, string languageCode)
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerTurnOver"))
             {
-                AddParameters(metaModel, languageCode, db);
+                await AddParameters(metaModel, languageCode, db).ConfigureAwait(false);
                 using (var reader = db.ExecuteReader())
                 {
                     var result = new List<CustTurnover>();
@@ -97,9 +98,9 @@ namespace Fanex.Athena.DataAccess.Report
             };
         }
 
-        private void AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
+        private async Task AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
         {
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("fromdate", metaModel.FromDate);
             db.SetParameterValue("todate", metaModel.ToDate);

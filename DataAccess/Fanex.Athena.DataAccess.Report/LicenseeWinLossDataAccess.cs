@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -200,14 +201,14 @@
             }).ToList();
         }
 
-        private void UpdateUspParams(IObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
+        private async Task UpdateUspParams(IObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
         {
             db.SetParameterValue("licenseeid", metaModel.LicenseeId);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.SetParameterValue("drawfilter", metaModel.DrawFilter);
-            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("movebetsday", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
             {

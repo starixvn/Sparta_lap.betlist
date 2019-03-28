@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Common.Extensions;
     using Core;
     using Core.Configuration.Interfaces;
@@ -25,7 +26,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<LicenseeWinLossByTimeZone> GetData(
+        public async Task<ReportResultModel<LicenseeWinLossByTimeZone>> GetData(
             LicenseeWinLossByTimeZoneMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
@@ -34,7 +35,7 @@
             var totalData = new LicenseeWinLossByTimeZone();
             using (var objectDb = this.GetObjectDb(SpName))
             {
-                AssignParameter(objectDb, metaModel);
+                await AssignParameter(objectDb, metaModel).ConfigureAwait(false);
 
                 using (var reader = objectDb.ExecuteReader())
                 {
@@ -97,11 +98,11 @@
             return item;
         }
 
-        private void AssignParameter(IObjectDb objectDb, LicenseeWinLossByTimeZoneMetaModel metaModel)
+        private async Task AssignParameter(IObjectDb objectDb, LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
             objectDb.SetParameterValue("FromDate", metaModel.FromDate);
             objectDb.SetParameterValue("ToDate", metaModel.ToDate);
-            objectDb.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            objectDb.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
             objectDb.SetParameterValue("ProductList", metaModel.ProductCodeList);
             objectDb.SetParameterValue("AgentList", metaModel.AgentListXml);
             objectDb.SetParameterValue("TimeZone", metaModel.TimeZone);

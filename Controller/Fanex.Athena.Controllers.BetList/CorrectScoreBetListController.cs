@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var metaModel = CreateDefaultMetaModel();
+            var metaModel = await CreateDefaultMetaModel().ConfigureAwait(false);
 
             SetConvetedUSDCurrencyName(metaModel);
 

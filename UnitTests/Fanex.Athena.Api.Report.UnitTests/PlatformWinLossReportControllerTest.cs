@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Hosting;
     using System.Web.Http.Results;
@@ -50,49 +51,49 @@
         }
 
         [TestCase(2)]
-        public void Index_WhenCallWithLevel0_ReturnCorrectData(int numberOfRow)
+        public async Task Index_WhenCallWithLevel0_ReturnCorrectData(int numberOfRow)
         {
             // Arrange
             SetUpDataAccessGetSummaryData();
 
             // Action
-            var result = _controller.Index(CreateMetaModel(0));
+            var result = await _controller.Index(CreateMetaModel(0));
 
             // Assert
-            Assert.Multiple(() =>
+            Assert.Multiple(async () =>
             {
-                _dataAccess.ReceivedWithAnyArgs().GetSummaryData(Arg.Any<PlatformWinLossMetaModel>());
+                await _dataAccess.ReceivedWithAnyArgs().GetSummaryData(Arg.Any<PlatformWinLossMetaModel>());
                 Assert.That(result.Data.Count, Is.EqualTo(numberOfRow));
                 Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
             });
         }
 
         [Test]
-        public void Index_WhenCallWithInvalidModel_ReturnBadRequestWithCorrectMessage()
+        public async Task Index_WhenCallWithInvalidModel_ReturnBadRequestWithCorrectMessage()
         {
             // Arrange
             var metaModel = new PlatformWinLossMetaModel { CurrencyId = 99 };
 
             // Action
-            var result = _controller.Index(metaModel) as BadRequestErrorMessageResult;
+            var result = await _controller.Index(metaModel) as BadRequestErrorMessageResult;
 
             // Assert
             Assert.That(result.Message, Is.EqualTo(ViewResources.InvalidParams));
         }
 
         [Test]
-        public void Index_WhenCallWithLevel1_ReturnCorrectData()
+        public async Task Index_WhenCallWithLevel1_ReturnCorrectData()
         {
             // Arrange
             StubDataAccessGetMemberData();
 
             // Action
-            var result = _controller.Index(CreateMetaModel(1));
+            var result = await _controller.Index(CreateMetaModel(1));
 
             // Assert
-            Assert.Multiple(() =>
+            Assert.Multiple(async () =>
             {
-                _dataAccess.ReceivedWithAnyArgs().GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), Arg.Any<IDictionary<int, string>>());
+                await _dataAccess.ReceivedWithAnyArgs().GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), Arg.Any<IDictionary<int, string>>());
                 Assert.That(result.Data.Count, Is.EqualTo(3));
                 Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
             });

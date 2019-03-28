@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -36,7 +37,7 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetDataList(MatchWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_MatchWinLoss";
 
@@ -44,7 +45,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("Date", metaModel.Date);
-                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
                 foreach (var item in metaModel.ProductOptions)
                 {
                     db.SetParameterValue("show" + item.Code, item.Status);
@@ -57,7 +58,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public DataSet GetDetailDataSet(MatchWinLossMetaModel metaModel)
+        public async Task<DataSet> GetDetailDataSet(MatchWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_MatchWinLossDetail";
 
@@ -66,7 +67,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("FromDate", metaModel.Date);
                 db.SetParameterValue("ToDate", metaModel.Date);
-                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
                 db.SetParameterValue("PageSize", metaModel.PageSize);
 
                 foreach (var item in metaModel.ProductOptions)
@@ -78,7 +79,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetDetailDataList(MatchWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_MatchWinLossByBettype";
 
@@ -88,7 +89,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.SetParameterValue("MatchId", metaModel.MatchId);
                 db.SetParameterValue("Date", metaModel.Date);
                 db.SetParameterValue("LeagueId", metaModel.LeagueId);
-                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
 
                 foreach (var item in metaModel.ProductCodeList.Split(','))
                 {
@@ -102,7 +103,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_MatchWinLossByOutrightParlay";
 
@@ -114,7 +115,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("Date", metaModel.Date);
-                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
                 db.SetParameterValue("showsb", showSb);
                 db.SetParameterValue("showba", showBa);
                 db.SetParameterValue("showVS2", showVS2);

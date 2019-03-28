@@ -44,9 +44,9 @@ namespace Fanex.Athena.Api.BetList
             get { return _betListApiClient; }
         }
 
-        protected BalanceUp GetBalanceUp()
+        protected async Task<BalanceUp> GetBalanceUp()
         {
-            return _balanceUpDataAccess.GetBalanceUp();
+            return await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
         }
 
         protected void CheckDataPermission(int custId, long transId)
@@ -68,7 +68,7 @@ namespace Fanex.Athena.Api.BetList
             CheckDataPermission(metaModel.CustId, metaModel.TransId);
 
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUp = GetBalanceUp();
+            var balanceUp = await GetBalanceUp().ConfigureAwait(false);
             var currencyList = SessionService.UserSession.CurrencyList;
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Api.BetList
             CheckDataPermission(metaModel.CustId, metaModel.TransId);
 
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUp = GetBalanceUp();
+            var balanceUp = await GetBalanceUp().ConfigureAwait(false);
             var currencyList = SessionService.UserSession.CurrencyList;
 
             metaModel.IsServerPaging = true;

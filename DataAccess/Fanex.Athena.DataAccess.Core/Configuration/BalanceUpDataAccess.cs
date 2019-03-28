@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Core.Configuration
 {
     using System;
+    using System.Threading.Tasks;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             _cache = cache;
         }
 
-        public BalanceUp GetBalanceUp()
+        public async Task<BalanceUp> GetBalanceUp()
         {
             BalanceUp balanceup = null;
             try
@@ -43,7 +44,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
                     return balanceup;
                 }
 
-                balanceup = GetBalanceUpDayFromDb();
+                balanceup = await GetBalanceUpDayFromDb().ConfigureAwait(false);
                 _cache.Set(CacheKey.MemorycacheCommonBalanceup, balanceup, CacheTimeoutSeconds);
             }
             catch (Exception exception)
@@ -54,14 +55,14 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             return balanceup;
         }
 
-        private BalanceUp GetBalanceUpDayFromDb()
+        private async Task<BalanceUp> GetBalanceUpDayFromDb()
         {
             const string UspName = "Lrf_SelBalanceUpDay";
 
             using (var db = this.GetObjectDb(UspName))
             {
                 var balanceUp = new BalanceUp();
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     if (reader.Read())
                     {

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DTO.Configuration;
@@ -41,7 +42,7 @@
         }
 
         [Test]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             var metaModel = new WinLossByBetTypeMetaModel
@@ -62,21 +63,21 @@
             ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
 
             // Action
-            DataAccess.GetDataList(metaModel);
+            await DataAccess.GetDataList(metaModel);
 
             // Assert
             Assert.That(uspParam, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
-        public void GetDataList_WhenCall_ReturnCorrectResult()
+        public async Task GetDataList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             Reader.Read().Returns(true, false);
             MapReaderData(new { TurnoverUSD = 999 });
 
             // Action
-            var result = DataAccess.GetDataList(new WinLossByBetTypeMetaModel
+            var result = await DataAccess.GetDataList(new WinLossByBetTypeMetaModel
             {
                 BaseCurrency = "USD"
             });
@@ -91,7 +92,7 @@
 
         [TestCase(1201, " (Virtual Sports)")]
         [TestCase(2700, " (Virtual Sports 2)")]
-        public void GetDataList_WhenCall_ReturnCorrectBetTypeName(int bettype, string expectedBetTypeName)
+        public async Task GetDataList_WhenCall_ReturnCorrectBetTypeName(int bettype, string expectedBetTypeName)
         {
             // Arrange
             const string CacheRefBetTypeName = "ahihi";
@@ -100,7 +101,7 @@
             _cacheRefAdapter.GetBettype(bettype, false).Returns(CacheRefBetTypeName);
 
             // Action
-            var result = DataAccess.GetDataList(new WinLossByBetTypeMetaModel());
+            var result = await DataAccess.GetDataList(new WinLossByBetTypeMetaModel()).ConfigureAwait(false);
 
             // Assert
             Assert.That(result[0].BetTypeName, Is.EqualTo(CacheRefBetTypeName + expectedBetTypeName));

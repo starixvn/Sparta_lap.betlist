@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DTO.Configuration;
@@ -63,13 +64,13 @@
         }
 
         [Test]
-        public void GetWinlossByProducts_WhenCall_ParametersPassedCorrectly()
+        public async Task GetWinlossByProducts_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductsSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetWinlossByProducts(_metaModel, UserCurrencyList);
+            await DataAccess.GetWinlossByProducts(_metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -81,7 +82,7 @@
         }
 
         [Test]
-        public void GetWinlossByProducts_WhenCall_ReturnCorrectResult()
+        public async Task GetWinlossByProducts_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductsSp)).Returns(ObjectDb);
@@ -98,12 +99,12 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetWinlossByProducts(
+            var result = await DataAccess.GetWinlossByProducts(
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = "USD"
                 }, 
-                UserCurrencyList);
+                UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -117,13 +118,13 @@
         }
 
         [Test]
-        public void GetWinlossByProductAgents_WhenCall_ParametersPassedCorrectly()
+        public async Task GetWinlossByProductAgents_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductAgentsSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetWinlossByProductAgents(_metaModel, UserCurrencyList);
+            await DataAccess.GetWinlossByProductAgents(_metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -134,13 +135,13 @@
         }
 
         [Test]
-        public void GetWinlossByProductCustomers_WhenCall_ParametersPassedCorrectly()
+        public async Task GetWinlossByProductCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetWinlossByProductCustomers(_metaModel, UserCurrencyList);
+            await DataAccess.GetWinlossByProductCustomers(_metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -152,7 +153,7 @@
         }
 
         [Test]
-        public void GetData_HasSystemIdColumn_ReturnCorrectData()
+        public async Task GetData_HasSystemIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
@@ -170,7 +171,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetWinlossByProductCustomers(
+            var result = await DataAccess.GetWinlossByProductCustomers(
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
@@ -182,7 +183,7 @@
         }
 
         [Test]
-        public void GetData_HasExternalIdColumn_ReturnCorrectData()
+        public async Task GetData_HasExternalIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
@@ -200,19 +201,19 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetWinlossByProductCustomers(
+            var result = await DataAccess.GetWinlossByProductCustomers(
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 }, 
-                UserCurrencyList);
+                UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).ExternalId, Is.EqualTo(readerDataMapping.nickname));
         }
 
         [Test]
-        public void GetData_HasCustomerIdColumn_ReturnCorrectData()
+        public async Task GetData_HasCustomerIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
@@ -230,12 +231,12 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetWinlossByProductCustomers(
+            var result = await DataAccess.GetWinlossByProductCustomers(
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 }, 
-                UserCurrencyList);
+                UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).CustomerId, Is.EqualTo(readerDataMapping.custid));

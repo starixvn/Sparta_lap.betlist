@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Model.Core.DTO.Common;
@@ -34,13 +35,13 @@
         }
 
         [Test]
-        public void GetLiveReportSummary_InvalidMetaModel_ReturnEmptyData()
+        public async Task GetLiveReportSummary_InvalidMetaModel_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new LiveReportMetaModel { FromDate = new System.DateTime(2017, 2, 1), ToDate = new System.DateTime(2017, 1, 1) };
 
             // Action
-            var result = _service.GetLiveReportSummary(metaModel);
+            var result = await _service.GetLiveReportSummary(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -64,14 +65,14 @@
         }
 
         [Test]
-        public void GetLiveReportSumaryDetail_InvalidMetaModel_ReturnEmptyData()
+        public async Task GetLiveReportSumaryDetail_InvalidMetaModel_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new LiveReportMetaModel { FromDate = new System.DateTime(2017, 2, 1), ToDate = new System.DateTime(2017, 1, 1) };
             var products = Enumerable.Empty<Product>();
 
             // Action
-            var result = _service.GetLiveReportSumaryDetail(metaModel, _currencyList, products);
+            var result = await _service.GetLiveReportSumaryDetail(metaModel, _currencyList, products);
 
             // Assert
             Assert.Multiple(() =>
@@ -85,7 +86,7 @@
         }
 
         [Test]
-        public void GetLiveReportSumaryDetail_ValidMetaModel_ReturnCorrectData()
+        public async Task GetLiveReportSumaryDetail_ValidMetaModel_ReturnCorrectData()
         {
             // Arrange
             var metaModel = new LiveReportMetaModel();
@@ -100,7 +101,7 @@
                 .Returns(new System.Tuple<IList<LiveReport>, IList<LiveReportByBetType>>(detailByCurrencyData, detailByBettypeData));
 
             // Action
-            var result = _service.GetLiveReportSumaryDetail(metaModel, _currencyList, products);
+            var result = await _service.GetLiveReportSumaryDetail(metaModel, _currencyList, products);
 
             // Assert
             Assert.Multiple(() =>
@@ -112,13 +113,13 @@
         }
 
         [Test]
-        public void GetLiveReportWinLossByMatch_InvalidMetaModel_ReturnEmptyData()
+        public async Task GetLiveReportWinLossByMatch_InvalidMetaModel_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new LiveReportMatchListMetalModel { FromDate = new System.DateTime(2017, 2, 1), ToDate = new System.DateTime(2017, 1, 1) };
 
             // Action
-            var result = _service.GetLiveReportWinLossByMatch(metaModel);
+            var result = await _service.GetLiveReportWinLossByMatch(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -130,7 +131,7 @@
 
         [TestCase((int)SportType.LiveCasino, "ShowTime")]
         [TestCase((int)SportType.AllBet, "vs")]
-        public void GetLiveReportWinLossByMatch_ValidMetaModel_ReturnCorrectData(int sportType, string expectedMatchName)
+        public async Task GetLiveReportWinLossByMatch_ValidMetaModel_ReturnCorrectData(int sportType, string expectedMatchName)
         {
             // Arrange
             var metaModel = new LiveReportMatchListMetalModel { SportId = sportType };
@@ -143,7 +144,7 @@
             _dataAccess.GetLiveReportWinlossByMatch(metaModel).Returns(dataList);
 
             // Action
-            var result = _service.GetLiveReportWinLossByMatch(metaModel);
+            var result = await _service.GetLiveReportWinLossByMatch(metaModel);
 
             // Assert
             Assert.Multiple(() =>

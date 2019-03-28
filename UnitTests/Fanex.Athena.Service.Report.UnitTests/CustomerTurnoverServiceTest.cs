@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using DataAccess.Report.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.ResultModel;
@@ -33,13 +34,13 @@
         }
 
         [Test]
-        public void GetDataList_InvalidMetaModel_ReturnEmptyData()
+        public async Task GetDataList_InvalidMetaModel_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new CustomerTurnoverMetaModel();
 
             // Action
-            var result = _service.GetDataList(metaModel, _currencyList, string.Empty);
+            var result = await _service.GetDataList(metaModel, _currencyList, string.Empty);
 
             // Assert
             Assert.Multiple(() =>
@@ -50,7 +51,7 @@
         }
 
         [Test]
-        public void GetDataList_ValidModel_NoData_ReturnEmptyData()
+        public async Task GetDataList_ValidModel_NoData_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new CustomerTurnoverMetaModel
@@ -73,14 +74,14 @@
             });
 
             // Action
-            var result = _service.GetDataList(metaModel, _currencyList, string.Empty);
+            var result = await _service.GetDataList(metaModel, _currencyList, string.Empty);
 
             // Assert
             Assert.That(result.DataList, Is.Empty);
         }
 
         [Test]
-        public void GetDataList_ValidMetaModel_ReturnDataFromDataAccess()
+        public async Task GetDataList_ValidMetaModel_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new CustomerTurnoverMetaModel
@@ -118,12 +119,12 @@
             _dataAccess.GetDataList(metaModel, _currencyList, string.Empty).ReturnsForAnyArgs(expectedResult);
 
             // Action
-            var result = _service.GetDataList(metaModel, _currencyList, string.Empty);
+            var result = await _service.GetDataList(metaModel, _currencyList, string.Empty);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetDataList(metaModel, _currencyList, string.Empty);
+                _dataAccess.Received(1).GetDataList(metaModel, _currencyList, string.Empty);
                 Assert.That(result.DataList.Count, Is.EqualTo(dataList.Count));
                 Assert.That(result.TotalData, Is.EqualTo(expectedResult.TotalData));
                 Assert.That(result.TotalRows, Is.EqualTo(expectedResult.TotalRows));

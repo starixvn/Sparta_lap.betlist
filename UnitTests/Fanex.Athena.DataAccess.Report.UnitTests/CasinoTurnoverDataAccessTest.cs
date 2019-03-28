@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DataDomain;
@@ -74,14 +75,14 @@
         }
 
         [Test]
-        public void GetData_NoData_ReturnEmptyResult()
+        public async Task GetData_NoData_ReturnEmptyResult()
         {
             // Arrange
             Reader.Read().Returns(false);
             Reader.NextResult().Returns(false);
 
             // Action
-            var result = DataAccess.GetData(_dummyMetaModel);
+            var result = await DataAccess.GetData(_dummyMetaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -93,7 +94,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_DataReturnedCorrectly()
+        public async Task GetData_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var expectedResult = FakeHelper.Create<CasinoTurnover>(x => x.Product, "Number Game");
@@ -117,7 +118,7 @@
                 });
 
             // Action
-            var result = DataAccess.GetData(_dummyMetaModel);
+            var result = await DataAccess.GetData(_dummyMetaModel).ConfigureAwait(false);
             var firstItem = result.DataList.First();
 
             // Assert

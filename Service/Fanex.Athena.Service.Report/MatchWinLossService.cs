@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.Report
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -46,9 +47,9 @@ namespace Fanex.Athena.Service.Report
 
         #region IMatchWinLossService Members
 
-        public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetDataList(MatchWinLossMetaModel metaModel)
         {
-            var dataList = _matchWinLossDataAccess.GetDataList(metaModel);
+            var dataList = await _matchWinLossDataAccess.GetDataList(metaModel).ConfigureAwait(false);
 
             foreach (var data in dataList)
             {
@@ -61,19 +62,19 @@ namespace Fanex.Athena.Service.Report
             return OrderByProduct(dataList);
         }
 
-        public DataSet GetDetailDataSet(MatchWinLossMetaModel metaModel)
+        public async Task<DataSet> GetDetailDataSet(MatchWinLossMetaModel metaModel)
         {
-            return _matchWinLossDataAccess.GetDetailDataSet(metaModel);
+            return await _matchWinLossDataAccess.GetDetailDataSet(metaModel).ConfigureAwait(false);
         }
 
-        public IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetDetailDataList(MatchWinLossMetaModel metaModel)
         {
-            return _matchWinLossDataAccess.GetDetailDataList(metaModel);
+            return await _matchWinLossDataAccess.GetDetailDataList(metaModel).ConfigureAwait(false);
         }
 
-        public IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
         {
-            return _matchWinLossDataAccess.GetOutrightParlayList(metaModel);
+            return await _matchWinLossDataAccess.GetOutrightParlayList(metaModel).ConfigureAwait(false);
         }
 
         #endregion IMatchWinLossService Members

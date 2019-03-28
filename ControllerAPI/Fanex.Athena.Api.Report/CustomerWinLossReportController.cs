@@ -38,9 +38,11 @@
         }
 
         [HttpPost]
-        public dynamic Index(CustomerWinLossMetaModel metaModel)
+        public async Task<dynamic> Index(CustomerWinLossMetaModel metaModel)
         {
-            return metaModel.IsExportExcel ? ExportExcel(metaModel) : ProcessRequest(metaModel);
+            return metaModel.IsExportExcel ? 
+                await ExportExcel(metaModel).ConfigureAwait(false) : 
+                await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         protected internal virtual CustomerWinLossExcel CreateExcel(string templatePath, CustomerWinLossExcelModel excelModel)
@@ -48,9 +50,9 @@
             return new CustomerWinLossExcel(templatePath, excelModel);
         }
 
-        private dynamic ProcessRequest(CustomerWinLossMetaModel metaModel)
+        private async Task<dynamic> ProcessRequest(CustomerWinLossMetaModel metaModel)
         {
-            var result = GetData(metaModel);
+            var result = await GetData(metaModel).ConfigureAwait(false);
 
             return new
             {
@@ -82,7 +84,7 @@
                 CurrencyName = metaModel.CurrencyName
             };
 
-            var result = GetData(metaModel);
+            var result = await GetData(metaModel).ConfigureAwait(false);
             var excelModel = new CustomerWinLossExcelModel
             {
                 ConvertingOption = convertingOption,
@@ -100,7 +102,7 @@
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private ReportResultModel<CustomerWinLoss> GetData(CustomerWinLossMetaModel metaModel)
+        private async Task<ReportResultModel<CustomerWinLoss>> GetData(CustomerWinLossMetaModel metaModel)
         {
             if (!metaModel.IsValid || !IsValidRequest(metaModel.CurrencyId))
             {
@@ -111,10 +113,10 @@
                 };
             }
 
-            CheckValidProducts(FunctionNames.CustomerWinLoss, metaModel);
+            await CheckValidProducts(FunctionNames.CustomerWinLoss, metaModel).ConfigureAwait(false);
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
-            return _custWinlossDataAccess.GetDataList(metaModel);
+            return await _custWinlossDataAccess.GetDataList(metaModel).ConfigureAwait(false);
         }
     }
 }

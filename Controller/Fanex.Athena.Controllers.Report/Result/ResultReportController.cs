@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     IsOutRight = false,
                     IsExportExcel = false,
                     ToDate = DateTime.Now,
-                    BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay
+                    BalanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay
                 }
             };
             var productAccess = await ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false);

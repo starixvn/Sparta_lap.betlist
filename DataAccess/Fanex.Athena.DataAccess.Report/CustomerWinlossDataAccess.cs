@@ -10,6 +10,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Data;
     using Fanex.Athena.DataAccess.Core;
@@ -31,13 +32,13 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel)
+        public async Task<ReportResultModel<CustomerWinLoss>> GetDataList(CustomerWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinLoss";
 
             using (var db = GetObjectDb(UspName))
             {
-                AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                AddParameters(db, metaModel, (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
 
                 using (var reader = db.ExecuteReader())
                 {

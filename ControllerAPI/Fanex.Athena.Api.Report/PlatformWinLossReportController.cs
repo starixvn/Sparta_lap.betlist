@@ -46,9 +46,9 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(PlatformWinLossMetaModel metaModel)
+        public async Task<dynamic> Index(PlatformWinLossMetaModel metaModel)
         {
-            return ProcessRequest(metaModel);
+            return await ProcessRequest(metaModel).ConfigureAwait(false);
         }
 
         protected internal virtual PlatformWinLossSummaryExcel CreateExcelSummary(
@@ -146,7 +146,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(platformWinLossExcel.Workbook, FileName);
         }
 
-        private dynamic ProcessRequest(PlatformWinLossMetaModel metaModel)
+        private async Task<dynamic> ProcessRequest(PlatformWinLossMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel.CurrencyId))
             {
@@ -158,7 +158,7 @@ namespace Fanex.Athena.Api.Report
             if (metaModel.Level == 0)
             {
                 var result = metaModel.IsValid ?
-                    _platformWinLossDataAccess.GetSummaryData(metaModel) :
+                    await _platformWinLossDataAccess.GetSummaryData(metaModel).ConfigureAwait(false) :
                     new ReportResultModel<PlatformWinLossSummary>
                     {
                         DataList = new List<PlatformWinLossSummary>(),
@@ -176,7 +176,7 @@ namespace Fanex.Athena.Api.Report
             else
             {
                 var result = metaModel.IsValid ?
-                    _platformWinLossDataAccess.GetMemberData(metaModel, SessionService.UserSession.CurrencyList) :
+                    await _platformWinLossDataAccess.GetMemberData(metaModel, SessionService.UserSession.CurrencyList).ConfigureAwait(false) :
                     new SortableReportResultModel<PlatformWinLossMember>
                     {
                         DataList = new SortableList<PlatformWinLossMember>(),

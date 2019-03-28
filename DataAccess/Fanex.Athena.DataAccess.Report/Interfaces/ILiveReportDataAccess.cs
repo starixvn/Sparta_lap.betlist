@@ -8,21 +8,22 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO.LiveReports;
     using Fanex.Athena.Model.Report.MetaModel;
 
     public interface ILiveReportDataAccess
     {
-        IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel);
+        Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel metaModel);
 
-        IList<LiveReport> GetDetailBySport(LiveReportMetaModel metaModel);
+        Task<IList<LiveReport>> GetDetailBySport(LiveReportMetaModel metaModel);
 
-        Tuple<IList<LiveReport>, IList<LiveReportByBetType>> GetDetailByCurrencyAndBettype(
+        Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>> GetDetailByCurrencyAndBettype(
             LiveReportMetaModel metaModel,
                         IDictionary<int, string> currencyList,
             IEnumerable<Product> products);
 
-        IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel);
+        Task<IList<LiveReportWinLossByMatch>> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel);
     }
 }

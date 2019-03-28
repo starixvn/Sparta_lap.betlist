@@ -7,14 +7,15 @@
 namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ResultModel;
 
     public interface IPlatformWinLossDataAccess
     {
-        SortableReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel, IDictionary<int, string> currencyList);
+        Task<SortableReportResultModel<PlatformWinLossMember>> GetMemberData(PlatformWinLossMetaModel metaModel, IDictionary<int, string> currencyList);
 
-        ReportResultModel<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel);
+        Task<ReportResultModel<PlatformWinLossSummary>> GetSummaryData(PlatformWinLossMetaModel metaModel);
     }
 }

@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
     using Core;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
@@ -30,13 +31,13 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel)
+        public async Task<ReportResultModel<PlatformWinLossSummary>> GetSummaryData(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinloss";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                UpdateUspParams(db, metaModel);
+                await UpdateUspParams(db, metaModel).ConfigureAwait(false);
                 using (var reader = db.ExecuteReader())
                 {
                     return ReadSummaryData(reader, metaModel);
@@ -44,13 +45,13 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<PlatformWinLossMember>> GetMemberData(PlatformWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                UpdateUspParams(db, metaModel);
+                await UpdateUspParams(db, metaModel).ConfigureAwait(false);
                 using (var reader = db.ExecuteReader())
                 {
                     return ReadMemberData(reader, currencyList, metaModel.BaseCurrency);
@@ -203,10 +204,10 @@ namespace Fanex.Athena.DataAccess.Report
             };
         }
 
-        private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
+        private async Task UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
         {
             db.SetParameterValue("PlatformType", metaModel.PlatformType);
-            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("movebetsday", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
             db.SetParameterValue("DrawFilter", metaModel.DrawFilter);
             db.SetParameterValue("FromDate", metaModel.FromDate);
             db.SetParameterValue("ToDate", metaModel.ToDate);

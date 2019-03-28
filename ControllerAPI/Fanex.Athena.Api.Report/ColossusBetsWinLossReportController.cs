@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -120,15 +121,15 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, exportedFileName);
         }
 
-        private SortableReportResultModel<ColossusBetWinLoss> GetData(ColossusBetsWinLossMetaModel metaModel)
+        private async Task<SortableReportResultModel<ColossusBetWinLoss>> GetData(ColossusBetsWinLossMetaModel metaModel)
         {
             var userCurrencyList = SessionService.UserSession.CurrencyList;
             return metaModel.DrillDownLevel == 0 ?
-                _colossusBetsWinLossService.GetSummaryWinloss(metaModel, userCurrencyList) :
-                _colossusBetsWinLossService.GetWinlossDetail(metaModel, userCurrencyList);
+                await _colossusBetsWinLossService.GetSummaryWinloss(metaModel, userCurrencyList).ConfigureAwait(false) :
+                await _colossusBetsWinLossService.GetWinlossDetail(metaModel, userCurrencyList).ConfigureAwait(false);
         }
 
-        private dynamic ProcessRequest(
+        private async Task<dynamic> ProcessRequest(
             ColossusBetsWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -145,7 +146,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
 
-                var result = GetData(metaModel);
+                var result = await GetData(metaModel).ConfigureAwait(false);
 
                 if (metaModel.IsExportExcel)
                 {

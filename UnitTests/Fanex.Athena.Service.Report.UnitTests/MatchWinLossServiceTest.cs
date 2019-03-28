@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Model.Core.DTO.Common;
@@ -32,7 +33,7 @@
         }
 
         [Test]
-        public void GetDataList_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetDataList_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new MatchWinLossMetaModel();
@@ -47,7 +48,7 @@
             _dataAccess.GetDataList(metaModel).ReturnsForAnyArgs(dataList);
 
             // Action
-            var result = _service.GetDataList(metaModel);
+            var result = await _service.GetDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -58,7 +59,7 @@
         }
 
         [Test]
-        public void GetDetailDataSet_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetDetailDataSet_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new MatchWinLossMetaModel();
@@ -67,7 +68,7 @@
             _dataAccess.GetDetailDataSet(metaModel).ReturnsForAnyArgs(dataSet);
 
             // Action
-            var result = _service.GetDetailDataSet(metaModel);
+            var result = await _service.GetDetailDataSet(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -78,7 +79,7 @@
         }
 
         [Test]
-        public void GetDetailDataList_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetDetailDataList_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new MatchWinLossMetaModel();
@@ -88,7 +89,7 @@
             _dataAccess.GetDetailDataList(metaModel).ReturnsForAnyArgs(dataList);
 
             // Action
-            var result = _service.GetDetailDataList(metaModel);
+            var result = await _service.GetDetailDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -99,7 +100,7 @@
         }
 
         [Test]
-        public void GetOutrightParlayList_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetOutrightParlayList_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new MatchWinLossMetaModel();
@@ -109,7 +110,7 @@
             _dataAccess.GetOutrightParlayList(metaModel).ReturnsForAnyArgs(dataList);
 
             // Action
-            var result = _service.GetOutrightParlayList(metaModel);
+            var result = await _service.GetOutrightParlayList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
