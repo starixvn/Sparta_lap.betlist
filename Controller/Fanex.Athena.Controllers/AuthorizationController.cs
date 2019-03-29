@@ -117,7 +117,7 @@ namespace Fanex.Athena.Controllers
                     Request = new Request { Ip = Request.UserHostAddress },
                 };
 
-                var resultInfo = _authService.ValidateUserForLrfSystem(requestUser, model.LogInToken);
+                var resultInfo = await _authService.ValidateUserForLrfAsync(requestUser, model.LogInToken).ConfigureAwait(false);
 
                 if (resultInfo.IsSuccessful)
                 {
@@ -331,7 +331,7 @@ namespace Fanex.Athena.Controllers
 
         private async Task CreateSession(User user)
         {
-            var onuserId = _authService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
+            var onuserId = await _authService.LoginOnUserAsync(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
             await SessionService.CreateNewSession(
                 user.UserID,
                 onuserId,
@@ -347,7 +347,7 @@ namespace Fanex.Athena.Controllers
             var userSession = SessionService.UserSession;
             if (userSession != null)
             {
-                _authService.Logout(userSession.OnUserId);
+                _authService.LogoutAsync(userSession.OnUserId);
             }
 
             Session.Clear();

@@ -138,7 +138,7 @@
                 var result = controller.SignOut() as RedirectToRouteResult;
 
                 // Assert
-                _authService.Received().Logout(DefaultUserSession.OnUserId);
+                _authService.Received().LogoutAsync(DefaultUserSession.OnUserId);
                 _formAuthenticationService.Received().SignOut();
             }
         }
@@ -157,7 +157,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _authService.DidNotReceive().Logout(Arg.Any<int>());
+                    _authService.DidNotReceive().LogoutAsync(Arg.Any<int>());
                     _formAuthenticationService.Received().SignOut();
                 });
             }
@@ -243,7 +243,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _authService.Received().Logout(DefaultUserSession.OnUserId);
+                    _authService.Received().LogoutAsync(DefaultUserSession.OnUserId);
                     _formAuthenticationService.Received().SignOut();
                 });
             }

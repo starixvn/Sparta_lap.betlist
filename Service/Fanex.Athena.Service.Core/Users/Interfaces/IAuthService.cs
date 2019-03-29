@@ -1,14 +1,15 @@
-﻿using Fanex.Athena.Model.Core.DTO.Common;
+﻿using System.Threading.Tasks;
+using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.DTO.Users;
 
 namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
     public interface IAuthService
     {
-        int LoginOnUser(User requestUser, string netSessionId, int serverId, string ip);
+        Task<int> LoginOnUserAsync(User requestUser, string netSessionId, int serverId, string ip);
 
-        void Logout(int onuserId);
+        Task LogoutAsync(int onuserId);
 
-        IResultInfo<User> ValidateUserForLrfSystem(User requestUser, string loginToken);
+        Task<IResultInfo<User>> ValidateUserForLrfAsync(User requestUser, string loginToken);
     }
 }
