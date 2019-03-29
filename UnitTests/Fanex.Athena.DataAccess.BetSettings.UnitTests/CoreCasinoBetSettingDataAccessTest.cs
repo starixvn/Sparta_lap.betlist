@@ -94,7 +94,7 @@
                 x.TrackingValue2 == string.Format(TrackingValueTemplate, status);
 
             // Assert
-            _userLogDataAccess.Received(1).WriteLog(Arg.Is<UserLogMetaModel>(x =>
+            await _userLogDataAccess.Received(1).WriteLog(Arg.Is<UserLogMetaModel>(x =>
                 matchUserInfo(x) &&
                 matchTrackingValues(x)));
         }

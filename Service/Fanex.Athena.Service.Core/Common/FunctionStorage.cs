@@ -32,7 +32,7 @@
         {
             if (_functionList == null)
             {
-                var functionList = await _functionDataAccess.GetFunctionList().ConfigureAwait(false);
+                var functionList = await _functionDataAccess.GetFunctionListAsync().ConfigureAwait(false);
                 AssignFunctionList(functionList);
             }
 

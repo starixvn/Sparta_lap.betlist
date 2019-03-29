@@ -29,9 +29,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public async Task<IResultInfo> UpdateCasinoStatusAsync(CoreCasinoStatusMetaModel metaModel, int sportId)
         {
-            var uspName = "Lrf_CustomerUpdCasinoStatus";
+            const string UspName = "Lrf_CustomerUpdCasinoStatus";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("userid", metaModel.UserId);
                 db.SetParameterValue("custid", metaModel.CustId);
@@ -47,18 +47,18 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 var errorCode = Converter.ToInt(db.GetParameterValue("ErrCode"));
                 var errorMessage = Converter.ToString2(db.GetParameterValue("ErrMsg"));
 
-                var trackingValue1 = GetTrackingValueForUpdateStatus(metaModel, uspName, sportId, metaModel.Status == 1 ? 0 : 1);
-                var trackingValue2 = GetTrackingValueForUpdateStatus(metaModel, uspName, sportId, metaModel.Status, errorCode, errorMessage);
+                var trackingValue1 = GetTrackingValueForUpdateStatus(metaModel, UspName, sportId, metaModel.Status == 1 ? 0 : 1);
+                var trackingValue2 = GetTrackingValueForUpdateStatus(metaModel, UspName, sportId, metaModel.Status, errorCode, errorMessage);
 
-                _userLogDataAccess.WriteLog(new UserLogMetaModel
+                await _userLogDataAccess.WriteLog(new UserLogMetaModel
                 {
                     UserId = metaModel.UserId,
                     CustID = metaModel.CustId,
                     ActionID = UserLogAction.LiveCasinoBetSetting,
-                    SPName = uspName,
+                    SPName = UspName,
                     TrackingValue1 = trackingValue1,
                     TrackingValue2 = trackingValue2
-                });
+                }).ConfigureAwait(false);
 
                 return new ResultInfo
                 {

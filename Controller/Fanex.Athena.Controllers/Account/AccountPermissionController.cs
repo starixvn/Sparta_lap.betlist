@@ -190,7 +190,7 @@ namespace Fanex.Athena.Controllers.Account
             var currencyDict = await _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId).ConfigureAwait(false);
             model.CurrencyList = BuildCurrencyListXmlString(currencyDict, model.CurrencyList.Split(',').ToList());
 
-            var result = _currencyDataAccess.AssignCurrenciesByUser(model);
+            var result = await _currencyDataAccess.AssignCurrenciesByUser(model).ConfigureAwait(false);
 
             if (result.IsSuccessful)
             {

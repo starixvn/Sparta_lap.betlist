@@ -16,7 +16,7 @@
         private const string GetCurrenciesByUser = "Lrf_SelCurrencyByLicenseeUser";
 
         [Test]
-        public void AssignCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
+        public async Task AssignCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(AssignCurrenciesByUserSp)).Returns(ObjectDb);
@@ -31,7 +31,7 @@
             };
 
             // Action
-            DataAccess.AssignCurrenciesByUser(dataModel);
+            await DataAccess.AssignCurrenciesByUser(dataModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -48,14 +48,14 @@
         }
 
         [Test]
-        public void AssignCurrenciesByUser_WhenCall_ResultInfoReturnCorrectly()
+        public async Task AssignCurrenciesByUser_WhenCall_ResultInfoReturnCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(AssignCurrenciesByUserSp)).Returns(ObjectDb);
             ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = DataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
+            var result = await DataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
 
             // Assert
             Assert.Multiple(() =>

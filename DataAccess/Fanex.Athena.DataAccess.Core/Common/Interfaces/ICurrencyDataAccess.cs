@@ -16,6 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
     {
         Task<IList<CurrencyUser>> GetCurrenciesByUser(int licenseeId, int userId);
 
-        IResultInfo AssignCurrenciesByUser(AssignCurrencyMetaModel request);
+        Task<IResultInfo> AssignCurrenciesByUser(AssignCurrencyMetaModel request);
     }
 }

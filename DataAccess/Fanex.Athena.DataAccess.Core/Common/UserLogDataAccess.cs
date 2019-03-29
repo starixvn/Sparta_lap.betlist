@@ -6,12 +6,13 @@
 
 namespace Fanex.Athena.DataAccess.Core.Common
 {
+    using System.Threading.Tasks;
     using Interfaces;
     using Model.Core.MetaModel.Common;
 
     public class UserLogDataAccess : BaseDataAccess, IUserLogDataAccess
     {
-        public void WriteLog(UserLogMetaModel metaModel)
+        public async Task WriteLog(UserLogMetaModel metaModel)
         {
             const string UspName = "WriteLog_UserLog_RunSP";
 
@@ -26,7 +27,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("TrackingValue2", metaModel.TrackingValue2);
                 db.SetParameterValue("Duration", 0);
 
-                db.ExecuteNonQueryAsync();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
             }
         }
     }

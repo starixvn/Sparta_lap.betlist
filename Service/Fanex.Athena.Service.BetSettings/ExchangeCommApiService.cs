@@ -96,13 +96,13 @@ namespace Fanex.Athena.Service.BetSettings
             try
             {
                 var result = _apiClient.updateCommission(custId, newCommission, EnvironmentMap[_appSetting.Environment]);
-                _userLogDataAccess.WriteLog(new UserLogMetaModel
+                await _userLogDataAccess.WriteLog(new UserLogMetaModel
                 {
                     ActionID = UserLogAction.ExchangeCommission,
                     UserId = userId,
                     CustID = custId,
                     Doing = $"<ChargeCommission OldValue='{oldCommission}' NewValue='{newCommission}' />"
-                });
+                }).ConfigureAwait(false);
                 return CreateApiResult(result.status, result.commission);
             }
             catch (Exception exception)

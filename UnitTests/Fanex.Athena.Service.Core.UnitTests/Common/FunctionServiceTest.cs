@@ -62,7 +62,7 @@
 
             var expectedResult = FakeHelper.CreateMany<Function>(5);
             _functionStorage.GetFunctionList().Returns(functions);
-            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(licenseeFunctions);
+            _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).Returns(licenseeFunctions);
 
             // Action
             var result = await _service.GetLicenseeFunctionList(licenseeId).ConfigureAwait(false);
@@ -88,8 +88,8 @@
             var licenseeId = FakeHelper.Create<int>();
             var userId = FakeHelper.Create<int>();
 
-            _functionDataAccess.GetUserFunctionList(licenseeId, userId).Returns(userFuncs);
-            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(licenseeFuncs);
+            _functionDataAccess.GetUserFunctionListAsync(licenseeId, userId).Returns(userFuncs);
+            _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).Returns(licenseeFuncs);
             _functionStorage.GetFunctionList().Returns(functions);
             _functionStorage.GetMasterFunctions().Returns(CreateFakeFunctions(new int[0]));
 
@@ -122,8 +122,8 @@
             var licenseeId = FakeHelper.Create<int>();
             var userId = FakeHelper.Create<int>();
 
-            _functionDataAccess.GetUserFunctionList(licenseeId, userId).Returns(userFuncs);
-            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(licenseeFuncs);
+            _functionDataAccess.GetUserFunctionListAsync(licenseeId, userId).Returns(userFuncs);
+            _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).Returns(licenseeFuncs);
             _functionStorage.GetFunctionList().Returns(functions);
             _functionStorage.GetMasterFunctions().Returns(masterFuncs);
             _functionStorage.GetSubFunctions().Returns(subFuncs);
@@ -162,8 +162,8 @@
             var licenseeId = FakeHelper.Create<int>();
             var userId = FakeHelper.Create<int>();
 
-            _functionDataAccess.GetUserFunctionList(licenseeId, userId).Returns(userFuncs);
-            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(licenseeFuncs);
+            _functionDataAccess.GetUserFunctionListAsync(licenseeId, userId).Returns(userFuncs);
+            _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).Returns(licenseeFuncs);
             _functionStorage.GetFunctionList().Returns(functions);
             _functionStorage.GetMasterFunctions().Returns(masterFuncs);
             _functionStorage.GetSubFunctions().Returns(subFuncs);
@@ -196,8 +196,8 @@
             var functions = CreateFakeFunctions(new[] { 11 }).Union(CreateFakeFunctions(correctFuncs)).Union(userFuncs);
             var functionIdList = noChangeFuncs.Union(new[] { 12, 13, AddingFunc });
 
-            _functionDataAccess.GetUserFunctionList(licenseeId, custId).Returns(userFuncs);
-            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(userFuncs);
+            _functionDataAccess.GetUserFunctionListAsync(licenseeId, custId).Returns(userFuncs);
+            _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).Returns(userFuncs);
             _functionStorage.GetFunctionList().Returns(functions);
             _functionStorage.GetMasterFunctions().Returns(CreateFakeFunctions(new int[0]));
 
@@ -207,8 +207,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _functionDataAccess.Received().AssignUserFunction(licenseeId, custId, AddingFunc, userId, ip, langKey);
-                _functionDataAccess.Received().RemoveUserFunction(licenseeId, userId, custId, ip, RemoveFunc, langKey);
+                _functionDataAccess.Received().AssignUserFunctionAsync(licenseeId, custId, AddingFunc, userId, ip, langKey);
+                _functionDataAccess.Received().RemoveUserFunctionAsync(licenseeId, userId, custId, ip, RemoveFunc, langKey);
             });
         }
 
@@ -231,12 +231,12 @@
             var functions = CreateFakeFunctions(new[] { 11 }).Union(CreateFakeFunctions(correctFuncs)).Union(userFuncs);
             var functionIdList = noChangeFuncs;
 
-            _functionDataAccess.GetUserFunctionList(licenseeId, custId).Returns(userFuncs);
-            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(userFuncs);
+            _functionDataAccess.GetUserFunctionListAsync(licenseeId, custId).Returns(userFuncs);
+            _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).Returns(userFuncs);
             _functionStorage.GetFunctionList().Returns(functions);
             _functionStorage.GetMasterFunctions().Returns(CreateFakeFunctions(new int[0]));
 
-            _functionDataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
+            _functionDataAccess.RemoveUserFunctionAsync(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
                 .Returns(new ResultInfo { Code = 100, Message = "Error" });
 
             // Action
@@ -269,12 +269,12 @@
             var functions = CreateFakeFunctions(new[] { 11 }).Union(CreateFakeFunctions(correctFuncs)).Union(userFuncs);
             var functionIdList = noChangeFuncs.Union(new[] { 12, 13, AddFunc1, AddFunc2 });
 
-            _functionDataAccess.GetUserFunctionList(licenseeId, custId).Returns(userFuncs);
-            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(userFuncs);
+            _functionDataAccess.GetUserFunctionListAsync(licenseeId, custId).Returns(userFuncs);
+            _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).Returns(userFuncs);
             _functionStorage.GetFunctionList().Returns(functions);
             _functionStorage.GetMasterFunctions().Returns(CreateFakeFunctions(new int[0]));
 
-            _functionDataAccess.AssignUserFunction(licenseeId, custId, Arg.Any<int>(), userId, ip, langKey)
+            _functionDataAccess.AssignUserFunctionAsync(licenseeId, custId, Arg.Any<int>(), userId, ip, langKey)
                 .Returns(new ResultInfo { Code = 100, Message = "Error" });
 
             // Action
@@ -307,14 +307,14 @@
             var functions = CreateFakeFunctions(new[] { 11 }).Union(CreateFakeFunctions(correctFuncs)).Union(userFuncs);
             var functionIdList = noChangeFuncs.Union(new[] { 12, 13, AddingFunc });
 
-            _functionDataAccess.GetUserFunctionList(licenseeId, custId).Returns(userFuncs);
-            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(userFuncs);
+            _functionDataAccess.GetUserFunctionListAsync(licenseeId, custId).Returns(userFuncs);
+            _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).Returns(userFuncs);
             _functionStorage.GetFunctionList().Returns(functions);
             _functionStorage.GetMasterFunctions().Returns(CreateFakeFunctions(new int[0]));
 
-            _functionDataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, RemoveFunc, langKey)
+            _functionDataAccess.RemoveUserFunctionAsync(licenseeId, userId, custId, ip, RemoveFunc, langKey)
                 .Returns(new ResultInfo { Code = 100, Message = "Remove Error" });
-            _functionDataAccess.AssignUserFunction(licenseeId, custId, AddingFunc, userId, ip, langKey)
+            _functionDataAccess.AssignUserFunctionAsync(licenseeId, custId, AddingFunc, userId, ip, langKey)
                 .Returns(new ResultInfo { Code = 100, Message = "Adding Error" });
 
             // Action
@@ -343,14 +343,14 @@
             var functions = CreateFakeFunctions(new[] { 11 }).Union(CreateFakeFunctions(correctFuncs)).Union(userFuncs);
             var functionIdList = noChangeFuncs.Union(new[] { 12, 13, AddingFunc });
 
-            _functionDataAccess.GetUserFunctionList(licenseeId, custId).Returns(userFuncs);
-            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(userFuncs);
+            _functionDataAccess.GetUserFunctionListAsync(licenseeId, custId).Returns(userFuncs);
+            _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).Returns(userFuncs);
             _functionStorage.GetFunctionList().Returns(functions);
             _functionStorage.GetMasterFunctions().Returns(CreateFakeFunctions(new int[0]));
 
-            _functionDataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
+            _functionDataAccess.RemoveUserFunctionAsync(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
                 .Returns(new ResultInfo());
-            _functionDataAccess.AssignUserFunction(licenseeId, custId, Arg.Any<int>(), userId, ip, langKey)
+            _functionDataAccess.AssignUserFunctionAsync(licenseeId, custId, Arg.Any<int>(), userId, ip, langKey)
                 .Returns(new ResultInfo());
 
             // Action

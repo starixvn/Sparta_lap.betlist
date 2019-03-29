@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Common;
     using Fanex.Athena.DataAccess.Core.UnitTests.TestHelpers;
     using Model.Core.MetaModel.Common;
@@ -19,13 +20,13 @@
         }
 
         [Test]
-        public void WriteLog_WhenCall_ParametersPassedCorrectly()
+        public async Task WriteLog_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             var metaModel = FakeHelper.Create<UserLogMetaModel>();
 
             // Action
-            DataAccess.WriteLog(metaModel);
+            await DataAccess.WriteLog(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -42,16 +43,16 @@
         }
 
         [Test]
-        public void WriteLog_WhenCall_ExecuteNonQuery()
+        public async Task WriteLog_WhenCall_ExecuteNonQuery()
         {
             // Arrange
             var metaModel = new UserLogMetaModel();
 
             // Action
-            DataAccess.WriteLog(metaModel);
+            await DataAccess.WriteLog(metaModel);
 
             // Assert
-            ObjectDb.Received(1).ExecuteNonQueryAsync();
+            await ObjectDb.Received(1).ExecuteNonQueryAsync();
         }
     }
 }

@@ -41,7 +41,7 @@
         public async Task FunctionList_DataFromDataAccessIsNull_ReturnNull()
         {
             // Arrange
-            _functionDataAccess.GetFunctionList().Returns(Task.FromResult<IList<Function>>(null));
+            _functionDataAccess.GetFunctionListAsync().Returns(Task.FromResult<IList<Function>>(null));
 
             // Action
             var result = await _functionStorage.GetFunctionList();
@@ -49,7 +49,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _functionDataAccess.Received().GetFunctionList();
+                _functionDataAccess.Received().GetFunctionListAsync();
                 Assert.That(result, Is.Null);
             });
         }
@@ -58,7 +58,7 @@
         public async Task FunctionList_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            _functionDataAccess.GetFunctionList().Returns(_functions);
+            _functionDataAccess.GetFunctionListAsync().Returns(_functions);
 
             // Action
             var resultFirstTime = await _functionStorage.GetFunctionList();

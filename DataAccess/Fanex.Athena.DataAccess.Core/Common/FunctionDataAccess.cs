@@ -24,7 +24,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _appSettings = appSetting;
         }
 
-        public async Task<IList<Function>> GetFunctionList()
+        public async Task<IList<Function>> GetFunctionListAsync()
         {
             var functionList = new List<Function>();
             using (var db = this.GetObjectDb("Lrf_FunctionsSel"))
@@ -62,7 +62,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        public async Task<IList<Function>> GetLicenseeFunctionList(int licenseeId)
+        public async Task<IList<Function>> GetLicenseeFunctionListAsync(int licenseeId)
         {
             var functionList = new List<Function>();
             using (var db = this.GetObjectDb("Lrf_LicenseeFunctionsSel"))
@@ -84,7 +84,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        public async Task<IList<Function>> GetUserFunctionList(int licenseeId, int userId)
+        public async Task<IList<Function>> GetUserFunctionListAsync(int licenseeId, int userId)
         {
             var functionList = new List<Function>();
 
@@ -109,17 +109,17 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        public IResultInfo AssignUserFunction(int licenseeId, int custId, int functionId, int userId, string ip, string langKey)
+        public Task<IResultInfo> AssignUserFunctionAsync(int licenseeId, int custId, int functionId, int userId, string ip, string langKey)
         {
             return ExecuteNonQueryUserFunction("Lrf_LicenseeUserFunctionsIns", licenseeId, userId, custId, ip, functionId, langKey);
         }
 
-        public IResultInfo RemoveUserFunction(int licenseeId, int userId, int custId, string ip, int functionId, string langKey)
+        public Task<IResultInfo> RemoveUserFunctionAsync(int licenseeId, int userId, int custId, string ip, int functionId, string langKey)
         {
             return ExecuteNonQueryUserFunction("Lrf_LicenseeUserFunctionsDel", licenseeId, userId, custId, ip, functionId, langKey);
         }
 
-        private IResultInfo ExecuteNonQueryUserFunction(
+        private async Task<IResultInfo> ExecuteNonQueryUserFunction(
             string uspName,
             int licenseeId,
             int userId,
@@ -138,7 +138,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("IP", ip);
 
                 AddResultParam(db);
-                db.ExecuteNonQueryAsync();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return GetResult(db);
             }

@@ -19,7 +19,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess
     {
-        public IResultInfo AssignCurrenciesByUser(AssignCurrencyMetaModel request)
+        public async Task<IResultInfo> AssignCurrenciesByUser(AssignCurrencyMetaModel request)
         {
             const string UspName = "Lrf_CurrencyCustIns";
 
@@ -33,7 +33,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("IP", request.IP);
 
                 AddResultParam(db);
-                db.ExecuteNonQueryAsync();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return GetResult(db);
             }

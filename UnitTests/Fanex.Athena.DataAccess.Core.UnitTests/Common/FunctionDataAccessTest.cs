@@ -58,7 +58,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = await DataAccess.GetFunctionList().ConfigureAwait(false);
+            var result = await DataAccess.GetFunctionListAsync().ConfigureAwait(false);
 
             // Assert
             Assert.That(result[0].FunctionId, Is.EqualTo(1));
@@ -79,7 +79,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = await DataAccess.GetFunctionList();
+            var result = await DataAccess.GetFunctionListAsync();
 
             // Assert
             Assert.That(result, Is.Empty);
@@ -92,7 +92,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetLicenseeFunctionList)).Returns(ObjectDb);
 
             // Action
-            await DataAccess.GetLicenseeFunctionList(LicenseeId);
+            await DataAccess.GetLicenseeFunctionListAsync(LicenseeId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("licenseeid", LicenseeId);
@@ -109,7 +109,7 @@
             Reader.Read().Returns(true, true, false);
 
             // Action
-            var result = await DataAccess.GetLicenseeFunctionList(LicenseeId).ConfigureAwait(false);
+            var result = await DataAccess.GetLicenseeFunctionListAsync(LicenseeId).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -126,7 +126,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetUserFunctionList)).Returns(ObjectDb);
 
             // Action
-            await DataAccess.GetUserFunctionList(LicenseeId, UserId);
+            await DataAccess.GetUserFunctionListAsync(LicenseeId, UserId);
 
             // Assert
             Assert.Multiple(() =>
@@ -147,7 +147,7 @@
             Reader.Read().Returns(true, true, false);
 
             // Action
-            var result = await DataAccess.GetUserFunctionList(LicenseeId, UserId);
+            var result = await DataAccess.GetUserFunctionListAsync(LicenseeId, UserId);
 
             // Assert
             Assert.Multiple(() =>
@@ -164,7 +164,7 @@
             DataAccess.GetObjectDb(Arg.Is(AssignUserFunction)).Returns(ObjectDb);
 
             // Action
-            DataAccess.AssignUserFunction(LicenseeId, CustId, FunctionId, UserId, Ip, LangKey);
+            DataAccess.AssignUserFunctionAsync(LicenseeId, CustId, FunctionId, UserId, Ip, LangKey);
 
             // Assert
             Assert.Multiple(() =>
@@ -181,14 +181,14 @@
         }
 
         [Test]
-        public void AssignUserFunction_WhenCall_DataReturnedCorrectly()
+        public async Task AssignUserFunction_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(AssignUserFunction)).Returns(ObjectDb);
             ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = DataAccess.AssignUserFunction(LicenseeId, CustId, FunctionId, UserId, Ip, LangKey);
+            var result = await DataAccess.AssignUserFunctionAsync(LicenseeId, CustId, FunctionId, UserId, Ip, LangKey);
 
             // Assert
             Assert.Multiple(() =>
@@ -205,7 +205,7 @@
             DataAccess.GetObjectDb(Arg.Is(RemoveUserFunction)).Returns(ObjectDb);
 
             // Action
-            DataAccess.RemoveUserFunction(LicenseeId, UserId, CustId, Ip, FunctionId, LangKey);
+            DataAccess.RemoveUserFunctionAsync(LicenseeId, UserId, CustId, Ip, FunctionId, LangKey);
 
             // Assert
             Assert.Multiple(() =>
@@ -222,14 +222,14 @@
         }
 
         [Test]
-        public void RemoveUserFunction_WhenCall_DataReturnedCorrectly()
+        public async Task RemoveUserFunction_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RemoveUserFunction)).Returns(ObjectDb);
             ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = DataAccess.RemoveUserFunction(LicenseeId, UserId, CustId, Ip, FunctionId, LangKey);
+            var result = await DataAccess.RemoveUserFunctionAsync(LicenseeId, UserId, CustId, Ip, FunctionId, LangKey);
 
             // Assert
             Assert.Multiple(() =>

@@ -53,7 +53,7 @@ namespace Fanex.Athena.Service.Core.Common
 
         public async Task<IEnumerable<Function>> GetLicenseeFunctionList(int licenseeId)
         {
-            var functionIdList = (await _functionDataAccess.GetLicenseeFunctionList(licenseeId).ConfigureAwait(false))
+            var functionIdList = (await _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).ConfigureAwait(false))
                                         .Select(i => i.FunctionId);
             var allFunctions = await GetFunctions().ConfigureAwait(false);
             return allFunctions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
@@ -61,8 +61,8 @@ namespace Fanex.Athena.Service.Core.Common
 
         public async Task<IEnumerable<Function>> GetUserFunctionList(int licenseeId, int userId)
         {
-            var userFunctionIdData = await _functionDataAccess.GetUserFunctionList(licenseeId, userId).ConfigureAwait(false);
-            var licenseeFunctionData = await _functionDataAccess.GetLicenseeFunctionList(licenseeId).ConfigureAwait(false);
+            var userFunctionIdData = await _functionDataAccess.GetUserFunctionListAsync(licenseeId, userId).ConfigureAwait(false);
+            var licenseeFunctionData = await _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).ConfigureAwait(false);
 
             var userFunctionIdList = userFunctionIdData.AsEnumerable().Select(f => f.FunctionId);
             var licenseeFunctionIdList = licenseeFunctionData.AsEnumerable().Select(f => f.FunctionId);
@@ -101,9 +101,9 @@ namespace Fanex.Athena.Service.Core.Common
             var addingIdList = correctFunctionIdList.Except(userFunctionList);
             var removingIdList = userFunctionList.Except(correctFunctionIdList);
 
-            var addingResult = AddUserToFunction(licenseeId, custId, userId, ip, langKey, addingIdList);
+            var addingResult = await AddUserToFunction(licenseeId, custId, userId, ip, langKey, addingIdList).ConfigureAwait(false);
 
-            var removingResult = RemoveUserFromFunction(licenseeId, custId, userId, ip, langKey, removingIdList);
+            var removingResult = await RemoveUserFromFunction(licenseeId, custId, userId, ip, langKey, removingIdList).ConfigureAwait(false);
 
             if (!addingResult.IsSuccessful)
             {
@@ -176,7 +176,7 @@ namespace Fanex.Athena.Service.Core.Common
 
         #endregion Utilities
 
-        private IResultInfo AddUserToFunction(
+        private async Task<IResultInfo> AddUserToFunction(
             int licenseeId,
             int custId,
             int userId,
@@ -194,7 +194,7 @@ namespace Fanex.Athena.Service.Core.Common
 
             foreach (var function in addingIdList)
             {
-                var tempResult = _functionDataAccess.AssignUserFunction(licenseeId, custId, function, userId, ip, langKey);
+                var tempResult = await _functionDataAccess.AssignUserFunctionAsync(licenseeId, custId, function, userId, ip, langKey).ConfigureAwait(false);
 
                 if (!tempResult.IsSuccessful)
                 {
@@ -212,7 +212,7 @@ namespace Fanex.Athena.Service.Core.Common
             return addedResultInfo;
         }
 
-        private IResultInfo RemoveUserFromFunction(
+        private async Task<IResultInfo> RemoveUserFromFunction(
             int licenseeId,
             int custId,
             int userId,
@@ -231,7 +231,7 @@ namespace Fanex.Athena.Service.Core.Common
 
             foreach (var function in removingIdList)
             {
-                var tempResult = _functionDataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, function, langKey);
+                var tempResult = await _functionDataAccess.RemoveUserFunctionAsync(licenseeId, userId, custId, ip, function, langKey);
 
                 if (!tempResult.IsSuccessful)
                 {
