@@ -60,7 +60,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<IResultInfo> UpdateStatusAsync(BetSettingCasinoStatusMetaModel metaModel)
         {
-            if (!HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId))
+            if (!(await HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId).ConfigureAwait(false)))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
@@ -78,9 +78,9 @@ namespace Fanex.Athena.Service.BetSettings
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
         }
 
-        public IResultInfo UpdateSetting(RngCasinoBetSettingMetaModel metaModel, bool isSyncCasino, bool isDisableCasino)
+        public async Task<IResultInfo> UpdateSetting(RngCasinoBetSettingMetaModel metaModel, bool isSyncCasino, bool isDisableCasino)
         {
-            if (isDisableCasino || !HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId))
+            if (isDisableCasino || !(await HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId).ConfigureAwait(false)))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }

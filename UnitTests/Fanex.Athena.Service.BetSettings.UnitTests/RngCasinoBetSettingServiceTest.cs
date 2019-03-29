@@ -221,13 +221,13 @@
         }
 
         [Test]
-        public void UpdateSetting_IsDisableCasino_ReturnErrorResult()
+        public async Task UpdateSetting_IsDisableCasino_ReturnErrorResult()
         {
             // Arrange
             var metaModel = new RngCasinoBetSettingMetaModel();
 
             // Action
-            var result = _service.UpdateSetting(metaModel, false, true);
+            var result = await _service.UpdateSetting(metaModel, false, true).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -239,7 +239,7 @@
         }
 
         [Test]
-        public void UpdateSetting_NoPermission_ReturnErrorResult()
+        public async Task UpdateSetting_NoPermission_ReturnErrorResult()
         {
             // Arrange
             var metaModel = new RngCasinoBetSettingMetaModel
@@ -251,7 +251,7 @@
             _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _service.UpdateSetting(metaModel, false, false);
+            var result = await _service.UpdateSetting(metaModel, false, false).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -263,7 +263,7 @@
         }
 
         [Test]
-        public void UpdateSetting_IsNotSyncCasino_ReturnErrorResult()
+        public async Task UpdateSetting_IsNotSyncCasino_ReturnErrorResult()
         {
             // Arrange
             var metaModel = new RngCasinoBetSettingMetaModel
@@ -275,7 +275,7 @@
             _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, Arg.Any<long>()).Returns(true);
 
             // Action
-            var result = _service.UpdateSetting(metaModel, false, false);
+            var result = await _service.UpdateSetting(metaModel, false, false).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -287,7 +287,7 @@
         }
 
         [Test]
-        public void UpdateSetting_IsDisableRngCasino_ReturnErrorResult()
+        public async Task UpdateSetting_IsDisableRngCasino_ReturnErrorResult()
         {
             // Arrange
             var metaModel = new RngCasinoBetSettingMetaModel
@@ -300,7 +300,7 @@
             _appSettings.IsDisableRngCasino.Returns(true);
 
             // Action
-            var result = _service.UpdateSetting(metaModel, true, false);
+            var result = await _service.UpdateSetting(metaModel, true, false).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -312,7 +312,7 @@
         }
 
         [Test]
-        public void UpdateSetting_ValidData_CallDataAccessMethodFail_ReturnErrorResult()
+        public async Task UpdateSetting_ValidData_CallDataAccessMethodFail_ReturnErrorResult()
         {
             // Arrange
             var metaModel = new RngCasinoBetSettingMetaModel
@@ -326,7 +326,7 @@
             _casinoSetting.UpdateSetting(metaModel.TableParam).Returns(false);
 
             // Action
-            var result = _service.UpdateSetting(metaModel, true, false);
+            var result = await _service.UpdateSetting(metaModel, true, false).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -338,7 +338,7 @@
         }
 
         [Test]
-        public void UpdateSetting_ValidData_CallDataAccessMethodSuccessfully_ReturnSuccessfulResult()
+        public async Task UpdateSetting_ValidData_CallDataAccessMethodSuccessfully_ReturnSuccessfulResult()
         {
             // Arrange
             var metaModel = new RngCasinoBetSettingMetaModel
@@ -352,7 +352,7 @@
             _casinoSetting.UpdateSetting(metaModel.TableParam).Returns(true);
 
             // Action
-            var result = _service.UpdateSetting(metaModel, true, false);
+            var result = await _service.UpdateSetting(metaModel, true, false).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

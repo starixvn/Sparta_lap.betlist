@@ -31,7 +31,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<BetSettingViewModel> GetViewModelAsync(int licenseeId, int custId)
         {
-            if (!HasPermissionOnData(licenseeId, custId))
+            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
             {
                 return new BetSettingViewModel
                 {
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Service.BetSettings
         /// <returns>The information of result.</returns>
         public async Task<IResultInfo> UpdateBetSettingAsync(CommonBetSetting setting, Hashtable data)
         {
-            if (!HasPermissionOnData(setting.LicenseeId, setting.CustId))
+            if (!(await HasPermissionOnData(setting.LicenseeId, setting.CustId).ConfigureAwait(false)))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }

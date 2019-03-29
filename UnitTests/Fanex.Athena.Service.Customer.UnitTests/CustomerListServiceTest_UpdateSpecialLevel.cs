@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
+    using System.Threading.Tasks;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -10,7 +11,7 @@
     public partial class CustomerListServiceTest
     {
         [Test]
-        public void UpdateSpecialLevel_HaveNoPermission_ReturnCorrectResultInfo()
+        public async Task UpdateSpecialLevel_HaveNoPermission_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -24,7 +25,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = ViewResources.UpdateSpecialLevelMsg };
 
             // Action
-            var result = _customerListService.UpdateSpecialLevel(licenseeId, userId, custId, level, ip, language);
+            var result = await _customerListService.UpdateSpecialLevel(licenseeId, userId, custId, level, ip, language);
 
             // Assert
             Assert.Multiple(() =>
@@ -35,7 +36,7 @@
         }
 
         [Test]
-        public void UpdateSpecialLevel_WhenCallWithCorrectPermission_ReturnCorrectResultInfo()
+        public async Task UpdateSpecialLevel_WhenCallWithCorrectPermission_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -51,7 +52,7 @@
             _customerListDataAccess.UpdateSpecialLevel(userId, custId, level, ip, language).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.UpdateSpecialLevel(licenseeId, userId, custId, level, ip, language);
+            var result = await _customerListService.UpdateSpecialLevel(licenseeId, userId, custId, level, ip, language);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

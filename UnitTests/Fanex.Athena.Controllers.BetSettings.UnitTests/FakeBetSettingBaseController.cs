@@ -28,7 +28,7 @@
             return base.AccessDenied();
         }
 
-        internal new CustomerInfo GetCustomerInfo(int custId)
+        internal new Task<CustomerInfo> GetCustomerInfo(int custId)
         {
             return base.GetCustomerInfo(custId);
         }

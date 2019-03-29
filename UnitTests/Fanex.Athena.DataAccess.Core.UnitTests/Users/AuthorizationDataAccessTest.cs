@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Users
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Users;
     using NSubstitute;
     using NUnit.Framework;
@@ -21,10 +22,10 @@
         }
 
         [Test]
-        public void IsCustomerBelonging_WhenCall_ParametersPassedCorrectly()
+        public async Task IsCustomerBelonging_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            DataAccess.IsCustomerBelonging(LicenseeId, CustId, TransId);
+            await DataAccess.IsCustomerBelonging(LicenseeId, CustId, TransId);
 
             // Assert
             Assert.Multiple(() =>
@@ -38,13 +39,13 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void IsCustomerBelonging_WhenCall_ValueReturnedCorrectly(bool expected)
+        public async Task IsCustomerBelonging_WhenCall_ValueReturnedCorrectly(bool expected)
         {
             // Arrange
             ObjectDb.GetParameterValue("status").Returns(expected);
 
             // Action
-            var result = DataAccess.IsCustomerBelonging(LicenseeId, CustId, TransId);
+            var result = await DataAccess.IsCustomerBelonging(LicenseeId, CustId, TransId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

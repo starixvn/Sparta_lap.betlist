@@ -154,10 +154,10 @@
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
                 const string ErrorMessage = "Failed";
-                _betSettingService.UpdateSetting(
+                _betSettingService.When(x => x.UpdateSetting(
                    Arg.Any<RngCasinoBetSettingMetaModel>(),
                    Arg.Any<bool>(),
-                   Arg.Any<bool>()).Returns(x => { throw new System.Exception(ErrorMessage); });
+                   Arg.Any<bool>())).Do(x => { throw new System.Exception(ErrorMessage); });
 
                 // Action
                 var result = await controller.UpdateBetSetting(0, "1") as JsonResult;

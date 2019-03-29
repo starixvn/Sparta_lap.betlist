@@ -125,7 +125,7 @@ namespace Fanex.Athena.Controllers.Customer
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        public ActionResult UpdateSpecialLevel(int custId, int level)
+        public async Task<ActionResult> UpdateSpecialLevel(int custId, int level)
         {
             var isFakeLicensee = IsFakeLicensee();
 
@@ -135,13 +135,13 @@ namespace Fanex.Athena.Controllers.Customer
 
                 try
                 {
-                    var dataResult = _customerListService.UpdateSpecialLevel(
+                    var dataResult = await _customerListService.UpdateSpecialLevel(
                         SessionService.LicenseeSession.LicenseeId,
                         userSession.UserId,
                         custId,
                         level,
                         Request.UserHostAddress,
-                        userSession.Language);
+                        userSession.Language).ConfigureAwait(false);
 
                     return Json(new ResultViewModel
                     {
@@ -172,7 +172,7 @@ namespace Fanex.Athena.Controllers.Customer
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
+        public async Task<ActionResult> UpdateOddsGroup(int custId, string oddsGroup)
         {
             var isFakeLicensee = IsFakeLicensee();
 
@@ -191,7 +191,7 @@ namespace Fanex.Athena.Controllers.Customer
                         OddsGroup = oddsGroup,
                         UserId = userSession.UserId
                     };
-                    var dataResult = _customerListService.UpdateOddsGroup(metaModel);
+                    var dataResult = await _customerListService.UpdateOddsGroup(metaModel).ConfigureAwait(false);
 
                     var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
                                    ViewResources.HttpError_Default : dataResult.Message;
@@ -253,12 +253,12 @@ namespace Fanex.Athena.Controllers.Customer
                 }
             }
 
-            var updateResult = _customerListService.UpdateCustomerBAStatus(
+            var updateResult = await _customerListService.UpdateCustomerBAStatus(
                 licenseeSession.LicenseeId,
                 custId,
                 userSession.UserId,
                 isAllowBA,
-                request);
+                request).ConfigureAwait(false);
             if (updateResult.IsSuccessful)
             {
                 return CreateUpdatingBaResult(isAllowBA, true, updateResult.Message, updateResult.ExtendedData);

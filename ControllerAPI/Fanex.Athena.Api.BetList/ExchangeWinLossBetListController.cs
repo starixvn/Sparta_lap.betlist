@@ -38,7 +38,7 @@
         [HttpPost]
         public async Task<dynamic> Index(ExchangeBetListMetaModel metaModel)
         {
-            if (!IsValidRequest(metaModel))
+            if (!(await IsValidRequest(metaModel).ConfigureAwait(false)))
             {
                 return new ExchangeBetListViewModel
                 {
@@ -54,7 +54,7 @@
         [HttpPost]
         public async Task<dynamic> Detail(ExchangeBetListDetailMetaModel metaModel)
         {
-            if (!IsValidRequest(metaModel))
+            if (!(await IsValidRequest(metaModel).ConfigureAwait(false)))
             {
                 return new List<ExchangeTicketDetail>();
             }
@@ -64,12 +64,12 @@
             return await _betListApiClient.PostAsync("/ExchangeWinLossBetList/Detail", metaModel).ConfigureAwait(false);
         }
 
-        private bool IsValidRequest(BaseExchangeBetListMetaModel metaModel)
+        private async Task<bool> IsValidRequest(BaseExchangeBetListMetaModel metaModel)
         {
             return metaModel.IsValid
                 && (metaModel.CurrencyId == BaseCurrencyType.All || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(
                     SessionService.UserSession.CurrencyList, SessionService.LicenseeSession.LicenseeId, metaModel.CurrencyId))
-                && _authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0);
+                && await _authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0).ConfigureAwait(false);
         }
     }
 }

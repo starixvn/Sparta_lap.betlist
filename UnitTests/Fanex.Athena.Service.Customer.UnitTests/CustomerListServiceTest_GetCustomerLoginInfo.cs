@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
+    using System.Threading.Tasks;
     using Casino.Interfaces;
     using Core.Common.Interfaces;
     using DataAccess.Customer.Interfaces;
@@ -62,7 +63,7 @@
         }
 
         [Test]
-        public void GetCustomerLoginInfo_WhenCallWithCorrectPermission_ReturnCorrectData()
+        public async Task GetCustomerLoginInfo_WhenCallWithCorrectPermission_ReturnCorrectData()
         {
             // Arrange
             const string LicenseeName = "Name";
@@ -74,14 +75,14 @@
             _customerListDataAccess.GetCustomerLoginInfo(custId, licenseeId, LicenseeName).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
+            var result = await _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetCustomerLoginInfo_HaveNoPermission_DataAccessIsNotCalled()
+        public async Task GetCustomerLoginInfo_HaveNoPermission_DataAccessIsNotCalled()
         {
             // Arrange
             const string LicenseeName = "Name";
@@ -91,7 +92,7 @@
             _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(false);
 
             // Action
-            var result = _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
+            var result = await _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
 
             // Assert
             Assert.Multiple(() =>

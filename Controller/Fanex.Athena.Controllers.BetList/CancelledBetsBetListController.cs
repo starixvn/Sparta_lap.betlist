@@ -124,7 +124,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         private async Task<IEnumerable<CustomerCancelBetItem>> GetData(BetListMetaModel metaModel)
         {
-            if (!HasPermissionOnData(metaModel))
+            if (!(await HasPermissionOnData(metaModel).ConfigureAwait(false)))
             {
                 return new List<CustomerCancelBetItem>();
             }
@@ -137,9 +137,9 @@ namespace Fanex.Athena.Controllers.BetList
                 }).ConfigureAwait(false);
         }
 
-        private bool HasPermissionOnData(BetListMetaModel metaModel)
+        private async Task<bool> HasPermissionOnData(BetListMetaModel metaModel)
         {
-            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId);
+            return await _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId).ConfigureAwait(false);
         }
     }
 }

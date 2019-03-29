@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
+    using System.Threading.Tasks;
     using DataAccess.Customer.Interfaces;
     using Model.Customer.DTO;
     using NSubstitute;
@@ -33,7 +34,7 @@
         }
 
         [Test]
-        public void GetCustomerInfo_WhenCallWithCorrectPermission_ReturnCorrectData()
+        public async Task GetCustomerInfo_WhenCallWithCorrectPermission_ReturnCorrectData()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -44,14 +45,14 @@
             _customerDataAccess.GetCustomerInfo(custId).Returns(expectedResult);
 
             // Action
-            var result = _customerService.GetCustomerInfo(licenseeId, custId);
+            var result = await _customerService.GetCustomerInfo(licenseeId, custId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetCustomerInfo_HaveNoPermission_DataAccessIsNotCalled()
+        public async Task GetCustomerInfo_HaveNoPermission_DataAccessIsNotCalled()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -59,7 +60,7 @@
             _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(false);
 
             // Action
-            var result = _customerService.GetCustomerInfo(licenseeId, custId);
+            var result = await _customerService.GetCustomerInfo(licenseeId, custId);
 
             // Assert
             Assert.Multiple(() =>

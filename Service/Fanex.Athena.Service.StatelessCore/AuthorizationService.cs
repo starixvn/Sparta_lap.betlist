@@ -40,7 +40,7 @@ namespace Fanex.Athena.Service.StatelessCore
         }
 
         [DebuggerStepThrough]
-        public bool HasPermissionOnData(int licenseeId, int custId, long transId)
+        public async Task<bool> HasPermissionOnData(int licenseeId, int custId, long transId)
         {
             if (licenseeId <= 0)
             {
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Service.StatelessCore
                 return true;
             }
 
-            return _authorizationDataAccess.IsCustomerBelonging(licenseeId, custId, transId);
+            return await _authorizationDataAccess.IsCustomerBelonging(licenseeId, custId, transId).ConfigureAwait(false);
         }
     }
 }

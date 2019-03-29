@@ -117,7 +117,7 @@ namespace Fanex.Athena.Controllers
                     Request = new Request { Ip = Request.UserHostAddress },
                 };
 
-                var resultInfo = await _authService.ValidateUserForLrfAsync(requestUser, model.LogInToken).ConfigureAwait(false);
+                var resultInfo = await _authService.ValidateUserForLrfAsync(requestUser, model.LogInToken);
 
                 if (resultInfo.IsSuccessful)
                 {

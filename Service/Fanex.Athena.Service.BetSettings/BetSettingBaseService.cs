@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.BetSettings
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Model.Core.DTO.Common;
 
@@ -27,9 +28,9 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        protected bool HasPermissionOnData(int licenseeId, int custId)
+        protected async Task<bool> HasPermissionOnData(int licenseeId, int custId)
         {
-            return _authorizationService.HasPermissionOnData(licenseeId, custId, 0);
+            return await _authorizationService.HasPermissionOnData(licenseeId, custId, 0).ConfigureAwait(false);
         }
     }
 }

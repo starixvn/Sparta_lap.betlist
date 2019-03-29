@@ -21,9 +21,9 @@
         {
         }
 
-        internal new void CheckDataPermission(int custId, long transId)
+        internal new async Task CheckDataPermission(int custId, long transId)
         {
-            base.CheckDataPermission(custId, transId);
+            await base.CheckDataPermission(custId, transId).ConfigureAwait(false);
         }
 
         internal new Task<dynamic> GetBetListResult(BetListMetaModel metaModel, string uspKey, string apiPath = null)

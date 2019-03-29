@@ -28,7 +28,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<bool?> GetStatusAsync(int licenseeId, int custId, int productId)
         {
-            if (!HasPermissionOnData(licenseeId, custId))
+            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
             {
                 return null;
             }
@@ -38,7 +38,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<IResultInfo> UpdateStatusAsync(int licenseeId, int userId, int custId, string ip, bool status, int productId)
         {
-            if (!HasPermissionOnData(licenseeId, custId))
+            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
             {
                 return new ResultInfo
                 {
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<IList<BetSetting>> GetBetSettingsAsync(int licenseeId, int custId, int productId)
         {
-            if (!HasPermissionOnData(licenseeId, custId))
+            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
             {
                 return new List<BetSetting>();
             }
@@ -64,7 +64,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             const string XMLPattern = "<ROOT>{0}</ROOT>";
             const string XMLElement = "<BetLimit SportType=\"{0}\" BetType=\"{1}\" MinBet=\"{2}\" MaxBet=\"{3}\" MaxPerMatch=\"{4}\" ></BetLimit>";
-            if (!HasPermissionOnData(licenseeId, custId))
+            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }

@@ -139,14 +139,14 @@
             const int LicenseeId = 0;
 
             // Action
-            TestDelegate testDelegate = () => _authorizationService.HasPermissionOnData(LicenseeId, 1, 1);
+            AsyncTestDelegate testDelegate = () => _authorizationService.HasPermissionOnData(LicenseeId, 1, 1);
 
             // Assert
             Assert.That(testDelegate, Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        public void HasPermissionOnData_CustIdAndTransIdAreZero_ReturnTrue()
+        public async Task HasPermissionOnData_CustIdAndTransIdAreZero_ReturnTrue()
         {
             // Arrange
             var licenseeId = Math.Abs(FakeHelper.Create<int>()) + 1;
@@ -154,7 +154,7 @@
             const int TransId = 0;
 
             // Action
-            var result = _authorizationService.HasPermissionOnData(licenseeId, CustId, TransId);
+            var result = await _authorizationService.HasPermissionOnData(licenseeId, CustId, TransId);
 
             // Assert
             Assert.That(result, Is.True);
@@ -172,7 +172,7 @@
             _authorizationService.HasPermissionOnData(licenseeId, custId, transId);
 
             // Assert
-            _authorizationDataAccess.Received().IsCustomerBelonging(licenseeId, custId, transId);
+            _authorizationDataAccess.Received(1).IsCustomerBelonging(licenseeId, custId, transId);
         }
     }
 }

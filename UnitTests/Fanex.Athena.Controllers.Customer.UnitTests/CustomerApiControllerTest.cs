@@ -141,7 +141,7 @@
         }
 
         [Test]
-        public void UpdateSpecialLevel_FakeLicensee_ReturnErrorResult()
+        public async Task UpdateSpecialLevel_FakeLicensee_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -150,7 +150,7 @@
                 AppSettings.FakeLicenseeList.Returns(fakeLicenseeList);
 
                 // Action
-                var result = controller.UpdateSpecialLevel(0, 0) as JsonResult;
+                var result = await controller.UpdateSpecialLevel(0, 0) as JsonResult;
                 var resultInfo = result.Data as ResultViewModel;
 
                 // Assert
@@ -164,7 +164,7 @@
         }
 
         [Test]
-        public void UpdateSpecialLevel_RealLicensee_CallServiceToUpdate()
+        public async Task UpdateSpecialLevel_RealLicensee_CallServiceToUpdate()
         {
             using (var controller = CreateController())
             {
@@ -173,7 +173,7 @@
                 const int Level = 200;
 
                 // Action
-                controller.UpdateSpecialLevel(CustId, Level);
+                await controller.UpdateSpecialLevel(CustId, Level);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -190,7 +190,7 @@
         }
 
         [Test]
-        public void UpdateOddsGroup_FakeLicensee_ReturnErrorResult()
+        public async Task UpdateOddsGroup_FakeLicensee_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -199,7 +199,7 @@
                 AppSettings.FakeLicenseeList.Returns(fakeLicenseeList);
 
                 // Action
-                var result = controller.UpdateOddsGroup(0, string.Empty) as JsonResult;
+                var result = await controller.UpdateOddsGroup(0, string.Empty) as JsonResult;
                 var resultInfo = result.Data as ResultViewModel;
 
                 // Assert
@@ -213,7 +213,7 @@
         }
 
         [Test]
-        public void UpdateOddsGroup_RealLicensee_CallServiceToUpdate()
+        public async Task UpdateOddsGroup_RealLicensee_CallServiceToUpdate()
         {
             using (var controller = CreateController())
             {
@@ -222,7 +222,7 @@
                 const string OddsGroup = "abc";
 
                 // Action
-                controller.UpdateOddsGroup(CustId, OddsGroup);
+                await controller.UpdateOddsGroup(CustId, OddsGroup);
 
                 // Assert
                 Assert.Multiple(() =>

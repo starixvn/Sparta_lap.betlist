@@ -32,7 +32,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public async Task<HttpResponseMessage> Detail(long transId, int custId)
         {
-            CheckDataPermission(custId, transId);
+            await CheckDataPermission(custId, transId).ConfigureAwait(false);
 
             var metaModel = new MixParlayDetailMetaModel
             {
@@ -47,7 +47,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public async Task<HttpResponseMessage> NewParlayDetail(long transId, string betTeam, string betCheck, decimal handicap1, decimal handicap2, int custId)
         {
-            CheckDataPermission(custId, transId);
+            await CheckDataPermission(custId, transId).ConfigureAwait(false);
 
             var metaModel = new NewParlayDetailMetaModel
             {

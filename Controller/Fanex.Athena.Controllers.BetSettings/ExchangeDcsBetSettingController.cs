@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             viewModel.IsEnabled = await _betSettingService.GetStatusAsync(licenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
 
-            var apiResult = _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId);
+            var apiResult = await _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId).ConfigureAwait(false);
             if (apiResult.IsSuccessful)
             {
                 viewModel.Commission = apiResult.ExtendedData;

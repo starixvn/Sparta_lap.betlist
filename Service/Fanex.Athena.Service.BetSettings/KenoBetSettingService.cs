@@ -31,7 +31,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<BetSettingViewModel> GetViewModelAsync(int licenseeId, int custId)
         {
-            if (!HasPermissionOnData(licenseeId, custId))
+            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
             {
                 return new BetSettingViewModel
                 {
@@ -51,7 +51,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             const string XMLPattern = "<settings>{0}</settings>";
             const string XMLElement = "<setting GameTypeID=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
-            if (!HasPermissionOnData(licenseeId, custId))
+            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }

@@ -44,12 +44,12 @@ namespace Fanex.Athena.Api.BetList
             return _balanceUpDataAccess.GetBalanceUp();
         }
 
-        protected void CheckDataPermission(int custId, long transId)
+        protected async Task CheckDataPermission(int custId, long transId)
         {
-            if (!_authorizationService.HasPermissionOnData(
+            if (!(await _authorizationService.HasPermissionOnData(
                 SessionService.LicenseeSession.LicenseeId,
                 custId,
-                transId))
+                transId).ConfigureAwait(false)))
             {
                 throw new UnauthorizedAccessException();
             }
@@ -60,7 +60,7 @@ namespace Fanex.Athena.Api.BetList
             string uspKey,
             string apiPath = null)
         {
-            CheckDataPermission(metaModel.CustId, metaModel.TransId);
+            await CheckDataPermission(metaModel.CustId, metaModel.TransId).ConfigureAwait(false);
 
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = await GetBalanceUp().ConfigureAwait(false);
@@ -85,7 +85,7 @@ namespace Fanex.Athena.Api.BetList
             int pageSize,
             string apiPath = null)
         {
-            CheckDataPermission(metaModel.CustId, metaModel.TransId);
+            await CheckDataPermission(metaModel.CustId, metaModel.TransId).ConfigureAwait(false);
 
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = await GetBalanceUp().ConfigureAwait(false);

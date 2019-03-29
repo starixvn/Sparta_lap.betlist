@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var customer = GetCustomerInfo(metaModel.CustId);
+            var customer = await GetCustomerInfo(metaModel.CustId).ConfigureAwait(false);
             var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language);
             await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         public async Task<JsonResult> UpdateBetSetting(int custId, string gameTypeChangedList)
         {
             var productAccess = await GetProductAccess().ConfigureAwait(false);
-            var customer = productAccess.IsAllowCS ? GetCustomerInfo(custId) : null;
+            var customer = productAccess.IsAllowCS ? await GetCustomerInfo(custId).ConfigureAwait(false) : null;
             if (customer == null || !customer.SyncCasino || !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
                 metaModel.TableParam = tableParam;
 
-                var result = _betSettingService.UpdateSetting(metaModel, customer.SyncCasino, customer.DisableCasino);
+                var result = await _betSettingService.UpdateSetting(metaModel, customer.SyncCasino, customer.DisableCasino).ConfigureAwait(false);
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -91,14 +91,14 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             var productAccess = await GetProductAccess().ConfigureAwait(false);
             if (!productAccess.IsAllowCS ||
-                !GetCustomerInfo(custId).SyncCasino ||
+                !(await GetCustomerInfo(custId).ConfigureAwait(false)).SyncCasino ||
                 !(await IsBetSettingEditable().ConfigureAwait(false)))
             {
                 return AccessDenied();
             }
 
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var customer = GetCustomerInfo(custId);
+            var customer = await GetCustomerInfo(custId).ConfigureAwait(false);
             var userSession = SessionService.UserSession;
             var metaModel = new BetSettingCasinoStatusMetaModel
             {

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Customer
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Interfaces;
@@ -17,9 +18,9 @@
             _authorizationService = authorizationService;
         }
 
-        public CustomerInfo GetCustomerInfo(int licenseeId, int custId)
+        public async Task<CustomerInfo> GetCustomerInfo(int licenseeId, int custId)
         {
-            return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
+            return await _authorizationService.HasPermissionOnData(licenseeId, custId, 0).ConfigureAwait(false)
                 ? _customerDataAccess.GetCustomerInfo(custId)
                 : new CustomerInfo();
         }
