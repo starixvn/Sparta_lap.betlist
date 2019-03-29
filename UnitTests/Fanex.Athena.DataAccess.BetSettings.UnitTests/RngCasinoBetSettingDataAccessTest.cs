@@ -43,7 +43,7 @@
             await DataAccess.UpdateStatusAsync(metaModel);
 
             // Assert
-            _coreCasinoBetSettingDataAccess.Received().UpdateCasinoStatusAsync(metaModel, RngCasinoSportId);
+            await _coreCasinoBetSettingDataAccess.Received(1).UpdateCasinoStatusAsync(metaModel, RngCasinoSportId);
         }
     }
 }

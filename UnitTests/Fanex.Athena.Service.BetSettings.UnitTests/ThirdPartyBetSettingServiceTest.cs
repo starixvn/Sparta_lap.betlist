@@ -92,7 +92,7 @@
             var result = await _service.UpdateStatusAsync(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
 
             // Assert
-            _dataAccess.Received().UpdateStatusAsync(ProductId, UserId, CustId, Language, "ip", true);
+            await _dataAccess.Received(1).UpdateStatusAsync(ProductId, UserId, CustId, Language, "ip", true);
         }
 
         [Test]

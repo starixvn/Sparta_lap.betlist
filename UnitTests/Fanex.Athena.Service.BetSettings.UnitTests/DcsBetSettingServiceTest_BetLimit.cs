@@ -50,7 +50,7 @@
             await _dcsBettingService.UpdateBetSettingAsync(_licenseeId, _custId, _userId, "ip", betSettings);
 
             // Assert
-            _betSettingDataAccess.Received().UpdateBetSettingAsync(_custId, _userId, "ip", expectedXmlParam);
+            await _betSettingDataAccess.Received(1).UpdateBetSettingAsync(_custId, _userId, "ip", expectedXmlParam);
         }
 
         [Test]

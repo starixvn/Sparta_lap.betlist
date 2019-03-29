@@ -82,8 +82,6 @@ namespace Fanex.Athena.Service.BetSettings
 
             var agcasinoSetting = await _betSettingDataAccess.GetBetSettingAsync(setting.CustId).ConfigureAwait(false);
             
-            agcasinoSetting.IsEnabled = false; // ??????
-
             if (!agcasinoSetting.IsEnabled || !HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);

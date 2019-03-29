@@ -35,9 +35,9 @@
         public async Task<SortableReportResultModel<LicenseeWinLoss>> GetSummaryWinloss(
             LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            const string uspName = "Lrf_Rpt_LicWinloss";
+            const string UspName = "Lrf_Rpt_LicWinloss";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("reporttype", metaModel.ReportBy);
                 await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
@@ -49,7 +49,9 @@
             }
         }
 
-        public async Task<SortableReportResultModel<LicenseeWinLoss>> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<LicenseeWinLoss>> GetCustomerWinlossDetail(
+            LicenseeWinLossMetaModel metaModel, 
+            IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail";
 

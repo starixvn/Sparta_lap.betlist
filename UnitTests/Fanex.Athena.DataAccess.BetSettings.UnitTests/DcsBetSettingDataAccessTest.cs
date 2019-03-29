@@ -20,7 +20,7 @@
         }
 
         [Test]
-        public void GetStatusAsync_WhenCall_ParameterPassedCorrectly()
+        public async Task GetStatusAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_StatusSettingSelect")).Returns(ObjectDb);
@@ -28,7 +28,7 @@
             const int ProductId = 2;
 
             // Action
-            DataAccess.GetStatusAsync(CustId, ProductId);
+            await DataAccess.GetStatusAsync(CustId, ProductId);
 
             // Assert
             Assert.Multiple(() =>

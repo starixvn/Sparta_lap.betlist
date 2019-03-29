@@ -54,7 +54,11 @@ namespace Fanex.Athena.Controllers.BetSettings
                 throw new ArgumentException("Not a thirdparty product.");
             }
 
-            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
+            var viewModel = await _betSettingService.GetViewModelAsync(
+                SessionService.LicenseeSession.LicenseeId, 
+                metaModel.CustId, 
+                metaModel.ProductId)
+                .ConfigureAwait(false);
             if (viewModel == null)
             {
                 return this.Redirect("~/Utility/AccessDenied");

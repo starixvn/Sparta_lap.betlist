@@ -214,10 +214,10 @@
                 .Returns(true);
 
             // Action
-            var result = await _service.UpdateStatusAsync(metaModel);
+            await _service.UpdateStatusAsync(metaModel);
 
             // Assert
-            _dataAccess.Received().UpdateStatusAsync(metaModel);
+            await _dataAccess.Received(1).UpdateStatusAsync(metaModel);
         }
 
         [Test]

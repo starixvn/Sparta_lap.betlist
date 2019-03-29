@@ -79,10 +79,10 @@
             };
 
             // Action
-            var result = await _service.UpdateBetSettingAsync(setting, data);
+            await _service.UpdateBetSettingAsync(setting, data);
 
             // Assert
-            _dataAccess.Received().UpdateBetSettingAsync(Arg.Is<NumberGameBetSetting>(
+            await _dataAccess.Received(1).UpdateBetSettingAsync(Arg.Is<NumberGameBetSetting>(
                 x => x.CustId == CustId &&
                     x.UserId == UserId &&
                     x.Language == Language &&

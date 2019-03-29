@@ -74,7 +74,6 @@ namespace Fanex.Athena.Service.BetSettings
             if (!result.IsSuccessful)
             {
                 return result;
-               
             }
 
             return await _dcsBetSettingService.UpdateBetSettingAsync(setting.LicenseeId, setting.CustId, setting.UserId, setting.Ip, new[] { esportSetting });

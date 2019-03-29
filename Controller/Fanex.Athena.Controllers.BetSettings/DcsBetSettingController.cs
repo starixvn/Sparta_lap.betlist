@@ -87,7 +87,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             if (ProductsHasStatus.Contains(metaModel.ProductId))
             {
-                viewModel.IsEnabled = await  _betSettingService.GetStatusAsync(licenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
+                viewModel.IsEnabled = await _betSettingService.GetStatusAsync(licenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
             }
 
             if (ProductsHasBetLimit.Contains(metaModel.ProductId))

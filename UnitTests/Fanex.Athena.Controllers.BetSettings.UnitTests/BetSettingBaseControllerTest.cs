@@ -90,8 +90,8 @@
                 CoreBetSettingService.GetBetSettingProductsAsync(DefaultLicenseeSession.LicenseeId)
                     .Returns(Task.FromResult<IEnumerable<BetSettingProduct>>(new List<BetSettingProduct>
                     {
-                        new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino
-                    }}));
+                        new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino }
+                    }));
 
                 // Action
                 await controller.AssignRequiredProperties(viewModel, metaModel);

@@ -91,7 +91,7 @@
             var result = await _service.UpdateBetSettingAsync(licenseeId, custId, userId, language, ip, setting);
 
             // Assert
-            _dataAccess.Received().UpdateBetSettingAsync(custId, userId, language, ip, xmlParam);
+            await _dataAccess.Received(1).UpdateBetSettingAsync(custId, userId, language, ip, xmlParam);
         }
 
         [Test]
