@@ -37,7 +37,7 @@
             var productAccess = await ProductService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                FunctionNames.CasinoTurnover).ConfigureAwait(false);
+                FunctionNames.CasinoTurnover);
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportCasinoTurnover);
 
             var viewModel = new CasinoTurnoverViewModel

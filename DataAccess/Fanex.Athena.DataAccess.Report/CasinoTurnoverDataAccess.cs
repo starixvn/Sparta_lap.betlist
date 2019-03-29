@@ -122,7 +122,7 @@
             db.SetParameterValue("UserName", metaModel.UserName);
             db.SetParameterValue("StatusList", string.Join(",", metaModel.Status));
             db.SetParameterValue("ProductCodes", string.Join(",", metaModel.ProductCode));
-            db.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
+            db.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp()).MoveBetsDay);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
 
             db.SetParameterValue("PageSize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);

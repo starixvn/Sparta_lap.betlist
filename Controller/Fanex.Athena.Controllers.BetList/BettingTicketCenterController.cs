@@ -37,7 +37,7 @@
 
         public Task<ActionResult> Index()
         {
-            return  MultipleCustomers();
+            return MultipleCustomers();
         }
 
         public async Task<ActionResult> MultipleCustomers()

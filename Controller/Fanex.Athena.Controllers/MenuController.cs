@@ -33,28 +33,35 @@ namespace Fanex.Athena.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
-            var systemFunctions = userSession.FunctionIdList;
 
             var canManageMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList);
 
             var viewModel = new MenuViewModel
             {
-                UserFunctions = (await _functionService.GetFunctions().ConfigureAwait(false))
-                                    .Where(i => systemFunctions.Contains(i.FunctionId)).ToList(),
                 IsAllowedCustonmerCommission = licenseeSession.IsAllowedCustomerComm,
                 IsInternalLogin = userSession.IsInternal,
                 IsAllowedManagementMember = canManageMember,
                 IsFakeLicensee = IsFakeLicensee()
             };
-
-            viewModel.MasterFunctions = await _functionService.GetMasterFunctions(viewModel.UserFunctions).ConfigureAwait(false);
-            viewModel.UserDetailFunctions = await _functionService.GetSubMenus(viewModel.UserFunctions).ConfigureAwait(false);
+            AssignFunctionsData(viewModel, userSession.FunctionIdList);
 
             return View("~/Views/Desktop/Menu/Index.cshtml", viewModel);
+        }
+
+        private void AssignFunctionsData(MenuViewModel viewModel, int[] functionIdList)
+        {
+            // Child actions must be invoked synchronously
+            Task.Run(async () =>
+            {
+                viewModel.UserFunctions = (await _functionService.GetFunctions())
+                                        .Where(i => functionIdList.Contains(i.FunctionId)).ToList();
+                viewModel.MasterFunctions = await _functionService.GetMasterFunctions(viewModel.UserFunctions);
+                viewModel.UserDetailFunctions = await _functionService.GetSubMenus(viewModel.UserFunctions);
+            }).Wait();
         }
     }
 }

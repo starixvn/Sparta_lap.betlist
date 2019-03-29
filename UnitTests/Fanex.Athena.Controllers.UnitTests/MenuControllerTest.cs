@@ -30,7 +30,7 @@
         }
 
         [Test]
-        public async Task Index_WhenCall_ReturnCorrectView()
+        public void Index_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -38,7 +38,7 @@
                 _functionService.GetFunctions().Returns(new List<Function>());
 
                 // Action
-                var result = await controller.Index() as ViewResult;
+                var result = controller.Index() as ViewResult;
 
                 // Assert
                 StringAssert.Contains("Menu/Index.cshtml", result.ViewName);
@@ -46,7 +46,7 @@
         }
 
         [Test]
-        public async Task Index_WhenCall_ReturnCorrectViewModel()
+        public void Index_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -56,7 +56,7 @@
                 AppSettings.FakeLicenseeList.Returns(new[] { DefaultLicenseeSession.LicenseeId });
 
                 // Action
-                var result = await controller.Index() as ViewResult;
+                var result = controller.Index() as ViewResult;
                 var viewModel = result.Model as MenuViewModel;
 
                 // Assert

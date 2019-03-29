@@ -70,12 +70,12 @@
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
-            if (!(await AuthorizeRequest(actionContext.Request.GetDependencyScope()).ConfigureAwait(false)))
+            if (!(await AuthorizeRequest(actionContext.Request.GetDependencyScope())))
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
-            return continuation == null ? null : await continuation.Invoke().ConfigureAwait(false);
+            return continuation == null ? null : await continuation.Invoke();
         }
 
         private static bool IsAjaxRequest(HttpRequestHeaders headers)
@@ -106,7 +106,7 @@
                 var authorizationService = scope.Resolve<IAuthorizationService>();
                 authorized = userSession.ApplicationMode == AppMode.Parasitic ?
                     authorizationService.HasPermissions(userSession.PortalFunctionList, _permissionKeys) :
-                    await authorizationService.HasPermissions(userSession.FunctionIdList, _permissionKeys).ConfigureAwait(false);
+                    await authorizationService.HasPermissions(userSession.FunctionIdList, _permissionKeys);
             }
 
             return authorized;
