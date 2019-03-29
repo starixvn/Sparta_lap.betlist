@@ -59,7 +59,7 @@
 
         [TestCase(100, "NoCustomerFoundMsg")]
         [TestCase(101, "MoreThanOneCustomerFoundMsg")]
-        public void Index_Level0_GetCorrectDataFromService(int errorCode, string errorMessageKey)
+        public async Task Index_Level0_GetCorrectDataFromService(int errorCode, string errorMessageKey)
         {
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
@@ -81,7 +81,7 @@
             });
 
             // Action
-            var result = _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
+            var result = await _controller.Index(metaModel, null, null, Level, CurrencyId, CustId).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(async () =>
@@ -94,7 +94,7 @@
         }
 
         [Test]
-        public void Index_Level0_MemberIdReturnFromSP()
+        public async Task Index_Level0_MemberIdReturnFromSP()
         {
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
@@ -110,14 +110,14 @@
                 });
 
             // Action
-            _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
+            await _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.That(metaModel.MemberId, Is.EqualTo(123));
         }
 
         [Test]
-        public void Index_Level1_GetCorrectDataFromService()
+        public async Task Index_Level1_GetCorrectDataFromService()
         {
             // Arrange
             const int CurrencyId = -2, Level = 1, CustId = 1;
@@ -136,7 +136,7 @@
                 });
 
             // Action
-            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = await _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
@@ -148,7 +148,7 @@
         }
 
         [Test]
-        public void Index_Level2_GetCorrectDataFromService()
+        public async Task Index_Level2_GetCorrectDataFromService()
         {
             // Arrange
             const int CurrencyId = -2, Level = 2, CustId = 1;
@@ -167,7 +167,7 @@
                 });
 
             // Action
-            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = await _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(async () =>
@@ -179,7 +179,7 @@
         }
 
         [Test]
-        public void Index_WhenReturnData_RestructureReturnedData()
+        public async Task Index_WhenReturnData_RestructureReturnedData()
         {
             // Arrange
             const int CurrencyId = -2, Level = 1, CustId = 1;
@@ -209,7 +209,7 @@
                 });
 
             // Action
-            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = await _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
