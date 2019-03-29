@@ -114,7 +114,7 @@
 
         private void ConfigureReaderForGetBetSettingMethod(IDataReader reader, BetSetting expected)
         {
-            ObjectDb.ExecuteReader().Returns(reader);
+            ObjectDb.ExecuteReaderAsync().Returns(reader);
             reader.Read().Returns(true, false);
 
             reader["sporttype"].Returns(expected.SportId);

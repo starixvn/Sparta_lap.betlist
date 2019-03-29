@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
@@ -44,13 +45,13 @@
         }
 
         [Test]
-        public void Index_InvalidRequest_ReturnEmptyResult()
+        public async Task Index_InvalidRequest_ReturnEmptyResult()
         {
             // Arrange
             var metaModel = new ThirdPartyWinLossMetaModel { CurrencyId = -4 };
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -62,7 +63,7 @@
         }
 
         [Test]
-        public void Index_Level0_CallGetSummaryMethodInService()
+        public async Task Index_Level0_CallGetSummaryMethodInService()
         {
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
@@ -95,14 +96,14 @@
             var expectedResult = CreateResultData(dataListResult, totalDataResult, summaryTotalResult);
 
             // Action
-            var result = ObjectHelper.ToJson(_controller.Index(metaModel, null, null, Level, CurrencyId, CustId));
+            var result = ObjectHelper.ToJson(await _controller.Index(metaModel, null, null, Level, CurrencyId, CustId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void Index_Level1_CallGetDetailMethodInService()
+        public async Task Index_Level1_CallGetDetailMethodInService()
         {
             // Arrange
             const int CurrencyId = -2, Level = 1, CustId = 1;
@@ -134,14 +135,14 @@
             var expectedResult = CreateResultData(dataListResult, totalDataResult, summaryTotalResult);
 
             // Action
-            var result = ObjectHelper.ToJson(_controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId));
+            var result = ObjectHelper.ToJson(await _controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void Index_DataListParamReturnEmpty_ReturnEmptyResult()
+        public async Task Index_DataListParamReturnEmpty_ReturnEmptyResult()
         {
             // Arrange
             const int CurrencyId = -2, Level = 1, CustId = 1;
@@ -163,7 +164,7 @@
             var expectedResult = CreateResultData(new List<CashOutWinLoss>(), new List<CashOutWinLoss>(), new Dictionary<string, CashOutWinLoss>());
 
             // Action
-            var result = ObjectHelper.ToJson(_controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId));
+            var result = ObjectHelper.ToJson(await _controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
