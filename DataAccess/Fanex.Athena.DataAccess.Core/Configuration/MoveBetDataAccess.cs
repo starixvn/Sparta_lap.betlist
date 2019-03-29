@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Core.Configuration
 {
     using System;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Configuration;
@@ -25,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             _logger = logger;
         }
 
-        public MoveBetNotification GetMoveBetNotification()
+        public async Task<MoveBetNotification> GetMoveBetNotificationAsync()
         {
             const string UspName = "Acc_ShowNotificationWhenProcessingData";
             var moveBet = new MoveBetNotification();
@@ -33,7 +34,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    using (var reader = db.ExecuteReader())
+                    using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                     {
                         if (reader.Read())
                         {

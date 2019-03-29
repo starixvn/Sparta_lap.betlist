@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.ExternalService
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Cors;
     using Base.Attributes;
@@ -39,7 +40,7 @@
         private string Language => (string)ActionContext.ActionArguments["language"];
 
         [HttpGet]
-        public string Index()
+        public async Task<string> Index()
         {
             var isEnabledMoveBetNotification = _appSettings.IsEnabledMoveBetNotification && !_licenseeSettingService.IsFakeLicensee(SiteName);
 
@@ -50,7 +51,7 @@
 
             var langCode = Util.MapIetfLanguageCodes.GetValueOrDefault(Language, string.Empty);
 
-            return _moveBetService.GetMoveBetNotification(langCode);
+            return await _moveBetService.GetMoveBetNotificationAsync(langCode).ConfigureAwait(false);
         }
 
         [HttpGet]

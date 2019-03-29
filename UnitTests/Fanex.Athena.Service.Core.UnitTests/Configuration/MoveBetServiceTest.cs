@@ -50,7 +50,7 @@
             _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotification("vi-VN");
+            var result = _moveBetService.GetMoveBetNotificationAsync("vi-VN");
 
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedMessage));
@@ -67,10 +67,10 @@
                     { "vi-VN", ExpectedMessage }
                 }
             };
-            _moveBetDataAccess.GetMoveBetNotification().Returns(expectedResult);
+            _moveBetDataAccess.GetMoveBetNotificationAsync().Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotification("vi-VN");
+            var result = _moveBetService.GetMoveBetNotificationAsync("vi-VN");
 
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedMessage));
@@ -90,7 +90,7 @@
             _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotification("vi-VN");
+            var result = _moveBetService.GetMoveBetNotificationAsync("vi-VN");
 
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedMessage));
@@ -104,7 +104,7 @@
             _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotification("vi-VN");
+            var result = _moveBetService.GetMoveBetNotificationAsync("vi-VN");
 
             // Assert
             Assert.That(result, Is.EqualTo(string.Empty));
@@ -118,7 +118,7 @@
             _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(x => { throw new System.Exception(exceptionMsg); });
 
             // Action
-            var result = _moveBetService.GetMoveBetNotification("vi-VN");
+            var result = _moveBetService.GetMoveBetNotificationAsync("vi-VN");
 
             // Assert
             _logger.Received().Error(Arg.Is<System.Exception>(x => x.Message == exceptionMsg));

@@ -21,7 +21,7 @@
                 const string Notification = "Test notification api";
 
                 languageService.GetCurrentLanguage().Returns(Language);
-                moveBetService.GetMoveBetNotification(Language).Returns(Notification);
+                moveBetService.GetMoveBetNotificationAsync(Language).Returns(Notification);
 
                 // Action
                 var result = controller.GetMoveBetNotification();

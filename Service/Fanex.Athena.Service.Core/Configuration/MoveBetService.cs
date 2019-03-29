@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Core.Configuration
 {
     using System;
+    using System.Threading.Tasks;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Configuration;
@@ -34,14 +35,14 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        public string GetMoveBetNotification(string language)
+        public async Task<string> GetMoveBetNotificationAsync(string language)
         {
             try
             {
                 var moveBet = _cache.Get<MoveBetNotification>(CacheKey.MemorycacheCommonMoveBet);
                 if (moveBet == null)
                 {
-                    moveBet = this._moveBetDataAccess.GetMoveBetNotification();
+                    moveBet = await this._moveBetDataAccess.GetMoveBetNotificationAsync().ConfigureAwait(false);
                     _cache.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
                 }
 

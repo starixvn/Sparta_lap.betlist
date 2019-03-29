@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Configuration
 {
+    using System.Threading.Tasks;
     using Core.Configuration;
     using Data;
     using Logging;
@@ -26,7 +27,7 @@
         }
 
         [Test]
-        public void GetMoveBet_WhenCall_DataReturnedCorrectly()
+        public async Task GetMoveBetNotificationAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var data = new
@@ -44,7 +45,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             // Action
-            var result = DataAccess.GetMoveBetNotification();
+            var result = await DataAccess.GetMoveBetNotificationAsync();
 
             // Assert
             Assert.Multiple(() =>
@@ -60,14 +61,14 @@
         }
 
         [Test]
-        public void GetMoveBet_NoDataReturned_ReturnEmptyData()
+        public async Task GetMoveBetNotificationAsync_NoDataReturned_ReturnEmptyData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
             Reader.Read().Returns(false);
 
             // Action
-            var result = DataAccess.GetMoveBetNotification();
+            var result = await DataAccess.GetMoveBetNotificationAsync();
 
             // Assert
             Assert.That(result.ContentByLanguage, Is.Empty);
@@ -81,7 +82,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw sqlException; });
 
             // Action
-            DataAccess.GetMoveBetNotification();
+            DataAccess.GetMoveBetNotificationAsync();
 
             // Assert
             _logger.Received().Error("MoveBetNotification: " + sqlException.Message, sqlException);
