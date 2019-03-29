@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
@@ -28,7 +29,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Index(int? licenseeId)
+        public async Task<ActionResult> Index(int? licenseeId)
         {
             var userSession = _sessionService.UserSession;
             if (userSession == null || userSession.UserId <= 0)
@@ -38,7 +39,7 @@
 
             if (licenseeId.HasValue && licenseeId.Value > 0)
             {
-                return RedirectToHome(licenseeId.Value);
+                return await RedirectToHome(licenseeId.Value);
             }
             else
             {
@@ -51,7 +52,7 @@
 
                 if (licenseeList.Count == 1)
                 {
-                    return RedirectToHome(licenseeList[0].Id);
+                    return await RedirectToHome(licenseeList[0].Id);
                 }
 
                 ViewBag.CurrentUsername = userSession.UserName;
@@ -61,9 +62,9 @@
             return View("~/Views/Desktop/LicenseeList/Index.cshtml");
         }
 
-        private ActionResult RedirectToHome(int licenseeId)
+        private async Task<ActionResult> RedirectToHome(int licenseeId)
         {
-            _sessionService.UpdateLiceseeSession(licenseeId);
+            await _sessionService.UpdateLiceseeSession(licenseeId);
 
             return RedirectToAction(nameof(Index), "Home");
         }

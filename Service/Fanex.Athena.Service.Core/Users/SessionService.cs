@@ -92,7 +92,7 @@ namespace Fanex.Athena.Service.Core.Users
             string language = "en-US")
         {
             var licenseeList = _licenseeDataAccess.GetByUser(userId);
-            var functionList = await _functionService.GetUserFunctionList(licenseeId, userId).ConfigureAwait(false);
+            var functionList = await _functionService.GetUserFunctionList(licenseeId, userId);
             var functionIdList = functionList.Select(f => f.FunctionId).ToArray();
             var userSession = new UserSession
             {
@@ -108,7 +108,7 @@ namespace Fanex.Athena.Service.Core.Users
                 ApplicationMode = AppMode.Self
             };
 
-            await AssignCurrenciesToUserSession(userSession, licenseeId).ConfigureAwait(false);
+            await AssignCurrenciesToUserSession(userSession, licenseeId);
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
             var licenseeSession = licenseeId > 0 && selectedLicensee != null ? GenerateLicenseeInfo(selectedLicensee) : null;
 
@@ -123,13 +123,13 @@ namespace Fanex.Athena.Service.Core.Users
             if (licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
-                var functionList = await _functionService.GetUserFunctionList(licenseeId, userSession.UserId).ConfigureAwait(true);
+                var functionList = await _functionService.GetUserFunctionList(licenseeId, userSession.UserId);
                 var functionIdList = functionList.Select(f => f.FunctionId).ToArray();
 
                 userSession.FunctionIdList = functionIdList;
                 userSession.DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList);
 
-                await AssignCurrenciesToUserSession(userSession, licenseeId).ConfigureAwait(true);
+                await AssignCurrenciesToUserSession(userSession, licenseeId);
 
                 AssignSessions(userSession, GenerateLicenseeInfo(selectedLicensee));
             }

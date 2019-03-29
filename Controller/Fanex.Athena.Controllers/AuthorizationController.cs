@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers
     using System.IO;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Caching;
     using System.Web.Mvc;
@@ -92,7 +93,7 @@ namespace Fanex.Athena.Controllers
         [HttpPost]
         [CustomValidateAntiForgery]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult SignIn(LoginMetalModel model)
+        public async Task<ActionResult> SignIn(LoginMetalModel model)
         {
             if (string.IsNullOrEmpty(model.UserName))
             {
@@ -121,7 +122,7 @@ namespace Fanex.Athena.Controllers
                 if (resultInfo.IsSuccessful)
                 {
                     var user = resultInfo.ExtendedData;
-                    CreateSession(user);
+                    await CreateSession(user);
                     if (user.IsInRole(UserRole.Admin.ToString()))
                     {
                         return RedirectToAction("Index", "LicenseeList");
@@ -328,10 +329,10 @@ namespace Fanex.Athena.Controllers
                  Regex.IsMatch(Request.UserHostAddress, AppSettings.GetValue("CompanyIP"));
         }
 
-        private void CreateSession(User user)
+        private async Task CreateSession(User user)
         {
             var onuserId = _authService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
-            SessionService.CreateNewSession(
+            await SessionService.CreateNewSession(
                 user.UserID,
                 onuserId,
                 user.Username,

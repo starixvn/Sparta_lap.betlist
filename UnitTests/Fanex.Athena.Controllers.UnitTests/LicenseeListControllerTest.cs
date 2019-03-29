@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Users.Interfaces;
@@ -28,7 +29,7 @@
         }
 
         [Test]
-        public void Index_InvalidUserSession_RedirectToSignIn()
+        public async Task Index_InvalidUserSession_RedirectToSignIn()
         {
             using (var controller = CreateController())
             {
@@ -36,7 +37,7 @@
                 StubUserSessionData(null);
 
                 // Action
-                var result = controller.Index(0) as RedirectToRouteResult;
+                var result = await controller.Index(0) as RedirectToRouteResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -48,7 +49,7 @@
         }
 
         [Test]
-        public void Index_ValidLicenseeId_RedirectToHome()
+        public async Task Index_ValidLicenseeId_RedirectToHome()
         {
             using (var controller = CreateController())
             {
@@ -56,7 +57,7 @@
                 const int LicenseeId = 1;
 
                 // Action
-                var result = controller.Index(LicenseeId) as RedirectToRouteResult;
+                var result = await controller.Index(LicenseeId) as RedirectToRouteResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -69,7 +70,7 @@
         }
 
         [Test]
-        public void Index_UserHasNoLicensee_RedirectToSignIn()
+        public async Task Index_UserHasNoLicensee_RedirectToSignIn()
         {
             using (var controller = CreateController())
             {
@@ -77,7 +78,7 @@
                 StubLicenseeDataAccessGetByUser(DefaultUserSession.UserId, new List<Licensee>());
 
                 // Action
-                var result = controller.Index(0) as RedirectToRouteResult;
+                var result = await controller.Index(0) as RedirectToRouteResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -89,7 +90,7 @@
         }
 
         [Test]
-        public void Index_UserHasOneLicensee_RedirectToHome()
+        public async Task Index_UserHasOneLicensee_RedirectToHome()
         {
             using (var controller = CreateController())
             {
@@ -97,7 +98,7 @@
                 StubLicenseeDataAccessGetByUser(DefaultUserSession.UserId, new List<Licensee> { new Licensee() });
 
                 // Action
-                var result = controller.Index(null) as RedirectToRouteResult;
+                var result = await controller.Index(null) as RedirectToRouteResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -109,7 +110,7 @@
         }
 
         [Test]
-        public void Index_UserHasManyLicensees_ReturnIndexView()
+        public async Task Index_UserHasManyLicensees_ReturnIndexView()
         {
             using (var controller = CreateController())
             {
@@ -123,7 +124,7 @@
                 });
 
                 // Action
-                var result = controller.Index(0) as ViewResult;
+                var result = await controller.Index(0) as ViewResult;
 
                 // Assert
                 StringAssert.Contains("LicenseeList/Index.cshtml", result.ViewName);

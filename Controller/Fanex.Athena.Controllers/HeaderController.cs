@@ -67,7 +67,7 @@ namespace Fanex.Athena.Controllers
 
             if (newLicenseeId != originalLicenseeId)
             {
-                await SessionService.UpdateLiceseeSession(newLicenseeId).ConfigureAwait(true);
+                await SessionService.UpdateLiceseeSession(newLicenseeId);
             }
 
             ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;

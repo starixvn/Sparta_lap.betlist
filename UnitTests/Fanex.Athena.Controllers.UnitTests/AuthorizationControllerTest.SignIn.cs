@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -68,7 +69,7 @@
         }
 
         [Test]
-        public void SignIn_WhenPost_InvalidCaptcha_ReturnSignInViewWithError()
+        public async Task SignIn_WhenPost_InvalidCaptcha_ReturnSignInViewWithError()
         {
             using (var controller = CreateController())
             {
@@ -77,7 +78,7 @@
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
                 // Action
-                var result = controller.SignIn(new LoginMetalModel
+                var result = await controller.SignIn(new LoginMetalModel
                 {
                     UserName = "anything",
                     PassWord = "anything",
@@ -95,7 +96,7 @@
         }
 
         [Test]
-        public void SignIn_WhenPost_UserNameIsEmpty_ReturnSignInViewWithError()
+        public async Task SignIn_WhenPost_UserNameIsEmpty_ReturnSignInViewWithError()
         {
             using (var controller = CreateController())
             {
@@ -104,7 +105,7 @@
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
                 // Action
-                var result = controller.SignIn(new LoginMetalModel
+                var result = await controller.SignIn(new LoginMetalModel
                 {
                     UserName = string.Empty
                 }) as ViewResult;
@@ -119,7 +120,7 @@
         }
 
         [Test]
-        public void SignIn_WhenPost_PassWordIsEmpty_ReturnSignInViewWithError()
+        public async Task SignIn_WhenPost_PassWordIsEmpty_ReturnSignInViewWithError()
         {
             using (var controller = CreateController())
             {
@@ -128,7 +129,7 @@
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
                 // Action
-                var result = controller.SignIn(new LoginMetalModel
+                var result = await controller.SignIn(new LoginMetalModel
                 {
                     UserName = "User name",
                     PassWord = string.Empty
@@ -144,7 +145,7 @@
         }
 
         [Test]
-        public void SignIn_WhenPost_LoginFail_ReturnSignInViewWithError()
+        public async Task SignIn_WhenPost_LoginFail_ReturnSignInViewWithError()
         {
             using (var controller = CreateController())
             {
@@ -160,7 +161,7 @@
                     });
 
                 // Action
-                var result = controller.SignIn(new LoginMetalModel
+                var result = await controller.SignIn(new LoginMetalModel
                 {
                     UserName = "xxx",
                     PassWord = "xxx"
@@ -176,7 +177,7 @@
         }
 
         [Test]
-        public void SignIn_WhenPost_LoginWithSecretCaptcha_Successfully()
+        public async Task SignIn_WhenPost_LoginWithSecretCaptcha_Successfully()
         {
             using (var controller = CreateController())
             {
@@ -199,7 +200,7 @@
                     });
 
                 // Action
-                var result = controller.SignIn(new LoginMetalModel
+                var result = await controller.SignIn(new LoginMetalModel
                 {
                     UserName = "xxx",
                     PassWord = "xxx",
@@ -216,7 +217,7 @@
         }
 
         [Test]
-        public void SignIn_WhenPost_AdminUser_RedirectToLicenseeList()
+        public async Task SignIn_WhenPost_AdminUser_RedirectToLicenseeList()
         {
             using (var controller = CreateController())
             {
@@ -237,7 +238,7 @@
                     });
 
                 // Action
-                var result = controller.SignIn(new LoginMetalModel
+                var result = await controller.SignIn(new LoginMetalModel
                 {
                     UserName = "xxx",
                     PassWord = "xxx"
@@ -253,7 +254,7 @@
         }
 
         [Test]
-        public void SignIn_WhenPost_ValidUser_CreateNewSession()
+        public async Task SignIn_WhenPost_ValidUser_CreateNewSession()
         {
             using (var controller = CreateController())
             {
@@ -274,7 +275,7 @@
                     });
 
                 // Action
-                var result = controller.SignIn(new LoginMetalModel
+                var result = await controller.SignIn(new LoginMetalModel
                 {
                     UserName = "xxx",
                     PassWord = "xxx"
