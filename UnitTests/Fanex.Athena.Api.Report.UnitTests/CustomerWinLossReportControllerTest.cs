@@ -82,7 +82,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
+        public async Task Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
         {
             // Arrange
             var metaModel = CreateValidMetaModel(nameof(CustomerWinLoss.CustId), "asc");
@@ -107,7 +107,7 @@
                 .ReturnsForAnyArgs(excel);
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>

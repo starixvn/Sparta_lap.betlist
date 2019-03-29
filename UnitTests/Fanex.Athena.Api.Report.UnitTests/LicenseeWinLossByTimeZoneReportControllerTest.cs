@@ -10,8 +10,6 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
 
     [TestFixture]
     public class LicenseeWinLossByTimeZoneReportControllerTest : BaseApiControllerHelperTest

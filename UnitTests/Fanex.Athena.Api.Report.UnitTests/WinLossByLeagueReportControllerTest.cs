@@ -155,7 +155,7 @@
         }
 
         [Test]
-        public void Excel_ValidModel_ExportWithCorrectData()
+        public async Task Excel_ValidModel_ExportWithCorrectData()
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel
@@ -187,7 +187,7 @@
             });
 
             // Action
-            _controller.Excel(metaModel);
+            await _controller.Excel(metaModel);
 
             // Assert
             Assert.Multiple(() =>

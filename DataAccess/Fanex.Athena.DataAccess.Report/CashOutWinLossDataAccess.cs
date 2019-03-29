@@ -34,7 +34,7 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetSummary(
+        public async Task<SortableReportResultModel<CashOutWinLoss>> GetSummary(
             ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                UpdateUspParams(db, metaModel, false);
+                await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
                 db.SetParameterValue("ReportType", metaModel.ReportBy);
 
                 using (var reader = db.ExecuteReader())
@@ -54,13 +54,13 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<CashOutWinLoss>> GetDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss_Detail";
 
             using (var db = GetObjectDb(UspName))
             {
-                UpdateUspParams(db, metaModel, true);
+                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
                 using (var reader = db.ExecuteReader())
                 {
                     return GetData(reader, currencyList, metaModel);

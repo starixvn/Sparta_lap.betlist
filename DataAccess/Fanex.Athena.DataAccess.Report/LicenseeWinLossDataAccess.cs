@@ -32,15 +32,15 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<LicenseeWinLoss> GetSummaryWinloss(
+        public async Task<SortableReportResultModel<LicenseeWinLoss>> GetSummaryWinloss(
             LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            var uspName = "Lrf_Rpt_LicWinloss";
+            const string uspName = "Lrf_Rpt_LicWinloss";
 
             using (var db = this.GetObjectDb(uspName))
             {
                 db.SetParameterValue("reporttype", metaModel.ReportBy);
-                UpdateUspParams(db, metaModel, false);
+                await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
 
                 using (var reader = db.ExecuteReader())
                 {
@@ -49,14 +49,14 @@
             }
         }
 
-        public SortableReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<LicenseeWinLoss>> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail";
 
             using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
-                UpdateUspParams(db, metaModel, true);
+                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
                 using (var reader = db.ExecuteReader())
                 {
                     return GetData(reader, currencyList, metaModel, true);
@@ -64,13 +64,13 @@
             }
         }
 
-        public SortableReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<LicenseeWinLoss>> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail_Ag";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                UpdateUspParams(db, metaModel, true);
+                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
                 using (var reader = db.ExecuteReader())
                 {
                     return GetData(reader, currencyList, metaModel, true);

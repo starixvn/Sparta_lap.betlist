@@ -70,7 +70,6 @@
             var expectedResult = FakeHelper.CreateMany<Product>(10).ToList();
 
             _productDataAccess.GetProductAccessList(_licenseeId).Returns(expectedResult);
-            _productService.GetProductList(_licenseeId, Arg.Any<string>());
             _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action

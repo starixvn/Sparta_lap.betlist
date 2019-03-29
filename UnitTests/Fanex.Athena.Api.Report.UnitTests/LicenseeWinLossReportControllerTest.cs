@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Report;
@@ -59,7 +60,7 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnEmptyData()
+        public async Task Index_InvalidModel_ReturnEmptyData()
         {
             // Arrange
             var model = new LicenseeWinLossMetaModel
@@ -71,7 +72,7 @@
             };
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -84,7 +85,7 @@
         }
 
         [Test]
-        public void Index_InvalidRequest_ReturnEmptyData()
+        public async Task Index_InvalidRequest_ReturnEmptyData()
         {
             // Arrange
             var model = new LicenseeWinLossMetaModel
@@ -93,7 +94,7 @@
             };
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -106,14 +107,14 @@
         }
 
         [Test]
-        public void Index_ValidModelNoSorting_GetCorrectDataFromDataAccess()
+        public async Task Index_ValidModelNoSorting_GetCorrectDataFromDataAccess()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
             var expectedResult = SetUpForGettingData(metaModel, totalItem: 5);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data.Count, Is.EqualTo(expectedResult.DataList.Count));
@@ -121,7 +122,7 @@
 
         [TestCase("ActualStake")]
         [TestCase("ActualStakeSingle")]
-        public void Index_ExportToExcel_SortByActualStake__SortDataByActualStake(string sortBy)
+        public async Task Index_ExportToExcel_SortByActualStake__SortDataByActualStake(string sortBy)
         {
             // Arrange
             var metaModel = CreateValidMetaModel(sortBy: sortBy);
@@ -138,7 +139,7 @@
                Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
             IList<LicenseeWinLossGridViewModel> dataList = result.Data;
 
             // Assert
@@ -146,7 +147,7 @@
         }
 
         [Test]
-        public void Index_ExportToExcel_SortByLicenseeWLSB_SortDataByDictionary()
+        public async Task Index_ExportToExcel_SortByLicenseeWLSB_SortDataByDictionary()
         {
             // Arrange
             var metaModel = CreateValidMetaModel(sortBy: "LicenseeWLSB");
@@ -165,14 +166,14 @@
                Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(actualExcelModel.DataList.SelectMany(x => x.LicenseeWL.Values).ToArray(), Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void Index_ExportToExcel_SortByTurnOverSB_SortDataByDictionary()
+        public async Task Index_ExportToExcel_SortByTurnOverSB_SortDataByDictionary()
         {
             // Arrange
             var metaModel = CreateValidMetaModel(sortBy: "TurnOverSB");
@@ -191,14 +192,14 @@
                Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
             Assert.That(actualExcelModel.DataList.SelectMany(x => x.TurnOver.Values).ToArray(), Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void Index_ExportToExcel_ExportWithCorrectData()
+        public async Task Index_ExportToExcel_ExportWithCorrectData()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
@@ -214,7 +215,7 @@
                Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>

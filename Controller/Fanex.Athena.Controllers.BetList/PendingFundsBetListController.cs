@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
-            CreateDefaultMetaModel(metaModel);
+            await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
             metaModel.FromDate = DateTime.Today.AddYears(-10);
             metaModel.ToDate = DateTime.Today.AddYears(10);
             return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem").ConfigureAwait(false);

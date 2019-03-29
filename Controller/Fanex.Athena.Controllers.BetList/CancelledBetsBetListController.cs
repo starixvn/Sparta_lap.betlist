@@ -106,7 +106,7 @@ namespace Fanex.Athena.Controllers.BetList
                 SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
-                CreateDefaultMetaModel(metaModel);
+                await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
                 metaModel.UspKey = UspKey;
 
                 var currencyTitle = GetViewInCurrency(metaModel);

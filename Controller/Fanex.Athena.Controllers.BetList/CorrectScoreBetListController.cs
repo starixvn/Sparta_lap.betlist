@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 const string UspKey = "Lrf_TotalBets_Sel430";
 
-                CreateDefaultMetaModel(metaModel);
+                await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
                 metaModel.IsShowSumStake = true;
                 metaModel.UspKey = UspKey;
 

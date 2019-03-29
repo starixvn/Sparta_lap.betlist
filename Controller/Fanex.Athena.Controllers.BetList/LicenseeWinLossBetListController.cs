@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
-            CreateDefaultMetaModel(metaModel);
+            await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
             return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/LicenseeWl/Main.cshtml", "Lrf_BetList_SelWinloss_Mem").ConfigureAwait(false);
         }
 

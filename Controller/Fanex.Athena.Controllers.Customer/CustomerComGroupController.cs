@@ -134,7 +134,7 @@
         #region Update group
 
         [HttpGet]
-        public ActionResult Update(int groupId)
+        public async Task<ActionResult> Update(int groupId)
         {
             var model = _groupComService.GetById(groupId);
             if (model == null)
@@ -142,7 +142,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            CreateMetaModel(model);
+            await CreateMetaModel(model).ConfigureAwait(false);
 
             CustomerComGroupHelper.SetDropDownListComm(model);
 

@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -127,7 +128,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, exportedFileName);
         }
 
-        private dynamic ProcessRequest(
+        private async Task<dynamic> ProcessRequest(
             ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -141,7 +142,7 @@ namespace Fanex.Athena.Api.Report
             }
 
             UpdateMetaModel(metaModel, fdate, tdate, level, currencyId, custId);
-            var result = GetData(metaModel);
+            var result = await GetData(metaModel).ConfigureAwait(false);
 
             if (metaModel.IsExportExcel)
             {
@@ -177,12 +178,12 @@ namespace Fanex.Athena.Api.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
         }
 
-        private SortableReportResultModel<CashOutWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
+        private async Task<SortableReportResultModel<CashOutWinLoss>> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
             var userCurrencyList = SessionService.UserSession.CurrencyList;
             return metaModel.DrillDownLevel == 0 ?
-                _cashOutWinLossDataAccess.GetSummary(metaModel, userCurrencyList) :
-                _cashOutWinLossDataAccess.GetDetail(metaModel, userCurrencyList);
+                await _cashOutWinLossDataAccess.GetSummary(metaModel, userCurrencyList).ConfigureAwait(false) :
+                await _cashOutWinLossDataAccess.GetDetail(metaModel, userCurrencyList).ConfigureAwait(false);
         }
     }
 }

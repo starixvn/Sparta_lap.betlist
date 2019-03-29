@@ -62,16 +62,16 @@
         }
 
         [Test]
-        public void GetWinlossDetail_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetWinlossDetail_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ColossusBetsWinLossMetaModel();
 
             // Action
-            _service.GetWinlossDetail(metaModel, _currencyList);
+            await _service.GetWinlossDetail(metaModel, _currencyList);
 
             // Assert
-            _dataAccess.Received().GetWinlossDetail(metaModel, _currencyList);
+            await _dataAccess.Received(1).GetWinlossDetail(metaModel, _currencyList);
         }
 
         [Test]

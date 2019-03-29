@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Configuration
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Core.Utility.Interfaces;
@@ -37,7 +38,7 @@
         }
 
         [Test]
-        public void GetMoveBetNotification_CacheContainsData_ReturnResultFromCache()
+        public async Task GetMoveBetNotification_CacheContainsData_ReturnResultFromCache()
         {
             // Arrange
             var expectedResult = new MoveBetNotification
@@ -50,14 +51,14 @@
             _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotificationAsync("vi-VN");
+            var result = await _moveBetService.GetMoveBetNotificationAsync("vi-VN");
 
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedMessage));
         }
 
         [Test]
-        public void GetMoveBetNotification_WhenCall_ReturnResultFromDataAccess()
+        public async Task GetMoveBetNotification_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
             var expectedResult = new MoveBetNotification
@@ -70,14 +71,14 @@
             _moveBetDataAccess.GetMoveBetNotificationAsync().Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotificationAsync("vi-VN");
+            var result = await _moveBetService.GetMoveBetNotificationAsync("vi-VN");
 
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedMessage));
         }
 
         [Test]
-        public void GetMoveBetNotification_LanguageNotAvailable_ReturnContentWithDefaultLanguage()
+        public async Task GetMoveBetNotification_LanguageNotAvailable_ReturnContentWithDefaultLanguage()
         {
             // Arrange
             var expectedResult = new MoveBetNotification
@@ -90,21 +91,21 @@
             _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotificationAsync("vi-VN");
+            var result = await _moveBetService.GetMoveBetNotificationAsync("vi-VN");
 
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedMessage));
         }
 
         [Test]
-        public void GetMoveBetNotification_ResultIsEmpty_ReturnEmptyString()
+        public async Task GetMoveBetNotification_ResultIsEmpty_ReturnEmptyString()
         {
             // Arrange
             var expectedResult = new MoveBetNotification();
             _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotificationAsync("vi-VN");
+            var result = await _moveBetService.GetMoveBetNotificationAsync("vi-VN");
 
             // Assert
             Assert.That(result, Is.EqualTo(string.Empty));

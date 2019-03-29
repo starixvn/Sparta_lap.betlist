@@ -33,7 +33,7 @@
         [HttpGet]
         public async Task<ActionResult> Detail(BetListExcelMetaModel metaModel)
         {
-            CreateDefaultMetaModel(metaModel);
+            await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
             return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/PragmaticPlayDetail/Main.cshtml", "Lrf_BetList_RNG_Detail").ConfigureAwait(false);
         }
 

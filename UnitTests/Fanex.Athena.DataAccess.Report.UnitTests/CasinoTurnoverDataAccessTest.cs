@@ -48,13 +48,13 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void GetData_WhenCall_ParametersPassedCorrectly(bool isExportExcel)
+        public async Task GetData_WhenCall_ParametersPassedCorrectly(bool isExportExcel)
         {
             // Arrange
             var metaModel = FakeHelper.Create<CasinoTurnoverMetaModel>(x => x.IsExportExcel, isExportExcel);
 
             // Action
-            DataAccess.GetData(metaModel);
+            await DataAccess.GetData(metaModel);
 
             // Assert
             Assert.Multiple(() =>

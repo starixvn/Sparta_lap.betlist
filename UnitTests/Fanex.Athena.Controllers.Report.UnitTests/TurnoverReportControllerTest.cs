@@ -73,7 +73,7 @@
         [TestCase(false, "  External ID or System ID ", null)]
         [TestCase(false, "External ID", "External ID")]
         [TestCase(false, "   ", null)]
-        public void Excel_WhenCall_AssignCorrectUsername(bool isFakeLicensee, string inputUserName, string expectedUserName)
+        public async Task Excel_WhenCall_AssignCorrectUsername(bool isFakeLicensee, string inputUserName, string expectedUserName)
         {
             using (var controller = CreateController())
             {
@@ -87,7 +87,7 @@
                 };
 
                 // Action
-                controller.Excel(metaModel);
+                await controller.Excel(metaModel);
 
                 // Assert
                 Assert.That(metaModel.Username, Is.EqualTo(expectedUserName));

@@ -60,7 +60,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         private async Task<ActionResult> ProcessRequest(BetListExcelMetaModel metaModel, string uspKey, string viewPath)
         {
-            CreateDefaultMetaModel(metaModel);
+            await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
             metaModel.IsServerPaging = true;
             return await ProcessDefaultRequest(metaModel, viewPath, uspKey).ConfigureAwait(false);
         }

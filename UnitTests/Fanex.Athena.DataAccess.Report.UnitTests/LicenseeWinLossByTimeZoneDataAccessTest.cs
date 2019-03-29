@@ -41,7 +41,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_PassCorrectParams()
+        public async Task GetData_WhenCall_PassCorrectParams()
         {
             // Arrange
             Reader.Read().Returns(false);
@@ -49,7 +49,7 @@
             var metaModel = GetDefaultMetaModel();
 
             // Action
-            DataAccess.GetData(metaModel, UserCurrencyList);
+            await DataAccess.GetData(metaModel, UserCurrencyList);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);

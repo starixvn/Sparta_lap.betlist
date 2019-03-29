@@ -51,7 +51,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(
+        public Task<dynamic> Index(
             LicenseeWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -64,7 +64,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] LicenseeWinLossMetaModel metaModel)
+        public Task<dynamic> Index([FromBody] LicenseeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
@@ -252,15 +252,24 @@ namespace Fanex.Athena.Api.Report
             return new LicenseeWinLossExcel(templatePath, excelModel);
         }
 
-        private SortableReportResultModel<LicenseeWinLoss> GetData(LicenseeWinLossMetaModel metaModel)
+        private async Task<SortableReportResultModel<LicenseeWinLoss>> GetData(LicenseeWinLossMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
                 var userCurrencyList = SessionService.UserSession.CurrencyList;
-                var result = metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, userCurrencyList) :
-                                metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2
-                               ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList)
-                               : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList);
+                SortableReportResultModel<LicenseeWinLoss> result = null;
+                if (metaModel.DrillDownLevel == 0)
+                {
+                    result = await _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, userCurrencyList).ConfigureAwait(false);
+                }
+                else if (metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2)
+                {
+                    result = await _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList).ConfigureAwait(false);
+                }
+                else
+                {
+                    result = await _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList).ConfigureAwait(false);
+                }
 
                 return result;
             }
@@ -273,7 +282,7 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private dynamic ProcessRequest(
+        private async Task<dynamic> ProcessRequest(
             LicenseeWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -294,7 +303,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownCustomerId = custId;
 
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
-                var result = GetData(metaModel);
+                var result = await GetData(metaModel).ConfigureAwait(false);
 
                 if (metaModel.IsExportExcel)
                 {

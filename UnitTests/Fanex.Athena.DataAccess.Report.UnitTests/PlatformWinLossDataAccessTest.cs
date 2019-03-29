@@ -46,13 +46,13 @@
         }
 
         [Test]
-        public void GetSummaryData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetSummaryData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryDataSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSummaryData(_metaModel);
+            await DataAccess.GetSummaryData(_metaModel);
 
             // Assert
             AssertSpParameters();

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Extension.Utility;
@@ -55,14 +56,14 @@
         }
 
         [Test]
-        public void GetSummary_WhenCall_ParameterPassedCorrectly()
+        public async Task GetSummary_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
             Reader.Read().Returns(false);
 
             // Action
-            DataAccess.GetSummary(_metaModel, UserCurrencyList);
+            await DataAccess.GetSummary(_metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -73,7 +74,7 @@
         }
 
         [Test]
-        public void GetSummary_Level0AndConditionIsTrue_ReturnCorrectData()
+        public async Task GetSummary_Level0AndConditionIsTrue_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
@@ -87,7 +88,7 @@
             var expectedSummaryTotal = ObjectHelper.ToJson(CreateExpectedSummaryTotalData());
 
             // Action
-            var result = DataAccess.GetSummary(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetSummary(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -98,7 +99,7 @@
         }
 
         [Test]
-        public void GetSummary_WhenCallWithLevel1AndConditionIsFalse_ReturnCorrectData()
+        public async Task GetSummary_WhenCallWithLevel1AndConditionIsFalse_ReturnCorrectData()
         {
             // Arrange
             _metaModel.DrillDownLevel = 1;
@@ -119,14 +120,14 @@
             var expectedCashoutWinLossData = ObjectHelper.ToJson(cashoutWinLossData);
 
             // Action
-            var result = DataAccess.GetSummary(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetSummary(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
         }
 
         [Test]
-        public void GetSummary_WhenCall_ReturnCorrectRowSpan()
+        public async Task GetSummary_WhenCall_ReturnCorrectRowSpan()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
@@ -143,7 +144,7 @@
             const int ExpectedRowSpan2 = 2;
 
             // Action
-            var result = DataAccess.GetSummary(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetSummary(_metaModel, UserCurrencyList);
             var firstGroupDate1 = result.DataList[0];
             var firstGroupDate2 = result.DataList[1];
 
@@ -156,21 +157,21 @@
         }
 
         [Test]
-        public void GetDetail_WhenCall_ParameterPassedCorrectly()
+        public async Task GetDetail_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailSp)).Returns(ObjectDb);
             Reader.Read().Returns(false);
 
             // Action
-            DataAccess.GetDetail(_metaModel, UserCurrencyList);
+            await DataAccess.GetDetail(_metaModel, UserCurrencyList);
 
             // Assert
             AssertUspParameters(isDrilldown: true);
         }
 
         [Test]
-        public void GetDetail_WhenCall_ReturnCorrectData()
+        public async Task GetDetail_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailSp)).Returns(ObjectDb);
@@ -187,7 +188,7 @@
             };
 
             // Action
-            var result = ObjectHelper.ToJson(DataAccess.GetDetail(_metaModel, UserCurrencyList));
+            var result = ObjectHelper.ToJson(await DataAccess.GetDetail(_metaModel, UserCurrencyList));
 
             // Assert
             Assert.That(result, Is.EqualTo(ObjectHelper.ToJson(expectedResult)));

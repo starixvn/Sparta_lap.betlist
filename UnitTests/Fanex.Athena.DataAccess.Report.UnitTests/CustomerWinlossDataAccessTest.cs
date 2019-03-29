@@ -53,14 +53,14 @@
 
         [TestCase(true, 5, PageSizeExcel)]
         [TestCase(false, 5, 5)]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly(bool isExportExcel, int pageSize, int expectedPageSize)
+        public async Task GetDataList_WhenCall_ParametersPassedCorrectly(bool isExportExcel, int pageSize, int expectedPageSize)
         {
             // Arrange
             _metaModel.PageSize = pageSize;
             _metaModel.IsExportExcel = isExportExcel;
 
             // Action
-            DataAccess.GetDataList(_metaModel);
+            await DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.Multiple(() =>

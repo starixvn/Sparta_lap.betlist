@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Data;
@@ -64,13 +65,13 @@
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
+        public async Task GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
+            await DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -81,7 +82,7 @@
         }
 
         [Test]
-        public void ReadData_WhenCall_ReturnCorrectResult()
+        public async Task ReadData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
@@ -107,7 +108,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -124,7 +125,7 @@
         }
 
         [Test]
-        public void ReadSummaryTotal_WhenCall_ReturnSummaryTotalCorrectly()
+        public async Task ReadSummaryTotal_WhenCall_ReturnSummaryTotalCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
@@ -143,7 +144,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -154,13 +155,13 @@
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly()
+        public async Task GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomerWinlossDetailSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList);
+            await DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -171,13 +172,13 @@
         }
 
         [Test]
-        public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly()
+        public async Task GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList);
+            await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList);
 
             // Assert
             AssertCommonSpParameters(isDrilldown: true);

@@ -43,13 +43,13 @@
         [TestCase(null, null)]
         [TestCase("", null)]
         [TestCase("User from test", "User from test")]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly(string metaModelUser, string expectedUser)
+        public async Task GetDataList_WhenCall_ParametersPassedCorrectly(string metaModelUser, string expectedUser)
         {
             // Arrange
             _metaModel.Username = metaModelUser;
 
             // Action
-            DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
+            await DataAccess.GetDataList(_metaModel, UserCurrencyList, LanguageCode);
 
             // Assert
             Assert.Multiple(() =>

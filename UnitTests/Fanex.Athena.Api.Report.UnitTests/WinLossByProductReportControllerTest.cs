@@ -222,7 +222,7 @@
 
         [TestCase(0, true)]
         [TestCase(1, false)]
-        public void Index_IsExportExcelTrue_CallExcelStreamWithCorrectData(int level, bool isFakeLicensee)
+        public async Task Index_IsExportExcelTrue_CallExcelStreamWithCorrectData(int level, bool isFakeLicensee)
         {
             // Arrange
             const int CurrencyId = -2, CustId = 1;
@@ -250,7 +250,7 @@
             var expectedToDate = level == 0 ? metaModel.ToDate : toDate;
 
             // Action
-            _controller.Index(metaModel, fromDate, toDate, level, CurrencyId, CustId);
+            await _controller.Index(metaModel, fromDate, toDate, level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
@@ -263,7 +263,7 @@
 
         [TestCase(true, 0, null, null)]
         [TestCase(false, 2, "2017/4/1", "2017/5/1")]
-        public void Index_WhenCall_MetaModelAreAssignedDataCorrectly(bool isFakeLicensee, int memberId, DateTime? fromDate, DateTime? toDate)
+        public async Task Index_WhenCall_MetaModelAreAssignedDataCorrectly(bool isFakeLicensee, int memberId, DateTime? fromDate, DateTime? toDate)
         {
             // Arrange
             const int CustId = 1, CurrencyId = -2, Level = 1, MemberId = 1;
@@ -284,7 +284,7 @@
             var expectedUserName = isFakeLicensee ? string.Empty : metaModel.Username;
 
             // Action
-            _controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId, MemberId, SystemId, CurrencyName);
+            await _controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId, MemberId, SystemId, CurrencyName);
 
             // Assert
             Assert.Multiple(() =>

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Common.UnitTests
 {
+    using System.Threading.Tasks;
     using Base;
     using NSubstitute;
     using NUnit.Framework;
@@ -9,7 +10,7 @@
     public class CommonApiControllerTest
     {
         [Test]
-        public void GetMoveBetNotification_WhenCall_ReturnCorrectResult()
+        public async Task GetMoveBetNotification_WhenCall_ReturnCorrectResult()
         {
             var moveBetService = Substitute.For<IMoveBetService>();
             var languageService = Substitute.For<ILanguageService>();
@@ -24,7 +25,7 @@
                 moveBetService.GetMoveBetNotificationAsync(Language).Returns(Notification);
 
                 // Action
-                var result = controller.GetMoveBetNotification();
+                var result = await controller.GetMoveBetNotification();
 
                 // Assert
                 Assert.That(result, Is.EqualTo(Notification));

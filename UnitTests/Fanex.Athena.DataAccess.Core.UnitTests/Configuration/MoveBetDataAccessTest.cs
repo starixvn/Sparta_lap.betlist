@@ -75,14 +75,14 @@
         }
 
         [Test]
-        public void GetMoveBetNotification_WhenObjectDbThrowsException_WriteLog()
+        public async Task GetMoveBetNotification_WhenObjectDbThrowsException_WriteLog()
         {
             // Arrange
             var sqlException = new ObjectDbException("Error");
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw sqlException; });
 
             // Action
-            DataAccess.GetMoveBetNotificationAsync();
+            await DataAccess.GetMoveBetNotificationAsync();
 
             // Assert
             _logger.Received().Error("MoveBetNotification: " + sqlException.Message, sqlException);

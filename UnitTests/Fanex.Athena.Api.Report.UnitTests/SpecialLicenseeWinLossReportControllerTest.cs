@@ -169,7 +169,7 @@
 
         [TestCase(LicenseeIdentity.IvoryBet, "ivorysport")]
         [TestCase(LicenseeIdentity.Opal88, "opal88")]
-        public void Index_ValidRequest_CallServiceWithCorrectParameters(int licenseeId, string expectedSiteName)
+        public async Task Index_ValidRequest_CallServiceWithCorrectParameters(int licenseeId, string expectedSiteName)
         {
             // Arrange
             ProductService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())
@@ -196,7 +196,7 @@
             var expectedCurrencyXML = $"<ROOT><CR Id=\"1\" Code=\"C1\" /><CR Id=\"2\" Code=\"C2\" /></ROOT>";
 
             // Action
-            _controller.Index(model);
+            await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>

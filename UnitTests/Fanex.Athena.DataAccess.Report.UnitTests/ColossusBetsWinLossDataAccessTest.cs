@@ -36,14 +36,14 @@
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
+        public async Task GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
             var metaModel = CreateMetaModel();
 
             // Action
-            DataAccess.GetSummaryWinloss(metaModel, UserCurrencyList);
+            await DataAccess.GetSummaryWinloss(metaModel, UserCurrencyList);
 
             // Assert
             AssertUspParameters(metaModel);

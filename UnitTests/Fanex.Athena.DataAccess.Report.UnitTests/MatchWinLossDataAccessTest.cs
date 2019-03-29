@@ -287,13 +287,13 @@
         }
 
         [Test]
-        public void GetDetailDataList_WhenCall_ReturnCorrectResult()
+        public async Task GetDetailDataList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailDataListSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetDetailDataList(_metaModel);
+            await DataAccess.GetDetailDataList(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -308,13 +308,13 @@
         }
 
         [Test]
-        public void GetOutrightParlayList_WhenCall_ReturnCorrectResult()
+        public async Task GetOutrightParlayList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetOutrightParlayListSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetOutrightParlayList(_metaModel);
+            await DataAccess.GetOutrightParlayList(_metaModel);
 
             // Assert
             Assert.Multiple(() =>

@@ -194,7 +194,7 @@
         }
 
         [Test]
-        public void GetDetailData_WhenCall_CallDataAccess()
+        public async Task GetDetailData_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel();
@@ -202,10 +202,10 @@
             _dataAccess.GetDetailData(metaModel, _currencyList).Returns(new Model.Core.ResultModel.ReportResultModel<SubsidiaryPerformanceDetail>());
 
             // Action
-            _service.GetDetailData(metaModel, _currencyList);
+            await _service.GetDetailData(metaModel, _currencyList);
 
             // Assert
-            _dataAccess.Received().GetDetailData(metaModel, _currencyList);
+            await _dataAccess.Received(1).GetDetailData(metaModel, _currencyList);
         }
 
         private static IEnumerable<SubsidiaryPerformance> GetFakeEntityDataList()

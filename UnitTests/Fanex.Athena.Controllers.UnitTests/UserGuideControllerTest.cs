@@ -69,7 +69,7 @@
         }
 
         [Test]
-        public void Index_FileDoesNotExist_ReturnDefaultFilePath()
+        public async Task Index_FileDoesNotExist_ReturnDefaultFilePath()
         {
             using (var controller = CreateController())
             {
@@ -85,7 +85,7 @@
                 _fileSystem.ReadFile(Arg.Do<string>(x => actualFilePath = x)).Returns("{rooturl}");
 
                 // Action
-                controller.Index(ResourceName);
+                await controller.Index(ResourceName);
 
                 // Assert
                 Assert.That(actualFilePath, Is.EqualTo(expectedFilePath));
@@ -93,7 +93,7 @@
         }
 
         [Test]
-        public void Index_FileExist_ReturnFilePathBaseOnSessionInfo()
+        public async Task Index_FileExist_ReturnFilePathBaseOnSessionInfo()
         {
             using (var controller = CreateController())
             {
@@ -109,7 +109,7 @@
                 _fileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
 
                 // Action
-                controller.Index(ResourceName);
+                await controller.Index(ResourceName);
 
                 // Assert
                 Assert.That(actualFileName, Is.EqualTo(expectedFilePath));
@@ -117,7 +117,7 @@
         }
 
         [Test]
-        public void Index_UserUsesDefaultLanguage_ReturnDefaultFilePath()
+        public async Task Index_UserUsesDefaultLanguage_ReturnDefaultFilePath()
         {
             using (var controller = CreateController())
             {
@@ -133,7 +133,7 @@
                 _fileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
 
                 // Action
-                controller.Index(ResourceName);
+                await controller.Index(ResourceName);
 
                 // Assert
                 Assert.That(actualFileName, Is.EqualTo(expectedFilePath));

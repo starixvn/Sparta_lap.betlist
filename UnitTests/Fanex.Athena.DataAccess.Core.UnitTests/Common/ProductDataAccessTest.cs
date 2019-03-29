@@ -16,14 +16,14 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void GetProductAccessList_WhenCall_ParametersPassedCorrectly(bool isActiveCustomerSummaryReport)
+        public async Task GetProductAccessList_WhenCall_ParametersPassedCorrectly(bool isActiveCustomerSummaryReport)
         {
             // Arrange
             var uspName = Arg.Is<string>(name => name == SpNameActive || name == SpName);
             DataAccess.GetObjectDb(uspName).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport);
+            await DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("licenseeid", LicenseeId);

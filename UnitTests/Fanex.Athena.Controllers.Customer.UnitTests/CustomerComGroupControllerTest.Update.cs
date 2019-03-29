@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -13,7 +14,7 @@
     public partial class CustomerComGroupControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void UpdateGet_WhenCall_ReturnCorrectResult()
+        public async Task UpdateGet_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -31,7 +32,7 @@
                 _productService.GetProductAccess(0, string.Empty).ReturnsForAnyArgs(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = controller.Update(GroupId) as ViewResult;
+                var result = await controller.Update(GroupId) as ViewResult;
 
                 // Assert
                 Assert.Multiple(() =>
