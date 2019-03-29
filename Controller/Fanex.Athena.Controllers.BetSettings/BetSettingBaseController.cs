@@ -44,11 +44,11 @@ namespace Fanex.Athena.Controllers.BetSettings
             _productService = productService;
         }
 
-        protected async Task<ProductAccess> GetProductAccess()
+        protected Task<ProductAccess> GetProductAccess()
         {
-            return await _productService.GetProductAccess(
+            return _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,
-                    SessionService.UserSession.Language).ConfigureAwait(false);
+                    SessionService.UserSession.Language);
         }
 
         protected JsonResult AccessDenied()
@@ -85,9 +85,9 @@ namespace Fanex.Athena.Controllers.BetSettings
             return commonItem;
         }
 
-        protected async Task<bool> IsBetSettingEditable()
+        protected Task<bool> IsBetSettingEditable()
         {
-            return await _coreBetSettingService.IsBetSettingEditableAsync().ConfigureAwait(false);
+            return _coreBetSettingService.IsBetSettingEditableAsync();
         }
 
         protected decimal GetDecimalRequest(string name, decimal defaultValue)

@@ -43,9 +43,9 @@
             return base.GetBetSettingCommonParam();
         }
 
-        internal new async Task<bool> IsBetSettingEditable()
+        internal new Task<bool> IsBetSettingEditable()
         {
-            return await base.IsBetSettingEditable().ConfigureAwait(false);
+            return base.IsBetSettingEditable();
         }
 
         internal new decimal GetDecimalRequest(string name, decimal defaultValue)

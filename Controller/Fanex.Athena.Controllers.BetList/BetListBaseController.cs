@@ -148,9 +148,9 @@
                  currencyTitle);
         }
 
-        protected async Task<BalanceUp> GetBalanceUp()
+        protected Task<BalanceUp> GetBalanceUp()
         {
-            return await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            return _balanceUpDataAccess.GetBalanceUp();
         }
 
         /// <summary>
@@ -192,9 +192,9 @@
             return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        protected virtual async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
+        protected virtual Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
-            return await Task.FromResult<ActionResult>(null).ConfigureAwait(false);
+            return Task.FromResult<ActionResult>(null);
         }
 
         protected virtual void AssignViewBag(BetListMetaModel model)

@@ -46,9 +46,9 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public async Task<dynamic> Index(PlatformWinLossMetaModel metaModel)
+        public Task<dynamic> Index(PlatformWinLossMetaModel metaModel)
         {
-            return await ProcessRequest(metaModel).ConfigureAwait(false);
+            return ProcessRequest(metaModel);
         }
 
         protected internal virtual PlatformWinLossSummaryExcel CreateExcelSummary(
@@ -184,7 +184,7 @@ namespace Fanex.Athena.Api.Report
                     };
 
                 return metaModel.IsExportExcel
-                    ? ExportExcelMember(metaModel, result.DataList, result.TotalData)
+                    ? await ExportExcelMember(metaModel, result.DataList, result.TotalData).ConfigureAwait(false)
                     : (dynamic)new
                     {
                         Data = result.DataList,

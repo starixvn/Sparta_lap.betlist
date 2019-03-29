@@ -227,9 +227,9 @@ namespace Fanex.Athena.Controllers.Report
             return new LiveReportExcel(templatePath, convertingOption, showingOption, viewModel.MainResult, liveReportDetail);
         }
 
-        protected async Task<ProductAccess> GetProductAccess(int licenseeId, string language)
+        protected Task<ProductAccess> GetProductAccess(int licenseeId, string language)
         {
-            return await ProductService.GetProductAccess(licenseeId, language, FunctionNames.LiveReport).ConfigureAwait(false);
+            return ProductService.GetProductAccess(licenseeId, language, FunctionNames.LiveReport);
         }
 
         private async Task<DateTime> GetBalanceUpDay()

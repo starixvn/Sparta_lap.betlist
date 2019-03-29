@@ -132,9 +132,9 @@ namespace Fanex.Athena.Service.Forecast
 
         #region Forecast 1 x 2
 
-        public async Task<IEnumerable<League>> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
+        public Task<IEnumerable<League>> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
         {
-            return await _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(false);
+            return _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString);
         }
 
         public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel)

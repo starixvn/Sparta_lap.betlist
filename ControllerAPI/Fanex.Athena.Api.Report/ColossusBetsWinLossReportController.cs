@@ -42,7 +42,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public async Task<dynamic> Index(
+        public Task<dynamic> Index(
             ColossusBetsWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -50,13 +50,13 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0,
             int custId = 0)
         {
-            return await ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId).ConfigureAwait(false);
+            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId);
         }
 
         [HttpPost]
-        public async Task<dynamic> Index([FromBody] ColossusBetsWinLossMetaModel metaModel)
+        public Task<dynamic> Index([FromBody] ColossusBetsWinLossMetaModel metaModel)
         {
-            return await ProcessRequest(metaModel, null, null).ConfigureAwait(false);
+            return ProcessRequest(metaModel, null, null);
         }
 
         protected internal virtual ColossusBetsWinLossExcel CreateExcel(

@@ -24,9 +24,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
             _coreCasinoBetSettingDataAccess = coreCasinoBetSettingDataAccess;
         }
 
-        public async Task<IResultInfo> UpdateStatusAsync(CoreCasinoStatusMetaModel metaModel)
+        public Task<IResultInfo> UpdateStatusAsync(CoreCasinoStatusMetaModel metaModel)
         {
-            return await _coreCasinoBetSettingDataAccess.UpdateCasinoStatusAsync(metaModel, RngCasinoSportId);
+            return _coreCasinoBetSettingDataAccess.UpdateCasinoStatusAsync(metaModel, RngCasinoSportId);
         }
     }
 }

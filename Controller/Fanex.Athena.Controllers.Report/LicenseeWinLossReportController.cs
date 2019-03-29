@@ -71,12 +71,12 @@ namespace Fanex.Athena.Controllers.Report
                 reportSetting.TimeZone.HasValue ? DateTime.UtcNow.AddHours(reportSetting.TimeZone.Value) : DateTime.Now);
         }
 
-        private async Task<ProductAccess> GetProducts(int licenseeId, string lang)
+        private Task<ProductAccess> GetProducts(int licenseeId, string lang)
         {
-            return await ProductService.GetSingleWalletProductAccess(
+            return ProductService.GetSingleWalletProductAccess(
                 licenseeId,
                 lang,
-                FunctionNames.LicenseeWinLoss).ConfigureAwait(false);
+                FunctionNames.LicenseeWinLoss);
         }
 
         private async Task<ActionResult> MapToView()

@@ -41,21 +41,21 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public async Task<ActionResult> MatchBetType(BetListExcelMetaModel metaModel)
+        public Task<ActionResult> MatchBetType(BetListExcelMetaModel metaModel)
         {
-            return await ProcessRequest(metaModel, null, "~/Views/Desktop/BetList/MatchWl/MatchBetType.cshtml").ConfigureAwait(false);
+            return ProcessRequest(metaModel, null, "~/Views/Desktop/BetList/MatchWl/MatchBetType.cshtml");
         }
 
         [HttpGet]
-        public async Task<ActionResult> MixParlay(BetListExcelMetaModel metaModel)
+        public Task<ActionResult> MixParlay(BetListExcelMetaModel metaModel)
         {
-            return await ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Parlay", "~/Views/Desktop/BetList/MatchWl/MixParlay.cshtml").ConfigureAwait(false);
+            return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Parlay", "~/Views/Desktop/BetList/MatchWl/MixParlay.cshtml");
         }
 
         [HttpGet]
-        public async Task<ActionResult> Outright(BetListExcelMetaModel metaModel)
+        public Task<ActionResult> Outright(BetListExcelMetaModel metaModel)
         {
-            return await ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Outright", "~/Views/Desktop/BetList/MatchWl/Outright.cshtml").ConfigureAwait(false);
+            return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Outright", "~/Views/Desktop/BetList/MatchWl/Outright.cshtml");
         }
 
         private async Task<ActionResult> ProcessRequest(BetListExcelMetaModel metaModel, string uspKey, string viewPath)

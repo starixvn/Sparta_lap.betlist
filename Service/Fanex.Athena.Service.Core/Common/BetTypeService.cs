@@ -61,9 +61,9 @@ namespace Fanex.Athena.Service.Core.Common
             return new List<CheckedItem>();
         }
 
-        public async Task<IList<CheckedItem>> GetBettypesByProduct(int licenseeId, string productCode, string languageCode)
+        public Task<IList<CheckedItem>> GetBettypesByProduct(int licenseeId, string productCode, string languageCode)
         {
-            return await _betTypeDataAccess.GetBettypesByProduct(licenseeId, productCode, languageCode).ConfigureAwait(false);
+            return _betTypeDataAccess.GetBettypesByProduct(licenseeId, productCode, languageCode);
         }
     }
 }

@@ -39,9 +39,9 @@ namespace Fanex.Athena.Api.BetList
 
         protected IBetListApiClient BridgeClientService { get; }
 
-        protected async Task<BalanceUp> GetBalanceUp()
+        protected Task<BalanceUp> GetBalanceUp()
         {
-            return await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            return _balanceUpDataAccess.GetBalanceUp();
         }
 
         protected void CheckDataPermission(int custId, long transId)

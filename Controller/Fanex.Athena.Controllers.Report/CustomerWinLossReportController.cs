@@ -34,15 +34,15 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public Task<ActionResult> Index()
         {
-            return await GetView(false).ConfigureAwait(false);
+            return GetView(false);
         }
 
         [HttpGet]
-        public async Task<ActionResult> History()
+        public Task<ActionResult> History()
         {
-            return await GetView(true).ConfigureAwait(false);
+            return GetView(true);
         }
 
         private async Task<ActionResult> GetView(bool isHistory)

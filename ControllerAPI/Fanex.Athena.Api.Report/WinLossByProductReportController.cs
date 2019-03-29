@@ -52,7 +52,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
 #pragma warning disable S107 // Methods should not have too many parameters
-        public async Task<dynamic> Index(
+        public Task<dynamic> Index(
            WinLossByProductMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -64,13 +64,13 @@ namespace Fanex.Athena.Api.Report
             string currencyName = null)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
-            return await ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, memberId, systemId, currencyName).ConfigureAwait(false);
+            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, memberId, systemId, currencyName);
         }
 
         [HttpPost]
-        public async Task<dynamic> Index([FromBody] WinLossByProductMetaModel metaModel)
+        public Task<dynamic> Index([FromBody] WinLossByProductMetaModel metaModel)
         {
-            return await ProcessRequest(metaModel, null, null).ConfigureAwait(false);
+            return ProcessRequest(metaModel, null, null);
         }
 
         protected internal virtual WinlossByProductExcel CreateExcel(string templatePath, WinLossByProductExcelModel excelModel)

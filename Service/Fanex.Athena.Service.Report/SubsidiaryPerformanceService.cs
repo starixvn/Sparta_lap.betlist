@@ -46,9 +46,9 @@
             };
         }
 
-        public async Task<ReportResultModel<SubsidiaryPerformanceDetail>> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<ReportResultModel<SubsidiaryPerformanceDetail>> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await _subLicenseePerformanceDataAccess.GetDetailData(metaModel, currencyList).ConfigureAwait(false);
+            return _subLicenseePerformanceDataAccess.GetDetailData(metaModel, currencyList);
         }
 
         private static void AssignSumData(SubsidiaryPerformanceBase total, SubsidiaryPerformanceBase detail)

@@ -32,16 +32,16 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public async Task<SortableReportResultModel<ColossusBetWinLoss>> GetSummaryWinloss(
+        public Task<SortableReportResultModel<ColossusBetWinLoss>> GetSummaryWinloss(
             ColossusBetsWinLossMetaModel metaModel, 
             IDictionary<int, string> currencyList)
         {
-            return await GetData("Lrf_Rpt_ColossusBetsWinloss", currencyList, metaModel).ConfigureAwait(false);
+            return GetData("Lrf_Rpt_ColossusBetsWinloss", currencyList, metaModel);
         }
 
-        public async Task<SortableReportResultModel<ColossusBetWinLoss>> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<SortableReportResultModel<ColossusBetWinLoss>> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await GetData("Lrf_Rpt_ColossusBetsWinloss_detail", currencyList, metaModel).ConfigureAwait(false);
+            return GetData("Lrf_Rpt_ColossusBetsWinloss_detail", currencyList, metaModel);
         }
 
         private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ColossusBetWinLoss> summaryTotal)

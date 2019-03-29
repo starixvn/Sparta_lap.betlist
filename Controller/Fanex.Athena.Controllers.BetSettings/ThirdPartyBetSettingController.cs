@@ -71,37 +71,37 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public async Task<JsonResult> UpdateMacauStatus(int custId, string nickName, int status)
+        public Task<JsonResult> UpdateMacauStatus(int custId, string nickName, int status)
         {
-            return await UpdateThirdPartyProductStatus(ProductTypes.Macau, custId, nickName, status).ConfigureAwait(false);
+            return UpdateThirdPartyProductStatus(ProductTypes.Macau, custId, nickName, status);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public async Task<JsonResult> UpdateBetTradeStatus(int custId, string nickName, int status)
+        public Task<JsonResult> UpdateBetTradeStatus(int custId, string nickName, int status)
         {
-            return await UpdateThirdPartyProductStatus(ProductTypes.BetTrade, custId, nickName, status).ConfigureAwait(false);
+            return UpdateThirdPartyProductStatus(ProductTypes.BetTrade, custId, nickName, status);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public async Task<JsonResult> UpdateColossusBetsStatus(int custId, string nickName, int status)
+        public Task<JsonResult> UpdateColossusBetsStatus(int custId, string nickName, int status)
         {
-            return await UpdateThirdPartyProductStatus(ProductTypes.ColossusBets, custId, nickName, status).ConfigureAwait(false);
+            return UpdateThirdPartyProductStatus(ProductTypes.ColossusBets, custId, nickName, status);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public async Task<JsonResult> UpdateCashOutStatus(int custId, string nickName, int status)
+        public Task<JsonResult> UpdateCashOutStatus(int custId, string nickName, int status)
         {
-            return await UpdateThirdPartyProductStatus(ProductTypes.CashOut, custId, nickName, status).ConfigureAwait(false);
+            return UpdateThirdPartyProductStatus(ProductTypes.CashOut, custId, nickName, status);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public async Task<JsonResult> UpdateGoldDeluxeStatus(int custId, string nickName, int status)
+        public Task<JsonResult> UpdateGoldDeluxeStatus(int custId, string nickName, int status)
         {
-            return await UpdateThirdPartyProductStatus(ProductTypes.GoldDeluxe, custId, nickName, status).ConfigureAwait(false);
+            return UpdateThirdPartyProductStatus(ProductTypes.GoldDeluxe, custId, nickName, status);
         }
 
         private async Task<JsonResult> UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)

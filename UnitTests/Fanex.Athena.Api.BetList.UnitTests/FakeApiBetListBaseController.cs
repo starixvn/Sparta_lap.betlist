@@ -26,14 +26,14 @@
             base.CheckDataPermission(custId, transId);
         }
 
-        internal new async Task<dynamic> GetBetListResult(BetListMetaModel metaModel, string uspKey, string apiPath = null)
+        internal new Task<dynamic> GetBetListResult(BetListMetaModel metaModel, string uspKey, string apiPath = null)
         {
-            return await base.GetBetListResult(metaModel, uspKey, apiPath);
+            return base.GetBetListResult(metaModel, uspKey, apiPath);
         }
 
-        internal new async Task<dynamic> GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize, string apiPath = null)
+        internal new Task<dynamic> GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize, string apiPath = null)
         {
-            return await base.GetPagingBetListResult(metaModel, uspKey, pageIndex, pageSize, apiPath);
+            return base.GetPagingBetListResult(metaModel, uspKey, pageIndex, pageSize, apiPath);
         }
     }
 }

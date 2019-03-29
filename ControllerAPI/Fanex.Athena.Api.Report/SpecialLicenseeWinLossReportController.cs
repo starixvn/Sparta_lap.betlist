@@ -44,9 +44,9 @@
         }
 
         [HttpPost]
-        public async Task<dynamic> Index(SpecialLicenseeWinLossMetaModel metaModel)
+        public Task<dynamic> Index(SpecialLicenseeWinLossMetaModel metaModel)
         {
-            return await ProcessRequest(metaModel).ConfigureAwait(false);
+            return ProcessRequest(metaModel);
         }
 
         private static SpecialLicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item)

@@ -32,19 +32,19 @@ namespace Fanex.Athena.Service.Core.Common
 
         #region Property
 
-        public async Task<IEnumerable<Function>> GetFunctions()
+        public Task<IEnumerable<Function>> GetFunctions()
         {
-            return await _functionStorage.GetFunctionList().ConfigureAwait(false);
+            return _functionStorage.GetFunctionList();
         }
 
-        private async Task<IEnumerable<Function>> GetMasterFunctions()
+        private Task<IEnumerable<Function>> GetMasterFunctions()
         {
-            return await _functionStorage.GetMasterFunctions().ConfigureAwait(false);
+            return _functionStorage.GetMasterFunctions();
         }
 
-        private async Task<IDictionary<int, IEnumerable<Function>>> GetSubFunctions()
+        private Task<IDictionary<int, IEnumerable<Function>>> GetSubFunctions()
         {
-            return await _functionStorage.GetSubFunctions().ConfigureAwait(false);
+            return _functionStorage.GetSubFunctions();
         }
 
         #endregion Property

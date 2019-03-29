@@ -45,14 +45,14 @@ namespace Fanex.Athena.Service.Core.Common
             }
         }
 
-        public async Task<IList<Match>> GetForecastMatchListByLeague(int leagueId)
+        public Task<IList<Match>> GetForecastMatchListByLeague(int leagueId)
         {
-            return await _matchDataAccess.GetForecastMatchListByLeague(leagueId).ConfigureAwait(false);
+            return _matchDataAccess.GetForecastMatchListByLeague(leagueId);
         }
 
-        public async Task<IList<Match>> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate)
+        public Task<IList<Match>> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate)
         {
-            return await _matchDataAccess.GetMatchesByLeague(leagueId, fromDate, toDate).ConfigureAwait(false);
+            return _matchDataAccess.GetMatchesByLeague(leagueId, fromDate, toDate);
         }
     }
 }
