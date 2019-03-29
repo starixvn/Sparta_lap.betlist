@@ -35,9 +35,9 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public async Task<ActionResult> Index()
+        public Task<ActionResult> Index()
         {
-            return await MultipleCustomers().ConfigureAwait(false);
+            return  MultipleCustomers();
         }
 
         public async Task<ActionResult> MultipleCustomers()
@@ -47,8 +47,8 @@
                 CurrencyList = GetCurrencyList(),
                 LiveStatusList = GetLiveStatusList(),
                 StatusList = GetStatusList(),
-                ProductOptionList = await GetProductOptionList(FunctionNames.BettingTicketCenterMultiCustomers).ConfigureAwait(false),
-                MinDate = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay,
+                ProductOptionList = await GetProductOptionList(FunctionNames.BettingTicketCenterMultiCustomers),
+                MinDate = (await _balanceUpDataAccess.GetBalanceUp()).BalanceUpDay,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             return View("~/Views/Desktop/BetList/BettingTicketCenter/MultiCustomer.cshtml", viewModel);
@@ -61,7 +61,7 @@
                 LiveStatusList = GetLiveStatusList(),
                 StatusList = GetStatusList(),
                 PlatformList = GetPlatformList(),
-                ProductOptionList = await GetProductOptionList().ConfigureAwait(false),
+                ProductOptionList = await GetProductOptionList(),
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             return View("~/Views/Desktop/BetList/BettingTicketCenter/SingleCustomer.cshtml", viewModel);
@@ -81,7 +81,7 @@
             {
                 StatusList = GetRunningStatusList(),
                 CurrencyList = GetCurrencyList(),
-                ProductOptionList = await GetProductOptionList(FunctionNames.BettingTicketCenterRunning).ConfigureAwait(false),
+                ProductOptionList = await GetProductOptionList(FunctionNames.BettingTicketCenterRunning),
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
@@ -149,7 +149,7 @@
             var productAccess = await _productService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                functionConfigKey).ConfigureAwait(false);
+                functionConfigKey);
 
             return productAccess.ProductList.Select(i => new ProductOption
             {
