@@ -21,8 +21,6 @@ namespace Fanex.Athena.Api.BetList
     {
         private readonly IAuthorizationService _authorizationService;
 
-        private readonly IBetListApiClient _betListApiClient;
-
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public ApiBetListBaseController(
@@ -35,14 +33,11 @@ namespace Fanex.Athena.Api.BetList
         : base(sessionService, productService, languageService)
         {
             _authorizationService = authorizationService;
-            _betListApiClient = betListApiClient;
+            BridgeClientService = betListApiClient;
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        protected IBetListApiClient BridgeClientService
-        {
-            get { return _betListApiClient; }
-        }
+        protected IBetListApiClient BridgeClientService { get; }
 
         protected async Task<BalanceUp> GetBalanceUp()
         {
@@ -79,7 +74,8 @@ namespace Fanex.Athena.Api.BetList
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
-            return await _betListApiClient.PostAsync(apiPath ?? "/BetList/GetBetList", metaModel).ConfigureAwait(false);
+
+            return await BridgeClientService.PostAsync(apiPath ?? "/BetList/GetBetList", metaModel).ConfigureAwait(false);
         }
 
         protected internal virtual async Task<dynamic> GetPagingBetListResult(
@@ -105,7 +101,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;
             metaModel.UspKey = uspKey;
-            return await _betListApiClient.PostAsync(apiPath ?? "/BetList/GetBetListPaging", metaModel).ConfigureAwait(false);
+            return await BridgeClientService.PostAsync(apiPath ?? "/BetList/GetBetListPaging", metaModel).ConfigureAwait(false);
         }
 
         protected bool IsValidCurrencyId(int currencyId)
