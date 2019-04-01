@@ -57,9 +57,9 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
-        protected bool IsFakeLicensee()
+        protected bool IsFakeLicensee(int licenseeId)
         {
-            return AppSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId);
+            return AppSettings.FakeLicenseeList.Contains(licenseeId);
         }
     }
 }

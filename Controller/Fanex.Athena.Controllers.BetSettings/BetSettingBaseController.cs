@@ -21,6 +21,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Session.Model;
     using Web.ActionFilter;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -58,36 +59,36 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         protected Task<CustomerInfo> GetCustomerInfo(int custId)
         {
-            return _coreBetSettingService.GetCustomerInfo(custId);
+            return _coreBetSettingService.GetCustomerInfo(custId, SessionService.LicenseeSession.LicenseeId);
         }
 
         protected async Task AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
         {
-            metaModel.IsFakeLicensee = IsFakeLicensee();
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            metaModel.IsFakeLicensee = IsFakeLicensee(licenseeId);
             viewModel.Param = metaModel;
-            viewModel.Editable = await IsBetSettingEditable().ConfigureAwait(false);
-            viewModel.BetSettingProducts = await _coreBetSettingService.GetBetSettingProductsAsync(metaModel.CustId).ConfigureAwait(false);
+            viewModel.Editable = IsBetSettingEditable(SessionService.UserSession);
+            viewModel.BetSettingProducts = await _coreBetSettingService.GetBetSettingProductsAsync(metaModel.CustId, licenseeId).ConfigureAwait(false);
         }
 
-        protected CommonBetSetting GetBetSettingCommonParam()
+        protected CommonBetSetting GetBetSettingCommonParam(int userId, int licenseeId, string language)
         {
-            var userSession = SessionService.UserSession;
-
             var commonItem = new CommonBetSetting
             {
-                LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                LicenseeId = licenseeId,
                 Ip = Request.UserHostAddress,
-                Language = userSession.Language,
-                UserId = userSession.UserId,
+                Language = language,
+                UserId = userId,
                 CustId = int.Parse(Request["custid"])
             };
 
             return commonItem;
         }
 
-        protected Task<bool> IsBetSettingEditable()
+        protected bool IsBetSettingEditable(UserSession userSession)
         {
-            return _coreBetSettingService.IsBetSettingEditableAsync();
+            return _coreBetSettingService.IsBetSettingEditable(userSession);
         }
 
         protected decimal GetDecimalRequest(string name, decimal defaultValue)
@@ -114,6 +115,22 @@ namespace Fanex.Athena.Controllers.BetSettings
             return !int.TryParse(HttpContext.Request[name], out value)
                        ? defaultValue
                        : value;
+        }
+
+        protected async Task<bool> CheckPermission(UserSession userSession, int productId)
+        {
+            if (!IsBetSettingEditable(userSession))
+            {
+                return false;
+            }
+
+            var productAccess = await GetProductAccess().ConfigureAwait(false);
+            if (!productAccess.IsAllow(productId))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

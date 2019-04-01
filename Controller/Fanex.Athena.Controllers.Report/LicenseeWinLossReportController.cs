@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            if (IsFakeLicensee())
+            if (IsFakeLicensee(SessionService.LicenseeSession.LicenseeId))
             {
                 return await MapToFakeView().ConfigureAwait(false);
             }

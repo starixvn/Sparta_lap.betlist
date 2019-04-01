@@ -22,7 +22,6 @@
     {
         private const int LicenseeId = 9999;
 
-        private ISessionService _sessionService;
         private ICoreBetSettingDataAccess _coreBetSettingDataAccess;
         private IAuthorizationService _authorizationService;
         private ICustomerService _customerService;
@@ -32,20 +31,13 @@
         [OneTimeSetUp]
         public void Setup()
         {
-            _sessionService = Substitute.For<ISessionService>();
             _coreBetSettingDataAccess = Substitute.For<ICoreBetSettingDataAccess>();
             _authorizationService = Substitute.For<IAuthorizationService>();
             _customerService = Substitute.For<ICustomerService>();
             _coreBetSettingService = new CoreBetSettingService(
-                _sessionService,
                 _authorizationService,
                 _coreBetSettingDataAccess,
                 _customerService);
-
-            _sessionService.LicenseeSession.Returns(new Session.Model.LicenseeSession
-            {
-                LicenseeId = LicenseeId
-            });
         }
 
         [Test]
@@ -57,14 +49,14 @@
             _customerService.GetCustomerInfo(LicenseeId, CustId).Returns(expectedCustomer);
 
             // Action
-            var result = await _coreBetSettingService.GetCustomerInfo(CustId);
+            var result = await _coreBetSettingService.GetCustomerInfo(CustId, LicenseeId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedCustomer));
         }
 
         [Test]
-        public async Task IsBetSettingEditable_IsParasiticMode_GetPermissionFromPortalFunctionList()
+        public void IsBetSettingEditable_IsParasiticMode_GetPermissionFromPortalFunctionList()
         {
             // Arrange
             var userSession = new UserSession
@@ -73,17 +65,16 @@
                 UserId = 234234,
                 PortalFunctionList = new[] { "sdf", "cxv", "sdfsdf" }
             };
-            _sessionService.UserSession.Returns(userSession);
 
             // Action
-            await _coreBetSettingService.IsBetSettingEditableAsync();
+            _coreBetSettingService.IsBetSettingEditable(userSession);
 
             // Assert
             _authorizationService.Received(1).HasPermissions(userSession.PortalFunctionList, PermissionKeys.CustomerInfoEditBetSetting);
         }
 
         [Test]
-        public async Task IsBetSettingEditable_IsNotParasiticMode_GetPermissionFromFunctionIdList()
+        public void IsBetSettingEditable_IsNotParasiticMode_GetPermissionFromFunctionIdList()
         {
             // Arrange
             var userSession = new UserSession
@@ -92,10 +83,9 @@
                 UserId = 324234,
                 FunctionIdList = new[] { 23, 45, 67 }
             };
-            _sessionService.UserSession.Returns(userSession);
 
             // Action
-            await _coreBetSettingService.IsBetSettingEditableAsync();
+            _coreBetSettingService.IsBetSettingEditable(userSession);
 
             // Assert
             _authorizationService.Received(1).HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting);
@@ -111,7 +101,7 @@
             _coreBetSettingDataAccess.GetBetSettingProductsAsync(LicenseeId).Returns(Task.FromResult(GetSampleBetSettingProducts()));
 
             // Action
-            var result = await _coreBetSettingService.GetBetSettingProductsAsync(CustId);
+            var result = await _coreBetSettingService.GetBetSettingProductsAsync(CustId, LicenseeId);
 
             // Assert
             Assert.That(
@@ -129,7 +119,7 @@
             _coreBetSettingDataAccess.GetBetSettingProductsAsync(LicenseeId).Returns(Task.FromResult(GetSampleBetSettingProducts()));
 
             // Action
-            var result = await _coreBetSettingService.GetBetSettingProductsAsync(CustId).ConfigureAwait(false);
+            var result = await _coreBetSettingService.GetBetSettingProductsAsync(CustId, LicenseeId).ConfigureAwait(false);
 
             // Assert
             Assert.That(

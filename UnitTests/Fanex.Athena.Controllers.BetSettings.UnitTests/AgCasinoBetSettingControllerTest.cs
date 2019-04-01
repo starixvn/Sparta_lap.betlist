@@ -104,7 +104,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
@@ -136,7 +136,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
@@ -186,7 +186,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateAgCasinoBetSettingAsync(
                    Arg.Any<CommonBetSetting>(),
@@ -214,7 +214,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateAgCasinoBetSettingAsync(
                    Arg.Any<CommonBetSetting>(),

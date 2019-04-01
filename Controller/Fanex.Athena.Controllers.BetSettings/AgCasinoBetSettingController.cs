@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var viewModel = await _betSettingService.GetViewModelAsync(licenseeSession.LicenseeId, metaModel.CustId, licenseeSession.LicenseeName).ConfigureAwait(false);
+            var viewModel = await _betSettingService.GetViewModelAsync(licenseeSession.LicenseeId, metaModel.CustId, licenseeSession.LicenseeName);
             if (viewModel == null)
             {
                 return Redirect("~/Utility/AccessDenied");
@@ -52,15 +52,16 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            if (!productAccess.IsAllow(ProductTypes.AgCasino) || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!(await CheckPermission(userSession, ProductTypes.AgCasino).ConfigureAwait(false)))
             {
                 return AccessDenied();
             }
 
-            var userSession = SessionService.UserSession;
             var result = await _betSettingService.UpdateStatusAsync(
-                SessionService.LicenseeSession.LicenseeId,
+                licenseeId,
                 userSession.UserId,
                 custId,
                 userSession.Language,
@@ -79,13 +80,15 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateBetSetting(string nickName, string group)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            if (!productAccess.IsAllow(ProductTypes.AgCasino) || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!(await CheckPermission(userSession, ProductTypes.AgCasino).ConfigureAwait(false)))
             {
                 return AccessDenied();
             }
 
-            var setting = GetBetSettingCommonParam();
+            var setting = GetBetSettingCommonParam(userSession.UserId, licenseeId, userSession.Language);
             var result = await _betSettingService.UpdateAgCasinoBetSettingAsync(setting, group).ConfigureAwait(false);
 
             if (result.Code == 0)

@@ -88,7 +88,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 controller.HttpContext.Request["id"].Returns(id);
                 controller.HttpContext.Request["custid"].Returns(custid);
@@ -115,7 +115,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -149,7 +149,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 const string Id = "1";
                 const string CustId = "2";
@@ -195,7 +195,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 

@@ -10,7 +10,7 @@
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-
+    using Session.Model;
     internal class FakeBetSettingBaseController : BetSettingBaseController
     {
         internal FakeBetSettingBaseController(
@@ -38,14 +38,14 @@
             await base.AssignRequiredProperties(viewModel, metaModel);
         }
 
-        internal new CommonBetSetting GetBetSettingCommonParam()
+        internal new CommonBetSetting GetBetSettingCommonParam(int userId, int licenseeId, string language)
         {
-            return base.GetBetSettingCommonParam();
+            return base.GetBetSettingCommonParam(userId, licenseeId, language);
         }
 
-        internal new Task<bool> IsBetSettingEditable()
+        internal bool IsBetSettingEditable(UserSession userSession)
         {
-            return base.IsBetSettingEditable();
+            return base.IsBetSettingEditable(userSession);
         }
 
         internal new decimal GetDecimalRequest(string name, decimal defaultValue)

@@ -69,7 +69,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var productAccess = await GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
 
-            var model = await CreateViewModel(licenseeSession.IsAllowedCustomerComm, userSession.CurrencyList, metaModel, productAccess).ConfigureAwait(false);
+            var model = await CreateViewModel(licenseeSession.LicenseeId, licenseeSession.IsAllowedCustomerComm, userSession.CurrencyList, metaModel, productAccess).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Report/LiveReport/Main.cshtml", model);
         }
@@ -86,7 +86,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = await GetProductAccess(metaModel.LicenseeId, userSession.Language).ConfigureAwait(false);
             metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
 
-            var model = await CreateViewModel(licenseeSession.IsAllowedCustomerComm, userSession.CurrencyList, metaModel, productAccess).ConfigureAwait(false);
+            var model = await CreateViewModel(licenseeSession.LicenseeId, licenseeSession.IsAllowedCustomerComm, userSession.CurrencyList, metaModel, productAccess).ConfigureAwait(false);
             model.MainResult = await _liveReportService.GetLiveReportSummary(metaModel).ConfigureAwait(false);
             model.ShowEmptyContent = false;
             return metaModel.IsExportExcel
@@ -144,6 +144,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         private async Task<LiveReportViewModel> CreateViewModel(
+            int licenseeId,
             bool isAllowedCustomerComm,
             IDictionary<int, string> currencyList,
             LiveReportMetaModel metaModel, 
@@ -158,7 +159,7 @@ namespace Fanex.Athena.Controllers.Report
                 BalanceUpDate = await GetBalanceUpDay().ConfigureAwait(false),
                 IsAllowedCustomerCommission = isAllowedCustomerComm,
                 ProductAccess = productAccess,
-                IsFakeLicensee = IsFakeLicensee(),
+                IsFakeLicensee = IsFakeLicensee(licenseeId),
                 HasAmountDueToColumn = AppSettings.HasAmountDueToColumn
             };
         }

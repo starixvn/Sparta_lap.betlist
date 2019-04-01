@@ -10,12 +10,10 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.BetSettings.MetaModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.DTO;
-    using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -41,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId).ConfigureAwait(false);
+            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
 
             await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
@@ -52,13 +50,15 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateBetSetting(string nickName)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            if (!productAccess.IsAllowSB || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!(await CheckPermission(userSession, ProductTypes.Sportsbook)))
             {
                 return AccessDenied();
             }
 
-            var commonParam = GetBetSettingCommonParam();
+            var commonParam = GetBetSettingCommonParam(userSession.UserId, licenseeId, userSession.Language);
             var param = GetSportsBookParam();
             var esportSetting = GetESportSetting();
             var result = await _betSettingService.UpdateBetSettingAsync(commonParam, param, esportSetting).ConfigureAwait(false);

@@ -79,12 +79,13 @@ namespace Fanex.Athena.Controllers.BetSettings
                 throw new ArgumentException("Invalid product id: " + metaModel.ProductId);
             }
 
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var viewModel = new BetSettingViewModel();
             await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
             var viewName = ProductViewNameMap[metaModel.ProductId];
             var viewPath = $"~/Views/Desktop/Customer/BetSetting/{viewName}.cshtml";
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
             if (ProductsHasStatus.Contains(metaModel.ProductId))
             {
                 viewModel.IsEnabled = await _betSettingService.GetStatusAsync(licenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
@@ -102,15 +103,16 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status, int productId)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            if (!productAccess.IsAllow(productId) || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!(await CheckPermission(userSession, productId)))
             {
                 return AccessDenied();
             }
 
-            var userSession = SessionService.UserSession;
             var result = await _betSettingService.UpdateStatusAsync(
-                SessionService.LicenseeSession.LicenseeId,
+                licenseeId,
                 userSession.UserId,
                 custId,
                 Request.UserHostAddress,
@@ -129,13 +131,15 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateBetSetting(int productId, string nickName)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            if (!productAccess.IsAllow(productId) || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!(await CheckPermission(userSession, productId)))
             {
                 return AccessDenied();
             }
 
-            var commonParam = GetBetSettingCommonParam();
+            var commonParam = GetBetSettingCommonParam(userSession.UserId, licenseeId, userSession.Language);
             var parameters = GetParameters(productId);
 
             if (!parameters.Any() || commonParam.UserId == 0 || commonParam.CustId == 0)

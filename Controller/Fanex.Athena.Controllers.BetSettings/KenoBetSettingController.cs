@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.DTO;
@@ -39,7 +40,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId).ConfigureAwait(false);
+            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
             await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
             return View("~/Views/Desktop/Customer/BetSetting/Keno.cshtml", viewModel);
         }
@@ -48,14 +49,16 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateBetSetting(string nickName)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            if (!productAccess.IsAllowKN || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!(await CheckPermission(userSession, ProductTypes.Keno)))
             {
                 return AccessDenied();
             }
 
             var id = Convert.ToInt32(Request["id"]);
-            var commonParam = GetBetSettingCommonParam();
+            var commonParam = GetBetSettingCommonParam(userSession.UserId, licenseeId, userSession.Language);
 
             if (id <= 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
             {

@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Collections;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
@@ -38,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId).ConfigureAwait(false);
+            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
             await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Customer/BetSetting/NumberGame.cshtml", viewModel);
@@ -48,13 +49,15 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateBetSetting(string nickName)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            if (!productAccess.IsAllowNG || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!(await CheckPermission(userSession, ProductTypes.NumberGame)))
             {
                 return AccessDenied();
             }
 
-            var numberGame = GetBetSettingCommonParam();
+            var numberGame = GetBetSettingCommonParam(userSession.UserId, licenseeId, userSession.Language);
             var hashData = GetNumberGameParam();
             var result = await _betSettingService.UpdateBetSettingAsync(numberGame, hashData).ConfigureAwait(false);
 

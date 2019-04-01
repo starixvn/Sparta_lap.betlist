@@ -50,12 +50,12 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<AgCasinoBetSettingViewModel> GetViewModelAsync(int licenseeId, int custId, string licenseeName)
         {
-            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
+            if (!(await HasPermissionOnData(licenseeId, custId)))
             {
                 return null;
             }
 
-            var betSetting = await _betSettingDataAccess.GetBetSettingAsync(custId).ConfigureAwait(false);
+            var betSetting = await _betSettingDataAccess.GetBetSettingAsync(custId);
 
             if (!betSetting.CheckedGroups.Contains(betSetting.AgGroup))
             {
@@ -81,7 +81,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
 
             var agcasinoSetting = await _betSettingDataAccess.GetBetSettingAsync(setting.CustId).ConfigureAwait(false);
-            
+
             if (!agcasinoSetting.IsEnabled || !(await HasPermissionOnData(setting.LicenseeId, setting.CustId).ConfigureAwait(false)))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);

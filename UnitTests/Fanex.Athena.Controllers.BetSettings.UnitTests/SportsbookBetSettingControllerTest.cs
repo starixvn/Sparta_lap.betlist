@@ -85,7 +85,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.SB } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -116,7 +116,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.SB } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -143,7 +143,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.SB } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 const decimal MinBet1 = 2.5m;
                 const decimal MaxBet1 = 3.552m;

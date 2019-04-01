@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Data;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
@@ -17,7 +18,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-
+    using Session.Model;
     public class RngCasinoBetSettingController : BetSettingBaseController
     {
         private readonly IRngCasinoBetSettingService _betSettingService;
@@ -38,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var customer = await GetCustomerInfo(metaModel.CustId).ConfigureAwait(false);
+            var customer = await GetCustomerInfo(metaModel.CustId);
             var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language);
             await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
@@ -49,18 +50,22 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateBetSetting(int custId, string gameTypeChangedList)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            var customer = productAccess.IsAllowCS ? await GetCustomerInfo(custId).ConfigureAwait(false) : null;
-            if (customer == null || !customer.SyncCasino || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeSession = SessionService.LicenseeSession;
+
+            if (!(await CheckPermission(userSession, ProductTypes.RngCasino)))
+            {
+                return AccessDenied();
+            }
+
+            var customer = await GetCustomerInfo(custId);
+            if (customer == null || !customer.SyncCasino)
             {
                 return AccessDenied();
             }
 
             try
             {
-                var licenseeSession = SessionService.LicenseeSession;
-                var userSession = SessionService.UserSession;
-
                 var metaModel = new RngCasinoBetSettingMetaModel
                 {
                     LicenseeId = licenseeSession.LicenseeId,
@@ -89,17 +94,20 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            if (!productAccess.IsAllowCS ||
-                !(await GetCustomerInfo(custId).ConfigureAwait(false)).SyncCasino ||
-                !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!(await CheckPermission(userSession, ProductTypes.RngCasino)))
             {
                 return AccessDenied();
             }
 
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var customer = await GetCustomerInfo(custId).ConfigureAwait(false);
-            var userSession = SessionService.UserSession;
+            if (customer == null || !customer.SyncCasino)
+            {
+                return AccessDenied();
+            }
+
             var metaModel = new BetSettingCasinoStatusMetaModel
             {
                 LicenseeId = licenseeId,

@@ -106,16 +106,17 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private async Task<JsonResult> UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)
         {
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
-            if (!productAccess.IsAllow(productId) || !(await IsBetSettingEditable().ConfigureAwait(false)))
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!(await CheckPermission(userSession, productId).ConfigureAwait(false)))
             {
                 return AccessDenied();
             }
 
-            var userSession = SessionService.UserSession;
             var isEnabled = status == 1;
             var result = await _betSettingService.UpdateStatusAsync(
-                SessionService.LicenseeSession.LicenseeId,
+               licenseeId,
                 productId,
                 userSession.UserId,
                 custId,

@@ -130,7 +130,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
@@ -163,7 +163,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
@@ -192,7 +192,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
@@ -225,7 +225,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
@@ -276,7 +276,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
@@ -309,7 +309,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
@@ -360,7 +360,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,
@@ -393,7 +393,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } })));
 
-                CoreBetSettingService.IsBetSettingEditableAsync().Returns(Task.FromResult(true));
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 _betSettingService.UpdateStatusAsync(
                    DefaultLicenseeSession.LicenseeId,

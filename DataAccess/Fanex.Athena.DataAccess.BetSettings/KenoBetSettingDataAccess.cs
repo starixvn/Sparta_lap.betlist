@@ -33,7 +33,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             using (var db = this.GetObjectDb(uspName))
             {
                 db.SetParameterValue("CustID", custId);
-                using (var reader = await db.ExecuteReaderAsync())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadBetSetting(reader);
                 }

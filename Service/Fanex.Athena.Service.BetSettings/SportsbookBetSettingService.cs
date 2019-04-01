@@ -64,12 +64,12 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult("Invalid parameters. bet setting is null");
             }
 
-            if (!(await HasPermissionOnData(setting.LicenseeId, setting.CustId).ConfigureAwait(false)))
+            if (!(await HasPermissionOnData(setting.LicenseeId, setting.CustId)))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            var result = await _betSettingDataAccess.UpdateBetSettingAsync(setting, hashParam).ConfigureAwait(false);
+            var result = await _betSettingDataAccess.UpdateBetSettingAsync(setting, hashParam);
 
             if (!result.IsSuccessful)
             {

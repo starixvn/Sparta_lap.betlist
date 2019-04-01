@@ -45,13 +45,13 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var viewModel = new ExchangeBetSettingViewModel
             {
                 CommissionList = ValidComms
             };
             await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
-          
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
             viewModel.IsEnabled = await _betSettingService.GetStatusAsync(licenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
 
             var apiResult = await _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId).ConfigureAwait(false);
@@ -83,7 +83,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 SessionService.UserSession.UserId,
                 custId,
                 oldCommission,
-                newCommission);
+                newCommission).ConfigureAwait(false);
 
             return Json(result);
         }

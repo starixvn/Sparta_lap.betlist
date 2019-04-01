@@ -10,13 +10,14 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     using System.Threading.Tasks;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Model.Customer.DTO;
+    using Session.Model;
 
     public interface ICoreBetSettingService
     {
-        Task<CustomerInfo> GetCustomerInfo(int custId);
+        Task<CustomerInfo> GetCustomerInfo(int custId, int licenseeId);
 
-        Task<bool> IsBetSettingEditableAsync();
+        bool IsBetSettingEditable(UserSession userSession);
 
-        Task<IEnumerable<BetSettingProduct>> GetBetSettingProductsAsync(int custId);
+        Task<IEnumerable<BetSettingProduct>> GetBetSettingProductsAsync(int custId, int licenseeId);
     }
 }

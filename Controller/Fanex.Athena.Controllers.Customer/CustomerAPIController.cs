@@ -127,7 +127,8 @@ namespace Fanex.Athena.Controllers.Customer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public async Task<ActionResult> UpdateSpecialLevel(int custId, int level)
         {
-            var isFakeLicensee = IsFakeLicensee();
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var isFakeLicensee = IsFakeLicensee(licenseeId);
 
             if (!isFakeLicensee)
             {
@@ -136,7 +137,7 @@ namespace Fanex.Athena.Controllers.Customer
                 try
                 {
                     var dataResult = await _customerListService.UpdateSpecialLevel(
-                        SessionService.LicenseeSession.LicenseeId,
+                        licenseeId,
                         userSession.UserId,
                         custId,
                         level,
@@ -174,7 +175,8 @@ namespace Fanex.Athena.Controllers.Customer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public async Task<ActionResult> UpdateOddsGroup(int custId, string oddsGroup)
         {
-            var isFakeLicensee = IsFakeLicensee();
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var isFakeLicensee = IsFakeLicensee(licenseeId);
 
             if (!isFakeLicensee)
             {
@@ -184,7 +186,7 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     var metaModel = new CustomerOddsGroupMetaModel
                     {
-                        LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                        LicenseeId = licenseeId,
                         CustId = custId,
                         Ip = Request.UserHostAddress,
                         Language = userSession.Language,

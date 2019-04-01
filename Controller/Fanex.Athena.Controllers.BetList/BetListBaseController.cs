@@ -161,21 +161,22 @@
         /// <returns>The bet list metal model.</returns>
         protected async Task<BetListMetaModel> CreateDefaultMetaModel(BetListMetaModel metaModel = null)
         {
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
             var defaultMetaModel = metaModel ?? new BetListMetaModel();
-            defaultMetaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            defaultMetaModel.LicenseeId = licenseeId;
             defaultMetaModel.UserId = SessionService.UserSession.UserId;
             defaultMetaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.IsFakeLicensee = IsFakeLicensee(licenseeId);
+            defaultMetaModel.CurrencyList = UserCurrencyList;
+            defaultMetaModel.AgentListXml = SessionService.GenerateAgentListXml(defaultMetaModel.CurrencyId);
 
             var balanceUp = await GetBalanceUp().ConfigureAwait(false);
             defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Unspecified);
             defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Unspecified);
-            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Unspecified);
-            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Unspecified);
-            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Unspecified);
-
-            defaultMetaModel.IsFakeLicensee = IsFakeLicensee();
-            defaultMetaModel.CurrencyList = UserCurrencyList;
-            defaultMetaModel.AgentListXml = SessionService.GenerateAgentListXml(defaultMetaModel.CurrencyId);
 
             return defaultMetaModel;
         }

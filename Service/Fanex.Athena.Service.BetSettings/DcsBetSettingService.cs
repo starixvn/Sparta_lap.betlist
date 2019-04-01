@@ -64,7 +64,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             const string XMLPattern = "<ROOT>{0}</ROOT>";
             const string XMLElement = "<BetLimit SportType=\"{0}\" BetType=\"{1}\" MinBet=\"{2}\" MaxBet=\"{3}\" MaxPerMatch=\"{4}\" ></BetLimit>";
-            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
+            if (!(await HasPermissionOnData(licenseeId, custId)))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }

@@ -37,6 +37,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult Index()
         {
             var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var viewModel = new HeaderPageViewModel
             {
                 Language = userSession.Language,
@@ -46,9 +47,9 @@ namespace Fanex.Athena.Controllers
                 HasRecheckIn = !AppSettings.LocalTest,
                 SupportedLanguageList = Util.SupportedLanguages,
                 UserName = userSession.UserName,
-                CurrentLicenseeId = SessionService.LicenseeSession.LicenseeId,
+                CurrentLicenseeId = licenseeId,
                 IsAllowedManagementMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList),
-                IsFakeLicensee = IsFakeLicensee(),
+                IsFakeLicensee = IsFakeLicensee(licenseeId),
                 IsAllowedNotification = userSession.FunctionIdList.Contains((int)FunctionType.ResultAmendment_Recalculation)
             };
             return View("~/Views/Desktop/Header/Index.cshtml", viewModel);

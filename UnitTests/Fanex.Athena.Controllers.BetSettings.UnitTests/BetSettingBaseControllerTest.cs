@@ -52,7 +52,7 @@
                 controller.GetCustomerInfo(CustId);
 
                 // Assert
-                CoreBetSettingService.Received(1).GetCustomerInfo(CustId);
+                CoreBetSettingService.Received(1).GetCustomerInfo(CustId, DefaultLicenseeSession.LicenseeId);
             }
         }
 
@@ -84,10 +84,10 @@
                 var viewModel = new BetSettingBaseViewModel();
                 var metaModel = new BetSettingMetaModel();
 
-                CoreBetSettingService.GetCustomerInfo(metaModel.CustId)
+                CoreBetSettingService.GetCustomerInfo(metaModel.CustId, DefaultLicenseeSession.LicenseeId)
                     .Returns(new CustomerInfo { SyncCasino = false });
 
-                CoreBetSettingService.GetBetSettingProductsAsync(DefaultLicenseeSession.LicenseeId)
+                CoreBetSettingService.GetBetSettingProductsAsync(metaModel.CustId, DefaultLicenseeSession.LicenseeId)
                     .Returns(Task.FromResult<IEnumerable<BetSettingProduct>>(new List<BetSettingProduct>
                     {
                         new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino }
@@ -114,7 +114,7 @@
                 controller.HttpContext.Request.UserHostAddress.Returns(UserHostAddress);
 
                 // Action
-                var result = controller.GetBetSettingCommonParam();
+                var result = controller.GetBetSettingCommonParam(DefaultUserSession.UserId, DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language);
 
                 // Assert
                 Assert.Multiple(() =>
