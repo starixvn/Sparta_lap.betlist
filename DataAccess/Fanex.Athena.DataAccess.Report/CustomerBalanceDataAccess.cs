@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
@@ -17,7 +18,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerBalanceDataAccess : BaseDataAccess, ICustBalanceDataAccess
     {
-        public ReportResultModel<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel)
+        public async Task<ReportResultModel<CustBalance>> GetDataList(CustomerBalanceMetaModel metaModel)
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerBalance"))
             {
@@ -37,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Report
                 var dataList = new List<CustBalance>();
                 CustBalance totalData = null;
                 int totalRow = 0;
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
                     while (reader.Read())

@@ -35,7 +35,6 @@
         };
         var _selector = {
             SubmitButton: "#SubmitButton",
-            ExportExcelInput: "#IsExportExcel",
             ExportToExcel: "#ExportToExcel",
             Form: "#CustomerBalanceForm",
             Title: ".report-title",
@@ -76,13 +75,11 @@
                     return false;
                 }
 
-                $(_selector.ExportExcelInput).val(true);
                 var mainForm = $(_selector.Form);
                 var url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
                 $(_selector.OrderItemInput, _selector.Form).val(_orderColumnCode);
                 mainForm.attr("action", url);
                 mainForm.submit();
-                $(_selector.ExportExcelInput).val(false);
                 return false;
             });
 

@@ -310,7 +310,7 @@
         var _me =
         {
             urlData: "api/CustomerBalanceReport/Index",
-            urlExcelData: "api/CustomerBalanceReport/Index",
+            urlExcelData: "api/CustomerBalanceReport/ExportExcel",
             hasCustomerComm: true,
             isAllowBA: true,
             customerCommIndex: 11,

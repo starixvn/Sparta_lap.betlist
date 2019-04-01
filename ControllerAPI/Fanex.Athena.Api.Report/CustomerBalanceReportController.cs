@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
@@ -34,24 +33,9 @@
         }
 
         [HttpPost]
-        public dynamic Index(CustomerBalanceMetaModel metaModel)
+        public async Task<dynamic> Index(CustomerBalanceMetaModel metaModel)
         {
-            return metaModel.IsExportExcel ? ExportExcel(metaModel) : ProcessRequest(metaModel);
-        }
-
-        protected internal virtual CustomerBalanceExcel CreateExcel(
-            string templatePath,
-            CustomerBalanceMetaModel metaModel,
-            ReportResultModel<CustBalance> result,
-            ShowingOption showingOption,
-            ConvertingOption convertingOption)
-        {
-            return new CustomerBalanceExcel(templatePath, metaModel, result.DataList, result.TotalData, showingOption, convertingOption);
-        }
-
-        private dynamic ProcessRequest(CustomerBalanceMetaModel metaModel)
-        {
-            var result = GetData(metaModel);
+            var result = await GetData(metaModel).ConfigureAwait(false);
 
             return new
             {
@@ -61,7 +45,8 @@
             };
         }
 
-        private async Task<HttpResponseMessage> ExportExcel(CustomerBalanceMetaModel metaModel)
+        [HttpPost]
+        public async Task<HttpResponseMessage> ExportExcel(CustomerBalanceMetaModel metaModel)
         {
             const string FileName = "CustomerBalance.xls";
             const string TemplatePath = @"~/App_Data/Template/CustomerReports/CustomerBalance.xls";
@@ -70,8 +55,8 @@
 
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = await ProductService.GetSingleWalletProductAccess(
-                licenseeSession.LicenseeId, 
-                SessionService.UserSession.Language, 
+                licenseeSession.LicenseeId,
+                SessionService.UserSession.Language,
                 FunctionNames.CustomerBalance)
                 .ConfigureAwait(false);
 
@@ -90,7 +75,7 @@
 
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
-            var result = GetData(metaModel);
+            var result = await GetData(metaModel).ConfigureAwait(false);
 
             var custBalanceExcel = CreateExcel(templatePath, metaModel, result, showingOption, convertingOption);
             custBalanceExcel.Export();
@@ -98,7 +83,17 @@
             return ExcelStream(custBalanceExcel.Workbook, FileName);
         }
 
-        private ReportResultModel<CustBalance> GetData(CustomerBalanceMetaModel metaModel)
+        protected internal virtual CustomerBalanceExcel CreateExcel(
+            string templatePath,
+            CustomerBalanceMetaModel metaModel,
+            ReportResultModel<CustBalance> result,
+            ShowingOption showingOption,
+            ConvertingOption convertingOption)
+        {
+            return new CustomerBalanceExcel(templatePath, metaModel, result.DataList, result.TotalData, showingOption, convertingOption);
+        }
+
+        private async Task<ReportResultModel<CustBalance>> GetData(CustomerBalanceMetaModel metaModel)
         {
             if (!metaModel.IsValid)
             {
@@ -111,7 +106,7 @@
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
-            return _custBalanceDataAccess.GetDataList(metaModel);
+            return await _custBalanceDataAccess.GetDataList(metaModel).ConfigureAwait(false);
         }
     }
 }

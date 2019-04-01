@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Excel.Base.Entities;
     using Excel.Report;
@@ -45,7 +46,7 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnEmptyData()
+        public async Task Index_InvalidModel_ReturnEmptyData()
         {
             var model = new CustomerBalanceMetaModel
             {
@@ -54,7 +55,7 @@
                 ToDate = DateTime.Now
             };
 
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             Assert.Multiple(() =>
             {
@@ -64,14 +65,14 @@
         }
 
         [Test]
-        public void Index_ValidModel_GetDataFromDataAccess()
+        public async Task Index_ValidModel_GetDataFromDataAccess()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
             var expectedData = SetUpForGettingData(metaModel);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -83,11 +84,10 @@
         }
 
         [Test]
-        public void Index_ExportToExcel_ExportWithCorrectData()
+        public async Task ExportExcel_ExportToExcel_ExportWithCorrectData()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
-            metaModel.IsExportExcel = true;
             var expectedDataList = SetUpForGettingData(metaModel);
             const int PageSizeExcel = int.MaxValue - 1000;
 
@@ -105,7 +105,7 @@
                    Arg.Any<ConvertingOption>()).ReturnsForAnyArgs(excel);
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.ExportExcel(metaModel);
 
             // Assert
             Assert.Multiple(() =>
