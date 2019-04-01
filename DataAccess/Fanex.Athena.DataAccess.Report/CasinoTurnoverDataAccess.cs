@@ -35,7 +35,7 @@
             using (var db = GetObjectDb(UspName))
             {
                 await AddParams(metaModel, db).ConfigureAwait(false);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     dataList = ReadData(reader, metaModel.IsConvertAll);
                     if (dataList.Any())

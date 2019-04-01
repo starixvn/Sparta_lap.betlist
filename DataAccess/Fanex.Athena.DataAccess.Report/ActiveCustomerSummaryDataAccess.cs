@@ -10,6 +10,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ActiveCustomerSummaryDataAccess : BaseDataAccess, IActiveCustomerSummaryDataAccess
     {
-        public ActiveCustomerSummaryResultModel GetActiveCustomers(ActiveCustomerMetaModel metaModel)
+        public async Task<ActiveCustomerSummaryResultModel> GetActiveCustomers(ActiveCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_ActiveMember";
 
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Report
                 UpdateUspParams(db, metaModel);
                 db.SetParameterValue("TotalActive", null);
                 SortableList<ActiveCustomer> data;
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     data = GetData(reader, metaModel);
                 }

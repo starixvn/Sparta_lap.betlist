@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
@@ -60,7 +61,7 @@
         }
 
         [Test]
-        public void GetActiveCustomers_WhenCall_DataReturnedCorrectly()
+        public async Task GetActiveCustomers_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             const int TotalActive = 5;
@@ -80,7 +81,7 @@
             Reader[productCodeHasData].Returns(CustomerCount);
 
             // Action
-            var result = DataAccess.GetActiveCustomers(_metaModel);
+            var result = await DataAccess.GetActiveCustomers(_metaModel);
             var firstItem = result.DataList.First();
 
             // Assert

@@ -40,7 +40,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 AddParameters(db, metaModel, (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var dataList = new List<CustomerWinLoss>();
                     var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;

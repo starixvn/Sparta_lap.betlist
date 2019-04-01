@@ -41,7 +41,7 @@ namespace Fanex.Athena.DataAccess.Report
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerTurnOver"))
             {
                 await AddParameters(metaModel, languageCode, db).ConfigureAwait(false);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = new List<CustTurnover>();
                     while (reader.Read())

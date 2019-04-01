@@ -66,7 +66,7 @@ namespace Fanex.Athena.DataAccess.Report
             using (var db = this.GetObjectDb(spname))
             {
                 await UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0).ConfigureAwait(false);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadData(reader, currencyList, metaModel);
                 }

@@ -44,7 +44,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(ActiveCustomerMetaModel metaModel)
+        public Task<dynamic> Index(ActiveCustomerMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
@@ -128,14 +128,14 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private dynamic ProcessRequest(ActiveCustomerMetaModel metaModel)
+        private async Task<dynamic> ProcessRequest(ActiveCustomerMetaModel metaModel)
         {
             if (IsValidRequest(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
                 var result = metaModel.IsValid ?
-                    _activeCustomerSummaryDataAccess.GetActiveCustomers(metaModel) :
+                    await _activeCustomerSummaryDataAccess.GetActiveCustomers(metaModel).ConfigureAwait(false) :
                     new ActiveCustomerSummaryResultModel
                     {
                         DataList = new SortableList<ActiveCustomer>(),

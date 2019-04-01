@@ -45,7 +45,7 @@ namespace Fanex.Athena.DataAccess.Report
                 await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
                 db.SetParameterValue("ReportType", metaModel.ReportBy);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = GetData(reader, currencyList, metaModel);
                     AssignRowSpan(result.DataList);
@@ -61,7 +61,7 @@ namespace Fanex.Athena.DataAccess.Report
             using (var db = GetObjectDb(UspName))
             {
                 await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel);
                 }

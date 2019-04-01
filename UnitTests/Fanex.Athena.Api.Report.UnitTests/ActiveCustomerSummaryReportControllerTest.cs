@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
@@ -50,7 +51,7 @@
         }
 
         [Test]
-        public void Index_InvalidRequest_ReturnEmptyData()
+        public async Task Index_InvalidRequest_ReturnEmptyData()
         {
             // Arrange
             var model = new ActiveCustomerMetaModel
@@ -67,7 +68,7 @@
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -79,14 +80,14 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnEmptyData()
+        public async Task Index_InvalidModel_ReturnEmptyData()
         {
             // Arrange
             var model = CreateValidMetaModel();
             model.FromDate = model.ToDate.AddDays(1);
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -98,7 +99,7 @@
         }
 
         [Test]
-        public void Index_NoDataReturnedFromDataAccess_ReturnEmptyData()
+        public async Task Index_NoDataReturnedFromDataAccess_ReturnEmptyData()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
@@ -109,7 +110,7 @@
             });
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -121,14 +122,14 @@
         }
 
         [Test]
-        public void Index_ValidModelNoSorting_GetCorrectDataFromDataAccess()
+        public async Task Index_ValidModelNoSorting_GetCorrectDataFromDataAccess()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
             var expectedResult = SetUpForGettingData(metaModel);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.EqualTo(expectedResult.DataList));
@@ -136,7 +137,7 @@
         }
 
         [Test]
-        public void Index_ValidModelSortByTotalCustomer_GetCorrectDataFromDataAccess()
+        public async Task Index_ValidModelSortByTotalCustomer_GetCorrectDataFromDataAccess()
         {
             // Arrange
             var sortBy = nameof(ActiveCustomer.TotalCustomer);
@@ -146,7 +147,7 @@
             expectedResult.DataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.EqualTo(expectedResult.DataList));
@@ -154,7 +155,7 @@
         }
 
         [Test]
-        public void Index_ValidModelSortByCustomerCount_GetCorrectDataFromDataAccess()
+        public async Task Index_ValidModelSortByCustomerCount_GetCorrectDataFromDataAccess()
         {
             // Arrange
             var sortBy = nameof(ActiveCustomer.CustomerCount) + "A";
@@ -164,7 +165,7 @@
             expectedResult.DataList.SortByDictionary("A", nameof(ActiveCustomer.CustomerCount), sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.EqualTo(expectedResult.DataList));
@@ -173,7 +174,7 @@
 
         [TestCase(new[] { Product.BA }, Product.BA, true)]
         [TestCase(new[] { Product.BA }, Product.SB, false)]
-        public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa)
+        public async Task Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa)
         {
             // Arrange
             var metaModel = CreateValidMetaModel(productCodeOption);
@@ -211,7 +212,7 @@
                    Arg.Any<ActiveCustomerViewModel>())).Do(p => actualViewModel = (ActiveCustomerViewModel)p[4]);
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>

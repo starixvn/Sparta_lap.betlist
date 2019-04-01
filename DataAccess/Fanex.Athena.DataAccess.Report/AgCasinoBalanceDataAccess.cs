@@ -10,6 +10,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -23,7 +24,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
-        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(
+        public async Task<SortableReportResultModel<AgCasinoBalance>> GetSummaryBalance(
             ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
@@ -33,14 +34,14 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 UpdateUspParams(db, metaModel, false);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel);
                 }
             }
         }
 
-        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(
+        public async Task<SortableReportResultModel<AgCasinoBalance>> GetCustomerBalanceDetail(
             ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
@@ -55,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                 UpdateUspParams(db, metaModel, true);
                 SortableReportResultModel<AgCasinoBalance> result;
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     result = GetData(reader, currencyList, metaModel);
                 }
@@ -66,14 +67,14 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<AgCasinoBalance>> GetAgentBalanceDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Ag";
 
             using (var db = GetObjectDb(UspName))
             {
                 UpdateUspParams(db, metaModel, true);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel);
                 }

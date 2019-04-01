@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
@@ -43,7 +44,7 @@
         }
 
         [Test]
-        public void Index_WhenCallWithInvalidModel_ReturnEmptyResult()
+        public async Task Index_WhenCallWithInvalidModel_ReturnEmptyResult()
         {
             // Arrange
             var metaModel = new ThirdPartyWinLossMetaModel
@@ -55,14 +56,14 @@
             var expectedResult = GetSerializationData();
 
             // Action
-            var result = ObjectHelper.ToJson(_controller.Index(metaModel));
+            var result = ObjectHelper.ToJson(await _controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void Index_NoDataReturned_ReturnEmptyResult()
+        public async Task Index_NoDataReturned_ReturnEmptyResult()
         {
             // Arrange
             var metaModel = new ThirdPartyWinLossMetaModel
@@ -80,14 +81,14 @@
             var expectedResult = GetSerializationData();
 
             // Action
-            var result = ObjectHelper.ToJson(_controller.Index(metaModel));
+            var result = ObjectHelper.ToJson(await _controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void Index_Level0_ReturnCorrectDataFromDataAccess()
+        public async Task Index_Level0_ReturnCorrectDataFromDataAccess()
         {
             // Arrange
             const int CurrencyId = -2;
@@ -123,14 +124,14 @@
                 };
 
             // Action
-            var result = _controller.Index(metaModel).Data;
+            var result = (await _controller.Index(metaModel)).Data;
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedDataList)));
         }
 
         [Test]
-        public void Index_Level1_CallGetAgentBalanceDetailInService_ReturnCorrectData()
+        public async Task Index_Level1_CallGetAgentBalanceDetailInService_ReturnCorrectData()
         {
             // Arrange
             const int CurrencyId = -2;
@@ -153,14 +154,14 @@
             var expectedResult = GetSerializationData(resultModel);
 
             // Action
-            var result = ObjectHelper.ToJson(_controller.Index(metaModel));
+            var result = ObjectHelper.ToJson(await _controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void Index_Level2_CallGetCustomerBalanceDetailInService_ReturnCorrectData()
+        public async Task Index_Level2_CallGetCustomerBalanceDetailInService_ReturnCorrectData()
         {
             // Arrange
             const int CurrencyId = -2;
@@ -185,7 +186,7 @@
             var expectedResult = GetSerializationData(resultModel);
 
             // Action
-            var result = ObjectHelper.ToJson(_controller.Index(metaModel));
+            var result = ObjectHelper.ToJson(await _controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

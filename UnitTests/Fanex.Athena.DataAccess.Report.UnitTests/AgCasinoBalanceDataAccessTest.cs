@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DataDomain;
     using Model.Report.DTO;
@@ -39,7 +40,7 @@
         }
 
         [Test]
-        public void GetSummaryBalance_WhenCall_DataReturnedCorrectly()
+        public async Task GetSummaryBalance_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryBalanceSp)).Returns(ObjectDb);
@@ -54,7 +55,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = DataAccess.GetSummaryBalance(metaModel, UserCurrencyList).DataList.First();
+            var result = (await DataAccess.GetSummaryBalance(metaModel, UserCurrencyList)).DataList.First();
 
             // Assert
             Assert.Multiple(() =>
@@ -128,7 +129,7 @@
         }
 
         [Test]
-        public void GetCustomerBalanceDetail_WhenCall_DataReturnedCorrectly()
+        public async Task GetCustomerBalanceDetail_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomerBalanceDetailSp)).Returns(ObjectDb);
@@ -147,7 +148,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = DataAccess.GetCustomerBalanceDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetCustomerBalanceDetail(metaModel, UserCurrencyList)).DataList[0];
 
             // Assert
             Assert.Multiple(() =>
@@ -161,7 +162,7 @@
         }
 
         [Test]
-        public void GetAgentBalanceDetail_WhenCall_DataReturnedCorrectly()
+        public async Task GetAgentBalanceDetail_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
@@ -177,7 +178,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList)).DataList[0];
 
             // Assert
             Assert.Multiple(() =>
@@ -191,7 +192,7 @@
         }
 
         [Test]
-        public void GetData_DrillDownLevel2_CalculateIndexByPaging()
+        public async Task GetData_DrillDownLevel2_CalculateIndexByPaging()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
@@ -212,14 +213,14 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList)).DataList[0];
 
             // Assert
             Assert.That(result.Index, Is.EqualTo(ExpectedIndex));
         }
 
         [Test]
-        public void GetData_HasUserNameColumn_ReturnCorrectDataForSystemId()
+        public async Task GetData_HasUserNameColumn_ReturnCorrectDataForSystemId()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
@@ -240,14 +241,14 @@
             Reader.GetName(Arg.Any<int>()).Returns("UserName");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList)).DataList[0];
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(UserName));
         }
 
         [Test]
-        public void GetData_HasNickNameColumn_ReturnCorrectDataForExternalId()
+        public async Task GetData_HasNickNameColumn_ReturnCorrectDataForExternalId()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
@@ -268,14 +269,14 @@
             Reader.GetName(Arg.Any<int>()).Returns("NickName");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList)).DataList[0];
 
             // Assert
             Assert.That(result.ExternalId, Is.EqualTo(NickName));
         }
 
         [Test]
-        public void GetData_HasCustIdColumn_ReturnCorrectDataForCustomerId()
+        public async Task GetData_HasCustIdColumn_ReturnCorrectDataForCustomerId()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
@@ -297,14 +298,14 @@
             Reader.GetName(Arg.Any<int>()).Returns("CustId");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList)).DataList[0];
 
             // Assert
             Assert.That(result.CustomerId, Is.EqualTo(CustId));
         }
 
         [Test]
-        public void GetData_HasCurrencyColumn_ReturnCorrectDataForCurrencyId()
+        public async Task GetData_HasCurrencyColumn_ReturnCorrectDataForCurrencyId()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
@@ -326,14 +327,14 @@
             Reader.GetName(Arg.Any<int>()).Returns("Currency");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList)).DataList[0];
 
             // Assert
             Assert.That(result.CurrencyId, Is.EqualTo(Currency));
         }
 
         [Test]
-        public void GetData_HasDateColumn_ReturnCorrectDataForDate()
+        public async Task GetData_HasDateColumn_ReturnCorrectDataForDate()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
@@ -354,7 +355,7 @@
             Reader.GetName(Arg.Any<int>()).Returns("Date");
 
             // Action
-            var result = DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList)).DataList[0];
 
             // Assert
             Assert.That(result.Date, Is.EqualTo(date));
