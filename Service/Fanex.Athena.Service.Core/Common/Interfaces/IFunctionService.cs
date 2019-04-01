@@ -12,19 +12,19 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
 
     public interface IFunctionService
     {
-        Task<IEnumerable<Function>> GetFunctions();
+        IEnumerable<Function> Functions { get; }
 
-        Task<IEnumerable<Function>> GetUserFunctionList(int licenseeId, int userId);
+        IEnumerable<Function> GetUserFunctionList(int licenseeId, int userId);
 
-        Task<IEnumerable<Function>> GetLicenseeFunctionList(int licenseeId);
+        IEnumerable<Function> GetLicenseeFunctionList(int licenseeId);
 
-        Task<IEnumerable<Function>> GetMasterFunctions(IEnumerable<Function> functionList);
+        IEnumerable<Function> GetMasterFunctions(IEnumerable<Function> functionList);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
             Justification = "Reviewed. Suppression is OK here.")]
-        Task<IDictionary<int, IEnumerable<Function>>> GetSubMenus(IEnumerable<Function> functionList);
+        IDictionary<int, IEnumerable<Function>> GetSubMenus(IEnumerable<Function> functionList);
 
-        Task<IDictionary<int, IEnumerable<Function>>> GetSubFunctions(IEnumerable<Function> functionList);
+        IDictionary<int, IEnumerable<Function>> GetSubFunctions(IEnumerable<Function> functionList);
 
         Task<IResultInfo> AssignUserFunctions(int licenseeId, int custId, IEnumerable<int> functionIdList, int userId, string ip, string langKey);
     }

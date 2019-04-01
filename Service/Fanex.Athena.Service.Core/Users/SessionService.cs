@@ -92,7 +92,7 @@ namespace Fanex.Athena.Service.Core.Users
             string language = "en-US")
         {
             var licenseeList = _licenseeDataAccess.GetByUser(userId);
-            var functionList = await _functionService.GetUserFunctionList(licenseeId, userId);
+            var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
             var functionIdList = functionList.Select(f => f.FunctionId).ToArray();
             var userSession = new UserSession
             {
@@ -123,7 +123,7 @@ namespace Fanex.Athena.Service.Core.Users
             if (licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
-                var functionList = await _functionService.GetUserFunctionList(licenseeId, userSession.UserId);
+                var functionList = _functionService.GetUserFunctionList(licenseeId, userSession.UserId);
                 var functionIdList = functionList.Select(f => f.FunctionId).ToArray();
 
                 userSession.FunctionIdList = functionIdList;

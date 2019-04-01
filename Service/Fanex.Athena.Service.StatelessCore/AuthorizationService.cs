@@ -26,9 +26,9 @@ namespace Fanex.Athena.Service.StatelessCore
             _functionService = functionService;
         }
 
-        public async Task<bool> HasPermissions(IEnumerable<int> userFunctionList, params string[] permissionKeys)
+        public bool HasPermissions(IEnumerable<int> userFunctionList, params string[] permissionKeys)
         {
-            var allFunctions = await _functionService.GetFunctions().ConfigureAwait(false);
+            var allFunctions = _functionService.Functions;
             var functions = allFunctions.Where(x => permissionKeys.Contains(x.FunctionKey, StringComparer.InvariantCultureIgnoreCase));
 
             return functions.Any() && userFunctionList.Any(id => functions.Any(x => x.FunctionId == id));

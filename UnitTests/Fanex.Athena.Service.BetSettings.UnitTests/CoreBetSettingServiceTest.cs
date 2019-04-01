@@ -98,7 +98,7 @@
             await _coreBetSettingService.IsBetSettingEditableAsync();
 
             // Assert
-            await _authorizationService.Received(1).HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting);
+            _authorizationService.Received(1).HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting);
         }
 
         [Test]

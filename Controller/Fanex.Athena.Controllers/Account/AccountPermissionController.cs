@@ -72,7 +72,7 @@ namespace Fanex.Athena.Controllers.Account
         }
 
         [HttpGet]
-        public async Task<ActionResult> EditPermission()
+        public ActionResult EditPermission()
         {
             int userId = GetUserId();
             if (userId > 0 && ValidatePermissionRestriction(userId))
@@ -82,7 +82,7 @@ namespace Fanex.Athena.Controllers.Account
 
                 if (user != null)
                 {
-                    await InitializeFunctions(userId).ConfigureAwait(false);
+                    InitializeFunctions(userId);
 
                     var model = new EditPermissionMetaModel
                     {
@@ -250,21 +250,21 @@ namespace Fanex.Athena.Controllers.Account
             return true;
         }
 
-        private async Task InitializeFunctions(int userId)
+        private void InitializeFunctions(int userId)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
             // get all functions of licensee
-            var allLicenseeFunctionList = await _functionService.GetLicenseeFunctionList(licenseeId).ConfigureAwait(false);
+            var allLicenseeFunctionList = _functionService.GetLicenseeFunctionList(licenseeId);
 
             // get all master functions
-            _allMasterFunctionList = await _functionService.GetMasterFunctions(allLicenseeFunctionList).ConfigureAwait(false);
+            _allMasterFunctionList = _functionService.GetMasterFunctions(allLicenseeFunctionList);
 
             // map each function with its sub functions
-            _allFunctionMap = await _functionService.GetSubFunctions(allLicenseeFunctionList).ConfigureAwait(false);
+            _allFunctionMap = _functionService.GetSubFunctions(allLicenseeFunctionList);
 
             // get all function of editing user
-            _allUserFunctionList = await _functionService.GetUserFunctionList(licenseeId, userId).ConfigureAwait(false);
+            _allUserFunctionList = _functionService.GetUserFunctionList(licenseeId, userId);
         }
     }
 }

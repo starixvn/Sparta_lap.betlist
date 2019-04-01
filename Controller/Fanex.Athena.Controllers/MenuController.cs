@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Controllers
 {
     using System.Linq;
-    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.ViewModel;
@@ -37,31 +36,23 @@ namespace Fanex.Athena.Controllers
         {
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
+            var systemFunctions = userSession.FunctionIdList;
 
             var canManageMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList);
 
             var viewModel = new MenuViewModel
             {
+                UserFunctions = _functionService.Functions.Where(i => systemFunctions.Contains(i.FunctionId)).ToList(),
                 IsAllowedCustonmerCommission = licenseeSession.IsAllowedCustomerComm,
                 IsInternalLogin = userSession.IsInternal,
                 IsAllowedManagementMember = canManageMember,
                 IsFakeLicensee = IsFakeLicensee()
             };
-            AssignFunctionsData(viewModel, userSession.FunctionIdList);
+
+            viewModel.MasterFunctions = _functionService.GetMasterFunctions(viewModel.UserFunctions);
+            viewModel.UserDetailFunctions = _functionService.GetSubMenus(viewModel.UserFunctions);
 
             return View("~/Views/Desktop/Menu/Index.cshtml", viewModel);
-        }
-
-        private void AssignFunctionsData(MenuViewModel viewModel, int[] functionIdList)
-        {
-            // Child actions must be invoked synchronously
-            Task.Run(async () =>
-            {
-                viewModel.UserFunctions = (await _functionService.GetFunctions())
-                                        .Where(i => functionIdList.Contains(i.FunctionId)).ToList();
-                viewModel.MasterFunctions = await _functionService.GetMasterFunctions(viewModel.UserFunctions);
-                viewModel.UserDetailFunctions = await _functionService.GetSubMenus(viewModel.UserFunctions);
-            }).Wait();
         }
     }
 }

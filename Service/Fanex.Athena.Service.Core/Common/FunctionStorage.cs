@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
@@ -28,35 +27,44 @@
             _functionDataAccess = functionDataAccess;
         }
 
-        public async Task<IEnumerable<Function>> GetFunctionList()
+        public IEnumerable<Function> FunctionList
         {
-            if (_functionList == null)
+            get
             {
-                var functionList = await _functionDataAccess.GetFunctionListAsync().ConfigureAwait(false);
-                AssignFunctionList(functionList);
-            }
+                if (_functionList == null)
+                {
+                    var functionList = _functionDataAccess.GetFunctionList();
+                    AssignFunctionList(functionList);
+                }
 
-            return _functionList;
+                return _functionList;
+            }
         }
 
-        public async Task<IEnumerable<Function>> GetMasterFunctions()
+        public IEnumerable<Function> MasterFunctions
         {
-            if (_masterFunctions == null)
+            get
             {
-                AssignMasterFunctionList(await GetFunctionList().ConfigureAwait(false));
-            }
+                if (_masterFunctions == null)
+                {
+                    AssignMasterFunctionList(FunctionList);
+                }
 
-            return _masterFunctions;
+                return _masterFunctions;
+            }
         }
 
-        public async Task<IDictionary<int, IEnumerable<Function>>> GetSubFunctions()
+        public IDictionary<int, IEnumerable<Function>> SubFunctions
         {
-            if (_subFunctions == null)
+            get
             {
-                AssignSubFunctionList(await GetMasterFunctions().ConfigureAwait(false));
-            }
+                if (_subFunctions == null)
+                {
+                    AssignSubFunctionList(MasterFunctions);
+                }
 
-            return _subFunctions;
+                return _subFunctions;
+            }
         }
 
         private static void AssignFunctionList(IEnumerable<Function> functionList)

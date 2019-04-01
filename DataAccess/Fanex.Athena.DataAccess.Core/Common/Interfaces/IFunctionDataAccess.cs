@@ -12,11 +12,11 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 
     public interface IFunctionDataAccess
     {
-        Task<IList<Function>> GetFunctionListAsync();
+        IList<Function> GetFunctionList();
 
-        Task<IList<Function>> GetLicenseeFunctionListAsync(int licenseeId);
+        IList<Function> GetLicenseeFunctionList(int licenseeId);
 
-        Task<IList<Function>> GetUserFunctionListAsync(int licenseeId, int userId);
+        IList<Function> GetUserFunctionList(int licenseeId, int userId);
 
         Task<IResultInfo> AssignUserFunctionAsync(int licenseeId, int custId, int functionId, int userId, string ip, string langKey);
 

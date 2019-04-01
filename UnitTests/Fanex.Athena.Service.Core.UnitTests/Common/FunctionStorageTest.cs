@@ -38,31 +38,31 @@
         }
 
         [Test]
-        public async Task FunctionList_DataFromDataAccessIsNull_ReturnNull()
+        public void FunctionList_DataFromDataAccessIsNull_ReturnNull()
         {
             // Arrange
-            _functionDataAccess.GetFunctionListAsync().Returns(Task.FromResult<IList<Function>>(null));
+            _functionDataAccess.GetFunctionList().Returns(x => null);
 
             // Action
-            var result = await _functionStorage.GetFunctionList();
+            var result = _functionStorage.FunctionList;
 
             // Assert
             Assert.Multiple(() =>
             {
-                _functionDataAccess.Received().GetFunctionListAsync();
+                _functionDataAccess.Received().GetFunctionList();
                 Assert.That(result, Is.Null);
             });
         }
 
         [Test]
-        public async Task FunctionList_WhenCall_ReturnCorrectData()
+        public void FunctionList_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            _functionDataAccess.GetFunctionListAsync().Returns(_functions);
+            _functionDataAccess.GetFunctionList().Returns(_functions);
 
             // Action
-            var resultFirstTime = await _functionStorage.GetFunctionList();
-            var resultSecondTime = await _functionStorage.GetFunctionList();
+            var resultFirstTime = _functionStorage.FunctionList;
+            var resultSecondTime = _functionStorage.FunctionList;
 
             // Assert
             Assert.Multiple(() =>
@@ -73,14 +73,14 @@
         }
 
         [Test]
-        public async Task MasterFunctions_WhenCall_ReturnCorrectData()
+        public void MasterFunctions_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expectedFunctionIds = _functions.Where(x => x.ParentId == 0).Select(x => x.FunctionId);
 
             // Action
-            var resultFirstTime = await _functionStorage.GetMasterFunctions();
-            var resultSecondTime = await _functionStorage.GetMasterFunctions();
+            var resultFirstTime = _functionStorage.MasterFunctions;
+            var resultSecondTime = _functionStorage.MasterFunctions;
 
             // Assert
             Assert.Multiple(() =>
@@ -91,7 +91,7 @@
         }
 
         [Test]
-        public async Task SubFunctions_WhenCall_ReturnCorrectData()
+        public void SubFunctions_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expectedFunction = new Dictionary<int, IEnumerable<Function>>
@@ -111,8 +111,8 @@
             };
 
             // Action
-            var resultFirstTime = await _functionStorage.GetSubFunctions();
-            var resultSecondTime = await _functionStorage.GetSubFunctions();
+            var resultFirstTime = _functionStorage.SubFunctions;
+            var resultSecondTime = _functionStorage.SubFunctions;
 
             // Assert
             Assert.Multiple(() =>

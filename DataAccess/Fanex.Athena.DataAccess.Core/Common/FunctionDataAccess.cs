@@ -24,12 +24,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _appSettings = appSetting;
         }
 
-        public async Task<IList<Function>> GetFunctionListAsync()
+        public IList<Function> GetFunctionList()
         {
             var functionList = new List<Function>();
             using (var db = this.GetObjectDb("Lrf_FunctionsSel"))
             {
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                using (var reader = db.ExecuteReader())
                 {
                     var isProduction = _appSettings.Environment.Equals("PRO", System.StringComparison.OrdinalIgnoreCase);
                     while (reader.Read())
@@ -62,13 +62,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        public async Task<IList<Function>> GetLicenseeFunctionListAsync(int licenseeId)
+        public IList<Function> GetLicenseeFunctionList(int licenseeId)
         {
             var functionList = new List<Function>();
             using (var db = this.GetObjectDb("Lrf_LicenseeFunctionsSel"))
             {
                 db.SetParameterValue("licenseeid", licenseeId);
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -84,7 +84,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        public async Task<IList<Function>> GetUserFunctionListAsync(int licenseeId, int userId)
+        public IList<Function> GetUserFunctionList(int licenseeId, int userId)
         {
             var functionList = new List<Function>();
 
@@ -93,7 +93,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("LicenseeId", licenseeId);
                 db.SetParameterValue("UserId", userId);
 
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
                     {

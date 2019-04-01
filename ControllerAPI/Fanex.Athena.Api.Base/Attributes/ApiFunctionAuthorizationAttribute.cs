@@ -34,7 +34,7 @@
             _permissionKeys = permissionKeys;
         }
 
-        public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
+        public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
@@ -70,12 +70,19 @@
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
-            if (!(await AuthorizeRequest(actionContext.Request.GetDependencyScope())))
+            if (!AuthorizeRequest(actionContext.Request.GetDependencyScope()))
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
-            return continuation == null ? null : await continuation.Invoke();
+            return continuation?.Invoke();
+        }
+
+        private static Task<HttpResponseMessage> FromResultAsync(HttpResponseMessage result)
+        {
+            var source = new TaskCompletionSource<HttpResponseMessage>();
+            source.SetResult(result);
+            return source.Task;
         }
 
         private static bool IsAjaxRequest(HttpRequestHeaders headers)
@@ -83,7 +90,7 @@
             return headers.Contains("X-Requested-With") && headers.GetValues("X-Requested-With").FirstOrDefault() == "XMLHttpRequest";
         }
 
-        private static HttpResponseMessage UnauthorizeAccessHandlerAsync(HttpActionContext actionContext)
+        private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext)
         {
             actionContext.Response = new HttpResponseMessage
             {
@@ -92,10 +99,10 @@
                 Content = new StringContent(ViewResources.AccessDeniedMsg)
             };
 
-            return actionContext.Response;
+            return FromResultAsync(actionContext.Response);
         }
 
-        private async Task<bool> AuthorizeRequest(IDependencyScope scope)
+        private bool AuthorizeRequest(IDependencyScope scope)
         {
             var sessionService = scope.Resolve<ISessionService>();
             var licenseeSession = sessionService.LicenseeSession;
@@ -106,7 +113,7 @@
                 var authorizationService = scope.Resolve<IAuthorizationService>();
                 authorized = userSession.ApplicationMode == AppMode.Parasitic ?
                     authorizationService.HasPermissions(userSession.PortalFunctionList, _permissionKeys) :
-                    await authorizationService.HasPermissions(userSession.FunctionIdList, _permissionKeys);
+                    authorizationService.HasPermissions(userSession.FunctionIdList, _permissionKeys);
             }
 
             return authorized;

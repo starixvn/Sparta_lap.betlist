@@ -44,7 +44,7 @@
 
         [TestCase("PRO")]
         [TestCase("TEST")]
-        public async Task GetFunctionList_WhenCall_DataReturnedCorrectly(string environment)
+        public void GetFunctionList_WhenCall_DataReturnedCorrectly(string environment)
         {
             // Arrange
             _appSetting.Environment.Returns(environment);
@@ -58,14 +58,14 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = await DataAccess.GetFunctionListAsync().ConfigureAwait(false);
+            var result = DataAccess.GetFunctionList();
 
             // Assert
             Assert.That(result[0].FunctionId, Is.EqualTo(1));
         }
 
         [Test]
-        public async Task GetFunctionList_OnProduction_FunctionIsNotLive_DataReturnedCorrectly()
+        public void GetFunctionList_OnProduction_FunctionIsNotLive_DataReturnedCorrectly()
         {
             // Arrange
             _appSetting.Environment.Returns("PRO");
@@ -79,27 +79,27 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = await DataAccess.GetFunctionListAsync();
+            var result = DataAccess.GetFunctionList();
 
             // Assert
             Assert.That(result, Is.Empty);
         }
 
         [Test]
-        public async Task GetLicenseeFunctionList_WhenCall_ParametersPassedCorrectly()
+        public void GetLicenseeFunctionList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLicenseeFunctionList)).Returns(ObjectDb);
 
             // Action
-            await DataAccess.GetLicenseeFunctionListAsync(LicenseeId);
+            DataAccess.GetLicenseeFunctionList(LicenseeId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("licenseeid", LicenseeId);
         }
 
         [Test]
-        public async Task GetLicenseeFunctionList_WhenCall_DataReturnedCorrectly()
+        public void GetLicenseeFunctionList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
@@ -109,7 +109,7 @@
             Reader.Read().Returns(true, true, false);
 
             // Action
-            var result = await DataAccess.GetLicenseeFunctionListAsync(LicenseeId).ConfigureAwait(false);
+            var result = DataAccess.GetLicenseeFunctionList(LicenseeId);
 
             // Assert
             Assert.Multiple(() =>
@@ -120,13 +120,13 @@
         }
 
         [Test]
-        public async Task GetUserFunctionList_WhenCall_ParametersPassedCorrectly()
+        public void GetUserFunctionList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetUserFunctionList)).Returns(ObjectDb);
 
             // Action
-            await DataAccess.GetUserFunctionListAsync(LicenseeId, UserId);
+            DataAccess.GetUserFunctionList(LicenseeId, UserId);
 
             // Assert
             Assert.Multiple(() =>
@@ -137,7 +137,7 @@
         }
 
         [Test]
-        public async Task GetUserFunctionList_WhenCall_DataReturnedCorrectly()
+        public void GetUserFunctionList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
@@ -147,7 +147,7 @@
             Reader.Read().Returns(true, true, false);
 
             // Action
-            var result = await DataAccess.GetUserFunctionListAsync(LicenseeId, UserId);
+            var result = DataAccess.GetUserFunctionList(LicenseeId, UserId);
 
             // Assert
             Assert.Multiple(() =>

@@ -1,15 +1,14 @@
 ﻿namespace Fanex.Athena.Service.Core.Common.Interfaces
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
 
     public interface IFunctionStorage
     {
-        Task<IEnumerable<Function>> GetFunctionList();
+        IEnumerable<Function> FunctionList { get; }
 
-        Task<IEnumerable<Function>> GetMasterFunctions();
+        IEnumerable<Function> MasterFunctions { get; }
 
-        Task<IDictionary<int, IEnumerable<Function>>> GetSubFunctions();
+        IDictionary<int, IEnumerable<Function>> SubFunctions { get; }
     }
 }

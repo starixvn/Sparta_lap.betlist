@@ -32,55 +32,59 @@ namespace Fanex.Athena.Service.Core.Common
 
         #region Property
 
-        public Task<IEnumerable<Function>> GetFunctions()
+        public IEnumerable<Function> Functions
         {
-            return _functionStorage.GetFunctionList();
+            get
+            {
+                return _functionStorage.FunctionList;
+            }
         }
 
-        private Task<IEnumerable<Function>> GetMasterFunctions()
+        private IEnumerable<Function> MasterFunctions
         {
-            return _functionStorage.GetMasterFunctions();
+            get
+            {
+                return _functionStorage.MasterFunctions;
+            }
         }
 
-        private Task<IDictionary<int, IEnumerable<Function>>> GetSubFunctions()
+        private IDictionary<int, IEnumerable<Function>> SubFunctions
         {
-            return _functionStorage.GetSubFunctions();
+            get
+            {
+                return _functionStorage.SubFunctions;
+            }
         }
 
         #endregion Property
 
         #region Licensee Function
 
-        public async Task<IEnumerable<Function>> GetLicenseeFunctionList(int licenseeId)
+        public IEnumerable<Function> GetLicenseeFunctionList(int licenseeId)
         {
-            var functionIdList = (await _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).ConfigureAwait(false))
-                                        .Select(i => i.FunctionId);
-            var allFunctions = await GetFunctions().ConfigureAwait(false);
-            return allFunctions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
+            var functionIdList = _functionDataAccess.GetLicenseeFunctionList(licenseeId).Select(i => i.FunctionId);
+            return Functions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
         }
 
-        public async Task<IEnumerable<Function>> GetUserFunctionList(int licenseeId, int userId)
+        public IEnumerable<Function> GetUserFunctionList(int licenseeId, int userId)
         {
-            var userFunctionIdData = await _functionDataAccess.GetUserFunctionListAsync(licenseeId, userId).ConfigureAwait(false);
-            var licenseeFunctionData = await _functionDataAccess.GetLicenseeFunctionListAsync(licenseeId).ConfigureAwait(false);
+            var userFunctionIdData = _functionDataAccess.GetUserFunctionList(licenseeId, userId);
+            var licenseeFunctionData = _functionDataAccess.GetLicenseeFunctionList(licenseeId);
 
             var userFunctionIdList = userFunctionIdData.AsEnumerable().Select(f => f.FunctionId);
             var licenseeFunctionIdList = licenseeFunctionData.AsEnumerable().Select(f => f.FunctionId);
 
             var functionIdList = licenseeFunctionIdList.Where(l => userFunctionIdList.Any(u => u == l)).ToList();
-            var allFunctions = await GetFunctions().ConfigureAwait(false);
-            var functionList = allFunctions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
+            var functionList = Functions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
 
-            var masterFunctions = await GetMasterFunctions().ConfigureAwait(false);
-            var subFunctions = await GetSubFunctions().ConfigureAwait(false);
-            foreach (var masterFunction in masterFunctions)
+            foreach (var masterFunction in MasterFunctions)
             {
                 if (functionList.Any(f => f.FunctionId == masterFunction.FunctionId))
                 {
                     continue;
                 }
 
-                var subFunctionCount = subFunctions[masterFunction.FunctionId].Count();
+                var subFunctionCount = SubFunctions[masterFunction.FunctionId].Count();
                 var userSubFunctionCount = functionList.Count(f => f.ParentId == masterFunction.FunctionId);
 
                 // User has permission on all sub functions, so he/she has permission on parent function
@@ -95,9 +99,8 @@ namespace Fanex.Athena.Service.Core.Common
 
         public async Task<IResultInfo> AssignUserFunctions(int licenseeId, int custId, IEnumerable<int> functionIdList, int userId, string ip, string langKey)
         {
-            var functions = await GetFunctions().ConfigureAwait(false);
-            var correctFunctionIdList = functionIdList.Where(f => functions.Any(l => l.FunctionId == f)).ToList();
-            var userFunctionList = (await GetUserFunctionList(licenseeId, custId).ConfigureAwait(false)).Select(f => f.FunctionId);
+            var correctFunctionIdList = functionIdList.Where(f => Functions.Any(l => l.FunctionId == f)).ToList();
+            var userFunctionList = GetUserFunctionList(licenseeId, custId).Select(f => f.FunctionId);
             var addingIdList = correctFunctionIdList.Except(userFunctionList);
             var removingIdList = userFunctionList.Except(correctFunctionIdList);
 
@@ -129,20 +132,18 @@ namespace Fanex.Athena.Service.Core.Common
         /// </summary>
         /// <param name="functionList">The function list.</param>
         /// <returns>The master function.</returns>
-        public async Task<IEnumerable<Function>> GetMasterFunctions(IEnumerable<Function> functionList)
+        public IEnumerable<Function> GetMasterFunctions(IEnumerable<Function> functionList)
         {
-            var masterFunctions = await GetMasterFunctions().ConfigureAwait(false);
-            return masterFunctions.Where(
+            return MasterFunctions.Where(
                     f => functionList.Any(l => l.ParentId == f.FunctionId || l.FunctionId == f.FunctionId))
                                 .OrderBy(f => f.DisplayOrder)
                                 .ToList();
         }
 
-        public async Task<IDictionary<int, IEnumerable<Function>>> GetSubMenus(IEnumerable<Function> functionList)
+        public IDictionary<int, IEnumerable<Function>> GetSubMenus(IEnumerable<Function> functionList)
         {
             var detailFunctions = new Dictionary<int, IEnumerable<Function>>();
-            var masterFunctions = await GetMasterFunctions().ConfigureAwait(false);
-            foreach (var function in masterFunctions)
+            foreach (var function in MasterFunctions)
             {
                 var subFuntions = functionList.Where(f => f.ParentId == function.FunctionId && f.IsMenu)
                                               .OrderBy(f => f.DisplayOrder)
@@ -156,11 +157,10 @@ namespace Fanex.Athena.Service.Core.Common
             return detailFunctions;
         }
 
-        public async Task<IDictionary<int, IEnumerable<Function>>> GetSubFunctions(IEnumerable<Function> functionList)
+        public IDictionary<int, IEnumerable<Function>> GetSubFunctions(IEnumerable<Function> functionList)
         {
             var detailFunctions = new Dictionary<int, IEnumerable<Function>>();
-            var masterFunctions = await GetMasterFunctions().ConfigureAwait(false);
-            foreach (var function in masterFunctions)
+            foreach (var function in MasterFunctions)
             {
                 var subFuntions = functionList.Where(f => f.ParentId == function.FunctionId && f.IsFunction)
                                               .OrderBy(f => f.DisplayOrder)

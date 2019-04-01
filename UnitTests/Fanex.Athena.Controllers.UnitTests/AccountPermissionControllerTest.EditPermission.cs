@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
-    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -15,14 +14,14 @@
     public partial class AccountPermissionControllerTest
     {
         [Test]
-        public async Task EditPermission_WhenGetWithUserIdIsSameWithSessionUserId_RedirectToAccessDenied()
+        public void EditPermission_WhenGetWithUserIdIsSameWithSessionUserId_RedirectToAccessDenied()
         {
             // Arrange
             SetUpUserRequestParameter(new NameValueCollection { { "UserId", DefaultUserSession.UserId.ToString() } });
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.EditPermission() as RedirectResult;
+                var result = controller.EditPermission() as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
@@ -31,14 +30,14 @@
 
         [TestCase("0")]
         [TestCase("Invalid")]
-        public async Task EditPermission_WhenGetWithInvalidUserId_RedirectToAccessDenied(string userId)
+        public void EditPermission_WhenGetWithInvalidUserId_RedirectToAccessDenied(string userId)
         {
             // Arrange
             SetUpUserRequestParameter(new NameValueCollection { { "UserId", userId } });
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.EditPermission() as RedirectResult;
+                var result = controller.EditPermission() as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
@@ -46,7 +45,7 @@
         }
 
         [Test]
-        public async Task EditPermission_WhenGetWithDoesNotExist_RedirectToAccessDenied()
+        public void EditPermission_WhenGetWithDoesNotExist_RedirectToAccessDenied()
         {
             // Arrange
             SetUpUserRequestParameter();
@@ -55,7 +54,7 @@
                 _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => null);
 
                 // Action
-                var result = await controller.EditPermission() as RedirectResult;
+                var result = controller.EditPermission() as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
@@ -63,7 +62,7 @@
         }
 
         [Test]
-        public async Task EditPermission_WhenGetWithValid_ReturnEditPermissionView()
+        public void EditPermission_WhenGetWithValid_ReturnEditPermissionView()
         {
             // Arrange
             SetUpUserRequestParameter();
@@ -72,7 +71,7 @@
                 _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User { Username = "Superman" });
 
                 // Action
-                var viewResult = await controller.EditPermission() as ViewResult;
+                var viewResult = controller.EditPermission() as ViewResult;
                 var viewModel = viewResult.Model as EditPermissionMetaModel;
 
                 // Assert

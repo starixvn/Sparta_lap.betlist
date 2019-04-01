@@ -46,7 +46,7 @@ namespace Fanex.Athena.Service.BetSettings
             var userSession = _sessionService.UserSession;
             return userSession.ApplicationMode == AppMode.Parasitic ?
                       _authorizationService.HasPermissions(userSession.PortalFunctionList, PermissionKeys.CustomerInfoEditBetSetting) :
-                      await _authorizationService.HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting).ConfigureAwait(false);
+                      _authorizationService.HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting);
         }
 
         public async Task<IEnumerable<BetSettingProduct>> GetBetSettingProductsAsync(int custId)

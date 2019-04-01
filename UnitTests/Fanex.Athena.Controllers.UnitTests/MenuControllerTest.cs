@@ -35,7 +35,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                _functionService.GetFunctions().Returns(new List<Function>());
+                _functionService.Functions.Returns(new List<Function>());
 
                 // Action
                 var result = controller.Index() as ViewResult;
@@ -52,7 +52,7 @@
             {
                 // Arrange
                 SessionService.UserSession.FunctionIdList = new int[] { 1, 2, 3 };
-                _functionService.GetFunctions().Returns(new List<Function>());
+                _functionService.Functions.Returns(new List<Function>());
                 AppSettings.FakeLicenseeList.Returns(new[] { DefaultLicenseeSession.LicenseeId });
 
                 // Action
