@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Excel.Report;
     using Excel.Report.Models;
@@ -42,13 +43,16 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnEmptyData()
+        public async Task Index_InvalidModel_ReturnEmptyData()
         {
+            // Arrange
             var model = Substitute.ForPartsOf<CustomerPendingFundsMetaModel>();
             model.IsValid.Returns(false);
 
-            var result = _controller.Index(model);
+            // Action
+            var result = await _controller.Index(model);
 
+            // Assert
             Assert.Multiple(() =>
             {
                 Assert.IsEmpty(result.Data);
@@ -57,14 +61,14 @@
         }
 
         [Test]
-        public void Index_ValidModel_GetDataFromDataAccess()
+        public async Task Index_ValidModel_GetDataFromDataAccess()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
             var expectedData = SetUpForGettingData(metaModel);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.EqualTo(expectedData));
@@ -72,11 +76,10 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
+        public async Task ExportExcel_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
-            metaModel.IsExportExcel = true;
             var expectedDataList = SetUpForGettingData(metaModel);
             const int PageSizeExcel = int.MaxValue - 1000;
 
@@ -88,7 +91,7 @@
             _controller.CreateExcel(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>()).ReturnsForAnyArgs(excel);
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.ExportExcel(metaModel);
 
             // Assert
             Assert.Multiple(() =>

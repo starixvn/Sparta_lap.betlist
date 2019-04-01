@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -19,7 +20,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerPendingFundsDataAccess : BaseDataAccess, ICustPendingFundsDataAccess
     {
-        public ReportResultModel<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel)
+        public async Task<ReportResultModel<CustPendingFunds>> GetDataList(CustomerPendingFundsMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_Outstanding";
 
@@ -27,7 +28,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 AddParameters(db, metaModel);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var dataList = new List<CustPendingFunds>();
                     var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;

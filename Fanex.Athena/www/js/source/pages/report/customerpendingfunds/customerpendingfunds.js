@@ -40,7 +40,6 @@
         };
         var _selector = {
             SubmitButton: "#SubmitButton",
-            ExportExcelInput: "#IsExportExcel",
             ExportToExcel: "#ExportToExcel",
             Form: "#CustomerPendingFundsForm",
             GridId: "ReportGrid",
@@ -81,12 +80,10 @@
 
                 $("#OrderItem").val(_orderItem);
                 $("#IsAscSort").val(_sortDirection === "asc");
-                $(_selector.ExportExcelInput).val(true);
                 var mainForm = $(_selector.Form);
                 var url = Site.resolveClientUrl(CustomerPedingFundsOption.urlExcelData);
                 mainForm.attr("action", url);
                 mainForm.submit();
-                $(_selector.ExportExcelInput).val(false);
                 return false;
             });
 

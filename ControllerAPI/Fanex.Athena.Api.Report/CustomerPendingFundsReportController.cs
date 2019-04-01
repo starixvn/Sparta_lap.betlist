@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
@@ -41,19 +41,9 @@
         }
 
         [HttpPost]
-        public dynamic Index(CustomerPendingFundsMetaModel metaModel)
+        public async Task<dynamic> Index(CustomerPendingFundsMetaModel metaModel)
         {
-            return metaModel.IsExportExcel ? ExportExcel(metaModel) : ProcessRequest(metaModel);
-        }
-
-        protected internal virtual CustomerPendingFundsExcel CreateExcel(string templatePath, CustomerPendingFundsExcelModel excelModel)
-        {
-            return new CustomerPendingFundsExcel(templatePath, excelModel);
-        }
-
-        private dynamic ProcessRequest(CustomerPendingFundsMetaModel metaModel)
-        {
-            var data = GetData(metaModel);
+            var data = await GetData(metaModel).ConfigureAwait(false);
 
             return new
             {
@@ -63,7 +53,8 @@
             };
         }
 
-        private HttpResponseMessage ExportExcel(CustomerPendingFundsMetaModel metaModel)
+        [HttpPost]
+        public async Task<HttpResponseMessage> ExportExcel(CustomerPendingFundsMetaModel metaModel)
         {
             const string FileName = "CustomerPendingFunds.xls";
             const string TemplatePath = @"~/App_Data/Template/CustomerReports/CustomerPendingFunds.xls";
@@ -79,7 +70,7 @@
 
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
-            var data = GetData(metaModel);
+            var data = await GetData(metaModel);
             var excelModel = new CustomerPendingFundsExcelModel
             {
                 ConvertingOption = convertingOption,
@@ -93,7 +84,12 @@
             return ExcelStream(custPendingFundsExcel.Workbook, FileName);
         }
 
-        private ReportResultModel<CustPendingFunds> GetData(CustomerPendingFundsMetaModel metaModel)
+        protected internal virtual CustomerPendingFundsExcel CreateExcel(string templatePath, CustomerPendingFundsExcelModel excelModel)
+        {
+            return new CustomerPendingFundsExcel(templatePath, excelModel);
+        }
+
+        private async Task<ReportResultModel<CustPendingFunds>> GetData(CustomerPendingFundsMetaModel metaModel)
         {
             if (!metaModel.IsValid || !IsValidRequest(metaModel.CurrencyId))
             {
@@ -105,7 +101,7 @@
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            return _custPendingFundsDataAccess.GetDataList(metaModel);
+            return await _custPendingFundsDataAccess.GetDataList(metaModel).ConfigureAwait(false);
         }
     }
 }

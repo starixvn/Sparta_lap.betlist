@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = await ProductService.GetSingleWalletProductAccess(
                 metaModel.LicenseeId,
                 userSession.Language,
-                FunctionNames.CustomerPendingFunds).ConfigureAwait(false);
+                FunctionNames.CustomerPendingFunds);
 
             metaModel.ProductOptions = ToProductOptions(productAccess.ProductList);
 

@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ResultModel;
@@ -14,6 +15,6 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]
-        ReportResultModel<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel);
+        Task<ReportResultModel<CustPendingFunds>> GetDataList(CustomerPendingFundsMetaModel metaModel);
     }
 }

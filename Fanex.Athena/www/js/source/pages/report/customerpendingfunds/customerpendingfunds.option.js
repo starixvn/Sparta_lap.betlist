@@ -95,7 +95,7 @@
         var _me =
         {
             urlData: "api/CustomerPendingFundsReport/Index",
-            urlExcelData: "api/CustomerPendingFundsReport/Index",
+            urlExcelData: "api/CustomerPendingFundsReport/ExportExcel",
             totalColspan: 3,
             totalColspanFakeLicensee: 2,
             gridOption:
