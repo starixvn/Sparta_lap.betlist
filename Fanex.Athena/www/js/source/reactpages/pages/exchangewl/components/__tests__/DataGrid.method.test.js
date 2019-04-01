@@ -386,7 +386,7 @@ describe('DataGrid methods ', () => {
     describe('showBetListPopup', () => {
         const betListData = [1, 2];
         let dataGrid;
-        const drillDownParam = { CurrencyId : 1, BaseCurrency : "", FromDate : new Date(2018, 0, 1), ToDate : new Date(2018, 0, 2), CurrencyName : "USD", ExcludeTestData : false };            
+        const drillDownParam = { CurrencyId : 1, BaseCurrency : "", FromDate : '01/01/2018', ToDate : '01/02/2018', CurrencyName : "USD", ExcludeTestData : false };            
         const custId = 2, externalId = 'external', systemId = 'system';
 
         beforeAll(() => {
@@ -425,10 +425,10 @@ describe('DataGrid methods ', () => {
         it('update bet list title - View in base currency', () => {
             const drillDownParamBaseUsd = { ...drillDownParam, BaseCurrency : 'USD', CurrencyName : 'EUR' };
 
-        dataGrid.drillDownParams[ReportLevel.CUSTOMER] = drillDownParamBaseUsd;
+            dataGrid.drillDownParams[ReportLevel.CUSTOMER] = drillDownParamBaseUsd;
             dataGrid.showBetListPopup(externalId, systemId, custId );
  
-            expect(dataGrid.betlistTitle.props.children.join('')).toContain('CustomerBetList 1/1/2018 → 1/2/2018 - external(system) -');
+            expect(dataGrid.betlistTitle.props.children.join('')).toContain('CustomerBetList 01/01/2018 → 01/02/2018 - external(system) -');
             expect(dataGrid.betlistTitle.props.children[dataGrid.betlistTitle.props.children.length - 1].props.children).toContain('Viewin USD');
         })
 

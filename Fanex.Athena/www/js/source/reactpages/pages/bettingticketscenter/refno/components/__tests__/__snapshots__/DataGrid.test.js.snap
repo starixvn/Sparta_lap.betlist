@@ -10,7 +10,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
 >
   <t
     colWidth={40}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="#"
@@ -19,7 +19,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={120}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="ExternalId"
@@ -28,7 +28,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={120}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="SystemId"
@@ -37,7 +37,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={110}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="RefNo"
@@ -46,7 +46,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={150}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="TransTime"
@@ -55,7 +55,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={400}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Choice"
@@ -64,7 +64,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={70}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Odds"
@@ -73,7 +73,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={70}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="OddsType"
@@ -82,7 +82,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={100}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Stake"
@@ -91,7 +91,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={100}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="WinLoss"
@@ -100,7 +100,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={100}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="LicenseeWL/Comm"
@@ -109,7 +109,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={80}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Status"
@@ -118,7 +118,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={80}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Platform"
@@ -127,7 +127,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is false - render correct
   </t>
   <t
     colWidth={80}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Live"
@@ -147,7 +147,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
 >
   <t
     colWidth={40}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="#"
@@ -156,7 +156,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={120}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="ExternalId"
@@ -165,7 +165,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={120}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="SystemId"
@@ -174,7 +174,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={110}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="RefNo"
@@ -183,7 +183,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={150}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="TransTime"
@@ -192,7 +192,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={400}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Choice"
@@ -201,7 +201,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={70}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Odds"
@@ -210,7 +210,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={70}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="OddsType"
@@ -219,7 +219,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={100}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Stake"
@@ -228,7 +228,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={100}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="WinLoss/Comm"
@@ -237,7 +237,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={100}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="LicenseeWL/Comm"
@@ -246,7 +246,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={80}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Status"
@@ -255,7 +255,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={80}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Platform"
@@ -264,7 +264,7 @@ exports[`DataGrid  _buildHeader  isAllowedCustomerComm is true - render correctl
   </t>
   <t
     colWidth={80}
-    onSort={[Function]}
+    onSort={null}
     sortBy={null}
     sortOrder={null}
     title="Live"

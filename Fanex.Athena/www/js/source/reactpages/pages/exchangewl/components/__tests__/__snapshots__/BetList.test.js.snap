@@ -76,13 +76,13 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
       title="1.8/0.5"
     >
       <span
-        className={false}
+        className=""
       >
         1.8
       </span>
       <br />
       <span
-        className={false}
+        className=""
       >
         0.5
       </span>
@@ -107,7 +107,7 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
       select2
     </td>
     <td
-      className="center-align false"
+      className="center-align "
       title="type2"
     >
       type2
@@ -176,7 +176,7 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
       select3
     </td>
     <td
-      className="center-align false"
+      className="center-align "
       title="type3"
     >
       type3
@@ -232,7 +232,7 @@ exports[`BetList  _buildFooter  match Snapshot 1`] = `
     GrandTotal
   </td>
   <td
-    className="right-align false"
+    className="right-align "
     title={1}
   >
     1
@@ -646,7 +646,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                       select1
                     </td>
                     <td
-                      className="center-align false"
+                      className="center-align "
                       title="type1"
                     >
                       type1
@@ -678,13 +678,13 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                       title="1.8/0.5"
                     >
                       <span
-                        className={false}
+                        className=""
                       >
                         1.8
                       </span>
                       <br />
                       <span
-                        className={false}
+                        className=""
                       >
                         0.5
                       </span>
