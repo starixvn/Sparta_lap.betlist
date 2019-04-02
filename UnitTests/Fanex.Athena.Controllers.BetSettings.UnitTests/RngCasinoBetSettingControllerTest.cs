@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Model.Core.DTO.Common;
@@ -87,7 +88,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS, ProductID = ProductTypes.RngCasino } })));
 
                 CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(new CustomerInfo { SyncCasino = false });
 
@@ -111,7 +112,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS, ProductID = ProductTypes.RngCasino } })));
 
                 CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(new CustomerInfo { SyncCasino = true });
 
@@ -145,7 +146,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS, ProductID = ProductTypes.RngCasino } })));
 
                 CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(new CustomerInfo { SyncCasino = true });
 
@@ -179,7 +180,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS, ProductID = ProductTypes.RngCasino } })));
 
                 CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(new CustomerInfo { SyncCasino = true });
 
@@ -245,7 +246,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS, ProductID = ProductTypes.RngCasino } })));
 
                 CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(new CustomerInfo { SyncCasino = false });
 
@@ -269,9 +270,9 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS, ProductID = ProductTypes.RngCasino } })));
 
-                CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(new CustomerInfo { SyncCasino = true });
+                CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(Task.FromResult(new CustomerInfo { SyncCasino = true }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -298,7 +299,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS, ProductID = ProductTypes.RngCasino } })));
 
                 CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(new CustomerInfo { SyncCasino = true });
 

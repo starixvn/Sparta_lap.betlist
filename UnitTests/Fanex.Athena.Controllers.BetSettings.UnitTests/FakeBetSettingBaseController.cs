@@ -43,7 +43,7 @@
             return base.GetBetSettingCommonParam(userId, licenseeId, language);
         }
 
-        internal bool IsBetSettingEditable(UserSession userSession)
+        internal new bool IsBetSettingEditable(UserSession userSession)
         {
             return base.IsBetSettingEditable(userSession);
         }

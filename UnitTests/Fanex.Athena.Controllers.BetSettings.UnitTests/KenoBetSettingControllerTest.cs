@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
@@ -86,7 +87,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN, ProductID = ProductTypes.Keno } })));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -113,7 +114,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN, ProductID = ProductTypes.Keno } })));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -147,7 +148,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN, ProductID = ProductTypes.Keno } })));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -193,7 +194,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } })));
+                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN, ProductID = ProductTypes.Keno } })));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 

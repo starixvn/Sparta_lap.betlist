@@ -76,7 +76,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public async Task AssignRequiredProperties_IsNotSyncCasino_DisableRngCasinoProduct(bool isEnableRngCasino)
+        public async Task AssignRequiredProperties_WhenCall_AssignCorrectBetSettingProducts(bool isEnableRngCasino)
         {
             using (var controller = CreateController())
             {
@@ -84,20 +84,18 @@
                 var viewModel = new BetSettingBaseViewModel();
                 var metaModel = new BetSettingMetaModel();
 
-                CoreBetSettingService.GetCustomerInfo(metaModel.CustId, DefaultLicenseeSession.LicenseeId)
-                    .Returns(new CustomerInfo { SyncCasino = false });
-
+                var betSettingProducts = new List<BetSettingProduct>
+                {
+                    new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino }
+                };
                 CoreBetSettingService.GetBetSettingProductsAsync(metaModel.CustId, DefaultLicenseeSession.LicenseeId)
-                    .Returns(Task.FromResult<IEnumerable<BetSettingProduct>>(new List<BetSettingProduct>
-                    {
-                        new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino }
-                    }));
+                    .Returns(Task.FromResult<IEnumerable<BetSettingProduct>>(betSettingProducts));
 
                 // Action
                 await controller.AssignRequiredProperties(viewModel, metaModel);
 
                 // Assert
-                Assert.That(viewModel.BetSettingProducts.Any(x => x.ProductId == ProductTypes.RngCasino), Is.False);
+                Assert.That(viewModel.BetSettingProducts, Is.EqualTo(betSettingProducts));
             }
         }
 
