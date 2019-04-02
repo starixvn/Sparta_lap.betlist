@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;
@@ -25,7 +26,7 @@
 
         [TestCase(true, true)]
         [TestCase(false, false)]
-        public void GetSummary_WhenCall_ParametersPassedCorrectly(bool isShowSB, bool isShowBA)
+        public async Task GetSummary_WhenCall_ParametersPassedCorrectly(bool isShowSB, bool isShowBA)
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel
@@ -50,7 +51,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSummary(metaModel);
+            await DataAccess.GetSummary(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -61,7 +62,7 @@
         }
 
         [Test]
-        public void GetSummary_WhenCall_ReturnCorrectResult()
+        public async Task GetSummary_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
@@ -74,7 +75,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummary(new WinLossByLeagueMetaModel
+            var result = await DataAccess.GetSummary(new WinLossByLeagueMetaModel
             {
                 BaseCurrency = "USD"
             });
@@ -89,7 +90,7 @@
 
         [TestCase(true, true)]
         [TestCase(false, false)]
-        public void GetCustomers_WhenCall_ParametersPassedCorrectly(bool showSB, bool showBA)
+        public async Task GetCustomers_WhenCall_ParametersPassedCorrectly(bool showSB, bool showBA)
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel
@@ -117,7 +118,7 @@
             ObjectDb.GetParameterValue("totalrows").Returns(1000);
 
             // Action
-            var result = DataAccess.GetCustomers(metaModel);
+            var result = await DataAccess.GetCustomers(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -131,7 +132,7 @@
         }
 
         [Test]
-        public void GetCustomers_WhenCall_ReturnCorrectResult()
+        public async Task GetCustomers_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomersSp)).Returns(ObjectDb);
@@ -145,7 +146,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomers(
+            var result = await DataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
@@ -161,7 +162,7 @@
         }
 
         [Test]
-        public void GetCustomers_HasSystemIdColumn_ReturnCorrectData()
+        public async Task GetCustomers_HasSystemIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomersSp)).Returns(ObjectDb);
@@ -177,7 +178,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomers(
+            var result = await DataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
@@ -188,7 +189,7 @@
         }
 
         [Test]
-        public void GetCustomers_HasExternalIdColumn_ReturnCorrectData()
+        public async Task GetCustomers_HasExternalIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomersSp)).Returns(ObjectDb);
@@ -204,7 +205,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomers(
+            var result = await DataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
@@ -215,7 +216,7 @@
         }
 
         [Test]
-        public void GetCustomers_HasCustomerIdColumn_ReturnCorrectData()
+        public async Task GetCustomers_HasCustomerIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomersSp)).Returns(ObjectDb);
@@ -231,7 +232,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomers(
+            var result = await DataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"

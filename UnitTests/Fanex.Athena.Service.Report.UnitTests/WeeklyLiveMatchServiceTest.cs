@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using DataAccess.Report.Interfaces;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -27,13 +28,13 @@
         }
 
         [Test]
-        public void GetData_InvalidMetaModel_ReturnEmptyData()
+        public async Task GetData_InvalidMetaModel_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new WeeklyLiveMatchMetaModel { FromDate = new System.DateTime(2017, 2, 1), ToDate = new System.DateTime(2017, 1, 1) };
 
             // Action
-            var result = _service.GetData(metaModel);
+            var result = await _service.GetData(metaModel);
 
             // Assert
             Assert.Multiple(() =>

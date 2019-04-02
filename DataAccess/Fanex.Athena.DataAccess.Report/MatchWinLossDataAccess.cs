@@ -51,7 +51,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.SetParameterValue("show" + item.Code, item.Status);
                 }
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return SetToList(reader, metaModel.BaseCurrency);
                 }
@@ -75,7 +75,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.SetParameterValue("show" + item.Code, item.Status);
                 }
 
-                return db.ExecuteDataSet();
+                return await db.ExecuteDataSetAsync().ConfigureAwait(false);
             }
         }
 
@@ -96,7 +96,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.SetParameterValue("show" + item, true);
                 }
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return SetToList(reader, metaModel.BaseCurrency);
                 }
@@ -120,7 +120,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.SetParameterValue("showba", showBa);
                 db.SetParameterValue("showVS2", showVS2);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return SetToList(reader, metaModel.BaseCurrency);
                 }

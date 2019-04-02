@@ -32,7 +32,7 @@
             {
                 await AssignParameter(objectDb, metaModel).ConfigureAwait(false);
 
-                using (var reader = objectDb.ExecuteReader())
+                using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
@@ -56,7 +56,7 @@
             {
                 await AssignParameter(objectDb, metaModel).ConfigureAwait(false);
 
-                using (var reader = objectDb.ExecuteReader())
+                using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var baseColumnSuffix = metaModel.ConvertAll ? "Base" : string.Empty;
 

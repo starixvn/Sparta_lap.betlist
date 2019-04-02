@@ -47,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Report
             using (var db = this.GetObjectDb(UspName))
             {
                 AddParameters(db, metaModel, moveBetsDate);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var list = new List<LiveReport>();
                     var currency = metaModel.BaseCurrency;
@@ -80,7 +80,7 @@ namespace Fanex.Athena.DataAccess.Report
             using (var db = this.GetObjectDb(UspName))
             {
                 AddParameters(db, metaModel, moveBetsDate);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
@@ -111,7 +111,7 @@ namespace Fanex.Athena.DataAccess.Report
             using (var db = this.GetObjectDb(UspName))
             {
                 AddParameters(db, metaModel, moveBetsDate);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var resultByCurrency = ReadDetailByCurrency(reader, currencyList, currency);
 
@@ -143,7 +143,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.SetParameterValue("show" + product, true);
                 }
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var currency = metaModel.BaseCurrency;
                     var data = new List<LiveReportWinLossByMatch>();

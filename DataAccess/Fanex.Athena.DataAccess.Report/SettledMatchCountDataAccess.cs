@@ -8,13 +8,14 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
 
     public class SettledMatchCountDataAccess : BaseDataAccess, ISettledMatchCountDataAccess
     {
-        public IList<SettledMatchCount> GetDataList(bool isShowAll, int licenseeId)
+        public async Task<IList<SettledMatchCount>> GetDataList(bool isShowAll, int licenseeId)
         {
             var uspParams = new
             {
@@ -24,7 +25,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb("Lrf_Rpt_MatchSelResultEntered"))
             {
-                return db.Query<SettledMatchCount>(uspParams).ToList();
+                return (await db.QueryAsync<SettledMatchCount>(uspParams).ConfigureAwait(false)).ToList();
             }
         }
     }

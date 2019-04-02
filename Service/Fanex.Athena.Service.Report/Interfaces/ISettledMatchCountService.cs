@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Report.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.ViewModel;
 
@@ -15,6 +16,6 @@ namespace Fanex.Athena.Service.Report.Interfaces
     /// </summary>
     public interface ISettledMatchCountService
     {
-        IList<SettledMatchCountViewModel> GetDataList(bool isShowAll, int licenseeId, ProductAccess producAccess);
+        Task<IList<SettledMatchCountViewModel>> GetDataList(bool isShowAll, int licenseeId, ProductAccess producAccess);
     }
 }

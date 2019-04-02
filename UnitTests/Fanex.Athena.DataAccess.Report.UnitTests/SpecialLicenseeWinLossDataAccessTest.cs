@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Report.MetaModel;
@@ -44,13 +45,13 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(Sp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetData(_metaModel, UserCurrencyList);
+            await DataAccess.GetData(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -65,7 +66,7 @@
         }
 
         [Test]
-        public void ReadData_WhenCall_ReturnCorrectResult()
+        public async Task ReadData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(Sp)).Returns(ObjectDb);
@@ -85,7 +86,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetData(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetData(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
             var firstTotalItem = result.TotalDataList.First();
 

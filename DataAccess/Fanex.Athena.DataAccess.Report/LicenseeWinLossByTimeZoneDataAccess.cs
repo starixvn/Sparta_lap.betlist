@@ -37,7 +37,7 @@
             {
                 await AssignParameter(objectDb, metaModel).ConfigureAwait(false);
 
-                using (var reader = objectDb.ExecuteReader())
+                using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;
@@ -14,7 +15,7 @@
         private const string SpName = "Lrf_Rpt_TurnOver";
 
         [Test]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             var metaModel = new TurnoverMetaModel
@@ -34,7 +35,7 @@
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetDataList(metaModel);
+            await DataAccess.GetDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -49,7 +50,7 @@
         }
 
         [Test]
-        public void GetDataList_WhenCall_ReturnCorrectResult()
+        public async Task GetDataList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
@@ -63,7 +64,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDataList(new TurnoverMetaModel
+            var result = await DataAccess.GetDataList(new TurnoverMetaModel
             {
                 BaseCurrency = "USD"
             });

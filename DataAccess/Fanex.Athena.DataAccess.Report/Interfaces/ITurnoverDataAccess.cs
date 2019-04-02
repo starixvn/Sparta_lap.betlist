@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
 
@@ -15,10 +16,6 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     /// </summary>
     public interface ITurnoverDataAccess
     {
-        #region Public Methods and Operators
-
-        IList<TurnoverDTO> GetDataList(TurnoverMetaModel metaModel);
-
-        #endregion Public Methods and Operators
+        Task<IList<TurnoverDTO>> GetDataList(TurnoverMetaModel metaModel);
     }
 }

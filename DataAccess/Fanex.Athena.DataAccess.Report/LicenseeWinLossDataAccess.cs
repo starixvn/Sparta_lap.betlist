@@ -42,7 +42,7 @@
                 db.SetParameterValue("reporttype", metaModel.ReportBy);
                 await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel, false);
                 }
@@ -59,7 +59,7 @@
             {
                 db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
                 await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel, true);
                 }
@@ -73,7 +73,7 @@
             using (var db = this.GetObjectDb(UspName))
             {
                 await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel, true);
                 }

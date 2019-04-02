@@ -60,7 +60,7 @@
                 BalanceUpDay = _balanceUp.BalanceUpDay
             };
             dynamic uspParam = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(arg => uspParam = arg));
 
             // Action
             await DataAccess.GetDataList(metaModel);

@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -28,9 +29,9 @@ namespace Fanex.Athena.Service.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IList<SettledMatchCountViewModel> GetDataList(bool isShowAll, int licenseeId, ProductAccess producAccess)
+        public async Task<IList<SettledMatchCountViewModel>> GetDataList(bool isShowAll, int licenseeId, ProductAccess producAccess)
         {
-            var result = _settledMatchCountDataAccess.GetDataList(isShowAll, licenseeId);
+            var result = await _settledMatchCountDataAccess.GetDataList(isShowAll, licenseeId).ConfigureAwait(false);
 
             return FilterValidSports(result, producAccess);
         }

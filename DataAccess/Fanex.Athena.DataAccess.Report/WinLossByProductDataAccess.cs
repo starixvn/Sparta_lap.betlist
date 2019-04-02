@@ -48,7 +48,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.SetParameterValue("CustID", null);
                 await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
                 AddResultParam(db);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     data = GetData(reader, currencyList, metaModel, false);
                 }
@@ -69,7 +69,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
                 db.SetParameterValue("CustID", metaModel.MemberId);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel, true);
                 }
@@ -86,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.SetParameterValue("MemberID", metaModel.MemberId);
                 await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel, true);
                 }

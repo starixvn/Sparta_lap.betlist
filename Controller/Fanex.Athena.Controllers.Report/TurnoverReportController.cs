@@ -87,7 +87,7 @@ namespace Fanex.Athena.Controllers.Report
                 metaModel.Username.Trim() == placeholderUsername ? null : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
-            var dataList = _turnoverService.GetDataList(metaModel);
+            var dataList = await _turnoverService.GetDataList(metaModel).ConfigureAwait(false);
 
             var model = new TurnoverViewModel
             {

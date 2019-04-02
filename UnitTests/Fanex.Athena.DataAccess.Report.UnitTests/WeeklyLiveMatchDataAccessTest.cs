@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -19,7 +20,7 @@
         }
 
         [Test]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             var metaModel = new WeeklyLiveMatchMetaModel
@@ -32,7 +33,7 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetDataList(metaModel);
+            await DataAccess.GetDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -44,7 +45,7 @@
 
         [TestCase("Week0", 100, 100)]
         [TestCase("", 100, 0)]
-        public void GetDataList_WhenCall_ReturnCorrectResult(string sortColumn, int numbersOfMatchs, int expectedNumberOfMatches)
+        public async Task GetDataList_WhenCall_ReturnCorrectResult(string sortColumn, int numbersOfMatchs, int expectedNumberOfMatches)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(ObjectDb);
@@ -60,7 +61,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDataList(
+            var result = await DataAccess.GetDataList(
                 new WeeklyLiveMatchMetaModel
                 {
                     SortDirection = "asc",
@@ -78,7 +79,7 @@
         }
 
         [Test]
-        public void GetDataList_SortWeek0_ReturnCorrectResult()
+        public async Task GetDataList_SortWeek0_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(ObjectDb);
@@ -96,7 +97,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDataList(
+            var result = await DataAccess.GetDataList(
                 new WeeklyLiveMatchMetaModel
                 {
                     SortDirection = "asc",
@@ -118,7 +119,7 @@
         [TestCase("Week0", null)]
         [TestCase("", "asc")]
         [TestCase(null, "asc")]
-        public void GetDataList_InvalidSortIndex_ReturnCorrectResult(string sortColumn, string sortDirection)
+        public async Task GetDataList_InvalidSortIndex_ReturnCorrectResult(string sortColumn, string sortDirection)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(ObjectDb);
@@ -136,7 +137,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDataList(
+            var result = await DataAccess.GetDataList(
                 new WeeklyLiveMatchMetaModel
                 {
                     SortDirection = sortDirection,
@@ -159,7 +160,7 @@
         [TestCase(3, 1)]
         [TestCase(4, 2)]
         [TestCase(2, 0)]
-        public void GetDataList_WhenCall_ReturnCorrectNumberOfWeeks(int fieldCount, int expectedNumberOfWeeks)
+        public async Task GetDataList_WhenCall_ReturnCorrectNumberOfWeeks(int fieldCount, int expectedNumberOfWeeks)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(ObjectDb);
@@ -168,7 +169,7 @@
             Reader.FieldCount.Returns(fieldCount);
 
             // Action
-            var result = DataAccess.GetDataList(
+            var result = await DataAccess.GetDataList(
                 new WeeklyLiveMatchMetaModel
                 {
                     SortDirection = "asc",

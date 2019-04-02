@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IEnumerable<WinLossByLeague> GetSummary(WinLossByLeagueMetaModel metaModel)
+        public async Task<IEnumerable<WinLossByLeague>> GetSummary(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlostByLeague";
 
@@ -40,14 +41,14 @@ namespace Fanex.Athena.DataAccess.Report
                 AddCommonParams(metaModel, db);
                 db.SetParameterValue("balanceupday", metaModel.BalanceUpDay);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetMatches(reader, metaModel.BaseCurrency);
                 }
             }
         }
 
-        public ReportResultModel<WinLossByLeague> GetCustomers(WinLossByLeagueMetaModel metaModel)
+        public async Task<ReportResultModel<WinLossByLeague>> GetCustomers(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlossByLeagueDetail";
 
@@ -62,7 +63,7 @@ namespace Fanex.Athena.DataAccess.Report
                 IEnumerable<WinLossByLeague> dataList = null;
                 WinLossByLeague totalData;
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     dataList = GetCustomers(reader, metaModel.BaseCurrency);
                     reader.NextResult();

@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.Report
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Threading.Tasks;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
@@ -30,10 +31,10 @@ namespace Fanex.Athena.Service.Report
             this._weeklyLiveMatchDataAccess = dataAccess;
         }
 
-        public WeeklyLiveMatchResultModel GetData(WeeklyLiveMatchMetaModel metaModel)
+        public async Task<WeeklyLiveMatchResultModel> GetData(WeeklyLiveMatchMetaModel metaModel)
         {
             return metaModel.IsValid ?
-                _weeklyLiveMatchDataAccess.GetDataList(metaModel) :
+                await _weeklyLiveMatchDataAccess.GetDataList(metaModel).ConfigureAwait(false) :
                 new WeeklyLiveMatchResultModel
                 {
                     TotalData = new int[0],

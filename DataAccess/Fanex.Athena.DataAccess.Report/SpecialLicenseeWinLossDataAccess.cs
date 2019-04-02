@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Core.Extensions;
     using Fanex.Athena.Extension.Utility;
@@ -15,7 +16,7 @@
 
     public class SpecialLicenseeWinLossDataAccess : BaseDataAccess, ISpecialLicenseeWinLossDataAccess
     {
-        public ReportResultModel<LicenseeWinLoss> GetData(SpecialLicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<LicenseeWinLoss>> GetData(SpecialLicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinloss_FromAPI";
 
@@ -23,7 +24,7 @@
             {
                 UpdateUspParams(db, metaModel);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadData(reader, currencyList, metaModel);
                 }

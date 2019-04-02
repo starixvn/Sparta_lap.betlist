@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -22,10 +23,10 @@ namespace Fanex.Athena.Service.Report
             _turnoverDataAccess = dataAccess;
         }
 
-        public IList<TurnoverDTO> GetDataList(TurnoverMetaModel metaModel)
+        public async Task<IList<TurnoverDTO>> GetDataList(TurnoverMetaModel metaModel)
         {
             return metaModel.IsValid
-                       ? _turnoverDataAccess.GetDataList(metaModel)
+                       ? await _turnoverDataAccess.GetDataList(metaModel).ConfigureAwait(false)
                        : new List<TurnoverDTO>();
         }
 

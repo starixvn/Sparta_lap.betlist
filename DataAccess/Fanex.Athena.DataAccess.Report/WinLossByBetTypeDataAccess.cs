@@ -48,7 +48,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     return ReadData(reader, metaModel.BaseCurrency);
                 }

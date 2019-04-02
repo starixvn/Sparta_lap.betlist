@@ -13,9 +13,7 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Report;
@@ -35,7 +33,7 @@ namespace Fanex.Athena.Api.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly IAppSettings _appSettings;
-        
+
         public WinLossByLeagueReportController(
             ISessionService sessionService,
             IProductService productService,
@@ -127,7 +125,7 @@ namespace Fanex.Athena.Api.Report
             if (metaModel.Level == 0)
             {
                 var dataList = metaModel.IsValid
-                       ? this._winlossByLeagueDataAccess.GetSummary(metaModel)
+                       ? await this._winlossByLeagueDataAccess.GetSummary(metaModel).ConfigureAwait(false)
                        : new List<WinLossByLeague>();
                 resultModel = new ReportResultModel<WinLossByLeague>
                 {
@@ -138,7 +136,7 @@ namespace Fanex.Athena.Api.Report
             else
             {
                 resultModel = metaModel.IsValid ?
-                    _winlossByLeagueDataAccess.GetCustomers(metaModel) :
+                    await _winlossByLeagueDataAccess.GetCustomers(metaModel).ConfigureAwait(false) :
                     new ReportResultModel<WinLossByLeague>
                     {
                         DataList = new List<WinLossByLeague>(),

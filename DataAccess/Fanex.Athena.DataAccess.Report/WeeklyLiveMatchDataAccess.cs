@@ -10,6 +10,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public WeeklyLiveMatchResultModel GetDataList(WeeklyLiveMatchMetaModel metaModel)
+        public async Task<WeeklyLiveMatchResultModel> GetDataList(WeeklyLiveMatchMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveMatchWeekly";
 
@@ -40,7 +41,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.SetParameterValue("FromDate", metaModel.FromDate);
                 db.SetParameterValue("ToDate", metaModel.ToDate);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadData(reader, metaModel.SortColumn, metaModel.SortDirection);
                 }

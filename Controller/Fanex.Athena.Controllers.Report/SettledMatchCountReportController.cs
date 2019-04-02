@@ -36,7 +36,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var producAccess = await ProductService.GetProductAccess(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
-            var model = _settledMatchCountService.GetDataList(AppSettings.IsShowAllDataForSettleMatchCountReport, licenseeId, producAccess);
+            var model = await _settledMatchCountService.GetDataList(AppSettings.IsShowAllDataForSettleMatchCountReport, licenseeId, producAccess).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Report/SettledMatchCount/Main.cshtml", model);
         }

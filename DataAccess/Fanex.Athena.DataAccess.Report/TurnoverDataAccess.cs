@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -17,7 +18,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class TurnoverDataAccess : BaseDataAccess, ITurnoverDataAccess
     {
-        public IList<TurnoverDTO> GetDataList(TurnoverMetaModel metaModel)
+        public async Task<IList<TurnoverDTO>> GetDataList(TurnoverMetaModel metaModel)
         {
             var result = new List<TurnoverDTO>();
 
@@ -25,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 AddParams(db, metaModel);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var index = 1;
                     while (reader.Read())

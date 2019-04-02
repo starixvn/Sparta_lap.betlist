@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using DataAccess.Report.Interfaces;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -28,13 +29,13 @@
         }
 
         [Test]
-        public void GetDataList_InvalidMetaModel_ReturnEmptyData()
+        public async Task GetDataList_InvalidMetaModel_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new TurnoverMetaModel { Year = 2018, Month = 2, FromDay = 2, ToDay = 1 };
 
             // Action
-            var result = _service.GetDataList(metaModel);
+            var result = await _service.GetDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
