@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.Extensions;
     using Core;
     using Core.Extensions;
@@ -16,7 +17,7 @@
 
     public class ExchangeWinLossDataAccess : BaseDataAccess, IExchangeWinLossDataAccess
     {
-        public ReportResultModel<ExchangeWinLoss> GetMainWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<ExchangeWinLoss>> GetMainWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss";
 
@@ -25,14 +26,14 @@
                 db.SetParameterValue("ReportType", metaModel.ReportBy);
                 UpdateUspParams(db, metaModel);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, metaModel, currencyList);
                 }
             }
         }
 
-        public ReportResultModel<ExchangeWinLoss> GetCustomerWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<ExchangeWinLoss>> GetCustomerWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss_Mem";
 
@@ -41,14 +42,14 @@
                 db.SetParameterValue("CustID", metaModel.CustId);
                 UpdateUspParams(db, metaModel);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, metaModel, currencyList);
                 }
             }
         }
 
-        public ReportResultModel<ExchangeWinLoss> GetLicenseeWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<ExchangeWinLoss>> GetLicenseeWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss_Ag";
 
@@ -56,7 +57,7 @@
             {
                 UpdateUspParams(db, metaModel);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, metaModel, currencyList);
                 }

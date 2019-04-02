@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -33,7 +34,7 @@
         }
 
         [HttpPost]
-        public dynamic Index(
+        public Task<dynamic> Index(
             ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -45,7 +46,7 @@
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] ThirdPartyWinLossMetaModel metaModel)
+        public Task<dynamic> Index([FromBody] ThirdPartyWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
@@ -99,15 +100,24 @@
             return ExcelStream(excel.Workbook, exportedFileName);
         }
 
-        private ReportResultModel<GoldDeluxeWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
+        private async Task<ReportResultModel<GoldDeluxeWinLoss>> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
             var userCurrencyList = SessionService.UserSession.CurrencyList;
-            return metaModel.DrillDownLevel == 0 ? _dataAccess.GetSummaryWinloss(metaModel, userCurrencyList) : metaModel.DrillDownLevel == 2
-                               ? _dataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList)
-                               : _dataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList);
+            if (metaModel.DrillDownLevel == 0)
+            {
+                return await _dataAccess.GetSummaryWinloss(metaModel, userCurrencyList).ConfigureAwait(false);
+            }
+            else if (metaModel.DrillDownLevel == 1)
+            {
+                return await _dataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList).ConfigureAwait(false);
+            }
+            else
+            {
+                return await _dataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList).ConfigureAwait(false);
+            }
         }
 
-        private dynamic ProcessRequest(
+        private async Task<dynamic> ProcessRequest(
             ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -125,7 +135,7 @@
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-                var result = GetData(metaModel);
+                var result = await GetData(metaModel).ConfigureAwait(false);
 
                 if (metaModel.IsExportExcel)
                 {

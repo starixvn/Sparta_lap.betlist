@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
@@ -64,7 +65,7 @@
         }
 
         [Test]
-        public void GetMainWinloss_WhenCall_DataReturnedCorrectly()
+        public async Task GetMainWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             Reader.Read().Returns(true, false);
@@ -76,7 +77,7 @@
             ConfigureReaderForMainResult(firstExpected, expectedList);
 
             // Action
-            var result = DataAccess.GetMainWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetMainWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -90,7 +91,7 @@
         }
 
         [Test]
-        public void GetMainWinloss_WhenCallWithBaseCurrencyUSD_DataConvertedToUSD()
+        public async Task GetMainWinloss_WhenCallWithBaseCurrencyUSD_DataConvertedToUSD()
         {
             // Arrange
             Reader.Read().Returns(true, false, false);
@@ -114,7 +115,7 @@
             ConvertExpectedValueToBaseCurrency(expectedList, model.BaseCurrency.ToUpperInvariant());
 
             // Action
-            var result = DataAccess.GetMainWinloss(model, UserCurrencyList);
+            var result = await DataAccess.GetMainWinloss(model, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -128,10 +129,10 @@
         }
 
         [Test]
-        public void GetLicenseeWinloss_WhenCall_ParametersPassedCorrectly()
+        public async Task GetLicenseeWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
+            await DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -142,7 +143,7 @@
         }
 
         [Test]
-        public void GetLicenseeWinloss_WhenCall_DataReturnedCorrectly()
+        public async Task GetLicenseeWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             Reader.Read().Returns(true, false);
@@ -154,7 +155,7 @@
             ConfigureReaderForLicenseeResult(firstExpected, expectedList);
 
             // Action
-            var result = DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             firstExpected.Date = _metaModel.ToDate;
@@ -185,7 +186,7 @@
         }
 
         [Test]
-        public void GetCustomerWinloss_WhenCall_DataReturnedCorrectly()
+        public async Task GetCustomerWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             Reader.Read().Returns(true, false);
@@ -197,7 +198,7 @@
             ConfigureReaderForCustomerResult(firstExpected, expectedList);
 
             // Action
-            var result = DataAccess.GetCustomerWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetCustomerWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             firstExpected.Date = _metaModel.ToDate;

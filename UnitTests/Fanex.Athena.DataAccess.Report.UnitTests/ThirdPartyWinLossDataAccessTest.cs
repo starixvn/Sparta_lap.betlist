@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -56,7 +57,7 @@
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ReturnCorrectResult()
+        public async Task GetSummaryWinloss_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             const string SpName = "Summary1";
@@ -71,7 +72,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -105,7 +106,7 @@
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenCall_ReturnCorrectResult()
+        public async Task GetCustomerWinlossDetail_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             const string SpName = "Detail1";
@@ -120,7 +121,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -131,14 +132,14 @@
         }
 
         [TestCase("Test", "Test")]
-        public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
+        public async Task GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(expectedSpName)).Returns(ObjectDb);
             _metaModel.ProductId = -1;
 
             // Action
-            DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, spname);
+            await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, spname);
 
             // Assert
             Assert.Multiple(() =>
@@ -152,7 +153,7 @@
         }
 
         [Test]
-        public void GetAgentWinlossDetail_WhenCall_ReturnCorrectResult()
+        public async Task GetAgentWinlossDetail_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             const string SpName = "Agent1";
@@ -167,7 +168,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -178,7 +179,7 @@
         }
 
         [Test]
-        public void GetData_HasSystemIdColumn_ReturnCorrectData()
+        public async Task GetData_HasSystemIdColumn_ReturnCorrectData()
         {
             // Arrange
             const string SpName = "Agent2";
@@ -195,14 +196,14 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().SystemId, Is.EqualTo(readerDataMapping.username));
         }
 
         [Test]
-        public void GetData_HasExternalIdColumn_ReturnCorrectData()
+        public async Task GetData_HasExternalIdColumn_ReturnCorrectData()
         {
             // Arrange
             const string SpName = "Agent3";
@@ -219,14 +220,14 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().ExternalId, Is.EqualTo(readerDataMapping.nickname));
         }
 
         [Test]
-        public void GetData_HasCustomerIdColumn_ReturnCorrectData()
+        public async Task GetData_HasCustomerIdColumn_ReturnCorrectData()
         {
             // Arrange
             const string SpName = "Agent4";
@@ -243,14 +244,14 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().CustomerId, Is.EqualTo(readerDataMapping.custid));
         }
 
         [Test]
-        public void GetData_HasWinlostDateColumn_ReturnCorrectData()
+        public async Task GetData_HasWinlostDateColumn_ReturnCorrectData()
         {
             // Arrange
             const string SpName = "Agent5";
@@ -267,7 +268,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().Date, Is.EqualTo(readerDataMapping.winlostdate));

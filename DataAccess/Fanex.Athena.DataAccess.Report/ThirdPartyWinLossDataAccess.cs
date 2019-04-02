@@ -10,6 +10,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -23,14 +24,14 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ThirdPartyWinLossDataAccess<T> : BaseDataAccess, IThirdPartyWinLossDataAccess<T> where T : ThirdPartyWinLoss
     {
-        public ReportResultModel<T> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList, string spname)
+        public async Task<ReportResultModel<T>> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList, string spname)
         {
             using (var db = this.GetObjectDb(spname))
             {
                 UpdateUspParams(db, metaModel, false);
                 db.SetParameterValue("ReportType", metaModel.ReportBy);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = GetData(reader, currencyList, metaModel, -1);
                     AddRowSpan(result.DataList);
@@ -39,7 +40,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public ReportResultModel<T> GetCustomerWinlossDetail(
+        public async Task<ReportResultModel<T>> GetCustomerWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList,
             string spname)
@@ -48,14 +49,14 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
                 UpdateUspParams(db, metaModel, true);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel);
                 }
             }
         }
 
-        public ReportResultModel<T> GetAgentWinlossDetail(
+        public async Task<ReportResultModel<T>> GetAgentWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList,
             string spname)
@@ -63,7 +64,7 @@ namespace Fanex.Athena.DataAccess.Report
             using (var db = this.GetObjectDb(spname))
             {
                 UpdateUspParams(db, metaModel, true);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel);
                 }
