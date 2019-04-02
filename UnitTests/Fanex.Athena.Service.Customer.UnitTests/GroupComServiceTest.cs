@@ -15,13 +15,9 @@
     [TestFixture]
     public class GroupComServiceTest
     {
-        private const int LicenseeId = 999;
-
         private ICasinoCustomerService _casinoCustomerService;
 
         private IGroupComDataAccess _groupDataAccess;
-
-        private ISessionService _sessionService;
 
         private GroupComService _groupComService;
 
@@ -30,12 +26,7 @@
         {
             _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _groupDataAccess = Substitute.For<IGroupComDataAccess>();
-            _sessionService = Substitute.For<ISessionService>();
-            _sessionService.LicenseeSession.Returns(new LicenseeSession
-            {
-                LicenseeId = LicenseeId
-            });
-            _groupComService = new GroupComService(_casinoCustomerService, _groupDataAccess, _sessionService);
+            _groupComService = new GroupComService(_casinoCustomerService, _groupDataAccess);
         }
 
         [TearDown]
@@ -76,12 +67,13 @@
         {
             // Arrange
             var groupCommId = FakeHelper.Create<int>();
+            var licenseeId = FakeHelper.Create<int>();
 
             // Action
-            var result = _groupComService.GetById(groupCommId);
+            var result = _groupComService.GetById(groupCommId, licenseeId);
 
             // Assert
-            _groupDataAccess.Received().GetById(groupCommId, LicenseeId);
+            _groupDataAccess.Received().GetById(groupCommId, licenseeId);
         }
 
         [Test]

@@ -58,7 +58,7 @@
                 await controller.MoveToGroupCom(CustmerIds, GroupId);
 
                 // Assert
-                _customerCommService.Received(1).MoveCustomersToGroup(
+                _customerCommService.Received(1).MoveCustomersToGroupAsync(
                         Arg.Is<MoveToGroupComMetaModel>(x =>
                             x.CustomerIds == CustmerIds &&
                             x.GroupComId == GroupId &&
@@ -84,8 +84,8 @@
                 {
                     IsAllowedCustomerComm = true
                 });
-                _customerCommService.MoveCustomersToGroup(null).ReturnsForAnyArgs(new ResultInfo());
-                _groupComService.GetById(GroupId).Returns(new GroupCommMetaModel
+                _customerCommService.MoveCustomersToGroupAsync(null).ReturnsForAnyArgs(Task.FromResult<IResultInfo>(new ResultInfo()));
+                _groupComService.GetById(GroupId, Arg.Any<int>()).Returns(new GroupCommMetaModel
                 {
                     SBComm = SampleComm,
                     NGComm = SampleComm,

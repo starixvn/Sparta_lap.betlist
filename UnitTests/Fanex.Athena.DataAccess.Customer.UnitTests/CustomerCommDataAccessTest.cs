@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.UnitTests
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Customer;
     using Model.Customer.MetaModel;
@@ -10,14 +10,14 @@
     public class CustomerCommDataAccessTest : BaseDataAccessHelperTest<CustomerCommDataAccess>
     {
         [Test]
-        public void MoveCustomersToGroup_WhenCall_ParametersPassedCorrectly()
+        public async Task MoveCustomersToGroupAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerMoveGroupComm")).Returns(ObjectDb);
             var metaModel = new MoveToGroupComMetaModel();
 
             // Action
-            DataAccess.MoveCustomersToGroup(metaModel);
+            await DataAccess.MoveCustomersToGroupAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -37,14 +37,14 @@
         }
 
         [Test]
-        public void RemoveCustomersFromGroup_WhenCall_ParametersPassedCorrectly()
+        public async Task RemoveCustomersFromGroupAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerRemoveGroupComm")).Returns(ObjectDb);
             var metaModel = new RemoveFromGroupComMetaModel();
 
             // Action
-            DataAccess.RemoveCustomersFromGroup(metaModel);
+            await DataAccess.RemoveCustomersFromGroupAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -62,14 +62,14 @@
         }
 
         [Test]
-        public void UpdateCustomersCommission_WhenCall_ParametersPassedCorrectly()
+        public async Task UpdateCustomersCommissionAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeCustCommUpd")).Returns(ObjectDb);
             var metaModel = new UpdatedCustomerComMetaModel();
 
             // Action
-            DataAccess.UpdateCustomersCommission(metaModel);
+            await DataAccess.UpdateCustomersCommissionAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>

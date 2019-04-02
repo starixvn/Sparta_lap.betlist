@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -17,7 +18,7 @@
         /// </summary>
         /// <param name="metaModel">Meta model value.</param>
         /// <returns>The result value.</returns>
-        public IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel)
+        public async Task<IResultInfo> MoveCustomersToGroupAsync(MoveToGroupComMetaModel metaModel)
         {
             const string UspName = "Lrf_CustomerMoveGroupComm";
 
@@ -27,11 +28,11 @@
                 db.SetParameterValue("IsUpdateNG", metaModel.IsAllowedNG);
                 db.SetParameterValue("IsUpdateRNG", metaModel.IsAllowedRNG);
                 AddCommonParameters(db, metaModel);
-                return GetExecutionResult(db);
+                return await GetExecutionResult(db);
             }
         }
 
-        public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel)
+        public async Task<IResultInfo> RemoveCustomersFromGroupAsync(RemoveFromGroupComMetaModel metaModel)
         {
             const string UspName = "Lrf_CustomerRemoveGroupComm";
 
@@ -39,11 +40,11 @@
             {
                 db.SetParameterValue("IsRemovePlayercomm", metaModel.IsRemovePlayercomm);
                 AddCommonParameters(db, metaModel);
-                return GetExecutionResult(db);
+                return await GetExecutionResult(db);
             }
         }
 
-        public IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel)
+        public async Task<IResultInfo> UpdateCustomersCommissionAsync(UpdatedCustomerComMetaModel metaModel)
         {
             const string UspName = "Lrf_LicenseeCustCommUpd";
 
@@ -56,7 +57,7 @@
                 db.SetParameterValue("IsUpdateNG", metaModel.IsAllowedNG);
                 db.SetParameterValue("IsUpdateRNG", metaModel.IsAllowedCS);
                 AddCommonParameters(db, metaModel);
-                return GetExecutionResult(db);
+                return await GetExecutionResult(db);
             }
         }
 
@@ -73,9 +74,10 @@
             AddResultParam(db);
         }
 
-        private static IResultInfo GetExecutionResult(IObjectDb db)
+        private static async Task<IResultInfo> GetExecutionResult(IObjectDb db)
         {
-            db.ExecuteNonQuery();
+            await db.ExecuteNonQueryAsync().ConfigureAwait(false);
+
             var result = GetResult(db);
             result.ExtendedData = Convert.ToString(db.GetParameterValue("strCustId"));
             return result;

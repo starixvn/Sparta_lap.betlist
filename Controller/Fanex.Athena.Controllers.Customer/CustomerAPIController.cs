@@ -308,6 +308,7 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     metaModel.LicenseeId = licenseeSession.LicenseeId;
                     metaModel.UserId = userSession.UserId;
+                    metaModel.UserName = userSession.UserName;
                     metaModel.Ip = this.Request.UserHostAddress;
                     metaModel.IsAllowedNG = productAccess.IsAllowNG;
                     metaModel.IsAllowedCS = productAccess.IsAllowCS;
@@ -322,7 +323,7 @@ namespace Fanex.Athena.Controllers.Customer
                     }
                     else
                     {
-                        this.ProcessUpdatingCustomerCom(metaModel, result);
+                        await this.ProcessUpdatingCustomerCom(metaModel, result).ConfigureAwait(false);
                     }
                 }
             }
@@ -347,17 +348,18 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = await _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                CustomerAPIRemoveFromGroupComName).ConfigureAwait(false);
+                CustomerAPIRemoveFromGroupComName);
             var metaModel = new RemoveFromGroupComMetaModel
             {
                 CustomerIds = customerIds,
                 IsRemovePlayercomm = isRemovePlayercomm,
                 LicenseeId = licenseeSession.LicenseeId,
                 UserId = userSession.UserId,
+                UserName = userSession.UserName,
                 Ip = Request.UserHostAddress,
                 Language = userSession.Language
             };
-            var removalResult = _customerCommService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCS);
+            var removalResult = await _customerCommService.RemoveCustomersFromGroupAsync(metaModel, productAccess.IsAllowCS).ConfigureAwait(false);
             var result = new ResultViewModel
             {
                 Success = removalResult.IsSuccessful,
@@ -394,7 +396,7 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = await _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                CustomerAPIRemoveFromGroupComName).ConfigureAwait(false);
+                CustomerAPIRemoveFromGroupComName);
 
             var metaModel = new MoveToGroupComMetaModel(productAccess)
             {
@@ -402,11 +404,12 @@ namespace Fanex.Athena.Controllers.Customer
                 GroupComId = groupComId,
                 LicenseeId = licenseeSession.LicenseeId,
                 UserId = userSession.UserId,
+                UserName = userSession.UserName,
                 Ip = Request.UserHostAddress,
                 Language = userSession.Language
             };
 
-            var temp = _customerCommService.MoveCustomersToGroup(metaModel);
+            var temp = await _customerCommService.MoveCustomersToGroupAsync(metaModel).ConfigureAwait(false);
             var result = new ResultViewModel
             {
                 Success = temp.IsSuccessful,
@@ -417,7 +420,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             if (result.Success)
             {
-                var newGroup = _groupComService.GetById(metaModel.GroupComId);
+                var newGroup = _groupComService.GetById(metaModel.GroupComId, licenseeSession.LicenseeId);
                 if (newGroup != null)
                 {
                     result.ExtendedData = CreateExtendedData(newGroup);
@@ -453,17 +456,15 @@ namespace Fanex.Athena.Controllers.Customer
 
         private bool IsSameOldComm(UpdatedCustomerComMetaModel metaModel)
         {
-            var oldGroup = this._groupComService.GetById(metaModel.GroupId);
-#pragma warning disable S1067 // Expressions should not be too complex
+            var oldGroup = this._groupComService.GetById(metaModel.GroupId, metaModel.LicenseeId);
             return oldGroup.NGComm == metaModel.NGComm && oldGroup.SBComm == metaModel.SBComm &&
                                oldGroup.CSComm == metaModel.CSComm;
-#pragma warning restore S1067 // Expressions should not be too complex
         }
 
-        private void ProcessUpdatingCustomerCom(UpdatedCustomerComMetaModel metaModel, ResultViewModel result)
+        private async Task ProcessUpdatingCustomerCom(UpdatedCustomerComMetaModel metaModel, ResultViewModel result)
         {
             metaModel.Language = SessionService.UserSession.Language;
-            var temp = _customerCommService.UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
+            var temp = await _customerCommService.UpdateCustomersCommissionAsync(metaModel, metaModel.IsAllowedCS);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;
             result.ErrorMessage = temp.Message;

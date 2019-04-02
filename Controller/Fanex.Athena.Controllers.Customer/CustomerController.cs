@@ -315,7 +315,7 @@ namespace Fanex.Athena.Controllers.Customer
             if (!isSubsidiary && licenseeSession.IsAllowedCustomerComm)
             {
                 model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
-                model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId);
+                model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId, licenseeSession.LicenseeId);
             }
 
             return model;

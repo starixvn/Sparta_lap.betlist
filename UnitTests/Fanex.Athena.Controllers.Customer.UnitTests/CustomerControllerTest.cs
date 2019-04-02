@@ -43,7 +43,7 @@
             SessionService.IsAllowedSpecialBA(Arg.Any<UserSession>()).Returns(true);
 
             _groupComService.GetAll(Arg.Any<int>()).Returns(new List<GroupCommMetaModel>());
-            _groupComService.GetById(Arg.Any<int>()).Returns(new GroupCommMetaModel());
+            _groupComService.GetById(Arg.Any<int>(), Arg.Any<int>()).Returns(new GroupCommMetaModel());
         }
 
         [OneTimeTearDown]

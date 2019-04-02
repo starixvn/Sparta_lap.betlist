@@ -28,7 +28,7 @@
                     NGComm = SampleComm,
                     CSComm = SampleComm
                 };
-                _groupComService.GetById(GroupId).Returns(metaModel);
+                _groupComService.GetById(GroupId, Arg.Any<int>()).Returns(metaModel);
                 _productService.GetProductAccess(0, string.Empty).ReturnsForAnyArgs(new ProductAccess(new List<Product>()));
 
                 // Action
@@ -103,7 +103,7 @@
                     GroupCommId = 999,
                     GroupName = "Belle"
                 };
-                _groupComService.GetById(metaModel.GroupCommId).Returns(new GroupCommMetaModel());
+                _groupComService.GetById(metaModel.GroupCommId, Arg.Any<int>()).Returns(new GroupCommMetaModel());
                 _groupComService.UpdateGroup(metaModel, Arg.Any<Request>(), SessionService.UserSession)
                     .Returns(new ResultInfo());
 
@@ -132,7 +132,7 @@
                     GroupCommId = 999,
                     GroupName = string.Empty
                 };
-                _groupComService.GetById(metaModel.GroupCommId).Returns(x => null);
+                _groupComService.GetById(metaModel.GroupCommId, Arg.Any<int>()).Returns(x => null);
 
                 // Action
                 controller.Update(metaModel);

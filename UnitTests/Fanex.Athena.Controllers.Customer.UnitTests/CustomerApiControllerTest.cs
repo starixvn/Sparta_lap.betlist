@@ -284,7 +284,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _customerCommService.Received(1).RemoveCustomersFromGroup(
+                    _customerCommService.Received(1).RemoveCustomersFromGroupAsync(
                         Arg.Is<RemoveFromGroupComMetaModel>(x =>
                         x.CustomerIds == CustmerIds && x.IsRemovePlayercomm == isRemovePlayerComm),
                         false);

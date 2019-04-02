@@ -1,50 +1,50 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Model;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
     public partial class CustomerCommServiceTest
     {
         [Test]
-        public void MoveCustomersToGroup_GroupDoesNotExists_NotCallMoveCustomersToGroup()
+        public async Task MoveCustomersToGroupAsync_GroupDoesNotExists_NotCallMoveCustomersToGroup()
         {
             // Arrange
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
             _groupCommDataAccess.GetById(metaModel.GroupComId, Arg.Any<int>()).Returns(x => null);
 
             // Action
-            var result = _customerCommService.MoveCustomersToGroup(metaModel);
+            var result = await _customerCommService.MoveCustomersToGroupAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _customerCommDataAccess.DidNotReceiveWithAnyArgs().MoveCustomersToGroup(null);
+                _customerCommDataAccess.DidNotReceiveWithAnyArgs().MoveCustomersToGroupAsync(null);
                 Assert.That(result.IsSuccessful, Is.False);
             });
         }
 
         [Test]
-        public void MoveCustomersToGroup_CallDataAccessFailed_NotCallApi()
+        public async Task MoveCustomersToGroupAsync_CallDataAccessFailed_NotCallApi()
         {
             // Arrange
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
 
-            _groupCommDataAccess.GetById(metaModel.GroupComId, LicenseeId).Returns(FakeHelper.Create<GroupCommMetaModel>());
-            _customerCommDataAccess.MoveCustomersToGroup(metaModel).Returns(new ResultInfo
+            _groupCommDataAccess.GetById(metaModel.GroupComId, metaModel.LicenseeId).Returns(FakeHelper.Create<GroupCommMetaModel>());
+            _customerCommDataAccess.MoveCustomersToGroupAsync(metaModel).Returns(Task.FromResult<IResultInfo>(new ResultInfo
             {
                 Code = Math.Abs(FakeHelper.Create<int>()) + 1,
                 Message = FakeHelper.Create<string>()
-            });
+            }));
 
             // Action
-            var result = _customerCommService.MoveCustomersToGroup(metaModel);
+            var result = await _customerCommService.MoveCustomersToGroupAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -55,24 +55,21 @@
         }
 
         [Test]
-        public void MoveCustomersToGroup_IsAllowedRNGTrue_CallApiUpdateComm()
+        public async Task MoveCustomersToGroupAsync_IsAllowedRNGTrue_CallApiUpdateComm()
         {
             // Arrange
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
             metaModel.IsAllowedRNG = true;
 
-            _groupCommDataAccess.GetById(metaModel.GroupComId, LicenseeId).Returns(FakeHelper.Create<GroupCommMetaModel>());
-
-            var userSession = new UserSession { UserName = FakeHelper.Create<string>() };
-            _sessionService.UserSession.Returns(userSession);
+            _groupCommDataAccess.GetById(metaModel.GroupComId, metaModel.LicenseeId).Returns(FakeHelper.Create<GroupCommMetaModel>());
 
             var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
-            _customerCommDataAccess.MoveCustomersToGroup(metaModel).Returns(expectedResult);
+            _customerCommDataAccess.MoveCustomersToGroupAsync(metaModel).Returns(Task.FromResult<IResultInfo>(expectedResult));
 
             _casinoCustomerService.UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>()).Returns(true);
 
             // Action
-            var result = _customerCommService.MoveCustomersToGroup(metaModel);
+            var result = await _customerCommService.MoveCustomersToGroupAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -83,17 +80,17 @@
         }
 
         [Test]
-        public void MoveCustomersToGroup_IsAllowedRNGTrue_CustomerIdListIsEmpty_NotCallApiUpdateComm()
+        public async Task MoveCustomersToGroupAsync_IsAllowedRNGTrue_CustomerIdListIsEmpty_NotCallApiUpdateComm()
         {
             // Arrange
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
-            _groupCommDataAccess.GetById(metaModel.GroupComId, LicenseeId).Returns(FakeHelper.Create<GroupCommMetaModel>());
+            _groupCommDataAccess.GetById(metaModel.GroupComId, metaModel.LicenseeId).Returns(FakeHelper.Create<GroupCommMetaModel>());
 
             var expectedResult = new ResultInfo { ExtendedData = string.Empty };
-            _customerCommDataAccess.MoveCustomersToGroup(metaModel).Returns(expectedResult);
+            _customerCommDataAccess.MoveCustomersToGroupAsync(metaModel).Returns(Task.FromResult<IResultInfo>(expectedResult));
 
             // Action
-            var result = _customerCommService.MoveCustomersToGroup(metaModel);
+            var result = await _customerCommService.MoveCustomersToGroupAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>

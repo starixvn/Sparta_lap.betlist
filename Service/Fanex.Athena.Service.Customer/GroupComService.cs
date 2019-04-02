@@ -25,16 +25,12 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly IGroupComDataAccess _groupDataAccess;
 
-        private readonly ISessionService _sessionService;
-
         public GroupComService(
             ICasinoCustomerService casinoCustomerService, 
-            IGroupComDataAccess groupDataAccess,
-            ISessionService sessionService)
+            IGroupComDataAccess groupDataAccess)
         {
             _casinoCustomerService = casinoCustomerService;
             _groupDataAccess = groupDataAccess;
-            _sessionService = sessionService;
         }
 
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
@@ -47,9 +43,9 @@ namespace Fanex.Athena.Service.Customer
             return _groupDataAccess.GetDataForExcel(licenseeId);
         }
 
-        public GroupCommMetaModel GetById(int groupCommId)
+        public GroupCommMetaModel GetById(int groupCommId, int licenseeId)
         {
-            return _groupDataAccess.GetById(groupCommId, _sessionService.LicenseeSession.LicenseeId);
+            return _groupDataAccess.GetById(groupCommId, licenseeId);
         }
 
         public int GetDefaultGroup(IList<GroupCommMetaModel> groupList)

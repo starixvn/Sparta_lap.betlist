@@ -9,9 +9,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Model.Core.ViewModel;
     using Session.Model;
 
     public interface IGroupComService
@@ -24,7 +22,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
         DataTable GetDataForExcel(int licenseeId);
 
-        GroupCommMetaModel GetById(int groupCommId);
+        GroupCommMetaModel GetById(int groupCommId, int licenseeId);
 
         int GetDefaultGroup(IList<GroupCommMetaModel> groupList);
 

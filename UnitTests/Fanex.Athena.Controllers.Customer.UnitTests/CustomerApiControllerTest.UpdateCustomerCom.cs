@@ -119,7 +119,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _customerCommService.Received(1).UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
+                    _customerCommService.Received(1).UpdateCustomersCommissionAsync(metaModel, metaModel.IsAllowedCS);
                     Assert.That(resultData.ExtendedData.GetValue("SBComm"), Is.EqualTo("15.00"));
                 });
             }
@@ -142,7 +142,7 @@
                     GroupId = 1,
                     SBComm = 0.05m
                 };
-                _groupComService.GetById(metaModel.GroupId).Returns(new GroupCommMetaModel
+                _groupComService.GetById(metaModel.GroupId, Arg.Any<int>()).Returns(new GroupCommMetaModel
                 {
                     SBComm = metaModel.SBComm
                 });
@@ -154,7 +154,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _customerCommService.DidNotReceiveWithAnyArgs().UpdateCustomersCommission(null, false);
+                    _customerCommService.DidNotReceiveWithAnyArgs().UpdateCustomersCommissionAsync(null, false);
                     Assert.That(resultData.Success, Is.False);
                     Assert.That(resultData.ErrorMessage, Is.EqualTo(ViewResources.MessageCommNoChange));
                 });

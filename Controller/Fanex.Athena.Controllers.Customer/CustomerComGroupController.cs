@@ -136,7 +136,7 @@
         [HttpGet]
         public async Task<ActionResult> Update(int groupId)
         {
-            var model = _groupComService.GetById(groupId);
+            var model = _groupComService.GetById(groupId, SessionService.LicenseeSession.LicenseeId);
             if (model == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -288,7 +288,7 @@
         private IResultInfo UpdateGroupComm(GroupCommMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            var currentGroup = _groupComService.GetById(metaModel.GroupCommId);
+            var currentGroup = _groupComService.GetById(metaModel.GroupCommId, metaModel.LicenseeId);
             if (currentGroup != null && !CustomerComGroupHelper.IsSameGroup(currentGroup, metaModel))
             {
                 var request = new Request

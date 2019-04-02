@@ -155,7 +155,7 @@
                 Assert.Multiple(() =>
                 {
                     _groupComService.Received().GetAll(LicenseeId);
-                    _groupComService.Received().GetById(GroupCommId);
+                    _groupComService.Received().GetById(GroupCommId, LicenseeId);
                 });
             }
         }

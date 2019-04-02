@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
     using Model.Customer.MetaModel;
@@ -13,39 +14,36 @@
     public partial class CustomerCommServiceTest
     {
         [Test]
-        public void RemoveCustomersFromGroup_CallApiSuccess_ReturnCorrectData()
+        public async Task RemoveCustomersFromGroupAsync_CallApiSuccess_ReturnCorrectData()
         {
             // Arrange
             var isAllowedRNGCasino = true;
             var metaModel = new RemoveFromGroupComMetaModel { Ip = FakeHelper.Create<string>(), IsRemovePlayercomm = true };
 
             var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
-
-            var userSession = new UserSession { UserName = FakeHelper.Create<string>(), UserId = FakeHelper.Create<int>() };
-            _sessionService.UserSession.Returns(userSession);
+            _customerCommDataAccess.RemoveCustomersFromGroupAsync(metaModel).Returns(Task.FromResult<IResultInfo>(expectedResult));
 
             _casinoCustomerService.UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>()).Returns(true);
 
             // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
+            var result = await _customerCommService.RemoveCustomersFromGroupAsync(metaModel, isAllowedRNGCasino);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void RemoveCustomersFromGroup_customerIdListIsEmpty_NoCallApi_ReturnCorrectData()
+        public async Task RemoveCustomersFromGroupAsync_customerIdListIsEmpty_NoCallApi_ReturnCorrectData()
         {
             // Arrange
             var isAllowedRNGCasino = true;
             var metaModel = new RemoveFromGroupComMetaModel { Ip = FakeHelper.Create<string>(), IsRemovePlayercomm = true };
 
             var expectedResult = new ResultInfo { ExtendedData = string.Empty };
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
+            _customerCommDataAccess.RemoveCustomersFromGroupAsync(metaModel).Returns(Task.FromResult<IResultInfo>(expectedResult));
 
             // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
+            var result = await _customerCommService.RemoveCustomersFromGroupAsync(metaModel, isAllowedRNGCasino);
 
             // Assert
             Assert.Multiple(() =>
@@ -56,17 +54,14 @@
         }
 
         [Test]
-        public void RemoveCustomersFromGroup_CallApiFailed_ReturnCorrectData()
+        public async Task RemoveCustomersFromGroupAsync_CallApiFailed_ReturnCorrectData()
         {
             // Arrange
             var isAllowedRNGCasino = true;
             var metaModel = new RemoveFromGroupComMetaModel { Ip = FakeHelper.Create<string>(), IsRemovePlayercomm = true };
 
             var resultInfo = new ResultInfo { ExtendedData = "1,2,3" };
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(resultInfo);
-
-            var userSession = new UserSession { UserName = FakeHelper.Create<string>(), UserId = FakeHelper.Create<int>() };
-            _sessionService.UserSession.Returns(userSession);
+            _customerCommDataAccess.RemoveCustomersFromGroupAsync(metaModel).Returns(Task.FromResult<IResultInfo>(resultInfo));
 
             _casinoCustomerService.UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>()).Returns(false);
 
@@ -77,7 +72,7 @@
             };
 
             // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
+            var result = await _customerCommService.RemoveCustomersFromGroupAsync(metaModel, isAllowedRNGCasino);
 
             // Assert
             Assert.Multiple(() =>
@@ -88,63 +83,63 @@
         }
 
         [Test]
-        public void RemoveCustomersFromGroup_RemoveFailed_ReturnCorrectData()
+        public async Task RemoveCustomersFromGroupAsync_RemoveFailed_ReturnCorrectData()
         {
             // Arrange
             var isAllowedRNGCasino = true;
             var expectedResult = new ResultInfo { Code = Math.Abs(FakeHelper.Create<int>()) + 1, Message = FakeHelper.Create<string>() };
-            _customerCommDataAccess.RemoveCustomersFromGroup(Arg.Any<RemoveFromGroupComMetaModel>()).Returns(expectedResult);
+            _customerCommDataAccess.RemoveCustomersFromGroupAsync(Arg.Any<RemoveFromGroupComMetaModel>()).Returns(Task.FromResult<IResultInfo>(expectedResult));
 
             // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(new RemoveFromGroupComMetaModel(), isAllowedRNGCasino);
+            var result = await _customerCommService.RemoveCustomersFromGroupAsync(new RemoveFromGroupComMetaModel(), isAllowedRNGCasino);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void RemoveCustomersFromGroup_IsRemovePlayercommInMetaModelIsFalse_ReturnCorrectData()
+        public async Task RemoveCustomersFromGroup_IsRemovePlayercommInMetaModelIsFalse_ReturnCorrectData()
         {
             // Arrange
             var isAllowedRNGCasino = true;
             var metaModel = new RemoveFromGroupComMetaModel { IsRemovePlayercomm = false };
             var expectedResult = FakeHelper.Create<ResultInfo>();
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
+            _customerCommDataAccess.RemoveCustomersFromGroupAsync(metaModel).Returns(Task.FromResult<IResultInfo>(expectedResult));
 
             // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
+            var result = await _customerCommService.RemoveCustomersFromGroupAsync(metaModel, isAllowedRNGCasino);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void RemoveCustomersFromGroup_IsAllowedRNGCasinoIsFalse_ReturnCorrectData()
+        public async Task RemoveCustomersFromGroup_IsAllowedRNGCasinoIsFalse_ReturnCorrectData()
         {
             // Arrange
             var isAllowedRNGCasino = false;
             var metaModel = new RemoveFromGroupComMetaModel { IsRemovePlayercomm = true };
             var expectedResult = FakeHelper.Create<ResultInfo>();
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
+            _customerCommDataAccess.RemoveCustomersFromGroupAsync(metaModel).Returns(Task.FromResult<IResultInfo>(expectedResult));
 
             // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
+            var result = await _customerCommService.RemoveCustomersFromGroupAsync(metaModel, isAllowedRNGCasino);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void RemoveCustomersFromGroup_ExtendedDataInResultIsEmpty_ReturnCorrectData()
+        public async Task RemoveCustomersFromGroup_ExtendedDataInResultIsEmpty_ReturnCorrectData()
         {
             // Arrange
             var isAllowedRNGCasino = true;
             var metaModel = new RemoveFromGroupComMetaModel { IsRemovePlayercomm = true };
             var expectedResult = new ResultInfo { ExtendedData = string.Empty };
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
+            _customerCommDataAccess.RemoveCustomersFromGroupAsync(metaModel).Returns(Task.FromResult<IResultInfo>(expectedResult));
 
             // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
+            var result = await _customerCommService.RemoveCustomersFromGroupAsync(metaModel, isAllowedRNGCasino);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

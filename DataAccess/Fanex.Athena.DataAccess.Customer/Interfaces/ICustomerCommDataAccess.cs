@@ -1,14 +1,15 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.Interfaces
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
 
     public interface ICustomerCommDataAccess
     {
-        IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel);
+        Task<IResultInfo> MoveCustomersToGroupAsync(MoveToGroupComMetaModel metaModel);
 
-        IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel);
+        Task<IResultInfo> RemoveCustomersFromGroupAsync(RemoveFromGroupComMetaModel metaModel);
 
-        IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel);
+        Task<IResultInfo> UpdateCustomersCommissionAsync(UpdatedCustomerComMetaModel metaModel);
     }
 }
