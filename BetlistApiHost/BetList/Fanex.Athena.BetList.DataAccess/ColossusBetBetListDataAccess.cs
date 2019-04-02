@@ -8,6 +8,7 @@ namespace Fanex.Athena.BetList.DataAccess
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using BetList.Model.ViewModel;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
@@ -38,12 +39,12 @@ namespace Fanex.Athena.BetList.DataAccess
             {
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("siteid", null);
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
                 return (int)db.GetParameterValue("siteid");
             }
         }
 
-        public ColossusBetDetailViewModel GetData(ColossusBetDetailMetaModel metaModel)
+        public async Task<ColossusBetDetailViewModel> GetData(ColossusBetDetailMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_CB_Detail";
 
@@ -52,7 +53,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("custid", metaModel.CustId);
                 db.SetParameterValue("refno", metaModel.RefNo);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadData(reader, _ticketHelper, metaModel.BaseCurrency);
                 }

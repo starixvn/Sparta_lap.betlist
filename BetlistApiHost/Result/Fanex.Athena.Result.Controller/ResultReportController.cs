@@ -5,6 +5,7 @@ namespace Fanex.Athena.Result.Controller
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
@@ -66,15 +67,15 @@ namespace Fanex.Athena.Result.Controller
         }
 
         [HttpPost]
-        public string Index(ResultMetaModel metalModel)
+        public async Task<string> Index(ResultMetaModel metalModel)
         {
             metalModel.IsExportExcel = false;
-            this.GetData(metalModel);
+            await this.GetData(metalModel).ConfigureAwait(false);
             return _htmlResult;
         }
 
         [HttpPost]
-        public void ResultExcel(ResultMetaModel metalModel)
+        public async Task ResultExcel(ResultMetaModel metalModel)
         {
             var response = ControllerContext.HttpContext.Response;
 
@@ -82,12 +83,12 @@ namespace Fanex.Athena.Result.Controller
             {
                 metalModel.IsExportExcel = true;
                 metalModel.SportId = metalModel.SportId == 0 ?
-                    GetSportId(metalModel.FromDate, metalModel.LicenseeId) :
+                    await GetSportId(metalModel.FromDate, metalModel.LicenseeId).ConfigureAwait(false) :
                     metalModel.SportId;
 
                 if (metalModel.SportId > 0)
                 {
-                    GetData(metalModel);
+                    await GetData(metalModel).ConfigureAwait(false);
                 }
 
                 if (_excelStream == null)
@@ -107,16 +108,16 @@ namespace Fanex.Athena.Result.Controller
         }
 
         [HttpPost]
-        public ActionResult GetSports(GetSportResultMetaModel metalModel)
+        public async Task<ActionResult> GetSports(GetSportResultMetaModel metalModel)
         {
             if (metalModel.IsOutRight)
             {
-                return GetOutRightSports(metalModel);
+                return await GetOutRightSports(metalModel).ConfigureAwait(false);
             }
 
             return metalModel.SportId == 0 ?
-                GetNormalSports(metalModel) :
-                Json(new { Leagues = _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId) });
+                await GetNormalSports(metalModel).ConfigureAwait(false) :
+                Json(new { Leagues = await _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId).ConfigureAwait(false) });
         }
 
         #endregion Result-Page
@@ -124,9 +125,9 @@ namespace Fanex.Athena.Result.Controller
         #region PopUpPage
 
         [HttpPost]
-        public string ResultPopup(ResultPopupMetaModel metalModel)
+        public async Task<string> ResultPopup(ResultPopupMetaModel metalModel)
         {
-            GetPopUpData(metalModel);
+            await GetPopUpData(metalModel).ConfigureAwait(false);
             return _htmlResult;
         }
 
@@ -151,9 +152,9 @@ namespace Fanex.Athena.Result.Controller
         /// /// <param name="sportType">The sport type.</param>
         /// <returns>The html result.</returns>
         [HttpPost]
-        public string ResultDetail(int matchId, int sportType, string languageCode)
+        public async Task<string> ResultDetail(int matchId, int sportType, string languageCode)
         {
-            var detailedData = _resultService.GetSportsbookGameDetail(matchId);
+            var detailedData = await _resultService.GetSportsbookGameDetail(matchId).ConfigureAwait(false);
             if (detailedData != null && detailedData.MatchId > 0)
             {
                 return _resultService.HtmlGameDetailParser(
@@ -205,7 +206,7 @@ namespace Fanex.Athena.Result.Controller
         /// Get data for pop-up page.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
-        private void GetPopUpData(ResultPopupMetaModel metalModel)
+        private async Task GetPopUpData(ResultPopupMetaModel metalModel)
         {
             var sportType = (SportType)metalModel.SportType;
             var setting = new ResultSetting
@@ -222,19 +223,19 @@ namespace Fanex.Athena.Result.Controller
             {
                 if (metalModel.RefNo != null)
                 {
-                    var parlayData = _resultService.GetPopUpParlayMatch(metalModel.RefNo.Value);
+                    var parlayData = await _resultService.GetPopUpParlayMatch(metalModel.RefNo.Value).ConfigureAwait(false);
                     _htmlResult = _resultService.HtmlParser(parlayData, setting);
                 }
             }
             else
             {
-                GetNormalPopUpData(metalModel, sportType, setting);
+                await GetNormalPopUpData(metalModel, sportType, setting).ConfigureAwait(false);
             }
         }
 
 #pragma warning disable S1541 // Methods and properties should not be too complex
 
-        private void GetNormalPopUpData(ResultPopupMetaModel metalModel, SportType sportType, ResultSetting setting)
+        private async Task GetNormalPopUpData(ResultPopupMetaModel metalModel, SportType sportType, ResultSetting setting)
 #pragma warning restore S1541 // Methods and properties should not be too complex
         {
             switch (sportType)
@@ -246,7 +247,7 @@ namespace Fanex.Athena.Result.Controller
                 case SportType.VirtualCycling:
                     if (metalModel.RaceNo != null)
                     {
-                        var dataRc = _resultService.GetPopUpVirtualSportMatch(metalModel);
+                        var dataRc = await _resultService.GetPopUpVirtualSportMatch(metalModel).ConfigureAwait(false);
                         if (dataRc != null)
                         {
                             this._htmlResult = _resultService.HtmlParser(dataRc, setting);
@@ -256,7 +257,7 @@ namespace Fanex.Athena.Result.Controller
                     break;
 
                 case SportType.NumberGame:
-                    var dataNg = _resultService.GetPopUpNumberGameMatchs(metalModel.MatchId);
+                    var dataNg = await _resultService.GetPopUpNumberGameMatchs(metalModel.MatchId).ConfigureAwait(false);
                     if (dataNg != null)
                     {
                         _htmlResult = _resultService.HtmlParser(dataNg, setting);
@@ -265,7 +266,7 @@ namespace Fanex.Athena.Result.Controller
                     break;
 
                 case SportType.Happy5:
-                    var dataHappy5 = _resultService.GetPopUpHappy5Matches(metalModel.MatchId);
+                    var dataHappy5 = await _resultService.GetPopUpHappy5Matches(metalModel.MatchId).ConfigureAwait(false);
                     if (dataHappy5 != null)
                     {
                         _htmlResult = _resultService.HtmlParser(dataHappy5, setting);
@@ -274,7 +275,7 @@ namespace Fanex.Athena.Result.Controller
                     break;
 
                 default:
-                    var data = _resultService.GetPopUpMatch(metalModel);
+                    var data = await _resultService.GetPopUpMatch(metalModel).ConfigureAwait(false);
                     if (data != null)
                     {
                         _htmlResult = _resultService.HtmlParser(data, setting);
@@ -288,9 +289,9 @@ namespace Fanex.Athena.Result.Controller
 
         #region spots list
 
-        private JsonResult GetNormalSports(GetSportResultMetaModel metalModel)
+        private async Task<JsonResult> GetNormalSports(GetSportResultMetaModel metalModel)
         {
-            var sports = _resultService.GetSports(metalModel.FromDate, metalModel.LicenseeId);
+            var sports = await _resultService.GetSports(metalModel.FromDate, metalModel.LicenseeId).ConfigureAwait(false);
             if (sports.Any())
             {
                 var productCodes = metalModel.ProductCodeList.Split(',');
@@ -301,7 +302,7 @@ namespace Fanex.Athena.Result.Controller
 
                 if (limitedSports.Any())
                 {
-                    var leagues = _resultService.GetLeagues(metalModel.FromDate, limitedSports.First().SportId);
+                    var leagues = await _resultService.GetLeagues(metalModel.FromDate, limitedSports.First().SportId).ConfigureAwait(false);
                     return Json(new { Sports = limitedSports, Leagues = leagues });
                 }
             }
@@ -309,10 +310,10 @@ namespace Fanex.Athena.Result.Controller
             return Json(string.Empty);
         }
 
-        private JsonResult GetOutRightSports(ResultMetaModel metalModel)
+        private async Task<JsonResult> GetOutRightSports(ResultMetaModel metalModel)
         {
             var cacheKey = GenerateOutRightCacheKey(metalModel);
-            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? _resultService.GetOutRight(metalModel);
+            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? await _resultService.GetOutRight(metalModel).ConfigureAwait(false);
             if (outRightData != null && outRightData.Count > 0)
             {
                 var sports = outRightData.Where(i => i.SportType == metalModel.SportId || metalModel.SportId == 0)
@@ -345,17 +346,17 @@ namespace Fanex.Athena.Result.Controller
 
         #region main-page
 
-        private int GetSportId(DateTime fromDate, int licenseeId)
+        private async Task<int> GetSportId(DateTime fromDate, int licenseeId)
         {
-            var sports = _resultService.GetSports(fromDate, licenseeId);
+            var sports = await _resultService.GetSports(fromDate, licenseeId).ConfigureAwait(false);
             return sports.Any() ? sports[0].SportId : 0;
         }
 
-        private void GetOutRightData(ResultMetaModel metalModel)
+        private async Task GetOutRightData(ResultMetaModel metalModel)
         {
             var setting = GetOutRightResultSetting(metalModel.LanguageCode);
             var cacheKey = GenerateOutRightCacheKey(metalModel);
-            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? _resultService.GetOutRight(metalModel);
+            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? await _resultService.GetOutRight(metalModel).ConfigureAwait(false);
             if (outRightData != null)
             {
                 var data =
@@ -377,7 +378,7 @@ namespace Fanex.Athena.Result.Controller
 
 #pragma warning disable S1541 // Methods and properties should not be too complex
 
-        private void GetNormalData(ResultMetaModel metalModel)
+        private async Task GetNormalData(ResultMetaModel metalModel)
 #pragma warning restore S1541 // Methods and properties should not be too complex
         {
             var setting = GetNormalResultSetting(metalModel);
@@ -388,22 +389,22 @@ namespace Fanex.Athena.Result.Controller
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualCycling:
                 case SportType.VirtualSpeedway:
-                    var dataRc = _resultService.GetVirtualSportMatches(metalModel);
+                    var dataRc = await _resultService.GetVirtualSportMatches(metalModel).ConfigureAwait(false);
                     ParseResult(dataRc, setting, metalModel.IsExportExcel);
                     break;
 
                 case SportType.NumberGame:
-                    var dataNg = _resultService.GetNumberGameMatches(metalModel);
+                    var dataNg = await _resultService.GetNumberGameMatches(metalModel).ConfigureAwait(false);
                     ParseResult(dataNg, setting, metalModel.IsExportExcel);
                     break;
 
                 case SportType.Happy5:
-                    var dataHappy5 = _resultService.GetHappy5Matches(metalModel);
+                    var dataHappy5 = await _resultService.GetHappy5Matches(metalModel).ConfigureAwait(false);
                     ParseResult(dataHappy5, setting, metalModel.IsExportExcel);
                     break;
 
                 default:
-                    var data = _resultService.GetMatches(metalModel);
+                    var data = await _resultService.GetMatches(metalModel).ConfigureAwait(false);
                     ParseResult(data, setting, metalModel.IsExportExcel);
                     break;
             }
@@ -471,15 +472,15 @@ namespace Fanex.Athena.Result.Controller
         /// Get data from service layer.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
-        private void GetData(ResultMetaModel metalModel)
+        private async Task GetData(ResultMetaModel metalModel)
         {
             if (metalModel.IsOutRight)
             {
-                this.GetOutRightData(metalModel);
+                await this.GetOutRightData(metalModel).ConfigureAwait(false);
             }
             else
             {
-                this.GetNormalData(metalModel);
+                await this.GetNormalData(metalModel).ConfigureAwait(false);
             }
         }
 

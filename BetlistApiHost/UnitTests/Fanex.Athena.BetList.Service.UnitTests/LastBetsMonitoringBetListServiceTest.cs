@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess.Interfaces;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
@@ -39,7 +40,7 @@
         [TestCase(BetType.Outright)]
         [TestCase(BetType.Handicap)]
         [TestCase(BetType.Win)]
-        public void GetLastBetsMonitoringData_MatchDataIsNotCached_TicketIsAssignedDataCorrectlyFromDBMatchList(BetType betType)
+        public async Task GetLastBetsMonitoringData_MatchDataIsNotCached_TicketIsAssignedDataCorrectlyFromDBMatchList(BetType betType)
         {
             // Arrange
             var match = FakeHelper.Create<BetListMatch>();
@@ -58,7 +59,7 @@
                 .Returns(new List<BetListMatch> { match });
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(
+            var result = await _betListService.GetLastBetsMonitoringData(
                 new LastBetsMonitoringMetaModel
                 {
                     OddsType = string.Empty
@@ -80,7 +81,7 @@
         [TestCase(BetType.WinPlace)]
         [TestCase(BetType.Place)]
         [TestCase(BetType.OddEven)]
-        public void GetLastBetsMonitoringData_MatchDataIsCached_TicketIsAssignedDataCorrectlyFromCachedMatchList(BetType betType)
+        public async Task GetLastBetsMonitoringData_MatchDataIsCached_TicketIsAssignedDataCorrectlyFromCachedMatchList(BetType betType)
         {
             // Arrange
             var match = FakeHelper.Create<BetListMatch>();
@@ -98,7 +99,7 @@
             _lastBetsMonitoringBetListDataAccess.GetMatchList(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty }, _currencyList);
+            var result = await _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty }, _currencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -189,7 +190,7 @@
         [TestCase(OddsType.American, 4, 2)]
         [TestCase(OddsType.American, 1.31, 2.31)]
         [TestCase("0", 5, 5)]
-        public void GetLastBetsMonitoringData_WhenCall_OddsIsConvertedToDecimal(string oddsType, decimal oddsValue, decimal expectedValue)
+        public async Task GetLastBetsMonitoringData_WhenCall_OddsIsConvertedToDecimal(string oddsType, decimal oddsValue, decimal expectedValue)
         {
             // Arrange
             var ticketResult = new TicketResult();
@@ -208,7 +209,7 @@
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(
+            var result = await _betListService.GetLastBetsMonitoringData(
                 new LastBetsMonitoringMetaModel
                 {
                     OddsType = "dec"
@@ -225,7 +226,7 @@
         [TestCase(OddsType.American, 0, 0)]
         [TestCase(OddsType.Hongkong, 2, -0.5)]
         [TestCase(OddsType.Indo, 2, 2)]
-        public void GetLastBetsMonitoringData_WhenCall_OddsIsConvertedToMy(string oddsType, decimal oddsValue, decimal expectedValue)
+        public async Task GetLastBetsMonitoringData_WhenCall_OddsIsConvertedToMy(string oddsType, decimal oddsValue, decimal expectedValue)
         {
             // Arrange
             var ticketResult = new TicketResult();
@@ -244,7 +245,7 @@
             _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(
+            var result = await _betListService.GetLastBetsMonitoringData(
                 new LastBetsMonitoringMetaModel
                 {
                     OddsType = "my"
@@ -256,7 +257,7 @@
         }
 
         [Test]
-        public void GetLastBetsMonitoringData_WhenCallWithTimeZoneGreaterThanNegativeNumber4_TransDateOfTicketUpdateValue()
+        public async Task GetLastBetsMonitoringData_WhenCallWithTimeZoneGreaterThanNegativeNumber4_TransDateOfTicketUpdateValue()
         {
             // Arrange
             var ticketResult = new TicketResult();
@@ -277,7 +278,7 @@
             var expectedResult = new DateTime(2017, 3, 17, 4, 0, 0);
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(
+            var result = await _betListService.GetLastBetsMonitoringData(
                 new LastBetsMonitoringMetaModel
                 {
                     OddsType = "my",
@@ -290,7 +291,7 @@
         }
 
         [Test]
-        public void GetLastBetsMonitoringData_WhenCallWithTimeZoneLessThanNegativeNumber4_TransDateOfTicketUpdateValue()
+        public async Task GetLastBetsMonitoringData_WhenCallWithTimeZoneLessThanNegativeNumber4_TransDateOfTicketUpdateValue()
         {
             // Arrange
             var ticketResult = new TicketResult();
@@ -311,7 +312,7 @@
             var expectedResult = new DateTime(2017, 3, 17, 0, 0, 0);
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(
+            var result = await _betListService.GetLastBetsMonitoringData(
                 new LastBetsMonitoringMetaModel
                 {
                     OddsType = "my",

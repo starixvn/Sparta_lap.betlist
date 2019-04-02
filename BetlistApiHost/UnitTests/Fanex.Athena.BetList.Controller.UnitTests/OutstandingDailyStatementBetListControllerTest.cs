@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Model.DTO;
     using Model.MetaModel;
@@ -24,7 +25,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectData()
+        public async Task GetData_WhenCall_ReturnCorrectData()
         {
             using (var controller = new OutstandingDailyStatementBetListController(_dailyStatementBetListDataAccess))
             {
@@ -35,7 +36,7 @@
                 _dailyStatementBetListDataAccess.GetDailyStatementData(metaModel).Returns(dataList);
 
                 // Action
-                var result = controller.GetData(metaModel).Data;
+                var result = (await controller.GetData(metaModel)).Data;
                 var main = result.GetType().GetProperty("Main").GetValue(result, null);
                 var total = result.GetType().GetProperty("Total").GetValue(result, null);
 

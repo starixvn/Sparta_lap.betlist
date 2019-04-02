@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import BetListPopupLayout from "../../../layouts/BetListPopupLayout"
 import NoDataTitle from '../../../components/NoDataTitle'
-import { Table, Row, Cell } from '../../../components/fixed-table-header'
+import { Table, HeaderRow, HeaderCell, Row, Cell } from '@9softstudio/react-grid'
 import Popup from '../../../components/popup'
 import BetListDetail from './BetListDetail'
 import Report from '../../../lib/report'
@@ -35,18 +35,18 @@ export class BetList extends Component {
 
     _buildHeader() {
         return (
-            <Row style={{ height: 32 }}>
-                <Cell colWidth={40} header={true}>{"#"}</Cell>
-                <Cell colWidth={300} header={true}>{LangHelper.getSingleResource("Market")}</Cell>
-                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("BetId")}</Cell>
-                <Cell colWidth={120} header={true}>{LangHelper.getSingleResource("Selection")}</Cell>
-                <Cell colWidth={50} header={true}>{LangHelper.getSingleResource("Type")}</Cell>
-                <Cell colWidth={100} header={true}>{LangHelper.getSingleResource("BetPlaced")}</Cell>
-                <Cell colWidth={60} header={true}>{LangHelper.getSingleResource("OddsAvg")}</Cell>
-                <Cell colWidth={80} header={true}>{LangHelper.getSingleResource("Stake")}</Cell>
-                <Cell colWidth={80} header={true}>{LangHelper.getSingleResource("WinLoss")}</Cell>
-                <Cell colWidth={100} header={true}>{LangHelper.getSingleResource("WL")}/{LangHelper.getSingleResource("Comm")}</Cell>
-            </Row>
+            <HeaderRow style={{ height: 32 }}>
+                <HeaderCell colWidth={40}>{"#"}</HeaderCell>
+                <HeaderCell colWidth={300}>{LangHelper.getSingleResource("Market")}</HeaderCell>
+                <HeaderCell colWidth={70}>{LangHelper.getSingleResource("BetId")}</HeaderCell>
+                <HeaderCell colWidth={120}>{LangHelper.getSingleResource("Selection")}</HeaderCell>
+                <HeaderCell colWidth={50}>{LangHelper.getSingleResource("Type")}</HeaderCell>
+                <HeaderCell colWidth={100}>{LangHelper.getSingleResource("BetPlaced")}</HeaderCell>
+                <HeaderCell colWidth={60}>{LangHelper.getSingleResource("OddsAvg")}</HeaderCell>
+                <HeaderCell colWidth={80}>{LangHelper.getSingleResource("Stake")}</HeaderCell>
+                <HeaderCell colWidth={80}>{LangHelper.getSingleResource("WinLoss")}</HeaderCell>
+                <HeaderCell colWidth={100}>{LangHelper.getSingleResource("WL")}/{LangHelper.getSingleResource("Comm")}</HeaderCell>
+            </HeaderRow>
         )
     }
 
@@ -76,7 +76,7 @@ export class BetList extends Component {
                             <a href="javascript:;" onClick={() => this._showTicketDetail(BetId, Type)}>{BetId}</a>
                         </Cell>
                         <Cell title={SelectionName} className="center-align">{SelectionName}</Cell>
-                        <Cell title={Type} className={`center-align ${Type.toLowerCase() === "lay" && "negative"}`}>{Type}</Cell>
+                        <Cell title={Type} className={`center-align ${Type.toLowerCase() === "lay" ? "negative" : ""}`}>{Type}</Cell>
                         <Cell title={BetPlacedDateString} className="center-align">{BetPlacedDateString}</Cell>
                         <Cell title={OddsAvgString} className="right-align">{OddsAvgString}</Cell>
                         <Cell title={StakeString} className="right-align">{NumberFormat.formatDecimal(Stake)}</Cell>
@@ -84,9 +84,9 @@ export class BetList extends Component {
                         {
                             isFirstRow &&
                             <Cell title={`${WinLostSumString}/${CommissionString}`} rowSpan={dataDetailCount} className="right-align">
-                                <span className={WinLost < 0 && "negative"}>{WinLostSumString}</span>
+                                <span className={WinLost < 0 ? "negative" : ""}>{WinLostSumString}</span>
                                 <br />
-                                <span className={Commission < 0 && "negative"}>{CommissionString}</span>
+                                <span className={Commission < 0 ? "negative" : ""}>{CommissionString}</span>
                             </Cell>}
                     </Row>
                 );
@@ -127,7 +127,7 @@ export class BetList extends Component {
         return [
             <Row key="betlist-footer">
                 <Cell colSpan='9' className="right-align">{LangHelper.getSingleResource("GrandTotal")}</Cell>
-                <Cell title={GrandTotalString} className={`right-align ${this.props.data.GrandTotal < 0 && "negative"}`}>{GrandTotalString}</Cell>
+                <Cell title={GrandTotalString} className={`right-align ${this.props.data.GrandTotal < 0 ? "negative" : ""}`}>{GrandTotalString}</Cell>
             </Row >
                 ]
                 }

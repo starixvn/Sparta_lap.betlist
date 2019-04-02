@@ -1,12 +1,12 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.Interfaces;
     using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
-    using Common.Utility.Services.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -15,7 +15,6 @@
         private const string BetListByRefnoUspKey = "Lrf_BetList_RefNo_Mem";
         private const string RunningBetListUspKey = "Lrf_BetList_Running";
         private const string BetListBySingleCustomerUspKey = "Lrf_BetList_Mem";
-        private const string BetListByMultiCustomerUspKey = "Lrf_BetList_Licensee";
 
         private static readonly BalanceUp BalanceUp = new BalanceUp
         {
@@ -28,22 +27,21 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
             DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(
-                balanceUpDataAccess,
-                Substitute.For<ITempFileService>());
+                balanceUpDataAccess);
         }
 
         [Test]
-        public void GetBetListByRefno_WhenCall_ParameterIsPassesCorrectly()
+        public async Task GetBetListByRefno_WhenCall_ParameterIsPassesCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListByRefnoUspKey)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader().Returns(Reader);
+            ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
 
             var metaModel = new RefNoBetListMetaModel();
 
             // Action
-            DataAccess.GetBetListByRefno(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListByRefno(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>

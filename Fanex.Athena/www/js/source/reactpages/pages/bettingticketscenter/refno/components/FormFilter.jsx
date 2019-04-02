@@ -6,6 +6,7 @@ import Select from 'react-select'
 import { DateRange } from '@jsroot/components/date-range/index'
 import AutoComplete from '@jsroot/components/auto-complete'
 import CheckBox from '@jsroot/components/CheckBox'
+import CollapsiblePanel from '@jsroot/components/collapsible-panel'
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '@jsroot/lib/langHelper'
 import Site from '@jsroot/lib/site'
@@ -91,13 +92,15 @@ export class FormFilter extends Component {
     }
 
     render() {
+        const excelButton = <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+
         return (
-            <div className="page-filter">
+            <CollapsiblePanel className="page-filter" stickyFooter={excelButton}>
                 <div className="row">
                     <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("RefNo")} *</label>
-                            <input className="input-text" id="RefNo" name="RefNo" type="text" value={this.props.refno} placeholder={LangHelper.getSingleResource("RefNo")}
+                            <input className="input-text" id="RefNo" name="RefNo" type="number" value={this.props.refno} placeholder={LangHelper.getSingleResource("RefNo")}
                                 onChange={(event) => this.props.setRefno(event.target.value)} />
                         </div>
                     </div>
@@ -137,11 +140,6 @@ export class FormFilter extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="caret-block">
-                        <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
-                    </div>
-               </div>
-                <div className="row">
                     <div className="col-1" style={{flex: "0 0 4%"}}>
                     {LangHelper.getSingleResource('Note')}:
                         </div>
@@ -151,7 +149,7 @@ export class FormFilter extends Component {
                             * {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote2').replace('{0}', AppData.balanceUpDay)}
                         </div>
                </div>
-            </div>
+            </CollapsiblePanel>
         )
     }
 }

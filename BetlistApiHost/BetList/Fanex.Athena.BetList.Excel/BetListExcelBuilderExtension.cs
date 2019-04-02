@@ -62,10 +62,12 @@ namespace Fanex.Athena.BetList.Excel
             this IBetListExcelBuilder builder,
             decimal sumStake)
         {
+            const int SumStakeColIndex = 6;
+
             var footerStyle = builder.CreateFooterCellStyle();
 
             var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < SumStakeColIndex; i++)
             {
                 builder.AddCell(rtfTotal, footerStyle);
             }
@@ -80,7 +82,7 @@ namespace Fanex.Athena.BetList.Excel
             builder.AddCell(emptyText, footerStyle);
 
             var lastRowIndex = builder.LastContentRow;
-            builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, 5), footerStyle);
+            builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, SumStakeColIndex - 1), footerStyle);
 
             return builder;
         }
@@ -93,10 +95,12 @@ namespace Fanex.Athena.BetList.Excel
             IFont redFont,
             IFont blackFont)
         {
+            const int StartFooterContentIndex = 7;
+
             var footerStyle = builder.CreateFooterCellStyle();
 
             var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < StartFooterContentIndex; i++)
             {
                 builder.AddCell(rtfTotal, footerStyle);
             }
@@ -113,7 +117,7 @@ namespace Fanex.Athena.BetList.Excel
             builder.AddCell(new HSSFRichTextString(), footerStyle);
 
             var lastRowIndex = builder.LastContentRow;
-            builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, 6), footerStyle);
+            builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, StartFooterContentIndex - 1), footerStyle);
 
             return builder;
         }
@@ -202,9 +206,11 @@ namespace Fanex.Athena.BetList.Excel
 
         public static ICellStyle CreateHeaderCellStyle(this IBetListExcelBuilder builder)
         {
+            const short HeaderForegroundColor = 44;
+
             var style = builder.CreateCellStyle();
             style.CloneStyleFrom(builder.EvenCellStyle);
-            style.FillForegroundColor = 44;
+            style.FillForegroundColor = HeaderForegroundColor;
             style.Alignment = HorizontalAlignment.Center;
             style.VerticalAlignment = VerticalAlignment.Center;
             style.SetFont(builder.RTFHelper.PosFont);
@@ -213,9 +219,11 @@ namespace Fanex.Athena.BetList.Excel
 
         public static ICellStyle CreateFooterCellStyle(this IBetListExcelBuilder builder)
         {
+            const short FooterForegroundColor = 47;
+
             var style = builder.CreateCellStyle();
             style.CloneStyleFrom(builder.EvenCellStyle);
-            style.FillForegroundColor = 47;
+            style.FillForegroundColor = FooterForegroundColor;
             style.Alignment = HorizontalAlignment.Right;
             style.BorderTop = BorderStyle.None;
             style.BorderLeft = BorderStyle.None;

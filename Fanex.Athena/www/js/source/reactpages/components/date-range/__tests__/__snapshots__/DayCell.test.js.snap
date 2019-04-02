@@ -27,7 +27,6 @@ exports[`DayCell render onlyClasses is false - render correct content 1`] = `
 exports[`DayCell render onlyClasses is true - render correct content 1`] = `
 <span
   onClick={[Function]}
-  style={undefined}
 >
   <span
     className="day"
@@ -35,7 +34,6 @@ exports[`DayCell render onlyClasses is true - render correct content 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
     onMouseUp={[Function]}
-    style={undefined}
   >
     22
   </span>

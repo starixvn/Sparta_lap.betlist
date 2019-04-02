@@ -51,37 +51,37 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var viewParam = CreateDefaultMetaModel();
 
             SetConvetedUSDCurrencyName(viewParam);
 
-            var model = CreateViewModel(viewParam);
+            var model = await CreateViewModel(viewParam).ConfigureAwait(false);
 
             return View("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
             if (metaModel.IsExportExcel)
             {
-                return Excel(metaModel);
+                return await Excel(metaModel).ConfigureAwait(false);
             }
 
             var viewParam = CreateDefaultMetaModel(metaModel);
 
-            var model = CreateViewModel(viewParam);
+            var model = await CreateViewModel(viewParam).ConfigureAwait(false);
 
             return View("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
-        private CancelledBetsBetListViewModel CreateViewModel(BetListMetaModel metaModel)
+        private async Task<CancelledBetsBetListViewModel> CreateViewModel(BetListMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var customers = GetData(metaModel).Result;
+            var customers = await GetData(metaModel).ConfigureAwait(true);
 
             if (customers.Any())
             {
@@ -100,7 +100,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
         }
 
-        private ActionResult Excel(BetListExcelMetaModel metaModel)
+        private async Task<ActionResult> Excel(BetListExcelMetaModel metaModel)
         {
             if (metaModel.CurrencyId == BaseCurrencyType.All ||
                 SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
@@ -116,7 +116,7 @@ namespace Fanex.Athena.Controllers.BetList
                 };
                 metaModel.HiddenColumns = HiddenColumnIndexes;
                 metaModel.Title = $"{ViewResources.CancelledBets} - {currencyTitle}";
-                return ProcessExportExcel(metaModel, "CancelledBetList");
+                return await ProcessExportExcel(metaModel, "CancelledBetList").ConfigureAwait(false);
             }
 
             return EmptyExcel();

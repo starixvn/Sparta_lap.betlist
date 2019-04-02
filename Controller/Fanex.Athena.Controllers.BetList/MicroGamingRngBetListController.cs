@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Mvc;
@@ -37,10 +38,10 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Detail(BetListExcelMetaModel metaModel)
         {
             CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/MicroGamingRngDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
+            return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/MicroGamingRngDetail/Main.cshtml", "Lrf_BetList_RNG_Detail").ConfigureAwait(false);
         }
 
         protected override void AssignViewBag(BetListMetaModel model)
@@ -48,7 +49,7 @@ namespace Fanex.Athena.Controllers.BetList
             ViewBag.BetListTitle = GetTitle(model.TransType);
         }
 
-        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
+        protected override async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.ShowingOption = new BetListShowingOption
             {
@@ -58,7 +59,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             metaModel.Title = GetTitle(metaModel.TransType);
             metaModel.HiddenColumns = HiddenColumns;
-            return ProcessExportExcel(metaModel, "MicrogamingRNGDetail");
+            return await ProcessExportExcel(metaModel, "MicrogamingRNGDetail").ConfigureAwait(false);
         }
 
         private static string GetTitle(long transType)

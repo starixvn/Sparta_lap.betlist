@@ -81,7 +81,7 @@ define([
 
             $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function () {
                 var $currentMenuItem = $(this);
-                document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $currentMenuItem.text();
+                document.title = 'LAP' + ' - ' + $(".active > .menu-title").text() + ' - ' + $currentMenuItem.text();
 
                 var isCancelledBetListMenu = $currentMenuItem.prop("id") === "MenuItem36";
                 if (isCancelledBetListMenu) {
@@ -146,7 +146,7 @@ define([
             var menuItemName = $menuItem.length > 0 ? $menuItem.text() : "";
             $("#page-title").text(menuItemName);
 
-            document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + menuItemName;
+            document.title = 'LAP' + ' - ' + $(".active > .menu-title").text() + ' - ' + menuItemName;
         }
 
         function checkMoveBetNotification() {

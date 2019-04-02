@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import { Table, Row, Cell } from '../../../components/fixed-table-header'
+import { Table, HeaderRow, HeaderCell, Row, Cell } from '@9softstudio/react-grid'
 import NumberFormat from '../../../lib/numberFormat'
 import ReportTitle from '../../../components/ReportTitle'
 import { Service, TotalText, HeaderText, BreadcrumbText } from '../lib/service'
@@ -127,45 +127,45 @@ export class DataGrid extends Component {
         let headerRows = [];
 
         headerRows.push(
-            <Row style={{ height: 32 }} key='tr-header1'>
-                <Cell colWidth={30} header={true} title={HeaderText.index} rowSpan='2'>{HeaderText.index}</Cell>
-                {level === ReportLevel.MAIN && <Cell colWidth={100} header={true} title={reportBy === ReportBy.DAILY ? HeaderText.date : HeaderText.month} rowSpan='2'>{reportBy === ReportBy.DAILY ? HeaderText.date : HeaderText.month}</Cell>}
-                {level === ReportLevel.CUSTOMER && <Cell colWidth={100} header={true} title={HeaderText.externalId} rowSpan='2'>{HeaderText.externalId}</Cell>}
-                {level !== ReportLevel.MAIN && <Cell colWidth={100} header={true} title={HeaderText.systemId} rowSpan='2'>{HeaderText.systemId}</Cell>}
-                <Cell colWidth={70} header={true} title={HeaderText.currency} rowSpan='2'>{HeaderText.currency}</Cell>
-                <Cell colWidth={100} header={true} title={HeaderText.turnover} rowSpan='2'>{HeaderText.turnover}</Cell>
-                <Cell colWidth={100} header={true} title={HeaderText.netTurnover} rowSpan='2'>{HeaderText.netTurnover}</Cell>
-                <Cell colWidth={80} header={true} title={HeaderText.totalTransaction} rowSpan='2'>{HeaderText.totalTransaction}</Cell>
+            <HeaderRow style={{ height: 32 }} key='tr-header1'>
+                <HeaderCell colWidth={30} title={HeaderText.index} rowSpan='2'>{HeaderText.index}</HeaderCell>
+                {level === ReportLevel.MAIN && <HeaderCell colWidth={100} title={reportBy === ReportBy.DAILY ? HeaderText.date : HeaderText.month} rowSpan='2'>{reportBy === ReportBy.DAILY ? HeaderText.date : HeaderText.month}</HeaderCell>}
+                {level === ReportLevel.CUSTOMER && <HeaderCell colWidth={100} title={HeaderText.externalId} rowSpan='2'>{HeaderText.externalId}</HeaderCell>}
+                {level !== ReportLevel.MAIN && <HeaderCell colWidth={100} title={HeaderText.systemId} rowSpan='2'>{HeaderText.systemId}</HeaderCell>}
+                <HeaderCell colWidth={70} title={HeaderText.currency} rowSpan='2'>{HeaderText.currency}</HeaderCell>
+                <HeaderCell colWidth={100} title={HeaderText.turnover} rowSpan='2'>{HeaderText.turnover}</HeaderCell>
+                <HeaderCell colWidth={100} title={HeaderText.netTurnover} rowSpan='2'>{HeaderText.netTurnover}</HeaderCell>
+                <HeaderCell colWidth={80} title={HeaderText.totalTransaction} rowSpan='2'>{HeaderText.totalTransaction}</HeaderCell>
                 {
                     this.isAllowedCustomerComm
-                        ? <Cell colWidth={100} header={true} title={HeaderText.customer} colSpan='3'>{HeaderText.customer}</Cell>
-                        : <Cell colWidth={100} header={true} title={HeaderText.customerWL} rowSpan='2'>{HeaderText.customerWL}</Cell>
+                        ? <HeaderCell colWidth={100} title={HeaderText.customer} colSpan='3'>{HeaderText.customer}</HeaderCell>
+                        : <HeaderCell colWidth={100} title={HeaderText.customerWL} rowSpan='2'>{HeaderText.customerWL}</HeaderCell>
                 }
-                <Cell colWidth={100} header={true} title={HeaderText.licensee} colSpan='4'>{HeaderText.licensee}</Cell>
-            </Row>
+                <HeaderCell colWidth={100} title={HeaderText.licensee} colSpan='4'>{HeaderText.licensee}</HeaderCell>
+            </HeaderRow>
         );
 
         if (this.isAllowedCustomerComm) {
             headerRows.push(
-                <Row style={{ height: 32 }} key='tr-header2'>
-                    <Cell colWidth={100} header={true} title={HeaderText.customerWL}>{HeaderText.customerWL}</Cell>
-                    <Cell colWidth={100} header={true} title={HeaderText.customerComm}>{HeaderText.customerComm}</Cell>
-                    <Cell colWidth={100} header={true} title={HeaderText.total}>{HeaderText.total}</Cell>
-                    <Cell colWidth={100} header={true} title={HeaderText.licenseeWL}>{HeaderText.licenseeWL}</Cell>
-                    <Cell colWidth={100} header={true} title={HeaderText.amountDueTo}>{HeaderText.amountDueTo}</Cell>
-                    <Cell colWidth={100} header={true} title={HeaderText.licenseeComm}>{HeaderText.licenseeComm}</Cell>
-                    <Cell colWidth={100} header={true} title={HeaderText.total}>{HeaderText.total}</Cell>
-                </Row>
+                <HeaderRow style={{ height: 32 }} key='tr-header2'>
+                    <HeaderCell colWidth={100} title={HeaderText.customerWL}>{HeaderText.customerWL}</HeaderCell>
+                    <HeaderCell colWidth={100} title={HeaderText.customerComm}>{HeaderText.customerComm}</HeaderCell>
+                    <HeaderCell colWidth={100} title={HeaderText.total}>{HeaderText.total}</HeaderCell>
+                    <HeaderCell colWidth={100} title={HeaderText.licenseeWL}>{HeaderText.licenseeWL}</HeaderCell>
+                    <HeaderCell colWidth={100} title={HeaderText.amountDueTo}>{HeaderText.amountDueTo}</HeaderCell>
+                    <HeaderCell colWidth={100} title={HeaderText.licenseeComm}>{HeaderText.licenseeComm}</HeaderCell>
+                    <HeaderCell colWidth={100} title={HeaderText.total}>{HeaderText.total}</HeaderCell>
+                </HeaderRow>
             );
         }
         else {
             headerRows.push(
-                <Row style={{ height: 32 }} key='tr-header2'>
-                    <Cell colWidth={100} header={true} title={HeaderText.licenseeWL}>{HeaderText.licenseeWL}</Cell>
-                    <Cell colWidth={100} header={true} title={HeaderText.amountDueTo}>{HeaderText.amountDueTo}</Cell>
-                    <Cell colWidth={100} header={true} title={HeaderText.licenseeComm}>{HeaderText.licenseeComm}</Cell>
-                    <Cell colWidth={100} header={true} title={HeaderText.total}>{HeaderText.total}</Cell>
-                </Row>
+                <HeaderRow style={{ height: 32 }} key='tr-header2'>
+                    <HeaderCell colWidth={100} title={HeaderText.licenseeWL}>{HeaderText.licenseeWL}</HeaderCell>
+                    <HeaderCell colWidth={100} title={HeaderText.amountDueTo}>{HeaderText.amountDueTo}</HeaderCell>
+                    <HeaderCell colWidth={100} title={HeaderText.licenseeComm}>{HeaderText.licenseeComm}</HeaderCell>
+                    <HeaderCell colWidth={100} title={HeaderText.total}>{HeaderText.total}</HeaderCell>
+                </HeaderRow>
             );
         }
 
@@ -328,7 +328,7 @@ export class DataGrid extends Component {
         this.betlistTitle = (
             <p>
                 {CUSTOMER_BETLIST_TEXT}{" "}
-                {moment(FromDate).format("M/D/YYYY")} → {moment(ToDate).format("M/D/YYYY")} - {externalId}({systemId}) -{" "}
+                {FromDate} → {ToDate} - {externalId}({systemId}) -{" "}
                 <span className="base-currency-title">{viewIn}</span>
             </p>
         )

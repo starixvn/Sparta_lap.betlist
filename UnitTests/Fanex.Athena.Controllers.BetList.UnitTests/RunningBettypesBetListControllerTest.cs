@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Model.BetList.MetaModel;
@@ -28,7 +29,7 @@
         }
 
         [Test]
-        public void MixParlay_WhenCall_ReturnCorrectViewResult()
+        public async Task MixParlay_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -39,7 +40,7 @@
                 };
 
                 // Action
-                var result = controller.MixParlay(metaModel) as ViewResult;
+                var result = await controller.MixParlay(metaModel) as ViewResult;
 
                 // Assert
                 AssertViewResult(Menu.Menu_12, "TotalBetsMixParlay", metaModel, result);
@@ -47,7 +48,7 @@
         }
 
         [Test]
-        public void DoubleChange_WhenCall_ReturnCorrectViewResult()
+        public async Task DoubleChange_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -58,7 +59,7 @@
                 };
 
                 // Action
-                var result = controller.DoubleChange(metaModel) as ViewResult;
+                var result = await controller.DoubleChange(metaModel) as ViewResult;
 
                 // Assert
                 AssertViewResult(ViewResources.DoubleChance, "TotalBetsDoubleChance", metaModel, result);
@@ -66,7 +67,7 @@
         }
 
         [Test]
-        public void BONTeamToScore_WhenCall_ReturnCorrectViewResult()
+        public async Task BONTeamToScore_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -77,7 +78,7 @@
                 };
 
                 // Action
-                var result = controller.BONTeamToScore(metaModel) as ViewResult;
+                var result = await controller.BONTeamToScore(metaModel) as ViewResult;
 
                 // Assert
                 AssertViewResult(ViewResources.BONTeamToScore, "TotalBetsBON", metaModel, result);
@@ -85,7 +86,7 @@
         }
 
         [Test]
-        public void MixParlay_ExportExcel_InvalidCurrency_ReturnEmptyResult()
+        public async Task MixParlay_ExportExcel_InvalidCurrency_ReturnEmptyResult()
         {
             using (var controller = CreateController())
             {
@@ -100,7 +101,7 @@
                 controller.When(x => x.EmptyExcel()).DoNotCallBase();
 
                 // Action
-                controller.MixParlay(metaModel);
+                await controller.MixParlay(metaModel);
 
                 // Assert
                 controller.Received().EmptyExcel();
@@ -109,7 +110,7 @@
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void MixParlay_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task MixParlay_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -131,16 +132,16 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.MixParlay(metaModel);
+                await controller.MixParlay(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
+                await AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
             }
         }
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void DoubleChange_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task DoubleChange_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -162,16 +163,16 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.DoubleChange(metaModel);
+                await controller.DoubleChange(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
+                await AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
             }
         }
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void BONTeamToScore_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task BONTeamToScore_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -193,10 +194,10 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.BONTeamToScore(metaModel);
+                await controller.BONTeamToScore(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
+                await AssertExcelParameters(expectedTitle, "Lrf_BetList_SelRunningByBettypeList", controller);
             }
         }
 
@@ -204,15 +205,15 @@
         {
             SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
-            controller.When(x => x.ProcessExportExcel(
+            controller.When(async x => await x.ProcessExportExcel(
                 Arg.Any<BetListExcelMetaModel>(),
                 Arg.Any<string>(),
                 Arg.Any<string>())).DoNotCallBase();
         }
 
-        private void AssertExcelParameters(string expectedTitle, string uspKey, RunningBettypesBetListController controller)
+        private async Task AssertExcelParameters(string expectedTitle, string uspKey, RunningBettypesBetListController controller)
         {
-            controller.Received().ProcessExportExcel(
+            await controller.Received().ProcessExportExcel(
                 Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
                     && x.Title == expectedTitle
                     && x.UspKey == uspKey

@@ -44,42 +44,7 @@ describe('DataGrid ', () => {
     });
 
     describe('_buildHeader ', () => {
-        it('onClick on Stake column - call _sort() with correct param', () => {
-            const grid = new DataGrid(DefaultProps);
-            grid._sort = jest.fn();
-
-            const testRenderer = renderer.create(grid._buildHeader());
-            const testInstance = testRenderer.root;
-            const columnHeader = testInstance.find((element) => element.props.title == 'Stake');
-            columnHeader.props.onClick();
-            
-            expect(grid._sort).toHaveBeenCalledWith('Stake');
-        });
-
-        it('onClick on WinLoss column - call _sort() with correct param', () => {
-            const grid = new DataGrid(DefaultProps);
-            grid._sort = jest.fn();
-
-            const testRenderer = renderer.create(grid._buildHeader());
-            const testInstance = testRenderer.root;
-            const columnHeader = testInstance.find((element) => element.props.title == 'WinLoss');
-            columnHeader.props.onClick();
-            
-            expect(grid._sort).toHaveBeenCalledWith('WinLost');
-        });
-
-        it('onClick on LicenseeWL column - call _sort() with correct param', () => {
-            const grid = new DataGrid(DefaultProps);
-            grid._sort = jest.fn();
-
-            const testRenderer = renderer.create(grid._buildHeader());
-            const testInstance = testRenderer.root;
-            const columnHeader = testInstance.find((element) => element.props.title == 'LicenseeWL/Comm');
-            columnHeader.props.onClick();
-            
-            expect(grid._sort).toHaveBeenCalledWith('LicenseeWL');
-        });
-
+        
         it('isAllowedCustomerComm is true - render correctly', () => {
             Object.assign(AppData, { isAllowedCustomerComm: true });
 

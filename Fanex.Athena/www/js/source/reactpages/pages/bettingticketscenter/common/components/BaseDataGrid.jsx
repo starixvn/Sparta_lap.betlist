@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react'
 
-import { Table, Row, Cell } from '@jsroot/components/fixed-table-header'
+import { Table, Row, Cell } from '@9softstudio/react-grid'
 import ReportTitle from '@jsroot/components/ReportTitle'
 import Popup from '@jsroot/components/popup'
 import LangHelper from '@jsroot/lib/langHelper'
@@ -28,6 +28,11 @@ export default class BaseDataGrid extends Component {
     get dataUrl(){
         // This property should be override in child class.
     }
+    
+    get hasWinLossColumns(){
+        // This property may be override in child class.
+        return true;
+    }
 
     onPaging = (index, size) => {
         let param = this.props.requestParam;
@@ -42,20 +47,6 @@ export default class BaseDataGrid extends Component {
         this.props.toggleLoader(true);
         this.props.getGridData(this.dataUrl, param);
         this.props.setRequestParam(param);
-    }
-
-    _sort(sortBy){
-        let param = this.props.requestParam;
-
-        if (!param.SortBy || param.SortBy != sortBy) {
-            param.SortBy = sortBy;
-            param.SortOrder = 'asc';
-        }
-        else {
-            param.SortOrder = param.SortOrder == 'asc' ? 'desc' : 'asc';
-        }
-
-        this._getData(param);
     }
 
     _buildHeader() {
@@ -73,14 +64,17 @@ export default class BaseDataGrid extends Component {
             rows.push(
                    <Row key={`product-${i}`}>
                     <Cell title={item.Index} className="center-align">{item.Index}</Cell>                  
-                    <Cell>{item.ExternalId}</Cell>
-                    <Cell>{item.SystemId}</Cell>
+                    <Cell title={item.ExternalId}>{item.ExternalId}</Cell>
+                    <Cell title={item.SystemId}>{item.SystemId}</Cell>
+                    <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.RefNo }}></Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.TransTime }}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Choice}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Odds}}></Cell>
+                    <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.OddsType}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Stake}}></Cell>
-                    <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.WinLoss}}></Cell>
-                    <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.LicenseeWL}}></Cell>
+
+                    {this.hasWinLossColumns && <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.WinLoss}}></Cell>}
+                    {this.hasWinLossColumns && <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.LicenseeWL}}></Cell>}
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Status}}></Cell>
                     <Cell className="center-align">{item.Platform}</Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Live}}></Cell>
@@ -100,16 +94,25 @@ export default class BaseDataGrid extends Component {
         )
     }
 
+    onSort= (sortBy, sortOrder) =>{
+        let param = this.props.requestParam;
+
+        param.SortBy = sortBy;
+        param.SortOrder = sortOrder;
+        
+        this._getData(param);
+    }
+
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-        }
+    }
 
         const { Data } = this.props.gridData;
         
         if (!Data.length) {
             return this._renderNodata();
-        }
+    }
 
         const param = this.props.requestParam;
         const pageOption = {
@@ -123,7 +126,8 @@ export default class BaseDataGrid extends Component {
             <div className="betlist-container result-content">
                 <ReportTitle content={this.props.reportTitle} />
                 <Table
-                    minWidth={960}
+                    onSort={this.onSort}
+                    minWidth={980}
                     autoWidth={true}
                     bodyHeight={300}
                     header={this._buildHeader()}

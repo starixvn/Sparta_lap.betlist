@@ -8,6 +8,7 @@ import Site from '@jsroot/lib/site';
 import Service from '../../../common/lib/Service';
 import renderer from 'react-test-renderer';
 import Select from 'react-select';
+import CheckBox from '@jsroot/components/CheckBox';
 
 jest.mock('@jsroot/lib/AppData');
 
@@ -19,9 +20,9 @@ describe('FormFilter ', () => {
         Object.assign(AppData, 
             { 
                 originalBaseCurrencyList: ['USD', 'EUR'],
-                currencyList: ['USD', 'EUR'],
+                currencyList: [{"Id":1, Value:"USD", Status:true}],
                 statusList: ["Win", "Lose", "Draw"],
-                liveStatusList: ["Live", "NonLive"],
+                liveStatusList: [{"Id":0,"Value":"Non-Live","Status":true}],
                 productList: [{value: "SB"}, {value:"BA"}],
                 baseCurrencyList: ['EUR'],
                 dateConstraint: { minDate: '06/01/2012', maxDate: '07/27/2018', limitedMonthRange: 3 }
@@ -37,8 +38,8 @@ describe('FormFilter ', () => {
             expect(filter.isValidModel).toBe(false);
         });
 
-        it('selectedProduct and username are not empty - return true' ,() => {
-            const props = { selectedProduct: '123', username: 'test' };
+        it('required filter not empty - return true' ,() => {
+            const props = { selectedProduct: '123', selectedStatus: 'test', selectedLiveStatus: '34', selectedCurrency: '1' };
 
             const filter = new FormFilter(props);
 
@@ -150,11 +151,13 @@ describe('FormFilter ', () => {
                 leagueList: 6546,
                 selectedMatch: 5,
                 matchList: 987,
-                selectedCurrency: { value: "1", label: "sd" },
+                selectedCurrency: "1,2",
                 baseCurrencyList: "sdfsdfsdfsdf",
                 selectedBaseCurrency: 'USD',
                 selectedStatus: 'status',
-                selectedLiveStatus: 'Live'
+                selectedLiveStatus: 'Live',
+                username: 'abc',
+                isConvertAll: false
             };
 
             const expected = {
@@ -163,17 +166,18 @@ describe('FormFilter ', () => {
                 ToDate: Site.convertDateToString(DateRange.toDate),
                 PageSize: props.requestParam.PageSize,
                 PageIndex: 1,
-                CurrencyId: props.selectedCurrency.value,
-                CurrencyName: props.selectedCurrency.label,
+                CurrencyIdList: props.selectedCurrency,
                 BaseCurrency: props.selectedBaseCurrency,
-                StatusList: props.selectedStatus,
+                Status: props.selectedStatus,
+                Username: props.username,
                 LiveStatus: props.selectedLiveStatus,
                 SportId: props.selectedSport,
                 BetTypeId: props.selectedBettype,
-                LeagueId: props.selectedLeague,
-                MatchId: props.selectedMatch,
+                LeagueId: 0,
+                MatchId: 0,
                 SortBy: props.requestParam.SortBy,
-                SortOrder: props.requestParam.SortOrder
+                SortOrder: props.requestParam.SortOrder,
+                IsConvertAll: props.isConvertAll
             }
 
             const filter = new FormFilter(props);
@@ -192,11 +196,10 @@ describe('FormFilter ', () => {
                 setSelectedBaseCurrency: jest.fn() };
 
             const filter = new FormFilter(props);
-            const selectComponent = renderer.create(filter._renderCurrencySelectList());
+            const selectList = filter._renderCurrencySelectList();
 
-            const newValue = { value: 'USD' }
-            const selectedInstance = selectComponent.root.findByType(Select);
-            selectedInstance.props.onChange(newValue);
+            const newValue = '1';
+            selectList.props.onChange(null, newValue);
 
             expect(props.setSelectedCurrency).toHaveBeenCalledWith(newValue);
         });
@@ -309,13 +312,27 @@ describe('FormFilter ', () => {
         });
 
         it('onChange in LiveStatus filter - setSelectedLiveStatus should be called with correct parameter', () => {
+            const SelectedLiveStatus = "1,2,3";
             const props = {setSelectedLiveStatus: jest.fn()};
             const formFilter = new FormFilter(props);
             
             const selectList = formFilter._renderLiveStatusSelectList();
-            selectList.props.onChange({value: "123"});
+            selectList.props.onChange(null, SelectedLiveStatus);
 
-            expect(props.setSelectedLiveStatus).toHaveBeenCalledWith("123");
+            expect(props.setSelectedLiveStatus).toHaveBeenCalledWith(SelectedLiveStatus);
+        });
+
+        it('onChange Convert All check box - update value' ,() => {
+            const props = { isConvertAll: false, changeIsConvertAll: jest.fn(), dateRange: DateRange, selectedCurrency: {} };
+
+            const filter = new FormFilter(props);
+            const component = renderer.create(filter.render());
+
+            const newValue = true;
+            const checkBox = component.root.findByType(CheckBox);
+            checkBox.props.onChange(newValue);
+
+            expect(props.changeIsConvertAll).toHaveBeenCalledWith(newValue);
         });
 
         it('onClick submit button - call submit method' ,() => {

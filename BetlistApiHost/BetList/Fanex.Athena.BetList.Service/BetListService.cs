@@ -6,7 +6,9 @@
 
 namespace Fanex.Athena.BetList.Service
 {
+    using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Common.Constant;
     using Common.DataAccess.Interfaces;
     using Common.Utility.Services.Interfaces;
@@ -51,22 +53,22 @@ namespace Fanex.Athena.BetList.Service
             return _cacheRefAdapter.GetLeagueName(leagueId);
         }
 
-        public TicketResult GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel)
+        public async Task<TicketResult> GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel)
         {
-            return _betlistDataAccess.GetMixParlayDetailTicket(metaModel);
+            return await _betlistDataAccess.GetMixParlayDetailTicket(metaModel);
         }
 
-        [System.CLSCompliant(false)]
-        public SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
+        [CLSCompliant(false)]
+        public async Task<SystemParlayData> GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
-            return _betlistDataAccess.GetSystemParlayDetail(metaModel);
+            return await _betlistDataAccess.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
         }
 
-        public TicketResult GetBetListData(BetListMetaModel metaModel)
+        public async Task<TicketResult> GetBetListData(BetListMetaModel metaModel)
         {
-            AssignBalanceUpDates(metaModel);
+            await AssignBalanceUpDates(metaModel).ConfigureAwait(false);
 
-            return _betlistDataAccess.GetBetListData(metaModel);
+            return await _betlistDataAccess.GetBetListData(metaModel).ConfigureAwait(false);
         }
 
         public List<TicketText> BuildTicketTextList(
@@ -110,9 +112,9 @@ namespace Fanex.Athena.BetList.Service
             return ticketTextList;
         }
 
-        private void AssignBalanceUpDates(BetListMetaModel metaModel)
+        private async Task AssignBalanceUpDates(BetListMetaModel metaModel)
         {
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
         }

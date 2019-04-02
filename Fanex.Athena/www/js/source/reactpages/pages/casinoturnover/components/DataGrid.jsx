@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import { Table, Row, Cell } from '@jsroot/components/fixed-table-header'
+import { Table, HeaderRow, HeaderCell, Row, Cell } from '@9softstudio/react-grid'
 import LangHelper from '@jsroot/lib/langHelper'
 import NoDataTitle from '@jsroot/components/NoDataTitle'
 import NumberFormat from '@jsroot/lib/numberFormat'
@@ -37,17 +37,17 @@ export class DataGrid extends Component {
 
     _buildHeader() {
         return (
-            <Row style={{ height: 32 }}>
-                <Cell colWidth={50} header={true} title="#">{HeaderText.Index}</Cell>
-                <Cell colWidth={150} header={true} title={HeaderText.Date}>{HeaderText.Date}</Cell>
-                <Cell colWidth={150} header={true} title={HeaderText.SystemId}>{HeaderText.SystemId}</Cell>
-                <Cell colWidth={150} header={true} title={HeaderText.ExternalId}>{HeaderText.ExternalId}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.Product}>{HeaderText.Product}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.TotalTransaction}>{HeaderText.TotalTransaction}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.Turnover}>{HeaderText.Turnover}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.ValidBetAmount}>{HeaderText.ValidBetAmount}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.CustomerWL}>{HeaderText.CustomerWL}</Cell>
-            </Row>
+            <HeaderRow style={{ height: 32 }}>
+                <HeaderCell colWidth={50} title="#">{HeaderText.Index}</HeaderCell>
+                <HeaderCell colWidth={150} title={HeaderText.Date}>{HeaderText.Date}</HeaderCell>
+                <HeaderCell colWidth={150} title={HeaderText.SystemId}>{HeaderText.SystemId}</HeaderCell>
+                <HeaderCell colWidth={150} title={HeaderText.ExternalId}>{HeaderText.ExternalId}</HeaderCell>
+                <HeaderCell colWidth={200} title={HeaderText.Product}>{HeaderText.Product}</HeaderCell>
+                <HeaderCell colWidth={200} title={HeaderText.TotalTransaction}>{HeaderText.TotalTransaction}</HeaderCell>
+                <HeaderCell colWidth={200} title={HeaderText.Turnover}>{HeaderText.Turnover}</HeaderCell>
+                <HeaderCell colWidth={200} title={HeaderText.ValidBetAmount}>{HeaderText.ValidBetAmount}</HeaderCell>
+                <HeaderCell colWidth={200} title={HeaderText.CustomerWL}>{HeaderText.CustomerWL}</HeaderCell>
+            </HeaderRow>
         )
     }
 

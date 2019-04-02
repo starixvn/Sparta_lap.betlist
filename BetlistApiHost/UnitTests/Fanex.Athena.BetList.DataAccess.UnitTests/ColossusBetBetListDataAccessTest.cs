@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.UnitTests;
@@ -46,7 +47,7 @@
 
         [TestCase(true, 1)]
         [TestCase(false, 0)]
-        public void GetData_WhenCall_DataReturnCorrectly(bool isSoldBetType, decimal expectedTotalSoldWinLoss)
+        public async Task GetData_WhenCall_DataReturnCorrectly(bool isSoldBetType, decimal expectedTotalSoldWinLoss)
         {
             // Arrange
             var metaModel = new ColossusBetDetailMetaModel
@@ -69,7 +70,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetData(metaModel);
+            var result = await DataAccess.GetData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

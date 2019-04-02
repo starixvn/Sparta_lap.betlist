@@ -4,6 +4,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Interfaces;
+    using System.Threading.Tasks;
     using UnitTest.Common.Helpers;
 
     public class ExchangeWinLossBetListControllerTest
@@ -22,7 +23,7 @@
             _service = Substitute.For<IExchangeBetListService>();
         }
 
-        public void GetData_WhenCall_CallServiceToGetData()
+        public async Task GetData_WhenCall_CallServiceToGetData()
         {
             using (var controller = CreateController())
             {
@@ -30,14 +31,14 @@
                 var metaModel = FakeHelper.Create<ExchangeBetListMetaModel>();
 
                 // Action
-                controller.GetData(metaModel);
+                await controller.GetData(metaModel).ConfigureAwait(false);
 
                 // Assert
-                _service.Received().GetBetListData(metaModel);
+                await _service.Received().GetBetListDataAsync(metaModel).ConfigureAwait(false);
             }
         }
 
-        public void Detail_WhenCall_CallServiceToGetData()
+        public async Task Detail_WhenCall_CallServiceToGetData()
         {
             using (var controller = CreateController())
             {
@@ -45,10 +46,10 @@
                 var metaModel = FakeHelper.Create<ExchangeBetListDetailMetaModel>();
 
                 // Action
-                controller.Detail(metaModel);
+                await controller.Detail(metaModel).ConfigureAwait(false);
 
                 // Assert
-                _service.Received().GetTicketDetailList(metaModel);
+                await _service.Received().GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
             }
         }
 

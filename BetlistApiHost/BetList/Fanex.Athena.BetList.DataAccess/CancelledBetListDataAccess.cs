@@ -8,6 +8,7 @@ namespace Fanex.Athena.BetList.DataAccess
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.DataAccess;
     using Fanex.Athena.BetList.Model.DTO;
     using Interfaces;
@@ -16,7 +17,7 @@ namespace Fanex.Athena.BetList.DataAccess
     {
         private const string UspKey = "Lrf_BetList_SelDeleted_UserList";
 
-        public IEnumerable<CustomerCancelBetItem> GetCancelBetCustList(string agentListXml)
+        public async Task<IEnumerable<CustomerCancelBetItem>> GetCancelBetCustList(string agentListXml)
         {
             using (var db = this.GetObjectDb(UspKey))
             {
@@ -25,7 +26,7 @@ namespace Fanex.Athena.BetList.DataAccess
                     AgentList = agentListXml
                 };
 
-                return db.Query<CustomerCancelBetItem>(param).ToList();
+                return (await db.QueryAsync<CustomerCancelBetItem>(param).ConfigureAwait(false)).ToList();
             }
         }
     }

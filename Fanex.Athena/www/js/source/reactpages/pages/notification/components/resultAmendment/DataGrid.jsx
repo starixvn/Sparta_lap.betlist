@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import { ActionCreators } from '../../actions/resultAmendment'
 import { bindActionCreators } from 'redux'
-import { Table, Row, Cell } from '../../../../components/fixed-table-header'
+import { Table, HeaderRow, HeaderCell, Row, Cell } from '@9softstudio/react-grid'
 import LangHelper from '../../../../lib/langHelper'
 import ReportTitle from '../../../../components/ReportTitle'
 import NoDataTitle from '../../../../components/NoDataTitle'
@@ -91,12 +91,12 @@ export class DataGrid extends Component {
         const headerText = service.getHeaderText();
 
         return (
-            <Row style={{ height: 32 }}>
-                <Cell colWidth={30} header={true} title={headerText.index}>{headerText.index}</Cell>
-                <Cell colWidth={120} header={true} title={headerText.dateTime}>{headerText.dateTime}</Cell>
-                <Cell colWidth={350} header={true} title={headerText.content}>{headerText.content}</Cell>
-                <Cell colWidth={30} header={true} title={headerText.ticketList}>{headerText.ticketList}</Cell>
-            </Row>
+            <HeaderRow style={{ height: 32 }}>
+                <HeaderCell colWidth={30} title={headerText.index}>{headerText.index}</HeaderCell>
+                <HeaderCell colWidth={120} title={headerText.dateTime}>{headerText.dateTime}</HeaderCell>
+                <HeaderCell colWidth={350} title={headerText.content}>{headerText.content}</HeaderCell>
+                <HeaderCell colWidth={30} title={headerText.ticketList}>{headerText.ticketList}</HeaderCell>
+            </HeaderRow>
         );
     }
 

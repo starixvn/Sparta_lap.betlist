@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Configuration.Interfaces;
@@ -191,9 +192,9 @@
             return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        protected virtual ActionResult ExportExcel(BetListExcelMetaModel metaModel)
+        protected virtual async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
-            return null;
+            return await Task.FromResult<ActionResult>(null).ConfigureAwait(false);
         }
 
         protected virtual void AssignViewBag(BetListMetaModel model)
@@ -205,16 +206,16 @@
             return IsValidCurrency(model.CurrencyId);
         }
 
-        protected internal virtual ActionResult ProcessExportExcel(
+        protected internal virtual async Task<ActionResult> ProcessExportExcel(
             BetListExcelMetaModel metaModel,
             string fileName,
             string apiPath = null)
         {
-            var stream = _betListApiClient.PostAsyncStream(apiPath ?? "/BetList/ExportExcel", metaModel).Result;
+            var stream = await _betListApiClient.PostAsyncStream(apiPath ?? "/BetList/ExportExcel", metaModel).ConfigureAwait(false);
             return File(stream, "application/vnd.ms-excel", fileName + ".xls");
         }
 
-        protected ActionResult ProcessDefaultRequest(BetListExcelMetaModel model, string viewPath, string uspKey)
+        protected async Task<ActionResult> ProcessDefaultRequest(BetListExcelMetaModel model, string viewPath, string uspKey)
         {
             if (!model.IsExportExcel)
             {
@@ -225,7 +226,7 @@
             if (IsValidExportExcel(model))
             {
                 model.UspKey = uspKey;
-                return ExportExcel(model);
+                return await ExportExcel(model).ConfigureAwait(false);
             }
 
             return EmptyExcel();

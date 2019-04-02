@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using Common.Constant;
@@ -12,6 +13,7 @@
     using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
     using Service.Interfaces;
     using UnitTest.Common.Helpers;
 
@@ -42,7 +44,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectData()
+        public async Task GetData_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -65,7 +67,7 @@
                 _service.BuildSumWinLoss(ticketResult, metaModel.HasPlayerCom).Returns(sumWL);
 
                 // Action
-                var result = (controller.GetData(metaModel) as JsonResult).Data;
+                var result = (await controller.GetData(metaModel) as JsonResult).Data;
                 var data = result.GetType().GetProperty("Data").GetValue(result, null);
                 var total = result.GetType().GetProperty("Total").GetValue(result, null);
                 var totalRows = result.GetType().GetProperty("TotalRows").GetValue(result, null);
@@ -88,7 +90,7 @@
         }
 
         [Test]
-        public void GetData_WhenExport_RowsExceedLimitation_ReturnError()
+        public async Task GetData_WhenExport_RowsExceedLimitation_ReturnError()
         {
             using (var controller = CreateController())
             {
@@ -100,7 +102,7 @@
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow - 1).ToString());
 
                 // Action
-                var result = (controller.GetData(metaModel) as JsonResult).Data;
+                var result = (await controller.GetData(metaModel) as JsonResult).Data;
                 var errorCode = result.GetType().GetProperty("ErrorCode").GetValue(result, null);
 
                 // Assert
@@ -112,7 +114,7 @@
         }
 
         [Test]
-        public void GetData_WhenExportExcel_RowsExceedMaxRowPerFile_NoMainTicket_ReturnError()
+        public async Task GetData_WhenExportExcel_RowsExceedMaxRowPerFile_NoMainTicket_ReturnError()
         {
             using (var controller = CreateController())
             {
@@ -128,7 +130,7 @@
                 _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
-                var result = controller.GetData(metaModel) as HttpStatusCodeResult;
+                var result = await controller.GetData(metaModel) as HttpStatusCodeResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -139,7 +141,7 @@
         }
 
         [Test]
-        public void GetData_WhenExportExcel_ReturnExcelFile()
+        public async Task GetData_WhenExportExcel_ReturnExcelFile()
         {
             using (var controller = CreateController())
             {
@@ -161,17 +163,18 @@
                 controller.WhenForAnyArgs(x => x.ReturnExcel(Arg.Any<BettingTicketCenterExcelModel>(), Arg.Any<TicketResult>())).DoNotCallBase();
 
                 // Action
-                controller.GetData(metaModel);
+                await controller.GetData(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
                 {
                     controller.Received().ReturnExcel(
                         Arg.Is<BettingTicketCenterExcelModel>(x => x.Title == title
-                            && x.ShowTotal
-                            && x.ShowSumStake
-                            && x.ShowLicenseeWl
-                            && x.ShowWinLoss
+                            && x.Option.ShowTotal
+                            && x.Option.ShowSumStake
+                            && x.Option.ShowLicenseeWl
+                            && x.Option.ShowWinLoss
+                            && x.Option.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}"
                             && x.CustomerCommVisible == metaModel.HasPlayerCom
                             && x.Data == ticketResult),
                         ticketResult);
@@ -180,7 +183,7 @@
         }
 
         [Test]
-        public void GetData_WhenExportZipFile_ClientIsNotConnected_ReturnNull()
+        public async Task GetData_WhenExportZipFile_ClientIsNotConnected_ReturnNull()
         {
             using (var controller = CreateController())
             {
@@ -205,7 +208,7 @@
                 SetUpForResponse(controller, false);
 
                 // Action
-                var result = controller.GetData(metaModel);
+                var result = await controller.GetData(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>

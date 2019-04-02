@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
@@ -114,13 +115,13 @@
         }
 
         [Test]
-        public void GetDailyStatementData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDailyStatementData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetDailyStatementData(_metaModel);
+            await DataAccess.GetDailyStatementData(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -137,7 +138,7 @@
         }
 
         [TestCaseSource(nameof(TestCasesValue))]
-        public void GetDailyStatementData_WhenCall_DataReturnedCorrectly(dynamic testCaseData)
+        public async Task GetDailyStatementData_WhenCall_DataReturnedCorrectly(dynamic testCaseData)
         {
             // Arrange
             _metaModel.ExternalId = testCaseData.ExternalId;
@@ -152,7 +153,7 @@
             var expected = GetDailyStatementData(_metaModel, testCaseData);
 
             // Action
-            var result = DataAccess.GetDailyStatementData(_metaModel);
+            var result = await DataAccess.GetDailyStatementData(_metaModel).ConfigureAwait(false);
             var firstItem = result.ElementAt(0);
 
             // Assert

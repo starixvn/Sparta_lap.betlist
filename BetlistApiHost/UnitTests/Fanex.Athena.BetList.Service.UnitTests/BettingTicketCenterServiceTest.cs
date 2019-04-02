@@ -8,7 +8,6 @@
     using Athena.BetList.Service;
     using Athena.BetList.Service.Interfaces;
     using Common.Constant;
-    using Common.Utility.Services.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NSubstitute;
@@ -21,23 +20,34 @@
         private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
 
         private IBettingTicketCenterDataAccess _bettingTicketCenterDataAccess;
+
+        private IBettingTicketCenterMultiCustomerDataAccess _bettingTicketCenterMultiCustomerDataAccess;
+
         private IBetListHTMLBuilder _betlistHtmlBuilder;
+
         private ITicketHelper _ticketHelper;
+
         private IBettingTicketCenterService _bettingTicketCenterService;
 
         [OneTimeSetUp]
         public void SetUp()
         {
             _bettingTicketCenterDataAccess = Substitute.For<IBettingTicketCenterDataAccess>();
+            _bettingTicketCenterMultiCustomerDataAccess = Substitute.For<IBettingTicketCenterMultiCustomerDataAccess>();
             _betlistHtmlBuilder = Substitute.For<IBetListHTMLBuilder>();
             _ticketHelper = Substitute.For<ITicketHelper>();
-            _bettingTicketCenterService = new BettingTicketCenterService(_bettingTicketCenterDataAccess, _betlistHtmlBuilder, _ticketHelper);
+            _bettingTicketCenterService = new BettingTicketCenterService(
+                _bettingTicketCenterDataAccess,
+                _bettingTicketCenterMultiCustomerDataAccess,
+                _betlistHtmlBuilder,
+                _ticketHelper);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
             _bettingTicketCenterDataAccess = null;
+            _bettingTicketCenterMultiCustomerDataAccess = null;
             _bettingTicketCenterService = null;
         }
 

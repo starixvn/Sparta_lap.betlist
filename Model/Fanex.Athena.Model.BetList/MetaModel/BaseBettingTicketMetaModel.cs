@@ -16,9 +16,7 @@
             PageSize = 50;
         }
 
-        public int CurrencyId { get; set; }
-
-        public string CurrencyName { get; set; }
+        public string CurrencyIdList { get; set; }
 
         public string BaseCurrency
         {
@@ -60,6 +58,8 @@
             }
         }
 
+        public string Status { get; set; }
+
         public bool IsExport { get; set; }
 
         public string SortBy { get; set; }
@@ -72,5 +72,7 @@
 
         [ScriptIgnore]
         public IDictionary<int, string> UserCurrencyList { get; set; }
+
+        public bool IsConvertAll { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "LRF - " + ViewResources.Report +
+    ViewBag.Title = "LAP - " + ViewResources.Report +
     " - " + "Betting Tickets Center";
     Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
@@ -9,7 +9,8 @@
 @{
     var productOptions = Model.ProductOptionList;
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
-    var selectedStatus = string.Join(",", Model.StatusList.Select(x => x.Key).ToArray());
+    var selectedStatus = string.Join(",", Model.StatusList.Where(x => x.Checked).Select(x => x.ID).ToArray());
+    var selectedLiveStatus = string.Join(",", Model.LiveStatusList.Select(x => x.Key).ToArray());
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
 }
 @section pagecss {
@@ -28,18 +29,18 @@
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         isLoading: false,
         selectedStatus: '@(selectedStatus)',
+        selectedLiveStatus: '@(selectedLiveStatus)',
         selectedPlatform: 0,
-        selectedLiveStatus: @LiveStatusTypes.All,
         isConvertAll: true
     };
     window._AppData = {
-        liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),
+        liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
         platformList: @Html.Raw(Model.PlatformList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),
-        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
+        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.ID, Value = x.Name, Status = x.Checked }).ToJson()),
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productOptions: @Html.Raw(productOptions.ToJson()),
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
-        dateConstraint: { minDate: '1/1/2017', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 3 }        
+        dateConstraint: { minDate: '1/1/2017', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 6 }        
      };
 }
 <div id="app-container">

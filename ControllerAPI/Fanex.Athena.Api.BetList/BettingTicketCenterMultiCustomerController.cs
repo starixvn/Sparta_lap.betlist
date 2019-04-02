@@ -1,13 +1,13 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Base;
     using Base.Attributes;
     using Extension.Utility;
+    using Helpers;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Resources;
@@ -52,21 +52,17 @@
             }
 
             var userCurrencyList = SessionService.UserSession.CurrencyList;
-            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
+            var currencyList = metaModel.CurrencyIdList?.Split(',').Select(x => int.Parse(x)).ToArray();
+            if (!metaModel.IsValid || !BetListHelper.IsValidCurrencyId(currencyList, userCurrencyList))
             {
                 throw new ArgumentException(ViewResources.InvalidRequestMsg);
             }
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(currencyList);
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = userCurrencyList;
 
             return await _betListApiClient.PostAsync("/BettingTicketCenterMultiCustomer/GetData", metaModel).ConfigureAwait(false);
-        }
-
-        private static bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)
-        {
-            return currencyId == BaseCurrencyType.All || currencyList.ContainsKey(currencyId);
         }
     }
 }

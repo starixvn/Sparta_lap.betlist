@@ -98,7 +98,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(resultInfo.Code, Is.EqualTo(-1));
+                    Assert.That(resultInfo.Code, Is.Not.Zero);
                     Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.FunctionDeniedMsg));
                 });
             }
@@ -119,7 +119,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(resultInfo.Code, Is.EqualTo(-2));
+                    Assert.That(resultInfo.Code, Is.Not.Zero);
                     Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
                 });
             }
@@ -141,7 +141,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(resultInfo.Code, Is.EqualTo(-2));
+                    Assert.That(resultInfo.Code, Is.Not.Zero);
                     Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
                 });
             }

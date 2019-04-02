@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetList
     #region Using
 
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -42,12 +43,12 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
             CreateDefaultMetaModel(metaModel);
             metaModel.FromDate = DateTime.Today.AddYears(-10);
             metaModel.ToDate = DateTime.Today.AddYears(10);
-            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem");
+            return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem").ConfigureAwait(false);
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)
@@ -56,7 +57,7 @@ namespace Fanex.Athena.Controllers.BetList
             return model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId);
         }
 
-        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
+        protected override async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.ShowingOption = new BetListShowingOption
             {
@@ -70,7 +71,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 GetViewInCurrency(metaModel));
             metaModel.HiddenColumns = HiddenColList;
-            return ProcessExportExcel(metaModel, "CustomerPendingFundsBetList");
+            return await ProcessExportExcel(metaModel, "CustomerPendingFundsBetList").ConfigureAwait(false);
         }
     }
 }

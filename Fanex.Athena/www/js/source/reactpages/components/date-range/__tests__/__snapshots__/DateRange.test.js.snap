@@ -34,7 +34,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
     >
       <div
         className="rdr-PredefinedRanges"
-        style={undefined}
       >
         <div
           className="range-button-group"
@@ -42,38 +41,31 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
           <button
             className="rdr-Button rdr-ApplyButton"
             onClick={[Function]}
-            style={undefined}
             type="button"
           />
           <button
             className="rdr-Button rdr-CancelButton"
             onClick={[Function]}
-            style={undefined}
             type="button"
           />
         </div>
       </div>
       <div
         className="rdr-Calendar"
-        style={undefined}
       >
         <div
           className="rdr-MonthAndYear"
         >
           <div
             className="rdr-MonthAndYear-innerWrapper"
-            style={undefined}
           >
             <button
               className="rdr-MonthAndYear-button prev"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
             <span>
               <span
@@ -82,7 +74,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={0}
                 >
                   <option
@@ -170,7 +161,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={2018}
                 >
                   <option
@@ -210,12 +200,9 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               className="rdr-MonthAndYear-button next"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
           </div>
         </div>
@@ -224,43 +211,36 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
         >
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Su
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Mo
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Tu
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             We
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Th
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Fr
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Sa
           </span>
@@ -270,7 +250,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
         >
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -278,14 +257,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected is-inRange"
@@ -293,14 +270,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-inRange"
@@ -308,14 +283,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected"
@@ -323,14 +296,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -338,14 +309,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -353,14 +322,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -368,14 +335,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -383,14 +348,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -398,14 +361,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -413,14 +374,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -428,14 +387,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -443,14 +400,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               11
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -458,14 +413,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               12
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -473,14 +426,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               13
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -488,14 +439,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               14
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -503,14 +452,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               15
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -518,14 +465,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               16
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -533,14 +478,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               17
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -548,14 +491,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               18
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -563,14 +504,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               19
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -578,14 +517,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               20
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -593,14 +530,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               21
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -608,14 +543,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               22
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -623,14 +556,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               23
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -638,14 +569,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               24
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -653,14 +582,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               25
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -668,14 +595,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               26
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -683,14 +608,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               27
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -698,14 +621,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               28
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -713,14 +634,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               29
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -728,14 +647,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               30
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -743,14 +660,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -758,14 +673,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -773,14 +686,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -788,14 +699,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -803,14 +712,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -818,14 +725,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -833,14 +738,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -848,14 +751,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -863,14 +764,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -878,14 +777,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -893,7 +790,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
@@ -902,25 +798,20 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
       </div>
       <div
         className="rdr-Calendar"
-        style={undefined}
       >
         <div
           className="rdr-MonthAndYear"
         >
           <div
             className="rdr-MonthAndYear-innerWrapper"
-            style={undefined}
           >
             <button
               className="rdr-MonthAndYear-button prev"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
             <span>
               <span
@@ -929,7 +820,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={0}
                 >
                   <option
@@ -1017,7 +907,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={2018}
                 >
                   <option
@@ -1057,12 +946,9 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               className="rdr-MonthAndYear-button next"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
           </div>
         </div>
@@ -1071,43 +957,36 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
         >
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Su
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Mo
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Tu
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             We
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Th
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Fr
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Sa
           </span>
@@ -1117,7 +996,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
         >
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -1125,14 +1003,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected is-inRange"
@@ -1140,14 +1016,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-inRange"
@@ -1155,14 +1029,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected"
@@ -1170,14 +1042,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1185,14 +1055,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1200,14 +1068,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1215,14 +1081,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -1230,14 +1094,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1245,14 +1107,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1260,14 +1120,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1275,14 +1133,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1290,14 +1146,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               11
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1305,14 +1159,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               12
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1320,14 +1172,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               13
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -1335,14 +1185,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               14
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1350,14 +1198,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               15
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1365,14 +1211,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               16
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1380,14 +1224,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               17
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1395,14 +1237,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               18
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1410,14 +1250,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               19
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1425,14 +1263,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               20
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -1440,14 +1276,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               21
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1455,14 +1289,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               22
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1470,14 +1302,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               23
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1485,14 +1315,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               24
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1500,14 +1328,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               25
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1515,14 +1341,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               26
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1530,14 +1354,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               27
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -1545,14 +1367,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               28
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1560,14 +1380,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               29
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1575,14 +1393,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               30
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -1590,14 +1406,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -1605,14 +1419,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -1620,14 +1432,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -1635,14 +1445,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -1650,14 +1458,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -1665,14 +1471,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -1680,14 +1484,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -1695,14 +1497,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -1710,14 +1510,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -1725,14 +1523,12 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -1740,7 +1536,6 @@ exports[`DateRange  render linkedCalendars = true - match with snapshot 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
@@ -1786,25 +1581,20 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
     >
       <div
         className="rdr-Calendar"
-        style={undefined}
       >
         <div
           className="rdr-MonthAndYear"
         >
           <div
             className="rdr-MonthAndYear-innerWrapper"
-            style={undefined}
           >
             <button
               className="rdr-MonthAndYear-button prev"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
             <span>
               <span
@@ -1813,7 +1603,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={0}
                 >
                   <option
@@ -1901,7 +1690,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={2018}
                 >
                   <option
@@ -1941,12 +1729,9 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               className="rdr-MonthAndYear-button next"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
           </div>
         </div>
@@ -1955,43 +1740,36 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
         >
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Su
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Mo
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Tu
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             We
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Th
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Fr
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Sa
           </span>
@@ -2001,7 +1779,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
         >
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -2009,14 +1786,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected"
@@ -2024,14 +1799,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-inRange"
@@ -2039,14 +1812,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected is-inRange"
@@ -2054,14 +1825,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2069,14 +1838,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2084,14 +1851,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2099,14 +1864,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -2114,14 +1877,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2129,14 +1890,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2144,14 +1903,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2159,14 +1916,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2174,14 +1929,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               11
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2189,14 +1942,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               12
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2204,14 +1955,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               13
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -2219,14 +1968,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               14
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2234,14 +1981,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               15
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2249,14 +1994,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               16
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2264,14 +2007,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               17
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2279,14 +2020,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               18
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2294,14 +2033,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               19
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2309,14 +2046,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               20
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -2324,14 +2059,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               21
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2339,14 +2072,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               22
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2354,14 +2085,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               23
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2369,14 +2098,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               24
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2384,14 +2111,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               25
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2399,14 +2124,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               26
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2414,14 +2137,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               27
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -2429,14 +2150,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               28
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2444,14 +2163,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               29
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2459,14 +2176,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               30
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2474,14 +2189,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -2489,14 +2202,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -2504,14 +2215,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -2519,14 +2228,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -2534,14 +2241,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -2549,14 +2254,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -2564,14 +2267,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -2579,14 +2280,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -2594,14 +2293,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -2609,14 +2306,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -2624,7 +2319,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
@@ -2633,25 +2327,20 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
       </div>
       <div
         className="rdr-Calendar"
-        style={undefined}
       >
         <div
           className="rdr-MonthAndYear"
         >
           <div
             className="rdr-MonthAndYear-innerWrapper"
-            style={undefined}
           >
             <button
               className="rdr-MonthAndYear-button prev"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
             <span>
               <span
@@ -2660,7 +2349,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={0}
                 >
                   <option
@@ -2748,7 +2436,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={2018}
                 >
                   <option
@@ -2788,12 +2475,9 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               className="rdr-MonthAndYear-button next"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
           </div>
         </div>
@@ -2802,43 +2486,36 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
         >
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Su
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Mo
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Tu
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             We
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Th
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Fr
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Sa
           </span>
@@ -2848,7 +2525,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
         >
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -2856,14 +2532,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected is-inRange"
@@ -2871,14 +2545,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-inRange"
@@ -2886,14 +2558,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected"
@@ -2901,14 +2571,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2916,14 +2584,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2931,14 +2597,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2946,14 +2610,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -2961,14 +2623,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2976,14 +2636,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -2991,14 +2649,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3006,14 +2662,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3021,14 +2675,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               11
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3036,14 +2688,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               12
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3051,14 +2701,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               13
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -3066,14 +2714,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               14
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3081,14 +2727,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               15
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3096,14 +2740,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               16
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3111,14 +2753,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               17
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3126,14 +2766,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               18
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3141,14 +2779,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               19
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3156,14 +2792,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               20
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -3171,14 +2805,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               21
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3186,14 +2818,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               22
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3201,14 +2831,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               23
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3216,14 +2844,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               24
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3231,14 +2857,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               25
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3246,14 +2870,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               26
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3261,14 +2883,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               27
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -3276,14 +2896,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               28
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3291,14 +2909,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               29
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3306,14 +2922,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               30
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3321,14 +2935,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -3336,14 +2948,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -3351,14 +2961,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -3366,14 +2974,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -3381,14 +2987,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -3396,14 +3000,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -3411,14 +3013,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -3426,14 +3026,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -3441,14 +3039,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -3456,14 +3052,12 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -3471,7 +3065,6 @@ exports[`DateRange  render showRange = false - PredefinedRanges should not be sh
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
@@ -3517,7 +3110,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
     >
       <div
         className="rdr-PredefinedRanges"
-        style={undefined}
       >
         <div
           className="range-button-group"
@@ -3525,38 +3117,31 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
           <button
             className="rdr-Button rdr-ApplyButton"
             onClick={[Function]}
-            style={undefined}
             type="button"
           />
           <button
             className="rdr-Button rdr-CancelButton"
             onClick={[Function]}
-            style={undefined}
             type="button"
           />
         </div>
       </div>
       <div
         className="rdr-Calendar"
-        style={undefined}
       >
         <div
           className="rdr-MonthAndYear"
         >
           <div
             className="rdr-MonthAndYear-innerWrapper"
-            style={undefined}
           >
             <button
               className="rdr-MonthAndYear-button prev"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
             <span>
               <span
@@ -3565,7 +3150,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={0}
                 >
                   <option
@@ -3653,7 +3237,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={2018}
                 >
                   <option
@@ -3693,12 +3276,9 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               className="rdr-MonthAndYear-button next"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
           </div>
         </div>
@@ -3707,43 +3287,36 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
         >
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Su
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Mo
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Tu
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             We
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Th
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Fr
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Sa
           </span>
@@ -3753,7 +3326,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
         >
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -3761,14 +3333,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected"
@@ -3776,14 +3346,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-inRange"
@@ -3791,14 +3359,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected is-inRange"
@@ -3806,14 +3372,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3821,14 +3385,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3836,14 +3398,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3851,14 +3411,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -3866,14 +3424,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3881,14 +3437,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3896,14 +3450,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3911,14 +3463,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3926,14 +3476,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               11
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3941,14 +3489,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               12
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3956,14 +3502,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               13
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -3971,14 +3515,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               14
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -3986,14 +3528,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               15
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4001,14 +3541,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               16
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4016,14 +3554,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               17
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4031,14 +3567,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               18
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4046,14 +3580,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               19
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4061,14 +3593,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               20
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -4076,14 +3606,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               21
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4091,14 +3619,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               22
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4106,14 +3632,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               23
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4121,14 +3645,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               24
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4136,14 +3658,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               25
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4151,14 +3671,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               26
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4166,14 +3684,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               27
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -4181,14 +3697,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               28
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4196,14 +3710,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               29
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4211,14 +3723,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               30
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4226,14 +3736,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -4241,14 +3749,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -4256,14 +3762,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -4271,14 +3775,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -4286,14 +3788,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -4301,14 +3801,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -4316,14 +3814,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -4331,14 +3827,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -4346,14 +3840,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -4361,14 +3853,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -4376,7 +3866,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
@@ -4385,25 +3874,20 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
       </div>
       <div
         className="rdr-Calendar"
-        style={undefined}
       >
         <div
           className="rdr-MonthAndYear"
         >
           <div
             className="rdr-MonthAndYear-innerWrapper"
-            style={undefined}
           >
             <button
               className="rdr-MonthAndYear-button prev"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
             <span>
               <span
@@ -4412,7 +3896,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={0}
                 >
                   <option
@@ -4500,7 +3983,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
                 <select
                   className="rdr-MonthAndYearSelect"
                   onChange={[Function]}
-                  style={undefined}
                   value={2018}
                 >
                   <option
@@ -4540,12 +4022,9 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               className="rdr-MonthAndYear-button next"
               disabled={false}
               onClick={[Function]}
-              style={undefined}
               type="button"
             >
-              <i
-                style={undefined}
-              />
+              <i />
             </button>
           </div>
         </div>
@@ -4554,43 +4033,36 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
         >
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Su
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Mo
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Tu
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             We
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Th
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Fr
           </span>
           <span
             className="rdr-WeekDay"
-            style={undefined}
           >
             Sa
           </span>
@@ -4600,7 +4072,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
         >
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -4608,14 +4079,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected is-inRange"
@@ -4623,14 +4092,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-inRange"
@@ -4638,14 +4105,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-selected"
@@ -4653,14 +4118,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4668,14 +4131,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4683,14 +4144,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4698,14 +4157,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -4713,14 +4170,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4728,14 +4183,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4743,14 +4196,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4758,14 +4209,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4773,14 +4222,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               11
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4788,14 +4235,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               12
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4803,14 +4248,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               13
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -4818,14 +4261,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               14
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4833,14 +4274,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               15
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4848,14 +4287,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               16
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4863,14 +4300,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               17
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4878,14 +4313,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               18
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4893,14 +4326,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               19
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4908,14 +4339,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               20
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -4923,14 +4352,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               21
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4938,14 +4365,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               22
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4953,14 +4378,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               23
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4968,14 +4391,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               24
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4983,14 +4404,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               25
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -4998,14 +4417,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               26
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -5013,14 +4430,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               27
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day rdr-Sunday"
@@ -5028,14 +4443,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               28
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -5043,14 +4456,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               29
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -5058,14 +4469,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               30
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day"
@@ -5073,14 +4482,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               31
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -5088,14 +4495,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               1
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -5103,14 +4508,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               2
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -5118,14 +4521,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               3
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive rdr-Sunday"
@@ -5133,14 +4534,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               4
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -5148,14 +4547,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               5
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -5163,14 +4560,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               6
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -5178,14 +4573,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               7
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -5193,14 +4586,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               8
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -5208,14 +4599,12 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               9
             </span>
           </span>
           <span
             onClick={[Function]}
-            style={undefined}
           >
             <span
               className="rdr-Day is-passive"
@@ -5223,7 +4612,6 @@ exports[`DateRange  render showRange = true - PredefinedRanges should be shown -
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               onMouseUp={[Function]}
-              style={undefined}
             >
               10
             </span>

@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -33,10 +34,10 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Detail(BetListExcelMetaModel metaModel)
         {
             CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/RngCasinoDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
+            return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/RngCasinoDetail/Main.cshtml", "Lrf_BetList_RNG_Detail").ConfigureAwait(false);
         }
 
         protected override void AssignViewBag(BetListMetaModel model)
@@ -44,7 +45,7 @@ namespace Fanex.Athena.Controllers.BetList
             ViewBag.BetListTitle = GetRNGCasinoBetListTitle(model.TransType);
         }
 
-        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
+        protected override async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.Title = GetRNGCasinoBetListTitle(metaModel.TransType);
             metaModel.ShowingOption = new BetListShowingOption
@@ -52,7 +53,7 @@ namespace Fanex.Athena.Controllers.BetList
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             metaModel.HiddenColumns = HiddenColumns;
-            return ProcessExportExcel(metaModel, "RngCasinoDetail");
+            return await ProcessExportExcel(metaModel, "RngCasinoDetail").ConfigureAwait(false);
         }
 
         private static string GetRNGCasinoBetListTitle(long transType)

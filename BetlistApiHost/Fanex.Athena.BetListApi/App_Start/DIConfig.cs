@@ -6,7 +6,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
-using Autofac.Integration.WebApi;
 using Fanex.Athena.Common.Utility.Services.Internal;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -40,7 +39,6 @@ namespace Fanex.Athena
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
 
         private static void RegisterThirdpartyServices(ContainerBuilder builder)

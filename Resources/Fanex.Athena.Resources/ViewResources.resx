@@ -3141,4 +3141,16 @@
     <value>For Keno, Lottery: Please provide username also in order to search ticket later than {0}</value>
     <comment>103555</comment>
   </data>
+  <data name="ResultPending" xml:space="preserve">
+    <value>Result Pending</value>
+    <comment>108717</comment>
+  </data>
+  <data name="UnderSettlement" xml:space="preserve">
+    <value>Under Settlement</value>
+    <comment>108717</comment>
+  </data>
+  <data name="AbnormalBet" xml:space="preserve">
+    <value>Abnormal Bet</value>
+    <comment>108717</comment>
+  </data>
 </root>

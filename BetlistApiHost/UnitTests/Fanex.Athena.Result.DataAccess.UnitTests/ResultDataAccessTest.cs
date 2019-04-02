@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Common.DataAccess.Interfaces;
     using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
@@ -55,12 +56,12 @@
         }
 
         [Test]
-        public void GetOutRight_WhenCall_ParametersPassedCorrectly()
+        public async Task GetOutRight_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetOutRightSp)).Returns(ObjectDb);
             dynamic param = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => param = arg));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(arg => param = arg));
             var expectedParam = new
             {
                 fromdate = _metaModel.FromDate,
@@ -69,14 +70,14 @@
             };
 
             // Action
-            DataAccess.GetOutRight(_metaModel);
+            await DataAccess.GetOutRight(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(param, Tobe.SameProperties(expectedParam));
         }
 
         [Test]
-        public void GetOutRight_WhenCall_ReturnCorrectData()
+        public async Task GetOutRight_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetOutRightSp)).Returns(ObjectDb);
@@ -106,7 +107,7 @@
             };
 
             // Action
-            var result = DataAccess.GetOutRight(_metaModel);
+            var result = await DataAccess.GetOutRight(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -117,7 +118,7 @@
         }
 
         [Test]
-        public void GetSports_ParameterPassedCorrectly()
+        public async Task GetSports_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSportsSp)).Returns(ObjectDb);
@@ -126,7 +127,7 @@
             var licenseeId = 1;
 
             // Action
-            DataAccess.GetSports(date, licenseeId);
+            await DataAccess.GetSports(date, licenseeId).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -138,7 +139,7 @@
         }
 
         [Test]
-        public void GetSports_ReturnCorrectData()
+        public async Task GetSports_ReturnCorrectData()
         {
             // Arrange
             const int SportId = 111;
@@ -158,19 +159,19 @@
             var licenseeId = 1;
 
             // Action
-            var result = DataAccess.GetSports(date, licenseeId);
+            var result = await DataAccess.GetSports(date, licenseeId).ConfigureAwait(false);
 
             // Assert
             Assert.That(result[0].SportId, Is.EqualTo(expectedResult[0].SportId));
         }
 
         [Test]
-        public void GetLeagues_WhenCall_ParametersPassedCorrectly()
+        public async Task GetLeagues_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLeaguesSp)).Returns(ObjectDb);
             dynamic param = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => param = arg));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(arg => param = arg));
 
             var date = new DateTime(2017, 3, 16);
             var sportId = 1;
@@ -183,7 +184,7 @@
             };
 
             // Action
-            DataAccess.GetLeagues(date, sportId);
+            await DataAccess.GetLeagues(date, sportId).ConfigureAwait(false);
             var result = param;
 
             // Assert
@@ -191,7 +192,7 @@
         }
 
         [Test]
-        public void GetLeagues_WhenCall_ReturnCorrectData()
+        public async Task GetLeagues_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLeaguesSp)).Returns(ObjectDb);
@@ -212,19 +213,19 @@
             var sportId = 1;
 
             // Action
-            var result = DataAccess.GetLeagues(date, sportId);
+            var result = await DataAccess.GetLeagues(date, sportId).ConfigureAwait(false);
 
             // Assert
             Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
         }
 
         [Test]
-        public void GetRacingMatches_WhenCall_ParametersPassedCorrectly()
+        public async Task GetRacingMatches_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetVirtualSportMatchesSp)).Returns(ObjectDb);
             dynamic param = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(x => param = x));
             _metaModel.SportId = 1;
             _metaModel.LeagueId = 2;
             var expectedResult = new
@@ -235,7 +236,7 @@
             };
 
             // Action
-            DataAccess.GetVirtualSportMatches(_metaModel);
+            await DataAccess.GetVirtualSportMatches(_metaModel).ConfigureAwait(false);
             var result = param;
 
             // Assert
@@ -243,7 +244,7 @@
         }
 
         [Test]
-        public void GetRacingMatches_WhenCall_ReturnCorrectData()
+        public async Task GetRacingMatches_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetVirtualSportMatchesSp)).Returns(ObjectDb);
@@ -261,7 +262,7 @@
             var expectedResult = GetExpectedVirtualSportData();
 
             // Action
-            var result = DataAccess.GetVirtualSportMatches(_metaModel);
+            var result = await DataAccess.GetVirtualSportMatches(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -272,13 +273,13 @@
         }
 
         [Test]
-        public void GetSportsbookGameDetail_WhenCall_ParametersPassedCorrectly()
+        public async Task GetSportsbookGameDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague_Detail")).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSportsbookGameDetail(MatchId);
+            await DataAccess.GetSportsbookGameDetail(MatchId).ConfigureAwait(false);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("matchid", MatchId);
@@ -286,7 +287,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void GetSportsbookGameDetail_WhenCall_ReturnCorrectData(bool betStatusIsNull)
+        public async Task GetSportsbookGameDetail_WhenCall_ReturnCorrectData(bool betStatusIsNull)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague_Detail")).Returns(ObjectDb);
@@ -316,7 +317,7 @@
             }
 
             // Action
-            var result = DataAccess.GetSportsbookGameDetail(matchId);
+            var result = await DataAccess.GetSportsbookGameDetail(matchId).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));

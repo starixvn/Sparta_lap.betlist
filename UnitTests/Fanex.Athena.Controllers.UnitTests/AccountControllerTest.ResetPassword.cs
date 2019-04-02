@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
-    using System.Collections.Specialized;
     using System.Web.Mvc;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -48,7 +47,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(resultInfo.Code, Is.EqualTo(-1));
+                    Assert.That(resultInfo.Code, Is.Not.Zero);
                     Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
                 });
             }
@@ -69,7 +68,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(resultInfo.Code, Is.EqualTo(-4));
+                    Assert.That(resultInfo.Code, Is.Not.Zero);
                     Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
                 });
             }
@@ -90,7 +89,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(resultInfo.Code, Is.EqualTo(-4));
+                    Assert.That(resultInfo.Code, Is.Not.Zero);
                     Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
                 });
             }
@@ -112,7 +111,7 @@
                 var resultInfo = result.Data as ResultInfo;
 
                 // Assert
-                Assert.That(resultInfo.Code, Is.EqualTo(-2));
+                Assert.That(resultInfo.Code, Is.Not.Zero);
                 Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.PasswordNoteMsg));
             }
         }

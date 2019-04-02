@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Common.DataAccess.UnitTests;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Fanex.Result.Core.Happy5.DTO;
@@ -33,14 +34,14 @@
         };
 
         [Test]
-        public void GetHappy5Matches_WhenCall_ParametersPassedCorrectly()
+        public async Task GetHappy5Matches_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetHappy5MatchesSp)).Returns(ObjectDb);
             _metaModel.LeagueId = 1;
 
             dynamic result = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(x => result = x));
             var expectedResult = new
             {
                 fromdate = _metaModel.FromDate,
@@ -50,14 +51,14 @@
             };
 
             // Action
-            DataAccess.GetHappy5Matches(_metaModel);
+            await DataAccess.GetHappy5Matches(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
-        public void GetHappy5Matches_WhenCall_ReturnCorrectData()
+        public async Task GetHappy5Matches_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetHappy5MatchesSp)).Returns(ObjectDb);
@@ -75,7 +76,7 @@
             };
 
             // Action
-            var result = DataAccess.GetHappy5Matches(_metaModel);
+            var result = await DataAccess.GetHappy5Matches(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -86,26 +87,26 @@
         }
 
         [Test]
-        public void GetPopUpHappy5Match_WhenCall_ParameterPassedCorrectly()
+        public async Task GetPopUpHappy5Match_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpHappy5MatchSp)).Returns(ObjectDb);
             dynamic result = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(x => result = x));
             var expected = new
             {
                 matchId = MatchId
             };
 
             // Action
-            DataAccess.GetPopUpHappy5Match(MatchId);
+            await DataAccess.GetPopUpHappy5Match(MatchId).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
         }
 
         [Test]
-        public void GetPopUpHappy5Match_WhenCall_ReturnCorrectData()
+        public async Task GetPopUpHappy5Match_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpHappy5MatchSp)).Returns(ObjectDb);
@@ -120,7 +121,7 @@
             var expectedResult = new List<Happy5> { dataItem };
 
             // Action
-            var result = DataAccess.GetPopUpHappy5Match(222);
+            var result = await DataAccess.GetPopUpHappy5Match(222).ConfigureAwait(false);
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedResult)));

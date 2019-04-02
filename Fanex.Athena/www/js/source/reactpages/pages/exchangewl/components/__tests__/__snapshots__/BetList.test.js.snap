@@ -69,7 +69,6 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
     </td>
     <td
       className="right-align"
-      title={undefined}
     />
     <td
       className="right-align"
@@ -77,13 +76,13 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
       title="1.8/0.5"
     >
       <span
-        className={false}
+        className=""
       >
         1.8
       </span>
       <br />
       <span
-        className={false}
+        className=""
       >
         0.5
       </span>
@@ -108,7 +107,7 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
       select2
     </td>
     <td
-      className="center-align false"
+      className="center-align "
       title="type2"
     >
       type2
@@ -133,7 +132,6 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
     </td>
     <td
       className="right-align"
-      title={undefined}
     />
   </tr>
   <tr>
@@ -178,7 +176,7 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
       select3
     </td>
     <td
-      className="center-align false"
+      className="center-align "
       title="type3"
     >
       type3
@@ -203,7 +201,6 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
     </td>
     <td
       className="right-align"
-      title={undefined}
     />
     <td
       className="right-align"
@@ -235,7 +232,7 @@ exports[`BetList  _buildFooter  match Snapshot 1`] = `
     GrandTotal
   </td>
   <td
-    className="right-align false"
+    className="right-align "
     title={1}
   >
     1
@@ -377,7 +374,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
               Object {
                 "maxHeight": undefined,
                 "minWidth": undefined,
-                "width": 870,
+                "width": 840,
               }
             }
           >
@@ -388,7 +385,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                 className="table"
                 style={
                   Object {
-                    "width": 851,
+                    "width": 821,
                   }
                 }
               >
@@ -399,70 +396,70 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                     <td
                       style={
                         Object {
-                          "width": "34.04px",
+                          "width": "32.839999999999996px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "255.29999999999998px",
+                          "width": "246.29999999999998px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "59.57px",
+                          "width": "57.47px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "102.12px",
+                          "width": "98.52px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "42.55px",
+                          "width": "41.05px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "85.1px",
+                          "width": "82.1px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "51.06px",
+                          "width": "49.26px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "68.08px",
+                          "width": "65.67999999999999px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "68.08px",
+                          "width": "65.67999999999999px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "85.1px",
+                          "width": "82.1px",
                         }
                       }
                     />
@@ -517,7 +514,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
               Object {
                 "maxHeight": 430,
                 "minWidth": undefined,
-                "width": 870,
+                "width": 840,
               }
             }
           >
@@ -528,7 +525,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                 className="table"
                 style={
                   Object {
-                    "width": 851,
+                    "width": 821,
                   }
                 }
               >
@@ -539,70 +536,70 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                     <td
                       style={
                         Object {
-                          "width": "34.04px",
+                          "width": "32.839999999999996px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "255.29999999999998px",
+                          "width": "246.29999999999998px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "59.57px",
+                          "width": "57.47px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "102.12px",
+                          "width": "98.52px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "42.55px",
+                          "width": "41.05px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "85.1px",
+                          "width": "82.1px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "51.06px",
+                          "width": "49.26px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "68.08px",
+                          "width": "65.67999999999999px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "68.08px",
+                          "width": "65.67999999999999px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "85.1px",
+                          "width": "82.1px",
                         }
                       }
                     />
@@ -649,7 +646,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                       select1
                     </td>
                     <td
-                      className="center-align false"
+                      className="center-align "
                       title="type1"
                     >
                       type1
@@ -674,7 +671,6 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                     </td>
                     <td
                       className="right-align"
-                      title={undefined}
                     />
                     <td
                       className="right-align"
@@ -682,13 +678,13 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                       title="1.8/0.5"
                     >
                       <span
-                        className={false}
+                        className=""
                       >
                         1.8
                       </span>
                       <br />
                       <span
-                        className={false}
+                        className=""
                       >
                         0.5
                       </span>
@@ -704,7 +700,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
               Object {
                 "maxHeight": undefined,
                 "minWidth": undefined,
-                "width": 870,
+                "width": 840,
               }
             }
           >
@@ -715,7 +711,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                 className="table"
                 style={
                   Object {
-                    "width": 851,
+                    "width": 821,
                   }
                 }
               >
@@ -726,70 +722,70 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                     <td
                       style={
                         Object {
-                          "width": "34.04px",
+                          "width": "32.839999999999996px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "255.29999999999998px",
+                          "width": "246.29999999999998px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "59.57px",
+                          "width": "57.47px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "102.12px",
+                          "width": "98.52px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "42.55px",
+                          "width": "41.05px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "85.1px",
+                          "width": "82.1px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "51.06px",
+                          "width": "49.26px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "68.08px",
+                          "width": "65.67999999999999px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "68.08px",
+                          "width": "65.67999999999999px",
                         }
                       }
                     />
                     <td
                       style={
                         Object {
-                          "width": "85.1px",
+                          "width": "82.1px",
                         }
                       }
                     />

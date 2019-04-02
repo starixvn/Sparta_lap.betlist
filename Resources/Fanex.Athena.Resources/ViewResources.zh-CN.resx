@@ -2632,4 +2632,13 @@
   <data name="BettingTicketCenter_RefnoTabNote2" xml:space="preserve">
     <value>关于快乐彩以及彩票：请输入用户名，以便搜寻{0}之后的注单</value>
   </data>
+  <data name="AbnormalBet" xml:space="preserve">
+    <value>非正规注单</value>
+  </data>
+  <data name="ResultPending" xml:space="preserve">
+    <value>赛果待定</value>
+  </data>
+  <data name="UnderSettlement" xml:space="preserve">
+    <value>结算中</value>
+  </data>
 </root>

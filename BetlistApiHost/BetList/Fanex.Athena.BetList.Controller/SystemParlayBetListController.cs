@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.BetList.Core.Builder;
@@ -23,9 +24,9 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public string Detail(SystemParlayDetailMetaModel metaModel)
+        public async Task<string> Detail(SystemParlayDetailMetaModel metaModel)
         {
-            var systemParlayData = _betListService.GetSystemParlayDetail(metaModel);
+            var systemParlayData = await _betListService.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
 
             return _betListBuilder.BuildSystemParlayDetail(this._ticketHelper, systemParlayData);
         }

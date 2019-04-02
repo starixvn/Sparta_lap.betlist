@@ -222,7 +222,6 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           className="checkbox-group"
         >
           <input
-            checked={undefined}
             className="checkbox"
             id="IncludeDrawData"
             onChange={[Function]}
@@ -246,7 +245,6 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           className="checkbox-group"
         >
           <input
-            checked={undefined}
             className="checkbox"
             id="ExcludeTest"
             onChange={[Function]}

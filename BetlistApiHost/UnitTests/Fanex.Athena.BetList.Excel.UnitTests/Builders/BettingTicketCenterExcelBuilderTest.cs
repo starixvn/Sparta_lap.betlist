@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Excel.BetList.Builders.UnitTests
 {
     using Athena.BetList.Excel.Builders;
+    using Athena.BetList.Excel.Model;
     using Athena.BetList.Model.DTO;
     using Common.Constant;
     using Fanex.BetList.Core.Builder;
@@ -16,8 +17,8 @@
 
     public class BettingTicketCenterExcelTest
     {
-        private const int NumberOfColumns = 12;
-        private const int ColumnTotalStart = 6;
+        private const int NumberOfColumns = 14;
+        private const int ColumnTotalStart = 8;
 
         private ITicketHelper _ticketHelper;
         private IBetListExcelBuilder _builder;
@@ -56,15 +57,22 @@
             _builder = null;
         }
 
-        [Test]
-        public void AddNoInfoRow_WhenCall_WorkCorrectly()
+        [TestCase(true, true, NumberOfColumns - 1)]
+        [TestCase(false, false, NumberOfColumns - 3)]
+        [TestCase(true, false, NumberOfColumns - 2)]
+        [TestCase(false, true, NumberOfColumns - 2)]
+        public void AddNoInfoRow_WhenCall_WorkCorrectly(bool isShowWinLoss, bool isShowLicenseeWL, int expectedMergedLastCol)
         {
             // Arrange
             var titleStyle = Substitute.For<ICellStyle>();
             _builder.CreateCellStyle().Returns(titleStyle);
 
             // Action
-            _excelBuilder.AddNoInfoRow();
+            _excelBuilder.AddNoInfoRow(new BettingTicketCenterExcelOption
+            {
+                ShowWinLoss = isShowWinLoss,
+                ShowLicenseeWl = isShowLicenseeWL
+            });
 
             // Assert
             Assert.Multiple(() =>
@@ -76,12 +84,15 @@
                     titleStyle);
                 _builder.Received(1).MergeCell(
                     Arg.Is<CellRangeAddress>(x => x.FirstRow == 2 && x.LastRow == 2
-                    && x.FirstColumn == 0 && x.LastColumn == NumberOfColumns - 1));
+                    && x.FirstColumn == 0 && x.LastColumn == expectedMergedLastCol));
             });
         }
 
-        [Test]
-        public void AddTitle_WhenCall_WorkCorrectly()
+        [TestCase(true, true, NumberOfColumns - 1)]
+        [TestCase(false, false, NumberOfColumns - 3)]
+        [TestCase(true, false, NumberOfColumns - 2)]
+        [TestCase(false, true, NumberOfColumns - 2)]
+        public void AddTitle_WhenCall_WorkCorrectly(bool isShowWinLoss, bool isShowLicenseeWL, int expectedMergedLastCol)
         {
             // Arrange
             const string Title = "sddflghdlkfjghldjfg";
@@ -91,7 +102,13 @@
             _builder.CreateCellStyle().Returns(titleStyle);
 
             // Action
-            _excelBuilder.AddTitle(Title);
+            _excelBuilder.AddTitle(
+                Title,
+                new BettingTicketCenterExcelOption
+                {
+                    ShowWinLoss = isShowWinLoss,
+                    ShowLicenseeWl = isShowLicenseeWL
+                });
 
             // Assert
             Assert.Multiple(() =>
@@ -107,7 +124,7 @@
                     titleStyle);
                 _builder.Received(1).MergeCell(
                     Arg.Is<CellRangeAddress>(x => x.FirstRow == 0 && x.LastRow == 0
-                    && x.FirstColumn == 0 && x.LastColumn == NumberOfColumns - 1));
+                    && x.FirstColumn == 0 && x.LastColumn == expectedMergedLastCol));
             });
         }
 
@@ -135,7 +152,7 @@
             };
 
             // Action
-            _excelBuilder.AddHeader(isShowCustomerComm);
+            _excelBuilder.AddHeader(isShowCustomerComm, new BettingTicketCenterExcelOption { ShowWinLoss = true, ShowLicenseeWl = true });
 
             // Assert
             Assert.Multiple(() =>
@@ -150,6 +167,38 @@
         }
 
         [Test]
+        public void AddHeader_IsNotShownWinLossColumn_NoWinLossCellCreated()
+        {
+            // Arrange
+            var cellStyle = Substitute.For<ICellStyle>();
+            _builder.CreateCellStyle().Returns(cellStyle);
+
+            // Action
+            _excelBuilder.AddHeader(false, new BettingTicketCenterExcelOption { ShowWinLoss = false, ShowLicenseeWl = true });
+
+            // Assert
+            _builder.DidNotReceive().AddCell(
+                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.WinLoss),
+                cellStyle);
+        }
+
+        [Test]
+        public void AddHeader_IsNotShownLicenseeWLColumn_NoLicenseeWLCellCreated()
+        {
+            // Arrange
+            var cellStyle = Substitute.For<ICellStyle>();
+            _builder.CreateCellStyle().Returns(cellStyle);
+
+            // Action
+            _excelBuilder.AddHeader(false, new BettingTicketCenterExcelOption { ShowWinLoss = true, ShowLicenseeWl = false });
+
+            // Assert
+            _builder.DidNotReceive().AddCell(
+                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.LicenseeWL + "/" + ViewResources.Comm),
+                cellStyle);
+        }
+
+        [Test]
         public void AddFooter_WhenCall_WorkCorrectly()
         {
             // Arrange
@@ -161,13 +210,15 @@
             _builder.LastContentRow.Returns(lastRow);
             _excelBuilder.InitializeFonts();
 
+            var totalText = FakeHelper.Create<string>();
+
             // Action
-            _excelBuilder.AddFooter(SumStake, SumWinLoss, SumPlayerComm, SumLicenseeWL);
+            _excelBuilder.AddFooter(SumStake, SumWinLoss, SumPlayerComm, SumLicenseeWL, totalText);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _builder.Received(ColumnTotalStart).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.Total), Arg.Any<ICellStyle>());
+                _builder.Received(ColumnTotalStart).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == totalText), Arg.Any<ICellStyle>());
                 _builder.Received(NumberOfColumns - ColumnTotalStart - 3).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
                 _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumStake.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
                 _builder.Received(1).AddCell(
@@ -188,14 +239,10 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(original, null, null, null);
+            _excelBuilder.AddFooter(original, null, null, null, FakeHelper.Create<string>());
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _builder.Received(NumberOfColumns - ColumnTotalStart - 1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
-            });
+            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [TestCase(0.996, "1.00")]
@@ -209,14 +256,10 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(null, original, null, null);
+            _excelBuilder.AddFooter(null, original, null, null, FakeHelper.Create<string>());
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _builder.Received(NumberOfColumns - ColumnTotalStart - 1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
-            });
+            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [TestCase(0.996, 0, "1.00\n0.00")]
@@ -230,14 +273,10 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(null, originalWL, originalComm, null);
+            _excelBuilder.AddFooter(null, originalWL, originalComm, null, FakeHelper.Create<string>());
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _builder.Received(NumberOfColumns - ColumnTotalStart - 1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
-            });
+             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [TestCase(12.345, "12.35")]
@@ -251,14 +290,10 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(null, null, null, original);
+            _excelBuilder.AddFooter(null, null, null, original, FakeHelper.Create<string>());
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _builder.Received(NumberOfColumns - ColumnTotalStart - 1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
-            });
+            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [Test]
@@ -280,7 +315,7 @@
             _excelBuilder.InitializeCellStyles();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, true, 1);
+            _excelBuilder.AssignRowData(tickets, ticket, true, 1, FakeHelper.Create<BettingTicketCenterExcelOption>());
 
             // Assert
             _builder.Received(1).AddCell(
@@ -308,7 +343,7 @@
             _excelBuilder.InitializeCellStyles();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, true, 1);
+            _excelBuilder.AssignRowData(tickets, ticket, true, 1, FakeHelper.Create<BettingTicketCenterExcelOption>());
 
             // Assert
             _builder.Received(1).AddCell(
@@ -340,7 +375,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 2);
+            _excelBuilder.AssignRowData(tickets, ticket, false, 2, FakeHelper.Create<BettingTicketCenterExcelOption>());
 
             // Assert
             _builder.Received(1).AddCell(
@@ -371,7 +406,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 2);
+            _excelBuilder.AssignRowData(tickets, ticket, false, 2, FakeHelper.Create<BettingTicketCenterExcelOption>());
 
             // Assert
             _builder.Received(1).AddCell(
@@ -397,7 +432,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, true, 3);
+            _excelBuilder.AssignRowData(tickets, ticket, true, 3, FakeHelper.Create<BettingTicketCenterExcelOption>());
 
             // Assert
             _builder.Received(1).AddCell(

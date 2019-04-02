@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;
 
@@ -14,15 +15,15 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult GetData(ExchangeBetListMetaModel metaModel)
+        public async Task<JsonResult> GetData(ExchangeBetListMetaModel metaModel)
         {
-            return Json(_service.GetBetListData(metaModel));
+            return Json(await _service.GetBetListDataAsync(metaModel).ConfigureAwait(false));
         }
 
         [HttpPost]
-        public JsonResult Detail(ExchangeBetListDetailMetaModel metaModel)
+        public async Task<JsonResult> Detail(ExchangeBetListDetailMetaModel metaModel)
         {
-            return Json(_service.GetTicketDetailList(metaModel));
+            return Json(await _service.GetTicketDetailListAsync(metaModel).ConfigureAwait(false));
         }
     }
 }

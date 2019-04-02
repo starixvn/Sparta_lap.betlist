@@ -7,10 +7,11 @@
 namespace Fanex.Athena.BetList.DataAccess.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.BetList.Model.DTO;
 
     public interface ICancelledBetListDataAccess
     {
-        IEnumerable<CustomerCancelBetItem> GetCancelBetCustList(string agentListXml);
+        Task<IEnumerable<CustomerCancelBetItem>> GetCancelBetCustList(string agentListXml);
     }
 }

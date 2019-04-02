@@ -44,11 +44,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.79.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.83.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.79.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.79.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.83.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.83.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Data, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -111,7 +111,7 @@
     <Compile Include="BetListDataAccessTest.GetBetListData.cs" />
     <Compile Include="BetListDataAccessTest.GetSystemParlayDetail.cs" />
     <Compile Include="BettingTicketsCenterDataAccessTest.cs" />
-    <Compile Include="BettingTicketsCenterDataAccessTest.GetBetListForMultipleCustomers.cs" />
+    <Compile Include="BettingTicketsCenterMultiCustomerDataAccessTest.cs" />
     <Compile Include="BettingTicketsCenterDataAccessTest.GetBetListForSingleCustomer.cs" />
     <Compile Include="BettingTicketsCenterDataAccessTest.GetRunningBetList.cs" />
     <Compile Include="CancelledBetListDataAccessTest.cs" />

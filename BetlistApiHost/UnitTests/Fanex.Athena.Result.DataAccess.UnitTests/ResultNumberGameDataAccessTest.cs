@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Common.DataAccess.UnitTests;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Fanex.Result.Core.NumberGame.DTO;
@@ -33,26 +34,26 @@
         };
 
         [Test]
-        public void GetPopUpNumberGameMatch_WhenCall_ParameterPassedCorrectly()
+        public async Task GetPopUpNumberGameMatch_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpNumberGameMatchSp)).Returns(ObjectDb);
             dynamic result = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(x => result = x));
             var expected = new
             {
                 matchId = MatchId
             };
 
             // Action
-            DataAccess.GetPopUpNumberGameMatch(MatchId);
+            await DataAccess.GetPopUpNumberGameMatch(MatchId).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
         }
 
         [Test]
-        public void GetPopUpNumberGameMatch_WhenCall_ReturnCorrectData()
+        public async Task GetPopUpNumberGameMatch_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpNumberGameMatchSp)).Returns(ObjectDb);
@@ -67,14 +68,14 @@
             var expectedResult = new List<NumberGame> { dataItem };
 
             // Action
-            var result = DataAccess.GetPopUpNumberGameMatch(222);
+            var result = await DataAccess.GetPopUpNumberGameMatch(222).ConfigureAwait(false);
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
         }
 
         [Test]
-        public void GetPopUpNumberGameMatch_IsRefundColumnNotExist_ReturnCorrectData()
+        public async Task GetPopUpNumberGameMatch_IsRefundColumnNotExist_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpNumberGameMatchSp)).Returns(ObjectDb);
@@ -86,21 +87,21 @@
             var expectedResult = new List<NumberGame> { dataItem };
 
             // Action
-            var result = DataAccess.GetPopUpNumberGameMatch(222);
+            var result = await DataAccess.GetPopUpNumberGameMatch(222).ConfigureAwait(false);
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
         }
 
         [Test]
-        public void GetNumberGameMatches_WhenCall_ParametersPassedCorrectly()
+        public async Task GetNumberGameMatches_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetNumberGameMatchesSp)).Returns(ObjectDb);
             _metaModel.LeagueId = 1;
 
             dynamic result = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(x => result = x));
             var expectedResult = new
             {
                 fromdate = _metaModel.FromDate,
@@ -110,14 +111,14 @@
             };
 
             // Action
-            DataAccess.GetNumberGameMatches(_metaModel);
+            await DataAccess.GetNumberGameMatches(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
-        public void GetNumberGameMatches_WhenCall_ReturnCorrectData()
+        public async Task GetNumberGameMatches_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetNumberGameMatchesSp)).Returns(ObjectDb);
@@ -135,7 +136,7 @@
             };
 
             // Action
-            var result = DataAccess.GetNumberGameMatches(_metaModel);
+            var result = await DataAccess.GetNumberGameMatches(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

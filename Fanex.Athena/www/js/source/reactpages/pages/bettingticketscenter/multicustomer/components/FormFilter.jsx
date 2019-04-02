@@ -9,11 +9,13 @@ import MultipleSelect from '@9softstudio/react-multiselect'
 import { DateRange } from '@jsroot/components/date-range/index'
 import AutoComplete from '@jsroot/components/auto-complete'
 import CheckBox from '@jsroot/components/CheckBox'
+import CollapsiblePanel from '@jsroot/components/collapsible-panel'
 
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '@jsroot/lib/langHelper'
 import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
+
 import DataService from '@jsroot/lib/DataService.js'
 import Service from '../../common/lib/Service'
 import ApiUrl from '../../common/constants/apiUrl'
@@ -46,7 +48,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return !!this.props.selectedProduct;
+        return !!this.props.selectedProduct && !!this.props.selectedStatus && !!this.props.selectedLiveStatus && !!this.props.selectedCurrency;
     }
 
     isSingleDate = (dateRange) => {
@@ -77,23 +79,25 @@ export class FormFilter extends Component {
         const { fromDate, toDate } = this.props.dateRange;
         const { PageSize, SortBy, SortOrder } = this.props.requestParam;
 
+        const isEnableLeagueMatch = this._isEnableLeagueMatch();
         return {
             PageSize: PageSize,
             PageIndex: 1,
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
-            CurrencyId: this.props.selectedCurrency.value,
-            CurrencyName: this.props.selectedCurrency.label,
+            Username: this.props.username,
+            CurrencyIdList: this.props.selectedCurrency,
             BaseCurrency: this.props.selectedBaseCurrency,
-            StatusList: this.props.selectedStatus,
+            Status: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
             SportId: this.props.selectedSport,
             BetTypeId: this.props.selectedBettype,
-            LeagueId: this.props.selectedLeague,
-            MatchId: this.props.selectedMatch,
+            LeagueId: isEnableLeagueMatch ? this.props.selectedLeague : 0,
+            MatchId: isEnableLeagueMatch ? this.props.selectedMatch : 0,
             SortBy: SortBy,
-            SortOrder: SortOrder
+            SortOrder: SortOrder,
+            IsConvertAll: this.props.isConvertAll
         }
     }
 
@@ -245,28 +249,38 @@ export class FormFilter extends Component {
      }
     
     _renderCurrencySelectList() {
-        return <Select instanceId="ddlCurrency"
-        value={this.props.selectedCurrency.value}
-        options={AppData.currencyList}
-        onChange={this._onChangeCurrency} />
+        const currencyList = AppData.currencyList;
+       
+        return currencyList && currencyList.length && (
+                <MultipleSelect id="ddlCurrency"
+                language={LangHelper.currentLanguage}
+                dataSource={currencyList}
+                keyField={"Id"}
+                valueField={"Value"}
+                statusField={"Status"}
+                onChange={(currentItem, selectedItemsKey) => this._onChangeCurrency(selectedItemsKey)} />);
     }
 
-    _onChangeCurrency = (currency) => {
-        const currencyName = currency.label;
-        let baseCurrency = currencyName;
+    _onChangeCurrency = (currencyIdList) => {
+        let baseCurrency = "";
 
-        if (currency.value == 0) {
+        if(!currencyIdList || currencyIdList.indexOf(',') > 0){ // none or multi currencies
             this.baseCurrencyList = AppData.baseCurrencyList;
             baseCurrency = this.baseCurrencyList.find(x => x.label === this.props.selectedBaseCurrency) ?
                             this.props.selectedBaseCurrency :
                             this.defaultBaseCurrency;
         }
-        else if(!this.baseCurrencyList.find(x => x.label === currencyName)){
-            this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
-            this.baseCurrencyList.push({value: currencyName, label: currencyName});      
+        else
+        {
+            const currencyName =  AppData.currencyList.find(x => x.Id == currencyIdList).Value;
+            baseCurrency = currencyName;
+            if(!this.baseCurrencyList.find(x => x.label === currencyName)){
+                this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
+                this.baseCurrencyList.push({value: currencyName, label: currencyName});      
+            }
         }
 
-        this.props.setSelectedCurrency(currency)
+        this.props.setSelectedCurrency(currencyIdList)
         this.props.setSelectedBaseCurrency(baseCurrency);
     }
 
@@ -298,23 +312,27 @@ export class FormFilter extends Component {
           const liveStatusList = AppData.liveStatusList;
 
           return liveStatusList && liveStatusList.length && (
-            <Select instanceId="LiveStatusList"
-                value={this.props.selectedLiveStatus}
-                options={liveStatusList}
-                onChange={(item) => this.props.setSelectedLiveStatus(item.value)} />
-        );
+                <MultipleSelect id="LiveStatusList"
+                    language={LangHelper.currentLanguage}
+                    dataSource={liveStatusList}
+                    keyField={"Id"}
+                    valueField={"Value"}
+                    statusField={"Status"}
+                    onChange={(currentItem, selectedItemsKey) => this.props.setSelectedLiveStatus(selectedItemsKey)} />);
     }
 
     render() {
-        return (
-            <div className="page-filter">
+        const excelButton = <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+
+       return (
+            <CollapsiblePanel className="page-filter" stickyFooter={excelButton}>
                 <div className="row">
                     <ToastContainer 
                             autoClose={10000} 
                             pauseOnFocusLoss={false} 
                             style={{width:"500px"}}
                             transition={Flip}/>
-                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                     <div className="col-12 col-md-3 col-sm-6 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
                             {this._renderDateRange()}
@@ -358,6 +376,16 @@ export class FormFilter extends Component {
                     
                     </div>
                     <div className="row">
+
+                        <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
+                            <AutoComplete url={ApiUrl.CUSTOMER_SEARCH_URL} 
+                            onSelect={(value) => this.props.setUsername(value)}
+                            onInput={(value) => this.props.setUsername(value)}
+                            htmlAttributes={{placeholder:LangHelper.getSingleResource("ExternalIdOrSystemId")}} />
+                    </div>
+                     </div>
                      <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Currency")}</label>
@@ -372,6 +400,15 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2">
+                        <div className="form-group">
+                            <CheckBox id="IsConvertAll"
+                            checked={this.props.isConvertAll}
+                            onChange={(checked) => this.props.changeIsConvertAll(checked)}
+                            label={LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")} />
+                        </div>    
+                    </div>
+
                      <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Status")}</label>
@@ -379,7 +416,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Live")}</label>
                         {this._renderLiveStatusSelectList()}
@@ -394,11 +431,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
                 </div>
-                 <div className="row">
-                    <div className="caret-block">
-                        <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
-                    </div>
-               </div>
+               
                <div className="row">
                    <div className="col-1" style={{flex: "0 0 4%"}}>
                        {LangHelper.getSingleResource('Note')}:
@@ -409,19 +442,21 @@ export class FormFilter extends Component {
                         * {LangHelper.getSingleResource('BettingTicketCenter_MultiCustomersTabNote2').replace("{0}", AppData.dateConstraint.minDate)}
                     </div>
                </div>
-            </div>
+
+            </CollapsiblePanel>
         )
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
-}
+               }
 function mapStateToProps(state) {
     const { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus } = state;
-        return Object.assign({}, { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-            selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus });
+        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus, username, isConvertAll } = state;
+
+    return Object.assign({}, { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
+        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus, username, isConvertAll });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

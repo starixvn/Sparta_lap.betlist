@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.BetList.MetaModel;
     using NSubstitute;
@@ -20,7 +21,7 @@
         }
 
         [Test]
-        public void MatchBetType_WhenCall_ReturnCorrectViewResult()
+        public async Task MatchBetType_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -33,7 +34,7 @@
                 };
 
                 // Action
-                var result = controller.MatchBetType(metaModel) as ViewResult;
+                var result = await controller.MatchBetType(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -47,7 +48,7 @@
         }
 
         [Test]
-        public void MixParlay_WhenCall_ReturnCorrectViewResult()
+        public async Task MixParlay_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -60,7 +61,7 @@
                 };
 
                 // Action
-                var result = controller.MixParlay(metaModel) as ViewResult;
+                var result = await controller.MixParlay(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -74,7 +75,7 @@
         }
 
         [Test]
-        public void Outright_WhenCall_ReturnCorrectViewResult()
+        public async Task Outright_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -87,7 +88,7 @@
                 };
 
                 // Action
-                var result = controller.Outright(metaModel) as ViewResult;
+                var result = await controller.Outright(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -101,7 +102,7 @@
         }
 
         [Test]
-        public void MatchBetType_ExportExcel_InvalidCurrency_ReturnEmptyResult()
+        public async Task MatchBetType_ExportExcel_InvalidCurrency_ReturnEmptyResult()
         {
             using (var controller = CreateController())
             {
@@ -115,7 +116,7 @@
                 controller.When(x => x.EmptyExcel()).DoNotCallBase();
 
                 // Action
-                controller.MatchBetType(metaModel);
+                await controller.MatchBetType(metaModel);
 
                 // Assert
                 controller.Received().EmptyExcel();
@@ -123,7 +124,7 @@
         }
 
         [TestCase(1, "Lrf_BetList_MatchWL_Bettype")]
-        public void MatchBetType_ExportExcel_PassCorrectParam(int betTypeId, string uspKey)
+        public async Task MatchBetType_ExportExcel_PassCorrectParam(int betTypeId, string uspKey)
         {
             using (var controller = CreateController())
             {
@@ -147,16 +148,16 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.MatchBetType(metaModel);
+                await controller.MatchBetType(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, uspKey, controller);
+                await AssertExcelParameters(expectedTitle, uspKey, controller);
             }
         }
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void MixParlay_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task MixParlay_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -184,15 +185,15 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.MixParlay(metaModel);
+                await controller.MixParlay(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, "Lrf_BetList_MatchWL_Parlay", controller);
+                await AssertExcelParameters(expectedTitle, "Lrf_BetList_MatchWL_Parlay", controller);
             }
         }
 
         [Test]
-        public void Outright_ExportExcel_PassCorrectParam()
+        public async Task Outright_ExportExcel_PassCorrectParam()
         {
             using (var controller = CreateController())
             {
@@ -213,10 +214,10 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.Outright(metaModel);
+                await controller.Outright(metaModel);
 
                 // Assert
-                AssertExcelParameters(expectedTitle, "Lrf_BetList_MatchWL_Outright", controller);
+                await AssertExcelParameters(expectedTitle, "Lrf_BetList_MatchWL_Outright", controller);
             }
         }
 
@@ -224,15 +225,15 @@
         {
             SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
-            controller.When(x => x.ProcessExportExcel(
+            controller.When(async x => await x.ProcessExportExcel(
                 Arg.Any<BetListExcelMetaModel>(),
                 Arg.Any<string>(),
                 Arg.Any<string>())).DoNotCallBase();
         }
 
-        private void AssertExcelParameters(string expectedTitle, string uspKey, MatchWinLossBetListController controller)
+        private async Task AssertExcelParameters(string expectedTitle, string uspKey, MatchWinLossBetListController controller)
         {
-            controller.Received().ProcessExportExcel(
+            await controller.Received().ProcessExportExcel(
                 Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
                     && x.Title == expectedTitle
                     && x.UspKey == uspKey

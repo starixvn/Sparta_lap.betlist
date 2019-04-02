@@ -43,7 +43,7 @@
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-80)]
-        public async Task GetByRefno_RefNoIsInvalid_ReturnNull(int refNo)
+        public void GetByRefno_RefNoIsInvalid_ReturnNull(int refNo)
         {
             using (var controller = CreateController())
             {
@@ -54,10 +54,10 @@
                 };
 
                 // Action
-                var result = await controller.GetByRefno(metaModel);
+                AsyncTestDelegate testDelegate = () => controller.GetByRefno(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
@@ -89,7 +89,7 @@
         }
 
         [Test]
-        public async Task GetByRunning_DateRangeIsInvalid_ReturnNull()
+        public void GetByRunning_DateRangeIsInvalid_ThrowException()
         {
             using (var controller = CreateController())
             {
@@ -101,17 +101,17 @@
                 };
 
                 // Action
-                var result = await controller.GetByRunning(metaModel);
+                AsyncTestDelegate testDelegate = async () => await controller.GetByRunning(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
-        public async Task GetByRunning_NoProduct_ReturnNull(string productCode)
+        public void GetByRunning_NoProduct_ThrowException(string productCode)
         {
             using (var controller = CreateController())
             {
@@ -124,15 +124,16 @@
                 };
 
                 // Action
-                var result = await controller.GetByRunning(metaModel);
+                AsyncTestDelegate testDelegate = async () => await controller.GetByRunning(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
-        [Test]
-        public async Task GetByRunning_InvalidCurrency_ReturnNull()
+        [TestCase(null)]
+        [TestCase("-100")]
+        public void GetByRunning_InvalidCurrency_ThrowException(string currencyIdList)
         {
             using (var controller = CreateController())
             {
@@ -142,14 +143,14 @@
                     FromDate = DateTime.Today,
                     ToDate = DateTime.Today,
                     ProductCodeList = "C1,C2",
-                    CurrencyId = -100
+                    CurrencyIdList = currencyIdList
                 };
 
                 // Action
-                var result = await controller.GetByRunning(metaModel);
+                AsyncTestDelegate testDelegate = async () => await controller.GetByRunning(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
@@ -165,7 +166,7 @@
                     FromDate = DateTime.Today,
                     ToDate = DateTime.Today,
                     ProductCodeList = "C1,C2",
-                    CurrencyId = BaseCurrencyType.All
+                    CurrencyIdList = BaseCurrencyType.Eur.ToString()
                 };
 
                 var expect = new HttpResponseMessage();
@@ -194,7 +195,7 @@
                     FromDate = DateTime.Today,
                     ToDate = DateTime.Today,
                     ProductCodeList = "C1,C2",
-                    CurrencyId = 2,
+                    CurrencyIdList = "-2",
                     UserName = FakeHelper.Create<string>()
                 };
 
@@ -207,7 +208,7 @@
         }
 
         [Test]
-        public async Task GetBySingleCustomer_DateRangeIsInvalid_ReturnNull()
+        public void GetBySingleCustomer_DateRangeIsInvalid_ReturnNull()
         {
             using (var controller = CreateController())
             {
@@ -220,15 +221,15 @@
                 };
 
                 // Action
-                var result = await controller.GetBySingleCustomer(metaModel);
+                AsyncTestDelegate testDelegate = () => controller.GetBySingleCustomer(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
         [Test]
-        public async Task GetBySingleCustomer_UserNameIsEmpty_ReturnNull()
+        public void GetBySingleCustomer_UserNameIsEmpty_ReturnNull()
         {
             using (var controller = CreateController())
             {
@@ -240,10 +241,10 @@
                 };
 
                 // Action
-                var result = await controller.GetBySingleCustomer(metaModel);
+                AsyncTestDelegate testDelegate = () => controller.GetBySingleCustomer(metaModel);
 
                 // Assert
-                Assert.That(result, Is.Null);
+                Assert.ThrowsAsync<ArgumentException>(testDelegate);
             }
         }
 
@@ -259,7 +260,7 @@
                     FromDate = DateTime.Today,
                     ToDate = DateTime.Today,
                     ProductCodeList = "C1,C2",
-                    CurrencyId = SessionService.UserSession.CurrencyList.Select(x => x.Key).FirstOrDefault(),
+                    CurrencyIdList = SessionService.UserSession.CurrencyList.Select(x => x.Key).FirstOrDefault().ToString(),
                     UserName = FakeHelper.Create<string>()
                 };
 

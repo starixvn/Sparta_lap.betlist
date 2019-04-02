@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
@@ -11,12 +12,12 @@
     public partial class ResultDataAccessTest
     {
         [Test]
-        public void GetMatches_WhenCall_ParametersPassedCorrectly()
+        public async Task GetMatches_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMatchesSp)).Returns(ObjectDb);
             dynamic param = null;
-            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
+            ObjectDb.ExecuteReaderAsync(Arg.Do<dynamic>(x => param = x));
             _metaModel.SportId = 1;
             _metaModel.LeagueId = 2;
 
@@ -29,14 +30,14 @@
             };
 
             // Action
-            DataAccess.GetMatches<Sportsbook>(_metaModel);
+            await DataAccess.GetMatches<Sportsbook>(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(param, Tobe.SameProperties(expected));
         }
 
         [Test]
-        public void GetMatches_TypeIsSportsbook_ReturnCorrectData()
+        public async Task GetMatches_TypeIsSportsbook_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMatchesSp)).Returns(ObjectDb);
@@ -60,7 +61,7 @@
             var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = DataAccess.GetMatches<Sportsbook>(_metaModel);
+            var result = await DataAccess.GetMatches<Sportsbook>(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -77,10 +78,10 @@
             DataAccess.GetObjectDb(Arg.Is(GetMatchesSp)).Returns(ObjectDb);
 
             // Action
-            TestDelegate result = () => DataAccess.GetMatches<object>(_metaModel);
+            AsyncTestDelegate result = () => DataAccess.GetMatches<object>(_metaModel);
 
             // Assert
-            Assert.Throws<NotSupportedException>(result, "The type 'object' is not supported.");
+            Assert.ThrowsAsync<NotSupportedException>(result, "The type 'object' is not supported.");
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.Utility.Collections;
     using Common.Utility.Helpers;
     using Common.Utility.Services.Interfaces;
@@ -47,7 +48,7 @@
         }
 
         [Test]
-        public void GetBetList_NoMainTicket_ReturnLeagueNameIsEmpty()
+        public async Task GetBetList_NoMainTicket_ReturnLeagueNameIsEmpty()
         {
             using (var controller = CreateController())
             {
@@ -68,7 +69,7 @@
                 _betListService.BuildTicketTextList(ticketResult, metaModel, isShowPlayerComm: metaModel.HasPlayerCom).Returns(ticketText);
 
                 // Action
-                var result = controller.GetBetList(metaModel).Data as BetListResultViewModel;
+                var result = (await controller.GetBetList(metaModel)).Data as BetListResultViewModel;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -86,7 +87,7 @@
         }
 
         [Test]
-        public void GetBetList_HasMainTicket_ReturnCorrectLeagueName()
+        public async Task GetBetList_HasMainTicket_ReturnCorrectLeagueName()
         {
             using (var controller = CreateController())
             {
@@ -113,7 +114,7 @@
                 _betListService.GetLeagueName(ticket.LeagueId).Returns(leagueName);
 
                 // Action
-                var result = controller.GetBetList(metaModel).Data as BetListResultViewModel;
+                var result = (await controller.GetBetList(metaModel)).Data as BetListResultViewModel;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -133,7 +134,7 @@
         [TestCase(1, 20, 50, 1, 3)]
         [TestCase(2, 30, 60, 31, 2)]
         [TestCase(3, 10, 60, 21, 6)]
-        public void GetPagingData_WhenCall_ReturnCorrectData(int pageIndex, int pageSize, int totalRows, int startIndex, int totalPage)
+        public async Task GetPagingData_WhenCall_ReturnCorrectData(int pageIndex, int pageSize, int totalRows, int startIndex, int totalPage)
         {
             using (var controller = CreateController())
             {
@@ -149,7 +150,7 @@
                 _betListService.BuildTicketTextList(ticketResult, metaModel, startIndex, isShowPlayerComm: metaModel.HasPlayerCom).Returns(ticketText.ToList());
 
                 // Action
-                var result = controller.GetBetListPaging(metaModel).Data;
+                var result = (await controller.GetBetListPaging(metaModel)).Data;
                 var page = result.GetType().GetProperty("page").GetValue(result, null);
                 var total = result.GetType().GetProperty("total").GetValue(result, null);
                 var records = result.GetType().GetProperty("records").GetValue(result, null);
@@ -170,7 +171,7 @@
         [TestCase(1.123, 2.345, "3.47")]
         [TestCase(1.123, 2.34, "3.46")]
         [TestCase(-1.123, -2.345, "<span class='negative-number'>-3.47</span>")]
-        public void GetPagingData_WhenCall_ReturnCorrectLicenseeWLText(decimal sumLicenseeWL, decimal sumComm, string expectedLicenseeWLText)
+        public async Task GetPagingData_WhenCall_ReturnCorrectLicenseeWLText(decimal sumLicenseeWL, decimal sumComm, string expectedLicenseeWLText)
         {
             using (var controller = CreateController())
             {
@@ -193,7 +194,7 @@
                 var expectedWinloss = NumberHelper.DecFormat(ticketResult.SumWinLoss + ticketResult.SumPlayerComm, 2);
 
                 // Action
-                var result = controller.GetBetListPaging(metaModel).Data;
+                var result = (await controller.GetBetListPaging(metaModel)).Data;
                 var userdata = result.GetType().GetProperty("userdata").GetValue(result, null);
 
                 // Assert
@@ -206,7 +207,7 @@
         }
 
         [Test]
-        public void GetDailyBetListData_WhenCall_CallGetBetListPaging()
+        public async Task GetDailyBetListData_WhenCall_CallGetBetListPaging()
         {
             using (var controller = CreateController())
             {
@@ -221,7 +222,7 @@
                     .Returns(ticketText.ToList());
 
                 // Action
-                controller.GetBetListPaging(metaModel);
+                 await controller.GetBetListPaging(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -259,7 +260,7 @@
         }
 
         [Test]
-        public void ExportExcel_WhenCall_ReturnCorrectData()
+        public async Task ExportExcel_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -272,7 +273,7 @@
                 controller.When(x => x.Export(metaModel, ticketResult)).DoNotCallBase();
 
                 // Action
-                controller.ExportExcel(metaModel);
+                await controller.ExportExcel(metaModel);
 
                 // Assert
                 controller.Received().Export(metaModel, ticketResult);
@@ -280,7 +281,7 @@
         }
 
         [Test]
-        public void ExportExcel_HasLeagueNameInTitle_NoMainTicket_ExportCorrectTitle()
+        public async Task ExportExcel_HasLeagueNameInTitle_NoMainTicket_ExportCorrectTitle()
         {
             using (var controller = CreateController())
             {
@@ -293,7 +294,7 @@
                 controller.When(x => x.Export(metaModel, ticketResult)).DoNotCallBase();
 
                 // Action
-                controller.ExportExcel(metaModel);
+                await controller.ExportExcel(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -305,7 +306,7 @@
         }
 
         [Test]
-        public void ExportExcel_HasLeagueNameInTitle_ExportCorrectTitle()
+        public async Task ExportExcel_HasLeagueNameInTitle_ExportCorrectTitle()
         {
             using (var controller = CreateController())
             {
@@ -325,7 +326,7 @@
                 controller.When(x => x.Export(metaModel, ticketResult)).DoNotCallBase();
 
                 // Action
-                controller.ExportExcel(metaModel);
+                await controller.ExportExcel(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -337,7 +338,7 @@
         }
 
         [Test]
-        public void ExportExcelDailyBetList_WhenCall_CallExportExcel()
+        public async Task ExportExcelDailyBetList_WhenCall_CallExportExcel()
         {
             using (var controller = CreateController())
             {
@@ -350,7 +351,7 @@
                 controller.When(x => x.Export(Arg.Any<DailyBetListMetaModel>(), ticketResult)).DoNotCallBase();
 
                 // Action
-                controller.ExportExcelDailyBetList(metaModel);
+                await controller.ExportExcelDailyBetList(metaModel);
 
                 // Assert
                 controller.Received().Export(metaModel, ticketResult);
@@ -358,7 +359,7 @@
         }
 
         [Test]
-        public void ExportExcelWinlossByLeague_WhenCall_CallExportExcel()
+        public async Task ExportExcelWinlossByLeague_WhenCall_CallExportExcel()
         {
             using (var controller = CreateController())
             {
@@ -371,7 +372,7 @@
                 controller.When(x => x.Export(Arg.Any<WinLossByLeagueBetListMetaModel>(), ticketResult)).DoNotCallBase();
 
                 // Action
-                controller.ExportExcelWinlossByLeague(metaModel);
+                await controller.ExportExcelWinlossByLeague(metaModel);
 
                 // Assert
                 controller.Received().Export(metaModel, ticketResult);

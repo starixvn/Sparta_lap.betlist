@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { ActionCreators } from '../actions'
-import { Row, Cell } from '@jsroot/components/fixed-table-header'
+import { HeaderRow, Row, HeaderCell, Cell } from '@9softstudio/react-grid'
 import LangHelper from '../../../../lib/langHelper'
 import BaseDataGrid from '../../common/components/BaseDataGrid'
 import Service from '../../common/lib/Service'
@@ -25,7 +25,7 @@ export class DataGrid extends BaseDataGrid {
         
         return [(
             <Row className="fixed-table-grant-total" key={1}>
-               <Cell className="right-align" colSpan={6}>{LangHelper.getSingleResource("Total")}</Cell>
+               <Cell className="right-align" colSpan={8}>{LangHelper.getSingleResource("Total")}</Cell>
                <Cell className="right-align">{item.SumStake}</Cell>
                <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.SumWinLoss}}></Cell>
                <Cell className={`right-align ${isNegativeWL ? "negative" : ""}`}>{item.SumLicenseeWL}</Cell>
@@ -42,26 +42,28 @@ export class DataGrid extends BaseDataGrid {
         const { SortBy, SortOrder } = this.props.requestParam;
 
         return (
-            <Row style={{ height: 32 }}>
-                <Cell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Cell>               
-                <Cell colWidth={120} header={true} title={headerText.ExternalId}>{headerText.ExternalId}</Cell>
-                <Cell colWidth={120} header={true} title={headerText.SystemId}>{headerText.SystemId}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.TransTime}>{headerText.TransTime}</Cell>
-                <Cell colWidth={400} header={true} title={headerText.Choice}>{headerText.Choice}</Cell>
-                <Cell colWidth={70} header={true} title={headerText.Odds}>{headerText.Odds}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Stake} sortable={true} sorting={SortBy=='Stake'} asc={SortOrder=='asc'} onClick={()=>this._sort('Stake')}>
+            <HeaderRow style={{ height: 32 }}>
+                <HeaderCell colWidth={40} title={headerText.Index}>{headerText.Index}</HeaderCell>               
+                <HeaderCell colWidth={120} title={headerText.ExternalId}>{headerText.ExternalId}</HeaderCell>
+                <HeaderCell colWidth={120} title={headerText.SystemId}>{headerText.SystemId}</HeaderCell>
+                <HeaderCell colWidth={110} title={headerText.RefNo}>{headerText.RefNo}</HeaderCell>
+                <HeaderCell colWidth={150} title={headerText.TransTime}>{headerText.TransTime}</HeaderCell>
+                <HeaderCell colWidth={400} title={headerText.Choice}>{headerText.Choice}</HeaderCell>
+                <HeaderCell colWidth={70} title={headerText.Odds}>{headerText.Odds}</HeaderCell>
+                <HeaderCell colWidth={70} title={headerText.OddsType}>{headerText.OddsType}</HeaderCell>
+                <HeaderCell colWidth={100} title={headerText.Stake} sortBy={'Stake'}>
                     {headerText.Stake}
-                </Cell>
-                <Cell colWidth={100} header={true} title={winlossText} sortable={true} sorting={SortBy=='WinLost'} asc={SortOrder=='asc'} onClick={()=>this._sort('WinLost')}>
+                </HeaderCell>
+                <HeaderCell colWidth={100} title={winlossText} sortBy={'WinLost'}>
                     {winlossText}
-                </Cell>
-                <Cell colWidth={100} header={true} title={licenseeWLText} sortable={true} sorting={SortBy=='LicenseeWL'} asc={SortOrder=='asc'} onClick={()=>this._sort('LicenseeWL')}>
+                </HeaderCell>
+                <HeaderCell colWidth={100} title={licenseeWLText} sortBy={'LicenseeWL'}>
                     {licenseeWLText}
-                </Cell>
-                <Cell colWidth={80} header={true} title={headerText.Status}>{headerText.Status}</Cell>
-                <Cell colWidth={80} header={true} title={headerText.Platform}>{headerText.Platform}</Cell>
-                <Cell colWidth={80} header={true} title={headerText.Live}>{headerText.Live}</Cell>
-            </Row>
+                </HeaderCell>
+                <HeaderCell colWidth={80} title={headerText.Status}>{headerText.Status}</HeaderCell>
+                <HeaderCell colWidth={80} title={headerText.Platform}>{headerText.Platform}</HeaderCell>
+                <HeaderCell colWidth={80} title={headerText.Live}>{headerText.Live}</HeaderCell>
+            </HeaderRow>
         )
     }
   }

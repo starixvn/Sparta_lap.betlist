@@ -7,8 +7,8 @@
 namespace Fanex.Athena.BetList.DataAccess
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Interfaces;
@@ -17,7 +17,7 @@ namespace Fanex.Athena.BetList.DataAccess
     {
         private const string UspKey = "Lrf_Monitor_BetlistSel_New";
 
-        public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             var ticketResult = new TicketResult();
 
@@ -37,7 +37,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 db.SetParameterValue("BaseCurrency", metaModel.BasedCurrency);
                 db.SetParameterValue("BetFrom", metaModel.BetFrom);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var mainTicket = ReadBetListTicket(reader, currencyList);
                     mainTicket.Sort("TransId", false);
@@ -48,11 +48,11 @@ namespace Fanex.Athena.BetList.DataAccess
             }
         }
 
-        public IList<BetListMatch> GetMatchList(string uspKey)
+        public async Task<IList<BetListMatch>> GetMatchList(string uspKey)
         {
             using (var db = this.GetObjectDb(uspKey))
             {
-                return db.Query<BetListMatch>().ToList();
+                return (await db.QueryAsync<BetListMatch>().ConfigureAwait(false)).ToList();
             }
         }
     }

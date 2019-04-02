@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Common.DataAccess
 {
     using System;
+    using System.Threading.Tasks;
     using Fanex.Common.Extensions;
     using Interfaces;
     using Logging;
@@ -21,7 +22,7 @@
             _cache = cache;
         }
 
-        public BalanceUp GetBalanceUp()
+        public async Task<BalanceUp> GetBalanceUp()
         {
             var balanceup = _cache.Get<BalanceUp>(BalanceUpCacheKey);
 
@@ -30,19 +31,19 @@
                 return balanceup;
             }
 
-            balanceup = GetBalanceUpDayFromDb();
+            balanceup = await GetBalanceUpDayFromDb().ConfigureAwait(false);
             _cache.Set(BalanceUpCacheKey, balanceup, CacheTimeoutSeconds);
             return balanceup;
         }
 
-        private BalanceUp GetBalanceUpDayFromDb()
+        private async Task<BalanceUp> GetBalanceUpDayFromDb()
         {
             const string UspName = "Lrf_SelBalanceUpDay";
 
             using (var db = this.GetObjectDb(UspName))
             {
                 var balanceUp = new BalanceUp();
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     if (reader.Read())
                     {

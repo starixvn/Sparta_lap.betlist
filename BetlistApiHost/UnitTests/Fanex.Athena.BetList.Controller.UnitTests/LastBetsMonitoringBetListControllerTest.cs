@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
+    using System.Threading.Tasks;
     using Common.Utility.Collections;
     using Fanex.BetList.Core.Entities;
     using Model.DTO;
@@ -24,7 +25,7 @@
         }
 
         [Test]
-        public void GetData_NoData_ReturnNoNewData()
+        public async Task GetData_NoData_ReturnNoNewData()
         {
             using (var controller = CreateController())
             {
@@ -34,7 +35,7 @@
                 _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(new TicketResult());
 
                 // Action
-                var result = controller.GetData(metaModel).Data;
+                var result = (await controller.GetData(metaModel)).Data;
 
                 // Assert
                 Assert.That(result.GetType().GetProperty("NewRow").GetValue(result, null), Is.False);
@@ -42,7 +43,7 @@
         }
 
         [Test]
-        public void GetData_HasData_ReturnCorrectData()
+        public async Task GetData_HasData_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -55,7 +56,7 @@
                 _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
-                var result = controller.GetData(metaModel).Data;
+                var result = (await controller.GetData(metaModel)).Data;
 
                 // Assert
                 Assert.Multiple(() => 
@@ -75,7 +76,7 @@
         [TestCase(8)]
         [TestCase(12)]
         [TestCase(20)]
-        public void GetData_BuildOdds_DecimalOddsBetType_BuildCorrectOddString(int betType)
+        public async Task GetData_BuildOdds_DecimalOddsBetType_BuildCorrectOddString(int betType)
         {
             using (var controller = CreateController())
             {
@@ -88,7 +89,7 @@
                 _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
-                var result = controller.GetData(metaModel).Data;
+                var result = (await controller.GetData(metaModel)).Data;
                 var data = (string)result.GetType().GetProperty("Rows").GetValue(result, null);
 
                 // Assert

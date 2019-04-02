@@ -1,9 +1,7 @@
 ﻿import React from 'react';
 import BaseDataGrid from '../BaseDataGrid';
 import renderer from 'react-test-renderer';
-import LangHelper from '@jsroot/lib/langHelper';
-import AppData from '@jsroot/lib/AppData';
-import { Row, Cell } from '@jsroot/components/fixed-table-header'
+import { Row, Cell } from '@9softstudio/react-grid'
 
 jest.mock('@jsroot/lib/AppData');
 

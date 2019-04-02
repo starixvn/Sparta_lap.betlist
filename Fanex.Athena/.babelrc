@@ -1,6 +1,6 @@
 ﻿{
-  "presets": [ "es2015", "react" ],
-  "plugins": [ "transform-object-rest-spread", "transform-class-properties", "syntax-dynamic-import" ],
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [ "@babel/proposal-object-rest-spread", "@babel/proposal-class-properties", "@babel/syntax-dynamic-import" ],
   "env": {
     "test": {
       "plugins": [ "dynamic-import-node" ]

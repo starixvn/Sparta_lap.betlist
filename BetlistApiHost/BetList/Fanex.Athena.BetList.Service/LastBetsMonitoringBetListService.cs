@@ -8,6 +8,7 @@ namespace Fanex.Athena.BetList.Service
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.Constant;
     using Common.Utility.Services.Interfaces;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
@@ -37,11 +38,11 @@ namespace Fanex.Athena.BetList.Service
             _cache = cache;
         }
 
-        public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            var ticketResult = this._lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(metaModel, currencyList);
+            var ticketResult = await this._lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(metaModel, currencyList).ConfigureAwait(false);
 
-            UpdateMatchInfo(metaModel, ticketResult);
+            await UpdateMatchInfo(metaModel, ticketResult).ConfigureAwait(false);
 
             return ticketResult;
         }
@@ -158,12 +159,12 @@ namespace Fanex.Athena.BetList.Service
         /// <summary>
         /// Reload match list once if the match is not found.
         /// </summary>
-        private IList<BetListMatch> GetMatchList()
+        private async Task<IList<BetListMatch>> GetMatchList()
         {
             var data = _cache.Get<IList<BetListMatch>>(MatchListCacheKey);
             if (data == null)
             {
-                data = this._lastBetsMonitoringBetListDataAccess.GetMatchList(MatchListSpKey);
+                data = await this._lastBetsMonitoringBetListDataAccess.GetMatchList(MatchListSpKey).ConfigureAwait(false);
                 _cache.Set(MatchListCacheKey, data, CacheTimeout);
             }
 
@@ -173,12 +174,12 @@ namespace Fanex.Athena.BetList.Service
         /// <summary>
         /// Reload outright match list once if the match is not found.
         /// </summary>
-        private IList<BetListMatch> GetOutrightMatchList()
+        private async Task<IList<BetListMatch>> GetOutrightMatchList()
         {
             var data = _cache.Get<IList<BetListMatch>>(OutrightMatchListCacheKey);
             if (data == null)
             {
-                data = this._lastBetsMonitoringBetListDataAccess.GetMatchList(OutrightMatchListSpKey);
+                data = await this._lastBetsMonitoringBetListDataAccess.GetMatchList(OutrightMatchListSpKey).ConfigureAwait(false);
                 _cache.Set(OutrightMatchListCacheKey, data, CacheTimeout);
             }
 
@@ -194,12 +195,12 @@ namespace Fanex.Athena.BetList.Service
         /// </summary>
         /// <param name="metaModel">The metal mode.</param>
         /// <param name="ticketResult">The ticket result.</param>
-        private void UpdateMatchInfo(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)
+        private async Task UpdateMatchInfo(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)
         {
             var mainTicketList = ticketResult.MainTicketList;
             var timeZoneDelta = metaModel.TimeZone - (-4);
-            var matchList = GetMatchList();
-            var outrightMatchList = GetOutrightMatchList();
+            var matchList = await GetMatchList().ConfigureAwait(false);
+            var outrightMatchList = await GetOutrightMatchList().ConfigureAwait(false);
             foreach (LrfTicket ticket in mainTicketList)
             {
                 var isOutright = IsOutright(ticket.BetTypeId);

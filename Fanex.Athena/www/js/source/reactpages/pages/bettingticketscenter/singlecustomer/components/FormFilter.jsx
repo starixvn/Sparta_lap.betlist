@@ -7,6 +7,7 @@ import MultipleSelect from '@9softstudio/react-multiselect'
 import { DateRange } from '@jsroot/components/date-range/index'
 import AutoComplete from '@jsroot/components/auto-complete'
 import CheckBox from '@jsroot/components/CheckBox'
+import CollapsiblePanel from '@jsroot/components/collapsible-panel'
 
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '@jsroot/lib/langHelper'
@@ -22,7 +23,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return !!this.props.username && !!this.props.selectedProduct;
+        return !!this.props.username && !!this.props.selectedProduct && !!this.props.selectedStatus && !!this.props.selectedLiveStatus;
     }
 
     submit = (event) => {
@@ -159,16 +160,19 @@ export class FormFilter extends Component {
           const liveStatusList = AppData.liveStatusList;
 
           return liveStatusList && liveStatusList.length && (
-            <Select instanceId="LiveStatusList"
-                value={this.props.selectedLiveStatus}
-      options={liveStatusList}
-        onChange={(item) => this.props.setSelectedLiveStatus(item.value)} />
-        );
+                      <MultipleSelect id="LiveStatusList"
+                    language={LangHelper.currentLanguage}
+                    dataSource={liveStatusList}
+                    keyField={"Id"}
+                    valueField={"Value"}
+                    statusField={"Status"}
+                    onChange={(currentItem, selectedItemsKey) => this.props.setSelectedLiveStatus(selectedItemsKey)} />);
       }
 
-    render() {
+     render() {
+     const excelButton = <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
         return (
-            <div className="page-filter">
+            <CollapsiblePanel className="page-filter" stickyFooter={excelButton}>
                 <div className="row">
 
                      <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
@@ -241,12 +245,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
                 </div>
-                 <div className="row">
-                    <div className="caret-block">
-                        <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
-                    </div>
-               </div>
-            </div>
+            </CollapsiblePanel>
         )
     }
 }

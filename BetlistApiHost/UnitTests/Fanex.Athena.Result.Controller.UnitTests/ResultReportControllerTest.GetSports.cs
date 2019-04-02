@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
     using Common.Model.DTO;
@@ -14,7 +15,7 @@
     public partial class ResultReportControllerTest
     {
         [Test]
-        public void GetSports_IsOutRight_ReturnOutrightResult()
+        public async Task GetSports_IsOutRight_ReturnOutrightResult()
         {
             using (var controller = CreateController())
             {
@@ -32,7 +33,7 @@
                 _resultService.GetOutRight(metaModel).Returns(dataList);
 
                 // Action
-                var result = controller.GetSports(metaModel) as JsonResult;
+                var result = (await controller.GetSports(metaModel)) as JsonResult;
 
                 // Assert
                 Assert.That(
@@ -42,7 +43,7 @@
         }
 
         [Test]
-        public void GetSports_SportIdIsZero_ReturnNormalSportsResult()
+        public async Task GetSports_SportIdIsZero_ReturnNormalSportsResult()
         {
             using (var controller = CreateController())
             {
@@ -62,7 +63,7 @@
                 _resultService.GetSports(metaModel.FromDate, metaModel.LicenseeId).Returns(dataList);
 
                 // Action
-                var result = controller.GetSports(metaModel) as JsonResult;
+                var result = await controller.GetSports(metaModel) as JsonResult;
 
                 // Assert
                 Assert.That(
@@ -72,7 +73,7 @@
         }
 
         [Test]
-        public void GetSports_SportIdIsNotZero_ReturnCorrectResult()
+        public async Task GetSports_SportIdIsNotZero_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -90,7 +91,7 @@
                 _resultService.GetLeagues(metaModel.FromDate, SportId).Returns(dataList);
 
                 // Action
-                var result = controller.GetSports(metaModel) as JsonResult;
+                var result = await controller.GetSports(metaModel) as JsonResult;
 
                 // Assert
                 Assert.That(

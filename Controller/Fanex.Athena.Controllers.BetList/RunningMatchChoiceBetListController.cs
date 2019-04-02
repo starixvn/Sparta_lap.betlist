@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Mvc;
@@ -34,13 +35,16 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
             CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/NewForecastBetlist/Main.cshtml", "Lrf_BetList_Forecast_SelByMatch");
+            return await ProcessDefaultRequest(
+                metaModel, 
+                "~/Views/Desktop/BetList/NewForecastBetlist/Main.cshtml", 
+                "Lrf_BetList_Forecast_SelByMatch").ConfigureAwait(false);
         }
 
-        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
+        protected override async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.Title = $"(LEAGUENAME) - {CacheRefAdapter.GetBettype(metaModel.BetType)} - {GetViewInCurrency(metaModel)}";
 
@@ -50,7 +54,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
             metaModel.HiddenColumns = HiddenColumnIndexes;
 
-            return ProcessExportExcel(metaModel, "RunningBetList");
+            return await ProcessExportExcel(metaModel, "RunningBetList").ConfigureAwait(false);
         }
     }
 }

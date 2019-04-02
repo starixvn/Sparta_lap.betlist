@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.BetList.MetaModel;
     using NSubstitute;
@@ -20,7 +21,7 @@
         }
 
         [Test]
-        public void Match_WhenCall_ReturnCorrectViewResult()
+        public async Task Match_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -28,7 +29,7 @@
                 var metaModel = CreateMetaModel();
 
                 // Action
-                var result = controller.Match(metaModel) as ViewResult;
+                var result = await controller.Match(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -42,7 +43,7 @@
         }
 
         [Test]
-        public void MixParlay_WhenCall_ReturnCorrectViewResult()
+        public async Task MixParlay_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -50,7 +51,7 @@
                 var metaModel = CreateMetaModel();
 
                 // Action
-                var result = controller.MixParlay(metaModel) as ViewResult;
+                var result = await controller.MixParlay(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -64,7 +65,7 @@
         }
 
         [Test]
-        public void Outright_WhenCall_ReturnCorrectViewResult()
+        public async Task Outright_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -72,7 +73,7 @@
                 var metaModel = CreateMetaModel();
 
                 // Action
-                var result = controller.Outright(metaModel) as ViewResult;
+                var result = await controller.Outright(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -86,7 +87,7 @@
         }
 
         [Test]
-        public void NumberGame_WhenCall_ReturnCorrectViewResult()
+        public async Task NumberGame_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -94,7 +95,7 @@
                 var metaModel = CreateMetaModel();
 
                 // Action
-                var result = controller.NumberGame(metaModel) as ViewResult;
+                var result = await controller.NumberGame(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -108,7 +109,7 @@
         }
 
         [Test]
-        public void VirtualSports_WhenCall_ReturnCorrectViewResult()
+        public async Task VirtualSports_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -119,7 +120,7 @@
                 CacheRefAdapter.GetSportName(metaModel.SportType).Returns(SportName);
 
                 // Action
-                var result = controller.VirtualSports(metaModel) as ViewResult;
+                var result = await controller.VirtualSports(metaModel) as ViewResult;
                 var model = (BetListMetaModel)result.Model;
 
                 // Assert
@@ -133,7 +134,7 @@
         }
 
         [Test]
-        public void Match_ExportExcel_InvalidCurrency_ReturnEmptyResult()
+        public async Task Match_ExportExcel_InvalidCurrency_ReturnEmptyResult()
         {
             using (var controller = CreateController())
             {
@@ -147,7 +148,7 @@
                 controller.When(x => x.EmptyExcel()).DoNotCallBase();
 
                 // Action
-                controller.Match(metaModel);
+                await controller.Match(metaModel);
 
                 // Assert
                 controller.Received().EmptyExcel();
@@ -156,7 +157,7 @@
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void Match_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task Match_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -186,16 +187,16 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.Match(metaModel);
+                await controller.Match(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossByMatch", controller);
+                await AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossByMatch", controller);
             }
         }
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void MixParlay_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task MixParlay_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -222,16 +223,16 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.MixParlay(metaModel);
+                await controller.MixParlay(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossParlay", controller);
+                await AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossParlay", controller);
             }
         }
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void Outright_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task Outright_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -256,16 +257,16 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.Outright(metaModel);
+                await controller.Outright(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossOutright", controller);
+                await AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossOutright", controller);
             }
         }
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void NumberGame_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task NumberGame_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -290,16 +291,16 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.NumberGame(metaModel);
+                await controller.NumberGame(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossNumberGame", controller);
+                await AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossNumberGame", controller);
             }
         }
 
         [TestCase("USD", null, "USD")]
         [TestCase("USD", "eur", "EUR")]
-        public void VirtualSports_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
+        public async Task VirtualSports_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
         {
             using (var controller = CreateController())
             {
@@ -325,10 +326,10 @@
                 SetUpForExportingExcel(metaModel, controller);
 
                 // Action
-                controller.VirtualSports(metaModel);
+                await controller.VirtualSports(metaModel);
 
                 // Assert
-                AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossVHRacing", controller);
+                await AssertExcelParameters(startIndex, expectedTitle, "Lrf_BetList_LiveReport_SelWinlossVHRacing", controller);
             }
         }
 
@@ -336,15 +337,15 @@
         {
             SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 
-            controller.When(x => x.ProcessExportExcel(
+            controller.When(async x => await x.ProcessExportExcel(
                 Arg.Any<BetListExcelMetaModel>(),
                 Arg.Any<string>(),
                 Arg.Any<string>())).DoNotCallBase();
         }
 
-        private void AssertExcelParameters(int expectedStartIndex, string expectedTitle, string uspKey, LiveReportBetListController controller)
+        private async Task AssertExcelParameters(int expectedStartIndex, string expectedTitle, string uspKey, LiveReportBetListController controller)
         {
-            controller.Received().ProcessExportExcel(
+            await controller.Received().ProcessExportExcel(
                 Arg.Is<BetListExcelMetaModel>(x => x.ShowingOption.CustomerCommVisible == DefaultLicenseeSession.IsAllowedCustomerComm
                     && x.Title == expectedTitle
                     && x.UspKey == uspKey

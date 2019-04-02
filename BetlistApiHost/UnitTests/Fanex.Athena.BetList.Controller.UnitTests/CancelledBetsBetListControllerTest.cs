@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
+    using System.Threading.Tasks;
     using DataAccess.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
@@ -16,7 +17,7 @@
         }
 
         [Test]
-        public void GetCustomerList_WhenCall_GetDataFromDataAccess()
+        public async Task GetCustomerList_WhenCall_GetDataFromDataAccess()
         {
             using (var controller = new CancelledBetsBetListController(_cancelledBetListDataAccess))
             {
@@ -24,10 +25,10 @@
                 var agentListXml = FakeHelper.Create<string>();
 
                 // Action
-                controller.GetCustomerList(agentListXml);
+                await controller.GetCustomerList(agentListXml).ConfigureAwait(false);
 
                 // Assert
-                _cancelledBetListDataAccess.Received().GetCancelBetCustList(agentListXml);
+                await _cancelledBetListDataAccess.Received(1).GetCancelBetCustList(agentListXml);
             }
         }
     }

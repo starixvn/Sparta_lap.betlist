@@ -371,7 +371,8 @@ namespace Fanex.Athena.Controllers
             {
                 var item = new HttpCookie(cookie)
                 {
-                    Expires = DateTime.Now.AddDays(-1)
+                    Expires = DateTime.Now.AddDays(-1),
+                    HttpOnly = true
                 };
                 Response.Cookies.Add(item);
             }

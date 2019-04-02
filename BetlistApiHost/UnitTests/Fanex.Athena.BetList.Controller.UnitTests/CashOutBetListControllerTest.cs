@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.Constant;
     using DataAccess.Interfaces;
     using Fanex.BetList.Core.Builder;
@@ -42,7 +43,7 @@
         }
 
         [Test]
-        public void Detail_BuilOriginalTicketText_OriginalTicketIsEmpty_ReturnEmptyObject()
+        public async Task Detail_BuilOriginalTicketText_OriginalTicketIsEmpty_ReturnEmptyObject()
         {
             using (var controller = CreateController())
             {
@@ -54,7 +55,7 @@
                 _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.That(result.OriginalTicketText.Choice, Is.Null);
@@ -62,7 +63,7 @@
         }
 
         [Test]
-        public void Detail_BuildCashOutTicketTextList_CashoutTicketIsNull_ReturnEmptyObject()
+        public async Task Detail_BuildCashOutTicketTextList_CashoutTicketIsNull_ReturnEmptyObject()
         {
             using (var controller = CreateController())
             {
@@ -74,7 +75,7 @@
                 _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.That(result.CashOutTicketTextList, Is.Empty);
@@ -82,7 +83,7 @@
         }
 
         [Test]
-        public void Detail_BuildCashOutTicketTextList_CashoutTicketIsEmpty_ReturnEmptyObject()
+        public async Task Detail_BuildCashOutTicketTextList_CashoutTicketIsEmpty_ReturnEmptyObject()
         {
             using (var controller = CreateController())
             {
@@ -94,7 +95,7 @@
                 _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.That(result.CashOutTicketTextList, Is.Empty);
@@ -102,7 +103,7 @@
         }
 
         [Test]
-        public void Detail_BuildCashOutTicketTextList_ReturnCorrectOriginalTicketText()
+        public async Task Detail_BuildCashOutTicketTextList_ReturnCorrectOriginalTicketText()
         {
             using (var controller = CreateController())
             {
@@ -136,7 +137,7 @@
                 var winloss = "-";
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
                 var originalTicketText = result.OriginalTicketText;
 
                 // Assert
@@ -156,7 +157,7 @@
 
         [TestCase(1, 2, false)]
         [TestCase(2, 2, true)]
-        public void Detail_BuildCashOutTicketTextList_ReturnCorrectCashOutTicketText(int metaModelTransId, int ticketTransId, bool expectedIsHighlight)
+        public async Task Detail_BuildCashOutTicketTextList_ReturnCorrectCashOutTicketText(int metaModelTransId, int ticketTransId, bool expectedIsHighlight)
         {
             using (var controller = CreateController())
             {
@@ -180,7 +181,7 @@
                 var expectedTranstime = ViewResources.RefNo + ": " + cashOutTicket.TransId + Environment.NewLine + "<div class='time'>" + cashOutTicket.TransDate + "</div>";
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
                 var cashoutTicketText = result.CashOutTicketTextList.ElementAt(0);
 
                 // Assert
@@ -204,7 +205,7 @@
 
         [TestCase(2, 1)]
         [TestCase(1, 2)]
-        public void Detail_IsNotOriginalTicket_DoNotHighlightOriginalTicket(int metaModelTransId, int ticketTransId)
+        public async Task Detail_IsNotOriginalTicket_DoNotHighlightOriginalTicket(int metaModelTransId, int ticketTransId)
         {
             using (var controller = CreateController())
             {
@@ -227,7 +228,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.False);
@@ -235,7 +236,7 @@
         }
 
         [Test]
-        public void Detail_BetdaqidIsZero_DoNotHighlightOriginalTicket()
+        public async Task Detail_BetdaqidIsZero_DoNotHighlightOriginalTicket()
         {
             using (var controller = CreateController())
             {
@@ -257,7 +258,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.False);
@@ -266,7 +267,7 @@
 
         [TestCase(900)]
         [TestCase(912)]
-        public void Detail_IsNotSpecialCashoutBettype_DoNotHighlightOriginalTicket(int bettype)
+        public async Task Detail_IsNotSpecialCashoutBettype_DoNotHighlightOriginalTicket(int bettype)
         {
             using (var controller = CreateController())
             {
@@ -289,7 +290,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.False);
@@ -297,7 +298,7 @@
         }
 
         [Test]
-        public void Detail_IsOriginalTicket_HighlightOriginalTicket()
+        public async Task Detail_IsOriginalTicket_HighlightOriginalTicket()
         {
             using (var controller = CreateController())
             {
@@ -320,7 +321,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.True);
@@ -328,7 +329,7 @@
         }
 
         [Test]
-        public void Detail_IsCashoutBettype_HighlightOriginalTicket()
+        public async Task Detail_IsCashoutBettype_HighlightOriginalTicket()
         {
             using (var controller = CreateController())
             {
@@ -351,7 +352,7 @@
                 _betListHTMLBuilder.CreateStatusBuilder(originalTicket.BetTypeId).Returns(status);
 
                 // Action
-                var result = (CashOutBetListDetailViewModel)controller.Detail(metaModel).Data;
+                var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
 
                 // Assert
                 Assert.That(result.IsHighlightOriginalTicket, Is.True);

@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -35,13 +36,13 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult Index(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
             CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/CustomerWl/Main.cshtml", "Lrf_BetList_SelWinLossByDate_Mem");
+            return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/CustomerWl/Main.cshtml", "Lrf_BetList_SelWinLossByDate_Mem").ConfigureAwait(false);
         }
 
-        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
+        protected override async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.Title = GetCustomerBetListTitle(metaModel, GetViewInCurrency(metaModel));
             metaModel.ShowingOption = new BetListShowingOption
@@ -49,7 +50,7 @@ namespace Fanex.Athena.Controllers.BetList
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
             metaModel.HiddenColumns = HiddenColumns;
-            return ProcessExportExcel(metaModel, "CustomerWinLossBetList");
+            return await ProcessExportExcel(metaModel, "CustomerWinLossBetList").ConfigureAwait(false);
         }
     }
 }

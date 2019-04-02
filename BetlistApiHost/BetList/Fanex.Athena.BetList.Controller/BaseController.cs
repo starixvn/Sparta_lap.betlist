@@ -17,6 +17,7 @@ namespace Fanex.Athena.BetList.Controller
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CustomAuth]
+    [HandleJsonException]
     public class BaseController : Controller
     {
         private const string LANGUAGEKEY = "Language";

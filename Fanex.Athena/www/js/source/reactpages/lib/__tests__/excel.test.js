@@ -124,7 +124,7 @@ describe('Excel ', () => {
 
             it('created "a" tag should has correct attributes', () => {
                 let atag;
-                const expectedHrefContent = "hrefContent";
+                const expectedHrefContent = "http://localhost/hrefContent";
                 window.URL.createObjectURL = jest.fn(() => expectedHrefContent);
                 document.body.appendChild = jest.fn().mockImplementationOnce((element) => {
                     atag = element;

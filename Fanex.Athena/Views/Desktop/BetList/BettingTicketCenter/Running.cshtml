@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "LRF - " + ViewResources.Report +
+    ViewBag.Title = "LAP - " + ViewResources.Report +
     " - " + "Betting Tickets Center";
     Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
@@ -9,14 +9,9 @@
     var productOptions = Model.ProductOptionList;
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
 
-    var currencyList = Model.CurrencyList.Select(c => new { value = c.Key, label = c.Value }).ToList();
-    currencyList.Insert(0, new
-    {
-        value = 0,
-        label = ViewResources.All
-    });
-
+    var selectedCurrency = string.Join(",", Model.CurrencyList.Select(x => x.Key).ToArray());
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+    var selectedStatus = string.Join(",", Model.StatusList.Where(x => x.Checked).Select(x => x.ID).ToArray());
 }
 @section pagecss {
     <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/betlist/index.css")" rel="stylesheet" type="text/css" />
@@ -30,15 +25,18 @@
     window.initialState = {
         selectedProduct: '@(selectedProductCode)',
         username: '',        
-        selectedCurrency: @Html.Raw(currencyList.First().ToJson()),       
+        selectedCurrency: '@(selectedCurrency)',
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
-        isLoading: false
+        isLoading: false,
+        selectedStatus: '@(selectedStatus)',
+        isConvertAll: true
     };
     window._AppData = {
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productOptions: @Html.Raw(productOptions.ToJson()),
-        currencyList: @Html.Raw(currencyList.ToJson()),
-        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson())
+        currencyList: @Html.Raw(Model.CurrencyList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.ID, Value = x.Name, Status = x.Checked }).ToJson()),
     };
 }
 <div id="app-container">

@@ -1,12 +1,15 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
-    using System.Collections.Generic;
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Base;
     using Base.Attributes;
+    using Helpers;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
+    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -29,15 +32,16 @@
         [HttpPost]
         public async Task<dynamic> GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
-            var userCurrencyList = SessionService.UserSession.CurrencyList;
-            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
+            if (!metaModel.IsValid)
             {
-                return null;
+                throw new ArgumentException(ViewResources.InvalidRequestMsg);
             }
+
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
 
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = userCurrencyList;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml();
 
             return await _betListApiClient.PostAsync("/BettingTicketCenter/GetBySingleCustomer", metaModel).ConfigureAwait(false);
         }
@@ -47,10 +51,10 @@
         {
             if (!metaModel.IsValid)
             {
-                return null;
+                throw new ArgumentException(ViewResources.InvalidRequestMsg);
             }
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml();
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
 
@@ -61,22 +65,17 @@
         public async Task<dynamic> GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
             var userCurrencyList = SessionService.UserSession.CurrencyList;
-
-            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
+            var currencyList = metaModel.CurrencyIdList?.Split(',').Select(x => int.Parse(x)).ToArray();
+            if (!metaModel.IsValid || !BetListHelper.IsValidCurrencyId(currencyList, userCurrencyList))
             {
-                return null;
+                throw new ArgumentException(ViewResources.InvalidRequestMsg);
             }
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(currencyList);
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
 
             return await _betListApiClient.PostAsync("/BettingTicketCenter/GetByRunning", metaModel).ConfigureAwait(false);
-        }
-
-        private static bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)
-        {
-            return currencyId == BaseCurrencyType.All || currencyList.ContainsKey(currencyId);
         }
     }
 }

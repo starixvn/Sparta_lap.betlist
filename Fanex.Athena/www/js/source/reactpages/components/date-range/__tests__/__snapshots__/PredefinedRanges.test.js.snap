@@ -108,13 +108,11 @@ exports[`PredefinedRanges render onlyClasses = false - match snapshot 1`] = `
 exports[`PredefinedRanges render onlyClasses = true - match snapshot 1`] = `
 <div
   className="predefinedRanges"
-  style={undefined}
 >
   <a
     className="rdr-PredefinedRangesItem"
     href="#"
     onClick={[Function]}
-    style={undefined}
   >
     Yesterday
   </a>
@@ -122,7 +120,6 @@ exports[`PredefinedRanges render onlyClasses = true - match snapshot 1`] = `
     className="rdr-PredefinedRangesItem"
     href="#"
     onClick={[Function]}
-    style={undefined}
   >
     LastMonth
   </a>
@@ -132,7 +129,6 @@ exports[`PredefinedRanges render onlyClasses = true - match snapshot 1`] = `
     <button
       className="rdr-Button rdr-ApplyButton"
       onClick={[Function]}
-      style={undefined}
       type="button"
     >
       OK
@@ -140,7 +136,6 @@ exports[`PredefinedRanges render onlyClasses = true - match snapshot 1`] = `
     <button
       className="rdr-Button rdr-CancelButton"
       onClick={[Function]}
-      style={undefined}
       type="button"
     >
       Cancel

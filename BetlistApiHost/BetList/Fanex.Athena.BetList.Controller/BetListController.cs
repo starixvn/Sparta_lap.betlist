@@ -8,6 +8,7 @@ namespace Fanex.Athena.BetList.Controller
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Common.Utility.Helpers;
     using Common.Utility.Services.Interfaces;
@@ -22,6 +23,8 @@ namespace Fanex.Athena.BetList.Controller
     {
         protected const int PageSizeExcel = 63000;
 
+        private const string DefaultPage = "Betlist Api default page";
+
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         private readonly IBetListService _betListService;
@@ -35,13 +38,13 @@ namespace Fanex.Athena.BetList.Controller
         [HttpGet]
         public string Index()
         {
-            return "Betlist Api default page";
+            return DefaultPage;
         }
 
         [HttpPost]
-        public JsonResult GetBetList(BetListMetaModel metaModel)
+        public async Task<JsonResult> GetBetList(BetListMetaModel metaModel)
         {
-            var ticketResult = _betListService.GetBetListData(metaModel);
+            var ticketResult = await _betListService.GetBetListData(metaModel).ConfigureAwait(false);
 
             var leagueName = string.Empty;
             var firstOrDefault = ticketResult.MainTicketList.FirstOrDefault();
@@ -67,11 +70,11 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public JsonResult GetBetListPaging(BetListMetaModel metaModel)
+        public async Task<JsonResult> GetBetListPaging(BetListMetaModel metaModel)
         {
             metaModel.IsServerPaging = true;
 
-            var ticketResult = _betListService.GetBetListData(metaModel);
+            var ticketResult = await _betListService.GetBetListData(metaModel).ConfigureAwait(false);
 
             var totalPage = (int)Math.Ceiling((double)ticketResult.TotalRows / metaModel.PageSize);
             var pageIndex = metaModel.PageIndex > totalPage ? totalPage : metaModel.PageIndex;
@@ -103,39 +106,39 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public dynamic GetDailyBetListData(DailyBetListMetaModel metaModel)
+        public async Task<dynamic> GetDailyBetListData(DailyBetListMetaModel metaModel)
         {
-            return GetBetListPaging(metaModel);
+            return await GetBetListPaging(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public dynamic GetWinLossByLeagueData(WinLossByLeagueBetListMetaModel metaModel)
+        public async Task<dynamic> GetWinLossByLeagueData(WinLossByLeagueBetListMetaModel metaModel)
         {
-            return GetBetList(metaModel);
+            return await GetBetList(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public ExcelResult ExportExcel(BetListExcelMetaModel metaModel)
+        public async Task<ExcelResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
-            return ProcessExportExcel(metaModel);
+            return await ProcessExportExcel(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public ExcelResult ExportExcelLiveReport(LiveReportBetListMetaModel metaModel)
+        public async Task<ExcelResult> ExportExcelLiveReport(LiveReportBetListMetaModel metaModel)
         {
-            return ProcessExportExcel(metaModel);
+            return await ProcessExportExcel(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public ExcelResult ExportExcelDailyBetList(DailyBetListMetaModel metaModel)
+        public async Task<ExcelResult> ExportExcelDailyBetList(DailyBetListMetaModel metaModel)
         {
-            return ProcessExportExcel(metaModel);
+            return await ProcessExportExcel(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public ExcelResult ExportExcelWinlossByLeague(WinLossByLeagueBetListMetaModel metaModel)
+        public async Task<ExcelResult> ExportExcelWinlossByLeague(WinLossByLeagueBetListMetaModel metaModel)
         {
-            return ProcessExportExcel(metaModel);
+            return await ProcessExportExcel(metaModel).ConfigureAwait(false);
         }
 
         protected internal virtual ExcelResult Export(BetListExcelMetaModel metaModel, TicketResult ticketResult)
@@ -147,9 +150,9 @@ namespace Fanex.Athena.BetList.Controller
             return new ExcelResult(workbook);
         }
 
-        protected internal virtual ExcelResult ProcessExportExcel(BetListExcelMetaModel metaModel)
+        protected internal virtual async Task<ExcelResult> ProcessExportExcel(BetListExcelMetaModel metaModel)
         {
-            var ticketResult = _betListService.GetBetListData(metaModel);
+            var ticketResult = await _betListService.GetBetListData(metaModel).ConfigureAwait(false);
 
             const string LeagueNamePlaceHolder = "(LEAGUENAME)";
             if (metaModel.Title.Contains(LeagueNamePlaceHolder))

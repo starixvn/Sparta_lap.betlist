@@ -16,7 +16,7 @@ using NUnit.Framework;
 namespace Fanex.Athena.Excel.Report.UnitTests
 {
     [TestFixture]
-    public partial class MatchWinLossExcelTest : BaseReportExcelTest
+    public partial class MatchWinLossExcelTest : BaseReportExcelTest, IDisposable
     {
         private const int ColumnCustomerWl = 4;
         private const int ColumnCustomerComm = 5;
@@ -236,5 +236,21 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());
             return excel;
         }
+
+        #region IDisposable Support
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            _contentData.Dispose();
+            _totalData.Dispose();
+        }
+
+        #endregion
     }
 }

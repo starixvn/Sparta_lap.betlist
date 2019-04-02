@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Mvc;
@@ -62,7 +63,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var currencies = SessionService.UserSession.CurrencyList;
@@ -81,7 +82,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 metaModel.Title = ViewResources.CorrectScore + " - " + GetViewInCurrency(metaModel);
                 metaModel.HiddenColumns = HiddenColumnIndexes;
-                return ProcessExportExcel(metaModel, "CorrectScoreBetList");
+                return await ProcessExportExcel(metaModel, "CorrectScoreBetList").ConfigureAwait(false);
             }
 
             return EmptyExcel();

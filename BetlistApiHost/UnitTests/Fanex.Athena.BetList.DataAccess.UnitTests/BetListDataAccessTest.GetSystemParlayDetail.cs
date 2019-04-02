@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using System.Threading.Tasks;
     using Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.Entities;
     using NSubstitute;
@@ -14,7 +15,7 @@
         private const string GetSystemParlayDetailSp = "Lrf_BetList_SelCombinationParlayDetail";
 
         [Test]
-        public void GetSystemParlayDetail_WhenCall_ParametersPassedCorrectly()
+        public async Task GetSystemParlayDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
@@ -24,7 +25,7 @@
             ObjectDb.ExecuteDataSet().Returns(dataset);
 
             // Action
-            DataAccess.GetSystemParlayDetail(metaModel);
+            await DataAccess.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -39,23 +40,23 @@
         }
 
         [Test]
-        public void GetSystemParlayDetail_WhenCall_GetTicketDataCorrectly()
+        public async Task GetSystemParlayDetail_WhenCall_GetTicketDataCorrectly()
         {
             // Arrange
             var expectedResult = FakeHelper.Create<SystemParlayTicket>();
             var metaModel = GetSystemParlayDetailMetaModel();
             DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
-            ObjectDb.ExecuteDataSet().Returns(CreateFakeDataSetForSystemParlayTickeData(expectedResult));
+            ObjectDb.ExecuteDataSetAsync().Returns(CreateFakeDataSetForSystemParlayTickeData(expectedResult));
 
             // Action
-            var result = DataAccess.GetSystemParlayDetail(metaModel);
+            var result = await DataAccess.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result.TicketList[0], Tobe.SameProperties(expectedResult));
         }
 
         [Test]
-        public void GetSystemParlayDetail_WhenCall_GetSerialDataCorrectly()
+        public async Task GetSystemParlayDetail_WhenCall_GetSerialDataCorrectly()
         {
             // Arrange
             var expectedResult = new SystemParlaySerial
@@ -66,10 +67,10 @@
             };
             var metaModel = GetSystemParlayDetailMetaModel();
             DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
-            ObjectDb.ExecuteDataSet().Returns(CreateFakeDataSetForSystemParlaySerialData(expectedResult));
+            ObjectDb.ExecuteDataSetAsync().Returns(CreateFakeDataSetForSystemParlaySerialData(expectedResult));
 
             // Action
-            var result = DataAccess.GetSystemParlayDetail(metaModel);
+            var result = await DataAccess.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result.SerialList[0], Tobe.SameProperties(expectedResult));

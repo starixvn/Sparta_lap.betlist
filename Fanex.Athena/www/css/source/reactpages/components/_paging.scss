@@ -1,33 +1,8 @@
-﻿@import "../abstracts/_variables";
-
-$colorLightGray: #ccc;
-$colorDisabledPgButton: $ligh-gray;
-$bgPaging: #EFF3F8;
-$colorBorderPaging: #d1dae1;
-
-.page-container {
-    padding: 3px;
+﻿.page-container {
     font-size: 1.1rem;
-    background-color: $bgPaging;
-    border: 1px solid $colorBorderPaging;
 
     .icon {
         font-family: 'icomoon' !important;
-        speak: none;
-        font-style: normal;
-        font-weight: normal;
-        font-variant: normal;
-        text-transform: none;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        font-size: 1.2rem;
-        color: #4c6375;
-        cursor: pointer;
-    }
-
-    .disable {
-        color: $colorDisabledPgButton;
-        cursor: default;
     }
 
     .page-first {
@@ -52,51 +27,5 @@ $colorBorderPaging: #d1dae1;
         &:before {
             content: "\ea22";
         }
-    }
-
-    .page-form {
-        width: auto;
-        height: auto;
-        font-size: inherit;
-        padding: 2px;
-        text-align: center;
-        margin: 0;
-
-        &, &:focus {
-            background: $white;
-            border: 1px solid #e2d6d6;
-            box-shadow: none;
-        }
-    }
-
-    .page-input {
-        display: inline;
-
-        &:after, &:before {
-            content: "";
-            border: 1px solid #ccc;
-        }
-
-        &:after {
-            margin-left: 5px;
-        }
-
-        &:before {
-            margin-right: 5px;
-        }
-    }
-
-    .pagesize-select {
-        height: auto;
-        font-size: inherit;
-        padding: 2px;
-        min-width: 65px;
-        border: 1px solid #e2d6d6;
-        margin-left: 5px;
-    }
-
-    .page-info {
-        float: right;
-        padding: 3px;
     }
 }

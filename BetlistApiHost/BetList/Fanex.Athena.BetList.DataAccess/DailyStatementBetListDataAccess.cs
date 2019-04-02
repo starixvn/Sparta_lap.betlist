@@ -5,6 +5,7 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.DataAccess.Interfaces;
     using Common.Utility.Extensions;
     using Fanex.Athena.BetList.Model.DTO;
@@ -30,11 +31,11 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IEnumerable<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel)
+        public async Task<IEnumerable<DailyStatement>> GetDailyStatementData(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_Statement_Mem";
 
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
 
@@ -44,16 +45,14 @@
                 BetListParameterBuilder.CreateBetListDateRangeParameters(db, metaModel);
                 BetListParameterBuilder.CreateBetlistBUParameters(db, metaModel);
                 BetListParameterBuilder.CreateBetListPagingParameters(db, metaModel);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadData(metaModel, reader);
                 }
             }
         }
 
-#pragma warning disable S3776 // Cognitive Complexity of methods should not be too high
         private static IEnumerable<DailyStatement> ReadData(BetListMetaModel metaModel, IDataReader reader)
-#pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
         {
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
             var index = 1;
@@ -64,7 +63,6 @@
             var currentCulture = CultureInfo.CurrentCulture;
 
             var result = new List<DailyStatement>();
-
             while (reader.Read())
             {
                 var winlostDate = reader.ToDateTime("winlostdate");
@@ -76,11 +74,13 @@
                 var comm = reader.ToDecimal(commissionColumn);
                 var turnover = reader.ToDecimal(turnoverColumn);
 
-                // Add commission.
-                if (!transType.Equals("gp"))
+                if (transType == "bal")
                 {
-                    var outstanding = isOutstandingBet ? turnover : 0;
-                    balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (metaModel.HasPlayerCom ? comm : 0) - outstanding;
+                    balance = reader.ToDecimal(totalAmtColumn);
+                }
+                else if (!transType.Equals("gp"))
+                {
+                    balance = balance + credit + (metaModel.HasPlayerCom ? comm : 0) - (isOutstandingBet ? turnover : 0);
                 }
 
                 result.Add(new DailyStatement

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -30,10 +31,10 @@
         }
 
         [HttpGet]
-        public ActionResult Detail(BetListExcelMetaModel metaModel)
+        public async Task<ActionResult> Detail(BetListExcelMetaModel metaModel)
         {
             CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/VoidbridgeDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
+            return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/VoidbridgeDetail/Main.cshtml", "Lrf_BetList_RNG_Detail").ConfigureAwait(false);
         }
 
         protected override void AssignViewBag(BetListMetaModel model)
@@ -41,7 +42,7 @@
             ViewBag.BetListTitle = _title;
         }
 
-        protected override ActionResult ExportExcel(BetListExcelMetaModel metaModel)
+        protected override async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
             metaModel.ShowingOption = new BetListShowingOption
             {
@@ -49,7 +50,7 @@
             };
             metaModel.Title = _title;
             metaModel.HiddenColumns = HiddenColumns;
-            return ProcessExportExcel(metaModel, "MacauGamesDetail");
+            return await ProcessExportExcel(metaModel, "MacauGamesDetail").ConfigureAwait(false);
         }
     }
 }

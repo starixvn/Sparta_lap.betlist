@@ -3,7 +3,6 @@
 exports[`FormFilter  render Base Currency Select List correctly 1`] = `
 <div
   className="Select is-clearable is-searchable Select--single"
-  style={undefined}
 >
   <div
     className="Select-control"
@@ -12,7 +11,6 @@ exports[`FormFilter  render Base Currency Select List correctly 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
-    style={undefined}
   >
     <span
       className="Select-multi-value-wrapper"
@@ -25,14 +23,10 @@ exports[`FormFilter  render Base Currency Select List correctly 1`] = `
       </div>
       <AutosizeInput
         aria-activedescendant="react-select-ddlBased--value"
-        aria-describedby={undefined}
         aria-expanded="false"
         aria-haspopup="false"
-        aria-label={undefined}
-        aria-labelledby={undefined}
         aria-owns=""
         className="Select-input"
-        id={undefined}
         injectStyles={true}
         minWidth="5"
         onBlur={[Function]}
@@ -40,7 +34,6 @@ exports[`FormFilter  render Base Currency Select List correctly 1`] = `
         onFocus={[Function]}
         required={false}
         role="combobox"
-        tabIndex={undefined}
         value=""
       />
     </span>
@@ -58,8 +51,15 @@ exports[`FormFilter  render Base Currency Select List correctly 1`] = `
 `;
 
 exports[`FormFilter  render correctly 1`] = `
-<div
+<CollapsiblePanel
   className="page-filter"
+  stickyFooter={
+    <i
+      className="icon-excel right"
+      onClick={[Function]}
+      title="ExportToExcel"
+    />
+  }
 >
   <div
     className="row"
@@ -82,8 +82,7 @@ exports[`FormFilter  render correctly 1`] = `
           name="RefNo"
           onChange={[Function]}
           placeholder="RefNo"
-          type="text"
-          value={undefined}
+          type="number"
         />
       </div>
     </div>
@@ -173,7 +172,6 @@ exports[`FormFilter  render correctly 1`] = `
           simpleValue={false}
           tabSelectsValue={true}
           trimFilter={true}
-          value={undefined}
           valueComponent={[Function]}
           valueKey="value"
         />
@@ -219,19 +217,6 @@ exports[`FormFilter  render correctly 1`] = `
     className="row"
   >
     <div
-      className="caret-block"
-    >
-      <i
-        className="icon-excel right"
-        onClick={[Function]}
-        title="ExportToExcel"
-      />
-    </div>
-  </div>
-  <div
-    className="row"
-  >
-    <div
       className="col-1"
       style={
         Object {
@@ -252,5 +237,5 @@ exports[`FormFilter  render correctly 1`] = `
       BettingTicketCenter_RefnoTabNote2
     </div>
   </div>
-</div>
+</CollapsiblePanel>
 `;
