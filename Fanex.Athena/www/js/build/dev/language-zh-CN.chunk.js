@@ -93,9 +93,10 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 03/27/2019 11:36:21 AM
+﻿// Generated at: 04/02/2019 3:14:44 PM
 window._language_zh_CN = {
 AA:"客客",
+AbnormalBet:"非正规注单",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
 Account:"账号",
 AccountManagement:"帐户管理",
@@ -708,6 +709,7 @@ Reset:"重设",
 ResetPassword:"重设密码",
 ResetPasswordSuccessMsg:"重置密码成功!",
 Result:"赛果",
+ResultPending:"赛果待定",
 Results:"赛果",
 Resultswithpictures:"参考号码",
 Revenue:"所得",
@@ -838,6 +840,7 @@ UncheckAll:"Uncheck All",
 Under:"下盘",
 UnderMaintenance:"维护中",
 UndermaintenanceMsg:"我们正进行伺服器维护, 网站于{0} 至 {1} 将无法使用. 非常抱歉造成您的不便!",
+UnderSettlement:"结算中",
 Unfreeze:"Unfreeze",
 Update:"更新",
 UpdateAccountSuccessMsg:"更新账号成功!",

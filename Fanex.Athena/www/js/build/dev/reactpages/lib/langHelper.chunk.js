@@ -91,15 +91,13 @@
   !*** ./www/js/source/common/languages/ViewResources.js ***!
   \*********************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-// Generated at: 03/27/2019 11:36:21 AM
+// Generated at: 04/02/2019 3:14:44 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
+  AbnormalBet: "Abnormal Bet",
   AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
   Account: "Account",
   AccountManagement: "Account Management",
@@ -817,6 +815,7 @@ window._language_en_US = {
   ResetPassword: "Reset Password",
   ResetPasswordSuccessMsg: "Reset password successfully!",
   Result: "Result",
+  ResultPending: "Result Pending",
   Results: "Results",
   Resultswithpictures: "Results with pictures",
   Revenue: "Revenue",
@@ -959,6 +958,7 @@ window._language_en_US = {
   Under: "Under",
   UnderMaintenance: "Under Maintenance",
   UndermaintenanceMsg: "We are having server maintenance, website will be unavailable from {0} until {1}. Sorry for the inconveniences caused!",
+  UnderSettlement: "Under Settlement",
   Unfreeze: "Unfreeze",
   Update: "Update",
   UpdateAccountSuccessMsg: "Update account successfully!",
@@ -1050,56 +1050,54 @@ window._language_en_US = {
 /*!****************************************************!*\
   !*** ./www/js/source/reactpages/lib/langHelper.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LangHelper; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var DEFAULT_RESOURCE_NAME = "_language_en_US";
 var langCode = window.PageLanguage || "en-US";
-var resourceName = "_language_" + langCode.replace("-", "_");
+var resourceName = "_language_".concat(langCode.replace("-", "_"));
 
-var LangHelper = function () {
-    function LangHelper() {
-        _classCallCheck(this, LangHelper);
+var LangHelper =
+/*#__PURE__*/
+function () {
+  function LangHelper() {
+    _classCallCheck(this, LangHelper);
+  }
+
+  _createClass(LangHelper, null, [{
+    key: "getSingleResource",
+    value: function getSingleResource(key) {
+      var langHandler = window[resourceName];
+      return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
     }
+  }, {
+    key: "getResources",
+    value: function getResources(keys) {
+      var langHandler = window[resourceName];
+      return keys.map(function (key) {
+        return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+      });
+    }
+  }, {
+    key: "currentLanguage",
+    get: function get() {
+      return langCode;
+    }
+  }]);
 
-    _createClass(LangHelper, null, [{
-        key: "getSingleResource",
-        value: function getSingleResource(key) {
-            var langHandler = window[resourceName];
-
-            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-        }
-    }, {
-        key: "getResources",
-        value: function getResources(keys) {
-            var langHandler = window[resourceName];
-
-            return keys.map(function (key) {
-                return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-            });
-        }
-    }, {
-        key: "currentLanguage",
-        get: function get() {
-            return langCode;
-        }
-    }]);
-
-    return LangHelper;
+  return LangHelper;
 }();
 
-exports.default = LangHelper;
+
 
 /***/ }),
 
