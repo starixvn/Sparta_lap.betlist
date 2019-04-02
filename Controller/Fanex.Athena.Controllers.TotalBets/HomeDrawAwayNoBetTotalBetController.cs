@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.TotalBets
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
@@ -32,7 +33,7 @@ namespace Fanex.Athena.Controllers.TotalBets
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var param = new HomeDrawAwayNoBetMetaModel
             {
@@ -40,25 +41,25 @@ namespace Fanex.Athena.Controllers.TotalBets
             };
 
             SetConvetedUSDCurrencyName(param);
-            return this.GetView(param);
+            return await this.GetView(param).ConfigureAwait(false);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(HomeDrawAwayNoBetMetaModel metaModel)
+        public async Task<ActionResult> Index(HomeDrawAwayNoBetMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.GetView(metaModel);
+            return await this.GetView(metaModel).ConfigureAwait(false);
         }
 
-        private ActionResult GetView(HomeDrawAwayNoBetMetaModel metaModel)
+        private async Task<ActionResult> GetView(HomeDrawAwayNoBetMetaModel metaModel)
         {
             var currencies = SessionService.UserSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var dataList = _homeDrawAwayNoBetDataAccess.GetHomeDrawAwayNoBetDataList(metaModel);
+                var dataList = await _homeDrawAwayNoBetDataAccess.GetHomeDrawAwayNoBetDataList(metaModel).ConfigureAwait(false);
                 var model = new HomeDrawAwayNoBetViewModel
                 {
                     Param = metaModel,

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
@@ -37,12 +38,12 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnMainView()
+        public async Task Index_WhenGet_ReturnMainView()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
 
                 // Assert
                 StringAssert.Contains("TotalBets/HomeDrawAwayNoBet/Main.cshtml", viewResult.ViewName);
@@ -50,22 +51,22 @@
         }
 
         [Test]
-        public void Index_WhenGet_GetDataFromService()
+        public async Task Index_WhenGet_GetDataFromService()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as HomeDrawAwayNoBetViewModel;
 
                 // Assert
-                _homeDrawAwayNoBetDataAccess.ReceivedWithAnyArgs().GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
+                await _homeDrawAwayNoBetDataAccess.ReceivedWithAnyArgs(1).GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
 
         [Test]
-        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
+        public async Task Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
             using (var controller = CreateController())
             {
@@ -76,7 +77,7 @@
                 };
 
                 // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
+                var viewResult = await controller.Index(metaModel) as RedirectResult;
 
                 // Assert
                 Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));

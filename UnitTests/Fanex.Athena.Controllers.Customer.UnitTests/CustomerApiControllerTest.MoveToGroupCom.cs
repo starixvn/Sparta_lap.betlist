@@ -58,7 +58,7 @@
                 await controller.MoveToGroupCom(CustmerIds, GroupId);
 
                 // Assert
-                _customerCommService.Received(1).MoveCustomersToGroupAsync(
+                await _customerCommService.Received(1).MoveCustomersToGroupAsync(
                         Arg.Is<MoveToGroupComMetaModel>(x =>
                             x.CustomerIds == CustmerIds &&
                             x.GroupComId == GroupId &&

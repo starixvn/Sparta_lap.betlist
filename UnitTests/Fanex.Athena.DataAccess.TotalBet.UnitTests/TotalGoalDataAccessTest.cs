@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -18,7 +19,7 @@
         }
 
         [Test]
-        public void GetTotalGoalDataList_WhenCall_DataReturnedCorrectly()
+        public async Task GetTotalGoalDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var metaModel = new TotalGoalMetaModel();
@@ -45,7 +46,7 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetTotalGoalDataList(metaModel);
+            var result = await DataAccess.GetTotalGoalDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -56,7 +57,7 @@
         }
 
         [Test]
-        public void GetTotalGoalDataList_NoDataReturned_ReturnEmptyData()
+        public async Task GetTotalGoalDataList_NoDataReturned_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new TotalGoalMetaModel();
@@ -66,7 +67,7 @@
             Reader.NextResult().Returns(false);
 
             // Action
-            var result = DataAccess.GetTotalGoalDataList(metaModel);
+            var result = await DataAccess.GetTotalGoalDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>

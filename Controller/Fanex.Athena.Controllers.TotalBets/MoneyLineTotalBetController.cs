@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Controllers.TotalBets
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var param = new MoneyLineMetaModel
             {
@@ -42,18 +43,18 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             SetConvetedUSDCurrencyName(param);
 
-            return this.GetView(param);
+            return await this.GetView(param).ConfigureAwait(false);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(MoneyLineMetaModel metaModel)
+        public async Task<ActionResult> Index(MoneyLineMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.GetView(metaModel);
+            return await this.GetView(metaModel).ConfigureAwait(false);
         }
 
-        private ActionResult GetView(MoneyLineMetaModel metaModel)
+        private async Task<ActionResult> GetView(MoneyLineMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencies = userSession.CurrencyList;
@@ -61,7 +62,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var result = _moneyLineDataAccess.GetMoneyLineDataList(metaModel);
+                var result = await _moneyLineDataAccess.GetMoneyLineDataList(metaModel).ConfigureAwait(false);
 
                 var model = new MoneyLineViewModel
                 {

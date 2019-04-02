@@ -11,6 +11,7 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Session.Model;
+
     internal class FakeBetSettingBaseController : BetSettingBaseController
     {
         internal FakeBetSettingBaseController(

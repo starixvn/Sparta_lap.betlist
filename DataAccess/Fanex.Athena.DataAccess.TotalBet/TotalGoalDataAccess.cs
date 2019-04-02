@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
@@ -19,7 +20,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class TotalGoalDataAccess : BaseDataAccess, ITotalGoalDataAccess
     {
-        public ReportResultModel<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel)
+        public async Task<ReportResultModel<TotalGoal>> GetTotalGoalDataList(TotalGoalMetaModel metaModel)
         {
             const string UspName = "Lrf_TotalBets_Sel6";
             var uspParams = new
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
             };
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                     reader.NextResult();

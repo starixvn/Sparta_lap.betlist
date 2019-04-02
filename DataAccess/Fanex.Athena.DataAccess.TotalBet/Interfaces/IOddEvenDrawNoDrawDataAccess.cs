@@ -6,12 +6,13 @@
 
 namespace Fanex.Athena.DataAccess.TotalBet.Interfaces
 {
+    using System.Threading.Tasks;
     using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
     public interface IOddEvenDrawNoDrawDataAccess
     {
-        ReportResultModel<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel);
+        Task<ReportResultModel<OddEvenDrawNoDraw>> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel);
     }
 }

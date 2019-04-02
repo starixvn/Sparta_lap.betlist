@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -18,7 +19,7 @@
         }
 
         [Test]
-        public void GetOddEventDrawNoDrawDataList_WhenCall_DataReturnedCorrectly()
+        public async Task GetOddEventDrawNoDrawDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var metaModel = new OddEvenDrawNoDrawMetaModel();
@@ -53,7 +54,7 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetOddEvenDrawNoDrawDataList(metaModel);
+            var result = await DataAccess.GetOddEvenDrawNoDrawDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -64,7 +65,7 @@
         }
 
         [Test]
-        public void GetOddEventDrawNoDrawDataList_NoDataReturned_ReturnEmptyData()
+        public async Task GetOddEventDrawNoDrawDataList_NoDataReturned_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new OddEvenDrawNoDrawMetaModel();
@@ -74,7 +75,7 @@
             Reader.NextResult().Returns(false);
 
             // Action
-            var result = DataAccess.GetOddEvenDrawNoDrawDataList(metaModel);
+            var result = await DataAccess.GetOddEvenDrawNoDrawDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>

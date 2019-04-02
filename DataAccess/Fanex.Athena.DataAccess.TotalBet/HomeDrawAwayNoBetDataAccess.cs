@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
@@ -17,7 +18,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class HomeDrawAwayNoBetDataAccess : BaseDataAccess, IHomeDrawAwayNoBetDataAccess
     {
-        public IList<HomeDrawAwayNoBet> GetHomeDrawAwayNoBetDataList(HomeDrawAwayNoBetMetaModel metaModel)
+        public async Task<IList<HomeDrawAwayNoBet>> GetHomeDrawAwayNoBetDataList(HomeDrawAwayNoBetMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel121";
             var uspParams = new
@@ -30,7 +31,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
             using (var db = this.GetObjectDb(SpName))
             {
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     return GetData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }

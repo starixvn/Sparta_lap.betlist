@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -17,7 +18,7 @@
         }
 
         [Test]
-        public void GetHomeDrawAwayNoBetDataList_WhenCall_DataReturnedCorrectly()
+        public async Task GetHomeDrawAwayNoBetDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var metaModel = new HomeDrawAwayNoBetMetaModel();
@@ -39,7 +40,7 @@
             ConfigureReaderForGetHomeDrawAwayNoBetDataList(expected);
 
             // Action
-            var result = DataAccess.GetHomeDrawAwayNoBetDataList(metaModel)[0];
+            var result = (await DataAccess.GetHomeDrawAwayNoBetDataList(metaModel))[0];
 
             // Assert
             Assert.Multiple(() =>

@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
@@ -18,7 +19,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class OddEvenDrawNoDrawDataAccess : BaseDataAccess, IOddEvenDrawNoDrawDataAccess
     {
-        public ReportResultModel<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel)
+        public async Task<ReportResultModel<OddEvenDrawNoDraw>> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel25";
 
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
                     TotalRows = metaModel.TotalRows,
                     AgentList = metaModel.AgentListXml
                 };
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
 
