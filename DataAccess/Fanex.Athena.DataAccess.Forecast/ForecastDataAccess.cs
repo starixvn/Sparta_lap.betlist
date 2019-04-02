@@ -222,7 +222,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         private IList<ForecastOneXTwo> GetForecastOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
         {
             var forecasts = new List<ForecastOneXTwo>();
-            var extraColumnName = "isExtra";
+            const string ExtraColumnName = "isExtra";
             var homeWinLossColumn = DataHelper.GetCurrencyColumnName("hl", metaModel.IsConvert, metaModel.BaseCurrency);
             var drawWinLossColumn = DataHelper.GetCurrencyColumnName("dl", metaModel.IsConvert, metaModel.BaseCurrency);
             var awayWinLossColumn = DataHelper.GetCurrencyColumnName("al", metaModel.IsConvert, metaModel.BaseCurrency);
@@ -232,12 +232,12 @@ namespace Fanex.Athena.DataAccess.Forecast
             var extraHomeWinLossColumn = DataHelper.GetCurrencyColumnName("x_hl", metaModel.IsConvert, metaModel.BaseCurrency);
             var extraDrawWinLossColumn = DataHelper.GetCurrencyColumnName("x_dl", metaModel.IsConvert, metaModel.BaseCurrency);
             var extraAwayWinLossColumn = DataHelper.GetCurrencyColumnName("x_al", metaModel.IsConvert, metaModel.BaseCurrency);
-            var hasExtraColumn = reader.HasColumn(extraColumnName);
+            var hasExtraColumn = reader.HasColumn(ExtraColumnName);
             while (reader.Read())
             {
                 var item = new ForecastOneXTwo();
                 ReadCommonData(reader, item);
-                if (!hasExtraColumn || reader.ToInt(extraColumnName) == 0)
+                if (!hasExtraColumn || reader.ToInt(ExtraColumnName) == 0)
                 {
                     item.IsExtra = false;
                     item.HomeWinLoss = reader.ToDecimal(homeWinLossColumn);

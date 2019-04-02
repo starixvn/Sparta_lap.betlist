@@ -57,8 +57,8 @@
 
         public async Task<bool?> GetStatusAsync(int custId, int productId)
         {
-            var uspName = "Acc_Dep_CustSetting_StatusSettingSelect";
-            using (var db = this.GetObjectDb(uspName))
+            const string UspName = "Acc_Dep_CustSetting_StatusSettingSelect";
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("CustID", custId);
                 db.SetParameterValue("ProductId", productId);
@@ -79,9 +79,9 @@
 
         public async Task<IResultInfo> UpdateStatusAsync(int userId, int custId, string ip, bool status, int productId)
         {
-            var uspName = "Acc_Dep_CustSetting_DisableStatUpd";
+            const string UspName = "Acc_Dep_CustSetting_DisableStatUpd";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("userid", userId);
@@ -101,11 +101,11 @@
 
         public async Task<IList<BetSetting>> GetBetSettingAsync(int custId, int productId)
         {
-            var uspName = "Acc_Dep_CustSetting_BetLimitSettingSelect";
+            const string UspName = "Acc_Dep_CustSetting_BetLimitSettingSelect";
 
             var dataList = new List<BetSetting>();
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("productid", productId);
@@ -138,9 +138,9 @@
 
         public async Task<IResultInfo> UpdateBetSettingAsync(int custId, int userId, string ip, string xmlData)
         {
-            var uspName = "Acc_Dep_CustSetting_BetLimitUpd";
+            const string UspName = "Acc_Dep_CustSetting_BetLimitUpd";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("userid", userId);

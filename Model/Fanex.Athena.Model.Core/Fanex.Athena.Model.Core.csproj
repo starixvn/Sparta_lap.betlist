@@ -89,6 +89,7 @@
     <Compile Include="DataDomain\LicenseeIdentity.cs" />
     <Compile Include="DataDomain\OddsType.cs" />
     <Compile Include="DataDomain\PlatformType.cs" />
+    <Compile Include="DataDomain\ReportLevel.cs" />
     <Compile Include="DataDomain\ResultVendorProductTypes.cs" />
     <Compile Include="DataDomain\ReportByType.cs" />
     <Compile Include="DataDomain\RNGCasinoSetting.cs" />

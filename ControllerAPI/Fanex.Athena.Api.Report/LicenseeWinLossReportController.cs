@@ -104,17 +104,17 @@ namespace Fanex.Athena.Api.Report
 
                 if (propertyName.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
                 {
-                    var licenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
+                    const string LicenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
 
-                    productCode = propertyName.Substring(licenseeWLColumn.Length);
-                    propertyName = licenseeWLColumn;
+                    productCode = propertyName.Substring(LicenseeWLColumn.Length);
+                    propertyName = LicenseeWLColumn;
                 }
                 else
                 {
-                    var turnOverColumn = nameof(LicenseeWinLoss.TurnOver);
+                    const string TurnOverColumn = nameof(LicenseeWinLoss.TurnOver);
 
-                    productCode = propertyName.Substring(turnOverColumn.Length);
-                    propertyName = turnOverColumn;
+                    productCode = propertyName.Substring(TurnOverColumn.Length);
+                    propertyName = TurnOverColumn;
                 }
 
                 dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(LicenseeWinLoss.Index), true);

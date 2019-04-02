@@ -28,9 +28,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public async Task<IList<BetSetting>> GetBetSettingsAsync(int custId)
         {
-            var uspName = "Lrf_CustomerSelEditKN";
+            const string UspName = "Lrf_CustomerSelEditKN";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("CustID", custId);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
@@ -42,9 +42,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public async Task<IResultInfo> UpdateBetSettingAsync(int custId, int userId, string language, string ip, string xmlData)
         {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBetKN";
+            const string UspName = "Lrf_CustomerUpdMember_MinMaxBetKN";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("userid", userId);

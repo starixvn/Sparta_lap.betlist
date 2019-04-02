@@ -169,10 +169,9 @@ namespace Fanex.Athena.Excel.Report
 
         protected internal virtual int AssignTotalData(ISheet sheet, int currentRow)
         {
-            var rowTemplate = RowTotalSolidBorder;
             sheet.MergeCells(currentRow, 0, currentRow, Level == 0 ? 1 : 3);
 
-            var row = sheet.CopyRow(TemplateSheet, rowTemplate, currentRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalSolidBorder, currentRow);
             AssignCommonData(row, _totalData);
             row.Cells[ColumnAmtDueTo].SetCellValue(_totalData.AmountDue);
             return currentRow;

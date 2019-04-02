@@ -17,8 +17,8 @@ namespace Fanex.Athena.DataAccess.BetSettings
     {
         public async Task<ThirdPartyBetSetting> GetBetSettingAsync(int custId, int productid)
         {
-            var uspName = "Lrf_3rdProductSelCustStatus";
-            using (var db = this.GetObjectDb(uspName))
+            const string UspName = "Lrf_3rdProductSelCustStatus";
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("CustID", custId);
                 db.SetParameterValue("ProductId", productid);
@@ -45,9 +45,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
             string ip,
             bool isEnabled)
         {
-            var uspName = "Lrf_3rdProductUpdCustStatus";
+            const string UspName = "Lrf_3rdProductUpdCustStatus";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("userid", userId);

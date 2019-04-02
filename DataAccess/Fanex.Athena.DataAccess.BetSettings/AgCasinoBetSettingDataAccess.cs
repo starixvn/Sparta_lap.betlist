@@ -18,9 +18,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
     {
         public async Task<AgCasinoBetSetting> GetBetSettingAsync(int custId)
         {
-            var uspName = "Lrf_AGC_SelCustSetting";
+            const string UspName = "Lrf_AGC_SelCustSetting";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("CustID", custId);
                 db.SetParameterValue("Currency", null);
@@ -44,9 +44,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public async Task<IResultInfo> UpdateBetSettingAsync(CommonBetSetting data, string group)
         {
-            var uspName = "Lrf_AGC_UpdCustSetting";
+            const string UspName = "Lrf_AGC_UpdCustSetting";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("aggroup", group);
                 db.SetParameterValue("ip", data.Ip);
@@ -65,9 +65,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public async Task<IResultInfo> UpdateStatusAsync(int userId, int custId, string language, string ip, bool isEnabled)
         {
-            var uspName = "Lrf_AGC_UpdCustStatus";
+            const string UspName = "Lrf_AGC_UpdCustStatus";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("isenabled", isEnabled);
                 db.SetParameterValue("ip", ip);

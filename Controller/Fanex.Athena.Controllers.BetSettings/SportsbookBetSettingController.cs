@@ -117,14 +117,14 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private DcsBetSetting GetESportSetting()
         {
-            var sportType = (int)SportType.Esports;
+            const int Esports = (int)SportType.Esports;
             return new DcsBetSetting
             {
-                MaxBet = GetDecimalRequest("maxbet" + sportType, 0),
-                MinBet = GetDecimalRequest("minbet" + sportType, 0),
-                MaxPerMatch = GetDecimalRequest("maxpermatch" + sportType, 0),
-                SportId = sportType.ToString(),
-                BetType = GetIntRequest("bettype" + sportType, 0),
+                MaxBet = GetDecimalRequest("maxbet" + Esports, 0),
+                MinBet = GetDecimalRequest("minbet" + Esports, 0),
+                MaxPerMatch = GetDecimalRequest("maxpermatch" + Esports, 0),
+                SportId = Esports.ToString(),
+                BetType = GetIntRequest("bettype" + Esports, 0),
             };
         }
     }

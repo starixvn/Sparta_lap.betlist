@@ -41,25 +41,25 @@
                 return Redirect(Url.Content("~/Utility/UnderMaintenance?notReload=true"));
             }
 
-            var returnUrl = "~/Utility/OneTokenRestriction?code=";
+            const string ReturnUrl = "~/Utility/OneTokenRestriction?code=";
             if (string.IsNullOrWhiteSpace(token))
             {
-                return Redirect(Url.Content(returnUrl + OneAuthorizationErrorCode.TokenIsInValid));
+                return Redirect(Url.Content(ReturnUrl + OneAuthorizationErrorCode.TokenIsInValid));
             }
 
             var tokenInfo = _oneAuthenticationService.GetTokenInfo(token);
             if (tokenInfo == null)
             {
-                return Redirect(Url.Content(returnUrl + OneAuthorizationErrorCode.TokenIsInValid));
+                return Redirect(Url.Content(ReturnUrl + OneAuthorizationErrorCode.TokenIsInValid));
             }
 
             if (VerifyToken(tokenInfo))
             {
-                return Redirect(Url.Content(GetReturnPathForValidToken(returnUrl, tokenInfo)));
+                return Redirect(Url.Content(GetReturnPathForValidToken(ReturnUrl, tokenInfo)));
             }
 
             WriteLog(JsonConvert.SerializeObject(tokenInfo));
-            return Redirect(Url.Content(returnUrl + OneAuthorizationErrorCode.TokenIsInValid));
+            return Redirect(Url.Content(ReturnUrl + OneAuthorizationErrorCode.TokenIsInValid));
         }
 
         private static bool VerifyToken(OneAuthToken token)
