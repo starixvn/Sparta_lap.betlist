@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -18,7 +19,7 @@
         }
 
         [Test]
-        public void GetHandicapOverUnderDataList_WhenCall_DataReturnedCorrectly()
+        public async Task GetHandicapOverUnderDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var metaModel = new HandicapOverUnderMetaModel();
@@ -50,7 +51,7 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetHandicapOverUnderDataList(metaModel);
+            var result = await DataAccess.GetHandicapOverUnderDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -61,7 +62,7 @@
         }
 
         [Test]
-        public void GetHandicapOverUnderDataList_NoDataReturned_ReturnEmptyData()
+        public async Task GetHandicapOverUnderDataList_NoDataReturned_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new HandicapOverUnderMetaModel();
@@ -71,7 +72,7 @@
             Reader.NextResult().Returns(false);
 
             // Action
-            var result = DataAccess.GetHandicapOverUnderDataList(metaModel);
+            var result = await DataAccess.GetHandicapOverUnderDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>

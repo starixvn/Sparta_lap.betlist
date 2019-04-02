@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
@@ -18,7 +19,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class HalfTimeFullTimeDataAccess : BaseDataAccess, IHalfTimeFullTimeDataAccess
     {
-        public ReportResultModel<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel)
+        public async Task<ReportResultModel<HalfTimeFullTime>> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel16";
 
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
                     PageIndex = metaModel.PageIndex,
                     TotalRows = metaModel.TotalRows
                 };
-                using (var reader = db.ExecuteReader(uspParams))
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                     reader.NextResult();
