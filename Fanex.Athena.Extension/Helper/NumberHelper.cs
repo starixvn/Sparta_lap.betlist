@@ -41,5 +41,10 @@ namespace Fanex.Athena.Extension.Helper
             var format = "N" + digit.ToString();
             return value.ToString(format, DefaultCulture.NumberFormat);
         }
+
+        public static string PercentageFormat(decimal value, byte digit = 2)
+        {
+            return DecFormat(value * 100, digit);
+        }
     }
 }

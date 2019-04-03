@@ -45,7 +45,7 @@ namespace Fanex.Athena.Excel.Customer
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
 
             for (int i = 0; i < _headerTexts.Count; i++)
             {
@@ -69,10 +69,10 @@ namespace Fanex.Athena.Excel.Customer
 
         protected override void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reporTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, _reporTitle);
 
             /*Freeze 2 rows title and header*/
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             /*Remove content below header before insert new data.*/
             ClearTemplate(sheet, RowContentTemplate);

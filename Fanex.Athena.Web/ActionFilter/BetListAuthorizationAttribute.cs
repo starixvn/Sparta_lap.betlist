@@ -32,7 +32,7 @@ namespace Fanex.Athena.Web.ActionFilter
                     filterContext.HttpContext.Response.ContentType = "application/json";
                     filterContext.Result = new JsonResult
                     {
-                        Data = new { ErrCode = 403, ErrMsg = "Access Denied." },
+                        Data = new { ErrCode = (int)HttpStatusCode.Forbidden, ErrMsg = "Access Denied." },
                         JsonRequestBehavior = JsonRequestBehavior.AllowGet
                     };
                 }

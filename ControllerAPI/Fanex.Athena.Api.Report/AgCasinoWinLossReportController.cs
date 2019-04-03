@@ -153,15 +153,15 @@ namespace Fanex.Athena.Api.Report
         {
             var userCurrencyList = SessionService.UserSession.CurrencyList;
 
-            switch (metaModel.DrillDownLevel)
+            switch ((ReportLevel)metaModel.DrillDownLevel)
             {
-                case 0:
+                case ReportLevel.Main:
                     return await _thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel, userCurrencyList, "Lrf_Rpt_AGCasinoWinloss").ConfigureAwait(false);
 
-                case 1:
+                case ReportLevel.Licensee:
                     return await _thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList, "LRF_Rpt_AGCasinoWinloss_Ag").ConfigureAwait(false);
 
-                case 2:
+                case ReportLevel.Customer:
                     return await _thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList, "LRF_Rpt_AGCasinoWinloss_Mem").ConfigureAwait(false);
 
                 default:

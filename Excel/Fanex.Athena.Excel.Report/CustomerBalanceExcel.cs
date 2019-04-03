@@ -128,8 +128,8 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ProductBA
             };
 
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             SetTextRowHeader(row, headerTextList);
 
@@ -195,7 +195,7 @@ namespace Fanex.Athena.Excel.Report
                                         _model.ToDate.ToString("MM/dd/yyyy"),
                                         ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -208,7 +208,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
 
                 // If row isn't hide (in case BA visible), then merge cell and set value for header
-                sheet.MergeCells(RowTableHeaderTemplate, ColumnCustomerWinLoss, RowTableHeaderTemplate + 1, ColumnCustomerWinLoss);
+                sheet.MergeRows(RowTableHeaderTemplate, RowTableHeaderTemplate + 1, ColumnCustomerWinLoss);
                 sheet.GetCell(RowTableHeaderTemplate, ColumnCustomerWinLoss).SetCellValue(ViewResources.WinLoss);
             }
 
@@ -227,7 +227,7 @@ namespace Fanex.Athena.Excel.Report
         {
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotal);
 
-            sheet.MergeCells(rowTotal, ColumnIndex, rowTotal, ColumnSystemId);
+            sheet.MergeCols(ColumnIndex, ColumnSystemId, rowTotal);
             row.Cells[ColumnOpeningBalance].SetCellValue(_totalData.OpeningBalance);
             row.Cells[ColumnDeposit].SetCellValue(_totalData.Deposit);
             row.Cells[ColumnWithdrawal].SetCellValue(_totalData.Withdrawal);

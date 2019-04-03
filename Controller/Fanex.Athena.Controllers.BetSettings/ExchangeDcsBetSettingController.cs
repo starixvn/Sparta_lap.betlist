@@ -75,7 +75,8 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (!ValidComms.Contains(newCommission))
             {
-                return Json(new ResultInfo { Code = 100, Message = ViewResources.InvalidChargeCommission });
+                const int InvalidChargeCommissionError = 100;
+                return Json(new ResultInfo { Code = InvalidChargeCommissionError, Message = ViewResources.InvalidChargeCommission });
             }
 
             var result = await _exchangeCommApiService.UpdateCommissionAsync(

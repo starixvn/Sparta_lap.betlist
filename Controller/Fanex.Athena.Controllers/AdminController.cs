@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Text;
     using System.Web;
     using System.Web.Hosting;
@@ -84,7 +85,7 @@ namespace Fanex.Athena.Controllers
             if (!isInternalDomain ||
                 !AllowedUsers.Contains(_sessionService.UserSession.UserName.ToLowerInvariant()))
             {
-                throw new HttpException(404, "Not found");
+                throw new HttpException((int)HttpStatusCode.NotFound, "Not found");
             }
         }
     }

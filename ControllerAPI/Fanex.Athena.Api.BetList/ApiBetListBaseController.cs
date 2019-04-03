@@ -87,13 +87,14 @@ namespace Fanex.Athena.Api.BetList
         {
             await CheckDataPermission(metaModel.CustId, metaModel.TransId).ConfigureAwait(false);
 
+            const int DefaultPageSize = 100;
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = await GetBalanceUp().ConfigureAwait(false);
             var currencyList = SessionService.UserSession.CurrencyList;
 
             metaModel.IsServerPaging = true;
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
-            metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
+            metaModel.PageSize = pageSize < 1 ? DefaultPageSize : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);

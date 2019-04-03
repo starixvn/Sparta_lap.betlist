@@ -169,10 +169,11 @@ namespace Fanex.Athena.Controllers.Account
             user.Password = model.Password;
 
             var resultInfo = _userService.ResetPassword(user, userSession.UserId);
+            const int ErrorCode = -3;
 
             return Json(new ResultInfo
             {
-                Code = resultInfo.IsSuccessful ? 0 : -3,
+                Code = resultInfo.IsSuccessful ? 0 : ErrorCode,
                 Message = resultInfo.IsSuccessful ? ViewResources.ResetPasswordSuccessMsg : resultInfo.Message
             });
         }

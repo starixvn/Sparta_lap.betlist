@@ -21,10 +21,12 @@
 
         public static DateTime GetFirstDateOfWeek(DateTime date, DayOfWeek startOfWeek = DayOfWeek.Monday)
         {
+            const int DaysInAWeek = 7;
+
             var diff = date.DayOfWeek - startOfWeek;
             if (diff < 0)
             {
-                diff += 7;
+                diff += DaysInAWeek;
             }
 
             return date.AddDays(-1 * diff).Date;
@@ -37,7 +39,9 @@
 
         private static int GetMonthDifference(DateTime fromDate, DateTime toDate)
         {
-            return (12 * (toDate.Year - fromDate.Year)) + toDate.Month - fromDate.Month + 1;
+            const int MonthsInAYear = 12;
+
+            return (MonthsInAYear * (toDate.Year - fromDate.Year)) + toDate.Month - fromDate.Month + 1;
         }
     }
 }

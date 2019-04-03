@@ -436,9 +436,9 @@ namespace Fanex.Athena.Controllers.Customer
         {
             return new
             {
-                SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
-                NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
-                RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
+                SBComm = NumberHelper.PercentageFormat(newGroup.SBComm),
+                NGComm = NumberHelper.PercentageFormat(newGroup.NGComm),
+                RNGComm = NumberHelper.PercentageFormat(newGroup.CSComm),
                 newGroup.GroupName,
                 newGroup.GroupColor,
             };
@@ -449,7 +449,7 @@ namespace Fanex.Athena.Controllers.Customer
             HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
             return new JsonResult
             {
-                Data = new { ErrCode = 403, ErrMsg = "Access Denied." },
+                Data = new { ErrCode = (int)HttpStatusCode.Forbidden, ErrMsg = "Access Denied." },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -471,9 +471,9 @@ namespace Fanex.Athena.Controllers.Customer
             result.ErrorCode = temp.Code;
             result.ExtendedData = new
             {
-                SBComm = NumberHelper.DecFormat(metaModel.SBComm * 100, 2),
-                NGComm = NumberHelper.DecFormat(metaModel.NGComm * 100, 2),
-                RNGComm = NumberHelper.DecFormat(metaModel.CSComm * 100, 2),
+                SBComm = NumberHelper.PercentageFormat(metaModel.SBComm),
+                NGComm = NumberHelper.PercentageFormat(metaModel.NGComm),
+                RNGComm = NumberHelper.PercentageFormat(metaModel.CSComm),
                 GroupName = ViewResources.None,
                 GroupColor = "#ffffff",
             };

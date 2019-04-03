@@ -66,13 +66,13 @@ namespace Fanex.Athena.Excel.Report
             _metaModel = metaModel;
             _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
-            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : SystemConstants.SheetSizeExcel;
+            PageSize = metaModel.DrillDownLevel == (int)ReportLevel.Customer ? metaModel.PageSize : SystemConstants.SheetSizeExcel;
             IsMultiSheet = true;
         }
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
@@ -102,7 +102,7 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             int rowCount = Math.Min(_casinoList.Count, checked((pageIndex + 1) * PageSize));
-            var rowIndex = 0;
+            var rowIndex = RowContentTemplate;
             int index;
             int currentIndex = 1;
 
@@ -111,7 +111,7 @@ namespace Fanex.Athena.Excel.Report
                 var casinoBalance = _casinoList[index];
                 var isDrillDownLevel = casinoBalance.RowSpan == 0;
 
-                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex);
 
                 var reportDateString = casinoBalance.Date.Value.ToString("MM/dd/yyyy");
 
@@ -127,23 +127,23 @@ namespace Fanex.Athena.Excel.Report
                 if (casinoBalance.RowSpan > 1)
                 {
                     var currentRow = index + RowContentTemplate;
-                    sheet.MergeCells(currentRow, ColumnIndex, currentRow + casinoBalance.RowSpan - 1, ColumnIndex);
-                    sheet.MergeCells(currentRow, ColumnDate, currentRow + casinoBalance.RowSpan - 1, ColumnDate);
+                    sheet.MergeRows(currentRow, currentRow + casinoBalance.RowSpan - 1, ColumnIndex);
+                    sheet.MergeRows(currentRow, currentRow + casinoBalance.RowSpan - 1, ColumnDate);
                     currentIndex++;
                 }
             }
 
-            rowIndex = AssignTotalData(sheet, rowIndex + 2);
+            rowIndex = AssignTotalData(sheet, rowIndex);
             AssignGrandTotalData(sheet, rowIndex);
         }
 
         protected override void AssignTitle(ISheet sheet)
         {
             var reportTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, _convertingOption, _metaModel);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 2);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -211,8 +211,8 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
-                sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
                 rowIndex++;
+                sheet.MergeCols(ColumnIndex, ColumnCurrency, rowIndex);
             }
 
             return rowIndex;
@@ -247,7 +247,8 @@ namespace Fanex.Athena.Excel.Report
             }
 
             // Merge first two column
-            sheet.MergeCells(rowIndex - totalCurrencyList.Count(), 0, rowIndex - 1, 3);
+            const int NumberOfTotalMergedCol = 3;
+            sheet.MergeCells(rowIndex - totalCurrencyList.Count(), 0, rowIndex - 1, NumberOfTotalMergedCol);
 
             return rowIndex;
         }

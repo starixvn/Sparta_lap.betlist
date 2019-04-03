@@ -52,11 +52,11 @@
             });
         }
 
-        [TestCase(true, true)]
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        [TestCase(false, false)]
-        public async Task GetActiveCustomers_WhenCall_ReturnCorrectData(bool isClosed, bool isSuspended)
+        [TestCase(true, true, "Closed")]
+        [TestCase(true, false, "Closed")]
+        [TestCase(false, true, "Suspended")]
+        [TestCase(false, false, "Open")]
+        public async Task GetActiveCustomers_WhenCall_ReturnCorrectData(bool isClosed, bool isSuspended, string expectedStatusRes)
         {
             // Arrange
             const int ExpectedCustId = 999;
@@ -72,7 +72,7 @@
                     closed = isClosed,
                     suspended = isSuspended
                 });
-            var expectedStatus = isClosed ? ViewResources.Closed : isSuspended ? ViewResources.Suspended : ViewResources.Open;
+            var expectedStatus = ViewResources.ResourceManager.GetString(expectedStatusRes);
 
             var metaModel = new CustomerListMetaModel();
 

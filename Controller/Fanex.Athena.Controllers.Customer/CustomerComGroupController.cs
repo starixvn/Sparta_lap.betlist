@@ -29,6 +29,10 @@
     [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
     public class CustomerComGroupController : ContentBaseController
     {
+        private const int InvalidGroupName = 1;
+        private const int InvalidCommvalue = 2;
+        private const int InvalidParams = 3;
+
         private readonly IGroupComService _groupComService;
         private readonly IProductService _productService;
 
@@ -86,8 +90,7 @@
             {
                 if (metaModel.GroupName.Trim().Equals("none", StringComparison.OrdinalIgnoreCase))
                 {
-                    result.Code = 1;
-                    result.Message = ViewResources.ChooseGroupNameMsg;
+                    UpdateErrorResult(result, InvalidGroupName);
                 }
                 else if (CustomerComGroupHelper.IsValidCommissions(metaModel))
                 {
@@ -108,14 +111,12 @@
                 }
                 else
                 {
-                    result.Code = 2;
-                    result.Message = ViewResources.MessageInvalidCommValue;
+                    UpdateErrorResult(result, InvalidCommvalue);
                 }
             }
             else
             {
-                result.Code = 3;
-                result.Message = ViewResources.InvalidParams;
+                UpdateErrorResult(result, InvalidParams);
             }
 
             ViewBag.Result = result;
@@ -160,8 +161,7 @@
             {
                 if (metaModel.GroupName.Trim().ToLower(CultureInfo.CurrentCulture).Equals("none"))
                 {
-                    result.Code = 1;
-                    result.Message = ViewResources.ChooseGroupNameMsg;
+                    UpdateErrorResult(result, InvalidGroupName);
                 }
                 else if (CustomerComGroupHelper.IsValidCommissions(metaModel))
                 {
@@ -169,14 +169,12 @@
                 }
                 else
                 {
-                    result.Code = 2;
-                    result.Message = ViewResources.MessageInvalidCommValue;
+                    UpdateErrorResult(result, InvalidCommvalue);
                 }
             }
             else
             {
-                result.Code = 3;
-                result.Message = ViewResources.InvalidParams;
+                UpdateErrorResult(result, InvalidParams);
             }
 
             ViewBag.Result = result;
@@ -269,6 +267,25 @@
         #endregion Export Excel
 
         #region Utility
+
+        private static void UpdateErrorResult(IResultInfo result, int errorCode)
+        {
+            switch (errorCode)
+            {
+                case InvalidGroupName:
+                    result.Code = InvalidGroupName;
+                    result.Message = ViewResources.ChooseGroupNameMsg;
+                    break;
+                case InvalidCommvalue:
+                    result.Code = InvalidCommvalue;
+                    result.Message = ViewResources.MessageInvalidCommValue;
+                    break;
+                case InvalidParams:
+                    result.Code = InvalidParams;
+                    result.Message = ViewResources.InvalidParams;
+                    break;
+            }
+        }
 
         private async Task CreateMetaModel(GroupCommMetaModel metaModel)
         {

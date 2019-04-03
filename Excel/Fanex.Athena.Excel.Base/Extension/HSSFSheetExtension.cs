@@ -19,8 +19,29 @@ namespace Fanex.Athena.Excel.Base.Extension
            string value)
         {
             var row = sheet.CopyRow(sourceSheet, sourceRowIndex, destRowIndex);
-            sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
+            sheet.MergeCols(0, columnCount - 1, destRowIndex);
             row.Cells[0].SetCellValue(value);
+        }
+
+        public static void SetTextRowValue(
+           this ISheet sheet,
+           ISheet sourceSheet,
+           int rowIndex,
+           int columnCount,
+           string value)
+        {
+            var sourceRowIndex = rowIndex;
+            var destRowIndex = rowIndex;
+
+            SetTextRowValue(sheet, sourceSheet, sourceRowIndex, destRowIndex, columnCount, value);
+        }
+
+        public static IRow CopyRow(this ISheet sheet, ISheet sourceSheet, int rowIndex)
+        {
+            var sourceRowIndex = rowIndex;
+            var destRowIndex = sourceRowIndex;
+
+            return CopyRow(sheet, sourceSheet, sourceRowIndex, destRowIndex);
         }
 
         public static IRow CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int destRowIndex)
@@ -116,6 +137,20 @@ namespace Fanex.Athena.Excel.Base.Extension
             return sheet.GetRow(rowIndex).GetCell(colIndex);
         }
 
+        public static int MergeRows(this ISheet sheet, int firstRow, int lastRow, int colIndex)
+        {
+            var firstCol = colIndex;
+            var lastCol = firstCol;
+            return MergeCells(sheet, firstRow, firstCol, lastRow, lastCol);
+        }
+
+        public static int MergeCols(this ISheet sheet, int firstCol, int lastCol, int rowIndex)
+        {
+            var firstRow = rowIndex;
+            var lastRow = firstRow;
+            return MergeCells(sheet, firstRow, firstCol, lastRow, lastCol);
+        }
+
         public static int MergeCells(this ISheet sheet, int firstRow, int firstCol, int lastRow, int lastCol)
         {
             var rangeAddress = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
@@ -129,10 +164,12 @@ namespace Fanex.Athena.Excel.Base.Extension
 
         public static void HideRow(this ISheet sheet, params int[] rowIndex)
         {
+            const int NumberOfColumn = 255;
+
             // Clear content
             foreach (int i in rowIndex)
             {
-                for (int j = 0; j < 255; j++)
+                for (int j = 0; j < NumberOfColumn; j++)
                 {
                     var cell = sheet.GetCell(i, j);
                     if (cell != null)

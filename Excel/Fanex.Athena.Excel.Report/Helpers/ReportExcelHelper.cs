@@ -30,10 +30,13 @@
         {
             var productCodeList = productOptions.Where(p => p.Status)
                             .Aggregate(string.Empty, (current, p) => current + (string.IsNullOrEmpty(current) ? p.Code : ", " + p.Code));
+            
+            if (string.IsNullOrEmpty(productCodeList))
+            {
+                return string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption;
+            }
 
-            return string.IsNullOrEmpty(productCodeList)
-                ? string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption
-                      : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, productCodeList);
+            return string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, productCodeList);
         }
 
         public static string GetExactTitleCurrencyName(ConvertingOption convertingOption, int currencyId)

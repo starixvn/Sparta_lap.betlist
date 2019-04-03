@@ -225,7 +225,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult InternalSignOut()
         {
             DoSignOut();
-            return RedirectToAction("OneTokenRestriction", "Utility", new { Code = 100 });
+            return RedirectToAction("OneTokenRestriction", "Utility", new { Code = OneAuthorizationErrorCode.TokenWasExpired });
         }
 
         /// <summary>
@@ -300,10 +300,12 @@ namespace Fanex.Athena.Controllers
 
         private static string CreateRandomCaptchaCode()
         {
+            const int CapchaLength = 4;
+            const int MaxValueOfCharacter = 9;
             var randomNumber = new StringBuilder();
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < CapchaLength; i++)
             {
-                randomNumber.Append(RandomNumber.GenerateRandomInt32(0, 9));
+                randomNumber.Append(RandomNumber.GenerateRandomInt32(0, MaxValueOfCharacter));
             }
 
             return randomNumber.ToString();

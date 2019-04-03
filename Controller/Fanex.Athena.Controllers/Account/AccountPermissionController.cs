@@ -163,18 +163,20 @@ namespace Fanex.Athena.Controllers.Account
         {
             if (model.UserId <= 0 || string.IsNullOrEmpty(model.CurrencyList))
             {
+                const int InvalidErrorCode = -2;
                 return Json(new ResultInfo
                 {
-                    Code = -2,
+                    Code = InvalidErrorCode,
                     Message = ViewResources.InvalidRequestMsg
                 });
             }
 
             if (!AppSettings.EnableAssignCurrency || !ValidatePermissionRestriction(model.UserId))
             {
+                const int FunctionDeniedErrorCode = -1;
                 return Json(new ResultInfo
                 {
-                    Code = -1,
+                    Code = FunctionDeniedErrorCode,
                     Message = ViewResources.FunctionDeniedMsg
                 });
             }

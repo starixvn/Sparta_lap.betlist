@@ -56,7 +56,7 @@ namespace Fanex.Athena.Excel.Customer
                 ViewResources.NGComm + " (%)",
                 ViewResources.CSComm + " (%)"
             };
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             for (int i = 0; i < headerTextList.Length; i++)
             {
                 row.Cells[i].SetCellValue(headerTextList[i]);
@@ -99,10 +99,10 @@ namespace Fanex.Athena.Excel.Customer
 
         protected override void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _excelTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, _excelTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 2);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);

@@ -4,7 +4,6 @@
     using System.Linq;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Helper;
     using Model.Core.DataDomain;
@@ -12,7 +11,6 @@
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
 
@@ -43,10 +41,14 @@
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                return metaModel.Level == 0 ? _dataAccess.GetMainWinloss(metaModel, currencyList) :
-                                metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2
-                               ? _dataAccess.GetCustomerWinloss(metaModel, currencyList)
-                               : _dataAccess.GetLicenseeWinloss(metaModel, currencyList);
+                if (metaModel.Level == (int)ReportLevel.Main)
+                {
+                    return _dataAccess.GetMainWinloss(metaModel, currencyList);
+                }
+
+                return metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == (int)ReportLevel.Customer
+                            ? _dataAccess.GetCustomerWinloss(metaModel, currencyList)
+                            : _dataAccess.GetLicenseeWinloss(metaModel, currencyList);
             }
 
             return new ReportResultModel<ExchangeWinLoss>

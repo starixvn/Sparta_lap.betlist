@@ -262,7 +262,7 @@ namespace Fanex.Athena.Api.Report
                 {
                     result = await _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, userCurrencyList).ConfigureAwait(false);
                 }
-                else if (metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2)
+                else if (metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == (int)ReportLevel.Customer)
                 {
                     result = await _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList).ConfigureAwait(false);
                 }

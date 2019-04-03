@@ -82,7 +82,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
 
             var headerTextList = new[]
             {
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Excel.Report
             };
             SetTextRowHeader(row, headerTextList);
 
-            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
@@ -186,10 +186,10 @@ namespace Fanex.Athena.Excel.Report
                 _model.Date.ToString(FormatDate),
                 ReportExcelHelper.GetTitleCurrencyName(_convertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_model.ProductOptions);
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowMatchTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -282,7 +282,7 @@ namespace Fanex.Athena.Excel.Report
                 cellIndex = AssignDecimalData(row, cellIndex, Converter.ToDecimal(_totalData.Rows[0][columnName]));
             }
 
-            sheet.MergeCells(currentRow, ColumnIndex, currentRow, 1);
+            sheet.MergeCols(ColumnIndex, 1, currentRow);
         }
 
         [SuppressMessage(

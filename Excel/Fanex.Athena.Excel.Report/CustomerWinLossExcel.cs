@@ -48,7 +48,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
 
             var headerTextList = new[]
             {
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Excel.Report
             };
             SetTextRowHeader(row, headerTextList);
 
-            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
@@ -126,10 +126,10 @@ namespace Fanex.Athena.Excel.Report
                                         _excelModel.MetaModel.ToDate.ToString(FormatDate),
                                         filterTitle);
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -175,7 +175,7 @@ namespace Fanex.Athena.Excel.Report
 
         private static void MergeTotalCell(ISheet sheet, IRow row, int rowTotalNumber)
         {
-            sheet.MergeCells(rowTotalNumber, ColumnIndex, rowTotalNumber, 2);
+            sheet.MergeCols(ColumnIndex, ColumnSystemId, rowTotalNumber);
             row.Cells[0].SetCellValue(ViewResources.Total);
         }
     }

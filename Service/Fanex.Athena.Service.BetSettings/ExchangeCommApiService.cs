@@ -11,7 +11,6 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Threading.Tasks;
     using CitiXchangeLibrary;
     using Constant.DataDomain;
-    using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using DataAccess.Core.Common.Constants;
     using DataAccess.Core.Common.Interfaces;
@@ -26,6 +25,10 @@ namespace Fanex.Athena.Service.BetSettings
 
     public class ExchangeCommApiService : BetSettingBaseService, IExchangeCommApiService
     {
+        private const int AccessDeniedCode = 1;
+
+        private const int ApiProcessingErrorCode = 102;
+
         private static readonly IDictionary<string, Enviro> EnvironmentMap =
             new Dictionary<string, Enviro>(StringComparer.OrdinalIgnoreCase)
         {
@@ -114,11 +117,20 @@ namespace Fanex.Athena.Service.BetSettings
 
         private static IResultInfo<double> CreateApiResult(CitiStatus status, double commission)
         {
-            var isSuccess = status == CitiStatus.Success;
+            if (status == CitiStatus.Success)
+            {
+                return new ResultInfo<double>
+                {
+                    Code = 0,
+                    Message = ViewResources.UpdateSuccess,
+                    ExtendedData = commission
+                };
+            }
+
             return new ResultInfo<double>
             {
-                Code = isSuccess ? 0 : (status == 0 ? 1 : (int)status),
-                Message = isSuccess ? ViewResources.UpdateSuccess : ViewResources.ErrorProcessingMsg,
+                Code = status == 0 ? 1 : (int)status,
+                Message = ViewResources.ErrorProcessingMsg,
                 ExtendedData = commission
             };
         }
@@ -127,7 +139,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             return new ResultInfo<double>
             {
-                Code = 1,
+                Code = AccessDeniedCode,
                 Message = ViewResources.FunctionDeniedMsg
             };
         }
@@ -136,7 +148,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             return new ResultInfo<double>
             {
-                Code = 102,
+                Code = ApiProcessingErrorCode,
                 Message = ViewResources.ErrorProcessingMsg
             };
         }

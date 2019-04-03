@@ -208,7 +208,15 @@
                         CSComm = reader.ToDecimal("RNGComm") * 100
                     };
 
-                    customer.Status = customer.IsClosed ? ViewResources.Closed : customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
+                    if (customer.IsClosed)
+                    {
+                        customer.Status = ViewResources.Closed;
+                    }
+                    else
+                    {
+                        customer.Status = customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
+                    }
+ 
                     dataList.Add(customer);
                 }
             }

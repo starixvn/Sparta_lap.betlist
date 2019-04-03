@@ -39,7 +39,7 @@ namespace Fanex.Athena.BetList.DataAccess
             {
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("siteid", null);
-                db.ExecuteNonQuery();
+                db.ExecuteNonQueryAsync();
                 return (int)db.GetParameterValue("siteid");
             }
         }

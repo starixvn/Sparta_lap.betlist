@@ -10,6 +10,7 @@ namespace Fanex.Athena.Excel.Report
     using System.Linq;
     using Base;
     using Base.Entities;
+    using Constant.DataDomain;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
     using Model.Report.DTO.LiveReports;
@@ -104,23 +105,24 @@ namespace Fanex.Athena.Excel.Report
             }
 
             var currentRow = AssignTotalSummary(sheet);
+            const int SeparateEmptyRow = 2;
 
             if (_liveReportDetailList.BySports != null)
             {
                 // 2 rows empty
-                currentRow = AssignBySportsTypeData(sheet, currentRow + 2);
+                currentRow = AssignBySportsTypeData(sheet, currentRow + SeparateEmptyRow);
             }
 
             if (_liveReportDetailList.ByCurrencies != null)
             {
                 // 2 rows empty
-                currentRow = AssignByCurrencyData(sheet, currentRow + 2);
+                currentRow = AssignByCurrencyData(sheet, currentRow + SeparateEmptyRow);
             }
 
             if (_liveReportDetailList.ByBetType != null)
             {
                 // 2 rows empty
-                AssignByBetTypeData(sheet, currentRow + 2);
+                AssignByBetTypeData(sheet, currentRow + SeparateEmptyRow);
             }
         }
 
@@ -133,10 +135,10 @@ namespace Fanex.Athena.Excel.Report
                                         _liveReportDetailList.Param.ToDate.ToString(FormatDate),
                                         ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 4);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -150,8 +152,9 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
+                const int DetailCustomerWLHeader = SummarySectionRowIndex + 2;
                 sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
-                sheet.HideRow(SummarySectionRowIndex + 2);
+                sheet.HideRow(DetailCustomerWLHeader);
             }
 
             if (!ShowingOption.BAVisible)
@@ -182,15 +185,15 @@ namespace Fanex.Athena.Excel.Report
             string title;
             switch (liveIndicator)
             {
-                case 0:
+                case LiveStatusTypes.NonLive:
                     title = ViewResources.NoneLive;
                     break;
 
-                case 1:
+                case LiveStatusTypes.Live:
                     title = ViewResources.Live;
                     break;
 
-                case 2:
+                case LiveStatusTypes.Mix:
                     title = ViewResources.LiveAndNonLive;
                     break;
 
@@ -219,7 +222,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 // If row isn't hide (in case BA visible), then merge cell and set value for header
                 var rowHeaderMerge = rowIndex - 2;
-                sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
+                sheet.MergeRows(rowHeaderMerge, rowHeaderMerge + 1, ColumnCustomerWl);
             }
 
             foreach (var liveReportBetType in liveReportSportList)
@@ -260,7 +263,7 @@ namespace Fanex.Athena.Excel.Report
                 {
                     // If row isn't hide (in case BA visible), then merge cell and set value for header
                     var rowHeaderMerge = rowIndex - 2;
-                    sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
+                    sheet.MergeRows(rowHeaderMerge, rowHeaderMerge + 1, ColumnCustomerWl);
                 }
 
                 for (int i = 0; i < liveReportSportList.Count(); i++)
@@ -292,7 +295,7 @@ namespace Fanex.Athena.Excel.Report
                 {
                     // If row isn't hide (in case BA visible), then merge cell and set value for header
                     var rowHeaderMerge = rowIndex - 2;
-                    sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
+                    sheet.MergeRows(rowHeaderMerge, rowHeaderMerge + 1, ColumnCustomerWl);
                 }
 
                 for (int i = 0; i < liveReportSportList.Count(); i++)

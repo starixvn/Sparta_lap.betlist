@@ -77,7 +77,7 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignHeader(ISheet sheet)
         {
             // row 1
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnSettleAmountTicketPayout].SetCellValue(ViewResources.SettleAmount);
 
             // row 2
-            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             row2.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.ProductSB);
             row2.Cells[ColumnBuyBackAmountBA].SetCellValue(ViewResources.ProductBA);
@@ -150,7 +150,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignCommonData(row, item);
             }
 
-            rowIndex = AssignTotalData(sheet, index + 3);
+            rowIndex = AssignTotalData(sheet, index + RowContentTemplate);
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
@@ -160,7 +160,7 @@ namespace Fanex.Athena.Excel.Report
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -171,7 +171,7 @@ namespace Fanex.Athena.Excel.Report
             if (!_isAllowBA)
             {
                 sheet.HideColumn(ColumnBuyBackAmountBA, ColumnBuyBackAmountTotal);
-                sheet.MergeCells(RowHeaderTemplate, ColumnBuyBackAmountSportsbook, RowHeaderTemplate + 1, ColumnBuyBackAmountSportsbook);
+                sheet.MergeRows(RowHeaderTemplate, RowHeaderTemplate + 1, ColumnBuyBackAmountSportsbook);
             }
 
             if (_metaModel.DrillDownLevel == 0)
@@ -214,7 +214,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
-                sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
+                sheet.MergeCols(ColumnIndex, ColumnCurrency, rowIndex);
                 rowIndex++;
             }
         }
@@ -248,19 +248,17 @@ namespace Fanex.Athena.Excel.Report
             }
 
             // Merge first two column
-            sheet.MergeCells(rowIndex - _totalData.Count(), 0, rowIndex - 1, 3);
+            const int LastTotalMergedRow = 3;
+            sheet.MergeCells(rowIndex - _totalData.Count(), 0, rowIndex - 1, LastTotalMergedRow);
 
             return rowIndex;
         }
 
         private void MergeCells(ISheet sheet, int rowSpan, int index)
         {
-            if (_metaModel.DrillDownLevel == 0)
-            {
-                sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
-            }
+            var colIndex = _metaModel.DrillDownLevel == 0 ? ColumnIndex : ColumnDate;
 
-            sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
+            sheet.MergeRows(index + RowContentTemplate - rowSpan + 1, index + RowContentTemplate, colIndex);
         }
     }
 }

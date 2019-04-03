@@ -41,6 +41,8 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalTemplate = 4;
 
+        private const int DefaultPageSize = 1500;
+
         private readonly IEnumerable<CustTurnover> _dataList;
         private readonly string _formatDateTime;
         private readonly CustTurnover _total;
@@ -64,7 +66,7 @@ namespace Fanex.Athena.Excel.Report
             _total = total;
             _formatDateTime = formatDateTime;
             _reportTitle = reportTitle;
-            PageSize = 1500;
+            PageSize = DefaultPageSize;
             IsMultiSheet = true;
         }
 
@@ -78,7 +80,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             var headerTextList = new[]
             {
                 "#",
@@ -95,7 +97,7 @@ namespace Fanex.Athena.Excel.Report
             };
             SetTextRowHeader(row, headerTextList);
 
-            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
@@ -135,16 +137,16 @@ namespace Fanex.Athena.Excel.Report
 
                 if (customerTurnover.RowSpan > 0)
                 {
-                    sheet.MergeCells(realIndex, ColumnIndex, (customerTurnover.RowSpan - 1) + realIndex, ColumnIndex);
-                    sheet.MergeCells(realIndex, ColumnDate, (customerTurnover.RowSpan - 1) + realIndex, ColumnDate);
-                    sheet.MergeCells(realIndex, ColumnUserName, (customerTurnover.RowSpan - 1) + realIndex, ColumnUserName);
-                    sheet.MergeCells(realIndex, ColumnCurrency, (customerTurnover.RowSpan - 1) + realIndex, ColumnCurrency);
-                    sheet.MergeCells(realIndex, ColumnTotalTurnover, (customerTurnover.RowSpan - 1) + realIndex, ColumnTotalTurnover);
+                    sheet.MergeRows(realIndex, (customerTurnover.RowSpan - 1) + realIndex, ColumnIndex);
+                    sheet.MergeRows(realIndex, (customerTurnover.RowSpan - 1) + realIndex, ColumnDate);
+                    sheet.MergeRows(realIndex, (customerTurnover.RowSpan - 1) + realIndex, ColumnUserName);
+                    sheet.MergeRows(realIndex, (customerTurnover.RowSpan - 1) + realIndex, ColumnCurrency);
+                    sheet.MergeRows(realIndex, (customerTurnover.RowSpan - 1) + realIndex, ColumnTotalTurnover);
                 }
 
                 if (customerTurnover.RowSpan2 > 0)
                 {
-                    sheet.MergeCells(realIndex, ColumnSport, (customerTurnover.RowSpan2 - 1) + realIndex, ColumnSport);
+                    sheet.MergeRows(realIndex, (customerTurnover.RowSpan2 - 1) + realIndex, ColumnSport);
                 }
 
                 row.Cells[ColumnBetType].SetCellValue(customerTurnover.Bettype);
@@ -162,10 +164,10 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -204,7 +206,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerComm].SetCellValue(_total.CustomerComm);
             row.Cells[ColumnCustomerTotal].SetCellValue(_total.CustomerWinLoss + _total.CustomerComm);
 
-            sheet.MergeCells(totalRow, 0, totalRow, 1);
+            sheet.MergeCols(ColumnIndex, ColumnBetType, totalRow);
         }
     }
 }
