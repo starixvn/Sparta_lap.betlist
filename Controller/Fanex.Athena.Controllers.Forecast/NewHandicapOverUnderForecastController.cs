@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private readonly ILeagueDataAccess _leagueDataAccess;
 
-        private readonly IForecastDataAccess _forecastDataAccess;
+        private readonly INewForecastDataAccess _forecastDataAccess;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.Forecast
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IForecastDataAccess forecastDataAccess,
+            INewForecastDataAccess forecastDataAccess,
             ICoreLogger logger,
             ICacheRefAdapter cacheRefAdapter,
             IMatchService matchService,

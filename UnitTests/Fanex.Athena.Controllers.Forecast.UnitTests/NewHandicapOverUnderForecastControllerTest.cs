@@ -20,7 +20,7 @@
 
     public class NewHandicapOverUnderForecastControllerTest : CultureBaseControllerHelperTest
     {
-        private IForecastDataAccess _forecastDataAccess;
+        private INewForecastDataAccess _forecastDataAccess;
 
         private ICacheRefAdapter _cacheRefAdapter;
 
@@ -378,7 +378,7 @@
 
         private NewHandicapOverUnderForecastController CreateController()
         {
-            _forecastDataAccess = Substitute.For<IForecastDataAccess>();
+            _forecastDataAccess = Substitute.For<INewForecastDataAccess>();
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _matchService = Substitute.For<IMatchService>();
             _leagueDataAccess = Substitute.For<ILeagueDataAccess>();

@@ -81,6 +81,8 @@
   <ItemGroup>
     <Compile Include="ForecastAhDataAccess.cs" />
     <Compile Include="ForecastBaseDataAccess.cs" />
+    <Compile Include="Interfaces\INewForecastDataAccess.cs" />
+    <Compile Include="NewForecastDataAccess.cs" />
     <Compile Include="ForecastOneXTwoDataAccess.cs" />
     <Compile Include="ForecastDataAccess.cs" />
     <Compile Include="Interfaces\IForecastAhDataAccess.cs" />
