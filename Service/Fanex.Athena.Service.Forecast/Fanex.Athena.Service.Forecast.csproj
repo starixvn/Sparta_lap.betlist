@@ -86,8 +86,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ForecastAhService.cs" />
+    <Compile Include="ForecastOneXTwoService.cs" />
     <Compile Include="ForecastService.cs" />
     <Compile Include="Interfaces\IForecastAhService.cs" />
+    <Compile Include="Interfaces\IForecastOneXTwoService.cs" />
     <Compile Include="Interfaces\IForecastService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

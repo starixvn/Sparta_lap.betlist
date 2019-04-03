@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Model.Core.DataDomain;
@@ -34,6 +35,8 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private readonly IMatchService _matchService;
 
+        private readonly ILeagueDataAccess _leagueDataAccess;
+
         private readonly IForecastService _forecastService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
@@ -45,7 +48,8 @@ namespace Fanex.Athena.Controllers.Forecast
             IForecastService forecastService,
             ICoreLogger logger,
             ICacheRefAdapter cacheRefAdapter,
-            IMatchService matchService)
+            IMatchService matchService,
+            ILeagueDataAccess leagueDataAccess)
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(languageService, sessionService, appSetting)
         {
@@ -53,6 +57,7 @@ namespace Fanex.Athena.Controllers.Forecast
             _cacheRefAdapter = cacheRefAdapter;
             _matchService = matchService;
             _forecastService = forecastService;
+            _leagueDataAccess = leagueDataAccess;
         }
 
         [HttpGet]
@@ -146,7 +151,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private async Task AssignDataForNonAjaxRequest(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
         {
-            model.LeagueList = await _forecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(false);
+            model.LeagueList = await _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(false);
             if (model.LeagueList.Any())
             {
                 metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);

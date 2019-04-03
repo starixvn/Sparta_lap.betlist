@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using DataAccess.Core.Common.Interfaces;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.ForecastHdou;
@@ -16,6 +17,8 @@
     public class HandicapOverUnderForecastControllerTest : CultureBaseControllerHelperTest
     {
         private IForecastService _forecastService;
+
+        private ILeagueDataAccess _leagueDataAccess;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -56,7 +59,7 @@
                 var leagueList = Enumerable.Empty<League>();
                 var mainData = Enumerable.Empty<ForecastHandicapOverUnder>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
                 _forecastService.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
 
                 // Action
@@ -89,7 +92,7 @@
                 var leagueList = leagueIDList.Select(x => new League { LeagueId = x }).ToList();
                 var mainData = Enumerable.Empty<ForecastHandicapOverUnder>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
                 _forecastService.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
 
                 var metaModel = new ForecastHandicapOverUnderMetaModel { LeagueId = leagueId };
@@ -130,11 +133,13 @@
         private HandicapOverUnderForecastController CreateController()
         {
             _forecastService = Substitute.For<IForecastService>();
+            _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
 
             var controller = new HandicapOverUnderForecastController(
                 LangService,
                 SessionService,
                 AppSettings,
+                _leagueDataAccess,
                 _forecastService)
             {
                 ControllerContext = ControllerContext

@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.Core.Common.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.Forecast1X2;
     using Model.Forecast.MetaModel;
@@ -15,7 +16,9 @@
 
     public class OneXTwoForecastControllerTest : CultureBaseControllerHelperTest
     {
-        private IForecastService _forecastService;
+        private ILeagueDataAccess _leagueDataAccess;
+
+        private IForecastOneXTwoService _forecastService;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -36,7 +39,7 @@
                 var leagueList = Enumerable.Empty<League>();
                 var mainData = Enumerable.Empty<ForecastOneXTwo>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
                 _forecastService.GetForecastOneXTwoByLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
 
                 // Action
@@ -69,7 +72,7 @@
                 var leagueList = leagueIDList.Select(x => new League { LeagueId = x }).ToList();
                 var mainData = Enumerable.Empty<ForecastOneXTwo>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
                 _forecastService.GetForecastOneXTwoByMatch(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
 
                 var metaModel = new ForecastOneXTwoMetaModel { LeagueId = leagueId, MatchId = 1 };
@@ -104,7 +107,7 @@
                 var leagueList = leagueIDList.Select(x => new League { LeagueId = x }).ToList();
                 var mainData = Enumerable.Empty<ForecastOneXTwo>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
                 _forecastService.GetForecastOneXTwoByMatch(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
 
                 var metaModel = new ForecastOneXTwoMetaModel { LeagueId = leagueId, MatchId = 1 };
@@ -143,12 +146,14 @@
 
         private OneXTwoForecastController CreateController()
         {
-            _forecastService = Substitute.For<IForecastService>();
+            _forecastService = Substitute.For<IForecastOneXTwoService>();
+            _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
 
             var controller = new OneXTwoForecastController(
                 LangService,
                 SessionService,
                 AppSettings,
+                _leagueDataAccess,
                 _forecastService)
             {
                 ControllerContext = ControllerContext

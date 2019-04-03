@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -21,15 +22,19 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class HandicapOverUnderForecastController : ForecastBaseController
     {
+        private readonly ILeagueDataAccess _leagueDataAaccess;
+
         private readonly IForecastService _forecastService;
 
         public HandicapOverUnderForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            ILeagueDataAccess leagueDataAccess,
             IForecastService forecastService)
         : base(languageService, sessionService, appSetting)
         {
+            _leagueDataAaccess = leagueDataAccess;
             _forecastService = forecastService;
         }
 
@@ -67,7 +72,7 @@ namespace Fanex.Athena.Controllers.Forecast
         private async Task<ForecastHdpOuViewModel> GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var leagueList = await _forecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(true);
+            var leagueList = await _leagueDataAaccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(true);
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
             var forecastHdpOuByLeague = _forecastService.GetForecastHandicapOverUnder(metaModel);

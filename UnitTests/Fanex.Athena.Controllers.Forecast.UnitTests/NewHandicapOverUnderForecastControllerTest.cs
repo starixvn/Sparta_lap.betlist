@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.Core.Common.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
@@ -23,6 +24,8 @@
         private ICacheRefAdapter _cacheRefAdapter;
 
         private IMatchService _matchService;
+
+        private ILeagueDataAccess _leagueDataAccess;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -82,7 +85,7 @@
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(Enumerable.Empty<League>());
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(Enumerable.Empty<League>());
 
                 // Action
                 var result = await controler.Index() as ViewResult;
@@ -120,7 +123,7 @@
                 const int LeagueId = 1;
 
                 var leagueList = new List<League> { new League { LeagueId = 0 } };
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
 
                 // Action
                 var result = await controler.Index(leagueId: LeagueId) as ViewResult;
@@ -158,7 +161,7 @@
                 const int LeagueId = 1;
 
                 var leagueList = new List<League> { new League { LeagueId = LeagueId } };
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
 
                 _matchService.GetForecastMatchListByLeague(LeagueId).Returns(Task.FromResult<IList<Match>>(new List<Match>()));
 
@@ -198,7 +201,7 @@
                 const int LeagueId = 1;
 
                 var leagueList = new List<League> { new League { LeagueId = LeagueId } };
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
 
                 const int MatchId = 2;
                 var match = new Match { MatchId = 0, HomeId = 1, AwayId = 2, IsNeutral = true };
@@ -241,7 +244,7 @@
                 const int LeagueId = 1;
 
                 var leagueList = new List<League> { new League { LeagueId = LeagueId } };
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
 
                 const int MatchId = 2;
                 var match = new Match { MatchId = MatchId, HomeId = 1, AwayId = 2, IsNeutral = true };
@@ -375,6 +378,7 @@
             _forecastService = Substitute.For<IForecastService>();
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _matchService = Substitute.For<IMatchService>();
+            _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
 
             var controller = new NewHandicapOverUnderForecastController(
                 LangService,
@@ -383,7 +387,8 @@
                 _forecastService,
                 Substitute.For<ICoreLogger>(),
                 _cacheRefAdapter,
-                _matchService)
+                _matchService,
+                _leagueDataAccess)
             {
                 ControllerContext = ControllerContext
             };

@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -20,16 +21,20 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastOneXTwo)]
     public class OneXTwoForecastController : ForecastBaseController
     {
-        private readonly IForecastService _forecastService;
+        private readonly ILeagueDataAccess _leagueDataAccess;
+
+        private readonly IForecastOneXTwoService _forecastOneXTwoService;
 
         public OneXTwoForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IForecastService forecastService)
+            ILeagueDataAccess leagueDataAccess,
+            IForecastOneXTwoService forecastOneXTwoService)
         : base(languageService, sessionService, appSetting)
         {
-            _forecastService = forecastService;
+            _leagueDataAccess = leagueDataAccess;
+            _forecastOneXTwoService = forecastOneXTwoService;
         }
 
         [HttpGet]
@@ -74,19 +79,19 @@ namespace Fanex.Athena.Controllers.Forecast
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var leagueList = await _forecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(true);
+            var leagueList = await _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(true);
             var currentLeagueId = metaModel.LeagueId;
 
             if (metaModel.MatchId != 0)
             {
-                var forecastOneXTwoByMatch = _forecastService.GetForecastOneXTwoByMatch(metaModel);
+                var forecastOneXTwoByMatch = _forecastOneXTwoService.GetForecastOneXTwoByMatch(metaModel);
                 model.MainData = forecastOneXTwoByMatch;
             }
             else
             {
                 metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
-                var forecastcOneXTwoByLeague = _forecastService.GetForecastOneXTwoByLeague(metaModel);
+                var forecastcOneXTwoByLeague = _forecastOneXTwoService.GetForecastOneXTwoByLeague(metaModel);
                 model.MainData = forecastcOneXTwoByLeague;
             }
 

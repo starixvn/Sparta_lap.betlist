@@ -7,27 +7,13 @@
 namespace Fanex.Athena.Service.Forecast.Interfaces
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
-    using Model.Forecast.DTO.Forecast1X2;
-    using Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
 
     public interface IForecastService
     {
-        #region Forecast 1 x 2
-
-        Task<IEnumerable<League>> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
-
-        IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel);
-
-        IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel);
-
-        #endregion Forecast 1 x 2
-
         #region Forecast Handicap Over Under
 
         /// <summary>

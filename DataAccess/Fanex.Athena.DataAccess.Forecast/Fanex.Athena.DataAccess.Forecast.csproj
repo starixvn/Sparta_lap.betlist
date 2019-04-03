@@ -80,8 +80,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ForecastAhDataAccess.cs" />
+    <Compile Include="ForecastBaseDataAccess.cs" />
+    <Compile Include="ForecastOneXTwoDataAccess.cs" />
     <Compile Include="ForecastDataAccess.cs" />
     <Compile Include="Interfaces\IForecastAhDataAccess.cs" />
+    <Compile Include="Interfaces\IForecastOneXTwoDataAccess.cs" />
     <Compile Include="Interfaces\IForecastDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

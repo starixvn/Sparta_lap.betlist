@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ForecastAhDataAccessTest.cs" />
+    <Compile Include="ForecastOneXTwoDataAccessTest.cs" />
     <Compile Include="ForecastDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
