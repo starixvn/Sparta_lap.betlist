@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Dashboard.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DataDomain;
     using Model.Dashboard.MetaModel;
@@ -46,7 +47,7 @@
         }
 
         [Test]
-        public void GetWinLoss_WhenCall_ReturnCorrectData()
+        public async Task GetWinLoss_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = new WidgetByPlatformViewModel
@@ -62,7 +63,7 @@
             Reader["LicenseeWLEUR"].Returns(100M);
 
             // Action
-            var result = DataAccess.GetWinLoss(metaModel);
+            var result = await DataAccess.GetWinLoss(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -94,7 +95,7 @@
         }
 
         [Test]
-        public void GetTurnover_WhenCall_ReturnCorrectData()
+        public async Task GetTurnover_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = new WidgetByPlatformViewModel
@@ -110,7 +111,7 @@
             Reader["TurnoverEUR"].Returns(100M);
 
             // Action
-            var result = DataAccess.GetTurnover(metaModel);
+            var result = await DataAccess.GetTurnover(metaModel);
 
             // Assert
             Assert.Multiple(() =>

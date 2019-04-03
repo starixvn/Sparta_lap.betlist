@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Http;
-    using DataAccess.Dashboard;
     using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
 
@@ -15,7 +15,7 @@
             _dataAccess = dataAccess;
         }
 
-        public decimal GetData([FromUri] DashboardBaseModel metaModel)
+        public async Task<decimal> GetData([FromUri] DashboardBaseModel metaModel)
         {
             if (!metaModel.IsValid)
             {
@@ -24,7 +24,7 @@
 
             AssignAuthProperties(metaModel);
             metaModel.FromDate = DateTime.Now.Date;
-            return _dataAccess.GetCustomerBalance(metaModel);
+            return await _dataAccess.GetCustomerBalance(metaModel).ConfigureAwait(false);
         }
     }
 }

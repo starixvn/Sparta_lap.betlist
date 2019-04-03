@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Fanex.Common.Extensions;
@@ -11,12 +12,12 @@
 
     public class LicenseeDataByPlatformDataAccess : BaseDataAccess, ILicenseeDataByPlatformDataAccess
     {
-        public WidgetByPlatformViewModel GetWinLoss(DashboardBaseModel metaModel)
+        public Task<WidgetByPlatformViewModel> GetWinLoss(DashboardBaseModel metaModel)
         {
             return GetData(metaModel, "Lrf_GetLicenseeWLByPlatform", "LicenseeWL");
         }
 
-        public WidgetByPlatformViewModel GetTurnover(DashboardBaseModel metaModel)
+        public Task<WidgetByPlatformViewModel> GetTurnover(DashboardBaseModel metaModel)
         {
             return GetData(metaModel, "Lrf_GetLicenseeTurnoverByPlatform", "Turnover");
         }
@@ -43,7 +44,7 @@
             };
         }
 
-        private WidgetByPlatformViewModel GetData(DashboardBaseModel metaModel, string uspName, string winlossColumnName)
+        private async Task<WidgetByPlatformViewModel> GetData(DashboardBaseModel metaModel, string uspName, string winlossColumnName)
         {
             using (var db = this.GetObjectDb(uspName))
             {
@@ -55,7 +56,7 @@
                     ToDate = metaModel.ToDate
                 };
 
-                using (var reader = db.ExecuteReader(param))
+                using (var reader = await db.ExecuteReaderAsync(param).ConfigureAwait(false))
                 {
                     return ReadData(reader, winlossColumnName, metaModel.BaseCurrency);
                 }

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using DataAccess.Dashboard;
     using DataAccess.Dashboard.Interfaces;
@@ -17,7 +18,7 @@
         }
 
         [HttpGet]
-        public WidgetByPlatformViewModel GetData([FromUri] DashboardBaseModel metaModel)
+        public async Task<WidgetByPlatformViewModel> GetData([FromUri] DashboardBaseModel metaModel)
         {
             if (!metaModel.IsValid)
             {
@@ -28,7 +29,7 @@
             var now = DateTime.Now.Date;
             metaModel.FromDate = new DateTime(now.Year, now.Month, 1);
             metaModel.ToDate = now;
-            return _dataAccess.GetTurnover(metaModel);
+            return await _dataAccess.GetTurnover(metaModel).ConfigureAwait(false);
         }
     }
 }
