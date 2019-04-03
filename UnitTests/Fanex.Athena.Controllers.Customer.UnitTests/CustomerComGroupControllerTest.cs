@@ -128,7 +128,7 @@
 
         [TestCase(false, 0)]
         [TestCase(true, 999)]
-        public void GetDefaultGroup_WhenCall_ReturnCorrectResult(bool isDefaultGroup, int expectedGroupId)
+        public async Task GetDefaultGroup_WhenCall_ReturnCorrectResult(bool isDefaultGroup, int expectedGroupId)
         {
             using (var controller = CreateController())
             {
@@ -142,7 +142,7 @@
                     .Returns(new List<GroupCommMetaModel> { group });
 
                 // Action
-                var result = controller.GetDefaultGroup() as JsonResult;
+                var result = await controller.GetDefaultGroup() as JsonResult;
 
                 // Assert
                 Assert.That(result.Data.GetValue("id"), Is.EqualTo(expectedGroupId));

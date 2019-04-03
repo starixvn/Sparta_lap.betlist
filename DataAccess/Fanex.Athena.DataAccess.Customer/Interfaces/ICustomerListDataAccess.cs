@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.Interfaces
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Model.Customer.MetaModel;
@@ -7,7 +8,7 @@
 
     public interface ICustomerListDataAccess
     {
-        ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel);
+        Task<ReportResultModel<CustomerDTO>> GetActiveCustomers(CustomerListMetaModel metaModel);
 
         #region LogInfo
 

@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -17,7 +18,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
     public class GroupComDataAccess : BaseDataAccess, IGroupComDataAccess
     {
-        public IList<GroupCommMetaModel> GetAll(int licenseeId)
+        public async Task<IList<GroupCommMetaModel>> GetAll(int licenseeId)
         {
             const string UspName = "Lrf_LicenseeGroupCommSel";
 
@@ -25,11 +26,11 @@ namespace Fanex.Athena.DataAccess.Customer
             {
                 db.SetParameterValue("LicenseeID", licenseeId);
 
-                return db.Query<GroupCommMetaModel>().ToList();
+                return (await db.QueryAsync<GroupCommMetaModel>().ConfigureAwait(false)).ToList();
             }
         }
 
-        public DataTable GetDataForExcel(int licenseeId)
+        public async Task<DataTable> GetDataForExcel(int licenseeId)
         {
             const string UspName = "Lrf_LicenseeGroupCommSel";
 
@@ -37,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Customer
             {
                 db.SetParameterValue("LicenseeID", licenseeId);
 
-                var dataset = db.ExecuteDataSet();
+                var dataset = await db.ExecuteDataSetAsync().ConfigureAwait(false);
                 return dataset.Tables.Count > 0 ? dataset.Tables[0] : new DataTable();
             }
         }
@@ -55,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        public IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId)
+        public async Task<IResultInfo> InsertGroup(GroupCommMetaModel item, IRequest request, int userId)
         {
             const string UspName = "Lrf_LicenseeGroupCommIns";
 
@@ -76,7 +77,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
                 db.SetParameterValue("GroupCommID", null);
                 AddResultParam(db);
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 item.GroupCommId = Converter.ToInt(db.GetParameterValue("GroupCommID"));
 
@@ -84,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        public IResultInfo UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId)
+        public async Task<IResultInfo> UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId)
         {
             const string UspName = "Lrf_LicenseeGroupCommUpd";
 
@@ -107,7 +108,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.SetParameterValue("IsResetDefault", newItem.IsResetDefault);
                 db.SetParameterValue("StrCustID", null);
                 AddResultParam(db);
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
                 newItem.GroupCommId = Converter.ToInt(db.GetParameterValue("GroupCommID"));
                 var resultInfo = GetResult(db);
                 resultInfo.ExtendedData = Converter.ToString2(db.GetParameterValue("StrCustID"));
@@ -115,7 +116,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        public IResultInfo DeleteGroup(
+        public async Task<IResultInfo> DeleteGroup(
             int groupId,
             int licenseeId,
             int userId,
@@ -137,7 +138,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.SetParameterValue("IsResetDefault", isResetDefault);
                 AddResultParam(db);
                 db.SetParameterValue("StrCustID", null);
-                db.ExecuteScalar();
+                await db.ExecuteScalarAsync().ConfigureAwait(false);
                 var resultInfo = GetResult(db);
                 resultInfo.ExtendedData = Converter.ToString2(db.GetParameterValue("StrCustID"));
                 return resultInfo;

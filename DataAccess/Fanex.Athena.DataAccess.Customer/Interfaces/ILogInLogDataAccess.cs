@@ -7,10 +7,11 @@
 namespace Fanex.Athena.DataAccess.Customer.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
 
     public interface ILogInLogDataAccess
     {
-        IList<LogInLog> GetDataList(int licenseeId, string username, string agentListXml);
+        Task<IList<LogInLog>> GetDataList(int licenseeId, string username, string agentListXml);
     }
 }

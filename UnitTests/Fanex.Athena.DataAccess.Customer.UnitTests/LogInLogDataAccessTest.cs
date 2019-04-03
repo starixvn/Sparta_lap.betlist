@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.UnitTests
 {
     using System;
-    using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Customer.DTO.CustomerLog;
     using NSubstitute;
@@ -14,7 +14,7 @@
 
         [TestCase("Name ", "Name")]
         [TestCase(" ", "")]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly(string userName, string expectdUserName)
+        public async Task GetDataList_WhenCall_ParametersPassedCorrectly(string userName, string expectdUserName)
         {
             // Arrange
             const int LicenseeId = 0;
@@ -23,7 +23,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetDataList(LicenseeId, userName, AgentList);
+            await DataAccess.GetDataList(LicenseeId, userName, AgentList);
 
             // Assert
             Assert.Multiple(() =>
@@ -35,7 +35,7 @@
         }
 
         [Test]
-        public void GetDataList_WhenCall_ReturnCorrectData()
+        public async Task GetDataList_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expectedResult = new LogInLog
@@ -54,7 +54,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = DataAccess.GetDataList(0, null, null);
+            var result = await DataAccess.GetDataList(0, null, null);
             var firstItem = result[0];
 
             // Assert

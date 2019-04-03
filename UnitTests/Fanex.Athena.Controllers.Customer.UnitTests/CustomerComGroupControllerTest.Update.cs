@@ -50,7 +50,7 @@
         }
 
         [Test]
-        public void UpdatePost_InvalidModelState_ReturnCorrectResult()
+        public async Task UpdatePost_InvalidModelState_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -58,7 +58,7 @@
                 controller.ModelState.AddModelError("abc", "xxx");
 
                 // Action
-                var result = controller.Update(new GroupCommMetaModel()) as ViewResult;
+                var result = await controller.Update(new GroupCommMetaModel()) as ViewResult;
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert
@@ -72,12 +72,12 @@
         }
 
         [Test]
-        public void UpdatePost_GroupNameIsNone_ReturnCorrectErrorResult()
+        public async Task UpdatePost_GroupNameIsNone_ReturnCorrectErrorResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                controller.Update(new GroupCommMetaModel
+                await controller.Update(new GroupCommMetaModel
                 {
                     GroupName = "None  "
                 });
@@ -93,7 +93,7 @@
         }
 
         [Test]
-        public void UpdatePost_AllValid_CallUpdateGroup()
+        public async Task UpdatePost_AllValid_CallUpdateGroup()
         {
             using (var controller = CreateController())
             {
@@ -108,7 +108,7 @@
                     .Returns(new ResultInfo());
 
                 // Action
-                controller.Update(metaModel);
+                await controller.Update(metaModel);
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert
@@ -122,7 +122,7 @@
         }
 
         [Test]
-        public void UpdatePost_GroupNotExists_ReturnSuccessResult()
+        public async Task UpdatePost_GroupNotExists_ReturnSuccessResult()
         {
             using (var controller = CreateController())
             {
@@ -135,7 +135,7 @@
                 _groupComService.GetById(metaModel.GroupCommId, Arg.Any<int>()).Returns(x => null);
 
                 // Action
-                controller.Update(metaModel);
+                await controller.Update(metaModel);
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert
@@ -149,7 +149,7 @@
         }
 
         [Test]
-        public void UpdatePost_InvalidComm_ReturnErrorResult()
+        public async Task UpdatePost_InvalidComm_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -162,7 +162,7 @@
                 };
 
                 // Action
-                controller.Update(metaModel);
+                await controller.Update(metaModel);
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert

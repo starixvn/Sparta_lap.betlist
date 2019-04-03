@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Customer;
     using Model.Core.DTO.Common;
@@ -16,7 +17,7 @@
     {
         [TestCase("New", "New")]
         [TestCase(null, "")]
-        public void GetActiveCustomers_WhenCall_ParametersPassedCorrectly(string custStatus, string expectedStatusParam)
+        public async Task GetActiveCustomers_WhenCall_ParametersPassedCorrectly(string custStatus, string expectedStatusParam)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(ObjectDb);
@@ -32,7 +33,7 @@
             };
 
             // Action
-            DataAccess.GetActiveCustomers(metaModel);
+            await DataAccess.GetActiveCustomers(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -55,14 +56,14 @@
         [TestCase(true, false)]
         [TestCase(false, true)]
         [TestCase(false, false)]
-        public void GetActiveCustomers_WhenCall_ReturnCorrectData(bool isClosed, bool isSuspended)
+        public async Task GetActiveCustomers_WhenCall_ReturnCorrectData(bool isClosed, bool isSuspended)
         {
             // Arrange
             const int ExpectedCustId = 999;
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(ObjectDb);
             var reader = Substitute.For<IDataReader>();
             reader.Read().Returns(true, false);
-            ObjectDb.ExecuteReader().ReturnsForAnyArgs(reader);
+            ObjectDb.ExecuteReaderAsync().ReturnsForAnyArgs(reader);
             DataAccessTestHelper.MapReaderData(
                 reader,
                 new
@@ -76,7 +77,7 @@
             var metaModel = new CustomerListMetaModel();
 
             // Action
-            var result = DataAccess.GetActiveCustomers(metaModel);
+            var result = await DataAccess.GetActiveCustomers(metaModel);
             var firstItem = result.DataList.First();
 
             // Assert

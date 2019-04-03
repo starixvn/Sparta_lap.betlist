@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.UnitTests
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DTO.Common;
     using Model.Customer.MetaModel;
@@ -18,34 +19,34 @@
         }
 
         [Test]
-        public void GetAll_WhenCall_ParametersPassedCorrectly()
+        public async Task GetAll_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLicenseeGroupCommSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetAll(LicenseeId);
+            await DataAccess.GetAll(LicenseeId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("LicenseeID", LicenseeId);
         }
 
         [Test]
-        public void GetDataForExcel_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDataForExcel_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLicenseeGroupCommSp)).Returns(ObjectDb);
-            ObjectDb.ExecuteDataSet().Returns(new DataSet());
+            ObjectDb.ExecuteDataSetAsync().Returns(new DataSet());
 
             // Action
-            DataAccess.GetDataForExcel(LicenseeId);
+            await DataAccess.GetDataForExcel(LicenseeId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("LicenseeID", LicenseeId);
         }
 
         [Test]
-        public void GetDataForExcel_WhenCall_ReturnCorrectData()
+        public async Task GetDataForExcel_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var dataTable = new DataTable();
@@ -53,10 +54,10 @@
             dataSet.Tables.Add(dataTable);
 
             DataAccess.GetObjectDb(Arg.Is(GetLicenseeGroupCommSp)).Returns(ObjectDb);
-            ObjectDb.ExecuteDataSet().Returns(dataSet);
+            ObjectDb.ExecuteDataSetAsync().Returns(dataSet);
 
             // Action
-            var result = DataAccess.GetDataForExcel(LicenseeId);
+            var result = await DataAccess.GetDataForExcel(LicenseeId);
 
             // Assert
             Assert.That(result, Is.EqualTo(dataTable));
@@ -81,7 +82,7 @@
         }
 
         [Test]
-        public void InsertGroup_WhenCall_ParametersPassedCorrectly()
+        public async Task InsertGroup_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             const int UserId = 1;
@@ -91,7 +92,7 @@
             var request = new Request();
 
             // Action
-            DataAccess.InsertGroup(item, request, UserId);
+            await DataAccess.InsertGroup(item, request, UserId);
 
             // Assert
             Assert.Multiple(() =>
@@ -114,7 +115,7 @@
         }
 
         [Test]
-        public void UpdateGroup_WhenCall_ParametersPassedCorrectly()
+        public async Task UpdateGroup_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             const int UserId = 0;
@@ -125,7 +126,7 @@
             var request = new Request();
 
             // Action
-            DataAccess.UpdateGroup(newItem, request, UserId);
+            await DataAccess.UpdateGroup(newItem, request, UserId);
 
             // Assert
             Assert.Multiple(() =>
@@ -170,7 +171,7 @@
         }
 
         [Test]
-        public void DeleteGroup_WhenCall_ParametersPassedCorrectly()
+        public async Task DeleteGroup_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             const int GroupId = 1;
@@ -183,7 +184,7 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeGroupCommDel")).Returns(ObjectDb);
 
             // Action
-            DataAccess.DeleteGroup(GroupId, LicenseeId, UserId, Ip, Language, IsRemoveCommSetting, IsResetDefault);
+            await DataAccess.DeleteGroup(GroupId, LicenseeId, UserId, Ip, Language, IsRemoveCommSetting, IsResetDefault);
 
             // Assert
             Assert.Multiple(() =>

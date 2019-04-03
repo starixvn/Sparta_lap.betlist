@@ -7,12 +7,13 @@
 namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Http;
 
     public partial class LogController
     {
         [HttpGet]
-        public dynamic LoginLog(string username)
+        public async Task<dynamic> LoginLog(string username)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -22,7 +23,7 @@ namespace Fanex.Athena.Api.CustomerLog
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
             var agentListXml = SessionService.GenerateAgentListXml();
-            var dataList = _logInLogDataAccess.GetDataList(licenseeId, username.Trim(), agentListXml);
+            var dataList = await _logInLogDataAccess.GetDataList(licenseeId, username.Trim(), agentListXml).ConfigureAwait(false);
 
             return new
             {

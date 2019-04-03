@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
@@ -16,7 +17,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
     public class CustomerLogDataAccess : BaseDataAccess, ICustomerLogDataAccess
     {
-        public IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel)
+        public async Task<IList<CustomerLog>> GetCustomerSettingList(CustomerLogMetaModel metaModel)
         {
             const string SpName = "Lrf_CustomerSettingLog_Sel";
             using (var db = this.GetObjectDb(SpName))
@@ -29,7 +30,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
                 db.SetParameterValue("siteName", metaModel.SiteName);
 
-                return db.Query<CustomerLog>().ToList();
+                return (await db.QueryAsync<CustomerLog>().ConfigureAwait(false)).ToList();
             }
         }
 
@@ -38,7 +39,7 @@ namespace Fanex.Athena.DataAccess.Customer
         /// </summary>
         /// <param name="metaModel">Group commission log MeteModel.</param>
         /// <returns>A list of group commission log.</returns>
-        public IList<CustomerLog> GetGroupCommList(CustomerLogMetaModel metaModel)
+        public async Task<IList<CustomerLog>> GetGroupCommList(CustomerLogMetaModel metaModel)
         {
             const string SpName = "Lrf_GroupCommLog_Sel";
 
@@ -48,7 +49,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.SetParameterValue("ToDate", metaModel.ToDate);
                 db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
                 db.SetParameterValue("siteName", metaModel.SiteName);
-                return db.Query<CustomerLog>().ToList();
+                return (await db.QueryAsync<CustomerLog>().ConfigureAwait(false)).ToList();
             }
         }
     }

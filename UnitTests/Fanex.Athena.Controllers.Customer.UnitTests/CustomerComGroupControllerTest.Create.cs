@@ -58,7 +58,7 @@
         }
 
         [Test]
-        public void CreatePost_InvalidModelState_ReturnCorrectErrorResult()
+        public async Task CreatePost_InvalidModelState_ReturnCorrectErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -66,7 +66,7 @@
                 controller.ModelState.AddModelError("abc", "xxx");
 
                 // Action
-                var result = controller.Create(new GroupCommMetaModel()) as ViewResult;
+                var result = await controller.Create(new GroupCommMetaModel()) as ViewResult;
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert
@@ -80,12 +80,12 @@
         }
 
         [Test]
-        public void CreatePost_GroupNameIsNone_ReturnCorrectErrorResult()
+        public async Task CreatePost_GroupNameIsNone_ReturnCorrectErrorResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                controller.Create(new GroupCommMetaModel
+                await controller.Create(new GroupCommMetaModel
                 {
                     GroupName = "None  "
                 });
@@ -101,7 +101,7 @@
         }
 
         [Test]
-        public void CreatePost_ValidCommissions_CallInsertGroup()
+        public async Task CreatePost_ValidCommissions_CallInsertGroup()
         {
             using (var controller = CreateController())
             {
@@ -116,7 +116,7 @@
                     .Returns(new ResultInfo());
 
                 // Action
-                controller.Create(metaModel);
+                await controller.Create(metaModel);
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert
@@ -133,7 +133,7 @@
         }
 
         [Test]
-        public void CreatePost_InvalidCommissions_ReturnCorrectError()
+        public async Task CreatePost_InvalidCommissions_ReturnCorrectError()
         {
             using (var controller = CreateController())
             {
@@ -145,7 +145,7 @@
                 };
 
                 // Action
-                controller.Create(metaModel);
+                await controller.Create(metaModel);
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert

@@ -121,11 +121,11 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public dynamic CustomerList(CustomerListMetaModel metaModel)
+        public async Task<dynamic> CustomerList(CustomerListMetaModel metaModel)
         {
             AssignMetaModelData(metaModel);
 
-            var result = _customerListService.GetActiveCustomers(metaModel);
+            var result = await _customerListService.GetActiveCustomers(metaModel).ConfigureAwait(false);
             return new JsonResult
             {
                 Data = new
@@ -140,11 +140,11 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public dynamic DormantCustomerList(CustomerListMetaModel metaModel)
+        public async Task<dynamic> DormantCustomerList(CustomerListMetaModel metaModel)
         {
             AssignMetaModelData(metaModel);
 
-            var result = _customerListService.GetDormantCustomers(metaModel);
+            var result = await _customerListService.GetDormantCustomers(metaModel).ConfigureAwait(false);
             return new JsonResult
             {
                 Data = new
@@ -195,7 +195,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult ExportExcelDormantCustomer(string excelParam)
+        public async Task<ActionResult> ExportExcelDormantCustomer(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))
             {
@@ -210,7 +210,7 @@ namespace Fanex.Athena.Controllers.Customer
 
                 var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/DormantCustomerList.xls");
 
-                var resultModel = _customerListService.GetDormantCustomers(metaModel);
+                var resultModel = await _customerListService.GetDormantCustomers(metaModel).ConfigureAwait(false);
                 if (resultModel.DataList.Any())
                 {
                     var fileName = "DormantCustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
@@ -314,7 +314,7 @@ namespace Fanex.Athena.Controllers.Customer
             };
             if (!isSubsidiary && licenseeSession.IsAllowedCustomerComm)
             {
-                model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
+                model.GroupCommDataList = await _groupComService.GetAll(licenseeSession.LicenseeId).ConfigureAwait(false);
                 model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId, licenseeSession.LicenseeId);
             }
 
@@ -325,7 +325,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = await CreateCustomerViewModel(metaModel).ConfigureAwait(false);
 
-            var result = _customerListService.GetActiveCustomers(model.Param);
+            var result = await _customerListService.GetActiveCustomers(model.Param).ConfigureAwait(false);
             model.DataList = result.DataList;
             model.TotalRows = result.TotalRows;
 

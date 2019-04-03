@@ -6,13 +6,14 @@
 
 namespace Fanex.Athena.Api.CustomerLog
 {
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
 
     public partial class LogController
     {
         [HttpGet]
-        public dynamic GroupCommission(int year, int month, int fromday, int today)
+        public async Task<dynamic> GroupCommission(int year, int month, int fromday, int today)
         {
             var metaModel = new CustomerLogMetaModel
             {
@@ -24,7 +25,7 @@ namespace Fanex.Athena.Api.CustomerLog
                 SiteName = SessionService.LicenseeSession.LicenseeName
             };
 
-            var dataList = _customerLogDataAccess.GetGroupCommList(metaModel);
+            var dataList = await _customerLogDataAccess.GetGroupCommList(metaModel).ConfigureAwait(false);
             var dataAfterRemoveHTMLTag = RemoveHtmlTag(dataList);
 
             var details = GetDetails(dataAfterRemoveHTMLTag);

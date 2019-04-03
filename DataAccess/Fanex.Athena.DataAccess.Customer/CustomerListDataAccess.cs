@@ -4,6 +4,7 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -19,7 +20,7 @@
     {
         #region Read
 
-        public ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel)
+        public async Task<ReportResultModel<CustomerDTO>> GetActiveCustomers(CustomerListMetaModel metaModel)
         {
             const string UspName = "Lrf_CustomerSel";
 
@@ -28,7 +29,7 @@
                 AddCustomerParam(db, metaModel);
                 AddOddsGroupParam(db, metaModel);
 
-                var dataList = ReadCustomerList(db, metaModel);
+                var dataList = await ReadCustomerList(db, metaModel).ConfigureAwait(false);
                 var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
 
                 return new ReportResultModel<CustomerDTO>
@@ -174,10 +175,10 @@
             }
         }
 
-        private IList<CustomerDTO> ReadCustomerList(IObjectDb objectDb, CustomerListMetaModel metaModel)
+        private async Task<IList<CustomerDTO>> ReadCustomerList(IObjectDb objectDb, CustomerListMetaModel metaModel)
         {
             var dataList = new List<CustomerDTO>();
-            using (var reader = objectDb.ExecuteReader())
+            using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
             {
                 var availableFundsCol = "TotalBalance" + metaModel.BaseCurrency;
                 var pendingFundsCol = "OutStanding" + metaModel.BaseCurrency;

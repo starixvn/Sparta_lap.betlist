@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using Fanex.Athena.DataAccess.Core;
 using Fanex.Athena.DataAccess.Customer.Interfaces;
 using Fanex.Athena.Model.Core.ResultModel;
@@ -13,7 +14,7 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     public class DormantCustomerListDataAccess : BaseDataAccess, IDormantCustomerListDataAccess
     {
-        public ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel)
+        public async Task<ReportResultModel<DormantCustomer>> GetDormantCustomers(CustomerListMetaModel metaModel)
         {
             const string UspName = "Lrf_DormantCustomerSel";
 
@@ -25,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("TotalRows", null);
 
-                var dataList = ReadDormantCustomerList(db, metaModel);
+                var dataList = await ReadDormantCustomerList(db, metaModel).ConfigureAwait(false);
                 var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
 
                 return new ReportResultModel<DormantCustomer>
@@ -36,10 +37,10 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        private IList<DormantCustomer> ReadDormantCustomerList(IObjectDb objectDb, CustomerListMetaModel metaModel)
+        private async Task<IList<DormantCustomer>> ReadDormantCustomerList(IObjectDb objectDb, CustomerListMetaModel metaModel)
         {
             var dataList = new List<DormantCustomer>();
-            using (var reader = objectDb.ExecuteReader())
+            using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
             {
                 var balanceColumn = "Balance" + metaModel.BaseCurrency;
                 var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;

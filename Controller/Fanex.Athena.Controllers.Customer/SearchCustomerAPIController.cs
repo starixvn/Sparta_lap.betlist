@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.Customer
 {
+    using System.Threading.Tasks;
     #region Using
 
     using System.Web.Mvc;
@@ -39,19 +40,19 @@
 
         [AjaxRequest]
         [HttpGet]
-        public JsonResult SearchCustomer(string query)
+        public Task<JsonResult> SearchCustomer(string query)
         {
             return Search(query, false);
         }
 
         [AjaxRequest]
         [HttpGet]
-        public JsonResult SearchActiveAndDormantCustomer(string query)
+        public Task<JsonResult> SearchActiveAndDormantCustomer(string query)
         {
             return Search(query, true);
         }
 
-        private JsonResult Search(string query, bool isIncludeDormant)
+        private async Task<JsonResult> Search(string query, bool isIncludeDormant)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
@@ -60,7 +61,7 @@
 
             var userName = query.Trim();
             var userId = SessionService.UserSession.UserId;
-            var customerNames = _searchCustomerDataAccess.SearchCustomers(userId, userName, SessionService.GenerateAgentListXml(), isIncludeDormant);
+            var customerNames = await _searchCustomerDataAccess.SearchCustomers(userId, userName, SessionService.GenerateAgentListXml(), isIncludeDormant);
 
             var searchResult = new
             {
