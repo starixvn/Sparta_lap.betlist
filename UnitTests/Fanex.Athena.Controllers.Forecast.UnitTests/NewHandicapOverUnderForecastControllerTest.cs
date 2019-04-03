@@ -6,6 +6,7 @@
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
@@ -19,7 +20,7 @@
 
     public class NewHandicapOverUnderForecastControllerTest : CultureBaseControllerHelperTest
     {
-        private IForecastService _forecastService;
+        private IForecastDataAccess _forecastDataAccess;
 
         private ICacheRefAdapter _cacheRefAdapter;
 
@@ -51,12 +52,12 @@
 
                 NewForecastHdpOuMatchInfo headerInfo = null;
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Do<NewForecastHdpOuMatchInfo>(x => headerInfo = x)).Returns(mainData);
 
                 // Action
-                var result = await controler.Index(baseCurrency: baseCurrency) as ViewResult;
+                var result = await controler.Index(baseCurrency: baseCurrency, leagueId: 1, matchId: 1) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -81,7 +82,7 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
@@ -116,7 +117,7 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
@@ -154,7 +155,7 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
@@ -194,7 +195,7 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
@@ -237,7 +238,7 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
@@ -297,7 +298,9 @@
                 {
                     HomeTeamId = 1,
                     AwayTeamId = 2,
-                    IsNeutral = isNeutral
+                    IsNeutral = isNeutral,
+                    LeagueId = 1,
+                    MatchId = 1
                 };
 
                 const string HomeTeamName = "Home";
@@ -312,7 +315,7 @@
 
                 NewForecastHdpOuMatchInfo headerInfo = null;
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Do<NewForecastHdpOuMatchInfo>(x => headerInfo = x)).Returns(mainData);
 
@@ -375,7 +378,7 @@
 
         private NewHandicapOverUnderForecastController CreateController()
         {
-            _forecastService = Substitute.For<IForecastService>();
+            _forecastDataAccess = Substitute.For<IForecastDataAccess>();
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _matchService = Substitute.For<IMatchService>();
             _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
@@ -384,7 +387,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                _forecastService,
+                _forecastDataAccess,
                 Substitute.For<ICoreLogger>(),
                 _cacheRefAdapter,
                 _matchService,

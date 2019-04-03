@@ -4,19 +4,19 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using DataAccess.Core.Common.Interfaces;
     using Base.UnitTests;
+    using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.ForecastHdou;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Forecast.Interfaces;
 
     public class HandicapOverUnderForecastControllerTest : CultureBaseControllerHelperTest
     {
-        private IForecastService _forecastService;
+        private IForecastDataAccess _forecastDataAccess;
 
         private ILeagueDataAccess _leagueDataAccess;
 
@@ -60,7 +60,7 @@
                 var mainData = Enumerable.Empty<ForecastHandicapOverUnder>();
 
                 _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
-                _forecastService.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
+                _forecastDataAccess.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
 
                 // Action
                 var result = await controller.Index() as ViewResult;
@@ -93,7 +93,7 @@
                 var mainData = Enumerable.Empty<ForecastHandicapOverUnder>();
 
                 _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
-                _forecastService.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
+                _forecastDataAccess.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
 
                 var metaModel = new ForecastHandicapOverUnderMetaModel { LeagueId = leagueId };
 
@@ -132,7 +132,7 @@
 
         private HandicapOverUnderForecastController CreateController()
         {
-            _forecastService = Substitute.For<IForecastService>();
+            _forecastDataAccess = Substitute.For<IForecastDataAccess>();
             _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
 
             var controller = new HandicapOverUnderForecastController(
@@ -140,7 +140,7 @@
                 SessionService,
                 AppSettings,
                 _leagueDataAccess,
-                _forecastService)
+                _forecastDataAccess)
             {
                 ControllerContext = ControllerContext
             };

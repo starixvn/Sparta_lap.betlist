@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Model.Core.DataDomain;
@@ -37,7 +38,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private readonly ILeagueDataAccess _leagueDataAccess;
 
-        private readonly IForecastService _forecastService;
+        private readonly IForecastDataAccess _forecastDataAccess;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -45,7 +46,7 @@ namespace Fanex.Athena.Controllers.Forecast
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IForecastService forecastService,
+            IForecastDataAccess forecastDataAccess,
             ICoreLogger logger,
             ICacheRefAdapter cacheRefAdapter,
             IMatchService matchService,
@@ -56,7 +57,7 @@ namespace Fanex.Athena.Controllers.Forecast
             _logger = logger;
             _cacheRefAdapter = cacheRefAdapter;
             _matchService = matchService;
-            _forecastService = forecastService;
+            _forecastDataAccess = forecastDataAccess;
             _leagueDataAccess = leagueDataAccess;
         }
 
@@ -138,7 +139,9 @@ namespace Fanex.Athena.Controllers.Forecast
 
                 metaModel.HomeTeamName = _cacheRefAdapter.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
                 metaModel.AwayTeamName = _cacheRefAdapter.GetTeamName(metaModel.AwayTeamId);
-                model.MainData = _forecastService.GetNewForecastData(metaModel, headerInfo);
+                model.MainData = metaModel.IsValid ? 
+                    _forecastDataAccess.GetNewForecastData(metaModel, headerInfo) :
+                    new NewForecastHdpOuData();
                 model.HeaderInfo = headerInfo;
             }
             catch (Exception exception)

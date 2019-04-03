@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -23,18 +24,18 @@ namespace Fanex.Athena.Controllers.Forecast
     {
         private readonly ILeagueDataAccess _leagueDataAccess;
 
-        private readonly IForecastOneXTwoService _forecastOneXTwoService;
+        private readonly IForecastOneXTwoDataAccess _forecastOneXTwoDataAccess;
 
         public OneXTwoForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
             ILeagueDataAccess leagueDataAccess,
-            IForecastOneXTwoService forecastOneXTwoService)
+            IForecastOneXTwoDataAccess forecastOneXTwoDataAccess)
         : base(languageService, sessionService, appSetting)
         {
             _leagueDataAccess = leagueDataAccess;
-            _forecastOneXTwoService = forecastOneXTwoService;
+            _forecastOneXTwoDataAccess = forecastOneXTwoDataAccess;
         }
 
         [HttpGet]
@@ -84,14 +85,14 @@ namespace Fanex.Athena.Controllers.Forecast
 
             if (metaModel.MatchId != 0)
             {
-                var forecastOneXTwoByMatch = _forecastOneXTwoService.GetForecastOneXTwoByMatch(metaModel);
+                var forecastOneXTwoByMatch = _forecastOneXTwoDataAccess.GetForecastOneXTwoByMatch(metaModel);
                 model.MainData = forecastOneXTwoByMatch;
             }
             else
             {
                 metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
-                var forecastcOneXTwoByLeague = _forecastOneXTwoService.GetForecastOneXTwoByLeague(metaModel);
+                var forecastcOneXTwoByLeague = _forecastOneXTwoDataAccess.GetForecastOneXTwoByLeague(metaModel);
                 model.MainData = forecastcOneXTwoByLeague;
             }
 

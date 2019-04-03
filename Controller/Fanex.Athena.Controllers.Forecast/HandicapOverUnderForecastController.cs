@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -17,25 +18,24 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Forecast.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class HandicapOverUnderForecastController : ForecastBaseController
     {
         private readonly ILeagueDataAccess _leagueDataAaccess;
 
-        private readonly IForecastService _forecastService;
+        private readonly IForecastDataAccess _forecastDataAccess;
 
         public HandicapOverUnderForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
             ILeagueDataAccess leagueDataAccess,
-            IForecastService forecastService)
+            IForecastDataAccess forecastDataAccess)
         : base(languageService, sessionService, appSetting)
         {
             _leagueDataAaccess = leagueDataAccess;
-            _forecastService = forecastService;
+            _forecastDataAccess = forecastDataAccess;
         }
 
         [HttpGet]
@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers.Forecast
             var leagueList = await _leagueDataAaccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(true);
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
-            var forecastHdpOuByLeague = _forecastService.GetForecastHandicapOverUnder(metaModel);
+            var forecastHdpOuByLeague = _forecastDataAccess.GetForecastHandicapOverUnder(metaModel);
 
             return new ForecastHdpOuViewModel
             {
