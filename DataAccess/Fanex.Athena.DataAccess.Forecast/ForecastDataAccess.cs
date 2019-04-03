@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Extension.Helper;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Common.Extensions;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         {
         }
 
-        public IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel)
+        public async Task<IList<ForecastHandicapOverUnder>> GetForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast_SelByLeague";
 
@@ -37,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Forecast
             };
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(paramValues))
+                using (var reader = await db.ExecuteReaderAsync(paramValues).ConfigureAwait(false))
                 {
                     return GetForecastHandicapOverUnderList(reader, metaModel);
                 }

@@ -6,15 +6,16 @@
 
 namespace Fanex.Athena.Service.Forecast.Interfaces
 {
+    using System.Threading.Tasks;
     using Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.MetaModel;
 
     public interface IForecastAhService
     {
-        ForecastAH GetForecastTopOddsByMatch(int matchId, int betType);
+        Task<ForecastAH> GetForecastTopOddsByMatch(int matchId, int betType);
 
-        ForecastValue GetForecastHandicap(ForecastAHMetaModel metaModel, int userId);
+        Task<ForecastValue> GetForecastHandicap(ForecastAHMetaModel metaModel, int userId);
 
-        ForecastValue GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId);
+        Task<ForecastValue> GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId);
     }
 }

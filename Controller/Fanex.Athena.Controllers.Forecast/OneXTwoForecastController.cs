@@ -85,14 +85,14 @@ namespace Fanex.Athena.Controllers.Forecast
 
             if (metaModel.MatchId != 0)
             {
-                var forecastOneXTwoByMatch = _forecastOneXTwoDataAccess.GetForecastOneXTwoByMatch(metaModel);
+                var forecastOneXTwoByMatch = await _forecastOneXTwoDataAccess.GetForecastOneXTwoByMatch(metaModel).ConfigureAwait(false);
                 model.MainData = forecastOneXTwoByMatch;
             }
             else
             {
                 metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
-                var forecastcOneXTwoByLeague = _forecastOneXTwoDataAccess.GetForecastOneXTwoByLeague(metaModel);
+                var forecastcOneXTwoByLeague = await _forecastOneXTwoDataAccess.GetForecastOneXTwoByLeague(metaModel).ConfigureAwait(false);
                 model.MainData = forecastcOneXTwoByLeague;
             }
 

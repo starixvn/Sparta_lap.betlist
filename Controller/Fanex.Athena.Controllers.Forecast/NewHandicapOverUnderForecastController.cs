@@ -139,8 +139,8 @@ namespace Fanex.Athena.Controllers.Forecast
 
                 metaModel.HomeTeamName = _cacheRefAdapter.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
                 metaModel.AwayTeamName = _cacheRefAdapter.GetTeamName(metaModel.AwayTeamId);
-                model.MainData = metaModel.IsValid ? 
-                    _forecastDataAccess.GetNewForecastData(metaModel, headerInfo) :
+                model.MainData = metaModel.IsValid ?
+                    await _forecastDataAccess.GetNewForecastData(metaModel, headerInfo).ConfigureAwait(false) :
                     new NewForecastHdpOuData();
                 model.HeaderInfo = headerInfo;
             }

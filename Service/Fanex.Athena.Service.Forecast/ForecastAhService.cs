@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Forecast
 {
     using System.Data;
+    using System.Threading.Tasks;
     using DataAccess.Forecast.Interfaces;
     using Extension.Helper;
     using Fanex.Common;
@@ -23,14 +24,14 @@ namespace Fanex.Athena.Service.Forecast
             _forecastAhDataAccess = forecastDataAccess;
         }
 
-        public ForecastAH GetForecastTopOddsByMatch(int matchId, int betType)
+        public Task<ForecastAH> GetForecastTopOddsByMatch(int matchId, int betType)
         {
             return _forecastAhDataAccess.GetForecastTopOddsByMatch(matchId, betType);
         }
 
-        public ForecastValue GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
+        public async Task<ForecastValue> GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
-            var forecastHandicapTable = _forecastAhDataAccess.GetForecastHandicap(metaModel, userId);
+            var forecastHandicapTable = await _forecastAhDataAccess.GetForecastHandicap(metaModel, userId).ConfigureAwait(false);
             var forecastResult = new ForecastValue();
 
             if (forecastHandicapTable != null && forecastHandicapTable.Rows.Count > 0)
@@ -79,9 +80,9 @@ namespace Fanex.Athena.Service.Forecast
             return forecastResult;
         }
 
-        public ForecastValue GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
+        public async Task<ForecastValue> GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
-            var overUnderTable = _forecastAhDataAccess.GetForecastOverUnder(metaModel, userId);
+            var overUnderTable = await _forecastAhDataAccess.GetForecastOverUnder(metaModel, userId).ConfigureAwait(false);
             var result = new ForecastValue();
 
             if (overUnderTable != null && overUnderTable.Rows.Count > 0)

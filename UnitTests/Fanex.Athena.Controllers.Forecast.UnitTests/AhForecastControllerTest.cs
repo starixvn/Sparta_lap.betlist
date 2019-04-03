@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.Forecast.UnitTests
 {
     using System.Collections.Specialized;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Constant.DataDomain;
@@ -25,16 +26,16 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        public async Task Index_WhenCall_ReturnCorrectViewName()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = 3 };
-                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType).Returns(x => { return null; });
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType).Returns(Task.FromResult<ForecastAH>(null));
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/ForecastAH/Main.cshtml"));
@@ -42,16 +43,16 @@
         }
 
         [Test]
-        public void Index_HeaderParamIsNull_ReturnNullForecastHeaderParamAndValue()
+        public async Task Index_HeaderParamIsNull_ReturnNullForecastHeaderParamAndValue()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = 3 };
-                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType).Returns(x => { return null; });
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType).Returns(Task.FromResult<ForecastAH>(null));
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
@@ -66,7 +67,11 @@
         [TestCase((int)BetType.OverUnder, 1, 2, 3)]
         [TestCase((int)BetType.FirstHalfOverUnder, 1, 2, 3)]
         [TestCase((int)BetType.Handicap, 3, 2, 1)]
-        public void Index_CurrentScoreRequestParamIsNull_CalculateCurrenctCoreCorrectly(int betType, int liveHomeScore, int liveAwayScore, int expectedCurrentCore)
+        public async Task Index_CurrentScoreRequestParamIsNull_CalculateCurrenctCoreCorrectly(
+            int betType, 
+            int liveHomeScore, 
+            int liveAwayScore, 
+            int expectedCurrentCore)
         {
             using (var controller = CreateController())
             {
@@ -83,7 +88,7 @@
                 _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
@@ -95,7 +100,7 @@
         [TestCase(2)]
         [TestCase(3)]
         [TestCase(4)]
-        public void Index_CurrentScoreRequestParamIsNotNull_CurrenctCoreIsNotChanged(int expectedCurrentCore)
+        public async Task Index_CurrentScoreRequestParamIsNotNull_CurrenctCoreIsNotChanged(int expectedCurrentCore)
         {
             using (var controller = CreateController())
             {
@@ -111,7 +116,7 @@
                 _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
@@ -123,7 +128,7 @@
         [TestCase((int)BetType.FirstHalfHandicap, nameof(ViewResources.lbl1stHandicap))]
         [TestCase((int)BetType.OverUnder, nameof(ViewResources.OverUnder))]
         [TestCase((int)BetType.FirstHalfOverUnder, nameof(ViewResources.lbl1stOver_Under))]
-        public void Index_AsignForeCastName_GetCorrectNameByBetType(int betType, string expectedName)
+        public async Task Index_AsignForeCastName_GetCorrectNameByBetType(int betType, string expectedName)
         {
             using (var controller = CreateController())
             {
@@ -140,7 +145,7 @@
                 _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
@@ -150,7 +155,7 @@
 
         [TestCase((int)BetType.Handicap)]
         [TestCase((int)BetType.FirstHalfHandicap)]
-        public void Index_HandicapBetType_GetCorrectValue(int betType)
+        public async Task Index_HandicapBetType_GetCorrectValue(int betType)
         {
             using (var controller = CreateController())
             {
@@ -167,7 +172,7 @@
                 _forecastAhService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
@@ -177,7 +182,7 @@
 
         [TestCase((int)BetType.OverUnder)]
         [TestCase((int)BetType.FirstHalfOverUnder)]
-        public void Index_OverUnderBetType_GetCorrectValue(int betType)
+        public async Task Index_OverUnderBetType_GetCorrectValue(int betType)
         {
             using (var controller = CreateController())
             {
@@ -194,7 +199,7 @@
                 _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
@@ -206,7 +211,7 @@
         [TestCase((int)BetType.FirstHalfOverUnder, 6, new[] { "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1" })]
         [TestCase((int)BetType.Handicap, -6, new[] { "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-10", "-11" })]
         [TestCase((int)BetType.Handicap, 1, new[] { "6", "5", "4", "3", "2", "1", "0", "-1", "-2", "-3", "-4" })]
-        public void Index_When_RenderCorrectForecastLink(int betType, int currentScore, string[] expectedLink)
+        public async Task Index_When_RenderCorrectForecastLink(int betType, int currentScore, string[] expectedLink)
         {
             using (var controller = CreateController())
             {
@@ -224,7 +229,7 @@
                 _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
@@ -236,7 +241,7 @@
         [TestCase((int)BetType.FirstHalfOverUnder, 3, new[] { 3, 4, 5, 6, 7 })]
         [TestCase((int)BetType.Handicap, -1, new[] { -3, -2, -1, 0, 1 })]
         [TestCase((int)BetType.FirstHalfHandicap, 0, new[] { -2, -1, 0, 1, 2 })]
-        public void Index_When_RenderCorrectForecastHeader(int betType, int currentScore, int[] expectedHeader)
+        public async Task Index_When_RenderCorrectForecastHeader(int betType, int currentScore, int[] expectedHeader)
         {
             using (var controller = CreateController())
             {
@@ -254,7 +259,7 @@
                 _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Forecast;
     using Model.Forecast.DTO.NewForecastHdpOu;
@@ -19,19 +20,19 @@
         }
 
         [Test]
-        public void GetNewForecastData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetNewForecastData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchTotalForecast")).Returns(ObjectDb);
             var metaModel = new NewForecastHandicapOverUnderMetaModel();
             var matchInfo = new NewForecastHdpOuMatchInfo();
-            ObjectDb.ExecuteDataSet().Returns(new DataSet());
+            ObjectDb.ExecuteDataSetAsync().Returns(new DataSet());
             ObjectDb.GetParameterValue("MatchTime").Returns(new DateTime(2016, 8, 26));
             ObjectDb.GetParameterValue("HomeScore").Returns("HomeScoreTest");
             ObjectDb.GetParameterValue("AwayScore").Returns("AwayScoreTest");
 
             // Action
-            DataAccess.GetNewForecastData(metaModel, matchInfo);
+            await DataAccess.GetNewForecastData(metaModel, matchInfo);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
@@ -42,7 +43,7 @@
         }
 
         [Test]
-        public void GetNewForecastData_WhenCall_DataReturnedCorrectly()
+        public async Task GetNewForecastData_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchTotalForecast")).Returns(ObjectDb);
@@ -56,13 +57,13 @@
             var detailItem = FakeHelper.Create<NewForecastHdpOuDetailItem>();
             dataSet.Tables.Add(GetDetailTableForGetNewForecastDataMethod(detailItem));
 
-            ObjectDb.ExecuteDataSet().Returns(dataSet);
+            ObjectDb.ExecuteDataSetAsync().Returns(dataSet);
             ObjectDb.GetParameterValue("MatchTime").Returns(new DateTime(2016, 8, 26, 1, 30, 0));
             ObjectDb.GetParameterValue("HomeScore").Returns(5);
             ObjectDb.GetParameterValue("AwayScore").Returns(6);
 
             // Action
-            var result = DataAccess.GetNewForecastData(metaModel, matchInfo);
+            var result = await DataAccess.GetNewForecastData(metaModel, matchInfo);
 
             // Assert
             Assert.That(result.TotalItemList[0].Type, Is.EqualTo(totalItem.Type));

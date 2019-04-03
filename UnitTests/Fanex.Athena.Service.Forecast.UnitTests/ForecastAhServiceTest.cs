@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using DataAccess.Forecast.Interfaces;
     using Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.MetaModel;
@@ -29,7 +30,7 @@
         }
 
         [Test]
-        public void GetForecastTopOddsByMatch_WhenCall_ReturnCorrectData()
+        public async Task GetForecastTopOddsByMatch_WhenCall_ReturnCorrectData()
         {
             // Arrange
             const int MatchId = 1, BetType = 2;
@@ -37,14 +38,14 @@
             _forecastAhDataAccess.GetForecastTopOddsByMatch(MatchId, BetType).Returns(expectedResult);
 
             // Action
-            var result = _forecastAhService.GetForecastTopOddsByMatch(MatchId, BetType);
+            var result = await _forecastAhService.GetForecastTopOddsByMatch(MatchId, BetType);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetForecastHandicap_ReturnEmptyDataTableWithCallingDataAccess_HasDataValueInResultIsFalse()
+        public async Task GetForecastHandicap_ReturnEmptyDataTableWithCallingDataAccess_HasDataValueInResultIsFalse()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel();
@@ -53,14 +54,14 @@
             _forecastAhDataAccess.GetForecastHandicap(metaModel, UserId).Returns(forecastHandicapTable);
 
             // Action
-            var result = _forecastAhService.GetForecastHandicap(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastHandicap(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.False);
         }
 
         [Test]
-        public void GetForecastHandicap_HasDataWithForecastScoreIsZero_ForeCastValue0IsZero()
+        public async Task GetForecastHandicap_HasDataWithForecastScoreIsZero_ForeCastValue0IsZero()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 3, BaseCurrency = "EUR" };
@@ -74,7 +75,7 @@
             var expectedResult = new ForecastValue { ForeCastValue0 = 0 };
 
             // Action
-            var result = _forecastAhService.GetForecastHandicap(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastHandicap(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);
@@ -82,7 +83,7 @@
         }
 
         [Test]
-        public void GetForecastHandicap_HasDataWithForecastScoreGreaterThanZeroAndLessThanOneHalf_ForeCastValue1HasCorrectValue()
+        public async Task GetForecastHandicap_HasDataWithForecastScoreGreaterThanZeroAndLessThanOneHalf_ForeCastValue1HasCorrectValue()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 2, BaseCurrency = "EUR" };
@@ -96,7 +97,7 @@
             var expectedResult = new ForecastValue { ForeCastValue1 = 6 };
 
             // Action
-            var result = _forecastAhService.GetForecastHandicap(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastHandicap(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);
@@ -104,7 +105,7 @@
         }
 
         [Test]
-        public void GetForecastHandicap_HasDataWithForecastScoreGreaterThanOneHalf_ForeCastValue2HasCorrectValue()
+        public async Task GetForecastHandicap_HasDataWithForecastScoreGreaterThanOneHalf_ForeCastValue2HasCorrectValue()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 1, BaseCurrency = "EUR" };
@@ -118,7 +119,7 @@
             var expectedResult = new ForecastValue { ForeCastValue2 = 12 };
 
             // Action
-            var result = _forecastAhService.GetForecastHandicap(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastHandicap(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);
@@ -126,7 +127,7 @@
         }
 
         [Test]
-        public void GetForecastHandicap_HasDataWithForecastScoreLessThanZeroAndGreaterThanOneHalfNegative_ForeCastValue3HasCorrectValue()
+        public async Task GetForecastHandicap_HasDataWithForecastScoreLessThanZeroAndGreaterThanOneHalfNegative_ForeCastValue3HasCorrectValue()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 1, BaseCurrency = "EUR" };
@@ -140,7 +141,7 @@
             var expectedResult = new ForecastValue { ForeCastValue3 = 7 };
 
             // Action
-            var result = _forecastAhService.GetForecastHandicap(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastHandicap(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);
@@ -148,7 +149,7 @@
         }
 
         [Test]
-        public void GetForecastHandicap_HasDataWithForecastScoreLessThanOneHalf_ForeCastValue4HasCorrectValue()
+        public async Task GetForecastHandicap_HasDataWithForecastScoreLessThanOneHalf_ForeCastValue4HasCorrectValue()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 1, BaseCurrency = "EUR" };
@@ -162,7 +163,7 @@
             var expectedResult = new ForecastValue { ForeCastValue4 = 14 };
 
             // Action
-            var result = _forecastAhService.GetForecastHandicap(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastHandicap(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);
@@ -170,7 +171,7 @@
         }
 
         [Test]
-        public void GetForecastOverUnder_EmptyDataTableWhenCallingDataAccess_HasDataValueInResultIsFalse()
+        public async Task GetForecastOverUnder_EmptyDataTableWhenCallingDataAccess_HasDataValueInResultIsFalse()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel();
@@ -179,14 +180,14 @@
             _forecastAhDataAccess.GetForecastOverUnder(metaModel, UserId).Returns(overUnderTable);
 
             // Action
-            var result = _forecastAhService.GetForecastOverUnder(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastOverUnder(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.False);
         }
 
         [Test]
-        public void GetForecastOverUnder_HasDataWithForecastScoreIsZero_ForeCastValue0IsZero()
+        public async Task GetForecastOverUnder_HasDataWithForecastScoreIsZero_ForeCastValue0IsZero()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 3, BaseCurrency = "EUR" };
@@ -200,7 +201,7 @@
             var expectedResult = new ForecastValue { ForeCastValue0 = 0 };
 
             // Action
-            var result = _forecastAhService.GetForecastOverUnder(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastOverUnder(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);
@@ -208,7 +209,7 @@
         }
 
         [Test]
-        public void GetForecastOverUnder_HasDataWithForecastScoreGreaterThanZeroAndLessThanOneHalf_ForeCastValue1HasCorrectValue()
+        public async Task GetForecastOverUnder_HasDataWithForecastScoreGreaterThanZeroAndLessThanOneHalf_ForeCastValue1HasCorrectValue()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 1, BaseCurrency = "EUR" };
@@ -222,7 +223,7 @@
             var expectedResult = new ForecastValue { ForeCastValue1 = 6 };
 
             // Action
-            var result = _forecastAhService.GetForecastOverUnder(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastOverUnder(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);
@@ -230,7 +231,7 @@
         }
 
         [Test]
-        public void GetForecastOverUnder_HasDataWithForecastScoreGreaterThanOneHalf_ForeCastValue2HasCorrectValue()
+        public async Task GetForecastOverUnder_HasDataWithForecastScoreGreaterThanOneHalf_ForeCastValue2HasCorrectValue()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 1, BaseCurrency = "EUR" };
@@ -244,7 +245,7 @@
             var expectedResult = new ForecastValue { ForeCastValue2 = 0 };
 
             // Action
-            var result = _forecastAhService.GetForecastOverUnder(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastOverUnder(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);
@@ -252,7 +253,7 @@
         }
 
         [Test]
-        public void GetForecastOverUnder_HasDataWithForecastScoreLessThanZeroAndGreaterThanOneHalfNegative_ForeCastValue3HasCorrectValue()
+        public async Task GetForecastOverUnder_HasDataWithForecastScoreLessThanZeroAndGreaterThanOneHalfNegative_ForeCastValue3HasCorrectValue()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 1, BaseCurrency = "EUR" };
@@ -266,7 +267,7 @@
             var expectedResult = new ForecastValue { ForeCastValue3 = 7 };
 
             // Action
-            var result = _forecastAhService.GetForecastOverUnder(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastOverUnder(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);
@@ -274,7 +275,7 @@
         }
 
         [Test]
-        public void GetForecastOverUnder_HasDataWithForecastScoreLessThanOneHalf_ForeCastValue4HasCorrectValue()
+        public async Task GetForecastOverUnder_HasDataWithForecastScoreLessThanOneHalf_ForeCastValue4HasCorrectValue()
         {
             // Arrange
             var metaModel = new ForecastAHMetaModel { CurrentScore = 1, BaseCurrency = "EUR" };
@@ -288,7 +289,7 @@
             var expectedResult = new ForecastValue { ForeCastValue4 = 14 };
 
             // Action
-            var result = _forecastAhService.GetForecastOverUnder(metaModel, UserId);
+            var result = await _forecastAhService.GetForecastOverUnder(metaModel, UserId);
 
             // Assert
             Assert.That(result.HasData, Is.True);

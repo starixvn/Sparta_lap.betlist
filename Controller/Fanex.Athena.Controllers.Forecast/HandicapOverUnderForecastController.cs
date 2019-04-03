@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers.Forecast
             var leagueList = await _leagueDataAaccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(true);
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
-            var forecastHdpOuByLeague = _forecastDataAccess.GetForecastHandicapOverUnder(metaModel);
+            var forecastHdpOuByLeague = await _forecastDataAccess.GetForecastHandicapOverUnder(metaModel).ConfigureAwait(false);
 
             return new ForecastHdpOuViewModel
             {

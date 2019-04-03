@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Forecast
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Interfaces;
     using Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.MetaModel;
@@ -19,7 +20,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         {
         }
 
-        public ForecastAH GetForecastTopOddsByMatch(int matchId, int betType)
+        public async Task<ForecastAH> GetForecastTopOddsByMatch(int matchId, int betType)
         {
             const string UspName = "Lrf_Forecast_OddsSelTopByMatch";
 
@@ -27,13 +28,13 @@ namespace Fanex.Athena.DataAccess.Forecast
             {
                 db.SetParameterValue("matchid", matchId);
                 db.SetParameterValue("betType", betType);
-                var item = db.QueryEntity<ForecastAH>();
+                var item = await db.QueryEntityAsync<ForecastAH>().ConfigureAwait(false);
                 AssignTeamNames(item);
                 return item;
             }
         }
 
-        public DataTable GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
+        public async Task<DataTable> GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
             const string UspName = "Lrf_Forecast_SelHDP";
             using (var db = this.GetObjectDb(UspName))
@@ -41,12 +42,12 @@ namespace Fanex.Athena.DataAccess.Forecast
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("matchid", metaModel.MatchId);
                 db.SetParameterValue("betType", metaModel.BetType);
-                var dataset = db.ExecuteDataSet();
+                var dataset = await db.ExecuteDataSetAsync().ConfigureAwait(false);
                 return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
             }
         }
 
-        public DataTable GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
+        public async Task<DataTable> GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
             const string UspName = "Lrf_Forecast_SelOU";
 
@@ -55,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Forecast
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("matchid", metaModel.MatchId);
                 db.SetParameterValue("betType", metaModel.BetType);
-                var dataset = db.ExecuteDataSet();
+                var dataset = await db.ExecuteDataSetAsync().ConfigureAwait(false);
                 return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
             }
         }

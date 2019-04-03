@@ -37,7 +37,7 @@
                 AppSettings.LicenseeOfferNewForecast.Returns(Enumerable.Empty<int>());
                 const int ExpectdLeagueId = -1;
                 var leagueList = Enumerable.Empty<League>();
-                var mainData = Enumerable.Empty<ForecastOneXTwo>();
+                var mainData = new List<ForecastOneXTwo>();
 
                 _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
                 _forecastOneXTwoDataAccess.GetForecastOneXTwoByLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
@@ -70,7 +70,7 @@
                 // Arrange
                 AppSettings.LicenseeOfferNewForecast.Returns(Enumerable.Empty<int>());
                 var leagueList = leagueIDList.Select(x => new League { LeagueId = x }).ToList();
-                var mainData = Enumerable.Empty<ForecastOneXTwo>();
+                var mainData = new List<ForecastOneXTwo>();
 
                 _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
                 _forecastOneXTwoDataAccess.GetForecastOneXTwoByMatch(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
@@ -105,7 +105,7 @@
                 // Arrange
                 AppSettings.LicenseeOfferNewForecast.Returns(Enumerable.Empty<int>());
                 var leagueList = leagueIDList.Select(x => new League { LeagueId = x }).ToList();
-                var mainData = Enumerable.Empty<ForecastOneXTwo>();
+                var mainData = new List<ForecastOneXTwo>();
 
                 _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
                 _forecastOneXTwoDataAccess.GetForecastOneXTwoByMatch(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);

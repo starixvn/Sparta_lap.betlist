@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Forecast.UnitTests
 {
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Forecast;
     using Model.Forecast.DTO.ForecastAH;
@@ -18,7 +19,7 @@
         }
 
         [Test]
-        public void GetForecastTopOddsByMatch_WhenCall_ParametersPassedCorrectly()
+        public async Task GetForecastTopOddsByMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_OddsSelTopByMatch")).Returns(ObjectDb);
@@ -27,7 +28,7 @@
             ObjectDb.QueryEntity<ForecastAH>().Returns(new ForecastAH());
 
             // Action
-            DataAccess.GetForecastTopOddsByMatch(matchId, betType);
+            await DataAccess.GetForecastTopOddsByMatch(matchId, betType);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("matchid", matchId);
@@ -35,7 +36,7 @@
         }
 
         [Test]
-        public void GetForecastHandicap_WhenCall_ParametersPassedCorrectly()
+        public async Task GetForecastHandicap_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelHDP")).Returns(ObjectDb);
@@ -43,7 +44,7 @@
             var userId = 0;
 
             // Action
-            DataAccess.GetForecastHandicap(metaModel, userId);
+            await DataAccess.GetForecastHandicap(metaModel, userId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
@@ -52,7 +53,7 @@
         }
 
         [Test]
-        public void GetForecastOverUnder_WhenCall_ParametersPassedCorrectly()
+        public async Task GetForecastOverUnder_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelOU")).Returns(ObjectDb);
@@ -60,7 +61,7 @@
             var userId = 0;
 
             // Action
-            DataAccess.GetForecastOverUnder(metaModel, userId);
+            await DataAccess.GetForecastOverUnder(metaModel, userId);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);

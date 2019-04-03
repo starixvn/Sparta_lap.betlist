@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Forecast.UnitTests
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Forecast;
     using Model.Forecast.DTO.ForecastHdou;
@@ -20,31 +21,31 @@
         }
 
         [Test]
-        public void GetForecastHandicapOverUnder_WhenCall_ParametersPassedCorrectly()
+        public async Task GetForecastHandicapOverUnder_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelByLeague")).Returns(ObjectDb);
             var metaModel = new ForecastHandicapOverUnderMetaModel();
 
             // Action
-            DataAccess.GetForecastHandicapOverUnder(metaModel);
+            await DataAccess.GetForecastHandicapOverUnder(metaModel);
 
             // Assert
-            ObjectDb.Received(1).ExecuteReader(Arg.Any<object>());
+            await ObjectDb.Received(1).ExecuteReaderAsync(Arg.Any<object>());
         }
 
         [Test]
-        public void GetForecastHandicapOverUnder_WhenCall_DataReturnedCorrectly()
+        public async Task GetForecastHandicapOverUnder_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelByLeague")).Returns(ObjectDb);
-            ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(Reader);
+            ObjectDb.ExecuteReaderAsync(Arg.Any<object>()).Returns(Reader);
             var metaModel = new ForecastHandicapOverUnderMetaModel();
             var expected = FakeHelper.Create<ForecastHandicapOverUnder>();
             ConfifureReaderForGetForecastHandicapOverUnderMethod(Reader, expected);
 
             // Action
-            var result = DataAccess.GetForecastHandicapOverUnder(metaModel)[0];
+            var result = (await DataAccess.GetForecastHandicapOverUnder(metaModel))[0];
 
             // Assert
             Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));

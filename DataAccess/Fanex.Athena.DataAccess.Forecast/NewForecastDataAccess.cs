@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Forecast
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core;
     using Fanex.Athena.Model.Forecast.ViewModel;
     using Fanex.Common;
@@ -17,7 +18,7 @@ namespace Fanex.Athena.DataAccess.Forecast
 
     public class NewForecastDataAccess : BaseDataAccess, INewForecastDataAccess
     {
-        public NewForecastHdpOuData GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo)
+        public async Task<NewForecastHdpOuData> GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo)
         {
             using (var db = this.GetObjectDb("Lrf_Forecast_MatchTotalForecast"))
             {
@@ -26,7 +27,7 @@ namespace Fanex.Athena.DataAccess.Forecast
                 db.SetParameterValue("HomeScore", null);
                 db.SetParameterValue("AwayScore", null);
                 db.SetParameterValue("MatchTime", null);
-                using (var ds = db.ExecuteDataSet())
+                using (var ds = await db.ExecuteDataSetAsync().ConfigureAwait(false))
                 {
                     var forecastData = new NewForecastHdpOuData();
                     if (ds.Tables.Count > 1)

@@ -6,12 +6,13 @@
 
 namespace Fanex.Athena.DataAccess.Forecast.Interfaces
 {
+    using System.Threading.Tasks;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
 
     public interface INewForecastDataAccess
     {
-        NewForecastHdpOuData GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo);
+        Task<NewForecastHdpOuData> GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo);
     }
 }

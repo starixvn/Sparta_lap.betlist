@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Extensions;
     using Extension.Helper;
     using Fanex.Common.Extensions;
@@ -24,7 +25,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         {
         }
 
-        public IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)
+        public async Task<IList<ForecastOneXTwo>> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast1x2_SelByLeague";
 
@@ -33,14 +34,14 @@ namespace Fanex.Athena.DataAccess.Forecast
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("LeagueId", metaModel.LeagueId);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetForecastOneXTwoList(metaModel, reader);
                 }
             }
         }
 
-        public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel)
+        public async Task<IList<ForecastOneXTwo>> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast_Sel1X2";
 
@@ -50,7 +51,7 @@ namespace Fanex.Athena.DataAccess.Forecast
                 db.SetParameterValue("matchid", metaModel.MatchId);
                 db.SetParameterValue("betType", metaModel.BetType);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetForecastOneXTwoList(metaModel, reader);
                 }

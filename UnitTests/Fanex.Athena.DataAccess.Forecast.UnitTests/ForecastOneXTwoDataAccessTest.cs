@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Forecast.UnitTests
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Forecast;
     using Model.Forecast.DTO.Forecast1X2;
@@ -20,14 +21,14 @@
         }
 
         [Test]
-        public void GetForecastOneXTwoByLeague_WhenCall_ParametersPassedCorrectly()
+        public async Task GetForecastOneXTwoByLeague_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(ObjectDb);
             var metaModel = new ForecastOneXTwoMetaModel();
 
             // Action
-            DataAccess.GetForecastOneXTwoByLeague(metaModel);
+            await DataAccess.GetForecastOneXTwoByLeague(metaModel);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
@@ -35,7 +36,7 @@
         }
 
         [Test]
-        public void GetForecastOneXTwoByLeague_WhenCall_DataReturnedCorrectly()
+        public async Task GetForecastOneXTwoByLeague_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(ObjectDb);
@@ -44,7 +45,7 @@
             ConfifureReaderForGetForecastOneXTwoByLeagueMethod(Reader, expected, false);
 
             // Action
-            var result = DataAccess.GetForecastOneXTwoByLeague(metaModel)[0];
+            var result = (await DataAccess.GetForecastOneXTwoByLeague(metaModel))[0];
 
             // Assert
             Assert.That(result.IsExtra, Is.False);
@@ -59,7 +60,7 @@
         }
 
         [Test]
-        public void GetForecastOneXTwoByLeague_HasExtraColumn_DataReturnedCorrectly()
+        public async Task GetForecastOneXTwoByLeague_HasExtraColumn_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(ObjectDb);
@@ -68,7 +69,7 @@
             ConfifureReaderForGetForecastOneXTwoByLeagueMethod(Reader, expected, true);
 
             // Action
-            var result = DataAccess.GetForecastOneXTwoByLeague(metaModel)[0];
+            var result = (await DataAccess.GetForecastOneXTwoByLeague(metaModel))[0];
 
             // Assert
             Assert.That(result.IsExtra, Is.True);
@@ -78,14 +79,14 @@
         }
 
         [Test]
-        public void GetForecastOneXTwoByMatch_WhenCall_ParametersPassedCorrectly()
+        public async Task GetForecastOneXTwoByMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_Sel1X2")).Returns(ObjectDb);
             var metaModel = new ForecastOneXTwoMetaModel();
 
             // Action
-            DataAccess.GetForecastOneXTwoByMatch(metaModel);
+            await DataAccess.GetForecastOneXTwoByMatch(metaModel);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
