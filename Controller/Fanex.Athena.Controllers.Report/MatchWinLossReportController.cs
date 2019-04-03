@@ -58,13 +58,13 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var metaModel = new MatchWinLossMetaModel
             {
-                BalanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay.ToShortDateString(),
+                BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay.ToShortDateString(),
                 LicenseeId = licenseeSession.LicenseeId
             };
 

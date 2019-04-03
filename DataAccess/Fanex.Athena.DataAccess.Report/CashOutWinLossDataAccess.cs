@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel, false);
                 db.SetParameterValue("ReportType", metaModel.ReportBy);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
@@ -60,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = GetObjectDb(UspName))
             {
-                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel, true);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel);
@@ -127,12 +127,12 @@ namespace Fanex.Athena.DataAccess.Report
             }).ToList();
         }
 
-        private async Task UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
+            db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",

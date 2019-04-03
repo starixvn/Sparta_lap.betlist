@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = GetObjectDb(UspName))
             {
-                AddParameters(db, metaModel, (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
+                AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {

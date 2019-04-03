@@ -56,12 +56,12 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public async Task Index_WhenGet_ReturnCorrectViewResult(bool isViewedHistory)
+        public void Index_WhenGet_ReturnCorrectViewResult(bool isViewedHistory)
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = await controller.Index(isViewedHistory) as ViewResult;
+                var viewResult = controller.Index(isViewedHistory) as ViewResult;
                 var viewModel = viewResult.Model as LiveReportViewModel;
 
                 // Assert

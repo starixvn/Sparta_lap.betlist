@@ -26,7 +26,7 @@
         }
 
         [Test]
-        public async Task Index_WhenCall_ReturnCorrectView()
+        public void Index_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -37,7 +37,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = await controller.Index(metaModel) as ViewResult;
+                var result = controller.Index(metaModel) as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CustomerOutstanding/Main.cshtml"));
@@ -45,7 +45,7 @@
         }
 
         [Test]
-        public async Task Index_FirstTimeLoading_ReturnCorrectViewModel()
+        public void Index_FirstTimeLoading_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -56,7 +56,7 @@
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = "AA" }, new Product { ProductCode = "DD" } }));
 
                 // Action
-                var result = await controller.Index(metaModel) as ViewResult;
+                var result = controller.Index(metaModel) as ViewResult;
                 var model = (BetListBaseViewModel)result.Model;
                 metaModel.FromDate = new DateTime(DateTime.Now.Year - 1, 1, 1);
 
@@ -71,7 +71,7 @@
         }
 
         [Test]
-        public async Task Index_WhenCall_ReturnCorrectViewModel()
+        public void Index_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -82,7 +82,7 @@
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = "AA" }, new Product { ProductCode = "DD" } }));
 
                 // Action
-                var result = await controller.Index(metaModel) as ViewResult;
+                var result = controller.Index(metaModel) as ViewResult;
                 var model = (BetListBaseViewModel)result.Model;
                 metaModel.FromDate = new DateTime(DateTime.Now.Year - 1, 1, 1);
 
@@ -97,7 +97,7 @@
         }
 
         [Test]
-        public async Task Index_RunningBetlist_ReturnCorrectViewModel()
+        public void Index_RunningBetlist_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -108,7 +108,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = await controller.Index(metaModel) as ViewResult;
+                var result = controller.Index(metaModel) as ViewResult;
                 var model = (BetListBaseViewModel)result.Model;
 
                 // Assert
@@ -121,7 +121,7 @@
         }
 
         [Test]
-        public async Task Index_IsNotRunningBetlist_ReturnCorrectViewModel()
+        public void Index_IsNotRunningBetlist_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -132,7 +132,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = await controller.Index(metaModel) as ViewResult;
+                var result = controller.Index(metaModel) as ViewResult;
                 var model = (BetListBaseViewModel)result.Model;
 
                 // Assert

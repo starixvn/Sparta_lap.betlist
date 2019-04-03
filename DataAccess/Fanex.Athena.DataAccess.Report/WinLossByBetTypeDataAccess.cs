@@ -36,7 +36,7 @@ namespace Fanex.Athena.DataAccess.Report
         public async Task<SortableList<WinLossByBetType>> GetDataList(WinLossByBetTypeMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinLossByBettype";
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             var uspParams = new
             {
                 AgentList = metaModel.AgentListXml,

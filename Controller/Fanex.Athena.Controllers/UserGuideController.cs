@@ -60,14 +60,14 @@ namespace Fanex.Athena.Controllers
         }
 
         [AjaxRequest]
-        public async Task<ActionResult> Index(string resourceName)
+        public ActionResult Index(string resourceName)
         {
             var content = GetFileContent(resourceName);
             var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             content = content.Replace("{rooturl}", Url.Content("~"));
             content = await AddSpecialProducts(content, products).ConfigureAwait(false);
-            content = await AddBalanceUpDate(content).ConfigureAwait(false);
+            content = AddBalanceUpDate(content);
             content = AddPPPromotionPrizeLink(content, products);
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
@@ -167,12 +167,12 @@ namespace Fanex.Athena.Controllers
             return customContent;
         }
 
-        private async Task<string> AddBalanceUpDate(string content)
+        private string AddBalanceUpDate(string content)
         {
             const string PlaceHolder = "{balance-up-date}";
             if (content.Contains(PlaceHolder))
             {
-                var date = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay;
+                var date = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay;
                 return content.Replace(PlaceHolder, date.ToString("MM/dd/yyyy"));
             }
 

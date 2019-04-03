@@ -47,12 +47,12 @@
         }
 
         [Test]
-        public async Task RefNo_WhenCall_ReturnCorrectView()
+        public void RefNo_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.RefNo() as ViewResult;
+                var result = controller.RefNo() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/RefNo.cshtml"));
@@ -60,12 +60,12 @@
         }
 
         [Test]
-        public async Task RefNo_WhenCall_ReturnCorrectViewModel()
+        public void RefNo_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.RefNo() as ViewResult;
+                var result = controller.RefNo() as ViewResult;
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo(DefaultLicenseeSession.IsAllowedCustomerComm));
@@ -173,7 +173,7 @@
         }
 
         [Test]
-        public async Task MultipleCustomers_WhenCall_ReturnCorrectView()
+        public void MultipleCustomers_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -188,7 +188,7 @@
                     FunctionNames.BettingTicketCenterMultiCustomers).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = await controller.MultipleCustomers() as ViewResult;
+                var result = controller.MultipleCustomers() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/MultiCustomer.cshtml"));
@@ -196,7 +196,7 @@
         }
 
         [Test]
-        public async Task MultipleCustomers_WhenCall_ReturnCorrectViewModel()
+        public void MultipleCustomers_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -208,7 +208,7 @@
                     FunctionNames.BettingTicketCenterMultiCustomers).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = await controller.MultipleCustomers() as ViewResult;
+                var result = controller.MultipleCustomers() as ViewResult;
                 var viewModel = result.Model as BettingTicketCenterViewModel;
 
                 // Assert

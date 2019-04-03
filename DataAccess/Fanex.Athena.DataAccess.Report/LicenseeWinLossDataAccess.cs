@@ -40,7 +40,7 @@
             using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("reporttype", metaModel.ReportBy);
-                await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel, false);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -58,7 +58,7 @@
             using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
-                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel, true);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel, true);
@@ -72,7 +72,7 @@
 
             using (var db = this.GetObjectDb(UspName))
             {
-                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel, true);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return GetData(reader, currencyList, metaModel, true);
@@ -203,14 +203,14 @@
             }).ToList();
         }
 
-        private async Task UpdateUspParams(IObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
         {
             db.SetParameterValue("licenseeid", metaModel.LicenseeId);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.SetParameterValue("drawfilter", metaModel.DrawFilter);
-            db.SetParameterValue("movebetsday", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
             {

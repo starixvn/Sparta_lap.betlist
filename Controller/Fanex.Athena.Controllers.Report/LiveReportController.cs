@@ -50,7 +50,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index(bool isViewedHistory = false)
+        public ActionResult Index(bool isViewedHistory = false)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -69,13 +69,12 @@ namespace Fanex.Athena.Controllers.Report
 
             var productAccess = GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
-            var model = await CreateViewModel(
+            var model = CreateViewModel(
                 licenseeSession.LicenseeId, 
                 licenseeSession.IsAllowedCustomerComm, 
                 userSession.CurrencyList, 
                 metaModel, 
-                productAccess)
-                .ConfigureAwait(false);
+                productAccess);
 
             return View("~/Views/Desktop/Report/LiveReport/Main.cshtml", model);
         }
@@ -92,13 +91,12 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = GetProductAccess(metaModel.LicenseeId, userSession.Language);
             metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
 
-            var model = await CreateViewModel(
+            var model = CreateViewModel(
                 licenseeSession.LicenseeId, 
                 licenseeSession.IsAllowedCustomerComm, 
                 userSession.CurrencyList, 
                 metaModel, 
-                productAccess)
-                .ConfigureAwait(false);
+                productAccess);
             model.MainResult = await _liveReportService.GetLiveReportSummary(metaModel).ConfigureAwait(false);
             model.ShowEmptyContent = false;
             return metaModel.IsExportExcel
@@ -137,7 +135,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var productAccess = GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            var balanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay;
+            var balanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay;
 
             var resultModel = await GetDetailResult(metaModel, productAccess, productCode).ConfigureAwait(false);
 
@@ -155,7 +153,7 @@ namespace Fanex.Athena.Controllers.Report
                 });
         }
 
-        private async Task<LiveReportViewModel> CreateViewModel(
+        private LiveReportViewModel CreateViewModel(
             int licenseeId,
             bool isAllowedCustomerComm,
             IDictionary<int, string> currencyList,
@@ -168,7 +166,7 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 CurrencyList = currencyList,
                 IsAllowedNumberGame = productAccess.IsAllowNG,
-                BalanceUpDate = await GetBalanceUpDay().ConfigureAwait(false),
+                BalanceUpDate = GetBalanceUpDay(),
                 IsAllowedCustomerCommission = isAllowedCustomerComm,
                 ProductAccess = productAccess,
                 IsFakeLicensee = IsFakeLicensee(licenseeId),
@@ -245,9 +243,9 @@ namespace Fanex.Athena.Controllers.Report
             return ProductService.GetProductAccess(licenseeId, language, FunctionNames.LiveReport);
         }
 
-        private async Task<DateTime> GetBalanceUpDay()
+        private DateTime GetBalanceUpDay()
         {
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             return balanceUp != null ? balanceUp.BalanceUpDay : DateTime.Now;
         }
     }

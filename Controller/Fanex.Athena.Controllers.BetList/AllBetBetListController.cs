@@ -35,7 +35,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public async Task<ActionResult> Detail(BetListExcelMetaModel metaModel)
         {
-            await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
+            CreateDefaultMetaModel(metaModel);
             return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/AGCasinoDetail/Main.cshtml", "Lrf_BetList_LC_Detail").ConfigureAwait(false);
         }
 

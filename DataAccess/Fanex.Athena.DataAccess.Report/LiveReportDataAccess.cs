@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.Report
         public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportSummary";
-            var moveBetsDate = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay;
+            var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
 
             using (var db = this.GetObjectDb(UspName))
             {
@@ -73,7 +73,7 @@ namespace Fanex.Athena.DataAccess.Report
         public async Task<IList<LiveReport>> GetDetailBySport(LiveReportMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportBySport";
-            var moveBetsDate = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay;
+            var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
 
             var currency = metaModel.BaseCurrency;
             var list = new List<LiveReport>();
@@ -106,7 +106,7 @@ namespace Fanex.Athena.DataAccess.Report
         {
             var currency = metaModel.BaseCurrency;
             const string UspName = "Lrf_Rpt_LiveReportSummaryDetail";
-            var moveBetsDate = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay;
+            var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
 
             using (var db = this.GetObjectDb(UspName))
             {
@@ -127,7 +127,7 @@ namespace Fanex.Athena.DataAccess.Report
         public async Task<IList<LiveReportWinLossByMatch>> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportWinlossByMatch";
-            var moveBetsDate = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay;
+            var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
 
             using (var db = this.GetObjectDb(UspName))
             {

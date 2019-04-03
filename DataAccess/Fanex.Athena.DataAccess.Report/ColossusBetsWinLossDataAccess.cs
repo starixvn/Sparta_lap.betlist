@@ -65,7 +65,7 @@ namespace Fanex.Athena.DataAccess.Report
         {
             using (var db = this.GetObjectDb(spname))
             {
-                await UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadData(reader, currencyList, metaModel);
@@ -73,11 +73,11 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private async Task UpdateUspParams(IObjectDb db, ColossusBetsWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, ColossusBetsWinLossMetaModel metaModel, bool drilldown)
         {
             db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.SetParameterValue("movebetsday", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
             db.SetParameterValue("ReportType", metaModel.ReportBy);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("TicketType", metaModel.TicketType);

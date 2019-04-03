@@ -30,7 +30,7 @@
         }
 
         [Test]
-        public async Task Index_WhenCall_ReturnCorrectViewResult()
+        public void Index_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -50,7 +50,7 @@
                     SessionService.UserSession.Language).Returns(productList);
 
                 // Action
-                var viewResult = await controller.Index(ViewName) as ViewResult;
+                var viewResult = controller.Index(ViewName) as ViewResult;
                 var viewModel = viewResult.Model as NoteViewModel;
 
                 // Assert

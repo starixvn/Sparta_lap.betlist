@@ -40,7 +40,7 @@ namespace Fanex.Athena.DataAccess.Report
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerTurnOver"))
             {
-                await AddParameters(metaModel, languageCode, db).ConfigureAwait(false);
+                AddParameters(metaModel, languageCode, db);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = new List<CustTurnover>();
@@ -98,9 +98,9 @@ namespace Fanex.Athena.DataAccess.Report
             };
         }
 
-        private async Task AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
+        private void AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
         {
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("fromdate", metaModel.FromDate);
             db.SetParameterValue("todate", metaModel.ToDate);

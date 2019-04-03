@@ -26,12 +26,12 @@
         }
 
         [Test]
-        public async Task Index_WhenGet_ReturnCorrectView()
+        public void Index_WhenGet_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.Index() as ViewResult;
+                var result = controller.Index() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CorrectScoreBetList/Main.cshtml"));
@@ -39,12 +39,12 @@
         }
 
         [Test]
-        public async Task Index_WhenGet_ReturnCorrectViewModel()
+        public void Index_WhenGet_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.Index() as ViewResult;
+                var result = controller.Index() as ViewResult;
                 var model = (BetListBaseViewModel)result.Model;
 
                 // Assert

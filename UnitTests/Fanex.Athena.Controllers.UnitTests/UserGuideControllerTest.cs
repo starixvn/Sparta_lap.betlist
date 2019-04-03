@@ -48,7 +48,7 @@
         }
 
         [Test]
-        public async Task Index_WhenCall_ReturnCorrectView()
+        public void Index_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -61,7 +61,7 @@
                 _fileSystem.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
 
                 // Action
-                var result = await controller.Index(ResourceName) as ViewResult;
+                var result = controller.Index(ResourceName) as ViewResult;
 
                 // Assert
                 StringAssert.Contains("UserGuide/Index.cshtml", result.ViewName);
@@ -69,7 +69,7 @@
         }
 
         [Test]
-        public async Task Index_FileDoesNotExist_ReturnDefaultFilePath()
+        public void Index_FileDoesNotExist_ReturnDefaultFilePath()
         {
             using (var controller = CreateController())
             {
@@ -85,7 +85,7 @@
                 _fileSystem.ReadFile(Arg.Do<string>(x => actualFilePath = x)).Returns("{rooturl}");
 
                 // Action
-                await controller.Index(ResourceName);
+                controller.Index(ResourceName);
 
                 // Assert
                 Assert.That(actualFilePath, Is.EqualTo(expectedFilePath));
@@ -93,7 +93,7 @@
         }
 
         [Test]
-        public async Task Index_FileExist_ReturnFilePathBaseOnSessionInfo()
+        public void Index_FileExist_ReturnFilePathBaseOnSessionInfo()
         {
             using (var controller = CreateController())
             {
@@ -109,7 +109,7 @@
                 _fileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
 
                 // Action
-                await controller.Index(ResourceName);
+                controller.Index(ResourceName);
 
                 // Assert
                 Assert.That(actualFileName, Is.EqualTo(expectedFilePath));
@@ -117,7 +117,7 @@
         }
 
         [Test]
-        public async Task Index_UserUsesDefaultLanguage_ReturnDefaultFilePath()
+        public void Index_UserUsesDefaultLanguage_ReturnDefaultFilePath()
         {
             using (var controller = CreateController())
             {
@@ -133,7 +133,7 @@
                 _fileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
 
                 // Action
-                await controller.Index(ResourceName);
+                controller.Index(ResourceName);
 
                 // Assert
                 Assert.That(actualFileName, Is.EqualTo(expectedFilePath));
@@ -141,7 +141,7 @@
         }
 
         [Test]
-        public async Task Index_CustomerListReport_ReplaceRootUrl()
+        public void Index_CustomerListReport_ReplaceRootUrl()
         {
             using (var controller = CreateController())
             {
@@ -155,7 +155,7 @@
                 _fileSystem.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
 
                 // Action
-                var result = await controller.Index(ResourceName) as ViewResult;
+                var result = controller.Index(ResourceName) as ViewResult;
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo(ExpectedContent));
@@ -163,7 +163,7 @@
         }
 
         [Test]
-        public async Task Index_WhenCall_ReplaceBalanceUpDate()
+        public void Index_WhenCall_ReplaceBalanceUpDate()
         {
             using (var controller = CreateController())
             {
@@ -180,7 +180,7 @@
                 _fileSystem.ReadFile(Arg.Any<string>()).Returns("xxx{balance-up-date}xxx");
 
                 // Action
-                var result = await controller.Index(string.Empty) as ViewResult;
+                var result = controller.Index(string.Empty) as ViewResult;
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo("xxx02/03/2018xxx"));
@@ -188,7 +188,7 @@
         }
 
         [TestCase]
-        public async Task Index_ContentHasCasinoProductList_ReturnCorrectContent()
+        public void Index_ContentHasCasinoProductList_ReturnCorrectContent()
         {
             using (var controller = CreateController())
             {
@@ -208,7 +208,7 @@
                 _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
                 // Action
-                var result = await controller.Index(ResourceName) as ViewResult;
+                var result = controller.Index(ResourceName) as ViewResult;
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo(ExpectedContent));
@@ -216,7 +216,7 @@
         }
 
         [TestCase]
-        public async Task Index_ProductListNotHaveCasinoProduct_ReturnCorrectContent()
+        public void Index_ProductListNotHaveCasinoProduct_ReturnCorrectContent()
         {
             using (var controller = CreateController())
             {
@@ -236,7 +236,7 @@
                 _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
                 // Action
-                var result = await controller.Index(ResourceName) as ViewResult;
+                var result = controller.Index(ResourceName) as ViewResult;
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo(ExpectedContent));
@@ -244,7 +244,7 @@
         }
 
         [TestCase]
-        public async Task Index_ProductListHaveVirtualProduct_ReturnCorrectContent()
+        public void Index_ProductListHaveVirtualProduct_ReturnCorrectContent()
         {
             using (var controller = CreateController())
             {
@@ -266,7 +266,7 @@
                 _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
                 // Action
-                var result = await controller.Index(ResourceName) as ViewResult;
+                var result = controller.Index(ResourceName) as ViewResult;
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo(ExpectedContent));
@@ -274,7 +274,7 @@
         }
 
         [TestCase]
-        public async Task Index_ProductListNotHaveVirtualProduct_ReturnCorrectContent()
+        public void Index_ProductListNotHaveVirtualProduct_ReturnCorrectContent()
         {
             using (var controller = CreateController())
             {
@@ -295,7 +295,7 @@
                 _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
                 // Action
-                var result = await controller.Index(ResourceName) as ViewResult;
+                var result = controller.Index(ResourceName) as ViewResult;
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo(ExpectedContent));

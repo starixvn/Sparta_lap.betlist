@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.BetList
 {
     using System.Threading.Tasks;
+
     #region Using
 
     using System.Web.Mvc;
@@ -43,7 +44,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public async Task<ActionResult> Index(BetListExcelMetaModel metaModel)
         {
-            await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
+            CreateDefaultMetaModel(metaModel);
             return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/PlatformWinLoss/Main.cshtml", "Lrf_BetList_PlatformWinLoss_Mem").ConfigureAwait(false);
         }
 

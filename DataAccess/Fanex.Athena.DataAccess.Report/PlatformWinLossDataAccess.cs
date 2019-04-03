@@ -37,7 +37,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                await UpdateUspParams(db, metaModel).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadSummaryData(reader, metaModel);
@@ -51,7 +51,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                await UpdateUspParams(db, metaModel).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadMemberData(reader, currencyList, metaModel.BaseCurrency);
@@ -204,10 +204,10 @@ namespace Fanex.Athena.DataAccess.Report
             };
         }
 
-        private async Task UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
+        private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
         {
             db.SetParameterValue("PlatformType", metaModel.PlatformType);
-            db.SetParameterValue("movebetsday", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
             db.SetParameterValue("DrawFilter", metaModel.DrawFilter);
             db.SetParameterValue("FromDate", metaModel.FromDate);
             db.SetParameterValue("ToDate", metaModel.ToDate);

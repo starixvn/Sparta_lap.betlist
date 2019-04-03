@@ -94,7 +94,7 @@
             string caption = null,
             string sportName = null)
         {
-            await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
+            CreateDefaultMetaModel(metaModel);
             if (!metaModel.IsExportExcel)
             {
                 ViewBag.SportName = sportName;

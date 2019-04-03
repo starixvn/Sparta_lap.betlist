@@ -148,7 +148,7 @@
                  currencyTitle);
         }
 
-        protected Task<BalanceUp> GetBalanceUp()
+        protected BalanceUp GetBalanceUp()
         {
             return _balanceUpDataAccess.GetBalanceUp();
         }
@@ -159,7 +159,7 @@
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The bet list metal model.</returns>
-        protected async Task<BetListMetaModel> CreateDefaultMetaModel(BetListMetaModel metaModel = null)
+        protected BetListMetaModel CreateDefaultMetaModel(BetListMetaModel metaModel = null)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
@@ -174,7 +174,7 @@
             defaultMetaModel.CurrencyList = UserCurrencyList;
             defaultMetaModel.AgentListXml = SessionService.GenerateAgentListXml(defaultMetaModel.CurrencyId);
 
-            var balanceUp = await GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = GetBalanceUp();
             defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Unspecified);
             defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Unspecified);
 

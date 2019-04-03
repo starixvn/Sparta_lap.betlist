@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var viewParam = await CreateDefaultMetaModel().ConfigureAwait(false);
+            var viewParam = CreateDefaultMetaModel();
 
             SetConvetedUSDCurrencyName(viewParam);
 
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers.BetList
                 return await Excel(metaModel).ConfigureAwait(false);
             }
 
-            var viewParam = await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
+            var viewParam = CreateDefaultMetaModel(metaModel);
 
             var model = await CreateViewModel(viewParam).ConfigureAwait(false);
 
@@ -106,7 +106,7 @@ namespace Fanex.Athena.Controllers.BetList
                 SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
-                await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
+                CreateDefaultMetaModel(metaModel);
                 metaModel.UspKey = UspKey;
 
                 var currencyTitle = GetViewInCurrency(metaModel);

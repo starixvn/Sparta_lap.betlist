@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var model = new ResultReportViewModel
             {
@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     IsOutRight = false,
                     IsExportExcel = false,
                     ToDate = DateTime.Now,
-                    BalanceUpDay = (await _balanceUpDataAccess.GetBalanceUp()).BalanceUpDay
+                    BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay
                 }
             };
             var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);

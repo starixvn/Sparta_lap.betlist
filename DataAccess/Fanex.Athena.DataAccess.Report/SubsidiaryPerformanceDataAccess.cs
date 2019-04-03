@@ -30,7 +30,7 @@
 
             using (var objectDb = GetObjectDb(SpName))
             {
-                await AssignParameter(objectDb, metaModel).ConfigureAwait(false);
+                AssignParameter(objectDb, metaModel);
 
                 using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -54,7 +54,7 @@
 
             using (var objectDb = GetObjectDb(SpName))
             {
-                await AssignParameter(objectDb, metaModel).ConfigureAwait(false);
+                AssignParameter(objectDb, metaModel);
 
                 using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -182,11 +182,11 @@
             };
         }
 
-        private async Task AssignParameter(IObjectDb objectDb, SubsidiaryPerformanceMetaModel metaModel)
+        private void AssignParameter(IObjectDb objectDb, SubsidiaryPerformanceMetaModel metaModel)
         {
             objectDb.SetParameterValue("FromDate", metaModel.FromDate);
             objectDb.SetParameterValue("ToDate", metaModel.ToDate);
-            objectDb.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
+            objectDb.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
             objectDb.SetParameterValue("ProductList", metaModel.ProductCodeList);
             objectDb.SetParameterValue("IncludeRaw", metaModel.IncludeRaw);
             objectDb.SetParameterValue("AgentList", metaModel.AgentListXml);

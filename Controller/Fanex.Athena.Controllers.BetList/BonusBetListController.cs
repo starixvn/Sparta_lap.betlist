@@ -28,7 +28,7 @@
         [HttpGet]
         public async Task<ActionResult> Detail(BetListExcelMetaModel metaModel)
         {
-            await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
+            CreateDefaultMetaModel(metaModel);
             return await ProcessDefaultRequest(metaModel, "~/Views/Desktop/BetList/BonusDetail/Main.cshtml", "Lrf_BetList_LicenseeBonus_Detail").ConfigureAwait(false);
         }
 

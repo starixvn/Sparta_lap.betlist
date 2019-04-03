@@ -34,7 +34,7 @@
 
             using (var db = GetObjectDb(UspName))
             {
-                await AddParams(metaModel, db).ConfigureAwait(false);
+                AddParams(metaModel, db);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     dataList = ReadData(reader, metaModel.IsConvertAll);
@@ -114,7 +114,7 @@
             }
         }
 
-        private async Task AddParams(CasinoTurnoverMetaModel metaModel, IObjectDb db)
+        private void AddParams(CasinoTurnoverMetaModel metaModel, IObjectDb db)
         {
             db.SetParameterValue("fromdate", metaModel.FromDate.Date);
             db.SetParameterValue("todate", metaModel.ToDate.Date);
@@ -122,7 +122,7 @@
             db.SetParameterValue("UserName", metaModel.UserName);
             db.SetParameterValue("StatusList", string.Join(",", metaModel.Status));
             db.SetParameterValue("ProductCodes", string.Join(",", metaModel.ProductCode));
-            db.SetParameterValue("MoveBetsDay", (await _balanceUpDataAccess.GetBalanceUp()).MoveBetsDay);
+            db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
 
             db.SetParameterValue("PageSize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);

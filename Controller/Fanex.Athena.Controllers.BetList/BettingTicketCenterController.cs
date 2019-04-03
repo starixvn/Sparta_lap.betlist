@@ -35,12 +35,12 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public Task<ActionResult> Index()
+        public ActionResult Index()
         {
             return MultipleCustomers();
         }
 
-        public async Task<ActionResult> MultipleCustomers()
+        public ActionResult MultipleCustomers()
         {
             var viewModel = new BettingTicketCenterViewModel
             {
@@ -48,7 +48,7 @@
                 LiveStatusList = GetLiveStatusList(),
                 StatusList = GetStatusList(),
                 ProductOptionList = GetProductOptionList(FunctionNames.BettingTicketCenterMultiCustomers),
-                MinDate = (await _balanceUpDataAccess.GetBalanceUp()).BalanceUpDay,
+                MinDate = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             return View("~/Views/Desktop/BetList/BettingTicketCenter/MultiCustomer.cshtml", viewModel);
@@ -67,9 +67,9 @@
             return View("~/Views/Desktop/BetList/BettingTicketCenter/SingleCustomer.cshtml", viewModel);
         }
 
-        public async Task<ActionResult> RefNo()
+        public ActionResult RefNo()
         {
-            ViewBag.BalanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay;
+            ViewBag.BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay;
             return View(
                 "~/Views/Desktop/BetList/BettingTicketCenter/RefNo.cshtml",
                 SessionService.LicenseeSession.IsAllowedCustomerComm);

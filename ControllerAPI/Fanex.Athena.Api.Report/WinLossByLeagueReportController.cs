@@ -115,7 +115,7 @@ namespace Fanex.Athena.Api.Report
 
         private async Task<ReportResultModel<WinLossByLeague>> GetData(WinLossByLeagueMetaModel metaModel)
         {
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp();
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;

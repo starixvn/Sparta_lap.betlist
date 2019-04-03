@@ -14,7 +14,7 @@
         [TestCase("CS", true, false, false)]
         [TestCase("KN", false, true, false)]
         [TestCase("LT", false, false, true)]
-        public async Task Index_WhenGet_ReturnCorrectViewResult(
+        public void Index_WhenGet_ReturnCorrectViewResult(
             string productCodeList,
             bool isAllowRng,
             bool isAllowKeno,
@@ -23,7 +23,7 @@
             using (var controller = CreateController(productCodeList))
             {
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as ResultReportViewModel;
 
                 // Assert

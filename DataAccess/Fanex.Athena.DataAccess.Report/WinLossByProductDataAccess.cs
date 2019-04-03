@@ -46,7 +46,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.SetParameterValue("username", metaModel.Username);
                 db.SetParameterValue("SystemName", null);
                 db.SetParameterValue("CustID", null);
-                await UpdateUspParams(db, metaModel, false).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel, false);
                 AddResultParam(db);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -67,7 +67,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel, true);
                 db.SetParameterValue("CustID", metaModel.MemberId);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -84,7 +84,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 db.SetParameterValue("custid", metaModel.CustomerId);
                 db.SetParameterValue("MemberID", metaModel.MemberId);
-                await UpdateUspParams(db, metaModel, true).ConfigureAwait(false);
+                UpdateUspParams(db, metaModel, true);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -158,13 +158,13 @@ namespace Fanex.Athena.DataAccess.Report
             return temp.OrderBy(i => i.CurrencyName).ToList();
         }
 
-        private async Task UpdateUspParams(IObjectDb db, WinLossByProductMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, WinLossByProductMetaModel metaModel, bool drilldown)
         {
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate.Date : metaModel.FromDate.Date);
             db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate.Date : metaModel.ToDate.Date);
             db.SetParameterValue("drawfilter", metaModel.DrawFilter);
-            db.SetParameterValue("movebetsday", (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).MoveBetsDay);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
             db.SetParameterValue("productList", string.Join(",", metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code)));
         }
 

@@ -40,9 +40,9 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var metaModel = await CreateDefaultMetaModel().ConfigureAwait(false);
+            var metaModel = CreateDefaultMetaModel();
 
             SetConvetedUSDCurrencyName(metaModel);
 
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 const string UspKey = "Lrf_TotalBets_Sel430";
 
-                await CreateDefaultMetaModel(metaModel).ConfigureAwait(false);
+                CreateDefaultMetaModel(metaModel);
                 metaModel.IsShowSumStake = true;
                 metaModel.UspKey = UspKey;
 

@@ -48,7 +48,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var model = new WinLossByBetTypeViewModel
             {
-                BalanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay,
+                BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay,
                 ShowEmptyContent = true,
                 Param = metaModel,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Controllers.Report
             var total = GetTotal(reportData);
             var model = new WinLossByBetTypeViewModel
             {
-                BalanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay,
+                BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay,
                 Param = metaModel,
                 MainResult = reportData,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
