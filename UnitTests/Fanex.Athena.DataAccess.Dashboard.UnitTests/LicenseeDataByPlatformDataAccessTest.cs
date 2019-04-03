@@ -28,11 +28,11 @@
         }
 
         [Test]
-        public void GetWinLoss_WhenCall_PassCorrectParam()
+        public async Task GetWinLoss_WhenCall_PassCorrectParam()
         {
             // Arrange
             object passedParam = null;
-            ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => passedParam = x[0]);
+            ObjectDb.When(x => x.ExecuteReaderAsync(Arg.Any<object>())).Do(x => passedParam = x[0]);
             var metaModel = FakeHelper.Create<DashboardBaseModel>(x => x.BaseCurrency, "EUR");
 
             Reader.Read().Returns(true, false);
@@ -40,7 +40,7 @@
             Reader["LicenseeWLEUR"].Returns(100M);
 
             // Action
-            DataAccess.GetWinLoss(metaModel);
+            await DataAccess.GetWinLoss(metaModel);
 
             // Assert
             AssertPassedParameter(passedParam, metaModel);
@@ -76,11 +76,11 @@
         }
 
         [Test]
-        public void GetTurnover_WhenCall_PassCorrectParam()
+        public async Task GetTurnover_WhenCall_PassCorrectParam()
         {
             // Arrange
             object passedParam = null;
-            ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => passedParam = x[0]);
+            ObjectDb.When(x => x.ExecuteReaderAsync(Arg.Any<object>())).Do(x => passedParam = x[0]);
             var metaModel = FakeHelper.Create<DashboardBaseModel>(x => x.BaseCurrency, "EUR");
 
             Reader.Read().Returns(true, false);
@@ -88,7 +88,7 @@
             Reader["TurnoverEUR"].Returns(100M);
 
             // Action
-            DataAccess.GetTurnover(metaModel);
+            await DataAccess.GetTurnover(metaModel);
 
             // Assert
             AssertPassedParameter(passedParam, metaModel);

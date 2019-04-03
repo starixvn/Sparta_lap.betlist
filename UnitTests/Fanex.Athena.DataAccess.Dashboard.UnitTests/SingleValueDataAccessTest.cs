@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Dashboard.UnitTests
 {
     using System.Collections;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Dashboard.MetaModel;
     using NSubstitute;
@@ -19,7 +20,7 @@
         }
 
         [Test]
-        public void GetPendingFunds_WhenCall_PassCorrectParam()
+        public async Task GetPendingFunds_WhenCall_PassCorrectParam()
         {
             // Arrange
             var metaModel = new DashboardBaseModel
@@ -29,10 +30,10 @@
                 BaseCurrency = "EUR"
             };
             Hashtable passedParam = null;
-            ObjectDb.When(x => x.ExecuteReader(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
+            ObjectDb.When(x => x.ExecuteReaderAsync(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
 
             // Action
-            DataAccess.GetPendingFunds(metaModel);
+            await DataAccess.GetPendingFunds(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -44,7 +45,7 @@
         }
 
         [Test]
-        public void GetPendingFunds_WhenCall_ReturnCorrectData()
+        public async Task GetPendingFunds_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = 500000M;
@@ -55,7 +56,7 @@
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
 
             // Action
-            var result = DataAccess.GetPendingFunds(metaModel);
+            var result = await DataAccess.GetPendingFunds(metaModel);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
@@ -73,7 +74,7 @@
                 FromDate = new System.DateTime(2017, 1, 1)
             };
             Hashtable passedParam = null;
-            ObjectDb.When(x => x.ExecuteReader(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
+            ObjectDb.When(x => x.ExecuteReaderAsync(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
 
             // Action
             DataAccess.GetTodayWithdrawal(metaModel);
@@ -89,7 +90,7 @@
         }
 
         [Test]
-        public void GetTodayWithdrawal_WhenCall_ReturnCorrectData()
+        public async Task GetTodayWithdrawal_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = 500000M;
@@ -100,22 +101,22 @@
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
 
             // Action
-            var result = DataAccess.GetTodayWithdrawal(metaModel);
+            var result = await DataAccess.GetTodayWithdrawal(metaModel);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
-        public void GetCustomerBalance_WhenCall_PassCorrectParam()
+        public async Task GetCustomerBalance_WhenCall_PassCorrectParam()
         {
             // Arrange
             var metaModel = FakeHelper.Create<DashboardBaseModel>();
             Hashtable passedParam = null;
-            ObjectDb.When(x => x.ExecuteReader(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
+            ObjectDb.When(x => x.ExecuteReaderAsync(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
 
             // Action
-            DataAccess.GetCustomerBalance(metaModel);
+            await DataAccess.GetCustomerBalance(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -128,7 +129,7 @@
         }
 
         [Test]
-        public void GetCustomerBalance_WhenCall_ReturnCorrectData()
+        public async Task GetCustomerBalance_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = 500000M;
@@ -139,22 +140,22 @@
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
 
             // Action
-            var result = DataAccess.GetCustomerBalance(metaModel);
+            var result = await DataAccess.GetCustomerBalance(metaModel);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
-        public void GetTodayDeposit_WhenCall_PassCorrectParam()
+        public async Task GetTodayDeposit_WhenCall_PassCorrectParam()
         {
             // Arrange
             var metaModel = FakeHelper.Create<DashboardBaseModel>();
             Hashtable passedParam = null;
-            ObjectDb.When(x => x.ExecuteReader(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
+            ObjectDb.When(x => x.ExecuteReaderAsync(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
 
             // Action
-            DataAccess.GetTodayDeposit(metaModel);
+            await DataAccess.GetTodayDeposit(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -167,7 +168,7 @@
         }
 
         [Test]
-        public void GetTodayDeposit_WhenCall_ReturnCorrectData()
+        public async Task GetTodayDeposit_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = 500000M;
@@ -178,7 +179,7 @@
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
 
             // Action
-            var result = DataAccess.GetTodayDeposit(metaModel);
+            var result = await DataAccess.GetTodayDeposit(metaModel);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

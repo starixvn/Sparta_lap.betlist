@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Dashboard.UnitTests
 {
+    using System.Threading.Tasks;
     using System.Web.Http.Controllers;
     using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
@@ -24,7 +25,7 @@
         }
 
         [TestCase("CLMV")]
-        public void GetData_InvalidBaseCurrency_ReturnZero(string baseCurrency)
+        public async Task GetData_InvalidBaseCurrency_ReturnZero(string baseCurrency)
         {
             // Arrange
             var metaModel = new DashboardBaseModel
@@ -35,16 +36,16 @@
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.GetData(metaModel);
+                var result = await controller.GetData(metaModel);
 
                 // Assert
                 Assert.That(result, Is.Zero);
-                _dataAccess.DidNotReceive().GetTodayWithdrawal(metaModel);
+                await _dataAccess.DidNotReceive().GetTodayWithdrawal(metaModel);
             }
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectData()
+        public async Task GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = 500000M;
@@ -57,7 +58,7 @@
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.GetData(metaModel);
+                var result = await controller.GetData(metaModel);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(expected));
