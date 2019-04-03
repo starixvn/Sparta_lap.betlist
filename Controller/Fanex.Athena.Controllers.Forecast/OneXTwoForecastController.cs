@@ -20,13 +20,16 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastOneXTwo)]
     public class OneXTwoForecastController : ForecastBaseController
     {
+        private readonly IForecastService _forecastService;
+
         public OneXTwoForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
             IForecastService forecastService)
-        : base(languageService, sessionService, appSetting, forecastService)
+        : base(languageService, sessionService, appSetting)
         {
+            _forecastService = forecastService;
         }
 
         [HttpGet]
@@ -71,19 +74,19 @@ namespace Fanex.Athena.Controllers.Forecast
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var leagueList = await ForecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(true);
+            var leagueList = await _forecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(true);
             var currentLeagueId = metaModel.LeagueId;
 
             if (metaModel.MatchId != 0)
             {
-                var forecastOneXTwoByMatch = ForecastService.GetForecastOneXTwoByMatch(metaModel);
+                var forecastOneXTwoByMatch = _forecastService.GetForecastOneXTwoByMatch(metaModel);
                 model.MainData = forecastOneXTwoByMatch;
             }
             else
             {
                 metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
-                var forecastcOneXTwoByLeague = ForecastService.GetForecastOneXTwoByLeague(metaModel);
+                var forecastcOneXTwoByLeague = _forecastService.GetForecastOneXTwoByLeague(metaModel);
                 model.MainData = forecastcOneXTwoByLeague;
             }
 

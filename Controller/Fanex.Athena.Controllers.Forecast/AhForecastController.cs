@@ -24,13 +24,16 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class AhForecastController : ForecastBaseController
     {
+        private readonly IForecastAhService _forecastAhService;
+
         public AhForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IForecastService forecastService)
-        : base(languageService, sessionService, appSetting, forecastService)
+            IForecastAhService forecastAhService)
+        : base(languageService, sessionService, appSetting)
         {
+            _forecastAhService = forecastAhService;
         }
 
         public ActionResult Index(ForecastAHMetaModel metaModel)
@@ -91,7 +94,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private ForecastAHViewModel GetViewModel(ForecastAHMetaModel metaModel)
         {
-            var forecastHeaderParam = ForecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
+            var forecastHeaderParam = _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
             ForecastValue forecastValue = null;
 
             if (forecastHeaderParam != null)
@@ -108,13 +111,13 @@ namespace Fanex.Athena.Controllers.Forecast
                 if (metaModel.BetType == (int)BetType.Handicap || metaModel.BetType == (int)BetType.FirstHalfHandicap)
                 {
                     forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.Handicap ? ViewResources.Handicap : ViewResources.lbl1stHandicap;
-                    forecastValue = ForecastService.GetForecastHandicap(metaModel, userSession.UserId);
+                    forecastValue = _forecastAhService.GetForecastHandicap(metaModel, userSession.UserId);
                 }
                 else
                 {
                     /* Over/Under or 1st Over/Under*/
                     forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.OverUnder ? ViewResources.OverUnder : ViewResources.lbl1stOver_Under;
-                    forecastValue = ForecastService.GetForecastOverUnder(metaModel, userSession.UserId);
+                    forecastValue = _forecastAhService.GetForecastOverUnder(metaModel, userSession.UserId);
                 }
 
                 forecastValue.ForeCastLink = RenderForecastLink(metaModel.BetType, metaModel.CurrentScore);

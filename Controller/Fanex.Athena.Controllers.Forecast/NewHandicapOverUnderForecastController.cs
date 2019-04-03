@@ -34,6 +34,8 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private readonly IMatchService _matchService;
 
+        private readonly IForecastService _forecastService;
+
 #pragma warning disable S107 // Methods should not have too many parameters
 
         public NewHandicapOverUnderForecastController(
@@ -45,11 +47,12 @@ namespace Fanex.Athena.Controllers.Forecast
             ICacheRefAdapter cacheRefAdapter,
             IMatchService matchService)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, forecastService)
+        : base(languageService, sessionService, appSetting)
         {
             _logger = logger;
             _cacheRefAdapter = cacheRefAdapter;
             _matchService = matchService;
+            _forecastService = forecastService;
         }
 
         [HttpGet]
@@ -130,7 +133,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
                 metaModel.HomeTeamName = _cacheRefAdapter.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
                 metaModel.AwayTeamName = _cacheRefAdapter.GetTeamName(metaModel.AwayTeamId);
-                model.MainData = ForecastService.GetNewForecastData(metaModel, headerInfo);
+                model.MainData = _forecastService.GetNewForecastData(metaModel, headerInfo);
                 model.HeaderInfo = headerInfo;
             }
             catch (Exception exception)
@@ -143,7 +146,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private async Task AssignDataForNonAjaxRequest(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
         {
-            model.LeagueList = await ForecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(false);
+            model.LeagueList = await _forecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(false);
             if (model.LeagueList.Any())
             {
                 metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);

@@ -343,7 +343,7 @@
                 var expectedMatchNames = "A,B,C";
 
                 // Action
-                var result = await controler.GetMatchListByLeague(0) as ViewResult;
+                var result = (await controler.GetMatchListByLeague(0)) as ViewResult;
                 var viewModel = (List<Match>)result.Model;
 
                 // Assert

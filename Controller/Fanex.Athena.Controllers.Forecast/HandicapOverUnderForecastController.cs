@@ -21,13 +21,16 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class HandicapOverUnderForecastController : ForecastBaseController
     {
+        private readonly IForecastService _forecastService;
+
         public HandicapOverUnderForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
             IForecastService forecastService)
-        : base(languageService, sessionService, appSetting, forecastService)
+        : base(languageService, sessionService, appSetting)
         {
+            _forecastService = forecastService;
         }
 
         [HttpGet]
@@ -64,10 +67,10 @@ namespace Fanex.Athena.Controllers.Forecast
         private async Task<ForecastHdpOuViewModel> GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var leagueList = await ForecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(true);
+            var leagueList = await _forecastService.GetForecastRunningLeague(metaModel).ConfigureAwait(true);
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
-            var forecastHdpOuByLeague = ForecastService.GetForecastHandicapOverUnder(metaModel);
+            var forecastHdpOuByLeague = _forecastService.GetForecastHandicapOverUnder(metaModel);
 
             return new ForecastHdpOuViewModel
             {

@@ -14,7 +14,7 @@
 
     public class AhForecastControllerTest : CultureBaseControllerHelperTest
     {
-        private IForecastService _forecastService;
+        private IForecastAhService _forecastAhService;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -31,7 +31,7 @@
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = 3 };
-                _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType).Returns(x => { return null; });
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType).Returns(x => { return null; });
 
                 // Action
                 var result = controller.Index(metaModel) as ViewResult;
@@ -48,7 +48,7 @@
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = 3 };
-                _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType).Returns(x => { return null; });
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType).Returns(x => { return null; });
 
                 // Action
                 var result = controller.Index(metaModel) as ViewResult;
@@ -72,15 +72,15 @@
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = betType };
-                _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
                     .Returns(new ForecastAH { LiveHomeScore = liveHomeScore, LiveAwayScore = liveAwayScore });
 
                 var queryString = new NameValueCollection();
                 queryString.Add("CurrentScore", null);
                 controller.HttpContext.Request.QueryString.Returns(queryString);
 
-                _forecastService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
-                _forecastService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
+                _forecastAhService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
+                _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
 
                 // Action
                 var result = controller.Index(metaModel) as ViewResult;
@@ -101,14 +101,14 @@
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = 3, CurrentScore = expectedCurrentCore };
-                _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
                     .Returns(new ForecastAH());
 
                 var queryString = new NameValueCollection();
                 queryString.Add("CurrentScore", string.Empty);
                 controller.HttpContext.Request.QueryString.Returns(queryString);
 
-                _forecastService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
+                _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
 
                 // Action
                 var result = controller.Index(metaModel) as ViewResult;
@@ -129,15 +129,15 @@
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = betType };
-                _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
                     .Returns(new ForecastAH());
 
                 var queryString = new NameValueCollection();
                 queryString.Add("CurrentScore", string.Empty);
                 controller.HttpContext.Request.QueryString.Returns(queryString);
 
-                _forecastService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
-                _forecastService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
+                _forecastAhService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
+                _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(new ForecastValue());
 
                 // Action
                 var result = controller.Index(metaModel) as ViewResult;
@@ -156,7 +156,7 @@
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = betType };
-                _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
                     .Returns(new ForecastAH());
 
                 var queryString = new NameValueCollection();
@@ -164,7 +164,7 @@
                 controller.HttpContext.Request.QueryString.Returns(queryString);
 
                 var foreCastValue = new ForecastValue();
-                _forecastService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
+                _forecastAhService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
 
                 // Action
                 var result = controller.Index(metaModel) as ViewResult;
@@ -183,7 +183,7 @@
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = betType };
-                _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
                     .Returns(new ForecastAH());
 
                 var queryString = new NameValueCollection();
@@ -191,7 +191,7 @@
                 controller.HttpContext.Request.QueryString.Returns(queryString);
 
                 var foreCastValue = new ForecastValue();
-                _forecastService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
+                _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
 
                 // Action
                 var result = controller.Index(metaModel) as ViewResult;
@@ -212,7 +212,7 @@
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = betType, CurrentScore = currentScore };
-                _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
                     .Returns(new ForecastAH());
 
                 var queryString = new NameValueCollection();
@@ -220,8 +220,8 @@
                 controller.HttpContext.Request.QueryString.Returns(queryString);
 
                 var foreCastValue = new ForecastValue();
-                _forecastService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
-                _forecastService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
+                _forecastAhService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
+                _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
 
                 // Action
                 var result = controller.Index(metaModel) as ViewResult;
@@ -242,7 +242,7 @@
             {
                 // Arrange
                 var metaModel = new ForecastAHMetaModel { MatchId = 2, BetType = betType, CurrentScore = currentScore };
-                _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
+                _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType)
                     .Returns(new ForecastAH());
 
                 var queryString = new NameValueCollection();
@@ -250,8 +250,8 @@
                 controller.HttpContext.Request.QueryString.Returns(queryString);
 
                 var foreCastValue = new ForecastValue();
-                _forecastService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
-                _forecastService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
+                _forecastAhService.GetForecastHandicap(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
+                _forecastAhService.GetForecastOverUnder(metaModel, DefaultUserSession.UserId).Returns(foreCastValue);
 
                 // Action
                 var result = controller.Index(metaModel) as ViewResult;
@@ -264,13 +264,13 @@
 
         private AhForecastController CreateController()
         {
-            _forecastService = Substitute.For<IForecastService>();
+            _forecastAhService = Substitute.For<IForecastAhService>();
 
             var controller = new AhForecastController(
                 LangService,
                 SessionService,
                 AppSettings,
-                _forecastService)
+                _forecastAhService)
             {
                 ControllerContext = ControllerContext
             };

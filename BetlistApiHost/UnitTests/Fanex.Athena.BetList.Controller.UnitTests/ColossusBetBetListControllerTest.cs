@@ -80,7 +80,7 @@
                 await controller.Detail(metaModel);
 
                 // Assert
-                _logger.Received(1).ErrorAsync("ColossusBet Get Token Error - ApiUrl: " + string.Format(tokenApiUrl, metaModel.UserId, metaModel.CustId), exception);
+                await _logger.Received(1).ErrorAsync("ColossusBet Get Token Error - ApiUrl: " + string.Format(tokenApiUrl, metaModel.UserId, metaModel.CustId), exception);
             }
         }
 

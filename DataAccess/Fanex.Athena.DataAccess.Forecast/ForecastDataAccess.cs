@@ -8,10 +8,8 @@ namespace Fanex.Athena.DataAccess.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core;
     using Core.Extensions;
     using Extension.Helper;
-    using Extension.Utility;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Athena.Model.Forecast.ViewModel;
     using Fanex.Common;
@@ -20,65 +18,17 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Model.Core.MetaModel;
     using Model.Forecast.DTO;
     using Model.Forecast.DTO.Forecast1X2;
-    using Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Resources;
     using VendorAdapter.Interfaces;
 
-    public class ForecastDataAccess : BaseDataAccess, IForecastDataAccess
+    public class ForecastDataAccess : ForecastBaseDataAccess, IForecastDataAccess
     {
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-
         public ForecastDataAccess(ICacheRefAdapter cacheRefAdapter)
+            : base(cacheRefAdapter)
         {
-            _cacheRefAdapter = cacheRefAdapter;
         }
-
-        #region Forecast AH
-
-        public ForecastAH GetForecastTopOddsByMatch(int matchId, int betType)
-        {
-            const string UspName = "Lrf_Forecast_OddsSelTopByMatch";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.SetParameterValue("matchid", matchId);
-                db.SetParameterValue("betType", betType);
-                var item = db.QueryEntity<ForecastAH>();
-                AssignTeamNames(item);
-                return item;
-            }
-        }
-
-        public DataTable GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
-        {
-            const string UspName = "Lrf_Forecast_SelHDP";
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
-                db.SetParameterValue("matchid", metaModel.MatchId);
-                db.SetParameterValue("betType", metaModel.BetType);
-                var dataset = db.ExecuteDataSet();
-                return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
-            }
-        }
-
-        public DataTable GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
-        {
-            const string UspName = "Lrf_Forecast_SelOU";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
-                db.SetParameterValue("matchid", metaModel.MatchId);
-                db.SetParameterValue("betType", metaModel.BetType);
-                var dataset = db.ExecuteDataSet();
-                return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
-            }
-        }
-
-        #endregion Forecast AH
 
         #region Forecast 1 x 2
 
@@ -323,15 +273,6 @@ namespace Fanex.Athena.DataAccess.Forecast
             item.ShowTime = reader.ToString("showtime");
             item.IsNeutral = reader.ToBool("isNeutral");
             AssignTeamNames(item);
-        }
-
-        private void AssignTeamNames(ForecastBase item)
-        {
-            if (item != null)
-            {
-                item.HomeTeamName = _cacheRefAdapter.GetTeamName(item.HomeId) + (item.IsNeutral ? " (N)" : string.Empty);
-                item.AwayTeamName = _cacheRefAdapter.GetTeamName(item.AwayId);
-            }
         }
     }
 }

@@ -79,7 +79,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ForecastAhDataAccess.cs" />
     <Compile Include="ForecastDataAccess.cs" />
+    <Compile Include="Interfaces\IForecastAhDataAccess.cs" />
     <Compile Include="Interfaces\IForecastDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

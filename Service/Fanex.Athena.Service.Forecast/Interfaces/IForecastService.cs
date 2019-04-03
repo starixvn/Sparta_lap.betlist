@@ -18,16 +18,6 @@ namespace Fanex.Athena.Service.Forecast.Interfaces
 
     public interface IForecastService
     {
-        #region Forecast AH
-
-        ForecastAH GetForecastTopOddsByMatch(int matchId, int betType);
-
-        ForecastValue GetForecastHandicap(ForecastAHMetaModel metaModel, int userId);
-
-        ForecastValue GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId);
-
-        #endregion Forecast AH
-
         #region Forecast 1 x 2
 
         Task<IEnumerable<League>> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
