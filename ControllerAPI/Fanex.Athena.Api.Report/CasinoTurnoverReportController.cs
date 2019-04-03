@@ -29,7 +29,7 @@
         [HttpPost]
         public async Task<dynamic> GetData(CasinoTurnoverMetaModel metaModel)
         {
-            await CheckValidProducts(FunctionNames.CasinoTurnover, metaModel.ProductCode);
+            CheckValidProducts(FunctionNames.CasinoTurnover, metaModel.ProductCode);
             if (IsValidRequest(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);

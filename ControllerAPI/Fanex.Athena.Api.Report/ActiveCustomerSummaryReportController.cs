@@ -92,13 +92,13 @@ namespace Fanex.Athena.Api.Report
             return new ActiveCustomerSummaryExcel(templatePath, convertingOption, showingOption, metaModel, excelModel);
         }
 
-        private async Task<HttpResponseMessage> ExportExcel(ActiveCustomerMetaModel metaModel, ActiveCustomerSummaryResultModel resultModel)
+        private HttpResponseMessage ExportExcel(ActiveCustomerMetaModel metaModel, ActiveCustomerSummaryResultModel resultModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             const string FileName = "ActiveCustomerSummary.xls";
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/ActiveCustomerSummary.xls");
-            var productAccess = await ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             var currencyList = userSession.CurrencyList;
             var showingOption = new ShowingOption

@@ -19,7 +19,7 @@
 
         [TestCase(null, "_Default")]
         [TestCase("Test", "Test")]
-        public async Task GetProductAccess_GetAllowedProductsFromCache_HasConfig_ReturnCorrectResult(string functionName, string expectedFunctionName)
+        public void GetProductAccess_GetAllowedProductsFromCache_HasConfig_ReturnCorrectResult(string functionName, string expectedFunctionName)
         {
             // Arrange
             var expectedResult = new List<Product>
@@ -37,7 +37,7 @@
             SetUpForGetProductListFromCache(expectedResult);
 
             // Action
-            var result = await _productService.GetProductAccess(_licenseeId, _languageCode, functionName).ConfigureAwait(false);
+            var result = _productService.GetProductAccess(_licenseeId, _languageCode, functionName);
 
             // Assert
             Assert.Multiple(() =>
@@ -48,7 +48,7 @@
         }
 
         [Test]
-        public async Task GetProductAccess_GetAllowedProductsFromCache_HasNoConfig_ReturnEmptytResult()
+        public void GetProductAccess_GetAllowedProductsFromCache_HasNoConfig_ReturnEmptytResult()
         {
             // Arrange
             var fakeProducts = new List<Product>
@@ -66,7 +66,7 @@
             SetUpForGetProductListFromCache(new List<Product>());
 
             // Action
-            var result = await _productService.GetProductAccess(_licenseeId, _languageCode).ConfigureAwait(false);
+            var result = _productService.GetProductAccess(_licenseeId, _languageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -78,7 +78,7 @@
 
         [TestCase(null, "_Default")]
         [TestCase("Test", "Test")]
-        public async Task GetProductAccess_GetAllowedProductsFromFile_HasData_ReturnCorrectResultAndUpdateCache(string functionName, string expectedFunctionName)
+        public void GetProductAccess_GetAllowedProductsFromFile_HasData_ReturnCorrectResultAndUpdateCache(string functionName, string expectedFunctionName)
         {
             // Arrange
             var expectedResult = new List<Product>
@@ -98,7 +98,7 @@
             SetUpForGetProductListFromCache(expectedResult);
 
             // Action
-            var result = await _productService.GetProductAccess(_licenseeId, _languageCode, functionName).ConfigureAwait(false);
+            var result = _productService.GetProductAccess(_licenseeId, _languageCode, functionName);
 
             // Assert
             Assert.Multiple(() =>
@@ -113,7 +113,7 @@
 
         [TestCase(null)]
         [TestCase("Test")]
-        public async Task GetProductAccess_GetAllowedProductsFromFile_DataIsEmpty_ReturnEmpty(string functionName)
+        public void GetProductAccess_GetAllowedProductsFromFile_DataIsEmpty_ReturnEmpty(string functionName)
         {
             // Arrange
             var xmlContent = BuildFunctionAllowedProductsXmlString(
@@ -127,14 +127,14 @@
             SetUpForGetProductListFromCache(new List<Product>());
 
             // Action
-            var result = await _productService.GetProductAccess(_licenseeId, _languageCode, functionName).ConfigureAwait(false);
+            var result = _productService.GetProductAccess(_licenseeId, _languageCode, functionName);
 
             // Assert
             Assert.That(result.ProductList, Is.Empty);
         }
 
         [Test]
-        public async Task GetProductAccess_AllowedProductsIsEmpty_ReturnOriginalProducts()
+        public void GetProductAccess_AllowedProductsIsEmpty_ReturnOriginalProducts()
         {
             // Arrange
             var expectedResult = new List<Product>
@@ -152,7 +152,7 @@
             SetUpForGetProductListFromCache(expectedResult);
 
             // Action
-            var result = await _productService.GetProductAccess(_licenseeId, _languageCode).ConfigureAwait(false);
+            var result = _productService.GetProductAccess(_licenseeId, _languageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -163,7 +163,7 @@
         }
 
         [Test]
-        public async Task GetProductAccess_AllowedProductsIsNotEmpty_ReturnIntersectionOfOriginalAndAllowedProducts()
+        public void GetProductAccess_AllowedProductsIsNotEmpty_ReturnIntersectionOfOriginalAndAllowedProducts()
         {
             // Arrange
             const string FunctionKey = "FakeKey";
@@ -190,7 +190,7 @@
             SetUpForGetProductListFromCache(productList);
 
             // Action
-            var result = await _productService.GetProductAccess(_licenseeId, _languageCode, FunctionKey).ConfigureAwait(false);
+            var result = _productService.GetProductAccess(_licenseeId, _languageCode, FunctionKey);
 
             // Assert
             Assert.Multiple(() =>
@@ -202,7 +202,7 @@
         }
 
         [Test]
-        public async Task GetSingleWalletProductAccess_AllowedProductsIsEmpty_ReturnOriginalProductList()
+        public void GetSingleWalletProductAccess_AllowedProductsIsEmpty_ReturnOriginalProductList()
         {
             // Arrange
             var expectedResult = new List<Product>
@@ -220,7 +220,7 @@
             SetUpForGetProductListFromCache(expectedResult);
 
             // Action
-            var result = await _productService.GetSingleWalletProductAccess(_licenseeId, _languageCode).ConfigureAwait(false);
+            var result = _productService.GetSingleWalletProductAccess(_licenseeId, _languageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -231,7 +231,7 @@
         }
 
         [Test]
-        public async Task GetSingleWalletProductAccess_AllowedProductsIsNotEmpty_ReturnIntersectionOfOriginalAndAllowedProducts()
+        public void GetSingleWalletProductAccess_AllowedProductsIsNotEmpty_ReturnIntersectionOfOriginalAndAllowedProducts()
         {
             // Arrange
             const string FunctionKey = "FakeKey";
@@ -258,7 +258,7 @@
             SetUpForGetProductListFromCache(productList);
 
             // Action
-            var result = await _productService.GetSingleWalletProductAccess(_licenseeId, _languageCode, FunctionKey).ConfigureAwait(false);
+            var result = _productService.GetSingleWalletProductAccess(_licenseeId, _languageCode, FunctionKey);
 
             // Assert
             Assert.Multiple(() =>
@@ -270,7 +270,7 @@
         }
 
         [Test]
-        public async Task GetProductAccessForActiveCustomerSummary_DataWasCached_ReturnFromCache()
+        public void GetProductAccessForActiveCustomerSummary_DataWasCached_ReturnFromCache()
         {
             // Arrange
             var expectedResult = new List<Product>
@@ -283,7 +283,7 @@
                 .Returns(expectedResult);
 
             // Action
-            var result = await _productService.GetProductAccessForActiveCustomerSummary(_licenseeId, _languageCode).ConfigureAwait(false);
+            var result = _productService.GetProductAccessForActiveCustomerSummary(_licenseeId, _languageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -294,7 +294,7 @@
         }
 
         [Test]
-        public async Task GetProductAccessForActiveCustomerSummary_AllowedProductsIsEmpty_ReturnProductAccessList()
+        public void GetProductAccessForActiveCustomerSummary_AllowedProductsIsEmpty_ReturnProductAccessList()
         {
             // Arrange
             var expectedResult = new List<Product>
@@ -315,7 +315,7 @@
                 .Returns(x => { return null; });
 
             // Action
-            var result = await _productService.GetProductAccessForActiveCustomerSummary(_licenseeId, _languageCode).ConfigureAwait(false);
+            var result = _productService.GetProductAccessForActiveCustomerSummary(_licenseeId, _languageCode);
 
             // Assert
             Assert.Multiple(() =>
@@ -326,7 +326,7 @@
         }
 
         [Test]
-        public async Task GetProductAccessForActiveCustomerSummary_AllowedProductsIsNotEmpty_ReturnIntersectionOfOriginalAndAllowedProducts()
+        public void GetProductAccessForActiveCustomerSummary_AllowedProductsIsNotEmpty_ReturnIntersectionOfOriginalAndAllowedProducts()
         {
             // Arrange
             var expectedResult = new List<Product>
@@ -354,7 +354,7 @@
                 .Returns(x => { return null; });
 
             // Action
-            var result = await _productService.GetProductAccessForActiveCustomerSummary(_licenseeId, _languageCode).ConfigureAwait(false);
+            var result = _productService.GetProductAccessForActiveCustomerSummary(_licenseeId, _languageCode);
 
             // Assert
             Assert.Multiple(() =>

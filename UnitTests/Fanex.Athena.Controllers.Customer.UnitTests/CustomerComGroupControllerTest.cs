@@ -42,7 +42,7 @@
 
         [TestCase(true, false)]
         [TestCase(false, true)]
-        public async Task Index_WhenCall_AssignViewBagCorrectly(bool isEmptyProductList, bool expectedResult)
+        public void Index_WhenCall_AssignViewBagCorrectly(bool isEmptyProductList, bool expectedResult)
         {
             using (var controller = CreateController())
             {
@@ -57,7 +57,7 @@
                     SessionService.UserSession.Language).Returns(new ProductAccess(productList));
 
                 // Action
-                var result = await controller.Index() as ViewResult;
+                var result = controller.Index() as ViewResult;
 
                 // Assert
                 Assert.Multiple(() =>

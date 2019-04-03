@@ -73,7 +73,7 @@
         }
 
         [Test]
-        public async Task Running_WhenCall_ReturnCorrectView()
+        public void Running_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -88,7 +88,7 @@
                     FunctionNames.BettingTicketCenterRunning).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = await controller.Running() as ViewResult;
+                var result = controller.Running() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/Running.cshtml"));
@@ -96,7 +96,7 @@
         }
 
         [Test]
-        public async Task Running_WhenCall_ReturnCorrectViewModel()
+        public void Running_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -108,7 +108,7 @@
                     FunctionNames.BettingTicketCenterRunning).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = await controller.Running() as ViewResult;
+                var result = controller.Running() as ViewResult;
                 var viewModel = result.Model as BettingTicketCenterViewModel;
 
                 // Assert
@@ -122,7 +122,7 @@
         }
 
         [Test]
-        public async Task SingleCustomer_WhenCall_ReturnCorrectView()
+        public void SingleCustomer_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -137,7 +137,7 @@
                     FunctionNames.BettingTicketCenter).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = await controller.SingleCustomer() as ViewResult;
+                var result = controller.SingleCustomer() as ViewResult;
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/SingleCustomer.cshtml"));
@@ -145,7 +145,7 @@
         }
 
         [Test]
-        public async Task SingleCustomer_WhenCall_ReturnCorrectViewModel()
+        public void SingleCustomer_WhenCall_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -157,7 +157,7 @@
                     FunctionNames.BettingTicketCenter).Returns(new ProductAccess(productCodes));
 
                 // Action
-                var result = await controller.SingleCustomer() as ViewResult;
+                var result = controller.SingleCustomer() as ViewResult;
                 var viewModel = result.Model as BettingTicketCenterViewModel;
 
                 // Assert

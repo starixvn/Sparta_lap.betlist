@@ -63,7 +63,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
+                    .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
                 var result = await controller.UpdateBetSetting(string.Empty) as JsonResult;
@@ -85,7 +85,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG, ProductID = ProductTypes.NumberGame } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG, ProductID = ProductTypes.NumberGame } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -115,7 +115,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG, ProductID = ProductTypes.NumberGame } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG, ProductID = ProductTypes.NumberGame } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -141,7 +141,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG, ProductID = ProductTypes.NumberGame } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG, ProductID = ProductTypes.NumberGame } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 

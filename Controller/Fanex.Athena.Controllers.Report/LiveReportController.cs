@@ -67,7 +67,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var productAccess = await GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
+            var productAccess = GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             var model = await CreateViewModel(
                 licenseeSession.LicenseeId, 
@@ -89,7 +89,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var productAccess = await GetProductAccess(metaModel.LicenseeId, userSession.Language).ConfigureAwait(false);
+            var productAccess = GetProductAccess(metaModel.LicenseeId, userSession.Language);
             metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
 
             var model = await CreateViewModel(
@@ -112,7 +112,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var productAccess = await GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
+            var productAccess = GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var dataList = await _liveReportService.GetLiveReportWinLossByMatch(metaModel).ConfigureAwait(false);
 
             var model = new LiveReportMatchListViewModel
@@ -136,7 +136,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var productAccess = await GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
+            var productAccess = GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var balanceUpDay = (await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false)).BalanceUpDay;
 
             var resultModel = await GetDetailResult(metaModel, productAccess, productCode).ConfigureAwait(false);
@@ -199,7 +199,7 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "LiveReport";
             var productCode = Request.Form["productCode"];
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = await GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
+            var productAccess = GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
             {
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
@@ -240,7 +240,7 @@ namespace Fanex.Athena.Controllers.Report
             return new LiveReportExcel(templatePath, convertingOption, showingOption, viewModel.MainResult, liveReportDetail);
         }
 
-        protected Task<ProductAccess> GetProductAccess(int licenseeId, string language)
+        protected ProductAccess GetProductAccess(int licenseeId, string language)
         {
             return ProductService.GetProductAccess(licenseeId, language, FunctionNames.LiveReport);
         }

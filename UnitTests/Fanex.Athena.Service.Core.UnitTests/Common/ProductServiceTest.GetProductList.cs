@@ -48,7 +48,7 @@
         }
 
         [Test]
-        public async Task GetProductList_CacheNotContainsData_ReturnResultFromDataAccess()
+        public void GetProductList_CacheNotContainsData_ReturnResultFromDataAccess()
         {
             // Arrange
             var expectedResult = FakeHelper.CreateMany<Product>(10).ToList();
@@ -57,14 +57,14 @@
             _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(x => { return null; });
 
             // Action
-            var result = await _productService.GetProductList(_licenseeId, _languageCode);
+            var result = _productService.GetProductList(_licenseeId, _languageCode);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public async Task GetProductList_GetDataFromCache_ReturnCachedData()
+        public void GetProductList_GetDataFromCache_ReturnCachedData()
         {
             // Arrange
             var expectedResult = FakeHelper.CreateMany<Product>(10).ToList();
@@ -73,7 +73,7 @@
             _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = await _productService.GetProductList(_licenseeId, _languageCode);
+            var result = _productService.GetProductList(_licenseeId, _languageCode);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

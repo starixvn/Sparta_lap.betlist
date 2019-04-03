@@ -16,14 +16,14 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public async Task GetProductAccessList_WhenCall_ParametersPassedCorrectly(bool isActiveCustomerSummaryReport)
+        public void GetProductAccessList_WhenCall_ParametersPassedCorrectly(bool isActiveCustomerSummaryReport)
         {
             // Arrange
             var uspName = Arg.Is<string>(name => name == SpNameActive || name == SpName);
             DataAccess.GetObjectDb(uspName).Returns(ObjectDb);
 
             // Action
-            await DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport);
+            DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("licenseeid", LicenseeId);
@@ -31,7 +31,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public async Task GetProductAccessList_WhenCall_DataReturnedCorrectly(bool isActiveCustomerSummaryReport)
+        public void GetProductAccessList_WhenCall_DataReturnedCorrectly(bool isActiveCustomerSummaryReport)
         {
             // Arrange
             var uspName = Arg.Is<string>(name => name == SpNameActive || name == SpName);
@@ -48,7 +48,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = await DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport).ConfigureAwait(false);
+            var result = DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport);
 
             // Assert
             Assert.Multiple(() =>

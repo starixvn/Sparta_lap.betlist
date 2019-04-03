@@ -16,10 +16,10 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     public partial class CustomerLogController
     {
         [HttpGet]
-        public async Task<ActionResult> CustomerSetting()
+        public ActionResult CustomerSetting()
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var productOption = await _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
+            var productOption = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             var model = new CustomerLogViewModel
             {

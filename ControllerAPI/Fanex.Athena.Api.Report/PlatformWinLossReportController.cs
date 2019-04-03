@@ -106,7 +106,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private async Task<HttpResponseMessage> ExportExcelMember(
+        private HttpResponseMessage ExportExcelMember(
             PlatformWinLossMetaModel metaModel,
             SortableList<PlatformWinLossMember> dataList,
             PlatformWinLossMember totalData)
@@ -116,11 +116,10 @@ namespace Fanex.Athena.Api.Report
             var userSession = SessionService.UserSession;
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossMember.xls");
 
-            var productAccess = await ProductService.GetProductAccess(
+            var productAccess = ProductService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.PlatformWinloss)
-                .ConfigureAwait(false);
+                FunctionNames.PlatformWinloss);
 
             if (dataList.Any())
             {
@@ -184,7 +183,7 @@ namespace Fanex.Athena.Api.Report
                     };
 
                 return metaModel.IsExportExcel
-                    ? await ExportExcelMember(metaModel, result.DataList, result.TotalData).ConfigureAwait(false)
+                    ? ExportExcelMember(metaModel, result.DataList, result.TotalData)
                     : (dynamic)new
                     {
                         Data = result.DataList,

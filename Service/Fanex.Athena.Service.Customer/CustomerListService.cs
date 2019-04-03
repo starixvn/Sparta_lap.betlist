@@ -91,7 +91,7 @@ namespace Fanex.Athena.Service.Customer
 
             var customerInfo = _customerDataAccess.GetCustomerInfo(metaModel.CustId);
             var closeCasinoResult = true;
-            var productAccess = await this._productService.GetProductAccess(metaModel.LicenseeId, languageCode).ConfigureAwait(false);
+            var productAccess = this._productService.GetProductAccess(metaModel.LicenseeId, languageCode);
             var casinoSupported = productAccess.IsAllowCS;
 
             if (customerInfo.SyncCasino && casinoSupported)
@@ -129,7 +129,7 @@ namespace Fanex.Athena.Service.Customer
 
             var customerInfo = _customerDataAccess.GetCustomerInfo(metaModel.CustId);
             var suspendCasinoResult = true;
-            var productAccess = await this._productService.GetProductAccess(metaModel.LicenseeId, languageCode).ConfigureAwait(false);
+            var productAccess = this._productService.GetProductAccess(metaModel.LicenseeId, languageCode);
             var casinoSupported = productAccess.IsAllowCS;
 
             if (customerInfo.SyncCasino && casinoSupported)

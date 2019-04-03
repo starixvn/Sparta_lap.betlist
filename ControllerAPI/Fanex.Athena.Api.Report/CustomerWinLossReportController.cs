@@ -71,11 +71,10 @@
             var templatePath = HostingEnvironment.MapPath(TemplatePath);
 
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId, 
                 SessionService.UserSession.Language, 
-                FunctionNames.CustomerBalance)
-                .ConfigureAwait(false);
+                FunctionNames.CustomerBalance);
 
             var convertingOption = new ConvertingOption
             {
@@ -113,7 +112,7 @@
                 };
             }
 
-            await CheckValidProducts(FunctionNames.CustomerWinLoss, metaModel).ConfigureAwait(false);
+            CheckValidProducts(FunctionNames.CustomerWinLoss, metaModel);
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
             return await _custWinlossDataAccess.GetDataList(metaModel).ConfigureAwait(false);

@@ -13,7 +13,7 @@
     public partial class CustomerLogControllerTest
     {
         [Test]
-        public async Task CustomerSetting_WhenCall_ReturnCorrectView()
+        public void CustomerSetting_WhenCall_ReturnCorrectView()
         {
             using (var controller = CreateController())
             {
@@ -22,7 +22,7 @@
                 const string ExpectedViewName = "Customer/CustomerLog/CustomerSettingLog/Main.cshtml";
 
                 // Action
-                var result = await controller.CustomerSetting() as ViewResult;
+                var result = controller.CustomerSetting() as ViewResult;
 
                 // Assert
                 StringAssert.Contains(ExpectedViewName, result.ViewName);
@@ -30,7 +30,7 @@
         }
 
         [Test]
-        public async Task CustomerSetting_WhenCall_ReturnCorrectViewData()
+        public void CustomerSetting_WhenCall_ReturnCorrectViewData()
         {
             using (var controller = CreateController())
             {
@@ -45,7 +45,7 @@
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.BA } }));
 
                 // Action
-                var result = (CustomerLogViewModel)(await controller.CustomerSetting() as ViewResult).Model;
+                var result = (CustomerLogViewModel)(controller.CustomerSetting() as ViewResult).Model;
 
                 // Assert
                 Assert.Multiple(() =>

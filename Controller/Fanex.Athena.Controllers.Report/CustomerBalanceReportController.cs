@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -42,10 +42,10 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyId = 0
             };
 
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.CustomerBalance).ConfigureAwait(false);
+                FunctionNames.CustomerBalance);
             var productOption = ToProductOptions(productAccess.ProductList.Where(i => i.ProductCode != Product.BA));
 
             metaModel.ProductOptions = productOption;

@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var balanceUp = await this._balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
             var licenseeId = this.SessionService.LicenseeSession.LicenseeId;
-            var productList = await this._productService.GetProductList(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
+            var productList = this._productService.GetProductList(licenseeId, SessionService.UserSession.Language);
             var model = new NoteViewModel
             {
                 MoveBetsDate = balanceUp.MoveBetsDay,

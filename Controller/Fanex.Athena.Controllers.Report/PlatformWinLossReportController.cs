@@ -29,16 +29,16 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new PlatformWinLossMetaModel { LicenseeId = licenseeId };
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeId,
                 userSession.Language,
-                FunctionNames.PlatformWinloss).ConfigureAwait(false);
+                FunctionNames.PlatformWinloss);
 
             SetConvetedUSDCurrencyId(metaModel);
             SetConvetedUSDCurrencyName(metaModel);

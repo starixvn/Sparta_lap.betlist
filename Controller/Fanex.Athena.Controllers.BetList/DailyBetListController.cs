@@ -70,11 +70,10 @@ namespace Fanex.Athena.Controllers.BetList
                 ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = currencies,
-                ProductAccess = await this.ProductService.GetSingleWalletProductAccess(
+                ProductAccess = this.ProductService.GetSingleWalletProductAccess(
                     licenseeSession.LicenseeId, 
                     userSession.Language, 
-                    BetListDailyBetListName)
-                    .ConfigureAwait(false),
+                    BetListDailyBetListName),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 

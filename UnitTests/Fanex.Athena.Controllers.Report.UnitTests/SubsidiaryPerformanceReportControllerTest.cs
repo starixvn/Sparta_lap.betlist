@@ -43,7 +43,7 @@
         }
 
         [Test]
-        public async Task Index_IsManageableSubsidiaryIsTrue_CallServiceToGetSubsidiaryList()
+        public void Index_IsManageableSubsidiaryIsTrue_CallServiceToGetSubsidiaryList()
         {
             using (var controller = CreateController())
             {
@@ -71,7 +71,7 @@
                 HttpContext.Current = GetHttpContext();
 
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var modelResult = _serializer.Serialize(viewResult.Model);
 
                 // Assert
@@ -81,7 +81,7 @@
         }
 
         [Test]
-        public async Task Index_IsManageableSubsidiaryIsFalse_SubsidiaryListIsNull()
+        public void Index_IsManageableSubsidiaryIsFalse_SubsidiaryListIsNull()
         {
             using (var controller = CreateController())
             {
@@ -106,7 +106,7 @@
                 HttpContext.Current = GetHttpContext();
 
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var modelResult = _serializer.Serialize(viewResult.Model);
 
                 // Assert

@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             _productService = productService;
         }
 
-        protected Task<ProductAccess> GetProductAccess()
+        protected ProductAccess GetProductAccess()
         {
             return _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,
@@ -117,14 +117,14 @@ namespace Fanex.Athena.Controllers.BetSettings
                        : value;
         }
 
-        protected async Task<bool> CheckPermission(UserSession userSession, int productId)
+        protected bool CheckPermission(UserSession userSession, int productId)
         {
             if (!IsBetSettingEditable(userSession))
             {
                 return false;
             }
 
-            var productAccess = await GetProductAccess().ConfigureAwait(false);
+            var productAccess = GetProductAccess();
             if (!productAccess.IsAllow(productId))
             {
                 return false;

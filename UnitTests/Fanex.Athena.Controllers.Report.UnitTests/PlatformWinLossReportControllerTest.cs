@@ -24,12 +24,12 @@
         }
 
         [Test]
-        public async Task Index_WhenCall_ReturnCorrectViewResult()
+        public void Index_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as PlatformWinLossViewModel;
 
                 // Assert

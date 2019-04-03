@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -56,10 +56,10 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
 
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.Turnover).ConfigureAwait(false);
+                FunctionNames.Turnover);
             metaModel.ProductOptions = ToProductOptions(productAccess.ProductList.Where(a => !a.ProductCode.Equals(Product.BA)));
 
             var model = new TurnoverViewModel
@@ -94,20 +94,19 @@ namespace Fanex.Athena.Controllers.Report
                 DataList = dataList,
                 TotalData = _turnoverService.SumTotalData(dataList),
                 Param = metaModel,
-                ProductAccess = await ProductService.GetSingleWalletProductAccess(
+                ProductAccess = ProductService.GetSingleWalletProductAccess(
                     licenseeSession.LicenseeId, 
                     userSession.Language, 
-                    FunctionNames.Turnover)
-                    .ConfigureAwait(false),
+                    FunctionNames.Turnover),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
                 IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
             };
 
-            return await ExportExcel(model).ConfigureAwait(false);
+            return ExportExcel(model);
         }
 
-        private async Task<ActionResult> ExportExcel(TurnoverViewModel viewModel)
+        private ActionResult ExportExcel(TurnoverViewModel viewModel)
         {
             const string FileName = "Turnover";
 
@@ -115,11 +114,10 @@ namespace Fanex.Athena.Controllers.Report
 
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
-                licenseeId, 
-                SessionService.UserSession.Language, 
-                FunctionNames.Turnover)
-                .ConfigureAwait(false);
+            var productAccess = ProductService.GetSingleWalletProductAccess(
+                licenseeId,
+                SessionService.UserSession.Language,
+                FunctionNames.Turnover);
 
             var convertingOption = new ConvertingOption
             {

@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.Report
                 UserId = userSession.UserId
             };
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 metaModel.LicenseeId,
                 userSession.Language,
                 FunctionNames.CustomerPendingFunds);

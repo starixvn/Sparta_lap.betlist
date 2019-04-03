@@ -27,7 +27,7 @@
         }
 
         [Test]
-        public async Task Index_WhenGetRealLicensee_ReturnCorrectViewResult()
+        public void Index_WhenGetRealLicensee_ReturnCorrectViewResult()
         {
             // Arrange
             var reportSettingService = Substitute.For<IReportSettingService>();
@@ -38,7 +38,7 @@
             using (var controller = CreateController(reportSettingService))
             {
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as LicenseeWinLossViewModel;
 
                 // Assert
@@ -53,7 +53,7 @@
         }
 
         [Test]
-        public async Task Index_WhenGetFakeLicensee_ReturnCorrectViewResult()
+        public void Index_WhenGetFakeLicensee_ReturnCorrectViewResult()
         {
             // Arrange
             var reportSettingService = Substitute.For<IReportSettingService>();
@@ -64,7 +64,7 @@
             using (var controller = CreateController(reportSettingService))
             {
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as SpecialLicenseeWinLossViewModel;
 
                 // Assert

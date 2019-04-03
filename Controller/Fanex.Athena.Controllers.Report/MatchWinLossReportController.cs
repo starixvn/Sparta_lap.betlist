@@ -70,10 +70,10 @@
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.MatchWinLoss).ConfigureAwait(false);
+                FunctionNames.MatchWinLoss);
             metaModel.ProductOptions = ToProductOptions(productAccess.ProductList);
 
             var model = new MatchWinLossViewModel
@@ -116,11 +116,10 @@
 
             var total = GetTotal(reportData);
             var grandTotal = GetGrandTotal(reportDataOutrightParlay, total);
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId, 
                 userSession.Language, 
-                FunctionNames.MatchWinLoss)
-                .ConfigureAwait(false);
+                FunctionNames.MatchWinLoss);
             var model = new MatchWinLossViewModel
             {
                 Param = metaModel,
@@ -147,11 +146,10 @@
             var model = new MatchWinLossViewModel
             {
                 MainResult = reportData,
-                ProductAccess = await ProductService.GetSingleWalletProductAccess(
+                ProductAccess = ProductService.GetSingleWalletProductAccess(
                     licenseeSession.LicenseeId, 
                     SessionService.UserSession.Language, 
-                    FunctionNames.MatchWinLoss)
-                    .ConfigureAwait(false),
+                    FunctionNames.MatchWinLoss),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -168,11 +166,10 @@
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
-                licenseeSession.LicenseeId, 
-                SessionService.UserSession.Language, 
-                FunctionNames.MatchWinLoss)
-                .ConfigureAwait(false);
+            var productAccess = ProductService.GetSingleWalletProductAccess(
+                licenseeSession.LicenseeId,
+                SessionService.UserSession.Language,
+                FunctionNames.MatchWinLoss);
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,

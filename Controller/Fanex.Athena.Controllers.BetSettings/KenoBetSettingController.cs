@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             var userSession = SessionService.UserSession;
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            if (!(await CheckPermission(userSession, ProductTypes.Keno)))
+            if (!CheckPermission(userSession, ProductTypes.Keno))
             {
                 return AccessDenied();
             }

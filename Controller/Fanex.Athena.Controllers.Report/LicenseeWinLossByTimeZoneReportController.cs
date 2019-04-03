@@ -21,14 +21,14 @@ namespace Fanex.Athena.Controllers.Report
         {
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = await this.ProductService.GetSingleWalletProductAccess(
+            var productAccess = this.ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.WinLossByTimeZone).ConfigureAwait(false);
+                FunctionNames.WinLossByTimeZone);
 
             var model = new LicenseeWinLossByTimeZoneViewModel
             {

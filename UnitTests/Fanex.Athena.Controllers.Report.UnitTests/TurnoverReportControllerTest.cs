@@ -47,12 +47,12 @@
         }
 
         [Test]
-        public async Task Index_WhenGet_ReturnCorrectViewResult()
+        public void Index_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController("SB,BA"))
             {
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as TurnoverViewModel;
 
                 // Assert

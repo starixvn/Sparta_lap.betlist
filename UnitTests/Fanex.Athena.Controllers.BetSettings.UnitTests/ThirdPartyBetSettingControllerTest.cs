@@ -106,7 +106,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
+                    .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
                 var result = await controller.UpdateMacauStatus(0, string.Empty, 0) as JsonResult;
@@ -128,7 +128,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -161,7 +161,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.Macau } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -190,7 +190,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -223,7 +223,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.BetTrade } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -252,7 +252,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
+                    .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
                 var result = await controller.UpdateColossusBetsStatus(0, string.Empty, 0) as JsonResult;
@@ -274,7 +274,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -307,7 +307,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.ColossusBets } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -336,7 +336,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product>())));
+                    .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
                 var result = await controller.UpdateCashOutStatus(0, string.Empty, 0) as JsonResult;
@@ -358,7 +358,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
@@ -391,7 +391,7 @@
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(Task.FromResult(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } })));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.CashOut } }));
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 

@@ -25,12 +25,12 @@
         }
 
         [Test]
-        public async Task Index_ProductListNotContainColossusBets_RedirectToAccessDenied()
+        public void Index_ProductListNotContainColossusBets_RedirectToAccessDenied()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.Index() as RedirectResult;
+                var result = controller.Index() as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo("~/Utility/AccessDenied"));
@@ -38,12 +38,12 @@
         }
 
         [Test]
-        public async Task Index_ProductListContainColossusBets_ReturnCorrectViewResult()
+        public void Index_ProductListContainColossusBets_ReturnCorrectViewResult()
         {
             using (var controller = CreateController(new[] { ProductTypes.ColossusBets }))
             {
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as ThirdPartyWinLossViewModel;
 
                 // Assert

@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
 
-            if (!(await CheckPermission(userSession, ProductTypes.RngCasino)))
+            if (!CheckPermission(userSession, ProductTypes.RngCasino))
             {
                 return AccessDenied();
             }
@@ -97,7 +97,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             var userSession = SessionService.UserSession;
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            if (!(await CheckPermission(userSession, ProductTypes.RngCasino)))
+            if (!CheckPermission(userSession, ProductTypes.RngCasino))
             {
                 return AccessDenied();
             }

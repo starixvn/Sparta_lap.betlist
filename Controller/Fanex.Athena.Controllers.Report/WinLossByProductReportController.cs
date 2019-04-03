@@ -30,14 +30,14 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = await this.ProductService.GetSingleWalletProductAccess(
+            var productAccess = this.ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.WinLossByProduct).ConfigureAwait(false);
+                FunctionNames.WinLossByProduct);
             var metaModel = new WinLossByProductMetaModel
             {
                 FromDate = DateTime.Now,

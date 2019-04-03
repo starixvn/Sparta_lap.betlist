@@ -109,7 +109,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             var userSession = SessionService.UserSession;
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            if (!(await CheckPermission(userSession, productId).ConfigureAwait(false)))
+            if (!CheckPermission(userSession, productId))
             {
                 return AccessDenied();
             }

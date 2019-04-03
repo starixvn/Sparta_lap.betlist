@@ -86,17 +86,17 @@ namespace Fanex.Athena.Api.Base
             _langService.SetPageCulture(currentLanguage);
         }
 
-        protected async Task<string> RemoveInvalidProducts(string productCodeList, string functionProductConfigKey)
+        protected string RemoveInvalidProducts(string productCodeList, string functionProductConfigKey)
         {
             if (string.IsNullOrWhiteSpace(productCodeList))
             {
                 return string.Empty;
             }
 
-            var productAccess = await ProductService.GetProductAccess(
+            var productAccess = ProductService.GetProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                functionProductConfigKey).ConfigureAwait(false);
+                functionProductConfigKey);
             var productList = productAccess.ProductList;
 
             var validProductCodes = productCodeList.Split(',').Where(x => productList.Any(y => y.ProductCode.Equals(x, StringComparison.OrdinalIgnoreCase)));

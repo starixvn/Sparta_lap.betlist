@@ -232,7 +232,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = await _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             if (!productAccess.IsAllowBA)
             {
                 return CreateUpdatingBaResult(isAllowBA, false, ViewResources.NotAllowBA);
@@ -303,7 +303,7 @@ namespace Fanex.Athena.Controllers.Customer
                                 metaModel.CSComm);
                 var userSession = SessionService.UserSession;
 
-                var productAccess = await _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
+                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
                 if (isvalid)
                 {
                     metaModel.LicenseeId = licenseeSession.LicenseeId;
@@ -345,7 +345,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             var userSession = SessionService.UserSession;
 
-            var productAccess = await _productService.GetProductAccess(
+            var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 CustomerAPIRemoveFromGroupComName);
@@ -393,7 +393,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             var userSession = SessionService.UserSession;
-            var productAccess = await _productService.GetProductAccess(
+            var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 CustomerAPIRemoveFromGroupComName);

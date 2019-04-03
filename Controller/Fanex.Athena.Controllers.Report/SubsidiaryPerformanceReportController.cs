@@ -30,14 +30,14 @@
             _subsidiaryService = subsidiaryService;
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = await this.ProductService.GetSingleWalletProductAccess(
+            var productAccess = this.ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.SubsidiaryPerformance).ConfigureAwait(false);
+                FunctionNames.SubsidiaryPerformance);
             var subsidiaryNames = userSession.IsManageableSubsidiary ? _subsidiaryService.GetSubsidiaryNames() : null;
 
             var model = new SubsidiaryPerformanceViewModel

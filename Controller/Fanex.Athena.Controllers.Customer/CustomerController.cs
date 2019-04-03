@@ -92,7 +92,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
-            var productAccess = await this._productService.GetProductAccess(licenseeId, userSession.Language).ConfigureAwait(false);
+            var productAccess = this._productService.GetProductAccess(licenseeId, userSession.Language);
             var allowLicensees = AppSettings.LicenseeOfferStatusFunction;
             var placeholderUsername = IsFakeLicensee(licenseeId) ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             var metaModel = new CustomerListMetaModel
@@ -111,7 +111,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             if (!model.IsSubsidiary)
             {
-                await this.SetValueForBaStatus(model).ConfigureAwait(false);
+                this.SetValueForBaStatus(model);
             }
 
             ViewBag.ProductList = productAccess.ProductList.Select(x => x.ProductCode);
@@ -238,7 +238,7 @@ namespace Fanex.Athena.Controllers.Customer
             var model = new LogInfoViewModel
             {
                 LogInfo = logInfo,
-                ProductAccess = await this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false)
+                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language)
             };
 
             return View("~/Views/Desktop/Customer/CustomerDialog/LogInfo.cshtml", model);
@@ -299,7 +299,7 @@ namespace Fanex.Athena.Controllers.Customer
             {
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                ProductAccess = await this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false),
+                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -339,12 +339,12 @@ namespace Fanex.Athena.Controllers.Customer
         ///     for the user who Martin-Justin has turned off.
         /// </summary>
         /// <param name="model">The view model.</param>
-        private async Task SetValueForBaStatus(CustomerListViewModel model)
+        private void SetValueForBaStatus(CustomerListViewModel model)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var specialBaPermission = SessionService.IsAllowedSpecialBA(userSession);
-            var productAccess = await _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var request = new Request
             {
                 Language = userSession.Language,

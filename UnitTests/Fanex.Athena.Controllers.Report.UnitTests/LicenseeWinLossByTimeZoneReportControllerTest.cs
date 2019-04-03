@@ -27,12 +27,12 @@
         }
 
         [Test]
-        public async Task Index_WhenGet_ReturnCorrectViewName()
+        public void Index_WhenGet_ReturnCorrectViewName()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
 
                 // Assert
                 Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/LicenseeWinLossByTimeZone/Main.cshtml"));
@@ -40,7 +40,7 @@
         }
 
         [Test]
-        public async Task Index_WhenGet_ReturnCorrectViewModel()
+        public void Index_WhenGet_ReturnCorrectViewModel()
         {
             using (var controller = CreateController())
             {
@@ -57,7 +57,7 @@
                     .Returns(new ProductAccess(productList));
 
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var model = (LicenseeWinLossByTimeZoneViewModel)viewResult.Model;
 
                 // Assert

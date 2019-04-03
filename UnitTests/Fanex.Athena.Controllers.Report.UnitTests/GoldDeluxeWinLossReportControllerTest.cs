@@ -24,12 +24,12 @@
         }
 
         [Test]
-        public async Task Index_GoldDeluxeIsNotAvaiable_ReturnAccessDenied()
+        public void Index_GoldDeluxeIsNotAvaiable_ReturnAccessDenied()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.Index() as RedirectResult;
+                var result = controller.Index() as RedirectResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -40,7 +40,7 @@
         }
 
         [Test]
-        public async Task Index_GoldDeluxeIsAvaiable_ReturnCorrectViewResult()
+        public void Index_GoldDeluxeIsAvaiable_ReturnCorrectViewResult()
         {
             // Arrange 
             var product = new Product
@@ -52,7 +52,7 @@
             using (var controller = CreateController(product))
             {
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as ThirdPartyWinLossViewModel;
 
                 // Assert

@@ -88,7 +88,7 @@
         {
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
 
-            if (await IsValidParams(metaModel, setting).ConfigureAwait(false))
+            if (IsValidParams(metaModel, setting))
             {
                 metaModel.BaseCurrencies = string.IsNullOrWhiteSpace(setting.BaseCurrencies)
                     ? SystemConstants.BaseCurrencyList.ToArray()
@@ -127,10 +127,10 @@
             return $"<ROOT>{string.Join("", currencyList)}</ROOT>";
         }
 
-        protected internal virtual async Task<bool> IsValidParams(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
+        protected internal virtual bool IsValidParams(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
         {
             return IsValidDateRange(metaModel, setting) &&
-                await IsValidProduct(metaModel).ConfigureAwait(false) && 
+                IsValidProduct(metaModel) && 
                 IsValidCurrency(metaModel);
         }
 
@@ -140,17 +140,17 @@
                 || SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId);
         }
 
-        private async Task<bool> IsValidProduct(SpecialLicenseeWinLossMetaModel metaModel)
+        private bool IsValidProduct(SpecialLicenseeWinLossMetaModel metaModel)
         {
             if (metaModel.ProductCodeList == null)
             {
                 return false;
             }
 
-            var productAccess = await this.ProductService.GetSingleWalletProductAccess(
+            var productAccess = this.ProductService.GetSingleWalletProductAccess(
                SessionService.LicenseeSession.LicenseeId,
                SessionService.UserSession.Language,
-               FunctionNames.LicenseeWinLoss).ConfigureAwait(false);
+               FunctionNames.LicenseeWinLoss);
             var productList = productAccess.ProductList.Select(x => x.ProductCode);
 
             return productList.Intersect(metaModel.ProductCodeList).Count() == metaModel.ProductCodeList.Count();

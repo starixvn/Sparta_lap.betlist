@@ -47,10 +47,10 @@
         #region Get data
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var productAccess = await _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
+            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var model = _groupComService.GetAll(licenseeId);
 
             ViewBag.IsAllowNG = productAccess.IsAllowNG;
@@ -194,7 +194,7 @@
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
-            var productAccess = await _productService.GetProductAccess(licenseeId, userSession.Language).ConfigureAwait(false);
+            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
             var result = await _groupComService.DeleteGroup(
                 new DeleteGroupMetaModel
@@ -243,7 +243,7 @@
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/CustomerGroup/CustomerCommGroup.xls");
 
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var productAccess = await _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
+            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
             {
                 SBVisible = productAccess.IsAllowSB,
@@ -273,7 +273,7 @@
         private async Task CreateMetaModel(GroupCommMetaModel metaModel)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var productAccess = await _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
+            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var groupList = await _groupComService.GetAll(licenseeId).ConfigureAwait(false);
             var defaultGroupId = groupList.FirstOrDefault(x => x.IsDefaultGroup)?.GroupCommId ?? 0;
 

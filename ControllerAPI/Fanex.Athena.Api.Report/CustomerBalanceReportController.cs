@@ -54,11 +54,10 @@
             var templatePath = HostingEnvironment.MapPath(TemplatePath);
 
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                FunctionNames.CustomerBalance)
-                .ConfigureAwait(false);
+                FunctionNames.CustomerBalance);
 
             var showingOption = new ShowingOption
             {

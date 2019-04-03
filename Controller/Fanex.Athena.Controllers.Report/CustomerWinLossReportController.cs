@@ -34,18 +34,18 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public Task<ActionResult> Index()
+        public ActionResult Index()
         {
             return GetView(false);
         }
 
         [HttpGet]
-        public Task<ActionResult> History()
+        public ActionResult History()
         {
             return GetView(true);
         }
 
-        private async Task<ActionResult> GetView(bool isHistory)
+        private ActionResult GetView(bool isHistory)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -56,10 +56,10 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.CustomerWinLoss).ConfigureAwait(false);
+                FunctionNames.CustomerWinLoss);
 
             metaModel.ProductOptions = ToProductOptions(productAccess.ProductList);
 

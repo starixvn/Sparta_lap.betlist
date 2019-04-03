@@ -27,7 +27,7 @@
             _subsidiaryService = Substitute.For<ISubsidiaryService>();
             _service = Substitute.For<ISubsidiaryPerformanceService>();
             _controller = Substitute.ForPartsOf<SubsidiaryPerformanceReportController>(SessionService, ProductService, LangService, _subsidiaryService, _service);
-            _controller.When(async x => await x.CheckValidProducts(Arg.Any<string>(), Arg.Any<string>())).DoNotCallBase();
+            _controller.When(x => x.CheckValidProducts(Arg.Any<string>(), Arg.Any<string>())).DoNotCallBase();
             MockSessionData();
         }
 

@@ -67,7 +67,7 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
-                ProductAccess = await ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false),
+                ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
             };
 
             ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
@@ -88,7 +88,7 @@ namespace Fanex.Athena.Controllers.Report
                        : new SortableList<WinLossByBetType>();
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-            var productAccess = await ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ConfigureAwait(false);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var total = GetTotal(reportData);
             var model = new WinLossByBetTypeViewModel
             {
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
             ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
 
             return metaModel.IsExportExcel ?
-                await Excel(model).ConfigureAwait(false) :
+                Excel(model) :
                 View("~/Views/Desktop/Report/WinLossByBetType/Main.cshtml", model);
         }
 
@@ -138,7 +138,7 @@ namespace Fanex.Athena.Controllers.Report
             return columnCount;
         }
 
-        private async Task<ActionResult> Excel(WinLossByBetTypeViewModel viewModel)
+        private ActionResult Excel(WinLossByBetTypeViewModel viewModel)
         {
             const string FileName = nameof(WinLossByBetType);
 
@@ -151,7 +151,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = viewModel.Param.CurrencyName
             };
 
-            var productAccess = await ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language).ConfigureAwait(false);
+            var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             var showingOption = new ShowingOption
             {

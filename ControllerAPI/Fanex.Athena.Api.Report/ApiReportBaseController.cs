@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
     using Base;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Report.MetaModel;
@@ -29,30 +28,30 @@
                              || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, drillDownCurrencyId);
         }
 
-        protected internal virtual async Task CheckValidProducts(string functionKey, BaseReportMetaModel metaModel)
+        protected internal virtual void CheckValidProducts(string functionKey, BaseReportMetaModel metaModel)
         {
             var passedProductCodes = string.IsNullOrEmpty(metaModel.ProductCodeList) ?
                 metaModel.ProductOptions.Select(x => x.Code) : metaModel.ProductCodeList.Split(',');
-            await CheckValidProducts(functionKey, passedProductCodes).ConfigureAwait(false);
+            CheckValidProducts(functionKey, passedProductCodes);
         }
 
-        protected internal virtual async Task CheckValidProducts(string functionKey, string productCodeList)
+        protected internal virtual void CheckValidProducts(string functionKey, string productCodeList)
         {
             var passedProductCodes = productCodeList?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            await CheckValidProducts(functionKey, passedProductCodes).ConfigureAwait(false);
+            CheckValidProducts(functionKey, passedProductCodes);
         }
 
-        protected internal virtual async Task CheckValidProducts(string functionKey, IEnumerable<string> productCodes)
+        protected internal virtual void CheckValidProducts(string functionKey, IEnumerable<string> productCodes)
         {
             if (productCodes == null || !productCodes.Any())
             {
                 throw new ArgumentNullException(nameof(productCodes));
             }
 
-            var productAccess = await ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                functionKey).ConfigureAwait(false);
+                functionKey);
             var allowedProductCodes = productAccess.ProductList.Select(x => x.ProductCode);
 
             var invalidProduct = productCodes.FirstOrDefault(x => !allowedProductCodes.Contains(x));

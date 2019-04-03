@@ -36,7 +36,7 @@
         public async Task<SubsidiaryResultViewModel> Index(SubsidiaryPerformanceMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            await CheckValidProducts(FunctionNames.SubsidiaryPerformance, metaModel.ProductCodeList).ConfigureAwait(false);
+            CheckValidProducts(FunctionNames.SubsidiaryPerformance, metaModel.ProductCodeList);
             var isSubsidiary = userSession.UserLevel == UserLevelType.Subsidiary;
             var isValidSubsidiaryList = isSubsidiary || (userSession.IsManageableSubsidiary && !string.IsNullOrWhiteSpace(metaModel.SubsidiaryList));
             if (!isValidSubsidiaryList || !metaModel.IsValid)
@@ -69,7 +69,7 @@
         {
             if (metaModel.IsValid)
             {
-                await CheckValidProducts(FunctionNames.SubsidiaryPerformance, metaModel.ProductCodeList).ConfigureAwait(false);
+                CheckValidProducts(FunctionNames.SubsidiaryPerformance, metaModel.ProductCodeList);
                 var licenseeName = SessionService.LicenseeSession.LicenseeName;
                 metaModel.LicenseeName = licenseeName;
                 var agentIdListByCurrency = _subsidiaryService.GetCurrencyAgentList(metaModel.SubsidiaryId, metaModel.IsExcludeTest);

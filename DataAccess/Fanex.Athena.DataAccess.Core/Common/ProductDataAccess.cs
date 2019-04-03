@@ -7,8 +7,6 @@
 namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
-    using System.Data;
-    using System.Threading.Tasks;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
@@ -18,7 +16,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class ProductDataAccess : BaseDataAccess, IProductDataAccess
     {
-        public async Task<IList<Product>> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false)
+        public IList<Product> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false)
         {
             var uspName = isActiveCustomerSummaryReport ? "Lrf_LicenseeProduct3rdSel_active" : "Lrf_LicenseeProduct3rdSel";
 
@@ -29,7 +27,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 db.SetParameterValue("licenseeid", licenseeId);
 
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
                     {

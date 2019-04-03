@@ -46,7 +46,7 @@ namespace Fanex.Athena.Service.Core.Common
 
         #region Public Methods and Operators
 
-        public async Task<IList<Product>> GetProductList(int licenseeId, string languageCode)
+        public IList<Product> GetProductList(int licenseeId, string languageCode)
         {
             var cacheKey = CacheKey.MemorycacheCommonProduct + licenseeId + languageCode;
             var productList = _cache.Get<IList<Product>>(cacheKey);
@@ -56,35 +56,35 @@ namespace Fanex.Athena.Service.Core.Common
                 return productList;
             }
 
-            productList = await _productDataAccess.GetProductAccessList(licenseeId).ConfigureAwait(false);
+            productList = _productDataAccess.GetProductAccessList(licenseeId);
             _cache.Set(cacheKey, productList);
 
             return productList;
         }
 
-        public async Task<ProductAccess> GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
+        public ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
         {
             var allowedProducts = GetAllowedProducts(functionConfigKey);
 
-            var originalProducts = await GetProductList(licenseeId, languageCode).ConfigureAwait(false);
+            var originalProducts = GetProductList(licenseeId, languageCode);
 
             var productList = allowedProducts.Any() ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
             return new ProductAccess(productList);
         }
 
-        public async Task<ProductAccess> GetSingleWalletProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
+        public ProductAccess GetSingleWalletProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
         {
             var allowedProducts = GetAllowedProducts(functionConfigKey);
 
-            var originalProducts = await GetProductList(licenseeId, languageCode).ConfigureAwait(false);
+            var originalProducts = GetProductList(licenseeId, languageCode);
 
             var productList = allowedProducts.Any() ? originalProducts.Where(i => i.IsOfferedSingleWallet && allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
             return new ProductAccess(productList);
         }
 
-        public async Task<ProductAccess> GetProductAccessForActiveCustomerSummary(int licenseeId, string languageCode)
+        public ProductAccess GetProductAccessForActiveCustomerSummary(int licenseeId, string languageCode)
         {
             const string FilterFunctionName = "ActiveCustomerSummary";
 
@@ -93,7 +93,7 @@ namespace Fanex.Athena.Service.Core.Common
 
             if (products == null)
             {
-                products = await _productDataAccess.GetProductAccessList(licenseeId, true).ConfigureAwait(false);
+                products = _productDataAccess.GetProductAccessList(licenseeId, true);
                 var allowedProducts = GetAllowedProducts(FilterFunctionName);
                 if (allowedProducts.Any())
                 {

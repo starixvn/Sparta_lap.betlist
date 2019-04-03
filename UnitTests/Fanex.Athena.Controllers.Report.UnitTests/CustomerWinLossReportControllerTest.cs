@@ -26,12 +26,12 @@
         }
 
         [Test]
-        public async Task Index_WhenGet_ReturnCorrectViewResult()
+        public void Index_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = await controller.Index() as ViewResult;
+                var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as CustomerWinLossViewModel;
 
                 // Assert
@@ -44,12 +44,12 @@
         }
 
         [Test]
-        public async Task History_WhenGet_ReturnCorrectViewResult()
+        public void History_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = await controller.History() as ViewResult;
+                var viewResult = controller.History() as ViewResult;
                 var viewModel = viewResult.Model as CustomerWinLossViewModel;
 
                 // Assert

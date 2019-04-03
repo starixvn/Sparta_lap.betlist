@@ -47,21 +47,21 @@
                 CurrencyList = GetCurrencyList(),
                 LiveStatusList = GetLiveStatusList(),
                 StatusList = GetStatusList(),
-                ProductOptionList = await GetProductOptionList(FunctionNames.BettingTicketCenterMultiCustomers),
+                ProductOptionList = GetProductOptionList(FunctionNames.BettingTicketCenterMultiCustomers),
                 MinDate = (await _balanceUpDataAccess.GetBalanceUp()).BalanceUpDay,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             return View("~/Views/Desktop/BetList/BettingTicketCenter/MultiCustomer.cshtml", viewModel);
         }
 
-        public async Task<ActionResult> SingleCustomer()
+        public ActionResult SingleCustomer()
         {
             var viewModel = new BettingTicketCenterViewModel
             {
                 LiveStatusList = GetLiveStatusList(),
                 StatusList = GetStatusList(),
                 PlatformList = GetPlatformList(),
-                ProductOptionList = await GetProductOptionList(),
+                ProductOptionList = GetProductOptionList(),
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             return View("~/Views/Desktop/BetList/BettingTicketCenter/SingleCustomer.cshtml", viewModel);
@@ -75,13 +75,13 @@
                 SessionService.LicenseeSession.IsAllowedCustomerComm);
         }
 
-        public async Task<ActionResult> Running()
+        public ActionResult Running()
         {
             var viewModel = new BettingTicketCenterViewModel
             {
                 StatusList = GetRunningStatusList(),
                 CurrencyList = GetCurrencyList(),
-                ProductOptionList = await GetProductOptionList(FunctionNames.BettingTicketCenterRunning),
+                ProductOptionList = GetProductOptionList(FunctionNames.BettingTicketCenterRunning),
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
@@ -144,9 +144,9 @@
             return SessionService.UserSession.CurrencyList;
         }
 
-        private async Task<IEnumerable<ProductOption>> GetProductOptionList(string functionConfigKey = FunctionNames.BettingTicketCenter)
+        private IEnumerable<ProductOption> GetProductOptionList(string functionConfigKey = FunctionNames.BettingTicketCenter)
         {
-            var productAccess = await _productService.GetSingleWalletProductAccess(
+            var productAccess = _productService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
                 functionConfigKey);
