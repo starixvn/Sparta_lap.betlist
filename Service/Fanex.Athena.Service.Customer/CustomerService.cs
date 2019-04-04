@@ -18,9 +18,9 @@
             _authorizationService = authorizationService;
         }
 
-        public async Task<CustomerInfo> GetCustomerInfo(int licenseeId, int custId)
+        public CustomerInfo GetCustomerInfo(int licenseeId, int custId)
         {
-            return await _authorizationService.HasPermissionOnData(licenseeId, custId, 0).ConfigureAwait(false)
+            return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
                 ? _customerDataAccess.GetCustomerInfo(custId)
                 : new CustomerInfo();
         }

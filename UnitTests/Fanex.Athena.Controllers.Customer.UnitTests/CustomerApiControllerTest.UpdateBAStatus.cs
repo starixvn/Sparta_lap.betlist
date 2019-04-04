@@ -15,7 +15,7 @@
     public partial class CustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public async Task UpdateBAStatus_FakeLicensee_ReturnErrorResult()
+        public void UpdateBAStatus_FakeLicensee_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -27,7 +27,7 @@
                     SessionService.UserSession.Language).Returns(productAccess);
 
                 // Action
-                var result = await controller.UpdateBAStatus(0, isAllowBa) as JsonResult;
+                var result = controller.UpdateBAStatus(0, isAllowBa) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
@@ -43,7 +43,7 @@
         }
 
         [Test]
-        public async Task UpdateBAStatus_NotSpecialBaAndNotAllowUpdateBa_ReturnErrorResult()
+        public void UpdateBAStatus_NotSpecialBaAndNotAllowUpdateBa_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -65,7 +65,7 @@
                     });
 
                 // Action
-                var result = await controller.UpdateBAStatus(0, isAllowBa) as JsonResult;
+                var result = controller.UpdateBAStatus(0, isAllowBa) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
@@ -81,7 +81,7 @@
         }
 
         [Test]
-        public async Task UpdateBAStatus_WhenCall_CallUpdateBaStatus()
+        public void UpdateBAStatus_WhenCall_CallUpdateBaStatus()
         {
             using (var controller = CreateController())
             {
@@ -104,7 +104,7 @@
                     });
 
                 // Action
-                var result = await controller.UpdateBAStatus(CustId, isAllowBa) as JsonResult;
+                var result = controller.UpdateBAStatus(CustId, isAllowBa) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert

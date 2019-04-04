@@ -12,7 +12,7 @@
     public partial class CustomerListServiceTest
     {
         [Test]
-        public async Task UpdateOddsGroup_WhenCallWithCorrectPermission_ReturnCorrectData()
+        public void UpdateOddsGroup_WhenCallWithCorrectPermission_ReturnCorrectData()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerOddsGroupMetaModel>();
@@ -22,14 +22,14 @@
             _customerListDataAccess.UpdateOddsGroup(metaModel).Returns(expectedResult);
 
             // Action
-            var result = await _customerListService.UpdateOddsGroup(metaModel);
+            var result = _customerListService.UpdateOddsGroup(metaModel);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public async Task UpdateOddsGroup_HaveNoPermission_ReturnCorrectData()
+        public void UpdateOddsGroup_HaveNoPermission_ReturnCorrectData()
         {
             // Arrange
             var metaModel = FakeHelper.Create<CustomerOddsGroupMetaModel>();
@@ -38,7 +38,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = ViewResources.UpdateSpecialLevelMsg };
 
             // Action
-            var result = await _customerListService.UpdateOddsGroup(metaModel);
+            var result = _customerListService.UpdateOddsGroup(metaModel);
 
             // Assert
             Assert.Multiple(() =>

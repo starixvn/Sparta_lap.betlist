@@ -28,7 +28,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<ThirdPartyBetSettingViewModel> GetViewModelAsync(int licenseeId, int custId, int productid)
         {
-            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
@@ -44,7 +44,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<IResultInfo> UpdateStatusAsync(int licenseeId, int productId, int userId, int custId, string language, string ip, bool isEnabled)
         {
-            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }

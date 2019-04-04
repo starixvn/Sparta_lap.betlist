@@ -15,6 +15,6 @@ namespace Fanex.Athena.Service.StatelessCore.Interfaces
 
         bool HasPermissions(IEnumerable<string> userFunctionList, params string[] permissionKeys);
 
-        Task<bool> HasPermissionOnData(int licenseeId, int custId, long transId);
+        bool HasPermissionOnData(int licenseeId, int custId, long transId);
     }
 }

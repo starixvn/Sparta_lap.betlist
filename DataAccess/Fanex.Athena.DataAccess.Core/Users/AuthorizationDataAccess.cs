@@ -13,7 +13,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
     public class AuthorizationDataAccess : BaseDataAccess, IAthorizationDataAccess
     {
-        public async Task<bool> IsCustomerBelonging(int licenseeId, int custId, long transid)
+        public bool IsCustomerBelonging(int licenseeId, int custId, long transid)
         {
             using (var db = this.GetObjectDb("Lrf_CustomerSelCheckBelonging"))
             {
@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 db.SetParameterValue("transid", transid);
                 db.SetParameterValue("custid", custId);
                 db.SetParameterValue("status", null);
-                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
+                db.ExecuteNonQuery();
                 return Converter.ToBool(db.GetParameterValue("status"));
             }
         }

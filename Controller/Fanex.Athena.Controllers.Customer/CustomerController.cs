@@ -229,11 +229,11 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         [CustomValidateAntiForgery]
-        public async Task<ActionResult> LogInfo(int custId)
+        public ActionResult LogInfo(int custId)
         {
             var licenseeSession = SessionService.LicenseeSession;
 
-            var logInfo = await _customerListService.GetCustomerLoginInfo(custId, licenseeSession.LicenseeId, licenseeSession.LicenseeName).ConfigureAwait(false);
+            var logInfo = _customerListService.GetCustomerLoginInfo(custId, licenseeSession.LicenseeId, licenseeSession.LicenseeName);
 
             var model = new LogInfoViewModel
             {

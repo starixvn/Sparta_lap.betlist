@@ -38,7 +38,7 @@ namespace Fanex.Athena.Service.BetSettings
         public async Task<BetSettingViewModel> GetViewModelAsync(int licenseeId, int custId)
         {
             const int EsportIndex = 2;
-            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return new BetSettingViewModel
                 {
@@ -64,7 +64,7 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult("Invalid parameters. bet setting is null");
             }
 
-            if (!(await HasPermissionOnData(setting.LicenseeId, setting.CustId)))
+            if (!HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }

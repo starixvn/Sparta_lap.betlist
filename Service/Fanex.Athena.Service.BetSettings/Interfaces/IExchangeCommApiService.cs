@@ -5,7 +5,7 @@
 
     public interface IExchangeCommApiService
     {
-        Task<IResultInfo<double>> GetCommission(int licenseeId, int custId);
+        IResultInfo<double> GetCommission(int licenseeId, int custId);
 
         Task<IResultInfo<double>> UpdateCommissionAsync(int licenseeId, int userId, int custId, double oldCommission, double newCommission);
     }

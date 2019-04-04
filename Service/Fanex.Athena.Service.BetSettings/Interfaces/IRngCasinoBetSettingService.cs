@@ -18,6 +18,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
 
         Task<IResultInfo> UpdateStatusAsync(BetSettingCasinoStatusMetaModel metaModel);
 
-        Task<IResultInfo> UpdateSetting(RngCasinoBetSettingMetaModel metaModel, bool isSyncCasino, bool isDisableCasino);
+        IResultInfo UpdateSetting(RngCasinoBetSettingMetaModel metaModel, bool isSyncCasino, bool isDisableCasino);
     }
 }

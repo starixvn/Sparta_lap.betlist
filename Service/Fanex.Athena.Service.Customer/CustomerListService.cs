@@ -63,18 +63,18 @@ namespace Fanex.Athena.Service.Customer
             return _dormantCustomerListDataAccess.GetDormantCustomers(metaModel);
         }
 
-        public async Task<LogInfo> GetCustomerLoginInfo(int custId, int licenseeId, string siteName)
+        public LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName)
         {
-            return await _authorizationService.HasPermissionOnData(licenseeId, custId, 0).ConfigureAwait(false)
+            return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
                 ? _customerListDataAccess.GetCustomerLoginInfo(custId, licenseeId, siteName)
                 : new LogInfo();
         }
 
         #region Update
 
-        public async Task<IResultInfo> UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel)
+        public IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel)
         {
-            if (!(await _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0).ConfigureAwait(false)))
+            if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
                 return CreateErrorResult();
             }
@@ -82,9 +82,9 @@ namespace Fanex.Athena.Service.Customer
             return _customerListDataAccess.UpdateOddsGroup(metaModel);
         }
 
-        public async Task<IResultInfo> UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode)
+        public IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode)
         {
-            if (!(await _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0).ConfigureAwait(false)))
+            if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
                 return CreateErrorResult();
             }
@@ -120,9 +120,9 @@ namespace Fanex.Athena.Service.Customer
                 : new ResultInfo { Code = 1, Message = "Error when update closed status on casino db" };
         }
 
-        public async Task<IResultInfo> UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode)
+        public IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode)
         {
-            if (!(await _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0).ConfigureAwait(false)))
+            if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
                 return CreateErrorResult();
             }
@@ -159,14 +159,14 @@ namespace Fanex.Athena.Service.Customer
                 : new ResultInfo { Code = 1, Message = "Error when update suspend status on casino db" };
         }
 
-        public async Task<IResultInfo> UpdateCustomerBAStatus(
+        public IResultInfo UpdateCustomerBAStatus(
             int licenseeId,
             int custId,
             int modifiedBy,
             bool allowBA,
             Request request)
         {
-            if (!(await _authorizationService.HasPermissionOnData(licenseeId, custId, 0).ConfigureAwait(false)))
+            if (!_authorizationService.HasPermissionOnData(licenseeId, custId, 0))
             {
                 return CreateErrorResult();
             }
@@ -179,9 +179,9 @@ namespace Fanex.Athena.Service.Customer
                    request);
         }
 
-        public async Task<IResultInfo> UpdateSpecialLevel(int licenseeId, int userId, int custId, int level, string ip, string language)
+        public IResultInfo UpdateSpecialLevel(int licenseeId, int userId, int custId, int level, string ip, string language)
         {
-            if (!(await _authorizationService.HasPermissionOnData(licenseeId, custId, 0).ConfigureAwait(false)))
+            if (!_authorizationService.HasPermissionOnData(licenseeId, custId, 0))
             {
                 return CreateErrorResult();
             }

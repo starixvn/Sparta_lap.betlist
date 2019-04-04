@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var customer = await GetCustomerInfo(metaModel.CustId);
+            var customer = GetCustomerInfo(metaModel.CustId);
             var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language);
             await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
@@ -48,7 +48,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public async Task<JsonResult> UpdateBetSetting(int custId, string gameTypeChangedList)
+        public JsonResult UpdateBetSetting(int custId, string gameTypeChangedList)
         {
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return AccessDenied();
             }
 
-            var customer = await GetCustomerInfo(custId);
+            var customer = GetCustomerInfo(custId);
             if (customer == null || !customer.SyncCasino)
             {
                 return AccessDenied();
@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
                 metaModel.TableParam = tableParam;
 
-                var result = await _betSettingService.UpdateSetting(metaModel, customer.SyncCasino, customer.DisableCasino).ConfigureAwait(false);
+                var result = _betSettingService.UpdateSetting(metaModel, customer.SyncCasino, customer.DisableCasino);
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -102,7 +102,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return AccessDenied();
             }
 
-            var customer = await GetCustomerInfo(custId).ConfigureAwait(false);
+            var customer = GetCustomerInfo(custId);
             if (customer == null || !customer.SyncCasino)
             {
                 return AccessDenied();

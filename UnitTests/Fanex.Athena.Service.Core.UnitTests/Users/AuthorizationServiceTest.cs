@@ -139,14 +139,14 @@
             const int LicenseeId = 0;
 
             // Action
-            AsyncTestDelegate testDelegate = () => _authorizationService.HasPermissionOnData(LicenseeId, 1, 1);
+            TestDelegate testDelegate = () => _authorizationService.HasPermissionOnData(LicenseeId, 1, 1);
 
             // Assert
             Assert.That(testDelegate, Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        public async Task HasPermissionOnData_CustIdAndTransIdAreZero_ReturnTrue()
+        public void HasPermissionOnData_CustIdAndTransIdAreZero_ReturnTrue()
         {
             // Arrange
             var licenseeId = Math.Abs(FakeHelper.Create<int>()) + 1;
@@ -154,7 +154,7 @@
             const int TransId = 0;
 
             // Action
-            var result = await _authorizationService.HasPermissionOnData(licenseeId, CustId, TransId);
+            var result = _authorizationService.HasPermissionOnData(licenseeId, CustId, TransId);
 
             // Assert
             Assert.That(result, Is.True);

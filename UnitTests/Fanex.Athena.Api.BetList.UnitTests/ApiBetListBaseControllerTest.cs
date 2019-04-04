@@ -34,12 +34,12 @@
                 AuthorizationService.HasPermissionOnData(SessionLicenseeId, Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
                 // Assert
-                Assert.ThrowsAsync<UnauthorizedAccessException>(async () => await controller.CheckDataPermission(custId, transId));
+                Assert.Throws<UnauthorizedAccessException>(() => controller.CheckDataPermission(custId, transId));
             }
         }
 
         [Test]
-        public async Task CheckDataPermission_HasPermission_DoNotThing()
+        public void CheckDataPermission_HasPermission_DoNotThing()
         {
             using (var controller = CreateController())
             {
@@ -48,10 +48,10 @@
                 var transId = FakeHelper.Create<long>();
 
                 // Action
-                await controller.CheckDataPermission(custId, transId);
+                controller.CheckDataPermission(custId, transId);
 
                 // Assert
-                await AuthorizationService.Received(1).HasPermissionOnData(SessionLicenseeId, custId, transId);
+                AuthorizationService.Received(1).HasPermissionOnData(SessionLicenseeId, custId, transId);
             }
         }
 

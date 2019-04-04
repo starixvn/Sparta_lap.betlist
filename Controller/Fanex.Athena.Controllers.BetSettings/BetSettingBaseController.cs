@@ -57,7 +57,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
         }
 
-        protected Task<CustomerInfo> GetCustomerInfo(int custId)
+        protected CustomerInfo GetCustomerInfo(int custId)
         {
             return _coreBetSettingService.GetCustomerInfo(custId, SessionService.LicenseeSession.LicenseeId);
         }

@@ -84,7 +84,7 @@
         }
 
         [Test]
-        public async Task LogInfo_WhenCall_ReturnCorrectResult()
+        public void LogInfo_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateContoller())
             {
@@ -101,7 +101,7 @@
                 _customerListService.GetCustomerLoginInfo(CustId, DefaultLicenseeSession.LicenseeId, DefaultLicenseeSession.LicenseeName).Returns(logInfo);
 
                 // Action
-                var result = await controller.LogInfo(CustId) as ViewResult;
+                var result = controller.LogInfo(CustId) as ViewResult;
                 var model = (LogInfoViewModel)result.Model;
 
                 // Assert

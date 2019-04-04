@@ -11,7 +11,7 @@
     public partial class CustomerListServiceTest
     {
         [Test]
-        public async Task UpdateCustomerBAStatus_HaveNoPermission_ReturnCorrectResultInfo()
+        public void UpdateCustomerBAStatus_HaveNoPermission_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -22,7 +22,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = ViewResources.UpdateSpecialLevelMsg };
 
             // Action
-            var result = await _customerListService.UpdateCustomerBAStatus(
+            var result = _customerListService.UpdateCustomerBAStatus(
                 licenseeId, 
                 custId, 
                 FakeHelper.Create<int>(), 
@@ -35,7 +35,7 @@
         }
 
         [Test]
-        public async Task UpdateCustomerBAStatus_WhenCallWithCorrectPermission_ReturnCorrectResultInfo()
+        public void UpdateCustomerBAStatus_WhenCallWithCorrectPermission_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -50,7 +50,7 @@
             _customerListDataAccess.UpdateCustomerBAStatus(licenseeId, custId, modifiedBy, allowBA, request).Returns(expectedResult);
 
             // Action
-            var result = await _customerListService.UpdateCustomerBAStatus(licenseeId, custId, modifiedBy, allowBA, request);
+            var result = _customerListService.UpdateCustomerBAStatus(licenseeId, custId, modifiedBy, allowBA, request);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

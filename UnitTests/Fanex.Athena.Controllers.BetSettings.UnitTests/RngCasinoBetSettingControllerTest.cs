@@ -60,7 +60,7 @@
         }
 
         [Test]
-        public async Task UpdateBetSetting_IsNotAllowCS_ReturnAccessDeniedResult()
+        public void UpdateBetSetting_IsNotAllowCS_ReturnAccessDeniedResult()
         {
             using (var controller = CreateController())
             {
@@ -69,7 +69,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = await controller.UpdateBetSetting(0, string.Empty) as JsonResult;
+                var result = controller.UpdateBetSetting(0, string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -82,7 +82,7 @@
         }
 
         [Test]
-        public async Task UpdateBetSetting_IsNotSyncCasino_ReturnAccessDeniedResult()
+        public void UpdateBetSetting_IsNotSyncCasino_ReturnAccessDeniedResult()
         {
             using (var controller = CreateController())
             {
@@ -93,7 +93,7 @@
                 CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(new CustomerInfo { SyncCasino = false });
 
                 // Action
-                var result = await controller.UpdateBetSetting(0, string.Empty) as JsonResult;
+                var result = controller.UpdateBetSetting(0, string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -106,7 +106,7 @@
         }
 
         [Test]
-        public async Task UpdateBetSetting_WhenCallService_ReturnCorrectResultInfo()
+        public void UpdateBetSetting_WhenCallService_ReturnCorrectResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -127,7 +127,7 @@
                    Arg.Any<bool>()).Returns(expectedResultInfo);
 
                 // Action
-                var result = await controller.UpdateBetSetting(0, "1") as JsonResult;
+                var result = controller.UpdateBetSetting(0, "1") as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -140,7 +140,7 @@
         }
 
         [Test]
-        public async Task UpdateBetSetting_WhenThrowException_ReturnFailedResultInfo()
+        public void UpdateBetSetting_WhenThrowException_ReturnFailedResultInfo()
         {
             using (var controller = CreateController())
             {
@@ -161,7 +161,7 @@
                    Arg.Any<bool>())).Do(x => { throw new System.Exception(ErrorMessage); });
 
                 // Action
-                var result = await controller.UpdateBetSetting(0, "1") as JsonResult;
+                var result = controller.UpdateBetSetting(0, "1") as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -174,7 +174,7 @@
         }
 
         [Test]
-        public async Task UpdateBetSetting_WhenCall_PassCorrectParam()
+        public void UpdateBetSetting_WhenCall_PassCorrectParam()
         {
             using (var controller = CreateController())
             {
@@ -201,7 +201,7 @@
                    Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
-                await controller.UpdateBetSetting(CustId, string.Join(",", gameTypes));
+                controller.UpdateBetSetting(CustId, string.Join(",", gameTypes));
                 var game1 = param.TableParam.Rows[0];
                 var game2 = param.TableParam.Rows[1];
 
@@ -272,7 +272,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS, ProductID = ProductTypes.RngCasino } }));
 
-                CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(Task.FromResult(new CustomerInfo { SyncCasino = true }));
+                CoreBetSettingService.GetCustomerInfo(0, DefaultLicenseeSession.LicenseeId).Returns(new CustomerInfo { SyncCasino = true });
 
                 CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 

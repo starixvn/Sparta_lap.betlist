@@ -50,7 +50,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<AgCasinoBetSettingViewModel> GetViewModelAsync(int licenseeId, int custId, string licenseeName)
         {
-            if (!(await HasPermissionOnData(licenseeId, custId)))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
@@ -82,7 +82,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             var agcasinoSetting = await _betSettingDataAccess.GetBetSettingAsync(setting.CustId).ConfigureAwait(false);
 
-            if (!agcasinoSetting.IsEnabled || !(await HasPermissionOnData(setting.LicenseeId, setting.CustId).ConfigureAwait(false)))
+            if (!agcasinoSetting.IsEnabled || !HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<IResultInfo> UpdateStatusAsync(int licenseeId, int userId, int custId, string language, string ip, bool isEnabled)
         {
-            if (!(await HasPermissionOnData(licenseeId, custId).ConfigureAwait(false)))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }

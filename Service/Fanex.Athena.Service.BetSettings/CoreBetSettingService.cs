@@ -33,7 +33,7 @@ namespace Fanex.Athena.Service.BetSettings
             _customerService = customerService;
         }
 
-        public Task<CustomerInfo> GetCustomerInfo(int custId, int licenseeId)
+        public CustomerInfo GetCustomerInfo(int custId, int licenseeId)
         {
             return _customerService.GetCustomerInfo(licenseeId, custId);
         }
@@ -47,7 +47,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public async Task<IEnumerable<BetSettingProduct>> GetBetSettingProductsAsync(int custId, int licenseeId)
         {
-            var customerInfo = await _customerService.GetCustomerInfo(licenseeId, custId).ConfigureAwait(false);
+            var customerInfo = _customerService.GetCustomerInfo(licenseeId, custId);
 
             var betSettingProducts = await _coreBetSettingDataAccess.GetBetSettingProductsAsync(licenseeId).ConfigureAwait(false);
 

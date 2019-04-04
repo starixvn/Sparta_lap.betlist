@@ -23,16 +23,16 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
         Task<ReportResultModel<DormantCustomer>> GetDormantCustomers(CustomerListMetaModel metaModel);
 
-        Task<LogInfo> GetCustomerLoginInfo(int custId, int licenseeId, string siteName);
+        LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName);
 
-        Task<IResultInfo> UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel);
+        IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel);
 
-        Task<IResultInfo> UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode);
+        IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode);
 
-        Task<IResultInfo> UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode);
+        IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode);
 
-        Task<IResultInfo> UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request);
+        IResultInfo UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request);
 
-        Task<IResultInfo> UpdateSpecialLevel(int licenseeId, int userId, int custId, int level, string ip, string language);
+        IResultInfo UpdateSpecialLevel(int licenseeId, int userId, int custId, int level, string ip, string language);
     }
 }

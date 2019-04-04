@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.Customer
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        public async Task<ActionResult> UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
+        public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
         {
             try
             {
@@ -99,11 +99,11 @@ namespace Fanex.Athena.Controllers.Customer
                         Ip = Request.UserHostAddress
                     };
 
-                    var result = await _customerListService.UpdateCustClosed(customerStatusMetaModel, userSession.Language).ConfigureAwait(false);
+                    var result = _customerListService.UpdateCustClosed(customerStatusMetaModel, userSession.Language);
                     if (result.Code == 0)
                     {
                         customerStatusMetaModel.IsOn = isSuspended;
-                        result = await _customerListService.UpdateCustSuspend(customerStatusMetaModel, userSession.Language).ConfigureAwait(false);
+                        result = _customerListService.UpdateCustSuspend(customerStatusMetaModel, userSession.Language);
                     }
 
                     return Json(result);
@@ -125,7 +125,7 @@ namespace Fanex.Athena.Controllers.Customer
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        public async Task<ActionResult> UpdateSpecialLevel(int custId, int level)
+        public ActionResult UpdateSpecialLevel(int custId, int level)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var isFakeLicensee = IsFakeLicensee(licenseeId);
@@ -136,13 +136,13 @@ namespace Fanex.Athena.Controllers.Customer
 
                 try
                 {
-                    var dataResult = await _customerListService.UpdateSpecialLevel(
+                    var dataResult = _customerListService.UpdateSpecialLevel(
                         licenseeId,
                         userSession.UserId,
                         custId,
                         level,
                         Request.UserHostAddress,
-                        userSession.Language).ConfigureAwait(false);
+                        userSession.Language);
 
                     return Json(new ResultViewModel
                     {
@@ -173,7 +173,7 @@ namespace Fanex.Athena.Controllers.Customer
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        public async Task<ActionResult> UpdateOddsGroup(int custId, string oddsGroup)
+        public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var isFakeLicensee = IsFakeLicensee(licenseeId);
@@ -193,7 +193,7 @@ namespace Fanex.Athena.Controllers.Customer
                         OddsGroup = oddsGroup,
                         UserId = userSession.UserId
                     };
-                    var dataResult = await _customerListService.UpdateOddsGroup(metaModel).ConfigureAwait(false);
+                    var dataResult = _customerListService.UpdateOddsGroup(metaModel);
 
                     var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
                                    ViewResources.HttpError_Default : dataResult.Message;
@@ -228,7 +228,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public async Task<ActionResult> UpdateBAStatus(int custId, bool isAllowBA)
+        public ActionResult UpdateBAStatus(int custId, bool isAllowBA)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -255,12 +255,12 @@ namespace Fanex.Athena.Controllers.Customer
                 }
             }
 
-            var updateResult = await _customerListService.UpdateCustomerBAStatus(
+            var updateResult = _customerListService.UpdateCustomerBAStatus(
                 licenseeSession.LicenseeId,
                 custId,
                 userSession.UserId,
                 isAllowBA,
-                request).ConfigureAwait(false);
+                request);
             if (updateResult.IsSuccessful)
             {
                 return CreateUpdatingBaResult(isAllowBA, true, updateResult.Message, updateResult.ExtendedData);

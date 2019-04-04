@@ -10,6 +10,6 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 {
     public interface IAthorizationDataAccess
     {
-        Task<bool> IsCustomerBelonging(int licenseeId, int custId, long transid);
+        bool IsCustomerBelonging(int licenseeId, int custId, long transid);
     }
 }

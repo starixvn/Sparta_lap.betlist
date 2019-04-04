@@ -11,7 +11,7 @@
     public partial class CustomerListServiceTest
     {
         [Test]
-        public async Task UpdateSpecialLevel_HaveNoPermission_ReturnCorrectResultInfo()
+        public void UpdateSpecialLevel_HaveNoPermission_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -25,7 +25,7 @@
             var expectedResult = new ResultInfo { Code = 1, Message = ViewResources.UpdateSpecialLevelMsg };
 
             // Action
-            var result = await _customerListService.UpdateSpecialLevel(licenseeId, userId, custId, level, ip, language);
+            var result = _customerListService.UpdateSpecialLevel(licenseeId, userId, custId, level, ip, language);
 
             // Assert
             Assert.Multiple(() =>
@@ -36,7 +36,7 @@
         }
 
         [Test]
-        public async Task UpdateSpecialLevel_WhenCallWithCorrectPermission_ReturnCorrectResultInfo()
+        public void UpdateSpecialLevel_WhenCallWithCorrectPermission_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -52,7 +52,7 @@
             _customerListDataAccess.UpdateSpecialLevel(userId, custId, level, ip, language).Returns(expectedResult);
 
             // Action
-            var result = await _customerListService.UpdateSpecialLevel(licenseeId, userId, custId, level, ip, language);
+            var result = _customerListService.UpdateSpecialLevel(licenseeId, userId, custId, level, ip, language);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

@@ -55,13 +55,13 @@
         }
 
         [Test]
-        public async Task GetCommission_NotHavePerrmissonOnData_ReturnFailedResult()
+        public void GetCommission_NotHavePerrmissonOnData_ReturnFailedResult()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(false);
 
             // Action
-            var result = await _service.GetCommission(_licenseeId, _custId).ConfigureAwait(false);
+            var result = _service.GetCommission(_licenseeId, _custId);
 
             // Assert
             Assert.Multiple(() =>
@@ -74,7 +74,7 @@
         [TestCase(1, true)]
         [TestCase(0, false)]
         [TestCase(2, false)]
-        public async Task GetCommission_HavePerrmissonOnData_ReturnCorrectResult(int returnStatus, bool isSuccess)
+        public void GetCommission_HavePerrmissonOnData_ReturnCorrectResult(int returnStatus, bool isSuccess)
         {
             // Arrange
             var expectedComm = FakeHelper.Create<double>();
@@ -86,7 +86,7 @@
             });
 
             // Action
-            var result = await _service.GetCommission(_licenseeId, _custId).ConfigureAwait(false);
+            var result = _service.GetCommission(_licenseeId, _custId);
 
             // Assert
             Assert.Multiple(() =>
@@ -98,7 +98,7 @@
         }
 
         [Test]
-        public async Task GetCommission_ApiThrowException_LogAndReturnFailedResult()
+        public void GetCommission_ApiThrowException_LogAndReturnFailedResult()
         {
             // Arrange
             var errorMsg = FakeHelper.Create<string>();
@@ -106,7 +106,7 @@
             _apiClient.getProfile(0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(errorMsg); });
 
             // Action
-            var result = await _service.GetCommission(_licenseeId, _custId).ConfigureAwait(false);
+            var result = _service.GetCommission(_licenseeId, _custId);
 
             // Assert
             Assert.Multiple(() =>

@@ -63,7 +63,7 @@
         }
 
         [Test]
-        public async Task GetCustomerLoginInfo_WhenCallWithCorrectPermission_ReturnCorrectData()
+        public void GetCustomerLoginInfo_WhenCallWithCorrectPermission_ReturnCorrectData()
         {
             // Arrange
             const string LicenseeName = "Name";
@@ -75,14 +75,14 @@
             _customerListDataAccess.GetCustomerLoginInfo(custId, licenseeId, LicenseeName).Returns(expectedResult);
 
             // Action
-            var result = await _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
+            var result = _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public async Task GetCustomerLoginInfo_HaveNoPermission_DataAccessIsNotCalled()
+        public void GetCustomerLoginInfo_HaveNoPermission_DataAccessIsNotCalled()
         {
             // Arrange
             const string LicenseeName = "Name";
@@ -92,7 +92,7 @@
             _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(false);
 
             // Action
-            var result = await _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
+            var result = _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
 
             // Assert
             Assert.Multiple(() =>

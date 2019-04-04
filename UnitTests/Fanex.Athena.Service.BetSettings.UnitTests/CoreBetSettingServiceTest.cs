@@ -41,7 +41,7 @@
         }
 
         [Test]
-        public async Task GetCustomerInfo_WhenCall_ReturnCorrectData()
+        public void GetCustomerInfo_WhenCall_ReturnCorrectData()
         {
             // Arrange
             const int CustId = 3423423;
@@ -49,7 +49,7 @@
             _customerService.GetCustomerInfo(LicenseeId, CustId).Returns(expectedCustomer);
 
             // Action
-            var result = await _coreBetSettingService.GetCustomerInfo(CustId, LicenseeId);
+            var result = _coreBetSettingService.GetCustomerInfo(CustId, LicenseeId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedCustomer));
