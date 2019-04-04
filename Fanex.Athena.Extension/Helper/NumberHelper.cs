@@ -39,7 +39,14 @@ namespace Fanex.Athena.Extension.Helper
 
         public static string PercentageFormat(decimal value, byte digit = 2)
         {
-            return DecFormat(value * 100, digit);
+            return DecFormat(value.ToPercentage(), digit);
+        }
+
+        public static decimal ToPercentage(this decimal value)
+        {
+#pragma warning disable S109 // Magic numbers should not be used
+            return value * 100;
+#pragma warning restore S109 // Magic numbers should not be used
         }
     }
 }

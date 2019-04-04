@@ -31,84 +31,18 @@ namespace Fanex.Athena.Service.Forecast
 
         public async Task<ForecastValue> GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
+            const int HandicapStartOffsetIndex = -2;
             var forecastHandicapTable = await _forecastAhDataAccess.GetForecastHandicap(metaModel, userId).ConfigureAwait(false);
-            var forecastResult = new ForecastValue();
 
-            if (forecastHandicapTable != null && forecastHandicapTable.Rows.Count > 0)
-            {
-                foreach (DataRow row in forecastHandicapTable.Rows)
-                {
-                    forecastResult.ForeCastValue0 =
-                        GetForecastValue(row, metaModel.CurrentScore, -2, forecastResult.ForeCastValue0, metaModel.IsConvert, metaModel.BaseCurrency);
-                    forecastResult.ForeCastValue1 = GetForecastValue(
-                        row,
-                        metaModel.CurrentScore,
-                        -1,
-                        forecastResult.ForeCastValue1,
-                        metaModel.IsConvert,
-                        metaModel.BaseCurrency);
-                    forecastResult.ForeCastValue2 = GetForecastValue(
-                        row,
-                        metaModel.CurrentScore,
-                        0,
-                        forecastResult.ForeCastValue2,
-                        metaModel.IsConvert,
-                        metaModel.BaseCurrency);
-                    forecastResult.ForeCastValue3 = GetForecastValue(
-                        row,
-                        metaModel.CurrentScore,
-                        1,
-                        forecastResult.ForeCastValue3,
-                        metaModel.IsConvert,
-                        metaModel.BaseCurrency);
-                    forecastResult.ForeCastValue4 = GetForecastValue(
-                        row,
-                        metaModel.CurrentScore,
-                        2,
-                        forecastResult.ForeCastValue4,
-                        metaModel.IsConvert,
-                        metaModel.BaseCurrency);
-                }
-
-                forecastResult.HasData = true;
-            }
-            else
-            {
-                forecastResult.HasData = false;
-            }
-
-            return forecastResult;
+            return SetForecastValue(forecastHandicapTable, metaModel, HandicapStartOffsetIndex);
         }
 
         public async Task<ForecastValue> GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
+            const int OverUnderStartOffsetIndex = 0;
             var overUnderTable = await _forecastAhDataAccess.GetForecastOverUnder(metaModel, userId).ConfigureAwait(false);
-            var result = new ForecastValue();
 
-            if (overUnderTable != null && overUnderTable.Rows.Count > 0)
-            {
-                foreach (DataRow row in overUnderTable.Rows)
-                {
-                    result.ForeCastValue0 =
-                        GetForecastValue(row, metaModel.CurrentScore, 0, result.ForeCastValue0, metaModel.IsConvert, metaModel.BaseCurrency);
-                    result.ForeCastValue1 =
-                        GetForecastValue(row, metaModel.CurrentScore, 1, result.ForeCastValue1, metaModel.IsConvert, metaModel.BaseCurrency);
-                    result.ForeCastValue2 =
-                        GetForecastValue(row, metaModel.CurrentScore, 2, result.ForeCastValue2, metaModel.IsConvert, metaModel.BaseCurrency);
-                    result.ForeCastValue3 =
-                        GetForecastValue(row, metaModel.CurrentScore, 3, result.ForeCastValue3, metaModel.IsConvert, metaModel.BaseCurrency);
-                    result.ForeCastValue4 =
-                        GetForecastValue(row, metaModel.CurrentScore, 4, result.ForeCastValue4, metaModel.IsConvert, metaModel.BaseCurrency);
-                }
-
-                result.HasData = true;
-            }
-            else
-            {
-                result.HasData = false;
-            }
-
-            return result;
+            return SetForecastValue(overUnderTable, metaModel, OverUnderStartOffsetIndex);
         }
 
         private static decimal GetForecastValue(
@@ -120,6 +54,7 @@ namespace Fanex.Athena.Service.Forecast
             string baseCurrency)
         {
             const decimal OneHalf = 0.5m;
+
             var alcolumnName = DataHelper.GetCurrencyColumnName("al", isConvert, baseCurrency);
             var hlcolumnName = DataHelper.GetCurrencyColumnName("hl", isConvert, baseCurrency);
             var offset = ConvertToDec(dataRow["offset"].ToString());
@@ -129,7 +64,7 @@ namespace Fanex.Athena.Service.Forecast
             {
                 return forecast;
             }
-
+#pragma warning disable S109 // Magic numbers should not be used
             if (forecastScore > 0 && forecastScore < OneHalf)
             {
                 return forecast + (ConvertToDec(dataRow[alcolumnName].ToString()) / 2);
@@ -142,6 +77,7 @@ namespace Fanex.Athena.Service.Forecast
             {
                 return forecast + (ConvertToDec(dataRow[hlcolumnName].ToString()) / 2);
             }
+#pragma warning restore S109 // Magic numbers should not be used
             else
             {
                 return forecast + ConvertToDec(dataRow[hlcolumnName].ToString());
@@ -156,6 +92,39 @@ namespace Fanex.Athena.Service.Forecast
             }
 
             return Converter.ToDecimal(stringValue);
+        }
+
+        private static ForecastValue SetForecastValue(DataTable foreCastData, ForecastAHMetaModel metaModel, int startOffsetIndex)
+        {
+            var result = new ForecastValue();
+            var offset = startOffsetIndex;
+
+            if (foreCastData != null && foreCastData.Rows.Count > 0)
+            {
+                foreach (DataRow row in foreCastData.Rows)
+                {
+                    result.ForeCastValue0 =
+                        GetForecastValue(row, metaModel.CurrentScore, offset, result.ForeCastValue0, metaModel.IsConvert, metaModel.BaseCurrency);
+                    result.ForeCastValue1 =
+                        GetForecastValue(row, metaModel.CurrentScore, ++offset, result.ForeCastValue1, metaModel.IsConvert, metaModel.BaseCurrency);
+                    result.ForeCastValue2 =
+                        GetForecastValue(row, metaModel.CurrentScore, ++offset, result.ForeCastValue2, metaModel.IsConvert, metaModel.BaseCurrency);
+                    result.ForeCastValue3 =
+                        GetForecastValue(row, metaModel.CurrentScore, ++offset, result.ForeCastValue3, metaModel.IsConvert, metaModel.BaseCurrency);
+                    result.ForeCastValue4 =
+                        GetForecastValue(row, metaModel.CurrentScore, ++offset, result.ForeCastValue4, metaModel.IsConvert, metaModel.BaseCurrency);
+
+                    offset = startOffsetIndex;
+                }
+
+                result.HasData = true;
+            }
+            else
+            {
+                result.HasData = false;
+            }
+
+            return result;
         }
     }
 }

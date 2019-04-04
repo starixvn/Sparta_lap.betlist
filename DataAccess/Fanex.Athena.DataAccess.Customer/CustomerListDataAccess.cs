@@ -209,7 +209,7 @@
                     };
 
                     var unClosedStatus = customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
-                    customer.Status = customer.IsClosed ? ViewResources.Close : unClosedStatus;
+                    customer.Status = customer.IsClosed ? ViewResources.Closed : unClosedStatus;
  
                     dataList.Add(customer);
                 }

@@ -60,7 +60,9 @@ namespace Fanex.Athena.DataAccess.Forecast
             forecast.OffsetHdpMinus1 = offsetHdp - 1;
             forecast.OffsetHdp = offsetHdp;
             forecast.OffsetHdpPlus1 = offsetHdp + 1;
+#pragma warning disable S109 // Magic numbers should not be used
             forecast.OffsetOuPlus2 = offsetOu + 2;
+#pragma warning restore S109 // Magic numbers should not be used
             forecast.OffsetOuPlus1 = offsetOu + 1;
             forecast.OffsetOu = offsetOu;
         }

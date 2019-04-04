@@ -27,12 +27,14 @@ namespace Fanex.Athena.Excel.Report
 
     public class MatchWinLossExcel : ReportBase
     {
+        private const int ColumnMatch = 1;
         private const int ColumnCustomerWl = 4;
         private const int ColumnCustomerComm = 5;
         private const int ColumnCustomerTotal = 6;
         private const int ColumnBaCommission = 8;
         private const int ColumnAmtDueToBa = 9;
         private const int ColumnTemplateCount = 10;
+        private const int ColumnNumbericDataStartIndex = 2;
 
         private const int RowTableHeaderTemplate = 1;
         private const int RowMatchTemplate = 3;
@@ -302,8 +304,8 @@ namespace Fanex.Athena.Excel.Report
 
             // Assign match data
             var matchRow = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
-            matchRow.Cells[0].SetCellValue(currentIndex);
-            matchRow.Cells[1].SetCellValue(matchName);
+            matchRow.Cells[ColumnIndex].SetCellValue(currentIndex);
+            matchRow.Cells[ColumnMatch].SetCellValue(matchName);
 
             // Calculate match win loss
             for (int i = 0; i < columnNameList.Count; i++)
@@ -316,13 +318,14 @@ namespace Fanex.Athena.Excel.Report
                     columnValue += Converter.ToDecimal(matchWinloss[columnName]);
                 }
 
-                matchRow.Cells[i + 2].SetCellValue(columnValue);
+                matchRow.Cells[i + ColumnNumbericDataStartIndex].SetCellValue(columnValue);
             }
 
             currentRow++;
             if (matchName.Contains('\n'))
             {
-                matchRow.Height = (short)(matchRow.Height * 2);
+                const short MatchRowLine = 2;
+                matchRow.Height = (short)(matchRow.Height * MatchRowLine);
             }
 
             // Assign bettype
@@ -335,7 +338,7 @@ namespace Fanex.Athena.Excel.Report
                 var betTypeName = "         " + _cacheRefAdapter.GetBettype(betType, liveIndicator);
 
                 betTypeRow.Cells[1].SetCellValue(betTypeName);
-                ExcelHelper.AssignRowContent(betTypeRow, matchWinloss, columnNameList, 2);
+                ExcelHelper.AssignRowContent(betTypeRow, matchWinloss, columnNameList, ColumnNumbericDataStartIndex);
                 currentRow++;
             }
 
@@ -369,7 +372,7 @@ namespace Fanex.Athena.Excel.Report
                     _cacheRefAdapter.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
-                ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
+                ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, ColumnNumbericDataStartIndex);
                 sheet.MergeCols(0, 1, currentRowIndex);
                 currentRowIndex++;
             }

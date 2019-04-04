@@ -15,6 +15,8 @@
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class NotificationApiController : ApiController
     {
+        private const int DefaultPageSize = 10;
+
         private readonly IMoveBetService _moveBetService;
         private readonly ILicenseeSettingService _licenseeSettingService;
 
@@ -63,7 +65,7 @@
             metaModel.IsOnlyUnread = true;
             metaModel.FromDate = new DateTime(today.Year, today.Month, 1).AddMonths(-maximumMonthDistance);
             metaModel.ToDate = today.AddDays(1).AddMilliseconds(-1);
-            metaModel.PageSize = 10;
+            metaModel.PageSize = DefaultPageSize;
             metaModel.PageIndex = 1;
             metaModel.UserName = UserName;
             metaModel.LicenseeName = SiteName;

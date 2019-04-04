@@ -110,7 +110,7 @@ namespace Fanex.Athena.Excel.Report
 
                 var rowSpan = CalculateReportRowSpan(dataItem);
 
-                if (currentRow == 2 || endRowSpan < currentRow)
+                if (endRowSpan < currentRow)
                 {
                     endRowSpan = currentRow + rowSpan - 1;
 

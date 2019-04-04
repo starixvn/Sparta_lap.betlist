@@ -383,10 +383,13 @@ namespace Fanex.Athena.Controllers
 
         private FileContentResult CreateCaptcha(string code, int height = 25)
         {
+            const int CharacterWidth = 12;
+            const int MinPointX = 2;
+
             var brushColor = Color.Black;
             var backgroundColor = Color.LightGray;
 
-            var iwidth = (code.Length * 12) + 10;
+            var iwidth = (code.Length * CharacterWidth) + 10;
             using (var mem = new MemoryStream())
             using (var bmp = new Bitmap(iwidth, height))
             using (var gfx = Graphics.FromImage((Image)bmp))
@@ -399,9 +402,11 @@ namespace Fanex.Athena.Controllers
                 Brush b = new SolidBrush(brushColor);
                 gfx.Clear(backgroundColor);
 
-                gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
+                gfx.DrawString(code, f, b, random.Next(MinPointX, CharacterWidth), random.Next(-1, 1));
 
-                for (int i = 0; i < 50; i++)
+                const int NoisePoint = 50;
+
+                for (int i = 0; i < NoisePoint; i++)
                 {
                     int x = random.Next(iwidth);
                     int y = random.Next(height);

@@ -6,6 +6,8 @@
 
     public class BaseBettingTicketMetaModel
     {
+        private const int DefaultPageSize = 50;
+
         private string _baseCurrency = string.Empty;
 
         private string _userName;
@@ -13,7 +15,7 @@
         public BaseBettingTicketMetaModel()
         {
             PageIndex = 1;
-            PageSize = 50;
+            PageSize = DefaultPageSize;
         }
 
         public string CurrencyIdList { get; set; }

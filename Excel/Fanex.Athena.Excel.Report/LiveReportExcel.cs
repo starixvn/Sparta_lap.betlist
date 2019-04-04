@@ -44,6 +44,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowSummaryHeaderTemplate = 1;
         private const int RowTotalSummaryTemplate = 6;
         private const int SummarySectionRowIndex = RowSummaryHeaderTemplate;
+        private const int SeparateSectionEmptyRow = 2;
 
         private readonly LiveReportDetailViewModel _liveReportDetailList;
         private readonly IList<LiveReport> _liveReportList;
@@ -71,7 +72,8 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignHeader(ISheet sheet)
         {
             // Summary
-            AssignCommonHeader(sheet, ViewResources.Summary, ViewResources.Product, RowSummaryHeaderTemplate, RowSummaryHeaderTemplate);
+            const int RowIndex = RowSummaryHeaderTemplate;
+            AssignCommonHeader(sheet, ViewResources.Summary, ViewResources.Product, RowSummaryHeaderTemplate, RowIndex);
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)
@@ -105,24 +107,23 @@ namespace Fanex.Athena.Excel.Report
             }
 
             var currentRow = AssignTotalSummary(sheet);
-            const int SeparateEmptyRow = 2;
 
             if (_liveReportDetailList.BySports != null)
             {
                 // 2 rows empty
-                currentRow = AssignBySportsTypeData(sheet, currentRow + SeparateEmptyRow);
+                currentRow = AssignBySportsTypeData(sheet, currentRow + SeparateSectionEmptyRow);
             }
 
             if (_liveReportDetailList.ByCurrencies != null)
             {
                 // 2 rows empty
-                currentRow = AssignByCurrencyData(sheet, currentRow + SeparateEmptyRow);
+                currentRow = AssignByCurrencyData(sheet, currentRow + SeparateSectionEmptyRow);
             }
 
             if (_liveReportDetailList.ByBetType != null)
             {
                 // 2 rows empty
-                AssignByBetTypeData(sheet, currentRow + SeparateEmptyRow);
+                AssignByBetTypeData(sheet, currentRow + SeparateSectionEmptyRow);
             }
         }
 
@@ -216,7 +217,7 @@ namespace Fanex.Athena.Excel.Report
 
             var rowIndex = currentRow;
             AssignCommonHeader(sheet, ViewResources.ByBetType, ViewResources.BetType, RowByBetTypeHeaderTemplate, rowIndex);
-            rowIndex += 3;
+            rowIndex += SeparateSectionEmptyRow + 1;
 
             if (!ShowingOption.CustomerCommVisible)
             {
@@ -257,7 +258,7 @@ namespace Fanex.Athena.Excel.Report
             if (liveReportSportList.Any())
             {
                 AssignCommonHeader(sheet, ViewResources.ByCurrency, ViewResources.Currency, RowByCurrencyHeaderTemplate, rowIndex);
-                rowIndex += 3;
+                rowIndex += SeparateSectionEmptyRow + 1;
 
                 if (!ShowingOption.CustomerCommVisible)
                 {
@@ -289,7 +290,7 @@ namespace Fanex.Athena.Excel.Report
             if (liveReportSportList.Any())
             {
                 AssignCommonHeader(sheet, ViewResources.BySportsType, ViewResources.Sport, RowBySportsTypeHeaderTemplate, rowIndex);
-                rowIndex += 3;
+                rowIndex += SeparateSectionEmptyRow + 1;
 
                 if (!ShowingOption.CustomerCommVisible)
                 {

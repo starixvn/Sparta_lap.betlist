@@ -15,6 +15,8 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
     public class BaseReportMetaModel : BaseMetaModel
     {
+        protected const int DefaultPageSize = 1000;
+
         public BaseReportMetaModel()
         {
             ProductOptions = new List<ProductOption>();

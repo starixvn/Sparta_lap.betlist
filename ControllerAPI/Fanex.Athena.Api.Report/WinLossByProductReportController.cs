@@ -139,12 +139,15 @@ namespace Fanex.Athena.Api.Report
 
         private static string GetErrorMessage(int code)
         {
+            const int NoCustomerFoundErrorCode = 100;
+            const int MoreThanOneCustomerFoundErrorCode = 101;
+
             switch (code)
             {
-                case 100:
+                case NoCustomerFoundErrorCode:
                     return ViewResources.NoCustomerFoundMsg;
 
-                case 101:
+                case MoreThanOneCustomerFoundErrorCode:
                     return ViewResources.MoreThanOneCustomerFoundMsg;
 
                 default:
@@ -227,7 +230,7 @@ namespace Fanex.Athena.Api.Report
             {
                 return await _winlossByProductDataAccess.GetWinlossByProducts(metaModel, userCurrencyList).ConfigureAwait(false);
             }
-            else if (SessionService.LicenseeSession.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2)
+            else if (SessionService.LicenseeSession.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == (int)ReportLevel.Customer)
             {
                 return await _winlossByProductDataAccess.GetWinlossByProductCustomers(metaModel, userCurrencyList).ConfigureAwait(false);
             }

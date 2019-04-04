@@ -48,11 +48,12 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private static IList<string> RenderForecastLink(int betType, int currentScore)
         {
+            const int MaxLink = 10;
             var forecastLink = new List<string>();
             var endIndex = 0;
 
             var startIndex = ((currentScore < 0 && IsOverUnder(betType)) ? 0 : currentScore) + 5;
-            endIndex = startIndex - 10;
+            endIndex = startIndex - MaxLink;
 
             if (endIndex < 0 && IsOverUnder(betType))
             {
@@ -71,7 +72,8 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             var forecastHeader = new List<int>();
             var isHandicap = betType == (int)BetType.Handicap || betType == (int)BetType.FirstHalfHandicap;
-            var startIndex = isHandicap ? currentScore + 2 : ((currentScore < 0 && IsOverUnder(betType)) ? 0 : currentScore) + 4;
+            var startIndexOfOverUnder = ((currentScore < 0 && IsOverUnder(betType)) ? 0 : currentScore) + 4;
+            var startIndex = isHandicap ? currentScore + 2 : startIndexOfOverUnder;
 
             var endIndex = startIndex - 4;
 

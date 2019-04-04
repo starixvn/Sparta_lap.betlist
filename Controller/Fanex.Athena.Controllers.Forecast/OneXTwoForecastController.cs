@@ -60,7 +60,9 @@ namespace Fanex.Athena.Controllers.Forecast
             return await ProcessAction(metaModel).ConfigureAwait(false);
         }
 
+#pragma warning disable S4144 // Methods should not have identical implementations
         public async Task<ActionResult> Popup(ForecastOneXTwoMetaModel metaModel)
+#pragma warning restore S4144 // Methods should not have identical implementations
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 

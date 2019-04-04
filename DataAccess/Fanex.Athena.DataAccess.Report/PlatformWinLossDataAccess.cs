@@ -119,13 +119,14 @@ namespace Fanex.Athena.DataAccess.Report
                 dataList.Add(child);
                 AddTotalData(totalData, child);
             }
-
+#pragma warning disable S109 // Magic numbers should not be used
             totalData.TurnoverPercent = totalData.Turnover > 0 ? 100 : 0;
+#pragma warning restore S109 // Magic numbers should not be used
             if (totalData.Turnover > 0)
             {
                 foreach (var item in dataList)
                 {
-                    item.TurnoverPercent = item.Turnover / totalData.Turnover * 100;
+                    item.TurnoverPercent = (item.Turnover / totalData.Turnover).ToPercentage();
                 }
             }
 

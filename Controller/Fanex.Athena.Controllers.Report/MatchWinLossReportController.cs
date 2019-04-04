@@ -254,15 +254,17 @@
 
         private static int GetColumnCount(ProductAccess productAccess, bool isAllowedCustomerComm)
         {
+            const int AdditionColumns = 2;
             var columnCount = 6;
+
             if (productAccess.IsAllowBA)
             {
-                columnCount += 2;
+                columnCount += AdditionColumns;
             }
 
             if (isAllowedCustomerComm)
             {
-                columnCount += 2;
+                columnCount += AdditionColumns;
             }
 
             return columnCount;

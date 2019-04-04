@@ -14,7 +14,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public CustomerPendingFundsMetaModel()
         {
             PageIndex = 1;
-            PageSize = 1000;
+            PageSize = DefaultPageSize;
             OrderItem = 0;
             IsAscSort = true;
         }

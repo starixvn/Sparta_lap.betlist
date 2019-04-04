@@ -21,6 +21,8 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportCancelledBets)]
     public class CancelledBetsBetListController : ApiBetListBaseController
     {
+        private const int BetType = 13;
+
         public CancelledBetsBetListController(
             ISessionService sessionService,
             IProductService productService,
@@ -41,7 +43,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             const string UspKey = "Lrf_BetList_SelDeleted";
-            metaModel.BetType = 13;
+            metaModel.BetType = BetType;
 
             return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
         }

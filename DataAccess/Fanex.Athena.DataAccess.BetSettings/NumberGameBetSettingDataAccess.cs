@@ -68,14 +68,12 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         private IList<BetSetting> RenderNumberGameBetSetting(IDataReader reader)
         {
-            if (reader.FieldCount == 0)
-            {
-                return null;
-            }
-
             var numberGameList = new List<BetSetting>();
 
-            numberGameList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.NumberGame).ToString(), true));
+            if (reader.FieldCount != 0)
+            {
+                numberGameList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.NumberGame).ToString(), true));
+            }
 
             return numberGameList;
         }

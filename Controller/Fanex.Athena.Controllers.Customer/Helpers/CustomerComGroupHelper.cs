@@ -53,6 +53,7 @@ namespace Fanex.Athena.Controllers.Customer.Helpers
             return ViewResources.ResourceManager.GetString(CreatingErrorMap[errorCode]);
         }
 
+#pragma warning disable S109 // Magic numbers should not be used
         public static int SetComm(decimal comm, int position)
         {
             var actualComm = comm * 10000;
@@ -99,6 +100,7 @@ namespace Fanex.Athena.Controllers.Customer.Helpers
             model.CSComm2 = SetComm(decCsComm, 2);
             model.CSComm3 = SetComm(decCsComm, 3);
         }
+#pragma warning restore S109 // Magic numbers should not be used
 
         public static void UpdateMetaModelAfterProcessSuccessfully(GroupCommMetaModel metaModel)
         {

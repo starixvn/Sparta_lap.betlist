@@ -196,21 +196,26 @@ namespace Fanex.Athena.DataAccess.Report
 
         protected internal virtual string GetProductNameBySport(string sportType)
         {
+            // 101 -> 104: const from SP to separate names for special bettypes
+            const int MixParlaySportType = 101;
+            const int CombinationMixParlaySportType = 102;
+            const int OutrightSportType = 103;
+            const int VirtualSports2MixParlaySportType = 104;
+
             var sportId = string.IsNullOrEmpty(sportType) ? 0 : Convert.ToInt32(sportType);
 
-            // 101 -> 104: const from SP to separate names for special bettypes
             switch (sportId)
             {
-                case 101:
+                case MixParlaySportType:
                     return _cacheRefAdapter.GetBettype((int)BetType.MixParlay);
 
-                case 102:
+                case CombinationMixParlaySportType:
                     return _cacheRefAdapter.GetBettype((int)BetType.CombinationMixParlay);
 
-                case 103:
+                case OutrightSportType:
                     return _cacheRefAdapter.GetBettype((int)BetType.Outright);
 
-                case 104:
+                case VirtualSports2MixParlaySportType:
                     return _cacheRefAdapter.GetBettypeWithProductName((int)BetType.VirtualSports2MixParlay);
 
                 default:
