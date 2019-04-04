@@ -26,18 +26,18 @@ namespace Fanex.Athena.Service.Core.Users
             _authenticationDataAccess = authenticationDataAccess;
         }
 
-        public async Task<int> LoginOnUserAsync(User requestUser, string netSessionId, int serverId, string ip)
+        public int LoginOnUser(User requestUser, string netSessionId, int serverId, string ip)
         {
             requestUser.Request = new Request { Ip = ip };
-            return await this._authenticationDataAccess.LoginOnUserAsync(requestUser, netSessionId, serverId).ConfigureAwait(false);
+            return this._authenticationDataAccess.LoginOnUser(requestUser, netSessionId, serverId);
         }
 
-        public async Task LogoutAsync(int onuserId)
+        public void Logout(int onuserId)
         {
-            await this._authenticationDataAccess.LogoutAsync(onuserId).ConfigureAwait(false);
+            this._authenticationDataAccess.Logout(onuserId);
         }
 
-        public async Task<IResultInfo<User>> ValidateUserForLrfAsync(User requestUser, string loginToken)
+        public IResultInfo<User> ValidateUserForLrf(User requestUser, string loginToken)
         {
             var user = _userDataAccess.GetByUsername(requestUser.Username, isInternal: false);
 
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Service.Core.Users
                 return new ResultInfo<User> { Code = WrongUserNameOrPasswordError, Message = ViewResources.WrongUserNamePassword };
             }
 
-            return await _authenticationDataAccess.ValidateUserForLrfAsync(requestUser).ConfigureAwait(false);
+            return _authenticationDataAccess.ValidateUserForLrf(requestUser);
         }
     }
 }

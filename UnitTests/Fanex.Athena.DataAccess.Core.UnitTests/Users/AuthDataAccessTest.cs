@@ -13,7 +13,7 @@
     public class AuthDataAccessTest : BaseDataAccessHelperTest<AuthDataAccess>
     {
         [Test]
-        public async Task LoginOnUser_WhenCall_ParametersPassedCorrectly()
+        public void LoginOnUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CheckIn")).Returns(ObjectDb);
@@ -23,7 +23,7 @@
             const int ServerId = 2;
 
             // Action
-            await DataAccess.LoginOnUserAsync(requestUser, NetSessionId, ServerId);
+            DataAccess.LoginOnUser(requestUser, NetSessionId, ServerId);
 
             // Assert
             Assert.Multiple(() =>
@@ -37,7 +37,7 @@
         }
 
         [Test]
-        public async Task LoginOnUser_WhenCall_DataReturnedCorrectly()
+        public void LoginOnUser_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CheckIn")).Returns(ObjectDb);
@@ -50,35 +50,35 @@
             ObjectDb.GetParameterValue("On_UserID").Returns(ExpectedOnUserID);
 
             // Action
-            var result = await DataAccess.LoginOnUserAsync(requestUser, NetSessionId, ServerId);
+            var result = DataAccess.LoginOnUser(requestUser, NetSessionId, ServerId);
 
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedOnUserID));
         }
 
         [Test]
-        public async Task Logout_WhenCall_ExecuteNonQueryMethodIsCalled()
+        public void Logout_WhenCall_ExecuteNonQueryMethodIsCalled()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_UserLogout")).Returns(ObjectDb);
             const int UserId = 1;
 
             // Action
-            await DataAccess.LogoutAsync(UserId);
+            DataAccess.Logout(UserId);
 
             // Assert
-            await ObjectDb.ReceivedWithAnyArgs(1).ExecuteNonQueryAsync();
+            ObjectDb.ReceivedWithAnyArgs(1).ExecuteNonQuery();
         }
 
         [Test]
-        public async Task ValidateUserForLrfSystem_WhenCall_ParametersPassedCorrectly()
+        public void ValidateUserForLrfSystem_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_UserLogin")).Returns(ObjectDb);
             var requestUser = GetFakeRequestUserData();
 
             // Action
-            await DataAccess.ValidateUserForLrfAsync(requestUser);
+            DataAccess.ValidateUserForLrf(requestUser);
 
             // Assert
             Assert.Multiple(() =>
@@ -89,7 +89,7 @@
         }
 
         [Test]
-        public async Task ValidateUserForLrfSystem_WhenCall_DataReturnedCorrectly()
+        public void ValidateUserForLrfSystem_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_UserLogin")).Returns(ObjectDb);
@@ -100,7 +100,7 @@
             ConfigureDataReader(expected);
 
             // Action
-            var result = await DataAccess.ValidateUserForLrfAsync(requestUser).ConfigureAwait(false);
+            var result = DataAccess.ValidateUserForLrf(requestUser);
             var user = result.ExtendedData;
 
             // Assert

@@ -6,10 +6,10 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 {
     public interface IAuthDataAccess
     {
-        Task<int> LoginOnUserAsync(User requestUser, string netSessionId, int serverId);
+        int LoginOnUser(User requestUser, string netSessionId, int serverId);
 
-        Task LogoutAsync(int userId);
+        void Logout(int userId);
 
-        Task<IResultInfo<User>> ValidateUserForLrfAsync(User requestUser);
+        IResultInfo<User> ValidateUserForLrf(User requestUser);
     }
 }

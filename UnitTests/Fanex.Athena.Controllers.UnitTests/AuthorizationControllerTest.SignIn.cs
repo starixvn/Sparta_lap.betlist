@@ -69,7 +69,7 @@
         }
 
         [Test]
-        public async Task SignIn_WhenPost_InvalidCaptcha_ReturnSignInViewWithError()
+        public void SignIn_WhenPost_InvalidCaptcha_ReturnSignInViewWithError()
         {
             using (var controller = CreateController())
             {
@@ -78,7 +78,7 @@
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
                 // Action
-                var result = await controller.SignIn(new LoginMetalModel
+                var result = controller.SignIn(new LoginMetalModel
                 {
                     UserName = "anything",
                     PassWord = "anything",
@@ -96,7 +96,7 @@
         }
 
         [Test]
-        public async Task SignIn_WhenPost_UserNameIsEmpty_ReturnSignInViewWithError()
+        public void SignIn_WhenPost_UserNameIsEmpty_ReturnSignInViewWithError()
         {
             using (var controller = CreateController())
             {
@@ -105,7 +105,7 @@
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
                 // Action
-                var result = await controller.SignIn(new LoginMetalModel
+                var result = controller.SignIn(new LoginMetalModel
                 {
                     UserName = string.Empty
                 }) as ViewResult;
@@ -120,7 +120,7 @@
         }
 
         [Test]
-        public async Task SignIn_WhenPost_PassWordIsEmpty_ReturnSignInViewWithError()
+        public void SignIn_WhenPost_PassWordIsEmpty_ReturnSignInViewWithError()
         {
             using (var controller = CreateController())
             {
@@ -129,7 +129,7 @@
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
                 // Action
-                var result = await controller.SignIn(new LoginMetalModel
+                var result = controller.SignIn(new LoginMetalModel
                 {
                     UserName = "User name",
                     PassWord = string.Empty
@@ -145,7 +145,7 @@
         }
 
         [Test]
-        public async Task SignIn_WhenPost_LoginFail_ReturnSignInViewWithError()
+        public void SignIn_WhenPost_LoginFail_ReturnSignInViewWithError()
         {
             using (var controller = CreateController())
             {
@@ -153,7 +153,7 @@
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "1");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
-                _authService.ValidateUserForLrfAsync(Arg.Any<User>(), Arg.Any<string>())
+                _authService.ValidateUserForLrf(Arg.Any<User>(), Arg.Any<string>())
                     .Returns(new ResultInfo<User>
                     {
                         Code = 999,
@@ -161,7 +161,7 @@
                     });
 
                 // Action
-                var result = await controller.SignIn(new LoginMetalModel
+                var result = controller.SignIn(new LoginMetalModel
                 {
                     UserName = "xxx",
                     PassWord = "xxx"
@@ -177,7 +177,7 @@
         }
 
         [Test]
-        public async Task SignIn_WhenPost_LoginWithSecretCaptcha_Successfully()
+        public void SignIn_WhenPost_LoginWithSecretCaptcha_Successfully()
         {
             using (var controller = CreateController())
             {
@@ -187,7 +187,7 @@
                 StubGetValueAppSettings("SecretCaptcha", "SecretCaptcha");
                 StubGetValueAppSettings("CompanyIP", controller.ControllerContext.HttpContext.Request.UserHostAddress);
 
-                _authService.ValidateUserForLrfAsync(Arg.Any<User>(), Arg.Any<string>())
+                _authService.ValidateUserForLrf(Arg.Any<User>(), Arg.Any<string>())
                     .Returns(new ResultInfo<User>
                     {
                         Code = 0,
@@ -200,7 +200,7 @@
                     });
 
                 // Action
-                var result = await controller.SignIn(new LoginMetalModel
+                var result = controller.SignIn(new LoginMetalModel
                 {
                     UserName = "xxx",
                     PassWord = "xxx",
@@ -217,7 +217,7 @@
         }
 
         [Test]
-        public async Task SignIn_WhenPost_AdminUser_RedirectToLicenseeList()
+        public void SignIn_WhenPost_AdminUser_RedirectToLicenseeList()
         {
             using (var controller = CreateController())
             {
@@ -225,7 +225,7 @@
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "1");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
-                _authService.ValidateUserForLrfAsync(Arg.Any<User>(), Arg.Any<string>())
+                _authService.ValidateUserForLrf(Arg.Any<User>(), Arg.Any<string>())
                     .Returns(new ResultInfo<User>
                     {
                         Code = 0,
@@ -238,7 +238,7 @@
                     });
 
                 // Action
-                var result = await controller.SignIn(new LoginMetalModel
+                var result = controller.SignIn(new LoginMetalModel
                 {
                     UserName = "xxx",
                     PassWord = "xxx"
@@ -254,7 +254,7 @@
         }
 
         [Test]
-        public async Task SignIn_WhenPost_ValidUser_CreateNewSession()
+        public void SignIn_WhenPost_ValidUser_CreateNewSession()
         {
             using (var controller = CreateController())
             {
@@ -262,7 +262,7 @@
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "1");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
-                _authService.ValidateUserForLrfAsync(Arg.Any<User>(), Arg.Any<string>())
+                _authService.ValidateUserForLrf(Arg.Any<User>(), Arg.Any<string>())
                     .Returns(new ResultInfo<User>
                     {
                         Code = 0,
@@ -275,14 +275,14 @@
                     });
 
                 // Action
-                var result = await controller.SignIn(new LoginMetalModel
+                var result = controller.SignIn(new LoginMetalModel
                 {
                     UserName = "xxx",
                     PassWord = "xxx"
                 }) as RedirectToRouteResult;
 
                 // Assert
-                await SessionService.Received(1).CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>());
+                SessionService.Received(1).CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>());
             }
         }
     }

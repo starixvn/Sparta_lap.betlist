@@ -35,7 +35,7 @@
         }
 
         [Test]
-        public async Task LoginOnUser_WhenCall_ReturnDataFromDataAccess()
+        public void LoginOnUser_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var expectedResult = FakeHelper.Create<int>();
@@ -47,10 +47,10 @@
             var serverId = FakeHelper.Create<int>();
             var ip = FakeHelper.Create<string>();
 
-            _authDataAccess.LoginOnUserAsync(Arg.Any<User>(), netSessionId, serverId).Returns(expectedResult);
+            _authDataAccess.LoginOnUser(Arg.Any<User>(), netSessionId, serverId).Returns(expectedResult);
 
             // Action
-            var result = await _authService.LoginOnUserAsync(requestUser, netSessionId, serverId, ip);
+            var result = _authService.LoginOnUser(requestUser, netSessionId, serverId, ip);
 
             // Assert
             Assert.Multiple(() =>
@@ -67,14 +67,14 @@
             var onuserId = FakeHelper.Create<int>();
 
             // Action
-            _authService.LogoutAsync(onuserId);
+            _authService.Logout(onuserId);
 
             // Assert
-            _authDataAccess.Received().LogoutAsync(onuserId);
+            _authDataAccess.Received().Logout(onuserId);
         }
 
         [Test]
-        public async Task ValidateUserForLrfSystem_WhenCall_ReturnResultFromDataAccess()
+        public void ValidateUserForLrfSystem_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
             var outputUser = new User
@@ -96,17 +96,17 @@
                 ExtendedData = outputUser
             };
             _userDataAccess.GetByUsername(inputUser.Username, false, 0).Returns(outputUser);
-            _authDataAccess.ValidateUserForLrfAsync(inputUser).Returns(resultInfo);
+            _authDataAccess.ValidateUserForLrf(inputUser).Returns(resultInfo);
 
             // Action
-            var result = await _authService.ValidateUserForLrfAsync(inputUser, loginToken);
+            var result = _authService.ValidateUserForLrf(inputUser, loginToken);
 
             // Assert
             Assert.That(result.ExtendedData.UserID, Is.EqualTo(outputUser.UserID));
         }
 
         [Test]
-        public async Task ValidateUserForLrfSystem_WhenCallWithWrongPassword_GetCorrectResultInfo()
+        public void ValidateUserForLrfSystem_WhenCallWithWrongPassword_GetCorrectResultInfo()
         {
             // Arrange
             var outputUser = new User
@@ -128,7 +128,7 @@
             var expectedResult = new ResultInfo { Code = 104, Message = ViewResources.WrongUserNamePassword };
 
             // Action
-            var result = await _authService.ValidateUserForLrfAsync(inputUser, loginToken);
+            var result = _authService.ValidateUserForLrf(inputUser, loginToken);
 
             // Assert
             Assert.Multiple(() =>
@@ -139,7 +139,7 @@
         }
 
         [Test]
-        public async Task ValidateUserForLrfSystem_WhenCallWithWrongUserName_GetCorrectResultInfo()
+        public void ValidateUserForLrfSystem_WhenCallWithWrongUserName_GetCorrectResultInfo()
         {
             // Arrange
             User outputUser = null;
@@ -155,7 +155,7 @@
             var expectedResult = new ResultInfo { Code = 100, Message = ViewResources.UserNotExist };
 
             // Action
-            var result = await _authService.ValidateUserForLrfAsync(inputUser, loginToken);
+            var result = _authService.ValidateUserForLrf(inputUser, loginToken);
 
             // Assert
             Assert.Multiple(() =>

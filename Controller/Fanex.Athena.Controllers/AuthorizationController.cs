@@ -93,7 +93,7 @@ namespace Fanex.Athena.Controllers
         [HttpPost]
         [CustomValidateAntiForgery]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public async Task<ActionResult> SignIn(LoginMetalModel model)
+        public ActionResult SignIn(LoginMetalModel model)
         {
             if (string.IsNullOrEmpty(model.UserName))
             {
@@ -117,12 +117,12 @@ namespace Fanex.Athena.Controllers
                     Request = new Request { Ip = Request.UserHostAddress },
                 };
 
-                var resultInfo = await _authService.ValidateUserForLrfAsync(requestUser, model.LogInToken);
+                var resultInfo = _authService.ValidateUserForLrf(requestUser, model.LogInToken);
 
                 if (resultInfo.IsSuccessful)
                 {
                     var user = resultInfo.ExtendedData;
-                    await CreateSession(user);
+                    CreateSession(user);
                     if (user.IsInRole(UserRole.Admin.ToString()))
                     {
                         return RedirectToAction("Index", "LicenseeList");
@@ -331,10 +331,10 @@ namespace Fanex.Athena.Controllers
                  Regex.IsMatch(Request.UserHostAddress, AppSettings.GetValue("CompanyIP"));
         }
 
-        private async Task CreateSession(User user)
+        private void CreateSession(User user)
         {
-            var onuserId = await _authService.LoginOnUserAsync(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
-            await SessionService.CreateNewSession(
+            var onuserId = _authService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
+            SessionService.CreateNewSession(
                 user.UserID,
                 onuserId,
                 user.Username,
@@ -349,7 +349,7 @@ namespace Fanex.Athena.Controllers
             var userSession = SessionService.UserSession;
             if (userSession != null)
             {
-                _authService.LogoutAsync(userSession.OnUserId);
+                _authService.Logout(userSession.OnUserId);
             }
 
             Session.Clear();

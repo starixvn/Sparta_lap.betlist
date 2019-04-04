@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Fanex.Athena.DataAccess.Core.Users.Interfaces;
 using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.DTO.Users;
@@ -11,7 +10,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
 {
     public class AuthDataAccess : BaseDataAccess, IAuthDataAccess
     {
-        public async Task<int> LoginOnUserAsync(User requestUser, string netSessionId, int serverId)
+        public int LoginOnUser(User requestUser, string netSessionId, int serverId)
         {
             const string UspName = "Lrf_CheckIn";
 
@@ -22,24 +21,24 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 db.SetParameterValue("ServerID", serverId);
                 db.SetParameterValue("On_UserID", null);
                 db.SetParameterValue("IP", requestUser.Request.Ip);
-                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
+                db.ExecuteNonQuery();
 
                 return Convert.ToInt32(db.GetParameterValue("On_UserID"));
             }
         }
 
-        public async Task LogoutAsync(int userId)
+        public void Logout(int userId)
         {
             const string UspName = "Lrf_UserLogout";
             var uspParams = new { On_Userid = userId };
 
             using (var db = this.GetObjectDb(UspName))
             {
-                await db.ExecuteNonQueryAsync(uspParams).ConfigureAwait(false);
+                db.ExecuteNonQuery(uspParams);
             }
         }
 
-        public async Task<IResultInfo<User>> ValidateUserForLrfAsync(User requestUser)
+        public IResultInfo<User> ValidateUserForLrf(User requestUser)
         {
             const string UspName = "Lrf_UserLogin";
 
@@ -48,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 AddCommonParameters(requestUser, db);
                 db.SetParameterValue("langkey", requestUser.Request.Language);
 
-                var user = await ReadUser(db).ConfigureAwait(false);
+                var user = ReadUser(db);
                 var resultInfo = GetResult<User>(db);
                 resultInfo.ExtendedData = user;
                 return resultInfo;
@@ -67,10 +66,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
             db.SetParameterValue("ServerID", null);
         }
 
-        private static async Task<User> ReadUser(IObjectDb db)
+        private static User ReadUser(IObjectDb db)
         {
             var user = new User();
-            using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+            using (var reader = db.ExecuteReader())
             {
                 if (reader.Read())
                 {
