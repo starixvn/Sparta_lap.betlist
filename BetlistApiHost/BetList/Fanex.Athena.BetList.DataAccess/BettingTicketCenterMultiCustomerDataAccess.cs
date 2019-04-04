@@ -38,9 +38,9 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                await AddMultiCustomerParameters(db, metaModel).ConfigureAwait(false);
+                AddMultiCustomerParameters(db, metaModel);
 
-                using (var reader = await db.ExecuteReaderAsync())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var count = 0;
                     var ticket = new TicketResult();
@@ -82,7 +82,7 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                await AddMultiCustomerParameters(db, metaModel).ConfigureAwait(false);
+                AddMultiCustomerParameters(db, metaModel);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -107,7 +107,7 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("FromDate", metaModel.FromDate);
                 db.SetParameterValue("ToDate", metaModel.ToDate);
@@ -158,9 +158,9 @@
             ticket.MainTicketList.TrimExcess();
         }
 
-        private async Task AddMultiCustomerParameters(IObjectDb db, MultipleCustomersBetListMetaModel metaModel)
+        private void AddMultiCustomerParameters(IObjectDb db, MultipleCustomersBetListMetaModel metaModel)
         {
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("FromDate", metaModel.FromDate);
             db.SetParameterValue("ToDate", metaModel.ToDate);

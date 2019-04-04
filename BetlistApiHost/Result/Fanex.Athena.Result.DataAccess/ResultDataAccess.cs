@@ -80,7 +80,7 @@ namespace Fanex.Athena.Result.DataAccess
 
             using (var db = this.GetObjectDb(UspName))
             {
-                var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
                 db.SetParameterValue("eventdate", dateValue);
                 db.SetParameterValue("licenseeid", licenseeId);
                 db.SetParameterValue("movebetsday", balanceUp.MoveBetsDay);
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Result.DataAccess
         public async Task<IList<League>> GetLeagues(DateTime dateValue, int sportId)
         {
             const string UspName = "Lrf_Result_LeagueSelByDate";
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             var uspParams = new
             {
                 eventdate = dateValue,
@@ -290,7 +290,7 @@ namespace Fanex.Athena.Result.DataAccess
         public async Task<IList<T>> GetMatches<T>(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelByLeague";
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             var uspParams = new
             {
                 fromdate = metalModel.FromDate,

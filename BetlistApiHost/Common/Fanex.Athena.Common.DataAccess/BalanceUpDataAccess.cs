@@ -22,7 +22,7 @@
             _cache = cache;
         }
 
-        public async Task<BalanceUp> GetBalanceUp()
+        public BalanceUp GetBalanceUp()
         {
             var balanceup = _cache.Get<BalanceUp>(BalanceUpCacheKey);
 
@@ -31,19 +31,19 @@
                 return balanceup;
             }
 
-            balanceup = await GetBalanceUpDayFromDb().ConfigureAwait(false);
+            balanceup = GetBalanceUpDayFromDb();
             _cache.Set(BalanceUpCacheKey, balanceup, CacheTimeoutSeconds);
             return balanceup;
         }
 
-        private async Task<BalanceUp> GetBalanceUpDayFromDb()
+        private BalanceUp GetBalanceUpDayFromDb()
         {
             const string UspName = "Lrf_SelBalanceUpDay";
 
             using (var db = this.GetObjectDb(UspName))
             {
                 var balanceUp = new BalanceUp();
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                using (var reader = db.ExecuteReader())
                 {
                     if (reader.Read())
                     {
