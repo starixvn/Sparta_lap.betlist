@@ -38,7 +38,7 @@ namespace Fanex.Athena.Service.Customer
             var callApiSuccess = true;
             if (result.IsSuccessful && isSyncCSComm && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
-                callApiSuccess = CallApiToUpdateComm(result.ExtendedData, metaModel.CSComm, metaModel.Ip, metaModel.UserId, metaModel.UserName);
+                callApiSuccess = await CallApiToUpdateComm(result.ExtendedData, metaModel.CSComm, metaModel.Ip, metaModel.UserId, metaModel.UserName).ConfigureAwait(false);
             }
 
             return callApiSuccess ? result : new ResultInfo
@@ -72,7 +72,7 @@ namespace Fanex.Athena.Service.Customer
             result = await _customerCommDataAccess.MoveCustomersToGroupAsync(metaModel);
             if (result.IsSuccessful && metaModel.IsAllowedRNG && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
-                callApiSuccess = CallApiToUpdateComm(result.ExtendedData, groupInfo.CSComm, metaModel.Ip, metaModel.UserId, metaModel.UserName);
+                callApiSuccess = await CallApiToUpdateComm(result.ExtendedData, groupInfo.CSComm, metaModel.Ip, metaModel.UserId, metaModel.UserName).ConfigureAwait(false);
             }
 
             return callApiSuccess ? result : new ResultInfo
@@ -88,7 +88,7 @@ namespace Fanex.Athena.Service.Customer
             var callApiSuccess = true;
             if (result.IsSuccessful && metaModel.IsRemovePlayercomm && isAllowedRNGCasino && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
-                callApiSuccess = CallApiToUpdateComm(result.ExtendedData, 0, metaModel.Ip, metaModel.UserId, metaModel.UserName);
+                callApiSuccess = await CallApiToUpdateComm(result.ExtendedData, 0, metaModel.Ip, metaModel.UserId, metaModel.UserName).ConfigureAwait(false);
             }
 
             return callApiSuccess ? result : new ResultInfo
@@ -98,19 +98,19 @@ namespace Fanex.Athena.Service.Customer
             };
         }
 
-        private bool CallApiToUpdateComm(string customerIdList, decimal commission, string ip, int userId, string userName)
+        private async Task<bool> CallApiToUpdateComm(string customerIdList, decimal commission, string ip, int userId, string userName)
         {
             var customerIds = customerIdList.Split(',');
             if (customerIds.Length > 0)
             {
-                return _casinoCustomerService.UpdateCommission(new RNGCasinoUpdateMemberComMetaModel
+                return await _casinoCustomerService.UpdateCommission(new RNGCasinoUpdateMemberComMetaModel
                 {
                     Comm = commission,
                     CustomerId = customerIds,
                     FromIp = ip,
                     ModifyBy = userId,
                     ModifyUserName = userName
-                });
+                }).ConfigureAwait(false);
             }
 
             return true;

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Casino.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using Casino;
     using Casino.Wrappers;
     using Core.Exception;
@@ -109,7 +110,7 @@
         }
 
         [Test]
-        public void UpdateCommission_CallApi_UpdateFail_LogError()
+        public async Task UpdateCommission_CallApi_UpdateFail_LogError()
         {
             // Arrange
             var metaModel = FakeHelper.Create<RNGCasinoUpdateMemberComMetaModel>();
@@ -120,7 +121,7 @@
             var result = _casinoCustomerService.UpdateCommission(metaModel);
 
             // Assert
-            _logger.Received().Error(Arg.Is<string>(x => x.Contains(string.Join(",", metaModel.CustomerId))));
+            await _logger.Received(1).ErrorAsync(Arg.Is<string>(x => x.Contains(string.Join(",", metaModel.CustomerId))));
         }
 
         [Test]

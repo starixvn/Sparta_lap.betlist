@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
@@ -30,7 +31,7 @@
             _logger = Substitute.For<ICoreLogger>();
 
             StubGetValueAppSettings("EnableLogForOneAuthorization", "0");
-            _logger.When(x => x.Error(Arg.Any<string>())).Do(x => _loggerCounnter++);
+            _logger.When(x => x.ErrorAsync(Arg.Any<string>())).Do(x => _loggerCounnter++);
             _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
         }
 
@@ -43,7 +44,7 @@
         }
 
         [Test]
-        public void CreateSession_UnderMaintenanceState_RedirectToUMPage()
+        public async Task CreateSession_UnderMaintenanceState_RedirectToUMPage()
         {
             using (var controller = CreateController())
             {
@@ -53,7 +54,7 @@
                 const string ExpectedUrl = "/Utility/UnderMaintenance?notReload=true";
 
                 // Action
-                var result = controller.CreateSession(string.Empty);
+                var result = await controller.CreateSession(string.Empty);
 
                 // Assert
                 StringAssert.Contains(ExpectedUrl, result.Url);
@@ -63,7 +64,7 @@
         [TestCase("")]
         [TestCase(null)]
         [TestCase("   ")]
-        public void CreateSession_InvalidToken_ReturnTokenRestrictionPage(string token)
+        public async Task CreateSession_InvalidToken_ReturnTokenRestrictionPage(string token)
         {
             using (var controller = CreateController())
             {
@@ -71,7 +72,7 @@
                 var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.TokenIsInValid;
 
                 // Action
-                var result = controller.CreateSession(token);
+                var result = await controller.CreateSession(token);
 
                 // Assert
                 StringAssert.Contains(expectedUrl, result.Url);
@@ -79,7 +80,7 @@
         }
 
         [TestCase("ghskhgk9863096804396oisoie")]
-        public void CreateSession_TokenInfoIsNull_ReturnTokenRestrictionPage(string token)
+        public async Task CreateSession_TokenInfoIsNull_ReturnTokenRestrictionPage(string token)
         {
             using (var controller = CreateController())
             {
@@ -88,7 +89,7 @@
                 _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
 
                 // Action
-                var result = controller.CreateSession(token);
+                var result = await controller.CreateSession(token);
 
                 // Assert
                 StringAssert.Contains(expectedUrl, result.Url);
@@ -96,7 +97,7 @@
         }
 
         [TestCase("test")]
-        public void CreateSession_InvalidTokenInfo_ReturnTokenRestrictionPage(string token)
+        public async Task CreateSession_InvalidTokenInfo_ReturnTokenRestrictionPage(string token)
         {
             using (var controller = CreateController())
             {
@@ -105,7 +106,7 @@
                 _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => new OneAuthToken { UserSEQ = 0 });
 
                 // Action
-                var result = controller.CreateSession(token);
+                var result = await controller.CreateSession(token);
 
                 // Assert
                 StringAssert.Contains(expectedUrl, result.Url);
@@ -130,7 +131,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _logger.DidNotReceive().Error(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
+                    _logger.DidNotReceive().ErrorAsync(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
                     Assert.That(_loggerCounnter, Is.EqualTo(0));
                 });
             }
@@ -163,14 +164,14 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(expectedMsg)));
+                    _logger.Received(1).ErrorAsync(Arg.Is<string>(x => x.Contains(expectedMsg)));
                     Assert.That(_loggerCounnter, Is.EqualTo(1));
                 });
             }
         }
 
         [Test]
-        public void CreateSession_AuthenticatedTokenButWrongDomain_RedirectToRestrictionPage()
+        public async Task CreateSession_AuthenticatedTokenButWrongDomain_RedirectToRestrictionPage()
         {
             using (var controller = CreateController())
             {
@@ -193,7 +194,7 @@
                 var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
 
                 // Action
-                var result = controller.CreateSession(Token);
+                var result = await controller.CreateSession(Token);
 
                 // Assert
                 StringAssert.Contains(expectedUrl, result.Url);
@@ -201,7 +202,7 @@
         }
 
         [TestCase("spondemo", "hLicenseeWinLossReport")]
-        public void CreateSession_Authenticated_RedirectToActionLink(string siteName, string actionLink)
+        public async Task CreateSession_Authenticated_RedirectToActionLink(string siteName, string actionLink)
         {
             using (var controller = CreateController())
             {
@@ -226,7 +227,7 @@
                 controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
 
                 // Action
-                var result = controller.CreateSession(Token);
+                var result = await controller.CreateSession(Token);
 
                 // Assert
                 StringAssert.Contains(actionLink, result.Url);
@@ -234,7 +235,7 @@
         }
 
         [TestCase(500)]
-        public void CreateSession_NotAuthenticated_RedirectToRestrictionPageWithErrorCode(int expectedErrorCode)
+        public async Task CreateSession_NotAuthenticated_RedirectToRestrictionPageWithErrorCode(int expectedErrorCode)
         {
             using (var controller = CreateController())
             {
@@ -262,7 +263,7 @@
                 var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedErrorCode.ToString();
 
                 // Action
-                var result = controller.CreateSession(Token);
+                var result = await controller.CreateSession(Token);
 
                 // Assert
                 StringAssert.Contains(expectedUrl, result.Url);

@@ -58,7 +58,7 @@
         {
             if (string.IsNullOrEmpty(userId) || !SessionService.UserSession.UserId.ToString().Equals(userId))
             {
-                _logger.Error("Keno Result page just submited invalid userId");
+                await _logger.ErrorAsync("Keno Result page just submited invalid userId").ConfigureAwait(false);
 
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
@@ -73,7 +73,7 @@
 
             if (result.ErrorCode > 0)
             {
-                _logger.Error("Keno Session: " + result.ErrorMsg);
+                await _logger.ErrorAsync("Keno Session: " + result.ErrorMsg).ConfigureAwait(false);
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 

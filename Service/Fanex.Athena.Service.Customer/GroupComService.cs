@@ -69,7 +69,7 @@ namespace Fanex.Athena.Service.Customer
                         ModifyBy = user.UserId,
                         ModifyUserName = user.UserName
                     };
-                    callApiSuccess = _casinoCustomerService.UpdateCommission(apiCasinoMetalModel);
+                    callApiSuccess = await _casinoCustomerService.UpdateCommission(apiCasinoMetalModel);
                 }
             }
 
@@ -99,14 +99,14 @@ namespace Fanex.Athena.Service.Customer
                 var custtomerList = resultInfo.ExtendedData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (custtomerList.Length > 0)
                 {
-                    callApiSuccess = _casinoCustomerService.UpdateCommission(new RNGCasinoUpdateMemberComMetaModel
+                    callApiSuccess = await _casinoCustomerService.UpdateCommission(new RNGCasinoUpdateMemberComMetaModel
                     {
                         Comm = 0,
                         CustomerId = custtomerList,
                         FromIp = model.Ip,
                         ModifyBy = model.UserId,
                         ModifyUserName = model.UserName
-                    });
+                    }).ConfigureAwait(false);
                 }
             }
 

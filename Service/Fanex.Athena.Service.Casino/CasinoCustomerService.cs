@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Fanex.Athena.Model.Casino.MetaModel;
 using Fanex.Athena.Model.Customer.MetaModel;
 using Fanex.Athena.Service.Casino.Interfaces;
@@ -45,7 +46,7 @@ namespace Fanex.Athena.Service.Casino
             }
         }
 
-        public bool UpdateCommission(RNGCasinoUpdateMemberComMetaModel metaModel)
+        public async Task<bool> UpdateCommission(RNGCasinoUpdateMemberComMetaModel metaModel)
         {
             const string API_ERROR_MSG = "Found errors when calling casino API to update customer commission.\n customers=";
             const string AdditionErrorMsgPattern = "\n IP={0},CustomerId={1},ModifyBy={2},ModifyBy={3},Site={4}";
@@ -62,7 +63,7 @@ namespace Fanex.Athena.Service.Casino
                 success = _customerApiWrapper.UpdateComm(metaModel);
                 if (!success)
                 {
-                    _logger.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg);
+                    await _logger.ErrorAsync(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg).ConfigureAwait(false);
                 }
             }
             catch (Exception exception)

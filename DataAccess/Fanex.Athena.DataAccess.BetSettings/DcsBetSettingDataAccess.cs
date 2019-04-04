@@ -94,7 +94,7 @@
                 await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var result = GetResult(db);
-                result.Message = GetErrorMessage(result.Message);
+                result.Message = await GetErrorMessage(result.Message).ConfigureAwait(false);
                 return result;
             }
         }
@@ -152,7 +152,7 @@
                 await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var result = GetResult(db);
-                result.Message = GetErrorMessage(result.Message);
+                result.Message = await GetErrorMessage(result.Message).ConfigureAwait(false);
                 return result;
             }
         }
@@ -162,7 +162,7 @@
             return string.Format(UpdateStatusXmlFormat, ProductSporttypeMap[productId], ProductBettypeMap[productId], status ? 0 : 1);
         }
 
-        private string GetErrorMessage(string xmlErrorMessage)
+        private async Task<string> GetErrorMessage(string xmlErrorMessage)
         {
             if (!string.IsNullOrEmpty(xmlErrorMessage) && xmlErrorMessage.StartsWith("<"))
             {
@@ -173,7 +173,7 @@
                 }
                 catch (Exception)
                 {
-                    _logger.Error("Invalid xml content: " + xmlErrorMessage);
+                    await _logger.ErrorAsync("Invalid xml content: " + xmlErrorMessage).ConfigureAwait(false);
                 }
             }
 

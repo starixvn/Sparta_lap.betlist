@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using Core.Users.Interfaces;
     using Core.Utility.Interfaces;
@@ -62,7 +63,7 @@
         }
 
         [Test]
-        public void SignIn_GetLicenseeByNameReturnNull_ReturnCorrectErrorResultInfo()
+        public async Task SignIn_GetLicenseeByNameReturnNull_ReturnCorrectErrorResultInfo()
         {
             // Arrange
             var tokenInfo = FakeHelper.Create<OneAuthToken>();
@@ -75,7 +76,7 @@
             };
 
             // Action
-            var result = _oneAuthenticationService.SignIn(Arg.Any<HttpContextBase>(), tokenInfo);
+            var result = await _oneAuthenticationService.SignIn(Arg.Any<HttpContextBase>(), tokenInfo);
 
             // Assert
             Assert.Multiple(() =>
@@ -86,7 +87,7 @@
         }
 
         [Test]
-        public void SignIn_InvalidCurrencyList_ReturnCorrectErrorResultInfo()
+        public async Task SignIn_InvalidCurrencyList_ReturnCorrectErrorResultInfo()
         {
             // Arrange
             var tokenInfo = new OneAuthToken
@@ -104,11 +105,11 @@
                 Message = ViewResources.UserNotHaveCurrency
             };
 
-            _oneAuthenticationService.When(x => x.ValidateCurrencyList(Arg.Any<OneAuthUserInfo>())).DoNotCallBase();
+            _oneAuthenticationService.When(async x => await x.ValidateCurrencyList(Arg.Any<OneAuthUserInfo>())).DoNotCallBase();
             _oneAuthenticationService.ValidateCurrencyList(Arg.Any<OneAuthUserInfo>()).Returns(expectedResult);
 
             // Action
-            var result = _oneAuthenticationService.SignIn(Arg.Any<HttpContextBase>(), tokenInfo);
+            var result = await _oneAuthenticationService.SignIn(Arg.Any<HttpContextBase>(), tokenInfo);
 
             // Assert
             Assert.Multiple(() =>
@@ -491,13 +492,13 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void ValidateCurrencyList_CurrencyListIsNullOrEmpty_ReturnErrorResultInfo(bool isNull)
+        public async Task ValidateCurrencyList_CurrencyListIsNullOrEmpty_ReturnErrorResultInfo(bool isNull)
         {
             // Arrange
             var userInfo = new OneAuthUserInfo { CurrencyUserList = isNull ? null : new List<CurrencyUser>() };
 
             // Action
-            var result = _oneAuthenticationService.ValidateCurrencyList(userInfo);
+            var result = await _oneAuthenticationService.ValidateCurrencyList(userInfo);
 
             // Assert
             Assert.Multiple(() =>
@@ -508,7 +509,7 @@
         }
 
         [Test]
-        public void ValidateCurrencyList_CurrencyListHasDuplicateAgent_ReturnErrorResultInfo()
+        public async Task ValidateCurrencyList_CurrencyListHasDuplicateAgent_ReturnErrorResultInfo()
         {
             // Arrange
             var currency = new CurrencyUser
@@ -520,12 +521,12 @@
             var userInfo = new OneAuthUserInfo { CurrencyUserList = new[] { currency } };
 
             // Action
-            var result = _oneAuthenticationService.ValidateCurrencyList(userInfo);
+            var result = await _oneAuthenticationService.ValidateCurrencyList(userInfo);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _logger.Received(1).Error($"Duplicate agentid in currency permissions: currency ({currency.CurrencyId}-{currency.CurrencyName})" +
+                _logger.Received(1).ErrorAsync($"Duplicate agentid in currency permissions: currency ({currency.CurrencyId}-{currency.CurrencyName})" +
                         $", duplicate agents (34)");
                 Assert.That(result.Code, Is.EqualTo(OneAuthorizationErrorCode.InvalidCurrencyPermission));
                 Assert.That(result.Message, Is.EqualTo(ViewResources.InvalidCurrencyPermission));
