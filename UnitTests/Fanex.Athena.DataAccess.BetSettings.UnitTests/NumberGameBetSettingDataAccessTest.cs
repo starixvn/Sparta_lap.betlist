@@ -55,7 +55,7 @@
         }
 
         [Test]
-        public async Task GetBetSettingAsync_WhenCall_FieldCountIsZero_ReturnNull()
+        public async Task GetBetSettingAsync_WhenCall_FieldCountIsZero_ReturnZero()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditNG")).Returns(ObjectDb);
@@ -67,7 +67,7 @@
             var result = await DataAccess.GetBetSettingAsync(0);
 
             // Assert
-            Assert.That(result, Is.Null);
+            Assert.That(result, Is.Zero);
         }
 
         [Test]

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
@@ -16,6 +17,8 @@
     using Model.Core.ResultModel;
     using Resources;
 
+    [SuppressMessage("Sonar Code Smell", "S1192:StringLiteralsShouldNotBeDuplicated",
+            Justification = "Reviewed. Suppression is OK here.")]
     public class CustomerListDataAccess : BaseDataAccess, ICustomerListDataAccess
     {
         #region Read
@@ -208,8 +211,8 @@
                         CSComm = reader.ToDecimal("RNGComm") * 100
                     };
 
-                    var unClosedStatus = customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
-                    customer.Status = customer.IsClosed ? ViewResources.Closed : unClosedStatus;
+                    var unclosedStatus = customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
+                    customer.Status = customer.IsClosed ? ViewResources.Closed : unclosedStatus;
  
                     dataList.Add(customer);
                 }

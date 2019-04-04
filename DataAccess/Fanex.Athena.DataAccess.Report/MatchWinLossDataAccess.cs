@@ -26,8 +26,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class MatchWinLossDataAccess : BaseDataAccess, IMatchWinLossDataAccess
     {
-
-
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;

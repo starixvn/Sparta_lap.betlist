@@ -87,7 +87,12 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == (int)ReportLevel.Main ? NumOfColumnLevel0 : NumOfColumnLevel1, ViewResources.NoInfo);
+            sheet.SetTextRowValue(
+                TemplateSheet,
+                RowNoInfoTemplate,
+                RowContentTitleTemplate,
+                Level == (int)ReportLevel.Main ? NumOfColumnLevel0 : NumOfColumnLevel1,
+                ViewResources.NoInfo);
         }
 
         protected override void AssignSheetData(ISheet sheet, int pageIndex)

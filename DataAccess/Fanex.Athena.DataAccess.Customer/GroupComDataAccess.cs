@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
@@ -16,6 +17,8 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Common;
 
+    [SuppressMessage("Sonar Code Smell", "S1192:StringLiteralsShouldNotBeDuplicated",
+            Justification = "Reviewed. Suppression is OK here.")]
     public class GroupComDataAccess : BaseDataAccess, IGroupComDataAccess
     {
         public async Task<IList<GroupCommMetaModel>> GetAll(int licenseeId)

@@ -12,9 +12,8 @@ namespace Fanex.Athena.Extension.Utility
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Setting class.
-    /// </summary>
+    [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
+             Justification = "Reviewed. Suppression is OK here.")]
     public class AppSettings : IAppSettings
     {
         internal const string HttpSlashSlash = "http://";
@@ -32,8 +31,6 @@ namespace Fanex.Athena.Extension.Utility
             get { return int.Parse(GetValue("BetListApiClientTimeOutMinutes")); }
         }
 
-        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
         public string BetListApiHostUrl
         {
             get { return GetValue("BetListApiHostUrl"); }
@@ -89,22 +86,16 @@ namespace Fanex.Athena.Extension.Utility
             get { return GetValue("ExchangeProductApiHost"); }
         }
 
-        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
         public string ResultAmendmentApiUrl
         {
             get { return GetValue(nameof(ResultAmendmentApiUrl)); }
         }
 
-        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
         public string MarkNotificationAsReadApiUrl
         {
             get { return GetValue(nameof(MarkNotificationAsReadApiUrl)); }
         }
 
-        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
         public string ResultAmendmentAttachmentApiUrl
         {
             get { return GetValue(nameof(ResultAmendmentAttachmentApiUrl)); }
@@ -130,8 +121,6 @@ namespace Fanex.Athena.Extension.Utility
             get { return int.Parse(GetValue("EnableSessionValidatingService")) != 0; }
         }
 
-        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
         public string RemoteRefUrl
         {
             get { return GetValue("RemoteRefURL"); }

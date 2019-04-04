@@ -36,6 +36,7 @@ namespace Fanex.Athena.Controllers.Customer
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
+    [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
     public class CustomerApiController : ContentBaseController
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
@@ -79,7 +80,6 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
         {
             try
@@ -124,7 +124,6 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -172,7 +171,6 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
