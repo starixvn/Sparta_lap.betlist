@@ -80,7 +80,6 @@
     <Compile Include="Common\Constants\UserLogAction.cs" />
     <Compile Include="Common\Interfaces\IBetTypeDataAccess.cs" />
     <Compile Include="Common\Interfaces\ICurrencyDataAccess.cs" />
-    <Compile Include="Common\Interfaces\IExChangeRateDataAccess.cs" />
     <Compile Include="Common\Interfaces\IFunctionDataAccess.cs" />
     <Compile Include="Common\Interfaces\IUserLogDataAccess.cs" />
     <Compile Include="Common\Interfaces\ILeagueDataAccess.cs" />
@@ -88,7 +87,6 @@
     <Compile Include="Common\Interfaces\IProductDataAccess.cs" />
     <Compile Include="Common\Interfaces\ISportTypeDataAccess.cs" />
     <Compile Include="Common\CurrencyDataAccess.cs" />
-    <Compile Include="Common\ExChangeRateDataAccess.cs" />
     <Compile Include="Common\FunctionDataAccess.cs" />
     <Compile Include="Common\UserLogDataAccess.cs" />
     <Compile Include="Common\LeagueDataAccess.cs" />

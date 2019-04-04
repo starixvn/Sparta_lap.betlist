@@ -89,7 +89,6 @@
     <Compile Include="Common\BetTypeDataAccessTest_GetBettypesByProduct.cs" />
     <Compile Include="Common\BetTypeDataAccessTest.cs" />
     <Compile Include="Common\CurrencyDataAccessTest.cs" />
-    <Compile Include="Common\ExChangeRateDataAccessTest.cs" />
     <Compile Include="Common\FunctionDataAccessTest.cs" />
     <Compile Include="Common\LeagueDataAccessTest.cs" />
     <Compile Include="Common\MatchDataAccessTest.cs" />
