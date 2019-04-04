@@ -51,13 +51,11 @@ exports[`FormFilter match to snapshot 1`] = `
             >
               <div
                 className="rdr-PredefinedRanges"
-                style={undefined}
               >
                 <a
                   className="rdr-PredefinedRangesItem"
                   href="#"
                   onClick={[Function]}
-                  style={undefined}
                 >
                   Today
                 </a>
@@ -65,7 +63,6 @@ exports[`FormFilter match to snapshot 1`] = `
                   className="rdr-PredefinedRangesItem"
                   href="#"
                   onClick={[Function]}
-                  style={undefined}
                 >
                   Yesterday
                 </a>
@@ -73,7 +70,6 @@ exports[`FormFilter match to snapshot 1`] = `
                   className="rdr-PredefinedRangesItem"
                   href="#"
                   onClick={[Function]}
-                  style={undefined}
                 >
                   Currentweek
                 </a>
@@ -81,7 +77,6 @@ exports[`FormFilter match to snapshot 1`] = `
                   className="rdr-PredefinedRangesItem"
                   href="#"
                   onClick={[Function]}
-                  style={undefined}
                 >
                   Lastweek
                 </a>
@@ -89,7 +84,6 @@ exports[`FormFilter match to snapshot 1`] = `
                   className="rdr-PredefinedRangesItem rdr-PredefinedRangesItemActive"
                   href="#"
                   onClick={[Function]}
-                  style={undefined}
                 >
                   Currentmonth
                 </a>
@@ -97,7 +91,6 @@ exports[`FormFilter match to snapshot 1`] = `
                   className="rdr-PredefinedRangesItem"
                   href="#"
                   onClick={[Function]}
-                  style={undefined}
                 >
                   Lastmonth
                 </a>
@@ -105,7 +98,6 @@ exports[`FormFilter match to snapshot 1`] = `
                   className="rdr-PredefinedRangesItem"
                   href="#"
                   onClick={[Function]}
-                  style={undefined}
                 >
                   Sincelastmonth
                 </a>
@@ -115,7 +107,6 @@ exports[`FormFilter match to snapshot 1`] = `
                   <button
                     className="rdr-Button rdr-ApplyButton"
                     onClick={[Function]}
-                    style={undefined}
                     type="button"
                   >
                     OK
@@ -123,7 +114,6 @@ exports[`FormFilter match to snapshot 1`] = `
                   <button
                     className="rdr-Button rdr-CancelButton"
                     onClick={[Function]}
-                    style={undefined}
                     type="button"
                   >
                     Cancel
@@ -132,25 +122,20 @@ exports[`FormFilter match to snapshot 1`] = `
               </div>
               <div
                 className="rdr-Calendar"
-                style={undefined}
               >
                 <div
                   className="rdr-MonthAndYear"
                 >
                   <div
                     className="rdr-MonthAndYear-innerWrapper"
-                    style={undefined}
                   >
                     <button
                       className="rdr-MonthAndYear-button prev"
                       disabled={false}
                       onClick={[Function]}
-                      style={undefined}
                       type="button"
                     >
-                      <i
-                        style={undefined}
-                      />
+                      <i />
                     </button>
                     <span>
                       <span
@@ -159,7 +144,6 @@ exports[`FormFilter match to snapshot 1`] = `
                         <select
                           className="rdr-MonthAndYearSelect"
                           onChange={[Function]}
-                          style={undefined}
                           value={0}
                         >
                           <option
@@ -247,7 +231,6 @@ exports[`FormFilter match to snapshot 1`] = `
                         <select
                           className="rdr-MonthAndYearSelect"
                           onChange={[Function]}
-                          style={undefined}
                           value={2017}
                         >
                           <option
@@ -287,12 +270,9 @@ exports[`FormFilter match to snapshot 1`] = `
                       className="rdr-MonthAndYear-button next"
                       disabled={false}
                       onClick={[Function]}
-                      style={undefined}
                       type="button"
                     >
-                      <i
-                        style={undefined}
-                      />
+                      <i />
                     </button>
                   </div>
                 </div>
@@ -301,43 +281,36 @@ exports[`FormFilter match to snapshot 1`] = `
                 >
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Su
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Mo
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Tu
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     We
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Th
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Fr
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Sa
                   </span>
@@ -347,7 +320,6 @@ exports[`FormFilter match to snapshot 1`] = `
                 >
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-selected rdr-Sunday"
@@ -355,14 +327,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       1
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -370,14 +340,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       2
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -385,14 +353,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       3
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -400,14 +366,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       4
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -415,14 +379,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       5
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -430,14 +392,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       6
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -445,14 +405,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       7
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange rdr-Sunday"
@@ -460,14 +418,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       8
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -475,14 +431,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       9
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-selected is-inRange"
@@ -490,14 +444,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       10
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -505,14 +457,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       11
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -520,14 +470,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       12
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -535,14 +483,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       13
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -550,14 +496,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       14
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day rdr-Sunday"
@@ -565,14 +509,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       15
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -580,14 +522,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       16
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -595,14 +535,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       17
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -610,14 +548,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       18
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -625,14 +561,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       19
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -640,14 +574,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       20
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -655,14 +587,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       21
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day rdr-Sunday"
@@ -670,14 +600,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       22
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -685,14 +613,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       23
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -700,14 +626,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       24
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -715,14 +639,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       25
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -730,14 +652,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       26
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -745,14 +665,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       27
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -760,14 +678,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       28
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day rdr-Sunday"
@@ -775,14 +691,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       29
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -790,14 +704,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       30
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -805,14 +717,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       31
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -820,14 +730,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       1
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -835,14 +743,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       2
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -850,14 +756,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       3
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -865,14 +769,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       4
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive rdr-Sunday"
@@ -880,14 +782,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       5
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -895,14 +795,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       6
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -910,14 +808,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       7
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -925,14 +821,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       8
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -940,14 +834,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       9
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -955,14 +847,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       10
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -970,7 +860,6 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       11
                     </span>
@@ -979,25 +868,20 @@ exports[`FormFilter match to snapshot 1`] = `
               </div>
               <div
                 className="rdr-Calendar"
-                style={undefined}
               >
                 <div
                   className="rdr-MonthAndYear"
                 >
                   <div
                     className="rdr-MonthAndYear-innerWrapper"
-                    style={undefined}
                   >
                     <button
                       className="rdr-MonthAndYear-button prev"
                       disabled={false}
                       onClick={[Function]}
-                      style={undefined}
                       type="button"
                     >
-                      <i
-                        style={undefined}
-                      />
+                      <i />
                     </button>
                     <span>
                       <span
@@ -1006,7 +890,6 @@ exports[`FormFilter match to snapshot 1`] = `
                         <select
                           className="rdr-MonthAndYearSelect"
                           onChange={[Function]}
-                          style={undefined}
                           value={0}
                         >
                           <option
@@ -1094,7 +977,6 @@ exports[`FormFilter match to snapshot 1`] = `
                         <select
                           className="rdr-MonthAndYearSelect"
                           onChange={[Function]}
-                          style={undefined}
                           value={2017}
                         >
                           <option
@@ -1134,12 +1016,9 @@ exports[`FormFilter match to snapshot 1`] = `
                       className="rdr-MonthAndYear-button next"
                       disabled={false}
                       onClick={[Function]}
-                      style={undefined}
                       type="button"
                     >
-                      <i
-                        style={undefined}
-                      />
+                      <i />
                     </button>
                   </div>
                 </div>
@@ -1148,43 +1027,36 @@ exports[`FormFilter match to snapshot 1`] = `
                 >
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Su
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Mo
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Tu
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     We
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Th
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Fr
                   </span>
                   <span
                     className="rdr-WeekDay"
-                    style={undefined}
                   >
                     Sa
                   </span>
@@ -1194,7 +1066,6 @@ exports[`FormFilter match to snapshot 1`] = `
                 >
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-selected is-inRange rdr-Sunday"
@@ -1202,14 +1073,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       1
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -1217,14 +1086,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       2
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -1232,14 +1099,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       3
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -1247,14 +1112,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       4
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -1262,14 +1125,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       5
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -1277,14 +1138,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       6
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -1292,14 +1151,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       7
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange rdr-Sunday"
@@ -1307,14 +1164,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       8
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-inRange"
@@ -1322,14 +1177,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       9
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-selected"
@@ -1337,14 +1190,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       10
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1352,14 +1203,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       11
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1367,14 +1216,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       12
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1382,14 +1229,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       13
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1397,14 +1242,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       14
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day rdr-Sunday"
@@ -1412,14 +1255,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       15
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1427,14 +1268,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       16
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1442,14 +1281,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       17
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1457,14 +1294,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       18
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1472,14 +1307,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       19
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1487,14 +1320,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       20
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1502,14 +1333,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       21
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day rdr-Sunday"
@@ -1517,14 +1346,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       22
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1532,14 +1359,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       23
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1547,14 +1372,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       24
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1562,14 +1385,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       25
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1577,14 +1398,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       26
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1592,14 +1411,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       27
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1607,14 +1424,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       28
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day rdr-Sunday"
@@ -1622,14 +1437,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       29
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1637,14 +1450,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       30
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day"
@@ -1652,14 +1463,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       31
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1667,14 +1476,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       1
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1682,14 +1489,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       2
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1697,14 +1502,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       3
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1712,14 +1515,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       4
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive rdr-Sunday"
@@ -1727,14 +1528,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       5
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1742,14 +1541,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       6
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1757,14 +1554,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       7
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1772,14 +1567,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       8
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1787,14 +1580,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       9
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1802,14 +1593,12 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       10
                     </span>
                   </span>
                   <span
                     onClick={[Function]}
-                    style={undefined}
                   >
                     <span
                       className="rdr-Day is-passive"
@@ -1817,7 +1606,6 @@ exports[`FormFilter match to snapshot 1`] = `
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       onMouseUp={[Function]}
-                      style={undefined}
                     >
                       11
                     </span>

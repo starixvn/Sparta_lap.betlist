@@ -77,7 +77,7 @@
     "test-react-one": "jest \".*1\\.test\\.js\" --watch --u  --setupTestFrameworkScriptFile=raf/polyfill",
     "test-react-watch": "jest --watch --setupTestFrameworkScriptFile=raf/polyfill",
     "jest-install": "npm install jest-cli -g",
-    "jest-up-ss": "jest --updateSnapshot",
+    "jest-uss": "jest --updateSnapshot",
     "lint": "eslint ./www/js/source/reactpages"
   },
   "author": "Sparta",
