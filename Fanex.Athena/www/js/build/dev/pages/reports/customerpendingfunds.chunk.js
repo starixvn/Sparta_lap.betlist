@@ -4849,7 +4849,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
         var _selector = {
             SubmitButton: "#SubmitButton",
-            ExportExcelInput: "#IsExportExcel",
             ExportToExcel: "#ExportToExcel",
             Form: "#CustomerPendingFundsForm",
             GridId: "ReportGrid",
@@ -4890,12 +4889,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 $("#OrderItem").val(_orderItem);
                 $("#IsAscSort").val(_sortDirection === "asc");
-                $(_selector.ExportExcelInput).val(true);
                 var mainForm = $(_selector.Form);
                 var url = Site.resolveClientUrl(CustomerPedingFundsOption.urlExcelData);
                 mainForm.attr("action", url);
                 mainForm.submit();
-                $(_selector.ExportExcelInput).val(false);
                 return false;
             });
 
@@ -5184,7 +5181,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var _me =
         {
             urlData: "api/CustomerPendingFundsReport/Index",
-            urlExcelData: "api/CustomerPendingFundsReport/Index",
+            urlExcelData: "api/CustomerPendingFundsReport/ExportExcel",
             totalColspan: 3,
             totalColspanFakeLicensee: 2,
             gridOption:

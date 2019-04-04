@@ -4567,8 +4567,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
         var MIN_BETTYPE_FASTMARKET = 221;
         var MAX_BETTYPE_FASTMARKET = 227;
-        var SPORT_MICROGAMMING_LC = 203;
-        var SPORT_MICROGAMMING_RNG = 205;
         var SPORT_RNG_GAME = 208;
         var SPORT_RNG_MINIGAME = 209;
         var SPORT_RNG_MOBILE = 210;
@@ -4894,14 +4892,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return url;
             },
 
-            getMicrogamingResultUrl: function (gameid, custid) {
-                var url = Site.resolveClientUrl('ResultReport/MicrogamingResultPopup');
-                url = QueryString.setParam(url, "gameid", gameid);
-                url = QueryString.setParam(url, "custid", custid);
-
-                return url;
-            },
-
             viewRngCasinoResult: function (title, refno) {
                 var url = Site.resolveClientUrl('ResultReport/ShowRngCasinoSingleWalletResult');
 
@@ -4970,11 +4960,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 var leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
                 $(".league-name-title").html(leagueNameText + " - ");
             },
-            showMicrogamingResultPopup: function (title, gameid, custid) {
-                var url = _me.getMicrogamingResultUrl(gameid, custid);
-
-                showResultPopUp(url, { width: 750, height: 400, title: title });
-            },
             viewGlobalGamingResult: function (custId, gameId, title) {
                 var url = Site.resolveClientUrl('ResultReport/GlobalGamingResult');
                 Site.blockUI();
@@ -4988,10 +4973,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             viewResult: function (matchid, raceNo, bettype, sporttype, refno,
                 username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) {
                 var title = Site.getSingleResource("Result");
-                if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
-                    _me.showMicrogamingResultPopup(title, extension2, custid);
-                }
-                else if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
+
+                if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
                     _me.viewRngCasinoResult(title, refno);
                 }
                 else if (sporttype === SPORT_VOIDBRIDGE) {
@@ -5118,20 +5101,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 url = QueryString.setParam(url, "basecurrency", baseCurrency);
 
                 showDetailPopUp(url, { width: 775, height: 500, title: betTeam });
-            },
-
-            showMicroGamingRnGBetsDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('MicroGamingRngBetList/Detail');
-                url = QueryString.setParam(url, "transid", transId);
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
-
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("Microgaming") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
-
-                showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
 
             showAGCasinoDetails: function (transId, winlostDate, custId, transType) {
@@ -5304,7 +5273,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 window.showNewCombMP = _me.showNewParlayDetail;
                 window.showCombMPDetail = _me.showSystemParlayDetail;
-                window.showMicroGamingRnGBetsDetails = _me.showMicroGamingRnGBetsDetails;
                 window.showAGCasinoDetails = _me.showAGCasinoDetails;
                 window.showRnGCasinoDetails = _me.showRnGCasinoDetails;
                 window.showVoidBridgeDetails = _me.showVoidBridgeDetails;

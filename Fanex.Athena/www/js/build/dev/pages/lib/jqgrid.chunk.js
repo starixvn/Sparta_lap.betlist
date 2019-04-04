@@ -685,7 +685,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             getNewLicenseeWLNote: function (productList, caption) {
                 var temp = caption || Site.getSingleResource("LicenseeW_L");
                 var productTemp = "";
-                var productAds = ["SB", "LC", "NG", "VS", "CS", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
+                var productAds = ["SB", "LC", "NG", "VS", "CS", "KN", "BT", "VB"];
                 for (var i = 0; i < productList.length; i++) {
                     if ($.inArray(productList[i], productAds) > -1) {
                         productTemp += productTemp.length === 0 ? productList[i] : ", " + productList[i];
@@ -705,7 +705,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 var productOptions = $.parseJSON(productOptionJson);
                 var temp = caption || Site.getSingleResource("LicenseeW_L");
                 var productTemp = "";
-                var productAds = ["SB", "LC", "NG", "VS", "CS", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
+                var productAds = ["SB", "LC", "NG", "VS", "CS", "KN", "BT", "VB"];
                 for (var i = 0; i < productOptions.length; i++) {
                     if ($.inArray(productOptions[i].Code, productAds) > -1 && Site.asBool(productOptions[i].Status)) {
                         productTemp += productTemp.length === 0 ? productOptions[i].Code : ", " + productOptions[i].Code;
