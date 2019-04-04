@@ -273,7 +273,7 @@ namespace Fanex.Athena.Excel.Report
             var row = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate, currentRow);
 
             row.Cells[0].SetCellValue(ViewResources.GrandTotal);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
+            sheet.MergeCols(0, 1, currentRow);
 
             var columnNameList = GetTotalColumnNameList();
 
@@ -370,7 +370,7 @@ namespace Fanex.Athena.Excel.Report
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
                 ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
-                sheet.MergeCells(currentRowIndex, 0, currentRowIndex, 1);
+                sheet.MergeCols(0, 1, currentRowIndex);
                 currentRowIndex++;
             }
 
@@ -384,7 +384,7 @@ namespace Fanex.Athena.Excel.Report
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
 
             row.Cells[0].SetCellValue(ViewResources.Total);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
+            sheet.MergeCols(0, 1, currentRow);
 
             foreach (string columnName in columnNameList)
             {
@@ -395,7 +395,7 @@ namespace Fanex.Athena.Excel.Report
                                     Converter.To<decimal>(sumData));
             }
 
-            sheet.MergeCells(currentRow, ColumnIndex, currentRow, 1);
+            sheet.MergeCols(ColumnIndex, 1, currentRow);
 
             return currentRow + 1;
         }

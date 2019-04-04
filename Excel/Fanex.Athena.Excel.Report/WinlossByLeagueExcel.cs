@@ -13,6 +13,7 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Model.Core.DataDomain;
     using Model.Core.ResultModel;
     using NPOI.SS.UserModel;
     using Resources;
@@ -63,7 +64,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             var headerTextList = new[]
             {
                 "#",
@@ -79,21 +80,22 @@ namespace Fanex.Athena.Excel.Report
             };
             SetTextRowHeader(row, headerTextList);
 
-            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             row.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == 0 ? NumOfColumnLevel0 : NumOfColumnLevel1, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == (int)ReportLevel.Main ? NumOfColumnLevel0 : NumOfColumnLevel1, ViewResources.NoInfo);
         }
 
         protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
-            if (Level == 1)
+            if (Level == (int)ReportLevel.Licensee)
             {
-                sheet.HideRow(3);
+                const int LeagueRowIndex = 3;
+                sheet.HideRow(LeagueRowIndex);
             }
 
             var rowCount = Math.Min(_dataList.Count(), checked((pageIndex + 1) * PageSize));
@@ -109,12 +111,14 @@ namespace Fanex.Athena.Excel.Report
                 var rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 
                 rowContent.Cells[ColumnIndex].SetCellValue(dataItem.Index);
-                if (Level == 0)
+                if (Level == (int)ReportLevel.Main)
                 {
+                    const int NumberLineInRow = 2;
+
                     rowContent.Cells[ColumnMatch].SetCellValue(dataItem.HomeName + Environment.NewLine + dataItem.AwayName);
                     rowContent.Cells[ColumnAmtDueTo].SetCellValue(dataItem.AmountDue);
 
-                    rowContent.Height = (short)(rowContent.Height * 2);
+                    rowContent.Height = (short)(rowContent.Height * NumberLineInRow);
                 }
                 else
                 {
@@ -132,10 +136,10 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfColumnLevel0 : NumOfColumnLevel1, _metaModel.ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, Level == (int)ReportLevel.Main ? NumOfColumnLevel0 : NumOfColumnLevel1, _metaModel.ReportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 4);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -147,12 +151,12 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
-            if (Level == 0)
+            if (Level == (int)ReportLevel.Main)
             {
                 sheet.HideColumn(ColumnExternalId, ColumnSystemId);
             }
 
-            if (Level != 0 || !_hasAmountDueToColumn)
+            if (Level != (int)ReportLevel.Main || !_hasAmountDueToColumn)
             {
                 sheet.HideColumn(ColumnMatch, ColumnAmtDueTo);
             }
@@ -169,7 +173,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected internal virtual int AssignTotalData(ISheet sheet, int currentRow)
         {
-            sheet.MergeCells(currentRow, 0, currentRow, Level == 0 ? 1 : 3);
+            sheet.MergeCols(ColumnIndex, Level == (int)ReportLevel.Main ? ColumnMatch : ColumnSystemId, currentRow);
 
             var row = sheet.CopyRow(TemplateSheet, RowTotalSolidBorder, currentRow);
             AssignCommonData(row, _totalData);

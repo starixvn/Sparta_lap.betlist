@@ -82,8 +82,8 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
             var headerTextList = new[]
             {
                 "#",
@@ -168,10 +168,10 @@ namespace Fanex.Athena.Excel.Report
                                          _viewModel.Param.Username,
                                          _viewModel.Param.CurrencyName);
             var reportTitle = _viewModel.Param.Username.IsNullOrTrimEmpty() ? titleNoUserName : title;
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -188,7 +188,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
 
                 // If row isn't hide (in case BA visible), then merge cell and set value for header
-                sheet.MergeCells(RowTableHeaderTemplate, ColumnCustomerWinLoss, RowTableHeaderTemplate + 1, ColumnCustomerWinLoss);
+                sheet.MergeRows(RowTableHeaderTemplate, RowTableHeaderTemplate + 1, ColumnCustomerWinLoss);
                 sheet.GetCell(RowTableHeaderTemplate, ColumnCustomerWinLoss).SetCellValue(ViewResources.CustomerW_L);
             }
 
@@ -237,7 +237,7 @@ namespace Fanex.Athena.Excel.Report
 
             AssignCommonData(row, _total);
 
-            sheet.MergeCells(currentRow, ColumnIndex, currentRow, ColumnDay);
+            sheet.MergeCols(ColumnIndex, ColumnDay, currentRow);
         }
     }
 }

@@ -124,9 +124,12 @@ namespace Fanex.Athena.Service.Report
 
         private string GetHomeName(MatchWinLoss matchWinLoss)
         {
-            return matchWinLoss.ProductName == Product.NG ?
-                string.Empty :
-               _cacheRefAdapter.GetTeamName(matchWinLoss.HomeId) + (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
+            if (matchWinLoss.ProductName == Product.NG)
+            {
+                return string.Empty;
+            }
+
+            return _cacheRefAdapter.GetTeamName(matchWinLoss.HomeId) + (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
         }
 
         private string GetAwayName(MatchWinLoss matchWinLoss)

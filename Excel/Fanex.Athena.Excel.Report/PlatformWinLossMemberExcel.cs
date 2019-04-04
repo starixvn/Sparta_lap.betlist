@@ -57,7 +57,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             var headerTextList = new[]
             {
                 "#",
@@ -76,7 +76,7 @@ namespace Fanex.Athena.Excel.Report
 
             SetTextRowHeader(row, headerTextList);
 
-            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row.Cells[ColumnCustomerCommission].SetCellValue(ViewResources.Comm);
@@ -128,9 +128,9 @@ namespace Fanex.Athena.Excel.Report
                                          GetBaseCurrencyTitle(),
                                          platformText) + ", " + GetProductTitle();
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             ClearTemplate(sheet, RowContentTemplate);
         }
@@ -172,7 +172,7 @@ namespace Fanex.Athena.Excel.Report
             var totalRow = _dataList.Count() + RowContentTemplate;
 
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
-            sheet.MergeCells(totalRow, ColumnIndex, totalRow, ColumnCurrency);
+            sheet.MergeCols(ColumnIndex, ColumnCurrency, totalRow);
             row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
             AssignCellData(row, _totalData);
         }

@@ -280,7 +280,7 @@
                     result.Code = InvalidCommvalue;
                     result.Message = ViewResources.MessageInvalidCommValue;
                     break;
-                case InvalidParams:
+                default:
                     result.Code = InvalidParams;
                     result.Message = ViewResources.InvalidParams;
                     break;

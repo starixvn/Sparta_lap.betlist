@@ -49,7 +49,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void ProcessUI(ISheet sheet)
         {
-            AssignTotalRow(sheet, TotalRows + 2);
+            AssignTotalRow(sheet, TotalRows + RowContentTemplate);
             var hiddenColumns = Enumerable.Range(_resultModel.NumberOfWeeks + NumberOfStaticColumns, MaxWeekColumns - _resultModel.NumberOfWeeks);
             sheet.HideColumn(hiddenColumns.ToArray());
         }
@@ -60,10 +60,10 @@ namespace Fanex.Athena.Excel.Report
             var todate = _metaModel.ToDate.ToString(FormatDate);
 
             var reportTitle = string.Format(ViewResources.WeeklyLiveMatches + ", {0} --> {1}", fromdate, todate);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 2);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             row.Cells[ColumnSport].SetCellValue(ViewResources.Sport);
 
             var index = ColumnSport + 1;
@@ -115,7 +115,7 @@ namespace Fanex.Athena.Excel.Report
             var row = sheet.CopyRow(TemplateSheet, RowTotalIndex, rowIndex);
 
             row.Cells[ColumnSport].SetCellValue(ViewResources.Total);
-            sheet.MergeCells(rowIndex, 0, rowIndex, 1);
+            sheet.MergeCols(ColumnIndex, ColumnSport, rowIndex);
 
             for (int i = 0; i < _resultModel.NumberOfWeeks; i++)
             {

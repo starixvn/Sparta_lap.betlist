@@ -387,7 +387,7 @@ namespace Fanex.Athena.Excel.Report
                 {
                     sheet.GetCell(RowHeaderTemplate, ColumnLicenseeWlSportsBook + i)
                     .SetCellValue(ViewResources.LicenseeW_L);
-                    sheet.MergeCells(RowHeaderTemplate, ColumnLicenseeWlSportsBook + i, RowHeaderTemplate, ColumnLicenseeWlTotal);
+                    sheet.MergeCols(ColumnLicenseeWlSportsBook + i, ColumnLicenseeWlTotal, RowHeaderTemplate);
                 }
             }
 

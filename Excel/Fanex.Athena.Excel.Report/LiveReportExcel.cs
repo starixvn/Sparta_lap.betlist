@@ -230,7 +230,7 @@ namespace Fanex.Athena.Excel.Report
                 var liveReportBetTypeList = liveReportBetType.LiveReports;
 
                 var row = sheet.CopyRow(TemplateSheet, RowByBetTypeProductTitle, rowIndex);
-                sheet.MergeCells(rowIndex, ColumnProduct, rowIndex, ColumnAmountDue);
+                sheet.MergeCols(ColumnProduct, ColumnAmountDue, rowIndex);
                 rowIndex++;
 
                 var productName = liveReportBetType.ProductName.Equals(ViewResources.SB)
@@ -351,13 +351,13 @@ namespace Fanex.Athena.Excel.Report
             row = sheet.CopyRow(TemplateSheet, rowTplIdx++, rowIndex++);
             row.Cells[ColumnProduct].SetCellValue(firstHeader);
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
-            sheet.MergeCells(rowIndex - 1, ColumnProduct, rowIndex, ColumnProduct);
-            sheet.MergeCells(rowIndex - 1, ColumnCustomerWl, rowIndex - 1, ColumnCustomerTotal);
+            sheet.MergeRows(rowIndex - 1, rowIndex, ColumnProduct);
+            sheet.MergeCols(ColumnCustomerWl, ColumnCustomerTotal, rowIndex - 1);
 
             var colIndex = ColumnTurnover;
             foreach (string item in row1Header)
             {
-                sheet.MergeCells(rowIndex - 1, colIndex, rowIndex, colIndex);
+                sheet.MergeRows(rowIndex - 1, rowIndex, colIndex);
                 row.Cells[colIndex++].SetCellValue(item);
             }
 

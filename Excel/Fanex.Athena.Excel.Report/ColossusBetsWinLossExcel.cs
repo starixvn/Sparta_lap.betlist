@@ -214,7 +214,8 @@ namespace Fanex.Athena.Excel.Report
                 rowIndex++;
             }
 
-            sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
+            const int LastTotalMergedCol = 3;
+            sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, LastTotalMergedCol);
 
             return rowIndex;
         }
