@@ -67,7 +67,7 @@
             var result = await DataAccess.GetBetSettingAsync(0);
 
             // Assert
-            Assert.That(result, Is.Zero);
+            Assert.That(result.Count, Is.Zero);
         }
 
         [Test]
