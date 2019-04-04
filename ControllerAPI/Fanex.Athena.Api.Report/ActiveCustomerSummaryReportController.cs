@@ -135,7 +135,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
                 var result = metaModel.IsValid ?
-                    await _activeCustomerSummaryDataAccess.GetActiveCustomers(metaModel).ConfigureAwait(false) :
+                    await _activeCustomerSummaryDataAccess.GetActiveCustomers(metaModel) :
                     new ActiveCustomerSummaryResultModel
                     {
                         DataList = new SortableList<ActiveCustomer>(),

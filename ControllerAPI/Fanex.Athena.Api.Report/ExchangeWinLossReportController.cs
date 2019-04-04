@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report.Interfaces;
@@ -34,7 +35,7 @@
         }
 
         [HttpPost]
-        public dynamic Index(ExchangeWinLossMetaModel metaModel)
+        public async Task<dynamic> Index(ExchangeWinLossMetaModel metaModel)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.IsValid && IsValidParams(metaModel) && IsValidRequest(metaModel.CurrencyId))
@@ -43,7 +44,7 @@
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 if (metaModel.Level == (int)ReportLevel.Main)
                 {
-                    return _dataAccess.GetMainWinloss(metaModel, currencyList);
+                    return await _dataAccess.GetMainWinloss(metaModel, currencyList).ConfigureAwait(false);
                 }
 
                 return metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == (int)ReportLevel.Customer

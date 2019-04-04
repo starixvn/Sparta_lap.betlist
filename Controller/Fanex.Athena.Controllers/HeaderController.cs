@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Desktop/Header/Index.cshtml", viewModel);
         }
 
-        public async Task<ActionResult> ChangeLicensee(int? licenseeId)
+        public ActionResult ChangeLicensee(int? licenseeId)
         {
             var newLicenseeId = licenseeId.HasValue ? licenseeId.Value : 0;
             var originalLicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers
 
             if (newLicenseeId != originalLicenseeId)
             {
-                await SessionService.UpdateLiceseeSession(newLicenseeId);
+                SessionService.UpdateLiceseeSession(newLicenseeId);
             }
 
             ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;

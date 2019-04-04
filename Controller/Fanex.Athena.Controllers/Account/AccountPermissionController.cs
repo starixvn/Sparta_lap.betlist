@@ -135,7 +135,7 @@ namespace Fanex.Athena.Controllers.Account
         #region Assign Currency
 
         [HttpGet]
-        public async Task<ActionResult> AssignCurrency(int userId)
+        public ActionResult AssignCurrency(int userId)
         {
             if (!AppSettings.EnableAssignCurrency)
             {
@@ -144,7 +144,7 @@ namespace Fanex.Athena.Controllers.Account
 
             if (userId > 0)
             {
-                var currencies = await _currencyDataAccess.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId).ConfigureAwait(false);
+                var currencies = _currencyDataAccess.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
                 if (SessionService.LicenseeSession.LicenseeId == LicenseeIdentity.KeenOcean)
                 {
                     KeanOceanBusinessHelper.KeepHKDCurrencyName(currencies);
@@ -159,7 +159,7 @@ namespace Fanex.Athena.Controllers.Account
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public async Task<ActionResult> AssignCurrency(AssignCurrencyMetaModel model)
+        public ActionResult AssignCurrency(AssignCurrencyMetaModel model)
         {
             if (model.UserId <= 0 || string.IsNullOrEmpty(model.CurrencyList))
             {
@@ -189,10 +189,10 @@ namespace Fanex.Athena.Controllers.Account
             model.ModifyBy = userSession.UserId;
 
             // convert currencies into xml
-            var currencyDict = await _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId).ConfigureAwait(false);
+            var currencyDict = _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId);
             model.CurrencyList = BuildCurrencyListXmlString(currencyDict, model.CurrencyList.Split(',').ToList());
 
-            var result = await _currencyDataAccess.AssignCurrenciesByUser(model).ConfigureAwait(false);
+            var result = _currencyDataAccess.AssignCurrenciesByUser(model);
 
             if (result.IsSuccessful)
             {

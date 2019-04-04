@@ -19,7 +19,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess
     {
-        public async Task<IResultInfo> AssignCurrenciesByUser(AssignCurrencyMetaModel request)
+        public IResultInfo AssignCurrenciesByUser(AssignCurrencyMetaModel request)
         {
             const string UspName = "Lrf_CurrencyCustIns";
 
@@ -33,13 +33,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("IP", request.IP);
 
                 AddResultParam(db);
-                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
+                db.ExecuteNonQuery();
 
                 return GetResult(db);
             }
         }
 
-        public async Task<IList<CurrencyUser>> GetCurrenciesByUser(int licenseeId, int userId)
+        public IList<CurrencyUser> GetCurrenciesByUser(int licenseeId, int userId)
         {
             const string UspName = "Lrf_SelCurrencyByLicenseeUser";
 
@@ -48,13 +48,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.SetParameterValue("UserID", userId);
                 db.SetParameterValue("LicenseeID", licenseeId);
 
-                return await BindCurrencyUser(db).ConfigureAwait(false);
+                return BindCurrencyUser(db);
             }
         }
 
-        private static async Task<IList<CurrencyUser>> BindCurrencyUser(IObjectDb db)
+        private static IList<CurrencyUser> BindCurrencyUser(IObjectDb db)
         {
-            var currencyList = await db.QueryAsync<CurrencyUser>().ConfigureAwait(false);
+            var currencyList = db.Query<CurrencyUser>();
             return currencyList.GroupBy(x => x.CurrencyId).Select(x => new CurrencyUser
             {
                 CurrencyId = x.Key,

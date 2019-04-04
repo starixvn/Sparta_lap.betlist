@@ -97,7 +97,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private async Task<ForecastAHViewModel> GetViewModel(ForecastAHMetaModel metaModel)
         {
-            var forecastHeaderParam = await _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType).ConfigureAwait(false);
+            var forecastHeaderParam = await _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
             ForecastValue forecastValue = null;
 
             if (forecastHeaderParam != null)

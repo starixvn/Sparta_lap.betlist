@@ -120,7 +120,7 @@
         }
 
         [Test]
-        public void SignIn_NotHaveUserSession_CreateNewSession()
+        public async Task SignIn_NotHaveUserSession_CreateNewSession()
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(false);
@@ -134,7 +134,7 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>
@@ -150,7 +150,7 @@
         }
 
         [Test]
-        public void SignIn_IsInValidIdentity_CreateNewSession()
+        public async Task SignIn_IsInValidIdentity_CreateNewSession()
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(false);
@@ -165,7 +165,7 @@
             fakeHttpContext.User.Identity.Returns(x => { return null; });
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>
@@ -181,7 +181,7 @@
         }
 
         [Test]
-        public void SignIn_IsInValidSessionUser_CreateNewSession()
+        public async Task SignIn_IsInValidSessionUser_CreateNewSession()
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(false);
@@ -208,7 +208,7 @@
             var fakeHttpContext = CreateValidFakeContext(tokenInfo.UserID);
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>
@@ -224,7 +224,7 @@
         }
 
         [Test]
-        public void SignIn_IsInValidLicenseeUser_CreateNewSession()
+        public async Task SignIn_IsInValidLicenseeUser_CreateNewSession()
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(false);
@@ -251,7 +251,7 @@
             var fakeHttpContext = CreateValidFakeContext(tokenInfo.UserID);
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>
@@ -267,7 +267,7 @@
         }
 
         [Test]
-        public void SignIn_SessionIsAnotherUser_CreateNewSession()
+        public async Task SignIn_SessionIsAnotherUser_CreateNewSession()
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(false);
@@ -295,7 +295,7 @@
             var fakeHttpContext = CreateValidFakeContext(tokenInfo.UserID);
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>
@@ -311,7 +311,7 @@
         }
 
         [Test]
-        public void SignIn_IsAuthenticatedAndIsSameSession_UpdateCurrentSession()
+        public async Task SignIn_IsAuthenticatedAndIsSameSession_UpdateCurrentSession()
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(false, "en");
@@ -340,7 +340,7 @@
             var fakeHttpContext = CreateValidFakeContext(tokenInfo.UserID);
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>
@@ -361,7 +361,7 @@
         [TestCase("th", "th-TH")]
         [TestCase("vn", "vi-VN")]
         [TestCase("invalid", "en-Us")]
-        public void SignIn_IsAuthenticatedAndIsSameSession_LanguageIsChanged_UpdateLanguage(string tokenLanguage, string expectedLanguageChanged)
+        public async Task SignIn_IsAuthenticatedAndIsSameSession_LanguageIsChanged_UpdateLanguage(string tokenLanguage, string expectedLanguageChanged)
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(false, tokenLanguage);
@@ -390,14 +390,14 @@
             var fakeHttpContext = CreateValidFakeContext(tokenInfo.UserID);
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             _sessionService.Received().UpdateLanguage(expectedLanguageChanged);
         }
 
         [Test]
-        public void SignIn_GetPermissionList_IsNotAdminstrator_GetFromToken_ReturnCorrectData()
+        public async Task SignIn_GetPermissionList_IsNotAdminstrator_GetFromToken_ReturnCorrectData()
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(false);
@@ -411,7 +411,7 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>
@@ -425,7 +425,7 @@
         }
 
         [Test]
-        public void SignIn_GetPermissionList_IsAdminstrator_GetFromFile_NoData_ReturnEmptyData()
+        public async Task SignIn_GetPermissionList_IsAdminstrator_GetFromFile_NoData_ReturnEmptyData()
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(true);
@@ -441,7 +441,7 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>
@@ -455,7 +455,7 @@
         }
 
         [Test]
-        public void SignIn_GetPermissionList_IsAdminstrator_GetFromFile_HasData_ReturnEmptyData()
+        public async Task SignIn_GetPermissionList_IsAdminstrator_GetFromFile_HasData_ReturnEmptyData()
         {
             // Arrange
             var tokenInfo = CreateValidFakeToken(true);
@@ -477,7 +477,7 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
             // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>

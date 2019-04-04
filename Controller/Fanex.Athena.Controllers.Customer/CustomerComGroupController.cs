@@ -51,11 +51,11 @@
         #region Get data
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
-            var model = _groupComService.GetAll(licenseeId);
+            var model = await _groupComService.GetAll(licenseeId).ConfigureAwait(false);
 
             ViewBag.IsAllowNG = productAccess.IsAllowNG;
             ViewBag.IsAllowCS = productAccess.IsAllowCS;

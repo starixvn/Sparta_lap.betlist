@@ -107,7 +107,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var model = await CreateCustomerViewModel(metaModel).ConfigureAwait(false);
+            var model = await CreateCustomerViewModel(metaModel);
 
             if (!model.IsSubsidiary)
             {

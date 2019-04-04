@@ -72,10 +72,10 @@ namespace Fanex.Athena.Controllers.Forecast
         private async Task<ForecastHdpOuViewModel> GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var leagueList = await _leagueDataAaccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(true);
+            var leagueList = await _leagueDataAaccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString);
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
-            var forecastHdpOuByLeague = await _forecastDataAccess.GetForecastHandicapOverUnder(metaModel).ConfigureAwait(false);
+            var forecastHdpOuByLeague = await _forecastDataAccess.GetForecastHandicapOverUnder(metaModel);
 
             return new ForecastHdpOuViewModel
             {

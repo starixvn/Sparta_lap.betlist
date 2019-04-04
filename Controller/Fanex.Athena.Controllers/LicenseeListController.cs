@@ -29,7 +29,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> Index(int? licenseeId)
+        public ActionResult Index(int? licenseeId)
         {
             var userSession = _sessionService.UserSession;
             if (userSession == null || userSession.UserId <= 0)
@@ -39,7 +39,7 @@
 
             if (licenseeId.HasValue && licenseeId.Value > 0)
             {
-                return await RedirectToHome(licenseeId.Value);
+                return RedirectToHome(licenseeId.Value);
             }
             else
             {
@@ -52,7 +52,7 @@
 
                 if (licenseeList.Count == 1)
                 {
-                    return await RedirectToHome(licenseeList[0].Id);
+                    return RedirectToHome(licenseeList[0].Id);
                 }
 
                 ViewBag.CurrentUsername = userSession.UserName;
@@ -62,9 +62,9 @@
             return View("~/Views/Desktop/LicenseeList/Index.cshtml");
         }
 
-        private async Task<ActionResult> RedirectToHome(int licenseeId)
+        private ActionResult RedirectToHome(int licenseeId)
         {
-            await _sessionService.UpdateLiceseeSession(licenseeId);
+            _sessionService.UpdateLiceseeSession(licenseeId);
 
             return RedirectToAction(nameof(Index), "Home");
         }

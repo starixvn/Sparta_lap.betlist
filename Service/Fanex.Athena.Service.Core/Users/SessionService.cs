@@ -83,7 +83,7 @@ namespace Fanex.Athena.Service.Core.Users
             _sessionStorage.AssignSessions(userSession, licenseeSession);
         }
 
-        public async Task CreateNewSession(
+        public void CreateNewSession(
             int userId,
             int onuserId,
             string userName,
@@ -108,14 +108,14 @@ namespace Fanex.Athena.Service.Core.Users
                 ApplicationMode = AppMode.Self
             };
 
-            await AssignCurrenciesToUserSession(userSession, licenseeId);
+            AssignCurrenciesToUserSession(userSession, licenseeId);
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
             var licenseeSession = licenseeId > 0 && selectedLicensee != null ? GenerateLicenseeInfo(selectedLicensee) : null;
 
             AssignSessions(userSession, licenseeSession);
         }
 
-        public async Task UpdateLiceseeSession(int licenseeId)
+        public void UpdateLiceseeSession(int licenseeId)
         {
             var userSession = UserSession;
             var licenseeList = _licenseeDataAccess.GetByUser(userSession.UserId);
@@ -129,7 +129,7 @@ namespace Fanex.Athena.Service.Core.Users
                 userSession.FunctionIdList = functionIdList;
                 userSession.DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList);
 
-                await AssignCurrenciesToUserSession(userSession, licenseeId);
+                AssignCurrenciesToUserSession(userSession, licenseeId);
 
                 AssignSessions(userSession, GenerateLicenseeInfo(selectedLicensee));
             }
@@ -255,9 +255,9 @@ namespace Fanex.Athena.Service.Core.Users
             };
         }
 
-        public async Task AssignCurrenciesToUserSession(UserSession userSession, int licenseeId, IEnumerable<CurrencyUser> currencyUserList = null)
+        public void AssignCurrenciesToUserSession(UserSession userSession, int licenseeId, IEnumerable<CurrencyUser> currencyUserList = null)
         {
-            var currencyUsers = currencyUserList ?? await _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId).ConfigureAwait(true);
+            var currencyUsers = currencyUserList ?? _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId);
 
             if (licenseeId == LicenseeIdentity.KeenOcean)
             {

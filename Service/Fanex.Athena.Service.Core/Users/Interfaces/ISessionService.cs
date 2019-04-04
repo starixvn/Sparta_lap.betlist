@@ -24,7 +24,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 
         void AssignSessions(UserSession userSession, LicenseeSession licenseeSession);
 
-        Task CreateNewSession(
+        void CreateNewSession(
             int userId,
             int onuserId,
             string userName,
@@ -32,7 +32,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
             int licenseeId = 0,
             string language = "en-US");
 
-        Task UpdateLiceseeSession(int licenseeId);
+        void UpdateLiceseeSession(int licenseeId);
 
         bool UpdateLanguage(string languageCode);
 
@@ -46,6 +46,6 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 
         string GenerateAgentListXml(IDictionary<int, IEnumerable<int>> currencyAgentList);
 
-        Task AssignCurrenciesToUserSession(UserSession userSession, int licenseeId, IEnumerable<CurrencyUser> currencyUserList = null);
+        void AssignCurrenciesToUserSession(UserSession userSession, int licenseeId, IEnumerable<CurrencyUser> currencyUserList = null);
     }
 }

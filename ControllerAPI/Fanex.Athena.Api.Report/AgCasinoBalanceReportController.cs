@@ -166,7 +166,7 @@ namespace Fanex.Athena.Api.Report
             if (IsValidRequest(metaModel.CurrencyId, metaModel.DrillDownCurrencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                var result = await GetData(metaModel).ConfigureAwait(false);
+                var result = await GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {

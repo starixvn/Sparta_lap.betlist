@@ -125,7 +125,7 @@
         }
 
         [Test]
-        public void UpdateCommission_ApiThrowException_LogException()
+        public async Task UpdateCommission_ApiThrowException_LogException()
         {
             // Arrange
             var exception = new Exception("Hello");
@@ -137,7 +137,7 @@
             });
 
             // Action
-            _casinoCustomerService.UpdateCommission(metaModel);
+            await _casinoCustomerService.UpdateCommission(metaModel);
 
             // Assert
             _logger.ReceivedWithAnyArgs().Error(exception);

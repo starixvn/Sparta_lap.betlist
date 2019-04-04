@@ -15,7 +15,7 @@
     public partial class AccountPermissionControllerTest
     {
         [Test]
-        public async Task AssignCurrency_WhenGetWithoutEnableAssignCurrency_ReturnEmptyResult()
+        public void AssignCurrency_WhenGetWithoutEnableAssignCurrency_ReturnEmptyResult()
         {
             using (var controller = CreateController())
             {
@@ -23,7 +23,7 @@
                 AppSettings.EnableAssignCurrency.Returns(false);
 
                 // Action
-                var result = await controller.AssignCurrency(0) as EmptyResult;
+                var result = controller.AssignCurrency(0) as EmptyResult;
 
                 // Assert
                 Assert.That(result, Is.Not.Null);
@@ -31,7 +31,7 @@
         }
 
         [Test]
-        public async Task AssignCurrency_WhenGetWithInvalidUserId_AccessDenied()
+        public void AssignCurrency_WhenGetWithInvalidUserId_AccessDenied()
         {
             using (var controller = CreateController())
             {
@@ -39,7 +39,7 @@
                 AppSettings.EnableAssignCurrency.Returns(true);
 
                 // Action
-                var result = await controller.AssignCurrency(0) as RedirectResult;
+                var result = controller.AssignCurrency(0) as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
@@ -47,7 +47,7 @@
         }
 
         [Test]
-        public async Task AssignCurrency_WhenGet_ReturnAssignCurrencyView()
+        public void AssignCurrency_WhenGet_ReturnAssignCurrencyView()
         {
             using (var controller = CreateController())
             {
@@ -60,7 +60,7 @@
                 });
 
                 // Action
-                var viewResult = await controller.AssignCurrency(DefaultUserSession.UserId) as ViewResult;
+                var viewResult = controller.AssignCurrency(DefaultUserSession.UserId) as ViewResult;
 
                 // Assert
                 Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/AssignCurrency.cshtml"));
@@ -68,7 +68,7 @@
         }
 
         [Test]
-        public async Task AssignCurrency_WhenGetWithKeenOceanLicensee_SetCurrenyNameIsHKD()
+        public void AssignCurrency_WhenGetWithKeenOceanLicensee_SetCurrenyNameIsHKD()
         {
             using (var controller = CreateController())
             {
@@ -86,7 +86,7 @@
                 });
 
                 // Action
-                var viewResult = await controller.AssignCurrency(DefaultUserSession.UserId) as ViewResult;
+                var viewResult = controller.AssignCurrency(DefaultUserSession.UserId) as ViewResult;
 
                 // Assert
                 Assert.That(viewResult.ViewBag.CurrencyList[0].CurrencyName, Is.EqualTo("HKD"));
@@ -94,12 +94,12 @@
         }
 
         [Test]
-        public async Task AssignCurrency_WhenPostWithInValidUserId_ReturnFailResult()
+        public void AssignCurrency_WhenPostWithInValidUserId_ReturnFailResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.AssignCurrency(new AssignCurrencyMetaModel
+                var result = controller.AssignCurrency(new AssignCurrencyMetaModel
                 {
                     UserId = 0
                 }) as JsonResult;
@@ -116,12 +116,12 @@
         }
 
         [Test]
-        public async Task AssignCurrency_WhenPostWithInCurrencyList_ReturnFailResult()
+        public void AssignCurrency_WhenPostWithInCurrencyList_ReturnFailResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var result = await controller.AssignCurrency(new AssignCurrencyMetaModel
+                var result = controller.AssignCurrency(new AssignCurrencyMetaModel
                 {
                     UserId = DefaultUserSession.UserId,
                     CurrencyList = null
@@ -139,7 +139,7 @@
         }
 
         [Test]
-        public async Task AssignCurrency_WhenPostWithoutEnableAssignCurrency_ReturnFailResult()
+        public void AssignCurrency_WhenPostWithoutEnableAssignCurrency_ReturnFailResult()
         {
             using (var controller = CreateController())
             {
@@ -147,7 +147,7 @@
                 AppSettings.EnableAssignCurrency.Returns(false);
 
                 // Action
-                var result = await controller.AssignCurrency(new AssignCurrencyMetaModel
+                var result = controller.AssignCurrency(new AssignCurrencyMetaModel
                 {
                     UserId = DefaultUserSession.UserId,
                     CurrencyList = "1,2,3"
@@ -165,7 +165,7 @@
         }
 
         [Test]
-        public async Task AssignCurrency_WhenPost_ValidatePermissionRestrictionFailed_ReturnFailResult()
+        public void AssignCurrency_WhenPost_ValidatePermissionRestrictionFailed_ReturnFailResult()
         {
             using (var controller = CreateController())
             {
@@ -173,7 +173,7 @@
                 AppSettings.EnableAssignCurrency.Returns(true);
 
                 // Action
-                var result = await controller.AssignCurrency(new AssignCurrencyMetaModel
+                var result = controller.AssignCurrency(new AssignCurrencyMetaModel
                 {
                     UserId = DefaultUserSession.UserId,
                     CurrencyList = "1,2,3"
@@ -191,7 +191,7 @@
         }
 
         [Test]
-        public async Task AssignCurrency_ValidUser_BuildCorrectCurrencyList()
+        public void AssignCurrency_ValidUser_BuildCorrectCurrencyList()
         {
             using (var controller = CreateController())
             {
@@ -216,7 +216,7 @@
                 };
 
                 // Action
-                var result = await controller.AssignCurrency(model) as JsonResult;
+                var result = controller.AssignCurrency(model) as JsonResult;
                 var resultInfo = result.Data as ResultInfo;
 
                 // Assert
@@ -227,7 +227,7 @@
         }
 
         [Test]
-        public async Task AssignCurrency_UserCurrencyListGetFromDataAccessIsEmpty_CurrencyListHasEmptyElement()
+        public void AssignCurrency_UserCurrencyListGetFromDataAccessIsEmpty_CurrencyListHasEmptyElement()
         {
             using (var controller = CreateController())
             {
@@ -245,7 +245,7 @@
                 };
 
                 // Action
-                var result = await controller.AssignCurrency(model) as JsonResult;
+                var result = controller.AssignCurrency(model) as JsonResult;
                 var resultInfo = result.Data as ResultInfo;
 
                 // Assert
@@ -254,7 +254,7 @@
         }
 
         [Test]
-        public async Task AssignCurrency_ValidUserInfo_ReturnSuccessfulData()
+        public void AssignCurrency_ValidUserInfo_ReturnSuccessfulData()
         {
             using (var controller = CreateController())
             {
@@ -272,7 +272,7 @@
                 };
 
                 // Action
-                var result = await controller.AssignCurrency(model) as JsonResult;
+                var result = controller.AssignCurrency(model) as JsonResult;
                 var resultInfo = result.Data as ResultInfo;
 
                 // Assert
@@ -281,7 +281,7 @@
         }
 
         [Test]
-        public async Task AssignCurrency_ValidUserButCallSeviceFailed_ReturnUnSuccessfulData()
+        public void AssignCurrency_ValidUserButCallSeviceFailed_ReturnUnSuccessfulData()
         {
             using (var controller = CreateController())
             {
@@ -299,7 +299,7 @@
                 };
 
                 // Action
-                var result = await controller.AssignCurrency(model) as JsonResult;
+                var result = controller.AssignCurrency(model) as JsonResult;
                 var resultInfo = result.Data as ResultInfo;
 
                 // Assert

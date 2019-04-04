@@ -17,7 +17,6 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Forecast.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ForecastOneXTwo)]
     public class OneXTwoForecastController : ForecastBaseController
@@ -82,19 +81,19 @@ namespace Fanex.Athena.Controllers.Forecast
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var leagueList = await _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(true);
+            var leagueList = await _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString);
             var currentLeagueId = metaModel.LeagueId;
 
             if (metaModel.MatchId != 0)
             {
-                var forecastOneXTwoByMatch = await _forecastOneXTwoDataAccess.GetForecastOneXTwoByMatch(metaModel).ConfigureAwait(false);
+                var forecastOneXTwoByMatch = await _forecastOneXTwoDataAccess.GetForecastOneXTwoByMatch(metaModel);
                 model.MainData = forecastOneXTwoByMatch;
             }
             else
             {
                 metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
-                var forecastcOneXTwoByLeague = await _forecastOneXTwoDataAccess.GetForecastOneXTwoByLeague(metaModel).ConfigureAwait(false);
+                var forecastcOneXTwoByLeague = await _forecastOneXTwoDataAccess.GetForecastOneXTwoByLeague(metaModel);
                 model.MainData = forecastcOneXTwoByLeague;
             }
 

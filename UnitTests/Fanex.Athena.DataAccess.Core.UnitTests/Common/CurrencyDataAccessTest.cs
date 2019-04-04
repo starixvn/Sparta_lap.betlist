@@ -16,7 +16,7 @@
         private const string GetCurrenciesByUser = "Lrf_SelCurrencyByLicenseeUser";
 
         [Test]
-        public async Task AssignCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
+        public void AssignCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(AssignCurrenciesByUserSp)).Returns(ObjectDb);
@@ -31,7 +31,7 @@
             };
 
             // Action
-            await DataAccess.AssignCurrenciesByUser(dataModel);
+            DataAccess.AssignCurrenciesByUser(dataModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -48,14 +48,14 @@
         }
 
         [Test]
-        public async Task AssignCurrenciesByUser_WhenCall_ResultInfoReturnCorrectly()
+        public void AssignCurrenciesByUser_WhenCall_ResultInfoReturnCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(AssignCurrenciesByUserSp)).Returns(ObjectDb);
             ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = await DataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
+            var result = DataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -66,7 +66,7 @@
         }
 
         [Test]
-        public async Task GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
+        public void GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             const int LicenseeId = 1;
@@ -74,7 +74,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetCurrenciesByUser)).Returns(ObjectDb);
 
             // Action
-            await DataAccess.GetCurrenciesByUser(LicenseeId, UserId);
+            DataAccess.GetCurrenciesByUser(LicenseeId, UserId);
 
             // Assert
             Assert.Multiple(() =>
@@ -85,10 +85,10 @@
         }
 
         [Test]
-        public async Task GetCurrenciesByUser_WhenCall_ReturnCorrectData()
+        public void GetCurrenciesByUser_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            DataAccess.GetObjectDb(GetCurrenciesByUser).QueryAsync<CurrencyUser>()
+            DataAccess.GetObjectDb(GetCurrenciesByUser).Query<CurrencyUser>()
                 .Returns(new List<CurrencyUser>
                 {
                     new CurrencyUser { CurrencyId = 1, AgentId = 100 },
@@ -96,7 +96,7 @@
                 });
 
             // Action
-            var currencyList = await DataAccess.GetCurrenciesByUser(0, 0).ConfigureAwait(false);
+            var currencyList = DataAccess.GetCurrenciesByUser(0, 0);
 
             // Assert
             Assert.Multiple(() =>
