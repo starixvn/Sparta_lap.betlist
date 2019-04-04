@@ -48,7 +48,7 @@
         public async Task GetPendingFunds_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = 500000M;
+            var expected = 500M;
 
             Reader.Read().Returns(true, false);
             Reader["PendingFundEUR"].Returns(expected);
@@ -93,7 +93,7 @@
         public async Task GetTodayWithdrawal_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = 500000M;
+            var expected = 600M;
 
             Reader.Read().Returns(true, false);
             Reader["WithdrawalEUR"].Returns(expected);
@@ -132,7 +132,7 @@
         public async Task GetCustomerBalance_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = 500000M;
+            var expected = 800M;
 
             Reader.Read().Returns(true, false);
             Reader["ClosingBalanceEUR"].Returns(expected);
@@ -171,7 +171,7 @@
         public async Task GetTodayDeposit_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = 500000M;
+            var expected = 900M;
 
             Reader.Read().Returns(true, false);
             Reader["DepositEUR"].Returns(expected);

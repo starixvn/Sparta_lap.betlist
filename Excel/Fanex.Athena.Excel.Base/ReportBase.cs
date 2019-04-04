@@ -20,6 +20,8 @@ namespace Fanex.Athena.Excel.Base
         public const int RowTitleTemplate = 0;
         public const int MaxRowCount = 30000;
 
+        public const string TemplateSheetName = "Template";
+
         public const string FormatDate = "MM/dd/yyyy";
 
         protected const int ColumnIndex = 0;
@@ -124,7 +126,7 @@ namespace Fanex.Athena.Excel.Base
 
         protected internal virtual void AssignData()
         {
-            var sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet(TemplateSheetName, "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -147,7 +149,7 @@ namespace Fanex.Athena.Excel.Base
 
             if (_totalRows == 0)
             {
-                sheet = Workbook.CloneSheet("Template", "Data");
+                sheet = Workbook.CloneSheet(TemplateSheetName, "Data");
                 AssignTitle(sheet);
                 AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
@@ -157,7 +159,7 @@ namespace Fanex.Athena.Excel.Base
             {
                 for (int i = 0; i < NumberOfSheets; i++)
                 {
-                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
+                    sheet = Workbook.CloneSheet(TemplateSheetName, "Data" + (i + 1).ToString());
                     AssignTitle(sheet);
                     AssignHeader(sheet);
                     AssignSheetData(sheet, i);
@@ -193,7 +195,7 @@ namespace Fanex.Athena.Excel.Base
             {
                 stream = new FileStream(_templatePath, FileMode.Open, FileAccess.Read);
                 Workbook = new HSSFWorkbook(stream);
-                TemplateSheet = Workbook.GetSheet("Template");
+                TemplateSheet = Workbook.GetSheet(TemplateSheetName);
                 var defaultStyle = Workbook.CreateCellStyle();
                 defaultStyle.ShrinkToFit = true;
                 defaultStyle.WrapText = true;
@@ -209,7 +211,7 @@ namespace Fanex.Athena.Excel.Base
 
         protected internal virtual void RemoveTemplate()
         {
-            Workbook.RemoveSheet("Template");
+            Workbook.RemoveSheet(TemplateSheetName);
         }
     }
 }

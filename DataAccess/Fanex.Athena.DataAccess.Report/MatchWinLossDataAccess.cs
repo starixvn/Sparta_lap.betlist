@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Linq;
     using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
+    using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -25,6 +26,8 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class MatchWinLossDataAccess : BaseDataAccess, IMatchWinLossDataAccess
     {
+
+
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -43,9 +46,8 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                SetCommonParam(db, metaModel);
                 db.SetParameterValue("Date", metaModel.Date);
-                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                 foreach (var item in metaModel.ProductOptions)
                 {
                     db.SetParameterValue("show" + item.Code, item.Status);
@@ -64,10 +66,9 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                SetCommonParam(db, metaModel);
                 db.SetParameterValue("FromDate", metaModel.Date);
                 db.SetParameterValue("ToDate", metaModel.Date);
-                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                 db.SetParameterValue("PageSize", metaModel.PageSize);
 
                 foreach (var item in metaModel.ProductOptions)
@@ -85,11 +86,10 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                SetCommonParam(db, metaModel);
                 db.SetParameterValue("MatchId", metaModel.MatchId);
                 db.SetParameterValue("Date", metaModel.Date);
                 db.SetParameterValue("LeagueId", metaModel.LeagueId);
-                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
                 foreach (var item in metaModel.ProductCodeList.Split(','))
                 {
@@ -113,9 +113,8 @@ namespace Fanex.Athena.DataAccess.Report
                 var showBa = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.BA);
                 var showVS2 = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.VS2);
 
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                SetCommonParam(db, metaModel);
                 db.SetParameterValue("Date", metaModel.Date);
-                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                 db.SetParameterValue("showsb", showSb);
                 db.SetParameterValue("showba", showBa);
                 db.SetParameterValue("showVS2", showVS2);
@@ -177,6 +176,12 @@ namespace Fanex.Athena.DataAccess.Report
             }
 
             return dataList;
+        }
+
+        private void SetCommonParam(IObjectDb db, MatchWinLossMetaModel metaModel)
+        {
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
         }
     }
 }

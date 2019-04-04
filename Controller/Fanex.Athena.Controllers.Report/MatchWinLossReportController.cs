@@ -34,6 +34,8 @@
     {
         private const string NewProductIdColumnName = "newproductid";
 
+        private const string MatchNameColumn = "matchname";
+
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -269,7 +271,7 @@
         private DataTable AddColumnsForSorting(DataTable mainTable)
         {
             mainTable.Columns.Add(NewProductIdColumnName, typeof(int));
-            mainTable.Columns.Add("matchname", typeof(string));
+            mainTable.Columns.Add(MatchNameColumn, typeof(string));
             mainTable.Columns.Add("leaguename", typeof(string));
 
             foreach (DataRow row in mainTable.Rows)
@@ -290,7 +292,7 @@
             if ((int)row[NewProductIdColumnName] == ProductTypes.NumberGame)
             {
                 var prefix = BetTypeHelper.IsNumberGameHappy5(betType) ? ViewResources.No + "." : ViewResources.NumberGameNo;
-                row["matchname"] = string.Format("{0} {1}", prefix, row["matchcode"]);
+                row[MatchNameColumn] = string.Format("{0} {1}", prefix, row["matchcode"]);
             }
             else
             {
@@ -299,7 +301,7 @@
                     var culture = new CultureInfo("en-US");
                     const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
                     var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
-                    row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
+                    row[MatchNameColumn] = string.Format(culture, TimeFormatter, kickOffTime);
                 }
                 else
                 {
@@ -308,7 +310,7 @@
                                         ? " " + ViewResources.IsNeutral
                                         : string.Empty);
                     var awayName = _cacheRefAdapter.GetTeamName(row["awayid"]);
-                    row["matchname"] = homeName + "-vs-" + awayName;
+                    row[MatchNameColumn] = homeName + "-vs-" + awayName;
                 }
             }
         }

@@ -13,7 +13,7 @@ module.exports = function (config) {
             { pattern: "node_modules/bootstrap-daterangepicker/*.js", included: false },
             { pattern: "node_modules/materialize-autocomplete/**/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
-            
+
             { pattern: 'www/js/tests/common/*-spec.js', included: false },
             { pattern: 'www/js/tests/lib/**/jquery.jqgrid.additional-spec.js', included: false },
             { pattern: 'www/js/tests/extensions/**/*-spec.js', included: false },

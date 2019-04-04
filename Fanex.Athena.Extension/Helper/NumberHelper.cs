@@ -20,20 +20,15 @@ namespace Fanex.Athena.Extension.Helper
         /// <param name="value">The object value.</param>
         /// <param name="digit">The number of digits.</param>
         /// <returns>The formatted string.</returns>
-        public static string ToStringExt(this object value, byte digit = 2)
+        public static string ToStringExt(this decimal value, byte digit = 2)
         {
-            if (value is decimal)
-            {
-                var format = "N" + digit.ToString();
-                return ((decimal)value).ToString(format, DefaultCulture.NumberFormat);
-            }
+            var format = "N" + digit.ToString();
+            return value.ToString(format, DefaultCulture.NumberFormat);
+        }
 
-            if (value is int)
-            {
-                return ((int)value).ToString("#,###");
-            }
-
-            return value.ToString();
+        public static string ToStringExt(this int value)
+        {
+            return value.ToString("#,###");
         }
 
         public static string DecFormat(decimal value, byte digit = 2)

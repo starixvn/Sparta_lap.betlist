@@ -94,7 +94,7 @@
             var readerDataMapping = new
             {
                 TurnoverUSD = 999,
-                reporttype = 20190101
+                reporttype = "20190101"
             };
             MapReaderData(readerDataMapping);
 

@@ -16,7 +16,7 @@
             {
                 pattern: 'www/js/tests/pages/report/platformwinloss/platformwinloss-spec.js', included: false
             },
-            
+
             'www/js/tests/test-main.js'
         ],
         proxies: {
@@ -29,7 +29,7 @@
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: ['PhantomJS'],
-     //   reporters: ['progress', 'kjhtml'],
+        //   reporters: ['progress', 'kjhtml'],
         singleRun: true,
         concurrency: Infinity,
         phantomjsLauncher: {

@@ -18,7 +18,7 @@ namespace Fanex.Athena.Extension.UnitTests.Helper
         [TestCase(2, "2.00")]
         [TestCase(-1, "-1.00")]
         [TestCase(-2.5, "-2.50")]
-        public void ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(object value, string expected)
+        public void ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(decimal value, string expected)
         {
             // Arrange
             var decimalNumber = Convert.ToDecimal(value);
@@ -34,10 +34,10 @@ namespace Fanex.Athena.Extension.UnitTests.Helper
         [TestCase(2, "2")]
         [TestCase(25, "25")]
         [TestCase(2530, "2,530")]
-        [TestCase(1000000, "1,000,000")]
+        [TestCase(10000, "10,000")]
         [TestCase(-1, "-1")]
         [TestCase(-25000, "-25,000")]
-        public void ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(object value, string expected)
+        public void ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(int value, string expected)
         {
             // Action
             var result = value.ToStringExt();
@@ -46,38 +46,19 @@ namespace Fanex.Athena.Extension.UnitTests.Helper
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        [TestCase(0.2, "0.2")]
-        [TestCase(0.158, "0.158")]
-        [TestCase(2.57384, "2.57384")]
-        [TestCase(-0.2, "-0.2")]
-        [TestCase(-0.158, "-0.158")]
-        [TestCase(-2.57384, "-2.57384")]
-        public void ToStringExt_OneArgumentWithOtherType_ReturnOriginalNumber(object value, string expected)
+        [TestCase(0, 3, "0.000")]
+        [TestCase(2.5, 3, "2.500")]
+        [TestCase(2.53, 3, "2.530")]
+        [TestCase(2.534, 3, "2.534")]
+        [TestCase(2.5354, 3, "2.535")]
+        [TestCase(2.5366, 3, "2.537")]
+        [TestCase(2, 3, "2.000")]
+        [TestCase(-1, 3, "-1.000")]
+        [TestCase(-2.5, 3, "-2.500")]
+        public void ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(decimal value, byte digit, string expected)
         {
             // Action
-            var result = value.ToStringExt();
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        [TestCase(0, "0.000")]
-        [TestCase(2.5, "2.500")]
-        [TestCase(2.53, "2.530")]
-        [TestCase(2.534, "2.534")]
-        [TestCase(2.5354, "2.535")]
-        [TestCase(2.5366, "2.537")]
-        [TestCase(2, "2.000")]
-        [TestCase(-1, "-1.000")]
-        [TestCase(-2.5, "-2.500")]
-        public void ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(object value, string expected)
-        {
-            // Arrange
-            var decimalNumber = Convert.ToDecimal(value);
-            byte digit = 3;
-
-            // Action
-            var result = decimalNumber.ToStringExt(digit);
+            var result = value.ToStringExt(digit);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
@@ -92,13 +73,10 @@ namespace Fanex.Athena.Extension.UnitTests.Helper
         [TestCase(2, "2.00")]
         [TestCase(-1, "-1.00")]
         [TestCase(-2.5, "-2.50")]
-        public void DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(object value, string expected)
+        public void DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(decimal value, string expected)
         {
-            // Arrange
-            var decimalNumber = Convert.ToDecimal(value);
-
             // Action
-            var result = NumberHelper.DecFormat(decimalNumber);
+            var result = NumberHelper.DecFormat(value);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
