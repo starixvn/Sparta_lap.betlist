@@ -34,7 +34,7 @@ export const setLeagueList = (list) => {
 }
 
 export function getLeagueList(sportId, date) {
-    date= moment(date,"MM/DD/YYYY").format("YYYY-MM-DD");
+    date = moment(date,"MM/DD/YYYY").format("YYYY-MM-DD");
     
     const cacheKey = LEAGUE_CACHE_KEY + sportId + "_" + date
     return (dispatch) => {

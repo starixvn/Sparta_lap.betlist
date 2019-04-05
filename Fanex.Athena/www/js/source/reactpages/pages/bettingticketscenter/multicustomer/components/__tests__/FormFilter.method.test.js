@@ -9,7 +9,9 @@ import Service from '../../../common/lib/Service';
 import renderer from 'react-test-renderer';
 import Select from 'react-select';
 import CheckBox from '@jsroot/components/CheckBox';
+import { toast } from 'react-toastify';
 
+jest.mock('react-toastify');
 jest.mock('@jsroot/lib/AppData');
 
 const DateRange = { fromDate: '06/01/2018', toDate: '07/27/2018'};
@@ -28,6 +30,17 @@ describe('FormFilter ', () => {
                 dateConstraint: { minDate: '06/01/2012', maxDate: '07/27/2018', limitedMonthRange: 3 }
             });
     });
+
+    describe('_showExportWarning', () => {
+        it('call toast.success' ,() => {
+            const props = { selectedProduct: '' };
+
+            const filter = new FormFilter(props);
+            filter._showExportWarning();
+
+            expect(toast.success).toHaveBeenCalled();
+        });
+    })
 
     describe('isValidModel ', () => {
         it('selectedProduct is empty - return false' ,() => {
@@ -83,45 +96,6 @@ describe('FormFilter ', () => {
             expect(props.setRequestParam).toHaveBeenCalledWith(params);
             expect(props.toggleLoader).toHaveBeenCalledWith(true);
             expect(props.getGridData).toHaveBeenCalledWith(ApiUrl.MULTICUSTOMER_DATA_URL, params);
-        });
-    })
-
-    describe('exportExcel ', () => {
-        it('parameter is null - do nothing' ,() => {
-            const event = { preventDefault: jest.fn() };
-
-            const props = { toggleLoader: jest.fn() };
-            const filter = new FormFilter(props);
-            filter._getParams = jest.fn(() => null);
-
-            filter.exportExcel(event);
-
-            expect(props.toggleLoader).not.toHaveBeenCalled();
-        });
-
-        it('parameter is valid - call service to download excel file' ,() => {
-            const event = { preventDefault: jest.fn() };
-
-            const response = { data: 'excel', headers: { 'content-type': 'abc' } };
-            const promise = Promise.resolve(response);
-            DataService.getFile = jest.fn(() => promise);
-            Site.downloadFile = jest.fn();
-
-            const props = { toggleLoader: jest.fn() };
-            const filter = new FormFilter(props);
-            
-            var params = { }
-            filter._getParams = jest.fn(() => params);
-
-            filter.exportExcel(event);
-
-            expect(params.IsExport).toBe(true);
-            expect(props.toggleLoader).toHaveBeenCalledWith(true);
-            expect(DataService.getFile).toHaveBeenCalledWith(ApiUrl.MULTICUSTOMER_DATA_URL, params);
-            Promise.resolve().then(() => {
-                expect(Site.downloadFile).toHaveBeenCalledWith(response.data, 'BettingTicketsCenter_MultiCustomer.xls');
-                expect(props.toggleLoader).toHaveBeenCalledWith(false);
-            })
         });
     })
 

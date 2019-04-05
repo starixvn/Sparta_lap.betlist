@@ -898,6 +898,8 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\bettypeAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\sportAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\__tests__\sportAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\__tests__\leagueAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\__tests__\bettypeAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\FormFilter.jsx" />

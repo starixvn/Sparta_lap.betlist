@@ -112,6 +112,50 @@ describe('PageLayout methods ', () => {
         });
     });    
 
+    describe('_showMixParlayDetail()', () => {
+        const transId = "abc";
+        document.body.innerHTML = `<div id='divEvent_${transId}'></div>`;
+        const divEvent = document.querySelector('#divEvent_' + transId);
+        
+        const pageLayout = new PageLayout({toggleLoader: jest.fn()});
+        
+        beforeAll(() =>{
+            jest.mock('axios');
+        });
+
+        afterEach(() => {
+            jest.resetAllMocks();
+        });
+
+        it('divEvent is hidden - get choice from server and append to divEvent',(done) =>{
+            divEvent.style.display = "none";
+            const expectedParlayDetailUrl = "/api/MixParlayBetList/Detail?transId=abc";
+
+            const promise = Promise.resolve({
+                data: '123'
+            });
+            axios.get = jest.fn((url, option) => promise);
+
+            pageLayout._showMixParlayDetail(transId, divEvent);
+            
+            expect(axios.get).toHaveBeenCalledWith(expectedParlayDetailUrl);
+            promise.then((result) => {
+                expect(divEvent.innerHTML).toBe("1<div class=\"line\"></div>2<div class=\"line\"></div>3");
+                expect(divEvent.style.display).toBe('block');
+                done();
+            });
+        });
+
+        it('divEvent is show - hide divEvent and show nameDiv',() =>{
+            divEvent.style.display = "block";
+
+            pageLayout._showMixParlayDetail(transId, divEvent);
+
+            expect(divEvent.innerHTML).toBe("");
+            expect(divEvent.style.display).toBe('none');
+        });
+    });
+
     describe('_showNewParlayDetail()', () => {
         const transId = "abc";
         const transIndex = 999;
