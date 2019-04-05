@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.Common.Constant;
+using Fanex.Athena.Common.Utility.Helpers;
 using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -86,6 +88,8 @@ namespace Fanex.Athena.BetList.Excel.Builders
             _builder.MergeCell(new CellRangeAddress(0, 0, 0, mergeCol));
         }
 
+        [SuppressMessage("Sonar Code Smell", "S109:MagicNumbersShouldNotBeUsed",
+            Justification = "Reviewed. Suppression is OK here.")]
         public void AddHeader(bool isShowCustomerComm, BettingTicketCenterExcelOption option)
         {
             var headerStyle = _builder.CreateHeaderCellStyle();
@@ -252,7 +256,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         private void BuilDataAlignedCenterCell(IRichTextString text)
         {
-            _builder.AddCell(text, _ticketHelper.Index % 2 == 0 ? _oddCellCenterAlign : _evenCellCenterAlign);
+            _builder.AddCell(text, _ticketHelper.Index.IsOddNumber() ? _oddCellCenterAlign : _evenCellCenterAlign);
         }
 
         private ICellStyle CreateCellStyle(HorizontalAlignment align, bool isEvenCell)

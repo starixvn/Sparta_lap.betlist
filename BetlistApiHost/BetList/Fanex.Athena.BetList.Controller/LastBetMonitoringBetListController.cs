@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -13,6 +14,8 @@ using Fanex.BetList.Core.Entities;
 
 namespace Fanex.Athena.BetList.Controller
 {
+    [SuppressMessage("Sonar Code Smell", "S1192:StringLiteralsShouldNotBeDuplicated",
+            Justification = "Reviewed. Suppression is OK here.")]
     public class LastBetMonitoringBetListController : BaseController
     {
         private static readonly IEnumerable<int> ConvertingDecimalOddsBetType = new[] { 1, 2, 3, 7, 8, 12, 20 };

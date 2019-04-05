@@ -8,6 +8,7 @@ namespace Fanex.Athena.BetList.Excel
 {
     using System.Globalization;
     using BetList.Model.DTO;
+    using Common.Utility.Helpers;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NPOI.HSSF.UserModel;
@@ -22,10 +23,10 @@ namespace Fanex.Athena.BetList.Excel
 
         public static IBetListExcelBuilder AddCustomerWL(this IBetListExcelBuilder builder, ITicket ticket, bool showPlayerComm, IFont font)
         {
-            var isRunning = BetListHelper.IsRunning(ticket.Status);
-            var winloss = isRunning
+            var settledWL = showPlayerComm ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", ticket.Winlost, ticket.PlayerComm) : string.Format("{0:#,##0.00}", ticket.Winlost);
+            var winloss = BetListHelper.IsRunning(ticket.Status)
                 ? "-"
-                : (showPlayerComm ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", ticket.Winlost, ticket.PlayerComm) : string.Format("{0:#,##0.00}", ticket.Winlost));
+                : settledWL;
 
             var rtfCustomerWl = new HSSFRichTextString(winloss);
             rtfCustomerWl.ApplyFont(font);
@@ -53,7 +54,7 @@ namespace Fanex.Athena.BetList.Excel
                 ICellStyle evenStyle)
         {
             var rtfExternalId = new HSSFRichTextString(externalId);
-            builder.AddCell(rtfExternalId, ticketHelper.Index % 2 == 0 ? oddStyle : evenStyle);
+            builder.AddCell(rtfExternalId, ticketHelper.Index.IsOddNumber() ? oddStyle : evenStyle);
 
             return builder;
         }
@@ -146,7 +147,7 @@ namespace Fanex.Athena.BetList.Excel
             var rtfNo = new HSSFRichTextString(index.ToString(CultureInfo.InvariantCulture));
             builder.AddCell(
                             rtfNo,
-                            ticketHelper.Index % 2 == 0 ? builder.OddCellStyleCenterAligned : builder.EvenCellStyleCenterAligned);
+                            ticketHelper.Index.IsOddNumber() ? builder.OddCellStyleCenterAligned : builder.EvenCellStyleCenterAligned);
 
             return builder;
         }
@@ -199,7 +200,7 @@ namespace Fanex.Athena.BetList.Excel
             ICellStyle evenStyle)
         {
             var rtfSystemId = new HSSFRichTextString(systemId);
-            builder.AddCell(rtfSystemId, ticketHelper.Index % 2 == 0 ? oddStyle : evenStyle);
+            builder.AddCell(rtfSystemId, ticketHelper.Index.IsOddNumber() ? oddStyle : evenStyle);
 
             return builder;
         }

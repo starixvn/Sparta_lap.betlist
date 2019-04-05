@@ -22,7 +22,6 @@ namespace Fanex.Athena
         public static void Register()
         {
             var builder = new ContainerBuilder();
-            var config = GlobalConfiguration.Configuration;
             var assemblies = GetAssemblies();
             var serviceAssemblies = GetServiceAssemblies(assemblies);
             var apiControllerAssemblies = GetControllerAssemblies(assemblies);

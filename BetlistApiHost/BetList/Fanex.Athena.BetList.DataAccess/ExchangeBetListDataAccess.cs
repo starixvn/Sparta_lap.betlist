@@ -80,7 +80,7 @@
                     OddsMatched = reader.ToDecimal("OddsMatched")
                 };
 
-                data.Liability = type == ExchangeMatchTypeLay ? NumberHelper.DecFormat((data.OddsMatched - 1) * data.Stake, 2) : "-";
+                data.Liability = type == ExchangeMatchTypeLay ? NumberHelper.DecFormat((data.OddsMatched - 1) * data.Stake) : "-";
                 mainData.Add(data);
             }
 

@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using BetList.Model.MetaModel;
     using Common.Constant;
     using Data;
+    using Model.MetaModel;
 
     [CLSCompliant(false)]
+    [SuppressMessage("Sonar Code Smell", "S1192:StringLiteralsShouldNotBeDuplicated",
+            Justification = "Reviewed. Suppression is OK here.")]
     public static class BetListParameterBuilder
     {
         private static readonly IEnumerable<string> SupportedBaseCurrencies = SystemConstants.BaseCurrencyList;

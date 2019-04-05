@@ -9,6 +9,7 @@ namespace Fanex.Athena.Result.DataAccess
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace Fanex.Athena.Result.DataAccess
     using Model.MetaModel;
 
     [CLSCompliant(false)]
+    [SuppressMessage("Sonar Code Smell", "S1192:StringLiteralsShouldNotBeDuplicated",
+            Justification = "Reviewed. Suppression is OK here.")]
     public class ResultDataAccess : BaseDataAccess, IResultDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
