@@ -12,6 +12,7 @@ describe('Service ', () => {
 
     describe('showErrorMsg', () => {
         it('show correct message', () => {
+            window.alert = jest.fn();
             Service.showErrorMsg();
 
             expect(LangHelper.getSingleResource).toHaveBeenCalledWith('ErrorProcessingMsg');

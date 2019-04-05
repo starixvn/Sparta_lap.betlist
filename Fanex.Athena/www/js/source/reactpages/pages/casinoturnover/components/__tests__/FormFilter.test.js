@@ -118,6 +118,7 @@ describe('FormFilter ', () => {
 
                 const filter = new FormFilter(props);
                 const dateRange = filter._renderDateRange();
+                window.alert = jest.fn();
 
                 dateRange.props.onChange(newValue, false);
     
@@ -360,6 +361,7 @@ describe('FormFilter ', () => {
 
         it('response data is empty - show message', () => {
             const exportFnMock = jest.fn();
+            window.alert = jest.fn();
             ReportExcel.mockImplementation(() => {
                 return {
                     export: exportFnMock

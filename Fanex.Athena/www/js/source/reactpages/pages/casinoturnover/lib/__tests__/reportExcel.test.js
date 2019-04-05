@@ -3,20 +3,24 @@ import LangHelper from '@jsroot/lib/langHelper';
 import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../../constants/excelStyle';
 import ReportExcel from '../ReportExcel';
 
-const gridData =  {
-    Data: [
-        { BetCount: 10, CustomerWL: 100, Date: "2019-01-01T00:00:00", ExternalId: "Ext1", Index: 1, Product: "P1", RowSpan: 2, SystemId: "Sys1", Turnover: 10, ValidBetAmount: 1 },
-        { BetCount: 20, CustomerWL: -200, Date: "2019-01-02T00:00:00", ExternalId: "Ext2", Index: 0, Product: "P2", RowSpan: 0, SystemId: "Sys2", Turnover: 20, ValidBetAmount: 2 },
-        { BetCount: 30, CustomerWL: -300, Date: "2019-01-03T00:00:00", ExternalId: "Ext3", Index: 2, Product: "P3", RowSpan: 1, SystemId: "Sys3", Turnover: 30, ValidBetAmount: 3 }
-    ],
-    Total: { BetCount: 60, CustomerWL: -400, Date: "0001-01-01T00:00:00", ExternalId: null, Index: 0, Product: null, RowSpan: 0, SystemId: null, Turnover: 60, ValidBetAmount: 6 }
-};
+
 const title = "Report Title";
 const fileName = "CasinoTurnoverReport";
 
 const COLUMN_COUNT = 9;
 const TITLE_ROW_INDEX = 0;
 const MAIN_SECTION_STYLE = "mainSectionStyle";
+
+function createGridData(){
+    return {
+        Data: [
+            { BetCount: 10, CustomerWL: 100, Date: "2019-01-01T00:00:00", ExternalId: "Ext1", Index: 1, Product: "P1", RowSpan: 2, SystemId: "Sys1", Turnover: 10, ValidBetAmount: 1 },
+            { BetCount: 20, CustomerWL: -200, Date: "2019-01-02T00:00:00", ExternalId: "Ext2", Index: 0, Product: "P2", RowSpan: 0, SystemId: "Sys2", Turnover: 20, ValidBetAmount: 2 },
+            { BetCount: 30, CustomerWL: -300, Date: "2019-01-03T00:00:00", ExternalId: "Ext3", Index: 2, Product: "P3", RowSpan: 1, SystemId: "Sys3", Turnover: 30, ValidBetAmount: 3 }
+        ],
+        Total: { BetCount: 60, CustomerWL: -400, Date: "0001-01-01T00:00:00", ExternalId: null, Index: 0, Product: null, RowSpan: 0, SystemId: null, Turnover: 60, ValidBetAmount: 6 }
+    };
+}
 
 describe('ReportExcel ', () => {
     beforeAll(() => {
@@ -39,7 +43,7 @@ describe('ReportExcel ', () => {
 
         it('get data - _Create* functions and Excel.export should be called with correct parameter', () => {
             const expectedWorksheet = {};
-            const reportExcel = new ReportExcel(gridData, title);
+            const reportExcel = new ReportExcel(createGridData(), title);
            
             reportExcel._createTitle = jest.fn();
             reportExcel._createHeader = jest.fn();
@@ -106,7 +110,7 @@ describe('ReportExcel ', () => {
     describe('_createSheetData', () => {
         it('currentRowIndex should has correct value', () => {
             const expectedCurrentRowIndex = 5;
-            const reportExcel = new ReportExcel(gridData, title);
+            const reportExcel = new ReportExcel(createGridData(), title);
 
             reportExcel._createSheetData();
             const result = reportExcel.currentRowIndex;
@@ -155,7 +159,7 @@ describe('ReportExcel ', () => {
                 I5: { t: "n", v: -300, s: bodyCellStyle.decimal }
             };
 
-            const reportExcel = new ReportExcel(gridData, title);
+            const reportExcel = new ReportExcel(createGridData(), title);
 
             reportExcel._createMainData();
             const result = reportExcel.worksheet;
@@ -172,7 +176,7 @@ describe('ReportExcel ', () => {
                 { s: { r: 2, c: 3 }, e: { r: 3, c: 3 } }
             ];
 
-            const reportExcel = new ReportExcel(gridData, title, baseCurrency);
+            const reportExcel = new ReportExcel(createGridData(), title, baseCurrency);
 
             reportExcel._createMainData();
             const result = reportExcel.mergeConfig;
@@ -192,7 +196,7 @@ describe('ReportExcel ', () => {
                 I3: { t: "n", v: -400, s: grandTotalCellStyle.decimal }
             };
 
-            const reportExcel = new ReportExcel(gridData, title, baseCurrency);
+            const reportExcel = new ReportExcel(createGridData(), title, baseCurrency);
 
             reportExcel._createFooterData();
             const result = reportExcel.worksheet;
@@ -204,7 +208,7 @@ describe('ReportExcel ', () => {
             const baseCurrency = 'EUR';
             const expected = [{ s: { r: 2, c: 0 }, e: { r: 2, c: 4 } }];
 
-            const reportExcel = new ReportExcel(gridData, title, baseCurrency);
+            const reportExcel = new ReportExcel(createGridData(), title, baseCurrency);
 
             reportExcel._createFooterData();
             const result = reportExcel.mergeConfig;
