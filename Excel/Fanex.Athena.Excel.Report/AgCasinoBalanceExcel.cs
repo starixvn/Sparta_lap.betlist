@@ -104,7 +104,6 @@ namespace Fanex.Athena.Excel.Report
             int rowCount = Math.Min(_casinoList.Count, checked((pageIndex + 1) * PageSize));
             var rowIndex = RowContentTemplate;
             int index;
-            int currentIndex = 1;
 
             for (index = pageIndex * PageSize; index < rowCount; index++)
             {
@@ -122,14 +121,13 @@ namespace Fanex.Athena.Excel.Report
                 AssignCommonData(row, casinoBalance);
                 rowIndex++;
 
-                row.Cells[ColumnIndex].SetCellValue(isDrillDownLevel ? index + 1 : currentIndex);
+                row.Cells[ColumnIndex].SetCellValue(isDrillDownLevel ? index + 1 : casinoBalance.Index);
 
                 if (casinoBalance.RowSpan > 1)
                 {
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeRows(currentRow, currentRow + casinoBalance.RowSpan - 1, ColumnIndex);
                     sheet.MergeRows(currentRow, currentRow + casinoBalance.RowSpan - 1, ColumnDate);
-                    currentIndex++;
                 }
             }
 
