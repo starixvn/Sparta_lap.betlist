@@ -89,6 +89,7 @@
                 if (level < 1) {
                     Report.renderBreadCrumb(level);
                     gridControl.level = level;
+                    _me.setReportTitle(_filterData[level]);
                     _me.bindData(level, _cacheData[level], _filterData[level].ProductOptions);
                 }
             });
