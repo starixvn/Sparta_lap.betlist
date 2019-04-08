@@ -51,6 +51,9 @@
         [TestCase(-1, false)]
         [TestCase(1, true)]
         [TestCase(true, true)]
+        [TestCase(false, false)]
+        [TestCase(123, true)]
+        [TestCase(-985, false)]
         public void GetBool_WhenCall_ReturnCorrectValue(object dataValue, bool expectedValue)
         {
             // Arrange
@@ -63,6 +66,21 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedValue));
+        }
+
+        [Test]
+        public void GetBool_DataIsNull_ReturnFalse()
+        {
+            // Arrange
+            const string Column = "Column1";
+            _dataReader[Column].Returns(Convert.DBNull);
+            var reader = new SafeDataReader(_dataReader, _columns);
+
+            // Action
+            var result = reader.GetBool(Column);
+
+            // Assert
+            Assert.That(result, Is.False);
         }
 
         [Test]

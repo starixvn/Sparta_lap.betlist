@@ -222,7 +222,7 @@
                     .Returns(ticketText.ToList());
 
                 // Action
-                 await controller.GetBetListPaging(metaModel);
+                 await controller.GetDailyBetListData(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -373,6 +373,27 @@
 
                 // Action
                 await controller.ExportExcelWinlossByLeague(metaModel);
+
+                // Assert
+                controller.Received().Export(metaModel, ticketResult);
+            }
+        }
+
+        [Test]
+        public async Task ExportExcelLiveReport_WhenCall_CallExportExcel()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<LiveReportBetListMetaModel>();
+
+                var ticketResult = new TicketResult();
+                _betListService.GetBetListData(metaModel).Returns(ticketResult);
+
+                controller.When(x => x.Export(Arg.Any<LiveReportBetListMetaModel>(), ticketResult)).DoNotCallBase();
+
+                // Action
+                await controller.ExportExcelLiveReport(metaModel);
 
                 // Assert
                 controller.Received().Export(metaModel, ticketResult);

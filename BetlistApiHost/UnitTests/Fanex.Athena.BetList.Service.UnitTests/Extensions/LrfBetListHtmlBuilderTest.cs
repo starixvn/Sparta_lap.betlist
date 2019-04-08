@@ -2,15 +2,15 @@
 {
     using System.Collections;
     using System.Collections.Generic;
-    using Athena.BetList.Model.DTO;
-    using Athena.BetList.Model.MetaModel;
-    using Athena.BetList.Service.Extensions;
     using Common.Constant;
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Model.DTO;
+    using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Extensions;
 
     public class LrfBetListHtmlBuilderTest
     {
@@ -307,5 +307,26 @@
             // Assert
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        //[TestCase(1)]
+        //[TestCase(2)]
+        //[TestCase(3)]
+        //public void BuildLiveStatus_NoShowPlayerComm_DoNotAppendPlayerCommToResult(decimal winloss)
+        //{
+        //    // Arrange
+        //    var ticket = new LrfTicket
+        //    {
+        //        Winlost = winloss,
+        //        Status = BetStatus.Won,
+        //    };
+
+        //    var expected = $"<div class='underdog'>{winloss.ToString("#,##0.00")}</div>";
+
+        //    // Action
+        //    var result = _betListBuilder.BuildCustomerWL(ticket, false);
+
+        //    // Assert
+        //    Assert.That(result, Is.EqualTo(expected));
+        //}
     }
 }

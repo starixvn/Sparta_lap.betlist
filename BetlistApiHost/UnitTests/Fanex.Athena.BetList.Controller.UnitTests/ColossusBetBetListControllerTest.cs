@@ -7,6 +7,7 @@
     using Logging;
     using Model.MetaModel;
     using Model.ViewModel;
+    using Newtonsoft.Json.Linq;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -80,7 +81,33 @@
                 await controller.Detail(metaModel);
 
                 // Assert
-                await _logger.Received(1).ErrorAsync("ColossusBet Get Token Error - ApiUrl: " + string.Format(tokenApiUrl, metaModel.UserId, metaModel.CustId), exception);
+                _logger.Received(1).ErrorAsync("ColossusBet Get Token Error - ApiUrl: " + string.Format(tokenApiUrl, metaModel.UserId, metaModel.CustId), exception);
+            }
+        }
+
+        [Test]
+        public async Task Detail_TokenIsNull_LogError()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrang
+                var exception = new Exception();
+                var metaModel = new ColossusBetDetailMetaModel();
+
+                var viewModel = new ColossusBetDetailViewModel();
+                _colossusBetBetListDataAccess.GetData(metaModel).Returns(viewModel);
+
+                var tokenApiUrl = "{0} {1}";
+                _appSettings.GetValue("ColossusBetTokenAPI").Returns(tokenApiUrl);
+
+                var tokenData = "{'data':{}}";
+                _webClientService.DownloadString(Arg.Any<string>()).Returns(tokenData);
+
+                // Action
+                await controller.Detail(metaModel);
+
+                // Assert
+                _logger.Received(1).ErrorAsync($"Errors from Colossus Bets API (memberid: { metaModel.CustId}).\r\n" + JObject.Parse(tokenData));
             }
         }
 

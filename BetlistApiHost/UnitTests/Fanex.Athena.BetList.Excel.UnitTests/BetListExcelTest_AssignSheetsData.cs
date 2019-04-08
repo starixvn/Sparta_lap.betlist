@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.BetList.Excel;
-using Fanex.Athena.BetList.Model.DTO;
+﻿using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
+using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 using NPOI.SS.UserModel;
@@ -49,7 +49,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
         {
             // Arrange
             const string Title = "aaaa";
-            var betListExcel = CreateBetListExcel(showingOption: new BetListShowingOption { GrandTotalVisible = true });
+            var betListExcel = CreateBetListExcel(showingOption: new BetListShowingOption { GrandTotalVisible = true, CustomerCommVisible = true });
             betListExcel.When(x => x.BuildTicket(Arg.Any<IBetListExcelBuilder>(), Arg.Any<TicketResult>(), Arg.Any<LrfTicket>())).DoNotCallBase();
             var ticketResult = new TicketResult
             {
@@ -59,8 +59,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
                 SumComm = 0.99m,
                 SumBetEffective = 999
             };
-            ticketResult.MainTicketList.Add(new LrfTicket { Stake = 99 });
-            ticketResult.MainTicketList.Add(new LrfTicket { Stake = 100 });
+            ticketResult.MainTicketList.Add(new LrfTicket { Stake = 0 });
 
             // Action
             betListExcel.AssignSheetsData(_builder, ticketResult, Title, 0);
@@ -83,6 +82,72 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
                         Arg.Is<IRichTextString>(x => x.String == "999.00"),
                         Arg.Any<ICellStyle>());
             });
+        }
+
+        [Test]
+        public void AssignSheetsData_NotShowSumStakeAndWinLoss_AddFooterWinLoss()
+        {
+            // Arrange
+            const string Title = "aaaa";
+            var betListExcel = CreateBetListExcel(showingOption: new BetListShowingOption { GrandTotalVisible = false });
+            betListExcel.When(x => x.BuildTicket(Arg.Any<IBetListExcelBuilder>(), Arg.Any<TicketResult>(), Arg.Any<LrfTicket>())).DoNotCallBase();
+            var ticketResult = new TicketResult
+            {
+                SumWinLoss = 100,
+                SumPlayerComm = 0.88m,
+                SumLicenseeWL = 200,
+                SumComm = 0.99m,
+                SumBetEffective = 999
+            };
+            ticketResult.MainTicketList.Add(new LrfTicket { Stake = 0 });
+
+            // Action
+            betListExcel.AssignSheetsData(_builder, ticketResult, Title, 0);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                // Sum customerWL
+                _builder.DidNotReceive().AddCell(
+                        Arg.Is<IRichTextString>(x => x.String == "100.88"),
+                        Arg.Any<ICellStyle>());
+
+                // Sum LicenseeWL
+                _builder.DidNotReceive().AddCell(
+                        Arg.Is<IRichTextString>(x => x.String == "200.99"),
+                        Arg.Any<ICellStyle>());
+
+                // SumBetEffective
+                _builder.DidNotReceive().AddCell(
+                        Arg.Is<IRichTextString>(x => x.String == "999.00"),
+                        Arg.Any<ICellStyle>());
+            });
+        }
+
+        [Test]
+        public void AssignSheetsData_NotShowCustomerComm_AddCorrectHeader()
+        {
+            // Arrange
+            const string Title = "aaaa";
+            var betListExcel = CreateBetListExcel(showingOption: new BetListShowingOption { GrandTotalVisible = false, CustomerCommVisible = false });
+            betListExcel.When(x => x.BuildTicket(Arg.Any<IBetListExcelBuilder>(), Arg.Any<TicketResult>(), Arg.Any<LrfTicket>())).DoNotCallBase();
+            var ticketResult = new TicketResult
+            {
+                SumWinLoss = 100,
+                SumPlayerComm = 0.88m,
+                SumLicenseeWL = 200,
+                SumComm = 0.99m,
+                SumBetEffective = 999
+            };
+            ticketResult.MainTicketList.Add(new LrfTicket { Stake = 0 });
+
+            // Action
+            betListExcel.AssignSheetsData(_builder, ticketResult, Title, 0);
+
+            // Assert
+            _builder.Received(1).AddCell(
+                Arg.Is<IRichTextString>(x => x.String == ViewResources.WinLoss),
+                Arg.Any<ICellStyle>());
         }
 
         private BetListExcel CreateBetListExcel(

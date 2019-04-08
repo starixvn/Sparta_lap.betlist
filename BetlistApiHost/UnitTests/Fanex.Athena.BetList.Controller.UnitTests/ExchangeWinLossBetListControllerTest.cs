@@ -23,6 +23,7 @@
             _service = Substitute.For<IExchangeBetListService>();
         }
 
+        [Test]
         public async Task GetData_WhenCall_CallServiceToGetData()
         {
             using (var controller = CreateController())
@@ -34,10 +35,11 @@
                 await controller.GetData(metaModel).ConfigureAwait(false);
 
                 // Assert
-                await _service.Received().GetBetListDataAsync(metaModel).ConfigureAwait(false);
+                _service.Received().GetBetListDataAsync(metaModel);
             }
         }
 
+        [Test]
         public async Task Detail_WhenCall_CallServiceToGetData()
         {
             using (var controller = CreateController())
@@ -49,7 +51,7 @@
                 await controller.Detail(metaModel).ConfigureAwait(false);
 
                 // Assert
-                await _service.Received().GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
+                _service.Received().GetTicketDetailListAsync(metaModel);
             }
         }
 
