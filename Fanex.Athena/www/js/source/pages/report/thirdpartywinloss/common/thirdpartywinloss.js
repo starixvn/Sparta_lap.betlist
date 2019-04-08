@@ -129,8 +129,9 @@
 
             if (drillDownData) {
                 level = drillDownData.Level;
+                
                 postdata = _submitData;
-                currencyId = drillDownData.CurrencyId;
+                currencyId = drillDownData.CurrencyId || _submitData.CurrencyId;
                 custId = drillDownData.CustId;
 
                 var drilldownDateRange = Report.GetDrilldownDateRange(postdata.ReportBy, postdata.FromDate, postdata.ToDate, drillDownData.Datetime);
