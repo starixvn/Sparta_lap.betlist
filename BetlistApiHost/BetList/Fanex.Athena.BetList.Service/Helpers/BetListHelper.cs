@@ -2,8 +2,8 @@
 {
     using System;
     using Common.Constant;
-    using Fanex.Athena.BetList.Model.DTO;
     using Fanex.BetList.Core.Entities;
+    using Model.DTO;
     using Resources;
 
     public static class BetListHelper
