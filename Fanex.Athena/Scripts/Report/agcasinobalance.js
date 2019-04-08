@@ -94,6 +94,13 @@ var AgCasinoBalance = (function ($) {
             });
         },
 
+        resetDrilldownInput: function(){
+            $("#DrillDownCurrencyId").val(0);
+            $("#DrillDownCustomerId").val(0);
+            $("#DrillDownFromDate").val(null);
+            $("#DrillDownToDate").val(null);
+            $("#DrillDownLevel").val(0);
+        },
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
             $("#DrillDownCurrencyId").val(currencyId);
@@ -159,7 +166,7 @@ var AgCasinoBalance = (function ($) {
         },
 
         submit: function () {
-            $("#DrillDownLevel").val(0);
+            AgCasinoBalance.resetDrilldownInput();
             resetPagingOption();
             var mainForm = $("#AgCasinoBalanceForm");
             var postdata = mainForm.serializeObject();
