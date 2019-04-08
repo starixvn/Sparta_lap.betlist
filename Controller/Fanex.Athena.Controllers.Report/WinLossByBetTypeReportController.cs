@@ -84,7 +84,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var reportData = metaModel.IsValid
-                       ? await _winLossByBetTypeDataAccess.GetDataList(metaModel).ConfigureAwait(false)
+                       ? await _winLossByBetTypeDataAccess.GetDataList(metaModel)
                        : new SortableList<WinLossByBetType>();
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));

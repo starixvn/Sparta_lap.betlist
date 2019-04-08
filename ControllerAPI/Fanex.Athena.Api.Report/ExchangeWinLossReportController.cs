@@ -48,8 +48,8 @@
                 }
 
                 return metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == (int)ReportLevel.Customer
-                            ? _dataAccess.GetCustomerWinloss(metaModel, currencyList)
-                            : _dataAccess.GetLicenseeWinloss(metaModel, currencyList);
+                            ? await _dataAccess.GetCustomerWinloss(metaModel, currencyList).ConfigureAwait(false)
+                            : await _dataAccess.GetLicenseeWinloss(metaModel, currencyList).ConfigureAwait(false);
             }
 
             return new ReportResultModel<ExchangeWinLoss>

@@ -157,7 +157,7 @@ namespace Fanex.Athena.Api.Report
             if (metaModel.Level == 0)
             {
                 var result = metaModel.IsValid ?
-                    await _platformWinLossDataAccess.GetSummaryData(metaModel).ConfigureAwait(false) :
+                    await _platformWinLossDataAccess.GetSummaryData(metaModel) :
                     new ReportResultModel<PlatformWinLossSummary>
                     {
                         DataList = new List<PlatformWinLossSummary>(),
@@ -175,7 +175,7 @@ namespace Fanex.Athena.Api.Report
             else
             {
                 var result = metaModel.IsValid ?
-                    await _platformWinLossDataAccess.GetMemberData(metaModel, SessionService.UserSession.CurrencyList).ConfigureAwait(false) :
+                    await _platformWinLossDataAccess.GetMemberData(metaModel, SessionService.UserSession.CurrencyList) :
                     new SortableReportResultModel<PlatformWinLossMember>
                     {
                         DataList = new SortableList<PlatformWinLossMember>(),
