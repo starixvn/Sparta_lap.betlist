@@ -135,7 +135,7 @@
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-                var result = await GetData(metaModel).ConfigureAwait(false);
+                var result = await GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {

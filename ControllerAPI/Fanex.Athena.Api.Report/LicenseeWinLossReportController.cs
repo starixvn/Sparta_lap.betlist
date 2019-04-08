@@ -303,7 +303,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownCustomerId = custId;
 
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
-                var result = await GetData(metaModel).ConfigureAwait(false);
+                var result = await GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {

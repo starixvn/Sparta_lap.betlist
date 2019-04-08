@@ -141,7 +141,7 @@ namespace Fanex.Athena.Api.Report
             }
 
             UpdateMetaModel(metaModel, fdate, tdate, level, currencyId, custId);
-            var result = await GetData(metaModel).ConfigureAwait(false);
+            var result = await GetData(metaModel);
 
             if (metaModel.IsExportExcel)
             {

@@ -276,7 +276,7 @@ namespace Fanex.Athena.Api.Report
 
             AssignDrilldownDates(metaModel, fdate, tdate);
 
-            var result = await GetData(metaModel).ConfigureAwait(false);
+            var result = await GetData(metaModel);
 
             result.ResultInfo.Message = GetErrorMessage(result.ResultInfo.Code);
 

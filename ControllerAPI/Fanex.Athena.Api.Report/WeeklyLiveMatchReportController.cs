@@ -40,7 +40,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (IsValidRequest(metaModel.CurrencyId))
             {
-                var result = await _weeklyLiveMatchService.GetData(metaModel).ConfigureAwait(false);
+                var result = await _weeklyLiveMatchService.GetData(metaModel);
 
                 var weekHeaders = _weeklyLiveMatchService.GetWeekHeaders(metaModel.FromDate, metaModel.ToDate, result.NumberOfWeeks);
                 if (metaModel.IsExportExcel)

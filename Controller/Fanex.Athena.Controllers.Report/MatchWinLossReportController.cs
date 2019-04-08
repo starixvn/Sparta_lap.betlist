@@ -108,12 +108,12 @@
                 return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
 
-            var reportData = await _matchWinLossService.GetDataList(metaModel).ConfigureAwait(false);
+            var reportData = await _matchWinLossService.GetDataList(metaModel);
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
             if (metaModel.ProductOptions.Any(i => i.Status && (i.Code == Product.BA || i.Code == Product.SB || i.Code == Product.VS2)))
             {
-                reportDataOutrightParlay = (await _matchWinLossService.GetOutrightParlayList(metaModel).ConfigureAwait(false)).ToList();
+                reportDataOutrightParlay = (await _matchWinLossService.GetOutrightParlayList(metaModel)).ToList();
             }
 
             var total = GetTotal(reportData);
@@ -144,7 +144,7 @@
         {
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var reportData = await _matchWinLossService.GetDetailDataList(metaModel).ConfigureAwait(false);
+            var reportData = await _matchWinLossService.GetDetailDataList(metaModel);
             var model = new MatchWinLossViewModel
             {
                 MainResult = reportData,

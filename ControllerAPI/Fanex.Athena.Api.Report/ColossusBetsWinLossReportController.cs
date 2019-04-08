@@ -146,7 +146,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
 
-                var result = await GetData(metaModel).ConfigureAwait(false);
+                var result = await GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {
