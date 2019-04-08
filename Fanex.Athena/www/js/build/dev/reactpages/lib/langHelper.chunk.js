@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Generated at: 04/02/2019 3:14:44 PM
+// Generated at: 04/08/2019 9:43:54 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -220,8 +220,6 @@ window._language_en_US = {
   CashOutValue: "Cash Out Value",
   CashOutWinLoss: "Cash Out Win Loss",
   CASINOHANDHISTORY: "CASINO HAND HISTORY",
-  CasinoProgressiveWins: "Casino Progressive Wins",
-  CasinoProgressiveWinsGuidelineContent: "This report supports up-to-date data. You can filter data up to 12 months per query.",
   CasinoTransfer: "Casino Transfer",
   CasinoTurnover: "Casino Turnover",
   ChangePassword: "Change Password",
@@ -364,8 +362,6 @@ window._language_en_US = {
   EnableGoldDeluxe: "Enable Gold Deluxe",
   EnableMacau: "Enable Macau",
   EnableMacauGames: "Enable Macau Games",
-  EnableMicrogamingLiveCasino: "Enable Microgaming Live Casino",
-  EnableMicrogamingRNGCasino: "Enable Microgaming RNG Casino",
   EnableProduct: "Enable {0}",
   EnableRNGCasino: "Enable RNG Casino",
   EndDate: "End Date",
@@ -619,12 +615,6 @@ window._language_en_US = {
   MessageInvalidCommValue: "Invalid commission value!",
   MessageSuccess: "Successful",
   Microgaming: "Microgaming",
-  MicrogamingLiveCasino: "Microgaming-Live Casino",
-  MicroGamingLiveCasinoNotOfferCurrency: "Microgaming Live Casino is not offered for this currency.",
-  MicrogamingRNGCasino: "Microgaming-RNG Casino",
-  MicroGamingRNGCasinoNotOfferCurrency: "Microgaming RNG Casino is not offered for this currency.",
-  MicrogamingWinLoss: "Microgaming Win Loss",
-  MicrogamingWinLossGuidelineContent: "This report supports up-to-date data. You can filter data up to 3 months per query.",
   MinBet: "Min Bet",
   MinBetCanNotGreaterThanMaxBet: "Min Bet cannot be greater than Max Bet",
   MinBetCount: "Min bet count",
@@ -770,8 +760,6 @@ window._language_en_US = {
   ProductGD: "Gold Deluxe",
   ProductKN: "Keno",
   ProductLT: "Lottery",
-  ProductMGCLC: "Microgaming-Live Casino",
-  ProductMGCRNG: "Microgaming-RNG Casino",
   ProductNG: "Number Game",
   ProductPP: "PP",
   ProductPTCS: "Playtech Casino",
@@ -783,7 +771,6 @@ window._language_en_US = {
   ProgressiveContribution: "Progressive Contribution",
   ProgressiveFee: "Progressive Fee",
   ProgressivePayout: "Progressive Payout",
-  PromotionPrize: "Promotion Prize",
   PShare: "P.Share",
   PWin: "P.Win",
   Q1: "1Q",

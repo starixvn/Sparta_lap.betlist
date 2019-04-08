@@ -1,4 +1,4 @@
-﻿// Generated at: 03/21/2019 11:26:41 AM
+﻿// Generated at: 04/08/2019 9:44:03 AM
 var _language_zh_TW = {
 AA:"客客",
 AbnormalBet:"非正規註單",
@@ -108,7 +108,6 @@ CashOutTimes:"即時兌現次數",
 CashOutValue:"會員賣出的實際投注額",
 CashOutWinLoss:"即時兌現輸贏",
 CASINOHANDHISTORY:"賭場下注歷史",
-CasinoProgressiveWinsGuidelineContent:"此報告提供最新數據。 您每次查詢可以過濾最多12個月內的數據。",
 CasinoTransfer:"娛樂城的總轉賬額",
 ChangePassword:"更改密碼",
 ChangeStatus:"更改{0}的狀態",
@@ -453,7 +452,6 @@ MessageGroupDoesNotExistMsg:"This Group does not exist!",
 MessageGroupHasAlreadyChoosen:"此組名稱已經被選擇，請嘗試另一個名稱!",
 MessageInvalidCommValue:"佣金值無效!",
 MessageSuccess:"成功",
-MicrogamingWinLossGuidelineContent:"此報告提供最新數據。 您每次查詢可以過濾最多3個月內的數據。",
 MinBet:"最低投注",
 MinBetCanNotGreaterThanMaxBet:"最小投注不能超過最大投注",
 MinBetCount:"最低投注計數",
