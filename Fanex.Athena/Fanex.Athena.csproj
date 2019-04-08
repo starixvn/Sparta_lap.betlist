@@ -1952,8 +1952,6 @@
     <Content Include="App_Data\Template\Reports\ThirdPartyWinLoss.xls" />
     <Content Include="App_Data\Template\RNGCasino\HandHistory.xls" />
     <Content Include="App_Data\Template\Reports\AgCasinoBalance.xls" />
-    <Content Include="App_Data\Template\Reports\MicroGamingWinLoss.xls" />
-    <Content Include="App_Data\Template\Reports\CasinoProgressiveWins.xls" />
     <Content Include="App_Data\Template\Reports\PlatformWinLossSummary.xls" />
     <Content Include="GruntFilters.json" />
     <Content Include="App_Data\Template\Reports\WeeklyLiveMatch.xls" />
