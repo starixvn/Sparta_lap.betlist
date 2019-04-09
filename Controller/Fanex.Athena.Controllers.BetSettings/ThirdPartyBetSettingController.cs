@@ -14,7 +14,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
-    using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -55,10 +54,9 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             var viewModel = await _betSettingService.GetViewModelAsync(
-                SessionService.LicenseeSession.LicenseeId, 
-                metaModel.CustId, 
-                metaModel.ProductId)
-                .ConfigureAwait(false);
+                SessionService.LicenseeSession.LicenseeId,
+                metaModel.CustId,
+                metaModel.ProductId);
             if (viewModel == null)
             {
                 return this.Redirect("~/Utility/AccessDenied");
