@@ -2,20 +2,20 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Athena.BetList.DataAccess.Interfaces;
-    using Athena.BetList.Model.DTO;
-    using Athena.BetList.Model.MetaModel;
-    using Athena.BetList.Service;
-    using Athena.BetList.Service.Interfaces;
     using Common.Constant;
     using Common.DataAccess.Interfaces;
     using Common.Model.DTO;
     using Common.Utility.Collections;
     using Common.Utility.Services.Interfaces;
+    using DataAccess.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Interfaces;
+    using Model.DTO;
+    using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service;
     using Service.Helpers;
     using UnitTest.Common.Helpers;
 
@@ -35,7 +35,7 @@
         private ICacheRefAdapter _cacheRefAdapter;
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void OneTimeSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _betlistDataAccess = Substitute.For<IBetListDataAccess>();
@@ -49,10 +49,19 @@
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public void OneTimeTearDown()
         {
             _betlistDataAccess = null;
             _betListService = null;
+            _betlistHtmlBuilder = null;
+            _cacheRefAdapter = null;
+            _ticketHelper = null;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _ticketHelper.ClientDetailSystemParlayFunction = string.Empty;
         }
 
         [Test]

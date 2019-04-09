@@ -2,7 +2,6 @@
 {
     using System.Collections;
     using System.Collections.Generic;
-    using Resources;
     using Common.Constant;
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
@@ -11,6 +10,7 @@
     using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
     using Service.Extensions;
 
     public class LrfBetListHtmlBuilderTest
