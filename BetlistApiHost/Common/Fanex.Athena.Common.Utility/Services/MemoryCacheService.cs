@@ -8,7 +8,7 @@
     public class MemoryCacheService : IMemoryCacheService
     {
         private const int TIMEOUT = 900; // 15 minutes.
-        private const string REGIONNAME = "LAP_MAIN_MEMORY";
+        private const string REGIONNAME = "LAP_BETLIST_MAIN_MEMORY";
         private readonly ICustomMemoryCache _cache;
 
         public MemoryCacheService(ICustomMemoryCache cache)

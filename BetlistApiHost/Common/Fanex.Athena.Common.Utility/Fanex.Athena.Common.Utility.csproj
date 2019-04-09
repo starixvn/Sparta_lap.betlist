@@ -138,7 +138,9 @@
     <Compile Include="Services\Interfaces\ITempFileService.cs" />
     <Compile Include="Services\Interfaces\IWebClientService.cs" />
     <Compile Include="Services\Internal\CustomMemoryCache.cs" />
+    <Compile Include="Services\Internal\FileSystem.cs" />
     <Compile Include="Services\Internal\ICustomMemoryCache.cs" />
+    <Compile Include="Services\Internal\IFileSystem.cs" />
     <Compile Include="Services\MemoryCacheService.cs" />
     <Compile Include="Services\TempFileService.cs" />
     <Compile Include="Services\WebClientService.cs" />
