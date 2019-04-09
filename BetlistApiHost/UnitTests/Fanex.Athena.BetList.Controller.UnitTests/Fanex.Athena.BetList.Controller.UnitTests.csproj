@@ -86,6 +86,10 @@
     <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
+	  <Private>True</Private>
+    </Reference>
     <Reference Include="TplCore, Version=1.0.4854.17253, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\TplCore.1.0.4854.17254\lib\net40\TplCore.dll</HintPath>
       <Private>True</Private>
@@ -107,6 +111,9 @@
     <Compile Include="CancelledBetsBetListControllerTest.cs" />
     <Compile Include="CashOutBetListControllerTest.cs" />
     <Compile Include="ColossusBetBetListControllerTest.cs" />
+    <Compile Include="CustomActionResult\JsonNetResultTest.cs" />
+    <Compile Include="CustomActionResult\ExcelResultTest.cs" />
+    <Compile Include="CustomActionResult\FakeCustomerActionResultController.cs" />
     <Compile Include="ExchangeWinLossBetListControllerTest.cs" />
     <Compile Include="LastBetsMonitoringBetListControllerTest.cs" />
     <Compile Include="LiveReportBetListControllerTest.cs" />
