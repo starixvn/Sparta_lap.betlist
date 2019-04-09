@@ -1,6 +1,5 @@
 @echo off
 run.bat %1 ^
-Fanex.Athena.Api.BetList.UnitTests ^
 Fanex.Athena.BetList.Service.UnitTests ^
 Fanex.Athena.BetList.Excel.UnitTests ^
 Fanex.Athena.BetList.DataAccess.UnitTests ^
