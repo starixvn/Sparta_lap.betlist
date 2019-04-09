@@ -40,11 +40,9 @@ if %errorlevel% neq 0 goto error
 
 
 REM REM CoberturaReport
-set command=packages\OpenCoverToCoberturaConverter.0.2.4.0\tools\OpenCoverToCoberturaConverter.exe -input:"UnitTestCoverage_%project%.xml" -output:"cireport\coberturareport\UnitTestCobertura.xml" -sources:".\"
+set command=packages\OpenCoverToCoberturaConverter.0.3.2\tools\OpenCoverToCoberturaConverter.exe -input:"UnitTestCoverage_%project%.xml" -output:"cireport\coberturareport\UnitTestCobertura.xml" -sources:".\"
 call %command%
 if %errorlevel% neq 0 goto error
-
-
 
 echo Success.
 goto end
@@ -55,6 +53,7 @@ goto end
 
 :error
 echo Failure.
+pause
 
 :end
 popd
