@@ -1,9 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests.CustomActionResult
 {
-    using System.Collections.Specialized;
-    using System.IO;
-    using System.Web;
-    using System.Web.Mvc;
+    using Controller.CustomActionResult;
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -14,17 +11,15 @@
         [Test]
         public void ExcelResult_WhenCall_WriteWorkBookToOutputStream()
         {
-            using (var controller = new FakeCustomerActionResultController(MvcHelper.CreateControllerContext()))
-            {
-                // Arrange
-                var hssfWorkbook = Substitute.For<IWorkbook>();
+            // Arrange
+            var hssfWorkbook = Substitute.For<IWorkbook>();
+            var context = MvcHelper.CreateControllerContext();
 
-                // Action
-                controller.TestExcelResult(hssfWorkbook).ExecuteResult(controller.ControllerContext);
+            // Action
+            (new ExcelResult(hssfWorkbook)).ExecuteResult(context);
 
-                // Assert
-                hssfWorkbook.Received(1).Write(controller.ControllerContext.HttpContext.Response.OutputStream);
-            }
+            // Assert
+            hssfWorkbook.Received(1).Write(context.HttpContext.Response.OutputStream);
         }
     }
 }

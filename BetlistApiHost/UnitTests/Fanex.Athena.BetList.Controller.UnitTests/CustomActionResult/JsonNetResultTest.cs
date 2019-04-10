@@ -2,6 +2,7 @@
 {
     using System;
     using System.Text;
+    using Controller.CustomActionResult;
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
@@ -12,62 +13,71 @@
         [Test]
         public void JsonNetResult_ContextIsNull_ThrowArgumentException()
         {
-            using (var controller = new FakeCustomerActionResultController(null))
+            // Arrange
+            var jsonResult = new JsonNetResult
             {
-                // Action
-                TestDelegate testDelegate = () => controller.TestJsonNetResult(FakeHelper.Create<string>()).ExecuteResult(controller.ControllerContext);
+                Data = FakeHelper.Create<string>()
+            };
 
-                // Assert
-                Assert.That(testDelegate, Throws.TypeOf<ArgumentNullException>());
-            }
+            // Action
+            TestDelegate testDelegate = () => jsonResult.ExecuteResult(null);
+
+            // Assert
+            Assert.That(testDelegate, Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
         public void JsonNetResult_ContentTypeIsEmpty_UpdateContentTypeToJson()
         {
-            using (var controller = new FakeCustomerActionResultController(MvcHelper.CreateControllerContext()))
+            // Arrange
+            var context = MvcHelper.CreateControllerContext();
+            context.HttpContext.Response.ContentType = string.Empty;
+            var jsonResult = new JsonNetResult
             {
-                // Arrange
-                controller.HttpContext.Response.ContentType = string.Empty;
+                Data = FakeHelper.Create<string>()
+            };
 
-                // Action
-                controller.TestJsonNetResult(FakeHelper.Create<string>()).ExecuteResult(controller.ControllerContext);
+            // Action
+            jsonResult.ExecuteResult(context);
 
-                // Assert
-                Assert.That(controller.HttpContext.Response.ContentType, Is.EqualTo("application/json"));
-            }
+            // Assert
+            Assert.That(context.HttpContext.Response.ContentType, Is.EqualTo("application/json"));
         }
 
         [Test]
         public void JsonNetResult_ContentEncodingIsNotNull_UpdateResponseContentEncoding()
         {
-            using (var controller = new FakeCustomerActionResultController(MvcHelper.CreateControllerContext()))
+            // Arrange
+            var context = MvcHelper.CreateControllerContext();
+            var jsonResult = new JsonNetResult
             {
-                // Arrange
-                var contentEncoding = Encoding.ASCII;
+                Data = FakeHelper.Create<string>(),
+                ContentEncoding = Encoding.ASCII
+            };
 
-                // Action
-                controller.TestJsonNetResult(FakeHelper.Create<string>(), contentEncoding).ExecuteResult(controller.ControllerContext);
+            // Action
+            jsonResult.ExecuteResult(context);
 
-                // Assert
-                Assert.That(controller.HttpContext.Response.ContentEncoding, Is.EqualTo(contentEncoding));
-            }
+            // Assert
+            Assert.That(context.HttpContext.Response.ContentEncoding, Is.EqualTo(jsonResult.ContentEncoding));
         }
 
         [Test]
         public void JsonNetResult_WhenCall_WriteSerializeObjectToOuputStream()
         {
-            using (var controller = new FakeCustomerActionResultController(MvcHelper.CreateControllerContext()))
+            // Arrange
+            var context = MvcHelper.CreateControllerContext();
+            var jsonResult = new JsonNetResult
             {
-                // Arrange
-                var data = FakeHelper.CreateMany<int>(2);
+                Data = FakeHelper.CreateMany<int>(2),
+                ContentType = "application/json"
+            };
 
-                // Action
-                controller.TestJsonNetResult(data).ExecuteResult(controller.ControllerContext);
+            // Action
+            jsonResult.ExecuteResult(context);
 
-                // Assert
-                controller.HttpContext.Response.Received(1).Write(JsonConvert.SerializeObject(data, Formatting.Indented));
-            }
+            // Assert
+            context.HttpContext.Response.Received(1).Write(JsonConvert.SerializeObject(jsonResult.Data, Formatting.Indented));
         }
     }
 }
