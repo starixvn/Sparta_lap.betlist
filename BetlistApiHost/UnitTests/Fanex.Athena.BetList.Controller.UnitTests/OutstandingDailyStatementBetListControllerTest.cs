@@ -6,6 +6,7 @@
     using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
 
     public class OutstandingDailyStatementBetListControllerTest
@@ -37,15 +38,15 @@
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
-                var main = result.GetType().GetProperty("Main").GetValue(result, null);
-                var total = result.GetType().GetProperty("Total").GetValue(result, null);
+                var main = result.GetValue("Main");
+                var total = result.GetValue("Total");
 
                 // Assert
                 Assert.Multiple(() =>
                 {
                     Assert.That(main, Is.EqualTo(dataList));
-                    Assert.That(total.GetType().GetProperty("SumWinLoss").GetValue(total, null), Is.Zero);
-                    Assert.That(total.GetType().GetProperty("SumLicenseeWl").GetValue(total, null), Is.Zero);
+                    Assert.That(total.GetValue("SumWinLoss"), Is.Zero);
+                    Assert.That(total.GetValue("SumLicenseeWl"), Is.Zero);
                 });
             }
         }

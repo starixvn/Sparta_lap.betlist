@@ -9,6 +9,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Interfaces;
+    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
 
     public class LiveReportBetListControllerTest : BaseControllerHelperTest
@@ -51,15 +52,15 @@
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
-                var main = result.GetType().GetProperty("Main").GetValue(result, null);
-                var total = result.GetType().GetProperty("Total").GetValue(result, null);
+                var main = result.GetValue("Main");
+                var total = result.GetValue("Total");
 
                 // Assert
                 Assert.Multiple(() =>
                 {
                     Assert.That(main, Is.EqualTo(ticketText));
-                    Assert.That(total.GetType().GetProperty("SumWinLoss").GetValue(total, null), Is.EqualTo(ticketResult.SumWinLoss + ticketResult.SumPlayerComm));
-                    Assert.That(total.GetType().GetProperty("SumLicenseeWl").GetValue(total, null), Is.EqualTo(ticketResult.SumLicenseeWL + ticketResult.SumComm));
+                    Assert.That(total.GetValue("SumWinLoss"), Is.EqualTo(ticketResult.SumWinLoss + ticketResult.SumPlayerComm));
+                    Assert.That(total.GetValue("SumLicenseeWl"), Is.EqualTo(ticketResult.SumLicenseeWL + ticketResult.SumComm));
                     AssertClearData(ticketResult);
                 });
             }
@@ -86,11 +87,11 @@
 
                 // Action
                 var result = (await controller.GetPagingData(metaModel)).Data;
-                var page = result.GetType().GetProperty("page").GetValue(result, null);
-                var total = result.GetType().GetProperty("total").GetValue(result, null);
-                var records = result.GetType().GetProperty("records").GetValue(result, null);
-                var rows = result.GetType().GetProperty("rows").GetValue(result, null);
-                var isHasCustComm = result.GetType().GetProperty("IsHasCustComm").GetValue(result, null);
+                var page = result.GetValue("page");
+                var total = result.GetValue("total");
+                var records = result.GetValue("records");
+                var rows = result.GetValue("rows");
+                var isHasCustComm = result.GetValue("IsHasCustComm");
 
                 // Assert
                 Assert.Multiple(() =>
@@ -127,13 +128,13 @@
 
                 // Action
                 var result = (await controller.GetPagingData(metaModel)).Data;
-                var userdata = result.GetType().GetProperty("userdata").GetValue(result, null);
+                var userdata = result.GetValue("userdata");
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(userdata.GetType().GetProperty("WinLoss").GetValue(userdata, null), Is.EqualTo(expectedWinloss));
-                    Assert.That(userdata.GetType().GetProperty("LicenseeWL").GetValue(userdata, null), Is.EqualTo(expectedLicenseeWLText));
+                    Assert.That(userdata.GetValue("WinLoss"), Is.EqualTo(expectedWinloss));
+                    Assert.That(userdata.GetValue("LicenseeWL"), Is.EqualTo(expectedLicenseeWLText));
                 });
             }
         }

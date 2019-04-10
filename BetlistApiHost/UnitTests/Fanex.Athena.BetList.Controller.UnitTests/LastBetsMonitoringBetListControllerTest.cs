@@ -8,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Interfaces;
+    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
 
     public class LastBetsMonitoringBetListControllerTest : BaseControllerHelperTest
@@ -38,7 +39,7 @@
                 var result = (await controller.GetData(metaModel)).Data;
 
                 // Assert
-                Assert.That(result.GetType().GetProperty("NewRow").GetValue(result, null), Is.False);
+                Assert.That(result.GetValue("NewRow"), Is.False);
             }
         }
 
@@ -62,9 +63,9 @@
                 Assert.Multiple(() => 
                 {
                     AssertClearData(ticketResult);
-                    Assert.That(result.GetType().GetProperty("NewRow").GetValue(result, null), Is.True);
-                    Assert.That(result.GetType().GetProperty("Rows").GetValue(result, null), Is.Not.Null);
-                    Assert.That(result.GetType().GetProperty("LastTransId").GetValue(result, null), Is.EqualTo(ticket.TransId));
+                    Assert.That(result.GetValue("NewRow"), Is.True);
+                    Assert.That(result.GetValue("Rows"), Is.Not.Null);
+                    Assert.That(result.GetValue("LastTransId"), Is.EqualTo(ticket.TransId));
                 });
             }
         }
@@ -90,7 +91,7 @@
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
-                var data = (string)result.GetType().GetProperty("Rows").GetValue(result, null);
+                var data = (string)result.GetValue("Rows");
 
                 // Assert
                 Assert.That(data.Contains("underdog"), Is.True);
@@ -119,7 +120,7 @@
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
-                var data = (string)result.GetType().GetProperty("Rows").GetValue(result, null);
+                var data = (string)result.GetValue("Rows");
 
                 // Assert
                 Assert.That(data.Contains("underdog negative"), Is.True);

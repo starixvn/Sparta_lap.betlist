@@ -14,6 +14,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Interfaces;
+    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
 
     public class MixParlayBetListControllerTest : BaseControllerHelperTest
@@ -91,8 +92,8 @@
 
                 // Action
                 var result = (await controller.NewParlayDetail(metaModel)).Data;
-                var data = result.GetType().GetProperty("Data").GetValue(result, null);
-                var texts = result.GetType().GetProperty("Texts").GetValue(result, null);
+                var data = result.GetValue("Data");
+                var texts = result.GetValue("Texts");
 
                 // Assert
                 Assert.Multiple(() =>
@@ -135,8 +136,8 @@
 
                 // Action
                 var result = (await controller.NewParlayDetail(metaModel)).Data;
-                var data = result.GetType().GetProperty("Data").GetValue(result, null);
-                var texts = result.GetType().GetProperty("Texts").GetValue(result, null);
+                var data = result.GetValue("Data");
+                var texts = result.GetValue("Texts");
 
                 // Assert
                 Assert.Multiple(() =>
@@ -176,7 +177,7 @@
 
                 // Action
                 var result = (await controller.NewParlayDetail(metaModel)).Data;
-                var actualTexts = result.GetType().GetProperty("Texts").GetValue(result, null);
+                var actualTexts = result.GetValue("Texts");
 
                 // Assert
                 Assert.Multiple(() =>
@@ -222,7 +223,7 @@
 
                 // Action
                 var result = (await controller.NewParlayDetail(metaModel)).Data;
-                var actualTexts = result.GetType().GetProperty("Texts").GetValue(result, null);
+                var actualTexts = result.GetValue("Texts");
 
                 // Assert
                 Assert.Multiple(() =>

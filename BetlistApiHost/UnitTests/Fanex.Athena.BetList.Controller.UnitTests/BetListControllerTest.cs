@@ -12,6 +12,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Interfaces;
+    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
 
     public class BetListControllerTest : BaseControllerHelperTest
@@ -151,10 +152,10 @@
 
                 // Action
                 var result = (await controller.GetBetListPaging(metaModel)).Data;
-                var page = result.GetType().GetProperty("page").GetValue(result, null);
-                var total = result.GetType().GetProperty("total").GetValue(result, null);
-                var records = result.GetType().GetProperty("records").GetValue(result, null);
-                var rows = result.GetType().GetProperty("rows").GetValue(result, null);
+                var page = result.GetValue("page");
+                var total = result.GetValue("total");
+                var records = result.GetValue("records");
+                var rows = result.GetValue("rows");
 
                 // Assert
                 Assert.Multiple(() =>
@@ -195,13 +196,13 @@
 
                 // Action
                 var result = (await controller.GetBetListPaging(metaModel)).Data;
-                var userdata = result.GetType().GetProperty("userdata").GetValue(result, null);
+                var userdata = result.GetValue("userdata");
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(userdata.GetType().GetProperty("WinLoss").GetValue(userdata, null), Is.EqualTo(expectedWinloss));
-                    Assert.That(userdata.GetType().GetProperty("LicenseeWL").GetValue(userdata, null), Is.EqualTo(expectedLicenseeWLText));
+                    Assert.That(userdata.GetValue("WinLoss"), Is.EqualTo(expectedWinloss));
+                    Assert.That(userdata.GetValue("LicenseeWL"), Is.EqualTo(expectedLicenseeWLText));
                 });
             }
         }
