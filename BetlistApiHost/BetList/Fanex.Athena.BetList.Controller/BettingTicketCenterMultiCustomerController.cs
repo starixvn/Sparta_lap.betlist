@@ -1,21 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.Controller.CustomActionResult;
+using Fanex.Athena.BetList.Controller.Utility;
 using Fanex.Athena.BetList.Excel;
-using Fanex.Athena.BetList.Excel.Builders;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.Athena.Resources;
 using Ionic.Zip;
-using Newtonsoft.Json;
-using NPOI.SS.UserModel;
 
 namespace Fanex.Athena.BetList.Controller
 {
@@ -26,16 +24,17 @@ namespace Fanex.Athena.BetList.Controller
         private readonly IAppSettings _appSettings;
 
         private readonly IBettingTicketCenterService _service;
-        private readonly ITempFileService _tempFileService;
+
+        private readonly IBettingTicketCenterZipBuilder _zipBuilder;
 
         public BettingTicketCenterMultiCustomerController(
             IAppSettings appSettings,
             IBettingTicketCenterService service,
-            ITempFileService tempFileService)
+            IBettingTicketCenterZipBuilder zipBuilder)
         {
             _appSettings = appSettings;
             _service = service;
-            _tempFileService = tempFileService;
+            _zipBuilder = zipBuilder;
         }
 
         private int MaxRowSupportExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportExportExcel"));
@@ -69,7 +68,7 @@ namespace Fanex.Athena.BetList.Controller
             var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
             var workbook = excel.Export(excelModel);
             excelModel.Data = null;
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return new ExcelResult(workbook);
         }
 
@@ -91,7 +90,8 @@ namespace Fanex.Athena.BetList.Controller
 
             var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, MaxRowPerFile, userCurrencyList).ConfigureAwait(true);
 
-            return ExportZip(ticketResult, title, metaModel.HasPlayerCom, totalText);
+            var zipFile = _zipBuilder.BuildZip(HttpContext.Response, ticketResult, title, metaModel.HasPlayerCom, totalText);
+            return zipFile == null ? null : ZipContentResult(zipFile);
         }
 
         private JsonResult GenerateJsonResult(MultipleCustomersBetListMetaModel metaModel, TicketResult ticketResult, bool isAllowedCustomerComm)
@@ -107,7 +107,7 @@ namespace Fanex.Athena.BetList.Controller
                 },
                 TotalRows = ticketResult.TotalRows
             };
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 
@@ -129,107 +129,6 @@ namespace Fanex.Athena.BetList.Controller
             };
 
             return ReturnExcel(excelModel, ticketResult);
-        }
-
-        private BettingTicketCenterExcelModel CreateBettingTicketCenterExcelModel(
-            GroupTicketResult groupData,
-            string dataPath,
-            string title,
-            bool hasPlayerComm,
-            string totalText)
-        {
-            var contentData = _tempFileService.ReadString(dataPath);
-            if (string.IsNullOrEmpty(contentData))
-            {
-                return null;
-            }
-
-            var dataBySheet = JsonConvert.DeserializeObject<TicketResult>(contentData);
-
-            dataBySheet.SumStake = groupData.SumStake;
-            dataBySheet.SumWinLoss = groupData.SumWinLoss;
-            dataBySheet.SumLicenseeWL = groupData.SumLicenseeWL;
-            dataBySheet.SumBetEffective = groupData.SumBetEffective;
-            dataBySheet.SumComm = groupData.SumComm;
-            dataBySheet.SumPlayerComm = groupData.SumPlayerComm;
-            dataBySheet.TotalRows = groupData.TotalRows;
-
-            return new BettingTicketCenterExcelModel
-            {
-                Data = dataBySheet,
-                Option = new BettingTicketCenterExcelOption
-                {
-                    ShowTotal = true,
-                    ShowSumStake = true,
-                    ShowLicenseeWl = true,
-                    ShowWinLoss = true,
-                    TotalText = totalText
-                },
-                CustomerCommVisible = hasPlayerComm,
-                Title = title
-            };
-        }
-
-        private FileContentResult ExportZip(GroupTicketResult ticketResult, string title, bool hasPlayerComm, string totalText)
-        {
-            IWorkbook workbook = null;
-            var excelFiles = new List<string>();
-            var response = HttpContext.Response;
-
-            for (int i = 0; i < ticketResult.DataPath.Count; i++)
-            {
-                if (response.IsClientConnected)
-                {
-                    var builder = DependencyResolver.Current.GetService<IBettingTicketCenterExcelBuilder>();
-                    using (var excelService = new BettingTicketCenterExcel(builder))
-                    {
-                        var excelModel = CreateBettingTicketCenterExcelModel(ticketResult, ticketResult.DataPath[i], title, hasPlayerComm, totalText);
-                        if (excelModel != null)
-                        {
-                            workbook = excelService.Export(excelModel);
-                            var dataFileName = ticketResult.DataPath[i] + ".dat";
-                            var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
-                            using (var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write))
-                            using (var bufferStream = new BufferedStream(stream))
-                            {
-                                workbook.Write(bufferStream);
-                                excelFiles.Add(dataFileName);
-                                workbook.Clear();
-                                ClearData(excelModel.Data);
-                                excelModel.Data = null;
-                            }
-                        }
-                    }
-                }
-            }
-
-            CleanDataFile(ticketResult.DataPath);
-            return ReturnZipFile(excelFiles, response);
-        }
-
-        private FileContentResult ReturnZipFile(List<string> excelFiles, HttpResponseBase response)
-        {
-            using (var zip = new ZipFile())
-            {
-                for (var i = 0; i < excelFiles.Count; i++)
-                {
-                    if (response.IsClientConnected)
-                    {
-                        zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
-                    }
-                }
-
-                CleanDataFile(excelFiles);
-                return response.IsClientConnected ? ZipContentResult(zip) : null;
-            }
-        }
-
-        private void CleanDataFile(IList<string> dataPath)
-        {
-            foreach (var item in dataPath)
-            {
-                _tempFileService.Delete(item);
-            }
         }
 
         protected FileContentResult ZipContentResult(ZipFile zipFile)

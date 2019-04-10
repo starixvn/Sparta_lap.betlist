@@ -12,6 +12,16 @@
 
         private const int MaxColossusBetBetType = 18007;
 
+        public static void ClearData(TicketResult ticketResult)
+        {
+            ticketResult.MainTicketList.Clear();
+            ticketResult.TicketDataList.Clear();
+            ticketResult.MainTicketList.TrimExcess();
+            ticketResult.TicketDataList.TrimExcess();
+            ticketResult.MainTicketList = null;
+            ticketResult.TicketDataList = null;
+        }
+
         [CLSCompliant(false)]
         public static string GenerateClientDetailSystemParlayFunction(
             ITicketHelper tickerHelper,

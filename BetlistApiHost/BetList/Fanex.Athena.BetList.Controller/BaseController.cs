@@ -13,7 +13,6 @@ namespace Fanex.Athena.BetList.Controller
     using System.Web.SessionState;
     using Common.Utility.Attributes;
     using Fanex.Athena.BetList.Controller.CustomActionResult;
-    using Model.DTO;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CustomAuth]
@@ -21,16 +20,6 @@ namespace Fanex.Athena.BetList.Controller
     public class BaseController : Controller
     {
         private const string LANGUAGEKEY = "Language";
-
-        protected static void ClearData(TicketResult ticketResult)
-        {
-            ticketResult.MainTicketList.Clear();
-            ticketResult.TicketDataList.Clear();
-            ticketResult.MainTicketList.TrimExcess();
-            ticketResult.TicketDataList.TrimExcess();
-            ticketResult.MainTicketList = null;
-            ticketResult.TicketDataList = null;
-        }
 
         protected override void Initialize(RequestContext requestContext)
         {

@@ -35,7 +35,7 @@
                 await controller.GetData(metaModel).ConfigureAwait(false);
 
                 // Assert
-                _service.Received().GetBetListDataAsync(metaModel);
+                await _service.Received(1).GetBetListDataAsync(metaModel);
             }
         }
 
@@ -51,7 +51,7 @@
                 await controller.Detail(metaModel).ConfigureAwait(false);
 
                 // Assert
-                _service.Received().GetTicketDetailListAsync(metaModel);
+                await _service.Received().GetTicketDetailListAsync(metaModel);
             }
         }
 

@@ -17,6 +17,7 @@
     using Service.Interfaces;
     using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
+    using Utility;
 
     public class BettingTicketCenterMultiCustomerControllerTest : BaseControllerHelperTest
     {
@@ -26,14 +27,14 @@
 
         private IBettingTicketCenterService _service;
 
-        private ITempFileService _tempFileService;
+        private IBettingTicketCenterZipBuilder _zipBuilder;
 
         [SetUp]
         public void SetUp()
         {
             _appSettings = Substitute.For<IAppSettings>();
             _service = Substitute.For<IBettingTicketCenterService>();
-            _tempFileService = Substitute.For<ITempFileService>();
+            _zipBuilder = Substitute.For<IBettingTicketCenterZipBuilder>();
         }
 
         [TearDown]
@@ -41,7 +42,7 @@
         {
             _appSettings = null;
             _service = null;
-            _tempFileService = null;
+            _zipBuilder = null;
         }
 
         [Test]
@@ -184,7 +185,7 @@
         }
 
         [Test]
-        public async Task GetData_WhenExportZipFile_ClientIsNotConnected_ReturnNull()
+        public async Task GetData_ExportZipFile_ZipBuilderReturnNull_ReturnNull()
         {
             using (var controller = CreateController())
             {
@@ -201,12 +202,15 @@
                 var ticketResult = new GroupTicketResult();
                 _service.GetBetListForMultipleCustomers(metaModel, maxRowPerFile, metaModel.UserCurrencyList).Returns(ticketResult);
 
-                var title = FakeHelper.Create<string>();
-                _service.GetTitle(metaModel).Returns(title);
-
                 controller.WhenForAnyArgs(x => x.ReturnExcel(Arg.Any<BettingTicketCenterExcelModel>(), Arg.Any<TicketResult>())).DoNotCallBase();
 
                 SetUpForResponse(controller, false);
+                _zipBuilder.BuildZip(
+                    controller.HttpContext.Response,
+                    ticketResult,
+                    Arg.Any<string>(),
+                    Arg.Any<bool>(),
+                    Arg.Any<string>()).Returns(x => null);
 
                 // Action
                 var result = await controller.GetData(metaModel);
@@ -221,7 +225,7 @@
 
         private BettingTicketCenterMultiCustomerController CreateController()
         {
-            return Substitute.ForPartsOf<BettingTicketCenterMultiCustomerController>(_appSettings, _service, _tempFileService);
+            return Substitute.ForPartsOf<BettingTicketCenterMultiCustomerController>(_appSettings, _service, _zipBuilder);
         }
 
         private void SetUpForResponse(BettingTicketCenterMultiCustomerController controller, bool isClientConnected)

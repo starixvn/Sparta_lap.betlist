@@ -5,6 +5,7 @@ using Fanex.Athena.BetList.Controller.CustomActionResult;
 using Fanex.Athena.BetList.Excel;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Resources;
@@ -88,7 +89,7 @@ namespace Fanex.Athena.BetList.Controller
             {
                 Data = _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom)
             };
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 
@@ -123,7 +124,7 @@ namespace Fanex.Athena.BetList.Controller
                 },
                 TotalRows = ticketResult.TotalRows
             };
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 
@@ -135,7 +136,7 @@ namespace Fanex.Athena.BetList.Controller
             }
 
             var workbook = _bettingTicketCenterExcel.Export(excelModel);
-            ClearData(excelModel.Data);
+            BetListHelper.ClearData(excelModel.Data);
             excelModel.Data = null;
             return new ExcelResult(workbook);
         }

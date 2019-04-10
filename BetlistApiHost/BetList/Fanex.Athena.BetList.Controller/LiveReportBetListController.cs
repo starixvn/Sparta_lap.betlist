@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Utility.Helpers;
 
@@ -29,7 +30,7 @@ namespace Fanex.Athena.BetList.Controller
                     SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm
                 }
             };
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 
@@ -64,7 +65,7 @@ namespace Fanex.Athena.BetList.Controller
                 IsHasCustComm = metaModel.HasPlayerCom
             };
 
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
 
             return Json(result);
         }

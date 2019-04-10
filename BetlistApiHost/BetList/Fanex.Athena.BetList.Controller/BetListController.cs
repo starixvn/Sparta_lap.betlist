@@ -18,6 +18,7 @@ namespace Fanex.Athena.BetList.Controller
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.BetList.Service.Interfaces;
     using Model.ViewModel;
+    using Service.Helpers;
 
     public class BetListController : BaseController
     {
@@ -65,7 +66,7 @@ namespace Fanex.Athena.BetList.Controller
                 },
                 LeagueName = leagueName,
             };
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 
@@ -101,7 +102,7 @@ namespace Fanex.Athena.BetList.Controller
                 }
             };
 
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 

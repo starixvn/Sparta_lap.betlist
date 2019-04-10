@@ -46,7 +46,7 @@ namespace Fanex.Athena.BetList.Controller
                     Rows = rows,
                     LastTransId = ticketResult.MainTicketList.Max(t => t.TransId),
                 };
-                ClearData(ticketResult);
+                BetListHelper.ClearData(ticketResult);
                 return Json(result);
             }
             else
