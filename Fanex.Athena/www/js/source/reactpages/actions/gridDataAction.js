@@ -1,6 +1,5 @@
 import * as types from '@jsroot/actions/types.js'
 import DataService from '@jsroot/lib/DataService.js'
-import Site from '@jsroot/lib/site'
 import { toggleLoader } from '@jsroot/actions/loaderAction'
 
 export function getGridData(url, params) {
