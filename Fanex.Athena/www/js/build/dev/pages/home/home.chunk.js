@@ -2560,11 +2560,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 var $currentMenuItem = $(this);
                 document.title = 'LAP' + ' - ' + $(".active > .menu-title").text() + ' - ' + $currentMenuItem.text();
 
-                var isCancelledBetListMenu = $currentMenuItem.prop("id") === "MenuItem36";
-                if (isCancelledBetListMenu) {
-                    $("#page-title").text(Site.getSingleResource("CancelledBetsTitle"));
-                    return;
-                }
                 $("#page-title").text($currentMenuItem.text());
             });
 

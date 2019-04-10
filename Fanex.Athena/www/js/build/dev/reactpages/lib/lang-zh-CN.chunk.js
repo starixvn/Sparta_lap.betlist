@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Generated at: 04/08/2019 9:43:54 AM
+// Generated at: 4/10/2019 9:27:39 AM
 window._language_zh_CN = {
   AA: "客客",
   AbnormalBet: "非正规注单",
@@ -188,8 +188,6 @@ window._language_zh_CN = {
   ByCurrency: "根据货币",
   BySportsType: "根据运动类型",
   Cancel: "取消",
-  CancelledBets: "已删除/作废注单",
-  CancelledBetsTitle: "作废/已删除注单(3天纪录)",
   CashOutAmount: "预先兑现金额",
   CashOutAmt: "兑现金额",
   CashOutCommission: "即时兑现佣金",
@@ -279,7 +277,6 @@ window._language_zh_CN = {
   CustomerWinnings: "会员总赢",
   DA: "和客",
   Daily: "每日",
-  DailyBetList: "每日投注历史",
   DailyStatement: "每日账目",
   DailyStatementMsg: "Support data up to 4 months only",
   Date: "日期",

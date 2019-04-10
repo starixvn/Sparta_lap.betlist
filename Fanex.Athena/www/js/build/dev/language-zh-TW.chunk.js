@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 04/08/2019 9:43:54 AM
+﻿// Generated at: 4/10/2019 9:27:39 AM
 window._language_zh_TW = {
 AA:"客客",
 AbnormalBet:"非正規註單",
@@ -188,8 +188,6 @@ ByBetType:"根據投注類型",
 ByCurrency:"根據貨幣",
 BySportsType:"根據運動類型",
 Cancel:"取消",
-CancelledBets:"已刪除/作廢注單",
-CancelledBetsTitle:"作廢/已刪除注單（3天紀錄）",
 CashOutAmount:"即時兌現金額",
 CashOutAmt:"兌現金額",
 CashOutCommission:"即時兌現佣金",
@@ -279,7 +277,6 @@ CustomerWinLossTitle:"會員輸贏，{0} --&gt; {1} - {2}",
 CustomerWinnings:"會員總贏",
 DA:"和客",
 Daily:"每日",
-DailyBetList:"每日投注歷史",
 DailyStatement:"每日賬目",
 DailyStatementMsg:"Support data up to 4 months only",
 Date:"日期",
