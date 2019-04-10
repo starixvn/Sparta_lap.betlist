@@ -145,11 +145,9 @@
     <Compile Include="AllBetBetListController.cs" />
     <Compile Include="BetListBaseController.cs" />
     <Compile Include="AGCasinoBetListController.cs" />
-    <Compile Include="CancelledBetsBetListController.cs" />
     <Compile Include="CorrectScoreBetListController.cs" />
     <Compile Include="CustomerOutstandingBetListController.cs" />
     <Compile Include="CustomerWinLossBetListController.cs" />
-    <Compile Include="DailyBetListController.cs" />
     <Compile Include="CashOutBetListController.cs" />
     <Compile Include="GlobalGamingBetListController.cs" />
     <Compile Include="LastBetsMonitoringBetListController.cs" />

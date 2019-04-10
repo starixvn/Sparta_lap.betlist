@@ -286,24 +286,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancelled Bets.
-        /// </summary>
-        public static string Menu_36 {
-            get {
-                return ResourceManager.GetString("Menu_36", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Daily Bet List.
-        /// </summary>
-        public static string Menu_37 {
-            get {
-                return ResourceManager.GetString("Menu_37", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Live Report.
         /// </summary>
         public static string Menu_38 {

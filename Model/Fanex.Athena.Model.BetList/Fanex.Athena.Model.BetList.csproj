@@ -100,7 +100,6 @@
     <Compile Include="MetaModel\BetListShowingOption.cs" />
     <Compile Include="MetaModel\CashOutBetListDetailMetaModel.cs" />
     <Compile Include="MetaModel\ColossusBetDetailMetaModel.cs" />
-    <Compile Include="MetaModel\DailyBetListMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListDetailMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListMetaModel.cs" />
     <Compile Include="MetaModel\LastBetsMonitoringMetaModel.cs" />

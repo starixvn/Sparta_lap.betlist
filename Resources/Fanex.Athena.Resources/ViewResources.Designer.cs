@@ -1042,24 +1042,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancelled Bets.
-        /// </summary>
-        public static string CancelledBets {
-            get {
-                return ResourceManager.GetString("CancelledBets", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Void/Rejected Bet List (Last 3 days).
-        /// </summary>
-        public static string CancelledBetsTitle {
-            get {
-                return ResourceManager.GetString("CancelledBetsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You cannot update member bet limit for product {0}..
         /// </summary>
         public static string CannotUpdateBetLimitForProduct {
@@ -1893,15 +1875,6 @@ namespace Fanex.Athena.Resources {
         public static string Daily {
             get {
                 return ResourceManager.GetString("Daily", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Daily Bet List.
-        /// </summary>
-        public static string DailyBetList {
-            get {
-                return ResourceManager.GetString("DailyBetList", resourceCulture);
             }
         }
         

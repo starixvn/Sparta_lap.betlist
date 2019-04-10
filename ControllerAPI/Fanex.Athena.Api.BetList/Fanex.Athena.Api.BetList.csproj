@@ -174,7 +174,6 @@
     <Compile Include="WinlossByLeagueBetListController.cs" />
     <Compile Include="RunningBettypesOfMatchBetListController.cs" />
     <Compile Include="RunningBettypesBetListController.cs" />
-    <Compile Include="CancelledBetsBetListController.cs" />
     <Compile Include="OutstandingDailyStatementBetListController.cs" />
     <Compile Include="RunningMatchBetListController.cs" />
     <Compile Include="LicenseeWinLossBetListController.cs" />
@@ -182,7 +181,6 @@
     <Compile Include="CustomerWinLossBetListController.cs" />
     <Compile Include="LiveReportBetListController.cs" />
     <Compile Include="CorrectScoreBetListController.cs" />
-    <Compile Include="DailyBetListController.cs" />
     <Compile Include="PendingFundsBetListController.cs" />
     <Compile Include="LastBetMonitoringBetListController.cs" />
     <Compile Include="OutStandingCompletedBetListController.cs" />

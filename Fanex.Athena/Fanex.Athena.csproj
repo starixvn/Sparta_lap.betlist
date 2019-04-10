@@ -442,9 +442,6 @@
     </Content>
     <Content Include="App_Data\UserGuide\ActiveCustomerSummary\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\ActiveCustomerSummary\zh-TW.htm" />
-    <Content Include="App_Data\UserGuide\CancelledBets\en-US.htm" />
-    <Content Include="App_Data\UserGuide\CancelledBets\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\CancelledBets\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\AGCasinoWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\AGCasinoWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\AGCasinoWL\zh-TW.htm" />
@@ -499,14 +496,11 @@
     <Content Include="App_Data\UserGuide\CustomerWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\en-US.htm" />
-    <Content Include="App_Data\UserGuide\DailyBetList\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\DailyBetList\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\MatchWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\MatchWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\en-US.htm" />
-    <Content Include="App_Data\UserGuide\DailyBetList\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBets3WayHandicap\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBets3WayHandicap\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBets3WayHandicap\zh-TW.htm" />
@@ -1097,8 +1091,6 @@
     <Content Include="www\css\build\dev\home.css" />
     <Content Include="www\css\build\dev\main.chunk.js" />
     <Content Include="www\css\build\dev\main.css" />
-    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.chunk.js" />
-    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.css" />
     <Content Include="www\css\build\dev\pages\betlist\betlistLayout.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\dev\pages\betlist\betlistResult.chunk.js" />
@@ -1349,7 +1341,6 @@
     <Content Include="www\css\build\images\UM.png" />
     <Content Include="www\css\build\pro\home.css" />
     <Content Include="www\css\build\pro\main.css" />
-    <Content Include="www\css\build\pro\pages\betlist\betlistdaily.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistSimpleLayout.css" />
@@ -1476,9 +1467,7 @@
     <None Include="www\css\source\pages\utility\licenseelist.scss" />
     <Content Include="www\js\build\dev\language.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlist.chunk.js" />
-    <Content Include="www\js\build\dev\pages\betlist\betlistcancelledbets.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistcorrectscore.chunk.js" />
-    <Content Include="www\js\build\dev\pages\betlist\betlistdaily.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistrunning.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
@@ -1535,9 +1524,7 @@
     <Content Include="www\js\build\dev\pages\totalbet\totalgoal.chunk.js" />
     <Content Include="www\js\build\pro\language.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlist.chunk.js" />
-    <Content Include="www\js\build\pro\pages\betlist\betlistcancelledbets.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistcorrectscore.chunk.js" />
-    <Content Include="www\js\build\pro\pages\betlist\betlistdaily.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistrunning.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
@@ -1635,8 +1622,6 @@
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
-    <Content Include="www\js\source\pages\betlist\betlistcancelledbets.js" />
-    <Content Include="www\js\source\pages\betlist\betlistdaily.js" />
     <Content Include="www\js\source\pages\betlist\customer\customer.dailystatement.js" />
     <Content Include="www\js\source\pages\betlist\customer\customer.dailystatement.option.js" />
     <Content Include="www\js\source\pages\betlist\customer\customer.outstandingbetlist.js" />
@@ -1646,9 +1631,7 @@
     <Content Include="www\js\source\pages\betlist\betlistcorrectscore.js" />
     <Content Include="www\js\source\pages\betlist\lastbetmonitoring\lastbet.grid.js" />
     <Content Include="www\js\source\pages\betlist\lastbetmonitoring\main.js" />
-    <Content Include="www\js\source\pages\betlist\main-betlistcancelledbets.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistcorrectscore.js" />
-    <Content Include="www\js\source\pages\betlist\main-betlistdaily.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistrunning.multiplebettypes.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistrunning.js" />
     <Content Include="www\js\source\pages\betlist\main-simple.js" />
@@ -1820,8 +1803,6 @@
     <Content Include="www\js\tests\helpers\excel-spec.js" />
     <Content Include="www\js\tests\helpers\sortableheader-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlist-spec.js" />
-    <Content Include="www\js\tests\pages\betlist\betlistcancelledbets-spec.js" />
-    <Content Include="www\js\tests\pages\betlist\betlistdaily-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistrunning.multiplebettypes-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistrunning-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistcorrectscore-spec.js" />
@@ -2279,11 +2260,6 @@
     <Content Include="Views\Desktop\BetList\LiveReport\NumberGame.cshtml" />
     <Content Include="www\css\source\components\select2\select2.main.scss" />
     <Content Include="www\css\source\components\select2\select2-ex.scss" />
-    <Content Include="Views\Desktop\BetList\CancelledBetsBetList\Main.cshtml" />
-    <Content Include="Views\Desktop\BetList\CancelledBetsBetList\Filter.cshtml" />
-    <Content Include="Views\Desktop\BetList\DailyBetList\Main.cshtml" />
-    <Content Include="Views\Desktop\BetList\DailyBetList\Filter.cshtml" />
-    <Content Include="www\css\source\pages\betlist\betlistdaily.scss" />
     <Content Include="Views\Desktop\Report\SettledMatchCount\Main.cshtml" />
     <Content Include="Views\Desktop\Report\SettledMatchCount\ContentHeader.cshtml" />
     <Content Include="Views\Desktop\Report\SettledMatchCount\ContentData.cshtml" />
@@ -2294,8 +2270,6 @@
     <Content Include="Views\Desktop\Report\WeeklyLiveMatch\Content.cshtml" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.css.map" />
-    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.chunk.js.map" />
-    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.css.map" />
     <Content Include="www\css\source\components\scrollablegrid\scrollablegrid.scss" />
     <Content Include="www\css\source\components\paging\paging.scss" />
     <Content Include="Views\Desktop\Report\Turnover\Content.cshtml" />
@@ -2394,8 +2368,6 @@
     <Content Include="www\js\build\dev\pages\forecast\forecasthdpou.chunk.js.map" />
     <Content Include="www\css\source\pages\common\reportcommon.main.scss" />
     <Content Include="www\css\source\pages\common\reportjqgridlayout.main.scss" />
-    <Content Include="www\js\build\dev\pages\betlist\betlistcancelledbets.chunk.js.map" />
-    <Content Include="www\js\build\dev\pages\betlist\betlistdaily.chunk.js.map" />
     <Content Include="www\css\source\pages\report\settledmatchcount.scss" />
     <Content Include="www\js\build\dev\pages\reports\licenseewinloss.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js.map" />

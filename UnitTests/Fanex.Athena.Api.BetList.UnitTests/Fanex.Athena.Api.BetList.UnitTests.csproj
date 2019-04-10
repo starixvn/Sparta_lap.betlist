@@ -84,10 +84,8 @@
     <Compile Include="ApiBetListBaseControllerTest.cs" />
     <Compile Include="BettingTicketCenterControllerTest.cs" />
     <Compile Include="BonusBetListControllerTest.cs" />
-    <Compile Include="CancelledBetsBetListControllerTest.cs" />
     <Compile Include="CorrectScoreBetListControllerTest.cs" />
     <Compile Include="CustomerWinLossBetListControllerTest.cs" />
-    <Compile Include="DailyBetListControllerTest.cs" />
     <Compile Include="DailyStatementBetListControllerTest.cs" />
     <Compile Include="ExchangeWinLossBetListControllerTest.cs" />
     <Compile Include="FakeApiBetListBaseController.cs" />

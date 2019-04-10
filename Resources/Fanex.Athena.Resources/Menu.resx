@@ -192,12 +192,6 @@
   <data name="Menu_33" xml:space="preserve">
     <value>Win Loss By Bet Type</value>
   </data>
-  <data name="Menu_36" xml:space="preserve">
-    <value>Cancelled Bets</value>
-  </data>
-  <data name="Menu_37" xml:space="preserve">
-    <value>Daily Bet List</value>
-  </data>
   <data name="Menu_38" xml:space="preserve">
     <value>Live Report</value>
   </data>

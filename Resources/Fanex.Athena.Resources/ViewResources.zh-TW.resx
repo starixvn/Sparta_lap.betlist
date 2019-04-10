@@ -290,12 +290,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="CancelledBets" xml:space="preserve">
-    <value>已刪除/作廢注單</value>
-  </data>
-  <data name="CancelledBetsTitle" xml:space="preserve">
-    <value>作廢/已刪除注單（3天紀錄）</value>
-  </data>
   <data name="CasinoTransfer" xml:space="preserve">
     <value>娛樂城的總轉賬額</value>
   </data>
@@ -481,9 +475,6 @@
   </data>
   <data name="Daily" xml:space="preserve">
     <value>每日</value>
-  </data>
-  <data name="DailyBetList" xml:space="preserve">
-    <value>每日投注歷史</value>
   </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>每日賬目</value>

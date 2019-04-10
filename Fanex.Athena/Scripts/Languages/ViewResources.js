@@ -1,4 +1,4 @@
-﻿// Generated at: 04/08/2019 9:44:03 AM
+﻿// Generated at: 4/10/2019 9:28:06 AM
 var _language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -109,8 +109,6 @@ ByBetType:"By Bet Type",
 ByCurrency:"By Currency",
 BySportsType:"By Sports Type",
 Cancel:"Cancel",
-CancelledBets:"Cancelled Bets",
-CancelledBetsTitle:"Void/Rejected Bet List (Last 3 days)",
 CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}.",
 CashOutAmount:"Cash Out Amount",
 CashOutAmt:"Cash-out Amt",
@@ -204,7 +202,6 @@ CustomerWinLossTitle:"Customer Win/Loss, {0} --&gt; {1} - {2}",
 CustomerWinnings:"Customer&apos;s Winnings",
 DA:"DA",
 Daily:"Daily",
-DailyBetList:"Daily Bet List",
 DailyStatement:"Daily Statement",
 DailyStatementMsg:"Support data up to 4 months only",
 Data:"data",

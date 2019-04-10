@@ -217,14 +217,6 @@
     <value>投注类别输赢</value>
     <comment>Win Loss By Bet Type</comment>
   </data>
-  <data name="Menu_36" xml:space="preserve">
-    <value>作废/已删除注单</value>
-    <comment>Cancelled Bets</comment>
-  </data>
-  <data name="Menu_37" xml:space="preserve">
-    <value>每日投注历史</value>
-    <comment>Daily Bet List</comment>
-  </data>
   <data name="Menu_38" xml:space="preserve">
     <value>滚球报告</value>
     <comment>Live Report</comment>

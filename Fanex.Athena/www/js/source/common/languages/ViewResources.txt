@@ -1,5 +1,4 @@
 ﻿
-
 // Generated helper templates
 // Generated items
 // Fanex.Athena\www\js\source\common\languages\ViewResources.zh-TW.js
