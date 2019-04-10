@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
     using System.Threading.Tasks;
-    using Fanex.Athena.BetList.DataAccess.Interfaces;
+    using DataAccess.Interfaces;
     using Model.DTO;
     using Model.MetaModel;
     using NSubstitute;

@@ -18,6 +18,7 @@
     using Service;
     using Service.Helpers;
     using UnitTest.Common.Helpers;
+    using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
     public class BetListServiceTest
@@ -134,7 +135,8 @@
             {
                 BetTypeId = 0,
                 SportTypeId = (int)SportType.Soccer,
-                Status = "running"
+                Status = "running",
+                BetEffective = 0
             };
             var ticketResult = new TicketResult
             {
@@ -144,13 +146,17 @@
 
             var expectedTicketText = new TicketText
             {
+                Index = 0,
                 ExternalId = ticket.ExternalId,
                 SystemId = ticket.UserName,
                 TransTime = FakeHelper.Create<string>(),
                 Status = FakeHelper.Create<string>(),
                 Choice = FakeHelper.Create<string>(),
                 Odds = FakeHelper.Create<string>(),
-                Stake = FakeHelper.Create<string>()
+                Stake = FakeHelper.Create<string>(),
+                LicenseeWL = "-",
+                WinLoss = "-",
+                BetEffective = "<div class='underdog'>0.00</div>"
             };
             _betlistHtmlBuilder.BuildTrans(ticket).Returns(expectedTicketText.TransTime);
             _betlistHtmlBuilder.BuildStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false).Returns(expectedTicketText.Status);
@@ -159,20 +165,11 @@
             _betlistHtmlBuilder.BuildStake(ticket).Returns(expectedTicketText.Stake);
 
             // Action
-            var result = _betListService.BuildTicketTextList(ticketResult, metaModel);
+            var result = _betListService.BuildTicketTextList(ticketResult, metaModel, 0);
             var firstItem = result[0];
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(firstItem.ExternalId, Is.EqualTo(expectedTicketText.ExternalId));
-                Assert.That(firstItem.SystemId, Is.EqualTo(expectedTicketText.SystemId));
-                Assert.That(firstItem.TransTime, Is.EqualTo(expectedTicketText.TransTime));
-                Assert.That(firstItem.Status, Is.EqualTo(expectedTicketText.Status));
-                Assert.That(firstItem.Choice, Is.EqualTo(expectedTicketText.Choice));
-                Assert.That(firstItem.Odds, Is.EqualTo(expectedTicketText.Odds));
-                Assert.That(firstItem.Stake, Is.EqualTo(expectedTicketText.Stake));
-            });
+            Assert.That(firstItem, Tobe.SameProperties(expectedTicketText));
         }
 
         [Test]

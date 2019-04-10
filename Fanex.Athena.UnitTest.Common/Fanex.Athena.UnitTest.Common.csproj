@@ -147,7 +147,6 @@
     <Compile Include="Helpers\MvcHelper.cs" />
     <Compile Include="Helpers\ObjectHelper.cs" />
     <Compile Include="Helpers\WebApiHelper.cs" />
-    <Compile Include="NUnitExtensions\CustomConstraintExtensions.cs" />
     <Compile Include="NUnitExtensions\Tobe.cs" />
     <Compile Include="Helpers\DataAccessTestHelper.cs" />
     <Compile Include="Helpers\ExcelTestHelper.cs" />
