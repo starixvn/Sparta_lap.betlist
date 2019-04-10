@@ -19,10 +19,8 @@
             new Dictionary<string, Action<IObjectDb, BetListMetaModel>>(StringComparer.OrdinalIgnoreCase)
         {
             { "Lrf_BetList_WinlostByLeague_Mem", (db, metalModel) => CreateWinlossByLeagueParameters(db, metalModel) },
-            { "Lrf_BetList_SelDeleted", (db, metalModel) => CreateCancelBetListParameters(db, metalModel) },
             { "Lrf_TotalBets_Sel430", (db, metalModel) => CreateCorectScoreBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinLossByDate_Mem", (db, metalModel) => CreateCustomerWlBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_SelWinlossDaily", (db, metalModel) => CreateDailyWLBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinloss_Mem", (db, metalModel) => CreateLicenseeWLBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByBettype", (db, metalModel) => CreateRunningBetListByBettypePaprameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByBettypeList", (db, metalModel) => CreateRunningBetListByMultipleBettypePaprameters(db, metalModel) },
@@ -328,20 +326,6 @@
             CreateSummaryOutputParameters(db);
         }
 
-        private static void CreateDailyWLBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
-        {
-            var metaModel = betlistMetaModel as DailyBetListMetaModel;
-
-            CreateBetListSortingParameters(db, metaModel);
-            db.SetParameterValue("date", metaModel.Date);
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("product", metaModel.ProductCode);
-            db.SetParameterValue("status", metaModel.DailyBetListStatus);
-            CreateBetlistBUParameters(db, metaModel);
-            CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
-        }
-
         private static void CreateCorectScoreBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
@@ -357,13 +341,6 @@
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
             CreateProductListParameters(db, metaModel.ProductCodeList);
-        }
-
-        private static void CreateCancelBetListParameters(IObjectDb db, BetListMetaModel metaModel)
-        {
-            db.SetParameterValue("CustID", metaModel.CustId);
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            CreateBetListPagingParameters(db, metaModel);
         }
 
         private static void CreateRunningBetListByBettypePaprameters(IObjectDb db, BetListMetaModel metaModel)

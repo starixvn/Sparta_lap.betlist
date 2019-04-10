@@ -64,25 +64,6 @@
         }
 
         [Test]
-        public void CreateBetListParameters_CalledByCancelBetList_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_SelDeleted";
-            _metaModel.UspKey = UspKey;
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
-                _objectDb.Received(1).SetParameterValue("CustID", _metaModel.CustId);
-                AssertPagingParameters(_objectDb, _metaModel);
-            });
-        }
-
-        [Test]
         public void CreateBetListParameters_CalledByCorectScoreBetlist_ParametersPassedCorrectly()
         {
             // Arrange
@@ -121,31 +102,6 @@
                 AssertSummaryParameters(_objectDb);
                 _objectDb.Received(1).SetParameterValue("showSB", true);
                 _objectDb.Received(1).SetParameterValue("showNG", true);
-            });
-        }
-
-        [Test]
-        public void CreateBetListParameters_CalledByDailyWLBetlist_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_SelWinlossDaily";
-            var metaModel = FakeHelper.Create<DailyBetListMetaModel>();
-            metaModel.UspKey = UspKey;
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
-                _objectDb.Received(1).SetParameterValue("date", metaModel.Date);
-                _objectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
-                _objectDb.Received(1).SetParameterValue("product", metaModel.ProductCode);
-                _objectDb.Received(1).SetParameterValue("status", metaModel.DailyBetListStatus);
-                AssertMoveBetParams(_objectDb, metaModel);
-                AssertPagingParameters(_objectDb, metaModel);
-                AssertSummaryParameters(_objectDb);
             });
         }
 

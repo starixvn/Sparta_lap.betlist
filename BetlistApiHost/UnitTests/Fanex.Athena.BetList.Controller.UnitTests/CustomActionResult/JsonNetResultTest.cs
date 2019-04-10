@@ -24,7 +24,7 @@
 
         [Test]
         public void JsonNetResult_ContentTypeIsEmpty_UpdateContentTypeToJson()
-        { 
+        {
             using (var controller = new FakeCustomerActionResultController(MvcHelper.CreateControllerContext()))
             {
                 // Arrange

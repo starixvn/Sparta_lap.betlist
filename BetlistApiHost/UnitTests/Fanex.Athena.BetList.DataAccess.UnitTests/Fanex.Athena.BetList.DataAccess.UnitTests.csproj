@@ -106,7 +106,6 @@
     <Compile Include="BettingTicketsCenterMultiCustomerDataAccessTest.cs" />
     <Compile Include="BettingTicketsCenterDataAccessTest.GetBetListForSingleCustomer.cs" />
     <Compile Include="BettingTicketsCenterDataAccessTest.GetRunningBetList.cs" />
-    <Compile Include="CancelledBetListDataAccessTest.cs" />
     <Compile Include="CashOutBetListDataAccessTest.cs" />
     <Compile Include="ColossusBetBetListDataAccessTest.cs" />
     <Compile Include="DailyStatementBetListDataAccessTest.cs" />

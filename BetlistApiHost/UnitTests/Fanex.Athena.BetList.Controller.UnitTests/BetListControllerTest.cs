@@ -207,34 +207,7 @@
         }
 
         [Test]
-        public async Task GetDailyBetListData_WhenCall_CallGetBetListPaging()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = FakeHelper.Create<DailyBetListMetaModel>();
-
-                var ticketResult = new TicketResult();
-                _betListService.GetBetListData(metaModel).Returns(ticketResult);
-
-                var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _betListService.BuildTicketTextList(ticketResult, Arg.Any<BetListMetaModel>(), Arg.Any<int>(), isShowPlayerComm: metaModel.HasPlayerCom)
-                    .Returns(ticketText.ToList());
-
-                // Action
-                 await controller.GetDailyBetListData(metaModel);
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    _betListService.Received().GetBetListData(metaModel);
-                    _betListService.Received().BuildTicketTextList(ticketResult, Arg.Any<BetListMetaModel>(), Arg.Any<int>(), isShowPlayerComm: metaModel.HasPlayerCom);
-                });
-            }
-        }
-
-        [Test]
-        public void GetBetList_GetWinLossByLeagueData_CallGetBetList()
+        public async Task GetBetList_GetWinLossByLeagueData_CallGetBetList()
         {
             using (var controller = CreateController())
             {
@@ -248,7 +221,7 @@
                 _betListService.BuildTicketTextList(ticketResult, Arg.Any<BetListMetaModel>(), isShowPlayerComm: metaModel.HasPlayerCom).Returns(ticketText);
 
                 // Action
-                controller.GetWinLossByLeagueData(metaModel);
+                await controller.GetWinLossByLeagueData(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -334,27 +307,6 @@
                     controller.Received().Export(metaModel, ticketResult);
                     Assert.That(metaModel.Title, Is.EqualTo(title));
                 });
-            }
-        }
-
-        [Test]
-        public async Task ExportExcelDailyBetList_WhenCall_CallExportExcel()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = FakeHelper.Create<DailyBetListMetaModel>();
-
-                var ticketResult = new TicketResult();
-                _betListService.GetBetListData(metaModel).Returns(ticketResult);
-
-                controller.When(x => x.Export(Arg.Any<DailyBetListMetaModel>(), ticketResult)).DoNotCallBase();
-
-                // Action
-                await controller.ExportExcelDailyBetList(metaModel);
-
-                // Assert
-                controller.Received().Export(metaModel, ticketResult);
             }
         }
 

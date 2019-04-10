@@ -176,7 +176,6 @@
   <ItemGroup>
     <Compile Include="BettingTicketCenterController.cs" />
     <Compile Include="BettingTicketCenterMultiCustomerController.cs" />
-    <Compile Include="CancelledBetsBetListController.cs" />
     <Compile Include="CashOutBetListController.cs" />
     <Compile Include="ColossusBetBetListController.cs" />
     <Compile Include="CustomActionResult\ExcelResult.cs" />

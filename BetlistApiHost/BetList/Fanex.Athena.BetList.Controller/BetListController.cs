@@ -106,12 +106,6 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        public async Task<dynamic> GetDailyBetListData(DailyBetListMetaModel metaModel)
-        {
-            return await GetBetListPaging(metaModel).ConfigureAwait(false);
-        }
-
-        [HttpPost]
         public async Task<dynamic> GetWinLossByLeagueData(WinLossByLeagueBetListMetaModel metaModel)
         {
             return await GetBetList(metaModel).ConfigureAwait(false);
@@ -125,12 +119,6 @@ namespace Fanex.Athena.BetList.Controller
 
         [HttpPost]
         public async Task<ExcelResult> ExportExcelLiveReport(LiveReportBetListMetaModel metaModel)
-        {
-            return await ProcessExportExcel(metaModel).ConfigureAwait(false);
-        }
-
-        [HttpPost]
-        public async Task<ExcelResult> ExportExcelDailyBetList(DailyBetListMetaModel metaModel)
         {
             return await ProcessExportExcel(metaModel).ConfigureAwait(false);
         }
