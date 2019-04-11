@@ -22,7 +22,7 @@
         {
             _dataReader = Substitute.For<IDataReader>();
 
-            var columns = new string[] { _existingColumn, _nonExistingColumn };
+            var columns = new[] { _existingColumn, _nonExistingColumn };
             _dataReader.GetName(0).Returns(_existingColumn);
             _dataReader.GetName(1).Returns(_nonExistingColumn + "NotExist");
 
@@ -231,7 +231,7 @@
             // Arrange
             var data = FakeHelper.Create<DateTime>();
             var defaultData = FakeHelper.Create<DateTime>();
-            _dataReader[_existingColumn].Returns(data.ToString());
+            _dataReader[_existingColumn].Returns(data);
 
             // Action
             var result = _safeDataReader.GetDateTime(_existingColumn, defaultData);
