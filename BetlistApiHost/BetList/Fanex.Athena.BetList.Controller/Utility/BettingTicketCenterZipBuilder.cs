@@ -36,8 +36,7 @@ namespace Fanex.Athena.BetList.Controller.Utility
             {
                 if (response.IsClientConnected)
                 {
-                    var builder = DependencyResolver.Current.GetService<IBettingTicketCenterExcelBuilder>();
-                    using (var excelService = new BettingTicketCenterExcel(builder))
+                    using (var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>())
                     {
                         var contentData = _tempFileService.ReadString(ticketResult.DataPath[i]);
                         var excelModel = CreateExcelModel(ticketResult, contentData, title, hasPlayerComm, totalText);
@@ -99,7 +98,7 @@ namespace Fanex.Athena.BetList.Controller.Utility
             };
         }
 
-        private static void SaveFile(IWorkbook workbook, string dataFilePath)
+        protected internal virtual void SaveFile(IWorkbook workbook, string dataFilePath)
         {
             using (var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write))
             using (var bufferStream = new BufferedStream(stream))
