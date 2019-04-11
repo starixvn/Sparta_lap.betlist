@@ -94,7 +94,7 @@
             var bettypeName = FakeHelper.Create<string>();
             _cacheRefAdapter.GetBettype(BetType.PromotionPrize).Returns(bettypeName);
 
-            var expectedTitle = $"{ViewResources.ProductPP} - {bettypeName}, "
+            var expectedTitle = $"{ViewResources.ProductPP} - {@ViewResources.PromotionPrize}, "
                 + $"{model.FromDate.ToString(FormatKey.DateFormat)} --> {model.ToDate.ToString(FormatKey.DateFormat)} - "
                 + ViewResources.AllCurrencies;
 
@@ -120,10 +120,7 @@
             model.ToDate = model.FromDate.AddDays(1);
             model.CurrencyId = currencyId;
 
-            var bettypeName = FakeHelper.Create<string>();
-            _cacheRefAdapter.GetBettype(BetType.PromotionPrize).Returns(bettypeName);
-
-            var expectedTitle = $"{ViewResources.ProductPP} - {bettypeName}, "
+            var expectedTitle = $"{ViewResources.ProductPP} - {@ViewResources.PromotionPrize}, "
                 + $"{model.FromDate.ToString(FormatKey.DateFormat)} --> {model.ToDate.ToString(FormatKey.DateFormat)} - "
                 + model.CurrencyName;
 
