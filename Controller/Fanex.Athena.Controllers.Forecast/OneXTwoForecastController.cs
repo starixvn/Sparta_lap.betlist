@@ -54,22 +54,23 @@ namespace Fanex.Athena.Controllers.Forecast
         [CustomValidateAntiForgery]
         public async Task<ActionResult> Index(ForecastOneXTwoMetaModel metaModel)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-
             return await ProcessAction(metaModel).ConfigureAwait(false);
         }
 
-#pragma warning disable S4144 // Methods should not have identical implementations
+        [HttpGet]
         public async Task<ActionResult> Popup(ForecastOneXTwoMetaModel metaModel)
-#pragma warning restore S4144 // Methods should not have identical implementations
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-
+            metaModel.IsPopUp = true;
             return await ProcessAction(metaModel).ConfigureAwait(false);
         }
 
         private async Task<ActionResult> ProcessAction(ForecastOneXTwoMetaModel metaModel)
         {
+            if (metaModel.LicenseeId <= 0)
+            {
+                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            }
+
             var model = await GetViewModel(metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Forecast/Forecast1X2/Main.cshtml", model);

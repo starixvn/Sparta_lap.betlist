@@ -119,6 +119,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
+                    Assert.That(metaModel.IsPopUp, Is.EqualTo(true));
                     Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/Forecast1X2/Main.cshtml"));
                     AssertViewModel(
                         viewModel,

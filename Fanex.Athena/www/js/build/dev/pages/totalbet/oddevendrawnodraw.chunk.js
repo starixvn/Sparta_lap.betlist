@@ -1280,7 +1280,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         },
         viewForecast1X2: function (matchId, betType) {
-            var url = Site.resolveClientUrl("OneXTwoForecast/Popup?matchid=" + matchId + '&bettype=' + betType + '&ispopup=true');
+            var url = Site.resolveClientUrl("OneXTwoForecast/Popup?matchid=" + matchId + '&bettype=' + betType);
             url = Site.setLicenseeOptionOriginalParam(url);
 
             var popH = Math.min(window.innerHeight - 100, 600), popW = 700;
