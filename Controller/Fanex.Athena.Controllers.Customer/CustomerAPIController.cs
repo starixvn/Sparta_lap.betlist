@@ -36,7 +36,6 @@ namespace Fanex.Athena.Controllers.Customer
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
     public class CustomerApiController : ContentBaseController
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
@@ -275,10 +274,6 @@ namespace Fanex.Athena.Controllers.Customer
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
-        [SuppressMessage(
-         "StyleCop.CSharp.StylecopPlus.Rules",
-         "SP2101:MethodMustNotContainMoreLinesThan",
-         Justification = "Reviewed. Suppression is OK here.")]
         public async Task<ActionResult> UpdateCustomerCom(UpdatedCustomerComMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;

@@ -9,7 +9,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
     using Constant.DataDomain;
@@ -122,8 +121,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-                    Justification = "Reviewed. Suppression is OK here.")]
         public async Task<IList<LiveReportWinLossByMatch>> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportWinlossByMatch";

@@ -298,8 +298,6 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
-            Justification = "Reviewed. Suppression is OK here.")]
         private int SetDateWinLoss(
             ISheet sheet,
             WinLossByProduct winlossByProduct,

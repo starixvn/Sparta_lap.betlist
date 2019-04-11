@@ -86,10 +86,6 @@ namespace Fanex.Athena.Extension.Utility
         /// </summary>
         /// <param name="password">The password.</param>
         /// <returns>The valid password or invalid password.</returns>
-        [SuppressMessage(
-        "StyleCop.CSharp.StylecopPlus.Rules",
-        "SP2101:MethodMustNotContainMoreLinesThan",
-        Justification = "Reviewed. Suppression is OK here.")]
         public static bool IsPasswordValid(string password)
         {
             const string Pattern = @"^(?=.*[A-z].*[A-z])(?=.*\d.*\d).{6,}$";

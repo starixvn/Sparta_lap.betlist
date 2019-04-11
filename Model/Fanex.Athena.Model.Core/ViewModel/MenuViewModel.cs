@@ -18,8 +18,6 @@ namespace Fanex.Athena.Model.Core.ViewModel
 
         public IEnumerable<Function> MasterFunctions { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
-            Justification = "Reviewed. Suppression is OK here.")]
         public IDictionary<int, IEnumerable<Function>> UserDetailFunctions { get; set; }
 
         public bool IsAllowedCustonmerCommission { get; set; }

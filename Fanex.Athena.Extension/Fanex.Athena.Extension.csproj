@@ -143,9 +143,7 @@
     <Compile Include="Utility\DictionayExtension.cs" />
     <Compile Include="Utility\FileSystem.cs" />
     <Compile Include="Utility\FormsAuthenticationService.cs" />
-    <Compile Include="Utility\HttpContextService.cs" />
     <Compile Include="Utility\IAppSettings.cs" />
-    <Compile Include="Utility\Interfaces\IHttpContextService.cs" />
     <Compile Include="Utility\Interfaces\IFormsAuthenticationService.cs" />
     <Compile Include="Utility\Interfaces\IFileSystem.cs" />
     <Compile Include="Utility\WebClientService.cs" />

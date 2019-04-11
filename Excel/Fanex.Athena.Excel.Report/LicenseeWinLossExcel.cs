@@ -224,11 +224,6 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         protected override void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.CustomerCommVisible)
@@ -268,9 +263,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             ProcessUITurnover(sheet);
-
             ProcessUILicenseeWinLoss(sheet);
-
             HideColumnsByLevel(sheet);
         }
 

@@ -23,6 +23,8 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {
+        private const int OneHunderPercent = 100;
+
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public PlatformWinLossDataAccess(
@@ -119,9 +121,20 @@ namespace Fanex.Athena.DataAccess.Report
                 dataList.Add(child);
                 AddTotalData(totalData, child);
             }
-#pragma warning disable S109 // Magic numbers should not be used
-            totalData.TurnoverPercent = totalData.Turnover > 0 ? 100 : 0;
-#pragma warning restore S109 // Magic numbers should not be used
+
+            CalculateTurnoverPercent(dataList, totalData);
+
+            return new ReportResultModel<PlatformWinLossSummary>
+            {
+                DataList = dataList,
+                TotalData = totalData
+            };
+        }
+
+        private static void CalculateTurnoverPercent(List<PlatformWinLossSummary> dataList, PlatformWinLossSummary totalData)
+        {
+            totalData.TurnoverPercent = totalData.Turnover > 0 ? OneHunderPercent : 0;
+
             if (totalData.Turnover > 0)
             {
                 foreach (var item in dataList)
@@ -129,12 +142,6 @@ namespace Fanex.Athena.DataAccess.Report
                     item.TurnoverPercent = (item.Turnover / totalData.Turnover).ToPercentage();
                 }
             }
-
-            return new ReportResultModel<PlatformWinLossSummary>
-            {
-                DataList = dataList,
-                TotalData = totalData
-            };
         }
 
         private static void AddTotalData(PlatformWinLossSummary totalData, PlatformWinLossSummary child)
@@ -159,7 +166,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         private SortableReportResultModel<PlatformWinLossMember> ReadMemberData(
              IDataReader reader,
-             IDictionary<int, string> currencyList, 
+             IDictionary<int, string> currencyList,
              string baseCurrency)
         {
             var dataList = new SortableList<PlatformWinLossMember>();

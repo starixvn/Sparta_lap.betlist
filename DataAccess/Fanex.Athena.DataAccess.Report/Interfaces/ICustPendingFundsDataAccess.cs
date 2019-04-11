@@ -13,8 +13,6 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
     public interface ICustPendingFundsDataAccess
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
-            Justification = "Reviewed. Suppression is OK here.")]
         Task<ReportResultModel<CustPendingFunds>> GetDataList(CustomerPendingFundsMetaModel metaModel);
     }
 }

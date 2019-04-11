@@ -31,7 +31,6 @@ namespace Fanex.Athena
     {
         private static readonly string[] RemovedHeaderKeys = { "Server", "X-AspNet-Version", "X-AspNetMvc-Version" };
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public void Application_Error(object sender, EventArgs e)
         {
             var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];

@@ -20,8 +20,6 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
 
         IEnumerable<Function> GetMasterFunctions(IEnumerable<Function> functionList);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
-            Justification = "Reviewed. Suppression is OK here.")]
         IDictionary<int, IEnumerable<Function>> GetSubMenus(IEnumerable<Function> functionList);
 
         IDictionary<int, IEnumerable<Function>> GetSubFunctions(IEnumerable<Function> functionList);

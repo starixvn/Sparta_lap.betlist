@@ -65,7 +65,6 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpGet]
         [AjaxRequest]
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         public async Task<ActionResult> GetSportsAndProducts()
         {
             var productCode = $"{Product.SB},{Product.NG},{Product.VS},{Product.VS2}";

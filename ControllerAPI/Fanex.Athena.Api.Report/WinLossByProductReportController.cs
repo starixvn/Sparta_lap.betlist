@@ -240,10 +240,6 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
-        [SuppressMessage(
-           "StyleCop.CSharp.StylecopPlus.Rules",
-           "SP2101:MethodMustNotContainMoreLinesThan",
-           Justification = "Reviewed. Suppression is OK here.")]
 #pragma warning disable S107 // Methods should not have too many parameters
         private async Task<dynamic> ProcessRequest(
             WinLossByProductMetaModel metaModel,
@@ -275,9 +271,7 @@ namespace Fanex.Athena.Api.Report
             }
 
             AssignDrilldownDates(metaModel, fdate, tdate);
-
             var result = await GetData(metaModel);
-
             result.ResultInfo.Message = GetErrorMessage(result.ResultInfo.Code);
 
             var drillDownSystemId = systemId;

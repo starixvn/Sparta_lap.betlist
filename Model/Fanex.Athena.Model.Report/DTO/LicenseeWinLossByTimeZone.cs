@@ -4,6 +4,8 @@
 
     public class LicenseeWinLossByTimeZone
     {
+        private const int OneHundredPercent = 100;
+
         public DateTime ReportBy { get; set; }
 
         public string GroupBy { get; set; }
@@ -30,9 +32,7 @@
         {
             get
             {
-#pragma warning disable S109 // Magic numbers should not be used
-                return Turnover == 0 ? 0 : (LicenseeNetWinLoss / Turnover) * 100;
-#pragma warning restore S109 // Magic numbers should not be used
+                return Turnover == 0 ? 0 : (LicenseeNetWinLoss / Turnover) * OneHundredPercent;
             }
         }
     }
