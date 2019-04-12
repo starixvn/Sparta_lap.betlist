@@ -1951,7 +1951,6 @@
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\40x40\icon_40x40_doubleWild.jpg.exclude" />
-    <None Include="img\Slot\S0026\Thumbs.db" />
     <Content Include="Gruntfile.js" />
     <Content Include="img\Slot8\S8003\01.jpg" />
     <Content Include="img\Slot8\S8003\02.jpg" />
