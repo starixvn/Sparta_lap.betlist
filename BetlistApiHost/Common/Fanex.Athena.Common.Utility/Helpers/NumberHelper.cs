@@ -1,12 +1,11 @@
 ﻿namespace Fanex.Athena.Common.Utility.Helpers
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
 
-    [SuppressMessage("Sonar Code Smell", "S109:MagicNumbersShouldNotBeUsed",
-            Justification = "Reviewed. Suppression is OK here.")]
     public static class NumberHelper
     {
+        private const int EvenNumber = 2;
+
         private static readonly CultureInfo DefaultCulture = new CultureInfo("en-US");
 
         public static string DecFormat(decimal value, byte digit = 2)
@@ -17,17 +16,18 @@
 
         public static decimal ToPercentage(this decimal value)
         {
-            return value * 100;
+            const int PercentageNumber = 100;
+            return value * PercentageNumber;
         }
 
-        public static bool IsOddNumber(this decimal value)
+        public static bool IsEvenNumber(this decimal value)
         {
-            return value % 2 == 0;
+            return value % EvenNumber == 0;
         }
 
-        public static bool IsOddNumber(this int value)
+        public static bool IsEvenNumber(this int value)
         {
-            return value % 2 == 0;
+            return value % EvenNumber == 0;
         }
     }
 }

@@ -31,7 +31,7 @@
         {
             try
             {
-                return _kenoApi.CreateKenoResultUrl(GetKenoSetting(vendorProductId), userId, DateTime.Now);
+                return _kenoApi.CreateKenoResultAddress(GetKenoSetting(vendorProductId), userId, DateTime.Now);
             }
             catch (Exception exception)
             {

@@ -28,7 +28,6 @@ namespace Fanex.Athena
 
     public class MvcApplication : HttpApplication
     {
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public void Application_Error(object sender, EventArgs e)
         {
             // Code that runs when an unhandled error occurs
@@ -44,9 +43,10 @@ namespace Fanex.Athena
             ExceptionHandler.Handle(exception);
         }
 
-        [SuppressMessage("Sonar Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Reviewed.")]
         public void Application_Start(object sender, EventArgs e)
         {
+            const string SpNameConfigSource = "~/SpNameConfig/FanexSpName.xml";
+
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
 
@@ -59,7 +59,7 @@ namespace Fanex.Athena
             DbSettingProviderManager
                 .StartNewSession()
                 .UseDefaultConnectionStringProvider()
-                .UseDefaultDbSettingProvider(resourcePath: "~/SpNameConfig/FanexSpName.xml")
+                .UseDefaultDbSettingProvider(resourcePath: SpNameConfigSource)
                 .Run();
             RefDataTypeContainer
            .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))

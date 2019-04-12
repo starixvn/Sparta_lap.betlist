@@ -84,16 +84,15 @@ namespace Fanex.Athena.BetList.Service
 
                 case OddsType.American:
                     {
+                        const int EvenOdds = 2;
                         var odds = ticket.Odds * 100;
                         if (odds < 0)
                         {
                             ticket.Odds = 1 - (1 / ticket.Odds);
                         }
-                        else if (odds.IsOddNumber())
+                        else if (odds.IsEvenNumber())
                         {
-#pragma warning disable S109 // Magic numbers should not be used
-                            ticket.Odds = 2;
-#pragma warning restore S109 // Magic numbers should not be used
+                            ticket.Odds = EvenOdds;
                         }
                         else
                         {

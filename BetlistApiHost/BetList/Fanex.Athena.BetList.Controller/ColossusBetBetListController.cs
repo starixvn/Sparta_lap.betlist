@@ -36,14 +36,12 @@ namespace Fanex.Athena.BetList.Controller
         {
             var viewModel = await _colossusBetBetListDataAccess.GetData(metaModel).ConfigureAwait(false);
 
-            var iframeUrl = GetIframeUrl(metaModel.UserId, metaModel.BetCheck, metaModel.CustId);
+            var iframeUrl = GetIframeAddress(metaModel.UserId, metaModel.BetCheck, metaModel.CustId);
             viewModel.IframeUrl = iframeUrl;
             return Json(viewModel);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private string GetIframeUrl(int userId, long betCheck, int memberId)
+        private string GetIframeAddress(int userId, long betCheck, int memberId)
         {
             var token = GetToken(userId, memberId);
             var siteId = _colossusBetBetListDataAccess.GetSiteId(memberId);

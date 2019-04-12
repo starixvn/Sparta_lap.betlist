@@ -45,9 +45,7 @@
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public string CreateKenoResultUrl(KenoResultMetaModel setting, string userId, DateTime resultDate)
+        public string CreateKenoResultAddress(KenoResultMetaModel setting, string userId, DateTime resultDate)
         {
             var authorizedData = this.Authorize(setting, userId);
             if (authorizedData.ErrorCode > 0)

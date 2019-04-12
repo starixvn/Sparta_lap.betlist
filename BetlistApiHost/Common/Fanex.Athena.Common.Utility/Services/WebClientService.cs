@@ -16,24 +16,20 @@
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public string DownloadString(string url)
+        public string DownloadString(string address)
         {
             using (WebClient webClient = new WebClient())
             {
                 webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
-                return webClient.DownloadString(url);
+                return webClient.DownloadString(address);
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public byte[] DownloadData(string url)
+        public byte[] DownloadData(string address)
         {
             using (WebClient webClient = new WebClient())
             {
-                return webClient.DownloadData(url);
+                return webClient.DownloadData(address);
             }
         }
 

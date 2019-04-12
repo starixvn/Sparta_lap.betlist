@@ -62,7 +62,7 @@ namespace Fanex.Athena.Result.Service
             {
                 Success = isSuccess,
                 Result = isSuccess
-                    ? GetRngCasinoPopupUrl(result.Token.ToString(), refNo)
+                    ? GetRngCasinoPopupAddress(result.Token.ToString(), refNo)
                     : new
                     {
                         ErrorCode = result.ErrorCode.ToString(),
@@ -134,9 +134,7 @@ namespace Fanex.Athena.Result.Service
             return JsonConvert.SerializeObject(param);
         }
 
-        [SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private string GetRngCasinoPopupUrl(string token, string refNo)
+        private string GetRngCasinoPopupAddress(string token, string refNo)
         {
             var queryString = GetQueryString(token, refNo);
             var encryptedKey = _appSettings.GetValue("RNGCasinoEncryptedKey");

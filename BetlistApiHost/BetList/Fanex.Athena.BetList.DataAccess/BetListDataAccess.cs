@@ -42,13 +42,10 @@ namespace Fanex.Athena.BetList.DataAccess
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        [System.CLSCompliant(false)]
+        [CLSCompliant(false)]
         public async Task<SystemParlayData> GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelCombinationParlayDetail";
-
             using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
@@ -67,7 +64,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 {
                     foreach (DataRow row in ticketData.Rows)
                     {
-                        ISystemParlayTicket ticket = new SystemParlayTicket
+                        systemParlayData.TicketList.Add(new SystemParlayTicket
                         {
                             Comm = Converter.ToDecimal(row["comm"]),
                             MOdds = Converter.ToDecimal(row["modds"]),
@@ -79,9 +76,7 @@ namespace Fanex.Athena.BetList.DataAccess
                             TransId = Convert.ToInt64(row["transid"]),
                             WinLost = Converter.ToDecimal(row["winlost"]),
                             WinLostDate = Converter.ToDateTime(row["winlostdate"])
-                        };
-
-                        systemParlayData.TicketList.Add(ticket);
+                        });
                     }
                 }
 
@@ -89,14 +84,12 @@ namespace Fanex.Athena.BetList.DataAccess
                 {
                     foreach (DataRow row in serialData.Rows)
                     {
-                        ISystemParlaySerial serial = new SystemParlaySerial
+                        systemParlayData.SerialList.Add(new SystemParlaySerial
                         {
                             Serial = Convert.ToInt64(row["serial"]),
                             HomeId = Converter.ToInt(row["homeid"]),
                             AwayId = Converter.ToInt(row["awayid"])
-                        };
-
-                        systemParlayData.SerialList.Add(serial);
+                        });
                     }
                 }
 
