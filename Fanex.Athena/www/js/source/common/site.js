@@ -62,7 +62,7 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
                 cache: false,
                 headers: { '__RequestVerificationToken': REQUEST_VERIFICATION_TOKEN },
                 statusCode: {
-                    0: unBlockUI(),
+                    0: unBlockUI,
                     400: function () {
                         unBlockUI();
                         alert(getSingleResource("InvalidRequestMsg"));

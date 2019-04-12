@@ -56,7 +56,7 @@ define(["jquery"], function ($) {
                             duration: 350,
                             easing: "easeOutQuart",
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -67,7 +67,7 @@ define(["jquery"], function ($) {
                             duration: 350,
                             easing: "easeOutQuart",
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -78,7 +78,7 @@ define(["jquery"], function ($) {
                     duration: 350,
                     easing: "easeOutQuart",
                     queue: false,
-                    complete: function complete() {
+                    complete: function() {
                         $(this).css('height', '');
                     }
                 });
@@ -98,7 +98,7 @@ define(["jquery"], function ($) {
                             duration: 350,
                             easing: "easeOutQuart",
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -109,7 +109,7 @@ define(["jquery"], function ($) {
                             duration: 350,
                             easing: "easeOutQuart",
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -152,7 +152,7 @@ define(["jquery"], function ($) {
                         collapse($this, event);
                         overlay.velocity({ opacity: 0 }, {
                             duration: 300, queue: false, easing: 'easeOutQuad',
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).remove();
                             }
                         });
@@ -160,7 +160,7 @@ define(["jquery"], function ($) {
                     $('body').append(overlay);
                     overlay.velocity({ opacity: 1 }, {
                         duration: 300, queue: false, easing: 'easeOutQuad',
-                        complete: function complete() { }
+                        complete: function() { }
                     });
                 }
             }

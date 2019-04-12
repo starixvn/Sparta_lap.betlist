@@ -5,7 +5,7 @@
 define(["jquery"], function ($) {
 
     var methods = {
-        init: function init(options) {
+        init: function(options) {
             var defaults = {
                 menuWidth: 260,
                 edge: 'left',
@@ -92,7 +92,7 @@ define(["jquery"], function ($) {
                     $('#sidenav-overlay').velocity({ opacity: 0 }, {
                         duration: 200,
                         queue: false, easing: 'easeOutQuad',
-                        complete: function complete() {
+                        complete: function() {
                             $(this).remove();
                         }
                     });
@@ -103,7 +103,7 @@ define(["jquery"], function ($) {
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function complete() {
+                            complete: function() {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu_id.removeAttr('style');
@@ -251,7 +251,7 @@ define(["jquery"], function ($) {
                                 });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -278,7 +278,7 @@ define(["jquery"], function ($) {
                                 menu_id.velocity({ 'translateX': [options.menuWidth + 10, rightPos] }, { duration: 200, queue: false, easing: 'easeOutQuad' });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -329,7 +329,7 @@ define(["jquery"], function ($) {
                                 removeMenu();
                                 overlay.velocity({ opacity: 0 }, {
                                     duration: 300, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -337,7 +337,7 @@ define(["jquery"], function ($) {
                             $body.append(overlay);
                             overlay.velocity({ opacity: 1 }, {
                                 duration: 300, queue: false, easing: 'easeOutQuad',
-                                complete: function complete() {
+                                complete: function() {
                                     menuOut = true;
                                     panning = false;
                                 }
@@ -355,10 +355,10 @@ define(["jquery"], function ($) {
                 });
             });
         },
-        show: function show() {
+        show: function() {
             this.trigger('click');
         },
-        hide: function hide() {
+        hide: function() {
             $('#sidenav-overlay').trigger('click');
         }
     };

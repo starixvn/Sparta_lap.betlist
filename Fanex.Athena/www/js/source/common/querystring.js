@@ -37,14 +37,14 @@ define(["jquery"], function ($) {
         var queryString = getQueryString(url);
         var args = parseQueryString(queryString);
 
-        if (name == null || name === undefined) {
+        if (name == null) {
             return url;
         }
 
         // Update value
         var found = false;
         for (var key in args) {
-            if (key != null && key !== undefined && key.toLowerCase() === name.toLowerCase()) {
+            if (key != null && key.toLowerCase() === name.toLowerCase()) {
                 // Does not update data if value = undefined
                 if (value !== undefined) {
                     args[key] = value;
@@ -70,13 +70,14 @@ define(["jquery"], function ($) {
     }
 
     function setParams(url, parameters) {
+        var returnUrl = url;
         for (var property in parameters) {
             if (parameters.hasOwnProperty(property)) {
-                url = setParam(url, property, parameters[property]);
+                returnUrl = setParam(returnUrl, property, parameters[property]);
             }
         }
 
-        return url;
+        return returnUrl;
     }
 
     return {
