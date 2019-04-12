@@ -209,8 +209,8 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
-                rowIndex++;
                 sheet.MergeCols(ColumnIndex, ColumnCurrency, rowIndex);
+                rowIndex++;
             }
 
             return rowIndex;
