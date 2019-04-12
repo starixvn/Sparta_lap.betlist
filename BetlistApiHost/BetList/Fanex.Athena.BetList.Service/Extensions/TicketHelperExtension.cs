@@ -1,12 +1,12 @@
-﻿using Fanex.BetList.Core.Entities;
-
-namespace Fanex.Athena.BetList.Service.Extensions
+﻿namespace Fanex.Athena.BetList.Service.Extensions
 {
+    using System;
+    using Fanex.BetList.Core.Entities;
+
     public static class TicketHelperExtension
     {
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
+        [CLSCompliant(false)]
         public static string GetValidOddsTypeNameById(this ITicketHelper ticketHelper, object oddsTypeId)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             if (oddsTypeId == null || oddsTypeId.ToString().Trim() == string.Empty || oddsTypeId.ToString() == "0")
             {

@@ -24,14 +24,12 @@ namespace Fanex.Athena.BetList.Service
 
         private readonly ITicketHelper _ticketHelper;
 
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
-
+        [CLSCompliant(false)]
         public BettingTicketCenterService(
             IBettingTicketCenterDataAccess dataAccess,
             IBettingTicketCenterMultiCustomerDataAccess multiCustomerDataAccess,
             IBetListHTMLBuilder betlistHtmlBuilder,
             ITicketHelper ticketHelper)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             _dataAccess = dataAccess;
             _multiCustomerDataAccess = multiCustomerDataAccess;

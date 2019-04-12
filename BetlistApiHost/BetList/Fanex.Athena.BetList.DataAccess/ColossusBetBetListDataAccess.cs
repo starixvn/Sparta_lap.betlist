@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.BetList.DataAccess
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
@@ -24,10 +25,8 @@ namespace Fanex.Athena.BetList.DataAccess
 
         private readonly ITicketHelper _ticketHelper;
 
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
-
+        [CLSCompliant(false)]
         public ColossusBetBetListDataAccess(ITicketHelper ticketHelper)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             _ticketHelper = ticketHelper;
         }

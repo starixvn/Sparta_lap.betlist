@@ -1,32 +1,36 @@
 ﻿namespace Fanex.Athena.Common.Constant
 {
+    using System.Collections.Generic;
     using Resources;
 
     public static class PlatformType
     {
-#pragma warning disable S1541 // Methods and properties should not be too complex
+        private static IDictionary<string, string> _platforms = new Dictionary<string, string>
+        {
+            { "a", "China" },
+            { "z", "China" },
+            { "d", "Asia" },
+            { "g", "Asia" },
+            { "e", "Euro" },
+            { "u", "Euro" },
+            { "y", "Euro" },
+            { "m", "Wap" },
+            { "s", "Mobile" },
+            { "l", "Mobile" },
+            { "r", "Tablet" },
+            { "x", "NewAsia" },
+            { "o", "MobileApp" },
+            { "c", "MobileLiteVersion" }
+        };
 
         public static string GetPlatformName(string code)
-#pragma warning restore S1541 // Methods and properties should not be too complex
         {
-            switch (code)
+            if (!string.IsNullOrWhiteSpace(code) && _platforms.ContainsKey(code))
             {
-                case "a":
-                case "z": return ViewResources.China;
-                case "d":
-                case "g": return ViewResources.Asia;
-                case "e":
-                case "u":
-                case "y": return ViewResources.Euro;
-                case "m": return ViewResources.Wap;
-                case "s":
-                case "l": return ViewResources.Mobile;
-                case "r": return ViewResources.Tablet;
-                case "x": return ViewResources.NewAsia;
-                case "o": return ViewResources.MobileApp;
-                case "c": return ViewResources.MobileLiteVersion;
-                default: return ViewResources.Others;
+                return ViewResources.ResourceManager.GetString(_platforms[code]);
             }
+
+            return ViewResources.Others;
         }
     }
 }

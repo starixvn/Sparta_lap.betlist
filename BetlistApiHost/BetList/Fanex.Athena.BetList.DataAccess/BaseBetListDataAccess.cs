@@ -9,7 +9,6 @@ namespace Fanex.Athena.BetList.DataAccess
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Common.Constant;
     using Common.DataAccess;
@@ -20,6 +19,7 @@ namespace Fanex.Athena.BetList.DataAccess
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
+        [CLSCompliant(false)]
         protected internal static LrfTicket MapTicket(
             ISafeDataReader reader,
             IDictionary<string, string> columns,

@@ -19,9 +19,7 @@ namespace Fanex.Athena.Result.Controller
 
     public class ResultReportController : BaseResultController
     {
-#pragma warning disable S1075 // URIs should not be hardcoded
-        private const string ResultExcelTemplatePath = "~/App_Data/Fanex.Result/";
-#pragma warning restore S1075 // URIs should not be hardcoded
+        private const string ResultExcelTemplateAddress = "~/App_Data/Fanex.Result/";
 
         private const int ParlayBetType = 9;
         private const int SystemParlayBetType = 29;
@@ -190,6 +188,16 @@ namespace Fanex.Athena.Result.Controller
             return limitedSports;
         }
 
+        private static bool IsVirtualSport(SportType type)
+        {
+            var isVirtualRacing = type == SportType.VirtualMotorRacing || type == SportType.VirtualHorseRacing;
+
+            return isVirtualRacing
+                || type == SportType.VirtualGreyhounds
+                || type == SportType.VirtualCycling
+                || type == SportType.VirtualSpeedway;
+        }
+
         /// <summary>
         /// Get data for pop-up page.
         /// </summary>
@@ -221,56 +229,66 @@ namespace Fanex.Athena.Result.Controller
             }
         }
 
-#pragma warning disable S1541 // Methods and properties should not be too complex
+        private async Task GetVirtualSportPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
+        {
+            if (metalModel.RaceNo != null)
+            {
+                var dataRc = await _resultService.GetPopUpVirtualSportMatch(metalModel).ConfigureAwait(false);
+                if (dataRc != null)
+                {
+                    this._htmlResult = _resultService.HtmlParser(dataRc, setting);
+                }
+            }
+        }
+
+        private async Task GetNumberGamePopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
+        {
+            var dataNg = await _resultService.GetPopUpNumberGameMatchs(metalModel.MatchId).ConfigureAwait(false);
+            if (dataNg != null)
+            {
+                _htmlResult = _resultService.HtmlParser(dataNg, setting);
+            }
+        }
+
+        private async Task GetHappy5PopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
+        {
+            var dataHappy5 = await _resultService.GetPopUpHappy5Matches(metalModel.MatchId).ConfigureAwait(false);
+            if (dataHappy5 != null)
+            {
+                _htmlResult = _resultService.HtmlParser(dataHappy5, setting);
+            }
+        }
+
+        private async Task GetOtherNormalPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
+        {
+            var data = await _resultService.GetPopUpMatch(metalModel).ConfigureAwait(false);
+            if (data != null)
+            {
+                _htmlResult = _resultService.HtmlParser(data, setting);
+            }
+        }
 
         private async Task GetNormalPopUpData(ResultPopupMetaModel metalModel, SportType sportType, ResultSetting setting)
-#pragma warning restore S1541 // Methods and properties should not be too complex
         {
-            switch (sportType)
+            if (IsVirtualSport(sportType))
             {
-                case SportType.VirtualHorseRacing:
-                case SportType.VirtualMotorRacing:
-                case SportType.VirtualGreyhounds:
-                case SportType.VirtualSpeedway:
-                case SportType.VirtualCycling:
-                    if (metalModel.RaceNo != null)
-                    {
-                        var dataRc = await _resultService.GetPopUpVirtualSportMatch(metalModel).ConfigureAwait(false);
-                        if (dataRc != null)
-                        {
-                            this._htmlResult = _resultService.HtmlParser(dataRc, setting);
-                        }
-                    }
-
-                    break;
-
-                case SportType.NumberGame:
-                    var dataNg = await _resultService.GetPopUpNumberGameMatchs(metalModel.MatchId).ConfigureAwait(false);
-                    if (dataNg != null)
-                    {
-                        _htmlResult = _resultService.HtmlParser(dataNg, setting);
-                    }
-
-                    break;
-
-                case SportType.Happy5:
-                    var dataHappy5 = await _resultService.GetPopUpHappy5Matches(metalModel.MatchId).ConfigureAwait(false);
-                    if (dataHappy5 != null)
-                    {
-                        _htmlResult = _resultService.HtmlParser(dataHappy5, setting);
-                    }
-
-                    break;
-
-                default:
-                    var data = await _resultService.GetPopUpMatch(metalModel).ConfigureAwait(false);
-                    if (data != null)
-                    {
-                        _htmlResult = _resultService.HtmlParser(data, setting);
-                    }
-
-                    break;
+                await GetVirtualSportPopUpData(metalModel, setting).ConfigureAwait(false);
+                return;
             }
+
+            if (sportType == SportType.NumberGame)
+            {
+                await GetNumberGamePopUpData(metalModel, setting).ConfigureAwait(false);
+                return;
+            }
+
+            if (sportType == SportType.Happy5)
+            {
+                await GetHappy5PopUpData(metalModel, setting).ConfigureAwait(false);
+                return;
+            }
+
+            await GetOtherNormalPopUpData(metalModel, setting).ConfigureAwait(false);
         }
 
         #endregion popup-page
@@ -333,7 +351,6 @@ namespace Fanex.Athena.Result.Controller
         #endregion spots list
 
         #region main-page
-
         private async Task<int> GetSportId(DateTime fromDate, int licenseeId)
         {
             var sports = await _resultService.GetSports(fromDate, licenseeId).ConfigureAwait(false);
@@ -364,10 +381,7 @@ namespace Fanex.Athena.Result.Controller
             }
         }
 
-#pragma warning disable S1541 // Methods and properties should not be too complex
-
         private async Task GetNormalData(ResultMetaModel metalModel)
-#pragma warning restore S1541 // Methods and properties should not be too complex
         {
             var setting = GetNormalResultSetting(metalModel);
             switch (setting.SportType)
@@ -434,7 +448,7 @@ namespace Fanex.Athena.Result.Controller
             {
                 IsOutright = true,
                 ExcelTitle = ViewResources.Result,
-                ExcelTemplatePath = HostingEnvironment.MapPath(ResultExcelTemplatePath),
+                ExcelTemplatePath = HostingEnvironment.MapPath(ResultExcelTemplateAddress),
                 LanguageCode = languageCode,
                 VisibleMatchCodeIDColumn = true
             };
@@ -447,7 +461,7 @@ namespace Fanex.Athena.Result.Controller
             {
                 SportType = sportType,
                 ExcelTitle = ViewResources.Result,
-                ExcelTemplatePath = HostingEnvironment.MapPath(ResultExcelTemplatePath),
+                ExcelTemplatePath = HostingEnvironment.MapPath(ResultExcelTemplateAddress),
                 LanguageCode = LanguageCode,
                 VisibleDetailedLink = true,
                 VisibleFreeHeader = true,

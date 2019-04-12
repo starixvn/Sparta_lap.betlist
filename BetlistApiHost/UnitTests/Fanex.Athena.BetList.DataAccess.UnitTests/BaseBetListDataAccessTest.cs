@@ -145,6 +145,8 @@
             }
         }
 
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private LrfTicket GetFakeTicket()
         {
             return new LrfTicket

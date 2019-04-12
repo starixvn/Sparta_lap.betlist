@@ -28,9 +28,8 @@ namespace Fanex.Athena.Result.Service
 
         private readonly IWebClientService _webClientService;
 
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
+        [CLSCompliant(false)]
         public RngCasinoSingleWalletService(ILogger logger, IAppSettings appSettings, IWebClientService webClientService)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             _logger = logger;
             _appSettings = appSettings;
