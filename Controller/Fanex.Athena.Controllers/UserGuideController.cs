@@ -126,12 +126,18 @@ namespace Fanex.Athena.Controllers
                 return content;
             }
 
+            var result = content;
             if (products.Any(x => x.ProductID == ProductTypes.PP))
             {
-                return content.Replace(Holder, $"<li>{ViewResources.PPPromotionPrizeLinkNote}</li>");
+                result = result.Replace("{PP-Promotion-Prize-Link}", string.Empty);
+                result = result.Replace("{/PP-Promotion-Prize-Link}", string.Empty);
+            }
+            else
+            {
+                result = new Regex(@"\{PP-Promotion-Prize-Link\}.*\{/PP-Promotion-Prize-Link\}").Replace(result, string.Empty);
             }
 
-            return content.Replace(Holder, string.Empty);
+            return result;
         }
 
         private static string RemoveProductSection(string content, IEnumerable<Product> products, int productId, string productCode)

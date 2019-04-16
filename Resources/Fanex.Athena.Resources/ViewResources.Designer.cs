@@ -5983,15 +5983,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;PP Promotion Prize&quot; link is displayed when &quot;Promotion Prize&quot; tickets are available within selected date range..
-        /// </summary>
-        public static string PPPromotionPrizeLinkNote {
-            get {
-                return ResourceManager.GetString("PPPromotionPrizeLinkNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Pre Game.
         /// </summary>
         public static string PreGame {

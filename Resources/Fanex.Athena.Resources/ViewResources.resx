@@ -3157,8 +3157,4 @@
     <value>Promotion Prize</value>
     <comment>109471</comment>
   </data>
-  <data name="PPPromotionPrizeLinkNote" xml:space="preserve">
-    <value>"PP Promotion Prize" link is displayed when "Promotion Prize" tickets are available within selected date range.</value>
-    <comment>109471</comment>
-  </data>
 </root>
