@@ -266,16 +266,16 @@
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },

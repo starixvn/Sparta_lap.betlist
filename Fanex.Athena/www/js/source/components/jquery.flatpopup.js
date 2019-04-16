@@ -4,7 +4,7 @@ define(['jquery'], function ($) {
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -20,7 +20,7 @@ define(['jquery'], function ($) {
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);

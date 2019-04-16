@@ -5,13 +5,13 @@
 define(["jquery"], function ($) {
 
     var methods = {
-        init: function(options) {
+        init: function(inputOptions) {
             var defaults = {
                 menuWidth: 260,
                 edge: 'left',
                 closeOnClick: false
             };
-            options = $.extend(defaults, options);
+            var options = $.extend(defaults, inputOptions);
 
             $(this).each(function () {
                 var $this = $(this);
@@ -119,7 +119,7 @@ define(["jquery"], function ($) {
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function complete() {
+                            complete: function() {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu_id.removeAttr('style');

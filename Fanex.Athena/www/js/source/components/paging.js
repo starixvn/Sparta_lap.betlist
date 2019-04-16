@@ -67,7 +67,7 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
 
         if (pagingVisible) {
             noOfPage = parseInt(setting.totalrow / setting.pagesize
-         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
+         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1), 10);
         }
 
         if (pagingVisible || setting.alwayshow) {
@@ -93,7 +93,7 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
 
             var pageListLength = setting.pagelist.length;
             var pageSizeSelectHtml = '<select class="pageSizeSelected">';
-            var pageSize = parseInt(setting.pagesize);
+            var pageSize = parseInt(setting.pagesize, 10);
             for (var i = 0; i < pageListLength; i++) {
                 pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
                 + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
@@ -117,9 +117,9 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
         me._bindEvent(setting);
     };
     me.getSetting = function (elementcontainer) {
-        elementcontainer = elementcontainer || Object.keys(_settings)[0];
-        var setting = _settings[elementcontainer];
-        var $pagerContainer = $(elementcontainer);
+        var newElementcontainer = elementcontainer || Object.keys(_settings)[0];
+        var setting = _settings[newElementcontainer];
+        var $pagerContainer = $(newElementcontainer);
         var $pageIndex = getByName($pagerContainer, "PageIndex");
         var $pageSize = getByName($pagerContainer, "PageSize");
         setting.pageindex = parseInt($pageIndex.val(), 10);
@@ -168,7 +168,7 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
         $pageIndex.on("keyup", function (e) {
             var code = e.keyCode ? e.keyCode : e.which;
             if (code === 13) {
-                var value = parseInt($(this).val());
+                var value = parseInt($(this).val(), 10);
                 if (value > 0 && value <= noOfPage) {
                     $(this).val(value);
                     goToPage($pagerContainer, method, value);

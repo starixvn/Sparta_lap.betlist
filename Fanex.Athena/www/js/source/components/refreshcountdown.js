@@ -11,7 +11,7 @@
     var _me = {
         initialize: function () {
             $('.menu-item').on('click', function () {
-                var selectedCountDown = parseInt($(this).attr('data-count-down'));
+                var selectedCountDown = parseInt($(this).attr('data-count-down'), 10);
                 _me.setCountDown(selectedCountDown, true);
             });
 
@@ -23,7 +23,7 @@
             countDownId = $hiddenCountdown.attr('name');
 
             // Get default count down
-            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'));
+            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'), 10);
         },
         initEvent: function () {
             cookieName = "RefeshCountDown" + countDownId;
@@ -36,7 +36,7 @@
             }
         },
         setCountDown: function (countDown, isSetToCookie) {
-            var countDownInt = parseInt(countDown);
+            var countDownInt = parseInt(countDown, 10);
             if (isSetToCookie) {
                 $.cookie(cookieName, countDownInt);
             }

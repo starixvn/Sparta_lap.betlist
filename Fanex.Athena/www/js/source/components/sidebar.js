@@ -13,14 +13,14 @@ define(["jquery"], function ($) {
         }
     }
 
-    function init(options) {
+    function init(inputOptions) {
         /*jshint validthis: true*/
 
         var defaults = {
             accordion: undefined
         };
 
-        options = $.extend(defaults, options);
+        var options = $.extend(defaults, inputOptions);
         var touch = 'ontouchstart' in window || navigator.maxTouchPoints;
 
         return this.each(function () {
