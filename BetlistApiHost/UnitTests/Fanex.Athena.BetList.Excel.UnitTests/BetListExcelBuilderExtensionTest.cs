@@ -95,7 +95,7 @@
             // Assert
             _builder.Received(1).AddCell(
                 Arg.Is<IRichTextString>(x => x.String == ExternalId),
-                index % 2 == 0 ? evenStyle : oddStyle);
+                index % 2 == 0 ? oddStyle : evenStyle);
         }
 
         [Test]
@@ -215,7 +215,7 @@
             // Assert
             _builder.Received(1).AddCell(
                 Arg.Is<IRichTextString>(x => x.String == "999"),
-                index % 2 == 0 ? _builder.EvenCellStyleCenterAligned : _builder.OddCellStyleCenterAligned);
+                index % 2 == 0 ? _builder.OddCellStyleCenterAligned : _builder.EvenCellStyleCenterAligned);
         }
 
         [TestCase(BetType.CashOutBought, false, "10,000.55\n1.44")]
@@ -261,7 +261,7 @@
             // Assert
             _builder.Received(1).AddCell(
                 Arg.Is<IRichTextString>(x => x.String == SystemId),
-                index % 2 == 0 ? evenStyle : oddStyle);
+                index % 2 == 0 ? oddStyle : evenStyle);
         }
     }
 }

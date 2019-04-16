@@ -379,7 +379,7 @@
             _builder.Received(1).AddCell(
                 Arg.Is<HSSFRichTextString>(x => x.String == expectedPlatformName),
                 Arg.Is<ICellStyle>(x => x.Alignment == HorizontalAlignment.Center
-                && x.FillBackgroundColor == _oddStyle.FillBackgroundColor));
+                && x.FillBackgroundColor == _evenStyle.FillBackgroundColor));
         }
 
         [TestCase("s", "Mobile")]
@@ -388,7 +388,7 @@
         [TestCase("x", "NewAsia")]
         [TestCase("o", "MobileApp")]
         [TestCase("c", "MobileLiteVersion")]
-        public void AssignRowData_AddPlatfromCell_IndexIsEven_BuildCorrectCellWithEvenCellStyle(string betFrom, string platformName)
+        public void AssignRowData_AddPlatfromCell_IndexIsEven_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
         {
             // Arrange
             var tickets = new TicketResult();
@@ -414,7 +414,7 @@
             _builder.Received(1).AddCell(
                 Arg.Is<HSSFRichTextString>(x => x.String == expectedPlatformName),
                 Arg.Is<ICellStyle>(x => x.Alignment == HorizontalAlignment.Center
-                && x.FillBackgroundColor == _evenStyle.FillBackgroundColor));
+                && x.FillBackgroundColor == _oddStyle.FillBackgroundColor));
         }
 
         [TestCase(BetType.MixParlay, LiveStatusTypes.Live, false)]

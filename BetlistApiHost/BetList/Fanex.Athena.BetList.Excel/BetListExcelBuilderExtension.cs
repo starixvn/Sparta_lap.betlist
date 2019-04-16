@@ -54,7 +54,7 @@ namespace Fanex.Athena.BetList.Excel
                 ICellStyle evenStyle)
         {
             var rtfExternalId = new HSSFRichTextString(externalId);
-            builder.AddCell(rtfExternalId, ticketHelper.Index.IsEvenNumber() ? evenStyle : oddStyle);
+            builder.AddCell(rtfExternalId, ticketHelper.Index.IsEvenNumber() ? oddStyle : evenStyle);
 
             return builder;
         }
@@ -147,7 +147,7 @@ namespace Fanex.Athena.BetList.Excel
             var rtfNo = new HSSFRichTextString(index.ToString(CultureInfo.InvariantCulture));
             builder.AddCell(
                             rtfNo,
-                            ticketHelper.Index.IsEvenNumber() ? builder.EvenCellStyleCenterAligned : builder.OddCellStyleCenterAligned);
+                            ticketHelper.Index.IsEvenNumber() ? builder.OddCellStyleCenterAligned : builder.EvenCellStyleCenterAligned);
 
             return builder;
         }
@@ -200,7 +200,7 @@ namespace Fanex.Athena.BetList.Excel
             ICellStyle evenStyle)
         {
             var rtfSystemId = new HSSFRichTextString(systemId);
-            builder.AddCell(rtfSystemId, ticketHelper.Index.IsEvenNumber() ? evenStyle : oddStyle);
+            builder.AddCell(rtfSystemId, ticketHelper.Index.IsEvenNumber() ? oddStyle : evenStyle);
 
             return builder;
         }
