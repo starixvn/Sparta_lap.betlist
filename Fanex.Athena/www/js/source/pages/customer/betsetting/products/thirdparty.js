@@ -33,7 +33,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
             },
 
             updateStatus: function ($context) {
-                var productId = parseInt($("#ProductId").val());
+                var productId = parseInt($("#ProductId").val(), 10);
                 var url = ProductUpdateStatusUrlMap[productId];
                 if (!url) {
                     throw "Invalid product id: " + productId;

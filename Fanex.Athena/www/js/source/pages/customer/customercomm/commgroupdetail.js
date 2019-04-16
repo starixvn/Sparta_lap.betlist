@@ -127,9 +127,9 @@
          }
 
          function initCommParam(id) {
-             var comm1 = parseInt($(id + "1").val());
-             var comm2 = parseInt($(id + "2").val());
-             var comm3 = parseInt($(id + "3").val());
+             var comm1 = parseInt($(id + "1").val(), 10);
+             var comm2 = parseInt($(id + "2").val(), 10);
+             var comm3 = parseInt($(id + "3").val(), 10);
 
              var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
              comm = isNaN(comm) ? 0 : comm;
@@ -139,7 +139,7 @@
 
          function initDefaultParam(formId) {
              var isDefault = $("#IsDefaultGroup").is(":checked");
-             var defaultGroupId = parseInt($('#DefaultGroupId').val());
+             var defaultGroupId = parseInt($('#DefaultGroupId').val(), 10);
              var currentGroupId = parseFloat($('#GroupCommId').val());
              $("#IsDefaultGroup").val(isDefault);
              $("#IsResetDefault").val(false);

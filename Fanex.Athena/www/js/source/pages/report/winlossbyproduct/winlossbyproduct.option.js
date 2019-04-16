@@ -231,21 +231,21 @@
     };
 
     _me.getColModel = function (level, reportBy) {
-        level = Number(level);
+        var levelNumber = Number(level);
         amtDueToColumn.hidden = !_me.HasAmountDueToColumn;
         // Column hidden by customer comm
         customerWlTotalColumn.hidden = !_me.hasCustomerComm;
         playerCommColumn.hidden = !_me.hasCustomerComm;
         LicenseeWlCommColumn.hidden = !_me.IsAllowBA;
         // Column hidden by level
-        currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-        systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
+        currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
+        systemIdColumn.formatter = levelNumber === 1 ? systemIdFormatter : null;
 
-        dateColumn.hidden = level > 0;
-        externalIdColumn.hidden = level < 2;
-        systemIdColumn.hidden = level === 0 || Site.isFakeLicensee();
+        dateColumn.hidden = levelNumber > 0;
+        externalIdColumn.hidden = levelNumber < 2;
+        systemIdColumn.hidden = levelNumber === 0 || Site.isFakeLicensee();
 
-        if (level === 2) {
+        if (levelNumber === 2) {
             externalIdColumn.formatter = betlistLink;
             systemIdColumn.formatter = betlistLink;
         }

@@ -201,18 +201,18 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     };
 
     _me.getColModel = function (level) {
-        level = Number(level);
+        var levelNumber = Number(level);
 
-        currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-        systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
+        currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
+        systemIdColumn.formatter = levelNumber === 1 ? systemIdFormatter : null;
 
-        dateColumn.hidden = level > 0;
+        dateColumn.hidden = levelNumber > 0;
         dateColumn.formatoptions =
         {
             newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
         };
-        externalIdColumn.hidden = level < 2;
-        systemIdColumn.hidden = level === 0;
+        externalIdColumn.hidden = levelNumber < 2;
+        systemIdColumn.hidden = levelNumber === 0;
 
         var temp = Site.clone(colModelList);
         return temp;

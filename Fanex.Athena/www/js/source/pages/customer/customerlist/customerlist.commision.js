@@ -229,9 +229,9 @@
                 );
             },
             initCommissionParam: function (id) {
-                var comm1 = parseInt($(id + 1).val());
-                var comm2 = parseInt($(id + 2).val());
-                var comm3 = parseInt($(id + 3).val());
+                var comm1 = parseInt($(id + 1).val(), 10);
+                var comm2 = parseInt($(id + 2).val(), 10);
+                var comm3 = parseInt($(id + 3).val(), 10);
                 var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
                 return comm;
             },

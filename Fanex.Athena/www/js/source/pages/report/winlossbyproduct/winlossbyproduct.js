@@ -56,7 +56,7 @@
             initSetting: function () {
                 WinLossByProductOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
                 WinLossByProductOption.IsAllowBA = Site.asBool($("#IsAllowedBACommission").val());
-                WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+                WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val(), 10);
                 WinLossByProductOption.HasAmountDueToColumn = Site.asBool($("#HasAmountDueToColumn").val());
             },
 
@@ -206,16 +206,16 @@
                     return;
                 }
 
-                level = Number(level);
+                var levelNumber = Number(level);
                 var reportGrid = $("#ReportGrid");
                 var onPaging = false;
 
-                var gridOption = WinLossByProductOption.getGridOption(level, reportBy);
+                var gridOption = WinLossByProductOption.getGridOption(levelNumber, reportBy);
                 gridOption.data = response.Data;
-                gridOption.rowNum = level === 2 ? WinLossByProductOption.pageSize : WinLossByProductOption.nonePagingSize;
+                gridOption.rowNum = levelNumber === 2 ? WinLossByProductOption.pageSize : WinLossByProductOption.nonePagingSize;
                 gridOption.rowTotal = numOfRow;
                 gridOption.onPaging = function (pgButton) {
-                    if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
+                    if (levelNumber === 2 && numOfRow > WinLossByProductOption.pageSize) {
                         if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
                             Site.blockUI();
                         }
@@ -227,13 +227,13 @@
                 };
                 gridOption.gridComplete = function () {
                     jqGridAdditional.gridComplete();
-                    _me.rowSpanByLevel(reportGrid, level);
+                    _me.rowSpanByLevel(reportGrid, levelNumber);
 
                     // Update colspan for grouping row (because fixed table should has correct colspan value)
                     var coulumnVisibleCount = gridOption.colModel.filter(function (item) { return !item.hidden; }).length;
                     reportGrid.find("tr.jqgroup td").attr("colspan", coulumnVisibleCount - 1); // -1 for hiding of Date column
 
-                    if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
+                    if (levelNumber === 2 && numOfRow > WinLossByProductOption.pageSize) {
                         $("#pg_ppdata").show();
                     }
                     else {
@@ -241,11 +241,11 @@
                     }
 
                     var $footerTable = $("table.ui-jqgrid-ftable");
-                    if (onPaging && level === 2) {
+                    if (onPaging && levelNumber === 2) {
                         $footerTable.html($("#footer").html());
                     }
                     else {
-                        _me.bindTotal(level, response.Total, response.SummaryTotal);
+                        _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
                         $("#footer").html($footerTable.html());
                     }
 
@@ -310,7 +310,9 @@
             reverse: function (objectData) {
                 var reversedData = Site.clone(objectData);
                 for (var property in reversedData) {
-                    reversedData[property].reverse();
+                    if (reversedData.hasOwnProperty(property)) {
+                        reversedData[property].reverse();
+                    }
                 }
 
                 return reversedData;
@@ -330,8 +332,8 @@
                 }
             },
 
-            openBetlistPopUp: function (dataDrillDown) {
-                dataDrillDown = $.parseJSON(dataDrillDown);
+            openBetlistPopUp: function (inputDataDrillDown) {
+                var dataDrillDown = $.parseJSON(inputDataDrillDown);
                 dataDrillDown.DrawFilter = _submitData.DrawFilter;
                 dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
                 dataDrillDown.CurrencyId = _submitData.CurrencyId;

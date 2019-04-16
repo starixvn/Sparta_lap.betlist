@@ -21,18 +21,18 @@
             },
             initEvent: function () {
                 $('#reportContent').on('click', '.forecast-link', function () {
-                    var bettype = parseInt($(this).attr('data-bettype'));
-                    var selectedScore = parseInt($(this).attr('data-current-score'));
+                    var bettype = parseInt($(this).attr('data-bettype'), 10);
+                    var selectedScore = parseInt($(this).attr('data-current-score'), 10);
                     _me.loadForecast(selectedScore, bettype);
                 });
 
                 $('#reportContent').on('click', '.view-forecast-link', function () {
-                    var bettype = parseInt($(this).attr('data-bettype'));
+                    var bettype = parseInt($(this).attr('data-bettype'), 10);
                     _me.loadForecast(null, bettype);
                 });
 
                 $('#reportContent').on('click', '.view-betlist', function () {
-                    var bettype = parseInt($(this).attr('data-bettype'));
+                    var bettype = parseInt($(this).attr('data-bettype'), 10);
                     _me.viewBetlist(bettype);
                 });
 

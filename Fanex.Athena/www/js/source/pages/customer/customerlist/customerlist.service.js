@@ -123,7 +123,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             $("#num-of-customer, #num-of-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
-            pagingOption.totalrow = parseInt(gridData.TotalRows);
+            pagingOption.totalrow = parseInt(gridData.TotalRows, 10);
             PagingHelper.render(pagingOption);
 
             var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();

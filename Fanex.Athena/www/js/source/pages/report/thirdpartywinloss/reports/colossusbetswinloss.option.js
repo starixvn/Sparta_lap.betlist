@@ -199,27 +199,27 @@
         });
 
         _me.getColModel = function (level, reportBy) {
-            level = Number(level);
+            var levelNumber = Number(level);
 
-            currencyColumn.formatter = level === 0 ? function (cellvalue, options, rowObject) {
-                var level = 1;
-                return _me.currencyFormatter(cellvalue, options, rowObject, level);
+            currencyColumn.formatter = levelNumber === 0 ? function (cellvalue, options, rowObject) {
+                var levelNumber = 1;
+                return _me.currencyFormatter(cellvalue, options, rowObject, levelNumber);
             } : null;
 
-            dateColumn.hidden = level > 0;
+            dateColumn.hidden = levelNumber > 0;
             dateColumn.formatter = function (cellvalue, options, rowObject) {
-                cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
-                return _me.setDrillDownLink(1, 0, 0, rowObject.Date, cellvalue);
+                var newCellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+                return _me.setDrillDownLink(1, 0, 0, rowObject.Date, newCellvalue);
             };
             dateColumn.formatoptions =
             {
-                newformat: parseInt(reportBy) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
+                newformat: parseInt(reportBy, 10) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
             };
 
-            externalIdColumn.hidden = level === 0;
-            systemIdColumn.hidden = level === 0;
+            externalIdColumn.hidden = levelNumber === 0;
+            systemIdColumn.hidden = levelNumber === 0;
 
-            if (level === 1) {
+            if (levelNumber === 1) {
                 externalIdColumn.formatter = _me.betlistLink;
                 systemIdColumn.formatter = _me.betlistLink;
             }

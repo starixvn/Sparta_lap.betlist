@@ -425,7 +425,7 @@
             if (_checkedSports.length === 0) {
                 _bettypes = [];
                 _checkedBettypes = [];
-                renderBetTypeTree([]);
+                renderBetTypeTree();
                 _me.checkValidFilter();
                 return;
             }

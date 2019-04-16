@@ -197,21 +197,21 @@
         });
 
         _me.getColModel = function (level, reportBy) {
-            level = Number(level);
-            dateColumn.hidden = level > 0;
+            var levelNumber = Number(level);
+            dateColumn.hidden = levelNumber > 0;
             dateColumn.formatoptions =
             {
-                newformat: parseInt(reportBy) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
+                newformat: parseInt(reportBy, 10) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
             };
 
-            currencyColumn.formatter = level === 0 ? function (cellvalue, options, rowObject) {
-                var level = _me.licenseeId === LICENSEE_12BET ? 1 : 2;
-                return _me.currencyFormatter(cellvalue, options, rowObject, level);
+            currencyColumn.formatter = levelNumber === 0 ? function (cellvalue, options, rowObject) {
+                var drilldownLevel = _me.licenseeId === LICENSEE_12BET ? 1 : 2;
+                return _me.currencyFormatter(cellvalue, options, rowObject, drilldownLevel);
             } : null;
-            systemIdColumn.formatter = level === 1 ? _me.systemIdFormatter : null;
+            systemIdColumn.formatter = levelNumber === 1 ? _me.systemIdFormatter : null;
 
-            externalIdColumn.hidden = level < 2;
-            systemIdColumn.hidden = level === 0;
+            externalIdColumn.hidden = levelNumber < 2;
+            systemIdColumn.hidden = levelNumber === 0;
             return ThirdPartyWinLossOption.prototype.getColModel.call(this);
         };
 

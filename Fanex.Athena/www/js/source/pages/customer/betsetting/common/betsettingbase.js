@@ -50,7 +50,7 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
             },
 
             showComfirm: function ($target, resourceMessage, callback) {
-                var productId = parseInt($("#ProductId").val());
+                var productId = parseInt($("#ProductId").val(), 10);
                 var isValid = productId === Product.LiveCasino ? true :
                              productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
                                                                 BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds());

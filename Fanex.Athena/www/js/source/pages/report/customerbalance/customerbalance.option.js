@@ -301,9 +301,10 @@
         };
 
         function insertColumns(columns, insertedColumns, insertedIndex) {
+            var newInsertedIndex = insertedIndex;
             $.each(insertedColumns, function (index, item) {
-                columns.insertAfter(item, insertedIndex);
-                insertedIndex++;
+                columns.insertAfter(item, newInsertedIndex);
+                newInsertedIndex++;
             });
         }
 

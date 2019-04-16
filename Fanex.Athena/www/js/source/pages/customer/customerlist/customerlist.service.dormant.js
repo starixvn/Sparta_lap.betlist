@@ -80,7 +80,7 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             $("#num-of-dormant-customer, #num-of-dormant-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
-            pagingOption.totalrow = parseInt(gridData.TotalRows);
+            pagingOption.totalrow = parseInt(gridData.TotalRows, 10);
             PagingHelper.render(pagingOption);
 
             var $reportGrid = $("#DormantCustomerGrid");

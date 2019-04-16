@@ -48,8 +48,8 @@ define([
 
         function initEvent() {
             $searchBox.keyup(function (e) {
-                e = e || window.event;
-                var key = e.keyCode || e.which;
+                var event = e || window.event;
+                var key = event.keyCode || event.which;
 
                 if (key === 13) {
                     searchByUserName();

@@ -44,7 +44,7 @@
 
                 $('#reportContent').on('click', '.button-add', function () {
                     var matchId = $(this).attr('data-match-id');
-                    var betType = parseInt($(this).attr('data-bettype'));
+                    var betType = parseInt($(this).attr('data-bettype'), 10);
                     _me.openForecast(matchId, betType);
                 });
 

@@ -242,15 +242,16 @@
         }
 
         function setUpUrl(url, level, currencyId, custId, fdate, tdate) {
+            var newUrl = url;
             if (level > 0) {
-                url = QueryString.setParam(url, "level", level);
-                url = QueryString.setParam(url, "currencyId", currencyId);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "fdate", fdate);
-                url = QueryString.setParam(url, "tdate", tdate);
+                newUrl = QueryString.setParam(newUrl, "level", level);
+                newUrl = QueryString.setParam(newUrl, "currencyId", currencyId);
+                newUrl = QueryString.setParam(newUrl, "custId", custId);
+                newUrl = QueryString.setParam(newUrl, "fdate", fdate);
+                newUrl = QueryString.setParam(newUrl, "tdate", tdate);
             }
 
-            return url;
+            return newUrl;
         }
 
         function resizeGrid() {

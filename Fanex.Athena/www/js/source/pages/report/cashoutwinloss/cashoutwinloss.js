@@ -143,18 +143,17 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                     return;
                 }
 
-                level = Number(level);
+                var levelNumber = Number(level);
                 var reportGrid = $("#ReportGrid");
 
-                var gridOption = CashOutWinLossOption.getGridOption(level);
+                var gridOption = CashOutWinLossOption.getGridOption(levelNumber);
                 gridOption.data = response.Data;
                 gridOption.rowTotal = numOfRow;
 
                 gridOption.gridComplete = function () {
-                    level = Number(level);
                     jqGridAdditional.gridComplete();
                     $("#pg_ppdata").hide();
-                    _me.bindTotal(level, response.Total, response.SummaryTotal);
+                    _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
                     $("#footer").html($(".ui-jqgrid-ftable").html());
 
                     CashOutWinLossOption.setGroupHeaders(reportGrid);
@@ -195,14 +194,14 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
             },
 
             drillDown: function (level, currencyId, customerId, datetime) {
-                level = Number(level);
+                var levelNumber = Number(level);
 
                 if (currencyId === 0) {
                     currencyId = _submitData.CurrencyId;
                 }
 
-                if (_level !== level) {
-                    _level = level;
+                if (_level !== levelNumber) {
+                    _level = levelNumber;
                 }
 
                 var param =
@@ -220,7 +219,7 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
 
                 var postData = JSON.stringify(param);
                 var url = Site.resolveClientUrl(CashOutWinLossOption.urlData) +
-                        "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
+                        "?level=" + levelNumber + "&currencyId=" + currencyId + "&custId=" + customerId +
                         "&fdate=" + moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY");
 
                 var option = {
@@ -231,16 +230,16 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                     cache: false,
                     url: url,
                     success: function (response) {
-                        _me.ajaxComplete(level, response);
+                        _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {                     
-                            if (level > 0 && Number(param.CurrencyId) === 0) {
+                            if (levelNumber > 0 && Number(param.CurrencyId) === 0) {
                                 var viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : "";
                                 _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
                             } else {
                                 _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
                             }
 
-                            _me.setExcelUrl(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate);
+                            _me.setExcelUrl(levelNumber, currencyId, customerId, dateRange.FromDate, dateRange.ToDate);
                         }
                     },
                     beforeSend: function () {
@@ -256,18 +255,18 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                 ajaxRequest = $.ajax(option);
             },
             openBetlistPopUp: function (dataDrillDown) {
-                dataDrillDown = $.parseJSON(dataDrillDown);
-                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
+                var newDataDrillDown = $.parseJSON(dataDrillDown);
+                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, newDataDrillDown.DrillDownDate);
                 var url = Site.resolveClientUrl("CustomerWinLossBetList/Index");
                 url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
                 url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
                 url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
-                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
+                url = QueryString.setParam(url, "CurrencyId", newDataDrillDown.DrillDownCurrencyId);
+                url = QueryString.setParam(url, "CurrencyName", newDataDrillDown.DrillDownCurrencyName);
                 url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);
-                url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
-                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
-                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
+                url = QueryString.setParam(url, "custid", newDataDrillDown.CustomerId);
+                url = QueryString.setParam(url, "systemId", newDataDrillDown.SystemId);
+                url = QueryString.setParam(url, "externalId", newDataDrillDown.ExternalId);
                 url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
                 url = QueryString.setParam(url, "excelfilename", "CashOutWinLossBetList");
                 url = Site.setProductCodeListParam(url, "CO");

@@ -213,7 +213,7 @@
                         _me.ajaxComplete(_level, response);
                         if (response !== null && response.Data.length > 0) {
                             _me.setReportTitle(1, _postdata.Odds, _postdata.FromDate, _postdata.ToDate);
-                            _pagingOption.totalrow = parseInt(response.TotalRows);
+                            _pagingOption.totalrow = parseInt(response.TotalRows, 10);
                             if (_pagingOption.totalrow > 0) {
                                 $("#paging").show();
                                 PagingHeper.render(_pagingOption);

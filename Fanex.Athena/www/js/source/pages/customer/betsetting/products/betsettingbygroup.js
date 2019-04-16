@@ -18,7 +18,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
 
                 _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val() || '[]');
 
-                _productId = parseInt($("#ProductId").val());
+                _productId = parseInt($("#ProductId").val(), 10);
                 _me.initEvent();
 
                 var $betSettingGroup = $('#betSettingGroup');

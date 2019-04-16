@@ -69,7 +69,7 @@ define(
         };
         _me.updateParam = function (type, name, value) {
             if (type === "number") {
-                _params[name] = value ? parseInt(value) : 0;
+                _params[name] = value ? parseInt(value, 10) : 0;
             } else {
                 _params[name] = value ? $.trim(value) : "";
             }
@@ -83,13 +83,13 @@ define(
         _me.tryUpdateStake = function () {
             var tempF = $("#stake-from").val();
             tempF = tempF.replace(/,/g, '');
-            tempF = tempF === "" ? 0 : parseInt(tempF);
+            tempF = tempF === "" ? 0 : parseInt(tempF, 10);
 
             _params.StakeFrom = tempF;
 
             var tempT = $("#stake-to").val();
             tempT = tempT.replace(/,/g, '');
-            tempT = tempT === "" ? MAX_STAKE : parseInt(tempT);
+            tempT = tempT === "" ? MAX_STAKE : parseInt(tempT, 10);
 
             _params.StakeTo = tempT;
         };
@@ -100,7 +100,7 @@ define(
             _lastTransId = 0;
             _postedParam = Site.clone(_params);
 
-            if (parseInt(freezeStatus) === 1) {
+            if (parseInt(freezeStatus, 10) === 1) {
                 _me.startMonitor();
             }
         };

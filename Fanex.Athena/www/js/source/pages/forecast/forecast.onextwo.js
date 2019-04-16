@@ -52,7 +52,7 @@
 
                 $('#reportContent').on('click', '.button-add', function () {
                     var matchId = $(this).attr('data-match-id');
-                    var betType = parseInt($(this).attr('data-bettype'));
+                    var betType = parseInt($(this).attr('data-bettype'), 10);
                     _me.openForecast(matchId, betType);
                 });
 
@@ -85,14 +85,14 @@
             getBetListUrl: function (url, matchId, betType) {
                 var currencyId = $("#CurrencyId-Hidden").val();
                 var baseCurrency = $("#BaseCurrency-Hidden").val();
+                var newUrl = url;
+                newUrl = QueryString.setParam(newUrl, "CurrencyId", currencyId);
+                newUrl = QueryString.setParam(newUrl, "BaseCurrency", baseCurrency);
+                newUrl = QueryString.setParam(newUrl, "matchid", matchId);
+                newUrl = QueryString.setParam(newUrl, "bettype", betType);
+                newUrl = QueryString.setParam(newUrl, "currencyname", QueryString.getParam(Site.getCurrentUrl(), "currencyname"));
 
-                url = QueryString.setParam(url, "CurrencyId", currencyId);
-                url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
-                url = QueryString.setParam(url, "matchid", matchId);
-                url = QueryString.setParam(url, "bettype", betType);
-                url = QueryString.setParam(url, "currencyname", QueryString.getParam(Site.getCurrentUrl(), "currencyname"));
-
-                return url;
+                return newUrl;
             },
             submit: function () {
                 Site.blockUI();

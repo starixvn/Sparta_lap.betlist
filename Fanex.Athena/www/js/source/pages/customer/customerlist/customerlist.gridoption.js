@@ -22,12 +22,13 @@
             align: 'left',
             sortable: false,
             formatter: function (cellValue, options, rowObject) {
+                var newCellValue = cellValue;
                 if (Number(rowObject.GroupCommId) === 0) {
-                    cellValue = Site.getSingleResource("None");
+                    newCellValue = Site.getSingleResource("None");
                 }
 
                 return "<div id='groupName-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor +
-                         "' class='commission-color'>" + cellValue + "</div>";
+                         "' class='commission-color'>" + newCellValue + "</div>";
             }
         };
 

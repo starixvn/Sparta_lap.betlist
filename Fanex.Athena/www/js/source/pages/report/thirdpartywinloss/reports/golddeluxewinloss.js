@@ -2,7 +2,7 @@
     function ($, ThirdPartyWinLoss, GoldDeluxeWinLossOption) {
         "use strict";
         function initialize() {
-            GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+            GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val(), 10);
 
             ThirdPartyWinLoss.initialize({
                 UserGuideResourceName: "GoldDeluxeWL",

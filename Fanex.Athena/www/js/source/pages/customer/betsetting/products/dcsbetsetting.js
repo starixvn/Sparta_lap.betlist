@@ -33,7 +33,7 @@ define(["jquery", "common/site", "../common/constant","../common/betsettingbase"
                 });
 
                 $("#btnSubmitBetSetting").on("click", function () {
-                    var productId = parseInt($("#ProductId").val());
+                    var productId = parseInt($("#ProductId").val(), 10);
                     var messageResource = getConfirmMessage(productId);
 
                     BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
@@ -57,7 +57,7 @@ define(["jquery", "common/site", "../common/constant","../common/betsettingbase"
             },
 
             updateBetSetting: function (custId, userName, nickName) {
-                var productId = parseInt($("#ProductId").val());
+                var productId = parseInt($("#ProductId").val(), 10);
                 
                 var params = BetSettingBase.getBetSettingParamsForSports();
                 params.custid = custId;

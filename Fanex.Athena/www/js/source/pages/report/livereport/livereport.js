@@ -78,15 +78,15 @@
         }
 
         function viewBetList(url, totalValue, productOptions) {
-            url = Site.setLicenseeOptionOriginalParam(url);
-            url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original-from'));
-            url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
-            url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-            url = Helper.setSumParams(url, totalValue);
-            url = Site.setProductCodeListParam(url, productOptions);
+            var newUrl = Site.setLicenseeOptionOriginalParam(url);
+            newUrl = QueryString.setParam(newUrl, "fromdate", $("#FromDate").attr('data-original-from'));
+            newUrl = QueryString.setParam(newUrl, "todate", $("#ToDate").attr('data-original-to'));
+            newUrl = QueryString.setParam(newUrl, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
+            newUrl = Helper.setSumParams(newUrl, totalValue);
+            newUrl = Site.setProductCodeListParam(newUrl, productOptions);
 
             Site.blockUI();
-            Site.redirect(url);
+            Site.redirect(newUrl);
         }
 
         function viewSportDetail(target) {

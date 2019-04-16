@@ -90,7 +90,7 @@
 
             initSetting: function () {
                 LicenseeWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-                LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+                LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val(), 10);
             },
 
             initEvent: function () {
@@ -216,18 +216,18 @@
 
             //#Get Data
             ajaxComplete: function (level, response) {
-                level = Number(level);
+                var levelNumber = Number(level);
                 if (response !== null) {
                     var reportBy = $("input[name='ReportBy']:checked").val();
                     _reportBy = reportBy;
-                    cacheData[level] = response;
+                    cacheData[levelNumber] = response;
                     //reset layout
-                    if (level === 0) {
+                    if (levelNumber === 0) {
                         _me.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
                     }
 
-                    Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
-                    _me.bindData(level, reportBy, response);
+                    Report.renderBreadCrumb(levelNumber, LicenseeWinLossOption.licenseeId);
+                    _me.bindData(levelNumber, reportBy, response);
 
                     var pprizeCount = response.PromotionPrize;
                     _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
@@ -290,10 +290,10 @@
             },
 
             drillDown: function (level, currencyId, customerId, datetime, currencyName) {
-                level = Number(level);
+                var levelNumber = Number(level);
 
-                if (_level !== level) {
-                    _level = level;
+                if (_level !== levelNumber) {
+                    _level = levelNumber;
                 }
                 var param =
                 {
@@ -319,12 +319,12 @@
                     cache: false,
 
                     url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
-                        "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
+                        "?level=" + levelNumber + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
                         drillDownFDate + "&tdate=" + drillDownTDate),
                     success: function (response) {
-                        _me.ajaxComplete(level, response);
+                        _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {
-                            if (level > 0 && Number(param.CurrencyId) === 0) {
+                            if (levelNumber > 0 && Number(param.CurrencyId) === 0) {
                                 var viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : currencyName;
                                 _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
                             } else {
@@ -333,7 +333,7 @@
                         }
 
                         //update excel ULR
-                        _me.setExcelUrl(level, currencyId, customerId, drillDownFDate, drillDownTDate, currencyName);
+                        _me.setExcelUrl(levelNumber, currencyId, customerId, drillDownFDate, drillDownTDate, currencyName);
                         _me.updateDrilldownData(currencyId, currencyName, drillDownFDate, drillDownTDate, customerId);
                     },
                     beforeSend: function () {
@@ -384,8 +384,8 @@
 
             bindTotal: function (level, totalData, summaryTotal) {
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
-                productOptions = productOptions.reverse(); //make orders of product columns like excel file
-                var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
+                var newProductOptions = productOptions.reverse(); //make orders of product columns like excel file
+                var columnModel = LicenseeWinLossOption.getTotalColModel(level, newProductOptions);
                 var colspan = LicenseeWinLossOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
 
@@ -402,25 +402,25 @@
                     return;
                 }
 
-                level = Number(level);
+                var levelNumber = Number(level);
                 var reportGrid = $("#ReportGrid");
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
-                productOptions = productOptions.reverse(); //make orders of product columns like excel file
+                var newProductOptions = productOptions.reverse(); //make orders of product columns like excel file
 
                 var numOfTotalRow = response.Total.length;
                 var onPaging = false;
                 var data = _me.sortData(response.Data);
 
-                var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);
+                var gridOption = LicenseeWinLossOption.getGridOption(levelNumber, reportBy, newProductOptions);
                 gridOption.rownumbers = true;
                 gridOption.data = data;
                 gridOption.userData = {};
-                gridOption.rowNum = level === 2 ? LicenseeWinLossOption.pageSize : LicenseeWinLossOption.nonePagingSize;
+                gridOption.rowNum = levelNumber === 2 ? LicenseeWinLossOption.pageSize : LicenseeWinLossOption.nonePagingSize;
                 gridOption.rowList = LicenseeWinLossOption.rowList;
                 gridOption.rowTotal = numOfRow;
                 gridOption.pager = '#ppdata';
                 gridOption.onPaging = function (pgButton) {
-                    if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
+                    if (levelNumber === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
                         if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
                             Site.blockUI();
                         }
@@ -431,20 +431,19 @@
                     }
                 };
                 gridOption.gridComplete = function () {
-                    level = Number(level);
                     jqGridAdditional.gridComplete();
-                    if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
+                    if (levelNumber === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
                         $("#pg_ppdata").show();
                     }
                     else {
                         $("#pg_ppdata").hide();
                     }
 
-                    if (onPaging && level === 2) {
+                    if (onPaging && levelNumber === 2) {
                         $(".ui-jqgrid-ftable").html($("#footer").html());
                     }
                     else {
-                        _me.bindTotal(level, response.Total, response.SummaryTotal);
+                        _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
                         $("#footer").html($(".ui-jqgrid-ftable").html());
                     }
 
@@ -466,7 +465,7 @@
                     jqGridAdditional.addSortableHeader(reportGrid, _sortColumnName, _sortOrder);
                 }
 
-                LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, productOptions);
+                LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, newProductOptions);
 
                 LicenseeWinLossOption.restoreExpanse();
             },

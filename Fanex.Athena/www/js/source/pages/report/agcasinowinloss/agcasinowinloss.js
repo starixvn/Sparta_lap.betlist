@@ -84,10 +84,10 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
 
             //#Get Data
             ajaxComplete: function (level, response) {
-                level = Number(level);
+                var levelNumber = Number(level);
                 if (response != null) {
-                    cacheData[level] = response;
-                    if (level === 0) {
+                    cacheData[levelNumber] = response;
+                    if (levelNumber === 0) {
                         _drilldownData = {
                             IsExcludedTestData: _submitData.IsExcludedTestData,
                             CurrencyId: _submitData.CurrencyId,
@@ -101,8 +101,8 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
                         _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
                     }
 
-                    Report.renderBreadCrumb(level);
-                    _me.bindData(level, response);
+                    Report.renderBreadCrumb(levelNumber);
+                    _me.bindData(levelNumber, response);
                 }
             },
 
@@ -251,21 +251,20 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
                     return;
                 }
 
-                level = Number(level);
+                var levelNumber = Number(level);
 
                 var reportGrid = $("#ReportGrid");
 
-                var gridOption = AgCasinoWinLossOption.getGridOption(level);
+                var gridOption = AgCasinoWinLossOption.getGridOption(levelNumber);
                 gridOption.data = response.Data;
                 gridOption.rowTotal = numOfRow;
 
                 gridOption.gridComplete = function () {
-                    level = Number(level);
-
+                    
                     jqGridAdditional.gridComplete();
                     $("#pg_ppdata").hide();
 
-                    _me.bindTotal(level, response.Total, response.SummaryTotal);
+                    _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
 
                     _me.resizeGrid();
 

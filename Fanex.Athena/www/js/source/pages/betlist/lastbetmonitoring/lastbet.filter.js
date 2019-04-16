@@ -243,9 +243,9 @@ define(
             });
 
             function changeHandler(paramName, stake, defaultValue) {
-                stake = stake.replace(/,/g, '');
-                stake = stake === "" ? defaultValue : parseInt(stake);
-                _me.changeFilterParam(DataType.NUMBER, paramName, stake);
+                var newStake = stake.replace(/,/g, '');
+                newStake = newStake === "" ? defaultValue : parseInt(newStake, 10);
+                _me.changeFilterParam(DataType.NUMBER, paramName, newStake);
             }
 
             $("#stake-from").change(function () {

@@ -14,7 +14,7 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
         var salt;
         var userName = $("#userName").val();
         if (userName) {
-            var url = resolveClientUrl("Authorization/GetUserSalt?userName=" + userName);
+            var url = window.resolveClientUrl("Authorization/GetUserSalt?userName=" + userName);
             $.ajax({
                 url: url,
                 type: "GET",
@@ -76,10 +76,11 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
         }
 
         getValidateImage();
+        var pageResult = window._page;
 
-        if (typeof _page.errCode !== 'undefined' && _page.errCode !== 0) {
-            $("#errmsg").html(_page.errMsg).css("opacity", 1);
-            if (_page.errCode === 101) {
+        if (typeof pageResult.errCode !== 'undefined' && pageResult.errCode !== 0) {
+            $("#errmsg").html(pageResult.errMsg).css("opacity", 1);
+            if (pageResult.errCode === 101) {
                 $('#txtCaptcha').focus().select();
             }
         }

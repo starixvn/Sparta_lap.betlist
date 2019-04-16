@@ -19,7 +19,7 @@ define(["jquery", "common/site", "./betsetting.helper"], function ($, Site, BetS
         },
 
         getCommonPostData: function ($context) {
-            var productId = parseInt($("#ProductId").val());
+            var productId = parseInt($("#ProductId").val(), 10);
             var nickName = $context.data("nick-name");
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
             var status = $context.data("status");

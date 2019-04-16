@@ -4,11 +4,11 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
     var Product = Constant.Product;
 
     function getConfirmMessage(productId) {
-        return parseInt(productId) === Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
+        return parseInt(productId, 10) === Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
     }
 
     function getUpdateUrl(productId) {
-        return parseInt(productId) === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
+        return parseInt(productId, 10) === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
     }
 
     var _me = {
@@ -31,7 +31,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
             });
 
             $("#btnSubmitBetSetting").on("click", function () {
-                var productId = parseInt($("#ProductId").val());
+                var productId = parseInt($("#ProductId").val(), 10);
                 var messageResource = getConfirmMessage(productId);
 
                 BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
@@ -42,7 +42,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
         },
 
         updateBetSetting: function (custId, userName, nickName) {
-            var productId = parseInt($("#ProductId").val());
+            var productId = parseInt($("#ProductId").val(), 10);
             var url = getUpdateUrl(productId);
 
             if (url === null) {
