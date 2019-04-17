@@ -37,11 +37,9 @@
                 });
 
                 $('#reportContent').on('keyup', '#txtCurrentscore', function (evt) {
-                    if (!evt) {
-                        evt = window.event;
-                    }
-
-                    if (evt.keyCode === 13) {
+                    var event = evt || window.event;
+                    
+                    if (event.keyCode === 13) {
                         $("#btnCurrentscore").click();
                     }
                 });

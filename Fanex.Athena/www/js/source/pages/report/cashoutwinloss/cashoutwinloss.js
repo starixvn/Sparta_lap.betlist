@@ -111,15 +111,15 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
             },
 
             ajaxComplete: function (level, response) {
-                level = Number(level);
+                var levelNumber = Number(level);
                 if (response !== null) {
-                    cacheData[level] = response;
-                    if (level === 0) {
+                    cacheData[levelNumber] = response;
+                    if (levelNumber === 0) {
                         _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
                     }
 
-                    Report.renderBreadCrumb(level);
-                    _me.bindData(level, response);
+                    Report.renderBreadCrumb(levelNumber);
+                    _me.bindData(levelNumber, response);
                 }
             },
 
@@ -196,8 +196,9 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
             drillDown: function (level, currencyId, customerId, datetime) {
                 var levelNumber = Number(level);
 
-                if (currencyId === 0) {
-                    currencyId = _submitData.CurrencyId;
+                var newCurrencyId = currencyId;
+                if (newCurrencyId === 0) {
+                    newCurrencyId = _submitData.CurrencyId;
                 }
 
                 if (_level !== levelNumber) {
@@ -219,7 +220,7 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
 
                 var postData = JSON.stringify(param);
                 var url = Site.resolveClientUrl(CashOutWinLossOption.urlData) +
-                        "?level=" + levelNumber + "&currencyId=" + currencyId + "&custId=" + customerId +
+                        "?level=" + levelNumber + "&currencyId=" + newCurrencyId + "&custId=" + customerId +
                         "&fdate=" + moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY");
 
                 var option = {
@@ -234,12 +235,12 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                         if (response !== null && response.Data.length > 0) {                     
                             if (levelNumber > 0 && Number(param.CurrencyId) === 0) {
                                 var viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : "";
-                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
+                                _me.setReportTitle(newCurrencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
                             } else {
                                 _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
                             }
 
-                            _me.setExcelUrl(levelNumber, currencyId, customerId, dateRange.FromDate, dateRange.ToDate);
+                            _me.setExcelUrl(levelNumber, newCurrencyId, customerId, dateRange.FromDate, dateRange.ToDate);
                         }
                     },
                     beforeSend: function () {

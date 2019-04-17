@@ -216,11 +216,12 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
 
         function setProductOptionParam(url, counter, productCode, status) {
             var validProductCode = productCode == null ? undefined : productCode.toUpperCase();
-            url = QueryString.setParam(url, "ProductOptions[" + counter + "].Code", validProductCode);
-            url = QueryString.setParam(url, "ProductOptions[" + counter + "].Name", validProductCode);
-            url = QueryString.setParam(url, "ProductOptions[" + counter + "].Status", status);
+            var newUrl = url;
+            newUrl = QueryString.setParam(newUrl, "ProductOptions[" + counter + "].Code", validProductCode);
+            newUrl = QueryString.setParam(newUrl, "ProductOptions[" + counter + "].Name", validProductCode);
+            newUrl = QueryString.setParam(newUrl, "ProductOptions[" + counter + "].Status", status);
 
-            return url;
+            return newUrl;
         }
 
         function setDateRangeParam(url) {
