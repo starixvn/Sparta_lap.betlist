@@ -21,18 +21,14 @@
     {
         private readonly IPromotionPrizeDataAccess _dataAccess;
 
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-
         public PromotionPrizeReportController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
-            IPromotionPrizeDataAccess dataAccess,
-            ICacheRefAdapter cacheRefAdapter)
+            IPromotionPrizeDataAccess dataAccess)
             : base(sessionService, productService, langService)
         {
             _dataAccess = dataAccess;
-            _cacheRefAdapter = cacheRefAdapter;
         }
 
         protected internal virtual HttpResponseMessage CreareExcel(string template, string title, string fileName, ReportResultModel<PromotionPrize> data)

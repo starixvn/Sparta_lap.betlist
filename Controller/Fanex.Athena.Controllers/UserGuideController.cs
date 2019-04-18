@@ -66,7 +66,7 @@ namespace Fanex.Athena.Controllers
             var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             content = content.Replace("{rooturl}", Url.Content("~"));
-            content = await AddSpecialProducts(content, products).ConfigureAwait(false);
+            content = AddSpecialProducts(content, products);
             content = AddBalanceUpDate(content);
             content = AddPPPromotionPrizeLink(content, products);
 

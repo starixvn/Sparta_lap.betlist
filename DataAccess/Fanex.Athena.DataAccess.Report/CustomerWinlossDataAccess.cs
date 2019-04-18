@@ -58,7 +58,7 @@ namespace Fanex.Athena.DataAccess.Report
                     {
                         result.TotalData = ReadTotalData(reader, metaModel.BaseCurrency);
                         result.TotalRows = reader.ToInt("TotalRows");
-						result.AdditionalInfo = reader.ToString("SumPromotionPrize");
+                        result.AdditionalInfo = reader.ToString("SumPromotionPrize");
                     }
                     else
                     {
