@@ -673,6 +673,7 @@ window._language_zh_CN = {
   ProductSB: "体育博彩",
   ProductVS: "虚拟运动",
   ProductVS2: "虚拟运动2",
+  PromotionPrize: "活动奖金",
   PShare: "P.Share",
   PWin: "P.Win",
   Q1: "1Q",

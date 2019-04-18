@@ -670,6 +670,7 @@ window._language_zh_TW = {
   ProductSB: "體育博彩",
   ProductVS: "虛擬運動",
   ProductVS2: "虛擬運動2",
+  PromotionPrize: "活動獎金",
   PShare: "P.Share",
   PWin: "P.Win",
   Q1: "1Q",

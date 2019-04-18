@@ -768,6 +768,7 @@ window._language_en_US = {
   ProgressiveContribution: "Progressive Contribution",
   ProgressiveFee: "Progressive Fee",
   ProgressivePayout: "Progressive Payout",
+  PromotionPrize: "Promotion Prize",
   PShare: "P.Share",
   PWin: "P.Win",
   Q1: "1Q",

@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
+    let $blockBody;
+    
+    const _methods = {
         init: function (inputOptions) {
-            var defaultOptions = {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            var options = $.extend(defaultOptions, inputOptions || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -7800,6 +7799,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
         var EXCEL_FILENAME = "LicenseeWinLoss.xls";
+        var EXCEL_PP_FILENAME = "PP_PromotionPrize.xls";
 
         var cacheData = {};
         var ajaxRequest = null;
@@ -7808,6 +7808,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var _level = 0;
         var _reportBy = null;
         var _submitData; // cache submit data of level 0.
+        var drillDownData = {};
 
         var _me = {
             initialize: function () {
@@ -7905,25 +7906,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         data.sortOrder = _sortOrder;
                     }
 
-                    var option = {
-                        type: "POST",
-                        data: data,
-                        dataType: "binary",
-                        responseType: "blob",
-                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                        cache: false,
-                        url: Site.resolveClientUrl(LicenseeWinLossOption.urlExcelData),
-                        success: function (response) {
-                            Downloader.download(response, EXCEL_FILENAME);
-                        },
-                        beforeSend: function () {
-                            Toast.show();
-                        }
+                    _me.exportExcel(LicenseeWinLossOption.urlExcelData, data, EXCEL_FILENAME);
+                });
+
+                $('#ExportPromotionPrizeLink').click(function () {
+                    var filterData = {};
+
+                    if (_level === 0) {
+                        filterData = $("#licenseewinloss").serializeObject();
+                    }
+                    else {
+                        filterData = drillDownData;
+                    }
+
+                    var data = {
+                        __RequestVerificationToken: Site.getXsrfToken(),
+                        FromDate: filterData.FromDate,
+                        ToDate: filterData.ToDate,
+                        CurrencyId: filterData.CurrencyId,
+                        CurrencyName: filterData.CurrencyName,
+                        IsExcludedTestData: filterData.IsExcludedTestData,
+                        AgentId: filterData.AgentId
                     };
 
-                    $.ajax(option);
-
-                    return false;
+                    _me.exportExcel(LicenseeWinLossOption.urlPromotionPrizeExcelData, data, EXCEL_PP_FILENAME);
                 });
 
                 $("#level-link-container").on("click", ".level-link", function () {
@@ -7943,13 +7949,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 });
             },
 
+            exportExcel: function(url, data, fileName) {
+                var option = {
+                    type: "POST",
+                    data: data,
+                    dataType: "binary",
+                    responseType: "blob",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    cache: false,
+                    url: Site.resolveClientUrl(url),
+                    success: function (response) {
+                        Downloader.download(response, fileName);
+                    },
+                    beforeSend: function () {
+                        Toast.show();
+                    }
+                };
+
+                $.ajax(option);
+
+                return false;
+            },
+
             //#region Layout
             setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
                 var temp = 'api/LicenseeWinLossReport/Index';
                 if (level > 0) {
                     temp += "?level=" + level + "&currencyId="
-                    + currencyId + "&custId=" + custId + "&fdate=" + moment(fdate).format("MM/DD/YYYY")
-                     + "&tdate=" + moment(tdate).format("MM/DD/YYYY") + "&currencyName=" + currencyName;
+                    + currencyId + "&custId=" + custId + "&fdate=" + fdate
+                     + "&tdate=" + tdate + "&currencyName=" + currencyName;
                 }
                 LicenseeWinLossOption.urlExcelData = temp;
             },
@@ -7964,6 +7992,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     currencyNameOnTitle);
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
+            },
+
+            showPromotionPrizeLink: function (isShow) {
+                if (isShow) {
+                    $("#ExportPromotionPrizeLink").show();
+                }
+                else {
+                    $("#ExportPromotionPrizeLink").hide();
+                }
             },
             //#end
 
@@ -7981,6 +8018,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                     Report.renderBreadCrumb(levelNumber, LicenseeWinLossOption.licenseeId);
                     _me.bindData(levelNumber, reportBy, response);
+
+                    var pprizeCount = response.PromotionPrize;
+                    _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
+                }
+                else {
+                    _me.showPromotionPrizeLink(false);
                 }
             },
 
@@ -8055,6 +8098,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 };
                 var drilldownDate = new Date(datetime);
                 var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
+                var drillDownFDate = moment(dateRange.FromDate).format("MM/DD/YYYY");
+                var drillDownTDate = moment(dateRange.ToDate).format("MM/DD/YYYY");
                 var postData = JSON.stringify(param);
                 var option = {
                     type: "POST",
@@ -8065,7 +8110,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                     url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
                         "?level=" + levelNumber + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
-                        moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY")),
+                        drillDownFDate + "&tdate=" + drillDownTDate),
                     success: function (response) {
                         _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {
@@ -8078,7 +8123,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         }
 
                         //update excel ULR
-                        _me.setExcelUrl(levelNumber, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                        _me.setExcelUrl(levelNumber, currencyId, customerId, drillDownFDate, drillDownTDate, currencyName);
+                        _me.updateDrilldownData(currencyId, currencyName, drillDownFDate, drillDownTDate, customerId);
                     },
                     beforeSend: function () {
                         Site.blockUI();
@@ -8093,16 +8139,33 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 ajaxRequest = $.ajax(option);
             },
 
+            updateDrilldownData: function (currencyId, currencyName, fromDate, toDate, agentId) {
+                drillDownData = {
+                    CurrencyId: currencyId,
+                    CurrencyName: currencyName,
+                    FromDate: fromDate,
+                    ToDate: toDate,
+                    AgentId: agentId,
+                    IsExcludedTestData: _submitData.IsExcludedTestData
+                };
+            },
+
             goBack: function (level) {
                 var reportBy = _submitData.ReportBy;
                 Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
-                _me.bindData(level, reportBy, cacheData[level]);
+
+                var data = cacheData[level];
+                _me.bindData(level, reportBy, data);
+
+                var pprizeCount = data.PromotionPrize;
+                _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
 
                 if (level === 0) {
                     _me.setExcelUrl(0, 0, 0, "", "", "");
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
                 else if (level === 1) {
+                    _me.updateDrilldownData(drillDownData.CurrencyId, drillDownData.CurrencyName, drillDownData.FromDate, drillDownData.ToDate, 0);
                     LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
                 }
             },
@@ -8301,6 +8364,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             //level 0,1,2
             urlData: 'api/LicenseeWinLossReport/Index',
             urlExcelData: 'api/LicenseeWinLossReport/Index',
+            urlPromotionPrizeExcelData: "api/PromotionPrizeReport/ExportExcel",
             gridOption:
             {
                 datatype: 'local',
