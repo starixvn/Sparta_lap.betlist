@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
-    using System.Data;
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
@@ -31,14 +30,6 @@
         }
 
         [Test]
-        public void GetData_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                USp,
-                () => DataAccess.GetData(new PromotionPrizeMetaModel(), UserCurrencyList));
-        }
-
-        [Test]
         public void GetData_WhenCall_ParametersPassedCorrectly()
         {
             // Assert
@@ -51,12 +42,12 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(USp);
-                ObjectDb.Received(1).AddInParameter("AgentId", DbType.Int32, metaModel.AgentId);
-                ObjectDb.Received(1).AddInParameter("UserName", DbType.String, metaModel.UserName);
-                ObjectDb.Received(1).AddInParameter("FromDate", DbType.Date, metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("ToDate", DbType.Date, metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.Date, _balanceUp.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("AgentId", metaModel.AgentId);
+                ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
+                ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("MoveBetsDay", _balanceUp.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
             });
         }
 
