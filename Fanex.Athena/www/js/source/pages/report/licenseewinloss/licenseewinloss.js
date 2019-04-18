@@ -472,8 +472,8 @@
 
             //#end
 
-            openBetlistPopUp: function (dataDrillDown) {
-                dataDrillDown = $.parseJSON(dataDrillDown);
+            openBetlistPopUp: function (data) {
+                var dataDrillDown = $.parseJSON(data);
                 dataDrillDown.DrawFilter = _submitData.DrawFilter;
                 dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
                 dataDrillDown.CurrencyId = _submitData.CurrencyId;

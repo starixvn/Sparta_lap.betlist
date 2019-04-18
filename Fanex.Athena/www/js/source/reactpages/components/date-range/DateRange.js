@@ -70,8 +70,8 @@ class DateRange extends Component {
     }
   }
   
-  setRange(range, show) {
-    range = this.orderRange(range);
+  setRange(dateRange, show) {
+    let range = this.orderRange(dateRange);
     this.isValid = this.isValidMonthRange(range);
 
     if (this.isValid) {

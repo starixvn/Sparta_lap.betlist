@@ -220,7 +220,7 @@ export default (customTheme = {}) => {
         cellMargin = customTheme.Day.margin;
     }
 
-    const cellSize = ((parseInt(calendarWidth) - parseInt(calendarPadding) * 2) / 7) - (parseInt(cellMargin) * 2);
+    const cellSize = ((parseInt(calendarWidth, 10) - parseInt(calendarPadding, 10) * 2) / 7) - (parseInt(cellMargin, 10) * 2);
 
     return {
         DateRange: {...defaultTheme.DateRange, ...customTheme.DateRange },

@@ -496,21 +496,20 @@ define(
         };
 
         _me.getColModel = function (level, reportBy, productOptions) {
-            reportBy = Number(reportBy);
-
+            
             // Column hidden by customer comm
             customerWlTotalColumn.hidden = !_me.hasCustomerComm;
             playerCommColumn.hidden = !_me.hasCustomerComm;
-            level = Number(level);
+            var levelNumber = Number(level);
             //set width of licenseeWL column
             if (!_me.hasCustomerComm) { licenseeWlColumn.width = 90; }
             // Column hidden by level
-            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-            systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
+            currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
+            systemIdColumn.formatter = levelNumber === 1 ? systemIdFormatter : null;
 
-            dateColumn.hidden = level > 0;
-            externalIdColumn.hidden = level < 2;
-            systemIdColumn.hidden = level === 0;
+            dateColumn.hidden = levelNumber > 0;
+            externalIdColumn.hidden = levelNumber < 2;
+            systemIdColumn.hidden = levelNumber === 0;
 
             // Column hidden by product
             var allowedSb = isProductChecked(productOptions, "SB");
@@ -525,11 +524,11 @@ define(
             amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
             cashOutCommissionColumn.hidden = !allowedCashOut;
 
-            if (level === 2) {
+            if (levelNumber === 2) {
                 externalIdColumn.formatter = betlistLink;
                 systemIdColumn.formatter = betlistLink;
             }
-            dateColumn.formatoptions = { newformat: reportBy === 2 ? 'm/Y' : 'm/d/Y' };
+            dateColumn.formatoptions = { newformat: Number(reportBy) === 2 ? 'm/Y' : 'm/d/Y' };
 
             var temp = Site.clone(colModelList);
 

@@ -5,8 +5,8 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
     var dateFormatter = function (cellvalue, options, rowObject) {
-        cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
-        return setDrillDownLink(1, 0, 0, rowObject.Date, cellvalue);
+        var newCellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+        return setDrillDownLink(1, 0, 0, rowObject.Date, newCellvalue);
     };
     var currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
@@ -322,17 +322,17 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         },
 
         getColModel: function (level) {
-            level = Number(level);
+            var levelNumber = Number(level);
 
-            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
+            currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
 
-            dateColumn.hidden = level > 0;
+            dateColumn.hidden = levelNumber > 0;
             dateColumn.formatoptions =
             {
                 newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
             };
-            externalIdColumn.hidden = level === 0;
-            systemIdColumn.hidden = level === 0;
+            externalIdColumn.hidden = levelNumber === 0;
+            systemIdColumn.hidden = levelNumber === 0;
             if (!_me.isLicenseeOfferBA) {
                 buyBackAmoutSBColumn.hidden = true;
                 buyBackAmoutBAColumn.hidden = true;
