@@ -20363,6 +20363,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
             return _isFakeLicensee;
         }
 
+        function getXsrfToken() {
+            return REQUEST_VERIFICATION_TOKEN;
+        }
+
         return {
             initialize: initialize,
             setProductCodeListParam: setProductCodeListParam,
@@ -20395,7 +20399,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
             initSelectElements: initSelectElements,
             debounce: debounce,
             addFilterCollapseExpand: addFilterCollapseExpand,
-            isFakeLicensee: isFakeLicensee
+            isFakeLicensee: isFakeLicensee,
+            getXsrfToken: getXsrfToken
         };
     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));

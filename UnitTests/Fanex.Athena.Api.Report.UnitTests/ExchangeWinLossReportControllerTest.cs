@@ -6,7 +6,6 @@
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
-    using Model.Core.DTO.Users;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -21,6 +20,7 @@
         private IReportSettingService _reportSettingService;
         private IExchangeWinLossDataAccess _dataAccess;
         private ExchangeWinLossReportController _controller;
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -50,12 +50,6 @@
 
             _controller = null;
             _dataAccess = null;
-        }
-
-        [OneTimeSetUp]
-        public void SetUpOneTime()
-        {
-            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
 
         [Test]

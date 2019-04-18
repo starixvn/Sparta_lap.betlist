@@ -1,4 +1,4 @@
-﻿// Generated at: 3/25/2019 10:05:30 AM
+﻿// Generated at: 04/02/2019 3:14:44 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -688,6 +688,7 @@ ProductVS2:"Virtual Sports 2",
 ProgressiveContribution:"Progressive Contribution",
 ProgressiveFee:"Progressive Fee",
 ProgressivePayout:"Progressive Payout",
+PromotionPrize:"Promotion Prize",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",

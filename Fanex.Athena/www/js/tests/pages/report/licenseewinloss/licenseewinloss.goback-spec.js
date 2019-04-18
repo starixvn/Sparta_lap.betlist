@@ -41,6 +41,8 @@
                     spyOn(LicenseeWinLoss, "setReportTitle");
                     spyOn(Report, "renderBreadCrumb");
                     spyOn(LicenseeWinLoss, "bindData");
+                    spyOn(LicenseeWinLoss, "showPromotionPrizeLink");
+                    spyOn(LicenseeWinLoss, "updateDrilldownData");
                     spyOn($, "ajax").and.returnValue({ abort: function () { } });
 
                     LicenseeWinLoss.submit();
@@ -61,6 +63,7 @@
 
                     expect(Report.renderBreadCrumb).toHaveBeenCalledWith(0, 0);
                 });
+
                 it("LicenseeWinLoss.bindData(level) should be called with correct parameter", function () {
                     LicenseeWinLoss.drillDown(0, 9, 0, '02/04/2017', 'EUR');
 
@@ -71,16 +74,37 @@
                     expect(LicenseeWinLoss.bindData).toHaveBeenCalledWith(0, 2, { Data: [{ Name: "Test Level 0" }] });
                 });
 
+                it("LicenseeWinLoss.showPromotionPrizeLink should be called with true parameter if has Promotion Prize", function () {
+                    LicenseeWinLoss.drillDown(0, 9, 0, '02/04/2017', 'EUR');
+
+                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                    ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }], PromotionPrize: '1' });
+                    LicenseeWinLoss.goBack(0);
+
+                    expect(LicenseeWinLoss.showPromotionPrizeLink).toHaveBeenCalledWith(true);
+                });
+
+                it("LicenseeWinLoss.showPromotionPrizeLink should be called with true parameter if does not have Promotion Prize", function () {
+                    LicenseeWinLoss.drillDown(0, 9, 0, '02/04/2017', 'EUR');
+
+                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                    ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }] });
+                    LicenseeWinLoss.goBack(0);
+
+                    expect(LicenseeWinLoss.showPromotionPrizeLink).toHaveBeenCalledWith(false);
+                });
+
                 describe("level equal 0", function () {
                     beforeEach(function () {
                       var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
-                        ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }] });
+                      ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }] });
                         LicenseeWinLoss.goBack(0);
                     });
 
                     it("LicenseeWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName) should be called with correct parameter", function () {
                         expect(LicenseeWinLoss.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "", "");
                     });
+
                     it("LicenseeWinLoss.setReportTitle(level) should be called with correct parameter", function () {
                         var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
 
@@ -108,21 +132,37 @@
                     it("LicenseeWinLossOption.urlExcelData should be correct", function () {
                         expect(LicenseeWinLossOption.urlExcelData).toBe("localhost/Test?level=1");
                     });
+
+                    it("LicenseeWinLoss.updateDrilldownData should be called with correct params", function () {
+                        expect(LicenseeWinLoss.updateDrilldownData.calls.mostRecent().args[4]).toBe(0);
+                    });
                 });
 
-                it("Nothing happen with level param is equal 2", function () {
-                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-02-04T00:00:00', 'EUR');
-                    LicenseeWinLoss.goBack(2);
+                describe("level equal 2", function () {
+                    beforeEach(function () {
+                        LicenseeWinLossOption.urlExcelData = "localhost/Test?level=2";
+                        urlExcelDataLevel2 = LicenseeWinLossOption.urlExcelData;
 
-                    expect(LicenseeWinLoss.setReportTitle.calls.count()).toBe(1);
-                });
+                        LicenseeWinLoss.drillDown(2, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                        var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 1" }] });
+                        LicenseeWinLoss.goBack(2);
+                    });
 
-                it("urlExcelData is not be changed", function () {
-                    var urlExcel = LicenseeWinLossOption.urlExcelData;
-                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-02-04T00:00:00', 'EUR');
-                    LicenseeWinLoss.goBack(2);
+                    it("Nothing happen with level param is equal 2", function () {
+                        LicenseeWinLoss.drillDown(2, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                        LicenseeWinLoss.goBack(2);
 
-                    expect(urlExcel).toBe(LicenseeWinLossOption.urlExcelData);
+                        expect(LicenseeWinLoss.setReportTitle.calls.count()).toBe(2);
+                    });
+
+                    it("urlExcelData is not be changed", function () {
+                        var urlExcel = LicenseeWinLossOption.urlExcelData;
+                        LicenseeWinLoss.drillDown(2, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                        LicenseeWinLoss.goBack(2);
+
+                        expect(urlExcel).toBe(urlExcelDataLevel2);
+                    });
                 });
             });
         });

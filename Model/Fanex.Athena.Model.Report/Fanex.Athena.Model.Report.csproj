@@ -169,6 +169,7 @@
     <Compile Include="MetaModel\LicenseeWinLossByTimeZoneMetaModel.cs" />
     <Compile Include="MetaModel\Result\GetSportResultMetaModel.cs" />
     <Compile Include="MetaModel\Result\ResultMetaModel.cs" />
+    <Compile Include="MetaModel\PromotionPrizeMetaModel.cs" />
     <Compile Include="MetaModel\SpecialLicenseeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\NotificationAttachmentMetaModel.cs" />
     <Compile Include="MetaModel\NotificationMarkAsReadMetaModel.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="MetaModel\PlatformWinLossMetaModel.cs" />
     <Compile Include="MetaModel\TurnoverMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByBetTypeMetaModel.cs" />
+    <Compile Include="PromotionPrize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultModel\ActiveCustomerSummaryResultModel.cs" />
     <Compile Include="ResultModel\LiveReportDetailResultModel.cs" />

@@ -1,4 +1,4 @@
-﻿// Generated at: 3/25/2019 10:05:30 AM
+﻿// Generated at: 04/02/2019 3:14:44 PM
 window._language_zh_CN = {
 AA:"客客",
 AbnormalBet:"非正规注单",
@@ -583,6 +583,7 @@ ProductNG:"百练赛",
 ProductSB:"体育博彩",
 ProductVS:"虚拟运动",
 ProductVS2:"虚拟运动2",
+PromotionPrize:"活动奖金",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",

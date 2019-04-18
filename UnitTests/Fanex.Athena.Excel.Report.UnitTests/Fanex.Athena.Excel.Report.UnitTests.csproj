@@ -99,7 +99,9 @@
     <Compile Include="LicenseeWinLossExcelTest.AssignCommonData.cs" />
     <Compile Include="LicenseeWinLossExcelTest.ProcessUI.cs" />
     <Compile Include="LicenseeWinLossExcelTest.AssignHeader.cs" />
+    <Compile Include="PromotionPrizeExcelTest.cs" />
     <Compile Include="MatchWinLossExcelTest.AssignMatchData.cs" />
+    <Compile Include="TestableClasses\PromotionPrizeExcelTestable.cs" />
     <Compile Include="TestableClasses\LicenseeWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\MatchWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\GoldDeluxeWinLossExcelTestable.cs" />

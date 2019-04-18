@@ -109,7 +109,8 @@
                 turnoverSBUSD = 200,
                 reporttype = "20170101",
                 nickname = "nickname test",
-                custid = 108
+                custid = 108,
+                PromotionPrize = 1
             };
             MapReaderData(readerDataMapping);
 
@@ -126,6 +127,7 @@
                 Assert.That(firstItem.CustomerId, Is.EqualTo(readerDataMapping.custid));
                 Assert.That(firstItem.LicenseeWL["SB"], Is.EqualTo(100));
                 Assert.That(firstItem.TurnOver["SB"], Is.EqualTo(200));
+                Assert.That(result.AdditionalInfo, Is.EqualTo(readerDataMapping.PromotionPrize.ToString()));
             });
         }
 

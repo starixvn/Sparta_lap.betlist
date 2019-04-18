@@ -445,6 +445,10 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
             return _isFakeLicensee;
         }
 
+        function getXsrfToken() {
+            return REQUEST_VERIFICATION_TOKEN;
+        }
+
         return {
             initialize: initialize,
             setProductCodeListParam: setProductCodeListParam,
@@ -477,6 +481,7 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
             initSelectElements: initSelectElements,
             debounce: debounce,
             addFilterCollapseExpand: addFilterCollapseExpand,
-            isFakeLicensee: isFakeLicensee
+            isFakeLicensee: isFakeLicensee,
+            getXsrfToken: getXsrfToken
         };
     });

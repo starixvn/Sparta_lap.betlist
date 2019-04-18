@@ -190,6 +190,7 @@
         {
             urlData: "api/CustomerWinLossReport/Index",
             urlExcelData: "api/CustomerWinLossReport/Index",
+            urlPromotionPrizeExcelData: "api/PromotionPrizeReport/ExportExcel",
             hasCustomerComm: true,
             isAllowBA: true,
             customerCommIndex: 11,

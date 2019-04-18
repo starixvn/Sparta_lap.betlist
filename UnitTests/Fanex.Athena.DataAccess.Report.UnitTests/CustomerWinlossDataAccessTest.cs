@@ -84,8 +84,9 @@
             var expectedTotalData = FakeHelper.Create<CustomerWinLoss>();
             var expectedResult = FakeHelper.Create<CustomerWinLoss>();
             const int ExpectedTotalRow = 100;
+            const int ExpectedSumPromotionPrize = 1;
             ConfigureReaderForResult(expectedResult);
-            ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow);
+            ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow, ExpectedSumPromotionPrize);
 
             // Action
             var result = DataAccess.GetDataList(_metaModel);
@@ -105,6 +106,7 @@
                 Assert.That(result.TotalData.LicenseeWL, Is.EqualTo(expectedTotalData.LicenseeWL));
 
                 Assert.That(result.TotalRows, Is.EqualTo(ExpectedTotalRow));
+                Assert.That(result.AdditionalInfo, Is.EqualTo(ExpectedSumPromotionPrize.ToString()));
             });
         }
 
@@ -180,9 +182,10 @@
             MapReader(expected, false);
         }
 
-        private void ConfigureReaderForTotalData(CustomerWinLoss expected, int expectedTotalRow)
+        private void ConfigureReaderForTotalData(CustomerWinLoss expected, int expectedTotalRow, int expectedSumPromotionPrize)
         {
             Reader["TotalRows"].Returns(expectedTotalRow);
+            Reader["SumPromotionPrize"].Returns(expectedSumPromotionPrize);
             MapReader(expected, true);
         }
 

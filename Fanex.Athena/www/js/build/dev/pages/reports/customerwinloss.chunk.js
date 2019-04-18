@@ -6235,6 +6235,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xls";
+        var EXCEL_PP_FILENAME = "PP_PromotionPrize.xls";
         var SORTING_CODE = {
             "ExternalId": 2,
             "SystemId": 1,
@@ -6289,7 +6290,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             HistoryLink: "#history-report-link",
             CurrentLink: "#current-report-link",
             BetListLink: ".bet-list-link",
-            Username: "#Username"
+            Username: "#Username",
+            PromotionPrizeLink: "#ExportPromotionPrizeLink"
         };
 
         function initialize() {
@@ -6331,24 +6333,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 data.PageIndex = 1;
                 data.isExportExcel = true;
 
-                var option = {
-                    type: "POST",
-                    data: data,
-                    dataType: "binary",
-                    responseType: "blob",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                    cache: false,
-                    url: Site.resolveClientUrl(CustomerWinLossOption.urlExcelData),
-                    success: function (response) {
-                        Downloader.download(response, EXCEL_FILENAME);
-                    },
-                    beforeSend: function () {
-                        Toast.show();
-                    }
-                };
-                $.ajax(option);
+                exportExcel(CustomerWinLossOption.urlExcelData, data, EXCEL_FILENAME);
+            });
 
-                return false;
+            $(_selector.PromotionPrizeLink).click(function () {
+                var filterData = getPostData();
+                var data = {
+                    __RequestVerificationToken: filterData.__RequestVerificationToken,
+                    FromDate: filterData.FromDate,
+                    ToDate: filterData.ToDate,
+                    CurrencyId: filterData.CurrencyId,
+                    CurrencyName: filterData.CurrencyName,
+                    Username: filterData.Username,
+                    IsExcludedTestData: filterData.IsExcludedTestData
+                };
+
+                exportExcel(CustomerWinLossOption.urlPromotionPrizeExcelData, data, EXCEL_PP_FILENAME);
             });
 
             $(_selector.HistoryLink).click(function () {
@@ -6375,6 +6375,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             $(window).on("unload", function () {
                 $(window).off("resize");
             });
+        }
+
+        function exportExcel(url, data, fileName) {
+            var option = {
+                type: "POST",
+                data: data,
+                dataType: "binary",
+                responseType: "blob",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                cache: false,
+                url: Site.resolveClientUrl(url),
+                success: function (response) {
+                    Downloader.download(response, fileName);
+                },
+                beforeSend: function () {
+                    Toast.show();
+                }
+            };
+            $.ajax(option);
+
+            return false;
         }
 
         function initSetting() {
@@ -6435,6 +6456,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             if (response.TotalRows === 0) {
                 jqGridAdditional.setNoInfo();
                 Site.unBlockUI();
+                showPromotionPrizeLink(false);
                 return;
             }
 
@@ -6454,6 +6476,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             reportGrid.jqGrid(gridOption);
 
             CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
+            var pprizeCount = response.PromotionPrize;
+            showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
         }
 
         function ajaxPaging() {
@@ -6508,6 +6532,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             $(_selector.Title).html(title);
             $(_selector.Header).removeClass("hide");
+        }
+
+        function showPromotionPrizeLink(isShow) {
+            if (isShow) {
+                $(_selector.PromotionPrizeLink).show();
+            }
+            else {
+                $(_selector.PromotionPrizeLink).hide();
+            }
         }
 
         function createPaging(totalRows) {
@@ -6835,6 +6868,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         {
             urlData: "api/CustomerWinLossReport/Index",
             urlExcelData: "api/CustomerWinLossReport/Index",
+            urlPromotionPrizeExcelData: "api/PromotionPrizeReport/ExportExcel",
             hasCustomerComm: true,
             isAllowBA: true,
             customerCommIndex: 11,
