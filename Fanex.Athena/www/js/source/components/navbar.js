@@ -2,7 +2,7 @@
 
 'use strict';
 
-define(["jquery"], function ($) {
+define(['jquery'], function ($) {
 
     var methods = {
         init: function(inputOptions) {
@@ -16,7 +16,7 @@ define(["jquery"], function ($) {
             $(this).each(function () {
                 var $this = $(this);
                 
-                var menu_id = $("#" + $this.attr('data-activates'));
+                var menu_id = $('#' + $this.attr('data-activates'));
 
                 // Set to width
                 if (options.menuWidth !== 260) {
@@ -49,9 +49,9 @@ define(["jquery"], function ($) {
                 if (menu_id.hasClass('fixed')) {
                     $(window).resize(function () {
                         if ($('body').hasClass('site-menubar-fold')) {
-                            $(".site-menu li.has-sub").removeClass("active");
+                            $('.site-menu li.has-sub').removeClass('active');
                             $('.site-menu .menu-item .collapsible-header').removeClass('active');
-                            $(".site-menu .menu-item div.collapsible-body").css('display', 'none');
+                            $('.site-menu .menu-item div.collapsible-body').css('display', 'none');
                         }
                         if (window.innerWidth > 992) {
                             // Close menu if window is resized bigger than 992 and user has fixed sidenav
@@ -75,7 +75,7 @@ define(["jquery"], function ($) {
 
                 // if closeOnClick, then add close event for all a tags in side sideNav
                 if (options.closeOnClick === true) {
-                    menu_id.on("click.itemclick", "a:not(.collapsible-header)", function () {
+                    menu_id.on('click.itemclick', 'a:not(.collapsible-header)', function () {
                         removeMenu();
                     });
                 }
@@ -144,7 +144,7 @@ define(["jquery"], function ($) {
                     prevent_default: false
                 }).bind('pan', function (e) {
 
-                    if (e.gesture.pointerType === "touch") {
+                    if (e.gesture.pointerType === 'touch') {
 
                         var x = e.gesture.center.x;
 
@@ -211,7 +211,7 @@ define(["jquery"], function ($) {
                     }
                 }).bind('panend', function (e) {
 
-                    if (e.gesture.pointerType === "touch") {
+                    if (e.gesture.pointerType === 'touch') {
                         var velocityX = e.gesture.velocityX;
                         var x = e.gesture.center.x;
                         var leftPos = x - options.menuWidth;
@@ -290,11 +290,11 @@ define(["jquery"], function ($) {
 
                 $this.click(function () {
                     var $body = $('body');
-                    var $submenu = $(".site-menu .menu-item div.collapsible-body");
+                    var $submenu = $('.site-menu .menu-item div.collapsible-body');
                     var menuCollapse = $body.hasClass('site-menubar-fold');
 
                     if (window.innerWidth > 992) {
-                        $(".site-menu li.has-sub").removeClass("active");
+                        $('.site-menu li.has-sub').removeClass('active');
                         $('.site-menu .menu-item .collapsible-header').removeClass('active');
                         $submenu.css('display', 'none');
                         menu_id.removeAttr('style');
@@ -346,9 +346,9 @@ define(["jquery"], function ($) {
                     }
 
                     if (menuCollapse) {
-                        $submenu.mCustomScrollbar("destroy");
+                        $submenu.mCustomScrollbar('destroy');
                     } else {
-                        $submenu.mCustomScrollbar({ theme: "minimal-dark" });
+                        $submenu.mCustomScrollbar({ theme: 'minimal-dark' });
                     }
 
                     return false;

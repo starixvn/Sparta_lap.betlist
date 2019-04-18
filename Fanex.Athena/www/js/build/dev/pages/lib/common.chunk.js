@@ -19672,7 +19672,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! components/jquery.flatpopup */ "./www/js/source/components/jquery.flatpopup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
     /*
     var defaultOptions = {
         width: 640,
@@ -19687,17 +19687,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
     */
 
-    var _me = {
+    const _me = {
         openPopup: function (element, option) {
             return $(element).flatPopup(option);
         },
         closePopup: function (id) {
-            $("#" + id).fadeOut(300);
-            $(".popup-block-body").hide();
+            $('#' + id).fadeOut(300);
+            $('.popup-block-body').hide();
         },
         openPopupWithIframe: function (url, option) {
-            var $popUp = $("#" + option.id);
-            var iframe = '<iframe id="popupFrame" src="' + url + '" ></iframe>';
+            let $popUp = $('#' + option.id);
+            const iframe = '<iframe id="popupFrame" src="' + url + '" ></iframe>';
             if ($popUp.length === 0) {
                 $popUp = $('<div id="' + option.id + '" class="popup-frame">' + iframe + '</div>');
             }
@@ -19709,8 +19709,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         updateCurrentPopup: function (url, option) {
-            var $popUp;
-            var $frame = parent.$("#popupFrame");
+            let $popUp;
+            const $frame = parent.$("#popupFrame");
             if (option.id) {
                 $popUp = $("#" + option.id);
             }
@@ -19757,32 +19757,32 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             $.extend(defaultOption, option || {});
 
-            var $element = $(element);
-            var $popup = $("#" + defaultOption.id);
+            const $element = $(element);
+            const $popup = $("#" + defaultOption.id);
             if ($popup.length === 0 || $popup.hasClass('flat-popup') === false) {
                 $element.append('<div class="right popup-button"></div>');
-                var $blockButton = $element.find(".popup-button");
+                const $blockButton = $element.find(".popup-button");
 
                 var firstButton = true;
                 $.each(buttons, function (index, button) {
-                    var id = button.id ? ' id="' + button.id + '"' : '';
-                    var className = button.classes ? ' class="' + button.classes + '"' : '';
-                    var autoFocus = firstButton ? " autofocus" : "";
+                    const id = button.id ? ' id="' + button.id + '"' : '';
+                    const className = button.classes ? ' class="' + button.classes + '"' : '';
+                    const autoFocus = firstButton ? ' autofocus' : '';
 
                     var $button = $('<button type="button"' + id + className + autoFocus + '>'
                         + button.text + '</button>');
                     $blockButton.append($button);
                     if (button.isClosedOnClick) {
-                        $button.on("click", function () {
+                        $button.on('click', function () {
                             $element.find('a.popup-close').trigger('click');
 
-                            if (typeof button.click === "function") {
+                            if (typeof button.click === 'function') {
                                 button.click();
                             }
                         });
                     }
                     else {
-                        $button.on("click", button.click);
+                        $button.on('click', button.click);
                     }
 
                     firstButton = false;
@@ -19808,14 +19808,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var parseQueryString = function (queryString) {
-        var args = queryString.split('&');
-        var argsList = {};
+    function parseQueryString(queryString) {
+        const args = queryString.split('&');
+        const argsList = {};
 
-        for (var i = 0; i < args.length; i++) {
-            var arg = unescape(args[i]);
+        for (let i = 0; i < args.length; i++) {
+            const arg = unescape(args[i]);
             if (arg.length > 0) {
                 if (arg.indexOf('=') === -1) {
                     argsList[$.trim(arg.toLowerCase())] = null;
@@ -19830,28 +19830,28 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         return argsList;
     };
 
-    var getQueryString = function (url) {
-        var index = url.indexOf("?");
+    function getQueryString(url) {
+        const index = url.indexOf("?");
         return index < 0 ? "" : url.substring(index + 1, url.length);
     };
 
-    var getRawUrl = function (url) {
-        var index = url.indexOf("?");
+    function getRawUrl(url) {
+        const index = url.indexOf("?");
         return index < 0 ? url : url.substring(0, index);
     };
 
     function setParam(url, name, value) {
-        var rawUrl = getRawUrl(url);
-        var queryString = getQueryString(url);
-        var args = parseQueryString(queryString);
+        const rawUrl = getRawUrl(url);
+        const queryString = getQueryString(url);
+        const args = parseQueryString(queryString);
 
         if (name == null) {
             return url;
         }
 
         // Update value
-        var found = false;
-        for (var key in args) {
+        let found = false;
+        for (let key in args) {
             if (key != null && key.toLowerCase() === name.toLowerCase()) {
                 // Does not update data if value = undefined
                 if (value !== undefined) {
@@ -19865,21 +19865,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             args[name.toLowerCase()] = value;
         }
 
-        var queryArray = [];
+        const queryArray = [];
 
         // Rebuild query string, ignore null value
-        for (var key1 in args) {
+        for (let key1 in args) {
             if (args[key1] != null && args[key1] !== undefined) {
-                queryArray.push(key1.toLowerCase() + "=" + args[key1]);
+                queryArray.push(key1.toLowerCase() + '=' + args[key1]);
             }
         }
 
-        return rawUrl + "?" + queryArray.join("&");
+        return rawUrl + '?' + queryArray.join('&');
     }
 
     function setParams(url, parameters) {
-        var returnUrl = url;
-        for (var property in parameters) {
+        let returnUrl = url;
+        for (let property in parameters) {
             if (parameters.hasOwnProperty(property)) {
                 returnUrl = setParam(returnUrl, property, parameters[property]);
             }
@@ -19894,10 +19894,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         setParam: setParam,
         setParams: setParams,
         getParam: function (url, name) {
-            var queryString = getQueryString(url);
-            var args = parseQueryString(queryString);
+            let queryString = getQueryString(url);
+            const args = parseQueryString(queryString);
 
-            for (var key in args) {
+            for (let key in args) {
                 if (key != null && key.toLowerCase() === name.toLowerCase()) {
                     return args[key];
                 }
@@ -19920,16 +19920,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _language_en_US*/
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! extensions/prototype */ "./www/js/source/extensions/prototype.js"), __webpack_require__(/*! components/selectlist */ "./www/js/source/components/selectlist.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Popup) {// jshint ignore:line
-        "use strict";
-        var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
-        var REQUEST_VERIFICATION_TOKEN;
-        var _historyDate = null;
-        var _rootUrl = null;
-        var _pageLanguage = null;
-        var _isFakeLicensee = null;
+        'use strict';
+        const BASE_CURRENT_LIST = ['EUR', 'USD', 'GBP'];
+        let REQUEST_VERIFICATION_TOKEN;
+        let _historyDate = null;
+        let _rootUrl = null;
+        let _pageLanguage = null;
+        let _isFakeLicensee = null;
 
         function setProductCodeListParam(url, productCodeList){
-            return QueryString.setParam(url, "ProductCodeList", productCodeList);
+            return QueryString.setParam(url, 'ProductCodeList', productCodeList);
         }
 
         function reload() {
@@ -19941,13 +19941,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency) {
-            var validCurrencyName = $.trim(currencyName);
-            var returnUrlOrParams = urlOrParams;
+            const validCurrencyName = $.trim(currencyName);
+            let returnUrlOrParams = urlOrParams;
 
-            if (typeof (returnUrlOrParams) === "string") {
-                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, "CurrencyId", currencyId);
-                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, "CurrencyName", validCurrencyName);
-                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, "BaseCurrency", baseCurrency);
+            if (typeof (returnUrlOrParams) === 'string') {
+                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, 'CurrencyId', currencyId);
+                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, 'CurrencyName', validCurrencyName);
+                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, 'BaseCurrency', baseCurrency);
             }
             else {
                 returnUrlOrParams.CurrencyId = currencyId;
@@ -19965,16 +19965,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function initialize() {
-            REQUEST_VERIFICATION_TOKEN = $("input[name=__RequestVerificationToken]").val();
+            REQUEST_VERIFICATION_TOKEN = $('input[name=__RequestVerificationToken]').val();
             initSelectElements();
             currencyConstraint();
             initEvent();
-            _historyDate = new Date($("#HistoryDate").val());
+            _historyDate = new Date($('#HistoryDate').val());
             _rootUrl = $('#RootUrl').val();
             _pageLanguage = $('#PageLanguage').val();
         }
         function initEvent() {
-            $("#CurrencyId").change(function () {
+            $('#CurrencyId').change(function () {
                 currencyConstraint(true);
             });
 
@@ -19987,18 +19987,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
                     },
                     400: function () {
                         unBlockUI();
-                        alert(getSingleResource("InvalidRequestMsg"));
+                        alert(getSingleResource('InvalidRequestMsg'));
                     },
                     401: function () {
-                        window.location.href = resolveClientUrl("Utility/LocationRestriction");
+                        window.location.href = resolveClientUrl('Utility/LocationRestriction');
                     },
                     403: function () {
                         unBlockUI();
-                        alert(getSingleResource("HttpError_403"));
+                        alert(getSingleResource('HttpError_403'));
                     },
                     500: function () {
                         unBlockUI();
-                        alert(getSingleResource("ErrorProcessingMsg"));
+                        alert(getSingleResource('ErrorProcessingMsg'));
                     }
                 }
             });
@@ -20010,27 +20010,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
             return $.inArray(currencyName.toUpperCase(), BASE_CURRENT_LIST) > -1;
         }
         function addUserGuide(options) {
-            var defaultOptions = {
-                buttonSelector: "#UserGuide",
-                id: "UserGuidePopup"
+            const defaultOptions = {
+                buttonSelector: '#UserGuide',
+                id: 'UserGuidePopup'
             };
-            var newOptions = $.extend(defaultOptions, options);
-            newOptions.title = newOptions.title || "";
-            var url = resolveClientUrl('UserGuide/Index?resourcename=' + newOptions.resourceName) + "&_" + (new Date().getTime());
-            var $popup;
-            var isRequesting = false;
+            const newOptions = $.extend(defaultOptions, options);
+            newOptions.title = newOptions.title || '';
+            const url = resolveClientUrl('UserGuide/Index?resourcename=' + newOptions.resourceName) + "&_" + (new Date().getTime());
+            let $popup;
+            let isRequesting = false;
             $(newOptions.buttonSelector).click(function () {
-                var $userGuidePopup = $('<div style="display: none" ></div>');
+                const $userGuidePopup = $('<div style="display: none" ></div>');
 
                 if (!$popup) {
                     if (isRequesting === false) {
                         isRequesting = true;
                         $userGuidePopup.empty().attr('style', '').hide()
                             .load(url, function (response, status) {
-                                if (status === "success") {
+                                if (status === 'success') {
                                     setTimeout(function () {
                                         Popup.openPopup($userGuidePopup, defaultOptions);
-                                        $popup = $("#" + defaultOptions.id);
+                                        $popup = $('#' + defaultOptions.id);
                                     }, 50);
                                 } else {
                                     $userGuidePopup.hide();
@@ -20039,7 +20039,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
                             });
                     }
                 } else {
-                    $popup.flatPopup("show");
+                    $popup.flatPopup('show');
                 }
             });
         }
@@ -20062,37 +20062,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function setLicenseeOptionParam(urlOrParams) {
-            var currencyId = $("#CurrencyId").val();
-            var baseCurrency = $("#BaseCurrency").val();
+            const currencyId = $('#CurrencyId').val();
+            const baseCurrency = $('#BaseCurrency').val();
 
-            var $currencyItem = $("#CurrencyId option[value=" + currencyId + "]");
-            var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
+            const $currencyItem = $('#CurrencyId option[value=' + currencyId + ']');
+            const currencyName = $currencyItem.length ? $currencyItem.text() : $('#CurrencyName').val();
 
             return setLicenseeOption(urlOrParams || {}, currencyId, currencyName, baseCurrency);
         }
 
         function setLicenseeOptionOriginalParam(urlOrParams) {
-            var currencyId = $("#CurrencyId").attr('data-original');
-            var baseCurrency = $("#BaseCurrency").attr('data-original');
+            const currencyId = $('#CurrencyId').attr('data-original');
+            const baseCurrency = $('#BaseCurrency').attr('data-original');
 
-            var $currencyItem = $("#CurrencyId option[value=" + currencyId + "]");
-            var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
+            const $currencyItem = $('#CurrencyId option[value=' + currencyId + ']');
+            const currencyName = $currencyItem.length ? $currencyItem.text() : $('#CurrencyName').val();
 
             return setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency);
         }
 
         function updateOriginalLicenseeOption() {
-            var objectIdList = ["#CurrencyId", "#BaseCurrency", "#CurrencyName"];
+            const objectIdList = ['#CurrencyId', '#BaseCurrency', '#CurrencyName'];
             $(objectIdList).each(function (i, e) {
-                $(e).attr("data-original", $(e).val());
+                $(e).attr('data-original', $(e).val());
             });
         }
 
         function setProductOptionParamList(urlOrParams) {
-            var returnUrlOrParams = urlOrParams;
-            if (typeof (returnUrlOrParams) === "string") {
+            let returnUrlOrParams = urlOrParams;
+            if (typeof (returnUrlOrParams) === 'string') {
                 var counter = 0;
-                $(".childCheckbox", "#ProductList").each(function (index, element) {
+                $('.childCheckbox', '#ProductList').each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         returnUrlOrParams = setProductOptionParam(returnUrlOrParams, counter, productCode, $(element).prop("checked"));
@@ -20104,10 +20104,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
             }
             else {
                 returnUrlOrParams.ProductOptions = [];
-                $(".childCheckbox", "#ProductList").each(function (index, element) {
+                $('.childCheckbox', '#ProductList').each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
-                        returnUrlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop("checked") });
+                        returnUrlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop('checked') });
                     }
                 });
 
@@ -20116,16 +20116,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function setProductOptionOriginalParamList(urlOrParams) {
-            var productCodeList = [];
-            $(".childCheckbox", "#ProductList").each(function (index, element) {
-                var productCode = $(element).attr('data-product-code');
-                if (productCode && $(element).attr("data-original") === 'true') {
+            const productCodeList = [];
+            $('.childCheckbox', '#ProductList').each(function (index, element) {
+                const productCode = $(element).attr('data-product-code');
+                if (productCode && $(element).attr('data-original') === 'true') {
                     productCodeList.push(productCode.toUpperCase());
                 }
             });
 
-            if (typeof (urlOrParams) === "string") {
-                return QueryString.setParam(urlOrParams, "ProductCodeList", productCodeList);
+            if (typeof (urlOrParams) === 'string') {
+                return QueryString.setParam(urlOrParams, 'ProductCodeList', productCodeList);
             }
             else {
                 urlOrParams.ProductCodeList = productCodeList.toString();
@@ -20134,72 +20134,72 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function setProductOptionParam(url, counter, productCode, status) {
-            var validProductCode = productCode == null ? undefined : productCode.toUpperCase();
-            var newUrl = url;
-            newUrl = QueryString.setParam(newUrl, "ProductOptions[" + counter + "].Code", validProductCode);
-            newUrl = QueryString.setParam(newUrl, "ProductOptions[" + counter + "].Name", validProductCode);
-            newUrl = QueryString.setParam(newUrl, "ProductOptions[" + counter + "].Status", status);
+            const validProductCode = productCode == null ? undefined : productCode.toUpperCase();
+            let newUrl = url;
+            newUrl = QueryString.setParam(newUrl, 'ProductOptions[' + counter + '].Code', validProductCode);
+            newUrl = QueryString.setParam(newUrl, 'ProductOptions[' + counter + '].Name', validProductCode);
+            newUrl = QueryString.setParam(newUrl, 'ProductOptions[' + counter + '].Status', status);
 
             return newUrl;
         }
 
         function setDateRangeParam(url) {
-            var newUrl = url;
-            newUrl = QueryString.setParam(newUrl, "FromDate", $("#FromDate").val());
-            newUrl = QueryString.setParam(newUrl, "ToDate", $("#ToDate").val());
+            let newUrl = url;
+            newUrl = QueryString.setParam(newUrl, 'FromDate', $('#FromDate').val());
+            newUrl = QueryString.setParam(newUrl, 'ToDate', $('#ToDate').val());
 
             return newUrl;
         }
 
         function setDateRangeOriginalParam(url) {
-            var newUrl = url;
-            newUrl = QueryString.setParam(newUrl, "FromDate", $("#FromDate").attr('data-original'));
-            newUrl = QueryString.setParam(newUrl, "ToDate", $("#ToDate").attr('data-original'));
+            let newUrl = url;
+            newUrl = QueryString.setParam(newUrl, 'FromDate', $('#FromDate').attr('data-original'));
+            newUrl = QueryString.setParam(newUrl, 'ToDate', $('#ToDate').attr('data-original'));
 
             return newUrl;
         }
 
         function currencyConstraint(userChange) {
-            var currency = Number($("#CurrencyId").val()) || 0;
-            var currencyName = $("#CurrencyId option:selected").text();
+            const currency = Number($('#CurrencyId').val()) || 0;
+            let currencyName = $('#CurrencyId option:selected').text();
             currencyName = $.trim(currencyName);
-            $("#CurrencyName").val(currencyName);
+            $('#CurrencyName').val(currencyName);
 
             // Handle outside based currency list in some reports (customer wl, balance)
-            var $baseCurrency = $("#BaseCurrency");
-            var noConvertOption = $("option[value='']", $baseCurrency);
+            var $baseCurrency = $('#BaseCurrency');
+            var noConvertOption = $('option[value=""]', $baseCurrency);
             if (currency === 0 || isBaseCurrency(currencyName)) {
                 noConvertOption.remove();
                 if (userChange && currency !== 0) {
-                    $("option[value='" + currencyName.toLowerCase() + "']", $baseCurrency).prop("selected", true);
+                    $('option[value="' + currencyName.toLowerCase() + '"]', $baseCurrency).prop('selected', true);
                     $baseCurrency.val(currencyName.toLowerCase());
                 }
             }
             else {
                 if (noConvertOption.length === 0
                     && $baseCurrency.find('option').length > 0) { // make sure $baseCurrency is select object
-                    $("<option value='' selected>" + currencyName + "</option>").appendTo($baseCurrency);
+                    $('<option value="" selected>' + currencyName + '</option>').appendTo($baseCurrency);
                 } else {
-                    $("option[value='']", $baseCurrency).text(currencyName);
+                    $('option[value=""]', $baseCurrency).text(currencyName);
                 }
                 if (userChange) {
-                    $baseCurrency.val("");
-                    $("option[value='']", $baseCurrency).text(currencyName);
+                    $baseCurrency.val('');
+                    $('option[value=""]', $baseCurrency).text(currencyName);
                 }
             }
 
             // Handle inside based currency list in some reports(licensee wl, wl by product)
-            var hasBaseCurrencyInDropdown = $("#CurrencyId option").filter(function () {
+            const hasBaseCurrencyInDropdown = $('#CurrencyId option').filter(function () {
                 return $(this).val() < 0;
             }).length > 0;
             if (hasBaseCurrencyInDropdown) {
-                var basedCurrencyMap = { "-1": "eur", "-2": "usd", "-3": "gbp" };
-                var basedCurrency = basedCurrencyMap[currency.toString()];
-                basedCurrency = basedCurrency === undefined ? "" : basedCurrency;
+                const basedCurrencyMap = { '-1': 'eur', '-2': 'usd', '-3': 'gbp' };
+                let basedCurrency = basedCurrencyMap[currency.toString()];
+                basedCurrency = basedCurrency === undefined ? '' : basedCurrency;
                 $baseCurrency.val(basedCurrency);
             }
 
-            $("select#BaseCurrency").selectList();
+            $('select#BaseCurrency').selectList();
         }
 
         function clone(obj) {
@@ -20213,20 +20213,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
             /// <param name="obj"></param>
             /// <returns type=""></returns>
 
-            if (null == obj || "object" !== typeof obj) {
+            if (null == obj || 'object' !== typeof obj) {
                 return obj;
             }
             // Handle Date
             if (obj instanceof Date) {
-                var date = new Date();
+                const date = new Date();
                 date.setTime(obj.getTime());
                 return date;
             }
 
             // Handle Array
             if (obj instanceof Array) {
-                var array = [];
-                for (var i = 0, len = obj.length; i < len; i++) {
+                const array = [];
+                for (let i = 0, len = obj.length; i < len; i++) {
                     array[i] = clone(obj[i]);
                 }
                 return array;
@@ -20234,8 +20234,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
 
             // Handle Object
             if (obj instanceof Object) {
-                var copy = {};
-                for (var attr in obj) {
+                const copy = {};
+                for (let attr in obj) {
                     if (obj.hasOwnProperty(attr)) {
                         copy[attr] = clone(obj[attr]);
                     }
@@ -20243,7 +20243,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
                 return copy;
             }
 
-            throw new Error("Unable to copy obj! Its type isn't supported.");
+            throw new Error('Unable to copy obj! Its type isn\'t supported.');
         }
 
         function asBool(input) {
@@ -20258,15 +20258,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
                 return enghlishName;
             }
 
-            var keyName = "_language_" + _pageLanguage.replace("-", "_");
+            const keyName = '_language_' + _pageLanguage.replace('-', '_');
 
-            var resources = window[keyName];
+            let resources = window[keyName];
             if (!resources) {
                 resources = window._language_en_US; // jshint ignore:line
             }
 
-            var mapResource = function (key) {
-                var item = resources[key];
+            const mapResource = function (key) {
+                let item = resources[key];
                 if (item === undefined) {
                     item = window._language_en_US[key]; // jshint ignore:line
                     return item !== undefined ? item : key;
@@ -20274,12 +20274,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
                     return item;
                 }
             };
-            if (enghlishName.indexOf("@") > -1) {
-                var keys = enghlishName.match(/\@{1}\[{1}[a-zA-Z\d\_]+\]{1}/g);
+            if (enghlishName.indexOf('@') > -1) {
+                const keys = enghlishName.match(/\@{1}\[{1}[a-zA-Z\d\_]+\]{1}/g);
                 if (keys != null) {
-                    var temp = enghlishName;
+                    let temp = enghlishName;
                     for (var i = 0; i < keys.length; i++) {
-                        var realKey = keys[i].replace("@[", "").replace("]", "");
+                        var realKey = keys[i].replace('@[', '').replace(']', '');
                         temp = temp.replace(keys[i], mapResource(realKey));
                     }
                     return temp;
@@ -20299,8 +20299,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
                 return null;
             }
 
-            var newArray = [];
-            for (var i = 0; i < arrayText.length; i++) {
+            const newArray = [];
+            for (let i = 0; i < arrayText.length; i++) {
                 newArray.push(getSingleResource(arrayText[i]));
             }
             return newArray;
@@ -20325,17 +20325,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function debounce(func, wait, immediate) {
-            var timeout;
+            let timeout;
             return function () {
-                var context = this,
+                const context = this,
                     args = arguments;
-                var later = function () {
+                const later = function () {
                     timeout = null;
                     if (!immediate) {
                         func.apply(context, args);
                     }
                 };
-                var callNow = immediate && !timeout;
+                const callNow = immediate && !timeout;
                 clearTimeout(timeout);
                 timeout = setTimeout(later, wait || 500);
                 if (callNow) {
@@ -20345,20 +20345,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function addFilterCollapseExpand(containerSelector) {
-            var $handler = $("<div class='filter-handle'><i class='icon-arrow'></i></div>");
-            var $container = $(containerSelector || ".page-form:has(form)");
+            const $handler = $('<div class="filter-handle"><i class="icon-arrow"></i></div>');
+            const $container = $(containerSelector || '.page-form:has(form)');
 
             $container.append($handler);
 
             $handler.click(function () {
-                $container.toggleClass("filter-collapse");
+                $container.toggleClass('filter-collapse');
                 $(window).resize();
             });
         }
 
         function isFakeLicensee() {
             if (_isFakeLicensee == null) {
-                _isFakeLicensee = $("#IsFakeLicensee").val() === "1";
+                _isFakeLicensee = $('#IsFakeLicensee').val() === '1';
             }
 
             return _isFakeLicensee;
