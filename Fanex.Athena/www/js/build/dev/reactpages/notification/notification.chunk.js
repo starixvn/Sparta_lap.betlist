@@ -1568,8 +1568,8 @@ function (_Component) {
     }
   }, {
     key: "setRange",
-    value: function setRange(range, show) {
-      range = this.orderRange(range);
+    value: function setRange(dateRange, show) {
+      var range = this.orderRange(dateRange);
       this.isValid = this.isValidMonthRange(range);
 
       if (this.isValid) {
@@ -2247,10 +2247,10 @@ var addDistanceDays = function addDistanceDays(rangeObj, name, start, end, min, 
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  ranges: function ranges(today, min, max, limitMonths) {
-    today = !today ? moment__WEBPACK_IMPORTED_MODULE_0___default()() : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(today) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(today, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : today;
-    max = !max ? today : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(max) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(max, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : max;
-    min = !min ? today : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(min) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(min, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : min;
+  ranges: function ranges(todayDate, minDate, maxDate, limitMonths) {
+    var today = !todayDate ? moment__WEBPACK_IMPORTED_MODULE_0___default()() : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(todayDate) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(todayDate, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : todayDate;
+    var max = !maxDate ? today : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(maxDate) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(maxDate, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : maxDate;
+    var min = !minDate ? today : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(minDate) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(minDate, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : minDate;
     var range = {};
 
     if (today < min) {
@@ -2525,7 +2525,7 @@ var defaultTheme = {
     cellMargin = customTheme.Day.margin;
   }
 
-  var cellSize = (parseInt(calendarWidth) - parseInt(calendarPadding) * 2) / 7 - parseInt(cellMargin) * 2;
+  var cellSize = (parseInt(calendarWidth, 10) - parseInt(calendarPadding, 10) * 2) / 7 - parseInt(cellMargin, 10) * 2;
   return {
     DateRange: _objectSpread({}, defaultTheme.DateRange, customTheme.DateRange),
     Calendar: _objectSpread({}, defaultTheme.Calendar, customTheme.Calendar),

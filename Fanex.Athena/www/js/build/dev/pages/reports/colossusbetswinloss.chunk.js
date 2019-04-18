@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -716,16 +716,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -940,12 +940,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1006,7 +1006,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -4047,13 +4049,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
+                if (summaryTotal.hasOwnProperty(currency)) {
+                    currencyList.push(currency);
+                    var summaryData = summaryTotal[currency];
+                    if (Array.isArray(summaryData)) {
+                        summaryData.forEach(processColumnModel);
+                    }
+                    else {
+                        processColumnModel(summaryData);
+                    }
                 }
             }
 
@@ -4078,15 +4082,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
+            var levelNumber = Number(level);
+            if (levelNumber === 0) {
                 $(".breadCrumbHolder").hide();
             }
             else {
                 $(".breadCrumbHolder").show();
                 $("#level-link-container .level0").show();
 
-                var isLevel2 = level === 2;
+                var isLevel2 = levelNumber === 2;
                 $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
 
                 var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
@@ -4352,15 +4356,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function setUpUrl(url, level, currencyId, custId, fdate, tdate) {
+            var newUrl = url;
             if (level > 0) {
-                url = QueryString.setParam(url, "level", level);
-                url = QueryString.setParam(url, "currencyId", currencyId);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "fdate", fdate);
-                url = QueryString.setParam(url, "tdate", tdate);
+                newUrl = QueryString.setParam(newUrl, "level", level);
+                newUrl = QueryString.setParam(newUrl, "currencyId", currencyId);
+                newUrl = QueryString.setParam(newUrl, "custId", custId);
+                newUrl = QueryString.setParam(newUrl, "fdate", fdate);
+                newUrl = QueryString.setParam(newUrl, "tdate", tdate);
             }
 
-            return url;
+            return newUrl;
         }
 
         function resizeGrid() {
@@ -4776,27 +4781,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         });
 
         _me.getColModel = function (level, reportBy) {
-            level = Number(level);
+            var levelNumber = Number(level);
 
-            currencyColumn.formatter = level === 0 ? function (cellvalue, options, rowObject) {
-                var level = 1;
-                return _me.currencyFormatter(cellvalue, options, rowObject, level);
+            currencyColumn.formatter = levelNumber === 0 ? function (cellvalue, options, rowObject) {
+                var levelNumber = 1;
+                return _me.currencyFormatter(cellvalue, options, rowObject, levelNumber);
             } : null;
 
-            dateColumn.hidden = level > 0;
+            dateColumn.hidden = levelNumber > 0;
             dateColumn.formatter = function (cellvalue, options, rowObject) {
-                cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
-                return _me.setDrillDownLink(1, 0, 0, rowObject.Date, cellvalue);
+                var newCellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+                return _me.setDrillDownLink(1, 0, 0, rowObject.Date, newCellvalue);
             };
             dateColumn.formatoptions =
             {
-                newformat: parseInt(reportBy) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
+                newformat: parseInt(reportBy, 10) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
             };
 
-            externalIdColumn.hidden = level === 0;
-            systemIdColumn.hidden = level === 0;
+            externalIdColumn.hidden = levelNumber === 0;
+            systemIdColumn.hidden = levelNumber === 0;
 
-            if (level === 1) {
+            if (levelNumber === 1) {
                 externalIdColumn.formatter = _me.betlistLink;
                 systemIdColumn.formatter = _me.betlistLink;
             }

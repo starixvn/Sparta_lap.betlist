@@ -421,7 +421,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -437,7 +437,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -551,13 +551,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
 
     var methods = {
-        init: function init(options) {
+        init: function(inputOptions) {
             var defaults = {
                 menuWidth: 260,
                 edge: 'left',
                 closeOnClick: false
             };
-            options = $.extend(defaults, options);
+            var options = $.extend(defaults, inputOptions);
 
             $(this).each(function () {
                 var $this = $(this);
@@ -638,7 +638,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $('#sidenav-overlay').velocity({ opacity: 0 }, {
                         duration: 200,
                         queue: false, easing: 'easeOutQuad',
-                        complete: function complete() {
+                        complete: function() {
                             $(this).remove();
                         }
                     });
@@ -649,7 +649,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function complete() {
+                            complete: function() {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu_id.removeAttr('style');
@@ -665,7 +665,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function complete() {
+                            complete: function() {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu_id.removeAttr('style');
@@ -797,7 +797,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                                 });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -824,7 +824,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                                 menu_id.velocity({ 'translateX': [options.menuWidth + 10, rightPos] }, { duration: 200, queue: false, easing: 'easeOutQuad' });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -875,7 +875,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                                 removeMenu();
                                 overlay.velocity({ opacity: 0 }, {
                                     duration: 300, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -883,7 +883,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             $body.append(overlay);
                             overlay.velocity({ opacity: 1 }, {
                                 duration: 300, queue: false, easing: 'easeOutQuad',
-                                complete: function complete() {
+                                complete: function() {
                                     menuOut = true;
                                     panning = false;
                                 }
@@ -901,10 +901,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 });
             });
         },
-        show: function show() {
+        show: function() {
             this.trigger('click');
         },
-        hide: function hide() {
+        hide: function() {
             $('#sidenav-overlay').trigger('click');
         }
     };
@@ -1310,16 +1310,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -1418,14 +1418,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
     }
 
-    function init(options) {
+    function init(inputOptions) {
         /*jshint validthis: true*/
 
         var defaults = {
             accordion: undefined
         };
 
-        options = $.extend(defaults, options);
+        var options = $.extend(defaults, inputOptions);
         var touch = 'ontouchstart' in window || navigator.maxTouchPoints;
 
         return this.each(function () {
@@ -1461,7 +1461,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             duration: 350,
                             easing: "easeOutQuart",
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -1472,7 +1472,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             duration: 350,
                             easing: "easeOutQuart",
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -1483,7 +1483,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     duration: 350,
                     easing: "easeOutQuart",
                     queue: false,
-                    complete: function complete() {
+                    complete: function() {
                         $(this).css('height', '');
                     }
                 });
@@ -1503,7 +1503,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             duration: 350,
                             easing: "easeOutQuart",
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -1514,7 +1514,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             duration: 350,
                             easing: "easeOutQuart",
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -1557,7 +1557,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         collapse($this, event);
                         overlay.velocity({ opacity: 0 }, {
                             duration: 300, queue: false, easing: 'easeOutQuad',
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).remove();
                             }
                         });
@@ -1565,7 +1565,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     $('body').append(overlay);
                     overlay.velocity({ opacity: 1 }, {
                         duration: 300, queue: false, easing: 'easeOutQuad',
-                        complete: function complete() { }
+                        complete: function() { }
                     });
                 }
             }
@@ -1823,12 +1823,12 @@ $(document).ready(function () {
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1889,7 +1889,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -2525,8 +2527,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
         function initEvent() {
             $searchBox.keyup(function (e) {
-                e = e || window.event;
-                var key = e.keyCode || e.which;
+                var event = e || window.event;
+                var key = event.keyCode || event.which;
 
                 if (key === 13) {
                     searchByUserName();

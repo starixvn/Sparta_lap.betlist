@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -360,7 +360,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
         if (pagingVisible) {
             noOfPage = parseInt(setting.totalrow / setting.pagesize
-         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
+         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1), 10);
         }
 
         if (pagingVisible || setting.alwayshow) {
@@ -386,7 +386,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
             var pageListLength = setting.pagelist.length;
             var pageSizeSelectHtml = '<select class="pageSizeSelected">';
-            var pageSize = parseInt(setting.pagesize);
+            var pageSize = parseInt(setting.pagesize, 10);
             for (var i = 0; i < pageListLength; i++) {
                 pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
                 + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
@@ -410,9 +410,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         me._bindEvent(setting);
     };
     me.getSetting = function (elementcontainer) {
-        elementcontainer = elementcontainer || Object.keys(_settings)[0];
-        var setting = _settings[elementcontainer];
-        var $pagerContainer = $(elementcontainer);
+        var newElementcontainer = elementcontainer || Object.keys(_settings)[0];
+        var setting = _settings[newElementcontainer];
+        var $pagerContainer = $(newElementcontainer);
         var $pageIndex = getByName($pagerContainer, "PageIndex");
         var $pageSize = getByName($pagerContainer, "PageSize");
         setting.pageindex = parseInt($pageIndex.val(), 10);
@@ -461,7 +461,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         $pageIndex.on("keyup", function (e) {
             var code = e.keyCode ? e.keyCode : e.which;
             if (code === 13) {
-                var value = parseInt($(this).val());
+                var value = parseInt($(this).val(), 10);
                 if (value > 0 && value <= noOfPage) {
                     $(this).val(value);
                     goToPage($pagerContainer, method, value);
@@ -854,16 +854,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -1078,12 +1078,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1144,7 +1144,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -5154,9 +5156,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 );
             },
             initCommissionParam: function (id) {
-                var comm1 = parseInt($(id + 1).val());
-                var comm2 = parseInt($(id + 2).val());
-                var comm3 = parseInt($(id + 3).val());
+                var comm1 = parseInt($(id + 1).val(), 10);
+                var comm2 = parseInt($(id + 2).val(), 10);
+                var comm3 = parseInt($(id + 3).val(), 10);
                 var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
                 return comm;
             },
@@ -6177,12 +6179,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             align: 'left',
             sortable: false,
             formatter: function (cellValue, options, rowObject) {
+                var newCellValue = cellValue;
                 if (Number(rowObject.GroupCommId) === 0) {
-                    cellValue = Site.getSingleResource("None");
+                    newCellValue = Site.getSingleResource("None");
                 }
 
                 return "<div id='groupName-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor +
-                         "' class='commission-color'>" + cellValue + "</div>";
+                         "' class='commission-color'>" + newCellValue + "</div>";
             }
         };
 
@@ -6612,7 +6615,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             $("#num-of-dormant-customer, #num-of-dormant-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
-            pagingOption.totalrow = parseInt(gridData.TotalRows);
+            pagingOption.totalrow = parseInt(gridData.TotalRows, 10);
             PagingHelper.render(pagingOption);
 
             var $reportGrid = $("#DormantCustomerGrid");
@@ -6783,7 +6786,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             $("#num-of-customer, #num-of-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
-            pagingOption.totalrow = parseInt(gridData.TotalRows);
+            pagingOption.totalrow = parseInt(gridData.TotalRows, 10);
             PagingHelper.render(pagingOption);
 
             var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();

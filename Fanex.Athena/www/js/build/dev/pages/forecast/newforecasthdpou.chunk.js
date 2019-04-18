@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -302,7 +302,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     var _me = {
         initialize: function () {
             $('.menu-item').on('click', function () {
-                var selectedCountDown = parseInt($(this).attr('data-count-down'));
+                var selectedCountDown = parseInt($(this).attr('data-count-down'), 10);
                 _me.setCountDown(selectedCountDown, true);
             });
 
@@ -314,7 +314,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             countDownId = $hiddenCountdown.attr('name');
 
             // Get default count down
-            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'));
+            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'), 10);
         },
         initEvent: function () {
             cookieName = "RefeshCountDown" + countDownId;
@@ -327,7 +327,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         },
         setCountDown: function (countDown, isSetToCookie) {
-            var countDownInt = parseInt(countDown);
+            var countDownInt = parseInt(countDown, 10);
             if (isSetToCookie) {
                 $.cookie(cookieName, countDownInt);
             }
@@ -692,16 +692,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },

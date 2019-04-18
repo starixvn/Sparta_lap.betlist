@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -888,16 +888,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -1112,12 +1112,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1178,7 +1178,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -5096,13 +5098,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
+                if (summaryTotal.hasOwnProperty(currency)) {
+                    currencyList.push(currency);
+                    var summaryData = summaryTotal[currency];
+                    if (Array.isArray(summaryData)) {
+                        summaryData.forEach(processColumnModel);
+                    }
+                    else {
+                        processColumnModel(summaryData);
+                    }
                 }
             }
 
@@ -5127,15 +5131,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
+            var levelNumber = Number(level);
+            if (levelNumber === 0) {
                 $(".breadCrumbHolder").hide();
             }
             else {
                 $(".breadCrumbHolder").show();
                 $("#level-link-container .level0").show();
 
-                var isLevel2 = level === 2;
+                var isLevel2 = levelNumber === 2;
                 $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
 
                 var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
@@ -5232,7 +5236,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             initSetting: function () {
                 WinLossByProductOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
                 WinLossByProductOption.IsAllowBA = Site.asBool($("#IsAllowedBACommission").val());
-                WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+                WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val(), 10);
                 WinLossByProductOption.HasAmountDueToColumn = Site.asBool($("#HasAmountDueToColumn").val());
             },
 
@@ -5382,16 +5386,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     return;
                 }
 
-                level = Number(level);
+                var levelNumber = Number(level);
                 var reportGrid = $("#ReportGrid");
                 var onPaging = false;
 
-                var gridOption = WinLossByProductOption.getGridOption(level, reportBy);
+                var gridOption = WinLossByProductOption.getGridOption(levelNumber, reportBy);
                 gridOption.data = response.Data;
-                gridOption.rowNum = level === 2 ? WinLossByProductOption.pageSize : WinLossByProductOption.nonePagingSize;
+                gridOption.rowNum = levelNumber === 2 ? WinLossByProductOption.pageSize : WinLossByProductOption.nonePagingSize;
                 gridOption.rowTotal = numOfRow;
                 gridOption.onPaging = function (pgButton) {
-                    if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
+                    if (levelNumber === 2 && numOfRow > WinLossByProductOption.pageSize) {
                         if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
                             Site.blockUI();
                         }
@@ -5403,13 +5407,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 };
                 gridOption.gridComplete = function () {
                     jqGridAdditional.gridComplete();
-                    _me.rowSpanByLevel(reportGrid, level);
+                    _me.rowSpanByLevel(reportGrid, levelNumber);
 
                     // Update colspan for grouping row (because fixed table should has correct colspan value)
                     var coulumnVisibleCount = gridOption.colModel.filter(function (item) { return !item.hidden; }).length;
                     reportGrid.find("tr.jqgroup td").attr("colspan", coulumnVisibleCount - 1); // -1 for hiding of Date column
 
-                    if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
+                    if (levelNumber === 2 && numOfRow > WinLossByProductOption.pageSize) {
                         $("#pg_ppdata").show();
                     }
                     else {
@@ -5417,11 +5421,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     }
 
                     var $footerTable = $("table.ui-jqgrid-ftable");
-                    if (onPaging && level === 2) {
+                    if (onPaging && levelNumber === 2) {
                         $footerTable.html($("#footer").html());
                     }
                     else {
-                        _me.bindTotal(level, response.Total, response.SummaryTotal);
+                        _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
                         $("#footer").html($footerTable.html());
                     }
 
@@ -5486,7 +5490,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             reverse: function (objectData) {
                 var reversedData = Site.clone(objectData);
                 for (var property in reversedData) {
-                    reversedData[property].reverse();
+                    if (reversedData.hasOwnProperty(property)) {
+                        reversedData[property].reverse();
+                    }
                 }
 
                 return reversedData;
@@ -5506,8 +5512,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 }
             },
 
-            openBetlistPopUp: function (dataDrillDown) {
-                dataDrillDown = $.parseJSON(dataDrillDown);
+            openBetlistPopUp: function (inputDataDrillDown) {
+                var dataDrillDown = $.parseJSON(inputDataDrillDown);
                 dataDrillDown.DrawFilter = _submitData.DrawFilter;
                 dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
                 dataDrillDown.CurrencyId = _submitData.CurrencyId;
@@ -5844,21 +5850,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     _me.getColModel = function (level, reportBy) {
-        level = Number(level);
+        var levelNumber = Number(level);
         amtDueToColumn.hidden = !_me.HasAmountDueToColumn;
         // Column hidden by customer comm
         customerWlTotalColumn.hidden = !_me.hasCustomerComm;
         playerCommColumn.hidden = !_me.hasCustomerComm;
         LicenseeWlCommColumn.hidden = !_me.IsAllowBA;
         // Column hidden by level
-        currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-        systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
+        currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
+        systemIdColumn.formatter = levelNumber === 1 ? systemIdFormatter : null;
 
-        dateColumn.hidden = level > 0;
-        externalIdColumn.hidden = level < 2;
-        systemIdColumn.hidden = level === 0 || Site.isFakeLicensee();
+        dateColumn.hidden = levelNumber > 0;
+        externalIdColumn.hidden = levelNumber < 2;
+        systemIdColumn.hidden = levelNumber === 0 || Site.isFakeLicensee();
 
-        if (level === 2) {
+        if (levelNumber === 2) {
             externalIdColumn.formatter = betlistLink;
             systemIdColumn.formatter = betlistLink;
         }

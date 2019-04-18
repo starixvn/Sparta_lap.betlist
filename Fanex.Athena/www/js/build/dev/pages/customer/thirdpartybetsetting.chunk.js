@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -558,16 +558,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -1487,7 +1487,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         getCommonPostData: function ($context) {
-            var productId = parseInt($("#ProductId").val());
+            var productId = parseInt($("#ProductId").val(), 10);
             var nickName = $context.data("nick-name");
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
             var status = $context.data("status");
@@ -1689,7 +1689,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             showComfirm: function ($target, resourceMessage, callback) {
-                var productId = parseInt($("#ProductId").val());
+                var productId = parseInt($("#ProductId").val(), 10);
                 var isValid = productId === Product.LiveCasino ? true :
                              productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
                                                                 BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds());
@@ -1906,7 +1906,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             updateStatus: function ($context) {
-                var productId = parseInt($("#ProductId").val());
+                var productId = parseInt($("#ProductId").val(), 10);
                 var url = ProductUpdateStatusUrlMap[productId];
                 if (!url) {
                     throw "Invalid product id: " + productId;

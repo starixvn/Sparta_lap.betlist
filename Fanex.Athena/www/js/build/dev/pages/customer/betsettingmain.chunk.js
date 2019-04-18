@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -558,16 +558,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -1687,7 +1687,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             showComfirm: function ($target, resourceMessage, callback) {
-                var productId = parseInt($("#ProductId").val());
+                var productId = parseInt($("#ProductId").val(), 10);
                 var isValid = productId === Product.LiveCasino ? true :
                              productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
                                                                 BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds());
@@ -1875,11 +1875,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var Product = Constant.Product;
 
     function getConfirmMessage(productId) {
-        return parseInt(productId) === Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
+        return parseInt(productId, 10) === Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
     }
 
     function getUpdateUrl(productId) {
-        return parseInt(productId) === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
+        return parseInt(productId, 10) === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
     }
 
     var _me = {
@@ -1902,7 +1902,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             });
 
             $("#btnSubmitBetSetting").on("click", function () {
-                var productId = parseInt($("#ProductId").val());
+                var productId = parseInt($("#ProductId").val(), 10);
                 var messageResource = getConfirmMessage(productId);
 
                 BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
@@ -1913,7 +1913,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         updateBetSetting: function (custId, userName, nickName) {
-            var productId = parseInt($("#ProductId").val());
+            var productId = parseInt($("#ProductId").val(), 10);
             var url = getUpdateUrl(productId);
 
             if (url === null) {

@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -784,16 +784,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -4679,13 +4679,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         return 'stop';
                     }
                     Site.blockUI();
-                    index = index === "WinLoss" ? "Winlost" : index;
-                    index = index === "ExternalId" ? "nickname" : index;
-                    if (_sortColumnName === index) {
+                    var newIndex = index;
+                    newIndex = newIndex === "WinLoss" ? "Winlost" : newIndex;
+                    newIndex = newIndex === "ExternalId" ? "nickname" : newIndex;
+                    if (_sortColumnName === newIndex) {
                         _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
                     } else {
                         _sortOrder = "desc";
-                        _sortColumnName = index;
+                        _sortColumnName = newIndex;
                     }
                     if (window.CorrectScoreBetList || window.CancelledBetsBetList) {
                         $("#SortBy").val(_sortColumnName);
@@ -4737,19 +4738,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             loadData: function (params, url) {
-                if (typeof params === "string") {
-                    params = JSON.parse(params);
+                var jsonParam = params;
+                if (typeof jsonParam === "string") {
+                    jsonParam = JSON.parse(jsonParam);
                 }
 
-                _params = params;
+                _params = jsonParam;
                 _url = url;
 
-                if (params && _sortColumnName) {
-                    params.SortBy = _sortColumnName;
-                    params.SortOrder = _sortOrder;
+                if (jsonParam && _sortColumnName) {
+                    jsonParam.SortBy = _sortColumnName;
+                    jsonParam.SortOrder = _sortOrder;
                 }
 
-                var paramString = typeof (params) === "object" ? JSON.stringify(params) : params;
+                var paramString = typeof (jsonParam) === "object" ? JSON.stringify(jsonParam) : jsonParam;
 
                 $.ajax({
                     type: "POST",
@@ -4775,24 +4777,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             loadDataPaging: function (url, params) {
                 Site.blockUI();
-
-                if (url && params) {
-                    url = QueryString.setParams(url, params);
+                var newUrl = url;
+                if (newUrl && params) {
+                    newUrl = QueryString.setParams(newUrl, params);
                 }
 
-                _url = url;
+                _url = newUrl;
 
-                if (url && _sortColumnName) {
-                    url = QueryString.setParam(url, "IsServerPaging", true);
-                    url = QueryString.setParam(url, "SortBy", _sortColumnName);
-                    url = QueryString.setParam(url, "SortOrder", _sortOrder);
+                if (newUrl && _sortColumnName) {
+                    newUrl = QueryString.setParam(newUrl, "IsServerPaging", true);
+                    newUrl = QueryString.setParam(newUrl, "SortBy", _sortColumnName);
+                    newUrl = QueryString.setParam(newUrl, "SortOrder", _sortOrder);
                 }
 
                 _me.submiting = true;
 
                 var gridOption = _me.getGridOption();
                 var rows = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
-                gridOption.url = url;
+                gridOption.url = newUrl;
                 gridOption.rowNum = rows;
                 gridOption.height = 0;
                 gridOption.loadonce = false;
@@ -4990,13 +4992,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.viewGlobalGamingResult(custid, extension2, title);
                 }
                 else {
-                    bettype = Number(bettype);
-                    var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
+                    var numberBettype = Number(bettype);
+                    var isParlay = numberBettype === BETTYPE_MIXPARLAY || numberBettype === BETTYPE_SYSTEMPARLAY || numberBettype === BETTYPE_MIXPARLAY_BETRADAR;
                     var url = isParlay
-                        ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
-                        : _me.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
+                        ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, numberBettype)
+                        : _me.getSportBookResultUrl(matchid, numberBettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
 
-                    var height = isParlay ? 450 : (isFastMarket(bettype) ? 300 : 250);
+                    var height = isParlay ? 450 : (isFastMarket(numberBettype) ? 300 : 250);
                     var width = 750;
 
                     showResultPopUp(url, { width: width + 25, height: height + 70, title: title });
@@ -5939,13 +5941,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
+                if (summaryTotal.hasOwnProperty(currency)) {
+                    currencyList.push(currency);
+                    var summaryData = summaryTotal[currency];
+                    if (Array.isArray(summaryData)) {
+                        summaryData.forEach(processColumnModel);
+                    }
+                    else {
+                        processColumnModel(summaryData);
+                    }
                 }
             }
 
@@ -5970,15 +5974,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
+            var levelNumber = Number(level);
+            if (levelNumber === 0) {
                 $(".breadCrumbHolder").hide();
             }
             else {
                 $(".breadCrumbHolder").show();
                 $("#level-link-container .level0").show();
 
-                var isLevel2 = level === 2;
+                var isLevel2 = levelNumber === 2;
                 $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
 
                 var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;

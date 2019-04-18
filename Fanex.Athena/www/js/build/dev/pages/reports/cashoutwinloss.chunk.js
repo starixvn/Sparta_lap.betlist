@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -716,16 +716,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -940,12 +940,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1006,7 +1006,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -4048,15 +4050,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             ajaxComplete: function (level, response) {
-                level = Number(level);
+                var levelNumber = Number(level);
                 if (response !== null) {
-                    cacheData[level] = response;
-                    if (level === 0) {
+                    cacheData[levelNumber] = response;
+                    if (levelNumber === 0) {
                         _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
                     }
 
-                    Report.renderBreadCrumb(level);
-                    _me.bindData(level, response);
+                    Report.renderBreadCrumb(levelNumber);
+                    _me.bindData(levelNumber, response);
                 }
             },
 
@@ -4080,18 +4082,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     return;
                 }
 
-                level = Number(level);
+                var levelNumber = Number(level);
                 var reportGrid = $("#ReportGrid");
 
-                var gridOption = CashOutWinLossOption.getGridOption(level);
+                var gridOption = CashOutWinLossOption.getGridOption(levelNumber);
                 gridOption.data = response.Data;
                 gridOption.rowTotal = numOfRow;
 
                 gridOption.gridComplete = function () {
-                    level = Number(level);
                     jqGridAdditional.gridComplete();
                     $("#pg_ppdata").hide();
-                    _me.bindTotal(level, response.Total, response.SummaryTotal);
+                    _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
                     $("#footer").html($(".ui-jqgrid-ftable").html());
 
                     CashOutWinLossOption.setGroupHeaders(reportGrid);
@@ -4132,14 +4133,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             drillDown: function (level, currencyId, customerId, datetime) {
-                level = Number(level);
+                var levelNumber = Number(level);
 
-                if (currencyId === 0) {
-                    currencyId = _submitData.CurrencyId;
+                var newCurrencyId = currencyId;
+                if (newCurrencyId === 0) {
+                    newCurrencyId = _submitData.CurrencyId;
                 }
 
-                if (_level !== level) {
-                    _level = level;
+                if (_level !== levelNumber) {
+                    _level = levelNumber;
                 }
 
                 var param =
@@ -4157,7 +4159,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 var postData = JSON.stringify(param);
                 var url = Site.resolveClientUrl(CashOutWinLossOption.urlData) +
-                        "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
+                        "?level=" + levelNumber + "&currencyId=" + newCurrencyId + "&custId=" + customerId +
                         "&fdate=" + moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY");
 
                 var option = {
@@ -4168,16 +4170,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     cache: false,
                     url: url,
                     success: function (response) {
-                        _me.ajaxComplete(level, response);
+                        _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {                     
-                            if (level > 0 && Number(param.CurrencyId) === 0) {
+                            if (levelNumber > 0 && Number(param.CurrencyId) === 0) {
                                 var viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : "";
-                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
+                                _me.setReportTitle(newCurrencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
                             } else {
                                 _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
                             }
 
-                            _me.setExcelUrl(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate);
+                            _me.setExcelUrl(levelNumber, newCurrencyId, customerId, dateRange.FromDate, dateRange.ToDate);
                         }
                     },
                     beforeSend: function () {
@@ -4193,18 +4195,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 ajaxRequest = $.ajax(option);
             },
             openBetlistPopUp: function (dataDrillDown) {
-                dataDrillDown = $.parseJSON(dataDrillDown);
-                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
+                var newDataDrillDown = $.parseJSON(dataDrillDown);
+                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, newDataDrillDown.DrillDownDate);
                 var url = Site.resolveClientUrl("CustomerWinLossBetList/Index");
                 url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
                 url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
                 url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
-                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
+                url = QueryString.setParam(url, "CurrencyId", newDataDrillDown.DrillDownCurrencyId);
+                url = QueryString.setParam(url, "CurrencyName", newDataDrillDown.DrillDownCurrencyName);
                 url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);
-                url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
-                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
-                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
+                url = QueryString.setParam(url, "custid", newDataDrillDown.CustomerId);
+                url = QueryString.setParam(url, "systemId", newDataDrillDown.SystemId);
+                url = QueryString.setParam(url, "externalId", newDataDrillDown.ExternalId);
                 url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
                 url = QueryString.setParam(url, "excelfilename", "CashOutWinLossBetList");
                 url = Site.setProductCodeListParam(url, "CO");
@@ -4240,8 +4242,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
     var dateFormatter = function (cellvalue, options, rowObject) {
-        cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
-        return setDrillDownLink(1, 0, 0, rowObject.Date, cellvalue);
+        var newCellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+        return setDrillDownLink(1, 0, 0, rowObject.Date, newCellvalue);
     };
     var currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
@@ -4557,17 +4559,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         getColModel: function (level) {
-            level = Number(level);
+            var levelNumber = Number(level);
 
-            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
+            currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
 
-            dateColumn.hidden = level > 0;
+            dateColumn.hidden = levelNumber > 0;
             dateColumn.formatoptions =
             {
                 newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
             };
-            externalIdColumn.hidden = level === 0;
-            systemIdColumn.hidden = level === 0;
+            externalIdColumn.hidden = levelNumber === 0;
+            systemIdColumn.hidden = levelNumber === 0;
             if (!_me.isLicenseeOfferBA) {
                 buyBackAmoutSBColumn.hidden = true;
                 buyBackAmoutBAColumn.hidden = true;
@@ -4739,13 +4741,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
+                if (summaryTotal.hasOwnProperty(currency)) {
+                    currencyList.push(currency);
+                    var summaryData = summaryTotal[currency];
+                    if (Array.isArray(summaryData)) {
+                        summaryData.forEach(processColumnModel);
+                    }
+                    else {
+                        processColumnModel(summaryData);
+                    }
                 }
             }
 
@@ -4770,15 +4774,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
+            var levelNumber = Number(level);
+            if (levelNumber === 0) {
                 $(".breadCrumbHolder").hide();
             }
             else {
                 $(".breadCrumbHolder").show();
                 $("#level-link-container .level0").show();
 
-                var isLevel2 = level === 2;
+                var isLevel2 = levelNumber === 2;
                 $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
 
                 var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;

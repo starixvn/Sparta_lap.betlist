@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -558,16 +558,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -1307,9 +1307,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          }
 
          function initCommParam(id) {
-             var comm1 = parseInt($(id + "1").val());
-             var comm2 = parseInt($(id + "2").val());
-             var comm3 = parseInt($(id + "3").val());
+             var comm1 = parseInt($(id + "1").val(), 10);
+             var comm2 = parseInt($(id + "2").val(), 10);
+             var comm3 = parseInt($(id + "3").val(), 10);
 
              var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
              comm = isNaN(comm) ? 0 : comm;
@@ -1319,7 +1319,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
          function initDefaultParam(formId) {
              var isDefault = $("#IsDefaultGroup").is(":checked");
-             var defaultGroupId = parseInt($('#DefaultGroupId').val());
+             var defaultGroupId = parseInt($('#DefaultGroupId').val(), 10);
              var currentGroupId = parseFloat($('#GroupCommId').val());
              $("#IsDefaultGroup").val(isDefault);
              $("#IsResetDefault").val(false);

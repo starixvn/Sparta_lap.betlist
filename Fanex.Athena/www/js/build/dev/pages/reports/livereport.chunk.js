@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -786,16 +786,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -1842,28 +1842,29 @@ Array.prototype.insertBefore = function (value, before) {
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (QueryString) {
     "use strict";
     function setSumParams(url, totalValue) {
-        url = QueryString.setParam(url, "totalrows", totalValue.BetCount);
-        url = QueryString.setParam(url, "sumwinlost", totalValue.CustomerWinLoss);
-        url = QueryString.setParam(url, "sumplayercomm", totalValue.CustomerComm);
-        url = QueryString.setParam(url, "sumlicenseewl", totalValue.LicenseeWinLoss);
-        url = QueryString.setParam(url, "sumcomm", totalValue.LicenseeComm);
-        url = QueryString.setParam(url, "sumturnover", totalValue.TurnOver);
-        url = QueryString.setParam(url, "sumamtdueto3rd", totalValue.AmountDue);
+        var newUrl = url;
+        newUrl = QueryString.setParam(newUrl, "totalrows", totalValue.BetCount);
+        newUrl = QueryString.setParam(newUrl, "sumwinlost", totalValue.CustomerWinLoss);
+        newUrl = QueryString.setParam(newUrl, "sumplayercomm", totalValue.CustomerComm);
+        newUrl = QueryString.setParam(newUrl, "sumlicenseewl", totalValue.LicenseeWinLoss);
+        newUrl = QueryString.setParam(newUrl, "sumcomm", totalValue.LicenseeComm);
+        newUrl = QueryString.setParam(newUrl, "sumturnover", totalValue.TurnOver);
+        newUrl = QueryString.setParam(newUrl, "sumamtdueto3rd", totalValue.AmountDue);
 
-        return url;
+        return newUrl;
     }
 
     function getMatchListProductOption(sportId, productCode) {
-        sportId = Number(sportId);
+        var newSportId = Number(sportId);
         var productOptions = [];
-        if (sportId > 0) {
-            if (sportId === 180 || sportId === 186) {
+        if (newSportId > 0) {
+            if (newSportId === 180 || newSportId === 186) {
                 productOptions.push("VS");
             }
-            else if (sportId === 162) {
+            else if (newSportId === 162) {
                 productOptions.push("LC");
             }
-            else if (sportId === 104 || (sportId >= 190 && sportId <= 194)) {
+            else if (newSportId === 104 || (newSportId >= 190 && newSportId <= 194)) {
                 productOptions.push("VS2");
             }
             else {
@@ -1981,15 +1982,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function viewBetList(url, totalValue, productOptions) {
-            url = Site.setLicenseeOptionOriginalParam(url);
-            url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original-from'));
-            url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
-            url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-            url = Helper.setSumParams(url, totalValue);
-            url = Site.setProductCodeListParam(url, productOptions);
+            var newUrl = Site.setLicenseeOptionOriginalParam(url);
+            newUrl = QueryString.setParam(newUrl, "fromdate", $("#FromDate").attr('data-original-from'));
+            newUrl = QueryString.setParam(newUrl, "todate", $("#ToDate").attr('data-original-to'));
+            newUrl = QueryString.setParam(newUrl, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
+            newUrl = Helper.setSumParams(newUrl, totalValue);
+            newUrl = Site.setProductCodeListParam(newUrl, productOptions);
 
             Site.blockUI();
-            Site.redirect(url);
+            Site.redirect(newUrl);
         }
 
         function viewSportDetail(target) {

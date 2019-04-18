@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -784,16 +784,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -999,8 +999,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     xhr.open(type, url, async, username, password);
 
                     // setup custom headers
-                    for (var i in headers) {
-                        xhr.setRequestHeader(i, headers[i]);
+                    for (var key in headers) {
+                        if (headers.hasOwnProperty(key)) {
+                            xhr.setRequestHeader(key, headers[key]);
+                        }
                     }
 
                     xhr.responseType = dataType;
@@ -1154,12 +1156,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1220,7 +1222,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -7796,7 +7800,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
         var EXCEL_FILENAME = "LicenseeWinLoss.xls";
-        var EXCEL_PP_FILENAME = "PP_PromotionPrize.xls";
 
         var cacheData = {};
         var ajaxRequest = null;
@@ -7805,7 +7808,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var _level = 0;
         var _reportBy = null;
         var _submitData; // cache submit data of level 0.
-        var drillDownData = {};
 
         var _me = {
             initialize: function () {
@@ -7877,7 +7879,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             initSetting: function () {
                 LicenseeWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-                LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+                LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val(), 10);
             },
 
             initEvent: function () {
@@ -7903,30 +7905,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         data.sortOrder = _sortOrder;
                     }
 
-                    _me.exportExcel(LicenseeWinLossOption.urlExcelData, data, EXCEL_FILENAME);
-                });
-
-                $('#ExportPromotionPrizeLink').click(function () {
-                    var filterData = {};
-
-                    if (_level === 0) {
-                        filterData = $("#licenseewinloss").serializeObject();
-                    }
-                    else {
-                        filterData = drillDownData;
-                    }
-
-                    var data = {
-                        __RequestVerificationToken: Site.getXsrfToken(),
-                        FromDate: filterData.FromDate,
-                        ToDate: filterData.ToDate,
-                        CurrencyId: filterData.CurrencyId,
-                        CurrencyName: filterData.CurrencyName,
-                        IsExcludedTestData: filterData.IsExcludedTestData,
-                        AgentId: filterData.AgentId
+                    var option = {
+                        type: "POST",
+                        data: data,
+                        dataType: "binary",
+                        responseType: "blob",
+                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                        cache: false,
+                        url: Site.resolveClientUrl(LicenseeWinLossOption.urlExcelData),
+                        success: function (response) {
+                            Downloader.download(response, EXCEL_FILENAME);
+                        },
+                        beforeSend: function () {
+                            Toast.show();
+                        }
                     };
 
-                    _me.exportExcel(LicenseeWinLossOption.urlPromotionPrizeExcelData, data, EXCEL_PP_FILENAME);
+                    $.ajax(option);
+
+                    return false;
                 });
 
                 $("#level-link-container").on("click", ".level-link", function () {
@@ -7946,35 +7943,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 });
             },
 
-            exportExcel: function(url, data, fileName) {
-                var option = {
-                    type: "POST",
-                    data: data,
-                    dataType: "binary",
-                    responseType: "blob",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                    cache: false,
-                    url: Site.resolveClientUrl(url),
-                    success: function (response) {
-                        Downloader.download(response, fileName);
-                    },
-                    beforeSend: function () {
-                        Toast.show();
-                    }
-                };
-
-                $.ajax(option);
-
-                return false;
-            },
-
             //#region Layout
             setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
                 var temp = 'api/LicenseeWinLossReport/Index';
                 if (level > 0) {
                     temp += "?level=" + level + "&currencyId="
-                    + currencyId + "&custId=" + custId + "&fdate=" + fdate
-                     + "&tdate=" + tdate + "&currencyName=" + currencyName;
+                    + currencyId + "&custId=" + custId + "&fdate=" + moment(fdate).format("MM/DD/YYYY")
+                     + "&tdate=" + moment(tdate).format("MM/DD/YYYY") + "&currencyName=" + currencyName;
                 }
                 LicenseeWinLossOption.urlExcelData = temp;
             },
@@ -7990,37 +7965,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
             },
-
-            showPromotionPrizeLink: function (isShow) {
-                if (isShow) {
-                    $("#ExportPromotionPrizeLink").show();
-                }
-                else {
-                    $("#ExportPromotionPrizeLink").hide();
-                }
-            },
             //#end
 
             //#Get Data
             ajaxComplete: function (level, response) {
-                level = Number(level);
+                var levelNumber = Number(level);
                 if (response !== null) {
                     var reportBy = $("input[name='ReportBy']:checked").val();
                     _reportBy = reportBy;
-                    cacheData[level] = response;
+                    cacheData[levelNumber] = response;
                     //reset layout
-                    if (level === 0) {
+                    if (levelNumber === 0) {
                         _me.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
                     }
 
-                    Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
-                    _me.bindData(level, reportBy, response);
-
-                    var pprizeCount = response.PromotionPrize;
-                    _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
-                }
-                else {
-                    _me.showPromotionPrizeLink(false);
+                    Report.renderBreadCrumb(levelNumber, LicenseeWinLossOption.licenseeId);
+                    _me.bindData(levelNumber, reportBy, response);
                 }
             },
 
@@ -8077,10 +8037,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             drillDown: function (level, currencyId, customerId, datetime, currencyName) {
-                level = Number(level);
+                var levelNumber = Number(level);
 
-                if (_level !== level) {
-                    _level = level;
+                if (_level !== levelNumber) {
+                    _level = levelNumber;
                 }
                 var param =
                 {
@@ -8095,8 +8055,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 };
                 var drilldownDate = new Date(datetime);
                 var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
-                var drillDownFDate = moment(dateRange.FromDate).format("MM/DD/YYYY");
-                var drillDownTDate = moment(dateRange.ToDate).format("MM/DD/YYYY");
                 var postData = JSON.stringify(param);
                 var option = {
                     type: "POST",
@@ -8106,12 +8064,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     cache: false,
 
                     url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
-                        "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
-                        drillDownFDate + "&tdate=" + drillDownTDate),
+                        "?level=" + levelNumber + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
+                        moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY")),
                     success: function (response) {
-                        _me.ajaxComplete(level, response);
+                        _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {
-                            if (level > 0 && Number(param.CurrencyId) === 0) {
+                            if (levelNumber > 0 && Number(param.CurrencyId) === 0) {
                                 var viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : currencyName;
                                 _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
                             } else {
@@ -8120,8 +8078,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         }
 
                         //update excel ULR
-                        _me.setExcelUrl(level, currencyId, customerId, drillDownFDate, drillDownTDate, currencyName);
-                        _me.updateDrilldownData(currencyId, currencyName, drillDownFDate, drillDownTDate, customerId);
+                        _me.setExcelUrl(levelNumber, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
                     },
                     beforeSend: function () {
                         Site.blockUI();
@@ -8136,33 +8093,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 ajaxRequest = $.ajax(option);
             },
 
-            updateDrilldownData: function (currencyId, currencyName, fromDate, toDate, agentId) {
-                drillDownData = {
-                    CurrencyId: currencyId,
-                    CurrencyName: currencyName,
-                    FromDate: fromDate,
-                    ToDate: toDate,
-                    AgentId: agentId,
-                    IsExcludedTestData: _submitData.IsExcludedTestData
-                };
-            },
-
             goBack: function (level) {
                 var reportBy = _submitData.ReportBy;
                 Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
-
-                var data = cacheData[level];
-                _me.bindData(level, reportBy, data);
-
-                var pprizeCount = data.PromotionPrize;
-                _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
+                _me.bindData(level, reportBy, cacheData[level]);
 
                 if (level === 0) {
                     _me.setExcelUrl(0, 0, 0, "", "", "");
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
                 else if (level === 1) {
-                    _me.updateDrilldownData(drillDownData.CurrencyId, drillDownData.CurrencyName, drillDownData.FromDate, drillDownData.ToDate, 0);
                     LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
                 }
             },
@@ -8171,8 +8111,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             bindTotal: function (level, totalData, summaryTotal) {
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
-                productOptions = productOptions.reverse(); //make orders of product columns like excel file
-                var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
+                var newProductOptions = productOptions.reverse(); //make orders of product columns like excel file
+                var columnModel = LicenseeWinLossOption.getTotalColModel(level, newProductOptions);
                 var colspan = LicenseeWinLossOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
 
@@ -8189,25 +8129,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     return;
                 }
 
-                level = Number(level);
+                var levelNumber = Number(level);
                 var reportGrid = $("#ReportGrid");
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
-                productOptions = productOptions.reverse(); //make orders of product columns like excel file
+                var newProductOptions = productOptions.reverse(); //make orders of product columns like excel file
 
                 var numOfTotalRow = response.Total.length;
                 var onPaging = false;
                 var data = _me.sortData(response.Data);
 
-                var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);
+                var gridOption = LicenseeWinLossOption.getGridOption(levelNumber, reportBy, newProductOptions);
                 gridOption.rownumbers = true;
                 gridOption.data = data;
                 gridOption.userData = {};
-                gridOption.rowNum = level === 2 ? LicenseeWinLossOption.pageSize : LicenseeWinLossOption.nonePagingSize;
+                gridOption.rowNum = levelNumber === 2 ? LicenseeWinLossOption.pageSize : LicenseeWinLossOption.nonePagingSize;
                 gridOption.rowList = LicenseeWinLossOption.rowList;
                 gridOption.rowTotal = numOfRow;
                 gridOption.pager = '#ppdata';
                 gridOption.onPaging = function (pgButton) {
-                    if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
+                    if (levelNumber === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
                         if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
                             Site.blockUI();
                         }
@@ -8218,20 +8158,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     }
                 };
                 gridOption.gridComplete = function () {
-                    level = Number(level);
                     jqGridAdditional.gridComplete();
-                    if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
+                    if (levelNumber === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
                         $("#pg_ppdata").show();
                     }
                     else {
                         $("#pg_ppdata").hide();
                     }
 
-                    if (onPaging && level === 2) {
+                    if (onPaging && levelNumber === 2) {
                         $(".ui-jqgrid-ftable").html($("#footer").html());
                     }
                     else {
-                        _me.bindTotal(level, response.Total, response.SummaryTotal);
+                        _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
                         $("#footer").html($(".ui-jqgrid-ftable").html());
                     }
 
@@ -8253,15 +8192,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     jqGridAdditional.addSortableHeader(reportGrid, _sortColumnName, _sortOrder);
                 }
 
-                LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, productOptions);
+                LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, newProductOptions);
 
                 LicenseeWinLossOption.restoreExpanse();
             },
 
             //#end
 
-            openBetlistPopUp: function (dataDrillDown) {
-                dataDrillDown = $.parseJSON(dataDrillDown);
+            openBetlistPopUp: function (data) {
+                var dataDrillDown = $.parseJSON(data);
                 dataDrillDown.DrawFilter = _submitData.DrawFilter;
                 dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
                 dataDrillDown.CurrencyId = _submitData.CurrencyId;
@@ -8362,7 +8301,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             //level 0,1,2
             urlData: 'api/LicenseeWinLossReport/Index',
             urlExcelData: 'api/LicenseeWinLossReport/Index',
-            urlPromotionPrizeExcelData: "api/PromotionPrizeReport/ExportExcel",
             gridOption:
             {
                 datatype: 'local',
@@ -8830,21 +8768,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         };
 
         _me.getColModel = function (level, reportBy, productOptions) {
-            reportBy = Number(reportBy);
-
+            
             // Column hidden by customer comm
             customerWlTotalColumn.hidden = !_me.hasCustomerComm;
             playerCommColumn.hidden = !_me.hasCustomerComm;
-            level = Number(level);
+            var levelNumber = Number(level);
             //set width of licenseeWL column
             if (!_me.hasCustomerComm) { licenseeWlColumn.width = 90; }
             // Column hidden by level
-            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-            systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
+            currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
+            systemIdColumn.formatter = levelNumber === 1 ? systemIdFormatter : null;
 
-            dateColumn.hidden = level > 0;
-            externalIdColumn.hidden = level < 2;
-            systemIdColumn.hidden = level === 0;
+            dateColumn.hidden = levelNumber > 0;
+            externalIdColumn.hidden = levelNumber < 2;
+            systemIdColumn.hidden = levelNumber === 0;
 
             // Column hidden by product
             var allowedSb = isProductChecked(productOptions, "SB");
@@ -8859,11 +8796,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
             cashOutCommissionColumn.hidden = !allowedCashOut;
 
-            if (level === 2) {
+            if (levelNumber === 2) {
                 externalIdColumn.formatter = betlistLink;
                 systemIdColumn.formatter = betlistLink;
             }
-            dateColumn.formatoptions = { newformat: reportBy === 2 ? 'm/Y' : 'm/d/Y' };
+            dateColumn.formatoptions = { newformat: Number(reportBy) === 2 ? 'm/Y' : 'm/d/Y' };
 
             var temp = Site.clone(colModelList);
 
@@ -9249,13 +9186,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
+                if (summaryTotal.hasOwnProperty(currency)) {
+                    currencyList.push(currency);
+                    var summaryData = summaryTotal[currency];
+                    if (Array.isArray(summaryData)) {
+                        summaryData.forEach(processColumnModel);
+                    }
+                    else {
+                        processColumnModel(summaryData);
+                    }
                 }
             }
 
@@ -9280,15 +9219,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
+            var levelNumber = Number(level);
+            if (levelNumber === 0) {
                 $(".breadCrumbHolder").hide();
             }
             else {
                 $(".breadCrumbHolder").show();
                 $("#level-link-container .level0").show();
 
-                var isLevel2 = level === 2;
+                var isLevel2 = levelNumber === 2;
                 $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
 
                 var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;

@@ -168,7 +168,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var DEFAULT_MODAL = true;
 
     var _methods = {
-        init: function (options) {
+        init: function (inputOptions) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
@@ -184,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
 
             $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            var options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
                 var $self = $(this);
                 var $container = $(options.container);
@@ -716,16 +716,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
+            var newOption = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
             var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -940,12 +940,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1006,7 +1006,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -4021,10 +4023,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
             //#Get Data
             ajaxComplete: function (level, response) {
-                level = Number(level);
+                var levelNumber = Number(level);
                 if (response != null) {
-                    cacheData[level] = response;
-                    if (level === 0) {
+                    cacheData[levelNumber] = response;
+                    if (levelNumber === 0) {
                         _drilldownData = {
                             IsExcludedTestData: _submitData.IsExcludedTestData,
                             CurrencyId: _submitData.CurrencyId,
@@ -4038,8 +4040,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
                     }
 
-                    Report.renderBreadCrumb(level);
-                    _me.bindData(level, response);
+                    Report.renderBreadCrumb(levelNumber);
+                    _me.bindData(levelNumber, response);
                 }
             },
 
@@ -4188,21 +4190,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     return;
                 }
 
-                level = Number(level);
+                var levelNumber = Number(level);
 
                 var reportGrid = $("#ReportGrid");
 
-                var gridOption = AgCasinoWinLossOption.getGridOption(level);
+                var gridOption = AgCasinoWinLossOption.getGridOption(levelNumber);
                 gridOption.data = response.Data;
                 gridOption.rowTotal = numOfRow;
 
                 gridOption.gridComplete = function () {
-                    level = Number(level);
-
+                    
                     jqGridAdditional.gridComplete();
                     $("#pg_ppdata").hide();
 
-                    _me.bindTotal(level, response.Total, response.SummaryTotal);
+                    _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
 
                     _me.resizeGrid();
 
@@ -4433,18 +4434,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     _me.getColModel = function (level) {
-        level = Number(level);
+        var levelNumber = Number(level);
 
-        currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-        systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
+        currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
+        systemIdColumn.formatter = levelNumber === 1 ? systemIdFormatter : null;
 
-        dateColumn.hidden = level > 0;
+        dateColumn.hidden = levelNumber > 0;
         dateColumn.formatoptions =
         {
             newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
         };
-        externalIdColumn.hidden = level < 2;
-        systemIdColumn.hidden = level === 0;
+        externalIdColumn.hidden = levelNumber < 2;
+        systemIdColumn.hidden = levelNumber === 0;
 
         var temp = Site.clone(colModelList);
         return temp;
@@ -4613,13 +4614,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
+                if (summaryTotal.hasOwnProperty(currency)) {
+                    currencyList.push(currency);
+                    var summaryData = summaryTotal[currency];
+                    if (Array.isArray(summaryData)) {
+                        summaryData.forEach(processColumnModel);
+                    }
+                    else {
+                        processColumnModel(summaryData);
+                    }
                 }
             }
 
@@ -4644,15 +4647,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
+            var levelNumber = Number(level);
+            if (levelNumber === 0) {
                 $(".breadCrumbHolder").hide();
             }
             else {
                 $(".breadCrumbHolder").show();
                 $("#level-link-container .level0").show();
 
-                var isLevel2 = level === 2;
+                var isLevel2 = levelNumber === 2;
                 $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
 
                 var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;

@@ -19845,14 +19845,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         var queryString = getQueryString(url);
         var args = parseQueryString(queryString);
 
-        if (name == null || name === undefined) {
+        if (name == null) {
             return url;
         }
 
         // Update value
         var found = false;
         for (var key in args) {
-            if (key != null && key !== undefined && key.toLowerCase() === name.toLowerCase()) {
+            if (key != null && key.toLowerCase() === name.toLowerCase()) {
                 // Does not update data if value = undefined
                 if (value !== undefined) {
                     args[key] = value;
@@ -19878,13 +19878,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
     }
 
     function setParams(url, parameters) {
+        var returnUrl = url;
         for (var property in parameters) {
             if (parameters.hasOwnProperty(property)) {
-                url = setParam(url, property, parameters[property]);
+                returnUrl = setParam(returnUrl, property, parameters[property]);
             }
         }
 
-        return url;
+        return returnUrl;
     }
 
     return {
@@ -19940,20 +19941,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency) {
-            currencyName = $.trim(currencyName);
-            // Set Url
-            if (typeof (urlOrParams) === "string") {
-                urlOrParams = QueryString.setParam(urlOrParams, "CurrencyId", currencyId);
-                urlOrParams = QueryString.setParam(urlOrParams, "CurrencyName", currencyName);
-                urlOrParams = QueryString.setParam(urlOrParams, "BaseCurrency", baseCurrency);
+            var validCurrencyName = $.trim(currencyName);
+            var returnUrlOrParams = urlOrParams;
+
+            if (typeof (returnUrlOrParams) === "string") {
+                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, "CurrencyId", currencyId);
+                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, "CurrencyName", validCurrencyName);
+                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, "BaseCurrency", baseCurrency);
             }
             else {
-                urlOrParams.CurrencyId = currencyId;
-                urlOrParams.CurrencyName = currencyName;
-                urlOrParams.BaseCurrency = baseCurrency;
+                returnUrlOrParams.CurrencyId = currencyId;
+                returnUrlOrParams.CurrencyName = validCurrencyName;
+                returnUrlOrParams.BaseCurrency = baseCurrency;
             }
 
-            return urlOrParams;
+            return returnUrlOrParams;
         }
 
         function initSelectElements() {
@@ -19980,7 +19982,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
                 cache: false,
                 headers: { '__RequestVerificationToken': REQUEST_VERIFICATION_TOKEN },
                 statusCode: {
-                    0: unBlockUI(),
+                    0: function () {
+                        unBlockUI();
+                    },
                     400: function () {
                         unBlockUI();
                         alert(getSingleResource("InvalidRequestMsg"));
@@ -20010,12 +20014,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
                 buttonSelector: "#UserGuide",
                 id: "UserGuidePopup"
             };
-            options = $.extend(defaultOptions, options);
-            options.title = options.title || "";
-            var url = resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
+            var newOptions = $.extend(defaultOptions, options);
+            newOptions.title = newOptions.title || "";
+            var url = resolveClientUrl('UserGuide/Index?resourcename=' + newOptions.resourceName) + "&_" + (new Date().getTime());
             var $popup;
             var isRequesting = false;
-            $(options.buttonSelector).click(function () {
+            $(newOptions.buttonSelector).click(function () {
                 var $userGuidePopup = $('<div style="display: none" ></div>');
 
                 if (!$popup) {
@@ -20039,12 +20043,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
                 }
             });
         }
+
         function asNull(text) {
-            if (text != null) {
-                text = text.trim();
-                if (text === '') {
-                    return null;
-                }
+            if (text === null || text.trim() === '') {
+                return null;
             }
 
             return text;
@@ -20087,29 +20089,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function setProductOptionParamList(urlOrParams) {
-            // Set Url
-            if (typeof (urlOrParams) === "string") {
+            var returnUrlOrParams = urlOrParams;
+            if (typeof (returnUrlOrParams) === "string") {
                 var counter = 0;
                 $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
-                        urlOrParams = setProductOptionParam(urlOrParams, counter, productCode, $(element).prop("checked"));
+                        returnUrlOrParams = setProductOptionParam(returnUrlOrParams, counter, productCode, $(element).prop("checked"));
                         counter++;
                     }
                 });
 
-                return urlOrParams;
+                return returnUrlOrParams;
             }
             else {
-                urlOrParams.ProductOptions = [];
+                returnUrlOrParams.ProductOptions = [];
                 $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
-                        urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop("checked") });
+                        returnUrlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop("checked") });
                     }
                 });
 
-                return urlOrParams;
+                return returnUrlOrParams;
             }
         }
 
@@ -20132,26 +20134,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function setProductOptionParam(url, counter, productCode, status) {
-            productCode = productCode == null ? undefined : productCode.toUpperCase();
-            url = QueryString.setParam(url, "ProductOptions[" + counter + "].Code", productCode);
-            url = QueryString.setParam(url, "ProductOptions[" + counter + "].Name", productCode);
-            url = QueryString.setParam(url, "ProductOptions[" + counter + "].Status", status);
+            var validProductCode = productCode == null ? undefined : productCode.toUpperCase();
+            var newUrl = url;
+            newUrl = QueryString.setParam(newUrl, "ProductOptions[" + counter + "].Code", validProductCode);
+            newUrl = QueryString.setParam(newUrl, "ProductOptions[" + counter + "].Name", validProductCode);
+            newUrl = QueryString.setParam(newUrl, "ProductOptions[" + counter + "].Status", status);
 
-            return url;
+            return newUrl;
         }
 
         function setDateRangeParam(url) {
-            url = QueryString.setParam(url, "FromDate", $("#FromDate").val());
-            url = QueryString.setParam(url, "ToDate", $("#ToDate").val());
+            var newUrl = url;
+            newUrl = QueryString.setParam(newUrl, "FromDate", $("#FromDate").val());
+            newUrl = QueryString.setParam(newUrl, "ToDate", $("#ToDate").val());
 
-            return url;
+            return newUrl;
         }
 
         function setDateRangeOriginalParam(url) {
-            url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original'));
-            url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original'));
+            var newUrl = url;
+            newUrl = QueryString.setParam(newUrl, "FromDate", $("#FromDate").attr('data-original'));
+            newUrl = QueryString.setParam(newUrl, "ToDate", $("#ToDate").attr('data-original'));
 
-            return url;
+            return newUrl;
         }
 
         function currencyConstraint(userChange) {
@@ -20257,13 +20262,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
 
             var resources = window[keyName];
             if (!resources) {
-                resources = _language_en_US; // jshint ignore:line
+                resources = window._language_en_US; // jshint ignore:line
             }
 
             var mapResource = function (key) {
                 var item = resources[key];
                 if (item === undefined) {
-                    item = _language_en_US[key]; // jshint ignore:line
+                    item = window._language_en_US[key]; // jshint ignore:line
                     return item !== undefined ? item : key;
                 } else {
                     return item;
@@ -20340,12 +20345,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function addFilterCollapseExpand(containerSelector) {
-            if (!containerSelector) {
-                containerSelector = ".page-form:has(form)";
-            }
-
             var $handler = $("<div class='filter-handle'><i class='icon-arrow'></i></div>");
-            var $container = $(containerSelector);
+            var $container = $(containerSelector || ".page-form:has(form)");
 
             $container.append($handler);
 
