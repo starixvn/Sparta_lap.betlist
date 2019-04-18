@@ -7910,7 +7910,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     var filterData = {};
 
                     if (_level === 0) {
-                        filterData = $("#licenseewinloss").serializeObject()
+                        filterData = $("#licenseewinloss").serializeObject();
                     }
                     else {
                         filterData = drillDownData;
@@ -7927,7 +7927,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     };
 
                     _me.exportExcel(LicenseeWinLossOption.urlPromotionPrizeExcelData, data, EXCEL_PP_FILENAME);
-                })
+                });
 
                 $("#level-link-container").on("click", ".level-link", function () {
                     var level = Number($(this).attr("data-level"));
@@ -8144,7 +8144,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     ToDate: toDate,
                     AgentId: agentId,
                     IsExcludedTestData: _submitData.IsExcludedTestData
-                }
+                };
             },
 
             goBack: function (level) {
