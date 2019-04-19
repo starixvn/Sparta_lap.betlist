@@ -1,26 +1,26 @@
 ﻿define(
-    ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional",
-        "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect",
-        "helpers/daterange", "helpers/downloader", "components/toast", "helpers/datahelper", "lib/jqgrid/jquery.jqGrid.en",
-        "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq", "extensions/ajaxBinaryTransporting"],
+    ['jquery', 'common/querystring', 'common/site', '../report', './licenseewinloss.option', 'lib/jqgrid/jquery.jqgrid.additional',
+        'components/pluginhelper/daterangepicker', 'moment', 'common/popup', 'components/pluginhelper/multiselect',
+        'helpers/daterange', 'helpers/downloader', 'components/toast', 'helpers/datahelper', 'lib/jqgrid/jquery.jqGrid.en',
+        'lib/jqgrid/jquery.jqGrid.min', 'extensions/jquery.extension', 'lib/linq', 'extensions/ajaxBinaryTransporting'],
     function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup,
         MultiSelect, DateHelper, Downloader, Toast, DataHelper) {
-        "use strict";
-        var REPORT_BY_MONTHLY = 2;
-        var VALID_MONTH_RANGE = 3;
-        var EXCEL_FILENAME = "LicenseeWinLoss.xls";
-        var EXCEL_PP_FILENAME = "PP_PromotionPrize.xls";
+        'use strict';
+        const REPORT_BY_MONTHLY = 2;
+        const VALID_MONTH_RANGE = 3;
+        const EXCEL_FILENAME = 'LicenseeWinLoss.xls';
+        const EXCEL_PP_FILENAME = 'PP_PromotionPrize.xls';
 
-        var cacheData = {};
-        var ajaxRequest = null;
-        var _sortColumnName = null;
-        var _sortOrder = "desc";
-        var _level = 0;
-        var _reportBy = null;
-        var _submitData; // cache submit data of level 0.
-        var drillDownData = {};
+        const cacheData = {};
+        let ajaxRequest = null;
+        let _sortColumnName = null;
+        let _sortOrder = 'desc';
+        let _level = 0;
+        let _reportBy = null;
+        let _submitData; // cache submit data of level 0.
+        let drillDownData = {};
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
                 _me.initEvent();
@@ -31,9 +31,9 @@
                     Site.blockUI();
                     window.setTimeout(function () {
                         if (_sortColumnName === index) {
-                            _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
+                            _sortOrder = _sortOrder === 'asc' ? 'desc' : 'asc';
                         } else {
-                            _sortOrder = "asc";
+                            _sortOrder = 'asc';
                             _sortColumnName = index;
                         }
 
@@ -45,8 +45,8 @@
                 };
 
                 Site.addUserGuide({
-                    resourceName: "LicenseeWL",
-                    title: Site.getSingleResource("LicenseeWinLoss")
+                    resourceName: 'LicenseeWL',
+                    title: Site.getSingleResource('LicenseeWinLoss')
                 });
                 MultiSelect.initProductList();
                 DatePicker.initDateRangePicker();
@@ -58,28 +58,28 @@
             },
 
             sortData: function (arrayData) {
-                var totalData = arrayData.length;
+                const totalData = arrayData.length;
 
                 if (!_sortColumnName || totalData <= 1) {
                     return arrayData;
                 }
 
-                var sortThenBy = arrayData[0].Id ? "Id" : "Index";
+                const sortThenBy = arrayData[0].Id ? 'Id' : 'Index';
 
-                var data = DataHelper.sort(
+                const data = DataHelper.sort(
                     arrayData,
                     function (x) { return x[_sortColumnName]; },
                     _sortOrder,
                     function (x) { return x[sortThenBy]; },
-                    "asc");
+                    'asc');
 
-                if (sortThenBy === "Id") {
-                    for (var i = 0; i < totalData; i++) {
+                if (sortThenBy === 'Id') {
+                    for (let i = 0; i < totalData; i++) {
                         data[i].Index = i + 1;
                     }
                 }
                 else {
-                    for (var j = 0; j < totalData; j++) {
+                    for (let j = 0; j < totalData; j++) {
                         arrayData[j].Id = j + 1;
                         data[j].Index = j + 1;
                     }
@@ -89,13 +89,13 @@
             },
 
             initSetting: function () {
-                LicenseeWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-                LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val(), 10);
+                LicenseeWinLossOption.hasCustomerComm = Site.asBool($('#IsAllowedCustomerCommission').val());
+                LicenseeWinLossOption.licenseeId = parseInt($('#drillDownLicenseeId').val(), 10);
             },
 
             initEvent: function () {
-                $("body").on("click", ".bet-list-link", function () {
-                    var dataDrillDown = $(this).attr("data-drill-down");
+                $('body').on('click', '.bet-list-link', function () {
+                    const dataDrillDown = $(this).attr('data-drill-down');
                     _me.openBetlistPopUp(dataDrillDown);
                 });
 
@@ -103,14 +103,14 @@
                     $('#IsExportExcel').val(false);
                     _level = 0;
                     _sortColumnName = null;
-                    _sortOrder = "desc";
+                    _sortOrder = 'desc';
                     _me.submit();
                 });
 
                 $('#ExportToExcel').click(function () {
                     $('#IsExportExcel').val(true);
 
-                    var data = $("#licenseewinloss").serializeObject();
+                    const data = $('#licenseewinloss').serializeObject();
                     if (_sortColumnName) {
                         data.sortby = _sortColumnName;
                         data.sortOrder = _sortOrder;
@@ -120,16 +120,16 @@
                 });
 
                 $('#ExportPromotionPrizeLink').click(function () {
-                    var filterData = {};
+                    let filterData = {};
 
                     if (_level === 0) {
-                        filterData = $("#licenseewinloss").serializeObject();
+                        filterData = $('#licenseewinloss').serializeObject();
                     }
                     else {
                         filterData = drillDownData;
                     }
 
-                    var data = {
+                    const data = {
                         __RequestVerificationToken: Site.getXsrfToken(),
                         FromDate: filterData.FromDate,
                         ToDate: filterData.ToDate,
@@ -142,30 +142,30 @@
                     _me.exportExcel(LicenseeWinLossOption.urlPromotionPrizeExcelData, data, EXCEL_PP_FILENAME);
                 });
 
-                $("#level-link-container").on("click", ".level-link", function () {
-                    var level = Number($(this).attr("data-level"));
+                $('#level-link-container').on('click', '.level-link', function () {
+                    const level = Number($(this).attr('data-level'));
                     _level = level;
                     if (level < 2) {
                         _me.goBack(level);
                     }
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     _me.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             exportExcel: function(url, data, fileName) {
-                var option = {
-                    type: "POST",
+                const option = {
+                    type: 'POST',
                     data: data,
-                    dataType: "binary",
-                    responseType: "blob",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    dataType: 'binary',
+                    responseType: 'blob',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     cache: false,
                     url: Site.resolveClientUrl(url),
                     success: function (response) {
@@ -183,53 +183,53 @@
 
             //#region Layout
             setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
-                var temp = 'api/LicenseeWinLossReport/Index';
+                let temp = 'api/LicenseeWinLossReport/Index';
                 if (level > 0) {
-                    temp += "?level=" + level + "&currencyId="
-                    + currencyId + "&custId=" + custId + "&fdate=" + fdate
-                     + "&tdate=" + tdate + "&currencyName=" + currencyName;
+                    temp += '?level=' + level + '&currencyId='
+                    + currencyId + '&custId=' + custId + '&fdate=' + fdate
+                     + '&tdate=' + tdate + '&currencyName=' + currencyName;
                 }
                 LicenseeWinLossOption.urlExcelData = temp;
             },
 
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
-                var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
+                const titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
+                const currencyNameOnTitle = currencyName ? Site.getSingleResource('Viewin').replace('{0}', currencyName)
                                                         : Report.getCurrencyNameForReportTitle(currencyId);
-                var title = $.format(titlePattern,
-                    moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"),
-                    moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"),
+                const title = $.format(titlePattern,
+                    moment(fromdate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
+                    moment(todate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
                     currencyNameOnTitle);
-                $(".report-title").html(title);
-                $(".panel-heading").removeClass("hide");
+                $('.report-title').html(title);
+                $('.panel-heading').removeClass('hide');
             },
 
             showPromotionPrizeLink: function (isShow) {
                 if (isShow) {
-                    $("#ExportPromotionPrizeLink").show();
+                    $('#ExportPromotionPrizeLink').show();
                 }
                 else {
-                    $("#ExportPromotionPrizeLink").hide();
+                    $('#ExportPromotionPrizeLink').hide();
                 }
             },
             //#end
 
             //#Get Data
             ajaxComplete: function (level, response) {
-                var levelNumber = Number(level);
+                const levelNumber = Number(level);
                 if (response !== null) {
-                    var reportBy = $("input[name='ReportBy']:checked").val();
+                    const reportBy = $('input[name="ReportBy"]:checked').val();
                     _reportBy = reportBy;
                     cacheData[levelNumber] = response;
                     //reset layout
                     if (levelNumber === 0) {
-                        _me.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
+                        _me.setReportTitle($('#CurrencyId').val(), $('#FromDate').val(), $('#ToDate').val());
                     }
 
                     Report.renderBreadCrumb(levelNumber, LicenseeWinLossOption.licenseeId);
                     _me.bindData(levelNumber, reportBy, response);
 
-                    var pprizeCount = response.PromotionPrize;
+                    const pprizeCount = response.PromotionPrize;
                     _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
                 }
                 else {
@@ -241,18 +241,18 @@
                 Report.setOriginalProduct();
                 Site.updateOriginalLicenseeOption();
 
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return false;
                 }
 
-                var mainForm = $("#licenseewinloss");
-                var data = mainForm.serializeObject();
-                var option = {
-                    type: "POST",
+                const mainForm = $('#licenseewinloss');
+                const data = mainForm.serializeObject();
+                const option = {
+                    type: 'POST',
                     data: data,
-                    dataType: "json",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     cache: false,
                     url: Site.resolveClientUrl(LicenseeWinLossOption.urlData),
                     success: function (response) {
@@ -267,7 +267,7 @@
                             IsExcludedTestData: data.IsExcludedTestData
                         };
 
-                        _me.setExcelUrl(0, 0, 0, "", "", "");
+                        _me.setExcelUrl(0, 0, 0, '', '', '');
                         _me.ajaxComplete(0, response);
                     },
                     beforeSend: function () {
@@ -290,12 +290,12 @@
             },
 
             drillDown: function (level, currencyId, customerId, datetime, currencyName) {
-                var levelNumber = Number(level);
+                const levelNumber = Number(level);
 
                 if (_level !== levelNumber) {
                     _level = levelNumber;
                 }
-                var param =
+                const param =
                 {
                     ProductOptions: $.parseJSON(_submitData.ProductOptions),
                     DrawFilter: _submitData.DrawFilter,
@@ -304,23 +304,23 @@
                     ReportBy: _submitData.ReportBy,
                     FromDate: _submitData.FromDate,
                     ToDate: _submitData.ToDate,
-                    BaseCurrency: $("#BaseCurrency").attr("data-original")
+                    BaseCurrency: $('#BaseCurrency').attr('data-original')
                 };
-                var drilldownDate = new Date(datetime);
-                var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
-                var drillDownFDate = moment(dateRange.FromDate).format("MM/DD/YYYY");
-                var drillDownTDate = moment(dateRange.ToDate).format("MM/DD/YYYY");
-                var postData = JSON.stringify(param);
-                var option = {
-                    type: "POST",
+                const drilldownDate = new Date(datetime);
+                const dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
+                const drillDownFDate = moment(dateRange.FromDate).format('MM/DD/YYYY');
+                const drillDownTDate = moment(dateRange.ToDate).format('MM/DD/YYYY');
+                const postData = JSON.stringify(param);
+                const option = {
+                    type: 'POST',
                     data: postData,
-                    dataType: "json",
-                    contentType: "application/json",
+                    dataType: 'json',
+                    contentType: 'application/json',
                     cache: false,
 
                     url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
-                        "?level=" + levelNumber + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
-                        drillDownFDate + "&tdate=" + drillDownTDate),
+                        '?level=' + levelNumber + '&currencyId=' + currencyId + '&custId=' + customerId + '&fdate=' +
+                        drillDownFDate + '&tdate=' + drillDownTDate),
                     success: function (response) {
                         _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {
@@ -361,17 +361,17 @@
             },
 
             goBack: function (level) {
-                var reportBy = _submitData.ReportBy;
+                const reportBy = _submitData.ReportBy;
                 Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
 
-                var data = cacheData[level];
+                const data = cacheData[level];
                 _me.bindData(level, reportBy, data);
 
-                var pprizeCount = data.PromotionPrize;
+                const pprizeCount = data.PromotionPrize;
                 _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
 
                 if (level === 0) {
-                    _me.setExcelUrl(0, 0, 0, "", "", "");
+                    _me.setExcelUrl(0, 0, 0, '', '', '');
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
                 else if (level === 1) {
@@ -383,35 +383,35 @@
             //#BindReport
 
             bindTotal: function (level, totalData, summaryTotal) {
-                var productOptions = $.parseJSON(_submitData.ProductOptions);
-                var newProductOptions = productOptions.reverse(); //make orders of product columns like excel file
-                var columnModel = LicenseeWinLossOption.getTotalColModel(level, newProductOptions);
-                var colspan = LicenseeWinLossOption.totalColspan[level];
-                var summaryColspan = colspan + 1;
+                const productOptions = $.parseJSON(_submitData.ProductOptions);
+                const newProductOptions = productOptions.reverse(); //make orders of product columns like excel file
+                const columnModel = LicenseeWinLossOption.getTotalColModel(level, newProductOptions);
+                const colspan = LicenseeWinLossOption.totalColspan[level];
+                const summaryColspan = colspan + 1;
 
                 jqGridAdditional.assignTotal(totalData, columnModel);
-                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+                const summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
                 jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
             },
 
             bindData: function (level, reportBy, response) {
-                jqGridAdditional.clearGrid("ReportGrid");
-                var numOfRow = response.Data.length;
+                jqGridAdditional.clearGrid('ReportGrid');
+                const numOfRow = response.Data.length;
                 if (numOfRow === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
 
-                var levelNumber = Number(level);
-                var reportGrid = $("#ReportGrid");
-                var productOptions = $.parseJSON(_submitData.ProductOptions);
-                var newProductOptions = productOptions.reverse(); //make orders of product columns like excel file
+                const levelNumber = Number(level);
+                const reportGrid = $('#ReportGrid');
+                const productOptions = $.parseJSON(_submitData.ProductOptions);
+                const newProductOptions = productOptions.reverse(); //make orders of product columns like excel file
 
-                var numOfTotalRow = response.Total.length;
-                var onPaging = false;
-                var data = _me.sortData(response.Data);
+                const numOfTotalRow = response.Total.length;
+                let onPaging = false;
+                const data = _me.sortData(response.Data);
 
-                var gridOption = LicenseeWinLossOption.getGridOption(levelNumber, reportBy, newProductOptions);
+                const gridOption = LicenseeWinLossOption.getGridOption(levelNumber, reportBy, newProductOptions);
                 gridOption.rownumbers = true;
                 gridOption.data = data;
                 gridOption.userData = {};
@@ -421,7 +421,7 @@
                 gridOption.pager = '#ppdata';
                 gridOption.onPaging = function (pgButton) {
                     if (levelNumber === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
-                        if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+                        if ($('#' + pgButton).hasClass('ui-state-disabled') === false) {
                             Site.blockUI();
                         }
                         onPaging = true;
@@ -433,18 +433,18 @@
                 gridOption.gridComplete = function () {
                     jqGridAdditional.gridComplete();
                     if (levelNumber === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
-                        $("#pg_ppdata").show();
+                        $('#pg_ppdata').show();
                     }
                     else {
-                        $("#pg_ppdata").hide();
+                        $('#pg_ppdata').hide();
                     }
 
                     if (onPaging && levelNumber === 2) {
-                        $(".ui-jqgrid-ftable").html($("#footer").html());
+                        $('.ui-jqgrid-ftable').html($('#footer').html());
                     }
                     else {
                         _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
-                        $("#footer").html($(".ui-jqgrid-ftable").html());
+                        $('#footer').html($('.ui-jqgrid-ftable').html());
                     }
 
                     onPaging = false;
@@ -452,7 +452,7 @@
 
                     /*group header*/
                     if (numOfTotalRow > 0) {
-                        LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
+                        LicenseeWinLossOption.addProductButton(reportGrid, 'jqgh_ReportGrid', 'ReportGrid', productOptions);
                     }
 
                     Site.unBlockUI();
@@ -473,12 +473,12 @@
             //#end
 
             openBetlistPopUp: function (data) {
-                var dataDrillDown = $.parseJSON(data);
+                const dataDrillDown = $.parseJSON(data);
                 dataDrillDown.DrawFilter = _submitData.DrawFilter;
                 dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
                 dataDrillDown.CurrencyId = _submitData.CurrencyId;
                 dataDrillDown.CurrencyName = _submitData.CurrencyName;
-                dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
+                dataDrillDown.BaseCurrency = $('#BaseCurrency').attr('data-original');
 
                 if (typeof dataDrillDown.DrillDownFromDate === 'string') {
                     dataDrillDown.DrillDownFromDate = new Date(dataDrillDown.DrillDownFromDate);
@@ -486,19 +486,19 @@
                 }
 
                 if (_submitData.ReportBy === REPORT_BY_MONTHLY) {
-                    var fday = 1;
-                    var month = dataDrillDown.DrillDownFromDate.getMonth();
-                    var year = dataDrillDown.DrillDownFromDate.getFullYear();
+                    let fday = 1;
+                    const month = dataDrillDown.DrillDownFromDate.getMonth();
+                    const year = dataDrillDown.DrillDownFromDate.getFullYear();
 
-                    var orignalFDate = new Date(_submitData.FromDate);
-                    var originalTDate = new Date(_submitData.ToDate);
+                    const orignalFDate = new Date(_submitData.FromDate);
+                    const originalTDate = new Date(_submitData.ToDate);
 
                     if (month === orignalFDate.getMonth()) {
                         fday = orignalFDate.getDate();
                     }
                     dataDrillDown.DrillDownFromDate = new Date(year, month, fday, 0, 0, 0, 0);
                     if (month === originalTDate.getMonth()) {
-                        var tday = originalTDate.getDate();
+                        const tday = originalTDate.getDate();
                         dataDrillDown.DrillDownToDate = new Date(year, month, tday, 0, 0, 0, 0);
                     }
                     else {
@@ -506,28 +506,28 @@
                     }
                 }
 
-                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
-                url = QueryString.setParam(url, "fromdate", moment(dataDrillDown.DrillDownFromDate).format("MM/DD/YYYY"));
-                url = QueryString.setParam(url, "todate", moment(dataDrillDown.DrillDownToDate).format("MM/DD/YYYY"));
-                url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
-                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
-                url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
-                url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
-                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
-                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
-                url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
+                let url = Site.resolveClientUrl('LicenseeWinLossBetList/Index');
+                url = QueryString.setParam(url, 'fromdate', moment(dataDrillDown.DrillDownFromDate).format('MM/DD/YYYY'));
+                url = QueryString.setParam(url, 'todate', moment(dataDrillDown.DrillDownToDate).format('MM/DD/YYYY'));
+                url = QueryString.setParam(url, 'excludetest', dataDrillDown.IsExcludedTestData);
+                url = QueryString.setParam(url, 'CurrencyId', dataDrillDown.DrillDownCurrencyId);
+                url = QueryString.setParam(url, 'CurrencyName', dataDrillDown.DrillDownCurrencyName);
+                url = QueryString.setParam(url, 'drawfilter', dataDrillDown.DrawFilter);
+                url = QueryString.setParam(url, 'custid', dataDrillDown.CustomerId);
+                url = QueryString.setParam(url, 'systemId', dataDrillDown.SystemId);
+                url = QueryString.setParam(url, 'externalId', dataDrillDown.ExternalId);
+                url = QueryString.setParam(url, 'BaseCurrency', dataDrillDown.BaseCurrency);
 
                 url = Site.setProductOptionOriginalParamList(url);
 
-                var popH = Math.min($(window).height() - 100, 650), popW = 920;
-                var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
+                const popH = Math.min($(window).height() - 100, 650), popW = 920;
+                const popupOption = { id: 'betlist-popup', width: popW + 50, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
             resizeGrid: function () {
-                var reportGrid = $("#ReportGrid");
+                const reportGrid = $('#ReportGrid');
                 jqGridAdditional.updateGridHeight();
                 jqGridAdditional.updateGridWidth(reportGrid);
             }

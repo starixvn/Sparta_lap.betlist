@@ -15,7 +15,10 @@ define(['jquery'], function ($) {
 
             $(this).each(function () {
                 var $this = $(this);
-                
+
+                // Touch Event
+                var menuOut = false;
+
                 var menu_id = $('#' + $this.attr('data-activates'));
 
                 // Set to width
@@ -81,7 +84,6 @@ define(['jquery'], function ($) {
                 }
 
                 function removeMenu(restoreNav) {
-                    panning = false;
                     menuOut = false;
                     // Reenable scrolling
                     $('body').css({
@@ -129,10 +131,6 @@ define(['jquery'], function ($) {
                         });
                     }
                 }
-
-                // Touch Event
-                var panning = false;
-                var menuOut = false;
 
                 dragTarget.on('click', function () {
                     if (menuOut) {
@@ -222,7 +220,6 @@ define(['jquery'], function ($) {
                         if (rightPos < 0) {
                             rightPos = 0;
                         }
-                        panning = false;
 
                         if (options.edge === 'left') {
                             // If velocityX <= 0.3 then the user is flinging the menu closed so ignore menuOut
@@ -303,7 +300,6 @@ define(['jquery'], function ($) {
 
                         if (menuOut === true) {
                             menuOut = false;
-                            panning = false;
                             removeMenu();
                         } else {
                             // Disable Scrolling
@@ -325,7 +321,6 @@ define(['jquery'], function ($) {
                             var overlay = $('<div id="sidenav-overlay"></div>');
                             overlay.css('opacity', 0).click(function () {
                                 menuOut = false;
-                                panning = false;
                                 removeMenu();
                                 overlay.velocity({ opacity: 0 }, {
                                     duration: 300, queue: false, easing: 'easeOutQuad',
@@ -339,7 +334,6 @@ define(['jquery'], function ($) {
                                 duration: 300, queue: false, easing: 'easeOutQuad',
                                 complete: function() {
                                     menuOut = true;
-                                    panning = false;
                                 }
                             });
                         }
