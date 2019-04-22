@@ -60,7 +60,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.AllBetCasino, Version=1.0.1.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.5-beta-01\lib\net40\Fanex.Result.Core.AllBetCasino.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.5\lib\net40\Fanex.Result.Core.AllBetCasino.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.Base, Version=2.1.9.1, Culture=neutral, processorArchitecture=MSIL">
@@ -87,7 +87,7 @@
       <HintPath>..\..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="LiveCasinoResult, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.5-beta-01\lib\net40\LiveCasinoResult.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.5\lib\net40\LiveCasinoResult.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
