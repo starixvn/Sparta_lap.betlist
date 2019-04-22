@@ -111,6 +111,8 @@
     <Compile Include="Users\Interfaces\IAthorizationDataAccess.cs" />
     <Compile Include="Users\Interfaces\ILicenseeDataAccess.cs" />
     <Compile Include="Users\Interfaces\IUserDataAccess.cs" />
+    <Compile Include="Utilities\ConnectionStringDecryptor.cs" />
+    <Compile Include="Utilities\IConnectionStringDecryptor.cs" />
     <Compile Include="Utilities\ISafeDataReader.cs" />
     <Compile Include="Utilities\SafeDataReader.cs" />
   </ItemGroup>
