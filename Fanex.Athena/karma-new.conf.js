@@ -1,6 +1,9 @@
 // Karma configuration
 // Generated on Wed Apr 20 2016 16:28:26 GMT+0700 (SE Asia Standard Time)
 
+const puppeteer = require('puppeteer');
+process.env.CHROME_BIN = puppeteer.executablePath();
+
 module.exports = function (config) {
     config.set({
         basePath: '',
@@ -39,7 +42,7 @@ module.exports = function (config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: false,
-        browsers: ['PhantomJS'],
+        browsers: ['ChromeHeadless'],
         reporters: ['kjhtml', 'dots', 'junit', 'coverage'],
         singleRun: true,
         junitReporter: {
