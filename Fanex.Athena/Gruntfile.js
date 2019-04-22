@@ -18,23 +18,9 @@ module.exports = function (grunt) {
         karma: {
             unit: {
                 configFile: 'karma.conf.js'
-                /*port: 9999,
-                singleRun: true,
-                browsers: ['PhantomJS'],
-                logLevel: 'ERROR'*/
-            },
-            unitdev: {
-                configFile: 'karma.conf-dev.js'
             },
             unit2: {
                 configFile: 'karma-new.conf.js'
-                /*port: 9999,
-                singleRun: true,
-                browsers: ['PhantomJS'],
-                logLevel: 'ERROR'*/
-            },
-            unit2dev: {
-                configFile: 'karma-new-dev.conf.js'
             }
         },
         jshint: {

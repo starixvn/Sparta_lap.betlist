@@ -578,9 +578,7 @@
     <Content Include="robots.txt" />
     <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
-    <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
-    <Content Include="karma.conf-dev.js" />
     <Content Include="Scripts\Extension\ajaxBinaryTransporting.js" />
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />

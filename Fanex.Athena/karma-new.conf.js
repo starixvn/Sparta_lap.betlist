@@ -55,10 +55,6 @@ module.exports = function (config) {
                 { type: 'html', subdir: 'report-html' }
             ]
         },
-        concurrency: Infinity,
-        phantomjsLauncher: {
-            // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
-            exitOnResourceError: true
-        }
+        concurrency: Infinity
     });
 };
