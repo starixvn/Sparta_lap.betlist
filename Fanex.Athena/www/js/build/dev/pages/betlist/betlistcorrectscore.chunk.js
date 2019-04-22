@@ -3506,32 +3506,32 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! ./betlist.option */ "./www/js/source/pages/betlist/betlist.option.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"),
         __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
-        "use strict";
-        var BETTYPE_CASHOUT = 911;
-        var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
-        var MIN_BETTYPE_FASTMARKET = 221;
-        var MAX_BETTYPE_FASTMARKET = 227;
-        var SPORT_RNG_GAME = 208;
-        var SPORT_RNG_MINIGAME = 209;
-        var SPORT_RNG_MOBILE = 210;
-        var SPORT_ALLBET = 211;
-        var SPORT_VOIDBRIDGE = 212;
-        var SPORT_PP = 248;
-        var SPORT_GLOBALGAMING = 219;
-        var BETLIST_META_MODEL = "#BetListMetaModel";
+        'use strict';
+        const BETTYPE_CASHOUT = 911;
+        const BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
+        const MIN_BETTYPE_FASTMARKET = 221;
+        const MAX_BETTYPE_FASTMARKET = 227;
+        const SPORT_RNG_GAME = 208;
+        const SPORT_RNG_MINIGAME = 209;
+        const SPORT_RNG_MOBILE = 210;
+        const SPORT_ALLBET = 211;
+        const SPORT_VOIDBRIDGE = 212;
+        const SPORT_PP = 248;
+        const SPORT_GLOBALGAMING = 219;
+        const BETLIST_META_MODEL = '#BetListMetaModel';
 
-        var _sortColumnName, _sortOrder;
-        var _params, _url;
-        var _isShowSumStake;
-        var _onClientPaging = false;
+        let _sortColumnName, _sortOrder;
+        let _params, _url;
+        let _isShowSumStake;
+        let _onClientPaging = false;
 
         function showDetailPopUp(url, option) {
-            option.id = "betlist-popup-detail";
+            option.id = 'betlist-popup-detail';
             Popup.openPopupWithIframe(url, option);
         }
 
         function showResultPopUp(url, option) {
-            option.id = "betlist-popup-result";
+            option.id = 'betlist-popup-result';
             Popup.openPopupWithIframe(url, option);
         }
 
@@ -3539,11 +3539,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
         }
         function getBaseCurrency() {
-            var params = $.parseJSON($(BETLIST_META_MODEL).val());
+            const params = $.parseJSON($(BETLIST_META_MODEL).val());
             return params.BaseCurrency;
         }
 
-        var _me = {
+        const _me = {
             getSortParams: function () {
                 if (!_sortColumnName) {
                     return null;
@@ -3562,10 +3562,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.updateSortColumn();
                 }
 
-                _isShowSumStake = $("#IsShowSumStake").val() === "1";
+                _isShowSumStake = $('#IsShowSumStake').val() === '1';
 
-                _sortColumnName = _sortColumnName || $("#SortBy").val();
-                _sortOrder = _sortOrder || $("#SortOrder").val();
+                _sortColumnName = _sortColumnName || $('#SortBy').val();
+                _sortOrder = _sortOrder || $('#SortOrder').val();
 
                 _me.registerBetListGlobalFunctions();
             },
@@ -3576,16 +3576,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             isMatchWLBetList: function () {
-                var regex = /MatchWinLossBetList/i;
-                return regex.test($("#ApiUrl").val());
+                const regex = /MatchWinLossBetList/i;
+                return regex.test($('#ApiUrl').val());
             },
 
             gridComplete: function (grid) {
-                var $grid = $(grid);
+                const $grid = $(grid);
                 // add sort icon
-                var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
-                sortCol = _sortColumnName === "nickname" ? "ExternalId" : sortCol;
-                sortCol = _sortColumnName === "UserName" ? "SystemId" : sortCol;
+                let sortCol = _sortColumnName === 'Winlost' ? 'WinLoss' : _sortColumnName;
+                sortCol = _sortColumnName === 'nickname' ? 'ExternalId' : sortCol;
+                sortCol = _sortColumnName === 'UserName' ? 'SystemId' : sortCol;
                 if (sortCol && !_onClientPaging) {
                     jqGridAdditional.addSortableHeader($grid, sortCol, _sortOrder);
                 }
@@ -3594,50 +3594,50 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 jqGridAdditional.gridComplete();
                 // Remove unnecessary item
                 if (_isShowSumStake) {
-                    $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Odds]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
+                    $('.ui-jqgrid-ftable td[aria-describedby=BetListGrid_Odds]').html(Site.getSingleResource('GrandTotal')).removeAttr('title');
                 } else {
-                    $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
+                    $('.ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]').html(Site.getSingleResource('GrandTotal')).removeAttr('title');
                 }
 
-                $("#pager2").show();
+                $('#pager2').show();
 
                 // fix cursor on non-sortable columns
-                var cm = $grid[0].p.colModel;
+                const cm = $grid[0].p.colModel;
                 $.each($grid[0].grid.headers, function (index, value) {
-                    var cmi = cm[index];
+                    const cmi = cm[index];
                     if (!cmi.sortable) {
-                        $('.ui-jqgrid-sortable', value.el).css({ cursor: "default" });
+                        $('.ui-jqgrid-sortable', value.el).css({ cursor: 'default' });
                     }
                 });
 
-                $(".ui-jqgrid-bdiv").css({ "height": "auto" });
+                $('.ui-jqgrid-bdiv').css({ 'height': 'auto' });
                 jqGridAdditional.updateGridHeight();
                 Site.unBlockUI();
             },
 
             getGridOption: function () {
-                var gridOption = $.extend(true, {}, BetListOption.gridOption);
+                const gridOption = $.extend(true, {}, BetListOption.gridOption);
 
                 gridOption.onSortCol = function (index) {
                     if (window.disableBetListSorting) {
                         return 'stop';
                     }
                     Site.blockUI();
-                    var newIndex = index;
-                    newIndex = newIndex === "WinLoss" ? "Winlost" : newIndex;
-                    newIndex = newIndex === "ExternalId" ? "nickname" : newIndex;
+                    let newIndex = index;
+                    newIndex = newIndex === 'WinLoss' ? 'Winlost' : newIndex;
+                    newIndex = newIndex === 'ExternalId' ? 'nickname' : newIndex;
                     if (_sortColumnName === newIndex) {
-                        _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
+                        _sortOrder = _sortOrder === 'asc' ? 'desc' : 'asc';
                     } else {
-                        _sortOrder = "desc";
+                        _sortOrder = 'desc';
                         _sortColumnName = newIndex;
                     }
                     if (window.CorrectScoreBetList || window.CancelledBetsBetList) {
-                        $("#SortBy").val(_sortColumnName);
-                        $("#SortOrder").val(_sortOrder);
+                        $('#SortBy').val(_sortColumnName);
+                        $('#SortOrder').val(_sortOrder);
                     }
 
-                    if (window.serverPaging || $("#IsServerPaging").val() === "1") {
+                    if (window.serverPaging || $('#IsServerPaging').val() === '1') {
                         _me.loadDataPaging(_url);
                     }
                     else {
@@ -3648,23 +3648,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 };
 
                 // Specify the hidden column
-                var hiddenColumnList = $("#HiddenColumnList").val();
-                var hiddenColumnTokens = hiddenColumnList.split(",");
-                var showSummary = $("#ShowSummary").val() === "0" ? false : hiddenColumnList.indexOf("licenseewl") < 0;
+                const hiddenColumnList = $('#HiddenColumnList').val();
+                const hiddenColumnTokens = hiddenColumnList.split(',');
+                const showSummary = $('#ShowSummary').val() === '0' ? false : hiddenColumnList.indexOf('licenseewl') < 0;
 
                 $.each(hiddenColumnTokens, function (index, value) {
                     jqGridAdditional.hideColumn(BetListOption.columnModel, value);
                 });
-                if ($("#HasBetEffectiveColumn").val() !== "1") {
-                    jqGridAdditional.hideColumn(BetListOption.columnModel, "BetEffective");
+                if ($('#HasBetEffectiveColumn').val() !== '1') {
+                    jqGridAdditional.hideColumn(BetListOption.columnModel, 'BetEffective');
                 }
                 if (Site.isFakeLicensee()) {
-                    jqGridAdditional.hideColumn(BetListOption.columnModel, "SystemId");
+                    jqGridAdditional.hideColumn(BetListOption.columnModel, 'SystemId');
                 }
                 gridOption.colNames = BetListOption.columnNames;
                 gridOption.colModel = BetListOption.columnModel;
                 gridOption.footerrow = showSummary;
-                var hasCustComm = $('#HasCustComm').val();
+                const hasCustComm = $('#HasCustComm').val();
                 if (hasCustComm === '1') {
                     gridOption.colNames = $.map(gridOption.colNames, function (val) {
                         if (val === 'WinLoss') {
@@ -3682,8 +3682,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             loadData: function (params, url) {
-                var jsonParam = params;
-                if (typeof jsonParam === "string") {
+                let jsonParam = params;
+                if (typeof jsonParam === 'string') {
                     jsonParam = JSON.parse(jsonParam);
                 }
 
@@ -3695,13 +3695,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     jsonParam.SortOrder = _sortOrder;
                 }
 
-                var paramString = typeof (jsonParam) === "object" ? JSON.stringify(jsonParam) : jsonParam;
+                const paramString = typeof (jsonParam) === 'object' ? JSON.stringify(jsonParam) : jsonParam;
 
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     data: paramString,
                     contentType: 'application/json',
-                    dataType: "json",
+                    dataType: 'json',
                     cache: false,
                     url: url,
                     success: function (response) {
@@ -3721,7 +3721,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             loadDataPaging: function (url, params) {
                 Site.blockUI();
-                var newUrl = url;
+                let newUrl = url;
                 if (newUrl && params) {
                     newUrl = QueryString.setParams(newUrl, params);
                 }
@@ -3729,59 +3729,61 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 _url = newUrl;
 
                 if (newUrl && _sortColumnName) {
-                    newUrl = QueryString.setParam(newUrl, "IsServerPaging", true);
-                    newUrl = QueryString.setParam(newUrl, "SortBy", _sortColumnName);
-                    newUrl = QueryString.setParam(newUrl, "SortOrder", _sortOrder);
+                    newUrl = QueryString.setParam(newUrl, 'IsServerPaging', true);
+                    newUrl = QueryString.setParam(newUrl, 'SortBy', _sortColumnName);
+                    newUrl = QueryString.setParam(newUrl, 'SortOrder', _sortOrder);
                 }
 
                 _me.submiting = true;
 
-                var gridOption = _me.getGridOption();
-                var rows = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
+                const $grid = $('#BetListGrid');
+                const gridOption = _me.getGridOption();
+                const rows = Number($grid.getGridParam('rowNum')) || gridOption.rowNum;
                 gridOption.url = newUrl;
                 gridOption.rowNum = rows;
                 gridOption.height = 0;
                 gridOption.loadonce = false;
-                gridOption.datatype = "json";
+                gridOption.datatype = 'json';
                 gridOption.gridComplete = function () {
-                    var rowCount = $(this).getGridParam("records");
+                    const rowCount = $(this).getGridParam('records');
                     if (rowCount === 0) {
-                        $("#pager2").hide();
+                        $('#pager2').hide();
                         jqGridAdditional.setNoInfo();
                         Site.unBlockUI();
                         return;
                     }
 
-                    $("#gbox_BetListGrid").show();
+                    $('#gbox_BetListGrid').show();
                     _me.gridComplete(this);
                     if (_me.submiting) {
-                        $(".ui-pg-selbox").val(rows);
+                        $('.ui-pg-selbox').val(rows);
                     }
                     _me.submiting = false;
                 };
 
                 // Show the grid
-                $("#BetListGrid").jqGrid('GridUnload');
-                $("#BetListGrid").jqGrid(gridOption);
-                $("#gbox_BetListGrid").hide();
+                $grid.jqGrid('GridUnload');
+                $grid.jqGrid(gridOption);
+                $('#gbox_BetListGrid').hide();
             },
 
             bindData: function (response) {
-                $("#BetListGrid").jqGrid('GridUnload');
+                const $grid = $('#BetListGrid');
+                $grid.jqGrid('GridUnload');
 
                 if (response === null || response.Main.length === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
 
-                var rawData = response.Main;
-                var summary = response.Total;
-                var sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
-                var sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
-                var sumBetEffective = jqGridAdditional.formatDecimal(summary.SumBetEffective);
-                var gridOption = _me.getGridOption();
+                const rawData = response.Main;
+                const summary = response.Total;
+                const sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
+                const sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
+                const sumBetEffective = jqGridAdditional.formatDecimal(summary.SumBetEffective);
+                const gridOption = _me.getGridOption();
 
-                var rowNum = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
+                let rowNum = Number($grid.getGridParam('rowNum')) || gridOption.rowNum;
                 if (rowNum < gridOption.rowList[0]) {
                     rowNum = gridOption.rowList[0];
                 }
@@ -3806,51 +3808,51 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.gridComplete(this);
                 };
 
-                $("#BetListGrid").jqGrid(gridOption);
+                $grid.jqGrid(gridOption);
             },
 
             getMixParlayResultUrl: function (refno, winlostdate, bettype) {
-                var url = Site.resolveClientUrl('ResultReport/ResultPopup');
-                url = QueryString.setParam(url, "refno", refno);
-                url = QueryString.setParam(url, "winlossdate", winlostdate);
-                url = QueryString.setParam(url, "bettype", bettype);
-                url = QueryString.setParam(url, "matchid", 1);
+                let url = Site.resolveClientUrl('ResultReport/ResultPopup');
+                url = QueryString.setParam(url, 'refno', refno);
+                url = QueryString.setParam(url, 'winlossdate', winlostdate);
+                url = QueryString.setParam(url, 'bettype', bettype);
+                url = QueryString.setParam(url, 'matchid', 1);
 
                 return url;
             },
 
             getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2) {
-                var url = Site.resolveClientUrl('ResultReport/ResultPopup');
-                url = QueryString.setParam(url, "matchid", matchid);
-                url = QueryString.setParam(url, "bettype", bettype);
-                url = QueryString.setParam(url, "raceno", raceNo);
-                url = QueryString.setParam(url, "sporttype", sporttype);
-                url = QueryString.setParam(url, "isoutright", isOutright);
+                let url = Site.resolveClientUrl('ResultReport/ResultPopup');
+                url = QueryString.setParam(url, 'matchid', matchid);
+                url = QueryString.setParam(url, 'bettype', bettype);
+                url = QueryString.setParam(url, 'raceno', raceNo);
+                url = QueryString.setParam(url, 'sporttype', sporttype);
+                url = QueryString.setParam(url, 'isoutright', isOutright);
 
                 if (isFastMarket(bettype)) {
-                    url = QueryString.setParam(url, "handicap1", extension1);
-                    url = QueryString.setParam(url, "handicap2", extension2);
+                    url = QueryString.setParam(url, 'handicap1', extension1);
+                    url = QueryString.setParam(url, 'handicap2', extension2);
                 }
                 else {
-                    url = QueryString.setParam(url, "betid", extension1);
+                    url = QueryString.setParam(url, 'betid', extension1);
                 }
 
                 return url;
             },
 
             viewRngCasinoResult: function (title, refno) {
-                var url = Site.resolveClientUrl('ResultReport/ShowRngCasinoSingleWalletResult');
+                let url = Site.resolveClientUrl('ResultReport/ShowRngCasinoSingleWalletResult');
 
-                var params = { "refNo": refno };
+                const params = { 'refNo': refno };
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     contentType: 'application/json',
-                    dataType: "json",
+                    dataType: 'json',
                     data: JSON.stringify(params),
                     cache: false,
                     url: url,
                     success: function (response) {
-                        var result = response.Result;
+                        const result = response.Result;
                         if (response.Success) {
                             if (result === "") {
                                 return;
@@ -3859,7 +3861,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             showResultPopUp(result, { width: 800, height: 380, title: title });
                         }
                         else {
-                            alert(Site.getSingleResource("ErrorProcessingMsg"));
+                            alert(Site.getSingleResource('ErrorProcessingMsg'));
                         }
                     },
                     beforeSend: function () {
@@ -3872,7 +3874,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             viewVoidbridgeResult: function (custId, gamePlayId, title) {
-                var url = Site.resolveClientUrl('ResultReport/VoidbridgeResult');
+                const url = Site.resolveClientUrl('ResultReport/VoidbridgeResult');
                 Site.blockUI();
                 $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
                     if (result !== '') {
@@ -3883,7 +3885,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             viewPPResult: function (custId, gamePlayId, title) {
-                var url = Site.resolveClientUrl('PPResultPopup/Index');
+                const url = Site.resolveClientUrl('PPResultPopup/Index');
                 Site.blockUI();
                 $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
                     if (result !== '') {
@@ -3894,7 +3896,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             viewAllBetResult: function (trasdesc, betcheck, bettype, title) {
-                var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
+                const url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
                     encodeURIComponent(trasdesc) + '&betcheck=' + betcheck + '&bettype=' + bettype);
 
                 Site.blockUI();
@@ -3903,11 +3905,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             setLeagueTitle: function (leagueName) {
-                var leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
-                $(".league-name-title").html(leagueNameText + " - ");
+                const leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
+                $('.league-name-title').html(leagueNameText + ' - ');
             },
             viewGlobalGamingResult: function (custId, gameId, title) {
-                var url = Site.resolveClientUrl('ResultReport/GlobalGamingResult');
+                const url = Site.resolveClientUrl('ResultReport/GlobalGamingResult');
                 Site.blockUI();
                 $.get(url + '?custid=' + custId + '&gameId=' + gameId, function (result) {
                     if (result !== '') {
@@ -3918,7 +3920,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
             viewResult: function (matchid, raceNo, bettype, sporttype, refno,
                 username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) {
-                var title = Site.getSingleResource("Result");
+                const title = Site.getSingleResource('Result');
 
                 if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
                     _me.viewRngCasinoResult(title, refno);
@@ -3936,40 +3938,40 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.viewGlobalGamingResult(custid, extension2, title);
                 }
                 else {
-                    var numberBettype = Number(bettype);
-                    var isParlay = numberBettype === BETTYPE_MIXPARLAY || numberBettype === BETTYPE_SYSTEMPARLAY || numberBettype === BETTYPE_MIXPARLAY_BETRADAR;
-                    var url = isParlay
+                    const numberBettype = Number(bettype);
+                    const isParlay = numberBettype === BETTYPE_MIXPARLAY || numberBettype === BETTYPE_SYSTEMPARLAY || numberBettype === BETTYPE_MIXPARLAY_BETRADAR;
+                    const url = isParlay
                         ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, numberBettype)
                         : _me.getSportBookResultUrl(matchid, numberBettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
 
-                    var height = isParlay ? 450 : (isFastMarket(numberBettype) ? 300 : 250);
-                    var width = 750;
+                    const height = isParlay ? 450 : (isFastMarket(numberBettype) ? 300 : 250);
+                    const width = 750;
 
                     showResultPopUp(url, { width: width + 25, height: height + 70, title: title });
                 }
             },
 
             showMixParlayDetail: function (transId, divEvent, custid) {
-                var url = Site.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId + '&custId=' + custid);
-                if (divEvent.css("display") === 'none') {
+                const url = Site.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId + '&custId=' + custid);
+                if (divEvent.css('display') === 'none') {
                     $.ajax({
-                        type: "GET",
+                        type: 'GET',
                         contentType: 'application/json',
-                        dataType: "json",
+                        dataType: 'json',
                         cache: false,
                         url: url,
                         success: function (response) {
-                            var choice = "";
-                            var len = response.length;
+                            let choice = "";
+                            const len = response.length;
                             $.each(response, function (index, item) {
                                 choice += item;
                                 if (index < len - 1) {
-                                    choice += "<div class='line'></div>";
+                                    choice += '<div class="line"></div>';
                                 }
                             });
 
                             divEvent.html(choice);
-                            divEvent.css("display", "");
+                            divEvent.css('display', '');
                         },
                         beforeSend: function () {
                             Site.blockUI();
@@ -3980,46 +3982,46 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     });
                 }
                 else {
-                    divEvent.css("display", "none");
-                    divEvent.html("");
+                    divEvent.css('display', 'none');
+                    divEvent.html('');
                 }
             },
 
             showNewParlayDetail: function (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
-                var $divEvent = $('#divEvent_' + transId + "" + transIndex);
-                var $nameDiv = $('#combinationOfferName_' + transId + transIndex);
-                $divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+                const $divEvent = $('#divEvent_' + transId + '' + transIndex);
+                const $nameDiv = $('#combinationOfferName_' + transId + transIndex);
+                $divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
 
-                if ($divEvent.is(":hidden")) {
-                    var url = Site.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
-                    url = QueryString.setParam(url, "transId", transId);
-                    url = QueryString.setParam(url, "refNo", refNo);
-                    url = QueryString.setParam(url, "handicap1", handicap1);
-                    url = QueryString.setParam(url, "handicap2", handicap2);
-                    url = QueryString.setParam(url, "betcheck", betcheck);
-                    url = QueryString.setParam(url, "betteam", betteam);
-                    url = QueryString.setParam(url, "custId", custId);
+                if ($divEvent.is(':hidden')) {
+                    let url = Site.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
+                    url = QueryString.setParam(url, 'transId', transId);
+                    url = QueryString.setParam(url, 'refNo', refNo);
+                    url = QueryString.setParam(url, 'handicap1', handicap1);
+                    url = QueryString.setParam(url, 'handicap2', handicap2);
+                    url = QueryString.setParam(url, 'betcheck', betcheck);
+                    url = QueryString.setParam(url, 'betteam', betteam);
+                    url = QueryString.setParam(url, 'custId', custId);
 
                     $.ajax({
-                        type: "GET",
+                        type: 'GET',
                         contentType: 'application/json',
-                        dataType: "json",
+                        dataType: 'json',
                         cache: false,
                         url: url,
                         success: function (response) {
-                            var length = response.Data === null ? 0 : response.Data.length;
+                            let length = response.Data === null ? 0 : response.Data.length;
                             if (length > 0) {
-                                var choice = "";
+                                let choice = '';
                                 $.each(response.Texts, function (index, item) {
                                     choice += item;
                                 });
 
-                                choice += "<div class='line'></div>";
+                                choice += '<div class="line"></div>';
 
                                 $.each(response.Data, function (index, item) {
                                     choice += item;
                                     if (index < length - 1) {
-                                        choice += "<div class='line'></div>";
+                                        choice += '<div class="line"></div>';
                                     }
                                 });
 
@@ -4032,128 +4034,128 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     });
                 }
                 else {
-                    $divEvent.hide().html("");
+                    $divEvent.hide().html('');
                     $nameDiv.show();
-                    $(".ui-jqgrid-bdiv").css("height", "auto");
+                    $('.ui-jqgrid-bdiv').css('height', 'auto');
                 }
             },
 
             showSystemParlayDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {
                 if (Number(transId) === 0) { return; }
 
-                var url = Site.resolveClientUrl('SystemParlayBetList/Detail');
-                url = QueryString.setParam(url, "refno", refNo);
-                url = QueryString.setParam(url, "betteam", betTeam);
-                url = QueryString.setParam(url, "basecurrency", baseCurrency);
+                let url = Site.resolveClientUrl('SystemParlayBetList/Detail');
+                url = QueryString.setParam(url, 'refno', refNo);
+                url = QueryString.setParam(url, 'betteam', betTeam);
+                url = QueryString.setParam(url, 'basecurrency', baseCurrency);
 
                 showDetailPopUp(url, { width: 775, height: 500, title: betTeam });
             },
 
             showAGCasinoDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('AGCasinoBetList/Detail');
-                url = QueryString.setParam(url, "transid", transId);
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('AGCasinoBetList/Detail');
+                url = QueryString.setParam(url, 'transid', transId);
+                url = QueryString.setParam(url, 'custid', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("AGCasino") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('AGCasino') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
 
             showRnGCasinoDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('RnGCasinoBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "winlostDate", winlostDate);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('RnGCasinoBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'winlostDate', winlostDate);
+                url = QueryString.setParam(url, 'custId', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductCS") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductCS') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
 
             showVoidBridgeDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('VoidbridgeBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "winlostDate", winlostDate);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('VoidbridgeBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'winlostDate', winlostDate);
+                url = QueryString.setParam(url, 'custId', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductVB") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductVB') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             showAllBetDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('AllBetBetList/Detail');
-                url = QueryString.setParam(url, "transid", transId);
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "date", winlostDate);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('AllBetBetList/Detail');
+                url = QueryString.setParam(url, 'transid', transId);
+                url = QueryString.setParam(url, 'custid', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'date', winlostDate);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductAB") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductAB') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
             showColossusBetsDetails: function (refNo, winlostDate, transId, custId, betCheck) {
-                var url = Site.resolveClientUrl('ColossusBetBetList/Detail');
-                url = QueryString.setParam(url, "refNo", refNo);
-                url = QueryString.setParam(url, "date", winlostDate);
-                url = QueryString.setParam(url, "transid", transId);
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "betCheck", betCheck);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('ColossusBetBetList/Detail');
+                url = QueryString.setParam(url, 'refNo', refNo);
+                url = QueryString.setParam(url, 'date', winlostDate);
+                url = QueryString.setParam(url, 'transid', transId);
+                url = QueryString.setParam(url, 'custid', custId);
+                url = QueryString.setParam(url, 'betCheck', betCheck);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("TicketDetailOf").replace("{0}", refNo);
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('TicketDetailOf').replace('{0}', refNo);
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             showGlobalGamingDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "winlostDate", winlostDate);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'winlostDate', winlostDate);
+                url = QueryString.setParam(url, 'custId', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductFW") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductFW') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             showPPDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('PragmaticPlayBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "winlostDate", winlostDate);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('PragmaticPlayBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'winlostDate', winlostDate);
+                url = QueryString.setParam(url, 'custId', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductPP") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductPP') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             ValidProducts: function () {
-                var temp = true;
-                if ($("#ProductList input:checked").length === 0) {
+                let temp = true;
+                if ($('#ProductList').find('input:checked').length === 0) {
                     temp = false;
-                    var title = Site.getSingleResource("LrfNotification");
-                    var dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource("AlertChooseProductMsg") + '</p></div>';
+                    const title = Site.getSingleResource('LrfNotification');
+                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource("AlertChooseProductMsg") + '</p></div>';
                     Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
                 }
 
@@ -4161,43 +4163,43 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             ViewCasinoHandHistory: function (refNo) {
-                var url = Site.resolveClientUrl('HandHistory/RNGCasino');
-                var urlParam = $("#casino-hand-history-" + refNo).attr('url-param');
+                let url = Site.resolveClientUrl('HandHistory/RNGCasino');
+                const urlParam = $('#casino-hand-history-' + refNo).attr('url-param');
 
                 url += urlParam;
                 Site.redirect(url);
             },
 
             viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
-                var $baseCurrency = $("#BaseCurrency");
-                var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
+                const $baseCurrency = $('#BaseCurrency');
+                const baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
 
-                var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
-                var url = Site.resolveClientUrl('CashOutBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "refNo", refNo);
-                url = QueryString.setParam(url, "betType", betType);
-                url = QueryString.setParam(url, "betdaqId", betdaqId);
-                url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
-                url = QueryString.setParam(url, "isCashout", isCashOut);
+                const isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
+                let url = Site.resolveClientUrl('CashOutBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'refNo', refNo);
+                url = QueryString.setParam(url, 'betType', betType);
+                url = QueryString.setParam(url, 'betdaqId', betdaqId);
+                url = QueryString.setParam(url, 'BaseCurrency', baseCurrency);
+                url = QueryString.setParam(url, 'isCashout', isCashOut);
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = isCashOut ? Site.getSingleResource("CashOutDetails") : Site.getSingleResource("BoughtDetails");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = isCashOut ? Site.getSingleResource('CashOutDetails') : Site.getSingleResource('BoughtDetails');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
 
             showBonusDetails: function (refCode, transId) {
-                var $baseCurrency = $("#BaseCurrency");
-                var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
+                const $baseCurrency = $('#BaseCurrency');
+                const baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
 
-                var url = Site.resolveClientUrl('BonusBetList/Detail');
-                url = QueryString.setParam(url, "RefCode", refCode);
-                url = QueryString.setParam(url, "TransId", transId);
-                url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
+                let url = Site.resolveClientUrl('BonusBetList/Detail');
+                url = QueryString.setParam(url, 'RefCode', refCode);
+                url = QueryString.setParam(url, 'TransId', transId);
+                url = QueryString.setParam(url, 'BaseCurrency', baseCurrency);
 
-                var popH = Math.min($(window).height() - 100, 550), popW = 840;
-                var title = Site.getSingleResource("TransactionDetail");
+                const popH = Math.min($(window).height() - 100, 550), popW = 840;
+                const title = Site.getSingleResource('TransactionDetail');
 
                 showDetailPopUp(url, { width: popW + 50, height: popH + 50, title: title });
             },
@@ -4207,13 +4209,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 // showMP and showCombMP are only for old tickets
                 window.showMP = function (transId, refNo, custId) {
                     var divEvent = $('#divEvent_' + transId);
-                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+                    divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
                 window.showCombMP = function (transId, index, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId + "" + index);
-                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+                    var divEvent = $('#divEvent_' + transId + '' + index);
+                    divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
@@ -4231,14 +4233,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 window.ShowBonusDetails = _me.showBonusDetails;
                 window.showPPDetails = _me.showPPDetails;
 
-                var betList = {
+                const betList = {
                     ViewCasinoHandHistory: _me.ViewCasinoHandHistory
                 };
                 window.BetList = betList;
             },
 
             resizeGrid: function () {
-                var grid = $("#BetListGrid");
+                const grid = $('#BetListGrid');
                 jqGridAdditional.updateGridHeight();
                 jqGridAdditional.updateGridWidth(grid);
             }
