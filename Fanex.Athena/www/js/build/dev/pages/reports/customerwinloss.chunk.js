@@ -6480,7 +6480,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
             var pprizeCount = response.PromotionPrize;
-            showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
+            showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount, 10) > 0);
         }
 
         function ajaxPaging() {
