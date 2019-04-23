@@ -265,7 +265,7 @@
 
             CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
             var pprizeCount = response.PromotionPrize;
-            showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
+            showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount, 10) > 0);
         }
 
         function ajaxPaging() {

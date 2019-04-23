@@ -83,7 +83,7 @@
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _title);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 2);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);

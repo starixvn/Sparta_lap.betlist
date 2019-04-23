@@ -230,7 +230,7 @@
                     _me.bindData(levelNumber, reportBy, response);
 
                     const pprizeCount = response.PromotionPrize;
-                    _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
+                    _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount, 10) > 0);
                 }
                 else {
                     _me.showPromotionPrizeLink(false);
@@ -368,7 +368,7 @@
                 _me.bindData(level, reportBy, data);
 
                 const pprizeCount = data.PromotionPrize;
-                _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
+                _me.showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount, 10) > 0);
 
                 if (level === 0) {
                     _me.setExcelUrl(0, 0, 0, '', '', '');
