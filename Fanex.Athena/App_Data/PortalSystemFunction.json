@@ -104,14 +104,6 @@
     "FunctionKey": "WinLossByBetType33"
   },
   {
-    "FunctionId": 36,
-    "FunctionKey": "CancelledBets36"
-  },
-  {
-    "FunctionId": 37,
-    "FunctionKey": "DailyBetList37"
-  },
-  {
     "FunctionId": 38,
     "FunctionKey": "LiveReport38"
   },
