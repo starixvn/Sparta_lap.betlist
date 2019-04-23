@@ -442,7 +442,6 @@
       <LastGenOutput>FanexSpName.xml1.txt</LastGenOutput>
     </None>
     <None Include="SpNameConfig\SpNameConfiguration.ttinclude" />
-    <Content Include="package.json" />
     <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
       <SubType>Designer</SubType>
