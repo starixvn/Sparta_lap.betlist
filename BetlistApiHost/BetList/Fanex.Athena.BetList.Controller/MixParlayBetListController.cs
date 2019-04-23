@@ -46,8 +46,13 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<JsonResult> NewParlayDetail(NewParlayDetailMetaModel metaModel)
         {
-            var texts = (string[])_cacheRefAdapter.GetCombinationTypeCombo(metaModel.BetTeam, metaModel.BetCheck, metaModel.Handicap1, metaModel.Handicap2).Clone();
+            var texts = _cacheRefAdapter.GetCombinationTypeCombo(metaModel.BetTeam, metaModel.BetCheck, metaModel.Handicap1, metaModel.Handicap2);
+            if (texts == null)
+            {
+                return null;
+            }
 
+            texts = (string[])texts.Clone(); // must do this weird step
             var ticketResult = await _betListService.GetMixParlayDetailTicket(metaModel);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
 
