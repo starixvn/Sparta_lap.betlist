@@ -882,15 +882,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -908,23 +908,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -943,14 +943,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -961,14 +961,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -980,16 +980,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -1006,45 +1006,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -1060,8 +1060,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -1070,7 +1070,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -1087,10 +1087,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -1098,10 +1098,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -1109,37 +1109,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -1149,16 +1149,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            var newOption = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
             newOption.labelText = labelText;
             newOption.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(newOption));
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -1166,44 +1166,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -1215,7 +1215,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -6235,78 +6235,78 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js"),
     __webpack_require__(/*! extensions/ajaxBinaryTransporting */ "./www/js/source/extensions/ajaxBinaryTransporting.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup,
         PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
-        "use strict";
+        'use strict';
 
-        var EXCEL_FILENAME = "CustomerWinLoss.xls";
-        var EXCEL_PP_FILENAME = "PP_PromotionPrize.xls";
-        var SORTING_CODE = {
-            "ExternalId": 2,
-            "SystemId": 1,
-            "Turnover": 3,
-            "TotalTransaction": 13,
-            "CustomerWL": 4,
-            "BetEffective": 5,
-            "PlayerComm": 10,
-            "CustomerTotalWL": 14,
-            "LicenseeWL": 6,
-            "BAComm": 8,
-            "RacingRevenue": 15,
-            "AmtDueToBA": 11,
-            "AmtDueToRacing": 12
+        const EXCEL_FILENAME = 'CustomerWinLoss.xls';
+        const EXCEL_PP_FILENAME = 'PP_PromotionPrize.xls';
+        const SORTING_CODE = {
+            'ExternalId': 2,
+            'SystemId': 1,
+            'Turnover': 3,
+            'TotalTransaction': 13,
+            'CustomerWL': 4,
+            'BetEffective': 5,
+            'PlayerComm': 10,
+            'CustomerTotalWL': 14,
+            'LicenseeWL': 6,
+            'BAComm': 8,
+            'RacingRevenue': 15,
+            'AmtDueToBA': 11,
+            'AmtDueToRacing': 12
         };
 
-        var _ajaxRequest = null;
-        var _submitData = null;
-        var _productCodes = [];
+        let _ajaxRequest = null;
+        let _submitData = null;
+        let _productCodes = [];
 
-        var _sortColumnName = "";
-        var _sortOrder = "";
-        var _orderItem = 0;
-        var _isFirstLoad = false;
+        let _sortColumnName = '';
+        let _sortOrder = '';
+        let _orderItem = 0;
+        let _isFirstLoad = false;
 
-        var _pagingOption =
+        let _pagingOption =
         {
             pageindex: 1,
             pagesize: 500,
             pagelist: [500, 1000, 2000],
             totalrow: 1,
-            elementcontainer: ".paging",
-            method: "AJAX",
-            ajaxfunction: "CustomerWinLoss.ajaxPaging()",
+            elementcontainer: '.paging',
+            method: 'AJAX',
+            ajaxfunction: 'CustomerWinLoss.ajaxPaging()',
             alwayshow: true
         };
 
-        var _url = {
-            SearchCustomer: "SearchCustomerAPI/SearchCustomer"
+        const _url = {
+            SearchCustomer: 'SearchCustomerAPI/SearchCustomer'
         };
 
-        var _selector = {
-            SubmitButton: "#SubmitButton",
-            ExportToExcel: "#ExportToExcel",
-            Form: "#CustomerWinlossForm",
-            Title: ".report-title",
-            Header: ".panel-heading",
-            GridId: "ReportGrid",
-            IsHistoryInput: "#IsHistory",
-            IsAllowedBAInput: "#IsAllowedBA",
-            IsAllowedCustomerCommissionInput: "#IsAllowedCustomerCommission",
-            HistoryLink: "#history-report-link",
-            CurrentLink: "#current-report-link",
-            BetListLink: ".bet-list-link",
-            Username: "#Username",
-            PromotionPrizeLink: "#ExportPromotionPrizeLink"
+        const _selector = {
+            SubmitButton: '#SubmitButton',
+            ExportToExcel: '#ExportToExcel',
+            Form: '#CustomerWinlossForm',
+            Title: '.report-title',
+            Header: '.panel-heading',
+            GridId: 'ReportGrid',
+            IsHistoryInput: '#IsHistory',
+            IsAllowedBAInput: '#IsAllowedBA',
+            IsAllowedCustomerCommissionInput: '#IsAllowedCustomerCommission',
+            HistoryLink: '#history-report-link',
+            CurrentLink: '#current-report-link',
+            BetListLink: '.bet-list-link',
+            Username: '#Username',
+            PromotionPrizeLink: '#ExportPromotionPrizeLink'
         };
 
         function initialize() {
             Site.initialize();
 
             Site.addUserGuide({
-                resourceName: "CustomerWL",
-                title: Site.getSingleResource("CustomerWinLoss")
+                resourceName: 'CustomerWL',
+                title: Site.getSingleResource('CustomerWinLoss')
             });
             MultiSelect.initProductList();
             DatePicker.initDateRangePicker();
-            if ($(_selector.IsHistoryInput).val() === "True") {
+            if ($(_selector.IsHistoryInput).val() === 'True') {
                 MonthPicker.initMonthPicker();
             }
 
@@ -6317,7 +6317,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function initEvent() {
             $(_selector.SubmitButton).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return;
                 }
@@ -6327,12 +6327,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $(_selector.ExportToExcel).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return;
                 }
 
-                var data = getPostData();
+                const data = getPostData();
                 data.PageIndex = 1;
                 data.isExportExcel = true;
 
@@ -6340,8 +6340,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $(_selector.PromotionPrizeLink).click(function () {
-                var filterData = getPostData();
-                var data = {
+                const filterData = getPostData();
+                const data = {
                     __RequestVerificationToken: filterData.__RequestVerificationToken,
                     FromDate: filterData.FromDate,
                     ToDate: filterData.ToDate,
@@ -6366,27 +6366,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 ajaxPaging: _me.ajaxPaging
             };
 
-            $(".main-content").on("click", _selector.BetListLink, function () {
-                var data = $(this).data("drill-down");
+            $('.main-content').on('click', _selector.BetListLink, function () {
+                const data = $(this).data('drill-down');
                 _me.viewWinlossBetList(data.CustId, data.SystemId, data.ExternalId);
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         }
 
         function exportExcel(url, data, fileName) {
-            var option = {
-                type: "POST",
+            const option = {
+                type: 'POST',
                 data: data,
-                dataType: "binary",
-                responseType: "blob",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'binary',
+                responseType: 'blob',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(url),
                 success: function (response) {
@@ -6409,7 +6409,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function initAutoComplete() {
             if ($(_selector.Username).length > 0) {
-                var option = {
+                const option = {
                     url: Site.resolveClientUrl(_url.SearchCustomer),
                     target: _selector.Username
                 };
@@ -6421,12 +6421,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         function submit() {
             buildPostData();
 
-            var option =
+            const option =
             {
-                type: "POST",
+                type: 'POST',
                 data: _submitData,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(CustomerWinLossOption.urlData),
                 success: function (response) {
@@ -6463,23 +6463,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var gridOption = CustomerWinLossOption.getGridOption(response.TotalRows);
+            const gridOption = CustomerWinLossOption.getGridOption(response.TotalRows);
             gridOption.rowNum = response.Data.length;
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
                 sort(index);
-                return "stop";
+                return 'stop';
             };
             gridOption.gridComplete = function () {
                 onGridComplete(this, gridOption, response);
                 Site.unBlockUI();
             };
 
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             reportGrid.jqGrid(gridOption);
 
             CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
-            var pprizeCount = response.PromotionPrize;
+            const pprizeCount = response.PromotionPrize;
             showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount, 10) > 0);
         }
 
@@ -6490,51 +6490,51 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function viewHistoryReport() {
             Site.blockUI();
-            Site.redirect(Site.resolveClientUrl("CustomerWinlossReport/History"));
+            Site.redirect(Site.resolveClientUrl('CustomerWinlossReport/History'));
         }
 
         function viewCurrentReport() {
             Site.blockUI();
-            Site.redirect(Site.resolveClientUrl("CustomerWinLossReport/Index"));
+            Site.redirect(Site.resolveClientUrl('CustomerWinLossReport/Index'));
         }
 
         function viewWinlossBetList(custId, systemId, externalId) {
-            var url = Site.resolveClientUrl("CustomerWinlossBetList/Index");
-            url = QueryString.setParam(url, "ProductCodeList", _productCodes);
-            url = QueryString.setParam(url, "currencyid", _submitData.CurrencyId);
-            url = QueryString.setParam(url, "CurrencyName", _submitData.CurrencyName);
-            url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
-            url = QueryString.setParam(url, "custid", custId);
-            url = QueryString.setParam(url, "systemid", systemId);
-            url = QueryString.setParam(url, "externalid", externalId);
-            url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
-            url = QueryString.setParam(url, "todate", _submitData.ToDate);
-            url = QueryString.setParam(url, "ishistoryreport", $('input#IsHistory').val());
+            let url = Site.resolveClientUrl('CustomerWinlossBetList/Index');
+            url = QueryString.setParam(url, 'ProductCodeList', _productCodes);
+            url = QueryString.setParam(url, 'currencyid', _submitData.CurrencyId);
+            url = QueryString.setParam(url, 'CurrencyName', _submitData.CurrencyName);
+            url = QueryString.setParam(url, 'BaseCurrency', _submitData.BaseCurrency);
+            url = QueryString.setParam(url, 'custid', custId);
+            url = QueryString.setParam(url, 'systemid', systemId);
+            url = QueryString.setParam(url, 'externalid', externalId);
+            url = QueryString.setParam(url, 'fromdate', _submitData.FromDate);
+            url = QueryString.setParam(url, 'todate', _submitData.ToDate);
+            url = QueryString.setParam(url, 'ishistoryreport', $('input#IsHistory').val());
 
-            var popH = Math.min($(window).height() - 100, 650), popW = 920;
-            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
+            const popH = Math.min($(window).height() - 100, 650), popW = 920;
+            const popupOption = { id: 'betlist-popup', width: popW + 50, height: popH + 50, title: Site.getSingleResource('CustomerBetList') };
             Popup.openPopupWithIframe(url, popupOption);
             window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
 
         function setReportTitle() {
-            var titlePattern = "{0}, {1} → {2}, {3}{4}{5}";
-            var licenseeWLNote = getLicenseeWLNote();
-            var tempUserName = _submitData.Username.length > 0
-                ? ", " + Site.getSingleResource("Username") + ": " + _submitData.Username
-                : "";
+            const titlePattern = '{0}, {1} → {2}, {3}{4}{5}';
+            const licenseeWLNote = getLicenseeWLNote();
+            const tempUserName = _submitData.Username.length > 0
+                ? ', ' + Site.getSingleResource('Username') + ': ' + _submitData.Username
+                : '';
 
-            var title = $.format(titlePattern,
-                Site.getSingleResource("CustomerWinLoss"),
+            const title = $.format(titlePattern,
+                Site.getSingleResource('CustomerWinLoss'),
                 _submitData.FromDate,
                 _submitData.ToDate,
-                Site.getSingleResource("Viewin").replace("{0}",
-                _submitData.BaseCurrency === "" ? _submitData.CurrencyName : _submitData.BaseCurrency.toUpperCase()),
-                licenseeWLNote === "" ? "" : ", " + licenseeWLNote,
+                Site.getSingleResource('Viewin').replace('{0}',
+                _submitData.BaseCurrency === '' ? _submitData.CurrencyName : _submitData.BaseCurrency.toUpperCase()),
+                licenseeWLNote === '' ? '' : ', ' + licenseeWLNote,
                 tempUserName);
 
             $(_selector.Title).html(title);
-            $(_selector.Header).removeClass("hide");
+            $(_selector.Header).removeClass('hide');
         }
 
         function showPromotionPrizeLink(isShow) {
@@ -6561,9 +6561,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             if (_pagingOption.totalrow > 1) {
                 setTimeout(function () {
                     if (_sortColumnName === index) {
-                        _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
+                        _sortOrder = _sortOrder === 'asc' ? 'desc' : 'asc';
                     } else {
-                        _sortOrder = "asc";
+                        _sortOrder = 'asc';
                         _sortColumnName = index;
                         _orderItem = SORTING_CODE[_sortColumnName];
                     }
@@ -6576,7 +6576,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             if (_isFirstLoad) {
                 jqGridAdditional.gridComplete();
 
-                var reportGrid = $("#" + _selector.GridId);
+                const reportGrid = $('#' + _selector.GridId);
                 if (_pagingOption.totalrow > 1) {
                     jqGridAdditional.addSortableHeaders(reportGrid, _sortColumnName, _sortOrder);
                 }
@@ -6595,16 +6595,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function getLicenseeWLNote() {
             if (_productCodes.length > 0) {
-                return Site.getSingleResource("LicenseeW_L") + "(" + _productCodes.join(', ') + ")";
+                return Site.getSingleResource('LicenseeW_L') + '(' + _productCodes.join(', ') + ')';
             }
-            return "";
+            return '';
         }
 
         function getProductList() {
-            var productCodeList = [];
-            $(".childCheckbox", "#ProductList").each(function (index, element) {
-                var productCode = $(element).attr('data-product-code');
-                if (productCode && $(element).attr("data-original") === 'true') {
+            const productCodeList = [];
+            $('.childCheckbox', '#ProductList').each(function (index, element) {
+                const productCode = $(element).attr('data-product-code');
+                if (productCode && $(element).attr('data-original') === 'true') {
                     productCodeList.push(productCode.toUpperCase());
                 }
             });
@@ -6622,38 +6622,38 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 _submitData.PageIndex = _pagingOption.pageindex;
                 _submitData.PageSize = _pagingOption.pagesize;
                 _submitData.OrderItem = _orderItem;
-                _submitData.IsAscSort = _sortOrder === "asc";
+                _submitData.IsAscSort = _sortOrder === 'asc';
             }
         }
 
         function resetParam() {
-            _sortColumnName = "ExternalId";
-            _sortOrder = "asc";
+            _sortColumnName = 'ExternalId';
+            _sortOrder = 'asc';
             _orderItem = SORTING_CODE[_sortColumnName];
             _pagingOption.pageindex = 1;
             _submitData = null;
         }
 
         function getPostData() {
-            var param = $(_selector.Form).serializeObject();
+            const param = $(_selector.Form).serializeObject();
             param.PageIndex = _pagingOption.pageindex;
             param.PageSize = _pagingOption.pagesize;
             param.OrderItem = _orderItem;
-            param.IsAscSort = _sortOrder === "asc";
+            param.IsAscSort = _sortOrder === 'asc';
             
             if (param.Username === undefined) {
-                param.Username = "";
+                param.Username = '';
             }
             return param;
         }
 
         function resizeGrid() {
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initEvent: initEvent,
             initSetting: initSetting,
