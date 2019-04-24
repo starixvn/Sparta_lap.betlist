@@ -1,4 +1,4 @@
-﻿"use strict";
-define(["./customer.outstandingbetlist"], function (CustomerOutStanding) {
+﻿'use strict';
+define(['./customer.outstandingbetlist'], function (CustomerOutStanding) {
     $(CustomerOutStanding.initialize);
 });

@@ -1,43 +1,43 @@
-﻿"use strict";
-define(["jquery", "common/site", "common/querystring", "pages/report/report", "./customer.dailystatement", "../betlist",
-            "components/pluginhelper/daterangepicker", "components/pluginhelper/multiselect"],
+﻿'use strict';
+define(['jquery', 'common/site', 'common/querystring', 'pages/report/report', './customer.dailystatement', '../betlist',
+            'components/pluginhelper/daterangepicker', 'components/pluginhelper/multiselect'],
     function ($, Site, QueryString, Report, DailyStatement, BetList, DatePicker, MultiSelect) {
-        var _viewName;
-        var _viewOption;
+        let _viewName;
+        let _viewOption;
 
         function getViewOption() {
             return {
-                "betlistrunning": {
-                        title: Site.getSingleResource("BetListRunning"),
-                        hiddenColumn: "externalid,systemid,winloss,licenseewl",
+                'betlistrunning': {
+                        title: Site.getSingleResource('BetListRunning'),
+                        hiddenColumn: 'externalid,systemid,winloss,licenseewl',
                         submit: _me.submitRunningBetList
                     },
-                "betlist": {
-                        title: Site.getSingleResource("BetList"),
-                        hiddenColumn: "externalid,systemid",
+                'betlist': {
+                        title: Site.getSingleResource('BetList'),
+                        hiddenColumn: 'externalid,systemid',
                         submit: _me.submitCompletedBetList
                     },
-                "dailystatement": {
-                        title: Site.getSingleResource("DailyStatement"),
-                        hiddenColumn: "externalid,systemid",
+                'dailystatement': {
+                        title: Site.getSingleResource('DailyStatement'),
+                        hiddenColumn: 'externalid,systemid',
                         submit: _me.submitDailyStatementBetList
                     }
             };
         }
 
         function setProductOptionParamList(params) {
-            var productCodeList = $("#grid-products-multiselect").multiSelect("getCheckedItems");
+            const productCodeList = $('#grid-products-multiselect').multiSelect('getCheckedItems');
             params.ProductCodeList = productCodeList.toString();
             return params;
         }
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
                 DatePicker.initDateRangePicker();
                 MultiSelect.initProductList();
 
-                _viewName = $("#ViewOption").val();
+                _viewName = $('#ViewOption').val();
                 _viewOption = getViewOption();
                 _me.updatePopupTitle();
 
@@ -49,84 +49,84 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
 
                 _me.initEvent();
 
-                var params = _me.getParamsSubmit();
+                const params = _me.getParamsSubmit();
                 if (params.ProductCodeList) {
                     _me.submit(params);
                 }
                 else {
-                    $("#ProductList").addClass("invalid");
-                    $("#SubmitButton").prop("disabled", true);
+                    $('#ProductList').addClass('invalid');
+                    $('#SubmitButton').prop('disabled', true);
                 }
             },
             initEvent: function () {
-                $("#ViewOption").change(function () {
+                $('#ViewOption').change(function () {
                     Site.blockUI();
-                    var betlistName = $(this).val();
-                    var url = Site.getCurrentUrl();
-                    url = QueryString.setParam(url, "betlistname", betlistName);
+                    const betlistName = $(this).val();
+                    let url = Site.getCurrentUrl();
+                    url = QueryString.setParam(url, 'betlistname', betlistName);
                     url = Site.setProductOptionOriginalParamList(url);
 
                     Site.redirect(url);
                 });
 
-                $("#SubmitButton").click(function () {
+                $('#SubmitButton').click(function () {
                     Report.setOriginalProduct();
-                    var params = _me.getParamsSubmit();
+                    const params = _me.getParamsSubmit();
                     _me.submit(params);
                 });
 
-                $("#report-container").on("click", ".betlistDrilldown", function () {
-                    var param = $(this).data("param");
+                $('#report-container').on('click', '.betlistDrilldown', function () {
+                    const param = $(this).data('param');
                     _me.viewDailyStatementBetList(param);
                 });
             },
 
             updatePopupTitle: function () {
-                var title = _viewOption[_viewName].title;
-                var $frame = parent.$("#popupFrame");
-                var $popUp = $frame.closest(".flat-popup");
-                $popUp.find(".txt-title").text(title);
+                const title = _viewOption[_viewName].title;
+                const $frame = parent.$('#popupFrame');
+                const $popUp = $frame.closest('.flat-popup');
+                $popUp.find('.txt-title').text(title);
             },
 
             setHiddenColumns: function () {
                 //Set string columns need to hide
-                var columsHidden = _viewOption[_viewName].hiddenColumn;
-                $("#HiddenColumnList").val(columsHidden);
+                const columsHidden = _viewOption[_viewName].hiddenColumn;
+                $('#HiddenColumnList').val(columsHidden);
             },
 
             showHideProductsList: function () {
-                var $productsListContainer = $("#ProductList");
-                var isHideProductList = _viewName === "dailystatement";
+                const $productsListContainer = $('#ProductList');
+                const isHideProductList = _viewName === 'dailystatement';
 
-                $productsListContainer.parent().toggleClass("hide", isHideProductList);
+                $productsListContainer.parent().toggleClass('hide', isHideProductList);
             },
 
             getParamsSubmit: function () {
-                var params = $.parseJSON($("#BetListMetaModel").val());
-                var url = Site.getCurrentUrl();
-                params.CustId = QueryString.getParam(url, "custid");
-                params.ExternalId = QueryString.getParam(url, "externalid");
-                params.SystemId = QueryString.getParam(url, "systemid");
-                params.FromDate = $("#FromDate").val();
-                params.ToDate = $("#ToDate").val();
+                const params = $.parseJSON($('#BetListMetaModel').val());
+                const url = Site.getCurrentUrl();
+                params.CustId = QueryString.getParam(url, 'custid');
+                params.ExternalId = QueryString.getParam(url, 'externalid');
+                params.SystemId = QueryString.getParam(url, 'systemid');
+                params.FromDate = $('#FromDate').val();
+                params.ToDate = $('#ToDate').val();
 
                 return setProductOptionParamList(params);
             },
 
             submitCompletedBetList: function (params) {
                 window.serverPaging = true;
-                var url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
+                const url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
                 BetList.loadDataPaging(url, params);
             },
 
             submitRunningBetList: function (params) {
                 window.serverPaging = false;
-                var url = Site.resolveClientUrl('api/OutstandingRunningBetList/Index');
+                const url = Site.resolveClientUrl('api/OutstandingRunningBetList/Index');
                 BetList.loadData(params, url);
             },
 
             submitDailyStatementBetList: function (params) {
-                var url = Site.resolveClientUrl('api/OutstandingDailyStatementBetList/Index');
+                const url = Site.resolveClientUrl('api/OutstandingDailyStatementBetList/Index');
                 DailyStatement.loadData(params, url);
             },
 
@@ -140,8 +140,8 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
             viewDailyStatementBetList: function (param) {
                 BetList.registerBetListGlobalFunctions();
 
-                var url = Site.resolveClientUrl('api/DailyStatementBetList/Index');
-                var postData = $.parseJSON($("#BetListMetaModel").val());
+                const url = Site.resolveClientUrl('api/DailyStatementBetList/Index');
+                const postData = $.parseJSON($('#BetListMetaModel').val());
 
                 postData.CustId = param.CustId;
                 postData.FromDate = param.Date;

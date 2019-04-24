@@ -1,5 +1,5 @@
 ﻿define(['./betlistrunning'], function (BetListRunning) {
-    "use strict";
+    'use strict';
 
     $(function () {
         BetListRunning.initialize();

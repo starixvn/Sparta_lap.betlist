@@ -1,5 +1,5 @@
 ﻿define(['./betlistrunning.multiplebettypes'], function (BetListRunningMultipleBettypes) {
-    "use strict";
+    'use strict';
 
     $(function () {
         BetListRunningMultipleBettypes.initialize();

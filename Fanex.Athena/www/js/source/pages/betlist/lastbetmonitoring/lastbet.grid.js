@@ -1,65 +1,65 @@
-﻿"use strict";
+﻿'use strict';
 define(
     ['jquery', 'common/site', '../betlist'],
     function ($, Site, BetList) {
-        var _me = {};
+        const _me = {};
 
         // Param
-        var _betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
-        var _lastTransId = "0";
+        let _betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
+        let _lastTransId = '0';
 
-        var _params = {
+        const _params = {
             SportId: 0,
             LeagueId: 0,
             MatchId: 0,
-            BetType: "",
-            LiveStatus: "3",
-            OddsType: "",
-            Level: "",
-            TimeZone: "8",
-            Currency: "",
-            BasedCurrency: "",
+            BetType: '',
+            LiveStatus: '3',
+            OddsType: '',
+            Level: '',
+            TimeZone: '8',
+            Currency: '',
+            BasedCurrency: '',
             PageSize: 10,
-            StakeFrom: "0",
-            StakeTo: "1000000000",
+            StakeFrom: '0',
+            StakeTo: '1000000000',
             TransId: _lastTransId,
             BetFrom: 0
         };
-        var _postedParam;
-        var _intervalId;
-        var _isLoading;
-        var _intervalMiliseconds;
+        let _postedParam;
+        let _intervalId;
+        let _isLoading;
+        let _intervalMiliseconds;
 
         // Object
-        var _$tableBody;
+        let _$tableBody;
 
         // Config
-        var MIN_LOADING_MILISECONDS = 1000;
-        var MIN_INTERVAL = 3000;
-        var HIGHLIGHT_CLASS = "monitor-hightlight";
-        var SELECTED_CLASS = "monitor-keep";
-        var MAX_STAKE = 999999999;
+        const MIN_LOADING_MILISECONDS = 1000;
+        const MIN_INTERVAL = 3000;
+        const HIGHLIGHT_CLASS = 'monitor-hightlight';
+        const SELECTED_CLASS = 'monitor-keep';
+        const MAX_STAKE = 999999999;
 
         _me.columns =
-            [{ Name: "Platform", IsShow: 1 },
-             { Name: "ExternalId", IsShow: 1 },
-             { Name: "SystemId", IsShow: 1 },
-             { Name: "TransTime", IsShow: 1 },
-             { Name: "Choice", IsShow: 1 },
-             { Name: "Odds", IsShow: 1 },
-             { Name: "Stake", IsShow: 1 },
-             { Name: "Status", IsShow: 1 }];
+            [{ Name: 'Platform', IsShow: 1 },
+             { Name: 'ExternalId', IsShow: 1 },
+             { Name: 'SystemId', IsShow: 1 },
+             { Name: 'TransTime', IsShow: 1 },
+             { Name: 'Choice', IsShow: 1 },
+             { Name: 'Odds', IsShow: 1 },
+             { Name: 'Stake', IsShow: 1 },
+             { Name: 'Status', IsShow: 1 }];
         _me.initialize = function () {
             _intervalId = 0;
             _isLoading = false;
             _intervalMiliseconds = 3000;
 
-            _$tableBody = $("#last-bets-monitoring tbody");
-            _$tableBody.on("click", "tr", function () {
+            _$tableBody = $('#last-bets-monitoring tbody');
+            _$tableBody.on('click', 'tr', function () {
                 $(this).toggleClass(SELECTED_CLASS);
             });
 
-            _params.BasedCurrency = $("#last-bet-monitor-base-currency").val();
+            _params.BasedCurrency = $('#last-bet-monitor-base-currency').val();
             _postedParam = Site.clone(_params);
 
             BetList.registerBetListGlobalFunctions();
@@ -68,28 +68,28 @@ define(
             return MAX_STAKE;
         };
         _me.updateParam = function (type, name, value) {
-            if (type === "number") {
+            if (type === 'number') {
                 _params[name] = value ? parseInt(value, 10) : 0;
             } else {
-                _params[name] = value ? $.trim(value) : "";
+                _params[name] = value ? $.trim(value) : '';
             }
         };
 
         _me.isValidParam = function () {
             return _postedParam.StakeFrom <= _postedParam.StakeTo
-                && $("#currency").multiSelect("getCheckedItems").length > 0
-                && $("#special-level").multiSelect("getCheckedItems").length > 0;
+                && $('#currency').multiSelect('getCheckedItems').length > 0
+                && $('#special-level').multiSelect('getCheckedItems').length > 0;
         };
         _me.tryUpdateStake = function () {
-            var tempF = $("#stake-from").val();
+            let tempF = $('#stake-from').val();
             tempF = tempF.replace(/,/g, '');
-            tempF = tempF === "" ? 0 : parseInt(tempF, 10);
+            tempF = tempF === '' ? 0 : parseInt(tempF, 10);
 
             _params.StakeFrom = tempF;
 
-            var tempT = $("#stake-to").val();
+            let tempT = $('#stake-to').val();
             tempT = tempT.replace(/,/g, '');
-            tempT = tempT === "" ? MAX_STAKE : parseInt(tempT, 10);
+            tempT = tempT === '' ? MAX_STAKE : parseInt(tempT, 10);
 
             _params.StakeTo = tempT;
         };
@@ -120,29 +120,29 @@ define(
 
             _isLoading = true;
 
-            var loadingTickBegin = (new Date()).getTime();
+            const loadingTickBegin = (new Date()).getTime();
             if (Number(_lastTransId) === 0) {
                 _me.clearContent();
             }
 
             $.ajax({
                 url: Site.resolveClientUrl('api/LastBetMonitoringBetList/Index'),
-                type: "POST",
+                type: 'POST',
                 data: JSON.stringify(_postedParam),
                 contentType: 'application/json; charset=utf-8',
-                dataType: "json",
+                dataType: 'json',
                 async: true,
                 cache: false,
                 timeout: 10000,
                 beforeSend: function () {
-                    $("#monitorLoader").css("visibility", "visible");
+                    $('#monitorLoader').css('visibility', 'visible');
                     _isLoading = true;
                 },
                 complete: function () {
-                    $("#monitorLoader").css("visibility", "hidden");
-                    var rowCount = $("tr", _$tableBody).length;
+                    $('#monitorLoader').css('visibility', 'hidden');
+                    const rowCount = $('tr', _$tableBody).length;
                     if (rowCount > 0) {
-                        $("#noInfoRow").remove();
+                        $('#noInfoRow').remove();
                     }
                 },
                 success: function (result) {
@@ -150,7 +150,7 @@ define(
                     _betListResult = result;
                     _me.bindData();
 
-                    var loadingTime = (new Date()).getTime() - loadingTickBegin;
+                    const loadingTime = (new Date()).getTime() - loadingTickBegin;
                     _intervalMiliseconds = loadingTime > MIN_LOADING_MILISECONDS
                     ? _intervalMiliseconds + 1000
                     : MIN_INTERVAL;
@@ -164,10 +164,10 @@ define(
                         return;
                     }
 
-                    $("#monitorLoader").css("visibility", "hidden");
+                    $('#monitorLoader').css('visibility', 'hidden');
 
                     _betListResult.Updated = false;
-                    _betListResult.Rows = "";
+                    _betListResult.Rows = '';
                     _isLoading = false;
                     _intervalMiliseconds += 1000;
                     _me.doMonitor();
@@ -180,13 +180,13 @@ define(
             if (!_betListResult.NewRow) {
                 _isLoading = false;
 
-                var message = _betListResult.Message;
+                const message = _betListResult.Message;
                 if (message) {
                     _me.bindNoInfoRow(message);
                     return;
                 }
 
-                var rowCount = $("tr.content-row", _$tableBody).length;
+                const rowCount = $('tr.content-row', _$tableBody).length;
                 if (rowCount === 0) {
                     _me.bindNoInfoRow();
                 }
@@ -200,19 +200,19 @@ define(
             Update last transId
             --------------------------------------------------------------------------------------------*/
             //get hide columns
-            var hideColumns = _me.columns.filter(function (item) { return item.IsShow === 0; });
-            var rows = _betListResult.Rows;
+            const hideColumns = _me.columns.filter(function (item) { return item.IsShow === 0; });
+            let rows = _betListResult.Rows;
             if (hideColumns.length > 0) {
-                var display = " style=\"display:none;\"";
+                const display = ' style="display:none;"';
                 $.each(hideColumns, function (index, value) {
-                    var newString = "data-name='" + value.Name + "'" + display;
-                    var regex = new RegExp("data-name=('|\")" + value.Name + "('|\")", "g");
+                    const newString = 'data-name="' + value.Name + '"' + display;
+                    const regex = new RegExp('data-name=(\'|")' + value.Name + '(\'|")', 'g');
                     rows = rows.replace(regex, newString);
                 });
             }
 
             _$tableBody.prepend(rows);
-            $("tr:gt(" + (_postedParam.PageSize - 1) + ")", _$tableBody).remove();
+            $('tr:gt(' + (_postedParam.PageSize - 1) + ')', _$tableBody).remove();
 
             _lastTransId = _betListResult.LastTransId;
             _postedParam.TransId = _lastTransId;
@@ -225,9 +225,9 @@ define(
         };
 
         _me.bindNoInfoRow = function (text) {
-            var noInfoMessage = text ? text : Site.getSingleResource("NoInfo");
+            const noInfoMessage = text ? text : Site.getSingleResource('NoInfo');
 
-            var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoMessage + '</p>';
+            const htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoMessage + '</p>';
             _$tableBody.empty();
             if (!$('#noInfoRow').length) {
                 $('#betlist_content').append(htmlNoInfor);
@@ -238,8 +238,8 @@ define(
         Remove high light row after a duration
         ------------------------------------------------------------------------------------------*/
         _me.unHighlight = function (lastTransId) {
-            $("tr.content-row", _$tableBody).each(function (i, e) {
-                var transId = $(e).data("transid");
+            $('tr.content-row', _$tableBody).each(function (i, e) {
+                const transId = $(e).data('transid');
                 if (transId <= lastTransId) {
                     $(e).removeClass(HIGHLIGHT_CLASS);
                 }

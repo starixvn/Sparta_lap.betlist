@@ -1,7 +1,7 @@
-﻿"use strict";
-define(["jquery", "common/site"], function ($, Site) {
-    var setLink = function (rowObject) {
-        var drilldownParam = {
+﻿'use strict';
+define(['jquery', 'common/site'], function ($, Site) {
+    const setLink = function (rowObject) {
+        const drilldownParam = {
             CustId: rowObject.CustId,
             Date: rowObject.Date,
             TransType: rowObject.TransType,
@@ -14,7 +14,7 @@ define(["jquery", "common/site"], function ($, Site) {
             : rowObject.FullStatementDate;
     };
 
-    var indexColumn = {
+    const indexColumn = {
         name: 'Index',
         index: 'Index',
         width: 30,
@@ -22,7 +22,7 @@ define(["jquery", "common/site"], function ($, Site) {
         sortable: false,
         resizable: false
     };
-    var date = {
+    const date = {
         name: 'Date',
         index: 'Date',
         width: 150,
@@ -32,14 +32,14 @@ define(["jquery", "common/site"], function ($, Site) {
             return setLink(rowObject);
         }
     };
-    var remark = {
+    const remark = {
         name: 'Remark',
         index: 'Remark',
         width: 205,
         align: 'right',
         sortable: false
     };
-    var turnover = {
+    const turnover = {
         name: 'Turnover',
         index: 'Turnover',
         width: 120,
@@ -47,7 +47,7 @@ define(["jquery", "common/site"], function ($, Site) {
         sortable: false
     };
 
-    var creditDebit = {
+    const creditDebit = {
         name: 'CreditDebit',
         index: 'CreditDebit',
         width: 120,
@@ -55,7 +55,7 @@ define(["jquery", "common/site"], function ($, Site) {
         sortable: false
     };
 
-    var commission = {
+    const commission = {
         name: 'Commission',
         index: 'Commission',
         width: 120,
@@ -63,7 +63,7 @@ define(["jquery", "common/site"], function ($, Site) {
         sortable: false,
         resizable: false
     };
-    var balance = {
+    const balance = {
         name: 'Balance',
         index: 'Balance',
         width: 120,
@@ -71,13 +71,13 @@ define(["jquery", "common/site"], function ($, Site) {
         sortable: false
     };
 
-    var columnNames = ['#', 'Date', 'Remark', 'Turnover', 'CreditDebit', 'Commission', 'Balance'];
-    var columnModel = [indexColumn, date, remark, turnover, creditDebit, commission, balance];
+    const columnNames = ['#', 'Date', 'Remark', 'Turnover', 'CreditDebit', 'Commission', 'Balance'];
+    const columnModel = [indexColumn, date, remark, turnover, creditDebit, commission, balance];
 
-    var _me = {
+    const _me = {
         gridOption: {
             datatype: 'local',
-            height: "auto",
+            height: 'auto',
             rowNum: 5000,
             colModel: columnModel,
             colNames: [],

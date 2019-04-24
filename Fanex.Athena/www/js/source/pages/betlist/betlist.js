@@ -350,7 +350,7 @@
                     success: function (response) {
                         const result = response.Result;
                         if (response.Success) {
-                            if (result === "") {
+                            if (result === '') {
                                 return;
                             }
 
@@ -457,7 +457,7 @@
                         cache: false,
                         url: url,
                         success: function (response) {
-                            let choice = "";
+                            let choice = '';
                             const len = response.length;
                             $.each(response, function (index, item) {
                                 choice += item;
@@ -651,8 +651,8 @@
                 if ($('#ProductList').find('input:checked').length === 0) {
                     temp = false;
                     const title = Site.getSingleResource('LrfNotification');
-                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource("AlertChooseProductMsg") + '</p></div>';
-                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
+                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource('AlertChooseProductMsg') + '</p></div>';
+                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: 'popup-notification' });
                 }
 
                 return temp;
@@ -704,13 +704,13 @@
                 window.ViewResult = _me.viewResult;
                 // showMP and showCombMP are only for old tickets
                 window.showMP = function (transId, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId);
+                    const divEvent = $('#divEvent_' + transId);
                     divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
                 window.showCombMP = function (transId, index, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId + '' + index);
+                    const divEvent = $('#divEvent_' + transId + '' + index);
                     divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };

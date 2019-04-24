@@ -1,14 +1,14 @@
-﻿"use strict";
+﻿'use strict';
 define(
     ['jquery', 'common/site', './betlist'],
     function ($, Site, BetList) {
-        var _me = {
+        const _me = {
             initialize: function () {
                 _me.initEvent();
                 _me.submit();
                 Site.addUserGuide({
-                    resourceName: "TotalBetsCorrectScore",
-                    title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("CorrectScore")
+                    resourceName: 'TotalBetsCorrectScore',
+                    title: Site.getSingleResource('TotalBets') + ' - ' + Site.getSingleResource('CorrectScore')
                 });
             },
 
@@ -18,30 +18,29 @@ define(
                 });
 
                 $('#ExportToExcel').click(function () {
-                    var sortParam = BetList.getSortParams();
+                    const sortParam = BetList.getSortParams();
                     if (sortParam != null) {
-                        $("#SortBy").val(sortParam.SortBy);
-                        $("#SortOrder").val(sortParam.SortOrder);
+                        $('#SortBy').val(sortParam.SortBy);
+                        $('#SortOrder').val(sortParam.SortOrder);
                     }
 
                     $('#CorrectScoreBetListForm').submit();
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     BetList.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             submit: function () {
                 // Site.blockUI();
                 BetList.initialize();
-                var params = {};
-                params = Site.setLicenseeOptionParam(params);
-                var url = Site.resolveClientUrl('api/CorrectScoreBetList/Index');
+                const params = Site.setLicenseeOptionParam({});
+                const url = Site.resolveClientUrl('api/CorrectScoreBetList/Index');
                 BetList.loadData(params, url);
             }
         };

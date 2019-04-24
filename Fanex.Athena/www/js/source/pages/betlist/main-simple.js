@@ -1,7 +1,7 @@
 ﻿define(['./betlist', './commonbetlist'], function (BetList, CommonBetList) {
-    "use strict";
+    'use strict';
 
-    $(window).on("load", function () {
+    $(window).on('load', function () {
         CommonBetList.initialize();
     });
 });

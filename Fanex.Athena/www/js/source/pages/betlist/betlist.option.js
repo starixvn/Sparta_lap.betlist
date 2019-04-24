@@ -1,8 +1,8 @@
 ﻿define(['jquery', 'common/site'], function ($, Site) {
-    "use strict";
-    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
+    'use strict';
+    const columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
                     'WinLoss', 'EffectiveBettingValue', '@[LicenseeWL]/@[Comm]', 'Status'];
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -11,7 +11,7 @@
         sortable: false,
         resizable: false
     };
-    var externalId =
+    const externalId =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -19,7 +19,7 @@
         align: 'left',
         sortable: false
     };
-    var systemId =
+    const systemId =
     {
         name: 'SystemId',
         index: 'UserName',
@@ -27,7 +27,7 @@
         align: 'left',
         sortable: false
     };
-    var transTime =
+    const transTime =
     {
         name: 'TransTime',
         index: 'TransTime',
@@ -38,7 +38,7 @@
         title: false,
         classes: 'transtime'
     };
-    var choice =
+    const choice =
     {
         name: 'Choice',
         index: 'Choice',
@@ -47,7 +47,7 @@
         sortable: false,
         title: false
     };
-    var odds =
+    const odds =
     {
         name: 'Odds',
         index: 'Odds',
@@ -57,7 +57,7 @@
         resizable: false,
         title: false
     };
-    var stake =
+    const stake =
     {
         name: 'Stake',
         index: 'Stake',
@@ -66,7 +66,7 @@
         sortable: true,
         resizable: false
     };
-    var winloss =
+    const winloss =
     {
         name: 'WinLoss',
         index: 'WinLoss',
@@ -76,7 +76,7 @@
         resizable: false,
         title: false
     };
-    var betEffective =
+    const betEffective =
     {
         name: 'BetEffective',
         index: 'BetEffective',
@@ -86,7 +86,7 @@
         resizable: false,
         title: false
     };
-    var licenseeWl =
+    const licenseeWl =
     {
         name: 'LicenseeWL',
         index: 'LicenseeWL',
@@ -96,7 +96,7 @@
         resizable: false,
         title: false
     };
-    var status =
+    const status =
     {
         name: 'Status',
         index: 'Status',
@@ -107,7 +107,7 @@
         title: false
     };
 
-    var columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
+    const columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
 
     return {
         gridOption:
@@ -133,7 +133,7 @@
                 return false;
             },
             onPaging: function (pgButton) {
-                if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+                if ($('#' + pgButton).hasClass('ui-state-disabled') === false) {
                     Site.blockUI();
                 }
             }

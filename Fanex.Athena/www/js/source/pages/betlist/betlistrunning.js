@@ -1,15 +1,15 @@
-﻿"use strict";
+﻿'use strict';
 define(
     ['jquery', 'common/site', 'common/querystring', './betlist'],
     function ($, Site, QueryString, BetList) {
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 _me.initEvent();
                 _me.submit();
                 Site.addUserGuide({
                     resourceName: $('#userGuideName').val(),
-                    title: Site.getSingleResource("TotalBets") + " - " + $('#title').val()
+                    title: Site.getSingleResource('TotalBets') + ' - ' + $('#title').val()
                 });
             },
 
@@ -18,32 +18,32 @@ define(
                     _me.submit();
                 });
 
-                $("#ExportToExcel").click(function () {
-                    var url = Site.getCurrentUrl();
+                $('#ExportToExcel').click(function () {
+                    let url = Site.getCurrentUrl();
                     url = Site.setLicenseeOptionParam(url);
-                    url = QueryString.setParam(url, "IsExportExcel", true);
-                    var sortParams = BetList.getSortParams();
+                    url = QueryString.setParam(url, 'IsExportExcel', true);
+                    const sortParams = BetList.getSortParams();
                     if (sortParams) {
-                        url = QueryString.setParam(url, "SortBy", sortParams.SortBy);
-                        url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
+                        url = QueryString.setParam(url, 'SortBy', sortParams.SortBy);
+                        url = QueryString.setParam(url, 'SortOrder', sortParams.SortOrder);
                     }
                     Site.redirect(url);
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     BetList.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             submit: function () {
                 BetList.initialize();
-                var actionName = Site.getLocation().pathname.split('/').pop();
-                var url = Site.resolveClientUrl('api/RunningBetList/' + actionName);
-                var params = Site.setLicenseeOptionParam();
+                const actionName = Site.getLocation().pathname.split('/').pop();
+                const url = Site.resolveClientUrl('api/RunningBetList/' + actionName);
+                const params = Site.setLicenseeOptionParam();
 
                 BetList.loadData(params, url);
             }

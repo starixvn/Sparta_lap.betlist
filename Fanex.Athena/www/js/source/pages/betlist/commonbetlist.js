@@ -1,24 +1,24 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', './betlist'], function ($, Site, QueryString, BetList) {
-    "use strict";
+    'use strict';
 
-    var MAXIMUM_EXCEL_ROWS = 2147483646;
+    const MAXIMUM_EXCEL_ROWS = 2147483646;
 
-    var _me = {
+    const _me = {
         initialize: function () {
             Site.initialize();
             BetList.initialize();
-            $(".content-filter").remove();
+            $('.content-filter').remove();
 
-            var apiUrl = $("#ApiUrl").val();
+            let apiUrl = $('#ApiUrl').val();
 
             apiUrl = Site.resolveClientUrl(apiUrl);
-            var serverPaging = $("#IsServerPaging").val();
-            if (serverPaging === "1") {
-                var paramString = QueryString.getQueryString(Site.getCurrentUrl());
-                BetList.loadDataPaging(apiUrl + "?" + paramString);
+            const serverPaging = $('#IsServerPaging').val();
+            if (serverPaging === '1') {
+                const paramString = QueryString.getQueryString(Site.getCurrentUrl());
+                BetList.loadDataPaging(apiUrl + '?' + paramString);
             }
             else {
-                var params = $.parseJSON($("#BetListMetaModel").val());
+                const params = $.parseJSON($('#BetListMetaModel').val());
 
                 // Update datetime because js-engine parser jsonDatetime wrongly
                 params.FromDate = params.FromDateString;
@@ -27,44 +27,44 @@
                 BetList.loadData(params, apiUrl);
             }
 
-            $("#ExportToExcel").click(_me.exportToExcel);
+            $('#ExportToExcel').click(_me.exportToExcel);
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 BetList.resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         },
         exportToExcel: function () {
-            var $grid = $('#BetListGrid');
-            if ($("#IsExportAll").val() === "1") {
-                var totalRows = $grid.jqGrid('getGridParam', 'records');
+            const $grid = $('#BetListGrid');
+            if ($('#IsExportAll').val() === '1') {
+                const totalRows = $grid.jqGrid('getGridParam', 'records');
                 if (totalRows > MAXIMUM_EXCEL_ROWS) {
                     alert(Site.getSingleResource('ExcelExceedRowsMsg'));
                     return;
                 }
             }
 
-            var url = Site.getCurrentUrl();
-            var page = $grid.getGridParam('page');
-            var size = $grid.getGridParam('rowNum');
+            let url = Site.getCurrentUrl();
+            const page = $grid.getGridParam('page');
+            const size = $grid.getGridParam('rowNum');
 
-            var serverPaging = $("#IsServerPaging").val();
-            if (serverPaging === "1") {
-                url = QueryString.setParam(url, "PageIndex", page);
-                url = QueryString.setParam(url, "PageSize", size);
-                url = QueryString.setParam(url, "IsServerPaging", true);
+            const serverPaging = $('#IsServerPaging').val();
+            if (serverPaging === '1') {
+                url = QueryString.setParam(url, 'PageIndex', page);
+                url = QueryString.setParam(url, 'PageSize', size);
+                url = QueryString.setParam(url, 'IsServerPaging', true);
             }
 
-            var sortParams = BetList.getSortParams();
+            const sortParams = BetList.getSortParams();
             if (sortParams) {
-                url = QueryString.setParam(url, "SortBy", sortParams.SortBy);
-                url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
+                url = QueryString.setParam(url, 'SortBy', sortParams.SortBy);
+                url = QueryString.setParam(url, 'SortOrder', sortParams.SortOrder);
             }
 
-            url = QueryString.setParam(url, "IsExportExcel", true);
+            url = QueryString.setParam(url, 'IsExportExcel', true);
             Site.redirect(url);
         }
     };
