@@ -77,7 +77,7 @@
             let rowCount = 0;
             const currencyList = [];
 
-            function processColumnModel(dataItem) {
+            function processColumnModel(dataItem, currency) {
                 const row = mainFooter.clone();
                 const cellList = $('td', row);
 
@@ -114,10 +114,12 @@
                     currencyList.push(currency);
                     const summaryData = summaryTotal[currency];
                     if (Array.isArray(summaryData)) {
-                        summaryData.forEach(processColumnModel);
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
                     }
                     else {
-                        processColumnModel(summaryData);
+                        processColumnModel(summaryData, currency);
                     }
                 }
             }
