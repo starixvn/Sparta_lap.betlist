@@ -1,4 +1,4 @@
-﻿define(["./customerpendingfunds"], function (CustomerPendingFunds) {
-    "use strict";
+﻿define(['./customerpendingfunds'], function (CustomerPendingFunds) {
+    'use strict';
     $(CustomerPendingFunds.initialize);
 });

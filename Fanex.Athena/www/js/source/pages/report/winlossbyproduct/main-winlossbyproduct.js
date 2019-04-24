@@ -1,5 +1,5 @@
-﻿define(["./winlossbyproduct"], function (WinLossByProduct) {
-    "use strict";
+﻿define(['./winlossbyproduct'], function (WinLossByProduct) {
+    'use strict';
 
     $(WinLossByProduct.initialize);
 });

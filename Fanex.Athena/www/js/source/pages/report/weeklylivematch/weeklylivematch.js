@@ -1,34 +1,34 @@
-﻿"use strict";
-define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.jqgrid.additional",
-        "components/pluginhelper/daterangepicker", "helpers/daterange", "helpers/excel", "helpers/datahelper",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "lib/linq", "extensions/jquery.extension"],
+﻿'use strict';
+define(['jquery', 'common/site', './weeklylivematch.option', 'lib/jqgrid/jquery.jqgrid.additional',
+        'components/pluginhelper/daterangepicker', 'helpers/daterange', 'helpers/excel', 'helpers/datahelper',
+        'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min', 'lib/linq', 'extensions/jquery.extension'],
         function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, ExcelHelper, DataHelper) {
-            var VALID_MONTH_RANGE = 2;
-            var SPORT_COLUMN_INDEX = 1;
-            var START_WEEK_COLUMN_INDEX = 2;
+            const VALID_MONTH_RANGE = 2;
+            const SPORT_COLUMN_INDEX = 1;
+            const START_WEEK_COLUMN_INDEX = 2;
 
-            var ajaxRequest = null;
-            var _cacheData = null;
-            var _sortColumn = null;
-            var _sortDirection = null;
+            let ajaxRequest = null;
+            let _cacheData = null;
+            let _sortColumn = null;
+            let _sortDirection = null;
 
-            var _me = {
+            const _me = {
                 initialize: function () {
                     Site.initialize();
                     _me.initEvent();
 
                     Site.addUserGuide({
-                        resourceName: "WeeklyLiveMatches",
-                        title: Site.getSingleResource("WeeklyLiveMatches"),
+                        resourceName: 'WeeklyLiveMatches',
+                        title: Site.getSingleResource('WeeklyLiveMatches'),
                         height: 450
                     });
                     WeeklyLiveMatchOption.gridOption.onSortCol = function (index) {
                         Site.blockUI();
                         window.setTimeout(function () {
                             if (_sortColumn === index) {
-                                _sortDirection = _sortDirection === "asc" ? "desc" : "asc";
+                                _sortDirection = _sortDirection === 'asc' ? 'desc' : 'asc';
                             } else {
-                                _sortDirection = "asc";
+                                _sortDirection = 'asc';
                                 _sortColumn = index;
                             }
                             _cacheData.Data = _me.sortData(_cacheData.Data);
@@ -40,23 +40,23 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                         return 'stop';
                     };
 
-                    var firstDayOfWeekIsMonday = true;
+                    const firstDayOfWeekIsMonday = true;
                     DatePicker.initDateRangePicker(firstDayOfWeekIsMonday);
                 },
 
                 sortData: function (arrayData) {
-                    var columnIndex = SPORT_COLUMN_INDEX;
-                    var sortThenBy = null;
+                    let columnIndex = SPORT_COLUMN_INDEX;
+                    let sortThenBy = null;
 
                     if (_sortColumn.indexOf('Week') === 0) {
                         columnIndex = Number(_sortColumn.replace('Week', '')) + START_WEEK_COLUMN_INDEX;
                         sortThenBy = function (x) { return x.Cell[SPORT_COLUMN_INDEX]; };
                     }
 
-                    var data = DataHelper.sort(arrayData, function (x) { return x.Cell[columnIndex]; }, _sortDirection, sortThenBy, "asc");
+                    const data = DataHelper.sort(arrayData, function (x) { return x.Cell[columnIndex]; }, _sortDirection, sortThenBy, 'asc');
 
                     // Re-assign Index column.
-                    for (var i = 0; i < data.length; i++) {
+                    for (let i = 0; i < data.length; i++) {
                         data[i].Cell[0] = i + 1;
                     }
 
@@ -72,8 +72,8 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                     });
 
                     $('#ExportToExcel').click(function () {
-                        var mainForm = $("#mainform");
-                        var data = mainForm.serializeObject();
+                        const mainForm = $('#mainform');
+                        const data = mainForm.serializeObject();
                         data.IsExportExcel = true;
                         data.SortColumn = _sortColumn;
                         data.SortDirection = _sortDirection;
@@ -83,15 +83,15 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                 },
 
                 submit: function () {
-                    var mainForm = $("#mainform");
-                    var data = mainForm.serializeObject();
+                    const mainForm = $('#mainform');
+                    const data = mainForm.serializeObject();
                     data.SortColumn = _sortColumn;
                     data.SortDirection = _sortDirection;
-                    var option = {
-                        type: "POST",
+                    const option = {
+                        type: 'POST',
                         data: data,
-                        dataType: "json",
-                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         cache: false,
                         url: Site.resolveClientUrl(WeeklyLiveMatchOption.urlData),
                         success: function (response) {
@@ -111,21 +111,21 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                 },
 
                 bindData: function (response) {
-                    jqGridAdditional.clearGrid("ReportGrid");
-                    var numOfRow = response.Data.length;
+                    jqGridAdditional.clearGrid('ReportGrid');
+                    const numOfRow = response.Data.length;
                     if (numOfRow === 0) {
                         jqGridAdditional.setNoInfo();
                         return;
                     }
 
-                    var reportGrid = $("#ReportGrid");
-                    var userData = {};
-                    var totalData = response.TotalData;
-                    for (var i = 0; i < totalData.length; i++) {
+                    const reportGrid = $('#ReportGrid');
+                    const userData = {};
+                    const totalData = response.TotalData;
+                    for (let i = 0; i < totalData.length; i++) {
                         userData['Week' + i] = totalData[i];
                     }
 
-                    var gridOption = WeeklyLiveMatchOption.getGridOption(response.NumberOfWeeks, response.WeekHeaders);
+                    const gridOption = WeeklyLiveMatchOption.getGridOption(response.NumberOfWeeks, response.WeekHeaders);
                     gridOption.data = response.Data;
                     gridOption.userData = userData;
                     gridOption.rowTotal = numOfRow;
@@ -145,16 +145,16 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                 },
 
                 setTotalRow: function () {
-                    var $totalRow = $('.ui-jqgrid-ftable').find('.footrow');
+                    const $totalRow = $('.ui-jqgrid-ftable').find('.footrow');
                     $totalRow.addClass('grandTotal');
-                    var $firstCell = $totalRow.find('td:eq(0)');
-                    var $secondCell = $firstCell.next();
+                    const $firstCell = $totalRow.find('td:eq(0)');
+                    const $secondCell = $firstCell.next();
                     $secondCell.hide();
-                    $firstCell.attr('colspan', 2).html(Site.getSingleResource("Total"));
+                    $firstCell.attr('colspan', 2).html(Site.getSingleResource('Total'));
                 },
 
                 resizeGrid: function () {
-                    var reportGrid = $("#ReportGrid");
+                    const reportGrid = $('#ReportGrid');
                     jqGridAdditional.updateGridHeight();
                     jqGridAdditional.updateGridWidth(reportGrid);
                 }

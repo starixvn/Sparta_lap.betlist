@@ -1,4 +1,4 @@
-﻿define(["./reports/golddeluxewinloss"], function (GoldDeluxeWinLoss) {
-    "use strict";
+﻿define(['./reports/golddeluxewinloss'], function (GoldDeluxeWinLoss) {
+    'use strict';
     $(GoldDeluxeWinLoss.initialize);
 });

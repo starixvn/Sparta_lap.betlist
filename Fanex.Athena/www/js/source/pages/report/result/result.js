@@ -180,7 +180,7 @@ define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', 'com
 
             showLottery: function (vendorProductId) {
                 const option = {
-                    type: "GET",
+                    type: 'GET',
                     cache: false,
                     data: { vendorProductId: vendorProductId },
                     url: Site.resolveClientUrl(KENO_RESULT_API),

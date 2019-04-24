@@ -1,11 +1,11 @@
-﻿"use strict";
-define(["jquery", "common/site"], function ($, Site) {
-    var _me = {
+﻿'use strict';
+define(['jquery', 'common/site'], function ($, Site) {
+    const _me = {
         initialize: function () {
             Site.initialize();
             Site.addUserGuide({
-                resourceName: "SettledMatchCount",
-                title: Site.getSingleResource("SettledMatchCount"),
+                resourceName: 'SettledMatchCount',
+                title: Site.getSingleResource('SettledMatchCount'),
                 height: 220
             });
         }

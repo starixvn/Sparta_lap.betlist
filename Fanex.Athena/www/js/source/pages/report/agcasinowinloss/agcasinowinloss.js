@@ -181,13 +181,13 @@ define(['jquery', 'common/site', './agcasinowinloss.option', '../report', 'lib/j
                 }
                 
                 const option = {
-                    type: "POST",
+                    type: 'POST',
                     data: JSON.stringify(param),
-                    dataType: "json",
-                    contentType: "application/json",
+                    dataType: 'json',
+                    contentType: 'application/json',
                     url: Site.resolveClientUrl(AgCasinoWinLossOption.urlData +
-                        "?level=" + data.level + "&currencyId=" + data.currencyId + "&custId=" + data.custId + "&fdate=" +
-                        moment(fdate).format("MM/DD/YYYY") + "&tdate=" + moment(tdate).format("MM/DD/YYYY")),
+                        '?level=' + data.level + '&currencyId=' + data.currencyId + '&custId=' + data.custId + '&fdate=' +
+                        moment(fdate).format('MM/DD/YYYY') + '&tdate=' + moment(tdate).format('MM/DD/YYYY')),
                     success: function (response) {
                         _me.ajaxComplete(data.level, response);
                         if (response != null && response.Data.length > 0) {
@@ -218,7 +218,7 @@ define(['jquery', 'common/site', './agcasinowinloss.option', '../report', 'lib/j
                     Report.renderBreadCrumb(level);
                     _me.bindData(0, cacheData[level]);
                     //reset excel Link
-                    _me.setExcelUrl(0, 0, 0, "", "");
+                    _me.setExcelUrl(0, 0, 0, '', '');
                     //re-set title
                     const fromdate = new Date(_drilldownData.FromDate);
                     const todate = new Date(_drilldownData.ToDate);
@@ -227,7 +227,7 @@ define(['jquery', 'common/site', './agcasinowinloss.option', '../report', 'lib/j
                 }
                 else if (level === 1) {
                     _me.bindData(1, cacheData[level]);
-                    AgCasinoWinLossOption.urlExcelData = AgCasinoWinLossOption.urlExcelData.replace("level=2", "level=1");
+                    AgCasinoWinLossOption.urlExcelData = AgCasinoWinLossOption.urlExcelData.replace('level=2', 'level=1');
                     Report.renderBreadCrumb(level);
                 }
             },
@@ -244,7 +244,7 @@ define(['jquery', 'common/site', './agcasinowinloss.option', '../report', 'lib/j
             },
 
             bindData: function (level, response) {
-                jqGridAdditional.clearGrid("ReportGrid");
+                jqGridAdditional.clearGrid('ReportGrid');
                 const numOfRow = response.Data.length;
                 if (numOfRow === 0) {
                     jqGridAdditional.setNoInfo();
@@ -253,7 +253,7 @@ define(['jquery', 'common/site', './agcasinowinloss.option', '../report', 'lib/j
 
                 const levelNumber = Number(level);
 
-                const reportGrid = $("#ReportGrid");
+                const reportGrid = $('#ReportGrid');
 
                 const gridOption = AgCasinoWinLossOption.getGridOption(levelNumber);
                 gridOption.data = response.Data;
@@ -262,7 +262,7 @@ define(['jquery', 'common/site', './agcasinowinloss.option', '../report', 'lib/j
                 gridOption.gridComplete = function () {
                     
                     jqGridAdditional.gridComplete();
-                    $("#pg_ppdata").hide();
+                    $('#pg_ppdata').hide();
 
                     _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
 

@@ -1,19 +1,19 @@
-﻿"use strict";
-define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], function ($, Site, jqGridAdditional) {
-    var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
+﻿'use strict';
+define(['jquery', 'common/site', 'lib/jqgrid/jquery.jqgrid.additional'], function ($, Site, jqGridAdditional) {
+    const setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
         return '<a class="drilldown" href="javascript:;" onclick="return cashoutDrillDown(' + level + ',' +
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
-    var dateFormatter = function (cellvalue, options, rowObject) {
-        var newCellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+    const dateFormatter = function (cellvalue, options, rowObject) {
+        const newCellvalue = $.fn.fmatter.call(this, 'date', cellvalue, options, rowObject);
         return setDrillDownLink(1, 0, 0, rowObject.Date, newCellvalue);
     };
-    var currencyFormatter = function (cellvalue, options, rowObject) {
+    const currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
-    var betlistLink = function (cellvalue, options, rowObject) {
-        var param =
+    const betlistLink = function (cellvalue, options, rowObject) {
+        const param =
         {
             DrillDownDate: rowObject.Date,
             DrillDownCurrencyId: rowObject.CurrencyId,
@@ -28,7 +28,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
 
     //#region Columns
 
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -41,7 +41,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         sortable: false
     };
 
-    var dateColumn =
+    const dateColumn =
     {
         name: 'Date',
         index: 'Date',
@@ -59,7 +59,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         }
     };
 
-    var externalIdColumn =
+    const externalIdColumn =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -70,7 +70,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: betlistLink
     };
 
-    var systemIdColumn =
+    const systemIdColumn =
     {
         name: 'SystemId',
         index: 'SystemId',
@@ -81,7 +81,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: betlistLink
     };
 
-    var currencyColumn =
+    const currencyColumn =
     {
         name: 'CurrencyName',
         index: 'CurrencyName',
@@ -92,7 +92,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: currencyFormatter
     };
 
-    var cashOutTimesColumn =
+    const cashOutTimesColumn =
     {
         name: 'CashOutTimes',
         index: 'CashOutTimes',
@@ -104,7 +104,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         hidden: false
     };
 
-    var cashOutTicketsColumn =
+    const cashOutTicketsColumn =
     {
         name: 'CashOutTickets',
         index: 'CashOutTickets',
@@ -116,11 +116,11 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         frozen: true,
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var cashOutValueColumn =
+    const cashOutValueColumn =
     {
         name: 'CashOutValue',
         index: 'CashOutValue',
@@ -131,7 +131,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var buyBackAmoutSBColumn =
+    const buyBackAmoutSBColumn =
     {
         name: 'BuyBackAmountSB',
         index: 'BuyBackAmountSB',
@@ -144,7 +144,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var buyBackAmoutBAColumn =
+    const buyBackAmoutBAColumn =
     {
         name: 'BuyBackAmountBA',
         index: 'BuyBackAmountBA',
@@ -157,7 +157,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var buyBackAmoutTotalColumn =
+    const buyBackAmoutTotalColumn =
     {
         name: 'TotalBuyBackAmount',
         index: 'TotalBuyBackAmount',
@@ -170,7 +170,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var ticketPayoutColumn =
+    const ticketPayoutColumn =
     {
         name: 'TicketPayout',
         index: 'TicketPayout',
@@ -181,7 +181,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var cashOutCommissionColumn =
+    const cashOutCommissionColumn =
     {
         name: 'CashOutCommission',
         index: 'CashOutCommission',
@@ -192,7 +192,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var settleAmountTicketPayoutColumn =
+    const settleAmountTicketPayoutColumn =
     {
         name: 'SettleAmountTicketPayout',
         index: 'SettleAmountTicketPayout',
@@ -205,7 +205,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var settleAmountBuyBackCommColumn =
+    const settleAmountBuyBackCommColumn =
     {
         name: 'SettleAmountBuyBackComm',
         index: 'SettleAmountBuyBackComm',
@@ -218,7 +218,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var settleAmountTotalColumn =
+    const settleAmountTotalColumn =
     {
         name: 'SettleAmountTotal',
         index: 'SettleAmountTotal',
@@ -231,7 +231,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var currencyIdColumn =
+    const currencyIdColumn =
     {
         name: 'CurrencyId',
         index: 'CurrencyId',
@@ -242,7 +242,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         hidden: true
     };
 
-    var customerIdColumn =
+    const customerIdColumn =
     {
         name: 'CustomerId',
         index: 'CustomerId',
@@ -255,16 +255,16 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
 
     //#endregion
 
-    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+    const colNameList = ['#', 'Date', 'ExternalId', 'SystemId', 'Currency',
       'CashOutTimes', 'CashOutTickets', 'CashOutValue','ProductSB', 'ProductBA', 'Total', 'TicketPayout', 'CashOutCommission',
       'TicketPayout', 'BBAmtComm', 'Total', 'CurrencyId', 'CustomerId'];
 
-    var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+    const colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
         cashOutTimesColumn, cashOutTicketsColumn, cashOutValueColumn, buyBackAmoutSBColumn, buyBackAmoutBAColumn, buyBackAmoutTotalColumn,
         ticketPayoutColumn, cashOutCommissionColumn, settleAmountTicketPayoutColumn, settleAmountBuyBackCommColumn,
         settleAmountTotalColumn, currencyIdColumn, customerIdColumn];
 
-    var _me = {
+    const _me = {
         isLicenseeOfferBA: false,
         buyBackAmountTotalColumnIndex: 10,
         totalColspan: [2, 3],
@@ -295,14 +295,14 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         },
 
         setGroupHeaders: function ($grid) {
-            var groupBuyBackAmount = _me.isLicenseeOfferBA ?
+            const groupBuyBackAmount = _me.isLicenseeOfferBA ?
             {
-                startColumnName: "BuyBackAmountSB",
+                startColumnName: 'BuyBackAmountSB',
                 numberOfColumns: 3,
                 titleText: Site.getSingleResource('BuyBackAmount')
             } : {};
-            var groupSettleAmount = {
-                startColumnName: "SettleAmountTicketPayout",
+            const groupSettleAmount = {
+                startColumnName: 'SettleAmountTicketPayout',
                 numberOfColumns: 3,
                 titleText: Site.getSingleResource('SettleAmount')
             };
@@ -313,16 +313,16 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         },
 
         getColName: function () {
-            var temp = Site.clone(colNameList);
+            const temp = Site.clone(colNameList);
             if (!_me.isLicenseeOfferBA) {
-                temp[_me.buyBackAmountTotalColumnIndex] = "BuyBackAmount";
+                temp[_me.buyBackAmountTotalColumnIndex] = 'BuyBackAmount';
             }
 
             return Site.getResources(temp);
         },
 
         getColModel: function (level) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
 
             currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
 
@@ -338,7 +338,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
                 buyBackAmoutBAColumn.hidden = true;
             }
 
-            var temp = Site.clone(colModelList);
+            const temp = Site.clone(colModelList);
             return temp;
         },
 
@@ -349,10 +349,10 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         },
 
         getTotalColModel: function (level) {
-            var colModel = _me.getColModel(level);
+            const colModel = _me.getColModel(level);
             // Not show drill down link on total link
-            var currencyNameCol = colModel.filter(function (item) {
-                return item.name === "CurrencyName";
+            const currencyNameCol = colModel.filter(function (item) {
+                return item.name === 'CurrencyName';
             })[0];
 
             currencyNameCol.formatter = null;

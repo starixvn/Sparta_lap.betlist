@@ -328,7 +328,7 @@
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
                 else {
-                    WinLossByProductOption.urlExcelData = WinLossByProductOption.urlExcelData.replace("level=2", "level=1");
+                    WinLossByProductOption.urlExcelData = WinLossByProductOption.urlExcelData.replace('level=2', 'level=1');
                 }
             },
 
@@ -361,7 +361,7 @@
                 });
 
                 const popH = Math.min($(window).height() - 100, 500), popW = 920;
-                const popupOption = { id: 'betlist-popup', width: popW + 30, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
+                const popupOption = { id: 'betlist-popup', width: popW + 30, height: popH + 50, title: Site.getSingleResource('CustomerBetList') };
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },

@@ -1,6 +1,6 @@
-﻿"use strict";
-define(["jquery", "common/site"], function ($, Site) {
-    var indexColumn =
+﻿'use strict';
+define(['jquery', 'common/site'], function ($, Site) {
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -11,7 +11,7 @@ define(["jquery", "common/site"], function ($, Site) {
         sortable: false
     };
 
-    var sportNameColumn =
+    const sportNameColumn =
     {
         name: 'SportName',
         index: 'SportName',
@@ -21,25 +21,25 @@ define(["jquery", "common/site"], function ($, Site) {
         resizable: false
     };
 
-    var numOfMatchColumn =
+    const numOfMatchColumn =
     {
         width: 90,
         sortable: true,
         resizable: false,
-        align: "right",
+        align: 'right',
         title: true,
         formatter: 'integer',
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var colNameList = ['#', 'Sport'];
+    const colNameList = ['#', 'Sport'];
 
-    var colModelList = [indexColumn, sportNameColumn];
+    const colModelList = [indexColumn, sportNameColumn];
 
-    var _me = {
+    const _me = {
         urlData: 'api/WeeklyLiveMatchReport/index',
         urlExcelData: 'api/WeeklyLiveMatchReport/index',
         gridOption:
@@ -60,20 +60,20 @@ define(["jquery", "common/site"], function ($, Site) {
             rownumbers: false,
             localReader: {
                 repeatitems: true,
-                cell: "Cell",
-                id: "Index"
+                cell: 'Cell',
+                id: 'Index'
             }
         }
     };
 
     _me.getGridOption = function (numOfWeek, weekHeaders) {
-        var columnModels = Site.clone(colModelList);
-        var columnNames = Site.clone(colNameList);
-        for (var i = 0; i < numOfWeek; i++) {
+        const columnModels = Site.clone(colModelList);
+        const columnNames = Site.clone(colNameList);
+        for (let i = 0; i < numOfWeek; i++) {
             columnNames.push(weekHeaders[i]);
 
-            var column = Site.clone(numOfMatchColumn);
-            column.name = "Week" + i;
+            const column = Site.clone(numOfMatchColumn);
+            column.name = 'Week' + i;
             column.index = column.name;
 
             columnModels.push(column);

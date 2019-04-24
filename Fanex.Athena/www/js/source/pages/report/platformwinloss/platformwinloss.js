@@ -271,7 +271,7 @@
                 Site.getSingleResource('AllCurrencies') :
                 Site.getSingleResource('Currency') + ' ' + selectedCurrency;
 
-            const viewinKey = Site.getSingleResource("Viewin");
+            const viewinKey = Site.getSingleResource('Viewin');
             const baseCurrency = {
                 'gbp': viewinKey.replace('{0}', 'GBP'),
                 'usd': viewinKey.replace('{0}', 'USD'),

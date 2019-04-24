@@ -1,9 +1,9 @@
-﻿define(["common/site"],
+﻿define(['common/site'],
     function (Site) {
-        "use strict";
+        'use strict';
 
         function setDrillDownLink(level, currencyId, custId, datetime, cellvalue) {
-            var param = {
+            const param = {
                 Level: level,
                 CurrencyId: currencyId,
                 CustId: custId,
@@ -14,7 +14,7 @@
         }
 
         function betlistLink(cellvalue, options, rowObject) {
-            var param =
+            const param =
             {
                 DrillDownDate: rowObject.Date,
                 DrillDownCurrencyId: rowObject.CurrencyId,
@@ -76,18 +76,18 @@
                 return Site.clone(this.colModelList);
             },
             getGridOption: function (level, reportBy) {
-                var gridOption = Site.clone(this.gridOption);
+                const gridOption = Site.clone(this.gridOption);
                 gridOption.colNames = this.getColName();
                 gridOption.colModel = this.getColModel(level, reportBy);
                 return gridOption;
             },
 
             getTotalColModel: function (level, reportBy) {
-                var colModel = this.getColModel(level, reportBy);
+                const colModel = this.getColModel(level, reportBy);
 
-                for (var i = 0; i < colModel.length; i++) {
-                    var item = colModel[i];
-                    if (item.name === "CurrencyName") {
+                for (let i = 0; i < colModel.length; i++) {
+                    const item = colModel[i];
+                    if (item.name === 'CurrencyName') {
                         item.formatter = null;
                         break;
                     }

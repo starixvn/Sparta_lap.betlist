@@ -1,17 +1,17 @@
-﻿define(["../common/thirdpartywinloss", "./colossusbetswinloss.option"],
+﻿define(['../common/thirdpartywinloss', './colossusbetswinloss.option'],
     function (ThirdPartyWinLoss, ColossusBetsWinLossOption) {
-        "use strict";
+        'use strict';
         function initialize() {
             ThirdPartyWinLoss.initialize({
-                UserGuideResourceName: "ColossusBetsWL",
-                UserGuideTitle: "ColossusBetsWinLoss",
+                UserGuideResourceName: 'ColossusBetsWL',
+                UserGuideTitle: 'ColossusBetsWinLoss',
                 ValidMonthRange: 0,
-                ReportTitle: "ColossusBetsWinLoss",
+                ReportTitle: 'ColossusBetsWinLoss',
                 GridOption: ColossusBetsWinLossOption
             });
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize
         };
 

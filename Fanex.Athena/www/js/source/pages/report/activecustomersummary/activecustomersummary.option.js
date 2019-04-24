@@ -1,101 +1,101 @@
-﻿define(["jquery", "common/site"], function ($, Site) {
-    "use strict";
+﻿define(['jquery', 'common/site'], function ($, Site) {
+    'use strict';
 
-    var dateColumn =
+    const dateColumn =
     {
-        name: "TransactionDate",
-        index: "TransactionDate",
+        name: 'TransactionDate',
+        index: 'TransactionDate',
         resizable: false,
         width: 70,
-        align: "center",
-        valign: "middle",
+        align: 'center',
+        valign: 'middle',
         sortable: true,
-        formatter: "date",
+        formatter: 'date',
         formatoptions:
         {
-            newformat: "m/Y"
+            newformat: 'm/Y'
         }
     };
 
-    var numMemberColumn =
+    const numMemberColumn =
     {
-        name: "TotalCustomer",
-        index: "TotalCustomer",
+        name: 'TotalCustomer',
+        index: 'TotalCustomer',
         width: 80,
-        align: "right",
+        align: 'right',
         sortable: true,
         resizable: false,
-        formatter: "integer",
+        formatter: 'integer',
         frozen: true,
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var productColumn =
+    const productColumn =
     {
         width: 90,
         sortable: true,
         resizable: false,
-        align: "right",
+        align: 'right',
         title: true,
-        formatter: "integer",
+        formatter: 'integer',
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var colNameList = ["Month", "Total"];
+    const colNameList = ['Month', 'Total'];
 
-    var colModelList = [dateColumn, numMemberColumn];
+    const colModelList = [dateColumn, numMemberColumn];
 
-    var _me = {
+    const _me = {
         dateColumnIndex: 0,
         totalCustomerIndex: 1,
         pageSize: 50,
-        urlData: "api/ActiveCustomerSummaryReport/Index",
-        urlExcelData: "api/ActiveCustomerSummaryReport/Index",
+        urlData: 'api/ActiveCustomerSummaryReport/Index',
+        urlExcelData: 'api/ActiveCustomerSummaryReport/Index',
         gridOption:
         {
-            datatype: "local",
+            datatype: 'local',
             colNames: [],
             colModel: [],
             data: [],
-            height: "100%",
+            height: '100%',
             autowidth: false,
             forceFit: false,
             shrinkToFit: true,
-            loadtext: "",
-            loadui: "disable",
+            loadtext: '',
+            loadui: 'disable',
             loadonce: true,
             footerrow: true,
             gridview: true,
             rownumbers: false,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             rowNum: 50,
-            pager: "#ppdata",
-            recordtext: ""
+            pager: '#ppdata',
+            recordtext: ''
         },
 
         getGridOption: function (productOptions, totalRows) {
-            var columnModels = Site.clone(colModelList);
-            var columnNames = Site.clone(colNameList);
-            var startIndex = _me.dateColumnIndex;
+            const columnModels = Site.clone(colModelList);
+            const columnNames = Site.clone(colNameList);
+            let startIndex = _me.dateColumnIndex;
 
             $.each(productOptions, function (index, value) {
                 // columnNames
                 columnNames.insertAfter(value.Name, startIndex);
 
                 // columModels
-                var column = Site.clone(productColumn);
-                column.index = "CustomerCount." + value.Code;
+                const column = Site.clone(productColumn);
+                column.index = 'CustomerCount.' + value.Code;
                 column.name = column.index;
 
                 if (!value.Status) {
                     column.formatter = function () {
-                        return "-";
+                        return '-';
                     };
                     column.sortable = false;
                 }

@@ -1,35 +1,35 @@
 ﻿define([
-    "jquery",
-    "common/site",
-    "lib/jqgrid/jquery.jqgrid.additional"],
+    'jquery',
+    'common/site',
+    'lib/jqgrid/jquery.jqgrid.additional'],
     function ($, Site, jqGridAdditional) {
-        "use strict";
+        'use strict';
 
-        var indexColumn =
+        const indexColumn =
     {
-        name: "Index",
-        index: "Index",
+        name: 'Index',
+        index: 'Index',
         resizable: false,
         width: 40,
-        align: "center",
-        valign: "middle",
+        align: 'center',
+        valign: 'middle',
         sortable: false
     };
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
-            name: "ExternalId",
-            index: "ExternalId",
+            name: 'ExternalId',
+            index: 'ExternalId',
             resizable: false,
             width: 120,
-            align: "left",
-            valign: "middle",
+            align: 'left',
+            valign: 'middle',
             sortable: true,
             cellattr: function () {
                 return ' style="text-overflow: ellipsis"';
             },
             formatter: function (cellvalue, options, rowObject) {
-                var param =
+                const param =
                 {
                     CustId: rowObject.CustId,
                     ExternalId: rowObject.ExternalId,
@@ -39,45 +39,45 @@
             }
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
-            name: "SystemId",
-            index: "SystemId",
+            name: 'SystemId',
+            index: 'SystemId',
             resizable: false,
             width: 120,
-            align: "left",
-            valign: "middle",
+            align: 'left',
+            valign: 'middle',
             sortable: true
         };
 
-        var turnoverColumn =
+        const turnoverColumn =
         {
-            name: "Turnover",
-            index: "Turnover",
+            name: 'Turnover',
+            index: 'Turnover',
             width: 110,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var totalTransactionColumn =
+        const totalTransactionColumn =
         {
-            name: "TotalTransaction",
-            index: "TotalTransaction",
+            name: 'TotalTransaction',
+            index: 'TotalTransaction',
             width: 90,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "integer",
+            formatter: 'integer',
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
 
-        var customerWlColumn =
+        const customerWlColumn =
        {
            name: 'CustomerWL',
            index: 'CustomerWL',
@@ -88,7 +88,7 @@
            formatter: jqGridAdditional.formatDecimal
        };
 
-        var playerCommColumn =
+        const playerCommColumn =
         {
             name: 'PlayerComm',
             index: 'PlayerComm',
@@ -99,7 +99,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var customerWlTotalColumn =
+        const customerWlTotalColumn =
         {
             name: 'CustomerTotalWL',
             index: 'CustomerTotalWL',
@@ -110,68 +110,68 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var betEffectiveColumn =
+        const betEffectiveColumn =
         {
-            name: "BetEffective",
-            index: "BetEffective",
+            name: 'BetEffective',
+            index: 'BetEffective',
             width: 100,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var licenseeWLColumn =
+        const licenseeWLColumn =
         {
-            name: "LicenseeWL",
-            index: "LicenseeWL",
+            name: 'LicenseeWL',
+            index: 'LicenseeWL',
             width: 100,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-        var bacommColumn =
+        const bacommColumn =
         {
-            name: "BAComm",
-            index: "BAComm",
+            name: 'BAComm',
+            index: 'BAComm',
             width: 100,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-        var amtDueToBAColumn =
+        const amtDueToBAColumn =
         {
-            name: "AmtDueToBA",
-            index: "AmtDueToBA",
+            name: 'AmtDueToBA',
+            index: 'AmtDueToBA',
             width: 100,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var colNameList = [
-            "#",
-            "ExternalId",
-            "SystemId",
-            "Turnover",
-            "TotalTransaction",
+        const colNameList = [
+            '#',
+            'ExternalId',
+            'SystemId',
+            'Turnover',
+            'TotalTransaction',
             '@[Win]/@[Loss]',
             'Comm',
             'Total',
-            "EffectiveBettingValue",
-            "LicenseeW_L",
-            "BACommission",
-            "AmtDueToBA"
+            'EffectiveBettingValue',
+            'LicenseeW_L',
+            'BACommission',
+            'AmtDueToBA'
         ];
 
-        var colModelList = [
+        const colModelList = [
             indexColumn,
             externalIdColumn,
             systemIdColumn,
@@ -186,11 +186,11 @@
             amtDueToBAColumn
         ];
 
-        var _me =
+        const _me =
         {
-            urlData: "api/CustomerWinLossReport/Index",
-            urlExcelData: "api/CustomerWinLossReport/Index",
-            urlPromotionPrizeExcelData: "api/PromotionPrizeReport/ExportExcel",
+            urlData: 'api/CustomerWinLossReport/Index',
+            urlExcelData: 'api/CustomerWinLossReport/Index',
+            urlPromotionPrizeExcelData: 'api/PromotionPrizeReport/ExportExcel',
             hasCustomerComm: true,
             isAllowBA: true,
             customerCommIndex: 11,
@@ -200,16 +200,16 @@
             totalColspanFakeLicensee: 2,
             gridOption:
             {
-                datatype: "local",
+                datatype: 'local',
                 colNames: [],
                 colModel: [],
                 data: [],
-                height: "100%",
+                height: '100%',
                 autowidth: false,
                 forceFit: false,
                 shrinkToFit: true,
                 loadtext: '',
-                loadui: "disable",
+                loadui: 'disable',
                 loadonce: true,
                 footerrow: true,
                 userDataOnFooter: false,
@@ -225,14 +225,14 @@
             },
 
             setGroupHeaderColumns: function (grid) {
-                var groupCustomerWinloss = _me.hasCustomerComm ?
+                const groupCustomerWinloss = _me.hasCustomerComm ?
                 {
-                    startColumnName: "CustomerWL",
+                    startColumnName: 'CustomerWL',
                     numberOfColumns: 3,
-                    titleText: Site.getSingleResource("CustomerW_L")
+                    titleText: Site.getSingleResource('CustomerW_L')
                 } : {};
 
-                grid.jqGrid("setGroupHeaders",
+                grid.jqGrid('setGroupHeaders',
                 {
                     useColSpanStyle: true,
                     groupHeaders: [groupCustomerWinloss]
@@ -240,9 +240,9 @@
             },
 
             getColName: function () {
-                var colNames = Site.clone(colNameList);
+                const colNames = Site.clone(colNameList);
 
-                colNames[_me.customerWlIndex] = _me.hasCustomerComm ? "@[Win]/@[Loss]" : "CustomerW_L";
+                colNames[_me.customerWlIndex] = _me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
 
                 return Site.getResources(colNames);
             },
@@ -254,7 +254,7 @@
                 amtDueToBAColumn.hidden = !_me.isAllowBA;
                 systemIdColumn.hidden = Site.isFakeLicensee();
 
-                var colModels = Site.clone(colModelList);
+                const colModels = Site.clone(colModelList);
 
                 if (totalRows <= 1) {
                     $.each(colModels, function (index, item) {

@@ -1,4 +1,4 @@
 ﻿define(['./livereport'], function (LiveReport) {
-    "use strict";
+    'use strict';
     $(LiveReport.initialize);
 });

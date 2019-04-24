@@ -1,53 +1,53 @@
 ﻿define([
-    "jquery",
-    "common/site",
-    "lib/jqgrid/jquery.jqgrid.additional",
-    "./customerbalance.option",
-    "components/pluginhelper/daterangepicker",
-    "components/pluginhelper/multiselect",
-    "helpers/daterange",
-    "components/paging",
-    "../report",
-    "lib/jqgrid/jquery.jqGrid.en",
-    "lib/jqgrid/jquery.jqGrid.min",
-    "extensions/jquery.extension"],
+    'jquery',
+    'common/site',
+    'lib/jqgrid/jquery.jqgrid.additional',
+    './customerbalance.option',
+    'components/pluginhelper/daterangepicker',
+    'components/pluginhelper/multiselect',
+    'helpers/daterange',
+    'components/paging',
+    '../report',
+    'lib/jqgrid/jquery.jqGrid.en',
+    'lib/jqgrid/jquery.jqGrid.min',
+    'extensions/jquery.extension'],
     function ($, Site, jqGridAdditional, CustomerBalanceOption, DatePicker, MultiSelect, DateHelper, PagingHelper, Report) {
-        "use strict";
+        'use strict';
 
-        var VALID_MONTH_RANGE = 2;
+        const VALID_MONTH_RANGE = 2;
 
-        var _ajaxRequest = null;
-        var _sortColumnIndex = "Deposit";
-        var _sortType = "desc";
-        var _orderColumnCode = 1;
-        var _isFirstLoad = true;
-        var _submitData = null;
-        var _pagingOption =
+        let _ajaxRequest = null;
+        let _sortColumnIndex = 'Deposit';
+        let _sortType = 'desc';
+        let _orderColumnCode = 1;
+        let _isFirstLoad = true;
+        let _submitData = null;
+        let _pagingOption =
         {
             pageindex: 1,
             pagesize: 500,
             pagelist: [500, 1000, 2000],
             totalrow: 1,
-            elementcontainer: ".paging",
-            method: "AJAX",
-            ajaxfunction: "CustomerBalance.ajaxPaging()",
+            elementcontainer: '.paging',
+            method: 'AJAX',
+            ajaxfunction: 'CustomerBalance.ajaxPaging()',
             alwayshow: true
         };
-        var _selector = {
-            SubmitButton: "#SubmitButton",
-            ExportToExcel: "#ExportToExcel",
-            Form: "#CustomerBalanceForm",
-            Title: ".report-title",
-            Header: ".panel-heading",
-            GridId: "ReportGrid",
-            OrderItemInput: "#OrderItem"
+        const _selector = {
+            SubmitButton: '#SubmitButton',
+            ExportToExcel: '#ExportToExcel',
+            Form: '#CustomerBalanceForm',
+            Title: '.report-title',
+            Header: '.panel-heading',
+            GridId: 'ReportGrid',
+            OrderItemInput: '#OrderItem'
         };
 
         function initialize() {
             Site.initialize();
             Site.addUserGuide({
-                resourceName: "CustomerBalance",
-                title: Site.getSingleResource("CustomerBalance")
+                resourceName: 'CustomerBalance',
+                title: Site.getSingleResource('CustomerBalance')
             });
             MultiSelect.initProductList();
             DatePicker.initDateRangePicker();
@@ -59,7 +59,7 @@
 
         function initEvent() {
             $(_selector.SubmitButton).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return;
                 }
@@ -70,25 +70,25 @@
             });
 
             $(_selector.ExportToExcel).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return false;
                 }
 
-                var mainForm = $(_selector.Form);
-                var url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
+                const mainForm = $(_selector.Form);
+                const url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
                 $(_selector.OrderItemInput, _selector.Form).val(_orderColumnCode);
-                mainForm.attr("action", url);
+                mainForm.attr('action', url);
                 mainForm.submit();
                 return false;
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
 
             window.CustomerBalance = {
@@ -97,19 +97,19 @@
         }
 
         function initSetting() {
-            CustomerBalanceOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-            CustomerBalanceOption.isAllowBA = Site.asBool($("#IsAllowedBACommission").val());
+            CustomerBalanceOption.hasCustomerComm = Site.asBool($('#IsAllowedCustomerCommission').val());
+            CustomerBalanceOption.isAllowBA = Site.asBool($('#IsAllowedBACommission').val());
         }
 
         function submit() {
             buildPostData();
 
-            var option =
+            const option =
             {
-                type: "POST",
+                type: 'POST',
                 data: _submitData,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(CustomerBalanceOption.urlData),
                 success: function (response) {
@@ -145,19 +145,19 @@
                 return;
             }
 
-            var gridOption = CustomerBalanceOption.getGridOption(response.TotalRows);
+            const gridOption = CustomerBalanceOption.getGridOption(response.TotalRows);
             gridOption.rowNum = response.Data.length;
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
                 sort(index);
-                return "stop";
+                return 'stop';
             };
             gridOption.gridComplete = function () {
                 onGridComplete(gridOption, response);
                 Site.unBlockUI();
             };
 
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             reportGrid.jqGrid(gridOption);
 
             CustomerBalanceOption.setGroupHeaderColumns(reportGrid);
@@ -179,15 +179,15 @@
         }
 
         function setReportTitle(fromDate, toDate, currencyName) {
-            var titlePattern = "{0}, {1} → {2}, {3}";
-            var title = $.format(titlePattern,
-                Site.getSingleResource("CustomerBalance"),
+            const titlePattern = '{0}, {1} → {2}, {3}';
+            const title = $.format(titlePattern,
+                Site.getSingleResource('CustomerBalance'),
                 fromDate,
                 toDate,
-                Site.getSingleResource("Viewin").replace("{0}", currencyName));
+                Site.getSingleResource('Viewin').replace('{0}', currencyName));
 
             $(_selector.Title).html(title);
-            $(_selector.Header).removeClass("hide");
+            $(_selector.Header).removeClass('hide');
         }
 
         function createPaging(totalRows) {
@@ -203,10 +203,10 @@
 
         function sort(index) {
             if (_pagingOption.totalrow > 1) {
-                var sortType = index === _sortColumnIndex ? (_sortType === "desc" ? "asc" : "desc") : "desc";
-                var orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, sortType);
+                const sortType = index === _sortColumnIndex ? (_sortType === 'desc' ? 'asc' : 'desc') : 'desc';
+                const orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, sortType);
                 if (orderColumnCode === 0) {
-                    return "stop";
+                    return 'stop';
                 }
 
                 window.setTimeout(function () {
@@ -222,7 +222,7 @@
             if (_isFirstLoad) {
                 jqGridAdditional.gridComplete();
 
-                var reportGrid = $("#" + _selector.GridId);
+                const reportGrid = $('#' + _selector.GridId);
                 if (_pagingOption.totalrow > 1) {
                     jqGridAdditional.addSortableHeaders(reportGrid, _sortColumnIndex, _sortType);
                 }
@@ -237,12 +237,12 @@
         }
 
         function resizeGrid() {
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initEvent: initEvent,
             submit: submit,

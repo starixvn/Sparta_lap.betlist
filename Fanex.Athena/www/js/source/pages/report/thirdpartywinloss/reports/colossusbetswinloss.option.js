@@ -1,10 +1,10 @@
-﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "../common/thirdpartywinloss.option"],
+﻿define(['jquery', 'common/site', 'lib/jqgrid/jquery.jqgrid.additional', '../common/thirdpartywinloss.option'],
     function ($, Site, jqGridAdditional, ThirdPartyWinLossOption) {
-        "use strict";
+        'use strict';
 
-        var REPORT_BY_DAILY = 1;
+        const REPORT_BY_DAILY = 1;
 
-        var indexColumn = {
+        const indexColumn = {
             name: 'Index',
             index: 'Index',
             resizable: false,
@@ -16,7 +16,7 @@
             cellattr: jqGridAdditional.rowSpanSetting
         };
 
-        var dateColumn =
+        const dateColumn =
         {
             name: 'Date',
             index: 'Date',
@@ -33,7 +33,7 @@
             }
         };
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
             name: 'ExternalId',
             index: 'ExternalId',
@@ -43,7 +43,7 @@
             sortable: false
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
             name: 'SystemId',
             index: 'SystemId',
@@ -53,7 +53,7 @@
             sortable: false
         };
 
-        var currencyColumn =
+        const currencyColumn =
         {
             name: 'CurrencyName',
             index: 'CurrencyName',
@@ -63,7 +63,7 @@
             resizable: false
         };
 
-        var turnoverColumn =
+        const turnoverColumn =
         {
             name: 'TurnOver',
             index: 'TurnOver',
@@ -76,7 +76,7 @@
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var totalTransColumn =
+        const totalTransColumn =
         {
             name: 'TotalTransaction',
             index: 'TotalTransaction',
@@ -88,11 +88,11 @@
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
 
-        var memWinningColumn =
+        const memWinningColumn =
         {
             name: 'MemberWinning',
             index: 'MemberWinning',
@@ -103,7 +103,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var cashOutColumn =
+        const cashOutColumn =
         {
             name: 'CashOut',
             index: 'CashOut',
@@ -114,7 +114,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var cashOutShareColumn =
+        const cashOutShareColumn =
         {
             name: 'CashOutShare',
             index: 'CashOutShare',
@@ -125,7 +125,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var commissionShareColumn =
+        const commissionShareColumn =
         {
             name: 'CommissionShare',
             index: 'CommissionShare',
@@ -138,7 +138,7 @@
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-        var amountDueToCBColumn =
+        const amountDueToCBColumn =
         {
             name: 'AmountDueToCB',
             index: 'AmountDueToCB',
@@ -149,7 +149,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var grandPrizeColumn =
+        const grandPrizeColumn =
         {
             name: 'GrandPrize',
             index: 'GrandPrize',
@@ -160,7 +160,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var currencyIdColumn =
+        const currencyIdColumn =
         {
             name: 'CurrencyId',
             index: 'CurrencyId',
@@ -171,7 +171,7 @@
             hidden: true
         };
 
-        var customerIdColumn =
+        const customerIdColumn =
         {
             name: 'CustomerId',
             index: 'CustomerId',
@@ -182,15 +182,15 @@
             hidden: true
         };
 
-        var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+        const colNameList = ['#', 'Date', 'ExternalId', 'SystemId', 'Currency',
           'Turnover', 'TotalTransaction', 'CustomerWinnings', 'CashOutAmt', 'CashOutShare', 'CommissionShare',
           'AmountDueToCB', 'AmtGreaterThan30kGBP', 'CurrencyId', 'CustomerId'];
 
-        var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+        const colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
             turnoverColumn, totalTransColumn, memWinningColumn, cashOutColumn, cashOutShareColumn, commissionShareColumn,
             amountDueToCBColumn, grandPrizeColumn, currencyIdColumn, customerIdColumn];
 
-        var _me = new ThirdPartyWinLossOption({
+        const _me = new ThirdPartyWinLossOption({
             TotalColspan: [2, 3],
             UrlData: 'api/ColossusBetsWinlossReport/Index',
             UrlExcelData: 'api/ColossusBetsWinlossReport/Index',
@@ -199,16 +199,16 @@
         });
 
         _me.getColModel = function (level, reportBy) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
 
             currencyColumn.formatter = levelNumber === 0 ? function (cellvalue, options, rowObject) {
-                var levelNumber = 1;
+                const levelNumber = 1;
                 return _me.currencyFormatter(cellvalue, options, rowObject, levelNumber);
             } : null;
 
             dateColumn.hidden = levelNumber > 0;
             dateColumn.formatter = function (cellvalue, options, rowObject) {
-                var newCellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+                const newCellvalue = $.fn.fmatter.call(this, 'date', cellvalue, options, rowObject);
                 return _me.setDrillDownLink(1, 0, 0, rowObject.Date, newCellvalue);
             };
             dateColumn.formatoptions =
@@ -227,7 +227,7 @@
         };
 
         _me.setGroupHeader = function ($grid) {
-            var group = {
+            const group = {
                 startColumnName: 'MemberWinning',
                 numberOfColumns: 2,
                 titleText: Site.getSingleResource('AmtLessThan30kGBP')

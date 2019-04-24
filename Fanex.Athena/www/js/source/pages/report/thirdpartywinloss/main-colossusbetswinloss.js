@@ -1,4 +1,4 @@
-﻿define(["./reports/colossusbetswinloss"], function (ColossusBetsWinLoss) {
-    "use strict";
+﻿define(['./reports/colossusbetswinloss'], function (ColossusBetsWinLoss) {
+    'use strict';
     $(ColossusBetsWinLoss.initialize);
 });

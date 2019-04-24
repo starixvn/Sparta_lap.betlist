@@ -1,7 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/// <reference path='/@JSense.js' />
 /*
 * Note:in this report, parameter level have 3 value
-*  "0" for master,"1" for agent and "2" for member
+*  '0' for master,'1' for agent and '2' for member
 */
 
 define(
@@ -51,7 +51,7 @@ define(
                 rownumbers: true
             },
             restoreExpanse: function () {
-                for (var property in _expanseTypes) {
+                for (let property in _expanseTypes) {
                     if (_expanseTypes.hasOwnProperty(property)) {
                         _me.toggle(_expanseTypes[property], property);
                     }
@@ -202,7 +202,7 @@ define(
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
 
@@ -605,7 +605,7 @@ define(
             /// <summary>
             /// add collapse/expand button to header product columns
             /// </summary>
-            /// <param name="grid">grid instance</param>
+            /// <param name='grid'>grid instance</param>
 
             const numOfActiveLicPro = Enumerable.From(productOptions).Count(licenseeWLProductsFilter);
             const numOfActiveTurnPro = Enumerable.From(productOptions).Count(turnoverProductsFilter);

@@ -325,7 +325,7 @@
                         _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {
                             if (levelNumber > 0 && Number(param.CurrencyId) === 0) {
-                                var viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : currencyName;
+                                const viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : currencyName;
                                 _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
                             } else {
                                 _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
@@ -376,7 +376,7 @@
                 }
                 else if (level === 1) {
                     _me.updateDrilldownData(drillDownData.CurrencyId, drillDownData.CurrencyName, drillDownData.FromDate, drillDownData.ToDate, 0);
-                    LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
+                    LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace('level=2', 'level=1');
                 }
             },
 
@@ -521,7 +521,7 @@
                 url = Site.setProductOptionOriginalParamList(url);
 
                 const popH = Math.min($(window).height() - 100, 650), popW = 920;
-                const popupOption = { id: 'betlist-popup', width: popW + 50, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
+                const popupOption = { id: 'betlist-popup', width: popW + 50, height: popH + 50, title: Site.getSingleResource('CustomerBetList') };
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },

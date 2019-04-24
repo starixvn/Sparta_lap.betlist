@@ -158,7 +158,7 @@
             }
 
             const option = {
-                type: "POST",
+                type: 'POST',
                 data: JSON.stringify(_submitData),
                 dataType: 'json',
                 contentType: 'application/json',
@@ -240,11 +240,11 @@
         function setReportTitle(currencyName, userName, fromDate, toDate, odds) {
             const titlePattern = Site.getSingleResource('Customer') + ' '
                 + Site.getSingleResource('Turnover') + ', {0} → {1} - '
-                + Site.getSingleResource("Currency") + ': {2} - '
+                + Site.getSingleResource('Currency') + ': {2} - '
                 + Site.getSingleResource('MinimumOdds') + ': {3}{4}';
 
             const tempUserName = userName.length > 0
-                ? " - " + Site.getSingleResource('Username') + ': ' + userName
+                ? ' - ' + Site.getSingleResource('Username') + ': ' + userName
                 : '';
 
             const title = $.format(titlePattern, fromDate, toDate, currencyName, odds, tempUserName);
@@ -393,7 +393,7 @@
 
         function addCheckedSport(checkedValue) {
             const modelItem = Enumerable.From(_sports).FirstOrDefault(null, function (item) {
-                return (item.ParentId + "-" + item.ID) === checkedValue;
+                return (item.ParentId + '-' + item.ID) === checkedValue;
             });
 
             if (modelItem != null) {
@@ -535,7 +535,7 @@
                 // Control keys in most browsers. e.g. Firefox tab is 0
              48 <= event.which && event.which <= 57 ||
                 // Always 0 through 9
-                //(48 == event.which && $(this).attr("value")) ||   // No 0 first digit
+                //(48 == event.which && $(this).attr('value')) ||   // No 0 first digit
                 isControlKey) {
                 // Opera assigns values for control keys.
                 return;

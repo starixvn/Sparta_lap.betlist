@@ -1,4 +1,4 @@
-﻿define(["./platformwinloss"], function (PlatformWinLoss) {
-    "use strict";
+﻿define(['./platformwinloss'], function (PlatformWinLoss) {
+    'use strict';
     $(PlatformWinLoss.initialize);
 });

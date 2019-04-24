@@ -1,7 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/// <reference path='/@JSense.js' />
 /*
 * Note:in this report, parameter level have 2 value
-*  "0" for master and "1" for member
+*  '0' for master and '1' for member
 */
 
 define(['jquery', 'common/site', 'lib/jqgrid/jquery.jqgrid.additional'],

@@ -157,7 +157,7 @@
                     setExcelUrl(level, currencyId, custId, fromDate, toDate);
                     ajaxComplete(level, response, postdata);
 
-                    const currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : "";
+                    const currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : '';
                     _me.setReportTitle(currencyId, fromDate, toDate, currencyName);
                 },
                 beforeSend: function () {

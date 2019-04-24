@@ -1,92 +1,92 @@
 ﻿define(
-    ["jquery", "common/site", "./turnover.option",
-        "lib/jqgrid/jquery.jqgrid.additional", "moment", "components/pluginhelper/monthpicker", "components/pluginhelper/multiselect",
-        "components/pluginhelper/autocomplete", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
+    ['jquery', 'common/site', './turnover.option',
+        'lib/jqgrid/jquery.jqgrid.additional', 'moment', 'components/pluginhelper/monthpicker', 'components/pluginhelper/multiselect',
+        'components/pluginhelper/autocomplete', 'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min', 'extensions/jquery.extension'],
     function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, AutoComplete) {
-        "use strict";
-    var ajaxRequest = null;
-    var _fromDate, _toDate, _currencyId;
+        'use strict';
+    let ajaxRequest = null;
+    let _fromDate, _toDate, _currencyId;
 
-    var _me = {
-        defaultUserName: "",
+    const _me = {
+        defaultUserName: '',
         initialize: function () {
             Site.initialize();
             _me.initEvent();
             AutoComplete.initialize({
-                url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
-                target: "#Username"
+                url: Site.resolveClientUrl('SearchCustomerAPI/SearchCustomer'),
+                target: '#Username'
             });
             MonthPicker.initMonthPicker();
 
-            TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-            TurnoverOption.hasCasinoTransfer = Site.asBool($("#IsAllowedCasinoTransfer").val());
-            TurnoverOption.isAllowBa = Site.asBool($("#IsAllowBa").val());
+            TurnoverOption.hasCustomerComm = Site.asBool($('#IsAllowedCustomerCommission').val());
+            TurnoverOption.hasCasinoTransfer = Site.asBool($('#IsAllowedCasinoTransfer').val());
+            TurnoverOption.isAllowBa = Site.asBool($('#IsAllowBa').val());
             MultiSelect.initProductList();
             Site.addUserGuide({
-                resourceName: "Turnover",
-                title: Site.getSingleResource("Turnover")
+                resourceName: 'Turnover',
+                title: Site.getSingleResource('Turnover')
             });
         },
         
         initEvent: function () {
-            $("#TurnoverForm input").keypress(function (e) {
+            $('#TurnoverForm input').keypress(function (e) {
                 if (e.keyCode === 13) {
                     $('#IsExportExcel').val(false);
                     _me.submit();
                 }
             });
 
-            $("#SubmitButton").click(function () {
+            $('#SubmitButton').click(function () {
                 $('#IsExportExcel').val(false);
                 _me.submit();
             });
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#TurnoverForm");
-                var url = Site.resolveClientUrl(TurnoverOption.urlExcelData);
-                mainForm.attr("action", url);
+                const mainForm = $('#TurnoverForm');
+                const url = Site.resolveClientUrl(TurnoverOption.urlExcelData);
+                mainForm.attr('action', url);
                 mainForm.submit();
                 $('#IsExportExcel').val(false);
                 return false;
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 _me.resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         },
 
         setReportTitle: function () {
-            var titlePattern = Site.getSingleResource('Turnover');
-            var title = null;
-            var username = $('#Username').val().trim();
-            var currencyTextList =
+            let titlePattern = Site.getSingleResource('Turnover');
+            let title = null;
+            const username = $('#Username').val().trim();
+            const currencyTextList =
                 {
-                    "-3": "gbp",
-                    "-2": "usd",
-                    "-1": "eur",
-                    "0": Site.getSingleResource('AllCurrencies')
+                    '-3': 'gbp',
+                    '-2': 'usd',
+                    '-1': 'eur',
+                    '0': Site.getSingleResource('AllCurrencies')
                 };
 
-            var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId]
+            let currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId]
                                                             : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
-            var dateString = _fromDate.format("MM/DD/YYYY") + ' → ' + _toDate.format("MM/DD/YYYY");
+            const dateString = _fromDate.format('MM/DD/YYYY') + ' → ' + _toDate.format('MM/DD/YYYY');
             currencyName = currencyName.toUpperCase();
             if (username === _me.defaultUserName) {
-                titlePattern += ", {0} - {1}";
-                var currencyStr = Site.getSingleResource("Viewin").replace("{0}", currencyName);
+                titlePattern += ', {0} - {1}';
+                const currencyStr = Site.getSingleResource('Viewin').replace('{0}', currencyName);
                 title = $.format(titlePattern, dateString, currencyStr);
             } else {
-                titlePattern += ", {0} - {1} {2} ({3})";
+                titlePattern += ', {0} - {1} {2} ({3})';
                 title = $.format(titlePattern, dateString, Site.getSingleResource('Customer'), username, currencyName);
             }
 
-            $(".report-title").html(title);
-            $(".panel-heading").removeClass("hide");
+            $('.report-title').html(title);
+            $('.panel-heading').removeClass('hide');
         },
         ajaxComplete: function (response) {
             if (response !== null) {
@@ -96,37 +96,37 @@
         },
 
         setDateParam: function(){
-            _fromDate = moment($("#FromDate").val(), "MM/DD/YYYY");
-            _toDate = moment($("#ToDate").val(), "MM/DD/YYYY");
+            _fromDate = moment($('#FromDate').val(), 'MM/DD/YYYY');
+            _toDate = moment($('#ToDate').val(), 'MM/DD/YYYY');
 
-            $("#FromDay").val(_fromDate.date());
-            $("#ToDay").val(_toDate.date());
-            $("#Month").val(_fromDate.month() + 1);
-            $("#Year").val(_fromDate.year());
+            $('#FromDay').val(_fromDate.date());
+            $('#ToDay').val(_toDate.date());
+            $('#Month').val(_fromDate.month() + 1);
+            $('#Year').val(_fromDate.year());
         },
 
         submit: function () {
-            if ($("#ProductList .childCheckbox:checked").length === 0) {
+            if ($('#ProductList .childCheckbox:checked').length === 0) {
                 return;
             }
 
             _me.setDateParam();
-            _currencyId = $("#CurrencyId").val();
+            _currencyId = $('#CurrencyId').val();
 
-            var mainForm = $("#TurnoverForm");
-            var postdata = mainForm.serializeObject();
+            const mainForm = $('#TurnoverForm');
+            const postdata = mainForm.serializeObject();
             if (postdata.Username === _me.defaultUserName) {
                 postdata.Username = undefined;
             }
 
             postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
            
-            var option =
+            const option =
             {
-                type: "POST",
+                type: 'POST',
                 data: postdata,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(TurnoverOption.urlData),
                 success: function (response) {
@@ -148,29 +148,29 @@
         },
 
         bindData: function (response) {
-            jqGridAdditional.clearGrid("ReportGrid");
-            var numOfRow = response.Data.length;
+            jqGridAdditional.clearGrid('ReportGrid');
+            const numOfRow = response.Data.length;
             if (!response || numOfRow === 0) {
                 jqGridAdditional.setNoInfo();
                 return;
             }
             
-            var reportGrid = $("#ReportGrid");
-            var gridOption = TurnoverOption.getGridOption();
+            const reportGrid = $('#ReportGrid');
+            const gridOption = TurnoverOption.getGridOption();
             gridOption.data = response.Data;
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete();
                 _me.bindTotal(response.TotalData);
 
-                var groupHeaders = [{
-                    startColumnName: "TurnoverBA",
+                const groupHeaders = [{
+                    startColumnName: 'TurnoverBA',
                     numberOfColumns: 3,
                     titleText: Site.getSingleResource('BA')
                 }];
 
                 if (TurnoverOption.hasCustomerComm) {
                     groupHeaders.push({
-                        startColumnName: "WinLoss",
+                        startColumnName: 'WinLoss',
                         numberOfColumns: 3,
                         titleText: Site.getSingleResource('CustomerW_L')
                     });
@@ -191,16 +191,16 @@
         },
 
         bindTotal: function (totalData) {
-            var columnModel = TurnoverOption.getColModel();
-            var colspan = 2;
+            const columnModel = TurnoverOption.getColModel();
+            const colspan = 2;
             jqGridAdditional.assignTotal(totalData, columnModel);
             jqGridAdditional.setGroupFooters(colspan, 0, 0);
-            var $tr = $(".ui-jqgrid-sdiv table tr");
-            $tr.find("td[aria-describedby=ReportGrid_OpeningBalance], td[aria-describedby=ReportGrid_ClosingBalance]").css("text-align", "center").html("-");
+            const $tr = $('.ui-jqgrid-sdiv table tr');
+            $tr.find('td[aria-describedby=ReportGrid_OpeningBalance], td[aria-describedby=ReportGrid_ClosingBalance]').css('text-align', 'center').html('-');
         },
 
         resizeGrid: function () {
-            var reportGrid = $("#ReportGrid");
+            const reportGrid = $('#ReportGrid');
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }

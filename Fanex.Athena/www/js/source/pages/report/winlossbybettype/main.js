@@ -1,4 +1,4 @@
-﻿"use strict";
-define(["./winlossbybettype"], function (WinLossByBetType) {
+﻿'use strict';
+define(['./winlossbybettype'], function (WinLossByBetType) {
     $(WinLossByBetType.initialize);
 });

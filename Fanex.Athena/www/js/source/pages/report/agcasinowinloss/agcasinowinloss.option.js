@@ -1,26 +1,26 @@
-﻿"use strict";
-define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], function ($, Site, jqGridAdditional) {
-    var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-        var data = {
+﻿'use strict';
+define(['jquery', 'common/site', 'lib/jqgrid/jquery.jqgrid.additional'], function ($, Site, jqGridAdditional) {
+    const setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
+        const data = {
             level: level,
             currencyId: currencyId,
             custId: custId,
             datetime: datetime
         };
-        return "<a class='drilldown' href='javascript:;' data-drilldown='" + JSON.stringify(data) + "'>" + cellvalue + "</a>";
+        return '<a class="drilldown" href="javascript:;" data-drilldown=\'' + JSON.stringify(data) + '\'>' + cellvalue + '</a>';
     };
 
-    var currencyFormatter = function (cellvalue, options, rowObject) {
+    const currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
-    var systemIdFormatter = function (cellvalue, options, rowObject) {
+    const systemIdFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
     };
 
     //#region Columns
 
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -33,7 +33,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         sortable: false
     };
 
-    var dateColumn =
+    const dateColumn =
     {
         name: 'Date',
         index: 'Date',
@@ -51,7 +51,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         }
     };
 
-    var externalIdColumn =
+    const externalIdColumn =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -61,7 +61,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         sortable: false
     };
 
-    var systemIdColumn =
+    const systemIdColumn =
     {
         name: 'SystemId',
         index: 'SystemId',
@@ -72,7 +72,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: systemIdFormatter
     };
 
-    var currencyColumn =
+    const currencyColumn =
     {
         name: 'CurrencyName',
         index: 'CurrencyName',
@@ -83,7 +83,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: currencyFormatter
     };
 
-    var turnoverColumn =
+    const turnoverColumn =
     {
         name: 'TurnOver',
         index: 'TurnOver',
@@ -96,7 +96,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var totalTransColumn =
+    const totalTransColumn =
     {
         name: 'TotalTransaction',
         index: 'TotalTransaction',
@@ -108,11 +108,11 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         frozen: true,
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var customerWlColumn =
+    const customerWlColumn =
     {
         name: 'CustomerWinLoss',
         index: 'CustomerWinLoss',
@@ -123,7 +123,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var licenseeWlColumn =
+    const licenseeWlColumn =
     {
         name: 'LicenseeWL',
         index: 'LicenseeWL',
@@ -136,7 +136,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         formatter: jqGridAdditional.formatLicenseeWl
     };
 
-    var currencyIdColumn =
+    const currencyIdColumn =
     {
         name: 'CurrencyId',
         index: 'CurrencyId',
@@ -147,7 +147,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         hidden: true
     };
 
-    var customerIdColumn =
+    const customerIdColumn =
     {
         name: 'CustomerId',
         index: 'CustomerId',
@@ -160,13 +160,13 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
 
     //#endregion
 
-    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+    const colNameList = ['#', 'Date', 'ExternalId', 'SystemId', 'Currency',
       'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L', 'CurrencyId', 'CustomerId'];
 
-    var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+    const colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
         turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn, currencyIdColumn, customerIdColumn];
 
-    var _me =
+    const _me =
     {
         totalColspan: [2, 2, 3],
         urlData: 'api/AgCasinoWinLossReport/Index',
@@ -201,7 +201,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     };
 
     _me.getColModel = function (level) {
-        var levelNumber = Number(level);
+        const levelNumber = Number(level);
 
         currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
         systemIdColumn.formatter = levelNumber === 1 ? systemIdFormatter : null;
@@ -214,7 +214,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         externalIdColumn.hidden = levelNumber < 2;
         systemIdColumn.hidden = levelNumber === 0;
 
-        var temp = Site.clone(colModelList);
+        const temp = Site.clone(colModelList);
         return temp;
     };
 
@@ -225,11 +225,11 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     };
 
     _me.getTotalColModel = function (level) {
-        var colModel = _me.getColModel(level);
+        const colModel = _me.getColModel(level);
 
-        for (var i = 0; i < colModel.length; i++) {
-            var item = colModel[i];
-            if (item.name === "CurrencyName") {
+        for (let i = 0; i < colModel.length; i++) {
+            const item = colModel[i];
+            if (item.name === 'CurrencyName') {
                 item.formatter = null;
                 break;
             }
