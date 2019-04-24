@@ -4119,13 +4119,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
                 
                 const option = {
-                    type: "POST",
+                    type: 'POST',
                     data: JSON.stringify(param),
-                    dataType: "json",
-                    contentType: "application/json",
+                    dataType: 'json',
+                    contentType: 'application/json',
                     url: Site.resolveClientUrl(AgCasinoWinLossOption.urlData +
-                        "?level=" + data.level + "&currencyId=" + data.currencyId + "&custId=" + data.custId + "&fdate=" +
-                        moment(fdate).format("MM/DD/YYYY") + "&tdate=" + moment(tdate).format("MM/DD/YYYY")),
+                        '?level=' + data.level + '&currencyId=' + data.currencyId + '&custId=' + data.custId + '&fdate=' +
+                        moment(fdate).format('MM/DD/YYYY') + '&tdate=' + moment(tdate).format('MM/DD/YYYY')),
                     success: function (response) {
                         _me.ajaxComplete(data.level, response);
                         if (response != null && response.Data.length > 0) {
@@ -4156,7 +4156,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     Report.renderBreadCrumb(level);
                     _me.bindData(0, cacheData[level]);
                     //reset excel Link
-                    _me.setExcelUrl(0, 0, 0, "", "");
+                    _me.setExcelUrl(0, 0, 0, '', '');
                     //re-set title
                     const fromdate = new Date(_drilldownData.FromDate);
                     const todate = new Date(_drilldownData.ToDate);
@@ -4165,7 +4165,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
                 else if (level === 1) {
                     _me.bindData(1, cacheData[level]);
-                    AgCasinoWinLossOption.urlExcelData = AgCasinoWinLossOption.urlExcelData.replace("level=2", "level=1");
+                    AgCasinoWinLossOption.urlExcelData = AgCasinoWinLossOption.urlExcelData.replace('level=2', 'level=1');
                     Report.renderBreadCrumb(level);
                 }
             },
@@ -4182,7 +4182,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             bindData: function (level, response) {
-                jqGridAdditional.clearGrid("ReportGrid");
+                jqGridAdditional.clearGrid('ReportGrid');
                 const numOfRow = response.Data.length;
                 if (numOfRow === 0) {
                     jqGridAdditional.setNoInfo();
@@ -4191,7 +4191,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 const levelNumber = Number(level);
 
-                const reportGrid = $("#ReportGrid");
+                const reportGrid = $('#ReportGrid');
 
                 const gridOption = AgCasinoWinLossOption.getGridOption(levelNumber);
                 gridOption.data = response.Data;
@@ -4200,7 +4200,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 gridOption.gridComplete = function () {
                     
                     jqGridAdditional.gridComplete();
-                    $("#pg_ppdata").hide();
+                    $('#pg_ppdata').hide();
 
                     _me.bindTotal(levelNumber, response.Total, response.SummaryTotal);
 
@@ -4232,27 +4232,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
-    var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-        var data = {
+    const setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
+        const data = {
             level: level,
             currencyId: currencyId,
             custId: custId,
             datetime: datetime
         };
-        return "<a class='drilldown' href='javascript:;' data-drilldown='" + JSON.stringify(data) + "'>" + cellvalue + "</a>";
+        return '<a class="drilldown" href="javascript:;" data-drilldown=\'' + JSON.stringify(data) + '\'>' + cellvalue + '</a>';
     };
 
-    var currencyFormatter = function (cellvalue, options, rowObject) {
+    const currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
-    var systemIdFormatter = function (cellvalue, options, rowObject) {
+    const systemIdFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
     };
 
     //#region Columns
 
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -4265,7 +4265,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         sortable: false
     };
 
-    var dateColumn =
+    const dateColumn =
     {
         name: 'Date',
         index: 'Date',
@@ -4283,7 +4283,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         }
     };
 
-    var externalIdColumn =
+    const externalIdColumn =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -4293,7 +4293,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         sortable: false
     };
 
-    var systemIdColumn =
+    const systemIdColumn =
     {
         name: 'SystemId',
         index: 'SystemId',
@@ -4304,7 +4304,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: systemIdFormatter
     };
 
-    var currencyColumn =
+    const currencyColumn =
     {
         name: 'CurrencyName',
         index: 'CurrencyName',
@@ -4315,7 +4315,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: currencyFormatter
     };
 
-    var turnoverColumn =
+    const turnoverColumn =
     {
         name: 'TurnOver',
         index: 'TurnOver',
@@ -4328,7 +4328,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var totalTransColumn =
+    const totalTransColumn =
     {
         name: 'TotalTransaction',
         index: 'TotalTransaction',
@@ -4340,11 +4340,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         frozen: true,
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var customerWlColumn =
+    const customerWlColumn =
     {
         name: 'CustomerWinLoss',
         index: 'CustomerWinLoss',
@@ -4355,7 +4355,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var licenseeWlColumn =
+    const licenseeWlColumn =
     {
         name: 'LicenseeWL',
         index: 'LicenseeWL',
@@ -4368,7 +4368,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: jqGridAdditional.formatLicenseeWl
     };
 
-    var currencyIdColumn =
+    const currencyIdColumn =
     {
         name: 'CurrencyId',
         index: 'CurrencyId',
@@ -4379,7 +4379,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         hidden: true
     };
 
-    var customerIdColumn =
+    const customerIdColumn =
     {
         name: 'CustomerId',
         index: 'CustomerId',
@@ -4392,13 +4392,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
     //#endregion
 
-    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+    const colNameList = ['#', 'Date', 'ExternalId', 'SystemId', 'Currency',
       'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L', 'CurrencyId', 'CustomerId'];
 
-    var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+    const colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
         turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn, currencyIdColumn, customerIdColumn];
 
-    var _me =
+    const _me =
     {
         totalColspan: [2, 2, 3],
         urlData: 'api/AgCasinoWinLossReport/Index',
@@ -4433,7 +4433,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     _me.getColModel = function (level) {
-        var levelNumber = Number(level);
+        const levelNumber = Number(level);
 
         currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
         systemIdColumn.formatter = levelNumber === 1 ? systemIdFormatter : null;
@@ -4446,7 +4446,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         externalIdColumn.hidden = levelNumber < 2;
         systemIdColumn.hidden = levelNumber === 0;
 
-        var temp = Site.clone(colModelList);
+        const temp = Site.clone(colModelList);
         return temp;
     };
 
@@ -4457,11 +4457,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     _me.getTotalColModel = function (level) {
-        var colModel = _me.getColModel(level);
+        const colModel = _me.getColModel(level);
 
-        for (var i = 0; i < colModel.length; i++) {
-            var item = colModel[i];
-            if (item.name === "CurrencyName") {
+        for (let i = 0; i < colModel.length; i++) {
+            const item = colModel[i];
+            if (item.name === 'CurrencyName') {
                 item.formatter = null;
                 break;
             }
@@ -4484,7 +4484,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./agcasinowinloss */ "./www/js/source/pages/report/agcasinowinloss/agcasinowinloss.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (AgCasinoWinLoss) {
-    "use strict";
+    'use strict';
     $(function () {
         AgCasinoWinLoss.initialize();
     });
@@ -4502,30 +4502,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -4539,19 +4539,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -4565,8 +4565,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -4576,35 +4576,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -4612,54 +4612,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
+            for (let currency in summaryTotal) {
                 if (summaryTotal.hasOwnProperty(currency)) {
                     currencyList.push(currency);
-                    var summaryData = summaryTotal[currency];
+                    const summaryData = summaryTotal[currency];
                     if (Array.isArray(summaryData)) {
-                        summaryData.forEach(processColumnModel);
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
                     }
                     else {
-                        processColumnModel(summaryData);
+                        processColumnModel(summaryData, currency);
                     }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
             if (levelNumber === 0) {
-                $(".breadCrumbHolder").hide();
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = levelNumber === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };

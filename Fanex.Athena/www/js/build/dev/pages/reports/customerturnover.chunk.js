@@ -7971,7 +7971,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             const option = {
-                type: "POST",
+                type: 'POST',
                 data: JSON.stringify(_submitData),
                 dataType: 'json',
                 contentType: 'application/json',
@@ -8053,11 +8053,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         function setReportTitle(currencyName, userName, fromDate, toDate, odds) {
             const titlePattern = Site.getSingleResource('Customer') + ' '
                 + Site.getSingleResource('Turnover') + ', {0} → {1} - '
-                + Site.getSingleResource("Currency") + ': {2} - '
+                + Site.getSingleResource('Currency') + ': {2} - '
                 + Site.getSingleResource('MinimumOdds') + ': {3}{4}';
 
             const tempUserName = userName.length > 0
-                ? " - " + Site.getSingleResource('Username') + ': ' + userName
+                ? ' - ' + Site.getSingleResource('Username') + ': ' + userName
                 : '';
 
             const title = $.format(titlePattern, fromDate, toDate, currencyName, odds, tempUserName);
@@ -8206,7 +8206,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function addCheckedSport(checkedValue) {
             const modelItem = Enumerable.From(_sports).FirstOrDefault(null, function (item) {
-                return (item.ParentId + "-" + item.ID) === checkedValue;
+                return (item.ParentId + '-' + item.ID) === checkedValue;
             });
 
             if (modelItem != null) {
@@ -8348,7 +8348,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 // Control keys in most browsers. e.g. Firefox tab is 0
              48 <= event.which && event.which <= 57 ||
                 // Always 0 through 9
-                //(48 == event.which && $(this).attr("value")) ||   // No 0 first digit
+                //(48 == event.which && $(this).attr('value')) ||   // No 0 first digit
                 isControlKey) {
                 // Opera assigns values for control keys.
                 return;
@@ -8393,8 +8393,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site, jqGridAdditional) {
-        "use strict";
-        var indexColumn = {
+        'use strict';
+        const indexColumn = {
             name: 'Index',
             index: 'Index',
             width: 30,
@@ -8405,7 +8405,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             cellattr: jqGridAdditional.rowSpanSetting
         };
-        var dateColumn = {
+        const dateColumn = {
             name: 'ReportBy',
             index: 'ReportBy',
             width: 60,
@@ -8421,7 +8421,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 newformat: 'm/d/Y'
             }
         };
-        var userNameColumn = {
+        const userNameColumn = {
             name: 'UserName',
             index: 'UserName',
             width: 85,
@@ -8431,7 +8431,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             cellattr: jqGridAdditional.rowSpanSetting
         };
-        var currencyColumn = {
+        const currencyColumn = {
             name: 'Currency',
             index: 'Currency',
             width: 50,
@@ -8441,7 +8441,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             cellattr: jqGridAdditional.rowSpanSetting
         };
-        var sportColumn = {
+        const sportColumn = {
             name: 'SportType',
             index: 'SportType',
             width: 110,
@@ -8451,7 +8451,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             cellattr: jqGridAdditional.rowSpanSetting2
         };
-        var bettypeColumn = {
+        const bettypeColumn = {
             name: 'Bettype',
             index: 'Bettype',
             width: 140,
@@ -8460,7 +8460,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             frozen: true
         };
-        var effectiveBettingVlueColumn = {
+        const effectiveBettingVlueColumn = {
             name: 'EffectiveBettingValue',
             index: 'EffectiveBettingValue',
             width: 90,
@@ -8470,7 +8470,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var totalTransColumn = {
+        const totalTransColumn = {
             name: 'TotalTransactions',
             index: 'TotalTransactions',
             width: 65,
@@ -8481,10 +8481,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
-        var turnoverColumn = {
+        const turnoverColumn = {
             name: 'Turnover',
             index: 'Turnover',
             resizable: false,
@@ -8494,7 +8494,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var totalturnoverColumn = {
+        const totalturnoverColumn = {
             name: 'TotalTurnover',
             index: 'TotalTurnover',
             resizable: false,
@@ -8505,7 +8505,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             cellattr: jqGridAdditional.rowSpanSetting,
             formatter: jqGridAdditional.formatDecimal
         };
-        var customerWlColumn = {
+        const customerWlColumn = {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
             width: 90,
@@ -8515,7 +8515,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var playerCommColumn = {
+        const playerCommColumn = {
             name: 'CustomerComm',
             index: 'CustomerComm',
             width: 50,
@@ -8525,7 +8525,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var customerWlTotalColumn = {
+        const customerWlTotalColumn = {
             name: 'CustomerTotal',
             index: 'CustomerTotal',
             width: 90,
@@ -8536,16 +8536,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
         //#endregion
-        var colNameList = ['#', 'Date', "Username", "Currency", 'Sport', 'BetType', 'EffectiveBettingValue',
+        const colNameList = ['#', 'Date', 'Username', 'Currency', 'Sport', 'BetType', 'EffectiveBettingValue',
         'TotalTransaction', 'Turnover', 'TotalTurnover', '@[Win]/@[Loss]', 'Comm', 'Total'];
 
-        var colModelList = [indexColumn, dateColumn, userNameColumn, currencyColumn, sportColumn, bettypeColumn,
+        const colModelList = [indexColumn, dateColumn, userNameColumn, currencyColumn, sportColumn, bettypeColumn,
                         effectiveBettingVlueColumn, totalTransColumn, turnoverColumn, totalturnoverColumn,
                         customerWlColumn, playerCommColumn, customerWlTotalColumn];
-        var customerWlTotalIndex = 12;
+        const customerWlTotalIndex = 12;
 
-        var _me = {
-            urlData: "reportapi/CustomerTurnover",
+        const _me = {
+            urlData: 'reportapi/CustomerTurnover',
             hasCustomerComm: false,
             totalColspan: 6,
             reportBy: 1, //1:daily ,2 :monthly,
@@ -8590,7 +8590,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         _me.getGridOption = function () {
-            var option = Site.clone(_me.gridOption);
+            const option = Site.clone(_me.gridOption);
             option.colNames = _me.getColName();
             option.colModel = _me.getColModel();
 
@@ -8611,7 +8611,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./customerturnover */ "./www/js/source/pages/report/customerturnover/customerturnover.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerTurnover) {
-    "use strict";
+    'use strict';
     $(CustomerTurnover.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));

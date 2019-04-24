@@ -766,45 +766,45 @@ Array.prototype.insertBefore = function (value, before) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (QueryString) {
-    "use strict";
+    'use strict';
     function setSumParams(url, totalValue) {
-        var newUrl = url;
-        newUrl = QueryString.setParam(newUrl, "totalrows", totalValue.BetCount);
-        newUrl = QueryString.setParam(newUrl, "sumwinlost", totalValue.CustomerWinLoss);
-        newUrl = QueryString.setParam(newUrl, "sumplayercomm", totalValue.CustomerComm);
-        newUrl = QueryString.setParam(newUrl, "sumlicenseewl", totalValue.LicenseeWinLoss);
-        newUrl = QueryString.setParam(newUrl, "sumcomm", totalValue.LicenseeComm);
-        newUrl = QueryString.setParam(newUrl, "sumturnover", totalValue.TurnOver);
-        newUrl = QueryString.setParam(newUrl, "sumamtdueto3rd", totalValue.AmountDue);
+        let newUrl = url;
+        newUrl = QueryString.setParam(newUrl, 'totalrows', totalValue.BetCount);
+        newUrl = QueryString.setParam(newUrl, 'sumwinlost', totalValue.CustomerWinLoss);
+        newUrl = QueryString.setParam(newUrl, 'sumplayercomm', totalValue.CustomerComm);
+        newUrl = QueryString.setParam(newUrl, 'sumlicenseewl', totalValue.LicenseeWinLoss);
+        newUrl = QueryString.setParam(newUrl, 'sumcomm', totalValue.LicenseeComm);
+        newUrl = QueryString.setParam(newUrl, 'sumturnover', totalValue.TurnOver);
+        newUrl = QueryString.setParam(newUrl, 'sumamtdueto3rd', totalValue.AmountDue);
 
         return newUrl;
     }
 
     function getMatchListProductOption(sportId, productCode) {
-        var newSportId = Number(sportId);
-        var productOptions = [];
+        const newSportId = Number(sportId);
+        let productOptions = [];
         if (newSportId > 0) {
             if (newSportId === 180 || newSportId === 186) {
-                productOptions.push("VS");
+                productOptions.push('VS');
             }
             else if (newSportId === 162) {
-                productOptions.push("LC");
+                productOptions.push('LC');
             }
             else if (newSportId === 104 || (newSportId >= 190 && newSportId <= 194)) {
-                productOptions.push("VS2");
+                productOptions.push('VS2');
             }
             else {
-                if (productCode === "SB" || productCode === "ALL") {
-                    productOptions.push("SB");
+                if (productCode === 'SB' || productCode === 'ALL') {
+                    productOptions.push('SB');
                 }
-                if (productCode === "BA" || productCode === "ALL") {
-                    productOptions.push("BA");
+                if (productCode === 'BA' || productCode === 'ALL') {
+                    productOptions.push('BA');
                 }
             }
         }
         else {
-            if (productCode === "ALL") {
-                productOptions = ["SB", "BA", "NG", "LC", "VS", "CS", "VS2"];
+            if (productCode === 'ALL') {
+                productOptions = ['SB', 'BA', 'NG', 'LC', 'VS', 'CS', 'VS2'];
             }
             else {
                 productOptions.push(productCode);
@@ -831,7 +831,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./helper */ "./www/js/source/pages/report/livereport/helper.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (QueryString, Site, Helper) {
-    "use strict";
+    'use strict';
 
     function initialize() {
         Site.initialize();
@@ -839,28 +839,28 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function initEvent() {
-        $("body").on("click", ".match-detail-link", function () {
+        $('body').on('click', '.match-detail-link', function () {
             viewMatchBetList(this);
         });
     }
 
     function viewMatchBetList(target) {
-        var url = Site.resolveClientUrl("LiveReportBetList/Match");
+        let url = Site.resolveClientUrl('LiveReportBetList/Match');
 
-        var currencyName = $('#CurrencyName').attr('data-original');
-        var data = $(target).attr("data-drill-down");
+        const currencyName = $('#CurrencyName').attr('data-original');
+        let data = $(target).attr('data-drill-down');
         data = $.parseJSON(data);
         url = Site.setLicenseeOptionOriginalParam(url);
         url = Site.setDateRangeOriginalParam(url);
-        url = QueryString.setParam(url, "CurrencyName", currencyName);
-        url = QueryString.setParam(url, "MatchId", data.MatchId);
-        url = QueryString.setParam(url, "HomeId", data.HomeId);
-        url = QueryString.setParam(url, "AwayId", data.AwayId);
-        url = QueryString.setParam(url, "BetType", data.BetType);
-        url = QueryString.setParam(url, "LiveIndicator", data.LiveIndicator);
+        url = QueryString.setParam(url, 'CurrencyName', currencyName);
+        url = QueryString.setParam(url, 'MatchId', data.MatchId);
+        url = QueryString.setParam(url, 'HomeId', data.HomeId);
+        url = QueryString.setParam(url, 'AwayId', data.AwayId);
+        url = QueryString.setParam(url, 'BetType', data.BetType);
+        url = QueryString.setParam(url, 'LiveIndicator', data.LiveIndicator);
         url = Helper.setSumParams(url, data);
 
-        var productOptions = Helper.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
+        const productOptions = Helper.getMatchListProductOption($('#SportId').val(), $('#ProductCode').val());
 
         url = Site.setProductCodeListParam(url, productOptions);
 
@@ -885,7 +885,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./livereportmatchlist */ "./www/js/source/pages/report/livereport/livereportmatchlist.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (MatchList) {
-    "use strict";
+    'use strict';
     $(MatchList.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));

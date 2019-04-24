@@ -4845,29 +4845,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"),
         __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"),
         __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Report, ActiveCustomerOption, DatePicker, MultiSelect, DateHelper, jqGridAdditional) {
-        "use strict";
-        var VALID_MONTH_RANGE = 3;
+        'use strict';
+        const VALID_MONTH_RANGE = 3;
 
-        var _ajaxRequest = null;
-        var _sortColumnName = "";
-        var _sortOrder = "desc";
-        var _onSorting = false;
-        var _onPaging = false;
-        var selector = {
-            SubmitButton: "#SubmitButton",
-            ExportExcelInput: "#IsExportExcel",
-            ExportToExcel: "#ExportToExcel",
-            Form: "#mainform",
-            Title: ".report-title",
-            Header: ".panel-heading",
-            GridId: "ReportGrid"
+        let _ajaxRequest = null;
+        let _sortColumnName = '';
+        let _sortOrder = 'desc';
+        let _onSorting = false;
+        let _onPaging = false;
+        const selector = {
+            SubmitButton: '#SubmitButton',
+            ExportExcelInput: '#IsExportExcel',
+            ExportToExcel: '#ExportToExcel',
+            Form: '#mainform',
+            Title: '.report-title',
+            Header: '.panel-heading',
+            GridId: 'ReportGrid'
         };
 
         function initialize() {
             Site.initialize();
             Site.addUserGuide({
-                resourceName: "ActiveCustomerSummary",
-                title: Site.getSingleResource("ActiveCustomerSummary")
+                resourceName: 'ActiveCustomerSummary',
+                title: Site.getSingleResource('ActiveCustomerSummary')
             });
 
             MultiSelect.initProductList();
@@ -4879,7 +4879,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function initEvent() {
             $(selector.SubmitButton).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return;
                 }
@@ -4888,47 +4888,47 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $(selector.ExportToExcel).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return false;
                 }
 
                 $(selector.ExportExcelInput).val(true);
-                var mainForm = $(selector.Form);
-                var url = Site.resolveClientUrl(ActiveCustomerOption.urlExcelData);
-                mainForm.attr("action", url);
+                const mainForm = $(selector.Form);
+                const url = Site.resolveClientUrl(ActiveCustomerOption.urlExcelData);
+                mainForm.attr('action', url);
                 mainForm.submit();
                 $(selector.ExportExcelInput).val(false);
                 return false;
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         }
 
         function setReportTitle(currencyId, fromdate, todate) {
-            var titlePattern = Site.getSingleResource('ActiveCustomerSummary') + ', {0} → {1} - {2}';
-            var currencyStr = Report.getCurrencyNameForReportTitle(currencyId);
+            const titlePattern = Site.getSingleResource('ActiveCustomerSummary') + ', {0} → {1} - {2}';
+            const currencyStr = Report.getCurrencyNameForReportTitle(currencyId);
 
-            var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
+            const title = $.format(titlePattern, fromdate.toString('M/dd/yyyy'), todate.toString('M/dd/yyyy'), currencyStr);
 
             $(selector.Title).html(title);
-            $(selector.Header).removeClass("hide");
+            $(selector.Header).removeClass('hide');
         }
 
         function submit() {
-            var data = getData();
+            const data = getData();
 
-            var option = {
-                type: "POST",
+            const option = {
+                type: 'POST',
                 data: data,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(ActiveCustomerOption.urlData),
                 success: function (response) {
@@ -4958,14 +4958,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             _onSorting = false;
             _onPaging = false;
 
-            var numOfRow = response.Data.length;
+            const numOfRow = response.Data.length;
             if (numOfRow === 0) {
                 jqGridAdditional.setNoInfo();
                 return;
             }
 
-            var reportGrid = $("#" + selector.GridId);
-            var gridOption = getGridOption(reportGrid, response, numOfRow);
+            const reportGrid = $('#' + selector.GridId);
+            const gridOption = getGridOption(reportGrid, response, numOfRow);
 
             if (numOfRow > ActiveCustomerOption.pageSize) {
                 $(gridOption.pager).show();
@@ -4978,29 +4978,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function bindTotal(grantTotalCustomer, colspan) {
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var textFooter = Site.getSingleResource("TotalActiveCustomer")
-                            + " = "
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            const textFooter = Site.getSingleResource('TotalActiveCustomer')
+                            + ' = '
                             + jqGridAdditional.formatInteger(grantTotalCustomer);
 
-            mainFooter.find("td:eq(0)")
+            mainFooter.find('td:eq(0)')
                 .html(textFooter)
-                .attr("colspan", colspan)
-                .css("text-align", "left")
+                .attr('colspan', colspan)
+                .css('text-align', 'left')
                 .nextAll().remove();
         }
 
         function resizeGrid() {
-            var reportGrid = $("#" + selector.GridId);
+            const reportGrid = $('#' + selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
         function getData() {
-            var mainForm = $(selector.Form);
-            var data = mainForm.serializeObject();
+            const mainForm = $(selector.Form);
+            const data = mainForm.serializeObject();
             if (_sortColumnName) {
-                data.sortBy = _sortColumnName.replace(".", "");
+                data.sortBy = _sortColumnName.replace('.', '');
                 data.sortOrder = _sortOrder;
             }
 
@@ -5008,8 +5008,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function getGridOption(reportGrid, response, numOfRow) {
-            var productOptions = $.parseJSON(response.ProductOptions);
-            var gridOption = ActiveCustomerOption.getGridOption(productOptions, numOfRow);
+            const productOptions = $.parseJSON(response.ProductOptions);
+            const gridOption = ActiveCustomerOption.getGridOption(productOptions, numOfRow);
             gridOption.data = response.Data;
             gridOption.rowNum = ActiveCustomerOption.pageSize;
 
@@ -5048,7 +5048,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return gridOption;
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initEvent: initEvent,
             setReportTitle: setReportTitle,
@@ -5072,103 +5072,103 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
+    'use strict';
 
-    var dateColumn =
+    const dateColumn =
     {
-        name: "TransactionDate",
-        index: "TransactionDate",
+        name: 'TransactionDate',
+        index: 'TransactionDate',
         resizable: false,
         width: 70,
-        align: "center",
-        valign: "middle",
+        align: 'center',
+        valign: 'middle',
         sortable: true,
-        formatter: "date",
+        formatter: 'date',
         formatoptions:
         {
-            newformat: "m/Y"
+            newformat: 'm/Y'
         }
     };
 
-    var numMemberColumn =
+    const numMemberColumn =
     {
-        name: "TotalCustomer",
-        index: "TotalCustomer",
+        name: 'TotalCustomer',
+        index: 'TotalCustomer',
         width: 80,
-        align: "right",
+        align: 'right',
         sortable: true,
         resizable: false,
-        formatter: "integer",
+        formatter: 'integer',
         frozen: true,
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var productColumn =
+    const productColumn =
     {
         width: 90,
         sortable: true,
         resizable: false,
-        align: "right",
+        align: 'right',
         title: true,
-        formatter: "integer",
+        formatter: 'integer',
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var colNameList = ["Month", "Total"];
+    const colNameList = ['Month', 'Total'];
 
-    var colModelList = [dateColumn, numMemberColumn];
+    const colModelList = [dateColumn, numMemberColumn];
 
-    var _me = {
+    const _me = {
         dateColumnIndex: 0,
         totalCustomerIndex: 1,
         pageSize: 50,
-        urlData: "api/ActiveCustomerSummaryReport/Index",
-        urlExcelData: "api/ActiveCustomerSummaryReport/Index",
+        urlData: 'api/ActiveCustomerSummaryReport/Index',
+        urlExcelData: 'api/ActiveCustomerSummaryReport/Index',
         gridOption:
         {
-            datatype: "local",
+            datatype: 'local',
             colNames: [],
             colModel: [],
             data: [],
-            height: "100%",
+            height: '100%',
             autowidth: false,
             forceFit: false,
             shrinkToFit: true,
-            loadtext: "",
-            loadui: "disable",
+            loadtext: '',
+            loadui: 'disable',
             loadonce: true,
             footerrow: true,
             gridview: true,
             rownumbers: false,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             rowNum: 50,
-            pager: "#ppdata",
-            recordtext: ""
+            pager: '#ppdata',
+            recordtext: ''
         },
 
         getGridOption: function (productOptions, totalRows) {
-            var columnModels = Site.clone(colModelList);
-            var columnNames = Site.clone(colNameList);
-            var startIndex = _me.dateColumnIndex;
+            const columnModels = Site.clone(colModelList);
+            const columnNames = Site.clone(colNameList);
+            let startIndex = _me.dateColumnIndex;
 
             $.each(productOptions, function (index, value) {
                 // columnNames
                 columnNames.insertAfter(value.Name, startIndex);
 
                 // columModels
-                var column = Site.clone(productColumn);
-                column.index = "CustomerCount." + value.Code;
+                const column = Site.clone(productColumn);
+                column.index = 'CustomerCount.' + value.Code;
                 column.name = column.index;
 
                 if (!value.Status) {
                     column.formatter = function () {
-                        return "-";
+                        return '-';
                     };
                     column.sortable = false;
                 }
@@ -5216,7 +5216,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./activecustomersummary */ "./www/js/source/pages/report/activecustomersummary/activecustomersummary.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (ActiveCustomerSummary) {
-    "use strict";
+    'use strict';
 
     $(ActiveCustomerSummary.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -5233,30 +5233,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -5270,19 +5270,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -5296,8 +5296,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -5307,35 +5307,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -5343,54 +5343,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
+            for (let currency in summaryTotal) {
                 if (summaryTotal.hasOwnProperty(currency)) {
                     currencyList.push(currency);
-                    var summaryData = summaryTotal[currency];
+                    const summaryData = summaryTotal[currency];
                     if (Array.isArray(summaryData)) {
-                        summaryData.forEach(processColumnModel);
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
                     }
                     else {
-                        processColumnModel(summaryData);
+                        processColumnModel(summaryData, currency);
                     }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
             if (levelNumber === 0) {
-                $(".breadCrumbHolder").hide();
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = levelNumber === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };

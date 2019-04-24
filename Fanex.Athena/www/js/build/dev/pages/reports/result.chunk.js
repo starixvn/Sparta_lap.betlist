@@ -1386,7 +1386,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
             showLottery: function (vendorProductId) {
                 const option = {
-                    type: "GET",
+                    type: 'GET',
                     cache: false,
                     data: { vendorProductId: vendorProductId },
                     url: Site.resolveClientUrl(KENO_RESULT_API),

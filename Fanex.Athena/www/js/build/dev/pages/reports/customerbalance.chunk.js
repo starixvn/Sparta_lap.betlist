@@ -5038,42 +5038,42 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"),
     __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"),
     __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional, CustomerBalanceOption, DatePicker, MultiSelect, DateHelper, PagingHelper, Report) {
-        "use strict";
+        'use strict';
 
-        var VALID_MONTH_RANGE = 2;
+        const VALID_MONTH_RANGE = 2;
 
-        var _ajaxRequest = null;
-        var _sortColumnIndex = "Deposit";
-        var _sortType = "desc";
-        var _orderColumnCode = 1;
-        var _isFirstLoad = true;
-        var _submitData = null;
-        var _pagingOption =
+        let _ajaxRequest = null;
+        let _sortColumnIndex = 'Deposit';
+        let _sortType = 'desc';
+        let _orderColumnCode = 1;
+        let _isFirstLoad = true;
+        let _submitData = null;
+        let _pagingOption =
         {
             pageindex: 1,
             pagesize: 500,
             pagelist: [500, 1000, 2000],
             totalrow: 1,
-            elementcontainer: ".paging",
-            method: "AJAX",
-            ajaxfunction: "CustomerBalance.ajaxPaging()",
+            elementcontainer: '.paging',
+            method: 'AJAX',
+            ajaxfunction: 'CustomerBalance.ajaxPaging()',
             alwayshow: true
         };
-        var _selector = {
-            SubmitButton: "#SubmitButton",
-            ExportToExcel: "#ExportToExcel",
-            Form: "#CustomerBalanceForm",
-            Title: ".report-title",
-            Header: ".panel-heading",
-            GridId: "ReportGrid",
-            OrderItemInput: "#OrderItem"
+        const _selector = {
+            SubmitButton: '#SubmitButton',
+            ExportToExcel: '#ExportToExcel',
+            Form: '#CustomerBalanceForm',
+            Title: '.report-title',
+            Header: '.panel-heading',
+            GridId: 'ReportGrid',
+            OrderItemInput: '#OrderItem'
         };
 
         function initialize() {
             Site.initialize();
             Site.addUserGuide({
-                resourceName: "CustomerBalance",
-                title: Site.getSingleResource("CustomerBalance")
+                resourceName: 'CustomerBalance',
+                title: Site.getSingleResource('CustomerBalance')
             });
             MultiSelect.initProductList();
             DatePicker.initDateRangePicker();
@@ -5085,7 +5085,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function initEvent() {
             $(_selector.SubmitButton).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return;
                 }
@@ -5096,25 +5096,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $(_selector.ExportToExcel).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return false;
                 }
 
-                var mainForm = $(_selector.Form);
-                var url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
+                const mainForm = $(_selector.Form);
+                const url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
                 $(_selector.OrderItemInput, _selector.Form).val(_orderColumnCode);
-                mainForm.attr("action", url);
+                mainForm.attr('action', url);
                 mainForm.submit();
                 return false;
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
 
             window.CustomerBalance = {
@@ -5123,19 +5123,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function initSetting() {
-            CustomerBalanceOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-            CustomerBalanceOption.isAllowBA = Site.asBool($("#IsAllowedBACommission").val());
+            CustomerBalanceOption.hasCustomerComm = Site.asBool($('#IsAllowedCustomerCommission').val());
+            CustomerBalanceOption.isAllowBA = Site.asBool($('#IsAllowedBACommission').val());
         }
 
         function submit() {
             buildPostData();
 
-            var option =
+            const option =
             {
-                type: "POST",
+                type: 'POST',
                 data: _submitData,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(CustomerBalanceOption.urlData),
                 success: function (response) {
@@ -5171,19 +5171,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var gridOption = CustomerBalanceOption.getGridOption(response.TotalRows);
+            const gridOption = CustomerBalanceOption.getGridOption(response.TotalRows);
             gridOption.rowNum = response.Data.length;
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
                 sort(index);
-                return "stop";
+                return 'stop';
             };
             gridOption.gridComplete = function () {
                 onGridComplete(gridOption, response);
                 Site.unBlockUI();
             };
 
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             reportGrid.jqGrid(gridOption);
 
             CustomerBalanceOption.setGroupHeaderColumns(reportGrid);
@@ -5205,15 +5205,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function setReportTitle(fromDate, toDate, currencyName) {
-            var titlePattern = "{0}, {1} → {2}, {3}";
-            var title = $.format(titlePattern,
-                Site.getSingleResource("CustomerBalance"),
+            const titlePattern = '{0}, {1} → {2}, {3}';
+            const title = $.format(titlePattern,
+                Site.getSingleResource('CustomerBalance'),
                 fromDate,
                 toDate,
-                Site.getSingleResource("Viewin").replace("{0}", currencyName));
+                Site.getSingleResource('Viewin').replace('{0}', currencyName));
 
             $(_selector.Title).html(title);
-            $(_selector.Header).removeClass("hide");
+            $(_selector.Header).removeClass('hide');
         }
 
         function createPaging(totalRows) {
@@ -5229,10 +5229,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function sort(index) {
             if (_pagingOption.totalrow > 1) {
-                var sortType = index === _sortColumnIndex ? (_sortType === "desc" ? "asc" : "desc") : "desc";
-                var orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, sortType);
+                const sortType = index === _sortColumnIndex ? (_sortType === 'desc' ? 'asc' : 'desc') : 'desc';
+                const orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, sortType);
                 if (orderColumnCode === 0) {
-                    return "stop";
+                    return 'stop';
                 }
 
                 window.setTimeout(function () {
@@ -5248,7 +5248,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             if (_isFirstLoad) {
                 jqGridAdditional.gridComplete();
 
-                var reportGrid = $("#" + _selector.GridId);
+                const reportGrid = $('#' + _selector.GridId);
                 if (_pagingOption.totalrow > 1) {
                     jqGridAdditional.addSortableHeaders(reportGrid, _sortColumnIndex, _sortType);
                 }
@@ -5263,12 +5263,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function resizeGrid() {
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initEvent: initEvent,
             submit: submit,
@@ -5741,7 +5741,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./customerbalance */ "./www/js/source/pages/report/customerbalance/customerbalance.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerBalance) {
-    "use strict";
+    'use strict';
     $(CustomerBalance.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -5757,30 +5757,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -5794,19 +5794,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -5820,8 +5820,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -5831,35 +5831,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -5867,54 +5867,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
+            for (let currency in summaryTotal) {
                 if (summaryTotal.hasOwnProperty(currency)) {
                     currencyList.push(currency);
-                    var summaryData = summaryTotal[currency];
+                    const summaryData = summaryTotal[currency];
                     if (Array.isArray(summaryData)) {
-                        summaryData.forEach(processColumnModel);
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
                     }
                     else {
-                        processColumnModel(summaryData);
+                        processColumnModel(summaryData, currency);
                     }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
             if (levelNumber === 0) {
-                $(".breadCrumbHolder").hide();
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = levelNumber === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };

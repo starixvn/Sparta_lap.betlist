@@ -4236,20 +4236,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
-    var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
+    const setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
         return '<a class="drilldown" href="javascript:;" onclick="return cashoutDrillDown(' + level + ',' +
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
-    var dateFormatter = function (cellvalue, options, rowObject) {
-        var newCellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+    const dateFormatter = function (cellvalue, options, rowObject) {
+        const newCellvalue = $.fn.fmatter.call(this, 'date', cellvalue, options, rowObject);
         return setDrillDownLink(1, 0, 0, rowObject.Date, newCellvalue);
     };
-    var currencyFormatter = function (cellvalue, options, rowObject) {
+    const currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
-    var betlistLink = function (cellvalue, options, rowObject) {
-        var param =
+    const betlistLink = function (cellvalue, options, rowObject) {
+        const param =
         {
             DrillDownDate: rowObject.Date,
             DrillDownCurrencyId: rowObject.CurrencyId,
@@ -4264,7 +4264,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
     //#region Columns
 
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -4277,7 +4277,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         sortable: false
     };
 
-    var dateColumn =
+    const dateColumn =
     {
         name: 'Date',
         index: 'Date',
@@ -4295,7 +4295,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         }
     };
 
-    var externalIdColumn =
+    const externalIdColumn =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -4306,7 +4306,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: betlistLink
     };
 
-    var systemIdColumn =
+    const systemIdColumn =
     {
         name: 'SystemId',
         index: 'SystemId',
@@ -4317,7 +4317,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: betlistLink
     };
 
-    var currencyColumn =
+    const currencyColumn =
     {
         name: 'CurrencyName',
         index: 'CurrencyName',
@@ -4328,7 +4328,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: currencyFormatter
     };
 
-    var cashOutTimesColumn =
+    const cashOutTimesColumn =
     {
         name: 'CashOutTimes',
         index: 'CashOutTimes',
@@ -4340,7 +4340,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         hidden: false
     };
 
-    var cashOutTicketsColumn =
+    const cashOutTicketsColumn =
     {
         name: 'CashOutTickets',
         index: 'CashOutTickets',
@@ -4352,11 +4352,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         frozen: true,
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var cashOutValueColumn =
+    const cashOutValueColumn =
     {
         name: 'CashOutValue',
         index: 'CashOutValue',
@@ -4367,7 +4367,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var buyBackAmoutSBColumn =
+    const buyBackAmoutSBColumn =
     {
         name: 'BuyBackAmountSB',
         index: 'BuyBackAmountSB',
@@ -4380,7 +4380,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var buyBackAmoutBAColumn =
+    const buyBackAmoutBAColumn =
     {
         name: 'BuyBackAmountBA',
         index: 'BuyBackAmountBA',
@@ -4393,7 +4393,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var buyBackAmoutTotalColumn =
+    const buyBackAmoutTotalColumn =
     {
         name: 'TotalBuyBackAmount',
         index: 'TotalBuyBackAmount',
@@ -4406,7 +4406,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var ticketPayoutColumn =
+    const ticketPayoutColumn =
     {
         name: 'TicketPayout',
         index: 'TicketPayout',
@@ -4417,7 +4417,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var cashOutCommissionColumn =
+    const cashOutCommissionColumn =
     {
         name: 'CashOutCommission',
         index: 'CashOutCommission',
@@ -4428,7 +4428,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var settleAmountTicketPayoutColumn =
+    const settleAmountTicketPayoutColumn =
     {
         name: 'SettleAmountTicketPayout',
         index: 'SettleAmountTicketPayout',
@@ -4441,7 +4441,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var settleAmountBuyBackCommColumn =
+    const settleAmountBuyBackCommColumn =
     {
         name: 'SettleAmountBuyBackComm',
         index: 'SettleAmountBuyBackComm',
@@ -4454,7 +4454,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var settleAmountTotalColumn =
+    const settleAmountTotalColumn =
     {
         name: 'SettleAmountTotal',
         index: 'SettleAmountTotal',
@@ -4467,7 +4467,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
-    var currencyIdColumn =
+    const currencyIdColumn =
     {
         name: 'CurrencyId',
         index: 'CurrencyId',
@@ -4478,7 +4478,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         hidden: true
     };
 
-    var customerIdColumn =
+    const customerIdColumn =
     {
         name: 'CustomerId',
         index: 'CustomerId',
@@ -4491,16 +4491,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
     //#endregion
 
-    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+    const colNameList = ['#', 'Date', 'ExternalId', 'SystemId', 'Currency',
       'CashOutTimes', 'CashOutTickets', 'CashOutValue','ProductSB', 'ProductBA', 'Total', 'TicketPayout', 'CashOutCommission',
       'TicketPayout', 'BBAmtComm', 'Total', 'CurrencyId', 'CustomerId'];
 
-    var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+    const colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
         cashOutTimesColumn, cashOutTicketsColumn, cashOutValueColumn, buyBackAmoutSBColumn, buyBackAmoutBAColumn, buyBackAmoutTotalColumn,
         ticketPayoutColumn, cashOutCommissionColumn, settleAmountTicketPayoutColumn, settleAmountBuyBackCommColumn,
         settleAmountTotalColumn, currencyIdColumn, customerIdColumn];
 
-    var _me = {
+    const _me = {
         isLicenseeOfferBA: false,
         buyBackAmountTotalColumnIndex: 10,
         totalColspan: [2, 3],
@@ -4531,14 +4531,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         setGroupHeaders: function ($grid) {
-            var groupBuyBackAmount = _me.isLicenseeOfferBA ?
+            const groupBuyBackAmount = _me.isLicenseeOfferBA ?
             {
-                startColumnName: "BuyBackAmountSB",
+                startColumnName: 'BuyBackAmountSB',
                 numberOfColumns: 3,
                 titleText: Site.getSingleResource('BuyBackAmount')
             } : {};
-            var groupSettleAmount = {
-                startColumnName: "SettleAmountTicketPayout",
+            const groupSettleAmount = {
+                startColumnName: 'SettleAmountTicketPayout',
                 numberOfColumns: 3,
                 titleText: Site.getSingleResource('SettleAmount')
             };
@@ -4549,16 +4549,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         getColName: function () {
-            var temp = Site.clone(colNameList);
+            const temp = Site.clone(colNameList);
             if (!_me.isLicenseeOfferBA) {
-                temp[_me.buyBackAmountTotalColumnIndex] = "BuyBackAmount";
+                temp[_me.buyBackAmountTotalColumnIndex] = 'BuyBackAmount';
             }
 
             return Site.getResources(temp);
         },
 
         getColModel: function (level) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
 
             currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
 
@@ -4574,7 +4574,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 buyBackAmoutBAColumn.hidden = true;
             }
 
-            var temp = Site.clone(colModelList);
+            const temp = Site.clone(colModelList);
             return temp;
         },
 
@@ -4585,10 +4585,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         getTotalColModel: function (level) {
-            var colModel = _me.getColModel(level);
+            const colModel = _me.getColModel(level);
             // Not show drill down link on total link
-            var currencyNameCol = colModel.filter(function (item) {
-                return item.name === "CurrencyName";
+            const currencyNameCol = colModel.filter(function (item) {
+                return item.name === 'CurrencyName';
             })[0];
 
             currencyNameCol.formatter = null;
@@ -4611,7 +4611,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./cashoutwinloss */ "./www/js/source/pages/report/cashoutwinloss/cashoutwinloss.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CashOutWinLoss) {
-    "use strict";
+    'use strict';
     $(function () {
         CashOutWinLoss.initialize();
     });
@@ -4629,30 +4629,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -4666,19 +4666,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -4692,8 +4692,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -4703,35 +4703,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -4739,54 +4739,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
+            for (let currency in summaryTotal) {
                 if (summaryTotal.hasOwnProperty(currency)) {
                     currencyList.push(currency);
-                    var summaryData = summaryTotal[currency];
+                    const summaryData = summaryTotal[currency];
                     if (Array.isArray(summaryData)) {
-                        summaryData.forEach(processColumnModel);
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
                     }
                     else {
-                        processColumnModel(summaryData);
+                        processColumnModel(summaryData, currency);
                     }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
             if (levelNumber === 0) {
-                $(".breadCrumbHolder").hide();
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = levelNumber === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };

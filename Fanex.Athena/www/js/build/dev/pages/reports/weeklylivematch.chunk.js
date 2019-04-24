@@ -6762,15 +6762,15 @@ Enumerable = (function ()
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./weeklylivematch */ "./www/js/source/pages/report/weeklylivematch/weeklylivematch.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (WeeklyLiveMatch) {
-    "use strict";
+    'use strict';
 
     $(function () {
         WeeklyLiveMatch.initialize();
 
-        $(window).on("resize", WeeklyLiveMatch.resizeGrid);
+        $(window).on('resize', WeeklyLiveMatch.resizeGrid);
 
-        $(window).on("unload", function () {
-            $(window).off("resize");
+        $(window).on('unload', function () {
+            $(window).off('resize');
         });
     });
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -6791,32 +6791,32 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./weeklylivematch.option */ "./www/js/source/pages/report/weeklylivematch/weeklylivematch.option.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"),
         __webpack_require__(/*! components/pluginhelper/daterangepicker */ "./www/js/source/components/pluginhelper/daterangepicker.js"), __webpack_require__(/*! helpers/daterange */ "./www/js/source/helpers/daterange.js"), __webpack_require__(/*! helpers/excel */ "./www/js/source/helpers/excel.js"), __webpack_require__(/*! helpers/datahelper */ "./www/js/source/helpers/datahelper.js"),
         __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"), __webpack_require__(/*! lib/linq */ "./www/js/source/lib/linq.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, ExcelHelper, DataHelper) {
-            var VALID_MONTH_RANGE = 2;
-            var SPORT_COLUMN_INDEX = 1;
-            var START_WEEK_COLUMN_INDEX = 2;
+            const VALID_MONTH_RANGE = 2;
+            const SPORT_COLUMN_INDEX = 1;
+            const START_WEEK_COLUMN_INDEX = 2;
 
-            var ajaxRequest = null;
-            var _cacheData = null;
-            var _sortColumn = null;
-            var _sortDirection = null;
+            let ajaxRequest = null;
+            let _cacheData = null;
+            let _sortColumn = null;
+            let _sortDirection = null;
 
-            var _me = {
+            const _me = {
                 initialize: function () {
                     Site.initialize();
                     _me.initEvent();
 
                     Site.addUserGuide({
-                        resourceName: "WeeklyLiveMatches",
-                        title: Site.getSingleResource("WeeklyLiveMatches"),
+                        resourceName: 'WeeklyLiveMatches',
+                        title: Site.getSingleResource('WeeklyLiveMatches'),
                         height: 450
                     });
                     WeeklyLiveMatchOption.gridOption.onSortCol = function (index) {
                         Site.blockUI();
                         window.setTimeout(function () {
                             if (_sortColumn === index) {
-                                _sortDirection = _sortDirection === "asc" ? "desc" : "asc";
+                                _sortDirection = _sortDirection === 'asc' ? 'desc' : 'asc';
                             } else {
-                                _sortDirection = "asc";
+                                _sortDirection = 'asc';
                                 _sortColumn = index;
                             }
                             _cacheData.Data = _me.sortData(_cacheData.Data);
@@ -6828,23 +6828,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         return 'stop';
                     };
 
-                    var firstDayOfWeekIsMonday = true;
+                    const firstDayOfWeekIsMonday = true;
                     DatePicker.initDateRangePicker(firstDayOfWeekIsMonday);
                 },
 
                 sortData: function (arrayData) {
-                    var columnIndex = SPORT_COLUMN_INDEX;
-                    var sortThenBy = null;
+                    let columnIndex = SPORT_COLUMN_INDEX;
+                    let sortThenBy = null;
 
                     if (_sortColumn.indexOf('Week') === 0) {
                         columnIndex = Number(_sortColumn.replace('Week', '')) + START_WEEK_COLUMN_INDEX;
                         sortThenBy = function (x) { return x.Cell[SPORT_COLUMN_INDEX]; };
                     }
 
-                    var data = DataHelper.sort(arrayData, function (x) { return x.Cell[columnIndex]; }, _sortDirection, sortThenBy, "asc");
+                    const data = DataHelper.sort(arrayData, function (x) { return x.Cell[columnIndex]; }, _sortDirection, sortThenBy, 'asc');
 
                     // Re-assign Index column.
-                    for (var i = 0; i < data.length; i++) {
+                    for (let i = 0; i < data.length; i++) {
                         data[i].Cell[0] = i + 1;
                     }
 
@@ -6860,8 +6860,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     });
 
                     $('#ExportToExcel').click(function () {
-                        var mainForm = $("#mainform");
-                        var data = mainForm.serializeObject();
+                        const mainForm = $('#mainform');
+                        const data = mainForm.serializeObject();
                         data.IsExportExcel = true;
                         data.SortColumn = _sortColumn;
                         data.SortDirection = _sortDirection;
@@ -6871,15 +6871,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 },
 
                 submit: function () {
-                    var mainForm = $("#mainform");
-                    var data = mainForm.serializeObject();
+                    const mainForm = $('#mainform');
+                    const data = mainForm.serializeObject();
                     data.SortColumn = _sortColumn;
                     data.SortDirection = _sortDirection;
-                    var option = {
-                        type: "POST",
+                    const option = {
+                        type: 'POST',
                         data: data,
-                        dataType: "json",
-                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         cache: false,
                         url: Site.resolveClientUrl(WeeklyLiveMatchOption.urlData),
                         success: function (response) {
@@ -6899,21 +6899,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 },
 
                 bindData: function (response) {
-                    jqGridAdditional.clearGrid("ReportGrid");
-                    var numOfRow = response.Data.length;
+                    jqGridAdditional.clearGrid('ReportGrid');
+                    const numOfRow = response.Data.length;
                     if (numOfRow === 0) {
                         jqGridAdditional.setNoInfo();
                         return;
                     }
 
-                    var reportGrid = $("#ReportGrid");
-                    var userData = {};
-                    var totalData = response.TotalData;
-                    for (var i = 0; i < totalData.length; i++) {
+                    const reportGrid = $('#ReportGrid');
+                    const userData = {};
+                    const totalData = response.TotalData;
+                    for (let i = 0; i < totalData.length; i++) {
                         userData['Week' + i] = totalData[i];
                     }
 
-                    var gridOption = WeeklyLiveMatchOption.getGridOption(response.NumberOfWeeks, response.WeekHeaders);
+                    const gridOption = WeeklyLiveMatchOption.getGridOption(response.NumberOfWeeks, response.WeekHeaders);
                     gridOption.data = response.Data;
                     gridOption.userData = userData;
                     gridOption.rowTotal = numOfRow;
@@ -6933,16 +6933,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 },
 
                 setTotalRow: function () {
-                    var $totalRow = $('.ui-jqgrid-ftable').find('.footrow');
+                    const $totalRow = $('.ui-jqgrid-ftable').find('.footrow');
                     $totalRow.addClass('grandTotal');
-                    var $firstCell = $totalRow.find('td:eq(0)');
-                    var $secondCell = $firstCell.next();
+                    const $firstCell = $totalRow.find('td:eq(0)');
+                    const $secondCell = $firstCell.next();
                     $secondCell.hide();
-                    $firstCell.attr('colspan', 2).html(Site.getSingleResource("Total"));
+                    $firstCell.attr('colspan', 2).html(Site.getSingleResource('Total'));
                 },
 
                 resizeGrid: function () {
-                    var reportGrid = $("#ReportGrid");
+                    const reportGrid = $('#ReportGrid');
                     jqGridAdditional.updateGridHeight();
                     jqGridAdditional.updateGridWidth(reportGrid);
                 }
@@ -6964,7 +6964,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -6975,7 +6975,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         sortable: false
     };
 
-    var sportNameColumn =
+    const sportNameColumn =
     {
         name: 'SportName',
         index: 'SportName',
@@ -6985,25 +6985,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         resizable: false
     };
 
-    var numOfMatchColumn =
+    const numOfMatchColumn =
     {
         width: 90,
         sortable: true,
         resizable: false,
-        align: "right",
+        align: 'right',
         title: true,
         formatter: 'integer',
         formatoptions:
         {
-            thousandsSeparator: ","
+            thousandsSeparator: ','
         }
     };
 
-    var colNameList = ['#', 'Sport'];
+    const colNameList = ['#', 'Sport'];
 
-    var colModelList = [indexColumn, sportNameColumn];
+    const colModelList = [indexColumn, sportNameColumn];
 
-    var _me = {
+    const _me = {
         urlData: 'api/WeeklyLiveMatchReport/index',
         urlExcelData: 'api/WeeklyLiveMatchReport/index',
         gridOption:
@@ -7024,20 +7024,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             rownumbers: false,
             localReader: {
                 repeatitems: true,
-                cell: "Cell",
-                id: "Index"
+                cell: 'Cell',
+                id: 'Index'
             }
         }
     };
 
     _me.getGridOption = function (numOfWeek, weekHeaders) {
-        var columnModels = Site.clone(colModelList);
-        var columnNames = Site.clone(colNameList);
-        for (var i = 0; i < numOfWeek; i++) {
+        const columnModels = Site.clone(colModelList);
+        const columnNames = Site.clone(colNameList);
+        for (let i = 0; i < numOfWeek; i++) {
             columnNames.push(weekHeaders[i]);
 
-            var column = Site.clone(numOfMatchColumn);
-            column.name = "Week" + i;
+            const column = Site.clone(numOfMatchColumn);
+            column.name = 'Week' + i;
             column.index = column.name;
 
             columnModels.push(column);

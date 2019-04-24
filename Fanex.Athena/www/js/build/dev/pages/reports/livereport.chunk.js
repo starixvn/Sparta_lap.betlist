@@ -1839,45 +1839,45 @@ Array.prototype.insertBefore = function (value, before) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (QueryString) {
-    "use strict";
+    'use strict';
     function setSumParams(url, totalValue) {
-        var newUrl = url;
-        newUrl = QueryString.setParam(newUrl, "totalrows", totalValue.BetCount);
-        newUrl = QueryString.setParam(newUrl, "sumwinlost", totalValue.CustomerWinLoss);
-        newUrl = QueryString.setParam(newUrl, "sumplayercomm", totalValue.CustomerComm);
-        newUrl = QueryString.setParam(newUrl, "sumlicenseewl", totalValue.LicenseeWinLoss);
-        newUrl = QueryString.setParam(newUrl, "sumcomm", totalValue.LicenseeComm);
-        newUrl = QueryString.setParam(newUrl, "sumturnover", totalValue.TurnOver);
-        newUrl = QueryString.setParam(newUrl, "sumamtdueto3rd", totalValue.AmountDue);
+        let newUrl = url;
+        newUrl = QueryString.setParam(newUrl, 'totalrows', totalValue.BetCount);
+        newUrl = QueryString.setParam(newUrl, 'sumwinlost', totalValue.CustomerWinLoss);
+        newUrl = QueryString.setParam(newUrl, 'sumplayercomm', totalValue.CustomerComm);
+        newUrl = QueryString.setParam(newUrl, 'sumlicenseewl', totalValue.LicenseeWinLoss);
+        newUrl = QueryString.setParam(newUrl, 'sumcomm', totalValue.LicenseeComm);
+        newUrl = QueryString.setParam(newUrl, 'sumturnover', totalValue.TurnOver);
+        newUrl = QueryString.setParam(newUrl, 'sumamtdueto3rd', totalValue.AmountDue);
 
         return newUrl;
     }
 
     function getMatchListProductOption(sportId, productCode) {
-        var newSportId = Number(sportId);
-        var productOptions = [];
+        const newSportId = Number(sportId);
+        let productOptions = [];
         if (newSportId > 0) {
             if (newSportId === 180 || newSportId === 186) {
-                productOptions.push("VS");
+                productOptions.push('VS');
             }
             else if (newSportId === 162) {
-                productOptions.push("LC");
+                productOptions.push('LC');
             }
             else if (newSportId === 104 || (newSportId >= 190 && newSportId <= 194)) {
-                productOptions.push("VS2");
+                productOptions.push('VS2');
             }
             else {
-                if (productCode === "SB" || productCode === "ALL") {
-                    productOptions.push("SB");
+                if (productCode === 'SB' || productCode === 'ALL') {
+                    productOptions.push('SB');
                 }
-                if (productCode === "BA" || productCode === "ALL") {
-                    productOptions.push("BA");
+                if (productCode === 'BA' || productCode === 'ALL') {
+                    productOptions.push('BA');
                 }
             }
         }
         else {
-            if (productCode === "ALL") {
-                productOptions = ["SB", "BA", "NG", "LC", "VS", "CS", "VS2"];
+            if (productCode === 'ALL') {
+                productOptions = ['SB', 'BA', 'NG', 'LC', 'VS', 'CS', 'VS2'];
             }
             else {
                 productOptions.push(productCode);
@@ -1904,7 +1904,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! components/pluginhelper/daterangepicker */ "./www/js/source/components/pluginhelper/daterangepicker.js"), __webpack_require__(/*! components/pluginhelper/monthpicker */ "./www/js/source/components/pluginhelper/monthpicker.js"), __webpack_require__(/*! ./helper */ "./www/js/source/pages/report/livereport/helper.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, DatePicker, MonthPicker, Helper) {
-        "use strict";
+        'use strict';
 
         function initialize() {
             Site.initialize();
@@ -1912,27 +1912,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             DatePicker.initDateRangePicker();
             MonthPicker.initMonthPicker();
             Site.addUserGuide({
-                resourceName: "LiveReport",
-                title: Site.getSingleResource("LiveReport")
+                resourceName: 'LiveReport',
+                title: Site.getSingleResource('LiveReport')
             });
         }
 
         function initEvent() {
-            $("#switchreport").click(function () {
-                var mod = $(this).attr("data-history-mode");
-                if (mod === "False") {
-                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=True"));
+            $('#switchreport').click(function () {
+                const mod = $(this).attr('data-history-mode');
+                if (mod === 'False') {
+                    Site.redirect(Site.resolveClientUrl('LiveReport?isViewedHistory=True'));
                 }
                 else {
-                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=False"));
+                    Site.redirect(Site.resolveClientUrl('LiveReport?isViewedHistory=False'));
                 }
             });
 
-            $("body").on("click", ".product-detail-link", function () {
+            $('body').on('click', '.product-detail-link', function () {
                 viewProductDetail(this);
             });
 
-            $("body").on("click", ".sport-detailt-link", function () {
+            $('body').on('click', '.sport-detailt-link', function () {
                 viewSportDetail(this);
             });
 
@@ -1949,31 +1949,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function viewProductDetail(target) {
-            var productCode = $(target).attr("data-product-code");
-            var data = {
+            const productCode = $(target).attr('data-product-code');
+            let data = {
                 productCode: productCode,
-                FromDate: $("#FromDate").attr('data-original-from'),
-                ToDate: $("#ToDate").attr('data-original-to'),
-                BaseCurrency: $("#BaseCurrency").attr('data-original'),
-                LiveIndicator: $("#LiveIndicator").attr('data-original')
+                FromDate: $('#FromDate').attr('data-original-from'),
+                ToDate: $('#ToDate').attr('data-original-to'),
+                BaseCurrency: $('#BaseCurrency').attr('data-original'),
+                LiveIndicator: $('#LiveIndicator').attr('data-original')
             };
             data = Site.setLicenseeOptionOriginalParam(data);
-            var isSelected = $(target).parent().hasClass("selected");
+            const isSelected = $(target).parent().hasClass('selected');
             if (isSelected) { return; }
 
-            $("a.product-detail-link").parent().removeClass("selected");
-            $(target).parent().addClass("selected");
+            $('a.product-detail-link').parent().removeClass('selected');
+            $(target).parent().addClass('selected');
 
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 data: data,
-                dataType: "json",
-                url: Site.resolveClientUrl("LiveReport/Detail"),
+                dataType: 'json',
+                url: Site.resolveClientUrl('LiveReport/Detail'),
                 beforeSend: Site.blockUI,
                 complete: function (jqXHR) {
                     if (jqXHR.readyState === 4) {
-                        $("#ProductCode").val(data.productCode);
-                        $("#detail-content").html(jqXHR.responseText);
+                        $('#ProductCode').val(data.productCode);
+                        $('#detail-content').html(jqXHR.responseText);
                     }
                     Site.unBlockUI();
                 }
@@ -1981,10 +1981,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function viewBetList(url, totalValue, productOptions) {
-            var newUrl = Site.setLicenseeOptionOriginalParam(url);
-            newUrl = QueryString.setParam(newUrl, "fromdate", $("#FromDate").attr('data-original-from'));
-            newUrl = QueryString.setParam(newUrl, "todate", $("#ToDate").attr('data-original-to'));
-            newUrl = QueryString.setParam(newUrl, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
+            let newUrl = Site.setLicenseeOptionOriginalParam(url);
+            newUrl = QueryString.setParam(newUrl, 'fromdate', $('#FromDate').attr('data-original-from'));
+            newUrl = QueryString.setParam(newUrl, 'todate', $('#ToDate').attr('data-original-to'));
+            newUrl = QueryString.setParam(newUrl, 'LiveIndicator', $('#LiveIndicator').attr('data-original'));
             newUrl = Helper.setSumParams(newUrl, totalValue);
             newUrl = Site.setProductCodeListParam(newUrl, productOptions);
 
@@ -1993,41 +1993,41 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function viewSportDetail(target) {
-            var data = $(target).attr("data-drill-down");
-            var jsonData = $.parseJSON(data);
-            var productCode = $("#ProductCode").val();
+            const data = $(target).attr('data-drill-down');
+            const jsonData = $.parseJSON(data);
+            const productCode = $('#ProductCode').val();
             // after users back from match list, 
             // the report does not show detailed data, 
             // so remove product code to not show detailed data in EXPORT EXCEL
-            $("#ProductCode").val("");
-            var productOptions = Helper.getMatchListProductOption(jsonData.SportId, productCode);
-            var urlMap = {
-                Key101: "LiveReportBetList/MixParlay?bettype=9",
-                Key102: "LiveReportBetList/MixParlay?bettype=29",
-                Key103: "LiveReportBetList/Outright",
-                Key161: "LiveReportBetList/NumberGame?Sporttype=161",
-                Key164: "LiveReportBetList/NumberGame?Sporttype=164",
-                Key181: "LiveReportBetList/VirtualSports?SportType=181",
-                Key182: "LiveReportBetList/VirtualSports?SportType=182",
-                Key183: "LiveReportBetList/VirtualSports?SportType=183",
-                Key184: "LiveReportBetList/VirtualSports?SportType=184",
-                Key185: "LiveReportBetList/VirtualSports?SportType=185",
-                Key104: "LiveReportBetList/MixParlay?bettype=2799"
+            $('#ProductCode').val('');
+            const productOptions = Helper.getMatchListProductOption(jsonData.SportId, productCode);
+            const urlMap = {
+                Key101: 'LiveReportBetList/MixParlay?bettype=9',
+                Key102: 'LiveReportBetList/MixParlay?bettype=29',
+                Key103: 'LiveReportBetList/Outright',
+                Key161: 'LiveReportBetList/NumberGame?Sporttype=161',
+                Key164: 'LiveReportBetList/NumberGame?Sporttype=164',
+                Key181: 'LiveReportBetList/VirtualSports?SportType=181',
+                Key182: 'LiveReportBetList/VirtualSports?SportType=182',
+                Key183: 'LiveReportBetList/VirtualSports?SportType=183',
+                Key184: 'LiveReportBetList/VirtualSports?SportType=184',
+                Key185: 'LiveReportBetList/VirtualSports?SportType=185',
+                Key104: 'LiveReportBetList/MixParlay?bettype=2799'
             };
 
-            var url = urlMap["Key" + jsonData.SportId];
+            let url = urlMap['Key' + jsonData.SportId];
             if (url) {
                 viewBetList(Site.resolveClientUrl(url), jsonData.TotalValue, productOptions);
             }
             else {
                 // Match List
-                url = Site.resolveClientUrl("LiveReport/MatchList");
+                url = Site.resolveClientUrl('LiveReport/MatchList');
                 url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "SportId", jsonData.SportId);
-                url = QueryString.setParam(url, "ProductCode", productCode);
-                url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original-from'));
-                url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original-to'));
-                url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
+                url = QueryString.setParam(url, 'SportId', jsonData.SportId);
+                url = QueryString.setParam(url, 'ProductCode', productCode);
+                url = QueryString.setParam(url, 'FromDate', $('#FromDate').attr('data-original-from'));
+                url = QueryString.setParam(url, 'ToDate', $('#ToDate').attr('data-original-to'));
+                url = QueryString.setParam(url, 'LiveIndicator', $('#LiveIndicator').attr('data-original'));
                 url = Site.setProductCodeListParam(url, productOptions);
 
                 Site.blockUI();
@@ -2051,7 +2051,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./livereport */ "./www/js/source/pages/report/livereport/livereport.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (LiveReport) {
-    "use strict";
+    'use strict';
     $(LiveReport.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));

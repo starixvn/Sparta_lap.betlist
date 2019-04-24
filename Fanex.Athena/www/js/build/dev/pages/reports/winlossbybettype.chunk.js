@@ -1274,21 +1274,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     __webpack_require__(/*! components/scrollablegrid */ "./www/js/source/components/scrollablegrid.js"),
     __webpack_require__(/*! helpers/sortableheader */ "./www/js/source/helpers/sortableheader.js"),
     __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, DatePicker, GridHelper, SortableHeader) {
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
                 GridHelper.resizeGrid();
                 _me.initDateRangePicker();
                 SortableHeader.createSortingIcon(_me.submitForm);
                 Site.addUserGuide({
-                    resourceName: "WinLossByBetType",
-                    title: Site.getSingleResource("WinLossByBetType")
+                    resourceName: 'WinLossByBetType',
+                    title: Site.getSingleResource('WinLossByBetType')
                 });
                 _me.initEvent();
             },
 
             initDateRangePicker: function () {
-                var ranges = ["Today", "Yesterday", "Currentweek"];
+                const ranges = ['Today', 'Yesterday', 'Currentweek'];
                 DatePicker.initDateRangePicker(false, ranges);
             },
 
@@ -1301,25 +1301,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     _me.submitForm();
                 });
 
-                $(".body-content").on("click", ".bet-list-link", function () {
-                    _me.viewBetList($(this).data("bettype"));
+                $('.body-content').on('click', '.bet-list-link', function () {
+                    _me.viewBetList($(this).data('bettype'));
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     GridHelper.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             viewBetList: function (betType) {
-                var url = Site.resolveClientUrl("WinLossByBetTypeBetList/Index");
+                let url = Site.resolveClientUrl('WinLossByBetTypeBetList/Index');
                 url = Site.setLicenseeOptionOriginalParam(url);
                 url = QueryString.setParams(url, {
-                    fromdate: $("#FromDate").val(),
-                    todate: $("#ToDate").val(),
+                    fromdate: $('#FromDate').val(),
+                    todate: $('#ToDate').val(),
                     bettype: betType
                 });
                 Site.blockUI();

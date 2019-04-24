@@ -3937,30 +3937,30 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -3974,19 +3974,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -4000,8 +4000,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -4011,35 +4011,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -4047,54 +4047,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
+            for (let currency in summaryTotal) {
                 if (summaryTotal.hasOwnProperty(currency)) {
                     currencyList.push(currency);
-                    var summaryData = summaryTotal[currency];
+                    const summaryData = summaryTotal[currency];
                     if (Array.isArray(summaryData)) {
-                        summaryData.forEach(processColumnModel);
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
                     }
                     else {
-                        processColumnModel(summaryData);
+                        processColumnModel(summaryData, currency);
                     }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
             if (levelNumber === 0) {
-                $(".breadCrumbHolder").hide();
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = levelNumber === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };
@@ -4270,7 +4272,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     setExcelUrl(level, currencyId, custId, fromDate, toDate);
                     ajaxComplete(level, response, postdata);
 
-                    const currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : "";
+                    const currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : '';
                     _me.setReportTitle(currencyId, fromDate, toDate, currencyName);
                 },
                 beforeSend: function () {
@@ -4420,10 +4422,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site) {
-        "use strict";
+        'use strict';
 
         function setDrillDownLink(level, currencyId, custId, datetime, cellvalue) {
-            var param = {
+            const param = {
                 Level: level,
                 CurrencyId: currencyId,
                 CustId: custId,
@@ -4434,7 +4436,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function betlistLink(cellvalue, options, rowObject) {
-            var param =
+            const param =
             {
                 DrillDownDate: rowObject.Date,
                 DrillDownCurrencyId: rowObject.CurrencyId,
@@ -4496,18 +4498,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return Site.clone(this.colModelList);
             },
             getGridOption: function (level, reportBy) {
-                var gridOption = Site.clone(this.gridOption);
+                const gridOption = Site.clone(this.gridOption);
                 gridOption.colNames = this.getColName();
                 gridOption.colModel = this.getColModel(level, reportBy);
                 return gridOption;
             },
 
             getTotalColModel: function (level, reportBy) {
-                var colModel = this.getColModel(level, reportBy);
+                const colModel = this.getColModel(level, reportBy);
 
-                for (var i = 0; i < colModel.length; i++) {
-                    var item = colModel[i];
-                    if (item.name === "CurrencyName") {
+                for (let i = 0; i < colModel.length; i++) {
+                    const item = colModel[i];
+                    if (item.name === 'CurrencyName') {
                         item.formatter = null;
                         break;
                     }
@@ -4536,7 +4538,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./reports/golddeluxewinloss */ "./www/js/source/pages/report/thirdpartywinloss/reports/golddeluxewinloss.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (GoldDeluxeWinLoss) {
-    "use strict";
+    'use strict';
     $(GoldDeluxeWinLoss.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -4552,20 +4554,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! ../common/thirdpartywinloss */ "./www/js/source/pages/report/thirdpartywinloss/common/thirdpartywinloss.js"), __webpack_require__(/*! ./golddeluxewinloss.option */ "./www/js/source/pages/report/thirdpartywinloss/reports/golddeluxewinloss.option.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, ThirdPartyWinLoss, GoldDeluxeWinLossOption) {
-        "use strict";
+        'use strict';
         function initialize() {
-            GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val(), 10);
+            GoldDeluxeWinLossOption.licenseeId = parseInt($('#drillDownLicenseeId').val(), 10);
 
             ThirdPartyWinLoss.initialize({
-                UserGuideResourceName: "GoldDeluxeWL",
-                UserGuideTitle: "GoldDeluxeWinLoss",
+                UserGuideResourceName: 'GoldDeluxeWL',
+                UserGuideTitle: 'GoldDeluxeWinLoss',
                 ValidMonthRange: 3,
-                ReportTitle: "GoldDeluxeWinLoss",
+                ReportTitle: 'GoldDeluxeWinLoss',
                 GridOption: GoldDeluxeWinLossOption
             });
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize
         };
 
@@ -4583,12 +4585,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! ../common/thirdpartywinloss.option */ "./www/js/source/pages/report/thirdpartywinloss/common/thirdpartywinloss.option.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (jqGridAdditional, ThirdPartyWinLossOption) {
-        "use strict";
+        'use strict';
 
-        var LICENSEE_12BET = 1;
-        var REPORT_BY_DAILY = 1;
+        const LICENSEE_12BET = 1;
+        const REPORT_BY_DAILY = 1;
 
-        var indexColumn =
+        const indexColumn =
         {
             name: 'Index',
             index: 'Index',
@@ -4601,7 +4603,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var dateColumn =
+        const dateColumn =
         {
             name: 'Date',
             index: 'Date',
@@ -4619,7 +4621,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
             name: 'ExternalId',
             index: 'ExternalId',
@@ -4629,7 +4631,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
             name: 'SystemId',
             index: 'SystemId',
@@ -4639,7 +4641,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var currencyColumn =
+        const currencyColumn =
         {
             name: 'CurrencyName',
             index: 'CurrencyName',
@@ -4649,7 +4651,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false
         };
 
-        var turnoverColumn =
+        const turnoverColumn =
         {
             name: 'TurnOver',
             index: 'TurnOver',
@@ -4662,7 +4664,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var totalTransColumn =
+        const totalTransColumn =
         {
             name: 'TotalTransaction',
             index: 'TotalTransaction',
@@ -4674,11 +4676,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
 
-        var customerWlColumn =
+        const customerWlColumn =
         {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
@@ -4689,7 +4691,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var licenseeWlColumn =
+        const licenseeWlColumn =
         {
             name: 'LicenseeWL',
             index: 'LicenseeWL',
@@ -4702,7 +4704,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-        var tipsAmountColumn =
+        const tipsAmountColumn =
         {
             name: 'TipAmount',
             index: 'TipAmount',
@@ -4715,7 +4717,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var tipsSharingColumn =
+        const tipsSharingColumn =
         {
             name: 'TipSharing',
             index: 'TipSharing',
@@ -4728,7 +4730,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var amountDueColumn =
+        const amountDueColumn =
         {
             name: 'AmountDue',
             index: 'AmountDue',
@@ -4741,7 +4743,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var currencyIdColumn =
+        const currencyIdColumn =
         {
             name: 'CurrencyId',
             index: 'CurrencyId',
@@ -4752,7 +4754,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             hidden: true
         };
 
-        var customerIdColumn =
+        const customerIdColumn =
         {
             name: 'CustomerId',
             index: 'CustomerId',
@@ -4763,15 +4765,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             hidden: true
         };
 
-        var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+        const colNameList = ['#', 'Date', 'ExternalId', 'SystemId', 'Currency',
             'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L',
             'TipAmount', 'TipSharing', 'AmountDue', 'CurrencyId', 'CustomerId'];
 
-        var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+        const colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
             turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn,
             tipsAmountColumn, tipsSharingColumn, amountDueColumn, currencyIdColumn, customerIdColumn];
 
-        var _me = new ThirdPartyWinLossOption({
+        const _me = new ThirdPartyWinLossOption({
             TotalColspan: [2, 2, 3],
             UrlData: 'api/GoldDeluxeWinLossReport/Index',
             UrlExcelData: 'api/GoldDeluxeWinLossReport/Index',
@@ -4780,7 +4782,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         });
 
         _me.getColModel = function (level, reportBy) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
             dateColumn.hidden = levelNumber > 0;
             dateColumn.formatoptions =
             {
@@ -4788,7 +4790,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
 
             currencyColumn.formatter = levelNumber === 0 ? function (cellvalue, options, rowObject) {
-                var drilldownLevel = _me.licenseeId === LICENSEE_12BET ? 1 : 2;
+                const drilldownLevel = _me.licenseeId === LICENSEE_12BET ? 1 : 2;
                 return _me.currencyFormatter(cellvalue, options, rowObject, drilldownLevel);
             } : null;
             systemIdColumn.formatter = levelNumber === 1 ? _me.systemIdFormatter : null;

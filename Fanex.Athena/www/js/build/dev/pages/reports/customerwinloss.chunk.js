@@ -6684,33 +6684,33 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"),
     __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"),
     __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
-        "use strict";
+        'use strict';
 
-        var indexColumn =
+        const indexColumn =
     {
-        name: "Index",
-        index: "Index",
+        name: 'Index',
+        index: 'Index',
         resizable: false,
         width: 40,
-        align: "center",
-        valign: "middle",
+        align: 'center',
+        valign: 'middle',
         sortable: false
     };
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
-            name: "ExternalId",
-            index: "ExternalId",
+            name: 'ExternalId',
+            index: 'ExternalId',
             resizable: false,
             width: 120,
-            align: "left",
-            valign: "middle",
+            align: 'left',
+            valign: 'middle',
             sortable: true,
             cellattr: function () {
                 return ' style="text-overflow: ellipsis"';
             },
             formatter: function (cellvalue, options, rowObject) {
-                var param =
+                const param =
                 {
                     CustId: rowObject.CustId,
                     ExternalId: rowObject.ExternalId,
@@ -6720,45 +6720,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
-            name: "SystemId",
-            index: "SystemId",
+            name: 'SystemId',
+            index: 'SystemId',
             resizable: false,
             width: 120,
-            align: "left",
-            valign: "middle",
+            align: 'left',
+            valign: 'middle',
             sortable: true
         };
 
-        var turnoverColumn =
+        const turnoverColumn =
         {
-            name: "Turnover",
-            index: "Turnover",
+            name: 'Turnover',
+            index: 'Turnover',
             width: 110,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var totalTransactionColumn =
+        const totalTransactionColumn =
         {
-            name: "TotalTransaction",
-            index: "TotalTransaction",
+            name: 'TotalTransaction',
+            index: 'TotalTransaction',
             width: 90,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "integer",
+            formatter: 'integer',
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
 
-        var customerWlColumn =
+        const customerWlColumn =
        {
            name: 'CustomerWL',
            index: 'CustomerWL',
@@ -6769,7 +6769,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
            formatter: jqGridAdditional.formatDecimal
        };
 
-        var playerCommColumn =
+        const playerCommColumn =
         {
             name: 'PlayerComm',
             index: 'PlayerComm',
@@ -6780,7 +6780,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var customerWlTotalColumn =
+        const customerWlTotalColumn =
         {
             name: 'CustomerTotalWL',
             index: 'CustomerTotalWL',
@@ -6791,68 +6791,68 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var betEffectiveColumn =
+        const betEffectiveColumn =
         {
-            name: "BetEffective",
-            index: "BetEffective",
+            name: 'BetEffective',
+            index: 'BetEffective',
             width: 100,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var licenseeWLColumn =
+        const licenseeWLColumn =
         {
-            name: "LicenseeWL",
-            index: "LicenseeWL",
+            name: 'LicenseeWL',
+            index: 'LicenseeWL',
             width: 100,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-        var bacommColumn =
+        const bacommColumn =
         {
-            name: "BAComm",
-            index: "BAComm",
+            name: 'BAComm',
+            index: 'BAComm',
             width: 100,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-        var amtDueToBAColumn =
+        const amtDueToBAColumn =
         {
-            name: "AmtDueToBA",
-            index: "AmtDueToBA",
+            name: 'AmtDueToBA',
+            index: 'AmtDueToBA',
             width: 100,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var colNameList = [
-            "#",
-            "ExternalId",
-            "SystemId",
-            "Turnover",
-            "TotalTransaction",
+        const colNameList = [
+            '#',
+            'ExternalId',
+            'SystemId',
+            'Turnover',
+            'TotalTransaction',
             '@[Win]/@[Loss]',
             'Comm',
             'Total',
-            "EffectiveBettingValue",
-            "LicenseeW_L",
-            "BACommission",
-            "AmtDueToBA"
+            'EffectiveBettingValue',
+            'LicenseeW_L',
+            'BACommission',
+            'AmtDueToBA'
         ];
 
-        var colModelList = [
+        const colModelList = [
             indexColumn,
             externalIdColumn,
             systemIdColumn,
@@ -6867,11 +6867,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             amtDueToBAColumn
         ];
 
-        var _me =
+        const _me =
         {
-            urlData: "api/CustomerWinLossReport/Index",
-            urlExcelData: "api/CustomerWinLossReport/Index",
-            urlPromotionPrizeExcelData: "api/PromotionPrizeReport/ExportExcel",
+            urlData: 'api/CustomerWinLossReport/Index',
+            urlExcelData: 'api/CustomerWinLossReport/Index',
+            urlPromotionPrizeExcelData: 'api/PromotionPrizeReport/ExportExcel',
             hasCustomerComm: true,
             isAllowBA: true,
             customerCommIndex: 11,
@@ -6881,16 +6881,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             totalColspanFakeLicensee: 2,
             gridOption:
             {
-                datatype: "local",
+                datatype: 'local',
                 colNames: [],
                 colModel: [],
                 data: [],
-                height: "100%",
+                height: '100%',
                 autowidth: false,
                 forceFit: false,
                 shrinkToFit: true,
                 loadtext: '',
-                loadui: "disable",
+                loadui: 'disable',
                 loadonce: true,
                 footerrow: true,
                 userDataOnFooter: false,
@@ -6906,14 +6906,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             setGroupHeaderColumns: function (grid) {
-                var groupCustomerWinloss = _me.hasCustomerComm ?
+                const groupCustomerWinloss = _me.hasCustomerComm ?
                 {
-                    startColumnName: "CustomerWL",
+                    startColumnName: 'CustomerWL',
                     numberOfColumns: 3,
-                    titleText: Site.getSingleResource("CustomerW_L")
+                    titleText: Site.getSingleResource('CustomerW_L')
                 } : {};
 
-                grid.jqGrid("setGroupHeaders",
+                grid.jqGrid('setGroupHeaders',
                 {
                     useColSpanStyle: true,
                     groupHeaders: [groupCustomerWinloss]
@@ -6921,9 +6921,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             getColName: function () {
-                var colNames = Site.clone(colNameList);
+                const colNames = Site.clone(colNameList);
 
-                colNames[_me.customerWlIndex] = _me.hasCustomerComm ? "@[Win]/@[Loss]" : "CustomerW_L";
+                colNames[_me.customerWlIndex] = _me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
 
                 return Site.getResources(colNames);
             },
@@ -6935,7 +6935,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 amtDueToBAColumn.hidden = !_me.isAllowBA;
                 systemIdColumn.hidden = Site.isFakeLicensee();
 
-                var colModels = Site.clone(colModelList);
+                const colModels = Site.clone(colModelList);
 
                 if (totalRows <= 1) {
                     $.each(colModels, function (index, item) {
@@ -6961,7 +6961,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./customerwinloss */ "./www/js/source/pages/report/customerwinloss/customerwinloss.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerWinLoss) {
-    "use strict";
+    'use strict';
 
     $(CustomerWinLoss.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -6978,30 +6978,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -7015,19 +7015,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -7041,8 +7041,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -7052,35 +7052,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -7088,54 +7088,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
+            for (let currency in summaryTotal) {
                 if (summaryTotal.hasOwnProperty(currency)) {
                     currencyList.push(currency);
-                    var summaryData = summaryTotal[currency];
+                    const summaryData = summaryTotal[currency];
                     if (Array.isArray(summaryData)) {
-                        summaryData.forEach(processColumnModel);
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
                     }
                     else {
-                        processColumnModel(summaryData);
+                        processColumnModel(summaryData, currency);
                     }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
             if (levelNumber === 0) {
-                $(".breadCrumbHolder").hide();
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = levelNumber === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };

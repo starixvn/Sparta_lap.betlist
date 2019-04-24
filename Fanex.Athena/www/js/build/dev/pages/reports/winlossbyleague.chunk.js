@@ -5773,30 +5773,30 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -5810,19 +5810,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -5836,8 +5836,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -5847,35 +5847,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -5883,54 +5883,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
+            for (let currency in summaryTotal) {
                 if (summaryTotal.hasOwnProperty(currency)) {
                     currencyList.push(currency);
-                    var summaryData = summaryTotal[currency];
+                    const summaryData = summaryTotal[currency];
                     if (Array.isArray(summaryData)) {
-                        summaryData.forEach(processColumnModel);
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
                     }
                     else {
-                        processColumnModel(summaryData);
+                        processColumnModel(summaryData, currency);
                     }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            var levelNumber = Number(level);
+            const levelNumber = Number(level);
             if (levelNumber === 0) {
-                $(".breadCrumbHolder").hide();
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = levelNumber === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };
@@ -5949,7 +5951,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./winlossbyleague */ "./www/js/source/pages/report/winlossbyleague/winlossbyleague.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (WinLossByLeague) {
-    "use strict";
+    'use strict';
 
     $(WinLossByLeague.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -5966,22 +5968,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! components/pluginhelper/monthpicker */ "./www/js/source/components/pluginhelper/monthpicker.js"), __webpack_require__(/*! components/pluginhelper/multiselect */ "./www/js/source/components/pluginhelper/multiselect.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, MonthPicker, MultiSelect) {
-        "use strict";
-        var ajaxLeagues = null;
-        var ajaxMatches = null;
+        'use strict';
+        let ajaxLeagues = null;
+        let ajaxMatches = null;
 
-        var _productCount = 0;
+        let _productCount = 0;
 
-        var Selector = {
-            SubmitButton: "#SubmitButton",
-            Match: "#Match",
-            League: "#League",
-            CurrencyId: "#CurrencyId"
+        const Selector = {
+            SubmitButton: '#SubmitButton',
+            Match: '#Match',
+            League: '#League',
+            CurrencyId: '#CurrencyId'
         };
 
-        var _me = {
+        const _me = {
             initialize: function () {
-                _productCount = $("#ProductList .childCheckbox[type=checkbox]").length;
+                _productCount = $('#ProductList .childCheckbox[type=checkbox]').length;
 
                 MultiSelect.initProductList();
                 MonthPicker.initMonthPicker({
@@ -5991,29 +5993,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             initEvent: function () {
-                $("#League").change(function () {
+                $('#League').change(function () {
                     _me.loadMatches(true);
                 });
 
-                $("#Sport, #CurrencyId").change(function () {
+                $('#Sport, #CurrencyId').change(function () {
                     _me.loadLeagues();
                 });
 
-                $("#TickerFilter input[type=checkbox]").checkboxgroup();
+                $('#TickerFilter input[type=checkbox]').checkboxgroup();
 
-                $("#TickerFilter, #ProductList").on("change", "input[type=checkbox]", function () {
-                    var validProduct = $("#ProductList .childCheckbox:checked").length > 0;
-                    var validTicketFilter = $("#TickerFilter input:checked").length > 0;
-                    var isValid = validProduct && validTicketFilter;
+                $('#TickerFilter, #ProductList').on('change', 'input[type=checkbox]', function () {
+                    const validProduct = $('#ProductList .childCheckbox:checked').length > 0;
+                    const validTicketFilter = $('#TickerFilter input:checked').length > 0;
+                    let isValid = validProduct && validTicketFilter;
 
-                    if ($(this).attr("id") === "AllTicket") {
-                        isValid = $(this).prop("checked") && validProduct;
+                    if ($(this).attr('id') === 'AllTicket') {
+                        isValid = $(this).prop('checked') && validProduct;
                     }
 
-                    $("#SubmitButton").prop("disabled", !isValid);
+                    $('#SubmitButton').prop('disabled', !isValid);
                 });
 
-                $("#Odds").keypress(function (event) {
+                $('#Odds').keypress(function (event) {
                     _me.handleOddInput(event);
                 });
             },
@@ -6023,12 +6025,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     Backspace, tab, enter, end, home, left, right
                     Don't support the del key in Opera because del == . == 46.
                     --------------------------------------------------------------*/
-                var controlKeys = [8, 9, 13, 35, 36, 37, 39, 46];
+                const controlKeys = [8, 9, 13, 35, 36, 37, 39, 46];
 
                 /*--------------------------------------------------------------
                 IE doesn't support indexOf
                 --------------------------------------------------------------*/
-                var isControlKey = controlKeys.join(",").match(new RegExp(event.which));
+                const isControlKey = controlKeys.join(',').match(new RegExp(event.which));
 
                 /*--------------------------------------------------------------
                 Some browsers just don't raise events for control keys. Easy.
@@ -6038,7 +6040,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     // Control keys in most browsers. e.g. Firefox tab is 0
                  48 <= event.which && event.which <= 57 ||
                     // Always 0 through 9
-                    //(48 == event.which && $(this).attr("value")) ||   // No 0 first digit
+                    //(48 == event.which && $(this).attr('value')) ||   // No 0 first digit
                     isControlKey) {
                     // Opera assigns values for control keys.
                     return;
@@ -6054,26 +6056,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 }
 
                 Site.blockUI();
-                $(Selector.SubmitButton).prop("disabled", true);
-                var $league = $(Selector.League);
-                $league.html("");
+                $(Selector.SubmitButton).prop('disabled', true);
+                const $league = $(Selector.League);
+                $league.html('');
 
                 ajaxLeagues = $.ajax({
-                    type: "POST",
-                    url: Site.resolveClientUrl("WinLossByLeagueReport/GetLeaguesBySport"),
+                    type: 'POST',
+                    url: Site.resolveClientUrl('WinLossByLeagueReport/GetLeaguesBySport'),
                     data: {
-                        currencyId: $("#CurrencyId").val(),
-                        sportid: $("#Sport").val(),
+                        currencyId: $('#CurrencyId').val(),
+                        sportid: $('#Sport').val(),
                         fromDate: MonthPicker.getFromDateString(),
                         toDate: MonthPicker.getToDateString()
                     },
                     success: function (data) {
-                        var str = "";
+                        let str = '';
                         $.each(data, function () {
                             str += _me.renderHtmlOption(this.Key, this.Value);
                         });
                         $league.html(str);
-                        $league.selectList("update");
+                        $league.selectList('update');
                         _me.loadMatches(false);
                     }
                 });
@@ -6088,76 +6090,76 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     Site.blockUI();
                 }
 
-                $(Selector.SubmitButton).prop("disabled", true);
-                var $match = $(Selector.Match);
-                $match.html("");
-                var leagueid = $(Selector.League).val();
+                $(Selector.SubmitButton).prop('disabled', true);
+                const $match = $(Selector.Match);
+                $match.html('');
+                const leagueid = $(Selector.League).val();
                 if (!leagueid) {
-                    $match.selectList("update");
+                    $match.selectList('update');
                     Site.unBlockUI();
                     return;
                 }
 
                 ajaxMatches = $.ajax({
-                    type: "POST",
-                    datatype: "json",
-                    url: Site.resolveClientUrl("WinLossByLeagueReport/GetMatchesByLeague"),
+                    type: 'POST',
+                    datatype: 'json',
+                    url: Site.resolveClientUrl('WinLossByLeagueReport/GetMatchesByLeague'),
                     data: {
                         leagueid: leagueid,
                         fromDate: MonthPicker.getFromDateString(),
                         toDate: MonthPicker.getToDateString()
                     },
                     success: function (data) {
-                        var str = "";
+                        let str = '';
                         $.each(data, function () {
                             str += _me.renderHtmlOption(this.Key, this.Value);
                         });
                         $match.html(str);
                         if (data.length > 0) {
-                            $(Selector.SubmitButton).prop("disabled", false);
+                            $(Selector.SubmitButton).prop('disabled', false);
                         }
 
-                        $match.selectList("update");
+                        $match.selectList('update');
                         Site.unBlockUI();
                     }
                 });
             },
 
             renderHtmlOption: function (key, value) {
-                return "<option value=\"" + key + "\">" + value + "</option>";
+                return '<option value="' + key + '">' + value + '</option>';
             },
 
             buildProductsParams: function (paramObject, postData) {
-                for (var i = 0; i < _productCount; i++) {
-                    paramObject["ProductOptions[" + i + "].Code"] = postData["ProductOptions[" + i + "].Code"];
-                    paramObject["ProductOptions[" + i + "].Name"] = postData["ProductOptions[" + i + "].Name"];
-                    paramObject["ProductOptions[" + i + "].Status"] = postData["ProductOptions[" + i + "].Status"];
+                for (let i = 0; i < _productCount; i++) {
+                    paramObject['ProductOptions[' + i + '].Code'] = postData['ProductOptions[' + i + '].Code'];
+                    paramObject['ProductOptions[' + i + '].Name'] = postData['ProductOptions[' + i + '].Name'];
+                    paramObject['ProductOptions[' + i + '].Status'] = postData['ProductOptions[' + i + '].Status'];
                 }
             },
             buildProductCodeList: function (postData) {
-                var productCodeList = [];
-                for (var i = 0; i < _productCount; i++) {
-                    if (postData["ProductOptions[" + i + "].Status"] === "true") {
-                        productCodeList.push(postData["ProductOptions[" + i + "].Code"]);
+                const productCodeList = [];
+                for (let i = 0; i < _productCount; i++) {
+                    if (postData['ProductOptions[' + i + '].Status'] === 'true') {
+                        productCodeList.push(postData['ProductOptions[' + i + '].Code']);
                     }
                 }
 
                 return productCodeList;
             },
             isValid: function () {
-                var checkedProductCount = $("#ProductList .childCheckbox:checked").length;
-                var ticketFilterCount = $("#TickerFilter input:checked").length;
+                const checkedProductCount = $('#ProductList .childCheckbox:checked').length;
+                const ticketFilterCount = $('#TickerFilter input:checked').length;
 
                 if (checkedProductCount === 0 || ticketFilterCount === 0) {
                     return false;
                 }
 
-                var odds = parseFloat($('#Odds').val());
+                let odds = parseFloat($('#Odds').val());
                 if (isNaN(odds) || odds === null || odds < 0) {
                     odds = 0;
                 }
 
-                $("#Odds").val(odds);
+                $('#Odds').val(odds);
 
                 return true;
             }
@@ -6179,34 +6181,34 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! ./winlossbyleague.option */ "./www/js/source/pages/report/winlossbyleague/winlossbyleague.option.js"),
     __webpack_require__(/*! ./winlossbyleague.filter */ "./www/js/source/pages/report/winlossbyleague/winlossbyleague.filter.js"), __webpack_require__(/*! ../report */ "./www/js/source/pages/report/report.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! components/paging */ "./www/js/source/components/paging.js"), __webpack_require__(/*! helpers/excel */ "./www/js/source/helpers/excel.js"),
     __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper, ExcelHelper) {
-        "use strict";
+        'use strict';
 
-        var ajaxRequest = null;
+        let ajaxRequest = null;
 
-        var _level = 0;
-        var _leagueid = -1;
-        var _leaguename = null;
-        var _postdata = {};
-        var _currencyName = null;
+        let _level = 0;
+        let _leagueid = -1;
+        let _leaguename = null;
+        let _postdata = {};
+        let _currencyName = null;
 
-        var _pagingOption = {
+        let _pagingOption = {
             pageindex: 1,
             pagesize: 50,
             pagelist: [50, 100, 1000],
             totalrow: 1,
-            elementcontainer: "#paging",
-            method: "AJAX",
-            ajaxfunction: "window.WinLossByLeague.ajaxPaging()",
+            elementcontainer: '#paging',
+            method: 'AJAX',
+            ajaxfunction: 'window.WinLossByLeague.ajaxPaging()',
             alwayshow: true
         };
 
-        var _me = {
+        const _me = {
             //#region Init
             initialize: function () {
                 Site.initialize();
                 _me.initEvent();
                 WinLossByLeagueFilter.initialize();
-                WinLossByLeagueOption.HasAmountDueToColumn = Site.asBool($("#HasAmountDueToColumn").val());
+                WinLossByLeagueOption.HasAmountDueToColumn = Site.asBool($('#HasAmountDueToColumn').val());
                 window.WinLossByLeague = {
                     ajaxPaging: _me.ajaxPaging
                 };
@@ -6217,39 +6219,39 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.submit();
                 });
 
-                $(".main-content").on("click", "#leagueHeader", function () {
+                $('.main-content').on('click', '#leagueHeader', function () {
                     _pagingOption.pageindex = 1;
-                    var leaguename = $(this).html();
-                    _me.drillDown($(this).data("leagueid"), leaguename);
+                    const leaguename = $(this).html();
+                    _me.drillDown($(this).data('leagueid'), leaguename);
                 });
 
-                $(".main-content").on("click", ".drilldown", function () {
-                    var custid = $(this).data("custid");
-                    var externalid = $(this).data("externalid");
-                    var systemid = $(this).data("systemid");
+                $('.main-content').on('click', '.drilldown', function () {
+                    const custid = $(this).data('custid');
+                    const externalid = $(this).data('externalid');
+                    const systemid = $(this).data('systemid');
                     _me.drillDownBetList(custid, externalid, systemid);
                 });
 
-                $("#level-link-container").on("click", ".level-link", function () {
-                    var level = Number($(this).attr("data-level"));
+                $('#level-link-container').on('click', '.level-link', function () {
+                    const level = Number($(this).attr('data-level'));
                     if (level === 0) {
                         _me.submit();
                     }
                 });
 
-                $("#ExportToExcel").click(function (e) {
+                $('#ExportToExcel').click(function (e) {
                     _postdata.LeagueName = _leaguename;
                     _postdata.Level = _level;
-                    ExcelHelper.exportExcel(_postdata, Site.resolveClientUrl("api/WinLossByLeagueReport/Excel"));
+                    ExcelHelper.exportExcel(_postdata, Site.resolveClientUrl('api/WinLossByLeagueReport/Excel'));
                     e.preventDefault();
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     _me.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
@@ -6257,35 +6259,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             //#region Utilities
             resizeGrid: function () {
-                var reportGrid = $("#ReportGrid");
+                const reportGrid = $('#ReportGrid');
                 jqGridAdditional.updateGridHeight();
                 jqGridAdditional.updateGridWidth(reportGrid, _level === 0);
             },
 
             setReportTitle: function (level, minOdds, fromdate, todate) {
-                var caption = null;
+                let caption = null;
                 if (level === 0) {
                     caption = Site.getSingleResource('WinLossByLeague');
                 }
                 else {
-                    caption = _leaguename + " > " + Site.getSingleResource('CustomerWinLoss');
+                    caption = _leaguename + ' > ' + Site.getSingleResource('CustomerWinLoss');
                 }
 
-                var titlePattern = caption + ', {0} → {1} - {2} - {3}';
-                var viewinKey = Site.getSingleResource("Currency") + ": ";
-                var currencyStr = viewinKey + " " + (_postdata.BaseCurrency === "" ? _currencyName : _postdata.BaseCurrency);
+                const titlePattern = caption + ', {0} → {1} - {2} - {3}';
+                const viewinKey = Site.getSingleResource('Currency') + ': ';
+                const currencyStr = viewinKey + ' ' + (_postdata.BaseCurrency === '' ? _currencyName : _postdata.BaseCurrency);
 
-                var minOddStr = Site.getSingleResource("MinimumOdds") + " : " + minOdds;
-                var title = $.format(
+                const minOddStr = Site.getSingleResource('MinimumOdds') + ' : ' + minOdds;
+                const title = $.format(
                     titlePattern,
-                    moment(new Date(fromdate)).format("M/DD/YYYY"),
-                    moment(new Date(todate)).format("M/DD/YYYY"),
+                    moment(new Date(fromdate)).format('M/DD/YYYY'),
+                    moment(new Date(todate)).format('M/DD/YYYY'),
                     currencyStr,
                     minOddStr);
 
                 _postdata.ReportTitle = title;
-                $(".report-title").html(title);
-                $(".panel-heading").removeClass("hide");
+                $('.report-title').html(title);
+                $('.panel-heading').removeClass('hide');
             },
             //#endregion
 
@@ -6308,16 +6310,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 Site.blockUI();
                 _level = 0;
 
-                _postdata = $("#SearchForm").serializeObject();
-                _currencyName = $("#CurrencyName").val().toUpperCase();
+                _postdata = $('#SearchForm').serializeObject();
+                _currencyName = $('#CurrencyName').val().toUpperCase();
                 _postdata.BaseCurrency = _postdata.BaseCurrency.toUpperCase();
-                _leaguename = $("#League option:selected").text();
+                _leaguename = $('#League option:selected').text();
 
-                var option = {
-                    type: "POST",
+                const option = {
+                    type: 'POST',
                     data: _postdata,
-                    dataType: "json",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     cache: false,
                     url: Site.resolveClientUrl(WinLossByLeagueOption.urlData),
                     success: function (response) {
@@ -6342,8 +6344,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             //#region drillDown
             drillDownBetList: function (custId, externalId, systemId) {
-                var param = {
-                    IsConvert: _postdata.BaseCurrency !== "",
+                const param = {
+                    IsConvert: _postdata.BaseCurrency !== '',
                     Odds: _postdata.Odds,
                     FromDate: _postdata.FromDate.toString(),
                     ToDate: _postdata.ToDate.toString(),
@@ -6361,8 +6363,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     ProductCodeList: WinLossByLeagueFilter.buildProductCodeList(_postdata).toString()
                 };
                 
-                var url = Site.resolveClientUrl("WinlossByLeagueBetList/Index?") + $.param(param);
-                window.open(url, "", "modal=no");
+                const url = Site.resolveClientUrl('WinlossByLeagueBetList/Index?') + $.param(param);
+                window.open(url, '', 'modal=no');
             },
 
             drillDown: function (leagueid, leaguename) {
@@ -6370,20 +6372,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 _leagueid = leagueid;
                 _leaguename = leaguename;
 
-                var temp = {
+                const temp = {
                     Level: _level,
                     League: leagueid,
                     pageindex: _pagingOption.pageindex,
                     pagesize: _pagingOption.pagesize
                 };
-                var param = $.extend({}, _postdata, temp);
+                const param = $.extend({}, _postdata, temp);
 
                 WinLossByLeagueFilter.buildProductsParams(param, _postdata);
 
-                var option = {
-                    type: "POST",
+                const option = {
+                    type: 'POST',
                     data: param,
-                    dataType: "json",
+                    dataType: 'json',
                     cache: false,
                     url: Site.resolveClientUrl(WinLossByLeagueOption.urlData),
                     success: function (response) {
@@ -6392,7 +6394,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             _me.setReportTitle(1, _postdata.Odds, _postdata.FromDate, _postdata.ToDate);
                             _pagingOption.totalrow = parseInt(response.TotalRows, 10);
                             if (_pagingOption.totalrow > 0) {
-                                $("#paging").show();
+                                $('#paging').show();
                                 PagingHeper.render(_pagingOption);
                                 _me.resizeGrid();
                             }
@@ -6414,16 +6416,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             //#region Bind Data
             bindData: function (level, response) {
-                jqGridAdditional.clearGrid("ReportGrid");
-                var numOfRow = response.Data.length;
+                jqGridAdditional.clearGrid('ReportGrid');
+                const numOfRow = response.Data.length;
                 if (numOfRow === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
 
-                var reportGrid = $("#ReportGrid");
-                $("#paging").hide();
-                var gridOption = WinLossByLeagueOption.getGridOption(level);
+                const reportGrid = $('#ReportGrid');
+                $('#paging').hide();
+                const gridOption = WinLossByLeagueOption.getGridOption(level);
 
                 gridOption.data = response.Data;
                 gridOption.rowNum = level === 2 ? WinLossByLeagueOption.pageSize : WinLossByLeagueOption.nonePagingSize;
@@ -6440,16 +6442,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 reportGrid.jqGrid(gridOption);
 
                 //set rowspan for footer row
-                $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByLeagueOption.currencyIndex]);
+                $('table.ui-jqgrid-ftable').tableRowSpan([WinLossByLeagueOption.currencyIndex]);
 
                 if (level === 0) {
-                    WinLossByLeagueOption.addLeagueGroupRow($("#League").val(), $("#League option:selected").text());
+                    WinLossByLeagueOption.addLeagueGroupRow($('#League').val(), $('#League option:selected').text());
                 }
             },
 
             bindTotal: function (level, totalData) {
-                var columnModel = WinLossByLeagueOption.getColModel(level);
-                var colspan = level === 0 ? 2 : 3;
+                const columnModel = WinLossByLeagueOption.getColModel(level);
+                const colspan = level === 0 ? 2 : 3;
                 jqGridAdditional.assignTotal(totalData, columnModel);
                 jqGridAdditional.setGroupFooters(colspan, 0, 0);
             },
@@ -6475,15 +6477,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
-    "use strict";
+    'use strict';
 
-    var setDrillDownLink = function (custId, cellvalue, externalid, systemId) {
+    const setDrillDownLink = function (custId, cellvalue, externalid, systemId) {
         return '<a class="drilldown" href="javascript:;" data-custid="' + custId +
          '" data-externalid="' + externalid + '" data-systemid="' + systemId + '">' + cellvalue + '</a>';
     };
 
     //#region Columns
-    var indexColumn =
+    const indexColumn =
         {
             name: 'Index',
             index: 'Index',
@@ -6493,7 +6495,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false,
             resizable: false
         };
-    var externalIdColumn =
+    const externalIdColumn =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -6505,7 +6507,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return setDrillDownLink(rowObject.CustomerId, cellvalue, rowObject.ExternalId, rowObject.SystemId);
         }
     };
-    var systemIdColumn =
+    const systemIdColumn =
     {
         name: 'SystemId',
         index: 'SystemId',
@@ -6517,7 +6519,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return setDrillDownLink(rowObject.CustomerId, cellvalue, rowObject.ExternalId, rowObject.SystemId);
         }
     };
-    var matchColumn =
+    const matchColumn =
      {
          name: 'Match',
          index: 'Match',
@@ -6526,10 +6528,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          resizable: false,
          hidden: false,
          formatter: function (cellvalue, options, rowObject) {
-             return rowObject.HomeName + "<br/>" + rowObject.AwayName;
+             return rowObject.HomeName + '<br/>' + rowObject.AwayName;
          }
      };
-    var turnoverColumn =
+    const turnoverColumn =
         {
             name: 'TurnOver',
             index: 'TurnOver',
@@ -6541,7 +6543,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             hidden: false,
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-    var betcountColumn =
+    const betcountColumn =
         {
             name: 'BetCount',
             index: 'BetCount',
@@ -6553,10 +6555,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
-    var customerWlColumn =
+    const customerWlColumn =
         {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
@@ -6567,7 +6569,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-    var licenseeWlColumn =
+    const licenseeWlColumn =
         {
             name: 'LicenseeWL',
             //classes: 'highlight',
@@ -6581,7 +6583,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-    var baCommColumn =
+    const baCommColumn =
         {
             name: 'BACommission',
             // classes: 'highlight',
@@ -6593,7 +6595,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-    var amtDueToColumn =
+    const amtDueToColumn =
         {
             name: 'AmountDue',
             index: 'AmountDue',
@@ -6606,17 +6608,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
     //#endregion
-    var colNames = [
+    const colNames = [
          ['#', 'Match', 'BetCount', 'Turnover', 'CustomerW_L', 'LicenseeW_L', 'BACommission', 'AmtDueTo'],
          ['#', 'ExternalID', 'SystemID', 'BetCount', 'Turnover', 'CustomerW_L', 'LicenseeW_L', 'BACommission']
     ];
 
-    var colModels = [
+    const colModels = [
         [indexColumn, matchColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn, amtDueToColumn],
         [indexColumn, externalIdColumn, systemIdColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn]
     ];
 
-    var me = {
+    const me = {
         HasAmountDueToColumn: true,
         currencyIndex: 4,
         systemIdIndex: 3,
@@ -6670,10 +6672,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     //#end
 
     me.addLeagueGroupRow = function (leagueid, leagueName) {
-        var $grid = $("#ReportGrid");
-        var $row = $grid.find("tr.jqgrow:first");
-        $row.before("<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id='leagueHeader' data-leagueid='" + leagueid
-            + "' href='javascript:;'>" + leagueName + "</a></td></tr>");
+        const $grid = $('#ReportGrid');
+        const $row = $grid.find('tr.jqgrow:first');
+        $row.before('<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id="leagueHeader" data-leagueid="' + leagueid
+            + '" href="javascript:;">' + leagueName + '</a></td></tr>');
     };
 
     return me;

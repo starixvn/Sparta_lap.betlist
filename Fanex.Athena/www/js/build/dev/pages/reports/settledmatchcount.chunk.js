@@ -766,7 +766,7 @@ Array.prototype.insertBefore = function (value, before) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./settledmatchcount */ "./www/js/source/pages/report/settledmatchcount/settledmatchcount.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (SettledMatchCount) {
-    "use strict";
+    'use strict';
 
     $(SettledMatchCount.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -785,12 +785,12 @@ Array.prototype.insertBefore = function (value, before) {
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    var _me = {
+    const _me = {
         initialize: function () {
             Site.initialize();
             Site.addUserGuide({
-                resourceName: "SettledMatchCount",
-                title: Site.getSingleResource("SettledMatchCount"),
+                resourceName: 'SettledMatchCount',
+                title: Site.getSingleResource('SettledMatchCount'),
                 height: 220
             });
         }

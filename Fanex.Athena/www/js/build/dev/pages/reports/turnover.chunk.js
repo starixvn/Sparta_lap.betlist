@@ -5637,16 +5637,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./turnover */ "./www/js/source/pages/report/turnover/turnover.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Turnover) {
-    "use strict";
+    'use strict';
     $(function () {
         Turnover.initialize();
-       // jqGridAdditional.resizeGrid();
-
-       // $(window).resize(jqGridAdditional.resizeGrid);
-
-       /* $(window).unload(function () {
-            $(window).unbind("resize");
-        }); */
     });
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -5664,90 +5657,90 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./turnover.option */ "./www/js/source/pages/report/turnover/turnover.option.js"),
         __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! components/pluginhelper/monthpicker */ "./www/js/source/components/pluginhelper/monthpicker.js"), __webpack_require__(/*! components/pluginhelper/multiselect */ "./www/js/source/components/pluginhelper/multiselect.js"),
         __webpack_require__(/*! components/pluginhelper/autocomplete */ "./www/js/source/components/pluginhelper/autocomplete.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, AutoComplete) {
-        "use strict";
-    var ajaxRequest = null;
-    var _fromDate, _toDate, _currencyId;
+        'use strict';
+    let ajaxRequest = null;
+    let _fromDate, _toDate, _currencyId;
 
-    var _me = {
-        defaultUserName: "",
+    const _me = {
+        defaultUserName: '',
         initialize: function () {
             Site.initialize();
             _me.initEvent();
             AutoComplete.initialize({
-                url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
-                target: "#Username"
+                url: Site.resolveClientUrl('SearchCustomerAPI/SearchCustomer'),
+                target: '#Username'
             });
             MonthPicker.initMonthPicker();
 
-            TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-            TurnoverOption.hasCasinoTransfer = Site.asBool($("#IsAllowedCasinoTransfer").val());
-            TurnoverOption.isAllowBa = Site.asBool($("#IsAllowBa").val());
+            TurnoverOption.hasCustomerComm = Site.asBool($('#IsAllowedCustomerCommission').val());
+            TurnoverOption.hasCasinoTransfer = Site.asBool($('#IsAllowedCasinoTransfer').val());
+            TurnoverOption.isAllowBa = Site.asBool($('#IsAllowBa').val());
             MultiSelect.initProductList();
             Site.addUserGuide({
-                resourceName: "Turnover",
-                title: Site.getSingleResource("Turnover")
+                resourceName: 'Turnover',
+                title: Site.getSingleResource('Turnover')
             });
         },
         
         initEvent: function () {
-            $("#TurnoverForm input").keypress(function (e) {
+            $('#TurnoverForm input').keypress(function (e) {
                 if (e.keyCode === 13) {
                     $('#IsExportExcel').val(false);
                     _me.submit();
                 }
             });
 
-            $("#SubmitButton").click(function () {
+            $('#SubmitButton').click(function () {
                 $('#IsExportExcel').val(false);
                 _me.submit();
             });
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#TurnoverForm");
-                var url = Site.resolveClientUrl(TurnoverOption.urlExcelData);
-                mainForm.attr("action", url);
+                const mainForm = $('#TurnoverForm');
+                const url = Site.resolveClientUrl(TurnoverOption.urlExcelData);
+                mainForm.attr('action', url);
                 mainForm.submit();
                 $('#IsExportExcel').val(false);
                 return false;
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 _me.resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         },
 
         setReportTitle: function () {
-            var titlePattern = Site.getSingleResource('Turnover');
-            var title = null;
-            var username = $('#Username').val().trim();
-            var currencyTextList =
+            let titlePattern = Site.getSingleResource('Turnover');
+            let title = null;
+            const username = $('#Username').val().trim();
+            const currencyTextList =
                 {
-                    "-3": "gbp",
-                    "-2": "usd",
-                    "-1": "eur",
-                    "0": Site.getSingleResource('AllCurrencies')
+                    '-3': 'gbp',
+                    '-2': 'usd',
+                    '-1': 'eur',
+                    '0': Site.getSingleResource('AllCurrencies')
                 };
 
-            var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId]
+            let currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId]
                                                             : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
-            var dateString = _fromDate.format("MM/DD/YYYY") + ' → ' + _toDate.format("MM/DD/YYYY");
+            const dateString = _fromDate.format('MM/DD/YYYY') + ' → ' + _toDate.format('MM/DD/YYYY');
             currencyName = currencyName.toUpperCase();
             if (username === _me.defaultUserName) {
-                titlePattern += ", {0} - {1}";
-                var currencyStr = Site.getSingleResource("Viewin").replace("{0}", currencyName);
+                titlePattern += ', {0} - {1}';
+                const currencyStr = Site.getSingleResource('Viewin').replace('{0}', currencyName);
                 title = $.format(titlePattern, dateString, currencyStr);
             } else {
-                titlePattern += ", {0} - {1} {2} ({3})";
+                titlePattern += ', {0} - {1} {2} ({3})';
                 title = $.format(titlePattern, dateString, Site.getSingleResource('Customer'), username, currencyName);
             }
 
-            $(".report-title").html(title);
-            $(".panel-heading").removeClass("hide");
+            $('.report-title').html(title);
+            $('.panel-heading').removeClass('hide');
         },
         ajaxComplete: function (response) {
             if (response !== null) {
@@ -5757,37 +5750,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setDateParam: function(){
-            _fromDate = moment($("#FromDate").val(), "MM/DD/YYYY");
-            _toDate = moment($("#ToDate").val(), "MM/DD/YYYY");
+            _fromDate = moment($('#FromDate').val(), 'MM/DD/YYYY');
+            _toDate = moment($('#ToDate').val(), 'MM/DD/YYYY');
 
-            $("#FromDay").val(_fromDate.date());
-            $("#ToDay").val(_toDate.date());
-            $("#Month").val(_fromDate.month() + 1);
-            $("#Year").val(_fromDate.year());
+            $('#FromDay').val(_fromDate.date());
+            $('#ToDay').val(_toDate.date());
+            $('#Month').val(_fromDate.month() + 1);
+            $('#Year').val(_fromDate.year());
         },
 
         submit: function () {
-            if ($("#ProductList .childCheckbox:checked").length === 0) {
+            if ($('#ProductList .childCheckbox:checked').length === 0) {
                 return;
             }
 
             _me.setDateParam();
-            _currencyId = $("#CurrencyId").val();
+            _currencyId = $('#CurrencyId').val();
 
-            var mainForm = $("#TurnoverForm");
-            var postdata = mainForm.serializeObject();
+            const mainForm = $('#TurnoverForm');
+            const postdata = mainForm.serializeObject();
             if (postdata.Username === _me.defaultUserName) {
                 postdata.Username = undefined;
             }
 
             postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
            
-            var option =
+            const option =
             {
-                type: "POST",
+                type: 'POST',
                 data: postdata,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(TurnoverOption.urlData),
                 success: function (response) {
@@ -5809,29 +5802,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         bindData: function (response) {
-            jqGridAdditional.clearGrid("ReportGrid");
-            var numOfRow = response.Data.length;
+            jqGridAdditional.clearGrid('ReportGrid');
+            const numOfRow = response.Data.length;
             if (!response || numOfRow === 0) {
                 jqGridAdditional.setNoInfo();
                 return;
             }
             
-            var reportGrid = $("#ReportGrid");
-            var gridOption = TurnoverOption.getGridOption();
+            const reportGrid = $('#ReportGrid');
+            const gridOption = TurnoverOption.getGridOption();
             gridOption.data = response.Data;
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete();
                 _me.bindTotal(response.TotalData);
 
-                var groupHeaders = [{
-                    startColumnName: "TurnoverBA",
+                const groupHeaders = [{
+                    startColumnName: 'TurnoverBA',
                     numberOfColumns: 3,
                     titleText: Site.getSingleResource('BA')
                 }];
 
                 if (TurnoverOption.hasCustomerComm) {
                     groupHeaders.push({
-                        startColumnName: "WinLoss",
+                        startColumnName: 'WinLoss',
                         numberOfColumns: 3,
                         titleText: Site.getSingleResource('CustomerW_L')
                     });
@@ -5852,16 +5845,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         bindTotal: function (totalData) {
-            var columnModel = TurnoverOption.getColModel();
-            var colspan = 2;
+            const columnModel = TurnoverOption.getColModel();
+            const colspan = 2;
             jqGridAdditional.assignTotal(totalData, columnModel);
             jqGridAdditional.setGroupFooters(colspan, 0, 0);
-            var $tr = $(".ui-jqgrid-sdiv table tr");
-            $tr.find("td[aria-describedby=ReportGrid_OpeningBalance], td[aria-describedby=ReportGrid_ClosingBalance]").css("text-align", "center").html("-");
+            const $tr = $('.ui-jqgrid-sdiv table tr');
+            $tr.find('td[aria-describedby=ReportGrid_OpeningBalance], td[aria-describedby=ReportGrid_ClosingBalance]').css('text-align', 'center').html('-');
         },
 
         resizeGrid: function () {
-            var reportGrid = $("#ReportGrid");
+            const reportGrid = $('#ReportGrid');
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
@@ -5881,9 +5874,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, jqGridAdditional) {
-        "use strict";
+        'use strict';
 
-    var indexColumn = {
+    const indexColumn = {
         name: 'Index',
         index: 'Index',
         width: 30,
@@ -5893,7 +5886,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         frozen: true
     };
-    var dateColumn = {
+    const dateColumn = {
         name: 'Date',
         index: 'Date',
         width: 85,
@@ -5902,7 +5895,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         resizable: false
     };
-    var openingBalanceColumn = {
+    const openingBalanceColumn = {
         name: 'OpeningBalance',
         index: 'OpeningBalance',
         width: 110,
@@ -5912,7 +5905,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var depositColumn = {
+    const depositColumn = {
         name: 'Deposit',
         index: 'Deposit',
         width: 100,
@@ -5922,7 +5915,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var withdrawalColumn = {
+    const withdrawalColumn = {
         name: 'Withdrawal',
         index: 'Withdrawal',
         resizable: false,
@@ -5933,7 +5926,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
-    var bonusColumn = {
+    const bonusColumn = {
         name: 'Bonus',
         index: 'Bonus',
         width: 85,
@@ -5943,7 +5936,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         formatter: 'currency',
         frozen: true
     };
-    var adjustmentColumn = {
+    const adjustmentColumn = {
         name: 'Adjustment',
         index: 'Adjustment',
         width: 75,
@@ -5953,7 +5946,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var turnoverColumn = {
+    const turnoverColumn = {
         name: 'Turnover',
         index: 'Turnover',
         width: 120,
@@ -5963,7 +5956,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var drawGameColumn = {
+    const drawGameColumn = {
         name: 'DrawGame',
         index: 'DrawGame',
         width: 100,
@@ -5973,7 +5966,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var netTurnoverColumn = {
+    const netTurnoverColumn = {
         name: 'NetTurnover',
         index: 'NetTurnover',
         width: 120,
@@ -5984,7 +5977,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: true,
         formatter: 'currency'
     };
-    var pendingFundsColumn = {
+    const pendingFundsColumn = {
         name: 'PendingFunds',
         index: 'PendingFunds',
         width: 70,
@@ -5993,7 +5986,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var winLossColumn = {
+    const winLossColumn = {
         name: 'WinLoss',
         index: 'WinLoss',
         width: 100,
@@ -6002,7 +5995,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var playerCommColumn = {
+    const playerCommColumn = {
         name: 'PlayerComm',
         index: 'PlayerComm',
         width: 60,
@@ -6011,7 +6004,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var winlossCommColumn = {
+    const winlossCommColumn = {
         name: 'WinLossComm',
         index: 'WinLossComm',
         width: 100,
@@ -6020,7 +6013,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var closingBalanceColumn = {
+    const closingBalanceColumn = {
         name: 'ClosingBalance',
         index: 'ClosingBalance',
         width: 110,
@@ -6029,7 +6022,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var affiliateTransferColumn = {
+    const affiliateTransferColumn = {
         name: 'AffiliateTransfer',
         index: 'AffiliateTransfer',
         width: 90,
@@ -6039,7 +6032,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         formatter: 'currency'
     };
 
-        var transfer3rdColumn = {
+        const transfer3rdColumn = {
             name: 'Transfer3rd',
             index: 'Transfer3rd',
             width: 90,
@@ -6048,7 +6041,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             formatter: 'currency'
         };
-        var turnoverBAColumn = {
+        const turnoverBAColumn = {
             name: 'TurnoverBA',
             index: 'TurnoverBA',
             width: 80,
@@ -6057,7 +6050,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             formatter: 'currency'
         };
-        var commBAColumn = {
+        const commBAColumn = {
             name: 'CommBA',
             index: 'CommBA',
             width: 60,
@@ -6066,7 +6059,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             formatter: 'currency'
         };
-        var amountDueToBAColumn = {
+        const amountDueToBAColumn = {
             name: 'AmountDueToBA',
             index: 'AmountDueToBA',
             width: 70,
@@ -6076,17 +6069,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: 'currency'
         };
 
-        var colNameList = ['#', 'Day', "OpeningBalance", "Deposit", 'Withdrawal', 'Bonus', 'Adjustment',
+        const colNameList = ['#', 'Day', 'OpeningBalance', 'Deposit', 'Withdrawal', 'Bonus', 'Adjustment',
                     'Turnover', 'DrawGame', 'NetTurnover', 'PendingFunds',
                     'WinLoss', 'Comm', 'Total', 'ClosingBalance',
                      'AffiliateTransfer', 'CasinoTransfer', 'Turnover', 'Comm', 'AmountDueTo'];
-        var colModelList = [indexColumn, dateColumn, openingBalanceColumn, depositColumn, withdrawalColumn, bonusColumn, adjustmentColumn,
+        const colModelList = [indexColumn, dateColumn, openingBalanceColumn, depositColumn, withdrawalColumn, bonusColumn, adjustmentColumn,
                      turnoverColumn, drawGameColumn, netTurnoverColumn, pendingFundsColumn,
                      winLossColumn, playerCommColumn, winlossCommColumn, closingBalanceColumn,
                     affiliateTransferColumn, transfer3rdColumn, turnoverBAColumn, commBAColumn, amountDueToBAColumn];
-        var customerWlTotalIndex = 11;
+        const customerWlTotalIndex = 11;
 
-        var _me = {
+        const _me = {
             licenseeId: 0,
             hasCustomerComm: true,
             totalColspan: [3],
@@ -6142,7 +6135,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         _me.getTotalColModel = function () {
-            var colModel = _me.getColModel();
+            const colModel = _me.getColModel();
             return colModel;
         };
 

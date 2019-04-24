@@ -2085,7 +2085,7 @@ Array.prototype.insertBefore = function (value, before) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./matchwinloss */ "./www/js/source/pages/report/matchwinloss/matchwinloss.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (MatchWinLoss) {
-    "use strict";
+    'use strict';
 
     $(MatchWinLoss.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -2105,35 +2105,35 @@ Array.prototype.insertBefore = function (value, before) {
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! components/pluginhelper/daterangepicker */ "./www/js/source/components/pluginhelper/daterangepicker.js"),
     __webpack_require__(/*! components/scrollablegrid */ "./www/js/source/components/scrollablegrid.js"), __webpack_require__(/*! components/pluginhelper/multiselect */ "./www/js/source/components/pluginhelper/multiselect.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, DatePicker, GridHelper, MultiSelect) {
-        var ClassName = {
-            active: "active",
-            expanded: "expanded"
+        const ClassName = {
+            active: 'active',
+            expanded: 'expanded'
         };
 
-        var Selector = {
-            detailRow: ".detail-row",
-            viewDetail: ".view-match-detail",
-            active: "." + ClassName.active,
-            date: "#Date",
-            isExportExcel: "#IsExportExcel",
-            matchWinLossForm: "#MatchWinLossForm"
+        const Selector = {
+            detailRow: '.detail-row',
+            viewDetail: '.view-match-detail',
+            active: '.' + ClassName.active,
+            date: '#Date',
+            isExportExcel: '#IsExportExcel',
+            matchWinLossForm: '#MatchWinLossForm'
         };
 
-        var _$productList;
+        let _$productList;
 
         function isProductOriginalChecked(productCode) {
-            _$productList = _$productList || $("#ProductList");
-            return $('.childCheckbox[data-product-code="' + productCode + '"]', _$productList).attr("data-original") === 'true';
+            _$productList = _$productList || $('#ProductList');
+            return $('.childCheckbox[data-product-code="' + productCode + '"]', _$productList).attr('data-original') === 'true';
         }
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
-                DatePicker.initSingleDatePicker("Date");
+                DatePicker.initSingleDatePicker('Date');
                 MultiSelect.initProductList();
                 Site.addUserGuide({
-                    resourceName: "MatchWL",
-                    title: Site.getSingleResource("MatchWinLoss")
+                    resourceName: 'MatchWL',
+                    title: Site.getSingleResource('MatchWinLoss')
                 });
                 _me.initEvent();
                 GridHelper.resizeGrid();
@@ -2149,24 +2149,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     _me.submit();
                 });
 
-                $(".body-content").on("click", Selector.viewDetail, function () {
+                $('.body-content').on('click', Selector.viewDetail, function () {
                     _me.viewMatchWinlossDetail(this);
                 })
-                .on("click", ".bet-list-link", function () {
+                .on('click', '.bet-list-link', function () {
                     _me.viewMatchWinlossBetList(this);
                 });
 
-                $(".footer-content").on("click", ".outright-link", function () {
-                    var bettype = $(this).data("bettype");
+                $('.footer-content').on('click', '.outright-link', function () {
+                    const bettype = $(this).data('bettype');
                     _me.viewOutrightMixParlay(bettype);
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     GridHelper.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
@@ -2177,10 +2177,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             viewMatchWinlossDetail: function (element) {
-                var $this = $(element);
-                var $parentRow = $($this).closest("tr");
-                var matchData = $parentRow.data('match');
-                var submitData = {
+                const $this = $(element);
+                const $parentRow = $($this).closest('tr');
+                const matchData = $parentRow.data('match');
+                let submitData = {
                     LeagueId: matchData.LeagueId,
                     MatchId: matchData.MatchId,
                     ProductCode: matchData.ProductCode
@@ -2190,7 +2190,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 submitData.Date = $(Selector.date).attr('data-original');
                 submitData.ProductCodeList = _me.getProductCodeList(submitData.ProductCode);
 
-                var isExpanding = $this.closest("tr").hasClass(ClassName.active);
+                const isExpanding = $this.closest('tr').hasClass(ClassName.active);
                 _me.clearDetailRows($parentRow);
                 if (isExpanding) {
                     return;
@@ -2199,14 +2199,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 $this.addClass(ClassName.expanded);
                 $.ajax({
                     type: 'POST',
-                    url: "MatchWinLossReport/Detail",
+                    url: 'MatchWinLossReport/Detail',
                     data: JSON.stringify(submitData),
-                    contentType: "application/json; charset=utf-8",
+                    contentType: 'application/json; charset=utf-8',
                     dataType: 'html',
                     success: function (result) {
                         $parentRow.after(result);
-                        var rowspan = $(Selector.detailRow).length + 1;
-                        $parentRow.find("td:first").attr("rowspan", rowspan);
+                        const rowspan = $(Selector.detailRow).length + 1;
+                        $parentRow.find('td:first').attr('rowspan', rowspan);
                         $parentRow.addClass(ClassName.active);
                         GridHelper.resizeGrid();
                     },
@@ -2216,23 +2216,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             clearDetailRows: function ($parentRow) {
-                var $table = $parentRow.closest("table");
-                var $detailRows = $table.find(Selector.detailRow);
+                const $table = $parentRow.closest('table');
+                const $detailRows = $table.find(Selector.detailRow);
                 if ($detailRows.length) {
                     $detailRows.remove();
                     $table.find(Selector.active).removeClass(ClassName.active)
-                        .find("td:first").removeAttr("rowspan");
+                        .find('td:first').removeAttr('rowspan');
                 }
                 $(Selector.viewDetail).removeClass(ClassName.expanded);
             },
 
             viewMatchWinlossBetList: function (element) {
-                var $parentRow = $(element).closest('tr');
-                var matchData = $parentRow.data('match') || $parentRow.siblings(Selector.active).data('match');
-                var productCode = matchData.ProductCode;
-                var date = $(Selector.date).attr('data-original');
+                const $parentRow = $(element).closest('tr');
+                const matchData = $parentRow.data('match') || $parentRow.siblings(Selector.active).data('match');
+                const productCode = matchData.ProductCode;
+                const date = $(Selector.date).attr('data-original');
 
-                var bettype = Number($(element).data('bettype'));
+                let bettype = Number($(element).data('bettype'));
                 bettype = isNaN(bettype) ? 0 : bettype;
                 if (bettype === 85 || bettype === 86) {
                     matchData.IsLive = $(element).data('islive');
@@ -2241,19 +2241,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     matchData.IsLive = '';
                 }
 
-                var url = Site.resolveClientUrl("MatchWinlossBetList/MatchBetType");
+                let url = Site.resolveClientUrl('MatchWinlossBetList/MatchBetType');
                 url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "fromdate", date);
-                url = QueryString.setParam(url, "date", date);
-                url = QueryString.setParam(url, "matchid", matchData.MatchId);
-                url = QueryString.setParam(url, "leagueid", matchData.LeagueId);
-                url = QueryString.setParam(url, "raceno", matchData.RaceNo);
-                url = QueryString.setParam(url, "bettype", bettype);
-                url = QueryString.setParam(url, "LiveIndicator", matchData.IsLive);
-                url = QueryString.setParam(url, "homeid", matchData.HomeId);
-                url = QueryString.setParam(url, "awayid", matchData.AwayId);
+                url = QueryString.setParam(url, 'fromdate', date);
+                url = QueryString.setParam(url, 'date', date);
+                url = QueryString.setParam(url, 'matchid', matchData.MatchId);
+                url = QueryString.setParam(url, 'leagueid', matchData.LeagueId);
+                url = QueryString.setParam(url, 'raceno', matchData.RaceNo);
+                url = QueryString.setParam(url, 'bettype', bettype);
+                url = QueryString.setParam(url, 'LiveIndicator', matchData.IsLive);
+                url = QueryString.setParam(url, 'homeid', matchData.HomeId);
+                url = QueryString.setParam(url, 'awayid', matchData.AwayId);
 
-                var productCodeList = _me.getProductCodeList(productCode);
+                const productCodeList = _me.getProductCodeList(productCode);
                 url = Site.setProductCodeListParam(url, productCodeList);
 
                 Site.blockUI();
@@ -2261,24 +2261,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             viewOutrightMixParlay: function (betType) {
-                var date = $(Selector.date).attr("data-original");
-                var url = betType === 10
-                            ? Site.resolveClientUrl("MatchWinlossBetList/Outright")
-                            : Site.resolveClientUrl("MatchWinlossBetList/MixParlay");
+                const date = $(Selector.date).attr('data-original');
+                let url = betType === 10
+                            ? Site.resolveClientUrl('MatchWinlossBetList/Outright')
+                            : Site.resolveClientUrl('MatchWinlossBetList/MixParlay');
                 url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "fromdate", date);
-                url = QueryString.setParam(url, "todate", date);
-                url = QueryString.setParam(url, "bettype", betType);
+                url = QueryString.setParam(url, 'fromdate', date);
+                url = QueryString.setParam(url, 'todate', date);
+                url = QueryString.setParam(url, 'bettype', betType);
 
-                var productCodeList = [];
+                const productCodeList = [];
                 if (isProductOriginalChecked('SB')) {
-                    productCodeList.push("SB");
+                    productCodeList.push('SB');
                 }
                 if (isProductOriginalChecked('BA')) {
-                    productCodeList.push("BA");
+                    productCodeList.push('BA');
                 }
                 if (isProductOriginalChecked('VS2')) {
-                    productCodeList.push("VS2");
+                    productCodeList.push('VS2');
                 }
                 url = Site.setProductCodeListParam(url, productCodeList);
 
@@ -2287,8 +2287,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             getProductCodeList: function (productCode) {
-                var codeList = ["NG", "LC", "VS", "VS2"];
-                var productCodeList = [];
+                const codeList = ['NG', 'LC', 'VS', 'VS2'];
+                const productCodeList = [];
                 if ((productCode === 'SB' || productCode === 'BA') && isProductOriginalChecked('SB')) {
                     productCodeList.push('SB');
                 }
