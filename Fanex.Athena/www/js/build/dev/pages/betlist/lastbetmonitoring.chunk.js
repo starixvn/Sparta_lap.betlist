@@ -4899,7 +4899,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     success: function (response) {
                         const result = response.Result;
                         if (response.Success) {
-                            if (result === "") {
+                            if (result === '') {
                                 return;
                             }
 
@@ -5006,7 +5006,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         cache: false,
                         url: url,
                         success: function (response) {
-                            let choice = "";
+                            let choice = '';
                             const len = response.length;
                             $.each(response, function (index, item) {
                                 choice += item;
@@ -5200,8 +5200,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 if ($('#ProductList').find('input:checked').length === 0) {
                     temp = false;
                     const title = Site.getSingleResource('LrfNotification');
-                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource("AlertChooseProductMsg") + '</p></div>';
-                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
+                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource('AlertChooseProductMsg') + '</p></div>';
+                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: 'popup-notification' });
                 }
 
                 return temp;
@@ -5253,13 +5253,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 window.ViewResult = _me.viewResult;
                 // showMP and showCombMP are only for old tickets
                 window.showMP = function (transId, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId);
+                    const divEvent = $('#divEvent_' + transId);
                     divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
                 window.showCombMP = function (transId, index, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId + '' + index);
+                    const divEvent = $('#divEvent_' + transId + '' + index);
                     divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
@@ -5305,10 +5305,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
-    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
+    'use strict';
+    const columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
                     'WinLoss', 'EffectiveBettingValue', '@[LicenseeWL]/@[Comm]', 'Status'];
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -5317,7 +5317,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: false,
         resizable: false
     };
-    var externalId =
+    const externalId =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -5325,7 +5325,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         align: 'left',
         sortable: false
     };
-    var systemId =
+    const systemId =
     {
         name: 'SystemId',
         index: 'UserName',
@@ -5333,7 +5333,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         align: 'left',
         sortable: false
     };
-    var transTime =
+    const transTime =
     {
         name: 'TransTime',
         index: 'TransTime',
@@ -5344,7 +5344,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: false,
         classes: 'transtime'
     };
-    var choice =
+    const choice =
     {
         name: 'Choice',
         index: 'Choice',
@@ -5353,7 +5353,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: false,
         title: false
     };
-    var odds =
+    const odds =
     {
         name: 'Odds',
         index: 'Odds',
@@ -5363,7 +5363,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var stake =
+    const stake =
     {
         name: 'Stake',
         index: 'Stake',
@@ -5372,7 +5372,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: true,
         resizable: false
     };
-    var winloss =
+    const winloss =
     {
         name: 'WinLoss',
         index: 'WinLoss',
@@ -5382,7 +5382,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var betEffective =
+    const betEffective =
     {
         name: 'BetEffective',
         index: 'BetEffective',
@@ -5392,7 +5392,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var licenseeWl =
+    const licenseeWl =
     {
         name: 'LicenseeWL',
         index: 'LicenseeWL',
@@ -5402,7 +5402,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var status =
+    const status =
     {
         name: 'Status',
         index: 'Status',
@@ -5413,7 +5413,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: false
     };
 
-    var columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
+    const columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
 
     return {
         gridOption:
@@ -5439,7 +5439,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return false;
             },
             onPaging: function (pgButton) {
-                if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+                if ($('#' + pgButton).hasClass('ui-state-disabled') === false) {
                     Site.blockUI();
                 }
             }
@@ -5865,64 +5865,64 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ../betlist */ "./www/js/source/pages/betlist/betlist.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetList) {
-        var _me = {};
+        const _me = {};
 
         // Param
-        var _betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
-        var _lastTransId = "0";
+        let _betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
+        let _lastTransId = '0';
 
-        var _params = {
+        const _params = {
             SportId: 0,
             LeagueId: 0,
             MatchId: 0,
-            BetType: "",
-            LiveStatus: "3",
-            OddsType: "",
-            Level: "",
-            TimeZone: "8",
-            Currency: "",
-            BasedCurrency: "",
+            BetType: '',
+            LiveStatus: '3',
+            OddsType: '',
+            Level: '',
+            TimeZone: '8',
+            Currency: '',
+            BasedCurrency: '',
             PageSize: 10,
-            StakeFrom: "0",
-            StakeTo: "1000000000",
+            StakeFrom: '0',
+            StakeTo: '1000000000',
             TransId: _lastTransId,
             BetFrom: 0
         };
-        var _postedParam;
-        var _intervalId;
-        var _isLoading;
-        var _intervalMiliseconds;
+        let _postedParam;
+        let _intervalId;
+        let _isLoading;
+        let _intervalMiliseconds;
 
         // Object
-        var _$tableBody;
+        let _$tableBody;
 
         // Config
-        var MIN_LOADING_MILISECONDS = 1000;
-        var MIN_INTERVAL = 3000;
-        var HIGHLIGHT_CLASS = "monitor-hightlight";
-        var SELECTED_CLASS = "monitor-keep";
-        var MAX_STAKE = 999999999;
+        const MIN_LOADING_MILISECONDS = 1000;
+        const MIN_INTERVAL = 3000;
+        const HIGHLIGHT_CLASS = 'monitor-hightlight';
+        const SELECTED_CLASS = 'monitor-keep';
+        const MAX_STAKE = 999999999;
 
         _me.columns =
-            [{ Name: "Platform", IsShow: 1 },
-             { Name: "ExternalId", IsShow: 1 },
-             { Name: "SystemId", IsShow: 1 },
-             { Name: "TransTime", IsShow: 1 },
-             { Name: "Choice", IsShow: 1 },
-             { Name: "Odds", IsShow: 1 },
-             { Name: "Stake", IsShow: 1 },
-             { Name: "Status", IsShow: 1 }];
+            [{ Name: 'Platform', IsShow: 1 },
+             { Name: 'ExternalId', IsShow: 1 },
+             { Name: 'SystemId', IsShow: 1 },
+             { Name: 'TransTime', IsShow: 1 },
+             { Name: 'Choice', IsShow: 1 },
+             { Name: 'Odds', IsShow: 1 },
+             { Name: 'Stake', IsShow: 1 },
+             { Name: 'Status', IsShow: 1 }];
         _me.initialize = function () {
             _intervalId = 0;
             _isLoading = false;
             _intervalMiliseconds = 3000;
 
-            _$tableBody = $("#last-bets-monitoring tbody");
-            _$tableBody.on("click", "tr", function () {
+            _$tableBody = $('#last-bets-monitoring tbody');
+            _$tableBody.on('click', 'tr', function () {
                 $(this).toggleClass(SELECTED_CLASS);
             });
 
-            _params.BasedCurrency = $("#last-bet-monitor-base-currency").val();
+            _params.BasedCurrency = $('#last-bet-monitor-base-currency').val();
             _postedParam = Site.clone(_params);
 
             BetList.registerBetListGlobalFunctions();
@@ -5931,28 +5931,28 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             return MAX_STAKE;
         };
         _me.updateParam = function (type, name, value) {
-            if (type === "number") {
+            if (type === 'number') {
                 _params[name] = value ? parseInt(value, 10) : 0;
             } else {
-                _params[name] = value ? $.trim(value) : "";
+                _params[name] = value ? $.trim(value) : '';
             }
         };
 
         _me.isValidParam = function () {
             return _postedParam.StakeFrom <= _postedParam.StakeTo
-                && $("#currency").multiSelect("getCheckedItems").length > 0
-                && $("#special-level").multiSelect("getCheckedItems").length > 0;
+                && $('#currency').multiSelect('getCheckedItems').length > 0
+                && $('#special-level').multiSelect('getCheckedItems').length > 0;
         };
         _me.tryUpdateStake = function () {
-            var tempF = $("#stake-from").val();
+            let tempF = $('#stake-from').val();
             tempF = tempF.replace(/,/g, '');
-            tempF = tempF === "" ? 0 : parseInt(tempF, 10);
+            tempF = tempF === '' ? 0 : parseInt(tempF, 10);
 
             _params.StakeFrom = tempF;
 
-            var tempT = $("#stake-to").val();
+            let tempT = $('#stake-to').val();
             tempT = tempT.replace(/,/g, '');
-            tempT = tempT === "" ? MAX_STAKE : parseInt(tempT, 10);
+            tempT = tempT === '' ? MAX_STAKE : parseInt(tempT, 10);
 
             _params.StakeTo = tempT;
         };
@@ -5983,29 +5983,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
             _isLoading = true;
 
-            var loadingTickBegin = (new Date()).getTime();
+            const loadingTickBegin = (new Date()).getTime();
             if (Number(_lastTransId) === 0) {
                 _me.clearContent();
             }
 
             $.ajax({
                 url: Site.resolveClientUrl('api/LastBetMonitoringBetList/Index'),
-                type: "POST",
+                type: 'POST',
                 data: JSON.stringify(_postedParam),
                 contentType: 'application/json; charset=utf-8',
-                dataType: "json",
+                dataType: 'json',
                 async: true,
                 cache: false,
                 timeout: 10000,
                 beforeSend: function () {
-                    $("#monitorLoader").css("visibility", "visible");
+                    $('#monitorLoader').css('visibility', 'visible');
                     _isLoading = true;
                 },
                 complete: function () {
-                    $("#monitorLoader").css("visibility", "hidden");
-                    var rowCount = $("tr", _$tableBody).length;
+                    $('#monitorLoader').css('visibility', 'hidden');
+                    const rowCount = $('tr', _$tableBody).length;
                     if (rowCount > 0) {
-                        $("#noInfoRow").remove();
+                        $('#noInfoRow').remove();
                     }
                 },
                 success: function (result) {
@@ -6013,7 +6013,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     _betListResult = result;
                     _me.bindData();
 
-                    var loadingTime = (new Date()).getTime() - loadingTickBegin;
+                    const loadingTime = (new Date()).getTime() - loadingTickBegin;
                     _intervalMiliseconds = loadingTime > MIN_LOADING_MILISECONDS
                     ? _intervalMiliseconds + 1000
                     : MIN_INTERVAL;
@@ -6027,10 +6027,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         return;
                     }
 
-                    $("#monitorLoader").css("visibility", "hidden");
+                    $('#monitorLoader').css('visibility', 'hidden');
 
                     _betListResult.Updated = false;
-                    _betListResult.Rows = "";
+                    _betListResult.Rows = '';
                     _isLoading = false;
                     _intervalMiliseconds += 1000;
                     _me.doMonitor();
@@ -6043,13 +6043,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             if (!_betListResult.NewRow) {
                 _isLoading = false;
 
-                var message = _betListResult.Message;
+                const message = _betListResult.Message;
                 if (message) {
                     _me.bindNoInfoRow(message);
                     return;
                 }
 
-                var rowCount = $("tr.content-row", _$tableBody).length;
+                const rowCount = $('tr.content-row', _$tableBody).length;
                 if (rowCount === 0) {
                     _me.bindNoInfoRow();
                 }
@@ -6063,19 +6063,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             Update last transId
             --------------------------------------------------------------------------------------------*/
             //get hide columns
-            var hideColumns = _me.columns.filter(function (item) { return item.IsShow === 0; });
-            var rows = _betListResult.Rows;
+            const hideColumns = _me.columns.filter(function (item) { return item.IsShow === 0; });
+            let rows = _betListResult.Rows;
             if (hideColumns.length > 0) {
-                var display = " style=\"display:none;\"";
+                const display = ' style="display:none;"';
                 $.each(hideColumns, function (index, value) {
-                    var newString = "data-name='" + value.Name + "'" + display;
-                    var regex = new RegExp("data-name=('|\")" + value.Name + "('|\")", "g");
+                    const newString = 'data-name="' + value.Name + '"' + display;
+                    const regex = new RegExp('data-name=(\'|")' + value.Name + '(\'|")', 'g');
                     rows = rows.replace(regex, newString);
                 });
             }
 
             _$tableBody.prepend(rows);
-            $("tr:gt(" + (_postedParam.PageSize - 1) + ")", _$tableBody).remove();
+            $('tr:gt(' + (_postedParam.PageSize - 1) + ')', _$tableBody).remove();
 
             _lastTransId = _betListResult.LastTransId;
             _postedParam.TransId = _lastTransId;
@@ -6088,9 +6088,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         };
 
         _me.bindNoInfoRow = function (text) {
-            var noInfoMessage = text ? text : Site.getSingleResource("NoInfo");
+            const noInfoMessage = text ? text : Site.getSingleResource('NoInfo');
 
-            var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoMessage + '</p>';
+            const htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoMessage + '</p>';
             _$tableBody.empty();
             if (!$('#noInfoRow').length) {
                 $('#betlist_content').append(htmlNoInfor);
@@ -6101,8 +6101,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         Remove high light row after a duration
         ------------------------------------------------------------------------------------------*/
         _me.unHighlight = function (lastTransId) {
-            $("tr.content-row", _$tableBody).each(function (i, e) {
-                var transId = $(e).data("transid");
+            $('tr.content-row', _$tableBody).each(function (i, e) {
+                const transId = $(e).data('transid');
                 if (transId <= lastTransId) {
                     $(e).removeClass(HIGHLIGHT_CLASS);
                 }
@@ -6150,7 +6150,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./lastbet.filter */ "./www/js/source/pages/betlist/lastbetmonitoring/lastbet.filter.js"), __webpack_require__(/*! ./lastbet.grid */ "./www/js/source/pages/betlist/lastbetmonitoring/lastbet.grid.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (LastBetFilter, LastBetGrid) {
-    "use strict";
+    'use strict';
 
     $(function () {
         LastBetFilter.initialize();
@@ -6159,7 +6159,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         LastBetGrid.startMonitor();
     });
 
-    $(window).on("unload", function () {
+    $(window).on('unload', function () {
         LastBetGrid.stopMonitor();
     });
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),

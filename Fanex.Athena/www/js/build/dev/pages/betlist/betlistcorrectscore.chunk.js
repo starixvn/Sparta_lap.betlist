@@ -3854,7 +3854,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     success: function (response) {
                         const result = response.Result;
                         if (response.Success) {
-                            if (result === "") {
+                            if (result === '') {
                                 return;
                             }
 
@@ -3961,7 +3961,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         cache: false,
                         url: url,
                         success: function (response) {
-                            let choice = "";
+                            let choice = '';
                             const len = response.length;
                             $.each(response, function (index, item) {
                                 choice += item;
@@ -4155,8 +4155,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 if ($('#ProductList').find('input:checked').length === 0) {
                     temp = false;
                     const title = Site.getSingleResource('LrfNotification');
-                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource("AlertChooseProductMsg") + '</p></div>';
-                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
+                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource('AlertChooseProductMsg') + '</p></div>';
+                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: 'popup-notification' });
                 }
 
                 return temp;
@@ -4208,13 +4208,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 window.ViewResult = _me.viewResult;
                 // showMP and showCombMP are only for old tickets
                 window.showMP = function (transId, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId);
+                    const divEvent = $('#divEvent_' + transId);
                     divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
                 window.showCombMP = function (transId, index, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId + '' + index);
+                    const divEvent = $('#divEvent_' + transId + '' + index);
                     divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
@@ -4260,10 +4260,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
-    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
+    'use strict';
+    const columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
                     'WinLoss', 'EffectiveBettingValue', '@[LicenseeWL]/@[Comm]', 'Status'];
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -4272,7 +4272,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: false,
         resizable: false
     };
-    var externalId =
+    const externalId =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -4280,7 +4280,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         align: 'left',
         sortable: false
     };
-    var systemId =
+    const systemId =
     {
         name: 'SystemId',
         index: 'UserName',
@@ -4288,7 +4288,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         align: 'left',
         sortable: false
     };
-    var transTime =
+    const transTime =
     {
         name: 'TransTime',
         index: 'TransTime',
@@ -4299,7 +4299,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: false,
         classes: 'transtime'
     };
-    var choice =
+    const choice =
     {
         name: 'Choice',
         index: 'Choice',
@@ -4308,7 +4308,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: false,
         title: false
     };
-    var odds =
+    const odds =
     {
         name: 'Odds',
         index: 'Odds',
@@ -4318,7 +4318,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var stake =
+    const stake =
     {
         name: 'Stake',
         index: 'Stake',
@@ -4327,7 +4327,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: true,
         resizable: false
     };
-    var winloss =
+    const winloss =
     {
         name: 'WinLoss',
         index: 'WinLoss',
@@ -4337,7 +4337,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var betEffective =
+    const betEffective =
     {
         name: 'BetEffective',
         index: 'BetEffective',
@@ -4347,7 +4347,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var licenseeWl =
+    const licenseeWl =
     {
         name: 'LicenseeWL',
         index: 'LicenseeWL',
@@ -4357,7 +4357,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var status =
+    const status =
     {
         name: 'Status',
         index: 'Status',
@@ -4368,7 +4368,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: false
     };
 
-    var columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
+    const columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
 
     return {
         gridOption:
@@ -4394,7 +4394,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return false;
             },
             onPaging: function (pgButton) {
-                if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+                if ($('#' + pgButton).hasClass('ui-state-disabled') === false) {
                     Site.blockUI();
                 }
             }
@@ -4419,13 +4419,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./betlist */ "./www/js/source/pages/betlist/betlist.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetList) {
-        var _me = {
+        const _me = {
             initialize: function () {
                 _me.initEvent();
                 _me.submit();
                 Site.addUserGuide({
-                    resourceName: "TotalBetsCorrectScore",
-                    title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("CorrectScore")
+                    resourceName: 'TotalBetsCorrectScore',
+                    title: Site.getSingleResource('TotalBets') + ' - ' + Site.getSingleResource('CorrectScore')
                 });
             },
 
@@ -4435,30 +4435,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 });
 
                 $('#ExportToExcel').click(function () {
-                    var sortParam = BetList.getSortParams();
+                    const sortParam = BetList.getSortParams();
                     if (sortParam != null) {
-                        $("#SortBy").val(sortParam.SortBy);
-                        $("#SortOrder").val(sortParam.SortOrder);
+                        $('#SortBy').val(sortParam.SortBy);
+                        $('#SortOrder').val(sortParam.SortOrder);
                     }
 
                     $('#CorrectScoreBetListForm').submit();
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     BetList.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             submit: function () {
                 // Site.blockUI();
                 BetList.initialize();
-                var params = {};
-                params = Site.setLicenseeOptionParam(params);
-                var url = Site.resolveClientUrl('api/CorrectScoreBetList/Index');
+                const params = Site.setLicenseeOptionParam({});
+                const url = Site.resolveClientUrl('api/CorrectScoreBetList/Index');
                 BetList.loadData(params, url);
             }
         };
@@ -4477,7 +4476,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./betlistcorrectscore */ "./www/js/source/pages/betlist/betlistcorrectscore.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (BetListCorrectScore) {
-    "use strict";
+    'use strict';
 
     $(function () {
         BetListCorrectScore.initialize();

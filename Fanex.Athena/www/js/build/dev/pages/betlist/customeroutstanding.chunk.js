@@ -4909,7 +4909,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     success: function (response) {
                         const result = response.Result;
                         if (response.Success) {
-                            if (result === "") {
+                            if (result === '') {
                                 return;
                             }
 
@@ -5016,7 +5016,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         cache: false,
                         url: url,
                         success: function (response) {
-                            let choice = "";
+                            let choice = '';
                             const len = response.length;
                             $.each(response, function (index, item) {
                                 choice += item;
@@ -5210,8 +5210,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 if ($('#ProductList').find('input:checked').length === 0) {
                     temp = false;
                     const title = Site.getSingleResource('LrfNotification');
-                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource("AlertChooseProductMsg") + '</p></div>';
-                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
+                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource('AlertChooseProductMsg') + '</p></div>';
+                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: 'popup-notification' });
                 }
 
                 return temp;
@@ -5263,13 +5263,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 window.ViewResult = _me.viewResult;
                 // showMP and showCombMP are only for old tickets
                 window.showMP = function (transId, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId);
+                    const divEvent = $('#divEvent_' + transId);
                     divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
                 window.showCombMP = function (transId, index, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId + '' + index);
+                    const divEvent = $('#divEvent_' + transId + '' + index);
                     divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
@@ -5315,10 +5315,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
-    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
+    'use strict';
+    const columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
                     'WinLoss', 'EffectiveBettingValue', '@[LicenseeWL]/@[Comm]', 'Status'];
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -5327,7 +5327,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: false,
         resizable: false
     };
-    var externalId =
+    const externalId =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -5335,7 +5335,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         align: 'left',
         sortable: false
     };
-    var systemId =
+    const systemId =
     {
         name: 'SystemId',
         index: 'UserName',
@@ -5343,7 +5343,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         align: 'left',
         sortable: false
     };
-    var transTime =
+    const transTime =
     {
         name: 'TransTime',
         index: 'TransTime',
@@ -5354,7 +5354,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: false,
         classes: 'transtime'
     };
-    var choice =
+    const choice =
     {
         name: 'Choice',
         index: 'Choice',
@@ -5363,7 +5363,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: false,
         title: false
     };
-    var odds =
+    const odds =
     {
         name: 'Odds',
         index: 'Odds',
@@ -5373,7 +5373,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var stake =
+    const stake =
     {
         name: 'Stake',
         index: 'Stake',
@@ -5382,7 +5382,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: true,
         resizable: false
     };
-    var winloss =
+    const winloss =
     {
         name: 'WinLoss',
         index: 'WinLoss',
@@ -5392,7 +5392,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var betEffective =
+    const betEffective =
     {
         name: 'BetEffective',
         index: 'BetEffective',
@@ -5402,7 +5402,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var licenseeWl =
+    const licenseeWl =
     {
         name: 'LicenseeWL',
         index: 'LicenseeWL',
@@ -5412,7 +5412,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var status =
+    const status =
     {
         name: 'Status',
         index: 'Status',
@@ -5423,7 +5423,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: false
     };
 
-    var columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
+    const columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
 
     return {
         gridOption:
@@ -5449,7 +5449,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return false;
             },
             onPaging: function (pgButton) {
-                if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+                if ($('#' + pgButton).hasClass('ui-state-disabled') === false) {
                     Site.blockUI();
                 }
             }
@@ -5475,13 +5475,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! ./customer.dailystatement.option */ "./www/js/source/pages/betlist/customer/customer.dailystatement.option.js"), __webpack_require__(/*! ../betlist */ "./www/js/source/pages/betlist/betlist.js"),
     __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, DailyStatementOption, BetList, jqGridAdditional) {
-        var _me = {
+        const _me = {
             loadData: function (params, url) {
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     data: JSON.stringify(params),
                     contentType: 'application/json',
-                    dataType: "json",
+                    dataType: 'json',
                     cache: false,
                     url: url,
                     success: function (response) {
@@ -5497,21 +5497,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             getGridOption: function () {
-                var gridOption = DailyStatementOption.gridOption;
+                const gridOption = DailyStatementOption.gridOption;
                 gridOption.colNames = DailyStatementOption.getColNames();
 
                 return gridOption;
             },
 
             bindData: function (response) {
-                jqGridAdditional.clearGrid("BetListGrid");
-                var data = response.Main;
+                jqGridAdditional.clearGrid('BetListGrid');
+                const data = response.Main;
                 if (data.length === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
 
-                var gridOption = _me.getGridOption();
+                const gridOption = _me.getGridOption();
                 gridOption.data = data;
                 gridOption.gridComplete = function () {
                     jqGridAdditional.gridComplete();
@@ -5519,7 +5519,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     jqGridAdditional.updateGridHeight();
                 };
 
-                $("#BetListGrid").jqGrid(gridOption);
+                $('#BetListGrid').jqGrid(gridOption);
             }
         };
 
@@ -5539,8 +5539,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    var setLink = function (rowObject) {
-        var drilldownParam = {
+    const setLink = function (rowObject) {
+        const drilldownParam = {
             CustId: rowObject.CustId,
             Date: rowObject.Date,
             TransType: rowObject.TransType,
@@ -5553,7 +5553,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             : rowObject.FullStatementDate;
     };
 
-    var indexColumn = {
+    const indexColumn = {
         name: 'Index',
         index: 'Index',
         width: 30,
@@ -5561,7 +5561,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         sortable: false,
         resizable: false
     };
-    var date = {
+    const date = {
         name: 'Date',
         index: 'Date',
         width: 150,
@@ -5571,14 +5571,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             return setLink(rowObject);
         }
     };
-    var remark = {
+    const remark = {
         name: 'Remark',
         index: 'Remark',
         width: 205,
         align: 'right',
         sortable: false
     };
-    var turnover = {
+    const turnover = {
         name: 'Turnover',
         index: 'Turnover',
         width: 120,
@@ -5586,7 +5586,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         sortable: false
     };
 
-    var creditDebit = {
+    const creditDebit = {
         name: 'CreditDebit',
         index: 'CreditDebit',
         width: 120,
@@ -5594,7 +5594,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         sortable: false
     };
 
-    var commission = {
+    const commission = {
         name: 'Commission',
         index: 'Commission',
         width: 120,
@@ -5602,7 +5602,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         sortable: false,
         resizable: false
     };
-    var balance = {
+    const balance = {
         name: 'Balance',
         index: 'Balance',
         width: 120,
@@ -5610,13 +5610,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         sortable: false
     };
 
-    var columnNames = ['#', 'Date', 'Remark', 'Turnover', 'CreditDebit', 'Commission', 'Balance'];
-    var columnModel = [indexColumn, date, remark, turnover, creditDebit, commission, balance];
+    const columnNames = ['#', 'Date', 'Remark', 'Turnover', 'CreditDebit', 'Commission', 'Balance'];
+    const columnModel = [indexColumn, date, remark, turnover, creditDebit, commission, balance];
 
-    var _me = {
+    const _me = {
         gridOption: {
             datatype: 'local',
-            height: "auto",
+            height: 'auto',
             rowNum: 5000,
             colModel: columnModel,
             colNames: [],
@@ -5648,42 +5648,42 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! pages/report/report */ "./www/js/source/pages/report/report.js"), __webpack_require__(/*! ./customer.dailystatement */ "./www/js/source/pages/betlist/customer/customer.dailystatement.js"), __webpack_require__(/*! ../betlist */ "./www/js/source/pages/betlist/betlist.js"),
             __webpack_require__(/*! components/pluginhelper/daterangepicker */ "./www/js/source/components/pluginhelper/daterangepicker.js"), __webpack_require__(/*! components/pluginhelper/multiselect */ "./www/js/source/components/pluginhelper/multiselect.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, Report, DailyStatement, BetList, DatePicker, MultiSelect) {
-        var _viewName;
-        var _viewOption;
+        let _viewName;
+        let _viewOption;
 
         function getViewOption() {
             return {
-                "betlistrunning": {
-                        title: Site.getSingleResource("BetListRunning"),
-                        hiddenColumn: "externalid,systemid,winloss,licenseewl",
+                'betlistrunning': {
+                        title: Site.getSingleResource('BetListRunning'),
+                        hiddenColumn: 'externalid,systemid,winloss,licenseewl',
                         submit: _me.submitRunningBetList
                     },
-                "betlist": {
-                        title: Site.getSingleResource("BetList"),
-                        hiddenColumn: "externalid,systemid",
+                'betlist': {
+                        title: Site.getSingleResource('BetList'),
+                        hiddenColumn: 'externalid,systemid',
                         submit: _me.submitCompletedBetList
                     },
-                "dailystatement": {
-                        title: Site.getSingleResource("DailyStatement"),
-                        hiddenColumn: "externalid,systemid",
+                'dailystatement': {
+                        title: Site.getSingleResource('DailyStatement'),
+                        hiddenColumn: 'externalid,systemid',
                         submit: _me.submitDailyStatementBetList
                     }
             };
         }
 
         function setProductOptionParamList(params) {
-            var productCodeList = $("#grid-products-multiselect").multiSelect("getCheckedItems");
+            const productCodeList = $('#grid-products-multiselect').multiSelect('getCheckedItems');
             params.ProductCodeList = productCodeList.toString();
             return params;
         }
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
                 DatePicker.initDateRangePicker();
                 MultiSelect.initProductList();
 
-                _viewName = $("#ViewOption").val();
+                _viewName = $('#ViewOption').val();
                 _viewOption = getViewOption();
                 _me.updatePopupTitle();
 
@@ -5695,84 +5695,84 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 _me.initEvent();
 
-                var params = _me.getParamsSubmit();
+                const params = _me.getParamsSubmit();
                 if (params.ProductCodeList) {
                     _me.submit(params);
                 }
                 else {
-                    $("#ProductList").addClass("invalid");
-                    $("#SubmitButton").prop("disabled", true);
+                    $('#ProductList').addClass('invalid');
+                    $('#SubmitButton').prop('disabled', true);
                 }
             },
             initEvent: function () {
-                $("#ViewOption").change(function () {
+                $('#ViewOption').change(function () {
                     Site.blockUI();
-                    var betlistName = $(this).val();
-                    var url = Site.getCurrentUrl();
-                    url = QueryString.setParam(url, "betlistname", betlistName);
+                    const betlistName = $(this).val();
+                    let url = Site.getCurrentUrl();
+                    url = QueryString.setParam(url, 'betlistname', betlistName);
                     url = Site.setProductOptionOriginalParamList(url);
 
                     Site.redirect(url);
                 });
 
-                $("#SubmitButton").click(function () {
+                $('#SubmitButton').click(function () {
                     Report.setOriginalProduct();
-                    var params = _me.getParamsSubmit();
+                    const params = _me.getParamsSubmit();
                     _me.submit(params);
                 });
 
-                $("#report-container").on("click", ".betlistDrilldown", function () {
-                    var param = $(this).data("param");
+                $('#report-container').on('click', '.betlistDrilldown', function () {
+                    const param = $(this).data('param');
                     _me.viewDailyStatementBetList(param);
                 });
             },
 
             updatePopupTitle: function () {
-                var title = _viewOption[_viewName].title;
-                var $frame = parent.$("#popupFrame");
-                var $popUp = $frame.closest(".flat-popup");
-                $popUp.find(".txt-title").text(title);
+                const title = _viewOption[_viewName].title;
+                const $frame = parent.$('#popupFrame');
+                const $popUp = $frame.closest('.flat-popup');
+                $popUp.find('.txt-title').text(title);
             },
 
             setHiddenColumns: function () {
                 //Set string columns need to hide
-                var columsHidden = _viewOption[_viewName].hiddenColumn;
-                $("#HiddenColumnList").val(columsHidden);
+                const columsHidden = _viewOption[_viewName].hiddenColumn;
+                $('#HiddenColumnList').val(columsHidden);
             },
 
             showHideProductsList: function () {
-                var $productsListContainer = $("#ProductList");
-                var isHideProductList = _viewName === "dailystatement";
+                const $productsListContainer = $('#ProductList');
+                const isHideProductList = _viewName === 'dailystatement';
 
-                $productsListContainer.parent().toggleClass("hide", isHideProductList);
+                $productsListContainer.parent().toggleClass('hide', isHideProductList);
             },
 
             getParamsSubmit: function () {
-                var params = $.parseJSON($("#BetListMetaModel").val());
-                var url = Site.getCurrentUrl();
-                params.CustId = QueryString.getParam(url, "custid");
-                params.ExternalId = QueryString.getParam(url, "externalid");
-                params.SystemId = QueryString.getParam(url, "systemid");
-                params.FromDate = $("#FromDate").val();
-                params.ToDate = $("#ToDate").val();
+                const params = $.parseJSON($('#BetListMetaModel').val());
+                const url = Site.getCurrentUrl();
+                params.CustId = QueryString.getParam(url, 'custid');
+                params.ExternalId = QueryString.getParam(url, 'externalid');
+                params.SystemId = QueryString.getParam(url, 'systemid');
+                params.FromDate = $('#FromDate').val();
+                params.ToDate = $('#ToDate').val();
 
                 return setProductOptionParamList(params);
             },
 
             submitCompletedBetList: function (params) {
                 window.serverPaging = true;
-                var url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
+                const url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
                 BetList.loadDataPaging(url, params);
             },
 
             submitRunningBetList: function (params) {
                 window.serverPaging = false;
-                var url = Site.resolveClientUrl('api/OutstandingRunningBetList/Index');
+                const url = Site.resolveClientUrl('api/OutstandingRunningBetList/Index');
                 BetList.loadData(params, url);
             },
 
             submitDailyStatementBetList: function (params) {
-                var url = Site.resolveClientUrl('api/OutstandingDailyStatementBetList/Index');
+                const url = Site.resolveClientUrl('api/OutstandingDailyStatementBetList/Index');
                 DailyStatement.loadData(params, url);
             },
 
@@ -5786,8 +5786,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             viewDailyStatementBetList: function (param) {
                 BetList.registerBetListGlobalFunctions();
 
-                var url = Site.resolveClientUrl('api/DailyStatementBetList/Index');
-                var postData = $.parseJSON($("#BetListMetaModel").val());
+                const url = Site.resolveClientUrl('api/DailyStatementBetList/Index');
+                const postData = $.parseJSON($('#BetListMetaModel').val());
 
                 postData.CustId = param.CustId;
                 postData.FromDate = param.Date;
