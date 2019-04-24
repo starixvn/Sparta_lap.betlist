@@ -1,23 +1,23 @@
-﻿"use strict";
-define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/jqgrid/jquery.jqgrid.additional",
-        "components/pluginhelper/daterangepicker", "moment", "helpers/daterange",
-        "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
+﻿'use strict';
+define(['jquery', 'common/site', './agcasinowinloss.option', '../report', 'lib/jqgrid/jquery.jqgrid.additional',
+        'components/pluginhelper/daterangepicker', 'moment', 'helpers/daterange',
+        'extensions/jquery.extension', 'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min'],
     function ($, Site, AgCasinoWinLossOption, Report, jqGridAdditional, DatePicker, moment, DateHelper) {
-        var cacheData = {};
-        var ajaxRequest = null;
-        var _level = 0;
-        var VALID_MONTH_RANGE = 3;
-        var _submitData;
-        var _drilldownData;
+        const cacheData = {};
+        let ajaxRequest = null;
+        let _level = 0;
+        const VALID_MONTH_RANGE = 3;
+        let _submitData;
+        let _drilldownData;
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
                 DatePicker.initDateRangePicker();
                 _me.initEvent();
                 Site.addUserGuide({
-                    resourceName: "AGCasinoWL",
-                    title: Site.getSingleResource("AGCasinoWinLoss")
+                    resourceName: 'AGCasinoWL',
+                    title: Site.getSingleResource('AGCasinoWinLoss')
                 });
                 DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, AgCasinoWinLossOption.urlExcelData);
             },
@@ -29,62 +29,62 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
 
                 $('#ExportToExcel').click(function () {
                     $('#IsExportExcel').val(true);
-                    var mainForm = $("#MainForm");
-                    var url = Site.resolveClientUrl(AgCasinoWinLossOption.urlExcelData);
-                    mainForm.attr("action", url);
+                    const mainForm = $('#MainForm');
+                    const url = Site.resolveClientUrl(AgCasinoWinLossOption.urlExcelData);
+                    mainForm.attr('action', url);
                     mainForm.submit();
                     $('#IsExportExcel').val(false);
                     return false;
                 });
 
-                $("#level-link-container").on("click", ".level-link", function () {
-                    var level = Number($(this).attr("data-level"));
+                $('#level-link-container').on('click', '.level-link', function () {
+                    const level = Number($(this).attr('data-level'));
                     _level = level;
                     return _me.goBack(level);
                 });
 
-                $(".main-content").on("click", ".drilldown", function () {
-                    var data = JSON.parse($(this).attr('data-drilldown'));
+                $('.main-content').on('click', '.drilldown', function () {
+                    const data = JSON.parse($(this).attr('data-drilldown'));
                     _me.drillDown(data);
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     _me.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
             resizeGrid: function(){  
-                var reportGrid = $("#ReportGrid");
+                const reportGrid = $('#ReportGrid');
                 jqGridAdditional.updateGridHeight();
                 jqGridAdditional.updateGridWidth(reportGrid);
             },
             //#region Layout
             setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
-                var temp = 'api/AgCasinoWinLossReport/Index';
+                let temp = 'api/AgCasinoWinLossReport/Index';
                 if (level > 0) {
-                    temp += "?level=" + level + "&currencyId="
-                    + currencyId + "&custId=" + custId + "&fdate=" + moment(fdate).format("MM/DD/YYYY")
-                     + "&tdate=" + moment(tdate).format("MM/DD/YYYY");
+                    temp += '?level=' + level + '&currencyId='
+                    + currencyId + '&custId=' + custId + '&fdate=' + moment(fdate).format('MM/DD/YYYY')
+                     + '&tdate=' + moment(tdate).format('MM/DD/YYYY');
                 }
 
                 AgCasinoWinLossOption.urlExcelData = temp;
             },
 
             setReportTitle: function (currencyId, fromdate, todate) {
-                var titlePattern = Site.getSingleResource('AGCasinoWinLoss') + ', {0} → {1} - {2}';
-                var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
-                var title = $.format(titlePattern, moment(fromdate).format("MM/DD/YYYY"), moment(todate).format("MM/DD/YYYY"), currencyName);
-                $(".report-title").html(title);
-                $(".panel-heading").removeClass("hide");
+                const titlePattern = Site.getSingleResource('AGCasinoWinLoss') + ', {0} → {1} - {2}';
+                const currencyName = Report.getCurrencyNameForReportTitle(currencyId);
+                const title = $.format(titlePattern, moment(fromdate).format('MM/DD/YYYY'), moment(todate).format('MM/DD/YYYY'), currencyName);
+                $('.report-title').html(title);
+                $('.panel-heading').removeClass('hide');
             },
             //#end
 
             //#Get Data
             ajaxComplete: function (level, response) {
-                var levelNumber = Number(level);
+                const levelNumber = Number(level);
                 if (response != null) {
                     cacheData[levelNumber] = response;
                     if (levelNumber === 0) {
@@ -98,7 +98,7 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
                             BaseCurrency: _submitData.BaseCurrency
                         };
 
-                        _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
+                        _me.setReportTitle($('#CurrencyId').val(), _submitData.FromDate, _submitData.ToDate);
                     }
 
                     Report.renderBreadCrumb(levelNumber);
@@ -107,18 +107,18 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
             },
 
             submit: function () {
-                var mainForm = $("#MainForm");
-                var postdata = mainForm.serializeObject();
+                const mainForm = $('#MainForm');
+                const postdata = mainForm.serializeObject();
                 _submitData = postdata;
-                var option = {
-                    type: "POST",
+                const option = {
+                    type: 'POST',
                     data: postdata,
-                    dataType: "json",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     cache: false,
                     url: Site.resolveClientUrl(AgCasinoWinLossOption.urlData),
                     success: function (response) {
-                        _me.setExcelUrl(0, 0, 0, "", "");
+                        _me.setExcelUrl(0, 0, 0, '', '');
                         _me.ajaxComplete(0, response);
                     },
                     beforeSend: function () {
@@ -148,7 +148,7 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
                     _level = data.level;
                 }
 
-                var param =
+                const param =
                 {
                     IsExcludedTestData: _drilldownData.IsExcludedTestData,
                     CurrencyId: _drilldownData.CurrencyId,
@@ -158,21 +158,21 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
                     BaseCurrency: _drilldownData.BaseCurrency
                 };
 
-                var fdate = new Date(Date.parse(data.datetime));
-                var tdate = new Date(Date.parse(data.datetime));
+                let fdate = new Date(Date.parse(data.datetime));
+                let tdate = new Date(Date.parse(data.datetime));
                 if (Number(param.ReportBy) === 2) {
-                    var fday = 1;
-                    var month = fdate.getMonth();
-                    var year = fdate.getFullYear();
-                    var orignalFDate = new Date(param.FromDate);
+                    let fday = 1;
+                    const month = fdate.getMonth();
+                    const year = fdate.getFullYear();
+                    const orignalFDate = new Date(param.FromDate);
                     if (month === orignalFDate.getMonth()) {
                         fday = orignalFDate.getDate();
                     }
                     fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                    var originalTDate = new Date(param.ToDate);
+                    const originalTDate = new Date(param.ToDate);
 
                     if (month === originalTDate.getMonth()) {
-                        var tday = originalTDate.getDate();
+                        const tday = originalTDate.getDate();
                         tdate = new Date(year, month, tday, 0, 0, 0, 0);
                     }
                     else {
@@ -180,7 +180,7 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
                     }
                 }
                 
-                var option = {
+                const option = {
                     type: "POST",
                     data: JSON.stringify(param),
                     dataType: "json",
@@ -220,9 +220,9 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
                     //reset excel Link
                     _me.setExcelUrl(0, 0, 0, "", "");
                     //re-set title
-                    var fromdate = new Date(_drilldownData.FromDate);
-                    var todate = new Date(_drilldownData.ToDate);
-                    var currencyId = _drilldownData.CurrencyId;
+                    const fromdate = new Date(_drilldownData.FromDate);
+                    const todate = new Date(_drilldownData.ToDate);
+                    const currencyId = _drilldownData.CurrencyId;
                     _me.setReportTitle(currencyId, fromdate, todate);
                 }
                 else if (level === 1) {
@@ -234,28 +234,28 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
 
             //#BindReport
             bindTotal: function (level, totalData, summaryTotal) {
-                var columnModel = AgCasinoWinLossOption.getTotalColModel(level);
-                var colspan = AgCasinoWinLossOption.totalColspan[level];
-                var summaryColspan = colspan + 1;
+                const columnModel = AgCasinoWinLossOption.getTotalColModel(level);
+                const colspan = AgCasinoWinLossOption.totalColspan[level];
+                const summaryColspan = colspan + 1;
 
                 jqGridAdditional.assignTotal(totalData, columnModel);
-                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+                const summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
                 jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
             },
 
             bindData: function (level, response) {
                 jqGridAdditional.clearGrid("ReportGrid");
-                var numOfRow = response.Data.length;
+                const numOfRow = response.Data.length;
                 if (numOfRow === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
 
-                var levelNumber = Number(level);
+                const levelNumber = Number(level);
 
-                var reportGrid = $("#ReportGrid");
+                const reportGrid = $("#ReportGrid");
 
-                var gridOption = AgCasinoWinLossOption.getGridOption(levelNumber);
+                const gridOption = AgCasinoWinLossOption.getGridOption(levelNumber);
                 gridOption.data = response.Data;
                 gridOption.rowTotal = numOfRow;
 

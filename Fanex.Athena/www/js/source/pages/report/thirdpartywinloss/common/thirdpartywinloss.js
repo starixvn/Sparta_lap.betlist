@@ -1,55 +1,55 @@
 ﻿define([
-    "jquery",
-    "common/querystring",
-    "common/site",
-    "../../report",
-    "lib/jqgrid/jquery.jqgrid.additional",
-    "components/pluginhelper/daterangepicker",
-    "helpers/daterange",
-    "moment",
-    "common/popup",
-    "lib/jqgrid/jquery.jqGrid.en",
-    "lib/jqgrid/jquery.jqGrid.min",
-    "extensions/jquery.extension"],
+    'jquery',
+    'common/querystring',
+    'common/site',
+    '../../report',
+    'lib/jqgrid/jquery.jqgrid.additional',
+    'components/pluginhelper/daterangepicker',
+    'helpers/daterange',
+    'moment',
+    'common/popup',
+    'lib/jqgrid/jquery.jqGrid.en',
+    'lib/jqgrid/jquery.jqGrid.min',
+    'extensions/jquery.extension'],
     function ($, QueryString, Site, Report, jqGridAdditional, DatePicker, DateHelper, moment, Popup) {
-        "use strict";
-        var defaultOption = {
-            UserGuideResourceName: "",
-            UserGuideTitle: "",
+        'use strict';
+        const defaultOption = {
+            UserGuideResourceName: '',
+            UserGuideTitle: '',
             ValidMonthRange: 0,
-            ReportTitle: "",
+            ReportTitle: '',
             GridOption: {}
         };
 
-        var _selector = {
-            SubmitButton: "#SubmitButton",
-            ExportExcelInput: "#IsExportExcel",
-            ExportToExcel: "#ExportToExcel",
-            Form: "#ThirdPartyWinLossForm",
-            Title: ".report-title",
-            Header: ".panel-heading",
-            GridId: "ReportGrid",
-            OrderItemInput: "#OrderItem",
+        const _selector = {
+            SubmitButton: '#SubmitButton',
+            ExportExcelInput: '#IsExportExcel',
+            ExportToExcel: '#ExportToExcel',
+            Form: '#ThirdPartyWinLossForm',
+            Title: '.report-title',
+            Header: '.panel-heading',
+            GridId: 'ReportGrid',
+            OrderItemInput: '#OrderItem',
             CanDrilldown: false,
-            LevelLinkContainer: "#level-link-container",
-            LevelLink: ".level-link",
-            DrillDownLink: ".drilldown",
-            BetListLink: ".bet-list-link"
+            LevelLinkContainer: '#level-link-container',
+            LevelLink: '.level-link',
+            DrillDownLink: '.drilldown',
+            BetListLink: '.bet-list-link'
         };
 
-        var _ajaxRequest;
-        var _cacheData = [];
-        var _submitData;
-        var _reportTitle;
-        var _urlExcelData;
-        var _thirdPartyWinLossOption;
+        let _ajaxRequest;
+        const _cacheData = [];
+        let _submitData;
+        let _reportTitle;
+        let _urlExcelData;
+        let _thirdPartyWinLossOption;
 
         function initialize(memberOption) {
             Site.initialize();
 
-            var option = $.extend({}, defaultOption, memberOption || {});
+            const option = $.extend({}, defaultOption, memberOption || {});
 
-            if (option.UserGuideResourceName !== "") {
+            if (option.UserGuideResourceName !== '') {
                 Site.addUserGuide({
                     resourceName: option.UserGuideResourceName,
                     title: Site.getSingleResource(option.UserGuideTitle)
@@ -79,20 +79,20 @@
 
             $(_selector.ExportToExcel).click(function () {
                 $(_selector.ExportExcelInput).val(true);
-                var mainForm = $(_selector.Form);
-                var url = Site.resolveClientUrl(_urlExcelData);
-                mainForm.attr("action", url);
+                const mainForm = $(_selector.Form);
+                const url = Site.resolveClientUrl(_urlExcelData);
+                mainForm.attr('action', url);
                 mainForm.submit();
                 $(_selector.ExportExcelInput).val(false);
                 return false;
             });
 
-            $(_selector.LevelLinkContainer).on("click", _selector.LevelLink, function () {
-                var level = $(this).data("level");
+            $(_selector.LevelLinkContainer).on('click', _selector.LevelLink, function () {
+                const level = $(this).data('level');
                 if (level < 2) {
                     Report.renderBreadCrumb(level, _thirdPartyWinLossOption.licenseeId);
                     _me.bindData(level, _cacheData[level]);
-                    _urlExcelData = _urlExcelData.replace("level=2", "level=1");
+                    _urlExcelData = _urlExcelData.replace('level=2', 'level=1');
                 }
                 if (level === 0) {
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
@@ -100,32 +100,32 @@
                 }
             });
 
-            $(".main-content").on("click", _selector.DrillDownLink, function () {
-                var data = $(this).data("drill-down");
+            $('.main-content').on('click', _selector.DrillDownLink, function () {
+                const data = $(this).data('drill-down');
                 _me.submit(data);
             });
 
-            $(".main-content").on("click", _selector.BetListLink, function () {
-                var dataDrillDown = $(this).data("drill-down");
+            $('.main-content').on('click', _selector.BetListLink, function () {
+                const dataDrillDown = $(this).data('drill-down');
                 openBetlistPopUp(dataDrillDown);
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         }
 
         function submit(drillDownData) {
-            var postdata;
-            var currencyId = 0;
-            var fromDate = "";
-            var toDate = "";
-            var custId = 0;
-            var level = 0;
+            let postdata;
+            let currencyId = 0;
+            let fromDate = '';
+            let toDate = '';
+            let custId = 0;
+            let level = 0;
 
             if (drillDownData) {
                 level = drillDownData.Level;
@@ -134,9 +134,9 @@
                 currencyId = drillDownData.CurrencyId || _submitData.CurrencyId;
                 custId = drillDownData.CustId;
 
-                var drilldownDateRange = Report.GetDrilldownDateRange(postdata.ReportBy, postdata.FromDate, postdata.ToDate, drillDownData.Datetime);
-                fromDate = moment(drilldownDateRange.FromDate).format("MM/DD/YYYY");
-                toDate = moment(drilldownDateRange.ToDate).format("MM/DD/YYYY");
+                const drilldownDateRange = Report.GetDrilldownDateRange(postdata.ReportBy, postdata.FromDate, postdata.ToDate, drillDownData.Datetime);
+                fromDate = moment(drilldownDateRange.FromDate).format('MM/DD/YYYY');
+                toDate = moment(drilldownDateRange.ToDate).format('MM/DD/YYYY');
             }
             else {
                 postdata = $(_selector.Form).serializeObject();
@@ -145,19 +145,19 @@
                 toDate = postdata.ToDate;
             }
 
-            var url = setUpUrl(_thirdPartyWinLossOption.urlData, level, currencyId, custId, fromDate, toDate);
-            var option = {
-                type: "POST",
+            const url = setUpUrl(_thirdPartyWinLossOption.urlData, level, currencyId, custId, fromDate, toDate);
+            const option = {
+                type: 'POST',
                 data: postdata,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(url),
                 success: function (response) {
                     setExcelUrl(level, currencyId, custId, fromDate, toDate);
                     ajaxComplete(level, response, postdata);
 
-                    var currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : "";
+                    const currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : "";
                     _me.setReportTitle(currencyId, fromDate, toDate, currencyName);
                 },
                 beforeSend: function () {
@@ -185,11 +185,11 @@
                 return;
             }
 
-            var numOfRow = response.Data.length;
+            const numOfRow = response.Data.length;
 
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
 
-            var gridOption = _thirdPartyWinLossOption.getGridOption(level, _submitData.ReportBy);
+            const gridOption = _thirdPartyWinLossOption.getGridOption(level, _submitData.ReportBy);
             gridOption.data = response.Data;
             gridOption.rowNum = numOfRow;
             gridOption.gridComplete = function () {
@@ -204,25 +204,25 @@
         }
 
         function bindTotal(level, totalData, summaryTotal) {
-            var columnModel = _thirdPartyWinLossOption.getTotalColModel(level, _submitData.ReportBy);
-            var colspan = _thirdPartyWinLossOption.totalColspan[level];
-            var summaryColspan = colspan + 1;
+            const columnModel = _thirdPartyWinLossOption.getTotalColModel(level, _submitData.ReportBy);
+            const colspan = _thirdPartyWinLossOption.totalColspan[level];
+            const summaryColspan = colspan + 1;
 
             jqGridAdditional.assignTotal(totalData, columnModel);
-            var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+            const summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
             jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
         }
 
         function setReportTitle(currencyId, fromdate, todate, currencyName) {
-            var titlePattern = _reportTitle + ', {0} → {1} - {2}';
+            const titlePattern = _reportTitle + ', {0} → {1} - {2}';
             //get currencyName
-            var currencyStr = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
+            const currencyStr = currencyName ? Site.getSingleResource('Viewin').replace('{0}', currencyName)
                                                         : Report.getCurrencyNameForReportTitle(currencyId);
 
-            var title = $.format(titlePattern, fromdate, todate, currencyStr);
+            const title = $.format(titlePattern, fromdate, todate, currencyStr);
 
             $(_selector.Title).html(title);
-            $(_selector.Header).removeClass("hide");
+            $(_selector.Header).removeClass('hide');
         }
 
         function ajaxComplete(level, response, param) {
@@ -242,48 +242,48 @@
         }
 
         function setUpUrl(url, level, currencyId, custId, fdate, tdate) {
-            var newUrl = url;
+            let newUrl = url;
             if (level > 0) {
-                newUrl = QueryString.setParam(newUrl, "level", level);
-                newUrl = QueryString.setParam(newUrl, "currencyId", currencyId);
-                newUrl = QueryString.setParam(newUrl, "custId", custId);
-                newUrl = QueryString.setParam(newUrl, "fdate", fdate);
-                newUrl = QueryString.setParam(newUrl, "tdate", tdate);
+                newUrl = QueryString.setParam(newUrl, 'level', level);
+                newUrl = QueryString.setParam(newUrl, 'currencyId', currencyId);
+                newUrl = QueryString.setParam(newUrl, 'custId', custId);
+                newUrl = QueryString.setParam(newUrl, 'fdate', fdate);
+                newUrl = QueryString.setParam(newUrl, 'tdate', tdate);
             }
 
             return newUrl;
         }
 
         function resizeGrid() {
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
         function openBetlistPopUp(dataDrillDown) {
-            var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
+            const dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
 
-            var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
-            url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
-            url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
-            url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
-            url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-            url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
-            url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);
-            url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
-            url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
-            url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
-            url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
-            url = QueryString.setParam(url, "excelfilename", "ColossusBetsWinLossBetList");
-            url = Site.setProductCodeListParam(url, "CB");
+            let url = Site.resolveClientUrl('LicenseeWinLossBetList/Index');
+            url = QueryString.setParam(url, 'fromdate', moment(dateRange.FromDate).format('MM/DD/YYYY'));
+            url = QueryString.setParam(url, 'todate', moment(dateRange.ToDate).format('MM/DD/YYYY'));
+            url = QueryString.setParam(url, 'excludetest', _submitData.IsExcludedTestData);
+            url = QueryString.setParam(url, 'CurrencyId', dataDrillDown.DrillDownCurrencyId);
+            url = QueryString.setParam(url, 'CurrencyName', dataDrillDown.DrillDownCurrencyName);
+            url = QueryString.setParam(url, 'drawfilter', _submitData.DrawFilter);
+            url = QueryString.setParam(url, 'custid', dataDrillDown.CustomerId);
+            url = QueryString.setParam(url, 'systemId', dataDrillDown.SystemId);
+            url = QueryString.setParam(url, 'externalId', dataDrillDown.ExternalId);
+            url = QueryString.setParam(url, 'BaseCurrency', _submitData.BaseCurrency);
+            url = QueryString.setParam(url, 'excelfilename', 'ColossusBetsWinLossBetList');
+            url = Site.setProductCodeListParam(url, 'CB');
 
-            var popH = Math.min($(window).height() - 100, 650), popW = 920;
-            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
+            const popH = Math.min($(window).height() - 100, 650), popW = 920;
+            const popupOption = { id: 'betlist-popup', width: popW + 50, height: popH + 50, title: Site.getSingleResource('CustomerBetList') };
             Popup.openPopupWithIframe(url, popupOption);
             window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initSetting: initSetting,
             initEvent: initEvent,

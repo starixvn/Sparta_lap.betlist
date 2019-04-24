@@ -1,67 +1,67 @@
 ﻿define([
-    "jquery",
-    "common/site",
-    "lib/jqgrid/jquery.jqgrid.additional",
-    "./customerturnover.option",
-    "components/pluginhelper/autocomplete",
-    "components/pluginhelper/daterangepicker",
-    "helpers/daterange",
-    "components/paging",
-    "lib/jquery.multiselect.nlevel",
-    "lib/jqgrid/jquery.jqGrid.en",
-    "lib/jqgrid/jquery.jqGrid.min",
-    "extensions/jquery.extension",
-    "lib/linq"],
+    'jquery',
+    'common/site',
+    'lib/jqgrid/jquery.jqgrid.additional',
+    './customerturnover.option',
+    'components/pluginhelper/autocomplete',
+    'components/pluginhelper/daterangepicker',
+    'helpers/daterange',
+    'components/paging',
+    'lib/jquery.multiselect.nlevel',
+    'lib/jqgrid/jquery.jqGrid.en',
+    'lib/jqgrid/jquery.jqGrid.min',
+    'extensions/jquery.extension',
+    'lib/linq'],
     function ($, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
-        "use strict";
+        'use strict';
 
-        var _sports = [];
-        var _bettypes = [];
-        var _checkedSports = [];
-        var _checkedBettypes = [];
-        var _submitData;
-        var _url = {
-            GetSports: "CustomerTurnoverReport/GetSportsAndProducts",
-            GetBetTypes: "ReportAPI/GetBettypesBySport",
-            SearchCustomer: "SearchCustomerAPI/SearchCustomer"
+        let _sports = [];
+        let _bettypes = [];
+        let _checkedSports = [];
+        let _checkedBettypes = [];
+        let _submitData;
+        const _url = {
+            GetSports: 'CustomerTurnoverReport/GetSportsAndProducts',
+            GetBetTypes: 'ReportAPI/GetBettypesBySport',
+            SearchCustomer: 'SearchCustomerAPI/SearchCustomer'
         };
-        var _selector = {
-            SubmitButton: "#SubmitButton",
-            ExportExcelInput: "#IsExportExcel",
-            ExportToExcel: "#ExportToExcel",
-            Form: "#CustomerTurnoverReport",
-            Title: ".report-title",
-            Header: ".panel-heading",
-            GridId: "ReportGrid",
-            Odds: "#Odds",
-            TickerFilter: "#TickerFilter",
-            Username: "#Username",
-            ProductMultiSelect: "#grid-products-multiselect",
-            BetTypeMultiSelect: "#grid-bettypes-multiselect",
-            BetTypeList: "#BetTypeList",
-            ProductList: "#ProductList",
-            IsAllowedCustomerCommission: "#IsAllowedCustomerCommission",
-            ExcelParam: "#excelparam",
-            ExcelForm: "#CustomerTurnoverForm"
+        const _selector = {
+            SubmitButton: '#SubmitButton',
+            ExportExcelInput: '#IsExportExcel',
+            ExportToExcel: '#ExportToExcel',
+            Form: '#CustomerTurnoverReport',
+            Title: '.report-title',
+            Header: '.panel-heading',
+            GridId: 'ReportGrid',
+            Odds: '#Odds',
+            TickerFilter: '#TickerFilter',
+            Username: '#Username',
+            ProductMultiSelect: '#grid-products-multiselect',
+            BetTypeMultiSelect: '#grid-bettypes-multiselect',
+            BetTypeList: '#BetTypeList',
+            ProductList: '#ProductList',
+            IsAllowedCustomerCommission: '#IsAllowedCustomerCommission',
+            ExcelParam: '#excelparam',
+            ExcelForm: '#CustomerTurnoverForm'
         };
-        var _ajaxRequestGetBettype, _ajaxRequestData;
-        var _pagingOption =
+        let _ajaxRequestGetBettype, _ajaxRequestData;
+        let _pagingOption =
             {
                 pageindex: 1,
                 pagesize: 25,
                 pagelist: [25, 50, 100, 500],
                 totalrow: 1,
-                elementcontainer: ".paging",
-                method: "AJAX",
-                ajaxfunction: "CustTurnover.ajaxPaging()",
+                elementcontainer: '.paging',
+                method: 'AJAX',
+                ajaxfunction: 'CustTurnover.ajaxPaging()',
                 alwayshow: true
             };
 
         function initialize() {
             Site.initialize();
             Site.addUserGuide({
-                resourceName: "CustomerTurnover",
-                title: Site.getSingleResource("CustomerTurnover")
+                resourceName: 'CustomerTurnover',
+                title: Site.getSingleResource('CustomerTurnover')
             });
             DatePicker.initDateRangePicker();
             
@@ -94,12 +94,12 @@
                 //return false;
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
 
             window.CustTurnover = {
@@ -112,14 +112,14 @@
         }
 
         function initTicketFilter() {
-            $(_selector.TickerFilter + " input[type=checkbox]").checkboxgroup();
-            $(_selector.TickerFilter).on("change", "input[type=checkbox]", function () {
+            $(_selector.TickerFilter + ' input[type=checkbox]').checkboxgroup();
+            $(_selector.TickerFilter).on('change', 'input[type=checkbox]', function () {
                 _me.checkValidFilter();
             });
         }
 
         function initAutoComplete() {
-            var option = {
+            const option = {
                 url: Site.resolveClientUrl(_url.SearchCustomer),
                 target: _selector.Username
             };
@@ -138,11 +138,11 @@
         }
 
         function isValidDateRange(fromDate, toDate) {
-            var oneDay = 24 * 60 * 60 * 1000;
+            const oneDay = 24 * 60 * 60 * 1000;
 
-            var diffDays = Math.round(Math.abs((new Date(fromDate).getTime() - new Date(toDate).getTime()) / (oneDay)));
+            const diffDays = Math.round(Math.abs((new Date(fromDate).getTime() - new Date(toDate).getTime()) / (oneDay)));
             if(diffDays > 31) {
-                alert(Site.getSingleResource("DateRangeExceedMsg").replace("{0}", 1));
+                alert(Site.getSingleResource('DateRangeExceedMsg').replace('{0}', 1));
                 return false;
             }
 
@@ -157,11 +157,11 @@
                 return false;
             }
 
-            var option = {
+            const option = {
                 type: "POST",
                 data: JSON.stringify(_submitData),
-                dataType: "json",
-                contentType: "application/json",
+                dataType: 'json',
+                contentType: 'application/json',
                 cache: false,
                 url: Site.resolveClientUrl(CustomerTurnoverOption.urlData),
                 success: function (response) {
@@ -194,7 +194,7 @@
                 return;
             }
 
-            var gridOption = CustomerTurnoverOption.getGridOption();
+            const gridOption = CustomerTurnoverOption.getGridOption();
             gridOption.data = response.Data;
             gridOption.rowNum = response.Data.length;
 
@@ -203,7 +203,7 @@
                 Site.unBlockUI();
             };
 
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             reportGrid.jqGrid(gridOption);
         }
 
@@ -211,7 +211,7 @@
             if (!isValidDateRange() || !_me.checkValidFilter()) {
                 return false;
             }
-            var param = getPostData();
+            const param = getPostData();
             param.PageIndex = 1;
             $(_selector.ExcelParam).val(JSON.stringify(param));
             $(_selector.ExcelForm).submit();
@@ -224,33 +224,33 @@
         }
 
         function checkValidFilter() {
-            var validBetType = _checkedBettypes.length > 0;
+            const validBetType = _checkedBettypes.length > 0;
 
-            var ticketFilter = $(_selector.TickerFilter);
-            var validTicketFilter = ticketFilter.find("input:checked").length > 0;
-            var isValid = validBetType && validTicketFilter;
+            const ticketFilter = $(_selector.TickerFilter);
+            const validTicketFilter = ticketFilter.find('input:checked').length > 0;
+            const isValid = validBetType && validTicketFilter;
 
-            $(_selector.BetTypeList).toggleClass("invalid", !validBetType);
+            $(_selector.BetTypeList).toggleClass('invalid', !validBetType);
 
-            $(_selector.SubmitButton).prop("disabled", !isValid);
+            $(_selector.SubmitButton).prop('disabled', !isValid);
 
             return isValid;
         }
 
         function setReportTitle(currencyName, userName, fromDate, toDate, odds) {
-            var titlePattern = Site.getSingleResource('Customer') + ' '
+            const titlePattern = Site.getSingleResource('Customer') + ' '
                 + Site.getSingleResource('Turnover') + ', {0} → {1} - '
                 + Site.getSingleResource("Currency") + ': {2} - '
                 + Site.getSingleResource('MinimumOdds') + ': {3}{4}';
 
-            var tempUserName = userName.length > 0
-                ? " - " + Site.getSingleResource("Username") + ": " + userName
-                : "";
+            const tempUserName = userName.length > 0
+                ? " - " + Site.getSingleResource('Username') + ': ' + userName
+                : '';
 
-            var title = $.format(titlePattern, fromDate, toDate, currencyName, odds, tempUserName);
+            const title = $.format(titlePattern, fromDate, toDate, currencyName, odds, tempUserName);
 
             $(_selector.Title).html(title);
-            $(_selector.Header).removeClass("hide");
+            $(_selector.Header).removeClass('hide');
         }
 
         function buildPostData() {
@@ -264,9 +264,9 @@
         }
 
         function getPostData() {
-            var data = $(_selector.Form).serializeObject();
+            const data = $(_selector.Form).serializeObject();
 
-            var param = {};
+            const param = {};
             param.fromdate = data.FromDate;
             param.todate = data.ToDate;
             param.reportby = data.ReportBy;
@@ -291,7 +291,7 @@
         }
 
         function onGridComplete(grid, gridOption, response) {
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             if (CustomerTurnoverOption.hasCustomerComm) {
                 jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
             }
@@ -314,7 +314,7 @@
         }
 
         function renderProductTree() {
-            var groupData = groupProductList();
+            const groupData = groupProductList();
 
             $(_selector.ProductMultiSelect).multiSelect({
                 minWidth: 200,
@@ -339,15 +339,15 @@
                 showFooter: false,
                 showTooltip: true,
                 onCheck: function () {
-                    var checkedItems = $(_selector.ProductMultiSelect).multiSelect("getCheckedItems");
-                    var numberOfCheckedItems = checkedItems.length;
+                    const checkedItems = $(_selector.ProductMultiSelect).multiSelect('getCheckedItems');
+                    const numberOfCheckedItems = checkedItems.length;
                     /*update checked sports*/
                     _checkedSports = [];
-                    for (var i = 0; i < numberOfCheckedItems; i++) {
+                    for (let i = 0; i < numberOfCheckedItems; i++) {
                         addCheckedSport(checkedItems[i]);
                     }
 
-                    $(_selector.ProductList).toggleClass("invalid", _checkedSports.length <= 0);
+                    $(_selector.ProductList).toggleClass('invalid', _checkedSports.length <= 0);
                     /*Load bet types*/
                     loadBettypes();
                 }
@@ -355,32 +355,32 @@
         }
 
         function groupProductList() {
-            var groupData = [];
-            var parents = Enumerable.From(_sports).Where(function (s) { return s.ParentId === -1; }).ToArray();
+            const groupData = [];
+            const parents = Enumerable.From(_sports).Where(function (s) { return s.ParentId === -1; }).ToArray();
             $.each(parents, function (index, value) {
-                var parent = {
+                const parent = {
                     Id: index.toString(),
-                    Value: "-1-" + value.ID,
+                    Value: '-1-' + value.ID,
                     Text: value.Name,
                     Checked: value.Checked,
                     ParrentId: -1,
                     Enable: true,
-                    Css: "",
-                    CssClass: ""
+                    Css: '',
+                    CssClass: ''
                 };
-                var cindex = 0;
+                let cindex = 0;
                 parent.Items = Enumerable.From(_sports).Where(function (child) {
                     return child.ParentId === value.ID && child.ID > 0 && child.ParentId > -1;
                 }).Select(function (child) {
                     return {
-                        Id: parent.Id + "-" + cindex++,
-                        Value: child.ParentId + "-" + child.ID,
+                        Id: parent.Id + '-' + cindex++,
+                        Value: child.ParentId + '-' + child.ID,
                         Text: child.Name,
                         ParrentId: child.ParentId,
                         Checked: child.Checked,
                         Enable: true,
-                        Css: "",
-                        CssClass: "",
+                        Css: '',
+                        CssClass: '',
                         GroupName: parent.Text
                     };
                 }).ToArray();
@@ -392,7 +392,7 @@
         }
 
         function addCheckedSport(checkedValue) {
-            var modelItem = Enumerable.From(_sports).FirstOrDefault(null, function (item) {
+            const modelItem = Enumerable.From(_sports).FirstOrDefault(null, function (item) {
                 return (item.ParentId + "-" + item.ID) === checkedValue;
             });
 
@@ -402,7 +402,7 @@
                 /*add parent item*/
 
                 if (modelItem.ParentId > -1) {
-                    var parent = Enumerable.From(_checkedSports).FirstOrDefault(null, function (item) {
+                    let parent = Enumerable.From(_checkedSports).FirstOrDefault(null, function (item) {
                         return item.ID === modelItem.ParentId && item.ParentId === -1;
                     });
 
@@ -429,11 +429,11 @@
                 _me.checkValidFilter();
                 return;
             }
-            var option = {
-                type: "POST",
+            const option = {
+                type: 'POST',
                 data: JSON.stringify(_checkedSports),
-                dataType: "json",
-                contentType: "application/json",
+                dataType: 'json',
+                contentType: 'application/json',
                 cache: false,
                 url: _url.GetBetTypes,
                 success: function (response) {
@@ -455,16 +455,16 @@
         }
 
         function renderBetTypeTree() {
-            var dataList = [];
+            const dataList = [];
             $.each(_bettypes, function (index, value) {
-                var item = {
-                    Id: "BetType-" + value.ID,
+                const item = {
+                    Id: 'BetType-' + value.ID,
                     Value: value.ID,
                     Text: value.Name,
                     Checked: value.Checked,
                     Enable: true,
-                    Css: "",
-                    CssClass: ""
+                    Css: '',
+                    CssClass: ''
                 };
                 dataList.push(item);
             });
@@ -476,11 +476,11 @@
                 listData: dataList,
                 hasOptGroup: false,
                 onCheck: function () {
-                    var checkedItems = $(_selector.BetTypeMultiSelect).multiSelect("getCheckedItems");
-                    var numberOfCheckedItems = checkedItems.length;
+                    const checkedItems = $(_selector.BetTypeMultiSelect).multiSelect('getCheckedItems');
+                    const numberOfCheckedItems = checkedItems.length;
                     /*update checked bet types*/
                     _checkedBettypes = [];
-                    for (var i = 0; i < numberOfCheckedItems; i++) {
+                    for (let i = 0; i < numberOfCheckedItems; i++) {
                         addCheckedBettype(checkedItems[i]);
                     }
                     _me.checkValidFilter();
@@ -506,7 +506,7 @@
         }
 
         function addCheckedBettype(checkedValue) {
-            var modelItem = Enumerable.From(_bettypes).FirstOrDefault(null, function (item) {
+            const modelItem = Enumerable.From(_bettypes).FirstOrDefault(null, function (item) {
                 return item.ID.toString() === checkedValue.toString();
             });
             if (modelItem !== null) {
@@ -520,12 +520,12 @@
                 Backspace, tab, enter, end, home, left, right
                 Don't support the del key in Opera because del == . == 46.
                 --------------------------------------------------------------*/
-            var controlKeys = [8, 9, 13, 39, 46];
+            const controlKeys = [8, 9, 13, 39, 46];
 
             /*--------------------------------------------------------------
             IE doesn't support indexOf
             --------------------------------------------------------------*/
-            var isControlKey = controlKeys.join(",").match(new RegExp(event.which));
+            const isControlKey = controlKeys.join(',').match(new RegExp(event.which));
 
             /*--------------------------------------------------------------
             Some browsers just don't raise events for control keys. Easy.
@@ -546,12 +546,12 @@
         }
 
         function resizeGrid() {
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initSetting: initSetting,
             initAutoComplete: initAutoComplete,

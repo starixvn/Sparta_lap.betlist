@@ -1,73 +1,73 @@
-﻿"use strict";
-define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "common/popup", "components/scrollablegrid", "extensions/jquery.extension"],
+﻿'use strict';
+define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', 'common/popup', 'components/scrollablegrid', 'extensions/jquery.extension'],
     function ($, Site, DatePicker, Popup, GridHelper) {
-        var DATA_API = "ResultReport/Index";
-        var EXCEL_API = "ResultReport/ResultExcel?";
-        var SPORT_API = "ResultReport/GetSports";
-        var KENO_RESULT_API = "ResultKenoReport/Index";
-        var KENO_RESULT_SESSION_API = "ResultKenoReport/KeepSession";
-        var ajaxRequest = null;
-        var ajaxFilterRequest = null;
-        var kenoAjaxRequest = null;
-        var kenoIntervalId = 0;
-        var lotteryAjaxRequest = null;
-        var lotteryIntervalId = 0;
-        var param = {
-            FromDate: "",
-            ToDate: "",
+        const DATA_API = 'ResultReport/Index';
+        const EXCEL_API = 'ResultReport/ResultExcel?';
+        const SPORT_API = 'ResultReport/GetSports';
+        const KENO_RESULT_API = 'ResultKenoReport/Index';
+        const KENO_RESULT_SESSION_API = 'ResultKenoReport/KeepSession';
+        let ajaxRequest = null;
+        let ajaxFilterRequest = null;
+        let kenoAjaxRequest = null;
+        let kenoIntervalId = 0;
+        let lotteryAjaxRequest = null;
+        let lotteryIntervalId = 0;
+        const param = {
+            FromDate: '',
+            ToDate: '',
             IsOutRight: false,
             IsExportExcel: false,
             SportId: 0,
             LeagueId: 0
         };
 
-        var ACTIVE_CLASS = "active";
+        const ACTIVE_CLASS = 'active';
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
-                DatePicker.initSingleDatePicker("Date");
+                DatePicker.initSingleDatePicker('Date');
                 DatePicker.initDateRangePicker();
                 _me.initEvent();
             },
 
             initEvent: function () {
-                var $submitOutright = $("#submitOutright");
+                const $submitOutright = $('#submitOutright');
 
-                $("#resultContent").on("click", ".detail-link", function () {
-                    var url = Site.resolveClientUrl("ResultReport/ResultDetail")
-                     + "?matchid=" + $(this).attr("data-match-id") + "&SportType=" + param.SportId;
+                $('#resultContent').on('click', '.detail-link', function () {
+                    const url = Site.resolveClientUrl('ResultReport/ResultDetail')
+                     + '?matchid=' + $(this).attr('data-match-id') + '&SportType=' + param.SportId;
 
-                    var popupOption = { id: "result-popup", width: 775, height: 520, title: Site.getSingleResource("Result") };
+                    const popupOption = { id: 'result-popup', width: 775, height: 520, title: Site.getSingleResource('Result') };
                     Popup.openPopupWithIframe(url, popupOption);
                 });
 
                 $submitOutright.click(function () {
                     if (_me.canSubmit(this)) {
                         _me.showOutRight(true);
-                        var startDate = $("#Date").val();
+                        const startDate = $('#Date').val();
                         DatePicker.setValueForDateRange(startDate);
                         _me.submit();
                     }
                 });
 
-                $("#submitNormal").click(function () {
+                $('#submitNormal').click(function () {
                     if (_me.canSubmit(this)) {
                         _me.showOutRight(false);
-                        DatePicker.setValueForSingleDate($("#Date"), $('#FromDate').val());
+                        DatePicker.setValueForSingleDate($('#Date'), $('#FromDate').val());
                         _me.submit();
                     }
                 });
 
-                $("#SubmitButton").click(function () {
+                $('#SubmitButton').click(function () {
                     _me.submit();
                 });
 
-                $("#submitToday").click(function () {
+                $('#submitToday').click(function () {
                     _me.clearExcelExport();
                     _me.clearResult();
-                    var date = $(this).attr("data-date");
-                    var isShowOutright = $submitOutright.attr("data-isoutright") === "1";
+                    const date = $(this).attr('data-date');
+                    const isShowOutright = $submitOutright.attr('data-isoutright') === '1';
                     param.FromDate = date;
                     param.ToDate = date;
                     param.IsExportExcel = false;
@@ -79,11 +79,11 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     _me.getData();
                 });
 
-                $("#submitYesterday").click(function () {
+                $('#submitYesterday').click(function () {
                     _me.clearExcelExport();
                     _me.clearResult();
-                    var date = $(this).attr("data-date");
-                    var isShowOutright = $submitOutright.attr("data-isoutright") === "1";
+                    const date = $(this).attr('data-date');
+                    const isShowOutright = $submitOutright.attr('data-isoutright') === '1';
                     param.FromDate = date;
                     param.ToDate = date;
                     param.IsExportExcel = false;
@@ -95,19 +95,19 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     _me.getData();
                 });
 
-                $("#ExportToExcel").click(function (e) {
+                $('#ExportToExcel').click(function (e) {
                     e.preventDefault();
-                    var isShowOutright = $submitOutright.attr("data-isoutright") === "1";
+                    const isShowOutright = $submitOutright.attr('data-isoutright') === '1';
                     _me.setDateParam(isShowOutright);
 
                     param.IsExportExcel = true;
                     param.IsOutRight = isShowOutright;
-                    param.SportId = $("#ddlSport option").length > 0 ? $("#ddlSport").val() : 0;
-                    param.LeagueId = $("#ddlLeague").val();
+                    param.SportId = $('#ddlSport option').length > 0 ? $('#ddlSport').val() : 0;
+                    param.LeagueId = $('#ddlLeague').val();
                     _me.getData();
                 });
 
-                $("#ddlSport").change(function () {
+                $('#ddlSport').change(function () {
                     _me.clearExcelExport();
                     _me.clearLeagueFilter();
 
@@ -116,29 +116,29 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     _me.getData();
                 });
 
-                $("#ddlLeague").change(function () {
+                $('#ddlLeague').change(function () {
                     _me.clearExcelExport();
                     param.LeagueId = $(this).val();
                     _me.getReportData();
                 });
 
-                $(window).on("resize", function () {
-                    GridHelper.resizeGrid($(".fn-rs-content-scroll"));
+                $(window).on('resize', function () {
+                    GridHelper.resizeGrid($('.fn-rs-content-scroll'));
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
 
-                if ($("#submitKeno").length) {
-                    $("#submitKeno").click(function () {
-                        _me.showKeno($(this).data("vendorproductid"));
+                if ($('#submitKeno').length) {
+                    $('#submitKeno').click(function () {
+                        _me.showKeno($(this).data('vendorproductid'));
                     });
                 }
 
-                if ($("#submitLottery").length) {
-                    $("#submitLottery").click(function () {
-                        _me.showLottery($(this).data("vendorproductid"));
+                if ($('#submitLottery').length) {
+                    $('#submitLottery').click(function () {
+                        _me.showLottery($(this).data('vendorproductid'));
                     });
                 }
             },
@@ -146,7 +146,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             submit: function () {
                 _me.clearExcelExport();
                 _me.clearResult();
-                var isShowOutright = $("#submitOutright").attr("data-isoutright") === "1";
+                const isShowOutright = $('#submitOutright').attr('data-isoutright') === '1';
                 _me.setDateParam(isShowOutright);
 
                 param.IsExportExcel = false;
@@ -157,8 +157,8 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             showKeno: function (vendorProductId) {
-                var option = {
-                    type: "GET",
+                const option = {
+                    type: 'GET',
                     cache: false,
                     data: { vendorProductId: vendorProductId },
                     url: Site.resolveClientUrl(KENO_RESULT_API),
@@ -179,7 +179,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             showLottery: function (vendorProductId) {
-                var option = {
+                const option = {
                     type: "GET",
                     cache: false,
                     data: { vendorProductId: vendorProductId },
@@ -207,8 +207,8 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                 }
 
                 kenoIntervalId = setInterval(function () {
-                    var option = {
-                        type: "POST",
+                    const option = {
+                        type: 'POST',
                         cache: false,
                         data: {
                             userId: userId,
@@ -227,8 +227,8 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                 }
 
                 lotteryIntervalId = setInterval(function () {
-                    var option = {
-                        type: "POST",
+                    const option = {
+                        type: 'POST',
                         cache: false,
                         data: {
                             userId: userId,
@@ -250,22 +250,22 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             exportExcel: function () {
-                var url = Site.resolveClientUrl(EXCEL_API);
-                url += "FromDate=" + param.FromDate;
-                url += "&ToDate=" + param.ToDate;
-                url += "&IsOutRight=" + param.IsOutRight;
-                url += "&SportId=" + param.SportId;
-                url += "&LeagueId=" + param.LeagueId;
-                url += "&IsExportExcel=" + param.IsExportExcel;
+                let url = Site.resolveClientUrl(EXCEL_API);
+                url += 'FromDate=' + param.FromDate;
+                url += '&ToDate=' + param.ToDate;
+                url += '&IsOutRight=' + param.IsOutRight;
+                url += '&SportId=' + param.SportId;
+                url += '&LeagueId=' + param.LeagueId;
+                url += '&IsExportExcel=' + param.IsExportExcel;
 
                 $('#iframeForExportExcel').attr('src', url);
             },
 
             getFilter: function () {
-                var url = Site.resolveClientUrl(SPORT_API);
-                var option = {
-                    type: "POST",
-                    dataType: "json",
+                const url = Site.resolveClientUrl(SPORT_API);
+                const option = {
+                    type: 'POST',
+                    dataType: 'json',
                     data: param,
                     cache: false,
                     url: url,
@@ -274,7 +274,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                         if (response !== null && response.toString().length > 1) {
                             _me.getReportData();
                         } else {
-                            $("#noInfoRow").show();
+                            $('#noInfoRow').show();
                             Site.unBlockUI();
                         }
                     },
@@ -288,22 +288,22 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             getReportData: function () {
-                var url = Site.resolveClientUrl(DATA_API);
-                var option = {
-                    type: "POST",
+                const url = Site.resolveClientUrl(DATA_API);
+                const option = {
+                    type: 'POST',
                     cache: false,
                     data: param,
                     url: url,
                     success: function (response) {
                         if (response !== null && response.length > 0) {
-                            $("#noInfoRow").hide();
-                            $("#resultContent").html(response);
+                            $('#noInfoRow').hide();
+                            $('#resultContent').html(response);
 
-                            if ($(".fn-rs-content-scroll").length > 0) {
-                                GridHelper.resizeGrid($(".fn-rs-content-scroll"));
+                            if ($('.fn-rs-content-scroll').length > 0) {
+                                GridHelper.resizeGrid($('.fn-rs-content-scroll'));
                             }
                         } else {
-                            $("#noInfoRow").show();
+                            $('#noInfoRow').show();
                         }
                     },
                     beforeSend: function () {
@@ -323,20 +323,20 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     _me.renderLeagueFilter(data.Leagues);
                     Site.initSelectElements();
 
-                    $("#sportAndLeagueFilter").css("visibility", "visible");
-                    $("#noInfoRow").hide();
+                    $('#sportAndLeagueFilter').css('visibility', 'visible');
+                    $('#noInfoRow').hide();
                 }
                 else {
-                    $("#sportAndLeagueFilter").css("visibility", "hidden");
+                    $('#sportAndLeagueFilter').css('visibility', 'hidden');
                 }
             },
 
             renderSportFilter: function (sportList) {
                 if (param.SportId === 0 && sportList.length > 0) {
-                    var firstSport = sportList[0].SportId;
+                    const firstSport = sportList[0].SportId;
                     param.SportId = firstSport;
 
-                    var $sport = $("#ddlSport");
+                    const $sport = $('#ddlSport');
                     $.each(sportList, function (index, value) {
                         $sport.append('<option value="' + value.SportId + '">' + value.SportName + '</option>');
                     });
@@ -345,7 +345,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
 
             renderLeagueFilter: function (leagueList) {
                 if (leagueList !== null && leagueList.length > 0) {
-                    var $league = $("#ddlLeague");
+                    const $league = $('#ddlLeague');
                     $.each(leagueList, function (index, value) {
                         $league.append('<option value="' + value.LeagueId + '">' + value.LeagueName + '</option>');
                     });
@@ -355,45 +355,45 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
 
             clearResult: function () {
                 _me.clearLeagueFilter();
-                $("#ddlSport option").remove();
-                $("#resultContent").html("");
-                $("#sportAndLeagueFilter").css("visibility", "hidden");
+                $('#ddlSport option').remove();
+                $('#resultContent').html('');
+                $('#sportAndLeagueFilter').css('visibility', 'hidden');
             },
 
             clearLeagueFilter: function () {
-                var defaultLeague = $('#ddlLeague option[value="0"]').clone();
+                const defaultLeague = $('#ddlLeague option[value="0"]').clone();
                 $('#ddlLeague option').remove();
                 $('#ddlLeague').append(defaultLeague);
             },
 
             clearExcelExport: function () {
                 param.IsExportExcel = false;
-                $('#iframeForExportExcel').attr('src', "");
+                $('#iframeForExportExcel').attr('src', '');
             },
 
             showOutRight: function (isShow) {
                 if (isShow) {
-                    $("#singleDate").hide();
-                    $("#dateRange").show();
-                    $("#submitOutright").addClass(ACTIVE_CLASS);
-                    $("#submitNormal").removeClass(ACTIVE_CLASS);
+                    $('#singleDate').hide();
+                    $('#dateRange').show();
+                    $('#submitOutright').addClass(ACTIVE_CLASS);
+                    $('#submitNormal').removeClass(ACTIVE_CLASS);
                 } else {
-                    $("#dateRange").hide();
-                    $("#singleDate").show();
-                    $("#submitOutright").removeClass(ACTIVE_CLASS);
-                    $("#submitNormal").addClass(ACTIVE_CLASS);
+                    $('#dateRange').hide();
+                    $('#singleDate').show();
+                    $('#submitOutright').removeClass(ACTIVE_CLASS);
+                    $('#submitNormal').addClass(ACTIVE_CLASS);
                 }
-                $("#submitOutright").attr("data-isOutright", isShow ? "1" : "0");
+                $('#submitOutright').attr('data-isOutright', isShow ? '1' : '0');
             },
 
             setDateParam: function (isShowOutright) {
                 if (isShowOutright) {
-                    param.FromDate = $("#FromDate").val();
-                    param.ToDate = $("#ToDate").val();
+                    param.FromDate = $('#FromDate').val();
+                    param.ToDate = $('#ToDate').val();
                 }
                 else {
-                    param.FromDate = $("#Date").val();
-                    param.ToDate = $("#Date").val();
+                    param.FromDate = $('#Date').val();
+                    param.ToDate = $('#Date').val();
                 }
             },
 
@@ -402,7 +402,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     DatePicker.setValueForDateRange(param.FromDate, param.ToDate);
                 }
                 else {
-                    DatePicker.setValueForSingleDate($("#Date"), param.FromDate);
+                    DatePicker.setValueForSingleDate($('#Date'), param.FromDate);
                 }
             },
 

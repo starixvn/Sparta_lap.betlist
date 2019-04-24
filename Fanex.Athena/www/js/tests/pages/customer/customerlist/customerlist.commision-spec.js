@@ -426,7 +426,7 @@
 
                     expect(CustomerListGrid.updateGridGroupAndComm).toHaveBeenCalledWith(
                         1,
-                        "<span title='This name is more than 17 characters'>This name is m...</span>",
+                        '<span title="This name is more than 17 characters">This name is m...</span>',
                         extendedData.GroupColor,
                         extendedData.SBComm,
                         extendedData.NGComm,
