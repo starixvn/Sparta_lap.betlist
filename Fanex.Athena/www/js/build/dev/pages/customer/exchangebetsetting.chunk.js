@@ -1395,17 +1395,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         return /^\+?\d+$/.test(text);
     }
 
-    var _me = {
+    const _me = {
         showDialogMesage: function (title, message) {
-            var options = {
+            const options = {
                 title: title,
-                height: "auto",
-                id: "result-update-betsetting",
+                height: 'auto',
+                id: 'result-update-betsetting',
                 onOpen: function () {
                     $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
                 },
                 onClose: function () {
-                    $("#result-update-betsetting").remove();
+                    $('#result-update-betsetting').remove();
                     $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
                     setTimeout(function () {
                         Site.blockUI();
@@ -1415,19 +1415,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 width: 450
             };
 
-            var buttons = [
+            const buttons = [
                 {
-                    text: Site.getSingleResource("OK"),
+                    text: Site.getSingleResource('OK'),
                     isClosedOnClick: true,
-                    classes: "btn btn-submit"
+                    classes: 'btn btn-submit'
                 }];
 
             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
         },
 
         convertToFloat: function (str) {
-            var temp = str.replace(/,/g, "");
-            var temp2 = temp.replace(".", "");
+            const temp = str.replace(/,/g, '');
+            const temp2 = temp.replace('.', '');
 
             if (isInteger(temp2)) {
                 return parseFloat(temp);
@@ -1438,7 +1438,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         showBalloonMsg: function (elementSelector, strMsg) {
-            var contents = '<div onclick="hideBalloonMsg(\'' + elementSelector + '\')" style="width:140px;" class="msgerr">' + strMsg + '</div>';
+            const contents = '<div onclick="hideBalloonMsg(\'' + elementSelector + '\')" style="width:140px;" class="msgerr">' + strMsg + '</div>';
 
             $(elementSelector).blur(function () { _me.hideBalloonMsg(elementSelector); })
                               .focus()
@@ -1467,30 +1467,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
-    var _me = {
+    const _me = {
         update: function (url, postData) {
             $.ajax({
                 type: 'POST',
                 url: url,
                 cache: false,
                 data: postData,
-                dataType: "json",
+                dataType: 'json',
                 success: function (result) {
-                    var messageResource = result.IsSuccessful ? "MessageSuccess" : "Fail";
+                    const messageResource = result.IsSuccessful ? 'MessageSuccess' : 'Fail';
                     BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
                 },
                 error: function (request, status, err) {
-                    BetSettingHelper.showDialogMesage(Site.getSingleResource("Error"), err);
+                    BetSettingHelper.showDialogMesage(Site.getSingleResource('Error'), err);
                 }
             });
         },
 
         getCommonPostData: function ($context) {
-            var productId = parseInt($("#ProductId").val(), 10);
-            var nickName = $context.data("nick-name");
+            const productId = parseInt($('#ProductId').val(), 10);
+            const nickName = $context.data('nick-name');
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
-            var status = $context.data("status");
-            var custId = $context.data("cust-id");
+            const status = $context.data('status');
+            const custId = $context.data('cust-id');
 
             return {
                 productId: productId,
@@ -1517,17 +1517,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
-    var SPORTID_NUMBERGAME = 161;
+    const SPORTID_NUMBERGAME = 161;
 
-    var _me = {
+    const _me = {
         checkValidationNumberGame: function () {
             if (!_me.checkLimitMinMaxBet(SPORTID_NUMBERGAME)) {
                 return false;
             }
 
-            var maxPerBallSelector = "#max-per-ball-161";
-            var maxPerBall = BetSettingHelper.convertToFloat($(maxPerBallSelector).val());
-            var maxPerBallLimit = BetSettingHelper.convertToFloat($(maxPerBallSelector).attr('data-max-value'));
+            const maxPerBallSelector = '#max-per-ball-161';
+            const maxPerBall = BetSettingHelper.convertToFloat($(maxPerBallSelector).val());
+            const maxPerBallLimit = BetSettingHelper.convertToFloat($(maxPerBallSelector).attr('data-max-value'));
 
             if (isNaN(maxPerBall)) {
                 BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('IncorrectMaxPerBall'));
@@ -1535,7 +1535,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             }
 
             if (maxPerBallLimit > 0 && maxPerBall > maxPerBallLimit) {
-                BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('MaxPerBallLessThanOrEqual') + " " + maxPerBallLimit);
+                BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('MaxPerBallLessThanOrEqual') + ' ' + maxPerBallLimit);
                 return false;
             }
 
@@ -1543,13 +1543,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         checkLimitMinMaxBet: function (sportId) {
-            var minBetId = "#min-bet-" + sportId;
-            var maxBetId = "#max-bet-" + sportId;
-            var maxPerMatchId = "#max-per-match-" + sportId;
+            const minBetId = '#min-bet-' + sportId;
+            const maxBetId = '#max-bet-' + sportId;
+            const maxPerMatchId = '#max-per-match-' + sportId;
 
-            var $minBetTextBox = $(minBetId);
-            var $maxBetTextBox = $(maxBetId);
-            var $maxPerMatchTextBox = $(maxPerMatchId);
+            const $minBetTextBox = $(minBetId);
+            const $maxBetTextBox = $(maxBetId);
+            const $maxPerMatchTextBox = $(maxPerMatchId);
             if ($minBetTextBox.length === 0 ||
                 $maxBetTextBox.length === 0 ||
                 $maxPerMatchTextBox.length === 0) {
@@ -1557,14 +1557,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             }
 
             // Get value in attribute
-            var limitMinBet = BetSettingHelper.convertToFloat($minBetTextBox.attr('data-min-value'));
-            var limitMaxBet = BetSettingHelper.convertToFloat($maxBetTextBox.attr('data-max-value'));
-            var limitMaxPerMatch = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-max-value'));
-            var limitMaxPerMatchMin = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-min-value'));
+            const limitMinBet = BetSettingHelper.convertToFloat($minBetTextBox.attr('data-min-value'));
+            const limitMaxBet = BetSettingHelper.convertToFloat($maxBetTextBox.attr('data-max-value'));
+            const limitMaxPerMatch = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-max-value'));
+            const limitMaxPerMatchMin = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-min-value'));
 
-            var minBet = BetSettingHelper.convertToFloat($minBetTextBox.val());
-            var maxBet = BetSettingHelper.convertToFloat($maxBetTextBox.val());
-            var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatchTextBox.val());
+            const minBet = BetSettingHelper.convertToFloat($minBetTextBox.val());
+            const maxBet = BetSettingHelper.convertToFloat($maxBetTextBox.val());
+            const maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatchTextBox.val());
 
             // Check if minbet, maxbet, maxpermatch is valid number
             if (isNaN(minBet)) {
@@ -1585,19 +1585,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             // Check contrains
             // min bet <=maxbet <= max per match
             if (limitMinBet > 0 && minBet < BetSettingHelper.convertToFloat(limitMinBet.toString())) {
-                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('MinBetGreaterThanOrEqual') + " " + limitMinBet);
+                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('MinBetGreaterThanOrEqual') + ' ' + limitMinBet);
                 return false;
             }
             if (limitMaxBet > 0 && maxBet > BetSettingHelper.convertToFloat(limitMaxBet.toString())) {
-                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('MaxBetLessThanOrEqual') + " " + limitMaxBet);
+                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('MaxBetLessThanOrEqual') + ' ' + limitMaxBet);
                 return false;
             }
             if (limitMaxPerMatchMin > 0 && maxPerMatcth < BetSettingHelper.convertToFloat(limitMaxPerMatchMin.toString())) {
-                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchMoreThanOrEqual') + " " + limitMaxPerMatchMin);
+                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchMoreThanOrEqual') + ' ' + limitMaxPerMatchMin);
                 return false;
             }
             if (limitMaxPerMatch > 0 && maxPerMatcth > BetSettingHelper.convertToFloat(limitMaxPerMatch.toString())) {
-                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchLessThanOrEqual') + " " + limitMaxPerMatch);
+                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchLessThanOrEqual') + ' ' + limitMaxPerMatch);
                 return false;
             }
             if (minBet > maxBet) {
@@ -1613,7 +1613,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         checkLimitMinMaxBets: function (sportIds) {
-            for (var i = 0; i < sportIds.length; i++) {
+            for (let i = 0; i < sportIds.length; i++) {
                 if (!_me.checkLimitMinMaxBet(sportIds[i])) {
                     return false;
                 }
@@ -1639,43 +1639,43 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! ./constant */ "./www/js/source/pages/customer/betsetting/common/constant.js"), __webpack_require__(/*! lib/numberformat */ "./www/js/source/lib/numberformat.js"), __webpack_require__(/*! ./betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js"), __webpack_require__(/*! ./betsetting.validation */ "./www/js/source/pages/customer/betsetting/common/betsetting.validation.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
-        var Product = Constant.Product;
+        const Product = Constant.Product;
 
-        var _me = {
+        const _me = {
             initialize: function () {
-                $("#product-dropdown").on('change', function () {
-                    var url = $(this).find("option:selected").data("href");
+                $('#product-dropdown').on('change', function () {
+                    const url = $(this).find('option:selected').data('href');
                     Site.blockUI();
                     Site.redirect(url);
                 });
             },
 
             getSportIds: function () {
-                var $idList = $("#IDList");
-                return $idList.length ? $idList.val().split(",") : [];
+                const $idList = $('#IDList');
+                return $idList.length ? $idList.val().split(',') : [];
             },
 
             setEnable: function () {
-                var editable = $("#editable").val();
-                var isEnable = !editable || editable === "True";
+                const editable = $('#editable').val();
+                const isEnable = !editable || editable === 'True';
 
                 if (!isEnable) {
-                    var sportIds = _me.getSportIds();
+                    const sportIds = _me.getSportIds();
 
-                    for (var i = 0; i < sportIds.length; i++) {
-                        var sportId = sportIds[i];
-                        var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
-                        $(selector).prop("disabled", true);
+                    for (let i = 0; i < sportIds.length; i++) {
+                        const sportId = sportIds[i];
+                        const selector = '#min-bet-' + sportId + ',' + '#max-bet-' + sportId + ',' + '#max-per-match-' + sportId;
+                        $(selector).prop('disabled', true);
                     }
                 }
             },
 
             formatInputText: function () {
-                var formatter = new NumberFormatter();
+                const formatter = new NumberFormatter();
 
-                $("input[type=text]").blur(function () {
-                    var inputValue = $(this).val().replace(/,/g, "");
-                    var formattedValue = formatter.formatNumber(inputValue, { format: "#,###,##0.##" });
+                $('input[type=text]').blur(function () {
+                    const inputValue = $(this).val().replace(/,/g, '');
+                    const formattedValue = formatter.formatNumber(inputValue, { format: '#,###,##0.##' });
                     $(this).val(formattedValue);
                 });
             },
@@ -1688,57 +1688,57 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             showComfirm: function ($target, resourceMessage, callback) {
-                var productId = parseInt($("#ProductId").val(), 10);
-                var isValid = productId === Product.LiveCasino ? true :
+                const productId = parseInt($('#ProductId').val(), 10);
+                const isValid = productId === Product.LiveCasino ? true :
                              productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
                                                                 BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds());
                 if (!isValid) {
                     return;
                 }
 
-                var custId = $target.attr("data-cust-id");
-                var userName = $target.attr("data-user-name");
-                var nickName = $target.attr("data-nick-name");
+                const custId = $target.attr('data-cust-id');
+                const userName = $target.attr('data-user-name');
+                const nickName = $target.attr('data-nick-name');
 
                 _me.showConfirmAction(Site.getSingleResource(resourceMessage), custId, userName, nickName, callback);
             },
 
             showConfirmAction: function (message, custId, userName, nickName, callback) {
-                var options = {
-                    title: Site.getSingleResource("Confirmation"),
-                    height: "auto",
-                    id: "confirm-update-betsetting",
+                const options = {
+                    title: Site.getSingleResource('Confirmation'),
+                    height: 'auto',
+                    id: 'confirm-update-betsetting',
                     onOpen: function () {
                         $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
                     },
                     onClose: function () {
                         $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
-                        $("#confirm-update-betsetting").remove();
+                        $('#confirm-update-betsetting').remove();
                     },
                     width: 450
                 };
 
-                var buttons = [
+                const buttons = [
                     {
-                        text: Site.getSingleResource("OK"),
+                        text: Site.getSingleResource('OK'),
                         isClosedOnClick: true,
                         click: function () {
                             callback(custId, userName, nickName);
                         },
-                        classes: "btn btn-submit"
+                        classes: 'btn btn-submit'
                     }, {
-                        text: Site.getSingleResource("Cancel"),
+                        text: Site.getSingleResource('Cancel'),
                         isClosedOnClick: true,
-                        classes: "btn btn-cancel"
+                        classes: 'btn btn-cancel'
                     }];
 
                 Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
             },
 
             getBetSettingParamsForSports: function () {
-                var params = {};
-                var sportIds = _me.getSportIds();
-                for (var i = 0; i < sportIds.length; i++) {
+                const params = {};
+                const sportIds = _me.getSportIds();
+                for (let i = 0; i < sportIds.length; i++) {
                     $.extend(params, _me.getBetSettingParams(sportIds[i]));
                 }
 
@@ -1746,20 +1746,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             getBetSettingParams: function (sportId) {
-                var $minbet = $("#min-bet-" + sportId);
-                var $maxbet = $("#max-bet-" + sportId);
-                var $maxPerMatch = $("#max-per-match-" + sportId);
+                const $minbet = $('#min-bet-' + sportId);
+                const $maxbet = $('#max-bet-' + sportId);
+                const $maxPerMatch = $('#max-per-match-' + sportId);
 
                 if ($minbet.length === 0 ||
                     $maxbet.length === 0 ||
                     $maxPerMatch.length === 0) {
-                    return "";
+                    return '';
                 }
 
-                var isUpdate = true;
-                var originalMinBet = $('#min-bet-' + sportId).attr('data-original');
-                var originalMaxBet = $('#max-bet-' + sportId).attr('data-original');
-                var originalMaxPerMatch = $('#max-per-match-' + sportId).attr('data-original');
+                let isUpdate = true;
+                const originalMinBet = $('#min-bet-' + sportId).attr('data-original');
+                const originalMaxBet = $('#max-bet-' + sportId).attr('data-original');
+                const originalMaxPerMatch = $('#max-per-match-' + sportId).attr('data-original');
 
                 // Check if data is changed
                 if ($minbet.val() === originalMinBet
@@ -1769,17 +1769,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
 
                 // Data is changed, update it
-                var minBet = BetSettingHelper.convertToFloat($minbet.val());
-                var maxBet = BetSettingHelper.convertToFloat($maxbet.val());
-                var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
-                var betType = $("#bet-type-" + sportId).val();
+                const minBet = BetSettingHelper.convertToFloat($minbet.val());
+                const maxBet = BetSettingHelper.convertToFloat($maxbet.val());
+                const maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
+                const betType = $('#bet-type-' + sportId).val();
 
-                var result = {};
-                result["minbet" + sportId] = minBet;
-                result["maxbet" + sportId] = maxBet;
-                result["maxpermatch" + sportId] = maxPerMatcth;
-                result["update" + sportId] = isUpdate;
-                result["bettype" + sportId] = betType;
+                const result = {};
+                result['minbet' + sportId] = minBet;
+                result['maxbet' + sportId] = maxBet;
+                result['maxpermatch' + sportId] = maxPerMatcth;
+                result['update' + sportId] = isUpdate;
+                result['bettype' + sportId] = betType;
 
                 return result;
             },
@@ -1790,9 +1790,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     cache: false,
                     url: url,
                     data: params,
-                    dataType: "json",
+                    dataType: 'json',
                     success: function (result) {
-                        var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
+                        const messageResource = Number(result.Code) === 0 ? 'MessageSuccess' : 'Fail';
                         BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
                     }
                 });
@@ -1815,7 +1815,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-    var Product = {
+    const Product = {
         Sportsbook: 0,
         Racing: 1,
         NumberGame: 2,
@@ -1836,7 +1836,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         Lottery: 28
     };
 
-    var _me = {
+    const _me = {
         Product: Product
     };
 
@@ -1874,19 +1874,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, VoidBridge, FishingWorld */
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ../common/constant */ "./www/js/source/pages/customer/betsetting/common/constant.js"),__webpack_require__(/*! ../common/betsettingbase */ "./www/js/source/pages/customer/betsetting/common/betsettingbase.js"), __webpack_require__(/*! ../common/betsetting.status */ "./www/js/source/pages/customer/betsetting/common/betsetting.status.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
-        var Product = Constant.Product;
-        var ProductCodeMap = {};
-        ProductCodeMap[Product.VirtualSports] = "VS";
-        ProductCodeMap[Product.VirtualSports2] = "VS2";
-        ProductCodeMap[Product.Lottery] = "LT";
+        const Product = Constant.Product;
+        const ProductCodeMap = {};
+        ProductCodeMap[Product.VirtualSports] = 'VS';
+        ProductCodeMap[Product.VirtualSports2] = 'VS2';
+        ProductCodeMap[Product.Lottery] = 'LT';
 
         function getConfirmMessage(productId) {
-            var productNameResource = "Product" + ProductCodeMap[productId];
-            var message = Site.getSingleResource("UpdateProductBetSettings");
-            return message.replace("{0}", Site.getSingleResource(productNameResource));
+            const productNameResource = 'Product' + ProductCodeMap[productId];
+            const message = Site.getSingleResource('UpdateProductBetSettings');
+            return message.replace('{0}', Site.getSingleResource(productNameResource));
         }
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
                 BetSettingBase.initialize();
@@ -1896,17 +1896,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, Vo
             },
 
             initEvent: function () {
-                $("#btnUpdateStatus").click(function () {
+                $('#btnUpdateStatus').click(function () {
                     _me.updateStatus($(this));
                 });
 
-                $("#btnReset").on("click", function () {
+                $('#btnReset').on('click', function () {
                     BetSettingBase.resetInput();
                 });
 
-                $("#btnSubmitBetSetting").on("click", function () {
-                    var productId = parseInt($("#ProductId").val(), 10);
-                    var messageResource = getConfirmMessage(productId);
+                $('#btnSubmitBetSetting').on('click', function () {
+                    const productId = parseInt($('#ProductId').val(), 10);
+                    const messageResource = getConfirmMessage(productId);
 
                     BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
                 });
@@ -1915,29 +1915,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, Vo
                 BetSettingBase.formatInputText();
             },
             checkToDisableInput: function () {
-                var enabled = $("#IsEnabled").val() !== "0";
+                const enabled = $('#IsEnabled').val() !== '0';
 
                 if (!enabled) {
-                    $(".table-content input[type=text]").prop('disabled', true).addClass("disabled");
-                    $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
+                    $('.table-content input[type=text]').prop('disabled', true).addClass('disabled');
+                    $('#btnSubmitBetSetting, #btnReset').prop('disabled', true).addClass('disabled');
                 }
             },
             updateStatus: function ($context) {
-                var url = Site.resolveClientUrl("DcsBetSetting/UpdateStatus");
-                var params = BetSettingStatus.getCommonPostData($context);
+                const url = Site.resolveClientUrl('DcsBetSetting/UpdateStatus');
+                const params = BetSettingStatus.getCommonPostData($context);
                 BetSettingStatus.update(url, params);
             },
 
             updateBetSetting: function (custId, userName, nickName) {
-                var productId = parseInt($("#ProductId").val(), 10);
+                const productId = parseInt($('#ProductId').val(), 10);
                 
-                var params = BetSettingBase.getBetSettingParamsForSports();
+                const params = BetSettingBase.getBetSettingParamsForSports();
                 params.custid = custId;
                 params.userName = userName;
                 params.nickName = nickName;
                 params.productId = productId;
 
-                BetSettingBase.updateBetSetting(Site.resolveClientUrl("DcsBetSetting/UpdateBetSetting"), params);
+                BetSettingBase.updateBetSetting(Site.resolveClientUrl('DcsBetSetting/UpdateBetSetting'), params);
             }
         };
 
@@ -1957,21 +1957,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, Vo
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./dcsbetsetting */ "./www/js/source/pages/customer/betsetting/products/dcsbetsetting.js"), __webpack_require__(/*! ../common/betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, DcsBetSetting, BetSettingHelper) {
-       var _me = {
+       const _me = {
         initialize: function () {
             DcsBetSetting.initialize();
             _me.initEvent();
         },
 
         initEvent: function () {
-            $("#btnSubmit").click(function () {
-                var $dropdown = $("#ddlCommission");
-                _me.updateComm($(this).attr("data-cust-id"), $dropdown.data("original-value"), $("#ddlCommission").val());
+            $('#btnSubmit').click(function () {
+                const $dropdown = $('#ddlCommission');
+                _me.updateComm($(this).attr('data-cust-id'), $dropdown.data('original-value'), $('#ddlCommission').val());
             });
 
-            $("#btnReset").click(function () {
-                var $dropdown = $("#ddlCommission");
-                $dropdown.val($dropdown.data("original-value")).change();
+            $('#btnReset').click(function () {
+                const $dropdown = $('#ddlCommission');
+                $dropdown.val($dropdown.data('original-value')).change();
             });
         },
 
@@ -1985,9 +1985,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     oldCommission: oldCommission,
                     newCommission: newCommission
                 },
-                dataType: "json",
+                dataType: 'json',
                 success: function (result) {
-                    var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
+                    const messageResource = Number(result.Code) === 0 ? 'MessageSuccess' : 'Fail';
                     BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
                 },
                 beforeSend: Site.blockUI,
