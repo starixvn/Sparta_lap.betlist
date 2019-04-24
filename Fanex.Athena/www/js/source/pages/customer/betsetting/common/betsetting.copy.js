@@ -1,9 +1,9 @@
-﻿"use strict";
-define(["jquery", "./betsetting.validation"], function ($, BetSettingValidation) {
+﻿'use strict';
+define(['jquery', './betsetting.validation'], function ($, BetSettingValidation) {
     
-    var _me = {
+    const _me = {
         checkCopyAllValues: function ($checkbox) {
-            var enabled = $checkbox.prop("checked");
+            const enabled = $checkbox.prop('checked');
 
             _me.setCopyValueBetSetting($('input[id^="min"]'), enabled);
             _me.setCopyValueBetSetting($('input[id^="max-bet"]'), enabled);
@@ -11,14 +11,14 @@ define(["jquery", "./betsetting.validation"], function ($, BetSettingValidation)
         },
 
         setCopyValueBetSetting: function ($inputTextList, enabled) {
-            var copyValue = $inputTextList.first().val();
+            const copyValue = $inputTextList.first().val();
 
             // Enable or disable textbox, except the first one
             $inputTextList.not(':eq(0)').each(function () {
                 $(this).prop('disabled', enabled);
             });
 
-            var firstSportsbookSportId = 1;
+            const firstSportsbookSportId = 1;
             if (!BetSettingValidation.checkLimitMinMaxBet(firstSportsbookSportId)) {
                 return false;
             }

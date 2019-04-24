@@ -1,6 +1,6 @@
-﻿"use strict";
+﻿'use strict';
 define([], function () {
-    var Product = {
+    const Product = {
         Sportsbook: 0,
         Racing: 1,
         NumberGame: 2,
@@ -21,7 +21,7 @@ define([], function () {
         Lottery: 28
     };
 
-    var _me = {
+    const _me = {
         Product: Product
     };
 

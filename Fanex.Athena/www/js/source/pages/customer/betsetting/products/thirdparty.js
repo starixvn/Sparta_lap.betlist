@@ -1,18 +1,18 @@
-﻿"use strict";
-define(["jquery", "common/site", "../common/constant", "../common/betsettingbase", "../common/betsetting.status"],
+﻿'use strict';
+define(['jquery', 'common/site', '../common/constant', '../common/betsettingbase', '../common/betsetting.status'],
     function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
-        var Product = Constant.Product;
-        var CHECKBOX_SELECTOR = "#enable-product";
-        var PRODUCT_CONTAIN_CHECKBOX = [Product.BetTrade, Product.Cashout];
+        const Product = Constant.Product;
+        const CHECKBOX_SELECTOR = '#enable-product';
+        const PRODUCT_CONTAIN_CHECKBOX = [Product.BetTrade, Product.Cashout];
 
-        var ProductUpdateStatusUrlMap = {};
-        ProductUpdateStatusUrlMap[Product.Macau] = "ThirdPartyBetSetting/UpdateMacauStatus";
-        ProductUpdateStatusUrlMap[Product.Colossusbets] = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
-        ProductUpdateStatusUrlMap[Product.BetTrade] = "ThirdPartyBetSetting/UpdateBetTradeStatus";
-        ProductUpdateStatusUrlMap[Product.Cashout] = "ThirdPartyBetSetting/UpdateCashOutStatus";
-        ProductUpdateStatusUrlMap[Product.GoldDeluxe] = "ThirdPartyBetSetting/UpdateGoldDeluxeStatus";
+        const ProductUpdateStatusUrlMap = {};
+        ProductUpdateStatusUrlMap[Product.Macau] = 'ThirdPartyBetSetting/UpdateMacauStatus';
+        ProductUpdateStatusUrlMap[Product.Colossusbets] = 'ThirdPartyBetSetting/UpdateColossusBetsStatus';
+        ProductUpdateStatusUrlMap[Product.BetTrade] = 'ThirdPartyBetSetting/UpdateBetTradeStatus';
+        ProductUpdateStatusUrlMap[Product.Cashout] = 'ThirdPartyBetSetting/UpdateCashOutStatus';
+        ProductUpdateStatusUrlMap[Product.GoldDeluxe] = 'ThirdPartyBetSetting/UpdateGoldDeluxeStatus';
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
                 BetSettingBase.initialize();
@@ -20,26 +20,26 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
             },
 
             initEvent: function () {
-                $("#btnUpdateStatus").click(function () {
+                $('#btnUpdateStatus').click(function () {
                     _me.updateStatus($(this));
                 });
 
-                $("#btnReset").on("click", _me.reset);
+                $('#btnReset').on('click', _me.reset);
             },
 
             reset: function () {
-                var $checkbox = $(CHECKBOX_SELECTOR);
-                $checkbox.prop("checked", $checkbox.data("original") === 1);
+                const $checkbox = $(CHECKBOX_SELECTOR);
+                $checkbox.prop('checked', $checkbox.data('original') === 1);
             },
 
             updateStatus: function ($context) {
-                var productId = parseInt($("#ProductId").val(), 10);
-                var url = ProductUpdateStatusUrlMap[productId];
+                const productId = parseInt($('#ProductId').val(), 10);
+                const url = ProductUpdateStatusUrlMap[productId];
                 if (!url) {
-                    throw "Invalid product id: " + productId;
+                    throw 'Invalid product id: ' + productId;
                 }
                 
-                var params = BetSettingStatus.getCommonPostData($context);
+                const params = BetSettingStatus.getCommonPostData($context);
 
                 if (PRODUCT_CONTAIN_CHECKBOX.indexOf(productId) > -1) {
                     params.status = _me.getStatus();
@@ -49,7 +49,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
             },
 
             getStatus: function () {
-                return $(CHECKBOX_SELECTOR).is(":checked") ? 1 : 0;
+                return $(CHECKBOX_SELECTOR).is(':checked') ? 1 : 0;
             }
         };
 
