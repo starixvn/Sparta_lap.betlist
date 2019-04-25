@@ -1,17 +1,17 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', 'lib/jquery.cookie', 'vendor-materialize'],
     function ($, Site, QueryString) {
-    "use strict";
+    'use strict';
 
-    var curCountDown = 0;
-    var countDownTimer = null;
-    var cookieName = null;
-    var countDownId = null;
-    var defaultCountDown = 0;
+    let curCountDown = 0;
+    let countDownTimer = null;
+    let cookieName = null;
+    let countDownId = null;
+    let defaultCountDown = 0;
 
-    var _me = {
+    const _me = {
         initialize: function () {
             $('.menu-item').on('click', function () {
-                var selectedCountDown = parseInt($(this).attr('data-count-down'), 10);
+                const selectedCountDown = parseInt($(this).attr('data-count-down'), 10);
                 _me.setCountDown(selectedCountDown, true);
             });
 
@@ -19,16 +19,16 @@
                 _me.refresh();
             });
 
-            var $hiddenCountdown = $('#count-down-of');
+            const $hiddenCountdown = $('#count-down-of');
             countDownId = $hiddenCountdown.attr('name');
 
             // Get default count down
             defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'), 10);
         },
         initEvent: function () {
-            cookieName = "RefeshCountDown" + countDownId;
+            cookieName = 'RefeshCountDown' + countDownId;
             //read countdown from cookie
-            var countDownFromCookie = $.cookie(cookieName);
+            const countDownFromCookie = $.cookie(cookieName);
             if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
                 _me.setCountDown(countDownFromCookie, false);
             } else {
@@ -36,7 +36,7 @@
             }
         },
         setCountDown: function (countDown, isSetToCookie) {
-            var countDownInt = parseInt(countDown, 10);
+            const countDownInt = parseInt(countDown, 10);
             if (isSetToCookie) {
                 $.cookie(cookieName, countDownInt);
             }
@@ -45,7 +45,7 @@
             _me.tick();
         },
         setMenuStatus: function () {
-            var index = curCountDown;
+            const index = curCountDown;
             $('#countdown-menu .menu-item').removeClass('menu-selected');
             $('#option-' + index).addClass('menu-selected');
         },
@@ -61,18 +61,18 @@
             }
         },
         refresh: function () {
-            var oldScrollTop;
-            if ($(".body-content").length) {
-                oldScrollTop = $(".body-content").scrollTop();
+            let oldScrollTop;
+            if ($('.body-content').length) {
+                oldScrollTop = $('.body-content').scrollTop();
             }
 
             if (countDownTimer !== null) {
                 clearTimeout(countDownTimer);
             }
-            document.getElementById('count').innerHTML = "...";
+            document.getElementById('count').innerHTML = '...';
 
             // Get param before load data
-            var url = _me.calculateUrl();
+            const url = _me.calculateUrl();
 
             Site.blockUI();
             $('#reportContent').load(url, {
@@ -87,34 +87,34 @@
                 $(window).resize();
 
                 // Scrollbar still kept current position
-                if ($(".body-content").length) {
-                    $(".body-content").scrollTop(oldScrollTop);
+                if ($('.body-content').length) {
+                    $('.body-content').scrollTop(oldScrollTop);
                 }
             });
 
             return true;
         },
         calculateUrl: function () {
-            var leagueId = $('#LeagueId').val();
-            var matchId = $('#MatchId').val();
-            var betType = $("#BetType").val();
-            var currentScore = $("#CurrentScore").val();
-            var isShowFt = $("#IsShowFt").val();
-            var isShowFh = $("#IsShowFh").val();
-            var homeName = $("#HomeTeamId").val();
-            var awayName = $("#AwayTeamId").val();
+            const leagueId = $('#LeagueId').val();
+            const matchId = $('#MatchId').val();
+            const betType = $('#BetType').val();
+            const currentScore = $('#CurrentScore').val();
+            const isShowFt = $('#IsShowFt').val();
+            const isShowFh = $('#IsShowFh').val();
+            const homeName = $('#HomeTeamId').val();
+            const awayName = $('#AwayTeamId').val();
 
-            var url = Site.getCurrentUrl();
+            let url = Site.getCurrentUrl();
             url = Site.setLicenseeOptionOriginalParam(url);
-            url = QueryString.setParam(url, "LeagueId", leagueId);
-            url = QueryString.setParam(url, "MatchId", matchId);
-            url = QueryString.setParam(url, "BetType", betType);
-            url = QueryString.setParam(url, "CurrentScore", currentScore);
-            url = QueryString.setParam(url, "IsShowFt", isShowFt);
-            url = QueryString.setParam(url, "IsShowFh", isShowFh);
+            url = QueryString.setParam(url, 'LeagueId', leagueId);
+            url = QueryString.setParam(url, 'MatchId', matchId);
+            url = QueryString.setParam(url, 'BetType', betType);
+            url = QueryString.setParam(url, 'CurrentScore', currentScore);
+            url = QueryString.setParam(url, 'IsShowFt', isShowFt);
+            url = QueryString.setParam(url, 'IsShowFh', isShowFh);
 
-            url = QueryString.setParam(url, "HomeTeamId", homeName);
-            url = QueryString.setParam(url, "AwayTeamId", awayName);
+            url = QueryString.setParam(url, 'HomeTeamId', homeName);
+            url = QueryString.setParam(url, 'AwayTeamId', awayName);
             
             return encodeURI(url);
         }

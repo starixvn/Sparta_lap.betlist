@@ -2,37 +2,37 @@
 
 'use strict';
 
-define(["jquery"], function ($) {
+define(['jquery'], function ($) {
     function activeMenuItem($target) {
         /*jshint validthis: true*/
         $(this).find('.collapsible-body li.active').removeClass('active');
         $target.closest('li').addClass('active');
-        var $groupHeader = $target.closest('.menu-item').find('.collapsible-header');
+        const $groupHeader = $target.closest('.menu-item').find('.collapsible-header');
         if ($groupHeader.hasClass('active') === false) {
-            $groupHeader.trigger("click");
+            $groupHeader.trigger('click');
         }
     }
 
     function init(inputOptions) {
         /*jshint validthis: true*/
 
-        var defaults = {
+        const defaults = {
             accordion: undefined
         };
 
-        var options = $.extend(defaults, inputOptions);
-        var touch = 'ontouchstart' in window || navigator.maxTouchPoints;
+        const options = $.extend(defaults, inputOptions);
+        const touch = 'ontouchstart' in window || navigator.maxTouchPoints;
 
         return this.each(function () {
-            var $this = $(this);
+            const $this = $(this);
 
             if (!$this.parent().hasClass('site-menu')) {
                 return;
             }
 
-            var $panel_headers = $this.find('> li > .collapsible-header');
+            const $panel_headers = $this.find('> li > .collapsible-header');
 
-            var collapsible_type = $this.data("collapsible");
+            const collapsible_type = $this.data('collapsible');
 
             // Turn off any existing event handlers
             $this.off('click.collapse2', '> li > .collapsible-header');
@@ -54,7 +54,7 @@ define(["jquery"], function ($) {
                         .stop(true, false)
                         .slideDown({
                             duration: 350,
-                            easing: "easeOutQuart",
+                            easing: 'easeOutQuart',
                             queue: false,
                             complete: function() {
                                 $(this).css('height', '');
@@ -65,7 +65,7 @@ define(["jquery"], function ($) {
                         .stop(true, false)
                         .slideUp({
                             duration: 350,
-                            easing: "easeOutQuart",
+                            easing: 'easeOutQuart',
                             queue: false,
                             complete: function() {
                                 $(this).css('height', '');
@@ -76,7 +76,7 @@ define(["jquery"], function ($) {
                 $panel_headers.not(object).removeClass('active').parent().removeClass('active');
                 $panel_headers.not(object).parent().children('.collapsible-body').stop(true, false).slideUp({
                     duration: 350,
-                    easing: "easeOutQuart",
+                    easing: 'easeOutQuart',
                     queue: false,
                     complete: function() {
                         $(this).css('height', '');
@@ -96,7 +96,7 @@ define(["jquery"], function ($) {
                         .stop(true, false)
                         .slideDown({
                             duration: 350,
-                            easing: "easeOutQuart",
+                            easing: 'easeOutQuart',
                             queue: false,
                             complete: function() {
                                 $(this).css('height', '');
@@ -107,7 +107,7 @@ define(["jquery"], function ($) {
                         .stop(true, false)
                         .slideUp({
                             duration: 350,
-                            easing: "easeOutQuart",
+                            easing: 'easeOutQuart',
                             queue: false,
                             complete: function() {
                                 $(this).css('height', '');
@@ -122,7 +122,7 @@ define(["jquery"], function ($) {
              * @return {Boolean} true if it is children
              */
             function isChildrenOfPanelHeader(object) {
-                var panelHeader = getPanelHeader(object);
+                const panelHeader = getPanelHeader(object);
 
                 return panelHeader.length > 0;
             }
@@ -143,11 +143,11 @@ define(["jquery"], function ($) {
 
                 if ($('#sidenav-overlay').length > 0) {
                     if (!$($this).hasClass('active')) {
-                        $('#sidenav-overlay').unbind("click");
+                        $('#sidenav-overlay').unbind('click');
                         $('#sidenav-overlay').remove();
                     }
                 } else {
-                    var overlay = $('<div id="sidenav-overlay"></div>');
+                    const overlay = $('<div id="sidenav-overlay"></div>');
                     overlay.css('opacity', 0).click(function () {
                         collapse($this, event);
                         overlay.velocity({ opacity: 0 }, {
@@ -166,8 +166,8 @@ define(["jquery"], function ($) {
             }
 
             function collapse($this, event) {
-                var $header = $($this),
-                    element = $(event.target);
+                const $header = $($this);
+                let element = $(event.target);
 
                 if (isChildrenOfPanelHeader(element)) {
                     element = getPanelHeader(element);
@@ -175,7 +175,7 @@ define(["jquery"], function ($) {
 
                 element.toggleClass('active');
 
-                if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
+                if (options.accordion || collapsible_type === 'accordion' || collapsible_type === undefined) {
                     // Handle Accordion
                     accordionOpen(element);
                 } else {
@@ -204,15 +204,15 @@ define(["jquery"], function ($) {
             if (!touch) {
                 // Add focusout event
                 $this.on('mouseleave.closesub', '> li > .collapsible-body', function (e) {
-                    var $header = $(this);
-                    var temp = $(e.target).closest('li > .collapsible-body');
+                    const $header = $(this);
+                    const temp = $(e.target).closest('li > .collapsible-body');
 
-                    var element = temp.parent().find('.collapsible-header');
+                    const element = temp.parent().find('.collapsible-header');
 
                     if ($('body').hasClass('site-menubar-fold') && element.hasClass('active')) {
                         element.toggleClass('active');
 
-                        if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
+                        if (options.accordion || collapsible_type === 'accordion' || collapsible_type === undefined) {
                             // Handle Accordion
                             accordionOpen(element);
                         } else {
@@ -229,20 +229,20 @@ define(["jquery"], function ($) {
 
             //click menu event
             $this.on('click.menuevent', '> li > .collapsible-body  a', function (e) {
-                var url = $(this).attr("data-url");
+                const url = $(this).attr('data-url');
                 $('#mainFrame').prop('src', url);
 
-                var element = $(e.target);
+                const element = $(e.target);
                 if (touch && $('body').hasClass('site-menubar-fold')) {
-                    var temp = element.closest('li > .collapsible-body');
+                    const temp = element.closest('li > .collapsible-body');
 
-                    temp.parent().find('.collapsible-header').trigger("click");
+                    temp.parent().find('.collapsible-header').trigger('click');
                 }
                 activeMenuItem.call($this, element);
             });
 
             // Open first active
-            if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
+            if (options.accordion || collapsible_type === 'accordion' || collapsible_type === undefined) {
                 // Handle Accordion
                 accordionOpen($panel_headers.filter('.active').first());
             } else {
@@ -254,7 +254,7 @@ define(["jquery"], function ($) {
         });
     }
 
-    var methods = {
+    const methods = {
         init: init,
         activeMenuItem: activeMenuItem
     };
@@ -263,7 +263,7 @@ define(["jquery"], function ($) {
         if (methods[methodOrOptions]) {
             return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.collapsibleMenu');

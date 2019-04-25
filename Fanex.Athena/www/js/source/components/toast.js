@@ -1,14 +1,14 @@
-﻿"use strict";
-define(["jquery"], function ($) {
-    var defaultOption = {
-        text: "Data is being downloaded",
-        position: "top right",
-        itemStyle: "default",
+﻿'use strict';
+define(['jquery'], function ($) {
+    const defaultOption = {
+        text: 'Data is being downloaded',
+        position: 'top right',
+        itemStyle: 'default',
         timeout: 6000
     };
 
     function generatePagePortal(position) {
-        var positionClassName = generateClassByPosition(position);
+        const positionClassName = generateClassByPosition(position);
 
         return '<div class="page-portal">' +
         '<div class="toast-container' + positionClassName + '">' +
@@ -19,13 +19,13 @@ define(["jquery"], function ($) {
     }
 
     function generateClassByPosition(position) {
-        var positions = position.trim().split(' ');
+        const positions = position.trim().split(' ');
         if (positions.length < 2) {
-            return "";
+            return '';
         }
 
         return positions.map(function (item) {
-            return " toast-container-" + item;
+            return ' toast-container-' + item;
         });
     }
 
@@ -42,28 +42,28 @@ define(["jquery"], function ($) {
             '</div>';
     }
 
-    var _me = {
+    const _me = {
         show: function (options) {
-            var toastOption = $.extend({}, defaultOption, options || {});
+            const toastOption = $.extend({}, defaultOption, options || {});
 
-            var existed = $("body").find(".page-portal .toast-container .toast-align").length > 0;
-            var $pagePortal = existed ? $(".page-portal") : $(generatePagePortal(toastOption.position));
+            const existed = $('body').find('.page-portal .toast-container .toast-align').length > 0;
+            const $pagePortal = existed ? $('.page-portal') : $(generatePagePortal(toastOption.position));
 
-            var $toastAlign = $pagePortal.find(".toast-align");
-            var $toastItem = $(generateToastItem(toastOption.itemStyle, toastOption.text));
+            const $toastAlign = $pagePortal.find('.toast-align');
+            const $toastItem = $(generateToastItem(toastOption.itemStyle, toastOption.text));
 
-            $toastItem.on("click", ".toast-item-close", function () {
+            $toastItem.on('click', '.toast-item-close', function () {
                 $toastItem.remove();
             });
 
             $toastAlign.append($toastItem);
 
             if (!existed) {
-                $("body").append($pagePortal);
+                $('body').append($pagePortal);
             }
 
             setTimeout(function () {
-                $toastItem.fadeOut("fast");
+                $toastItem.fadeOut('fast');
             }, toastOption.timeout);
         }
     };

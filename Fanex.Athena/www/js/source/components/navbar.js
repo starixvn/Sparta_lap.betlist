@@ -4,22 +4,22 @@
 
 define(['jquery'], function ($) {
 
-    var methods = {
+    const methods = {
         init: function(inputOptions) {
-            var defaults = {
+            const defaults = {
                 menuWidth: 260,
                 edge: 'left',
                 closeOnClick: false
             };
-            var options = $.extend(defaults, inputOptions);
+            const options = $.extend(defaults, inputOptions);
 
             $(this).each(function () {
-                var $this = $(this);
+                const $this = $(this);
 
                 // Touch Event
-                var menuOut = false;
+                let menuOut = false;
 
-                var menu_id = $('#' + $this.attr('data-activates'));
+                const menu_id = $('#' + $this.attr('data-activates'));
 
                 // Set to width
                 if (options.menuWidth !== 260) {
@@ -27,7 +27,7 @@ define(['jquery'], function ($) {
                 }
 
                 // Add Touch Area
-                var dragTarget = $('<div class="drag-target"></div>');
+                const dragTarget = $('<div class="drag-target"></div>');
                 $('body').append(dragTarget);
 
                 if (options.edge === 'left') {
@@ -144,17 +144,17 @@ define(['jquery'], function ($) {
 
                     if (e.gesture.pointerType === 'touch') {
 
-                        var x = e.gesture.center.x;
+                        let x = e.gesture.center.x;
 
                         // Disable Scrolling
-                        var $body = $('body');
-                        var oldWidth = $body.innerWidth();
+                        const $body = $('body');
+                        const oldWidth = $body.innerWidth();
                         $body.css('overflow', 'hidden');
                         $body.width(oldWidth);
 
                         // If overlay does not exist, create one and if it is clicked, close menu
                         if ($('#sidenav-overlay').length === 0) {
-                            var overlay = $('<div id="sidenav-overlay"></div>');
+                            const overlay = $('<div id="sidenav-overlay"></div>');
                             overlay.css('opacity', 0).click(function () {
                                 removeMenu();
                             });
@@ -189,7 +189,7 @@ define(['jquery'], function ($) {
                             else if (x >= window.innerWidth - options.menuWidth / 2) {
                                 menuOut = false;
                             }
-                            var rightPos = x - options.menuWidth / 2;
+                            let rightPos = x - options.menuWidth / 2;
                             if (rightPos < 0) {
                                 rightPos = 0;
                             }
@@ -198,7 +198,7 @@ define(['jquery'], function ($) {
                         }
 
                         // Percentage overlay
-                        var overlayPerc;
+                        let overlayPerc;
                         if (options.edge === 'left') {
                             overlayPerc = x / options.menuWidth;
                             $('#sidenav-overlay').velocity({ opacity: overlayPerc }, { duration: 10, queue: false, easing: 'easeOutQuad' });
@@ -210,10 +210,10 @@ define(['jquery'], function ($) {
                 }).bind('panend', function (e) {
 
                     if (e.gesture.pointerType === 'touch') {
-                        var velocityX = e.gesture.velocityX;
-                        var x = e.gesture.center.x;
-                        var leftPos = x - options.menuWidth;
-                        var rightPos = x - options.menuWidth / 2;
+                        const velocityX = e.gesture.velocityX;
+                        const x = e.gesture.center.x;
+                        let leftPos = x - options.menuWidth;
+                        let rightPos = x - options.menuWidth / 2;
                         if (leftPos > 0) {
                             leftPos = 0;
                         }
@@ -286,9 +286,9 @@ define(['jquery'], function ($) {
                 });
 
                 $this.click(function () {
-                    var $body = $('body');
-                    var $submenu = $('.site-menu .menu-item div.collapsible-body');
-                    var menuCollapse = $body.hasClass('site-menubar-fold');
+                    const $body = $('body');
+                    const $submenu = $('.site-menu .menu-item div.collapsible-body');
+                    const menuCollapse = $body.hasClass('site-menubar-fold');
 
                     if (window.innerWidth > 992) {
                         $('.site-menu li.has-sub').removeClass('active');
@@ -303,7 +303,7 @@ define(['jquery'], function ($) {
                             removeMenu();
                         } else {
                             // Disable Scrolling
-                            var oldWidth = $body.innerWidth();
+                            const oldWidth = $body.innerWidth();
                             $body.css('overflow', 'hidden');
                             $body.width(oldWidth);
 
@@ -318,7 +318,7 @@ define(['jquery'], function ($) {
                                 menu_id.velocity({ 'translateX': [0, options.menuWidth] }, { duration: 300, queue: false, easing: 'easeOutQuad' });
                             }
 
-                            var overlay = $('<div id="sidenav-overlay"></div>');
+                            const overlay = $('<div id="sidenav-overlay"></div>');
                             overlay.css('opacity', 0).click(function () {
                                 menuOut = false;
                                 removeMenu();
@@ -361,7 +361,7 @@ define(['jquery'], function ($) {
         if (methods[methodOrOptions]) {
             return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.sideNav');
@@ -370,6 +370,6 @@ define(['jquery'], function ($) {
 });
 
 $(document).ready(function () {
-    $(".toggleMenubar").sideNav2();
+    $('.toggleMenubar').sideNav2();
 });
 
