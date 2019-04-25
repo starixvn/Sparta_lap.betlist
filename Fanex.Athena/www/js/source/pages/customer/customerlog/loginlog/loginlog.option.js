@@ -1,6 +1,6 @@
-﻿"use strict";
+﻿'use strict';
 define([], function () {
-    var userNameColumn = {
+    const userNameColumn = {
         name: 'UserName',
         index: 'UserName',
         resizable: false,
@@ -9,7 +9,7 @@ define([], function () {
         valign: 'middle',
         sortable: true
     };
-    var createdDateColumn = {
+    const createdDateColumn = {
         name: 'CreatedDate',
         index: 'CreatedDate',
         resizable: false,
@@ -24,7 +24,7 @@ define([], function () {
             newformat: 'n/j/Y h:i:s A'
         }
     };
-    var lastTxnColumn = {
+    const lastTxnColumn = {
         name: 'LastTxn',
         index: 'LastTxn',
         resizable: false,
@@ -39,10 +39,10 @@ define([], function () {
         }
     };
 
-    var colNameList = ['Username', 'CreatedDate', 'LastTxn'];
-    var colModelList = [userNameColumn, createdDateColumn, lastTxnColumn];
+    const colNameList = ['Username', 'CreatedDate', 'LastTxn'];
+    const colModelList = [userNameColumn, createdDateColumn, lastTxnColumn];
 
-    var _me = {
+    const _me = {
         gridOption: {
             rownumbers: true,
             datatype: 'local',
@@ -59,7 +59,7 @@ define([], function () {
             scroll: false,
             loadonce: true,
             gridview: true,
-            sortorder: "desc",
+            sortorder: 'desc',
             pager: null,
             loadtext: ''
         },

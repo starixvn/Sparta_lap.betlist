@@ -1,4 +1,4 @@
-﻿"use strict";
-define(["./loginlog"], function (LoginLog) {
+﻿'use strict';
+define(['./loginlog'], function (LoginLog) {
     $(LoginLog.initialize);
 });
