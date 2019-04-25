@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
   <Group Name="Default">
-    <Function Name="_Default" Product="SB,BA,NG,VS,CS,KN,AGC,PTCS,GD,VG,BT,MGCLC,MGCRNG,VB,AB,CB,FW,CO,VS2,LT,BX,PP"></Function>
+    <Function Name="_Default" Product="SB,BA,NG,VS,CS,KN,AGC,PTCS,GD,VG,BT,VB,AB,CB,FW,CO,VS2,LT,BX,PP"></Function>
   </Group>
 
   <Group Name="Report">
@@ -22,14 +22,14 @@
   </Group>
 
   <Group Name="BetList">
-    <Function Name="BetList_CustomerOutstanding" Product="SB,BA,NG,VS,CS,KN,BT,AGC,MGCLC,MGCRNG,VB,AB,CB,FW,CO,VS2,LT,PP"></Function>
-    <Function Name="BetList_CustomerOutstandingRunning" Product="SB,BA,NG,VS,CS,KN,AGC,MGCLC,MGCRNG,VB,AB,CB,FW,VS2,LT,PP"></Function>
+    <Function Name="BetList_CustomerOutstanding" Product="SB,BA,NG,VS,CS,KN,BT,AGC,VB,AB,CB,FW,CO,VS2,LT,PP"></Function>
+    <Function Name="BetList_CustomerOutstandingRunning" Product="SB,BA,NG,VS,CS,KN,AGC,VB,AB,CB,FW,VS2,LT,PP"></Function>
     <Function Name="BettingTicketCenter" Product="SB,BA,NG,VS,VS2,KN,LT,CO"></Function>
     <Function Name="BettingTicketCenter_Running" Product="SB,BA,NG,VS,VS2,KN,LT"></Function>
     <Function Name="BettingTicketCenter_MultiCustomers" Product="SB,BA,NG,VS,VS2,KN,LT,CO"></Function>
   </Group>
 
   <Group Name="API">
-    <Function Name="CustomerAPI_RemoveFromGroupCom" Product="SB,BA,NG,VS,CS,MGC,AB"></Function>
+    <Function Name="CustomerAPI_RemoveFromGroupCom" Product="SB,BA,NG,VS,CS,AB"></Function>
   </Group>
 </Root>
