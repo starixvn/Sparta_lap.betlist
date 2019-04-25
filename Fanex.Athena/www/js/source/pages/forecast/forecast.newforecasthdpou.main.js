@@ -1,5 +1,5 @@
 ﻿define(['./forecast.newforecasthdpou'], function (NewForecastHdpOu) {
-	"use strict";
+	'use strict';
 
 	$(NewForecastHdpOu.initialize);
 });

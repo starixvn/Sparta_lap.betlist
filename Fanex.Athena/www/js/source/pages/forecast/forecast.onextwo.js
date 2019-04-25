@@ -1,43 +1,43 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown', 'common/popup', 'extensions/jquery.extension'],
     function ($, Site, QueryString, RefreshCountDown, Popup) {
-        "use strict";
+        'use strict';
 
-        var _isPopup;
+        let _isPopup;
 
-        var _me = {
+        const _me = {
             resizeGrid: function () {
-                var $grid = $(".body-content");
+                const $grid = $('.body-content');
                 if ($grid.length === 0) {
                     return;
                 }
 
-                var gridTop = $grid.offset().top;
-                var footerSite = 18;
-                var gridHeight = window.innerHeight - gridTop - footerSite - 10;
+                const gridTop = $grid.offset().top;
+                const footerSite = 18;
+                let gridHeight = window.innerHeight - gridTop - footerSite - 10;
                 gridHeight = Math.max(150, gridHeight);
-                $grid.css("max-height", gridHeight);
+                $grid.css('max-height', gridHeight);
 
                 if (!$grid.hasVerticalScrollBar()) {
-                    $grid.addClass("hasScroll");
+                    $grid.addClass('hasScroll');
                 }
                 else {
-                    $grid.find("table").width($grid.width() - 17);
+                    $grid.find('table').width($grid.width() - 17);
                 }
             },
             initialize: function () {
                 Site.initialize();
 
-                _isPopup = $('#IsPopUp').val() === "true";
+                _isPopup = $('#IsPopUp').val() === 'true';
                 if (_isPopup) {
-                    $("body").css("background", "#fff");
+                    $('body').css('background', '#fff');
                     _me.resizePopup();
                 }
 
                 _me.initEvent();
                 _me.resizeGrid();
                 Site.addUserGuide({
-                    resourceName: "Forecast1x2",
-                    title: Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo")
+                    resourceName: 'Forecast1x2',
+                    title: Site.getSingleResource('Forecast') + ' - ' + Site.getSingleResource('OneXTwo')
                 });
 
                 RefreshCountDown.initialize();
@@ -51,8 +51,8 @@
                 });
 
                 $('#reportContent').on('click', '.button-add', function () {
-                    var matchId = $(this).attr('data-match-id');
-                    var betType = parseInt($(this).attr('data-bettype'), 10);
+                    const matchId = $(this).attr('data-match-id');
+                    const betType = parseInt($(this).attr('data-bettype'), 10);
                     _me.openForecast(matchId, betType);
                 });
 
@@ -60,47 +60,47 @@
                     _me.submit();
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     _me.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
             openForecast: function (matchId, betType) {
-                var url = Site.resolveClientUrl("RunningMatchBetList/Index");
+                let url = Site.resolveClientUrl('RunningMatchBetList/Index');
 
                 if (_isPopup) {
                     url = _me.getBetListUrl(url, matchId, betType);
-                    var popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
-                    Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource("BetList") });
+                    const popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
+                    Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource('BetList') });
                 } else {
                     url = Site.setLicenseeOptionOriginalParam(url);
-                    url = QueryString.setParam(url, "matchid", matchId);
-                    url = QueryString.setParam(url, "bettype", betType);
+                    url = QueryString.setParam(url, 'matchid', matchId);
+                    url = QueryString.setParam(url, 'bettype', betType);
                     Site.redirect(url);
                 }
             },
             getBetListUrl: function (url, matchId, betType) {
-                var currencyId = $("#CurrencyId-Hidden").val();
-                var baseCurrency = $("#BaseCurrency-Hidden").val();
-                var newUrl = url;
-                newUrl = QueryString.setParam(newUrl, "CurrencyId", currencyId);
-                newUrl = QueryString.setParam(newUrl, "BaseCurrency", baseCurrency);
-                newUrl = QueryString.setParam(newUrl, "matchid", matchId);
-                newUrl = QueryString.setParam(newUrl, "bettype", betType);
-                newUrl = QueryString.setParam(newUrl, "currencyname", QueryString.getParam(Site.getCurrentUrl(), "currencyname"));
+                const currencyId = $('#CurrencyId-Hidden').val();
+                const baseCurrency = $('#BaseCurrency-Hidden').val();
+                let newUrl = url;
+                newUrl = QueryString.setParam(newUrl, 'CurrencyId', currencyId);
+                newUrl = QueryString.setParam(newUrl, 'BaseCurrency', baseCurrency);
+                newUrl = QueryString.setParam(newUrl, 'matchid', matchId);
+                newUrl = QueryString.setParam(newUrl, 'bettype', betType);
+                newUrl = QueryString.setParam(newUrl, 'currencyname', QueryString.getParam(Site.getCurrentUrl(), 'currencyname'));
 
                 return newUrl;
             },
             submit: function () {
                 Site.blockUI();
-                $("#ForecastOneXTwoForm").submit();
+                $('#ForecastOneXTwoForm').submit();
             },
             resizePopup: function () {
-                var popH = Math.min(parent.innerHeight - 100, 600), popW = 700;
-                var title = Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo");
+                const popH = Math.min(parent.innerHeight - 100, 600), popW = 700;
+                const title = Site.getSingleResource('Forecast') + ' - ' + Site.getSingleResource('OneXTwo');
                 Popup.updateCurrentPopup(null, { width: popW, height: popH, title: title });
             }
         };
