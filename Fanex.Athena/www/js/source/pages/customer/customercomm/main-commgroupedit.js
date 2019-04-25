@@ -1,5 +1,5 @@
-﻿define(["./commgroupedit.js"], function (CustomerCommGroupEdit) {
-    "use strict";
+﻿define(['./commgroupedit.js'], function (CustomerCommGroupEdit) {
+    'use strict';
 
     $(CustomerCommGroupEdit.initialize);
 });

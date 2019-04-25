@@ -1131,26 +1131,26 @@ Array.prototype.insertBefore = function (value, before) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
+    'use strict';
 
     function goToCustomerList(groupCommId) {
         if (isParentSameOrigin()) {
             // Deactive Commission Group menu (55) and active Customer list menu (43)
-            $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
-            $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-            _me.setPageTitle(Site.getSingleResource("CustomerList"));
+            $('li>#MenuItem55', window.parent.document).parent().removeClass('active');
+            $('li>#MenuItem43', window.parent.document).parent().addClass('active');
+            _me.setPageTitle(Site.getSingleResource('CustomerList'));
         }
-        Site.redirect(Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupCommId));
+        Site.redirect(Site.resolveClientUrl('Customer/CustomerList?groupId=' + groupCommId));
     }
 
     function setPageTitle(title) {
         if (isParentSameOrigin()) {
-            $("#page-title", window.parent.document).text(title);
+            $('#page-title', window.parent.document).text(title);
         }
     }
 
     function isParentSameOrigin() {
-        var sameOrigin;
+        let sameOrigin;
         try {
             sameOrigin = window.parent.location.host === window.location.host;
         }
@@ -1160,7 +1160,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         return sameOrigin;
     }
 
-    var _me = {
+    const _me = {
         goToCustomerList: goToCustomerList,
         setPageTitle: setPageTitle
     };
@@ -1179,10 +1179,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! ./commgroupdetail */ "./www/js/source/pages/customer/customercomm/commgroupdetail.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, CommGroupDetail) {
-         "use strict";
+         'use strict';
 
-         var FORM_SELECTOR = "#customer-comm-group-add";
-         var TITLE = "CreateNewGroup";
+         const FORM_SELECTOR = '#customer-comm-group-add';
+         const TITLE = 'CreateNewGroup';
 
          function initialize() {
              CommGroupDetail.initialize(TITLE);
@@ -1191,17 +1191,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          }
 
          function initEvent() {
-             $("#Validate").click(function () {
-                 var groupName = $("#GroupName").val();
+             $('#Validate').click(function () {
+                 const groupName = $('#GroupName').val();
                  CommGroupDetail.checkAvailableGroup(groupName);
              });
 
-             $("#Submit").click(function () {
+             $('#Submit').click(function () {
                  CommGroupDetail.submit(FORM_SELECTOR);
              });
          }
 
-         var _me = {
+         const _me = {
              initialize: initialize,
              initEvent: initEvent
          };
@@ -1431,7 +1431,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./commgroupadd.js */ "./www/js/source/pages/customer/customercomm/commgroupadd.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerCommGroupAdd) {
-    "use strict";
+    'use strict';
 
     $(CustomerCommGroupAdd.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),

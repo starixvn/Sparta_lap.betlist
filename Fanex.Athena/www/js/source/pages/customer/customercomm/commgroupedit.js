@@ -1,43 +1,43 @@
-﻿define(["jquery", "./commgroupdetail"],
+﻿define(['jquery', './commgroupdetail'],
      function ($, CommGroupDetail) {
-         "use strict";
+         'use strict';
 
-         var FORM_SELECTOR = "#customer-comm-group-edit";
-         var TITLE = "EditGroup";
-         var _originalGroupName = "";
+         const FORM_SELECTOR = '#customer-comm-group-edit';
+         const TITLE = 'EditGroup';
+         let _originalGroupName = '';
 
          function initialize() {
              CommGroupDetail.initialize(TITLE);
 
-             _originalGroupName = $("#OriginalGroupName").val();
+             _originalGroupName = $('#OriginalGroupName').val();
              _me.initEvent();
          }
 
          function initEvent() {
-             $("#Validate").click(function () {
-                 var $groupName = $("#GroupName");
+             $('#Validate').click(function () {
+                 const $groupName = $('#GroupName');
 
                  if ($groupName.val() === _originalGroupName) {
-                     $groupName.removeClass("invalid");
-                     $groupName.addClass("valid");
-                     $("label[for=GroupName]").attr("data-success", "");
-                     $("#Submit").prop("disabled", false);
+                     $groupName.removeClass('invalid');
+                     $groupName.addClass('valid');
+                     $('label[for=GroupName]').attr('data-success', '');
+                     $('#Submit').prop('disabled', false);
                      return;
                  }
 
                  CommGroupDetail.checkAvailableGroup($groupName.val());
              });
 
-             $("#CustList").click(function () {
+             $('#CustList').click(function () {
                  CommGroupDetail.goToCustomerList($('#GroupCommId').val());
              });
 
-             $("#Submit").click(function () {
+             $('#Submit').click(function () {
                  CommGroupDetail.submit(FORM_SELECTOR);
              });
          }         
 
-         var _me = {
+         const _me = {
              initialize: initialize,
              initEvent: initEvent
          };
