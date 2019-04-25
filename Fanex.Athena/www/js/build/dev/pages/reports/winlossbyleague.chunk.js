@@ -271,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -292,70 +292,70 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
-    var me = {};
-    var _settings = {}; // store multi setting instances by "elementcontainer" as key
+    const me = {};
+    const _settings = {}; // store multi setting instances by 'elementcontainer' as key
 
-    var defaultSetting = {
+    const defaultSetting = {
         pageindex: 1,
         pagesize: 50,
         pagelist: [50, 100, 1000],
         totalrow: 1,
-        formId: "formreport",
-        elementcontainer: "#page",
-        method: "AJAX",
-        ajaxfunction: "",
+        formId: 'formreport',
+        elementcontainer: '#page',
+        method: 'AJAX',
+        ajaxfunction: '',
         alwayshow: false
     };
 
     function getByName($pagerContainer, name){
-        return $("input[name='" + name + "']", $pagerContainer);
+        return $('input[name="' + name + '"]', $pagerContainer);
     }
 
     function goToPage($pagerContainer, method, index) {
-        var $pageSize = getByName($pagerContainer, "PageSize");
-        if (method === "POST") {
-            $("#IsExportExcel").val(false);
-            var formName = getByName($pagerContainer, "FormName").val();
-            var form = $("#" + formName);
-            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
-            var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
+        const $pageSize = getByName($pagerContainer, 'PageSize');
+        if (method === 'POST') {
+            $('#IsExportExcel').val(false);
+            const formName = getByName($pagerContainer, 'FormName').val();
+            const form = $('#' + formName);
+            const pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
+            const pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
             form.append(pageIndex);
             form.append(pageSize);
             Site.blockUI();
             form.submit();
         }
-        else if (method === "AJAX") {
-            var $pageIndex = getByName($pagerContainer, "PageIndex");
+        else if (method === 'AJAX') {
+            const $pageIndex = getByName($pagerContainer, 'PageIndex');
             $pageIndex.val(index);
-            var fc = getByName($pagerContainer, "AjaxPagingFunction").val();
+            const fc = getByName($pagerContainer, 'AjaxPagingFunction').val();
             eval(fc); // jshint ignore:line
         } else {
-            var url = Site.getCurrentUrl();
-            url = QueryString.setParam(url, "PageSize", $pageSize.val());
-            url = QueryString.setParam(url, "PageIndex", index);
+            let url = Site.getCurrentUrl();
+            url = QueryString.setParam(url, 'PageSize', $pageSize.val());
+            url = QueryString.setParam(url, 'PageIndex', index);
 
             Site.redirect(url);
         }
     }
 
     function isVisible(element) {
-        return !$(element).hasClass("pagingDisable");
+        return !$(element).hasClass('pagingDisable');
     }
 
     me.render = function (option) {
         /// <summary>
         ///
         /// </summary>
-        /// <param name="pageindex"></param>
-        /// <param name="pagesize"></param>
-        /// <param name="totalrow"></param>
-        /// <param name="elementcontainer">ex: "#page"</param>
-        /// <param name="method">POST or GET or AJAX</param>
-        var pageHtml = "";
-        var setting = $.extend({}, defaultSetting, option);
+        /// <param name='pageindex'></param>
+        /// <param name='pagesize'></param>
+        /// <param name='totalrow'></param>
+        /// <param name='elementcontainer'>ex: '#page'</param>
+        /// <param name='method'>POST or GET or AJAX</param>
+        let pageHtml = '';
+        const setting = $.extend({}, defaultSetting, option);
         _settings[setting.elementcontainer] = setting;
-        var noOfPage = 1;
-        var pagingVisible = setting.totalrow > setting.pagesize;
+        let noOfPage = 1;
+        const pagingVisible = setting.totalrow > setting.pagesize;
 
         if (pagingVisible) {
             noOfPage = parseInt(setting.totalrow / setting.pagesize
@@ -363,30 +363,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         }
 
         if (pagingVisible || setting.alwayshow) {
-            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
-            var pageControl = ['<div class="pagingContainer center-align">',
+            const prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
+            const pageControl = ['<div class="pagingContainer center-align">',
                           '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
                           '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
                           '<span class="pagingSeperator"></span>'];
 
-            var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
+            const pagingInfo = '<div class="paging-info">' + Site.getSingleResource('Page') +
                 '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
-            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
+            + '&nbsp;' + Site.getSingleResource('of') + '&nbsp;' + noOfPage + '</div>';
 
             pageControl.push(pagingInfo);
 
             pageControl.push('<span class="pagingSeperator"></span>');
 
-            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
-            var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
+            const nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
+            const pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
             pageControl.push(pageNext);
-            var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
+            const pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
             pageControl.push(pageLast);
 
-            var pageListLength = setting.pagelist.length;
-            var pageSizeSelectHtml = '<select class="pageSizeSelected">';
-            var pageSize = parseInt(setting.pagesize, 10);
-            for (var i = 0; i < pageListLength; i++) {
+            const pageListLength = setting.pagelist.length;
+            let pageSizeSelectHtml = '<select class="pageSizeSelected">';
+            const pageSize = parseInt(setting.pagesize, 10);
+            for (let i = 0; i < pageListLength; i++) {
                 pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
                 + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
                 + '>' + setting.pagelist[i] + '</option>';
@@ -401,19 +401,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
 
             pageControl.push('</div>');
-            pageHtml = pageControl.join("");
+            pageHtml = pageControl.join('');
         }
 
-        var $pagerContainer = $(setting.elementcontainer);
+        const $pagerContainer = $(setting.elementcontainer);
         $pagerContainer.html(pageHtml);
         me._bindEvent(setting);
     };
     me.getSetting = function (elementcontainer) {
-        var newElementcontainer = elementcontainer || Object.keys(_settings)[0];
-        var setting = _settings[newElementcontainer];
-        var $pagerContainer = $(newElementcontainer);
-        var $pageIndex = getByName($pagerContainer, "PageIndex");
-        var $pageSize = getByName($pagerContainer, "PageSize");
+        const newElementcontainer = elementcontainer || Object.keys(_settings)[0];
+        const setting = _settings[newElementcontainer];
+        const $pagerContainer = $(newElementcontainer);
+        const $pageIndex = getByName($pagerContainer, 'PageIndex');
+        const $pageSize = getByName($pagerContainer, 'PageSize');
         setting.pageindex = parseInt($pageIndex.val(), 10);
         setting.pagesize = $pageSize.val();
         return setting;
@@ -421,46 +421,46 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
     // private methods
     me._bindEvent = function (setting) {
-        var $pagerContainer = $(setting.elementcontainer);
-        var $pageIndex = getByName($pagerContainer, "PageIndex");
-        var method = getByName($pagerContainer, "Method").val();
-        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagerContainer).val(), 10);
+        const $pagerContainer = $(setting.elementcontainer);
+        const $pageIndex = getByName($pagerContainer, 'PageIndex');
+        const method = getByName($pagerContainer, 'Method').val();
+        const noOfPage = parseInt($('input[name="NoOfPage"]', $pagerContainer).val(), 10);
 
-        $(".pagingFirst", $pagerContainer).on("click", function () {
+        $('.pagingFirst', $pagerContainer).on('click', function () {
             if (isVisible(this)) {
                 goToPage($pagerContainer, method, 1);
             }
         });
-        $(".pagingPrev", $pagerContainer).on("click", function () {
-            var currentPage = parseInt($pageIndex.val(), 10);
+        $('.pagingPrev', $pagerContainer).on('click', function () {
+            const currentPage = parseInt($pageIndex.val(), 10);
             if (isVisible(this) && currentPage > 1) {
                 goToPage($pagerContainer, method, currentPage - 1);
             }
         });
-        $(".pagingLast", $pagerContainer).on("click", function () {
+        $('.pagingLast', $pagerContainer).on('click', function () {
             if (isVisible(this)) {
                 goToPage($pagerContainer, method, noOfPage);
             }
         });
-        $(".pagingNext", $pagerContainer).on("click", function () {
+        $('.pagingNext', $pagerContainer).on('click', function () {
             if (isVisible(this)) {
-                var currentPage = parseInt($pageIndex.val(), 10);
+                const currentPage = parseInt($pageIndex.val(), 10);
                 goToPage($pagerContainer, method, currentPage + 1);
             }
         });
 
-        $("select.pageSizeSelected", $pagerContainer).on("change", function () {
-            var $pageSize = getByName($pagerContainer, "PageSize");
-            var pageSize = $(this).val();
+        $('select.pageSizeSelected', $pagerContainer).on('change', function () {
+            const $pageSize = getByName($pagerContainer, 'PageSize');
+            const pageSize = $(this).val();
             $pageSize.val(pageSize);
             setting.pagesize = pageSize;
             goToPage($pagerContainer, method, 1);
         });
 
-        $pageIndex.on("keyup", function (e) {
-            var code = e.keyCode ? e.keyCode : e.which;
+        $pageIndex.on('keyup', function (e) {
+            const code = e.keyCode ? e.keyCode : e.which;
             if (code === 13) {
-                var value = parseInt($(this).val(), 10);
+                const value = parseInt($(this).val(), 10);
                 if (value > 0 && value <= noOfPage) {
                     $(this).val(value);
                     goToPage($pagerContainer, method, value);
@@ -482,21 +482,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! lib/jquery.monthpicker */ "./www/js/source/lib/jquery.monthpicker.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-        "use strict";
-        var PICKER_SELECTOR = "#month-picker";
-        var FORMAT = "MM/dd/yyyy";
+        'use strict';
+        const PICKER_SELECTOR = '#month-picker';
+        const FORMAT = 'MM/dd/yyyy';
 
-        var _historyDate = new Date($("#HistoryDate").val());
+        const _historyDate = new Date($('#HistoryDate').val());
 
         function initMonthPicker(option) {
-            var $picker = $(PICKER_SELECTOR);
-            var $fromDate = $('#FromDate');
-            var $todate = $('#ToDate');
+            const $picker = $(PICKER_SELECTOR);
+            const $fromDate = $('#FromDate');
+            const $todate = $('#ToDate');
 
-            var fromdate = new Date($fromDate.val());
-            var todate = new Date($todate.val());
+            const fromdate = new Date($fromDate.val());
+            const todate = new Date($todate.val());
 
-            var defaultOption = {
+            const defaultOption = {
                 minDate: _historyDate,
                 showDateRange: true,
                 fromDayId: 'fDay',
@@ -506,14 +506,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 fromDay: fromdate.getDate(),
                 toDay: todate.getDate(),
                 afterChangeMonth: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
                 },
                 afterChangeDay: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
 
-                    if (option && typeof option.customAfterChangeDay === "function") {
+                    if (option && typeof option.customAfterChangeDay === 'function') {
                         option.customAfterChangeDay();
                     }
                 }
@@ -527,11 +527,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function getFromDateString() {
-            return $(PICKER_SELECTOR).monPickr("getFromDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getFromDate', FORMAT);
         }
 
         function getToDateString() {
-            return $(PICKER_SELECTOR).monPickr("getToDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getToDate', FORMAT);
         }
 
         return {
@@ -554,30 +554,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jquery.multiselect */ "./www/js/source/lib/jquery.multiselect.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    var _me = {
+    const _me = {
         initProductList: function () {
-            var selector = "#grid-products-multiselect";
-            var data = $.parseJSON($("#productsData").val());
-            var length = data.length;
-            var dataUI = [];
-            var checkedCount = 0;
-            for (var i = 0; i < length; i++) {
-                var item = data[i];
-                var isChecked = item["Status"];
+            const selector = '#grid-products-multiselect';
+            const data = $.parseJSON($('#productsData').val());
+            const length = data.length;
+            const dataUI = [];
+            let checkedCount = 0;
+            for (let i = 0; i < length; i++) {
+                const item = data[i];
+                const isChecked = item['Status'];
                 if (isChecked) {
                     checkedCount++;
                 }
 
                 dataUI.push({
-                    Id: item["Code"],
-                    Value: item["Code"],
-                    Text: Site.getSingleResource(item["Name"]),
+                    Id: item['Code'],
+                    Value: item['Code'],
+                    Text: Site.getSingleResource(item['Name']),
                     Checked: isChecked,
                     Enable: true
                 });
             }
 
-            var isCheckAll = checkedCount === length;
+            const isCheckAll = checkedCount === length;
             $(selector).multiSelect({
                 minWidth: 200,
                 maxHeight: 400,
@@ -590,17 +590,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {
-                    var checkedItems = $(selector).multiSelect("getCheckedItems");
-                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
-                    var hasItemsChecked = checkedItems.length > 0;
+                    const checkedItems = $(selector).multiSelect('getCheckedItems');
+                    $('#product-container input[type=checkbox]:checked').prop('checked', false);
+                    const hasItemsChecked = checkedItems.length > 0;
                     if (hasItemsChecked) {
-                        for (var i = 0; i < checkedItems.length; i++) {
-                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+                        for (let i = 0; i < checkedItems.length; i++) {
+                            $('#product-container #' + checkedItems[i]).prop('checked', true);
                         }
                     }
                     
-                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
+                    $('#ProductList').toggleClass('invalid', !hasItemsChecked);
+                    $('#SubmitButton').prop('disabled', !hasItemsChecked);
                 }
             });
         }

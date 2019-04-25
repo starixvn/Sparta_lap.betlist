@@ -271,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,19 +291,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js"), __webpack_require__(/*! materialize-autocomplete */ "./node_modules/materialize-autocomplete/jquery.materialize-autocomplete.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
+    'use strict';
 
-    var mainOption = {
+    const mainOption = {
         suggestionDropdown: '#suggestionDropdown',
         url: null,
         target: null
     };
 
-    var DELAY_MILLISECOND = 600;
+    const DELAY_MILLISECOND = 600;
 
-    var _autoComplete;
+    let _autoComplete;
 
-    var _me = {
+    const _me = {
         initialize: function (option) {
             _me.initAutoComplete(option);
             _me.initEvent();
@@ -324,7 +324,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         initAutoComplete: function (option) {
             $.extend(mainOption, option);
             if (!mainOption.url || !mainOption.target) {
-                throw Error("Missing data in option");
+                throw Error('Missing data in option');
             }
 
             _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
@@ -337,23 +337,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         search: function (value, callback) {
-            var query = $.trim(value);
+            const query = $.trim(value);
             if (query.length < 3)
             {
                 return;
             }
 
-            var url = mainOption.url + "?query=" + value;
+            const url = mainOption.url + '?query=' + value;
 
             $.ajax({
-                type: "GET",
-                dataType: "json",
+                type: 'GET',
+                dataType: 'json',
                 url: url,
                 success: function (response) {
-                    var suggestions = response.suggestions;
+                    const suggestions = response.suggestions;
 
                     if (suggestions && suggestions.length > 0) {
-                        var data = suggestions.map(function (item) {
+                        const data = suggestions.map(function (item) {
                             return { id: item, text: item };
                         });
 
@@ -368,8 +368,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         updateWidthOfSuggestionDropdown: function () {
-            var $autoCompleteTarget = $(mainOption.target);
-            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+            const $autoCompleteTarget = $(mainOption.target);
+            const $suggestionDropdown = $(mainOption.suggestionDropdown);
             if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
                 $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
             }
@@ -394,21 +394,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! lib/jquery.monthpicker */ "./www/js/source/lib/jquery.monthpicker.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-        "use strict";
-        var PICKER_SELECTOR = "#month-picker";
-        var FORMAT = "MM/dd/yyyy";
+        'use strict';
+        const PICKER_SELECTOR = '#month-picker';
+        const FORMAT = 'MM/dd/yyyy';
 
-        var _historyDate = new Date($("#HistoryDate").val());
+        const _historyDate = new Date($('#HistoryDate').val());
 
         function initMonthPicker(option) {
-            var $picker = $(PICKER_SELECTOR);
-            var $fromDate = $('#FromDate');
-            var $todate = $('#ToDate');
+            const $picker = $(PICKER_SELECTOR);
+            const $fromDate = $('#FromDate');
+            const $todate = $('#ToDate');
 
-            var fromdate = new Date($fromDate.val());
-            var todate = new Date($todate.val());
+            const fromdate = new Date($fromDate.val());
+            const todate = new Date($todate.val());
 
-            var defaultOption = {
+            const defaultOption = {
                 minDate: _historyDate,
                 showDateRange: true,
                 fromDayId: 'fDay',
@@ -418,14 +418,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 fromDay: fromdate.getDate(),
                 toDay: todate.getDate(),
                 afterChangeMonth: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
                 },
                 afterChangeDay: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
 
-                    if (option && typeof option.customAfterChangeDay === "function") {
+                    if (option && typeof option.customAfterChangeDay === 'function') {
                         option.customAfterChangeDay();
                     }
                 }
@@ -439,11 +439,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function getFromDateString() {
-            return $(PICKER_SELECTOR).monPickr("getFromDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getFromDate', FORMAT);
         }
 
         function getToDateString() {
-            return $(PICKER_SELECTOR).monPickr("getToDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getToDate', FORMAT);
         }
 
         return {
@@ -4526,7 +4526,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-    var logIdColumn = {
+    const logIdColumn = {
         name: 'LogId',
         index: 'LogId',
         resizable: false,
@@ -4534,7 +4534,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         align: 'center',
         sortable: false
     };
-    var logDateColumn = {
+    const logDateColumn = {
         name: 'LogDate',
         index: 'LogDate',
         resizable: false,
@@ -4549,7 +4549,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             newformat: 'n/j/Y h:i:s A'
         }
     };
-    var editedByColumn = {
+    const editedByColumn = {
         name: 'EditedBy',
         index: 'EditedBy',
         resizable: false,
@@ -4558,7 +4558,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         valign: 'middle',
         sortable: true
     };
-    var actionColumn = {
+    const actionColumn = {
         name: 'ActionName',
         index: 'ActionName',
         resizable: false,
@@ -4566,7 +4566,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         align: 'left',
         sortable: false
     };
-    var detailColumn = {
+    const detailColumn = {
         name: 'Details',
         index: 'Details',
         resizable: false,
@@ -4577,12 +4577,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         classes: 'jqgrid-detail-col'
     };
 
-    var colNameList = ['LogID', 'LogDate', 'Editedby', 'Action', 'Details'];
-    var colModelList = [logIdColumn, logDateColumn, editedByColumn, actionColumn, detailColumn];
+    const colNameList = ['LogID', 'LogDate', 'Editedby', 'Action', 'Details'];
+    const colModelList = [logIdColumn, logDateColumn, editedByColumn, actionColumn, detailColumn];
 
-    var _me = {
+    const _me = {
         gridOption: {
-            height: "auto",
+            height: 'auto',
             datatype: 'local',
             colNames: [],
             colModel: colModelList,
@@ -4596,7 +4596,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             scroll: false,
             loadonce: true,
             gridview: true,
-            sortorder: "desc",
+            sortorder: 'desc',
             pager: '#ppdata',
             loadtext: ''
         },
@@ -4623,37 +4623,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"),
     __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
-        var GRID_ID = "ReportGrid";
-        var _ajaxRequest = null;
+        const GRID_ID = 'ReportGrid';
+        let _ajaxRequest = null;
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
                 Site.addUserGuide({
-                    resourceName: "CustomerLog",
-                    title: Site.getSingleResource("CustomerLog")
+                    resourceName: 'CustomerLog',
+                    title: Site.getSingleResource('CustomerLog')
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     _me.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             loadGrid: function (url, gridOption, hasCheckbox) {
-                var option = {
-                    type: "GET",
+                const option = {
+                    type: 'GET',
                     url: url,
-                    dataType: "json",
-                    contentType: "application/json",
+                    dataType: 'json',
+                    contentType: 'application/json',
                     cache: false,
                     success: function (response) {
                         jqGridAdditional.clearGrid(GRID_ID);
 
-                        var data = response.rows;
+                        const data = response.rows;
                         if (data.length === 0) {
                             jqGridAdditional.setNoInfo();
                             return;
@@ -4674,7 +4674,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             bindData: function (data, gridOption, hasCheckbox) {
-                var grid = $('#ReportGrid');
+                const grid = $('#ReportGrid');
 
                 gridOption.data = data;
                 gridOption.gridComplete = function () {
@@ -4682,10 +4682,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         _me.checkShowAll();
                     }
 
-                    var colModels = grid[0].p.colModel;
+                    const colModels = grid[0].p.colModel;
                     $.each(grid[0].grid.headers, function (index, value) {
                         if (!colModels[index].sortable) {
-                            $(".ui-jqgrid-sortable", value.el).css({ cursor: "default" });
+                            $('.ui-jqgrid-sortable', value.el).css({ cursor: 'default' });
                         }
                     });
 
@@ -4694,22 +4694,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 };
 
                 gridOption.onSortCol = function (index, columIndex) {
-                    $(".ui-jqgrid-sortable", "th").css({ "text-decoration": "none" });
-                    $(".ui-jqgrid-sortable", grid[0].grid.headers[columIndex].el).css({ "text-decoration": "underline" });
+                    $('.ui-jqgrid-sortable', 'th').css({ 'text-decoration': 'none' });
+                    $('.ui-jqgrid-sortable', grid[0].grid.headers[columIndex].el).css({ 'text-decoration': 'underline' });
                 };
 
                 grid.jqGrid(gridOption);
             },
 
             resizeGrid: function () {
-                var $grid = $("#" + GRID_ID);
+                const $grid = $('#' + GRID_ID);
                 jqGridAdditional.updateGridHeight();
                 jqGridAdditional.updateGridWidth($grid);
             },
 
             checkShowAll: function () {
-                var checked = $('#showall').is(':checked');
-                $('.old-value').toggleClass("hide", !checked);
+                const checked = $('#showall').is(':checked');
+                $('.old-value').toggleClass('hide', !checked);
             },
 
             stopAjaxRequest: function () {
@@ -4736,7 +4736,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! components/pluginhelper/autocomplete */ "./www/js/source/components/pluginhelper/autocomplete.js"), __webpack_require__(/*! ../common.option */ "./www/js/source/pages/customer/customerlog/common.option.js"),
     __webpack_require__(/*! components/pluginhelper/monthpicker */ "./www/js/source/components/pluginhelper/monthpicker.js"), __webpack_require__(/*! ../customerlog.service */ "./www/js/source/pages/customer/customerlog/customerlog.service.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
-        var _me = {
+        const _me = {
             initialize: function () {
                 CustomerLogService.initialize();
                 MonthPicker.initMonthPicker({ minDate: $('#MinDate').val() });
@@ -4757,19 +4757,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             loadGrid: function () {
-                var gridOption = CommonOption.gridOption;
-                var url = _me.getUrl();
+                const gridOption = CommonOption.gridOption;
+                const url = _me.getUrl();
 
-                var colNames = Site.clone(CommonOption.getColNames());
+                const colNames = Site.clone(CommonOption.getColNames());
                 gridOption.colNames = Site.getResources(colNames);
 
-                var hasCheckbox = true;
+                const hasCheckbox = true;
                 CustomerLogService.loadGrid(url, gridOption, hasCheckbox);
             },
 
             getUrl: function () {
-                var fromDate = new Date($('#FromDate').val());
-                var toDate = new Date($('#ToDate').val());
+                const fromDate = new Date($('#FromDate').val());
+                const toDate = new Date($('#ToDate').val());
 
                 return Site.resolveClientUrl('api/Log/GroupCommission?'
                     + '&Year=' + fromDate.getFullYear() + '&Month=' + (fromDate.getMonth() + 1)

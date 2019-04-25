@@ -271,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,19 +291,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js"), __webpack_require__(/*! materialize-autocomplete */ "./node_modules/materialize-autocomplete/jquery.materialize-autocomplete.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
+    'use strict';
 
-    var mainOption = {
+    const mainOption = {
         suggestionDropdown: '#suggestionDropdown',
         url: null,
         target: null
     };
 
-    var DELAY_MILLISECOND = 600;
+    const DELAY_MILLISECOND = 600;
 
-    var _autoComplete;
+    let _autoComplete;
 
-    var _me = {
+    const _me = {
         initialize: function (option) {
             _me.initAutoComplete(option);
             _me.initEvent();
@@ -324,7 +324,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         initAutoComplete: function (option) {
             $.extend(mainOption, option);
             if (!mainOption.url || !mainOption.target) {
-                throw Error("Missing data in option");
+                throw Error('Missing data in option');
             }
 
             _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
@@ -337,23 +337,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         search: function (value, callback) {
-            var query = $.trim(value);
+            const query = $.trim(value);
             if (query.length < 3)
             {
                 return;
             }
 
-            var url = mainOption.url + "?query=" + value;
+            const url = mainOption.url + '?query=' + value;
 
             $.ajax({
-                type: "GET",
-                dataType: "json",
+                type: 'GET',
+                dataType: 'json',
                 url: url,
                 success: function (response) {
-                    var suggestions = response.suggestions;
+                    const suggestions = response.suggestions;
 
                     if (suggestions && suggestions.length > 0) {
-                        var data = suggestions.map(function (item) {
+                        const data = suggestions.map(function (item) {
                             return { id: item, text: item };
                         });
 
@@ -368,8 +368,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         updateWidthOfSuggestionDropdown: function () {
-            var $autoCompleteTarget = $(mainOption.target);
-            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+            const $autoCompleteTarget = $(mainOption.target);
+            const $suggestionDropdown = $(mainOption.suggestionDropdown);
             if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
                 $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
             }
@@ -3612,37 +3612,37 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"),
     __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
-        var GRID_ID = "ReportGrid";
-        var _ajaxRequest = null;
+        const GRID_ID = 'ReportGrid';
+        let _ajaxRequest = null;
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
                 Site.addUserGuide({
-                    resourceName: "CustomerLog",
-                    title: Site.getSingleResource("CustomerLog")
+                    resourceName: 'CustomerLog',
+                    title: Site.getSingleResource('CustomerLog')
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     _me.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             loadGrid: function (url, gridOption, hasCheckbox) {
-                var option = {
-                    type: "GET",
+                const option = {
+                    type: 'GET',
                     url: url,
-                    dataType: "json",
-                    contentType: "application/json",
+                    dataType: 'json',
+                    contentType: 'application/json',
                     cache: false,
                     success: function (response) {
                         jqGridAdditional.clearGrid(GRID_ID);
 
-                        var data = response.rows;
+                        const data = response.rows;
                         if (data.length === 0) {
                             jqGridAdditional.setNoInfo();
                             return;
@@ -3663,7 +3663,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             bindData: function (data, gridOption, hasCheckbox) {
-                var grid = $('#ReportGrid');
+                const grid = $('#ReportGrid');
 
                 gridOption.data = data;
                 gridOption.gridComplete = function () {
@@ -3671,10 +3671,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         _me.checkShowAll();
                     }
 
-                    var colModels = grid[0].p.colModel;
+                    const colModels = grid[0].p.colModel;
                     $.each(grid[0].grid.headers, function (index, value) {
                         if (!colModels[index].sortable) {
-                            $(".ui-jqgrid-sortable", value.el).css({ cursor: "default" });
+                            $('.ui-jqgrid-sortable', value.el).css({ cursor: 'default' });
                         }
                     });
 
@@ -3683,22 +3683,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 };
 
                 gridOption.onSortCol = function (index, columIndex) {
-                    $(".ui-jqgrid-sortable", "th").css({ "text-decoration": "none" });
-                    $(".ui-jqgrid-sortable", grid[0].grid.headers[columIndex].el).css({ "text-decoration": "underline" });
+                    $('.ui-jqgrid-sortable', 'th').css({ 'text-decoration': 'none' });
+                    $('.ui-jqgrid-sortable', grid[0].grid.headers[columIndex].el).css({ 'text-decoration': 'underline' });
                 };
 
                 grid.jqGrid(gridOption);
             },
 
             resizeGrid: function () {
-                var $grid = $("#" + GRID_ID);
+                const $grid = $('#' + GRID_ID);
                 jqGridAdditional.updateGridHeight();
                 jqGridAdditional.updateGridWidth($grid);
             },
 
             checkShowAll: function () {
-                var checked = $('#showall').is(':checked');
-                $('.old-value').toggleClass("hide", !checked);
+                const checked = $('#showall').is(':checked');
+                $('.old-value').toggleClass('hide', !checked);
             },
 
             stopAjaxRequest: function () {
@@ -3724,13 +3724,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! components/pluginhelper/autocomplete */ "./www/js/source/components/pluginhelper/autocomplete.js"), __webpack_require__(/*! ./loginlog.option */ "./www/js/source/pages/customer/customerlog/loginlog/loginlog.option.js"), __webpack_require__(/*! ../customerlog.service */ "./www/js/source/pages/customer/customerlog/customerlog.service.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, AutoComplete, LoginLogOption, CustomerLog) {
-        var _me = {
+        const _me = {
             initialize: function () {
                 CustomerLog.initialize();
                 _me.initEvent();
                 AutoComplete.initialize({
-                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
-                    target: "#Username"
+                    url: Site.resolveClientUrl('SearchCustomerAPI/SearchCustomer'),
+                    target: '#Username'
                 });
 
                 // Set menu active
@@ -3742,7 +3742,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     _me.loadGrid();
                 });
 
-                $("#Username").keyup(function (e) {
+                $('#Username').keyup(function (e) {
                     if (e.keyCode === 13) {
                         _me.loadGrid();
                     }
@@ -3750,16 +3750,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             loadGrid: function () {
-                var gridOption = LoginLogOption.gridOption;
-                var colNames = Site.clone(LoginLogOption.getColNames());
+                const gridOption = LoginLogOption.gridOption;
+                const colNames = Site.clone(LoginLogOption.getColNames());
                 gridOption.colNames = Site.getResources(colNames);
-                var url = _me.getUrl();
+                const url = _me.getUrl();
 
                 CustomerLog.loadGrid(url, gridOption);
             },
 
             getUrl: function () {
-                var userName = $('#Username').val();
+                const userName = $('#Username').val();
                 return Site.resolveClientUrl('api/Log/LoginLog?UserName=' + encodeURIComponent(userName));
             }
         };
@@ -3780,7 +3780,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-    var userNameColumn = {
+    const userNameColumn = {
         name: 'UserName',
         index: 'UserName',
         resizable: false,
@@ -3789,7 +3789,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         valign: 'middle',
         sortable: true
     };
-    var createdDateColumn = {
+    const createdDateColumn = {
         name: 'CreatedDate',
         index: 'CreatedDate',
         resizable: false,
@@ -3804,7 +3804,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             newformat: 'n/j/Y h:i:s A'
         }
     };
-    var lastTxnColumn = {
+    const lastTxnColumn = {
         name: 'LastTxn',
         index: 'LastTxn',
         resizable: false,
@@ -3819,10 +3819,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         }
     };
 
-    var colNameList = ['Username', 'CreatedDate', 'LastTxn'];
-    var colModelList = [userNameColumn, createdDateColumn, lastTxnColumn];
+    const colNameList = ['Username', 'CreatedDate', 'LastTxn'];
+    const colModelList = [userNameColumn, createdDateColumn, lastTxnColumn];
 
-    var _me = {
+    const _me = {
         gridOption: {
             rownumbers: true,
             datatype: 'local',
@@ -3839,7 +3839,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             scroll: false,
             loadonce: true,
             gridview: true,
-            sortorder: "desc",
+            sortorder: 'desc',
             pager: null,
             loadtext: ''
         },

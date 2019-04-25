@@ -271,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -290,18 +290,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! lib/jquery.cookie */ "./www/js/source/lib/jquery.cookie.js"), __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
-    "use strict";
+    'use strict';
 
-    var curCountDown = 0;
-    var countDownTimer = null;
-    var cookieName = null;
-    var countDownId = null;
-    var defaultCountDown = 0;
+    let curCountDown = 0;
+    let countDownTimer = null;
+    let cookieName = null;
+    let countDownId = null;
+    let defaultCountDown = 0;
 
-    var _me = {
+    const _me = {
         initialize: function () {
             $('.menu-item').on('click', function () {
-                var selectedCountDown = parseInt($(this).attr('data-count-down'), 10);
+                const selectedCountDown = parseInt($(this).attr('data-count-down'), 10);
                 _me.setCountDown(selectedCountDown, true);
             });
 
@@ -309,16 +309,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 _me.refresh();
             });
 
-            var $hiddenCountdown = $('#count-down-of');
+            const $hiddenCountdown = $('#count-down-of');
             countDownId = $hiddenCountdown.attr('name');
 
             // Get default count down
             defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'), 10);
         },
         initEvent: function () {
-            cookieName = "RefeshCountDown" + countDownId;
+            cookieName = 'RefeshCountDown' + countDownId;
             //read countdown from cookie
-            var countDownFromCookie = $.cookie(cookieName);
+            const countDownFromCookie = $.cookie(cookieName);
             if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
                 _me.setCountDown(countDownFromCookie, false);
             } else {
@@ -326,7 +326,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         },
         setCountDown: function (countDown, isSetToCookie) {
-            var countDownInt = parseInt(countDown, 10);
+            const countDownInt = parseInt(countDown, 10);
             if (isSetToCookie) {
                 $.cookie(cookieName, countDownInt);
             }
@@ -335,7 +335,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             _me.tick();
         },
         setMenuStatus: function () {
-            var index = curCountDown;
+            const index = curCountDown;
             $('#countdown-menu .menu-item').removeClass('menu-selected');
             $('#option-' + index).addClass('menu-selected');
         },
@@ -351,18 +351,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         },
         refresh: function () {
-            var oldScrollTop;
-            if ($(".body-content").length) {
-                oldScrollTop = $(".body-content").scrollTop();
+            let oldScrollTop;
+            if ($('.body-content').length) {
+                oldScrollTop = $('.body-content').scrollTop();
             }
 
             if (countDownTimer !== null) {
                 clearTimeout(countDownTimer);
             }
-            document.getElementById('count').innerHTML = "...";
+            document.getElementById('count').innerHTML = '...';
 
             // Get param before load data
-            var url = _me.calculateUrl();
+            const url = _me.calculateUrl();
 
             Site.blockUI();
             $('#reportContent').load(url, {
@@ -377,34 +377,34 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $(window).resize();
 
                 // Scrollbar still kept current position
-                if ($(".body-content").length) {
-                    $(".body-content").scrollTop(oldScrollTop);
+                if ($('.body-content').length) {
+                    $('.body-content').scrollTop(oldScrollTop);
                 }
             });
 
             return true;
         },
         calculateUrl: function () {
-            var leagueId = $('#LeagueId').val();
-            var matchId = $('#MatchId').val();
-            var betType = $("#BetType").val();
-            var currentScore = $("#CurrentScore").val();
-            var isShowFt = $("#IsShowFt").val();
-            var isShowFh = $("#IsShowFh").val();
-            var homeName = $("#HomeTeamId").val();
-            var awayName = $("#AwayTeamId").val();
+            const leagueId = $('#LeagueId').val();
+            const matchId = $('#MatchId').val();
+            const betType = $('#BetType').val();
+            const currentScore = $('#CurrentScore').val();
+            const isShowFt = $('#IsShowFt').val();
+            const isShowFh = $('#IsShowFh').val();
+            const homeName = $('#HomeTeamId').val();
+            const awayName = $('#AwayTeamId').val();
 
-            var url = Site.getCurrentUrl();
+            let url = Site.getCurrentUrl();
             url = Site.setLicenseeOptionOriginalParam(url);
-            url = QueryString.setParam(url, "LeagueId", leagueId);
-            url = QueryString.setParam(url, "MatchId", matchId);
-            url = QueryString.setParam(url, "BetType", betType);
-            url = QueryString.setParam(url, "CurrentScore", currentScore);
-            url = QueryString.setParam(url, "IsShowFt", isShowFt);
-            url = QueryString.setParam(url, "IsShowFh", isShowFh);
+            url = QueryString.setParam(url, 'LeagueId', leagueId);
+            url = QueryString.setParam(url, 'MatchId', matchId);
+            url = QueryString.setParam(url, 'BetType', betType);
+            url = QueryString.setParam(url, 'CurrentScore', currentScore);
+            url = QueryString.setParam(url, 'IsShowFt', isShowFt);
+            url = QueryString.setParam(url, 'IsShowFh', isShowFh);
 
-            url = QueryString.setParam(url, "HomeTeamId", homeName);
-            url = QueryString.setParam(url, "AwayTeamId", awayName);
+            url = QueryString.setParam(url, 'HomeTeamId', homeName);
+            url = QueryString.setParam(url, 'AwayTeamId', awayName);
             
             return encodeURI(url);
         }
@@ -1238,33 +1238,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ../totalbetsbase */ "./www/js/source/pages/totalbet/totalbetsbase.js"), __webpack_require__(/*! components/refreshcountdown */ "./www/js/source/components/refreshcountdown.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Totalbets, RefreshCountDown) {
-    "use strict";
+    'use strict';
 
-    var _me = {
+    const _me = {
         initialize: function () {
             Site.initialize();
             Totalbets.initialize();
             _me.initEvent();
             Site.addUserGuide({
-                resourceName: "TotalBetsHTFT",
-                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HTFT")
+                resourceName: 'TotalBetsHTFT',
+                title: Site.getSingleResource('TotalBets') + ' - ' + Site.getSingleResource('HTFT')
             });
 
             RefreshCountDown.initEvent();
         },
         initEvent: function () {
-            $("#SubmitButton").on("click", function () {
+            $('#SubmitButton').on('click', function () {
                 _me.submit();
             });
 
             $('#reportContent').on('click', '.team', function () {
-                var matchId = $(this).attr("data-match-id");
+                const matchId = $(this).attr('data-match-id');
                 Totalbets.viewRunningBetListMatch(matchId, 16);
             });
         },
         submit: function () {
             Site.blockUI();
-            $("#HalfTimeFullTimeForm").submit();
+            $('#HalfTimeFullTimeForm').submit();
         }
     };
 
@@ -1282,7 +1282,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./halftimefulltime */ "./www/js/source/pages/totalbet/halftimefulltime/halftimefulltime.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (HalfTimeFullTime) {
-    "use strict";
+    'use strict';
 
     $(HalfTimeFullTime.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -1299,35 +1299,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! components/refreshcountdown */ "./www/js/source/components/refreshcountdown.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, RefreshCountDown) {
-        "use strict";
+        'use strict';
 
-        var _me = {
+        const _me = {
             resizeGrid: function () {
-                var $grid = $(".body-content");
+                const $grid = $('.body-content');
                 if ($grid.length === 0) {
                     return;
                 }
 
-                var gridTop = $grid.offset().top;
-                var footerSite = 18;
+                const gridTop = $grid.offset().top;
+                const footerSite = 18;
 
-                var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - footerSite - 10;
+                let gridHeight = window.innerHeight - gridTop - $('.footer-content').height() - footerSite - 10;
                 gridHeight = Math.max(150, gridHeight);
-                $grid.css("max-height", gridHeight);
+                $grid.css('max-height', gridHeight);
 
                 if (!$grid.hasVerticalScrollBar()) {
-                    $grid.addClass("hasScroll");
+                    $grid.addClass('hasScroll');
                 }
                 else {
-                    $grid.find("table").width($grid.width() - 17);
+                    $grid.find('table').width($grid.width() - 17);
                 }
             },
             initEvent: function () {
                 RefreshCountDown.initialize();
 
-                $("#reportContent").on("click", '.forcast-number', function () {
-                    var matchId = $(this).attr("data-match-id");
-                    var betType = $(this).attr("data-bet-type");
+                $('#reportContent').on('click', '.forcast-number', function () {
+                    const matchId = $(this).attr('data-match-id');
+                    const betType = $(this).attr('data-bet-type');
                     _me.viewRunningBetListMatch(matchId, betType);
                 });
 
@@ -1335,29 +1335,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.resizeGrid();
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     _me.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
             viewRunningBetListMatch: function (matchId, betType) {
-                var url = Site.resolveClientUrl("RunningMatchBetList/Index");
+                let url = Site.resolveClientUrl('RunningMatchBetList/Index');
                 url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "matchid", matchId);
-                url = QueryString.setParam(url, "bettype", betType);
-                url = QueryString.setParam(url, "isShowSumStake", true);
+                url = QueryString.setParam(url, 'matchid', matchId);
+                url = QueryString.setParam(url, 'bettype', betType);
+                url = QueryString.setParam(url, 'isShowSumStake', true);
 
                 Site.redirect(url);
             },
             viewRunningBetListMultiBettype: function (matchId, betType) {
-                var url = Site.resolveClientUrl("RunningBettypesOfMatchBetList/Index");
+                let url = Site.resolveClientUrl('RunningBettypesOfMatchBetList/Index');
                 url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "matchid", matchId);
-                url = QueryString.setParam(url, "multiplebettype", betType);
-                url = QueryString.setParam(url, "isShowSumStake", true);
+                url = QueryString.setParam(url, 'matchid', matchId);
+                url = QueryString.setParam(url, 'multiplebettype', betType);
+                url = QueryString.setParam(url, 'isShowSumStake', true);
 
                 Site.redirect(url);
             },

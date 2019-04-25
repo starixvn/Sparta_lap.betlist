@@ -38,7 +38,7 @@ define(['jquery', 'common/site', 'common/querystring'], function ($, Site, Query
             const fc = getByName($pagerContainer, 'AjaxPagingFunction').val();
             eval(fc); // jshint ignore:line
         } else {
-            const url = Site.getCurrentUrl();
+            let url = Site.getCurrentUrl();
             url = QueryString.setParam(url, 'PageSize', $pageSize.val());
             url = QueryString.setParam(url, 'PageIndex', index);
 
@@ -59,10 +59,10 @@ define(['jquery', 'common/site', 'common/querystring'], function ($, Site, Query
         /// <param name='totalrow'></param>
         /// <param name='elementcontainer'>ex: '#page'</param>
         /// <param name='method'>POST or GET or AJAX</param>
-        const pageHtml = '';
+        let pageHtml = '';
         const setting = $.extend({}, defaultSetting, option);
         _settings[setting.elementcontainer] = setting;
-        const noOfPage = 1;
+        let noOfPage = 1;
         const pagingVisible = setting.totalrow > setting.pagesize;
 
         if (pagingVisible) {
@@ -92,9 +92,9 @@ define(['jquery', 'common/site', 'common/querystring'], function ($, Site, Query
             pageControl.push(pageLast);
 
             const pageListLength = setting.pagelist.length;
-            const pageSizeSelectHtml = '<select class="pageSizeSelected">';
+            let pageSizeSelectHtml = '<select class="pageSizeSelected">';
             const pageSize = parseInt(setting.pagesize, 10);
-            for (const i = 0; i < pageListLength; i++) {
+            for (let i = 0; i < pageListLength; i++) {
                 pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
                 + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
                 + '>' + setting.pagelist[i] + '</option>';
