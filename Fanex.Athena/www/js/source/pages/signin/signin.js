@@ -1,25 +1,25 @@
 ﻿/*global _page, resolveClientUrl */
 
-define(["jquery", "crypto-js"], function ($, CryptoJS) {
-    "use strict";
+define(['jquery', 'crypto-js'], function ($, CryptoJS) {
+    'use strict';
     function isIE() { return (/msie/i).test(navigator.userAgent) && !/opera/i.test(navigator.userAgent); }
     window.IE = isIE();
 
-    var LanguageMessages = {
-        errUserName: "Please input username and password",
-        errValidCode: "You must input validation code."
+    const LanguageMessages = {
+        errUserName: 'Please input username and password',
+        errValidCode: 'You must input validation code.'
     };
 
     function getUserSalt() {
-        var salt;
-        var userName = $("#userName").val();
+        let salt;
+        const userName = $('#userName').val();
         if (userName) {
-            var url = window.resolveClientUrl("Authorization/GetUserSalt?userName=" + userName);
+            const url = window.resolveClientUrl('Authorization/GetUserSalt?userName=' + userName);
             $.ajax({
                 url: url,
-                type: "GET",
+                type: 'GET',
                 async: false,
-                contentType: "application/json; charset=utf-8",
+                contentType: 'application/json; charset=utf-8',
                 cache: false,
                 beforeSend: function () {
                 },
@@ -27,7 +27,7 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
                     salt = result;
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + ": " + thrownError);
+                    alert(xhr.status + ': ' + thrownError);
                 }
             });
         }
@@ -36,28 +36,28 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
     }
 
     function getValidateImage() {
-        var url = $("#captchaUrl").val();
-        $("#imgCode").attr("src", url);
+        const url = $('#captchaUrl').val();
+        $('#imgCode').attr('src', url);
 
         setTimeout(getValidateImage, 120000);
     }
 
     function checkInputValid() {
-        var $username = $("#userName");
-        var $password = $("#passWord");
-        var $captcha = $('#captcha');
+        const $username = $('#userName');
+        const $password = $('#passWord');
+        const $captcha = $('#captcha');
 
         if ($username.val() && $password.val() && $captcha.val()) {
             return true;
         }
 
-        var $errorMessage = $("#errmsg");
+        const $errorMessage = $('#errmsg');
         $errorMessage.html(LanguageMessages.errUserName);
 
-        if ($username.val() === "") {
+        if ($username.val() === '') {
             $username.focus();
         }
-        else if ($password.val() === "") {
+        else if ($password.val() === '') {
             $password.focus();
         }
         else {
@@ -65,7 +65,7 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
             $('#captcha').focus();
         }
 
-        $errorMessage.css("opacity", 1);
+        $errorMessage.css('opacity', 1);
         return false;
     }
 
@@ -76,17 +76,17 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
         }
 
         getValidateImage();
-        var pageResult = window._page;
+        const pageResult = window._page;
 
         if (typeof pageResult.errCode !== 'undefined' && pageResult.errCode !== 0) {
-            $("#errmsg").html(pageResult.errMsg).css("opacity", 1);
+            $('#errmsg').html(pageResult.errMsg).css('opacity', 1);
             if (pageResult.errCode === 101) {
                 $('#txtCaptcha').focus().select();
             }
         }
 
         document.fLogin.onsubmit = function () {
-            var $username = $("#userName");
+            const $username = $('#userName');
             $username.val($.trim($username.val()));
             if (!checkInputValid()) {
                 return false;
@@ -94,20 +94,20 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
 
             $('#btnLogin').prop('disabled', true);
 
-            var $loginToken = $('#LogInToken');
-            var $loginTokenTemp = $('#LogInTokenTemp');
+            const $loginToken = $('#LogInToken');
+            const $loginTokenTemp = $('#LogInTokenTemp');
 
-            var userSalt = getUserSalt();
+            const userSalt = getUserSalt();
 
             $loginToken.val($loginTokenTemp.val());
-            var $password = $("#passWord");
-            var hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
-            var encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
+            const $password = $('#passWord');
+            const hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
+            const encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
             $password.val(encryptedPass);
             return true;
         };
 
-        $("#captcha-img").on("click", function () {
+        $('#captcha-img').on('click', function () {
             getValidateImage();
         });
     }

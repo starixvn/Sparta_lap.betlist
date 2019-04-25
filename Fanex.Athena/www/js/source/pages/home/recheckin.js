@@ -1,11 +1,11 @@
-﻿/// <reference path="/@JSense.js" />
-define(["common/site"], function (Site) {
-    "use strict";
-    var _handle;
-    var _onUserId;
+﻿/// <reference path='/@JSense.js' />
+define(['common/site'], function (Site) {
+    'use strict';
+    let _handle;
+    let _onUserId;
 
     function logout() {
-        var index = window;
+        let index = window;
         while (index !== index.parent) {
             index = index.parent;
         }
@@ -14,7 +14,7 @@ define(["common/site"], function (Site) {
     }
 
     function closeBrowser() {
-        var index = window;
+        let index = window;
         while (index !== index.parent) {
             index = index.parent;
         }
@@ -23,37 +23,37 @@ define(["common/site"], function (Site) {
     }
 
     function reCheckin() {
-        var Success = 0;
-        // var Unknown = -1;
-        // var AccessDenied = 1;
-        // var AccountClosed = 2;
-        // var KickedOut = 3;
-        // var UnderMaintenance = 4;
-        var SessionOverride = 5;
+        const Success = 0;
+        // const Unknown = -1;
+        // const AccessDenied = 1;
+        // const AccountClosed = 2;
+        // const KickedOut = 3;
+        // const UnderMaintenance = 4;
+        const SessionOverride = 5;
 
         $.ajax({
-            url: Site.resolveClientUrl("Authorization/ReCheckIn?onid=") + _onUserId,
+            url: Site.resolveClientUrl('Authorization/ReCheckIn?onid=') + _onUserId,
             async: true,
-            type: "GET",
+            type: 'GET',
             cache: false,
             success: function (result) {
-                if (typeof result !== "object") {
+                if (typeof result !== 'object') {
                     return;
                 }
 
-                var errCode = result.ErrCode;
+                const errCode = result.ErrCode;
                 if (errCode !== Success) {
                     clearInterval(_handle);
                     alert(result.ErrMsg, true);
-                    var isInternal = $("#IsInternal").val() === "1";
+                    const isInternal = $('#IsInternal').val() === '1';
                     if (isInternal || SessionOverride === errCode) {
-                        var signOutUrl = Site.resolveClientUrl('Authorization/SignOut');
+                        const signOutUrl = Site.resolveClientUrl('Authorization/SignOut');
                         $.ajax({
                             url: signOutUrl,
                             complete: function () {
                                 closeBrowser();
                             },
-                            type: "GET",
+                            type: 'GET',
                             async: true
                         });
                     }
@@ -67,7 +67,7 @@ define(["common/site"], function (Site) {
 
     return {
         init: function () {
-            _onUserId = $("#OnUserId").val();
+            _onUserId = $('#OnUserId').val();
             reCheckin();
             _handle = setInterval(reCheckin, 30000);
         }
