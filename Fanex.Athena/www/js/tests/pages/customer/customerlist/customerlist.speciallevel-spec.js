@@ -16,12 +16,7 @@
             });
 
             describe("initialize()", function () {
-                it("get customer list stage", function () {
-                    CustomerListSpecialLevel.initialize();
-
-                    expect(CustomerListState.getState).toHaveBeenCalled();
-                });
-
+                
                 it("CustomerListService.showGridDropdownById should be called if .specialLevel is click", function () {
                     setFixtures('<div id="report-content"><a class="specialLevel"></a></div>');
                     spyOn(CustomerListService, "showGridDropdownById");

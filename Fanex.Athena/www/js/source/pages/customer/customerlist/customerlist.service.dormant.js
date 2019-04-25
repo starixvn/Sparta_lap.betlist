@@ -1,24 +1,24 @@
-﻿"use strict";
-define(["jquery", "common/site", "./customerlist.gridoption.dormant", "lib/jqgrid/jquery.jqgrid.additional",
-    "components/paging", "./customerlist.state", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
+﻿'use strict';
+define(['jquery', 'common/site', './customerlist.gridoption.dormant', 'lib/jqgrid/jquery.jqgrid.additional',
+    'components/paging', './customerlist.state', 'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min', 'extensions/jquery.extension'],
 function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, CustomerListState) {
-    var _ajaxRequest = null;
+    let _ajaxRequest = null;
 
-    var _state;
+    let _state;
     
-    var _me = {
+    const _me = {
         initialize: function () {
             _state = CustomerListState.getDormantState();
         },
 
         submit: function () {
             
-            var data = _me.getPostData();
-            var option = {
-                type: "POST",
+            const data = _me.getPostData();
+            const option = {
+                type: 'POST',
                 data: data,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(CustomerListOptionDormant.urlData),
                 success: function (response) {
@@ -39,53 +39,53 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
         },
 
         getPostData: function () {
-            var data = {};
+            const data = {};
 
-            if ($("#subsidiary-multiselect").length > 0) {
-                data.SubsidiaryList = $("#subsidiary-multiselect").multiSelect('getCheckedItems').join();
+            if ($('#subsidiary-multiselect').length > 0) {
+                data.SubsidiaryList = $('#subsidiary-multiselect').multiSelect('getCheckedItems').join();
             }
 
             data.PageIndex = _state.pagingOption.pageindex;
             data.PageSize = _state.pagingOption.pagesize;
-            data.CurrencyId = $("#CurrencyId").val();
-            data.Username = Site.asNull($("#Username").val());
-            data.CurrencyName = $("#CurrencyName").val();
-            data.BaseCurrency = $("#BaseCurrency").val();
+            data.CurrencyId = $('#CurrencyId').val();
+            data.Username = Site.asNull($('#Username').val());
+            data.CurrencyName = $('#CurrencyName').val();
+            data.BaseCurrency = $('#BaseCurrency').val();
 
-            $("#excelDormantParam").val(JSON.stringify(data));
+            $('#excelDormantParam').val(JSON.stringify(data));
 
-            $("#CurrencyId").attr('data-original', data.CurrencyId);
-            $("#BaseCurrency").attr('data-original', data.BaseCurrency);
+            $('#CurrencyId').attr('data-original', data.CurrencyId);
+            $('#BaseCurrency').attr('data-original', data.BaseCurrency);
 
             return data;
         },
 
         bindData: function (gridData) {
-            var width = 708;
-            var $container = $("#tabDormantCustomer");
-            jqGridAdditional.clearGrid("DormantCustomerGrid");
+            const width = 708;
+            const $container = $('#tabDormantCustomer');
+            jqGridAdditional.clearGrid('DormantCustomerGrid');
 
-            var hasData = gridData && gridData.TotalRows > 0;
-            $("#DormantCustomerPager, #tabDormantCustomer .excel-container").toggle(hasData);
+            const hasData = gridData && gridData.TotalRows > 0;
+            $('#DormantCustomerPager, #tabDormantCustomer .excel-container').toggle(hasData);
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo(null, $container);
-                $container.find(".panel-heading").width(width);
-                $container.find("#noInfoRow").width(width - 10);
-                $("#num-of-dormant-customer, #num-of-dormant-customer-header").html("0");
+                $container.find('.panel-heading').width(width);
+                $container.find('#noInfoRow').width(width - 10);
+                $('#num-of-dormant-customer, #num-of-dormant-customer-header').html('0');
                 Site.unBlockUI();
                 return;
             }
 
-            $("#num-of-dormant-customer, #num-of-dormant-customer-header").html(gridData.TotalRows);
+            $('#num-of-dormant-customer, #num-of-dormant-customer-header').html(gridData.TotalRows);
 
-            var pagingOption = _state.pagingOption;
+            const pagingOption = _state.pagingOption;
             pagingOption.totalrow = parseInt(gridData.TotalRows, 10);
             PagingHelper.render(pagingOption);
 
-            var $reportGrid = $("#DormantCustomerGrid");
+            const $reportGrid = $('#DormantCustomerGrid');
             
-            var gridOption = CustomerListOptionDormant.getGridOption();
+            const gridOption = CustomerListOptionDormant.getGridOption();
             gridOption.data = gridData.Data;
             gridOption.rowNum = gridData.Data.length;
             gridOption.gridComplete = function () {
@@ -97,9 +97,9 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
 
             jqGridAdditional.updateGridHeight($container);
             
-            $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
-            $container.find(".panel-heading").width(width);
-            $("#DormantCustomerPager").width(width);
+            $('#DormantCustomerGrid').jqGrid('setGridWidth', width);
+            $container.find('.panel-heading').width(width);
+            $('#DormantCustomerPager').width(width);
             
             if ($.active <= 1) {
                 Site.unBlockUI();
@@ -107,8 +107,8 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
         },
 
         resizeGrid: function (gridSelector) {
-            var $reportGrid = $(gridSelector);
-            jqGridAdditional.updateGridHeight($reportGrid.closest(".theme_jqGrid"));
+            const $reportGrid = $(gridSelector);
+            jqGridAdditional.updateGridHeight($reportGrid.closest('.theme_jqGrid'));
             jqGridAdditional.updateGridWidth($reportGrid);
         }
     };

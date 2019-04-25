@@ -163,7 +163,7 @@
                             let groupName = result.ExtendedData.GroupName;
                             if (groupName.length > 17) {
                                 groupName = groupName.substring(0, 14);
-                                groupName += "...";
+                                groupName += '...';
                             }
                             const groupNameText = '<span title="' + result.ExtendedData.GroupName + '">' + groupName + '</span>';
 
@@ -368,7 +368,7 @@
                                 _me.showMsg(result.Message, result.Success);
                             }
                             if (param.isRemovePlayercomm) {
-                                CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
+                                CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, '',
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
                                                 result.ExtendedData.RNGComm);
                             }

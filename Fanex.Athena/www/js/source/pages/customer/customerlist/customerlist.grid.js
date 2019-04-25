@@ -1,18 +1,18 @@
-﻿"use strict";
+﻿'use strict';
 define([
-    "jquery",
-    "common/site",
-    "common/querystring",
-    "./customerlist.state",
-    "./customerlist.service",
-    "./customerlist.service.dormant",
-    "./customerlist.bastatus",
-    "./customerlist.speciallevel",
-    "./customerlist.oddsgroup",
-    "./customerlist.custstatus",
-    "components/paging",
-    "common/popup",
-    "lib/jqgrid/jquery.jqgrid.additional"],
+    'jquery',
+    'common/site',
+    'common/querystring',
+    './customerlist.state',
+    './customerlist.service',
+    './customerlist.service.dormant',
+    './customerlist.bastatus',
+    './customerlist.speciallevel',
+    './customerlist.oddsgroup',
+    './customerlist.custstatus',
+    'components/paging',
+    'common/popup',
+    'lib/jqgrid/jquery.jqgrid.additional'],
     function (
         $,
         Site,
@@ -27,18 +27,18 @@ define([
         PagingHelper,
         Popup,
         jqGridAdditional) {
-        var _state;
-        var _dormantState;
+        let _state;
+        let _dormantState;
         function updateGroupForCheckCustomerArray(groupid) {
-            var selectedCustomers = _state.selectedCustomers;
-            for (var custId in selectedCustomers) {
+            const selectedCustomers = _state.selectedCustomers;
+            for (let custId in selectedCustomers) {
                 if (selectedCustomers.hasOwnProperty(custId)) {
                     selectedCustomers[custId] = groupid;
                 }
             }
         }
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
                 _dormantState = CustomerListState.getDormantState();
@@ -47,7 +47,7 @@ define([
                     ajaxPagingDormant: _me.ajaxPagingDormant,
                 };
 
-                $("#SubmitButton").prop("disabled", true);
+                $('#SubmitButton').prop('disabled', true);
 
                 CustomerListBAStatus.initialize();
                 CustomerListSpecialLevel.initialize();
@@ -55,16 +55,16 @@ define([
                 CustomerListCustStatus.initialize();
 
                 _me.initEvent();
-                $("#SubmitButton").prop("disabled", false);
+                $('#SubmitButton').prop('disabled', false);
             },
 
             ajaxPaging: function () {
-                _state.pagingOption = PagingHelper.getSetting("#ActiveCustomerPager");
+                _state.pagingOption = PagingHelper.getSetting('#ActiveCustomerPager');
                 CustomerListService.submit();
             },
 
             ajaxPagingDormant: function () {
-                _dormantState.pagingOption = PagingHelper.getSetting("#DormantCustomerPager");
+                _dormantState.pagingOption = PagingHelper.getSetting('#DormantCustomerPager');
                 CustomerListServiceDormant.submit();
             },
 
@@ -77,29 +77,29 @@ define([
                 });
                 _me.registerCheckboxEvent();
 
-                $("#report-content").on("click", ".pendingFunds", function () {
-                    var $this = $(this);
-                    var custId = $this.data("custid");
-                    var systemId = $this.data("systemid");
-                    var externalId = $this.data("externalid");
+                $('#report-content').on('click', '.pendingFunds', function () {
+                    const $this = $(this);
+                    const custId = $this.data('custid');
+                    const systemId = $this.data('systemid');
+                    const externalId = $this.data('externalid');
 
                     _me.viewRunningBetlist(custId, systemId, externalId);
                 });
 
-                $(window).on("resize", function () {
-                    CustomerListService.resizeGrid("#ReportGrid");
-                    jqGridAdditional.updateGridHeight($("#tabDormantCustomer"));
+                $(window).on('resize', function () {
+                    CustomerListService.resizeGrid('#ReportGrid');
+                    jqGridAdditional.updateGridHeight($('#tabDormantCustomer'));
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             registerCheckboxEvent: function () {
-                $("#report-content").on("change", "#CheckAll", function () {
-                    var isCheckedAll = this.checked;
-                    var selectedCustomers = {};
+                $('#report-content').on('change', '#CheckAll', function () {
+                    const isCheckedAll = this.checked;
+                    const selectedCustomers = {};
 
                     if (isCheckedAll) {
                         _state.cachedData.Data.map(function (item) {
@@ -112,10 +112,10 @@ define([
                     CustomerListService.bindData(_state.cachedData);
                 });
 
-                $("#report-content").on("change", ".select-cust-checkbox", function () {
-                    var custid = Number(this.id);
-                    var group = $(this).data("group-comm-id");
-                    var selectedCustomers = _state.selectedCustomers;
+                $('#report-content').on('change', '.select-cust-checkbox', function () {
+                    const custid = Number(this.id);
+                    const group = $(this).data('group-comm-id');
+                    const selectedCustomers = _state.selectedCustomers;
 
                     if (this.checked) {
                         selectedCustomers[custid] = group;
@@ -124,27 +124,27 @@ define([
                     }
 
                     _state.checkedAllRows = Object.keys(selectedCustomers).length === _state.cachedData.Data.length;
-                    $("#CheckAll").prop("checked", _state.checkedAllRows);
+                    $('#CheckAll').prop('checked', _state.checkedAllRows);
                 });
             },
 
             viewRunningBetlist: function (custId, systemId, externalId) {
-                var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "externalid", externalId);
-                url = QueryString.setParam(url, "systemid", systemId);
-                url = QueryString.setParam(url, "betlistname", "betlistrunning");
+                let url = Site.resolveClientUrl('CustomerOutstandingBetList/Index');
+                url = QueryString.setParam(url, 'custid', custId);
+                url = QueryString.setParam(url, 'externalid', externalId);
+                url = QueryString.setParam(url, 'systemid', systemId);
+                url = QueryString.setParam(url, 'betlistname', 'betlistrunning');
                 url = Site.setLicenseeOptionOriginalParam(url);
 
-                var popH = Math.min(window.innerHeight - 100, 700), popW = 900;
-                var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 70, title: Site.getSingleResource('BetListRunning') };
+                const popH = Math.min(window.innerHeight - 100, 700), popW = 900;
+                const popupOption = { id: 'betlist-popup', width: popW + 30, height: popH + 70, title: Site.getSingleResource('BetListRunning') };
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
             updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, csCom) {
-                var count = 0;
-                var length = Object.keys(_state.selectedCustomers).length;
+                let count = 0;
+                const length = Object.keys(_state.selectedCustomers).length;
 
                 $.each(_state.cachedData.Data, function (index, item) {
                     if (count === length) {
@@ -166,8 +166,8 @@ define([
             },
 
             updateGridGroup: function (groupid, groupName, groupColor) {
-                var count = 0;
-                var length = Object.keys(_state.selectedCustomers).length;
+                let count = 0;
+                const length = Object.keys(_state.selectedCustomers).length;
                 $.each(_state.cachedData.Data, function (index, item) {
                     if (count === length) {
                         return false;

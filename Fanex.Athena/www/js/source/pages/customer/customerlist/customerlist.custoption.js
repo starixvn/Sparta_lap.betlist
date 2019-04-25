@@ -1,34 +1,34 @@
-﻿define(["jquery", "common/site", "common/querystring", "common/popup", "./customerlist.service"],
+﻿define(['jquery', 'common/site', 'common/querystring', 'common/popup', './customerlist.service'],
     function ($, Site, QueryString, Popup, CustomerListService) {
-        "use strict";
+        'use strict';
 
-        var OPTIONLIST_SELECTOR = "#ViewOptionList";
+        const OPTIONLIST_SELECTOR = '#ViewOptionList';
 
         function getCustomerInfo() {
-            var $optionList = $(OPTIONLIST_SELECTOR);
+            const $optionList = $(OPTIONLIST_SELECTOR);
             return {
-                CustId: $optionList.data("custid"),
-                SystemId: $optionList.data("systemid"),
-                ExternalId: $optionList.data("externalid")
+                CustId: $optionList.data('custid'),
+                SystemId: $optionList.data('systemid'),
+                ExternalId: $optionList.data('externalid')
             };
         }
 
-        var _me = {
+        const _me = {
             initialize: function () {
-                $("#report-content").on("click", ".custoptionlink", function () {
-                    CustomerListService.showGridDropdownById("ViewOptionList", $(this));
+                $('#report-content').on('click', '.custoptionlink', function () {
+                    CustomerListService.showGridDropdownById('ViewOptionList', $(this));
                 });
 
-                $("#report-content").on("blur", ".custoptionlink", function () {
+                $('#report-content').on('blur', '.custoptionlink', function () {
                     setTimeout(function () {
-                        $("#ViewOptionList").hide();
+                        $('#ViewOptionList').hide();
                     }, 300);
                 });
 
-                $("#bet-setting-link").on("click", _me.viewBetSetting);
-                $("#bet-list-link").on("click", _me.viewBetList);
-                $("#statement-link").on("click", _me.viewStatement);
-                $("#login-info-link").on("click", _me.viewLogInfo);
+                $('#bet-setting-link').on('click', _me.viewBetSetting);
+                $('#bet-list-link').on('click', _me.viewBetList);
+                $('#statement-link').on('click', _me.viewStatement);
+                $('#login-info-link').on('click', _me.viewLogInfo);
             },
 
             closeCustOption: function () {
@@ -36,36 +36,36 @@
             },
 
             viewBetSetting: function () {
-                var customer = getCustomerInfo();
+                const customer = getCustomerInfo();
 
                 _me.closeCustOption();
 
-                var url = Site.resolveClientUrl("SportsbookBetSetting/Index?custid=" +
-                    customer.CustId + "&username=" + customer.SystemId + "&nickname=" + customer.ExternalId);
+                const url = Site.resolveClientUrl('SportsbookBetSetting/Index?custid=' +
+                    customer.CustId + '&username=' + customer.SystemId + '&nickname=' + customer.ExternalId);
 
-                var popupOption = { id: "viewOptionBetSettingFrame", width: 905, height: 600, title: Site.getSingleResource("BetSetting") };
+                const popupOption = { id: 'viewOptionBetSettingFrame', width: 905, height: 600, title: Site.getSingleResource('BetSetting') };
                 Popup.openPopupWithIframe(url, popupOption);
             },
 
             viewLogInfo: function () {
                 _me.closeCustOption();
 
-                var customer = getCustomerInfo();
-                var url = Site.resolveClientUrl("Customer/LogInfo");
+                const customer = getCustomerInfo();
+                let url = Site.resolveClientUrl('Customer/LogInfo');
                 url = QueryString.setParams(url, customer);
 
-                var popupOption = { width: 360, height: 280, title: Site.getSingleResource("LogInfo"), id: "CustomerLogInfo" };
+                const popupOption = { width: 360, height: 280, title: Site.getSingleResource('LogInfo'), id: 'CustomerLogInfo' };
 
-                var $popup = $("#" + popupOption.id);
+                let $popup = $('#' + popupOption.id);
                 if ($popup.length > 0) {
-                    $popup = $popup.find(".wrapContent");
+                    $popup = $popup.find('.wrapContent');
                 }
                 else {
                     $popup = $('<div style="display: none" class="customer-logInfo"></div>');
                 }
 
                 $popup.load(url, function (response, status) {
-                    if (status === "success") {
+                    if (status === 'success') {
                         Popup.openPopup($(this), popupOption);
                     }
                 });
@@ -75,31 +75,31 @@
 
             viewBetList: function () {
                 _me.closeCustOption();
-                var customer = getCustomerInfo();
+                const customer = getCustomerInfo();
 
-                var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
+                let url = Site.resolveClientUrl('CustomerOutstandingBetList/Index');
                 url = QueryString.setParams(url, customer);
-                url = QueryString.setParam(url, "betlistname", "betlist");
+                url = QueryString.setParam(url, 'betlistname', 'betlist');
                 url = Site.setLicenseeOptionOriginalParam(url);
 
-                var popH = Math.min(window.innerHeight - 100, 600), popW = 900;
-                var popupOption = { id: "viewOptionFrame", width: popW + 30, height: popH + 70 };
+                const popH = Math.min(window.innerHeight - 100, 600), popW = 900;
+                const popupOption = { id: 'viewOptionFrame', width: popW + 30, height: popH + 70 };
 
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
             viewStatement: function () {
-                var customer = getCustomerInfo();
+                const customer = getCustomerInfo();
                 _me.closeCustOption();
 
-                var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
+                let url = Site.resolveClientUrl('CustomerOutstandingBetList/Index');
                 url = QueryString.setParams(url, customer);
-                url = QueryString.setParam(url, "betlistname", "dailystatement");
+                url = QueryString.setParam(url, 'betlistname', 'dailystatement');
                 url = Site.setLicenseeOptionOriginalParam(url);
 
-                var popH = Math.min(window.innerHeight - 100, 600), popW = 900;
-                var popupOption = { id: "viewOptionFrame", width: popW + 30, height: popH + 70 };
+                const popH = Math.min(window.innerHeight - 100, 600), popW = 900;
+                const popupOption = { id: 'viewOptionFrame', width: popW + 30, height: popH + 70 };
 
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();

@@ -162,16 +162,16 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
         resizeGrid: function (gridSelector) {
             const $reportGrid = $(gridSelector);
-            jqGridAdditional.updateGridHeight($reportGrid.closest(".theme_jqGrid"));
+            jqGridAdditional.updateGridHeight($reportGrid.closest('.theme_jqGrid'));
             jqGridAdditional.updateGridWidth($reportGrid);
         },
 
         addGridScrollEventToHidePopups: function () {
             // Hide popup if scroll
-            $(".ui-jqgrid-bdiv").on("scroll", function () {
+            $('.ui-jqgrid-bdiv').on('scroll', function () {
                 $(_POPUP_LIST).each(function (index, element) {
                     const popup = $(element);
-                    if (popup.is(":visible")) {
+                    if (popup.is(':visible')) {
                         popup.hide();
                     }
                 });
@@ -190,14 +190,14 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
         updateIndexColumnFormatter: function (indexColumn, showingColumns) {
             const indexFormatter = function (cellValue, options, rowObject) {
-                const checkedText = $("#CheckAll").prop("checked") || _state.selectedCustomers[rowObject.CustId] !== undefined ? "checked" : "";
+                const checkedText = $('#CheckAll').prop('checked') || _state.selectedCustomers[rowObject.CustId] !== undefined ? 'checked' : '';
 
                 return '<input type="checkbox" ' + checkedText + ' title="' + rowObject.CustId +
                         '" id="' + rowObject.CustId + '" data-group-comm-id="' + rowObject.GroupCommId + '" class="select-cust-checkbox check-child" />' +
                     '<label for="' + rowObject.CustId + '"></label>';
             };
 
-            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
+            if (_isAllowedCustomerCommission && showingColumns['Group'] !== undefined && _isAllowedUserEditComm) {
                 indexColumn.formatter = indexFormatter;
             }
             else {

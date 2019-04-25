@@ -1,8 +1,8 @@
-﻿define(["jquery", "common/site"],
+﻿define(['jquery', 'common/site'],
     function ($, Site) {
-        "use strict";
+        'use strict';
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
             name: 'ExternalId',
             index: 'ExternalId',
@@ -12,7 +12,7 @@
             sortable: false
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
             name: 'SystemId',
             index: 'SystemId',
@@ -22,7 +22,7 @@
             sortable: false
         };
 
-        var balanceColumn = {
+        const balanceColumn = {
             name: 'Balance',
             index: 'Balance',
             width: 150,
@@ -30,25 +30,25 @@
             sortable: false,
             resizable: false,
             formatter: 'number',
-            formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' },
+            formatteroptions: { decimalSeparator: '.', thousandsSeparator: ' ', decimalPlaces: 2, defaultValue: '0.00' },
             frozen: true
         };
-        var archivedDateColumn =
+        const archivedDateColumn =
         {
             name: 'ArchivedDate',
             index: 'ArchivedDate',
             width: 140,
             align: 'center',
-            formatter: "date",
+            formatter: 'date',
             sortable: false,
             resizable: false
         };
         //#endregion
-        var colNameList = ['ExternalId', "SystemId", "Balance", 'ArchivedDate'];
+        const colNameList = ['ExternalId', 'SystemId', 'Balance', 'ArchivedDate'];
 
-        var colModelList = [externalIdColumn, systemIdColumn, balanceColumn, archivedDateColumn];
+        const colModelList = [externalIdColumn, systemIdColumn, balanceColumn, archivedDateColumn];
 
-        var me = {
+        const me = {
             urlData: 'Customer/DormantCustomerList',
             gridOption: {
                 datatype: 'local',
@@ -79,13 +79,13 @@
         };
 
         
-        var getColName = function () {
-            var temp = Site.clone(colNameList);
+        const getColName = function () {
+            const temp = Site.clone(colNameList);
             return Site.getResources(temp);
         };
 
-        var getColModel = function () {
-            var temp = Site.clone(colModelList);
+        const getColModel = function () {
+            const temp = Site.clone(colModelList);
 
             return temp;
         };
