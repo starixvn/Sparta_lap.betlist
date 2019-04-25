@@ -1,5 +1,5 @@
 ﻿define(['./firstgoallastgoal'], function (FirstGoalLastGoal) {
-    "use strict";
+    'use strict';
 
     $(FirstGoalLastGoal.initialize);
 });

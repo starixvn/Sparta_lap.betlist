@@ -1,5 +1,5 @@
 ﻿define(['./oddevendrawnodraw'], function (OddEvenDND) {
-    "use strict";
+    'use strict';
 
     $(OddEvenDND.initialize);
 });

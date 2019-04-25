@@ -1,5 +1,5 @@
 ﻿define(['./totalgoal'], function (TotalGoal) {
-    "use strict";
+    'use strict';
 
     $(TotalGoal.initialize);
 });

@@ -1,5 +1,5 @@
 ﻿define(['./moneyline'], function (MoneyLine) {
-    "use strict";
+    'use strict';
 
     $(MoneyLine.initialize);
 });

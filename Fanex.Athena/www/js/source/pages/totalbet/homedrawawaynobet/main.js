@@ -1,5 +1,5 @@
 ﻿define(['./homedrawawaynobet'], function (HomeDrawAwayNoBet) {
-    "use strict";
+    'use strict';
 
     $(HomeDrawAwayNoBet.initialize);
 });
