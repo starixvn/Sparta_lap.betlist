@@ -4808,13 +4808,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 // Show the grid
                 $grid.jqGrid('GridUnload');
-                $grid.jqGrid(gridOption);
+                $('#BetListGrid').jqGrid(gridOption); // must get the grid instance again
                 $('#gbox_BetListGrid').hide();
             },
 
             bindData: function (response) {
-                const $grid = $('#BetListGrid');
-                $grid.jqGrid('GridUnload');
+                $('#BetListGrid').jqGrid('GridUnload');
+                const $grid = $('#BetListGrid'); // must get the grid instance again 
 
                 if (response === null || response.Main.length === 0) {
                     jqGridAdditional.setNoInfo();
