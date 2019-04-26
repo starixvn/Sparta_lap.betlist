@@ -11,6 +11,7 @@
     var selectedStatus = string.Join(",", Model.StatusList.Where(x => x.Checked).Select(x => x.ID).ToArray());
     var selectedLiveStatus = string.Join(",", Model.LiveStatusList.Select(x => x.Key).ToArray());
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+    baseCurrencyList.Add(new { value = "INH", label = "INH" });
     var selectedCurrency = string.Join(",", Model.CurrencyList.Select(x => x.Key).ToArray());
 }
 @section pagecss {
