@@ -11,11 +11,11 @@ GO
 */
 
 -- Microgaming Win Loss
-EXEC sp_rename 'LRF_Rpt_MicroGamingWinloss', 'DEL_LRF_Rpt_MicroGamingWinloss', 'Object'
+EXEC sp_rename 'LRF_Rpt_MicroGamingWinloss', 'DEL_LRF_Rpt_MicroGamingWinloss'
 
 GO
 
 -- Casino Progressive Wins
-EXEC sp_rename 'Lrf_Rpt_CasinoProgressiveWins', 'DEL_Lrf_Rpt_CasinoProgressiveWins', 'Object'
+EXEC sp_rename 'Lrf_Rpt_CasinoProgressiveWins', 'DEL_Lrf_Rpt_CasinoProgressiveWins'
 
 GO
