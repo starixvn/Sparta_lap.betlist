@@ -1,16 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <SpNameConfig Environment="DEV" SpName="Lrf_f_GetExchangeDaily" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_f_GetExchangeDaily" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_f_GetSubExchangeDaily" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_RefNo_Mem" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_Mem" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_f_GetExchangeDaily" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_Running" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_f_GetSubExchangeDaily" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_f_GetSubExchangeDaily" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_Licensee" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_Licensee_Others" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_Licensee_Sportsbook" EnvironmentText="_UAT1"></SpNameConfig>
 
 </Root>
