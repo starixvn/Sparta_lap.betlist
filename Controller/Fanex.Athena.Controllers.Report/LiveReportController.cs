@@ -97,7 +97,7 @@ namespace Fanex.Athena.Controllers.Report
                 userSession.CurrencyList, 
                 metaModel, 
                 productAccess);
-            model.MainResult = await _liveReportService.GetLiveReportSummary(metaModel).ConfigureAwait(false);
+            model.MainResult = await _liveReportService.GetLiveReportSummary(metaModel);
             model.ShowEmptyContent = false;
             return metaModel.IsExportExcel
                        ? await Excel(model).ConfigureAwait(false)
