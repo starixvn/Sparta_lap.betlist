@@ -2335,14 +2335,17 @@ function (_Component) {
       }; // show detail popup (in choice column)
 
 
-      window.showCombMPDetail = function (transId, refNo, betId, custId, betTeam, baseCurrency) {
+      window.showCombMPDetail = function (transId, refNo, betId, custId, betTeam) {
+        var baseCurrency = _this2.props.isConvertAll ? _this2.props.selectedBaseCurrency : '';
         var url = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
 
         _this2._openPopup(url, betTeam);
       };
 
       window.ViewCashOutHistory = function (transId, refNo, betType, betdaqId) {
-        var _BetList$getCashOutHi = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getCashOutHistoryPopupSetting(_this2.props.requestParam.BaseCurrency, transId, refNo, betType, betdaqId),
+        var baseCurrency = _this2.props.isConvertAll ? _this2.props.selectedBaseCurrency : '';
+
+        var _BetList$getCashOutHi = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getCashOutHistoryPopupSetting(baseCurrency, transId, refNo, betType, betdaqId),
             url = _BetList$getCashOutHi.url,
             isCashOut = _BetList$getCashOutHi.isCashOut;
 
@@ -2352,7 +2355,8 @@ function (_Component) {
       };
 
       window.ShowBonusDetails = function (refCode, transId) {
-        var url = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getBonusDetailUrl(refCode, transId, _this2.props.requestParam.BaseCurrency);
+        var baseCurrency = _this2.props.isConvertAll ? _this2.props.selectedBaseCurrency : '';
+        var url = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getBonusDetailUrl(refCode, transId, baseCurrency);
         var title = _jsroot_lib_langHelper__WEBPACK_IMPORTED_MODULE_8__["default"].getSingleResource("TransactionDetail");
 
         _this2._openPopup(url, title);
@@ -2491,9 +2495,11 @@ function mapDispatchToProps(dispatch) {
 ;
 
 function mapStateToProps(state) {
-  var requestParam = state.requestParam;
+  var isConvertAll = state.isConvertAll,
+      selectedBaseCurrency = state.selectedBaseCurrency;
   return Object.assign({}, {
-    requestParam: requestParam
+    isConvertAll: isConvertAll,
+    selectedBaseCurrency: selectedBaseCurrency
   });
 }
 

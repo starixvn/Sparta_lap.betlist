@@ -51,19 +51,22 @@ export class PageLayout extends Component {
         };
 
         // show detail popup (in choice column)
-        window.showCombMPDetail = (transId, refNo, betId, custId, betTeam, baseCurrency) => {
+        window.showCombMPDetail = (transId, refNo, betId, custId, betTeam) => {
+            const baseCurrency =  this.props.isConvertAll ? this.props.selectedBaseCurrency : '';
             const url = BetList.getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
             this._openPopup(url, betTeam);
         };
 
         window.ViewCashOutHistory = (transId, refNo, betType, betdaqId) => {
-            const {url, isCashOut } = BetList.getCashOutHistoryPopupSetting(this.props.requestParam.BaseCurrency, transId, refNo, betType, betdaqId);
+            const baseCurrency =  this.props.isConvertAll ? this.props.selectedBaseCurrency : '';
+            const {url, isCashOut } = BetList.getCashOutHistoryPopupSetting(baseCurrency, transId, refNo, betType, betdaqId);
             const title = LangHelper.getSingleResource(isCashOut ? "CashOutDetails" : "BoughtDetails");
             this._openPopup(url, title);
         }
 
         window.ShowBonusDetails = (refCode, transId) => {
-            const url = BetList.getBonusDetailUrl(refCode, transId, this.props.requestParam.BaseCurrency);
+            const baseCurrency = this.props.isConvertAll ? this.props.selectedBaseCurrency : '';
+            const url = BetList.getBonusDetailUrl(refCode, transId, baseCurrency);
 
             const title = LangHelper.getSingleResource("TransactionDetail");
             this._openPopup(url, title);
@@ -181,8 +184,8 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    const { requestParam } = state;
-    return Object.assign({}, { requestParam } );
+    const { isConvertAll, selectedBaseCurrency } = state;
+    return Object.assign({}, { isConvertAll, selectedBaseCurrency } );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageLayout);
