@@ -5,7 +5,8 @@ import { PageLayout } from '../PageLayout';
 import BetList from '../../lib/BetList';
 
 const DefaultProps = {
-    requestParam: { BaseCurrency: 'USD' }
+    isConvertAll: true,
+    selectedBaseCurrency: 'GBP'
 };
 describe('PageLayout methods ', () => {
     
@@ -72,9 +73,9 @@ describe('PageLayout methods ', () => {
 
         pageLayout.componentDidMount();
 
-        window.showCombMPDetail(1,2,3,4,expectedPopupTitle,6);
+        window.showCombMPDetail(1,2,3,4,expectedPopupTitle);
 
-        expect(BetList.getParlayDetailUrl).toHaveBeenCalledWith(1,2,3,4,expectedPopupTitle,6);
+        expect(BetList.getParlayDetailUrl).toHaveBeenCalledWith(1,2,3,4,expectedPopupTitle, DefaultProps.selectedBaseCurrency);
         expect(pageLayout.setState).toHaveBeenCalledWith({ isShowPopup: true, popupUrl: expectedResultUrl, popupTitle: expectedPopupTitle});
     });
 
@@ -91,7 +92,7 @@ describe('PageLayout methods ', () => {
 
             window.ViewCashOutHistory(1,2,3,4);
 
-            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.requestParam.BaseCurrency,1,2,3,4);
+            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.selectedBaseCurrency,1,2,3,4);
             expect(pageLayout.setState).toHaveBeenCalledWith({ isShowPopup: true, popupUrl: expectedResultUrl, popupTitle: expectedCashOutPopupTitle});
         });
     
@@ -107,7 +108,7 @@ describe('PageLayout methods ', () => {
 
             window.ViewCashOutHistory(1,2,3,4);
 
-            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.requestParam.BaseCurrency,1,2,3,4);
+            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.selectedBaseCurrency,1,2,3,4);
             expect(pageLayout.setState).toHaveBeenCalledWith({ isShowPopup: true, popupUrl: expectedResultUrl, popupTitle: expectedBoughtPopupTitle});
         });
     });    

@@ -19,12 +19,14 @@ describe('connect ', () => {
 
     it('props should be mapped correctly', () => {
         const expectedResult = {
-            requestParam: { FromDate: '2018-01-01', ToDate: '2018-01-02' }
+            isConvertAll: true,
+            selectedBaseCurrency: 'GBP'
         }
 
         const state = {
-            requestParam: { FromDate: '2018-01-01', ToDate: '2018-01-02' },
-            anotherProp: "Not included"
+            isConvertAll: true,
+            selectedBaseCurrency: 'GBP',
+            anotherProp: 'Not included'
         }
 
         const result = mapStateToProps(state);
