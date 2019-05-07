@@ -16,6 +16,6 @@ DELETE dbo.UserFuncPermission
 WHERE FunctionKey in ('CancelledBets36', 'DailyBetList37')
 
 DELETE dbo.GroupFuncPermission
-WHERE FunctionKey in ('CashOutWinLoss72', 'DailyBetList37')
+WHERE FunctionKey in ('CancelledBets36', 'DailyBetList37')
 
 GO
