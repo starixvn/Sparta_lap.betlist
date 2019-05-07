@@ -33,7 +33,7 @@
 
         public async Task<SubsidiaryResultViewModel> GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            var dataList = await _subLicenseePerformanceDataAccess.GetData(metaModel, currencyList).ConfigureAwait(false);
+            var dataList = await _subLicenseePerformanceDataAccess.GetData(metaModel, currencyList);
 
             if (dataList.Any())
             {
