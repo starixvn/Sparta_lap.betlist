@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.Model.Casino.MetaModel;
+﻿using System.Threading.Tasks;
+using Fanex.Athena.Model.Casino.MetaModel;
 using Fanex.Athena.Model.Customer.MetaModel;
 
 namespace Fanex.Athena.Service.Casino.Interfaces
@@ -9,6 +10,6 @@ namespace Fanex.Athena.Service.Casino.Interfaces
 
         bool UpdateSuspend(CustomerStatusMetaModel metaModel);
 
-        bool UpdateCommission(RNGCasinoUpdateMemberComMetaModel metaModel);
+        Task<bool> UpdateCommission(RNGCasinoUpdateMemberComMetaModel metaModel);
     }
 }

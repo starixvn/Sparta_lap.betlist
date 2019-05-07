@@ -8,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Interfaces;
+    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
 
     public class LastBetsMonitoringBetListControllerTest : BaseControllerHelperTest
@@ -32,13 +33,13 @@
                 // Arrange
                 var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
 
-                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(new TicketResult());
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(Task.FromResult(new TicketResult()));
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
 
                 // Assert
-                Assert.That(result.GetType().GetProperty("NewRow").GetValue(result, null), Is.False);
+                Assert.That(result.GetValue("NewRow"), Is.False);
             }
         }
 
@@ -53,7 +54,7 @@
                 var ticket = FakeHelper.Create<LrfTicket>();
                 ticket.BetTypeId = 1;
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
-                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(Task.FromResult(ticketResult));
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
@@ -62,9 +63,9 @@
                 Assert.Multiple(() => 
                 {
                     AssertClearData(ticketResult);
-                    Assert.That(result.GetType().GetProperty("NewRow").GetValue(result, null), Is.True);
-                    Assert.That(result.GetType().GetProperty("Rows").GetValue(result, null), Is.Not.Null);
-                    Assert.That(result.GetType().GetProperty("LastTransId").GetValue(result, null), Is.EqualTo(ticket.TransId));
+                    Assert.That(result.GetValue("NewRow"), Is.True);
+                    Assert.That(result.GetValue("Rows"), Is.Not.Null);
+                    Assert.That(result.GetValue("LastTransId"), Is.EqualTo(ticket.TransId));
                 });
             }
         }
@@ -86,14 +87,43 @@
                 var ticket = FakeHelper.Create<LrfTicket>();
                 ticket.BetTypeId = betType;
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
-                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(Task.FromResult(ticketResult));
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
-                var data = (string)result.GetType().GetProperty("Rows").GetValue(result, null);
+                var data = (string)result.GetValue("Rows");
 
                 // Assert
                 Assert.That(data.Contains("underdog"), Is.True);
+            }
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(12)]
+        [TestCase(20)]
+        public async Task GetData_BuildOdds_NegativeDecimalOddsBetType_BuildCorrectOddString(int betType)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
+
+                var ticket = FakeHelper.Create<LrfTicket>();
+                ticket.BetTypeId = betType;
+                ticket.Odds = -FakeHelper.Create<uint>();
+                var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(Task.FromResult(ticketResult));
+
+                // Action
+                var result = (await controller.GetData(metaModel)).Data;
+                var data = (string)result.GetValue("Rows");
+
+                // Assert
+                Assert.That(data.Contains("underdog negative"), Is.True);
             }
         }
 

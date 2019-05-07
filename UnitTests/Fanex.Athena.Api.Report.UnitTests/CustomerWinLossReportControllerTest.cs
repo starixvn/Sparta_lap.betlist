@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Excel.Report;
     using Excel.Report.Models;
@@ -46,7 +47,7 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnEmptyData()
+        public async Task Index_InvalidModel_ReturnEmptyData()
         {
             var model = new CustomerWinLossMetaModel
             {
@@ -55,7 +56,7 @@
                 ToDate = DateTime.Now
             };
 
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             Assert.Multiple(() =>
             {
@@ -66,14 +67,14 @@
 
         [TestCase("", "")]
         [TestCase(nameof(CustomerWinLoss.CustId), "asc")]
-        public void Index_ValidModel_GetDataFromDataAccess(string sortColumn, string sortDirection)
+        public async Task Index_ValidModel_GetDataFromDataAccess(string sortColumn, string sortDirection)
         {
             // Arrange
             var metaModel = CreateValidMetaModel(sortColumn, sortDirection);
             var expectedData = SetUpForGettingData(metaModel);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.EqualTo(expectedData));
@@ -81,7 +82,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
+        public async Task Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
         {
             // Arrange
             var metaModel = CreateValidMetaModel(nameof(CustomerWinLoss.CustId), "asc");
@@ -106,7 +107,7 @@
                 .ReturnsForAnyArgs(excel);
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>

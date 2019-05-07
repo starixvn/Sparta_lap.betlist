@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Interfaces;
@@ -37,7 +38,7 @@
         }
 
         [Test]
-        public void GetViewModel_WhenCall_BetSettingListReturnedFromDataAccess()
+        public async Task GetViewModelAsync_WhenCall_BetSettingListReturnedFromDataAccess()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -45,30 +46,30 @@
             {
                 new BetSetting()
             };
-            _dataAccess.GetBetSettings(CustId).Returns(betSetting);
+            _dataAccess.GetBetSettingsAsync(CustId).Returns(Task.FromResult<IList<BetSetting>>(betSetting));
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId);
+            var result = await _service.GetViewModelAsync(LicenseeId, CustId);
 
             // Assert
             Assert.That(result.MainData.Count, Is.EqualTo(betSetting.Count));
         }
 
         [Test]
-        public void GetViewModel_HaveNoPermission_ReturnEmptyDataList()
+        public async Task GetViewModelAsync_HaveNoPermission_ReturnEmptyDataList()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId);
+            var result = await _service.GetViewModelAsync(LicenseeId, CustId);
 
             // Assert
             Assert.That(result.MainData.Count, Is.EqualTo(0));
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_DataAccessExecuteWithCorrectParams()
+        public async Task UpdateBetSettingAsync_WhenCall_DataAccessExecuteWithCorrectParams()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -87,14 +88,14 @@
             var xmlParam = "<settings><setting GameTypeID=\"1\" minbet=\"2\" maxbet=\"3\" maxpermatch=\"4\" ></setting></settings>";
 
             // Action
-            var result = _service.UpdateBetSetting(licenseeId, custId, userId, language, ip, setting);
+            var result = await _service.UpdateBetSettingAsync(licenseeId, custId, userId, language, ip, setting);
 
             // Assert
-            _dataAccess.Received().UpdateBetSetting(custId, userId, language, ip, xmlParam);
+            await _dataAccess.Received(1).UpdateBetSettingAsync(custId, userId, language, ip, xmlParam);
         }
 
         [Test]
-        public void UpdateBetSetting_HaveNoPermission_ReturnCorrectErrorResult()
+        public async Task UpdateBetSettingAsync_HaveNoPermission_ReturnCorrectErrorResult()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
@@ -112,7 +113,7 @@
             };
 
             // Action
-            var result = _service.UpdateBetSetting(licenseeId, custId, userId, language, ip, setting);
+            var result = await _service.UpdateBetSettingAsync(licenseeId, custId, userId, language, ip, setting);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));

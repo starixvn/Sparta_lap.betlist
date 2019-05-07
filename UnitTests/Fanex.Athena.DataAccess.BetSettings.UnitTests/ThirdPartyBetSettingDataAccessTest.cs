@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
@@ -11,7 +11,7 @@
     public class ThirdPartyBetSettingDataAccessTest : BaseDataAccessHelperTest<ThirdPartyBetSettingDataAccess>
     {
         [Test]
-        public void GetBetSetting_WhenCall_ParametersPassedCorrectly()
+        public async Task GetBetSettingAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_3rdProductSelCustStatus")).Returns(ObjectDb);
@@ -19,18 +19,18 @@
             var productId = 2;
 
             // Action
-            DataAccess.GetBetSetting(custId, productId);
+            await DataAccess.GetBetSettingAsync(custId, productId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
-            ObjectDb.Received(1).AddInParameter("ProductId", DbType.Int32, productId);
-            ObjectDb.Received(1).AddOutParameter("IsEnabled", DbType.Boolean, 1);
-            ObjectDb.Received(1).AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-            ObjectDb.Received(1).AddOutParameter("Currency", DbType.Int32, 1);
+            ObjectDb.Received(1).SetParameterValue("CustID", custId);
+            ObjectDb.Received(1).SetParameterValue("ProductId", productId);
+            ObjectDb.Received(1).SetParameterValue("IsEnabled", null);
+            ObjectDb.Received(1).SetParameterValue("IsLineEnabled", null);
+            ObjectDb.Received(1).SetParameterValue("Currency", null);
         }
 
         [Test]
-        public void GetBetSetting_WhenCall_DataReturnedCorrectly()
+        public async Task GetBetSettingAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_3rdProductSelCustStatus")).Returns(ObjectDb);
@@ -48,7 +48,7 @@
             ObjectDb.GetParameterValue("Currency").Returns(expected.CurrencyId);
 
             // Action
-            var result = DataAccess.GetBetSetting(custId, productId);
+            var result = await DataAccess.GetBetSettingAsync(custId, productId);
 
             // Assert
             Assert.That(result.IsEnabled, Is.EqualTo(expected.IsEnabled));
@@ -57,7 +57,7 @@
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_ParametersPassedCorrectly()
+        public async Task UpdateStatusAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_3rdProductUpdCustStatus")).Returns(ObjectDb);
@@ -69,20 +69,20 @@
             var isEnabled = true;
 
             // Action
-            DataAccess.UpdateStatus(productId, userId, custId, language, ip, isEnabled);
+            await DataAccess.UpdateStatusAsync(productId, userId, custId, language, ip, isEnabled);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
-            ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
-            ObjectDb.Received(1).AddInParameter("productid", DbType.Int32, productId);
-            ObjectDb.Received(1).AddInParameter("isenabled", DbType.Boolean, isEnabled);
-            ObjectDb.Received(1).AddInParameter("ip", DbType.String, ip);
-            ObjectDb.Received(1).AddInParameter("language", DbType.String, language);
-            ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
+            ObjectDb.Received(1).SetParameterValue("custid", custId);
+            ObjectDb.Received(1).SetParameterValue("userid", userId);
+            ObjectDb.Received(1).SetParameterValue("productid", productId);
+            ObjectDb.Received(1).SetParameterValue("isenabled", isEnabled);
+            ObjectDb.Received(1).SetParameterValue("ip", ip);
+            ObjectDb.Received(1).SetParameterValue("language", language);
+            ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_DataReturnedCorrectly()
+        public async Task UpdateStatusAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_3rdProductUpdCustStatus")).Returns(ObjectDb);
@@ -101,7 +101,7 @@
             ObjectDb.GetParameterValue("ErrMsg").Returns(expected.Message);
 
             // Action
-            var result = DataAccess.UpdateStatus(productId, userId, custId, language, ip, isEnabled);
+            var result = await DataAccess.UpdateStatusAsync(productId, userId, custId, language, ip, isEnabled);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(expected.Code));

@@ -7,14 +7,13 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.BetSettings.MetaModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.DTO;
-    using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -38,28 +37,31 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
+            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
 
-            AssignRequiredProperties(viewModel, metaModel);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Customer/BetSetting/Main.cshtml", viewModel);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateBetSetting(string nickName)
+        public async Task<JsonResult> UpdateBetSetting(string nickName)
         {
-            if (!ProductAccess.IsAllowSB || !IsBetSettingEditable())
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!CheckPermission(userSession, ProductTypes.Sportsbook))
             {
                 return AccessDenied();
             }
 
-            var commonParam = GetBetSettingCommonParam();
+            var commonParam = GetBetSettingCommonParam(userSession.UserId, licenseeId, userSession.Language);
             var param = GetSportsBookParam();
             var esportSetting = GetESportSetting();
-            var result = _betSettingService.UpdateBetSetting(commonParam, param, esportSetting);
+            var result = await _betSettingService.UpdateBetSettingAsync(commonParam, param, esportSetting).ConfigureAwait(false);
 
             if (result.Code == 0)
             {
@@ -115,14 +117,14 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private DcsBetSetting GetESportSetting()
         {
-            var sportType = (int)SportType.Esports;
+            const int Esports = (int)SportType.Esports;
             return new DcsBetSetting
             {
-                MaxBet = GetDecimalRequest("maxbet" + sportType, 0),
-                MinBet = GetDecimalRequest("minbet" + sportType, 0),
-                MaxPerMatch = GetDecimalRequest("maxpermatch" + sportType, 0),
-                SportId = sportType.ToString(),
-                BetType = GetIntRequest("bettype" + sportType, 0),
+                MaxBet = GetDecimalRequest("maxbet" + Esports, 0),
+                MinBet = GetDecimalRequest("minbet" + Esports, 0),
+                MaxPerMatch = GetDecimalRequest("maxpermatch" + Esports, 0),
+                SportId = Esports.ToString(),
+                BetType = GetIntRequest("bettype" + Esports, 0),
             };
         }
     }

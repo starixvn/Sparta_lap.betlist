@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.StatelessCore.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IAuthorizationService
     {

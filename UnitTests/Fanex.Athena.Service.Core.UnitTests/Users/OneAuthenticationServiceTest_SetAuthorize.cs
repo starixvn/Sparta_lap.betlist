@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using Core.Users.Interfaces;
     using Core.Utility.Interfaces;
@@ -53,7 +54,7 @@
         }
 
         [Test]
-        public void SignIn_SetAuthorize_UpdateCookieAndReturnCorrectResult()
+        public async Task SignIn_SetAuthorize_UpdateCookieAndReturnCorrectResult()
         {
             // Arrange
             var tokenInfo = new OneAuthToken
@@ -78,7 +79,7 @@
             var expectedAuthName = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            var result = await _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
             Assert.Multiple(() =>

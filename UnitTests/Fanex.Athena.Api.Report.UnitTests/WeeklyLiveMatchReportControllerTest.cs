@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Excel.Report;
     using Fanex.Athena.Service.Report.Interfaces;
@@ -40,7 +41,7 @@
         }
 
         [Test]
-        public void Index_InvalidRequest_ReturnEmptyData()
+        public async Task Index_InvalidRequest_ReturnEmptyData()
         {
             // Arrange
             var model = new WeeklyLiveMatchMetaModel
@@ -49,7 +50,7 @@
             };
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -62,7 +63,7 @@
         }
 
         [Test]
-        public void Index_NoDataReturned_ReturnEmptyData()
+        public async Task Index_NoDataReturned_ReturnEmptyData()
         {
             // Arrange
             var model = new WeeklyLiveMatchMetaModel
@@ -77,7 +78,7 @@
             _service.GetWeekHeaders(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<int>()).Returns(Enumerable.Empty<string>());
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -90,7 +91,7 @@
         }
 
         [Test]
-        public void Index_ValidModel_ReturnCorrectData()
+        public async Task Index_ValidModel_ReturnCorrectData()
         {
             // Arrange
             const int NumberOfWeek = 3;
@@ -120,7 +121,7 @@
             _service.GetWeekHeaders(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<int>()).Returns(weekHeaders);
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -133,7 +134,7 @@
         }
 
         [Test]
-        public void Index_ExportExcel_ExportWithCorrectData()
+        public async Task Index_ExportExcel_ExportWithCorrectData()
         {
             // Arrange
             var model = new WeeklyLiveMatchMetaModel
@@ -160,7 +161,7 @@
                 Arg.Any<IEnumerable<string>>()).ReturnsForAnyArgs(excel);
 
             // Action
-            _controller.Index(model);
+            await _controller.Index(model);
 
             // Assert
             _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), expectedFileName);

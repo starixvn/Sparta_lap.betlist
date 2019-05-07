@@ -9,6 +9,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Excel.Report;
@@ -35,11 +36,11 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(WeeklyLiveMatchMetaModel metaModel)
+        public async Task<dynamic> Index(WeeklyLiveMatchMetaModel metaModel)
         {
             if (IsValidRequest(metaModel.CurrencyId))
             {
-                var result = _weeklyLiveMatchService.GetData(metaModel);
+                var result = await _weeklyLiveMatchService.GetData(metaModel);
 
                 var weekHeaders = _weeklyLiveMatchService.GetWeekHeaders(metaModel.FromDate, metaModel.ToDate, result.NumberOfWeeks);
                 if (metaModel.IsExportExcel)

@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
@@ -15,7 +16,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
     public class LogInLogDataAccess : BaseDataAccess, ILogInLogDataAccess
     {
-        public IList<LogInLog> GetDataList(int licenseeId, string username, string agentListXml)
+        public async Task<IList<LogInLog>> GetDataList(int licenseeId, string username, string agentListXml)
         {
             const string SpName = "Lrf_UserLog_LoginSel";
 
@@ -23,10 +24,10 @@ namespace Fanex.Athena.DataAccess.Customer
 
             using (var db = this.GetObjectDb(SpName))
             {
-                db.AddInParameter("UserName", DbType.String, string.IsNullOrEmpty(username) ? string.Empty : username.Trim());
-                db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-                db.AddInParameter("AgentList", DbType.String, agentListXml);
-                using (var reader = db.ExecuteReader())
+                db.SetParameterValue("UserName", string.IsNullOrEmpty(username) ? string.Empty : username.Trim());
+                db.SetParameterValue("LicenseeId", licenseeId);
+                db.SetParameterValue("AgentList", agentListXml);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {

@@ -24,9 +24,9 @@ namespace Fanex.Athena.Excel.Report
     {
         private const int ColumnDate = 0;
         private const int ColumnFirstProduct = 1;
-        private const int ColumnLastProduct = 17;
-        private const int ColumnTotalTransaction = 18;
-        private const int ColumnTemplateCount = 19;
+        private const int ColumnLastProduct = 15;
+        private const int ColumnTotalTransaction = 16;
+        private const int ColumnTemplateCount = 17;
 
         private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
@@ -36,7 +36,7 @@ namespace Fanex.Athena.Excel.Report
         private static readonly IEnumerable<string> OfferedProducts = new[]
         {
             Product.SB, Product.NG, Product.BA, Product.VS, Product.CS, Product.KN, Product.PTCS,
-            Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT, Product.PP
+            Product.AGC, Product.CB, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT, Product.PP
         };
 
         private readonly IEnumerable<ActiveCustomer> _activeCustomerList;
@@ -65,18 +65,18 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void ProcessUI(ISheet sheet)
         {
-            sheet.MergeCells(RowTableHeader, ColumnFirstProduct, RowTableHeader, ColumnLastProduct);
+            sheet.MergeCols(ColumnFirstProduct, ColumnLastProduct, RowTableHeader);
             sheet.HideColumn(_hiddenColumnIndexes.ToArray());
         }
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             row.Cells[ColumnDate].SetCellValue(ViewResources.Month);
             row.Cells[ColumnFirstProduct].SetCellValue(ViewResources.Product);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.Total);
 
-            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             int index = ColumnFirstProduct;
 
@@ -122,7 +122,7 @@ namespace Fanex.Athena.Excel.Report
             var totalRowIndex = index + RowContentTemplate;
             var totalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, totalRowIndex);
             totalRow.Cells[0].SetCellValue(ViewResources.TotalActiveCustomer + " = " + _totalCustomer.ToString("#,##0"));
-            sheet.MergeCells(totalRowIndex, ColumnDate, totalRowIndex, ColumnTotalTransaction);
+            sheet.MergeCols(ColumnDate, ColumnTotalTransaction, totalRowIndex);
         }
 
         protected override void AssignTitle(ISheet sheet)
@@ -133,10 +133,10 @@ namespace Fanex.Athena.Excel.Report
                 _metaModel.FromDate,
                 _metaModel.ToDate,
                 _metaModel.CurrencyId);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);

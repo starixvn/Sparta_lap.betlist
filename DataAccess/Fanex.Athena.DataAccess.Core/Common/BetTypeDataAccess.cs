@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
@@ -40,17 +41,17 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IList<CheckedItem> GetBettypes(int licenseeId, string xmlSportList, string languageCode)
+        public async Task<IList<CheckedItem>> GetBettypes(int licenseeId, string xmlSportList, string languageCode)
         {
             const string UspName = "Lrf_SelBetTypeBySport";
             IList<CheckedItem> results = new List<CheckedItem>();
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                db.AddInParameter("sportlist", DbType.String, xmlSportList);
-                db.AddInParameter("langkey", DbType.String, languageCode);
-                using (var reader = db.ExecuteReader())
+                db.SetParameterValue("licenseeid", licenseeId);
+                db.SetParameterValue("sportlist", xmlSportList);
+                db.SetParameterValue("langkey", languageCode);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
@@ -75,16 +76,16 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return results;
         }
 
-        public IList<CheckedItem> GetBettypesByProduct(int licenseeId, string productCode, string languageCode)
+        public async Task<IList<CheckedItem>> GetBettypesByProduct(int licenseeId, string productCode, string languageCode)
         {
             const string UspName = "Lrf_SelBetTypesByProduct";
             IList<CheckedItem> results = new List<CheckedItem>();
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                db.AddInParameter("productcode", DbType.String, productCode);
-                using (var reader = db.ExecuteReader())
+                db.SetParameterValue("licenseeid", licenseeId);
+                db.SetParameterValue("productcode", productCode);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {

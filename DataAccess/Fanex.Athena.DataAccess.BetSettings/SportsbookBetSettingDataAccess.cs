@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core;
     using Extension.Utility;
@@ -33,13 +34,13 @@ namespace Fanex.Athena.DataAccess.BetSettings
             _betSettingReader = betSettingReader;
         }
 
-        public BetSettingViewModel GetBetSetting(int custId)
+        public async Task<BetSettingViewModel> GetBetSettingAsync(int custId)
         {
-            var uspName = "Lrf_CustomerSelEditCustomer";
-            using (var db = this.GetObjectDb(uspName))
+            const string UspName = "Lrf_CustomerSelEditCustomer";
+            using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                using (var reader = db.ExecuteReader())
+                db.SetParameterValue("CustID", custId);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     if (reader.Read())
                     {
@@ -58,26 +59,26 @@ namespace Fanex.Athena.DataAccess.BetSettings
             };
         }
 
-        public IResultInfo UpdateBetSetting(CommonBetSetting data, IDictionary<string, object> setting)
+        public async Task<IResultInfo> UpdateBetSettingAsync(CommonBetSetting data, IDictionary<string, object> setting)
         {
-            var uspName = "Lrf_CustomerUpdMember_All";
+            const string UspName = "Lrf_CustomerUpdMember_All";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
-                db.AddInParameter("ip", DbType.String, data.Ip);
-                db.AddInParameter("language", DbType.String, data.Language);
-                db.AddInParameter("userid", DbType.Int32, data.UserId);
-                db.AddInParameter("custid", DbType.Int32, data.CustId);
+                db.SetParameterValue("licenseeid", data.LicenseeId);
+                db.SetParameterValue("ip", data.Ip);
+                db.SetParameterValue("language", data.Language);
+                db.SetParameterValue("userid", data.UserId);
+                db.SetParameterValue("custid", data.CustId);
                 foreach (var item in setting)
                 {
-                    db.AddInParameter(item.Key, item.Key.Contains("UpdateMinMaxBet") ? DbType.Boolean : DbType.Decimal, item.Value);
+                    db.SetParameterValue(item.Key, item.Value);
                 }
 
-                db.AddOutParameter("ErrCode", DbType.String, 600);
-                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+                db.SetParameterValue("ErrCode", null);
+                db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return GetResult(db);
             }

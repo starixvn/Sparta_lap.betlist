@@ -6,7 +6,7 @@
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
 
-    public class WeeklyLiveMatchReportControllerTest : BaseControllerHelperTest
+    public class WeeklyLiveMatchReportControllerTest : CultureBaseControllerHelperTest
     {
         [OneTimeSetUp]
         public override void FixtureSetUp()

@@ -122,10 +122,8 @@
   <ItemGroup>
     <Compile Include="Constants\ResultVendorProductTypes.cs" />
     <Compile Include="DTO\CashOutWinLoss.cs" />
-    <Compile Include="DTO\CasinoProgressiveWins.cs" />
     <Compile Include="DTO\CasinoTurnover.cs" />
     <Compile Include="DTO\ExchangeWinLoss.cs" />
-    <Compile Include="DTO\MicroGamingWinLoss.cs" />
     <Compile Include="DTO\ActiveCustomer.cs" />
     <Compile Include="DTO\AgCasinoBalance.cs" />
     <Compile Include="DTO\Notification.cs" />
@@ -207,9 +205,6 @@
     <Compile Include="ViewModel\SpecialLicenseeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\ActiveCustomerViewModel.cs" />
-    <Compile Include="ViewModel\CasinoProgressiveWinsViewModel.cs" />
-    <Compile Include="ViewModel\CasinoProgressiveWinsGridViewModel.cs" />
-    <Compile Include="ViewModel\MicroGamingWinLossViewModel.cs" />
     <Compile Include="ViewModel\ColossusBetWinLossViewModel.cs" />
     <Compile Include="ViewModel\LicenseeWinLossByTimeZoneViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />
@@ -256,9 +251,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

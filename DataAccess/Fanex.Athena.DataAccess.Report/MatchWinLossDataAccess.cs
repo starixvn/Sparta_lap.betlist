@@ -11,7 +11,9 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
+    using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -36,73 +38,70 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetDataList(MatchWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_MatchWinLoss";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                SetCommonParam(db, metaModel);
+                db.SetParameterValue("Date", metaModel.Date);
                 foreach (var item in metaModel.ProductOptions)
                 {
-                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+                    db.SetParameterValue("show" + item.Code, item.Status);
                 }
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return SetToList(reader, metaModel.BaseCurrency);
                 }
             }
         }
 
-        public DataSet GetDetailDataSet(MatchWinLossMetaModel metaModel)
+        public async Task<DataSet> GetDetailDataSet(MatchWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_MatchWinLossDetail";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("FromDate", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("ToDate", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-                db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                SetCommonParam(db, metaModel);
+                db.SetParameterValue("FromDate", metaModel.Date);
+                db.SetParameterValue("ToDate", metaModel.Date);
+                db.SetParameterValue("PageSize", metaModel.PageSize);
 
                 foreach (var item in metaModel.ProductOptions)
                 {
-                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+                    db.SetParameterValue("show" + item.Code, item.Status);
                 }
 
-                return db.ExecuteDataSet();
+                return await db.ExecuteDataSetAsync().ConfigureAwait(false);
             }
         }
 
-        public IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetDetailDataList(MatchWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_MatchWinLossByBettype";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
-                db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                SetCommonParam(db, metaModel);
+                db.SetParameterValue("MatchId", metaModel.MatchId);
+                db.SetParameterValue("Date", metaModel.Date);
+                db.SetParameterValue("LeagueId", metaModel.LeagueId);
 
                 foreach (var item in metaModel.ProductCodeList.Split(','))
                 {
-                    db.AddInParameter("show" + item, DbType.Boolean, true);
+                    db.SetParameterValue("show" + item, true);
                 }
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return SetToList(reader, metaModel.BaseCurrency);
                 }
             }
         }
 
-        public IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_MatchWinLossByOutrightParlay";
 
@@ -112,14 +111,13 @@ namespace Fanex.Athena.DataAccess.Report
                 var showBa = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.BA);
                 var showVS2 = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.VS2);
 
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-                db.AddInParameter("showsb", DbType.Boolean, showSb);
-                db.AddInParameter("showba", DbType.Boolean, showBa);
-                db.AddInParameter("showVS2", DbType.Boolean, showVS2);
+                SetCommonParam(db, metaModel);
+                db.SetParameterValue("Date", metaModel.Date);
+                db.SetParameterValue("showsb", showSb);
+                db.SetParameterValue("showba", showBa);
+                db.SetParameterValue("showVS2", showVS2);
 
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return SetToList(reader, metaModel.BaseCurrency);
                 }
@@ -176,6 +174,12 @@ namespace Fanex.Athena.DataAccess.Report
             }
 
             return dataList;
+        }
+
+        private void SetCommonParam(IObjectDb db, MatchWinLossMetaModel metaModel)
+        {
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
         }
     }
 }

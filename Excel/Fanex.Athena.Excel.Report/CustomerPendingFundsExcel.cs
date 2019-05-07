@@ -35,7 +35,7 @@
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             var headerTextList = new[]
             {
                 "#",
@@ -56,11 +56,11 @@
         protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
-            var rowIndex = 0;
+            var rowIndex = RowContentTemplate;
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
-                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + 2);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex);
 
                 var customerPedingFunds = _excelModel.DataList.ElementAt(index);
 
@@ -73,20 +73,20 @@
                 rowIndex++;
             }
 
-            AssignSumData(sheet, rowIndex + 2);
+            AssignSumData(sheet, rowIndex);
         }
 
         protected override void AssignTitle(ISheet sheet)
         {
             var reportTitle = string.Format(ViewResources.CustomerPedingFundsTitle, ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption));
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
 
             // Freeze title and header
-            sheet.CreateFreezePane(0, 2);
+            sheet.CreateFreezePane(0, RowContentTemplate);
         }
 
         protected internal virtual void AssignSumData(ISheet sheet, int totalRow)
@@ -96,7 +96,7 @@
             row.Cells[ColumnBetCount].SetCellValue(_excelModel.TotalData.BetCounts);
             row.Cells[ColumnPendingFunds].SetCellValue(_excelModel.TotalData.PendingFunds);
             row.Cells[0].SetCellValue(ViewResources.Total);
-            sheet.MergeCells(totalRow, 0, totalRow, 2);
+            sheet.MergeCols(ColumnIndex, ColumnSystemId, totalRow);
         }
 
         protected override void ProcessUI(ISheet sheet)

@@ -5,8 +5,6 @@
     using Common.Extensions;
     using Core;
     using Core.Configuration.Interfaces;
-    using Core.Exception;
-    using Data;
     using Extension.Utility;
     using Interfaces;
     using Model.Core.DataDomain;
@@ -25,27 +23,21 @@
 
         public ReportResultModel<PromotionPrize> GetData(PromotionPrizeMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            var uspName = "Lrf_Rpt_PP_PromotionPrize";
-            try
-            {
-                using (var db = this.GetObjectDb(uspName))
-                {
-                    db.AddInParameter("AgentId", DbType.Int32, metaModel.AgentId);
-                    db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-                    db.AddInParameter("FromDate", DbType.Date, metaModel.FromDate);
-                    db.AddInParameter("ToDate", DbType.Date, metaModel.ToDate);
-                    db.AddInParameter("MoveBetsDay", DbType.Date, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            const string UspName = "Lrf_Rpt_PP_PromotionPrize";
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, uspName, metaModel);
+                db.SetParameterValue("AgentId", metaModel.AgentId);
+                db.SetParameterValue("UserName", metaModel.UserName);
+                db.SetParameterValue("FromDate", metaModel.FromDate);
+                db.SetParameterValue("ToDate", metaModel.ToDate);
+                db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    return GetData(reader, currencyList);
+                }
             }
         }
 

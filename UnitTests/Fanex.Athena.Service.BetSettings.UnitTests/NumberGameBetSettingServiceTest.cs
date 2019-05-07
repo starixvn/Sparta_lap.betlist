@@ -2,6 +2,7 @@
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using BetSettings;
     using BetSettings.Interfaces;
     using DataAccess.BetSettings.Interfaces;
@@ -40,7 +41,7 @@
         }
 
         [Test]
-        public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
+        public async Task GetViewModelAsync_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -48,17 +49,17 @@
             {
                 new BetSetting()
             };
-            _dataAccess.GetBetSetting(CustId).Returns(betSettings);
+            _dataAccess.GetBetSettingAsync(CustId).Returns(Task.FromResult<IList<BetSetting>>(betSettings));
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId);
+            var result = await _service.GetViewModelAsync(LicenseeId, CustId);
 
             // Assert
             Assert.That(result.MainData.Count, Is.EqualTo(betSettings.Count));
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters()
+        public async Task UpdateBetSettingAsync_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -78,10 +79,10 @@
             };
 
             // Action
-            var result = _service.UpdateBetSetting(setting, data);
+            await _service.UpdateBetSettingAsync(setting, data);
 
             // Assert
-            _dataAccess.Received().UpdateBetSetting(Arg.Is<NumberGameBetSetting>(
+            await _dataAccess.Received(1).UpdateBetSettingAsync(Arg.Is<NumberGameBetSetting>(
                 x => x.CustId == CustId &&
                     x.UserId == UserId &&
                     x.Language == Language &&
@@ -94,7 +95,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_HaveNoPermission_ReturnCorrectErrorResult()
+        public async Task UpdateBetSettingAsync_HaveNoPermission_ReturnCorrectErrorResult()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
@@ -102,7 +103,7 @@
             var setting = new CommonBetSetting();
 
             // Action
-            var result = _service.UpdateBetSetting(setting, data);
+            var result = await _service.UpdateBetSettingAsync(setting, data);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));

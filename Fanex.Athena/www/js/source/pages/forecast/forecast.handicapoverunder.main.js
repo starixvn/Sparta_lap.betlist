@@ -1,5 +1,5 @@
 ﻿define(['./forecast.handicapoverunder'], function (ForecastHDPOU) {
-    "use strict";
+    'use strict';
 
     $(ForecastHDPOU.initialize);
 });

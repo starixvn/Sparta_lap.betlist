@@ -1,5 +1,5 @@
 ﻿define(['jquery', 'components/jquery.flatpopup'], function ($) {
-    "use strict";
+    'use strict';
     /*
     var defaultOptions = {
         width: 640,
@@ -14,17 +14,17 @@
     };
     */
 
-    var _me = {
+    const _me = {
         openPopup: function (element, option) {
             return $(element).flatPopup(option);
         },
         closePopup: function (id) {
-            $("#" + id).fadeOut(300);
-            $(".popup-block-body").hide();
+            $('#' + id).fadeOut(300);
+            $('.popup-block-body').hide();
         },
         openPopupWithIframe: function (url, option) {
-            var $popUp = $("#" + option.id);
-            var iframe = '<iframe id="popupFrame" src="' + url + '" ></iframe>';
+            let $popUp = $('#' + option.id);
+            const iframe = '<iframe id="popupFrame" src="' + url + '" ></iframe>';
             if ($popUp.length === 0) {
                 $popUp = $('<div id="' + option.id + '" class="popup-frame">' + iframe + '</div>');
             }
@@ -36,8 +36,8 @@
         },
 
         updateCurrentPopup: function (url, option) {
-            var $popUp;
-            var $frame = parent.$("#popupFrame");
+            let $popUp;
+            const $frame = parent.$("#popupFrame");
             if (option.id) {
                 $popUp = $("#" + option.id);
             }
@@ -84,32 +84,32 @@
 
             $.extend(defaultOption, option || {});
 
-            var $element = $(element);
-            var $popup = $("#" + defaultOption.id);
+            const $element = $(element);
+            const $popup = $("#" + defaultOption.id);
             if ($popup.length === 0 || $popup.hasClass('flat-popup') === false) {
                 $element.append('<div class="right popup-button"></div>');
-                var $blockButton = $element.find(".popup-button");
+                const $blockButton = $element.find(".popup-button");
 
                 var firstButton = true;
                 $.each(buttons, function (index, button) {
-                    var id = button.id ? ' id="' + button.id + '"' : '';
-                    var className = button.classes ? ' class="' + button.classes + '"' : '';
-                    var autoFocus = firstButton ? " autofocus" : "";
+                    const id = button.id ? ' id="' + button.id + '"' : '';
+                    const className = button.classes ? ' class="' + button.classes + '"' : '';
+                    const autoFocus = firstButton ? ' autofocus' : '';
 
                     var $button = $('<button type="button"' + id + className + autoFocus + '>'
                         + button.text + '</button>');
                     $blockButton.append($button);
                     if (button.isClosedOnClick) {
-                        $button.on("click", function () {
+                        $button.on('click', function () {
                             $element.find('a.popup-close').trigger('click');
 
-                            if (typeof button.click === "function") {
+                            if (typeof button.click === 'function') {
                                 button.click();
                             }
                         });
                     }
                     else {
-                        $button.on("click", button.click);
+                        $button.on('click', button.click);
                     }
 
                     firstButton = false;

@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
@@ -76,14 +77,14 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(WinLossByBetTypeMetaModel metaModel)
+        public async Task<ActionResult> Index(WinLossByBetTypeMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var reportData = metaModel.IsValid
-                       ? _winLossByBetTypeDataAccess.GetDataList(metaModel)
+                       ? await _winLossByBetTypeDataAccess.GetDataList(metaModel)
                        : new SortableList<WinLossByBetType>();
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
@@ -123,15 +124,17 @@ namespace Fanex.Athena.Controllers.Report
 
         private static int GetColumnCount(ProductAccess productAccess, bool isAllowedCustomerComm)
         {
+            const int AdditionColumns = 2;
             var columnCount = 6;
+
             if (productAccess.IsAllowBA)
             {
-                columnCount += 2;
+                columnCount += AdditionColumns;
             }
 
             if (isAllowedCustomerComm)
             {
-                columnCount += 2;
+                columnCount += AdditionColumns;
             }
 
             return columnCount;

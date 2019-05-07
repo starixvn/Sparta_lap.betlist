@@ -5,7 +5,8 @@ import { PageLayout } from '../PageLayout';
 import BetList from '../../lib/BetList';
 
 const DefaultProps = {
-    requestParam: { BaseCurrency: 'USD' }
+    isConvertAll: true,
+    selectedBaseCurrency: 'GBP'
 };
 describe('PageLayout methods ', () => {
     
@@ -72,9 +73,9 @@ describe('PageLayout methods ', () => {
 
         pageLayout.componentDidMount();
 
-        window.showCombMPDetail(1,2,3,4,expectedPopupTitle,6);
+        window.showCombMPDetail(1,2,3,4,expectedPopupTitle);
 
-        expect(BetList.getParlayDetailUrl).toHaveBeenCalledWith(1,2,3,4,expectedPopupTitle,6);
+        expect(BetList.getParlayDetailUrl).toHaveBeenCalledWith(1,2,3,4,expectedPopupTitle, DefaultProps.selectedBaseCurrency);
         expect(pageLayout.setState).toHaveBeenCalledWith({ isShowPopup: true, popupUrl: expectedResultUrl, popupTitle: expectedPopupTitle});
     });
 
@@ -91,7 +92,7 @@ describe('PageLayout methods ', () => {
 
             window.ViewCashOutHistory(1,2,3,4);
 
-            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.requestParam.BaseCurrency,1,2,3,4);
+            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.selectedBaseCurrency,1,2,3,4);
             expect(pageLayout.setState).toHaveBeenCalledWith({ isShowPopup: true, popupUrl: expectedResultUrl, popupTitle: expectedCashOutPopupTitle});
         });
     
@@ -107,10 +108,54 @@ describe('PageLayout methods ', () => {
 
             window.ViewCashOutHistory(1,2,3,4);
 
-            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.requestParam.BaseCurrency,1,2,3,4);
+            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.selectedBaseCurrency,1,2,3,4);
             expect(pageLayout.setState).toHaveBeenCalledWith({ isShowPopup: true, popupUrl: expectedResultUrl, popupTitle: expectedBoughtPopupTitle});
         });
     });    
+
+    describe('_showMixParlayDetail()', () => {
+        const transId = "abc";
+        document.body.innerHTML = `<div id='divEvent_${transId}'></div>`;
+        const divEvent = document.querySelector('#divEvent_' + transId);
+        
+        const pageLayout = new PageLayout({toggleLoader: jest.fn()});
+        
+        beforeAll(() =>{
+            jest.mock('axios');
+        });
+
+        afterEach(() => {
+            jest.resetAllMocks();
+        });
+
+        it('divEvent is hidden - get choice from server and append to divEvent',(done) =>{
+            divEvent.style.display = "none";
+            const expectedParlayDetailUrl = "/api/MixParlayBetList/Detail?transId=abc";
+
+            const promise = Promise.resolve({
+                data: '123'
+            });
+            axios.get = jest.fn((url, option) => promise);
+
+            pageLayout._showMixParlayDetail(transId, divEvent);
+            
+            expect(axios.get).toHaveBeenCalledWith(expectedParlayDetailUrl);
+            promise.then((result) => {
+                expect(divEvent.innerHTML).toBe("1<div class=\"line\"></div>2<div class=\"line\"></div>3");
+                expect(divEvent.style.display).toBe('block');
+                done();
+            });
+        });
+
+        it('divEvent is show - hide divEvent and show nameDiv',() =>{
+            divEvent.style.display = "block";
+
+            pageLayout._showMixParlayDetail(transId, divEvent);
+
+            expect(divEvent.innerHTML).toBe("");
+            expect(divEvent.style.display).toBe('none');
+        });
+    });
 
     describe('_showNewParlayDetail()', () => {
         const transId = "abc";

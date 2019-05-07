@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Excel.Base.Entities;
@@ -19,7 +20,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public class TurnoverReportControllerTest : BaseControllerHelperTest
+    public class TurnoverReportControllerTest : CultureBaseControllerHelperTest
     {
         private const int CurrencyId = 999;
 
@@ -72,7 +73,7 @@
         [TestCase(false, "  External ID or System ID ", null)]
         [TestCase(false, "External ID", "External ID")]
         [TestCase(false, "   ", null)]
-        public void Excel_WhenCall_AssignCorrectUsername(bool isFakeLicensee, string inputUserName, string expectedUserName)
+        public async Task Excel_WhenCall_AssignCorrectUsername(bool isFakeLicensee, string inputUserName, string expectedUserName)
         {
             using (var controller = CreateController())
             {
@@ -86,7 +87,7 @@
                 };
 
                 // Action
-                controller.Excel(metaModel);
+                await controller.Excel(metaModel);
 
                 // Assert
                 Assert.That(metaModel.Username, Is.EqualTo(expectedUserName));
@@ -94,7 +95,7 @@
         }
 
         [Test]
-        public void Excel_WhenCall_ReturnCorrectResult()
+        public async Task Excel_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController("BA"))
             {
@@ -116,7 +117,7 @@
                 _turnoverService.SumTotalData(expectedData).Returns(expectedTotalData);
 
                 // Action
-                var result = controller.Excel(metaModel);
+                var result = await controller.Excel(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>

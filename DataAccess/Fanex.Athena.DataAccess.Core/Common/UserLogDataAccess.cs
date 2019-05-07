@@ -6,28 +6,28 @@
 
 namespace Fanex.Athena.DataAccess.Core.Common
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Interfaces;
     using Model.Core.MetaModel.Common;
 
     public class UserLogDataAccess : BaseDataAccess, IUserLogDataAccess
     {
-        public void WriteLog(UserLogMetaModel metaModel)
+        public async Task WriteLog(UserLogMetaModel metaModel)
         {
             const string UspName = "WriteLog_UserLog_RunSP";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("UserID", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("CustID", DbType.Int32, metaModel.CustID);
-                db.AddInParameter("SPName", DbType.String, metaModel.SPName);
-                db.AddInParameter("ActionID", DbType.Int32, metaModel.ActionID);
-                db.AddInParameter("Doing", DbType.String, metaModel.Doing);
-                db.AddInParameter("TrackingValue", DbType.String, metaModel.TrackingValue1);
-                db.AddInParameter("TrackingValue2", DbType.String, metaModel.TrackingValue2);
-                db.AddInParameter("Duration", DbType.Int32, 0);
+                db.SetParameterValue("UserID", metaModel.UserId);
+                db.SetParameterValue("CustID", metaModel.CustID);
+                db.SetParameterValue("SPName", metaModel.SPName);
+                db.SetParameterValue("ActionID", metaModel.ActionID);
+                db.SetParameterValue("Doing", metaModel.Doing);
+                db.SetParameterValue("TrackingValue", metaModel.TrackingValue1);
+                db.SetParameterValue("TrackingValue2", metaModel.TrackingValue2);
+                db.SetParameterValue("Duration", 0);
 
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
             }
         }
     }

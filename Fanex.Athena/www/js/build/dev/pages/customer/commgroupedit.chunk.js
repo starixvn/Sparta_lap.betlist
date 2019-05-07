@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([37,"www/js/build/dev/pages/lib/common"]);
+/******/ 	deferredModules.push([35,"www/js/build/dev/pages/lib/common"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,15 +290,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -317,23 +316,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -352,14 +351,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -370,14 +369,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -389,16 +388,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -415,45 +414,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -469,8 +468,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -479,7 +478,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -496,10 +495,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -507,10 +506,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -518,37 +517,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -558,16 +557,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -575,44 +574,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -624,7 +623,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -1132,26 +1131,26 @@ Array.prototype.insertBefore = function (value, before) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
+    'use strict';
 
     function goToCustomerList(groupCommId) {
         if (isParentSameOrigin()) {
             // Deactive Commission Group menu (55) and active Customer list menu (43)
-            $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
-            $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-            _me.setPageTitle(Site.getSingleResource("CustomerList"));
+            $('li>#MenuItem55', window.parent.document).parent().removeClass('active');
+            $('li>#MenuItem43', window.parent.document).parent().addClass('active');
+            _me.setPageTitle(Site.getSingleResource('CustomerList'));
         }
-        Site.redirect(Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupCommId));
+        Site.redirect(Site.resolveClientUrl('Customer/CustomerList?groupId=' + groupCommId));
     }
 
     function setPageTitle(title) {
         if (isParentSameOrigin()) {
-            $("#page-title", window.parent.document).text(title);
+            $('#page-title', window.parent.document).text(title);
         }
     }
 
     function isParentSameOrigin() {
-        var sameOrigin;
+        let sameOrigin;
         try {
             sameOrigin = window.parent.location.host === window.location.host;
         }
@@ -1161,7 +1160,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         return sameOrigin;
     }
 
-    var _me = {
+    const _me = {
         goToCustomerList: goToCustomerList,
         setPageTitle: setPageTitle
     };
@@ -1180,7 +1179,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! ./commgroup */ "./www/js/source/pages/customer/customercomm/commgroup.js"), __webpack_require__(/*! lib/jquery.colorpicker */ "./www/js/source/lib/jquery.colorpicker.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, CustomerCommGroup) {
-         "use strict";
+         'use strict';
 
          function initialize(titleResource) {
              Site.initialize();
@@ -1191,52 +1190,52 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          }
 
          function initEvent() {
-             $("#GroupName").keyup(function () {
-                 $("#GroupName").removeClass("invalid valid");
-                 $("#Submit").prop("disabled", false);
+             $('#GroupName').keyup(function () {
+                 $('#GroupName').removeClass('invalid valid');
+                 $('#Submit').prop('disabled', false);
              });
 
-             $("#Cancel").click(function () {
-                 CustomerCommGroup.setPageTitle(Site.getSingleResource("CommissionGroupList"));
-                 Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
+             $('#Cancel').click(function () {
+                 CustomerCommGroup.setPageTitle(Site.getSingleResource('CommissionGroupList'));
+                 Site.redirect(Site.resolveClientUrl('CustomerComGroup/Index'));
              });
 
              // Commission dropdownlist change
-             $("#SBComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "SBComm");
+             $('#SBComm1').on('change', function () {
+                 commissionOnChange($(this).val(), 'SBComm');
              }).change();
              
-             $("#ParlayComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "ParlayComm");
+             $('#ParlayComm1').on('change', function () {
+                 commissionOnChange($(this).val(), 'ParlayComm');
              }).change();
 
-             $("#NGComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "NGComm");
+             $('#NGComm1').on('change', function () {
+                 commissionOnChange($(this).val(), 'NGComm');
              }).change();
 
-             $("#CSComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "CSComm");
+             $('#CSComm1').on('change', function () {
+                 commissionOnChange($(this).val(), 'CSComm');
              }).change();
          }
 
          function checkAvailableGroup(groupName) {
              if (groupName.length < 1) {
-                 displayGroupNameError(Site.getSingleResource("GroupNameNotEmptyMsg"));
+                 displayGroupNameError(Site.getSingleResource('GroupNameNotEmptyMsg'));
                  return;
              }
 
              if (groupName.length >= 100) {
-                 displayGroupNameError(Site.getSingleResource("GroupNameNotExceed100CharactersMsg"));
+                 displayGroupNameError(Site.getSingleResource('GroupNameNotExceed100CharactersMsg'));
                  return;
              }
 
-             if ($.trim(groupName).toLowerCase() === "none") {
-                 displayGroupNameError(Site.getSingleResource("ChooseGroupNameMsg"));
+             if ($.trim(groupName).toLowerCase() === 'none') {
+                 displayGroupNameError(Site.getSingleResource('ChooseGroupNameMsg'));
                  return;
              }
 
-             if (!groupName.match("^[a-zA-Z0-9 ]+$")) {
-                 displayGroupNameError(Site.getSingleResource("GroupNameOnlyContainCharactersAndNumberMsg"));
+             if (!groupName.match('^[a-zA-Z0-9 ]+$')) {
+                 displayGroupNameError(Site.getSingleResource('GroupNameOnlyContainCharactersAndNumberMsg'));
                  return;
              }
 
@@ -1244,24 +1243,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          }
 
          function validateGroupName(groupName) {
-             var url = "CustomerComGroup/Validate?groupName=" + groupName;
+             const url = 'CustomerComGroup/Validate?groupName=' + groupName;
 
              $.ajax({
                  url: Site.resolveClientUrl(url),
-                 type: "GET",
-                 dataType: "html",
+                 type: 'GET',
+                 dataType: 'html',
                  cache: false,
                  beforeSend: function () {
                      Site.blockUI();
                  },
                  success: function (result) {
-                     if (result === "OK") {
-                         $("#GroupName").removeClass("invalid").addClass("valid");
-                         $("label[for=GroupName]").attr("data-success", "");
-                         $("#Submit").prop("disabled", false);
+                     if (result === 'OK') {
+                         $('#GroupName').removeClass('invalid').addClass('valid');
+                         $('label[for=GroupName]').attr('data-success', '');
+                         $('#Submit').prop('disabled', false);
                      }
                      else {
-                         displayGroupNameError(Site.getSingleResource("GroupNameExistedMsg"));
+                         displayGroupNameError(Site.getSingleResource('GroupNameExistedMsg'));
                      }
 
                      Site.unBlockUI();
@@ -1270,62 +1269,62 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          }
 
          function displayGroupNameError(errorMsg) {
-             $('label[for="GroupName"]').attr("data-error", errorMsg);
-             $("#GroupName").addClass("invalid").focus();
-             $("#Submit").prop("disabled", true);
+             $('label[for="GroupName"]').attr('data-error', errorMsg);
+             $('#GroupName').addClass('invalid').focus();
+             $('#Submit').prop('disabled', true);
          }
 
          function commissionOnChange(value, idName) {
-             var comm2 = "#" + idName + "2", comm3 = "#" + idName + "3";
+             const comm2 = '#' + idName + '2', comm3 = '#' + idName + '3';
 
              if (Number(value) === 15) {
                  $(comm2).val(0);
-                 $(comm2).selectList("update", {
+                 $(comm2).selectList('update', {
                      isDisabled: true,
-                     selectionId: "select-list-" + idName + "2",
-                     labelText: "0"
+                     selectionId: 'select-list-' + idName + '2',
+                     labelText: '0'
                  });
                  $(comm3).val(0);
-                 $(comm3).selectList("update", {
+                 $(comm3).selectList('update', {
                      isDisabled: true,
-                     selectionId: "select-list-" + idName + "3",
-                     labelText: "0"
+                     selectionId: 'select-list-' + idName + '3',
+                     labelText: '0'
                  });
              } else {
-                 $(comm2).selectList("disabled", false);
-                 $(comm3).selectList("disabled", false);
+                 $(comm2).selectList('disabled', false);
+                 $(comm3).selectList('disabled', false);
              }
          }      
 
          function submit(formId) {
-             initCommParam("#SBComm");
-             initCommParam("#ParlayComm");
-             initCommParam("#NGComm");
-             initCommParam("#CSComm");
+             initCommParam('#SBComm');
+             initCommParam('#ParlayComm');
+             initCommParam('#NGComm');
+             initCommParam('#CSComm');
 
              initDefaultParam(formId);
          }
 
          function initCommParam(id) {
-             var comm1 = parseInt($(id + "1").val());
-             var comm2 = parseInt($(id + "2").val());
-             var comm3 = parseInt($(id + "3").val());
+             const comm1 = parseInt($(id + '1').val(), 10);
+             const comm2 = parseInt($(id + '2').val(), 10);
+             const comm3 = parseInt($(id + '3').val(), 10);
 
-             var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
+             let comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
              comm = isNaN(comm) ? 0 : comm;
 
              $(id).val(comm);
          }         
 
          function initDefaultParam(formId) {
-             var isDefault = $("#IsDefaultGroup").is(":checked");
-             var defaultGroupId = parseInt($('#DefaultGroupId').val());
-             var currentGroupId = parseFloat($('#GroupCommId').val());
-             $("#IsDefaultGroup").val(isDefault);
-             $("#IsResetDefault").val(false);
+             const isDefault = $('#IsDefaultGroup').is(':checked');
+             const defaultGroupId = parseInt($('#DefaultGroupId').val(), 10);
+             const currentGroupId = parseFloat($('#GroupCommId').val());
+             $('#IsDefaultGroup').val(isDefault);
+             $('#IsResetDefault').val(false);
              if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
                  showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
-                     $("#IsResetDefault").val(true);
+                     $('#IsResetDefault').val(true);
                      Site.blockUI();
                      $(formId).submit();
                  });
@@ -1340,36 +1339,36 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          }
 
          function showConfirmAction(message, callback) {
-             var options = {
+             const options = {
                  modal: true,
-                 title: Site.getSingleResource("Confirm"),
-                 height: "auto",
-                 id: "confirm-action",
+                 title: Site.getSingleResource('Confirm'),
+                 height: 'auto',
+                 id: 'confirm-action',
                  width: 450
              };
 
-             var buttons = [
+             const buttons = [
                  {
-                     text: Site.getSingleResource("OK"),
+                     text: Site.getSingleResource('OK'),
                      isClosedOnClick: true,
                      click: callback,
-                     classes: "btn btn-submit"
+                     classes: 'btn btn-submit'
                  }, {
-                     text: Site.getSingleResource("Cancel"),
+                     text: Site.getSingleResource('Cancel'),
                      isClosedOnClick: true,
-                     classes: "btn btn-cancel"
+                     classes: 'btn btn-cancel'
                  }];
 
              Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
          }
 
          function initColorPicker() {
-             $("#GroupColor").colorPicker({
+             $('#GroupColor').colorPicker({
                  transparency: true
              });
          }
 
-         var _me = {
+         const _me = {
              initialize: initialize,
              initEvent: initEvent,
              submit: submit,
@@ -1391,44 +1390,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! ./commgroupdetail */ "./www/js/source/pages/customer/customercomm/commgroupdetail.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, CommGroupDetail) {
-         "use strict";
+         'use strict';
 
-         var FORM_SELECTOR = "#customer-comm-group-edit";
-         var TITLE = "EditGroup";
-         var _originalGroupName = "";
+         const FORM_SELECTOR = '#customer-comm-group-edit';
+         const TITLE = 'EditGroup';
+         let _originalGroupName = '';
 
          function initialize() {
              CommGroupDetail.initialize(TITLE);
 
-             _originalGroupName = $("#OriginalGroupName").val();
+             _originalGroupName = $('#OriginalGroupName').val();
              _me.initEvent();
          }
 
          function initEvent() {
-             $("#Validate").click(function () {
-                 var $groupName = $("#GroupName");
+             $('#Validate').click(function () {
+                 const $groupName = $('#GroupName');
 
                  if ($groupName.val() === _originalGroupName) {
-                     $groupName.removeClass("invalid");
-                     $groupName.addClass("valid");
-                     $("label[for=GroupName]").attr("data-success", "");
-                     $("#Submit").prop("disabled", false);
+                     $groupName.removeClass('invalid');
+                     $groupName.addClass('valid');
+                     $('label[for=GroupName]').attr('data-success', '');
+                     $('#Submit').prop('disabled', false);
                      return;
                  }
 
                  CommGroupDetail.checkAvailableGroup($groupName.val());
              });
 
-             $("#CustList").click(function () {
+             $('#CustList').click(function () {
                  CommGroupDetail.goToCustomerList($('#GroupCommId').val());
              });
 
-             $("#Submit").click(function () {
+             $('#Submit').click(function () {
                  CommGroupDetail.submit(FORM_SELECTOR);
              });
          }         
 
-         var _me = {
+         const _me = {
              initialize: initialize,
              initEvent: initEvent
          };
@@ -1447,7 +1446,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./commgroupedit.js */ "./www/js/source/pages/customer/customercomm/commgroupedit.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerCommGroupEdit) {
-    "use strict";
+    'use strict';
 
     $(CustomerCommGroupEdit.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -1456,7 +1455,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 37:
+/***/ 35:
 /*!*******************************************************************************!*\
   !*** multi ./www/js/source/pages/customer/customercomm/main-commgroupedit.js ***!
   \*******************************************************************************/

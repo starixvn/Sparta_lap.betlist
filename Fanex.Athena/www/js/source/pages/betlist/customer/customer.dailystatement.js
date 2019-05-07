@@ -1,14 +1,14 @@
-﻿"use strict";
-define(["jquery", "common/site", "common/querystring", "./customer.dailystatement.option", "../betlist",
-    "lib/jqgrid/jquery.jqgrid.additional", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
+﻿'use strict';
+define(['jquery', 'common/site', 'common/querystring', './customer.dailystatement.option', '../betlist',
+    'lib/jqgrid/jquery.jqgrid.additional', 'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min'],
     function ($, Site, QueryString, DailyStatementOption, BetList, jqGridAdditional) {
-        var _me = {
+        const _me = {
             loadData: function (params, url) {
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     data: JSON.stringify(params),
                     contentType: 'application/json',
-                    dataType: "json",
+                    dataType: 'json',
                     cache: false,
                     url: url,
                     success: function (response) {
@@ -24,21 +24,21 @@ define(["jquery", "common/site", "common/querystring", "./customer.dailystatemen
             },
 
             getGridOption: function () {
-                var gridOption = DailyStatementOption.gridOption;
+                const gridOption = DailyStatementOption.gridOption;
                 gridOption.colNames = DailyStatementOption.getColNames();
 
                 return gridOption;
             },
 
             bindData: function (response) {
-                jqGridAdditional.clearGrid("BetListGrid");
-                var data = response.Main;
+                jqGridAdditional.clearGrid('BetListGrid');
+                const data = response.Main;
                 if (data.length === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
 
-                var gridOption = _me.getGridOption();
+                const gridOption = _me.getGridOption();
                 gridOption.data = data;
                 gridOption.gridComplete = function () {
                     jqGridAdditional.gridComplete();
@@ -46,7 +46,7 @@ define(["jquery", "common/site", "common/querystring", "./customer.dailystatemen
                     jqGridAdditional.updateGridHeight();
                 };
 
-                $("#BetListGrid").jqGrid(gridOption);
+                $('#BetListGrid').jqGrid(gridOption);
             }
         };
 

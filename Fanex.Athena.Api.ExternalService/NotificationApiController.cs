@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.ExternalService
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Cors;
     using Base.Attributes;
@@ -14,6 +15,8 @@
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class NotificationApiController : ApiController
     {
+        private const int DefaultPageSize = 10;
+
         private readonly IMoveBetService _moveBetService;
         private readonly ILicenseeSettingService _licenseeSettingService;
 
@@ -39,7 +42,7 @@
         private string Language => (string)ActionContext.ActionArguments["language"];
 
         [HttpGet]
-        public string Index()
+        public async Task<string> Index()
         {
             var isEnabledMoveBetNotification = _appSettings.IsEnabledMoveBetNotification && !_licenseeSettingService.IsFakeLicensee(SiteName);
 
@@ -50,7 +53,7 @@
 
             var langCode = Util.MapIetfLanguageCodes.GetValueOrDefault(Language, string.Empty);
 
-            return _moveBetService.GetMoveBetNotification(langCode);
+            return await _moveBetService.GetMoveBetNotificationAsync(langCode).ConfigureAwait(false);
         }
 
         [HttpGet]
@@ -62,7 +65,7 @@
             metaModel.IsOnlyUnread = true;
             metaModel.FromDate = new DateTime(today.Year, today.Month, 1).AddMonths(-maximumMonthDistance);
             metaModel.ToDate = today.AddDays(1).AddMilliseconds(-1);
-            metaModel.PageSize = 10;
+            metaModel.PageSize = DefaultPageSize;
             metaModel.PageIndex = 1;
             metaModel.UserName = UserName;
             metaModel.LicenseeName = SiteName;

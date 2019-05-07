@@ -82,7 +82,10 @@ namespace Fanex.Athena
 
         private static Assembly[] GetServiceAssemblies(Assembly[] assemblies)
         {
-            string[] controllerFileNames = new[] { "Fanex.Athena.Controllers", "Fanex.Athena.Api" };
+            string[] controllerFileNames = new[] {
+                "Fanex.Athena.Controllers",
+                "Fanex.Athena.Api",
+            };
             return assemblies.Where(ass => !controllerFileNames.Any(x => ass.FullName.Contains(x))).ToArray();
         }
 
@@ -91,9 +94,14 @@ namespace Fanex.Athena
             return assemblies.Where(ass => ass.FullName.Contains("Fanex.Athena.Controllers")).ToArray();
         }
 
+        private static readonly Func<Assembly, bool> FilterDashboardApi = (a) => a.FullName.Contains("Fanex.Athena.Module.Dashboard");
+
         private static Assembly[] GetApiControllerAssemblies(Assembly[] assemblies)
         {
-            return assemblies.Where(ass => ass.FullName.Contains("Fanex.Athena.Api")).ToArray();
+            return assemblies.Where(ass =>
+            ass.FullName.Contains("Fanex.Athena.Api")
+            || FilterDashboardApi(ass)
+            ).ToArray();
         }
     }
 }

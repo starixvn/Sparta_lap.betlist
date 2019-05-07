@@ -2305,7 +2305,8 @@ table {
 thead {
   border-bottom: 1px solid #d0d0d0; }
 
-td, th {
+td,
+th {
   padding: 15px 5px;
   display: table-cell;
   text-align: left;
@@ -3841,9 +3842,6 @@ textarea {
 
 .flag-icon-zh-CN {
   background-image: url(../fonts/flags/flags/cn.svg); }
-
-.flag-icon-ko-KR {
-  background-image: url(../fonts/flags/flags/kr.svg); }
 
 .flag-icon-zh-Hans {
   background-image: url(../fonts/flags/flags/cn.svg); }
@@ -5445,7 +5443,7 @@ yx-axis
 .btn-large:disabled,
 .btn-floating:disabled,
 .btn[disabled],
-[disabled].btn-large,
+.btn-large[disabled],
 .btn-large[disabled],
 .btn-floating[disabled] {
   background-color: #DFDFDF !important;
@@ -5455,10 +5453,12 @@ yx-axis
   .btn.disabled *, .disabled.btn-large *,
   .btn-floating.disabled *,
   .btn-large.disabled *,
-  .btn:disabled *, .btn-large:disabled *,
+  .btn:disabled *,
+  .btn-large:disabled *,
   .btn-large:disabled *,
   .btn-floating:disabled *,
-  .btn[disabled] *, [disabled].btn-large *,
+  .btn[disabled] *,
+  .btn-large[disabled] *,
   .btn-large[disabled] *,
   .btn-floating[disabled] * {
     pointer-events: none; }
@@ -5470,7 +5470,7 @@ yx-axis
   .btn-large:disabled:hover,
   .btn-floating:disabled:hover,
   .btn[disabled]:hover,
-  [disabled].btn-large:hover,
+  .btn-large[disabled]:hover,
   .btn-large[disabled]:hover,
   .btn-floating[disabled]:hover {
     background-color: #DFDFDF !important;

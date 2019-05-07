@@ -104,7 +104,7 @@
             });
 
             // Action
-            TestDelegate testDelegate = () => _service.CreateKenoResultUrl(setting, UserId, DateTime.MinValue);
+            TestDelegate testDelegate = () => _service.CreateKenoResultAddress(setting, UserId, DateTime.MinValue);
 
             // Assert
             var exception = Assert.Throws<WebException>(testDelegate);
@@ -129,7 +129,7 @@
             });
 
             // Action
-            var resultUrl = _service.CreateKenoResultUrl(setting, UserId, DateTime.MinValue);
+            var resultUrl = _service.CreateKenoResultAddress(setting, UserId, DateTime.MinValue);
 
             // Assert
             Assert.That(resultUrl, Is.EqualTo("?Authorization=uber&cust=Keno&siteID=grabbike&action=R&lang=&date=00010101&redirectURL=xxx.com"));
@@ -153,7 +153,7 @@
             });
 
             // Action
-            var resultUrl = _service.CreateKenoResultUrl(setting, UserId, DateTime.MinValue);
+            var resultUrl = _service.CreateKenoResultAddress(setting, UserId, DateTime.MinValue);
 
             // Assert
             Assert.That(resultUrl, Is.EqualTo("?Authorization=uber&cust=Keno&siteID=grabbike&action=R&lang=&date=00010101&redirectURL=xxx.com"));

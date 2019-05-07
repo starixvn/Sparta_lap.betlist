@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.BetList
 {
     using System.Threading.Tasks;
+
     #region Using
 
     using System.Web.Mvc;

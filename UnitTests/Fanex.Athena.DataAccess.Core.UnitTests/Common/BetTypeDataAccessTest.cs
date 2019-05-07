@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Common;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -29,22 +30,22 @@
         }
 
         [Test]
-        public void GetBettypes_WhenCall_PassCorrectParameters()
+        public async Task GetBettypes_WhenCall_PassCorrectParameters()
         {
             // Action
-            DataAccess.GetBettypes(LicenseeId, Sports, LanguageCode);
+            await DataAccess.GetBettypes(LicenseeId, Sports, LanguageCode);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, LicenseeId);
-                ObjectDb.Received(1).AddInParameter("sportlist", DbType.String, Sports);
-                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, LanguageCode);
+                ObjectDb.Received(1).SetParameterValue("licenseeid", LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("sportlist", Sports);
+                ObjectDb.Received(1).SetParameterValue("langkey", LanguageCode);
             });
         }
 
         [Test]
-        public void GetBettypes_WhenCall_DataReturnedCorrectly()
+        public async Task GetBettypes_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var expected = new CheckedItem { Checked = true, ID = 1, Name = "BettypeNameTest" };
@@ -57,7 +58,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = DataAccess.GetBettypes(LicenseeId, Sports, LanguageCode);
+            var result = await DataAccess.GetBettypes(LicenseeId, Sports, LanguageCode).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Configuration
 {
     using System;
+    using System.Threading.Tasks;
     using Core.Configuration;
     using Data;
     using Extension.Utility.Interfaces;

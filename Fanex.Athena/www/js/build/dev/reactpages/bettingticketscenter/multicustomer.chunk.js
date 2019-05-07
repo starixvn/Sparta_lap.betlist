@@ -4368,9 +4368,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setGridData", function() { return setGridData; });
 /* harmony import */ var _jsroot_actions_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @jsroot/actions/types.js */ "./www/js/source/reactpages/actions/types.js");
 /* harmony import */ var _jsroot_lib_DataService_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @jsroot/lib/DataService.js */ "./www/js/source/reactpages/lib/DataService.js");
-/* harmony import */ var _jsroot_lib_site__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @jsroot/lib/site */ "./www/js/source/reactpages/lib/site.js");
-/* harmony import */ var _jsroot_actions_loaderAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @jsroot/actions/loaderAction */ "./www/js/source/reactpages/actions/loaderAction.js");
-
+/* harmony import */ var _jsroot_actions_loaderAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @jsroot/actions/loaderAction */ "./www/js/source/reactpages/actions/loaderAction.js");
 
 
 
@@ -4381,7 +4379,7 @@ function getGridData(url, params) {
       dispatch(setGridData(response.data));
     }).catch(function (error) {
       alert("Sorry, an error occurred while processing your request.");
-      dispatch(Object(_jsroot_actions_loaderAction__WEBPACK_IMPORTED_MODULE_3__["toggleLoader"])(false));
+      dispatch(Object(_jsroot_actions_loaderAction__WEBPACK_IMPORTED_MODULE_2__["toggleLoader"])(false));
     });
   };
 }
@@ -6261,8 +6259,8 @@ function (_Component) {
     }
   }, {
     key: "setRange",
-    value: function setRange(range, show) {
-      range = this.orderRange(range);
+    value: function setRange(dateRange, show) {
+      var range = this.orderRange(dateRange);
       this.isValid = this.isValidMonthRange(range);
 
       if (this.isValid) {
@@ -6940,10 +6938,10 @@ var addDistanceDays = function addDistanceDays(rangeObj, name, start, end, min, 
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  ranges: function ranges(today, min, max, limitMonths) {
-    today = !today ? moment__WEBPACK_IMPORTED_MODULE_0___default()() : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(today) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(today, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : today;
-    max = !max ? today : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(max) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(max, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : max;
-    min = !min ? today : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(min) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(min, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : min;
+  ranges: function ranges(todayDate, minDate, maxDate, limitMonths) {
+    var today = !todayDate ? moment__WEBPACK_IMPORTED_MODULE_0___default()() : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(todayDate) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(todayDate, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : todayDate;
+    var max = !maxDate ? today : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(maxDate) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(maxDate, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : maxDate;
+    var min = !minDate ? today : !moment__WEBPACK_IMPORTED_MODULE_0___default.a.isMoment(minDate) ? moment__WEBPACK_IMPORTED_MODULE_0___default()(minDate, _constants__WEBPACK_IMPORTED_MODULE_3__["MomentFormat"].default) : minDate;
     var range = {};
 
     if (today < min) {
@@ -7218,7 +7216,7 @@ var defaultTheme = {
     cellMargin = customTheme.Day.margin;
   }
 
-  var cellSize = (parseInt(calendarWidth) - parseInt(calendarPadding) * 2) / 7 - parseInt(cellMargin) * 2;
+  var cellSize = (parseInt(calendarWidth, 10) - parseInt(calendarPadding, 10) * 2) / 7 - parseInt(cellMargin, 10) * 2;
   return {
     DateRange: _objectSpread({}, defaultTheme.DateRange, customTheme.DateRange),
     Calendar: _objectSpread({}, defaultTheme.Calendar, customTheme.Calendar),
@@ -8499,14 +8497,17 @@ function (_Component) {
       }; // show detail popup (in choice column)
 
 
-      window.showCombMPDetail = function (transId, refNo, betId, custId, betTeam, baseCurrency) {
+      window.showCombMPDetail = function (transId, refNo, betId, custId, betTeam) {
+        var baseCurrency = _this2.props.isConvertAll ? _this2.props.selectedBaseCurrency : '';
         var url = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
 
         _this2._openPopup(url, betTeam);
       };
 
       window.ViewCashOutHistory = function (transId, refNo, betType, betdaqId) {
-        var _BetList$getCashOutHi = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getCashOutHistoryPopupSetting(_this2.props.requestParam.BaseCurrency, transId, refNo, betType, betdaqId),
+        var baseCurrency = _this2.props.isConvertAll ? _this2.props.selectedBaseCurrency : '';
+
+        var _BetList$getCashOutHi = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getCashOutHistoryPopupSetting(baseCurrency, transId, refNo, betType, betdaqId),
             url = _BetList$getCashOutHi.url,
             isCashOut = _BetList$getCashOutHi.isCashOut;
 
@@ -8516,7 +8517,8 @@ function (_Component) {
       };
 
       window.ShowBonusDetails = function (refCode, transId) {
-        var url = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getBonusDetailUrl(refCode, transId, _this2.props.requestParam.BaseCurrency);
+        var baseCurrency = _this2.props.isConvertAll ? _this2.props.selectedBaseCurrency : '';
+        var url = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getBonusDetailUrl(refCode, transId, baseCurrency);
         var title = _jsroot_lib_langHelper__WEBPACK_IMPORTED_MODULE_8__["default"].getSingleResource("TransactionDetail");
 
         _this2._openPopup(url, title);
@@ -8655,9 +8657,11 @@ function mapDispatchToProps(dispatch) {
 ;
 
 function mapStateToProps(state) {
-  var requestParam = state.requestParam;
+  var isConvertAll = state.isConvertAll,
+      selectedBaseCurrency = state.selectedBaseCurrency;
   return Object.assign({}, {
-    requestParam: requestParam
+    isConvertAll: isConvertAll,
+    selectedBaseCurrency: selectedBaseCurrency
   });
 }
 
@@ -9112,24 +9116,24 @@ var setLeagueList = function setLeagueList(list) {
   };
 };
 function getLeagueList(sportId, date) {
-  date = moment__WEBPACK_IMPORTED_MODULE_0___default()(date, "MM/DD/YYYY").format("YYYY-MM-DD");
-  var cacheKey = LEAGUE_CACHE_KEY + sportId + "_" + date;
+  var dateString = moment__WEBPACK_IMPORTED_MODULE_0___default()(date, "MM/DD/YYYY").format("YYYY-MM-DD");
+  var cacheKey = LEAGUE_CACHE_KEY + sportId + "_" + dateString;
   return function (dispatch) {
     var cacheData = _jsroot_lib_Cache__WEBPACK_IMPORTED_MODULE_4__["default"].get(cacheKey);
 
     if (cacheData) {
-      dispatchLeagueList(dispatch, cacheData, date, sportId);
+      dispatchLeagueList(dispatch, cacheData, dateString, sportId);
       return;
     }
 
     _jsroot_lib_DataService_js__WEBPACK_IMPORTED_MODULE_1__["default"].getData(Url, {
       sportId: sportId,
-      fromDate: date,
-      toDate: date
+      fromDate: dateString,
+      toDate: dateString
     }).then(function (response) {
       var data = response.data;
       _jsroot_lib_Cache__WEBPACK_IMPORTED_MODULE_4__["default"].set(cacheKey, data);
-      dispatchLeagueList(dispatch, data, date, sportId);
+      dispatchLeagueList(dispatch, data, dateString, sportId);
     });
   };
 }

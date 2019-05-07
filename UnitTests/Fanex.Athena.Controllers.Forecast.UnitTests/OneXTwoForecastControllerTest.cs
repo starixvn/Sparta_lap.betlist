@@ -2,19 +2,23 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.Forecast1X2;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Forecast.Interfaces;
 
-    public class OneXTwoForecastControllerTest : BaseControllerHelperTest
+    public class OneXTwoForecastControllerTest : CultureBaseControllerHelperTest
     {
-        private IForecastService _forecastService;
+        private ILeagueDataAccess _leagueDataAccess;
+
+        private IForecastOneXTwoDataAccess _forecastOneXTwoDataAccess;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -25,7 +29,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnCorrectViewResult()
+        public async Task Index_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -33,13 +37,13 @@
                 AppSettings.LicenseeOfferNewForecast.Returns(Enumerable.Empty<int>());
                 const int ExpectdLeagueId = -1;
                 var leagueList = Enumerable.Empty<League>();
-                var mainData = Enumerable.Empty<ForecastOneXTwo>();
+                var mainData = new List<ForecastOneXTwo>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(leagueList);
-                _forecastService.GetForecastOneXTwoByLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
+                _forecastOneXTwoDataAccess.GetForecastOneXTwoByLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
                 var viewModel = (ForecastOneXTwoViewModel)result.Model;
 
                 // Assert
@@ -59,22 +63,22 @@
         [TestCase(new[] { 1, 2 }, 1)]
         [TestCase(new[] { 1, 2 }, 3)]
         [TestCase(new int[0], 3)]
-        public void Index_WhenPost_ReturnCorrectViewResult(int[] leagueIDList, int leagueId)
+        public async Task Index_WhenPost_ReturnCorrectViewResult(int[] leagueIDList, int leagueId)
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 AppSettings.LicenseeOfferNewForecast.Returns(Enumerable.Empty<int>());
                 var leagueList = leagueIDList.Select(x => new League { LeagueId = x }).ToList();
-                var mainData = Enumerable.Empty<ForecastOneXTwo>();
+                var mainData = new List<ForecastOneXTwo>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(leagueList);
-                _forecastService.GetForecastOneXTwoByMatch(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
+                _forecastOneXTwoDataAccess.GetForecastOneXTwoByMatch(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
 
                 var metaModel = new ForecastOneXTwoMetaModel { LeagueId = leagueId, MatchId = 1 };
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastOneXTwoViewModel)result.Model;
 
                 // Assert
@@ -94,27 +98,28 @@
         [TestCase(new[] { 1, 2 }, 1)]
         [TestCase(new[] { 1, 2 }, 3)]
         [TestCase(new int[0], 3)]
-        public void Popup_WhenCall_ReturnCorrectViewResult(int[] leagueIDList, int leagueId)
+        public async Task Popup_WhenCall_ReturnCorrectViewResult(int[] leagueIDList, int leagueId)
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 AppSettings.LicenseeOfferNewForecast.Returns(Enumerable.Empty<int>());
                 var leagueList = leagueIDList.Select(x => new League { LeagueId = x }).ToList();
-                var mainData = Enumerable.Empty<ForecastOneXTwo>();
+                var mainData = new List<ForecastOneXTwo>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(leagueList);
-                _forecastService.GetForecastOneXTwoByMatch(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
+                _forecastOneXTwoDataAccess.GetForecastOneXTwoByMatch(Arg.Any<ForecastOneXTwoMetaModel>()).Returns(mainData);
 
                 var metaModel = new ForecastOneXTwoMetaModel { LeagueId = leagueId, MatchId = 1 };
 
                 // Action
-                var result = controller.Popup(metaModel) as ViewResult;
+                var result = await controller.Popup(metaModel) as ViewResult;
                 var viewModel = (ForecastOneXTwoViewModel)result.Model;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
+                    Assert.That(metaModel.IsPopUp, Is.EqualTo(true));
                     Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/Forecast1X2/Main.cshtml"));
                     AssertViewModel(
                         viewModel,
@@ -142,13 +147,15 @@
 
         private OneXTwoForecastController CreateController()
         {
-            _forecastService = Substitute.For<IForecastService>();
+            _forecastOneXTwoDataAccess = Substitute.For<IForecastOneXTwoDataAccess>();
+            _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
 
             var controller = new OneXTwoForecastController(
                 LangService,
                 SessionService,
                 AppSettings,
-                _forecastService)
+                _leagueDataAccess,
+                _forecastOneXTwoDataAccess)
             {
                 ControllerContext = ControllerContext
             };

@@ -5,7 +5,6 @@
     using System.Linq;
     using Base;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Model.Core.MetaModel;
     using Model.Report.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
@@ -49,10 +48,11 @@
                 throw new ArgumentNullException(nameof(productCodes));
             }
 
-            var allowedProductCodes = ProductService.GetSingleWalletProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                functionKey).ProductList.Select(x => x.ProductCode);
+                functionKey);
+            var allowedProductCodes = productAccess.ProductList.Select(x => x.ProductCode);
 
             var invalidProduct = productCodes.FirstOrDefault(x => !allowedProductCodes.Contains(x));
 

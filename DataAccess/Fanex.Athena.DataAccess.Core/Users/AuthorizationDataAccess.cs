@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.Core.Users
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Common;
@@ -17,10 +17,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
         {
             using (var db = this.GetObjectDb("Lrf_CustomerSelCheckBelonging"))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                db.AddInParameter("transid", DbType.Int64, transid);
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddOutParameter("status", DbType.Boolean, sizeof(bool));
+                db.SetParameterValue("licenseeid", licenseeId);
+                db.SetParameterValue("transid", transid);
+                db.SetParameterValue("custid", custId);
+                db.SetParameterValue("status", null);
                 db.ExecuteNonQuery();
                 return Converter.ToBool(db.GetParameterValue("status"));
             }

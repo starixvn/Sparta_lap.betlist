@@ -1,9 +1,9 @@
 ﻿define(
-    ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
+    ['jquery', 'common/querystring', 'common/site', 'lib/jqgrid/jquery.jqgrid.additional'],
     function ($, QueryString, Site, jqGridAdditional) {
-        "use strict";
+        'use strict';
 
-    var indexColumn = {
+    const indexColumn = {
         name: 'Index',
         index: 'Index',
         width: 30,
@@ -13,7 +13,7 @@
         resizable: false,
         frozen: true
     };
-    var dateColumn = {
+    const dateColumn = {
         name: 'Date',
         index: 'Date',
         width: 85,
@@ -22,7 +22,7 @@
         frozen: true,
         resizable: false
     };
-    var openingBalanceColumn = {
+    const openingBalanceColumn = {
         name: 'OpeningBalance',
         index: 'OpeningBalance',
         width: 110,
@@ -32,7 +32,7 @@
         frozen: true,
         formatter: 'currency'
     };
-    var depositColumn = {
+    const depositColumn = {
         name: 'Deposit',
         index: 'Deposit',
         width: 100,
@@ -42,7 +42,7 @@
         frozen: true,
         formatter: 'currency'
     };
-    var withdrawalColumn = {
+    const withdrawalColumn = {
         name: 'Withdrawal',
         index: 'Withdrawal',
         resizable: false,
@@ -53,7 +53,7 @@
         frozen: true,
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
-    var bonusColumn = {
+    const bonusColumn = {
         name: 'Bonus',
         index: 'Bonus',
         width: 85,
@@ -63,7 +63,7 @@
         formatter: 'currency',
         frozen: true
     };
-    var adjustmentColumn = {
+    const adjustmentColumn = {
         name: 'Adjustment',
         index: 'Adjustment',
         width: 75,
@@ -73,7 +73,7 @@
         frozen: true,
         formatter: 'currency'
     };
-    var turnoverColumn = {
+    const turnoverColumn = {
         name: 'Turnover',
         index: 'Turnover',
         width: 120,
@@ -83,7 +83,7 @@
         frozen: true,
         formatter: 'currency'
     };
-    var drawGameColumn = {
+    const drawGameColumn = {
         name: 'DrawGame',
         index: 'DrawGame',
         width: 100,
@@ -93,7 +93,7 @@
         frozen: true,
         formatter: 'currency'
     };
-    var netTurnoverColumn = {
+    const netTurnoverColumn = {
         name: 'NetTurnover',
         index: 'NetTurnover',
         width: 120,
@@ -104,7 +104,7 @@
         title: true,
         formatter: 'currency'
     };
-    var pendingFundsColumn = {
+    const pendingFundsColumn = {
         name: 'PendingFunds',
         index: 'PendingFunds',
         width: 70,
@@ -113,7 +113,7 @@
         resizable: false,
         formatter: 'currency'
     };
-    var winLossColumn = {
+    const winLossColumn = {
         name: 'WinLoss',
         index: 'WinLoss',
         width: 100,
@@ -122,7 +122,7 @@
         resizable: false,
         formatter: 'currency'
     };
-    var playerCommColumn = {
+    const playerCommColumn = {
         name: 'PlayerComm',
         index: 'PlayerComm',
         width: 60,
@@ -131,7 +131,7 @@
         resizable: false,
         formatter: 'currency'
     };
-    var winlossCommColumn = {
+    const winlossCommColumn = {
         name: 'WinLossComm',
         index: 'WinLossComm',
         width: 100,
@@ -140,7 +140,7 @@
         resizable: false,
         formatter: 'currency'
     };
-    var closingBalanceColumn = {
+    const closingBalanceColumn = {
         name: 'ClosingBalance',
         index: 'ClosingBalance',
         width: 110,
@@ -149,7 +149,7 @@
         resizable: false,
         formatter: 'currency'
     };
-    var affiliateTransferColumn = {
+    const affiliateTransferColumn = {
         name: 'AffiliateTransfer',
         index: 'AffiliateTransfer',
         width: 90,
@@ -159,7 +159,7 @@
         formatter: 'currency'
     };
 
-        var transfer3rdColumn = {
+        const transfer3rdColumn = {
             name: 'Transfer3rd',
             index: 'Transfer3rd',
             width: 90,
@@ -168,7 +168,7 @@
             resizable: false,
             formatter: 'currency'
         };
-        var turnoverBAColumn = {
+        const turnoverBAColumn = {
             name: 'TurnoverBA',
             index: 'TurnoverBA',
             width: 80,
@@ -177,7 +177,7 @@
             resizable: false,
             formatter: 'currency'
         };
-        var commBAColumn = {
+        const commBAColumn = {
             name: 'CommBA',
             index: 'CommBA',
             width: 60,
@@ -186,7 +186,7 @@
             resizable: false,
             formatter: 'currency'
         };
-        var amountDueToBAColumn = {
+        const amountDueToBAColumn = {
             name: 'AmountDueToBA',
             index: 'AmountDueToBA',
             width: 70,
@@ -196,17 +196,17 @@
             formatter: 'currency'
         };
 
-        var colNameList = ['#', 'Day', "OpeningBalance", "Deposit", 'Withdrawal', 'Bonus', 'Adjustment',
+        const colNameList = ['#', 'Day', 'OpeningBalance', 'Deposit', 'Withdrawal', 'Bonus', 'Adjustment',
                     'Turnover', 'DrawGame', 'NetTurnover', 'PendingFunds',
                     'WinLoss', 'Comm', 'Total', 'ClosingBalance',
                      'AffiliateTransfer', 'CasinoTransfer', 'Turnover', 'Comm', 'AmountDueTo'];
-        var colModelList = [indexColumn, dateColumn, openingBalanceColumn, depositColumn, withdrawalColumn, bonusColumn, adjustmentColumn,
+        const colModelList = [indexColumn, dateColumn, openingBalanceColumn, depositColumn, withdrawalColumn, bonusColumn, adjustmentColumn,
                      turnoverColumn, drawGameColumn, netTurnoverColumn, pendingFundsColumn,
                      winLossColumn, playerCommColumn, winlossCommColumn, closingBalanceColumn,
                     affiliateTransferColumn, transfer3rdColumn, turnoverBAColumn, commBAColumn, amountDueToBAColumn];
-        var customerWlTotalIndex = 11;
+        const customerWlTotalIndex = 11;
 
-        var _me = {
+        const _me = {
             licenseeId: 0,
             hasCustomerComm: true,
             totalColspan: [3],
@@ -262,7 +262,7 @@
         };
 
         _me.getTotalColModel = function () {
-            var colModel = _me.getColModel();
+            const colModel = _me.getColModel();
             return colModel;
         };
 

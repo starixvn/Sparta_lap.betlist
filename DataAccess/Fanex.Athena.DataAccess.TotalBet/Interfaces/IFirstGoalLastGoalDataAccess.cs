@@ -6,12 +6,13 @@
 
 namespace Fanex.Athena.DataAccess.TotalBet.Interfaces
 {
+    using System.Threading.Tasks;
     using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
     public interface IFirstGoalLastGoalDataAccess
     {
-        ReportResultModel<FirstGoalLastGoal> GetFirstGoalLastGoalDataList(FirstGoalLastGoalMetaModel metaModel);
+        Task<ReportResultModel<FirstGoalLastGoal>> GetFirstGoalLastGoalDataList(FirstGoalLastGoalMetaModel metaModel);
     }
 }

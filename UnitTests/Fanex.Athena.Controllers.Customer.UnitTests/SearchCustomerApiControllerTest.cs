@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Customer;
@@ -9,10 +10,10 @@
     using UnitTest.Common.Extensions;
 
     [TestFixture]
-    public partial class SearchCustomerApiControllerTest : BaseControllerHelperTest
+    public partial class SearchCustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void SearchCustomer_WhenCall_ReturnCorrectData()
+        public async Task SearchCustomer_WhenCall_ReturnCorrectData()
         {
             var searchCustomerDataAccess = Substitute.For<ISearchCustomerDataAccess>();
             using (var controller = new SearchCustomerAPIController(
@@ -32,7 +33,7 @@
                     .ReturnsForAnyArgs(expectedCustomerNames);
 
                 // Action
-                var result = controller.SearchCustomer(Query) as JsonResult;
+                var result = await controller.SearchCustomer(Query) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert

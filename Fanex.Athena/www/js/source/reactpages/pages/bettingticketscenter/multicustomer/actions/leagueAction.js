@@ -34,22 +34,22 @@ export const setLeagueList = (list) => {
 }
 
 export function getLeagueList(sportId, date) {
-    date= moment(date,"MM/DD/YYYY").format("YYYY-MM-DD");
+    var dateString = moment(date,"MM/DD/YYYY").format("YYYY-MM-DD");
     
-    const cacheKey = LEAGUE_CACHE_KEY + sportId + "_" + date
+    const cacheKey = LEAGUE_CACHE_KEY + sportId + "_" + dateString
     return (dispatch) => {
         var cacheData = Cache.get(cacheKey);
         if(cacheData)
         {
-            dispatchLeagueList(dispatch, cacheData, date, sportId);
+            dispatchLeagueList(dispatch, cacheData, dateString, sportId);
             return;
         }
 
-        DataService.getData(Url, { sportId: sportId, fromDate: date, toDate: date})
+        DataService.getData(Url, { sportId: sportId, fromDate: dateString, toDate: dateString})
             .then(response => {
                 var data = response.data;
                 Cache.set(cacheKey, data);
-                dispatchLeagueList(dispatch, data, date, sportId);
+                dispatchLeagueList(dispatch, data, dateString, sportId);
             });
     };
 }

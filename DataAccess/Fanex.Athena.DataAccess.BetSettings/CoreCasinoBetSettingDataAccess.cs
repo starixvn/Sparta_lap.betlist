@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.BetSettings
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Common;
     using Core.Common.Constants;
     using Core.Common.Interfaces;
@@ -27,38 +27,38 @@ namespace Fanex.Athena.DataAccess.BetSettings
             _userLogDataAccess = userLogDataAccess;
         }
 
-        public IResultInfo UpdateCasinoStatus(CoreCasinoStatusMetaModel metaModel, int sportId)
+        public async Task<IResultInfo> UpdateCasinoStatusAsync(CoreCasinoStatusMetaModel metaModel, int sportId)
         {
-            var uspName = "Lrf_CustomerUpdCasinoStatus";
+            const string UspName = "Lrf_CustomerUpdCasinoStatus";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
-                db.AddInParameter("sportid", DbType.Int32, sportId);
-                db.AddInParameter("language", DbType.String, metaModel.Language);
-                db.AddInParameter("ip", DbType.String, metaModel.Ip);
-                db.AddInParameter("status", DbType.Int32, metaModel.Status);
-                db.AddOutParameter("ErrCode", DbType.String, 5);
-                db.AddOutParameter("ErrMsg", DbType.String, 6000);
+                db.SetParameterValue("userid", metaModel.UserId);
+                db.SetParameterValue("custid", metaModel.CustId);
+                db.SetParameterValue("sportid", sportId);
+                db.SetParameterValue("language", metaModel.Language);
+                db.SetParameterValue("ip", metaModel.Ip);
+                db.SetParameterValue("status", metaModel.Status);
+                db.SetParameterValue("ErrCode", null);
+                db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var errorCode = Converter.ToInt(db.GetParameterValue("ErrCode"));
                 var errorMessage = Converter.ToString2(db.GetParameterValue("ErrMsg"));
 
-                var trackingValue1 = GetTrackingValueForUpdateStatus(metaModel, uspName, sportId, metaModel.Status == 1 ? 0 : 1);
-                var trackingValue2 = GetTrackingValueForUpdateStatus(metaModel, uspName, sportId, metaModel.Status, errorCode, errorMessage);
+                var trackingValue1 = GetTrackingValueForUpdateStatus(metaModel, UspName, sportId, metaModel.Status == 1 ? 0 : 1);
+                var trackingValue2 = GetTrackingValueForUpdateStatus(metaModel, UspName, sportId, metaModel.Status, errorCode, errorMessage);
 
-                _userLogDataAccess.WriteLog(new UserLogMetaModel
+                await _userLogDataAccess.WriteLog(new UserLogMetaModel
                 {
                     UserId = metaModel.UserId,
                     CustID = metaModel.CustId,
                     ActionID = UserLogAction.LiveCasinoBetSetting,
-                    SPName = uspName,
+                    SPName = UspName,
                     TrackingValue1 = trackingValue1,
                     TrackingValue2 = trackingValue2
-                });
+                }).ConfigureAwait(false);
 
                 return new ResultInfo
                 {

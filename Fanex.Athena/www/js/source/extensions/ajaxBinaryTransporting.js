@@ -37,8 +37,10 @@
                     xhr.open(type, url, async, username, password);
 
                     // setup custom headers
-                    for (var i in headers) {
-                        xhr.setRequestHeader(i, headers[i]);
+                    for (var key in headers) {
+                        if (headers.hasOwnProperty(key)) {
+                            xhr.setRequestHeader(key, headers[key]);
+                        }
                     }
 
                     xhr.responseType = dataType;

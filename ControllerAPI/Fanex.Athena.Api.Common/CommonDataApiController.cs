@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using DataAccess.Core.Common.Interfaces;
     using Model.Core.DataDomain;
@@ -54,23 +55,23 @@
         }
 
         [HttpGet]
-        public IEnumerable<object> GetSports(string productCode)
+        public async Task<IEnumerable<object>> GetSports(string productCode)
         {
-            var sports = _sportTypeDataAccess.GetSportsAndProducts(
+            var sports = await _sportTypeDataAccess.GetSportsAndProducts(
                  _sessionService.LicenseeSession.LicenseeId,
                  _sessionService.UserSession.Language,
-                 productCode);
+                 productCode).ConfigureAwait(false);
 
             return sports.Where(x => x.ParentId > -1).Select(x => new { value = x.ID, label = x.Name });
         }
 
         [HttpGet]
-        public IEnumerable<object> GetBetTypes(string productCode)
+        public async Task<IEnumerable<object>> GetBetTypes(string productCode)
         {
-            var bettypes = _betTypeService.GetBettypesByProduct(
+            var bettypes = await _betTypeService.GetBettypesByProduct(
                 _sessionService.LicenseeSession.LicenseeId,
                 productCode,
-                _sessionService.UserSession.Language);
+                _sessionService.UserSession.Language).ConfigureAwait(false);
 
             return bettypes.Select(x => new { value = x.ID, label = x.Name });
         }
@@ -83,7 +84,7 @@
         /// <param name="sportId"></param>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<object> GetLeagues(DateTime fromDate, DateTime toDate, int sportId = 0)
+        public async Task<IEnumerable<object>> GetLeagues(DateTime fromDate, DateTime toDate, int sportId = 0)
         {
             var metaModel = new LeagueMetaModel
             {
@@ -95,15 +96,15 @@
                 AgentListXml = _sessionService.GenerateAgentListXml()
             };
 
-            var leagues = _leagueDataAccess.GetLeaguesBySport(metaModel);
+            var leagues = await _leagueDataAccess.GetLeaguesBySport(metaModel).ConfigureAwait(false);
 
             return leagues.Select(x => new { value = x.LeagueId, label = x.LeagueName });
         }
 
         [HttpGet]
-        public IEnumerable<object> GetMatches(DateTime fromDate, DateTime toDate, int leagueid, int sportId = 0)
+        public async Task<IEnumerable<object>> GetMatches(DateTime fromDate, DateTime toDate, int leagueid, int sportId = 0)
         {
-            var matches = _matchDataAccess.GetMatchesByLeague(leagueid, fromDate, toDate, sportId);
+            var matches = await _matchDataAccess.GetMatchesByLeague(leagueid, fromDate, toDate, sportId).ConfigureAwait(false);
 
             return matches.Select(x => new { value = x.MatchId, label = x.MatchName });
         }

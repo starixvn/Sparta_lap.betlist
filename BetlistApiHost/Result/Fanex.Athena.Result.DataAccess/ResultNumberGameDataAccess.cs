@@ -102,26 +102,30 @@ namespace Fanex.Athena.Result.DataAccess
             while (reader.Read())
             {
                 var matchId = reader.ToInt("matchid");
+                var seq = reader.ToInt("seq");
+                var number = reader.ToInt("number");
+
                 var existMatch = dataList.SingleOrDefault(i => i.MatchId == matchId);
                 if (existMatch != null)
                 {
-                    existMatch.Seg.Add(reader.ToInt("seq"));
-                    existMatch.Ball.Add(reader.ToInt("number"));
+                    existMatch.Seg.Add(seq);
+                    existMatch.Ball.Add(number);
                 }
                 else
                 {
+                    const string IsRefundColumn = "isrefund";
                     dataList.Add(
                         new NumberGame
                         {
                             LeagueId = reader.ToInt("leagueid"),
-                            MatchId = reader.ToInt("matchid"),
+                            MatchId = matchId,
                             EventStatus = reader.ToString("eventstatus"),
                             EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                            IsPending = reader.HasColumn("isrefund") && reader.ToString("isrefund") != "0",
+                            IsPending = reader.HasColumn(IsRefundColumn) && reader.ToString(IsRefundColumn) != "0",
                             KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
                             MatchCode = reader.ToString("matchcode"),
-                            Seg = new List<int> { reader.ToInt("seq") },
-                            Ball = new List<int> { reader.ToInt("number") }
+                            Seg = new List<int> { seq },
+                            Ball = new List<int> { number }
                         });
                 }
             }
@@ -136,26 +140,30 @@ namespace Fanex.Athena.Result.DataAccess
             while (reader.Read())
             {
                 var matchId = reader.ToInt("matchid");
+                var seq = reader.ToInt("seq");
+                var number = reader.ToInt("number");
+
                 var existMatch = dataList.SingleOrDefault(i => i.MatchId == matchId);
                 if (existMatch != null)
                 {
-                    existMatch.Seq.Add(reader.ToInt("seq"));
-                    existMatch.Ball.Add(reader.ToInt("number"));
+                    existMatch.Seq.Add(seq);
+                    existMatch.Ball.Add(number);
                 }
                 else
                 {
+                    const string IsRefundColumn = "isrefund";
                     dataList.Add(
                         new Happy5
                         {
                             LeagueId = reader.ToInt("leagueid"),
-                            MatchId = reader.ToInt("matchid"),
+                            MatchId = matchId,
                             EventStatus = reader.ToString("eventstatus"),
                             EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                            IsPending = reader.HasColumn("isrefund") && reader.ToString("isrefund") != "0",
+                            IsPending = reader.HasColumn(IsRefundColumn) && reader.ToString(IsRefundColumn) != "0",
                             KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
                             MatchCode = reader.ToString("matchcode"),
-                            Seq = new List<int> { reader.ToInt("seq") },
-                            Ball = new List<int> { reader.ToInt("number") }
+                            Seq = new List<int> { seq },
+                            Ball = new List<int> { number }
                         });
                 }
             }

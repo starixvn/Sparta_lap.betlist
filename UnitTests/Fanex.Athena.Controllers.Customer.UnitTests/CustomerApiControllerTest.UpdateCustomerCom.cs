@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Fanex.Athena.UnitTest.Common.Extensions;
@@ -14,10 +15,10 @@
     using Session.Model;
 
     [TestFixture]
-    public partial class CustomerApiControllerTest : BaseControllerHelperTest
+    public partial class CustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void UpdateCustomerCom_NotAllowedCustomerComm_ReturnErrorResult()
+        public async Task UpdateCustomerCom_NotAllowedCustomerComm_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -28,7 +29,7 @@
                 });
 
                 // Action
-                var result = controller.UpdateCustomerCom(null) as JsonResult;
+                var result = await controller.UpdateCustomerCom(null) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
@@ -41,7 +42,7 @@
         }
 
         [Test]
-        public void UpdateCustomerCom_CustomerListEmpty_ReturnErrorResult()
+        public async Task UpdateCustomerCom_CustomerListEmpty_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -52,7 +53,7 @@
                 });
 
                 // Action
-                var result = controller.UpdateCustomerCom(new UpdatedCustomerComMetaModel()) as JsonResult;
+                var result = await controller.UpdateCustomerCom(new UpdatedCustomerComMetaModel()) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert
@@ -65,7 +66,7 @@
         }
 
         [Test]
-        public void UpdateCustomerCom_CommNotValid_ReturnErrorResult()
+        public async Task UpdateCustomerCom_CommNotValid_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -81,7 +82,7 @@
                 };
 
                 // Action
-                var result = controller.UpdateCustomerCom(metaModel) as JsonResult;
+                var result = await controller.UpdateCustomerCom(metaModel) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert
@@ -94,7 +95,7 @@
         }
 
         [Test]
-        public void UpdateCustomerCom_WhenCall_CallUpdateCustomerComm()
+        public async Task UpdateCustomerCom_WhenCall_CallUpdateCustomerComm()
         {
             using (var controller = CreateController())
             {
@@ -112,20 +113,20 @@
                 };
 
                 // Action
-                var result = controller.UpdateCustomerCom(metaModel) as JsonResult;
+                var result = await controller.UpdateCustomerCom(metaModel) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _customerCommService.Received(1).UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
+                    _customerCommService.Received(1).UpdateCustomersCommissionAsync(metaModel, metaModel.IsAllowedCS);
                     Assert.That(resultData.ExtendedData.GetValue("SBComm"), Is.EqualTo("15.00"));
                 });
             }
         }
 
         [Test]
-        public void UpdateCustomerCom_SameOldComm_ReturnCorrectErrorMessage()
+        public async Task UpdateCustomerCom_SameOldComm_ReturnCorrectErrorMessage()
         {
             using (var controller = CreateController())
             {
@@ -141,19 +142,19 @@
                     GroupId = 1,
                     SBComm = 0.05m
                 };
-                _groupComService.GetById(metaModel.GroupId).Returns(new GroupCommMetaModel
+                _groupComService.GetById(metaModel.GroupId, Arg.Any<int>()).Returns(new GroupCommMetaModel
                 {
                     SBComm = metaModel.SBComm
                 });
 
                 // Action
-                var result = controller.UpdateCustomerCom(metaModel) as JsonResult;
+                var result = await controller.UpdateCustomerCom(metaModel) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _customerCommService.DidNotReceiveWithAnyArgs().UpdateCustomersCommission(null, false);
+                    _customerCommService.DidNotReceiveWithAnyArgs().UpdateCustomersCommissionAsync(null, false);
                     Assert.That(resultData.Success, Is.False);
                     Assert.That(resultData.ErrorMessage, Is.EqualTo(ViewResources.MessageCommNoChange));
                 });

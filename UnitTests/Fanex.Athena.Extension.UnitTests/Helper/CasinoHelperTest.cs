@@ -8,7 +8,6 @@
         [TestCase("zh-CN", "_Cs")]
         [TestCase("zh-Hans", "_Cs")]
         [TestCase("zh-TW", "_Ct")]
-        [TestCase("ko-KR", "_Ko")]
         [TestCase("default", "_En")]
         public void GetColumnNameByLanguage_WhenCall_ReturnCorrectsuffix(string languageCode, string expectedSuffix)
         {

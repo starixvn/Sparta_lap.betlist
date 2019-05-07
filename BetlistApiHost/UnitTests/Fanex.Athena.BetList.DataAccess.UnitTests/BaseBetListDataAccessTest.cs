@@ -40,8 +40,6 @@
             Assert.That(result, Tobe.SameProperties(expected));
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private static IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket)
         {
             var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency) ? baseCurrency : string.Empty;
@@ -56,6 +54,25 @@
             var originalStakeCol = "originalstake" + columnSuffix;
 
             var dataList = new Dictionary<string, object>();
+            dataList.Add(playerCommCol, ticket.PlayerComm);
+            dataList.Add(commCol, ticket.Comm);
+            dataList.Add(licenseeWlCol, ticket.LicenseeWL);
+            dataList.Add(winlostCol, ticket.Winlost);
+            dataList.Add(beteffectiveCol, ticket.BetEffective);
+            dataList.Add(stakeCol, ticket.Stake);
+            dataList.Add(actualStakeCol, ticket.ActualStake);
+            dataList.Add(originalStakeCol, ticket.OriginalStake);
+
+            AddStringData(dataList, ticket);
+            AddBooleanData(dataList, ticket);
+            AddDateTimeData(dataList, ticket);
+            AddNumbericData(dataList, ticket);
+
+            return dataList;
+        }
+
+        private static void AddStringData(Dictionary<string, object> dataList, LrfTicket ticket)
+        {
             dataList.Add("username", ticket.UserName);
             dataList.Add("refno", ticket.RefNo);
             dataList.Add("matchcode", ticket.MatchCode);
@@ -68,10 +85,22 @@
             dataList.Add("race", ticket.Race);
             dataList.Add("betfrom", ticket.BetFrom);
             dataList.Add("betcheck", ticket.BetCheck);
+        }
 
+        private static void AddBooleanData(Dictionary<string, object> dataList, LrfTicket ticket)
+        {
             dataList.Add("liveindicator", ticket.IsLive);
             dataList.Add("isneutral", ticket.IsNeutral);
+        }
 
+        private static void AddDateTimeData(Dictionary<string, object> dataList, LrfTicket ticket)
+        {
+            dataList.Add("winlostdate", ticket.WinlostDate);
+            dataList.Add("transdate", ticket.TransDate);
+        }
+
+        private static void AddNumbericData(Dictionary<string, object> dataList, LrfTicket ticket)
+        {
             dataList.Add("sporttype", ticket.SportTypeId);
             dataList.Add("bettype", ticket.BetTypeId);
             dataList.Add("leagueid", ticket.LeagueId);
@@ -88,16 +117,6 @@
             dataList.Add("transid", ticket.TransId);
             dataList.Add("betid", ticket.BetId);
 
-            dataList.Add("winlostdate", ticket.WinlostDate);
-            dataList.Add("transdate", ticket.TransDate);
-
-            dataList.Add(playerCommCol, ticket.PlayerComm);
-            dataList.Add(commCol, ticket.Comm);
-            dataList.Add(licenseeWlCol, ticket.LicenseeWL);
-            dataList.Add(winlostCol, ticket.Winlost);
-            dataList.Add(beteffectiveCol, ticket.BetEffective);
-            dataList.Add(stakeCol, ticket.Stake);
-            dataList.Add(actualStakeCol, ticket.ActualStake);
             dataList.Add("odds", ticket.Odds);
             dataList.Add("modds", ticket.MasterOdds);
             dataList.Add("hdp1", ticket.Handicap1);
@@ -107,12 +126,9 @@
 
             dataList.Add("betdaqid", ticket.BetdaqId);
             dataList.Add("extrainfo", ticket.ExtraInfo);
-            dataList.Add(originalStakeCol, ticket.OriginalStake);
             dataList.Add("originalbettype", ticket.OriginalBetType);
             dataList.Add("oddsspread", ticket.OddsSpread);
             dataList.Add("SettlementStatus", ticket.SettlementStatus);
-
-            return dataList;
         }
 
         private void ConfigureReader(IDictionary<string, object> dataList)

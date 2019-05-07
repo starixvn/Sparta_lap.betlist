@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report;
@@ -27,14 +28,14 @@
         }
 
         [HttpPost]
-        public dynamic Index(LicenseeWinLossByTimeZoneMetaModel metaModel)
+        public async Task<dynamic> Index(LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
                 var userCurrencyList = SessionService.UserSession.CurrencyList;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTestData);
 
-                var result = _licenseeWinLossByTimeZoneDataAccess.GetData(metaModel, userCurrencyList);
+                var result = await _licenseeWinLossByTimeZoneDataAccess.GetData(metaModel, userCurrencyList).ConfigureAwait(false);
 
                 return new
                 {

@@ -1,6 +1,6 @@
-﻿"use strict";
+﻿'use strict';
 define([], function () {
-    var Product = {
+    const Product = {
         Sportsbook: 0,
         Racing: 1,
         NumberGame: 2,
@@ -12,9 +12,7 @@ define([], function () {
         GoldDeluxe: 11,
         Macau: 12,
         BetTrade: 13,
-        MgcLiveCasino: 14,
         Colossusbets: 15,
-        MgcRngCasino: 17,
         AllBet: 21,
         VoidBridge: 22,
         FishingWorld: 24,
@@ -23,7 +21,7 @@ define([], function () {
         Lottery: 28
     };
 
-    var _me = {
+    const _me = {
         Product: Product
     };
 

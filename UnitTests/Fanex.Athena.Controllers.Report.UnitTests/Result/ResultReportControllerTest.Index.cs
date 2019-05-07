@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Report.MetaModel.Result;
@@ -8,7 +9,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public partial class ResultReportControllerTest : BaseControllerHelperTest
+    public partial class ResultReportControllerTest : CultureBaseControllerHelperTest
     {
         [TestCase("CS", true, false, false)]
         [TestCase("KN", false, true, false)]

@@ -12,6 +12,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Interfaces;
+    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
 
     public class BetListControllerTest : BaseControllerHelperTest
@@ -151,10 +152,10 @@
 
                 // Action
                 var result = (await controller.GetBetListPaging(metaModel)).Data;
-                var page = result.GetType().GetProperty("page").GetValue(result, null);
-                var total = result.GetType().GetProperty("total").GetValue(result, null);
-                var records = result.GetType().GetProperty("records").GetValue(result, null);
-                var rows = result.GetType().GetProperty("rows").GetValue(result, null);
+                var page = result.GetValue("page");
+                var total = result.GetValue("total");
+                var records = result.GetValue("records");
+                var rows = result.GetValue("rows");
 
                 // Assert
                 Assert.Multiple(() =>
@@ -195,46 +196,19 @@
 
                 // Action
                 var result = (await controller.GetBetListPaging(metaModel)).Data;
-                var userdata = result.GetType().GetProperty("userdata").GetValue(result, null);
+                var userdata = result.GetValue("userdata");
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(userdata.GetType().GetProperty("WinLoss").GetValue(userdata, null), Is.EqualTo(expectedWinloss));
-                    Assert.That(userdata.GetType().GetProperty("LicenseeWL").GetValue(userdata, null), Is.EqualTo(expectedLicenseeWLText));
+                    Assert.That(userdata.GetValue("WinLoss"), Is.EqualTo(expectedWinloss));
+                    Assert.That(userdata.GetValue("LicenseeWL"), Is.EqualTo(expectedLicenseeWLText));
                 });
             }
         }
 
         [Test]
-        public async Task GetDailyBetListData_WhenCall_CallGetBetListPaging()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = FakeHelper.Create<DailyBetListMetaModel>();
-
-                var ticketResult = new TicketResult();
-                _betListService.GetBetListData(metaModel).Returns(ticketResult);
-
-                var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _betListService.BuildTicketTextList(ticketResult, Arg.Any<BetListMetaModel>(), Arg.Any<int>(), isShowPlayerComm: metaModel.HasPlayerCom)
-                    .Returns(ticketText.ToList());
-
-                // Action
-                 await controller.GetBetListPaging(metaModel);
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    _betListService.Received().GetBetListData(metaModel);
-                    _betListService.Received().BuildTicketTextList(ticketResult, Arg.Any<BetListMetaModel>(), Arg.Any<int>(), isShowPlayerComm: metaModel.HasPlayerCom);
-                });
-            }
-        }
-
-        [Test]
-        public void GetBetList_GetWinLossByLeagueData_CallGetBetList()
+        public async Task GetBetList_GetWinLossByLeagueData_CallGetBetList()
         {
             using (var controller = CreateController())
             {
@@ -248,7 +222,7 @@
                 _betListService.BuildTicketTextList(ticketResult, Arg.Any<BetListMetaModel>(), isShowPlayerComm: metaModel.HasPlayerCom).Returns(ticketText);
 
                 // Action
-                controller.GetWinLossByLeagueData(metaModel);
+                await controller.GetWinLossByLeagueData(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -338,27 +312,6 @@
         }
 
         [Test]
-        public async Task ExportExcelDailyBetList_WhenCall_CallExportExcel()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = FakeHelper.Create<DailyBetListMetaModel>();
-
-                var ticketResult = new TicketResult();
-                _betListService.GetBetListData(metaModel).Returns(ticketResult);
-
-                controller.When(x => x.Export(Arg.Any<DailyBetListMetaModel>(), ticketResult)).DoNotCallBase();
-
-                // Action
-                await controller.ExportExcelDailyBetList(metaModel);
-
-                // Assert
-                controller.Received().Export(metaModel, ticketResult);
-            }
-        }
-
-        [Test]
         public async Task ExportExcelWinlossByLeague_WhenCall_CallExportExcel()
         {
             using (var controller = CreateController())
@@ -373,6 +326,27 @@
 
                 // Action
                 await controller.ExportExcelWinlossByLeague(metaModel);
+
+                // Assert
+                controller.Received().Export(metaModel, ticketResult);
+            }
+        }
+
+        [Test]
+        public async Task ExportExcelLiveReport_WhenCall_CallExportExcel()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<LiveReportBetListMetaModel>();
+
+                var ticketResult = new TicketResult();
+                _betListService.GetBetListData(metaModel).Returns(ticketResult);
+
+                controller.When(x => x.Export(Arg.Any<LiveReportBetListMetaModel>(), ticketResult)).DoNotCallBase();
+
+                // Action
+                await controller.ExportExcelLiveReport(metaModel);
 
                 // Assert
                 controller.Received().Export(metaModel, ticketResult);

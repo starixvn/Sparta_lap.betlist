@@ -293,12 +293,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="CancelledBets" xml:space="preserve">
-    <value>已删除/作废注单</value>
-  </data>
-  <data name="CancelledBetsTitle" xml:space="preserve">
-    <value>作废/已删除注单(3天纪录)</value>
-  </data>
   <data name="CasinoTransfer" xml:space="preserve">
     <value>娱乐城的总转账额</value>
   </data>
@@ -484,9 +478,6 @@
   </data>
   <data name="Daily" xml:space="preserve">
     <value>每日</value>
-  </data>
-  <data name="DailyBetList" xml:space="preserve">
-    <value>每日投注历史</value>
   </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>每日账目</value>
@@ -2316,14 +2307,6 @@
   </data>
   <data name="GoldDeluxeWinLossGuidelineContent" xml:space="preserve">
     <value>在GMT-4下午4点之前的任何查询将依据前一天下午4点的数据。您每次查询可以过滤最多3个月内的数据。</value>
-    <comment>#71725</comment>
-  </data>
-  <data name="CasinoProgressiveWinsGuidelineContent" xml:space="preserve">
-    <value>此报告提供最新数据。您每次查询可以过滤最多12个月内的数据。</value>
-    <comment>#71725</comment>
-  </data>
-  <data name="MicrogamingWinLossGuidelineContent" xml:space="preserve">
-    <value>此报告提供最新数据。您每次查询可以过滤最多3个月内的数据。</value>
     <comment>#71725</comment>
   </data>
   <data name="ProductCO" xml:space="preserve">

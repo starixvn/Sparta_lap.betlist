@@ -30,7 +30,7 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                await AddSingleCustomerParameters(db, metaModel).ConfigureAwait(false);
+                AddSingleCustomerParameters(db, metaModel);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -57,7 +57,7 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("UserName", metaModel.UserName);
                 db.SetParameterValue("RefNo", metaModel.RefNo);
@@ -98,7 +98,7 @@
                 db.SetParameterValue("SumStake", null);
                 AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
 
-                using (var reader = await db.ExecuteReaderAsync())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                 }
@@ -119,11 +119,11 @@
             }
         }
 
-        private async Task AddSingleCustomerParameters(IObjectDb db, SingleCustomersBetListMetaModel metaModel)
+        private void AddSingleCustomerParameters(IObjectDb db, SingleCustomersBetListMetaModel metaModel)
         {
             var productCodes = metaModel.ProductCodeList.Split(',');
             var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.SetParameterValue("ShowBA", productCodes.Contains(ProductCodes.BA));
             db.SetParameterValue("ProductList", productList);
             db.SetParameterValue("FromDate", metaModel.FromDate);

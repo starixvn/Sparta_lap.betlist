@@ -1,9 +1,9 @@
-﻿define(["jquery", "./commgroupdetail"],
+﻿define(['jquery', './commgroupdetail'],
      function ($, CommGroupDetail) {
-         "use strict";
+         'use strict';
 
-         var FORM_SELECTOR = "#customer-comm-group-add";
-         var TITLE = "CreateNewGroup";
+         const FORM_SELECTOR = '#customer-comm-group-add';
+         const TITLE = 'CreateNewGroup';
 
          function initialize() {
              CommGroupDetail.initialize(TITLE);
@@ -12,17 +12,17 @@
          }
 
          function initEvent() {
-             $("#Validate").click(function () {
-                 var groupName = $("#GroupName").val();
+             $('#Validate').click(function () {
+                 const groupName = $('#GroupName').val();
                  CommGroupDetail.checkAvailableGroup(groupName);
              });
 
-             $("#Submit").click(function () {
+             $('#Submit').click(function () {
                  CommGroupDetail.submit(FORM_SELECTOR);
              });
          }
 
-         var _me = {
+         const _me = {
              initialize: initialize,
              initEvent: initEvent
          };

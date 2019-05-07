@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common;
     using Common.Extensions;
     using Core;
     using Core.Configuration.Interfaces;
-    using Core.Exception;
     using Data;
     using Interfaces;
     using Model.Core.DataDomain;
@@ -25,42 +25,36 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<CasinoTurnover> GetData(CasinoTurnoverMetaModel metaModel)
+        public async Task<ReportResultModel<CasinoTurnover>> GetData(CasinoTurnoverMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_CasinoTurnover";
 
             IEnumerable<CasinoTurnover> dataList = null;
             CasinoTurnover totalData = null;
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                AddParams(metaModel, db);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    AddParams(metaModel, db);
-                    using (var reader = db.ExecuteReader())
+                    dataList = ReadData(reader, metaModel.IsConvertAll);
+                    if (dataList.Any())
                     {
-                        dataList = ReadData(reader, metaModel.IsConvertAll);
-                        if (dataList.Any())
+                        reader.NextResult();
+                        if (reader.Read())
                         {
-                            reader.NextResult();
-                            if (reader.Read())
-                            {
-                                totalData = ReadTotalData(reader);
-                            }
+                            totalData = ReadTotalData(reader);
                         }
                     }
-
-                    var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
-                    return new ReportResultModel<CasinoTurnover>
-                    {
-                        DataList = dataList,
-                        TotalData = totalData,
-                        TotalRows = totalRows
-                    };
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+
+                var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
+                return new ReportResultModel<CasinoTurnover>
+                {
+                    DataList = dataList,
+                    TotalData = totalData,
+                    TotalRows = totalRows
+                };
             }
         }
 
@@ -122,18 +116,18 @@
 
         private void AddParams(CasinoTurnoverMetaModel metaModel, IObjectDb db)
         {
-            db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("basecurrency", DbType.String, metaModel.BaseCurrency);
-            db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-            db.AddInParameter("StatusList", DbType.String, string.Join(",", metaModel.Status));
-            db.AddInParameter("ProductCodes", DbType.String, string.Join(",", metaModel.ProductCode));
-            db.AddInParameter("MoveBetsDay", DbType.Date, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", metaModel.FromDate.Date);
+            db.SetParameterValue("todate", metaModel.ToDate.Date);
+            db.SetParameterValue("basecurrency", metaModel.BaseCurrency);
+            db.SetParameterValue("UserName", metaModel.UserName);
+            db.SetParameterValue("StatusList", string.Join(",", metaModel.Status));
+            db.SetParameterValue("ProductCodes", string.Join(",", metaModel.ProductCode));
+            db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
 
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
-            db.AddOutParameter("TotalRows", DbType.Int32, 10);
+            db.SetParameterValue("PageSize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
+            db.SetParameterValue("PageIndex", metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
+            db.SetParameterValue("TotalRows", null);
         }
     }
 }

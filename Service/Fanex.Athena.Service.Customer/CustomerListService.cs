@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.Customer
 {
+    using System.Threading.Tasks;
     using DataAccess.Customer.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -52,12 +53,12 @@ namespace Fanex.Athena.Service.Customer
             _appSettings = appSettings;
         }
 
-        public ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel)
+        public Task<ReportResultModel<CustomerDTO>> GetActiveCustomers(CustomerListMetaModel metaModel)
         {
             return _customerListDataAccess.GetActiveCustomers(metaModel);
         }
 
-        public ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel)
+        public Task<ReportResultModel<DormantCustomer>> GetDormantCustomers(CustomerListMetaModel metaModel)
         {
             return _dormantCustomerListDataAccess.GetDormantCustomers(metaModel);
         }

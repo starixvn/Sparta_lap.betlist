@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Customer;
@@ -19,7 +20,7 @@
     using UnitTest.Common.Extensions;
 
     [TestFixture]
-    public partial class CustomerApiControllerTest : BaseControllerHelperTest
+    public partial class CustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         private ICoreLogger _logger;
         private ICustomerCommService _customerCommService;
@@ -239,7 +240,7 @@
         }
 
         [Test]
-        public void RemoveFromGroupCom_NotAllowedCustomerComm_ReturnErrorResult()
+        public async Task RemoveFromGroupCom_NotAllowedCustomerComm_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -250,7 +251,7 @@
                 });
 
                 // Action
-                var result = controller.RemoveFromGroupCom(string.Empty, false) as JsonResult;
+                var result = await controller.RemoveFromGroupCom(string.Empty, false) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
@@ -263,7 +264,7 @@
         }
 
         [Test]
-        public void RemoveFromGroupCom_WhenCall_CallRemoveCustomerComm()
+        public async Task RemoveFromGroupCom_WhenCall_CallRemoveCustomerComm()
         {
             using (var controller = CreateController())
             {
@@ -277,13 +278,13 @@
                 });
 
                 // Action
-                var result = controller.RemoveFromGroupCom(CustmerIds, isRemovePlayerComm) as JsonResult;
+                var result = await controller.RemoveFromGroupCom(CustmerIds, isRemovePlayerComm) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _customerCommService.Received(1).RemoveCustomersFromGroup(
+                    _customerCommService.Received(1).RemoveCustomersFromGroupAsync(
                         Arg.Is<RemoveFromGroupComMetaModel>(x =>
                         x.CustomerIds == CustmerIds && x.IsRemovePlayercomm == isRemovePlayerComm),
                         false);

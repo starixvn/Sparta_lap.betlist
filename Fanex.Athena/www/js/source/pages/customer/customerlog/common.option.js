@@ -1,6 +1,6 @@
-﻿"use strict";
+﻿'use strict';
 define([], function () {
-    var logIdColumn = {
+    const logIdColumn = {
         name: 'LogId',
         index: 'LogId',
         resizable: false,
@@ -8,7 +8,7 @@ define([], function () {
         align: 'center',
         sortable: false
     };
-    var logDateColumn = {
+    const logDateColumn = {
         name: 'LogDate',
         index: 'LogDate',
         resizable: false,
@@ -23,7 +23,7 @@ define([], function () {
             newformat: 'n/j/Y h:i:s A'
         }
     };
-    var editedByColumn = {
+    const editedByColumn = {
         name: 'EditedBy',
         index: 'EditedBy',
         resizable: false,
@@ -32,7 +32,7 @@ define([], function () {
         valign: 'middle',
         sortable: true
     };
-    var actionColumn = {
+    const actionColumn = {
         name: 'ActionName',
         index: 'ActionName',
         resizable: false,
@@ -40,7 +40,7 @@ define([], function () {
         align: 'left',
         sortable: false
     };
-    var detailColumn = {
+    const detailColumn = {
         name: 'Details',
         index: 'Details',
         resizable: false,
@@ -51,12 +51,12 @@ define([], function () {
         classes: 'jqgrid-detail-col'
     };
 
-    var colNameList = ['LogID', 'LogDate', 'Editedby', 'Action', 'Details'];
-    var colModelList = [logIdColumn, logDateColumn, editedByColumn, actionColumn, detailColumn];
+    const colNameList = ['LogID', 'LogDate', 'Editedby', 'Action', 'Details'];
+    const colModelList = [logIdColumn, logDateColumn, editedByColumn, actionColumn, detailColumn];
 
-    var _me = {
+    const _me = {
         gridOption: {
-            height: "auto",
+            height: 'auto',
             datatype: 'local',
             colNames: [],
             colModel: colModelList,
@@ -70,7 +70,7 @@ define([], function () {
             scroll: false,
             loadonce: true,
             gridview: true,
-            sortorder: "desc",
+            sortorder: 'desc',
             pager: '#ppdata',
             loadtext: ''
         },

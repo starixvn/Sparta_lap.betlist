@@ -9,9 +9,8 @@ namespace Fanex.Athena.Common.Utility.Services
     {
         private readonly Lazy<IRemotingRefService> _remotingRefService = new Lazy<IRemotingRefService>(() => new RemotingRefService());
 
-#pragma warning disable CS3003 // Type is not CLS-compliant
+        [CLSCompliant(false)]
         public IRemotingRefService RemotingRefService => _remotingRefService.Value;
-#pragma warning restore CS3003 // Type is not CLS-compliant
 
         public string GetSportName(object sportId, string languageCode = null)
         {

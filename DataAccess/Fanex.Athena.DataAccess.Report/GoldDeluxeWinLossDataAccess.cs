@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Report.DTO;
@@ -14,17 +15,17 @@
 
     public class GoldDeluxeWinLossDataAccess : ThirdPartyWinLossDataAccess<GoldDeluxeWinLoss>, IGoldDeluxeWinLossDataAccess
     {
-        public ReportResultModel<GoldDeluxeWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<ReportResultModel<GoldDeluxeWinLoss>> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             return GetSummaryWinloss(metaModel, currencyList, "Lrf_Rpt_GoldDeluxeWinloss");
         }
 
-        public ReportResultModel<GoldDeluxeWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<ReportResultModel<GoldDeluxeWinLoss>> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             return GetCustomerWinlossDetail(metaModel, currencyList, "Lrf_Rpt_GoldDeluxeWinloss_Mem");
         }
 
-        public ReportResultModel<GoldDeluxeWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<ReportResultModel<GoldDeluxeWinLoss>> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             return GetAgentWinlossDetail(metaModel, currencyList, "Lrf_Rpt_GoldDeluxeWinloss_Ag");
         }
@@ -48,7 +49,7 @@
         protected override void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             base.UpdateUspParams(db, metaModel, drilldown);
-            db.AddInParameter("licenseeId", DbType.Int32, metaModel.LicenseeId);
+            db.SetParameterValue("licenseeId", metaModel.LicenseeId);
         }
 
         protected override void PostReadItem(IDataReader reader, GoldDeluxeWinLoss item, string baseCurrency)

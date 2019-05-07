@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,18 +290,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! lib/jquery.cookie */ "./www/js/source/lib/jquery.cookie.js"), __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
-    "use strict";
+    'use strict';
 
-    var curCountDown = 0;
-    var countDownTimer = null;
-    var cookieName = null;
-    var countDownId = null;
-    var defaultCountDown = 0;
+    let curCountDown = 0;
+    let countDownTimer = null;
+    let cookieName = null;
+    let countDownId = null;
+    let defaultCountDown = 0;
 
-    var _me = {
+    const _me = {
         initialize: function () {
             $('.menu-item').on('click', function () {
-                var selectedCountDown = parseInt($(this).attr('data-count-down'));
+                const selectedCountDown = parseInt($(this).attr('data-count-down'), 10);
                 _me.setCountDown(selectedCountDown, true);
             });
 
@@ -310,16 +309,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 _me.refresh();
             });
 
-            var $hiddenCountdown = $('#count-down-of');
+            const $hiddenCountdown = $('#count-down-of');
             countDownId = $hiddenCountdown.attr('name');
 
             // Get default count down
-            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'));
+            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'), 10);
         },
         initEvent: function () {
-            cookieName = "RefeshCountDown" + countDownId;
+            cookieName = 'RefeshCountDown' + countDownId;
             //read countdown from cookie
-            var countDownFromCookie = $.cookie(cookieName);
+            const countDownFromCookie = $.cookie(cookieName);
             if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
                 _me.setCountDown(countDownFromCookie, false);
             } else {
@@ -327,7 +326,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         },
         setCountDown: function (countDown, isSetToCookie) {
-            var countDownInt = parseInt(countDown);
+            const countDownInt = parseInt(countDown, 10);
             if (isSetToCookie) {
                 $.cookie(cookieName, countDownInt);
             }
@@ -336,7 +335,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             _me.tick();
         },
         setMenuStatus: function () {
-            var index = curCountDown;
+            const index = curCountDown;
             $('#countdown-menu .menu-item').removeClass('menu-selected');
             $('#option-' + index).addClass('menu-selected');
         },
@@ -352,18 +351,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         },
         refresh: function () {
-            var oldScrollTop;
-            if ($(".body-content").length) {
-                oldScrollTop = $(".body-content").scrollTop();
+            let oldScrollTop;
+            if ($('.body-content').length) {
+                oldScrollTop = $('.body-content').scrollTop();
             }
 
             if (countDownTimer !== null) {
                 clearTimeout(countDownTimer);
             }
-            document.getElementById('count').innerHTML = "...";
+            document.getElementById('count').innerHTML = '...';
 
             // Get param before load data
-            var url = _me.calculateUrl();
+            const url = _me.calculateUrl();
 
             Site.blockUI();
             $('#reportContent').load(url, {
@@ -378,34 +377,34 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $(window).resize();
 
                 // Scrollbar still kept current position
-                if ($(".body-content").length) {
-                    $(".body-content").scrollTop(oldScrollTop);
+                if ($('.body-content').length) {
+                    $('.body-content').scrollTop(oldScrollTop);
                 }
             });
 
             return true;
         },
         calculateUrl: function () {
-            var leagueId = $('#LeagueId').val();
-            var matchId = $('#MatchId').val();
-            var betType = $("#BetType").val();
-            var currentScore = $("#CurrentScore").val();
-            var isShowFt = $("#IsShowFt").val();
-            var isShowFh = $("#IsShowFh").val();
-            var homeName = $("#HomeTeamId").val();
-            var awayName = $("#AwayTeamId").val();
+            const leagueId = $('#LeagueId').val();
+            const matchId = $('#MatchId').val();
+            const betType = $('#BetType').val();
+            const currentScore = $('#CurrentScore').val();
+            const isShowFt = $('#IsShowFt').val();
+            const isShowFh = $('#IsShowFh').val();
+            const homeName = $('#HomeTeamId').val();
+            const awayName = $('#AwayTeamId').val();
 
-            var url = Site.getCurrentUrl();
+            let url = Site.getCurrentUrl();
             url = Site.setLicenseeOptionOriginalParam(url);
-            url = QueryString.setParam(url, "LeagueId", leagueId);
-            url = QueryString.setParam(url, "MatchId", matchId);
-            url = QueryString.setParam(url, "BetType", betType);
-            url = QueryString.setParam(url, "CurrentScore", currentScore);
-            url = QueryString.setParam(url, "IsShowFt", isShowFt);
-            url = QueryString.setParam(url, "IsShowFh", isShowFh);
+            url = QueryString.setParam(url, 'LeagueId', leagueId);
+            url = QueryString.setParam(url, 'MatchId', matchId);
+            url = QueryString.setParam(url, 'BetType', betType);
+            url = QueryString.setParam(url, 'CurrentScore', currentScore);
+            url = QueryString.setParam(url, 'IsShowFt', isShowFt);
+            url = QueryString.setParam(url, 'IsShowFh', isShowFh);
 
-            url = QueryString.setParam(url, "HomeTeamId", homeName);
-            url = QueryString.setParam(url, "AwayTeamId", awayName);
+            url = QueryString.setParam(url, 'HomeTeamId', homeName);
+            url = QueryString.setParam(url, 'AwayTeamId', awayName);
             
             return encodeURI(url);
         }
@@ -425,15 +424,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -451,23 +450,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -486,14 +485,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -504,14 +503,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -523,16 +522,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -549,45 +548,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -603,8 +602,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -613,7 +612,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -630,10 +629,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -641,10 +640,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -652,37 +651,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -692,16 +691,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -709,44 +708,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -758,7 +757,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -916,12 +915,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -982,7 +981,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -1237,35 +1238,35 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! components/refreshcountdown */ "./www/js/source/components/refreshcountdown.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, RefreshCountDown) {
-        "use strict";
+        'use strict';
 
-        var _me = {
+        const _me = {
             resizeGrid: function () {
-                var $grid = $(".body-content");
+                const $grid = $('.body-content');
                 if ($grid.length === 0) {
                     return;
                 }
 
-                var gridTop = $grid.offset().top;
-                var footerSite = 18;
+                const gridTop = $grid.offset().top;
+                const footerSite = 18;
 
-                var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - footerSite - 10;
+                let gridHeight = window.innerHeight - gridTop - $('.footer-content').height() - footerSite - 10;
                 gridHeight = Math.max(150, gridHeight);
-                $grid.css("max-height", gridHeight);
+                $grid.css('max-height', gridHeight);
 
                 if (!$grid.hasVerticalScrollBar()) {
-                    $grid.addClass("hasScroll");
+                    $grid.addClass('hasScroll');
                 }
                 else {
-                    $grid.find("table").width($grid.width() - 17);
+                    $grid.find('table').width($grid.width() - 17);
                 }
             },
             initEvent: function () {
                 RefreshCountDown.initialize();
 
-                $("#reportContent").on("click", '.forcast-number', function () {
-                    var matchId = $(this).attr("data-match-id");
-                    var betType = $(this).attr("data-bet-type");
+                $('#reportContent').on('click', '.forcast-number', function () {
+                    const matchId = $(this).attr('data-match-id');
+                    const betType = $(this).attr('data-bet-type');
                     _me.viewRunningBetListMatch(matchId, betType);
                 });
 
@@ -1273,29 +1274,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.resizeGrid();
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     _me.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
             viewRunningBetListMatch: function (matchId, betType) {
-                var url = Site.resolveClientUrl("RunningMatchBetList/Index");
+                let url = Site.resolveClientUrl('RunningMatchBetList/Index');
                 url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "matchid", matchId);
-                url = QueryString.setParam(url, "bettype", betType);
-                url = QueryString.setParam(url, "isShowSumStake", true);
+                url = QueryString.setParam(url, 'matchid', matchId);
+                url = QueryString.setParam(url, 'bettype', betType);
+                url = QueryString.setParam(url, 'isShowSumStake', true);
 
                 Site.redirect(url);
             },
             viewRunningBetListMultiBettype: function (matchId, betType) {
-                var url = Site.resolveClientUrl("RunningBettypesOfMatchBetList/Index");
+                let url = Site.resolveClientUrl('RunningBettypesOfMatchBetList/Index');
                 url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "matchid", matchId);
-                url = QueryString.setParam(url, "multiplebettype", betType);
-                url = QueryString.setParam(url, "isShowSumStake", true);
+                url = QueryString.setParam(url, 'matchid', matchId);
+                url = QueryString.setParam(url, 'multiplebettype', betType);
+                url = QueryString.setParam(url, 'isShowSumStake', true);
 
                 Site.redirect(url);
             },
@@ -1321,7 +1322,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./totalgoal */ "./www/js/source/pages/totalbet/totalgoal/totalgoal.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (TotalGoal) {
-    "use strict";
+    'use strict';
 
     $(TotalGoal.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -1338,36 +1339,36 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ../totalbetsbase */ "./www/js/source/pages/totalbet/totalbetsbase.js"), __webpack_require__(/*! components/refreshcountdown */ "./www/js/source/components/refreshcountdown.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Totalbets, RefreshCountDown) {
-    "use strict";
+    'use strict';
 
-    var _me = {
+    const _me = {
         initialize: function () {
             Site.initialize();
             Totalbets.initialize();
             _me.initEvent();
             Site.addUserGuide({
-                resourceName: "TotalBetsTotalGoal",
-                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("TotalGoal")
+                resourceName: 'TotalBetsTotalGoal',
+                title: Site.getSingleResource('TotalBets') + ' - ' + Site.getSingleResource('TotalGoal')
             });
 
             RefreshCountDown.initEvent();
         },
         initEvent: function () {
-            var totalGoalBettype = 6, firstHalfTotalGoal = 126;
-            var bettypeParameter = totalGoalBettype + "," + firstHalfTotalGoal;
+            const totalGoalBettype = 6, firstHalfTotalGoal = 126;
+            const bettypeParameter = totalGoalBettype + ',' + firstHalfTotalGoal;
 
-            $("#SubmitButton").on("click", function () {
+            $('#SubmitButton').on('click', function () {
                 _me.submit();
             });
 
             $('#reportContent').on('click', '.team', function () {
-                var matchId = $(this).attr("data-match-id");
+                const matchId = $(this).attr('data-match-id');
                 Totalbets.viewRunningBetListMultiBettype(matchId, bettypeParameter);
             });
         },
         submit: function () {
             Site.blockUI();
-            $("#TotalGoalForm").submit();
+            $('#TotalGoalForm').submit();
         }
     };
 

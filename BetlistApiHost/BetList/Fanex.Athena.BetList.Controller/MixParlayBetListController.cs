@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.BetList.Core.Builder;
@@ -39,7 +40,7 @@ namespace Fanex.Athena.BetList.Controller
         {
             var ticketResult = await _betListService.GetMixParlayDetailTicket(metaModel).ConfigureAwait(false);
             var result = _betListService.BuildTicketTextList(ticketResult: ticketResult, showOdds: true);
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 
@@ -87,7 +88,7 @@ namespace Fanex.Athena.BetList.Controller
                 Data = BuildParlayDetailTickets(ticketResult: ticketResult, showOdds: true),
                 Texts = texts
             };
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 

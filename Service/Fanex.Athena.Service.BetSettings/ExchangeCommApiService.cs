@@ -8,9 +8,9 @@ namespace Fanex.Athena.Service.BetSettings
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CitiXchangeLibrary;
     using Constant.DataDomain;
-    using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using DataAccess.Core.Common.Constants;
     using DataAccess.Core.Common.Interfaces;
@@ -25,6 +25,10 @@ namespace Fanex.Athena.Service.BetSettings
 
     public class ExchangeCommApiService : BetSettingBaseService, IExchangeCommApiService
     {
+        private const int AccessDeniedCode = 1;
+
+        private const int ApiProcessingErrorCode = 102;
+
         private static readonly IDictionary<string, Enviro> EnvironmentMap =
             new Dictionary<string, Enviro>(StringComparer.OrdinalIgnoreCase)
         {
@@ -78,14 +82,14 @@ namespace Fanex.Athena.Service.BetSettings
             }
         }
 
-        public IResultInfo<double> UpdateCommission(int licenseeId, int userId, int custId, double oldCommission, double newCommission)
+        public async Task<IResultInfo<double>> UpdateCommissionAsync(int licenseeId, int userId, int custId, double oldCommission, double newCommission)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return CreateAccessDeniedResult();
             }
 
-            var isEnable = _betSettingDataAccess.GetStatus(custId, ProductTypes.Exchange);
+            var isEnable = await _betSettingDataAccess.GetStatusAsync(custId, ProductTypes.Exchange).ConfigureAwait(false);
 
             if (isEnable != true)
             {
@@ -95,13 +99,13 @@ namespace Fanex.Athena.Service.BetSettings
             try
             {
                 var result = _apiClient.updateCommission(custId, newCommission, EnvironmentMap[_appSetting.Environment]);
-                _userLogDataAccess.WriteLog(new UserLogMetaModel
+                await _userLogDataAccess.WriteLog(new UserLogMetaModel
                 {
                     ActionID = UserLogAction.ExchangeCommission,
                     UserId = userId,
                     CustID = custId,
                     Doing = $"<ChargeCommission OldValue='{oldCommission}' NewValue='{newCommission}' />"
-                });
+                }).ConfigureAwait(false);
                 return CreateApiResult(result.status, result.commission);
             }
             catch (Exception exception)
@@ -113,11 +117,20 @@ namespace Fanex.Athena.Service.BetSettings
 
         private static IResultInfo<double> CreateApiResult(CitiStatus status, double commission)
         {
-            var isSuccess = status == CitiStatus.Success;
+            if (status == CitiStatus.Success)
+            {
+                return new ResultInfo<double>
+                {
+                    Code = 0,
+                    Message = ViewResources.UpdateSuccess,
+                    ExtendedData = commission
+                };
+            }
+
             return new ResultInfo<double>
             {
-                Code = isSuccess ? 0 : (status == 0 ? 1 : (int)status),
-                Message = isSuccess ? ViewResources.UpdateSuccess : ViewResources.ErrorProcessingMsg,
+                Code = status == 0 ? 1 : (int)status,
+                Message = ViewResources.ErrorProcessingMsg,
                 ExtendedData = commission
             };
         }
@@ -126,7 +139,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             return new ResultInfo<double>
             {
-                Code = 1,
+                Code = AccessDeniedCode,
                 Message = ViewResources.FunctionDeniedMsg
             };
         }
@@ -135,7 +148,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             return new ResultInfo<double>
             {
-                Code = 102,
+                Code = ApiProcessingErrorCode,
                 Message = ViewResources.ErrorProcessingMsg
             };
         }

@@ -1,17 +1,17 @@
-﻿"use strict";
-define(["jquery", "common/site", "../common/constant", "../common/betsettingbase", "../common/betsetting.copy"],
+﻿'use strict';
+define(['jquery', 'common/site', '../common/constant', '../common/betsettingbase', '../common/betsetting.copy'],
     function ($, Site, Constant, BetSettingBase, BetSettingCopy) {
-    var Product = Constant.Product;
+    const Product = Constant.Product;
 
     function getConfirmMessage(productId) {
-        return parseInt(productId) === Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
+        return parseInt(productId, 10) === Product.Sportsbook ? 'UpdateSportsbookBetSettings' : '';
     }
 
     function getUpdateUrl(productId) {
-        return parseInt(productId) === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
+        return parseInt(productId, 10) === Product.Sportsbook ? 'SportsbookBetSetting/UpdateBetSetting' : null;
     }
 
-    var _me = {
+    const _me = {
         initialize: function () {
             Site.initialize();
             BetSettingBase.initialize();
@@ -26,13 +26,13 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
             });
 
             // Bind event
-            $("#btnReset").on("click", function () {
+            $('#btnReset').on('click', function () {
                 BetSettingBase.resetInput();
             });
 
-            $("#btnSubmitBetSetting").on("click", function () {
-                var productId = parseInt($("#ProductId").val());
-                var messageResource = getConfirmMessage(productId);
+            $('#btnSubmitBetSetting').on('click', function () {
+                const productId = parseInt($('#ProductId').val(), 10);
+                const messageResource = getConfirmMessage(productId);
 
                 BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
             });
@@ -42,14 +42,14 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
         },
 
         updateBetSetting: function (custId, userName, nickName) {
-            var productId = parseInt($("#ProductId").val());
-            var url = getUpdateUrl(productId);
+            const productId = parseInt($('#ProductId').val(), 10);
+            const url = getUpdateUrl(productId);
 
             if (url === null) {
                 return;
             }
 
-            var params = BetSettingBase.getBetSettingParamsForSports();
+            const params = BetSettingBase.getBetSettingParamsForSports();
             params.custid = custId;
             params.userName = userName;
             params.nickName = nickName;

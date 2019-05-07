@@ -27,12 +27,14 @@ namespace Fanex.Athena.Excel.Report
 
     public class MatchWinLossExcel : ReportBase
     {
+        private const int ColumnMatch = 1;
         private const int ColumnCustomerWl = 4;
         private const int ColumnCustomerComm = 5;
         private const int ColumnCustomerTotal = 6;
         private const int ColumnBaCommission = 8;
         private const int ColumnAmtDueToBa = 9;
         private const int ColumnTemplateCount = 10;
+        private const int ColumnNumbericDataStartIndex = 2;
 
         private const int RowTableHeaderTemplate = 1;
         private const int RowMatchTemplate = 3;
@@ -82,7 +84,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
 
             var headerTextList = new[]
             {
@@ -99,7 +101,7 @@ namespace Fanex.Athena.Excel.Report
             };
             SetTextRowHeader(row, headerTextList);
 
-            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
@@ -186,10 +188,10 @@ namespace Fanex.Athena.Excel.Report
                 _model.Date.ToString(FormatDate),
                 ReportExcelHelper.GetTitleCurrencyName(_convertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_model.ProductOptions);
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowMatchTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -273,7 +275,7 @@ namespace Fanex.Athena.Excel.Report
             var row = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate, currentRow);
 
             row.Cells[0].SetCellValue(ViewResources.GrandTotal);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
+            sheet.MergeCols(0, 1, currentRow);
 
             var columnNameList = GetTotalColumnNameList();
 
@@ -282,7 +284,7 @@ namespace Fanex.Athena.Excel.Report
                 cellIndex = AssignDecimalData(row, cellIndex, Converter.ToDecimal(_totalData.Rows[0][columnName]));
             }
 
-            sheet.MergeCells(currentRow, ColumnIndex, currentRow, 1);
+            sheet.MergeCols(ColumnIndex, 1, currentRow);
         }
 
         [SuppressMessage(
@@ -302,8 +304,8 @@ namespace Fanex.Athena.Excel.Report
 
             // Assign match data
             var matchRow = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
-            matchRow.Cells[0].SetCellValue(currentIndex);
-            matchRow.Cells[1].SetCellValue(matchName);
+            matchRow.Cells[ColumnIndex].SetCellValue(currentIndex);
+            matchRow.Cells[ColumnMatch].SetCellValue(matchName);
 
             // Calculate match win loss
             for (int i = 0; i < columnNameList.Count; i++)
@@ -316,13 +318,14 @@ namespace Fanex.Athena.Excel.Report
                     columnValue += Converter.ToDecimal(matchWinloss[columnName]);
                 }
 
-                matchRow.Cells[i + 2].SetCellValue(columnValue);
+                matchRow.Cells[i + ColumnNumbericDataStartIndex].SetCellValue(columnValue);
             }
 
             currentRow++;
             if (matchName.Contains('\n'))
             {
-                matchRow.Height = (short)(matchRow.Height * 2);
+                const short MatchRowLine = 2;
+                matchRow.Height = (short)(matchRow.Height * MatchRowLine);
             }
 
             // Assign bettype
@@ -335,7 +338,7 @@ namespace Fanex.Athena.Excel.Report
                 var betTypeName = "         " + _cacheRefAdapter.GetBettype(betType, liveIndicator);
 
                 betTypeRow.Cells[1].SetCellValue(betTypeName);
-                ExcelHelper.AssignRowContent(betTypeRow, matchWinloss, columnNameList, 2);
+                ExcelHelper.AssignRowContent(betTypeRow, matchWinloss, columnNameList, ColumnNumbericDataStartIndex);
                 currentRow++;
             }
 
@@ -369,8 +372,8 @@ namespace Fanex.Athena.Excel.Report
                     _cacheRefAdapter.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
-                ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
-                sheet.MergeCells(currentRowIndex, 0, currentRowIndex, 1);
+                ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, ColumnNumbericDataStartIndex);
+                sheet.MergeCols(0, 1, currentRowIndex);
                 currentRowIndex++;
             }
 
@@ -384,7 +387,7 @@ namespace Fanex.Athena.Excel.Report
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
 
             row.Cells[0].SetCellValue(ViewResources.Total);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
+            sheet.MergeCols(0, 1, currentRow);
 
             foreach (string columnName in columnNameList)
             {
@@ -395,7 +398,7 @@ namespace Fanex.Athena.Excel.Report
                                     Converter.To<decimal>(sumData));
             }
 
-            sheet.MergeCells(currentRow, ColumnIndex, currentRow, 1);
+            sheet.MergeCols(ColumnIndex, 1, currentRow);
 
             return currentRow + 1;
         }

@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
     using Core;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
@@ -22,6 +23,8 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {
+        private const int OneHunderPercent = 100;
+
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public PlatformWinLossDataAccess(
@@ -30,28 +33,28 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel)
+        public async Task<ReportResultModel<PlatformWinLossSummary>> GetSummaryData(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinloss";
 
             using (var db = this.GetObjectDb(UspName))
             {
                 UpdateUspParams(db, metaModel);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadSummaryData(reader, metaModel);
                 }
             }
         }
 
-        public SortableReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<PlatformWinLossMember>> GetMemberData(PlatformWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
 
             using (var db = this.GetObjectDb(UspName))
             {
                 UpdateUspParams(db, metaModel);
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadMemberData(reader, currencyList, metaModel.BaseCurrency);
                 }
@@ -119,20 +122,26 @@ namespace Fanex.Athena.DataAccess.Report
                 AddTotalData(totalData, child);
             }
 
-            totalData.TurnoverPercent = totalData.Turnover > 0 ? 100 : 0;
-            if (totalData.Turnover > 0)
-            {
-                foreach (var item in dataList)
-                {
-                    item.TurnoverPercent = item.Turnover / totalData.Turnover * 100;
-                }
-            }
+            CalculateTurnoverPercent(dataList, totalData);
 
             return new ReportResultModel<PlatformWinLossSummary>
             {
                 DataList = dataList,
                 TotalData = totalData
             };
+        }
+
+        private static void CalculateTurnoverPercent(List<PlatformWinLossSummary> dataList, PlatformWinLossSummary totalData)
+        {
+            totalData.TurnoverPercent = totalData.Turnover > 0 ? OneHunderPercent : 0;
+
+            if (totalData.Turnover > 0)
+            {
+                foreach (var item in dataList)
+                {
+                    item.TurnoverPercent = (item.Turnover / totalData.Turnover).ToPercentage();
+                }
+            }
         }
 
         private static void AddTotalData(PlatformWinLossSummary totalData, PlatformWinLossSummary child)
@@ -157,7 +166,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         private SortableReportResultModel<PlatformWinLossMember> ReadMemberData(
              IDataReader reader,
-             IDictionary<int, string> currencyList, 
+             IDictionary<int, string> currencyList,
              string baseCurrency)
         {
             var dataList = new SortableList<PlatformWinLossMember>();
@@ -205,16 +214,16 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
         {
-            db.AddInParameter("PlatformType", DbType.Byte, metaModel.PlatformType);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
-            db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.SetParameterValue("PlatformType", metaModel.PlatformType);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("DrawFilter", metaModel.DrawFilter);
+            db.SetParameterValue("FromDate", metaModel.FromDate);
+            db.SetParameterValue("ToDate", metaModel.ToDate);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
 
             foreach (var product in metaModel.ProductOptions)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.SetParameterValue("show" + product.Code, product.Status);
             }
         }
 

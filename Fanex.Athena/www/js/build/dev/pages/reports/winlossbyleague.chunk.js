@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([30,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([28,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -293,101 +292,101 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
-    var me = {};
-    var _settings = {}; // store multi setting instances by "elementcontainer" as key
+    const me = {};
+    const _settings = {}; // store multi setting instances by 'elementcontainer' as key
 
-    var defaultSetting = {
+    const defaultSetting = {
         pageindex: 1,
         pagesize: 50,
         pagelist: [50, 100, 1000],
         totalrow: 1,
-        formId: "formreport",
-        elementcontainer: "#page",
-        method: "AJAX",
-        ajaxfunction: "",
+        formId: 'formreport',
+        elementcontainer: '#page',
+        method: 'AJAX',
+        ajaxfunction: '',
         alwayshow: false
     };
 
     function getByName($pagerContainer, name){
-        return $("input[name='" + name + "']", $pagerContainer);
+        return $('input[name="' + name + '"]', $pagerContainer);
     }
 
     function goToPage($pagerContainer, method, index) {
-        var $pageSize = getByName($pagerContainer, "PageSize");
-        if (method === "POST") {
-            $("#IsExportExcel").val(false);
-            var formName = getByName($pagerContainer, "FormName").val();
-            var form = $("#" + formName);
-            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
-            var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
+        const $pageSize = getByName($pagerContainer, 'PageSize');
+        if (method === 'POST') {
+            $('#IsExportExcel').val(false);
+            const formName = getByName($pagerContainer, 'FormName').val();
+            const form = $('#' + formName);
+            const pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
+            const pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
             form.append(pageIndex);
             form.append(pageSize);
             Site.blockUI();
             form.submit();
         }
-        else if (method === "AJAX") {
-            var $pageIndex = getByName($pagerContainer, "PageIndex");
+        else if (method === 'AJAX') {
+            const $pageIndex = getByName($pagerContainer, 'PageIndex');
             $pageIndex.val(index);
-            var fc = getByName($pagerContainer, "AjaxPagingFunction").val();
+            const fc = getByName($pagerContainer, 'AjaxPagingFunction').val();
             eval(fc); // jshint ignore:line
         } else {
-            var url = Site.getCurrentUrl();
-            url = QueryString.setParam(url, "PageSize", $pageSize.val());
-            url = QueryString.setParam(url, "PageIndex", index);
+            let url = Site.getCurrentUrl();
+            url = QueryString.setParam(url, 'PageSize', $pageSize.val());
+            url = QueryString.setParam(url, 'PageIndex', index);
 
             Site.redirect(url);
         }
     }
 
     function isVisible(element) {
-        return !$(element).hasClass("pagingDisable");
+        return !$(element).hasClass('pagingDisable');
     }
 
     me.render = function (option) {
         /// <summary>
         ///
         /// </summary>
-        /// <param name="pageindex"></param>
-        /// <param name="pagesize"></param>
-        /// <param name="totalrow"></param>
-        /// <param name="elementcontainer">ex: "#page"</param>
-        /// <param name="method">POST or GET or AJAX</param>
-        var pageHtml = "";
-        var setting = $.extend({}, defaultSetting, option);
+        /// <param name='pageindex'></param>
+        /// <param name='pagesize'></param>
+        /// <param name='totalrow'></param>
+        /// <param name='elementcontainer'>ex: '#page'</param>
+        /// <param name='method'>POST or GET or AJAX</param>
+        let pageHtml = '';
+        const setting = $.extend({}, defaultSetting, option);
         _settings[setting.elementcontainer] = setting;
-        var noOfPage = 1;
-        var pagingVisible = setting.totalrow > setting.pagesize;
+        let noOfPage = 1;
+        const pagingVisible = setting.totalrow > setting.pagesize;
 
         if (pagingVisible) {
             noOfPage = parseInt(setting.totalrow / setting.pagesize
-         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
+         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1), 10);
         }
 
         if (pagingVisible || setting.alwayshow) {
-            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
-            var pageControl = ['<div class="pagingContainer center-align">',
+            const prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
+            const pageControl = ['<div class="pagingContainer center-align">',
                           '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
                           '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
                           '<span class="pagingSeperator"></span>'];
 
-            var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
+            const pagingInfo = '<div class="paging-info">' + Site.getSingleResource('Page') +
                 '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
-            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
+            + '&nbsp;' + Site.getSingleResource('of') + '&nbsp;' + noOfPage + '</div>';
 
             pageControl.push(pagingInfo);
 
             pageControl.push('<span class="pagingSeperator"></span>');
 
-            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
-            var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
+            const nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
+            const pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
             pageControl.push(pageNext);
-            var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
+            const pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
             pageControl.push(pageLast);
 
-            var pageListLength = setting.pagelist.length;
-            var pageSizeSelectHtml = '<select class="pageSizeSelected">';
-            var pageSize = parseInt(setting.pagesize);
-            for (var i = 0; i < pageListLength; i++) {
+            const pageListLength = setting.pagelist.length;
+            let pageSizeSelectHtml = '<select class="pageSizeSelected">';
+            const pageSize = parseInt(setting.pagesize, 10);
+            for (let i = 0; i < pageListLength; i++) {
                 pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
                 + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
                 + '>' + setting.pagelist[i] + '</option>';
@@ -402,19 +401,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
 
             pageControl.push('</div>');
-            pageHtml = pageControl.join("");
+            pageHtml = pageControl.join('');
         }
 
-        var $pagerContainer = $(setting.elementcontainer);
+        const $pagerContainer = $(setting.elementcontainer);
         $pagerContainer.html(pageHtml);
         me._bindEvent(setting);
     };
     me.getSetting = function (elementcontainer) {
-        elementcontainer = elementcontainer || Object.keys(_settings)[0];
-        var setting = _settings[elementcontainer];
-        var $pagerContainer = $(elementcontainer);
-        var $pageIndex = getByName($pagerContainer, "PageIndex");
-        var $pageSize = getByName($pagerContainer, "PageSize");
+        const newElementcontainer = elementcontainer || Object.keys(_settings)[0];
+        const setting = _settings[newElementcontainer];
+        const $pagerContainer = $(newElementcontainer);
+        const $pageIndex = getByName($pagerContainer, 'PageIndex');
+        const $pageSize = getByName($pagerContainer, 'PageSize');
         setting.pageindex = parseInt($pageIndex.val(), 10);
         setting.pagesize = $pageSize.val();
         return setting;
@@ -422,46 +421,46 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
     // private methods
     me._bindEvent = function (setting) {
-        var $pagerContainer = $(setting.elementcontainer);
-        var $pageIndex = getByName($pagerContainer, "PageIndex");
-        var method = getByName($pagerContainer, "Method").val();
-        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagerContainer).val(), 10);
+        const $pagerContainer = $(setting.elementcontainer);
+        const $pageIndex = getByName($pagerContainer, 'PageIndex');
+        const method = getByName($pagerContainer, 'Method').val();
+        const noOfPage = parseInt($('input[name="NoOfPage"]', $pagerContainer).val(), 10);
 
-        $(".pagingFirst", $pagerContainer).on("click", function () {
+        $('.pagingFirst', $pagerContainer).on('click', function () {
             if (isVisible(this)) {
                 goToPage($pagerContainer, method, 1);
             }
         });
-        $(".pagingPrev", $pagerContainer).on("click", function () {
-            var currentPage = parseInt($pageIndex.val(), 10);
+        $('.pagingPrev', $pagerContainer).on('click', function () {
+            const currentPage = parseInt($pageIndex.val(), 10);
             if (isVisible(this) && currentPage > 1) {
                 goToPage($pagerContainer, method, currentPage - 1);
             }
         });
-        $(".pagingLast", $pagerContainer).on("click", function () {
+        $('.pagingLast', $pagerContainer).on('click', function () {
             if (isVisible(this)) {
                 goToPage($pagerContainer, method, noOfPage);
             }
         });
-        $(".pagingNext", $pagerContainer).on("click", function () {
+        $('.pagingNext', $pagerContainer).on('click', function () {
             if (isVisible(this)) {
-                var currentPage = parseInt($pageIndex.val(), 10);
+                const currentPage = parseInt($pageIndex.val(), 10);
                 goToPage($pagerContainer, method, currentPage + 1);
             }
         });
 
-        $("select.pageSizeSelected", $pagerContainer).on("change", function () {
-            var $pageSize = getByName($pagerContainer, "PageSize");
-            var pageSize = $(this).val();
+        $('select.pageSizeSelected', $pagerContainer).on('change', function () {
+            const $pageSize = getByName($pagerContainer, 'PageSize');
+            const pageSize = $(this).val();
             $pageSize.val(pageSize);
             setting.pagesize = pageSize;
             goToPage($pagerContainer, method, 1);
         });
 
-        $pageIndex.on("keyup", function (e) {
-            var code = e.keyCode ? e.keyCode : e.which;
+        $pageIndex.on('keyup', function (e) {
+            const code = e.keyCode ? e.keyCode : e.which;
             if (code === 13) {
-                var value = parseInt($(this).val());
+                const value = parseInt($(this).val(), 10);
                 if (value > 0 && value <= noOfPage) {
                     $(this).val(value);
                     goToPage($pagerContainer, method, value);
@@ -483,21 +482,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! lib/jquery.monthpicker */ "./www/js/source/lib/jquery.monthpicker.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-        "use strict";
-        var PICKER_SELECTOR = "#month-picker";
-        var FORMAT = "MM/dd/yyyy";
+        'use strict';
+        const PICKER_SELECTOR = '#month-picker';
+        const FORMAT = 'MM/dd/yyyy';
 
-        var _historyDate = new Date($("#HistoryDate").val());
+        const _historyDate = new Date($('#HistoryDate').val());
 
         function initMonthPicker(option) {
-            var $picker = $(PICKER_SELECTOR);
-            var $fromDate = $('#FromDate');
-            var $todate = $('#ToDate');
+            const $picker = $(PICKER_SELECTOR);
+            const $fromDate = $('#FromDate');
+            const $todate = $('#ToDate');
 
-            var fromdate = new Date($fromDate.val());
-            var todate = new Date($todate.val());
+            const fromdate = new Date($fromDate.val());
+            const todate = new Date($todate.val());
 
-            var defaultOption = {
+            const defaultOption = {
                 minDate: _historyDate,
                 showDateRange: true,
                 fromDayId: 'fDay',
@@ -507,14 +506,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 fromDay: fromdate.getDate(),
                 toDay: todate.getDate(),
                 afterChangeMonth: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
                 },
                 afterChangeDay: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
 
-                    if (option && typeof option.customAfterChangeDay === "function") {
+                    if (option && typeof option.customAfterChangeDay === 'function') {
                         option.customAfterChangeDay();
                     }
                 }
@@ -528,11 +527,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function getFromDateString() {
-            return $(PICKER_SELECTOR).monPickr("getFromDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getFromDate', FORMAT);
         }
 
         function getToDateString() {
-            return $(PICKER_SELECTOR).monPickr("getToDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getToDate', FORMAT);
         }
 
         return {
@@ -555,30 +554,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jquery.multiselect */ "./www/js/source/lib/jquery.multiselect.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    var _me = {
+    const _me = {
         initProductList: function () {
-            var selector = "#grid-products-multiselect";
-            var data = $.parseJSON($("#productsData").val());
-            var length = data.length;
-            var dataUI = [];
-            var checkedCount = 0;
-            for (var i = 0; i < length; i++) {
-                var item = data[i];
-                var isChecked = item["Status"];
+            const selector = '#grid-products-multiselect';
+            const data = $.parseJSON($('#productsData').val());
+            const length = data.length;
+            const dataUI = [];
+            let checkedCount = 0;
+            for (let i = 0; i < length; i++) {
+                const item = data[i];
+                const isChecked = item['Status'];
                 if (isChecked) {
                     checkedCount++;
                 }
 
                 dataUI.push({
-                    Id: item["Code"],
-                    Value: item["Code"],
-                    Text: Site.getSingleResource(item["Name"]),
+                    Id: item['Code'],
+                    Value: item['Code'],
+                    Text: Site.getSingleResource(item['Name']),
                     Checked: isChecked,
                     Enable: true
                 });
             }
 
-            var isCheckAll = checkedCount === length;
+            const isCheckAll = checkedCount === length;
             $(selector).multiSelect({
                 minWidth: 200,
                 maxHeight: 400,
@@ -591,17 +590,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {
-                    var checkedItems = $(selector).multiSelect("getCheckedItems");
-                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
-                    var hasItemsChecked = checkedItems.length > 0;
+                    const checkedItems = $(selector).multiSelect('getCheckedItems');
+                    $('#product-container input[type=checkbox]:checked').prop('checked', false);
+                    const hasItemsChecked = checkedItems.length > 0;
                     if (hasItemsChecked) {
-                        for (var i = 0; i < checkedItems.length; i++) {
-                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+                        for (let i = 0; i < checkedItems.length; i++) {
+                            $('#product-container #' + checkedItems[i]).prop('checked', true);
                         }
                     }
                     
-                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
+                    $('#ProductList').toggleClass('invalid', !hasItemsChecked);
+                    $('#SubmitButton').prop('disabled', !hasItemsChecked);
                 }
             });
         }
@@ -621,15 +620,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -647,23 +646,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -682,14 +681,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -700,14 +699,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -719,16 +718,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -745,45 +744,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -799,8 +798,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -809,7 +808,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -826,10 +825,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -837,10 +836,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -848,37 +847,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -888,16 +887,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -905,44 +904,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -954,7 +953,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -1112,12 +1111,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1178,7 +1177,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -5772,30 +5773,30 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -5809,19 +5810,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -5835,8 +5836,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -5846,35 +5847,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -5882,52 +5883,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
+            for (let currency in summaryTotal) {
+                if (summaryTotal.hasOwnProperty(currency)) {
+                    currencyList.push(currency);
+                    const summaryData = summaryTotal[currency];
+                    if (Array.isArray(summaryData)) {
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
+                    }
+                    else {
+                        processColumnModel(summaryData, currency);
+                    }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
-                $(".breadCrumbHolder").hide();
+            const levelNumber = Number(level);
+            if (levelNumber === 0) {
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = level === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };
@@ -5946,7 +5951,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./winlossbyleague */ "./www/js/source/pages/report/winlossbyleague/winlossbyleague.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (WinLossByLeague) {
-    "use strict";
+    'use strict';
 
     $(WinLossByLeague.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -5963,22 +5968,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! components/pluginhelper/monthpicker */ "./www/js/source/components/pluginhelper/monthpicker.js"), __webpack_require__(/*! components/pluginhelper/multiselect */ "./www/js/source/components/pluginhelper/multiselect.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, MonthPicker, MultiSelect) {
-        "use strict";
-        var ajaxLeagues = null;
-        var ajaxMatches = null;
+        'use strict';
+        let ajaxLeagues = null;
+        let ajaxMatches = null;
 
-        var _productCount = 0;
+        let _productCount = 0;
 
-        var Selector = {
-            SubmitButton: "#SubmitButton",
-            Match: "#Match",
-            League: "#League",
-            CurrencyId: "#CurrencyId"
+        const Selector = {
+            SubmitButton: '#SubmitButton',
+            Match: '#Match',
+            League: '#League',
+            CurrencyId: '#CurrencyId'
         };
 
-        var _me = {
+        const _me = {
             initialize: function () {
-                _productCount = $("#ProductList .childCheckbox[type=checkbox]").length;
+                _productCount = $('#ProductList .childCheckbox[type=checkbox]').length;
 
                 MultiSelect.initProductList();
                 MonthPicker.initMonthPicker({
@@ -5988,29 +5993,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             initEvent: function () {
-                $("#League").change(function () {
+                $('#League').change(function () {
                     _me.loadMatches(true);
                 });
 
-                $("#Sport, #CurrencyId").change(function () {
+                $('#Sport, #CurrencyId').change(function () {
                     _me.loadLeagues();
                 });
 
-                $("#TickerFilter input[type=checkbox]").checkboxgroup();
+                $('#TickerFilter input[type=checkbox]').checkboxgroup();
 
-                $("#TickerFilter, #ProductList").on("change", "input[type=checkbox]", function () {
-                    var validProduct = $("#ProductList .childCheckbox:checked").length > 0;
-                    var validTicketFilter = $("#TickerFilter input:checked").length > 0;
-                    var isValid = validProduct && validTicketFilter;
+                $('#TickerFilter, #ProductList').on('change', 'input[type=checkbox]', function () {
+                    const validProduct = $('#ProductList .childCheckbox:checked').length > 0;
+                    const validTicketFilter = $('#TickerFilter input:checked').length > 0;
+                    let isValid = validProduct && validTicketFilter;
 
-                    if ($(this).attr("id") === "AllTicket") {
-                        isValid = $(this).prop("checked") && validProduct;
+                    if ($(this).attr('id') === 'AllTicket') {
+                        isValid = $(this).prop('checked') && validProduct;
                     }
 
-                    $("#SubmitButton").prop("disabled", !isValid);
+                    $('#SubmitButton').prop('disabled', !isValid);
                 });
 
-                $("#Odds").keypress(function (event) {
+                $('#Odds').keypress(function (event) {
                     _me.handleOddInput(event);
                 });
             },
@@ -6020,12 +6025,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     Backspace, tab, enter, end, home, left, right
                     Don't support the del key in Opera because del == . == 46.
                     --------------------------------------------------------------*/
-                var controlKeys = [8, 9, 13, 35, 36, 37, 39, 46];
+                const controlKeys = [8, 9, 13, 35, 36, 37, 39, 46];
 
                 /*--------------------------------------------------------------
                 IE doesn't support indexOf
                 --------------------------------------------------------------*/
-                var isControlKey = controlKeys.join(",").match(new RegExp(event.which));
+                const isControlKey = controlKeys.join(',').match(new RegExp(event.which));
 
                 /*--------------------------------------------------------------
                 Some browsers just don't raise events for control keys. Easy.
@@ -6035,7 +6040,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     // Control keys in most browsers. e.g. Firefox tab is 0
                  48 <= event.which && event.which <= 57 ||
                     // Always 0 through 9
-                    //(48 == event.which && $(this).attr("value")) ||   // No 0 first digit
+                    //(48 == event.which && $(this).attr('value')) ||   // No 0 first digit
                     isControlKey) {
                     // Opera assigns values for control keys.
                     return;
@@ -6051,26 +6056,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 }
 
                 Site.blockUI();
-                $(Selector.SubmitButton).prop("disabled", true);
-                var $league = $(Selector.League);
-                $league.html("");
+                $(Selector.SubmitButton).prop('disabled', true);
+                const $league = $(Selector.League);
+                $league.html('');
 
                 ajaxLeagues = $.ajax({
-                    type: "POST",
-                    url: Site.resolveClientUrl("WinLossByLeagueReport/GetLeaguesBySport"),
+                    type: 'POST',
+                    url: Site.resolveClientUrl('WinLossByLeagueReport/GetLeaguesBySport'),
                     data: {
-                        currencyId: $("#CurrencyId").val(),
-                        sportid: $("#Sport").val(),
+                        currencyId: $('#CurrencyId').val(),
+                        sportid: $('#Sport').val(),
                         fromDate: MonthPicker.getFromDateString(),
                         toDate: MonthPicker.getToDateString()
                     },
                     success: function (data) {
-                        var str = "";
+                        let str = '';
                         $.each(data, function () {
                             str += _me.renderHtmlOption(this.Key, this.Value);
                         });
                         $league.html(str);
-                        $league.selectList("update");
+                        $league.selectList('update');
                         _me.loadMatches(false);
                     }
                 });
@@ -6085,76 +6090,76 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     Site.blockUI();
                 }
 
-                $(Selector.SubmitButton).prop("disabled", true);
-                var $match = $(Selector.Match);
-                $match.html("");
-                var leagueid = $(Selector.League).val();
+                $(Selector.SubmitButton).prop('disabled', true);
+                const $match = $(Selector.Match);
+                $match.html('');
+                const leagueid = $(Selector.League).val();
                 if (!leagueid) {
-                    $match.selectList("update");
+                    $match.selectList('update');
                     Site.unBlockUI();
                     return;
                 }
 
                 ajaxMatches = $.ajax({
-                    type: "POST",
-                    datatype: "json",
-                    url: Site.resolveClientUrl("WinLossByLeagueReport/GetMatchesByLeague"),
+                    type: 'POST',
+                    datatype: 'json',
+                    url: Site.resolveClientUrl('WinLossByLeagueReport/GetMatchesByLeague'),
                     data: {
                         leagueid: leagueid,
                         fromDate: MonthPicker.getFromDateString(),
                         toDate: MonthPicker.getToDateString()
                     },
                     success: function (data) {
-                        var str = "";
+                        let str = '';
                         $.each(data, function () {
                             str += _me.renderHtmlOption(this.Key, this.Value);
                         });
                         $match.html(str);
                         if (data.length > 0) {
-                            $(Selector.SubmitButton).prop("disabled", false);
+                            $(Selector.SubmitButton).prop('disabled', false);
                         }
 
-                        $match.selectList("update");
+                        $match.selectList('update');
                         Site.unBlockUI();
                     }
                 });
             },
 
             renderHtmlOption: function (key, value) {
-                return "<option value=\"" + key + "\">" + value + "</option>";
+                return '<option value="' + key + '">' + value + '</option>';
             },
 
             buildProductsParams: function (paramObject, postData) {
-                for (var i = 0; i < _productCount; i++) {
-                    paramObject["ProductOptions[" + i + "].Code"] = postData["ProductOptions[" + i + "].Code"];
-                    paramObject["ProductOptions[" + i + "].Name"] = postData["ProductOptions[" + i + "].Name"];
-                    paramObject["ProductOptions[" + i + "].Status"] = postData["ProductOptions[" + i + "].Status"];
+                for (let i = 0; i < _productCount; i++) {
+                    paramObject['ProductOptions[' + i + '].Code'] = postData['ProductOptions[' + i + '].Code'];
+                    paramObject['ProductOptions[' + i + '].Name'] = postData['ProductOptions[' + i + '].Name'];
+                    paramObject['ProductOptions[' + i + '].Status'] = postData['ProductOptions[' + i + '].Status'];
                 }
             },
             buildProductCodeList: function (postData) {
-                var productCodeList = [];
-                for (var i = 0; i < _productCount; i++) {
-                    if (postData["ProductOptions[" + i + "].Status"] === "true") {
-                        productCodeList.push(postData["ProductOptions[" + i + "].Code"]);
+                const productCodeList = [];
+                for (let i = 0; i < _productCount; i++) {
+                    if (postData['ProductOptions[' + i + '].Status'] === 'true') {
+                        productCodeList.push(postData['ProductOptions[' + i + '].Code']);
                     }
                 }
 
                 return productCodeList;
             },
             isValid: function () {
-                var checkedProductCount = $("#ProductList .childCheckbox:checked").length;
-                var ticketFilterCount = $("#TickerFilter input:checked").length;
+                const checkedProductCount = $('#ProductList .childCheckbox:checked').length;
+                const ticketFilterCount = $('#TickerFilter input:checked').length;
 
                 if (checkedProductCount === 0 || ticketFilterCount === 0) {
                     return false;
                 }
 
-                var odds = parseFloat($('#Odds').val());
+                let odds = parseFloat($('#Odds').val());
                 if (isNaN(odds) || odds === null || odds < 0) {
                     odds = 0;
                 }
 
-                $("#Odds").val(odds);
+                $('#Odds').val(odds);
 
                 return true;
             }
@@ -6176,34 +6181,34 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! ./winlossbyleague.option */ "./www/js/source/pages/report/winlossbyleague/winlossbyleague.option.js"),
     __webpack_require__(/*! ./winlossbyleague.filter */ "./www/js/source/pages/report/winlossbyleague/winlossbyleague.filter.js"), __webpack_require__(/*! ../report */ "./www/js/source/pages/report/report.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! components/paging */ "./www/js/source/components/paging.js"), __webpack_require__(/*! helpers/excel */ "./www/js/source/helpers/excel.js"),
     __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper, ExcelHelper) {
-        "use strict";
+        'use strict';
 
-        var ajaxRequest = null;
+        let ajaxRequest = null;
 
-        var _level = 0;
-        var _leagueid = -1;
-        var _leaguename = null;
-        var _postdata = {};
-        var _currencyName = null;
+        let _level = 0;
+        let _leagueid = -1;
+        let _leaguename = null;
+        let _postdata = {};
+        let _currencyName = null;
 
-        var _pagingOption = {
+        let _pagingOption = {
             pageindex: 1,
             pagesize: 50,
             pagelist: [50, 100, 1000],
             totalrow: 1,
-            elementcontainer: "#paging",
-            method: "AJAX",
-            ajaxfunction: "window.WinLossByLeague.ajaxPaging()",
+            elementcontainer: '#paging',
+            method: 'AJAX',
+            ajaxfunction: 'window.WinLossByLeague.ajaxPaging()',
             alwayshow: true
         };
 
-        var _me = {
+        const _me = {
             //#region Init
             initialize: function () {
                 Site.initialize();
                 _me.initEvent();
                 WinLossByLeagueFilter.initialize();
-                WinLossByLeagueOption.HasAmountDueToColumn = Site.asBool($("#HasAmountDueToColumn").val());
+                WinLossByLeagueOption.HasAmountDueToColumn = Site.asBool($('#HasAmountDueToColumn').val());
                 window.WinLossByLeague = {
                     ajaxPaging: _me.ajaxPaging
                 };
@@ -6214,39 +6219,39 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.submit();
                 });
 
-                $(".main-content").on("click", "#leagueHeader", function () {
+                $('.main-content').on('click', '#leagueHeader', function () {
                     _pagingOption.pageindex = 1;
-                    var leaguename = $(this).html();
-                    _me.drillDown($(this).data("leagueid"), leaguename);
+                    const leaguename = $(this).html();
+                    _me.drillDown($(this).data('leagueid'), leaguename);
                 });
 
-                $(".main-content").on("click", ".drilldown", function () {
-                    var custid = $(this).data("custid");
-                    var externalid = $(this).data("externalid");
-                    var systemid = $(this).data("systemid");
+                $('.main-content').on('click', '.drilldown', function () {
+                    const custid = $(this).data('custid');
+                    const externalid = $(this).data('externalid');
+                    const systemid = $(this).data('systemid');
                     _me.drillDownBetList(custid, externalid, systemid);
                 });
 
-                $("#level-link-container").on("click", ".level-link", function () {
-                    var level = Number($(this).attr("data-level"));
+                $('#level-link-container').on('click', '.level-link', function () {
+                    const level = Number($(this).attr('data-level'));
                     if (level === 0) {
                         _me.submit();
                     }
                 });
 
-                $("#ExportToExcel").click(function (e) {
+                $('#ExportToExcel').click(function (e) {
                     _postdata.LeagueName = _leaguename;
                     _postdata.Level = _level;
-                    ExcelHelper.exportExcel(_postdata, Site.resolveClientUrl("api/WinLossByLeagueReport/Excel"));
+                    ExcelHelper.exportExcel(_postdata, Site.resolveClientUrl('api/WinLossByLeagueReport/Excel'));
                     e.preventDefault();
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     _me.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
@@ -6254,35 +6259,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             //#region Utilities
             resizeGrid: function () {
-                var reportGrid = $("#ReportGrid");
+                const reportGrid = $('#ReportGrid');
                 jqGridAdditional.updateGridHeight();
                 jqGridAdditional.updateGridWidth(reportGrid, _level === 0);
             },
 
             setReportTitle: function (level, minOdds, fromdate, todate) {
-                var caption = null;
+                let caption = null;
                 if (level === 0) {
                     caption = Site.getSingleResource('WinLossByLeague');
                 }
                 else {
-                    caption = _leaguename + " > " + Site.getSingleResource('CustomerWinLoss');
+                    caption = _leaguename + ' > ' + Site.getSingleResource('CustomerWinLoss');
                 }
 
-                var titlePattern = caption + ', {0} → {1} - {2} - {3}';
-                var viewinKey = Site.getSingleResource("Currency") + ": ";
-                var currencyStr = viewinKey + " " + (_postdata.BaseCurrency === "" ? _currencyName : _postdata.BaseCurrency);
+                const titlePattern = caption + ', {0} → {1} - {2} - {3}';
+                const viewinKey = Site.getSingleResource('Currency') + ': ';
+                const currencyStr = viewinKey + ' ' + (_postdata.BaseCurrency === '' ? _currencyName : _postdata.BaseCurrency);
 
-                var minOddStr = Site.getSingleResource("MinimumOdds") + " : " + minOdds;
-                var title = $.format(
+                const minOddStr = Site.getSingleResource('MinimumOdds') + ' : ' + minOdds;
+                const title = $.format(
                     titlePattern,
-                    moment(new Date(fromdate)).format("M/DD/YYYY"),
-                    moment(new Date(todate)).format("M/DD/YYYY"),
+                    moment(new Date(fromdate)).format('M/DD/YYYY'),
+                    moment(new Date(todate)).format('M/DD/YYYY'),
                     currencyStr,
                     minOddStr);
 
                 _postdata.ReportTitle = title;
-                $(".report-title").html(title);
-                $(".panel-heading").removeClass("hide");
+                $('.report-title').html(title);
+                $('.panel-heading').removeClass('hide');
             },
             //#endregion
 
@@ -6305,16 +6310,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 Site.blockUI();
                 _level = 0;
 
-                _postdata = $("#SearchForm").serializeObject();
-                _currencyName = $("#CurrencyName").val().toUpperCase();
+                _postdata = $('#SearchForm').serializeObject();
+                _currencyName = $('#CurrencyName').val().toUpperCase();
                 _postdata.BaseCurrency = _postdata.BaseCurrency.toUpperCase();
-                _leaguename = $("#League option:selected").text();
+                _leaguename = $('#League option:selected').text();
 
-                var option = {
-                    type: "POST",
+                const option = {
+                    type: 'POST',
                     data: _postdata,
-                    dataType: "json",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     cache: false,
                     url: Site.resolveClientUrl(WinLossByLeagueOption.urlData),
                     success: function (response) {
@@ -6339,8 +6344,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             //#region drillDown
             drillDownBetList: function (custId, externalId, systemId) {
-                var param = {
-                    IsConvert: _postdata.BaseCurrency !== "",
+                const param = {
+                    IsConvert: _postdata.BaseCurrency !== '',
                     Odds: _postdata.Odds,
                     FromDate: _postdata.FromDate.toString(),
                     ToDate: _postdata.ToDate.toString(),
@@ -6358,8 +6363,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     ProductCodeList: WinLossByLeagueFilter.buildProductCodeList(_postdata).toString()
                 };
                 
-                var url = Site.resolveClientUrl("WinlossByLeagueBetList/Index?") + $.param(param);
-                window.open(url, "", "modal=no");
+                const url = Site.resolveClientUrl('WinlossByLeagueBetList/Index?') + $.param(param);
+                window.open(url, '', 'modal=no');
             },
 
             drillDown: function (leagueid, leaguename) {
@@ -6367,29 +6372,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 _leagueid = leagueid;
                 _leaguename = leaguename;
 
-                var temp = {
+                const temp = {
                     Level: _level,
                     League: leagueid,
                     pageindex: _pagingOption.pageindex,
                     pagesize: _pagingOption.pagesize
                 };
-                var param = $.extend({}, _postdata, temp);
+                const param = $.extend({}, _postdata, temp);
 
                 WinLossByLeagueFilter.buildProductsParams(param, _postdata);
 
-                var option = {
-                    type: "POST",
+                const option = {
+                    type: 'POST',
                     data: param,
-                    dataType: "json",
+                    dataType: 'json',
                     cache: false,
                     url: Site.resolveClientUrl(WinLossByLeagueOption.urlData),
                     success: function (response) {
                         _me.ajaxComplete(_level, response);
                         if (response !== null && response.Data.length > 0) {
                             _me.setReportTitle(1, _postdata.Odds, _postdata.FromDate, _postdata.ToDate);
-                            _pagingOption.totalrow = parseInt(response.TotalRows);
+                            _pagingOption.totalrow = parseInt(response.TotalRows, 10);
                             if (_pagingOption.totalrow > 0) {
-                                $("#paging").show();
+                                $('#paging').show();
                                 PagingHeper.render(_pagingOption);
                                 _me.resizeGrid();
                             }
@@ -6411,16 +6416,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             //#region Bind Data
             bindData: function (level, response) {
-                jqGridAdditional.clearGrid("ReportGrid");
-                var numOfRow = response.Data.length;
+                jqGridAdditional.clearGrid('ReportGrid');
+                const numOfRow = response.Data.length;
                 if (numOfRow === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
 
-                var reportGrid = $("#ReportGrid");
-                $("#paging").hide();
-                var gridOption = WinLossByLeagueOption.getGridOption(level);
+                const reportGrid = $('#ReportGrid');
+                $('#paging').hide();
+                const gridOption = WinLossByLeagueOption.getGridOption(level);
 
                 gridOption.data = response.Data;
                 gridOption.rowNum = level === 2 ? WinLossByLeagueOption.pageSize : WinLossByLeagueOption.nonePagingSize;
@@ -6437,16 +6442,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 reportGrid.jqGrid(gridOption);
 
                 //set rowspan for footer row
-                $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByLeagueOption.currencyIndex]);
+                $('table.ui-jqgrid-ftable').tableRowSpan([WinLossByLeagueOption.currencyIndex]);
 
                 if (level === 0) {
-                    WinLossByLeagueOption.addLeagueGroupRow($("#League").val(), $("#League option:selected").text());
+                    WinLossByLeagueOption.addLeagueGroupRow($('#League').val(), $('#League option:selected').text());
                 }
             },
 
             bindTotal: function (level, totalData) {
-                var columnModel = WinLossByLeagueOption.getColModel(level);
-                var colspan = level === 0 ? 2 : 3;
+                const columnModel = WinLossByLeagueOption.getColModel(level);
+                const colspan = level === 0 ? 2 : 3;
                 jqGridAdditional.assignTotal(totalData, columnModel);
                 jqGridAdditional.setGroupFooters(colspan, 0, 0);
             },
@@ -6472,15 +6477,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
-    "use strict";
+    'use strict';
 
-    var setDrillDownLink = function (custId, cellvalue, externalid, systemId) {
+    const setDrillDownLink = function (custId, cellvalue, externalid, systemId) {
         return '<a class="drilldown" href="javascript:;" data-custid="' + custId +
          '" data-externalid="' + externalid + '" data-systemid="' + systemId + '">' + cellvalue + '</a>';
     };
 
     //#region Columns
-    var indexColumn =
+    const indexColumn =
         {
             name: 'Index',
             index: 'Index',
@@ -6490,7 +6495,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false,
             resizable: false
         };
-    var externalIdColumn =
+    const externalIdColumn =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -6502,7 +6507,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return setDrillDownLink(rowObject.CustomerId, cellvalue, rowObject.ExternalId, rowObject.SystemId);
         }
     };
-    var systemIdColumn =
+    const systemIdColumn =
     {
         name: 'SystemId',
         index: 'SystemId',
@@ -6514,7 +6519,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return setDrillDownLink(rowObject.CustomerId, cellvalue, rowObject.ExternalId, rowObject.SystemId);
         }
     };
-    var matchColumn =
+    const matchColumn =
      {
          name: 'Match',
          index: 'Match',
@@ -6523,10 +6528,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          resizable: false,
          hidden: false,
          formatter: function (cellvalue, options, rowObject) {
-             return rowObject.HomeName + "<br/>" + rowObject.AwayName;
+             return rowObject.HomeName + '<br/>' + rowObject.AwayName;
          }
      };
-    var turnoverColumn =
+    const turnoverColumn =
         {
             name: 'TurnOver',
             index: 'TurnOver',
@@ -6538,7 +6543,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             hidden: false,
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-    var betcountColumn =
+    const betcountColumn =
         {
             name: 'BetCount',
             index: 'BetCount',
@@ -6550,10 +6555,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
-    var customerWlColumn =
+    const customerWlColumn =
         {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
@@ -6564,7 +6569,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-    var licenseeWlColumn =
+    const licenseeWlColumn =
         {
             name: 'LicenseeWL',
             //classes: 'highlight',
@@ -6578,7 +6583,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-    var baCommColumn =
+    const baCommColumn =
         {
             name: 'BACommission',
             // classes: 'highlight',
@@ -6590,7 +6595,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-    var amtDueToColumn =
+    const amtDueToColumn =
         {
             name: 'AmountDue',
             index: 'AmountDue',
@@ -6603,17 +6608,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
     //#endregion
-    var colNames = [
+    const colNames = [
          ['#', 'Match', 'BetCount', 'Turnover', 'CustomerW_L', 'LicenseeW_L', 'BACommission', 'AmtDueTo'],
          ['#', 'ExternalID', 'SystemID', 'BetCount', 'Turnover', 'CustomerW_L', 'LicenseeW_L', 'BACommission']
     ];
 
-    var colModels = [
+    const colModels = [
         [indexColumn, matchColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn, amtDueToColumn],
         [indexColumn, externalIdColumn, systemIdColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn]
     ];
 
-    var me = {
+    const me = {
         HasAmountDueToColumn: true,
         currencyIndex: 4,
         systemIdIndex: 3,
@@ -6667,10 +6672,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     //#end
 
     me.addLeagueGroupRow = function (leagueid, leagueName) {
-        var $grid = $("#ReportGrid");
-        var $row = $grid.find("tr.jqgrow:first");
-        $row.before("<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id='leagueHeader' data-leagueid='" + leagueid
-            + "' href='javascript:;'>" + leagueName + "</a></td></tr>");
+        const $grid = $('#ReportGrid');
+        const $row = $grid.find('tr.jqgrow:first');
+        $row.before('<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id="leagueHeader" data-leagueid="' + leagueid
+            + '" href="javascript:;">' + leagueName + '</a></td></tr>');
     };
 
     return me;
@@ -6679,7 +6684,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 30:
+/***/ 28:
 /*!******************************************************************!*\
   !*** multi ./www/js/source/pages/report/winlossbyleague/main.js ***!
   \******************************************************************/

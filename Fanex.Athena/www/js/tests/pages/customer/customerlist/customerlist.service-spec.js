@@ -99,7 +99,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                     CustId: "CustId",
                     GroupCommId: 1
                 };
-                var expectedFormat = "<input type='checkbox'  title='CustId' id='CustId' data-group-comm-id='1' class='select-cust-checkbox check-child' /><label for='CustId'></label>";
+                var expectedFormat = '<input type="checkbox"  title="CustId" id="CustId" data-group-comm-id="1" class="select-cust-checkbox check-child" /><label for="CustId"></label>';
 
                 CustomerListService.updateIndexColumnFormatter(column, showingColumns);
 
@@ -115,7 +115,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                     GroupCommId: 1
                 };
                 _state.selectedCustomers = { "CustId": 1 };
-                var expectedFormat = "<input type='checkbox' checked title='CustId' id='CustId' data-group-comm-id='1' class='select-cust-checkbox check-child' /><label for='CustId'></label>";
+                var expectedFormat = '<input type="checkbox" checked title="CustId" id="CustId" data-group-comm-id="1" class="select-cust-checkbox check-child" /><label for="CustId"></label>';
 
                 CustomerListService.updateIndexColumnFormatter(column, showingColumns);
 

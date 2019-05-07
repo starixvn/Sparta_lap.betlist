@@ -8,118 +8,22 @@ namespace Fanex.Athena.DataAccess.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core;
-    using Core.Extensions;
+    using System.Threading.Tasks;
     using Extension.Helper;
-    using Extension.Utility;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
-    using Fanex.Athena.Model.Forecast.ViewModel;
-    using Fanex.Common;
     using Fanex.Common.Extensions;
     using Interfaces;
-    using Model.Core.MetaModel;
-    using Model.Forecast.DTO;
-    using Model.Forecast.DTO.Forecast1X2;
-    using Model.Forecast.DTO.ForecastAH;
-    using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
-    using Resources;
     using VendorAdapter.Interfaces;
 
-    public class ForecastDataAccess : BaseDataAccess, IForecastDataAccess
+    public class ForecastDataAccess : ForecastBaseDataAccess, IForecastDataAccess
     {
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-
         public ForecastDataAccess(ICacheRefAdapter cacheRefAdapter)
+            : base(cacheRefAdapter)
         {
-            _cacheRefAdapter = cacheRefAdapter;
         }
 
-        #region Forecast AH
-
-        public ForecastAH GetForecastTopOddsByMatch(int matchId, int betType)
-        {
-            const string UspName = "Lrf_Forecast_OddsSelTopByMatch";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.AddInParameter("matchid", DbType.Int32, matchId);
-                db.AddInParameter("betType", DbType.Int32, betType);
-                var item = db.QueryEntity<ForecastAH>();
-                AssignTeamNames(item);
-                return item;
-            }
-        }
-
-        public DataTable GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
-        {
-            const string UspName = "Lrf_Forecast_SelHDP";
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-                db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
-                var dataset = db.ExecuteDataSet();
-                return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
-            }
-        }
-
-        public DataTable GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
-        {
-            const string UspName = "Lrf_Forecast_SelOU";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-                db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
-                var dataset = db.ExecuteDataSet();
-                return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
-            }
-        }
-
-        #endregion Forecast AH
-
-        #region Forecast 1 x 2
-
-        public IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Forecast1x2_SelByLeague";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
-
-                using (var reader = db.ExecuteReader())
-                {
-                    return GetForecastOneXTwoList(metaModel, reader);
-                }
-            }
-        }
-
-        public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Forecast_Sel1X2";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-                db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
-
-                using (var reader = db.ExecuteReader())
-                {
-                    return GetForecastOneXTwoList(metaModel, reader);
-                }
-            }
-        }
-
-        #endregion Forecast 1 x 2
-
-        #region Forecast HDP OU
-
-        public IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel)
+        public async Task<IList<ForecastHandicapOverUnder>> GetForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast_SelByLeague";
 
@@ -134,70 +38,12 @@ namespace Fanex.Athena.DataAccess.Forecast
             };
             using (var db = this.GetObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(paramValues))
+                using (var reader = await db.ExecuteReaderAsync(paramValues).ConfigureAwait(false))
                 {
                     return GetForecastHandicapOverUnderList(reader, metaModel);
                 }
             }
         }
-
-        #endregion Forecast HDP OU
-
-        #region New Forecast
-
-        public NewForecastHdpOuData GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo)
-        {
-            using (var db = this.GetObjectDb("Lrf_Forecast_MatchTotalForecast"))
-            {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                db.AddOutParameter("HomeScore", DbType.Int32, 4);
-                db.AddOutParameter("AwayScore", DbType.Int32, 4);
-                db.AddOutParameter("MatchTime", DbType.DateTime, 4);
-                using (var ds = db.ExecuteDataSet())
-                {
-                    var forecastData = new NewForecastHdpOuData();
-                    if (ds.Tables.Count > 1)
-                    {
-                        var totalTable = ds.Tables[0];
-                        var detailTable = ds.Tables[1];
-                        foreach (DataRow dr in totalTable.Rows)
-                        {
-                            forecastData.TotalItemList.Add(new NewForecastHdpOuTotalItem
-                            {
-                                Type = Converter.ToInt(dr["Type"]),
-                                TicketNo = Converter.ToInt(dr["TotalTickets"]),
-                                TotalTurnoverHome = Converter.ToDecimal(dr["HomeTurnover" + metaModel.BaseCurrency]),
-                                TotalTurnoverAway = Converter.ToDecimal(dr["AwayTurnover" + metaModel.BaseCurrency]),
-                                TotalTurnoverOver = Converter.ToDecimal(dr["OverTurnover" + metaModel.BaseCurrency]),
-                                TotalTurnoverUnder = Converter.ToDecimal(dr["UnderTurnover" + metaModel.BaseCurrency]),
-                            });
-                        }
-
-                        foreach (DataRow dr in detailTable.Rows)
-                        {
-                            forecastData.DetailItemList.Add(new NewForecastHdpOuDetailItem
-                            {
-                                Bettype = Converter.ToInt(dr["Bettype"]),
-                                Hdp = Converter.ToDecimal(dr["Hdp"]),
-                                HomeWinLoss = Converter.ToDecimal(dr["HomeWinloss" + metaModel.BaseCurrency]),
-                                AwayWinLoss = Converter.ToDecimal(dr["AwayWinloss" + metaModel.BaseCurrency]),
-                            });
-                        }
-                    }
-
-                    var date = db.GetParameterValue("MatchTime").ToString();
-                    matchInfo.HomeScore = Converter.ToInt(db.GetParameterValue("HomeScore"));
-                    matchInfo.AwayScore = Converter.ToInt(db.GetParameterValue("AwayScore"));
-                    matchInfo.KickOffDateString = string.IsNullOrEmpty(date)
-                        ? ViewResources.Live + "!"
-                        : Converter.ToDateTime(date).ToString("MM/dd/yyyy hh:mm tt");
-                    return forecastData;
-                }
-            }
-        }
-
-        #endregion New Forecast
 
         /// <summary>
         /// Calculate offset.
@@ -214,51 +60,11 @@ namespace Fanex.Athena.DataAccess.Forecast
             forecast.OffsetHdpMinus1 = offsetHdp - 1;
             forecast.OffsetHdp = offsetHdp;
             forecast.OffsetHdpPlus1 = offsetHdp + 1;
+#pragma warning disable S109 // Magic numbers should not be used
             forecast.OffsetOuPlus2 = offsetOu + 2;
+#pragma warning restore S109 // Magic numbers should not be used
             forecast.OffsetOuPlus1 = offsetOu + 1;
             forecast.OffsetOu = offsetOu;
-        }
-
-        private IList<ForecastOneXTwo> GetForecastOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
-        {
-            var forecasts = new List<ForecastOneXTwo>();
-            var extraColumnName = "isExtra";
-            var homeWinLossColumn = DataHelper.GetCurrencyColumnName("hl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var drawWinLossColumn = DataHelper.GetCurrencyColumnName("dl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var awayWinLossColumn = DataHelper.GetCurrencyColumnName("al", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeHomeWinLossColumn = DataHelper.GetCurrencyColumnName("ht_hl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeDrawWinLossColumn = DataHelper.GetCurrencyColumnName("ht_dl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeAwayWinLossColumn = DataHelper.GetCurrencyColumnName("ht_al", metaModel.IsConvert, metaModel.BaseCurrency);
-            var extraHomeWinLossColumn = DataHelper.GetCurrencyColumnName("x_hl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var extraDrawWinLossColumn = DataHelper.GetCurrencyColumnName("x_dl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var extraAwayWinLossColumn = DataHelper.GetCurrencyColumnName("x_al", metaModel.IsConvert, metaModel.BaseCurrency);
-            var hasExtraColumn = reader.HasColumn(extraColumnName);
-            while (reader.Read())
-            {
-                var item = new ForecastOneXTwo();
-                ReadCommonData(reader, item);
-                if (!hasExtraColumn || reader.ToInt(extraColumnName) == 0)
-                {
-                    item.IsExtra = false;
-                    item.HomeWinLoss = reader.ToDecimal(homeWinLossColumn);
-                    item.DrawWinLoss = reader.ToDecimal(drawWinLossColumn);
-                    item.AwayWinLoss = reader.ToDecimal(awayWinLossColumn);
-                    item.HalfTimeHomeWinLoss = reader.ToDecimal(halfTimeHomeWinLossColumn);
-                    item.HalfTImeDrawWinLoss = reader.ToDecimal(halfTimeDrawWinLossColumn);
-                    item.HalfTimeAwayWinLoss = reader.ToDecimal(halfTimeAwayWinLossColumn);
-                }
-                else
-                {
-                    item.IsExtra = true;
-                    item.HalfTimeHomeWinLoss = reader.ToDecimal(extraHomeWinLossColumn);
-                    item.HalfTImeDrawWinLoss = reader.ToDecimal(extraDrawWinLossColumn);
-                    item.HalfTimeAwayWinLoss = reader.ToDecimal(extraAwayWinLossColumn);
-                }
-
-                forecasts.Add(item);
-            }
-
-            return forecasts;
         }
 
         /// <summary>
@@ -310,28 +116,6 @@ namespace Fanex.Athena.DataAccess.Forecast
             }
 
             return forecasts;
-        }
-
-        private void ReadCommonData(IDataReader reader, ForecastBase item)
-        {
-            item.MatchId = reader.ToInt("matchid");
-            item.HomeId = reader.ToInt("homeid");
-            item.AwayId = reader.ToInt("awayid");
-            item.LiveIndicator = reader.ToBool("liveindicator");
-            item.LiveHomeScore = reader.ToByte("livehomescore");
-            item.LiveAwayScore = reader.ToByte("liveawayscore");
-            item.ShowTime = reader.ToString("showtime");
-            item.IsNeutral = reader.ToBool("isNeutral");
-            AssignTeamNames(item);
-        }
-
-        private void AssignTeamNames(ForecastBase item)
-        {
-            if (item != null)
-            {
-                item.HomeTeamName = _cacheRefAdapter.GetTeamName(item.HomeId) + (item.IsNeutral ? " (N)" : string.Empty);
-                item.AwayTeamName = _cacheRefAdapter.GetTeamName(item.AwayId);
-            }
         }
     }
 }

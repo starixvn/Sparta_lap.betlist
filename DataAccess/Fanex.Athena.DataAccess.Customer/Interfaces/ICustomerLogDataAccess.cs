@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Customer.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
 
@@ -15,8 +16,8 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
     /// </summary>
     public interface ICustomerLogDataAccess
     {
-        IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel);
+        Task<IList<CustomerLog>> GetCustomerSettingList(CustomerLogMetaModel metaModel);
 
-        IList<CustomerLog> GetGroupCommList(CustomerLogMetaModel metaModel);
+        Task<IList<CustomerLog>> GetGroupCommList(CustomerLogMetaModel metaModel);
     }
 }

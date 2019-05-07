@@ -1,6 +1,9 @@
 // Karma configuration
 // Generated on Wed Apr 20 2016 16:28:26 GMT+0700 (SE Asia Standard Time)
 
+const puppeteer = require('puppeteer');
+process.env.CHROME_BIN = puppeteer.executablePath();
+
 module.exports = function (config) {
     config.set({
         basePath: '',
@@ -13,7 +16,7 @@ module.exports = function (config) {
             { pattern: "node_modules/bootstrap-daterangepicker/*.js", included: false },
             { pattern: "node_modules/materialize-autocomplete/**/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
-            
+
             { pattern: 'www/js/tests/common/*-spec.js', included: false },
             { pattern: 'www/js/tests/lib/**/jquery.jqgrid.additional-spec.js', included: false },
             { pattern: 'www/js/tests/extensions/**/*-spec.js', included: false },
@@ -39,7 +42,7 @@ module.exports = function (config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: false,
-        browsers: ['PhantomJS'],
+        browsers: ['ChromeHeadless'],
         reporters: ['kjhtml', 'dots', 'junit', 'coverage'],
         singleRun: true,
         junitReporter: {
@@ -52,10 +55,6 @@ module.exports = function (config) {
                 { type: 'html', subdir: 'report-html' }
             ]
         },
-        concurrency: Infinity,
-        phantomjsLauncher: {
-            // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
-            exitOnResourceError: true
-        }
+        concurrency: Infinity
     });
 };

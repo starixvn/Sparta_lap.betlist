@@ -7,7 +7,9 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.DTO;
@@ -36,24 +38,27 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
-            AssignRequiredProperties(viewModel, metaModel);
+            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
             return View("~/Views/Desktop/Customer/BetSetting/Keno.cshtml", viewModel);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateBetSetting(string nickName)
+        public async Task<JsonResult> UpdateBetSetting(string nickName)
         {
-            if (!ProductAccess.IsAllowKN || !IsBetSettingEditable())
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!CheckPermission(userSession, ProductTypes.Keno))
             {
                 return AccessDenied();
             }
 
             var id = Convert.ToInt32(Request["id"]);
-            var commonParam = GetBetSettingCommonParam();
+            var commonParam = GetBetSettingCommonParam(userSession.UserId, licenseeId, userSession.Language);
 
             if (id <= 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
             {
@@ -62,13 +67,13 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             var betSetting = GetBetSetting(id);
 
-            var result = _betSettingService.UpdateBetSetting(
+            var result = await _betSettingService.UpdateBetSettingAsync(
                 commonParam.LicenseeId,
                 commonParam.CustId,
                 commonParam.UserId,
                 commonParam.Language,
                 commonParam.Ip,
-                betSetting);
+                betSetting).ConfigureAwait(false);
 
             if (result.Code == 0)
             {

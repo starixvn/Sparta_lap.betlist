@@ -8,7 +8,7 @@
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
 
-    public class NotificationReportControllerTest : BaseControllerHelperTest
+    public class NotificationReportControllerTest : CultureBaseControllerHelperTest
     {
         [OneTimeSetUp]
         public override void FixtureSetUp()

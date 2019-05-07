@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.UnitTests.TestHelpers;
     using NSubstitute;
@@ -19,7 +20,7 @@
         }
 
         [Test]
-        public void GetStatus_WhenCall_ParameterPassedCorrectly()
+        public async Task GetStatusAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_StatusSettingSelect")).Returns(ObjectDb);
@@ -27,13 +28,13 @@
             const int ProductId = 2;
 
             // Action
-            DataAccess.GetStatus(CustId, ProductId);
+            await DataAccess.GetStatusAsync(CustId, ProductId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, CustId);
-                ObjectDb.Received(1).AddInParameter("ProductId", DbType.Int32, ProductId);
+                ObjectDb.Received(1).SetParameterValue("CustID", CustId);
+                ObjectDb.Received(1).SetParameterValue("ProductId", ProductId);
             });
         }
 
@@ -41,7 +42,7 @@
         [TestCase(true, 1, false)]
         [TestCase(false, 0, null)]
         [TestCase(false, 1, null)]
-        public void GetStatus_WhenCall_DataReturnCorrectly(bool hasData, int? isDisabled, bool? expectedResult)
+        public async Task GetStatusAsync_WhenCall_DataReturnCorrectly(bool hasData, int? isDisabled, bool? expectedResult)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_StatusSettingSelect")).Returns(ObjectDb);
@@ -53,14 +54,14 @@
             const int ProductId = 2;
 
             // Action
-            var result = DataAccess.GetStatus(CustId, ProductId);
+            var result = await DataAccess.GetStatusAsync(CustId, ProductId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_ParameterPassedCorrectly()
+        public async Task UpdateStatusAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             const string ExpectedIsDisabledParam = @"<ROOT><ProductStatus SportType=""211"" BetType=""2401"" IsDisabled=""0"" IsDisabledDownline=""0"" /></ROOT>";
@@ -73,22 +74,22 @@
             ObjectDb.GetParameterValue("ErrCode").Returns(1);
 
             // Action
-            DataAccess.UpdateStatus(userId, custId, ip, status, productId);
+            await DataAccess.UpdateStatusAsync(userId, custId, ip, status, productId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
-                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
-                ObjectDb.Received(1).AddInParameter("IsDisabled", DbType.String, ExpectedIsDisabledParam);
-                ObjectDb.Received(1).AddInParameter("ip", DbType.String, ip);
-                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 8);
-                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
+                ObjectDb.Received(1).SetParameterValue("custid", custId);
+                ObjectDb.Received(1).SetParameterValue("userid", userId);
+                ObjectDb.Received(1).SetParameterValue("IsDisabled", ExpectedIsDisabledParam);
+                ObjectDb.Received(1).SetParameterValue("ip", ip);
+                ObjectDb.Received(1).SetParameterValue("ErrCode", null);
+                ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
             });
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_DataReturnCorrectly()
+        public async Task UpdateStatusAsync_WhenCall_DataReturnCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_DisableStatUpd")).Returns(ObjectDb);
@@ -96,7 +97,7 @@
             ObjectDb.GetParameterValue("ErrMsg").Returns("abc");
 
             // Action
-            var result = DataAccess.UpdateStatus(0, 0, string.Empty, false, ProductTypes.AllBet);
+            var result = await DataAccess.UpdateStatusAsync(0, 0, string.Empty, false, ProductTypes.AllBet);
 
             // Assert
             Assert.Multiple(() =>
@@ -107,7 +108,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_ParameterPassedCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             const int CustId = 1;
@@ -120,22 +121,22 @@
             ObjectDb.GetParameterValue("ErrMsg").Returns(string.Empty);
 
             // Action
-            DataAccess.UpdateBetSetting(CustId, UserId, Ip, XmlData);
+            await DataAccess.UpdateBetSettingAsync(CustId, UserId, Ip, XmlData);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
-                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, UserId);
-                ObjectDb.Received(1).AddInParameter("ip", DbType.String, Ip);
-                ObjectDb.Received(1).AddInParameter("betlimit", DbType.String, XmlData);
-                ObjectDb.Received(1).AddOutParameter("errcode", DbType.Int32, 4);
-                ObjectDb.Received(1).AddOutParameter("errmsg", DbType.String, 8000);
+                ObjectDb.Received(1).SetParameterValue("custid", CustId);
+                ObjectDb.Received(1).SetParameterValue("userid", UserId);
+                ObjectDb.Received(1).SetParameterValue("ip", Ip);
+                ObjectDb.Received(1).SetParameterValue("betlimit", XmlData);
+                ObjectDb.Received(1).SetParameterValue("errcode", null);
+                ObjectDb.Received(1).SetParameterValue("errmsg", null);
             });
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_DataReturnCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_DataReturnCorrectly()
         {
             // Arrange
             const int CustId = 1;
@@ -148,7 +149,7 @@
             ObjectDb.GetParameterValue("ErrMsg").Returns("<Root Msg='Error'></Root>");
 
             // Action
-            var result = DataAccess.UpdateBetSetting(CustId, UserId, Ip, XmlData);
+            var result = await DataAccess.UpdateBetSettingAsync(CustId, UserId, Ip, XmlData);
 
             // Assert
             Assert.Multiple(() =>

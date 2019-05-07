@@ -13,7 +13,7 @@
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
-    public class ReportBaseController : BaseController
+    public class ReportBaseController : ContentBaseController
     {
         public const int PageSizeExcel = int.MaxValue - 1000;
 

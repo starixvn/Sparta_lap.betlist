@@ -4,6 +4,7 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Constant.DataDomain;
@@ -32,6 +33,8 @@
     public class MatchWinLossReportController : ReportBaseController
     {
         private const string NewProductIdColumnName = "newproductid";
+
+        private const string MatchNameColumn = "matchname";
 
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
@@ -89,7 +92,7 @@
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(MatchWinLossMetaModel metaModel)
+        public async Task<ActionResult> Index(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -99,30 +102,32 @@
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
-                    return Excel(metaModel);
+                    return await Excel(metaModel).ConfigureAwait(false);
                 }
 
                 return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
 
-            var reportData = _matchWinLossService.GetDataList(metaModel);
+            var reportData = await _matchWinLossService.GetDataList(metaModel);
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
             if (metaModel.ProductOptions.Any(i => i.Status && (i.Code == Product.BA || i.Code == Product.SB || i.Code == Product.VS2)))
             {
-                reportDataOutrightParlay = _matchWinLossService.GetOutrightParlayList(metaModel).ToList();
+                reportDataOutrightParlay = (await _matchWinLossService.GetOutrightParlayList(metaModel)).ToList();
             }
 
             var total = GetTotal(reportData);
             var grandTotal = GetGrandTotal(reportDataOutrightParlay, total);
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
+            var productAccess = ProductService.GetSingleWalletProductAccess(
+                licenseeSession.LicenseeId, 
+                userSession.Language, 
+                FunctionNames.MatchWinLoss);
             var model = new MatchWinLossViewModel
             {
                 Param = metaModel,
                 MainResult = reportData,
                 LeagueList = CreateLeagueList(reportData),
                 SpecialBetTypeResult = reportDataOutrightParlay,
-
                 CurrencyList = currencies,
                 ProductAccess = productAccess,
                 ColumnCount = GetColumnCount(productAccess, licenseeSession.IsAllowedCustomerComm),
@@ -135,15 +140,18 @@
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Detail(MatchWinLossMetaModel metaModel)
+        public async Task<ActionResult> Detail(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var reportData = _matchWinLossService.GetDetailDataList(metaModel);
+            var reportData = await _matchWinLossService.GetDetailDataList(metaModel);
             var model = new MatchWinLossViewModel
             {
                 MainResult = reportData,
-                ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.MatchWinLoss),
+                ProductAccess = ProductService.GetSingleWalletProductAccess(
+                    licenseeSession.LicenseeId, 
+                    SessionService.UserSession.Language, 
+                    FunctionNames.MatchWinLoss),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -152,7 +160,7 @@
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Excel(MatchWinLossMetaModel metaModel)
+        public async Task<ActionResult> Excel(MatchWinLossMetaModel metaModel)
         {
             const int PageSize = 63000;
             const string FileName = nameof(MatchWinLoss);
@@ -160,7 +168,10 @@
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.MatchWinLoss);
+            var productAccess = ProductService.GetSingleWalletProductAccess(
+                licenseeSession.LicenseeId,
+                SessionService.UserSession.Language,
+                FunctionNames.MatchWinLoss);
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,
@@ -178,7 +189,7 @@
             };
 
             metaModel.PageSize = PageSize;
-            var reportData = _matchWinLossService.GetDetailDataSet(metaModel);
+            var reportData = await _matchWinLossService.GetDetailDataSet(metaModel).ConfigureAwait(false);
             var mainTable = reportData.Tables[0];
             mainTable = AddColumnsForSorting(mainTable);
             mainTable.DefaultView.Sort = $"{NewProductIdColumnName} asc, leaguename asc, matchname ASC";
@@ -243,15 +254,17 @@
 
         private static int GetColumnCount(ProductAccess productAccess, bool isAllowedCustomerComm)
         {
+            const int AdditionColumns = 2;
             var columnCount = 6;
+
             if (productAccess.IsAllowBA)
             {
-                columnCount += 2;
+                columnCount += AdditionColumns;
             }
 
             if (isAllowedCustomerComm)
             {
-                columnCount += 2;
+                columnCount += AdditionColumns;
             }
 
             return columnCount;
@@ -260,7 +273,7 @@
         private DataTable AddColumnsForSorting(DataTable mainTable)
         {
             mainTable.Columns.Add(NewProductIdColumnName, typeof(int));
-            mainTable.Columns.Add("matchname", typeof(string));
+            mainTable.Columns.Add(MatchNameColumn, typeof(string));
             mainTable.Columns.Add("leaguename", typeof(string));
 
             foreach (DataRow row in mainTable.Rows)
@@ -281,7 +294,7 @@
             if ((int)row[NewProductIdColumnName] == ProductTypes.NumberGame)
             {
                 var prefix = BetTypeHelper.IsNumberGameHappy5(betType) ? ViewResources.No + "." : ViewResources.NumberGameNo;
-                row["matchname"] = string.Format("{0} {1}", prefix, row["matchcode"]);
+                row[MatchNameColumn] = string.Format("{0} {1}", prefix, row["matchcode"]);
             }
             else
             {
@@ -290,7 +303,7 @@
                     var culture = new CultureInfo("en-US");
                     const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
                     var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
-                    row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
+                    row[MatchNameColumn] = string.Format(culture, TimeFormatter, kickOffTime);
                 }
                 else
                 {
@@ -299,7 +312,7 @@
                                         ? " " + ViewResources.IsNeutral
                                         : string.Empty);
                     var awayName = _cacheRefAdapter.GetTeamName(row["awayid"]);
-                    row["matchname"] = homeName + "-vs-" + awayName;
+                    row[MatchNameColumn] = homeName + "-vs-" + awayName;
                 }
             }
         }

@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Model.Core.DataDomain;
@@ -31,11 +32,11 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var producAccess = ProductService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
-            var model = _settledMatchCountService.GetDataList(AppSettings.IsShowAllDataForSettleMatchCountReport, licenseeId, producAccess);
+            var model = await _settledMatchCountService.GetDataList(AppSettings.IsShowAllDataForSettleMatchCountReport, licenseeId, producAccess).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Report/SettledMatchCount/Main.cshtml", model);
         }

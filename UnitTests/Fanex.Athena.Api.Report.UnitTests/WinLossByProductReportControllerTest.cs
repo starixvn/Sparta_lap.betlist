@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Http.Results;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
@@ -44,13 +45,13 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnBadRequestWithCorrectMessage()
+        public async Task Index_InvalidModel_ReturnBadRequestWithCorrectMessage()
         {
             // Arrange
             var metaModel = new WinLossByProductMetaModel { CurrencyId = 1 };
 
             // Action
-            var result = _controller.Index(metaModel) as BadRequestErrorMessageResult;
+            var result = await _controller.Index(metaModel) as BadRequestErrorMessageResult;
 
             // Assert
             Assert.That(result.Message, Is.EqualTo(ViewResources.InvalidParams));
@@ -58,7 +59,7 @@
 
         [TestCase(100, "NoCustomerFoundMsg")]
         [TestCase(101, "MoreThanOneCustomerFoundMsg")]
-        public void Index_Level0_GetCorrectDataFromService(int errorCode, string errorMessageKey)
+        public async Task Index_Level0_GetCorrectDataFromService(int errorCode, string errorMessageKey)
         {
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
@@ -80,12 +81,12 @@
             });
 
             // Action
-            var result = _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
+            var result = await _controller.Index(metaModel, null, null, Level, CurrencyId, CustId).ConfigureAwait(false);
 
             // Assert
-            Assert.Multiple(() =>
+            Assert.Multiple(async () =>
             {
-                _dataAccess.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), Arg.Any<IDictionary<int, string>>());
+                await _dataAccess.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), Arg.Any<IDictionary<int, string>>());
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
                 Assert.That(result.ErrorMessage, Is.EqualTo(ViewResources.ResourceManager.GetString(errorMessageKey)));
@@ -93,7 +94,7 @@
         }
 
         [Test]
-        public void Index_Level0_MemberIdReturnFromSP()
+        public async Task Index_Level0_MemberIdReturnFromSP()
         {
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
@@ -109,14 +110,14 @@
                 });
 
             // Action
-            _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
+            await _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.That(metaModel.MemberId, Is.EqualTo(123));
         }
 
         [Test]
-        public void Index_Level1_GetCorrectDataFromService()
+        public async Task Index_Level1_GetCorrectDataFromService()
         {
             // Arrange
             const int CurrencyId = -2, Level = 1, CustId = 1;
@@ -135,19 +136,19 @@
                 });
 
             // Action
-            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = await _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
+                _dataAccess.Received(1).GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });
         }
 
         [Test]
-        public void Index_Level2_GetCorrectDataFromService()
+        public async Task Index_Level2_GetCorrectDataFromService()
         {
             // Arrange
             const int CurrencyId = -2, Level = 2, CustId = 1;
@@ -166,19 +167,19 @@
                 });
 
             // Action
-            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = await _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
-            Assert.Multiple(() =>
+            Assert.Multiple(async () =>
             {
-                _dataAccess.Received().GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
+                await _dataAccess.Received(1).GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), UserCurrencyList);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });
         }
 
         [Test]
-        public void Index_WhenReturnData_RestructureReturnedData()
+        public async Task Index_WhenReturnData_RestructureReturnedData()
         {
             // Arrange
             const int CurrencyId = -2, Level = 1, CustId = 1;
@@ -208,7 +209,7 @@
                 });
 
             // Action
-            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = await _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
@@ -221,7 +222,7 @@
 
         [TestCase(0, true)]
         [TestCase(1, false)]
-        public void Index_IsExportExcelTrue_CallExcelStreamWithCorrectData(int level, bool isFakeLicensee)
+        public async Task Index_IsExportExcelTrue_CallExcelStreamWithCorrectData(int level, bool isFakeLicensee)
         {
             // Arrange
             const int CurrencyId = -2, CustId = 1;
@@ -249,7 +250,7 @@
             var expectedToDate = level == 0 ? metaModel.ToDate : toDate;
 
             // Action
-            _controller.Index(metaModel, fromDate, toDate, level, CurrencyId, CustId);
+            await _controller.Index(metaModel, fromDate, toDate, level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
@@ -262,7 +263,7 @@
 
         [TestCase(true, 0, null, null)]
         [TestCase(false, 2, "2017/4/1", "2017/5/1")]
-        public void Index_WhenCall_MetaModelAreAssignedDataCorrectly(bool isFakeLicensee, int memberId, DateTime? fromDate, DateTime? toDate)
+        public async Task Index_WhenCall_MetaModelAreAssignedDataCorrectly(bool isFakeLicensee, int memberId, DateTime? fromDate, DateTime? toDate)
         {
             // Arrange
             const int CustId = 1, CurrencyId = -2, Level = 1, MemberId = 1;
@@ -283,7 +284,7 @@
             var expectedUserName = isFakeLicensee ? string.Empty : metaModel.Username;
 
             // Action
-            _controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId, MemberId, SystemId, CurrencyName);
+            await _controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId, MemberId, SystemId, CurrencyName);
 
             // Assert
             Assert.Multiple(() =>

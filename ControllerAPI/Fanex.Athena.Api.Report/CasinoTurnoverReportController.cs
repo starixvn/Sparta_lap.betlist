@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report.Interfaces;
@@ -26,13 +27,13 @@
         }
 
         [HttpPost]
-        public dynamic GetData(CasinoTurnoverMetaModel metaModel)
+        public async Task<dynamic> GetData(CasinoTurnoverMetaModel metaModel)
         {
             CheckValidProducts(FunctionNames.CasinoTurnover, metaModel.ProductCode);
             if (IsValidRequest(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var result = _casinoTurnoverDataAccess.GetData(metaModel);
+                var result = await _casinoTurnoverDataAccess.GetData(metaModel).ConfigureAwait(false);
                 return new
                 {
                     Data = result.DataList,

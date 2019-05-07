@@ -7,10 +7,11 @@
 namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.BetSettings.DTO;
 
     public interface ICoreBetSettingDataAccess
     {
-        IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId);
+        Task<IEnumerable<BetSettingProduct>> GetBetSettingProductsAsync(int licenseeId);
     }
 }

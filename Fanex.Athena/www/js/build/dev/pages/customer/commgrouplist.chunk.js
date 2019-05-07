@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([35,"www/js/build/dev/pages/lib/common"]);
+/******/ 	deferredModules.push([33,"www/js/build/dev/pages/lib/common"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,15 +290,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -317,23 +316,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -352,14 +351,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -370,14 +369,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -389,16 +388,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -415,45 +414,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -469,8 +468,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -479,7 +478,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -496,10 +495,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -507,10 +506,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -518,37 +517,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -558,16 +557,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -575,44 +574,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -624,7 +623,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -767,26 +766,26 @@ Array.prototype.insertBefore = function (value, before) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
+    'use strict';
 
     function goToCustomerList(groupCommId) {
         if (isParentSameOrigin()) {
             // Deactive Commission Group menu (55) and active Customer list menu (43)
-            $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
-            $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-            _me.setPageTitle(Site.getSingleResource("CustomerList"));
+            $('li>#MenuItem55', window.parent.document).parent().removeClass('active');
+            $('li>#MenuItem43', window.parent.document).parent().addClass('active');
+            _me.setPageTitle(Site.getSingleResource('CustomerList'));
         }
-        Site.redirect(Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupCommId));
+        Site.redirect(Site.resolveClientUrl('Customer/CustomerList?groupId=' + groupCommId));
     }
 
     function setPageTitle(title) {
         if (isParentSameOrigin()) {
-            $("#page-title", window.parent.document).text(title);
+            $('#page-title', window.parent.document).text(title);
         }
     }
 
     function isParentSameOrigin() {
-        var sameOrigin;
+        let sameOrigin;
         try {
             sameOrigin = window.parent.location.host === window.location.host;
         }
@@ -796,7 +795,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         return sameOrigin;
     }
 
-    var _me = {
+    const _me = {
         goToCustomerList: goToCustomerList,
         setPageTitle: setPageTitle
     };
@@ -815,9 +814,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! ./commgroup */ "./www/js/source/pages/customer/customercomm/commgroup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, CustomerCommGroup) {
-        "use strict";
+        'use strict';
 
-        var deleteGroupData = {
+        const deleteGroupData = {
             groupId: 0,
             isRemovePlayerComm: false,
             isResetDefault: false
@@ -826,30 +825,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         function initialize() {
             Site.initialize();
             Site.addUserGuide({
-                resourceName: "CommissionGroupList",
-                title: Site.getSingleResource("CommissionGroupList")
+                resourceName: 'CommissionGroupList',
+                title: Site.getSingleResource('CommissionGroupList')
             });
 
             _me.initEvent();
         }
 
         function initEvent() {
-            $("#ExportToExcel").click(function () {
-                $("#CommissionGroupForm").submit();
+            $('#ExportToExcel').click(function () {
+                $('#CommissionGroupForm').submit();
             });
 
-            $("#comm-group-list").on("click", ".delete-comm-group", function (e) {
-                _me.confirmDeleteCommGroup($(e.target).data("id"));
+            $('#comm-group-list').on('click', '.delete-comm-group', function (e) {
+                _me.confirmDeleteCommGroup($(e.target).data('id'));
             });
 
-            $("#comm-group-list").on("click", ".customer-list-link", function (e) {
-                CustomerCommGroup.goToCustomerList($(e.target).data("id"));
+            $('#comm-group-list').on('click', '.customer-list-link', function (e) {
+                CustomerCommGroup.goToCustomerList($(e.target).data('id'));
             });          
         }
 
         function confirmDeleteCommGroup(groupId) {
             $.ajax({
-                url: Site.resolveClientUrl("CustomerComGroup/GetDefaultGroup"),
+                url: Site.resolveClientUrl('CustomerComGroup/GetDefaultGroup'),
                 type: 'GET',
                 dataType: 'JSon',
                 cache: false,
@@ -870,13 +869,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         function deleteCommGroup() {
             $.ajax({
                 type: 'POST',
-                url: Site.resolveClientUrl("CustomerComGroup/Delete"),
+                url: Site.resolveClientUrl('CustomerComGroup/Delete'),
                 data: deleteGroupData,
                 success: function (result) {
                     if (result.Code > 0) {
-                        _me.showResultPopup("Error", result.Message);
+                        _me.showResultPopup('Error', result.Message);
                     } else {
-                        Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
+                        Site.redirect(Site.resolveClientUrl('CustomerComGroup/Index'));
                     }
 
                     Site.unBlockUI();
@@ -886,122 +885,122 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function showConfirmDeleteDefaulCommGroupPopup() {
-            var options = {
+            const options = {
                 modal: true,
-                title: Site.getSingleResource("Confirm"),
-                height: "auto",
-                id: "del-default-comm-group",
+                title: Site.getSingleResource('Confirm'),
+                height: 'auto',
+                id: 'del-default-comm-group',
                 width: 380
             };
 
-            var buttons = [
+            const buttons = [
                 {
-                    text: Site.getSingleResource("OK"),
+                    text: Site.getSingleResource('OK'),
                     isClosedOnClick: true,
                     click: _me.showOptionDeleteCommGroupPopup,
-                    classes: "btn btn-submit"
+                    classes: 'btn btn-submit'
                 }, {
-                    text: Site.getSingleResource("Cancel"),
+                    text: Site.getSingleResource('Cancel'),
                     isClosedOnClick: true,
-                    classes: "btn btn-cancel"
+                    classes: 'btn btn-cancel'
                 }];
 
-            Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("DefaultGroupMsg") + '</p></div>', options, buttons);
+            Popup.openPopupWithButton('<div><p>' + Site.getSingleResource('DefaultGroupMsg') + '</p></div>', options, buttons);
         }
 
         function showOptionDeleteCommGroupPopup() {
-            var popup = $("#option-del-comm-group");
+            let popup = $('#option-del-comm-group');
 
             if (popup.length === 0) {
-                popup = $("#confirm-delete-comm-group");
+                popup = $('#confirm-delete-comm-group');
                 popup.remove();
-                popup.find('input[name="IsRemovePlayerComm"]').on("click", function () {
-                    $(this).prop("checked", true);
+                popup.find('input[name="IsRemovePlayerComm"]').on('click', function () {
+                    $(this).prop('checked', true);
                 });
             }
 
-            var options = {
+            const options = {
                 modal: true,
-                title: Site.getSingleResource("DeleteCommissionGroup"),
-                height: "auto",
-                id: "option-del-comm-group",
+                title: Site.getSingleResource('DeleteCommissionGroup'),
+                height: 'auto',
+                id: 'option-del-comm-group',
                 width: 380
             };
 
-            var buttons = [
+            const buttons = [
                 {
-                    text: Site.getSingleResource("Delete"),
+                    text: Site.getSingleResource('Delete'),
                     isClosedOnClick: true,
                     click: function () {
                         deleteGroupData.isRemovePlayerComm = $('input[name="IsRemovePlayerComm"]:checked').val();
                         _me.showConfirmDeleteCommGroupPopup();
                     },
-                    classes: "btn btn-submit"
+                    classes: 'btn btn-submit'
                 }, {
-                    text: Site.getSingleResource("Cancel"),
+                    text: Site.getSingleResource('Cancel'),
                     isClosedOnClick: true,
                     click: function () {
-                        $('#IsRemovePlayerComm').prop("checked", true);
+                        $('#IsRemovePlayerComm').prop('checked', true);
                     },
-                    classes: "btn btn-cancel",
-                    id: "option-del-comm-group-cancel"
+                    classes: 'btn btn-cancel',
+                    id: 'option-del-comm-group-cancel'
                 }];
 
             Popup.openPopupWithButton(popup, options, buttons);
         }
 
         function showConfirmDeleteCommGroupPopup() {
-            var options = {
+            const options = {
                 modal: true,
-                title: Site.getSingleResource("Confirm"),
-                height: "auto",
-                id: "confirm-del-comm-group",
+                title: Site.getSingleResource('Confirm'),
+                height: 'auto',
+                id: 'confirm-del-comm-group',
                 width: 380
             };
 
-            var buttons = [
+            const buttons = [
                 {
-                    text: Site.getSingleResource("OK"),
+                    text: Site.getSingleResource('OK'),
                     isClosedOnClick: true,
                     click: _me.deleteCommGroup,
-                    classes: "btn btn-submit"
+                    classes: 'btn btn-submit'
                 }, {
-                    text: Site.getSingleResource("Cancel"),
+                    text: Site.getSingleResource('Cancel'),
                     isClosedOnClick: true,
                     click: _me.showOptionDeleteCommGroupPopup,
-                    classes: "btn btn-cancel",
-                    id: "confirm-del-comm-group-cancel"
+                    classes: 'btn btn-cancel',
+                    id: 'confirm-del-comm-group-cancel'
                 }];
 
-            Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("AreYouSure") + '</p></div>', options, buttons);
+            Popup.openPopupWithButton('<div><p>' + Site.getSingleResource('AreYouSure') + '</p></div>', options, buttons);
         }
 
         function showResultPopup(title, message) {
-            var options = {
+            const options = {
                 modal: true,
                 title: title,
-                height: "auto",
-                id: "result-del-comm-group",
+                height: 'auto',
+                id: 'result-del-comm-group',
                 width: 380
             };
 
-            if ($("#result-del-comm-group").length > 0)
+            if ($('#result-del-comm-group').length > 0)
             {
-                $("#result-msg").html(message);
+                $('#result-msg').html(message);
             }
 
-            var buttons = [
+            const buttons = [
                 {
-                    text: Site.getSingleResource("OK"),
+                    text: Site.getSingleResource('OK'),
                     isClosedOnClick: true,
-                    classes: "btn btn-submit",
-                    id: "result-OK"
+                    classes: 'btn btn-submit',
+                    id: 'result-OK'
                 }];
 
             Popup.openPopupWithButton('<div><p id="result-msg">' + message + '</p></div>', options, buttons);
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initEvent: initEvent,
             confirmDeleteCommGroup: confirmDeleteCommGroup,
@@ -1026,7 +1025,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./commgrouplist */ "./www/js/source/pages/customer/customercomm/commgrouplist.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerCommGroupList) {
-    "use strict";
+    'use strict';
 
     $(CustomerCommGroupList.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -1035,7 +1034,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 35:
+/***/ 33:
 /*!*******************************************************************************!*\
   !*** multi ./www/js/source/pages/customer/customercomm/main-commgrouplist.js ***!
   \*******************************************************************************/

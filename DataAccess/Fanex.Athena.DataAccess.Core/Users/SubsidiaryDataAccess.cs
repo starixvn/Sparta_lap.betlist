@@ -17,7 +17,7 @@
 
             using (var objectDb = GetObjectDb(SpName))
             {
-                objectDb.AddInParameter("LicenseeName", DbType.String, licenseeName);
+                objectDb.SetParameterValue("LicenseeName", licenseeName);
 
                 using (var reader = objectDb.ExecuteReader())
                 {

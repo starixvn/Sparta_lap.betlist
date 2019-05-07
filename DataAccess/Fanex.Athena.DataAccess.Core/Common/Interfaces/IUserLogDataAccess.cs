@@ -4,12 +4,13 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Threading.Tasks;
 using Fanex.Athena.Model.Core.MetaModel.Common;
 
 namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 {
     public interface IUserLogDataAccess
     {
-        void WriteLog(UserLogMetaModel metaModel);
+        Task WriteLog(UserLogMetaModel metaModel);
     }
 }

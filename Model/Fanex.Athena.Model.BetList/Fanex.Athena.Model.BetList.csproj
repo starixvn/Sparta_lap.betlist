@@ -100,7 +100,6 @@
     <Compile Include="MetaModel\BetListShowingOption.cs" />
     <Compile Include="MetaModel\CashOutBetListDetailMetaModel.cs" />
     <Compile Include="MetaModel\ColossusBetDetailMetaModel.cs" />
-    <Compile Include="MetaModel\DailyBetListMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListDetailMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListMetaModel.cs" />
     <Compile Include="MetaModel\LastBetsMonitoringMetaModel.cs" />
@@ -145,7 +144,11 @@
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

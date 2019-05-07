@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Common;
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
@@ -206,13 +207,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _functionDataAccess.Received().AssignUserFunction(licenseeId, custId, AddingFunc, userId, ip, langKey);
-                _functionDataAccess.Received().RemoveUserFunction(licenseeId, userId, custId, ip, RemoveFunc, langKey);
+                _functionDataAccess.Received().AssignUserFunctionAsync(licenseeId, custId, AddingFunc, userId, ip, langKey);
+                _functionDataAccess.Received().RemoveUserFunctionAsync(licenseeId, userId, custId, ip, RemoveFunc, langKey);
             });
         }
 
         [Test]
-        public void AssignUserFunctions_HasFailureResultWhenRemoving_ReturnCorrectResultInfo()
+        public async Task AssignUserFunctions_HasFailureResultWhenRemoving_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -235,11 +236,11 @@
             _functionStorage.FunctionList.Returns(functions);
             _functionStorage.MasterFunctions.Returns(CreateFakeFunctions(new int[0]));
 
-            _functionDataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
+            _functionDataAccess.RemoveUserFunctionAsync(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
                 .Returns(new ResultInfo { Code = 100, Message = "Error" });
 
             // Action
-            var result = _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
+            var result = await _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
 
             // Assert
             Assert.Multiple(() =>
@@ -250,7 +251,7 @@
         }
 
         [Test]
-        public void AssignUserFunctions_HasFailureResultWhenAdding_ReturnCorrectResultInfo()
+        public async Task AssignUserFunctions_HasFailureResultWhenAdding_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -273,11 +274,11 @@
             _functionStorage.FunctionList.Returns(functions);
             _functionStorage.MasterFunctions.Returns(CreateFakeFunctions(new int[0]));
 
-            _functionDataAccess.AssignUserFunction(licenseeId, custId, Arg.Any<int>(), userId, ip, langKey)
+            _functionDataAccess.AssignUserFunctionAsync(licenseeId, custId, Arg.Any<int>(), userId, ip, langKey)
                 .Returns(new ResultInfo { Code = 100, Message = "Error" });
 
             // Action
-            var result = _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
+            var result = await _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
 
             // Assert
             Assert.Multiple(() =>
@@ -288,7 +289,7 @@
         }
 
         [Test]
-        public void AssignUserFunctions_BothAddAndRemoveAreFailure_ReturnCorrectResultInfo()
+        public async Task AssignUserFunctions_BothAddAndRemoveAreFailure_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -311,20 +312,20 @@
             _functionStorage.FunctionList.Returns(functions);
             _functionStorage.MasterFunctions.Returns(CreateFakeFunctions(new int[0]));
 
-            _functionDataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, RemoveFunc, langKey)
+            _functionDataAccess.RemoveUserFunctionAsync(licenseeId, userId, custId, ip, RemoveFunc, langKey)
                 .Returns(new ResultInfo { Code = 100, Message = "Remove Error" });
-            _functionDataAccess.AssignUserFunction(licenseeId, custId, AddingFunc, userId, ip, langKey)
+            _functionDataAccess.AssignUserFunctionAsync(licenseeId, custId, AddingFunc, userId, ip, langKey)
                 .Returns(new ResultInfo { Code = 100, Message = "Adding Error" });
 
             // Action
-            var result = _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
+            var result = await _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
 
             // Assert
             Assert.That(result.Message, Is.EqualTo($"Remove Error [{RemoveFunc}]; Adding Error [{AddingFunc}];"));
         }
 
         [Test]
-        public void AssignUserFunctions_BothAddAndRemoveAreSuccess_ReturnCorrectResultInfo()
+        public async Task AssignUserFunctions_BothAddAndRemoveAreSuccess_ReturnCorrectResultInfo()
         {
             // Arrange
             var licenseeId = FakeHelper.Create<int>();
@@ -347,13 +348,13 @@
             _functionStorage.FunctionList.Returns(functions);
             _functionStorage.MasterFunctions.Returns(CreateFakeFunctions(new int[0]));
 
-            _functionDataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
+            _functionDataAccess.RemoveUserFunctionAsync(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
                 .Returns(new ResultInfo());
-            _functionDataAccess.AssignUserFunction(licenseeId, custId, Arg.Any<int>(), userId, ip, langKey)
+            _functionDataAccess.AssignUserFunctionAsync(licenseeId, custId, Arg.Any<int>(), userId, ip, langKey)
                 .Returns(new ResultInfo());
 
             // Action
-            var result = _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
+            var result = await _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
 
             // Assert
             Assert.That(result.Message, Is.EqualTo("Updating Functions is successul."));

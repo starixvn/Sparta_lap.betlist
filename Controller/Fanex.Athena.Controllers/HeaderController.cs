@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -18,7 +19,7 @@ namespace Fanex.Athena.Controllers
     using Web.ActionFilter;
 
     [AuthorizeRestriction(AppMode.Self)]
-    public class HeaderController : BaseController
+    public class HeaderController : CultureBaseController
     {
         private readonly ILicenseeDataAccess _licenseeDataAccess;
 
@@ -32,14 +33,11 @@ namespace Fanex.Athena.Controllers
             _licenseeDataAccess = licenseeDataAccess;
         }
 
-        /// <summary>
-        /// Header page.
-        /// </summary>
-        /// <returns>The header page.</returns>
         [HttpGet]
         public ActionResult Index()
         {
             var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var viewModel = new HeaderPageViewModel
             {
                 Language = userSession.Language,
@@ -49,9 +47,9 @@ namespace Fanex.Athena.Controllers
                 HasRecheckIn = !AppSettings.LocalTest,
                 SupportedLanguageList = Util.SupportedLanguages,
                 UserName = userSession.UserName,
-                CurrentLicenseeId = SessionService.LicenseeSession.LicenseeId,
+                CurrentLicenseeId = licenseeId,
                 IsAllowedManagementMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList),
-                IsFakeLicensee = IsFakeLicensee(),
+                IsFakeLicensee = IsFakeLicensee(licenseeId),
                 IsAllowedNotification = userSession.FunctionIdList.Contains((int)FunctionType.ResultAmendment_Recalculation)
             };
             return View("~/Views/Desktop/Header/Index.cshtml", viewModel);

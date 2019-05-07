@@ -14,11 +14,13 @@ namespace Fanex.Athena.Model.Customer.MetaModel
     [Serializable]
     public class CustomerListMetaModel : BaseMetaModel
     {
+        private const int DefaultPageSize = 1000;
+
         public CustomerListMetaModel()
         {
             LicenseeId = 0;
             Username = string.Empty;
-            PageSize = 1000;
+            PageSize = DefaultPageSize;
             PageIndex = 1;
             BAFilter = 0;
             CustStatus = string.Empty;

@@ -2,7 +2,6 @@
 {
     using System;
     using Base.UnitTests;
-    using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
@@ -12,13 +11,10 @@
     using NUnit.Framework;
     using Resources;
     using UnitTest.Common.Helpers;
-    using VendorAdapter.Interfaces;
 
     public class PromotionPrizeReportControllerTest : BaseApiControllerHelperTest
     {
         private const string FileName = "PP_PromotionPrize.xls";
-
-        private ICacheRefAdapter _cacheRefAdapter;
 
         private IPromotionPrizeDataAccess _dataAccess;
 
@@ -28,15 +24,12 @@
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-            _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
-
             _dataAccess = Substitute.For<IPromotionPrizeDataAccess>();
             _controller = Substitute.ForPartsOf<PromotionPrizeReportController>(
                 SessionService,
                 ProductService,
                 LangService,
-                _dataAccess,
-                _cacheRefAdapter);
+                _dataAccess);
             _controller.When(x => x.CreareExcel(Arg.Any<string>(), Arg.Any<string>(), FileName, Arg.Any<ReportResultModel<PromotionPrize>>())).DoNotCallBase();
 
             MockSessionData();
@@ -49,7 +42,6 @@
 
             _controller = null;
             _dataAccess = null;
-            _cacheRefAdapter = null;
         }
 
         [TearDown]
@@ -67,7 +59,6 @@
                 FromDate = DateTime.Today,
                 ToDate = DateTime.Today.AddDays(-1)
             };
-            _cacheRefAdapter.GetBettype(BetType.PromotionPrize).Returns(FakeHelper.Create<string>());
 
             // Action
             var result = _controller.ExportExcel(model);
@@ -90,9 +81,6 @@
             var model = FakeHelper.Create<PromotionPrizeMetaModel>();
             model.ToDate = model.FromDate.AddDays(1);
             model.CurrencyId = currencyId;
-
-            var bettypeName = FakeHelper.Create<string>();
-            _cacheRefAdapter.GetBettype(BetType.PromotionPrize).Returns(bettypeName);
 
             var expectedTitle = $"{ViewResources.ProductPP} - {@ViewResources.PromotionPrize}, "
                 + $"{model.FromDate.ToString(FormatKey.DateFormat)} --> {model.ToDate.ToString(FormatKey.DateFormat)} - "

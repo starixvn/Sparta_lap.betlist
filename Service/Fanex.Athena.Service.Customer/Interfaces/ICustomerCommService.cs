@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Customer.Interfaces
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
 
@@ -12,10 +13,10 @@
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The result.</returns>
-        IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel);
+        Task<IResultInfo> MoveCustomersToGroupAsync(MoveToGroupComMetaModel metaModel);
 
-        IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino);
+        Task<IResultInfo> RemoveCustomersFromGroupAsync(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino);
 
-        IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false);
+        Task<IResultInfo> UpdateCustomersCommissionAsync(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false);
     }
 }

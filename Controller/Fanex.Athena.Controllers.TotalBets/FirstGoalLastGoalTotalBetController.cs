@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Controllers.TotalBets
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var param = new FirstGoalLastGoalMetaModel
             {
@@ -41,25 +42,25 @@ namespace Fanex.Athena.Controllers.TotalBets
             };
 
             SetConvetedUSDCurrencyName(param);
-            return this.GetView(param);
+            return await this.GetView(param).ConfigureAwait(false);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(FirstGoalLastGoalMetaModel metaModel)
+        public async Task<ActionResult> Index(FirstGoalLastGoalMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.GetView(metaModel);
+            return await this.GetView(metaModel).ConfigureAwait(false);
         }
 
-        private ActionResult GetView(FirstGoalLastGoalMetaModel metaModel)
+        private async Task<ActionResult> GetView(FirstGoalLastGoalMetaModel metaModel)
         {
             var currencies = SessionService.UserSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var result = _firstGoalLastGoalDataAccess.GetFirstGoalLastGoalDataList(metaModel);
+                var result = await _firstGoalLastGoalDataAccess.GetFirstGoalLastGoalDataList(metaModel).ConfigureAwait(false);
 
                 var model = new FirstGoalLastGoalViewModel
                 {

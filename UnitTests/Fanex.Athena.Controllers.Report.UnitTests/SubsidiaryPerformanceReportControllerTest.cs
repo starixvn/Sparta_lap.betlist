@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
@@ -19,7 +20,7 @@
     using Session.Enum;
 
     [TestFixture]
-    public class SubsidiaryPerformanceReportControllerTest : BaseControllerHelperTest
+    public class SubsidiaryPerformanceReportControllerTest : CultureBaseControllerHelperTest
     {
         private const string FakeProductCode = "TestingCode";
         private const string FakeProductName = "Testing Product Name";

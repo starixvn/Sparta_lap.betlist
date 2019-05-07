@@ -3,7 +3,6 @@
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-
 namespace Fanex.Athena.Model.Forecast.MetaModel
 {
     /// <summary>
@@ -14,8 +13,8 @@ namespace Fanex.Athena.Model.Forecast.MetaModel
         public ForecastOneXTwoMetaModel()
         {
             CurrencyId = 0;
-            BetType = 5;
-            BetTypeString = "5";
+            BetType = (int)Constant.DataDomain.BetType.Ft1X2;
+            BetTypeString = BetType.ToString();
         }
 
         public int MatchId { get; set; }

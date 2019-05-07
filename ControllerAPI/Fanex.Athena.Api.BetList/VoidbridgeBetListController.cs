@@ -23,10 +23,10 @@
         }
 
         [HttpPost]
-        public async Task<dynamic> Detail(BetListMetaModel metaModel)
+        public Task<dynamic> Detail(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_RNG_Detail";
-            return await GetBetListResult(metaModel, UspKey).ConfigureAwait(false);
+            return GetBetListResult(metaModel, UspKey);
         }
     }
 }

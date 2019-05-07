@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
@@ -48,19 +49,19 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-                ObjectDb.AddInParameter("userid", DbType.Int32, _metaModel.UserId);
-                ObjectDb.AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
-                ObjectDb.AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
-                ObjectDb.AddInParameter("todate", DbType.Date, _metaModel.ToDate);
-                ObjectDb.AddInParameter("products", DbType.String, "SB, NG");
-                ObjectDb.AddInParameter("excludetest", DbType.Boolean, _metaModel.IsExcludeTest);
-                ObjectDb.AddOutParameter("TotalActive", DbType.Int32, 10);
+                ObjectDb.SetParameterValue("licenseeid", _metaModel.LicenseeId);
+                ObjectDb.SetParameterValue("userid", _metaModel.UserId);
+                ObjectDb.SetParameterValue("currencyid", _metaModel.CurrencyId);
+                ObjectDb.SetParameterValue("fromdate", _metaModel.FromDate);
+                ObjectDb.SetParameterValue("todate", _metaModel.ToDate);
+                ObjectDb.SetParameterValue("products", "SB, NG");
+                ObjectDb.SetParameterValue("excludetest", _metaModel.IsExcludeTest);
+                ObjectDb.SetParameterValue("TotalActive", null);
             });
         }
 
         [Test]
-        public void GetActiveCustomers_WhenCall_DataReturnedCorrectly()
+        public async Task GetActiveCustomers_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             const int TotalActive = 5;
@@ -80,7 +81,7 @@
             Reader[productCodeHasData].Returns(CustomerCount);
 
             // Action
-            var result = DataAccess.GetActiveCustomers(_metaModel);
+            var result = await DataAccess.GetActiveCustomers(_metaModel);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -91,14 +92,6 @@
                 Assert.That(firstItem.CustomerCount[productCodeHasData], Is.EqualTo(CustomerCount));
                 Assert.That(result.TotalCustomer, Is.EqualTo(TotalActive));
             });
-        }
-
-        [Test]
-        public void GetActiveCustomers_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetActiveCustomers(_metaModel));
         }
 
         private void ConfigureReaderForGetActiveCustomersMethod(ActiveCustomer expected)

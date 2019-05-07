@@ -84,10 +84,6 @@
       <HintPath>..\..\..\packages\Fanex.BetList.Core.2.83.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Microgaming.2.0.0.7\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.BetList.NumberGame, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.NumberGame.1.2.0\lib\net40\Fanex.BetList.NumberGame.dll</HintPath>
       <Private>True</Private>
@@ -154,10 +150,10 @@
     <Compile Include="BettingTicketCenterExcel.cs" />
     <Compile Include="Builders\BettingTicketCenterExcelBuilder.cs" />
     <Compile Include="Builders\IBettingTicketCenterExcelBuilder.cs" />
+    <Compile Include="Model\BettingTicketCenterExcelModel.cs" />
+    <Compile Include="Model\BettingTicketCenterExcelOption.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="IBettingTicketCenterExcel.cs" />
-    <Compile Include="Model\BettingTicketCenterExcelOption.cs" />
-    <Compile Include="Model\BettingTicketCenterExcelModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +203,11 @@
     <None Include="app.config" />
     <None Include="Fanex.Athena.BetList.Excel.ruleset" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

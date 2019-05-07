@@ -6,16 +6,18 @@
 
 namespace Fanex.Athena.BetList.DataAccess
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
-    using BetList.Model.ViewModel;
-    using Fanex.Athena.BetList.Model.DTO;
-    using Fanex.Athena.BetList.Model.MetaModel;
+    using Common.Utility.Helpers;
     using Fanex.BetList.ColossusBets.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common.Extensions;
     using Interfaces;
+    using Model.DTO;
+    using Model.MetaModel;
+    using Model.ViewModel;
 
     public class ColossusBetBetListDataAccess : BaseBetListDataAccess, IColossusBetBetListDataAccess
     {
@@ -23,10 +25,8 @@ namespace Fanex.Athena.BetList.DataAccess
 
         private readonly ITicketHelper _ticketHelper;
 
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
-
+        [CLSCompliant(false)]
         public ColossusBetBetListDataAccess(ITicketHelper ticketHelper)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             _ticketHelper = ticketHelper;
         }
@@ -92,7 +92,7 @@ namespace Fanex.Athena.BetList.DataAccess
             return new ColossusBetDetailViewModel
             {
                 DataList = dataList,
-                TotalSoldPercent = totalSoldPercent * 100,
+                TotalSoldPercent = totalSoldPercent.ToPercentage(),
                 TotalWinLoss = totalWinLoss,
                 TotalComm = totalComm,
                 TotalSoldWinLoss = totalSoldWinLoss

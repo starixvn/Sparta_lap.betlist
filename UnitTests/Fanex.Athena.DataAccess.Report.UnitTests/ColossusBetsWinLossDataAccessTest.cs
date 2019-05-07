@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Extension.Helper;
@@ -35,21 +36,21 @@
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
+        public async Task GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
             var metaModel = CreateMetaModel();
 
             // Action
-            DataAccess.GetSummaryWinloss(metaModel, UserCurrencyList);
+            await DataAccess.GetSummaryWinloss(metaModel, UserCurrencyList);
 
             // Assert
             AssertUspParameters(metaModel);
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_DataReturnedCorrectly()
+        public async Task GetSummaryWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
@@ -64,22 +65,14 @@
             ConfigureReader(expected);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetSummaryWinloss(metaModel, UserCurrencyList).ConfigureAwait(false)).DataList[0];
 
             // Assert
             AssertDataReturned(result, expected);
         }
 
         [Test]
-        public void GetSummary_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSummaryWinlossSp,
-                () => DataAccess.GetSummaryWinloss(new ColossusBetsWinLossMetaModel(), UserCurrencyList));
-        }
-
-        [Test]
-        public void GetWinlossDetail_WhenCall_ParameterPassedCorrectly()
+        public async Task GetWinlossDetail_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossDetailSp)).Returns(ObjectDb);
@@ -87,14 +80,14 @@
             metaModel.DrillDownLevel = 1;
 
             // Action
-            DataAccess.GetWinlossDetail(metaModel, UserCurrencyList);
+            await DataAccess.GetWinlossDetail(metaModel, UserCurrencyList);
 
             // Assert
             AssertUspParameters(metaModel);
         }
 
         [Test]
-        public void GetWinlossDetail_WhenCall_DataReturnedCorrectly()
+        public async Task GetWinlossDetail_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossDetailSp)).Returns(ObjectDb);
@@ -110,22 +103,14 @@
             ConfigureReader(expected);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).ConfigureAwait(false)).DataList[0];
 
             // Assert
             AssertDataReturned(result, expected);
         }
 
         [Test]
-        public void GetWinlossDetail_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetWinlossDetailSp,
-                () => DataAccess.GetWinlossDetail(new ColossusBetsWinLossMetaModel(), UserCurrencyList));
-        }
-
-        [Test]
-        public void ReadData_HasSystemIdColumn_ReturnCorrectDataForSystemId()
+        public async Task ReadData_HasSystemIdColumn_ReturnCorrectDataForSystemId()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossDetailSp)).Returns(ObjectDb);
@@ -145,14 +130,14 @@
             Reader["systemid"].Returns(expected.SystemId);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).ConfigureAwait(false)).DataList[0];
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
         }
 
         [Test]
-        public void ReadData_HasExternalIdColumn_ReturnCorrectDataForExternalId()
+        public async Task ReadData_HasExternalIdColumn_ReturnCorrectDataForExternalId()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossDetailSp)).Returns(ObjectDb);
@@ -172,14 +157,14 @@
             Reader["externalid"].Returns(expected.ExternalId);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).ConfigureAwait(false)).DataList[0];
 
             // Assert
             Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
         }
 
         [Test]
-        public void ReadData_HasCustIdColumn_ReturnCorrectDataForCustomerId()
+        public async Task ReadData_HasCustIdColumn_ReturnCorrectDataForCustomerId()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossDetailSp)).Returns(ObjectDb);
@@ -200,14 +185,14 @@
             Reader["custid"].Returns(expected.CustomerId);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).ConfigureAwait(false)).DataList[0];
 
             // Assert
             Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
         }
 
         [Test]
-        public void ReadData_Level0_ReturnCorrectDateFromDB()
+        public async Task ReadData_Level0_ReturnCorrectDateFromDB()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossDetailSp)).Returns(ObjectDb);
@@ -223,7 +208,7 @@
             ConfigureReader(expected);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).ConfigureAwait(false)).DataList[0];
 
             // Assert
             Assert.That(
@@ -232,7 +217,7 @@
         }
 
         [Test]
-        public void ReadData_LevelIsNotZero_ReturnCorrectDateFromMetaModel()
+        public async Task ReadData_LevelIsNotZero_ReturnCorrectDateFromMetaModel()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossDetailSp)).Returns(ObjectDb);
@@ -249,7 +234,7 @@
             ConfigureReader(expected);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
+            var result = (await DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).ConfigureAwait(false)).DataList[0];
 
             // Assert
             Assert.That(
@@ -311,12 +296,12 @@
 
         private void AssertUspParameters(ColossusBetsWinLossMetaModel metaModel)
         {
-            ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
-            ObjectDb.Received(1).AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
-            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _moveBetsDay);
-            ObjectDb.Received(1).AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("TicketType", DbType.Int32, metaModel.TicketType);
+            ObjectDb.Received(1).SetParameterValue("fromdate", metaModel.DrillDownFromDate);
+            ObjectDb.Received(1).SetParameterValue("todate", metaModel.DrillDownToDate);
+            ObjectDb.Received(1).SetParameterValue("movebetsday", _moveBetsDay);
+            ObjectDb.Received(1).SetParameterValue("ReportType", metaModel.ReportBy);
+            ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("TicketType", metaModel.TicketType);
         }
     }
 }

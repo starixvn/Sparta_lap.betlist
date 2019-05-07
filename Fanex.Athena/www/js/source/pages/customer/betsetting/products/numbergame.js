@@ -1,24 +1,24 @@
-﻿"use strict";
-define(["jquery", "common/site", "../common/betsettingbase", "../common/betsetting.helper"], function ($, Site, BetSettingBase, BetSettingHelper) {
-    var SPORT_ID = 161;
+﻿'use strict';
+define(['jquery', 'common/site', '../common/betsettingbase', '../common/betsetting.helper'], function ($, Site, BetSettingBase, BetSettingHelper) {
+    const SPORT_ID = 161;
 
-    var _me = {
+    const _me = {
         initialize: function () {
             Site.initialize();
             BetSettingBase.initialize();
             _me.initEvent();
 
             BetSettingBase.setEnable();
-            var enable = $("#editable").val() === "True";
-            $("#max-per-ball-161").prop('disabled', !enable);
+            const enable = $('#editable').val() === 'True';
+            $('#max-per-ball-161').prop('disabled', !enable);
         },
 
         initEvent: function () {
-            $("#btnReset").on("click", function () {
+            $('#btnReset').on('click', function () {
                 BetSettingBase.resetInput();
             });
 
-            $("#btnSubmitBetSetting").on("click", function () {
+            $('#btnSubmitBetSetting').on('click', function () {
                 BetSettingBase.showComfirm($(this), 'UpdateNumberGameBetSettings', _me.updateBetSetting);
             });
 
@@ -27,10 +27,10 @@ define(["jquery", "common/site", "../common/betsettingbase", "../common/betsetti
         },
 
         updateBetSetting: function (custId, userName, nickName) {
-            var url = Site.resolveClientUrl('NumberGameBetSetting/UpdateBetSetting');
+            const url = Site.resolveClientUrl('NumberGameBetSetting/UpdateBetSetting');
 
-            var maxperball = BetSettingHelper.convertToFloat($("#max-per-ball-161").val());
-            var params = BetSettingBase.getBetSettingParams(SPORT_ID);
+            const maxperball = BetSettingHelper.convertToFloat($('#max-per-ball-161').val());
+            const params = BetSettingBase.getBetSettingParams(SPORT_ID);
             params.maxperball = maxperball;
             params.custid = custId;
             params.userName = userName;

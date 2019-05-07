@@ -27,8 +27,7 @@ namespace Fanex.Athena.Resources {
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
-        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+
         internal ViewResources() {
         }
         
@@ -1042,24 +1041,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancelled Bets.
-        /// </summary>
-        public static string CancelledBets {
-            get {
-                return ResourceManager.GetString("CancelledBets", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Void/Rejected Bet List (Last 3 days).
-        /// </summary>
-        public static string CancelledBetsTitle {
-            get {
-                return ResourceManager.GetString("CancelledBetsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You cannot update member bet limit for product {0}..
         /// </summary>
         public static string CannotUpdateBetLimitForProduct {
@@ -1182,24 +1163,6 @@ namespace Fanex.Athena.Resources {
         public static string CASINOHANDHISTORY {
             get {
                 return ResourceManager.GetString("CASINOHANDHISTORY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Casino Progressive Wins.
-        /// </summary>
-        public static string CasinoProgressiveWins {
-            get {
-                return ResourceManager.GetString("CasinoProgressiveWins", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This report supports up-to-date data. You can filter data up to 12 months per query..
-        /// </summary>
-        public static string CasinoProgressiveWinsGuidelineContent {
-            get {
-                return ResourceManager.GetString("CasinoProgressiveWinsGuidelineContent", resourceCulture);
             }
         }
         
@@ -1915,15 +1878,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Daily Bet List.
-        /// </summary>
-        public static string DailyBetList {
-            get {
-                return ResourceManager.GetString("DailyBetList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Daily Statement.
         /// </summary>
         public static string DailyStatement {
@@ -2478,24 +2432,6 @@ namespace Fanex.Athena.Resources {
         public static string EnableMacauGames {
             get {
                 return ResourceManager.GetString("EnableMacauGames", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable Microgaming Live Casino.
-        /// </summary>
-        public static string EnableMicrogamingLiveCasino {
-            get {
-                return ResourceManager.GetString("EnableMicrogamingLiveCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable Microgaming RNG Casino.
-        /// </summary>
-        public static string EnableMicrogamingRNGCasino {
-            get {
-                return ResourceManager.GetString("EnableMicrogamingRNGCasino", resourceCulture);
             }
         }
         
@@ -4777,60 +4713,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Microgaming-Live Casino.
-        /// </summary>
-        public static string MicrogamingLiveCasino {
-            get {
-                return ResourceManager.GetString("MicrogamingLiveCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming Live Casino is not offered for this currency..
-        /// </summary>
-        public static string MicroGamingLiveCasinoNotOfferCurrency {
-            get {
-                return ResourceManager.GetString("MicroGamingLiveCasinoNotOfferCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming-RNG Casino.
-        /// </summary>
-        public static string MicrogamingRNGCasino {
-            get {
-                return ResourceManager.GetString("MicrogamingRNGCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming RNG Casino is not offered for this currency..
-        /// </summary>
-        public static string MicroGamingRNGCasinoNotOfferCurrency {
-            get {
-                return ResourceManager.GetString("MicroGamingRNGCasinoNotOfferCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming Win Loss.
-        /// </summary>
-        public static string MicrogamingWinLoss {
-            get {
-                return ResourceManager.GetString("MicrogamingWinLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This report supports up-to-date data. You can filter data up to 3 months per query..
-        /// </summary>
-        public static string MicrogamingWinLossGuidelineContent {
-            get {
-                return ResourceManager.GetString("MicrogamingWinLossGuidelineContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Min Bet.
         /// </summary>
         public static string MinBet {
@@ -6132,24 +6014,6 @@ namespace Fanex.Athena.Resources {
         public static string ProductLT {
             get {
                 return ResourceManager.GetString("ProductLT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming-Live Casino.
-        /// </summary>
-        public static string ProductMGCLC {
-            get {
-                return ResourceManager.GetString("ProductMGCLC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming-RNG Casino.
-        /// </summary>
-        public static string ProductMGCRNG {
-            get {
-                return ResourceManager.GetString("ProductMGCRNG", resourceCulture);
             }
         }
         

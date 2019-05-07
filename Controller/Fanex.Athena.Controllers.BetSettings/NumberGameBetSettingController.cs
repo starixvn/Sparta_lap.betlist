@@ -7,7 +7,9 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Collections;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
@@ -35,26 +37,29 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
-            AssignRequiredProperties(viewModel, metaModel);
+            var viewModel = await _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Customer/BetSetting/NumberGame.cshtml", viewModel);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateBetSetting(string nickName)
+        public async Task<JsonResult> UpdateBetSetting(string nickName)
         {
-            if (!ProductAccess.IsAllowNG || !IsBetSettingEditable())
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!CheckPermission(userSession, ProductTypes.NumberGame))
             {
                 return AccessDenied();
             }
 
-            var numberGame = GetBetSettingCommonParam();
+            var numberGame = GetBetSettingCommonParam(userSession.UserId, licenseeId, userSession.Language);
             var hashData = GetNumberGameParam();
-            var result = _betSettingService.UpdateBetSetting(numberGame, hashData);
+            var result = await _betSettingService.UpdateBetSettingAsync(numberGame, hashData).ConfigureAwait(false);
 
             if (result.Code == 0)
             {

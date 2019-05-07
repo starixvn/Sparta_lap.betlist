@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using DataAccess.Customer.Interfaces;
     using Extension.Utility;
@@ -53,17 +54,17 @@
 
         [TestCase(null)]
         [TestCase("")]
-        public void LoginLog_UserNameIsInvalid_ReturnEmptyListOfString(string userName)
+        public async Task LoginLog_UserNameIsInvalid_ReturnEmptyListOfString(string userName)
         {
             // Action
-            var result = _controller.LoginLog(userName);
+            var result = await _controller.LoginLog(userName);
 
             // Assert
             Assert.That(result.GetType().GetProperty("rows").GetValue(result, null), Is.Empty);
         }
 
         [Test]
-        public void LoginLog_ValidUserName_ReturnCorrectResult()
+        public async Task LoginLog_ValidUserName_ReturnCorrectResult()
         {
             // Arrange
             const string UserName = "test";
@@ -72,14 +73,14 @@
             _logInLogDataAccess.GetDataList(SessionLicenseeId, UserName, Arg.Any<string>()).Returns(dataList);
 
             // Action
-            var result = _controller.LoginLog(UserName);
+            var result = await _controller.LoginLog(UserName);
 
             // Assert
             Assert.That(result.GetType().GetProperty("rows").GetValue(result, null), Is.EqualTo(dataList));
         }
 
         [Test]
-        public void GroupCommission_WhenCall_ReturnEmptyResult()
+        public async Task GroupCommission_WhenCall_ReturnEmptyResult()
         {
             // Arrrange
             var dataList = new List<CustomerLog>
@@ -93,7 +94,7 @@
             _customerLogDataAccess.GetGroupCommList(Arg.Any<CustomerLogMetaModel>()).Returns(dataList);
 
             // Action
-            var result = _controller.GroupCommission(2018, 1, 1, 1);
+            var result = await _controller.GroupCommission(2018, 1, 1, 1);
             var rows = (List<CustomerLog>)result.GetType().GetProperty("rows").GetValue(result, null);
 
             // Assert
@@ -106,17 +107,17 @@
 
         [TestCase(null)]
         [TestCase("")]
-        public void CustomerSetting_InvalidModel_ReturnEmptyResult(string userName)
+        public async Task CustomerSetting_InvalidModel_ReturnEmptyResult(string userName)
         {
             // Action
-            var result = _controller.CustomerSetting(userName, 0, 2018, 1, 1, 1);
+            var result = await _controller.CustomerSetting(userName, 0, 2018, 1, 1, 1);
 
             // Assert
             Assert.That(result.GetType().GetProperty("rows").GetValue(result, null), Is.Empty);
         }
 
         [Test]
-        public void CustomerSetting_ValidModel_ReturnEmptyResult()
+        public async Task CustomerSetting_ValidModel_ReturnEmptyResult()
         {
             // Arrrange
             const string UserName = "Test";
@@ -131,7 +132,7 @@
             _customerLogDataAccess.GetCustomerSettingList(Arg.Any<CustomerLogMetaModel>()).Returns(dataList);
 
             // Action
-            var result = _controller.CustomerSetting(UserName, 0, 2018, 1, 1, 1);
+            var result = await _controller.CustomerSetting(UserName, 0, 2018, 1, 1, 1);
             var rows = (List<CustomerLog>)result.GetType().GetProperty("rows").GetValue(result, null);
 
             // Assert

@@ -1,5 +1,5 @@
-﻿define(["./customerwinloss"], function (CustomerWinLoss) {
-    "use strict";
+﻿define(['./customerwinloss'], function (CustomerWinLoss) {
+    'use strict';
 
     $(CustomerWinLoss.initialize);
 });

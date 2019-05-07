@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Fanex.Athena.UnitTest.Common.Helpers
 {
@@ -9,7 +9,7 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
     {
         public static string ToJson(object value)
         {
-            return new JavaScriptSerializer().Serialize(value);
+            return JsonConvert.SerializeObject(value);
         }
 
         public static IDictionary<string, object> ToDictionary(object value)

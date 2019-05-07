@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.Users.Interfaces;
     using DataAccess.Report.Interfaces;
@@ -52,7 +53,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_CallDataAccess()
+        public async Task GetData_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -67,14 +68,14 @@
             _dataAccess.GetData(metaModel, _currencyList).Returns(resultData);
 
             // Action
-            _service.GetData(metaModel, _currencyList);
+            await _service.GetData(metaModel, _currencyList);
 
             // Assert
-            _dataAccess.ReceivedWithAnyArgs().GetData(metaModel, _currencyList);
+            await _dataAccess.ReceivedWithAnyArgs().GetData(metaModel, _currencyList);
         }
 
         [Test]
-        public void GetData_WhenCall_GetCorrectReturnedData()
+        public async Task GetData_WhenCall_GetCorrectReturnedData()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -96,14 +97,14 @@
             _dataAccess.GetData(metaModel, _currencyList).Returns(fakeEntityDataList);
 
             // Action
-            var result = ObjectHelper.ToJson(_service.GetData(metaModel, _currencyList).Data);
+            var result = ObjectHelper.ToJson((await _service.GetData(metaModel, _currencyList)).Data);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetData_AgentIdIsNotExistInOpertorList_ReturnEmptyResult()
+        public async Task GetData_AgentIdIsNotExistInOpertorList_ReturnEmptyResult()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -126,14 +127,14 @@
             _dataAccess.GetData(metaModel, _currencyList).Returns(resultData);
 
             // Action
-            var result = ObjectHelper.ToJson(_service.GetData(metaModel, _currencyList).Data);
+            var result = ObjectHelper.ToJson((await _service.GetData(metaModel, _currencyList)).Data);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetData_WhenCall_GetCorrectTotalDataList()
+        public async Task GetData_WhenCall_GetCorrectTotalDataList()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -155,7 +156,7 @@
             _dataAccess.GetData(metaModel, _currencyList).Returns(resultData);
 
             // Action
-            var totalDataList = _service.GetData(metaModel, _currencyList).Total;
+            var totalDataList = (await _service.GetData(metaModel, _currencyList)).Total;
             var result = ObjectHelper.ToJson(totalDataList);
 
             // Assert
@@ -163,7 +164,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectGrandTotalData()
+        public async Task GetData_WhenCall_ReturnCorrectGrandTotalData()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -185,7 +186,7 @@
             _dataAccess.GetData(metaModel, _currencyList).Returns(resultData);
 
             // Action
-            var grandTotalDataList = _service.GetData(metaModel, _currencyList).GrandTotal;
+            var grandTotalDataList = (await _service.GetData(metaModel, _currencyList)).GrandTotal;
             var result = ObjectHelper.ToJson(grandTotalDataList);
 
             // Assert
@@ -193,7 +194,7 @@
         }
 
         [Test]
-        public void GetDetailData_WhenCall_CallDataAccess()
+        public async Task GetDetailData_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel();
@@ -201,10 +202,10 @@
             _dataAccess.GetDetailData(metaModel, _currencyList).Returns(new Model.Core.ResultModel.ReportResultModel<SubsidiaryPerformanceDetail>());
 
             // Action
-            _service.GetDetailData(metaModel, _currencyList);
+            await _service.GetDetailData(metaModel, _currencyList);
 
             // Assert
-            _dataAccess.Received().GetDetailData(metaModel, _currencyList);
+            await _dataAccess.Received(1).GetDetailData(metaModel, _currencyList);
         }
 
         private static IEnumerable<SubsidiaryPerformance> GetFakeEntityDataList()

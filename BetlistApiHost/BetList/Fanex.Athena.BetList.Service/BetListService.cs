@@ -66,7 +66,7 @@ namespace Fanex.Athena.BetList.Service
 
         public async Task<TicketResult> GetBetListData(BetListMetaModel metaModel)
         {
-            await AssignBalanceUpDates(metaModel).ConfigureAwait(false);
+            AssignBalanceUpDates(metaModel);
 
             return await _betlistDataAccess.GetBetListData(metaModel).ConfigureAwait(false);
         }
@@ -112,9 +112,9 @@ namespace Fanex.Athena.BetList.Service
             return ticketTextList;
         }
 
-        private async Task AssignBalanceUpDates(BetListMetaModel metaModel)
+        private void AssignBalanceUpDates(BetListMetaModel metaModel)
         {
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
         }

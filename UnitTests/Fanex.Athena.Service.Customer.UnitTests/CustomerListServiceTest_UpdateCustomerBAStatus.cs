@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
+    using System.Threading.Tasks;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -21,7 +22,12 @@
             var expectedResult = new ResultInfo { Code = 1, Message = ViewResources.UpdateSpecialLevelMsg };
 
             // Action
-            var result = _customerListService.UpdateCustomerBAStatus(licenseeId, custId, FakeHelper.Create<int>(), FakeHelper.Create<bool>(), FakeHelper.Create<Request>());
+            var result = _customerListService.UpdateCustomerBAStatus(
+                licenseeId, 
+                custId, 
+                FakeHelper.Create<int>(), 
+                FakeHelper.Create<bool>(), 
+                FakeHelper.Create<Request>());
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(expectedResult.Code));

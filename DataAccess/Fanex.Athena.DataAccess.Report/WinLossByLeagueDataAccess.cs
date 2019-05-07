@@ -9,8 +9,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -32,63 +32,51 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IEnumerable<WinLossByLeague> GetSummary(WinLossByLeagueMetaModel metaModel)
+        public async Task<IEnumerable<WinLossByLeague>> GetSummary(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlostByLeague";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    AddCommonParams(metaModel, db);
-                    db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetMatches(reader, metaModel.BaseCurrency);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                AddCommonParams(metaModel, db);
+                db.SetParameterValue("balanceupday", metaModel.BalanceUpDay);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetMatches(reader, metaModel.BaseCurrency);
+                }
             }
         }
 
-        public ReportResultModel<WinLossByLeague> GetCustomers(WinLossByLeagueMetaModel metaModel)
+        public async Task<ReportResultModel<WinLossByLeague>> GetCustomers(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlossByLeagueDetail";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                AddCommonParams(metaModel, db);
+                db.SetParameterValue("pageindex", metaModel.PageIndex);
+                db.SetParameterValue("pagesize", metaModel.PageSize);
+
+                db.SetParameterValue("totalrows", null);
+
+                IEnumerable<WinLossByLeague> dataList = null;
+                WinLossByLeague totalData;
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    AddCommonParams(metaModel, db);
-                    db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-                    db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
-
-                    db.AddOutParameter("totalrows", DbType.Int32, int.MaxValue);
-
-                    IEnumerable<WinLossByLeague> dataList = null;
-                    WinLossByLeague totalData;
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        dataList = GetCustomers(reader, metaModel.BaseCurrency);
-                        reader.NextResult();
-                        totalData = GetTotalData(reader, metaModel.BaseCurrency);
-                    }
-
-                    var totalRows = Converter.ToInt(db.GetParameterValue("totalrows"));
-                    return new ReportResultModel<WinLossByLeague>
-                    {
-                        DataList = dataList,
-                        TotalData = totalData,
-                        TotalRows = totalRows
-                    };
+                    dataList = GetCustomers(reader, metaModel.BaseCurrency);
+                    reader.NextResult();
+                    totalData = GetTotalData(reader, metaModel.BaseCurrency);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+
+                var totalRows = Converter.ToInt(db.GetParameterValue("totalrows"));
+                return new ReportResultModel<WinLossByLeague>
+                {
+                    DataList = dataList,
+                    TotalData = totalData,
+                    TotalRows = totalRows
+                };
             }
         }
 
@@ -97,18 +85,18 @@ namespace Fanex.Athena.DataAccess.Report
             var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
             var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
 
-            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
-            db.AddInParameter("leagueid", DbType.Int32, metaModel.League);
-            db.AddInParameter("matchid", DbType.Int32, metaModel.Match);
-            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("showsb", DbType.Boolean, showSb);
-            db.AddInParameter("showba", DbType.Boolean, showBa);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
-            db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
-            db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("odds", metaModel.Odds);
+            db.SetParameterValue("leagueid", metaModel.League);
+            db.SetParameterValue("matchid", metaModel.Match);
+            db.SetParameterValue("movebetsday", metaModel.MoveBetsDay);
+            db.SetParameterValue("showsb", showSb);
+            db.SetParameterValue("showba", showBa);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("showwin", metaModel.ShowWin);
+            db.SetParameterValue("showloss", metaModel.ShowLoss);
+            db.SetParameterValue("showdraw", metaModel.ShowDraw);
         }
 
         private static IEnumerable<WinLossByLeague> GetCustomers(IDataReader reader, string baseCurrency)

@@ -1,5 +1,5 @@
 ﻿define(['./forecast.onextwo'], function (ForecastOneXTwo) {
-    "use strict";
+    'use strict';
 
     $(ForecastOneXTwo.initialize);
 });

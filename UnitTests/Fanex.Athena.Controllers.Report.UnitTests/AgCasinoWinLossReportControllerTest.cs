@@ -9,7 +9,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public class AgCasinoWinLossReportControllerTest : BaseControllerHelperTest
+    public class AgCasinoWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [OneTimeSetUp]
         public override void FixtureSetUp()

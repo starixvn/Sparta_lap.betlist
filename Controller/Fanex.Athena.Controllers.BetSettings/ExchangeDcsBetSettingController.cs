@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -42,16 +43,17 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var viewModel = new ExchangeBetSettingViewModel
             {
                 CommissionList = ValidComms
             };
-            AssignRequiredProperties(viewModel, metaModel);
-            const string ViewPath = "~/Views/Desktop/Customer/BetSetting/Exchange.cshtml";
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            viewModel.IsEnabled = _betSettingService.GetStatus(licenseeId, metaModel.CustId, metaModel.ProductId);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
+
+            viewModel.IsEnabled = await _betSettingService.GetStatusAsync(licenseeId, metaModel.CustId, metaModel.ProductId).ConfigureAwait(false);
+
             var apiResult = _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId);
             if (apiResult.IsSuccessful)
             {
@@ -62,25 +64,27 @@ namespace Fanex.Athena.Controllers.BetSettings
                 viewModel.IsNoInfo = true;
             }
 
+            const string ViewPath = "~/Views/Desktop/Customer/BetSetting/Exchange.cshtml";
             return View(ViewPath, viewModel);
         }
 
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public ActionResult UpdateComm(int custId, double oldCommission, double newCommission)
+        public async Task<ActionResult> UpdateComm(int custId, double oldCommission, double newCommission)
         {
             if (!ValidComms.Contains(newCommission))
             {
-                return Json(new ResultInfo { Code = 100, Message = ViewResources.InvalidChargeCommission });
+                const int InvalidChargeCommissionError = 100;
+                return Json(new ResultInfo { Code = InvalidChargeCommissionError, Message = ViewResources.InvalidChargeCommission });
             }
 
-            var result = _exchangeCommApiService.UpdateCommission(
+            var result = await _exchangeCommApiService.UpdateCommissionAsync(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.UserId,
                 custId,
                 oldCommission,
-                newCommission);
+                newCommission).ConfigureAwait(false);
 
             return Json(result);
         }

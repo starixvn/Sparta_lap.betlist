@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Fanex.Athena.UnitTest.Common.Extensions;
@@ -13,10 +14,10 @@
     using Session.Model;
 
     [TestFixture]
-    public partial class CustomerApiControllerTest : BaseControllerHelperTest
+    public partial class CustomerApiControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void MoveToGroupCom_NotAllowedCustomerComm_ReturnErrorResult()
+        public async Task MoveToGroupCom_NotAllowedCustomerComm_ReturnErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -27,7 +28,7 @@
                 });
 
                 // Action
-                var result = controller.MoveToGroupCom(string.Empty, 0) as JsonResult;
+                var result = await controller.MoveToGroupCom(string.Empty, 0) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
@@ -40,7 +41,7 @@
         }
 
         [Test]
-        public void MoveToGroupCom_WhenCall_CallMoveCustomerToGroup()
+        public async Task MoveToGroupCom_WhenCall_CallMoveCustomerToGroup()
         {
             using (var controller = CreateController())
             {
@@ -54,10 +55,10 @@
                 });
 
                 // Action
-                controller.MoveToGroupCom(CustmerIds, GroupId);
+                await controller.MoveToGroupCom(CustmerIds, GroupId);
 
                 // Assert
-                _customerCommService.Received(1).MoveCustomersToGroup(
+                await _customerCommService.Received(1).MoveCustomersToGroupAsync(
                         Arg.Is<MoveToGroupComMetaModel>(x =>
                             x.CustomerIds == CustmerIds &&
                             x.GroupComId == GroupId &&
@@ -67,7 +68,7 @@
         }
 
         [Test]
-        public void MoveToGroupCom_MoveCustomerToGroupSuccess_ReturnCorrectExtendedData()
+        public async Task MoveToGroupCom_MoveCustomerToGroupSuccess_ReturnCorrectExtendedData()
         {
             using (var controller = CreateController())
             {
@@ -83,8 +84,8 @@
                 {
                     IsAllowedCustomerComm = true
                 });
-                _customerCommService.MoveCustomersToGroup(null).ReturnsForAnyArgs(new ResultInfo());
-                _groupComService.GetById(GroupId).Returns(new GroupCommMetaModel
+                _customerCommService.MoveCustomersToGroupAsync(null).ReturnsForAnyArgs(Task.FromResult<IResultInfo>(new ResultInfo()));
+                _groupComService.GetById(GroupId, Arg.Any<int>()).Returns(new GroupCommMetaModel
                 {
                     SBComm = SampleComm,
                     NGComm = SampleComm,
@@ -94,7 +95,7 @@
                 });
 
                 // Action
-                var result = controller.MoveToGroupCom(CustomerIds, GroupId) as JsonResult;
+                var result = await controller.MoveToGroupCom(CustomerIds, GroupId) as JsonResult;
                 var resultData = result.Data as ResultViewModel;
                 var extendedData = resultData.ExtendedData;
 

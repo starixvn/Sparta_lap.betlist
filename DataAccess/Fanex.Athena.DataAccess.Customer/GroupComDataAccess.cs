@@ -8,36 +8,40 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Common;
 
+    [SuppressMessage("Sonar Code Smell", "S1192:StringLiteralsShouldNotBeDuplicated",
+            Justification = "Reviewed. Suppression is OK here.")]
     public class GroupComDataAccess : BaseDataAccess, IGroupComDataAccess
     {
-        public IList<GroupCommMetaModel> GetAll(int licenseeId)
+        public async Task<IList<GroupCommMetaModel>> GetAll(int licenseeId)
         {
             const string UspName = "Lrf_LicenseeGroupCommSel";
 
             using (var db = GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
+                db.SetParameterValue("LicenseeID", licenseeId);
 
-                return db.Query<GroupCommMetaModel>().ToList();
+                return (await db.QueryAsync<GroupCommMetaModel>().ConfigureAwait(false)).ToList();
             }
         }
 
-        public DataTable GetDataForExcel(int licenseeId)
+        public async Task<DataTable> GetDataForExcel(int licenseeId)
         {
             const string UspName = "Lrf_LicenseeGroupCommSel";
 
             using (var db = GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
+                db.SetParameterValue("LicenseeID", licenseeId);
 
-                var dataset = db.ExecuteDataSet();
+                var dataset = await db.ExecuteDataSetAsync().ConfigureAwait(false);
                 return dataset.Tables.Count > 0 ? dataset.Tables[0] : new DataTable();
             }
         }
@@ -48,35 +52,35 @@ namespace Fanex.Athena.DataAccess.Customer
 
             using (var db = GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-                db.AddInParameter("GroupCommID", DbType.Int32, groupCommId);
+                db.SetParameterValue("LicenseeId", licenseeId);
+                db.SetParameterValue("GroupCommID", groupCommId);
 
                 return db.QueryEntity<GroupCommMetaModel>();
             }
         }
 
-        public IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId)
+        public async Task<IResultInfo> InsertGroup(GroupCommMetaModel item, IRequest request, int userId)
         {
             const string UspName = "Lrf_LicenseeGroupCommIns";
 
             using (var db = GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, item.LicenseeId);
-                db.AddInParameter("GroupName", DbType.String, item.GroupName);
-                db.AddInParameter("SBComm", DbType.Decimal, item.SBComm);
-                db.AddInParameter("ParlayComm", DbType.Decimal, item.ParlayComm);
-                db.AddInParameter("NGComm", DbType.Decimal, item.NGComm);
-                db.AddInParameter("RNGComm", DbType.Decimal, item.CSComm);
-                db.AddInParameter("GroupColor", DbType.String, item.GroupColor);
-                db.AddInParameter("UserID", DbType.Int32, userId);
-                db.AddInParameter("IP", DbType.String, request.Ip);
-                db.AddInParameter("langkey", DbType.String, request.Language);
-                db.AddInParameter("IsDefault", DbType.Boolean, item.IsDefaultGroup);
-                db.AddInParameter("IsResetDefault", DbType.Boolean, item.IsResetDefault);
+                db.SetParameterValue("LicenseeID", item.LicenseeId);
+                db.SetParameterValue("GroupName", item.GroupName);
+                db.SetParameterValue("SBComm", item.SBComm);
+                db.SetParameterValue("ParlayComm", item.ParlayComm);
+                db.SetParameterValue("NGComm", item.NGComm);
+                db.SetParameterValue("RNGComm", item.CSComm);
+                db.SetParameterValue("GroupColor", item.GroupColor);
+                db.SetParameterValue("UserID", userId);
+                db.SetParameterValue("IP", request.Ip);
+                db.SetParameterValue("langkey", request.Language);
+                db.SetParameterValue("IsDefault", item.IsDefaultGroup);
+                db.SetParameterValue("IsResetDefault", item.IsResetDefault);
 
-                db.AddOutParameter("GroupCommID", DbType.Int32, 4);
+                db.SetParameterValue("GroupCommID", null);
                 AddResultParam(db);
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 item.GroupCommId = Converter.ToInt(db.GetParameterValue("GroupCommID"));
 
@@ -84,30 +88,30 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        public IResultInfo UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId)
+        public async Task<IResultInfo> UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId)
         {
             const string UspName = "Lrf_LicenseeGroupCommUpd";
 
             using (var db = GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, newItem.LicenseeId);
-                db.AddInParameter("GroupCommId", DbType.Int32, newItem.GroupCommId);
-                db.AddInParameter("GroupName", DbType.String, newItem.GroupName);
-                db.AddInParameter("SbComm", DbType.Decimal, newItem.SBComm);
-                db.AddInParameter("ParlayComm", DbType.Decimal, newItem.ParlayComm);
-                db.AddInParameter("NGComm", DbType.Decimal, newItem.NGComm);
-                db.AddInParameter("RNGComm", DbType.Decimal, newItem.CSComm);
-                db.AddInParameter("IsUpdateNG", DbType.Boolean, newItem.IsUpdateNG);
-                db.AddInParameter("IsUpdateRNG", DbType.Boolean, newItem.IsUpdateCS);
-                db.AddInParameter("GroupColor", DbType.String, newItem.GroupColor);
-                db.AddInParameter("UserId", DbType.Int32, userId);
-                db.AddInParameter("Ip", DbType.String, request.Ip);
-                db.AddInParameter("langkey", DbType.String, request.Language);
-                db.AddInParameter("IsDefault", DbType.Boolean, newItem.IsDefaultGroup);
-                db.AddInParameter("IsResetDefault", DbType.Boolean, newItem.IsResetDefault);
-                db.AddOutParameter("StrCustID", DbType.String, int.MaxValue);
+                db.SetParameterValue("LicenseeID", newItem.LicenseeId);
+                db.SetParameterValue("GroupCommId", newItem.GroupCommId);
+                db.SetParameterValue("GroupName", newItem.GroupName);
+                db.SetParameterValue("SbComm", newItem.SBComm);
+                db.SetParameterValue("ParlayComm", newItem.ParlayComm);
+                db.SetParameterValue("NGComm", newItem.NGComm);
+                db.SetParameterValue("RNGComm", newItem.CSComm);
+                db.SetParameterValue("IsUpdateNG", newItem.IsUpdateNG);
+                db.SetParameterValue("IsUpdateRNG", newItem.IsUpdateCS);
+                db.SetParameterValue("GroupColor", newItem.GroupColor);
+                db.SetParameterValue("UserId", userId);
+                db.SetParameterValue("Ip", request.Ip);
+                db.SetParameterValue("langkey", request.Language);
+                db.SetParameterValue("IsDefault", newItem.IsDefaultGroup);
+                db.SetParameterValue("IsResetDefault", newItem.IsResetDefault);
+                db.SetParameterValue("StrCustID", null);
                 AddResultParam(db);
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
                 newItem.GroupCommId = Converter.ToInt(db.GetParameterValue("GroupCommID"));
                 var resultInfo = GetResult(db);
                 resultInfo.ExtendedData = Converter.ToString2(db.GetParameterValue("StrCustID"));
@@ -115,7 +119,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        public IResultInfo DeleteGroup(
+        public async Task<IResultInfo> DeleteGroup(
             int groupId,
             int licenseeId,
             int userId,
@@ -128,16 +132,16 @@ namespace Fanex.Athena.DataAccess.Customer
 
             using (var db = GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-                db.AddInParameter("GroupCommId", DbType.Int32, groupId);
-                db.AddInParameter("UserId", DbType.Int32, userId);
-                db.AddInParameter("Ip", DbType.String, ip);
-                db.AddInParameter("langkey", DbType.String, language);
-                db.AddInParameter("IsRemovePlayercomm", DbType.Boolean, isRemoveCommSetting);
-                db.AddInParameter("IsResetDefault", DbType.Boolean, isResetDefault);
+                db.SetParameterValue("LicenseeId", licenseeId);
+                db.SetParameterValue("GroupCommId", groupId);
+                db.SetParameterValue("UserId", userId);
+                db.SetParameterValue("Ip", ip);
+                db.SetParameterValue("langkey", language);
+                db.SetParameterValue("IsRemovePlayercomm", isRemoveCommSetting);
+                db.SetParameterValue("IsResetDefault", isResetDefault);
                 AddResultParam(db);
-                db.AddOutParameter("StrCustID", DbType.String, int.MaxValue);
-                db.ExecuteScalar();
+                db.SetParameterValue("StrCustID", null);
+                await db.ExecuteScalarAsync().ConfigureAwait(false);
                 var resultInfo = GetResult(db);
                 resultInfo.ExtendedData = Converter.ToString2(db.GetParameterValue("StrCustID"));
                 return resultInfo;
@@ -150,8 +154,8 @@ namespace Fanex.Athena.DataAccess.Customer
 
             using (var db = GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-                db.AddInParameter("GroupName", DbType.String, groupName);
+                db.SetParameterValue("LicenseeId", licenseeId);
+                db.SetParameterValue("GroupName", groupName);
 
                 return Converter.ToInt(db.ExecuteScalar()) != 1;
             }

@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Core.Configuration.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Helper;
@@ -32,67 +32,51 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<LicenseeWinLoss> GetSummaryWinloss(
+        public async Task<SortableReportResultModel<LicenseeWinLoss>> GetSummaryWinloss(
             LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            var uspName = "Lrf_Rpt_LicWinloss";
-            try
-            {
-                using (var db = this.GetObjectDb(uspName))
-                {
-                    db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
-                    UpdateUspParams(db, metaModel, false);
+            const string UspName = "Lrf_Rpt_LicWinloss";
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, false);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, uspName, metaModel);
+                db.SetParameterValue("reporttype", metaModel.ReportBy);
+                UpdateUspParams(db, metaModel, false);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetData(reader, currencyList, metaModel, false);
+                }
             }
         }
 
-        public SortableReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<LicenseeWinLoss>> GetCustomerWinlossDetail(
+            LicenseeWinLossMetaModel metaModel, 
+            IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, true);
-                    }
+                    return GetData(reader, currencyList, metaModel, true);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
-        public SortableReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<LicenseeWinLoss>> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail_Ag";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, true);
-                    }
+                    return GetData(reader, currencyList, metaModel, true);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
@@ -221,16 +205,16 @@
 
         private void UpdateUspParams(IObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("licenseeid", metaModel.LicenseeId);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            db.SetParameterValue("drawfilter", metaModel.DrawFilter);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.SetParameterValue("show" + product.Code, product.Status);
             }
         }
 

@@ -1,8 +1,8 @@
-﻿using System.Web.Mvc;
-using NPOI.SS.UserModel;
-
-namespace Fanex.Athena.BetList.Controller.CustomActionResult
+﻿namespace Fanex.Athena.BetList.Controller.CustomActionResult
 {
+    using System.Web.Mvc;
+    using NPOI.SS.UserModel;
+
     public class ExcelResult : ActionResult
     {
         private readonly IWorkbook _hssfWorkBook;

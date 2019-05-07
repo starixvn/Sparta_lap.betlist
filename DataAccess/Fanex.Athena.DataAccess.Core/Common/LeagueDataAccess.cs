@@ -7,7 +7,7 @@
 namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
-    using System.Data;
+    using System.Threading.Tasks;
     using Data;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -28,35 +28,35 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _appSettings = appSettings;
         }
 
-        public IEnumerable<League> GetLeaguesBySport(LeagueMetaModel metaModel)
+        public async Task<IEnumerable<League>> GetLeaguesBySport(LeagueMetaModel metaModel)
         {
             using (var db = this.GetObjectDb("Lrf_SelLeagueBySport"))
             {
-                db.AddInParameter("sportId", DbType.Int32, metaModel.SportId);
-                db.AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
-                db.AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("IsIncludeTestLeague", DbType.Boolean, !_appSettings.IsProduction);
-                return ReadLeagues(db);
+                db.SetParameterValue("sportId", metaModel.SportId);
+                db.SetParameterValue("Fromdate", metaModel.FromDate);
+                db.SetParameterValue("Todate", metaModel.ToDate);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("IsIncludeTestLeague", !_appSettings.IsProduction);
+                return await ReadLeagues(db).ConfigureAwait(false);
             }
         }
 
-        public IEnumerable<League> GetRunningLeagues(string agentList, string betTypes)
+        public async Task<IEnumerable<League>> GetRunningLeagues(string agentList, string betTypes)
         {
             const string UspName = "Lrf_LeagueSelRunning";
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("AgentList", DbType.String, agentList);
-                db.AddInParameter("betTypes", DbType.String, betTypes);
-                db.AddInParameter("IsIncludeTestLeague", DbType.Boolean, !_appSettings.IsProduction);
-                return ReadLeagues(db);
+                db.SetParameterValue("AgentList", agentList);
+                db.SetParameterValue("betTypes", betTypes);
+                db.SetParameterValue("IsIncludeTestLeague", !_appSettings.IsProduction);
+                return await ReadLeagues(db).ConfigureAwait(false);
             }
         }
 
-        private IEnumerable<League> ReadLeagues(IObjectDb db)
+        private async Task<IEnumerable<League>> ReadLeagues(IObjectDb db)
         {
             var dataList = new List<League>();
-            using (var reader = db.ExecuteReader())
+            using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
             {
                 while (reader.Read())
                 {

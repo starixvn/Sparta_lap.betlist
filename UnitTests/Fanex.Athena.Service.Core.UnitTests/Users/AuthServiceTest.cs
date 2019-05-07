@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
+    using System.Threading.Tasks;
     using Core.Users;
     using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
@@ -95,10 +96,10 @@
                 ExtendedData = outputUser
             };
             _userDataAccess.GetByUsername(inputUser.Username, false, 0).Returns(outputUser);
-            _authDataAccess.ValidateUserForLrfSystem(inputUser).Returns(resultInfo);
+            _authDataAccess.ValidateUserForLrf(inputUser).Returns(resultInfo);
 
             // Action
-            var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken);
+            var result = _authService.ValidateUserForLrf(inputUser, loginToken);
 
             // Assert
             Assert.That(result.ExtendedData.UserID, Is.EqualTo(outputUser.UserID));
@@ -127,7 +128,7 @@
             var expectedResult = new ResultInfo { Code = 104, Message = ViewResources.WrongUserNamePassword };
 
             // Action
-            var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken);
+            var result = _authService.ValidateUserForLrf(inputUser, loginToken);
 
             // Assert
             Assert.Multiple(() =>
@@ -154,7 +155,7 @@
             var expectedResult = new ResultInfo { Code = 100, Message = ViewResources.UserNotExist };
 
             // Action
-            var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken);
+            var result = _authService.ValidateUserForLrf(inputUser, loginToken);
 
             // Assert
             Assert.Multiple(() =>

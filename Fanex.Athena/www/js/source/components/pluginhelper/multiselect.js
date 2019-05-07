@@ -1,29 +1,29 @@
-﻿"use strict";
-define(["jquery", "common/site", "lib/jquery.multiselect"], function ($, Site) {
-    var _me = {
+﻿'use strict';
+define(['jquery', 'common/site', 'lib/jquery.multiselect'], function ($, Site) {
+    const _me = {
         initProductList: function () {
-            var selector = "#grid-products-multiselect";
-            var data = $.parseJSON($("#productsData").val());
-            var length = data.length;
-            var dataUI = [];
-            var checkedCount = 0;
-            for (var i = 0; i < length; i++) {
-                var item = data[i];
-                var isChecked = item["Status"];
+            const selector = '#grid-products-multiselect';
+            const data = $.parseJSON($('#productsData').val());
+            const length = data.length;
+            const dataUI = [];
+            let checkedCount = 0;
+            for (let i = 0; i < length; i++) {
+                const item = data[i];
+                const isChecked = item['Status'];
                 if (isChecked) {
                     checkedCount++;
                 }
 
                 dataUI.push({
-                    Id: item["Code"],
-                    Value: item["Code"],
-                    Text: Site.getSingleResource(item["Name"]),
+                    Id: item['Code'],
+                    Value: item['Code'],
+                    Text: Site.getSingleResource(item['Name']),
                     Checked: isChecked,
                     Enable: true
                 });
             }
 
-            var isCheckAll = checkedCount === length;
+            const isCheckAll = checkedCount === length;
             $(selector).multiSelect({
                 minWidth: 200,
                 maxHeight: 400,
@@ -36,17 +36,17 @@ define(["jquery", "common/site", "lib/jquery.multiselect"], function ($, Site) {
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {
-                    var checkedItems = $(selector).multiSelect("getCheckedItems");
-                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
-                    var hasItemsChecked = checkedItems.length > 0;
+                    const checkedItems = $(selector).multiSelect('getCheckedItems');
+                    $('#product-container input[type=checkbox]:checked').prop('checked', false);
+                    const hasItemsChecked = checkedItems.length > 0;
                     if (hasItemsChecked) {
-                        for (var i = 0; i < checkedItems.length; i++) {
-                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+                        for (let i = 0; i < checkedItems.length; i++) {
+                            $('#product-container #' + checkedItems[i]).prop('checked', true);
                         }
                     }
                     
-                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
+                    $('#ProductList').toggleClass('invalid', !hasItemsChecked);
+                    $('#SubmitButton').prop('disabled', !hasItemsChecked);
                 }
             });
         }

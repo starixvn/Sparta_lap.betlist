@@ -1,11 +1,11 @@
-﻿define(["lib/jqgrid/jquery.jqgrid.additional", "../common/thirdpartywinloss.option"],
+﻿define(['lib/jqgrid/jquery.jqgrid.additional', '../common/thirdpartywinloss.option'],
     function (jqGridAdditional, ThirdPartyWinLossOption) {
-        "use strict";
+        'use strict';
 
-        var LICENSEE_12BET = 1;
-        var REPORT_BY_DAILY = 1;
+        const LICENSEE_12BET = 1;
+        const REPORT_BY_DAILY = 1;
 
-        var indexColumn =
+        const indexColumn =
         {
             name: 'Index',
             index: 'Index',
@@ -18,7 +18,7 @@
             sortable: false
         };
 
-        var dateColumn =
+        const dateColumn =
         {
             name: 'Date',
             index: 'Date',
@@ -36,7 +36,7 @@
             }
         };
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
             name: 'ExternalId',
             index: 'ExternalId',
@@ -46,7 +46,7 @@
             sortable: false
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
             name: 'SystemId',
             index: 'SystemId',
@@ -56,7 +56,7 @@
             sortable: false
         };
 
-        var currencyColumn =
+        const currencyColumn =
         {
             name: 'CurrencyName',
             index: 'CurrencyName',
@@ -66,7 +66,7 @@
             resizable: false
         };
 
-        var turnoverColumn =
+        const turnoverColumn =
         {
             name: 'TurnOver',
             index: 'TurnOver',
@@ -79,7 +79,7 @@
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var totalTransColumn =
+        const totalTransColumn =
         {
             name: 'TotalTransaction',
             index: 'TotalTransaction',
@@ -91,11 +91,11 @@
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
 
-        var customerWlColumn =
+        const customerWlColumn =
         {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
@@ -106,7 +106,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var licenseeWlColumn =
+        const licenseeWlColumn =
         {
             name: 'LicenseeWL',
             index: 'LicenseeWL',
@@ -119,7 +119,7 @@
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-        var tipsAmountColumn =
+        const tipsAmountColumn =
         {
             name: 'TipAmount',
             index: 'TipAmount',
@@ -132,7 +132,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var tipsSharingColumn =
+        const tipsSharingColumn =
         {
             name: 'TipSharing',
             index: 'TipSharing',
@@ -145,7 +145,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var amountDueColumn =
+        const amountDueColumn =
         {
             name: 'AmountDue',
             index: 'AmountDue',
@@ -158,7 +158,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var currencyIdColumn =
+        const currencyIdColumn =
         {
             name: 'CurrencyId',
             index: 'CurrencyId',
@@ -169,7 +169,7 @@
             hidden: true
         };
 
-        var customerIdColumn =
+        const customerIdColumn =
         {
             name: 'CustomerId',
             index: 'CustomerId',
@@ -180,15 +180,15 @@
             hidden: true
         };
 
-        var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+        const colNameList = ['#', 'Date', 'ExternalId', 'SystemId', 'Currency',
             'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L',
             'TipAmount', 'TipSharing', 'AmountDue', 'CurrencyId', 'CustomerId'];
 
-        var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+        const colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
             turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn,
             tipsAmountColumn, tipsSharingColumn, amountDueColumn, currencyIdColumn, customerIdColumn];
 
-        var _me = new ThirdPartyWinLossOption({
+        const _me = new ThirdPartyWinLossOption({
             TotalColspan: [2, 2, 3],
             UrlData: 'api/GoldDeluxeWinLossReport/Index',
             UrlExcelData: 'api/GoldDeluxeWinLossReport/Index',
@@ -197,21 +197,21 @@
         });
 
         _me.getColModel = function (level, reportBy) {
-            level = Number(level);
-            dateColumn.hidden = level > 0;
+            const levelNumber = Number(level);
+            dateColumn.hidden = levelNumber > 0;
             dateColumn.formatoptions =
             {
-                newformat: parseInt(reportBy) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
+                newformat: parseInt(reportBy, 10) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
             };
 
-            currencyColumn.formatter = level === 0 ? function (cellvalue, options, rowObject) {
-                var level = _me.licenseeId === LICENSEE_12BET ? 1 : 2;
-                return _me.currencyFormatter(cellvalue, options, rowObject, level);
+            currencyColumn.formatter = levelNumber === 0 ? function (cellvalue, options, rowObject) {
+                const drilldownLevel = _me.licenseeId === LICENSEE_12BET ? 1 : 2;
+                return _me.currencyFormatter(cellvalue, options, rowObject, drilldownLevel);
             } : null;
-            systemIdColumn.formatter = level === 1 ? _me.systemIdFormatter : null;
+            systemIdColumn.formatter = levelNumber === 1 ? _me.systemIdFormatter : null;
 
-            externalIdColumn.hidden = level < 2;
-            systemIdColumn.hidden = level === 0;
+            externalIdColumn.hidden = levelNumber < 2;
+            systemIdColumn.hidden = levelNumber === 0;
             return ThirdPartyWinLossOption.prototype.getColModel.call(this);
         };
 

@@ -28,9 +28,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, request.Language);
-                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-                ObjectDb.Received(1).AddOutParameter("isallow", DbType.Boolean, sizeof(bool));
+                ObjectDb.Received(1).SetParameterValue("langkey", request.Language);
+                ObjectDb.Received(1).SetParameterValue("LicenseeID", LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("isallow", null);
             });
         }
 
@@ -82,7 +82,7 @@
             DataAccess.GetByUser(UserId);
 
             // Assert
-            ObjectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            ObjectDb.ReceivedWithAnyArgs().ExecuteReader();
         }
 
         [Test]
@@ -116,14 +116,6 @@
         }
 
         [Test]
-        public void GetByUser_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                IsLicenseeBelongToUserSp,
-                () => DataAccess.GetByUser(0));
-        }
-
-        [Test]
         public void GetLicenseeByName_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange
@@ -139,14 +131,6 @@
 
             // Assert
             Assert.That(result.Id, Is.EqualTo(expected.Id));
-        }
-
-        [Test]
-        public void GetLicenseeByName_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLicenseeByNameSp,
-                () => DataAccess.GetLicenseeByName(string.Empty));
         }
     }
 }

@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.Service.Customer.Interfaces
 {
+    using System.Threading.Tasks;
+
     #region Using
 
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -17,21 +19,11 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
     public interface ICustomerListService
     {
-        ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel);
+        Task<ReportResultModel<CustomerDTO>> GetActiveCustomers(CustomerListMetaModel metaModel);
 
-        ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel);
+        Task<ReportResultModel<DormantCustomer>> GetDormantCustomers(CustomerListMetaModel metaModel);
 
-        #region LogInfo
-
-        /// <summary>
-        /// Get customer login information, last transfer time, ...
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <returns>The login info.</returns>
         LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName);
-
-        #endregion LogInfo
 
         IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel);
 

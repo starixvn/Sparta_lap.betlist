@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core.Exception;
     using Fanex.Data;
     using NSubstitute;
     using NUnit.Framework;
@@ -48,6 +47,8 @@
             Reader = Substitute.For<IDataReader>();
             ObjectDb.ExecuteReader().Returns(Reader);
             ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(Reader);
+            ObjectDb.ExecuteReaderAsync().Returns(Reader);
+            ObjectDb.ExecuteReaderAsync(Arg.Any<object>()).Returns(Reader);
         }
 
         [TearDown]
@@ -65,15 +66,6 @@
         protected void MapReaderData(object readerDataMapping)
         {
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
-        }
-
-        protected void TestException_WhenObjectDbThrowsException_ThrowDataAccessException(string uspName, TestDelegate testDelegate)
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(uspName)).Returns(x => { throw new ObjectDbException(); });
-
-            // Assert
-            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(uspName)));
         }
 
         protected void StubGetResultInfo(int errCode, string errMsg)

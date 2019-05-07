@@ -28,10 +28,6 @@
 
         #region Override
 
-        /// <summary>
-        /// On authorization.
-        /// </summary>
-        /// <param name="filterContext"> Parameter value.</param>
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             var skipAuthorization = filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true)

@@ -8,6 +8,10 @@
     /// </summary>
     public static class BundleConfig
     {
+        private const string JqueryUiMinCssPath = "~/Content/Library/start/jquery-ui.min.css";
+
+        private const string LrfGlobalContentCssPath = "~/Content/Global/lrf.global.content.css";
+
         private static IItemTransform cssRewriteUrlTransform;
 
         public static void RegisterBundles(BundleCollection bundles)
@@ -59,7 +63,6 @@
                         "~/Scripts/Languages/ViewResources.zh-CN.js",
                         "~/Scripts/Languages/ViewResources.zh-Hans.js",
                         "~/Scripts/Languages/ViewResources.zh-TW.js",
-                        "~/Scripts/Languages/ViewResources.ko-KR.js",
                         "~/Scripts/Global/site.js",
                         "~/Scripts/Helper/ProductListHelper.js",
                         "~/Scripts/Global/query.string.js",
@@ -108,8 +111,8 @@
             AddStyleBundle(
                 bundles,
                 "~/bundles/AccountLayoutStyles",
-                "~/Content/Library/start/jquery-ui.min.css",
-                "~/Content/Global/lrf.global.content.css",
+                JqueryUiMinCssPath,
+                LrfGlobalContentCssPath,
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
                 "~/Content/FlatPopup/jquery.flatpopup.css");
         }
@@ -121,10 +124,10 @@
                 "~/bundles/jqGridLayoutStyles",
                 "~/Content/Library/smoothness/jqgrid-custom.css",
                 "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
-                "~/Content/Library/start/jquery-ui.min.css",
+                JqueryUiMinCssPath,
                 "~/Content/Library/ui.jqgrid/ui.jqgrid.css",
                 "~/Content/Global/grid26.css",
-                "~/Content/Global/lrf.global.content.css",
+                LrfGlobalContentCssPath,
                 "~/Content/Plugin/MonthPickr/monPickr.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
@@ -160,9 +163,9 @@
             AddStyleBundle(
                 bundles,
                 "~/bundles/EditAccountViewStyles",
-                "~/Content/Library/start/jquery-ui.min.css",
+                JqueryUiMinCssPath,
                 "~/Content/Global/Global.css",
-                "~/Content/Global/lrf.global.content.css",
+                LrfGlobalContentCssPath,
                 "~/Content/Global/lrf.global.reportable.css",
                 "~/Content/Account/AccountManagement.css");
         }
@@ -172,9 +175,9 @@
             AddStyleBundle(
                 bundles,
                 "~/bundles/ResetPasswordViewStyles",
-                "~/Content/Library/start/jquery-ui.min.css",
+                JqueryUiMinCssPath,
                 "~/Content/Global/Global.css",
-                "~/Content/Global/lrf.global.content.css",
+                LrfGlobalContentCssPath,
                 "~/Content/Global/lrf.global.reportable.css",
                 "~/Content/Account/AccountManagement.css");
         }

@@ -192,12 +192,6 @@
   <data name="Menu_33" xml:space="preserve">
     <value>Win Loss By Bet Type</value>
   </data>
-  <data name="Menu_36" xml:space="preserve">
-    <value>Cancelled Bets</value>
-  </data>
-  <data name="Menu_37" xml:space="preserve">
-    <value>Daily Bet List</value>
-  </data>
   <data name="Menu_38" xml:space="preserve">
     <value>Live Report</value>
   </data>
@@ -277,13 +271,6 @@
   </data>
   <data name="Menu_9" xml:space="preserve">
     <value>Odd/Even + 1x2 + DND</value>
-  </data>
-  <data name="Menu_67" xml:space="preserve">
-    <value>Microgaming Win Loss</value>
-  </data>
-  <data name="Menu_68" xml:space="preserve">
-    <value>Casino Progressive Wins</value>
-    <comment>#47601</comment>
   </data>
   <data name="Menu_69" xml:space="preserve">
     <value>Weekly Live Matches</value>

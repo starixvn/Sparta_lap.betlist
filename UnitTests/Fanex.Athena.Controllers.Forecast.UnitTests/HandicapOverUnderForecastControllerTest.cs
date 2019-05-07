@@ -2,19 +2,23 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.ForecastHdou;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Forecast.Interfaces;
 
-    public class HandicapOverUnderForecastControllerTest : BaseControllerHelperTest
+    public class HandicapOverUnderForecastControllerTest : CultureBaseControllerHelperTest
     {
-        private IForecastService _forecastService;
+        private IForecastDataAccess _forecastDataAccess;
+
+        private ILeagueDataAccess _leagueDataAccess;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -25,7 +29,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_LicenseeOffersNewForecast_ReturnNewView()
+        public async Task Index_WhenGet_LicenseeOffersNewForecast_ReturnNewView()
         {
             using (var controller = CreateController())
             {
@@ -33,7 +37,7 @@
                 AppSettings.LicenseeOfferNewForecast.Returns(new[] { DefaultLicenseeSession.LicenseeId });
 
                 // Action
-                var result = controller.Index() as RedirectToRouteResult;
+                var result = await controller.Index() as RedirectToRouteResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -45,7 +49,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_LicenseeDoesNotOfferNewForecast_ReturnCorrectViewResult()
+        public async Task Index_WhenGet_LicenseeDoesNotOfferNewForecast_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -53,13 +57,13 @@
                 AppSettings.LicenseeOfferNewForecast.Returns(Enumerable.Empty<int>());
                 const int ExpectdLeagueId = -1;
                 var leagueList = Enumerable.Empty<League>();
-                var mainData = Enumerable.Empty<ForecastHandicapOverUnder>();
+                var mainData = new List<ForecastHandicapOverUnder>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
-                _forecastService.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
+                _forecastDataAccess.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
                 var viewModel = (ForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -79,22 +83,22 @@
         [TestCase(new[] { 1, 2 }, 1, 1)]
         [TestCase(new[] { 1, 2 }, 3, 1)]
         [TestCase(new int[0], 3, -1)]
-        public void Index_WhenGetPost_ReturnCorrectViewResult(int[] leagueIDList, int leagueId, int expectedLeagueId)
+        public async Task Index_WhenGetPost_ReturnCorrectViewResult(int[] leagueIDList, int leagueId, int expectedLeagueId)
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 AppSettings.LicenseeOfferNewForecast.Returns(Enumerable.Empty<int>());
                 var leagueList = leagueIDList.Select(x => new League { LeagueId = x }).ToList();
-                var mainData = Enumerable.Empty<ForecastHandicapOverUnder>();
+                var mainData = new List<ForecastHandicapOverUnder>();
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
-                _forecastService.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
+                _forecastDataAccess.GetForecastHandicapOverUnder(Arg.Any<ForecastHandicapOverUnderMetaModel>()).Returns(mainData);
 
                 var metaModel = new ForecastHandicapOverUnderMetaModel { LeagueId = leagueId };
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (ForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -128,13 +132,15 @@
 
         private HandicapOverUnderForecastController CreateController()
         {
-            _forecastService = Substitute.For<IForecastService>();
+            _forecastDataAccess = Substitute.For<IForecastDataAccess>();
+            _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
 
             var controller = new HandicapOverUnderForecastController(
                 LangService,
                 SessionService,
                 AppSettings,
-                _forecastService)
+                _leagueDataAccess,
+                _forecastDataAccess)
             {
                 ControllerContext = ControllerContext
             };

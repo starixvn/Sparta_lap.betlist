@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
@@ -14,7 +15,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class HandicapOverUnderTotalBetControllerTest : BaseControllerHelperTest
+    public class HandicapOverUnderTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IHandicapOverUnderDataAccess _handicapOverUnderDataAccess;
 
@@ -39,12 +40,12 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnMainView()
+        public async Task Index_WhenGet_ReturnMainView()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
 
                 // Assert
                 StringAssert.Contains("TotalBets/HandicapOverUnder/Main.cshtml", viewResult.ViewName);
@@ -52,12 +53,12 @@
         }
 
         [Test]
-        public void Index_WhenGet_GetDataFromService()
+        public async Task Index_WhenGet_GetDataFromService()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as HandicapOverUnderViewModel;
 
                 // Assert
@@ -70,7 +71,7 @@
         }
 
         [Test]
-        public void Index_WhenPostWithValidCurrency_ReturnMainView()
+        public async Task Index_WhenPostWithValidCurrency_ReturnMainView()
         {
             using (var controller = CreateController())
             {
@@ -81,7 +82,7 @@
                 };
 
                 // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
+                var viewResult = await controller.Index(metaModel) as ViewResult;
 
                 // Assert
                 StringAssert.Contains("TotalBets/HandicapOverUnder/Main.cshtml", viewResult.ViewName);
@@ -89,7 +90,7 @@
         }
 
         [Test]
-        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
+        public async Task Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
             using (var controller = CreateController())
             {
@@ -100,7 +101,7 @@
                 };
 
                 // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
+                var viewResult = await controller.Index(metaModel) as RedirectResult;
 
                 // Assert
                 Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
@@ -108,7 +109,7 @@
         }
 
         [Test]
-        public void Index_LicenseeIsNotOfferedNewForecast_ReturnNormalLicenseeView()
+        public async Task Index_LicenseeIsNotOfferedNewForecast_ReturnNormalLicenseeView()
         {
             using (var controller = CreateController())
             {
@@ -121,7 +122,7 @@
                 };
 
                 // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
+                var viewResult = await controller.Index(metaModel) as ViewResult;
 
                 // Assert
                 Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentData.cshtml"));
@@ -129,7 +130,7 @@
         }
 
         [Test]
-        public void Index_LicenseeIsOfferedNewForecastSetting_ReturnBodogLicenseeView()
+        public async Task Index_LicenseeIsOfferedNewForecastSetting_ReturnBodogLicenseeView()
         {
             using (var controller = CreateController())
             {
@@ -142,7 +143,7 @@
                 };
 
                 // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
+                var viewResult = await controller.Index(metaModel) as ViewResult;
 
                 // Assert
                 Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentDataBodog.cshtml"));
@@ -150,7 +151,7 @@
         }
 
         [Test]
-        public void Index_LicenseeOfferedNewForecastIsNotSet_ReturnNormalLicenseeView()
+        public async Task Index_LicenseeOfferedNewForecastIsNotSet_ReturnNormalLicenseeView()
         {
             using (var controller = CreateController())
             {
@@ -163,7 +164,7 @@
                 };
 
                 // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
+                var viewResult = await controller.Index(metaModel) as ViewResult;
 
                 // Assert
                 Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentData.cshtml"));

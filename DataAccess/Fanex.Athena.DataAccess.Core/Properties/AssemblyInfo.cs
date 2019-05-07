@@ -8,6 +8,6 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Forecast.UnitTests")]
 [assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.TotalBet.UnitTests")]
 [assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Report.UnitTests")]
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Dashboard.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.Module.Dashboard.UnitTests")]
 [assembly: System.CLSCompliant(true)]
 [assembly: AssemblyVersion("1.0.0.0")]

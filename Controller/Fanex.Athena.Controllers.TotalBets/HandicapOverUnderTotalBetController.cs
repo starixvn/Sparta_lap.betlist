@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Controllers.TotalBets
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var param = new HandicapOverUnderMetaModel
             {
@@ -42,18 +43,18 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             SetConvetedUSDCurrencyName(param);
 
-            return this.GetView(param);
+            return await this.GetView(param).ConfigureAwait(false);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(HandicapOverUnderMetaModel metaModel)
+        public async Task<ActionResult> Index(HandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.GetView(metaModel);
+            return await this.GetView(metaModel).ConfigureAwait(false);
         }
 
-        private ActionResult GetView(HandicapOverUnderMetaModel metaModel)
+        private async Task<ActionResult> GetView(HandicapOverUnderMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
@@ -62,7 +63,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var result = _handicapOverUnderDataAccess.GetHandicapOverUnderDataList(metaModel);
+                var result = await _handicapOverUnderDataAccess.GetHandicapOverUnderDataList(metaModel).ConfigureAwait(false);
 
                 var model = new HandicapOverUnderViewModel
                 {

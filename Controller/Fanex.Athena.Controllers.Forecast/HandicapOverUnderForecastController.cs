@@ -7,7 +7,10 @@
 namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
+    using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -15,22 +18,28 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Forecast.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class HandicapOverUnderForecastController : ForecastBaseController
     {
+        private readonly ILeagueDataAccess _leagueDataAaccess;
+
+        private readonly IForecastDataAccess _forecastDataAccess;
+
         public HandicapOverUnderForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IForecastService forecastService)
-        : base(languageService, sessionService, appSetting, forecastService)
+            ILeagueDataAccess leagueDataAccess,
+            IForecastDataAccess forecastDataAccess)
+        : base(languageService, sessionService, appSetting)
         {
+            _leagueDataAaccess = leagueDataAccess;
+            _forecastDataAccess = forecastDataAccess;
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var liceseeSession = SessionService.LicenseeSession;
             if (AppSettings.LicenseeOfferNewForecast.Contains(liceseeSession.LicenseeId))
@@ -46,27 +55,27 @@ namespace Fanex.Athena.Controllers.Forecast
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var model = this.GetViewModel(metaModel);
+            var model = await GetViewModel(metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Forecast/ForecastHDPOU/Main.cshtml", model);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(ForecastHandicapOverUnderMetaModel metaModel)
+        public async Task<ActionResult> Index(ForecastHandicapOverUnderMetaModel metaModel)
         {
-            var model = this.GetViewModel(metaModel);
+            var model = await GetViewModel(metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Forecast/ForecastHDPOU/Main.cshtml", model);
         }
 
-        private ForecastHdpOuViewModel GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
+        private async Task<ForecastHdpOuViewModel> GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var leagueList = ForecastService.GetForecastRunningLeague(metaModel);
+            var leagueList = await _leagueDataAaccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString);
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
-            var forecastHdpOuByLeague = ForecastService.GetForecastHandicapOverUnder(metaModel);
+            var forecastHdpOuByLeague = await _forecastDataAccess.GetForecastHandicapOverUnder(metaModel);
 
             return new ForecastHdpOuViewModel
             {

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Data;
@@ -64,32 +65,24 @@
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
+        public async Task GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
+            await DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("reporttype", _metaModel.ReportBy);
                 AssertCommonSpParameters(isDrilldown: false);
             });
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSummaryWinlossSp,
-                () => DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
-        public void ReadData_WhenCall_ReturnCorrectResult()
+        public async Task ReadData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
@@ -115,7 +108,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -132,7 +125,7 @@
         }
 
         [Test]
-        public void ReadSummaryTotal_WhenCall_ReturnSummaryTotalCorrectly()
+        public async Task ReadSummaryTotal_WhenCall_ReturnSummaryTotalCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
@@ -151,7 +144,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -162,60 +155,44 @@
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly()
+        public async Task GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomerWinlossDetailSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList);
+            await DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
+                ObjectDb.Received(1).SetParameterValue("custid", _metaModel.DrillDownCustomerId);
                 AssertCommonSpParameters(isDrilldown: true);
             });
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetCustomerWinlossDetailSp,
-                () => DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
-        public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly()
+        public async Task GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList);
+            await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList);
 
             // Assert
             AssertCommonSpParameters(isDrilldown: true);
         }
 
-        [Test]
-        public void GetAgentWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetAgentWinlossDetailSp,
-                () => DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList));
-        }
-
         private void AssertCommonSpParameters(bool isDrilldown)
         {
-            ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate : _metaModel.FromDate);
-            ObjectDb.Received(1).AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate : _metaModel.ToDate);
-            ObjectDb.Received(1).AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-            ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
-            ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
+            ObjectDb.Received(1).SetParameterValue("licenseeid", _metaModel.LicenseeId);
+            ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("fromdate", isDrilldown ? _metaModel.DrillDownFromDate : _metaModel.FromDate);
+            ObjectDb.Received(1).SetParameterValue("todate", isDrilldown ? _metaModel.DrillDownToDate : _metaModel.ToDate);
+            ObjectDb.Received(1).SetParameterValue("drawfilter", _metaModel.DrawFilter);
+            ObjectDb.Received(1).SetParameterValue("showSB", true);
+            ObjectDb.Received(1).SetParameterValue("showNG", false);
         }
 
         private IList<ProductOption> GetProductOptions()

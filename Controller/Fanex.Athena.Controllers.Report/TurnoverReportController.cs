@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Extension.Utility;
@@ -68,7 +69,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
                 IsAllowedCasinoTransfer = AppSettings.LicenseeAllowCasinoTransfer.Contains(licenseeSession.LicenseeId),
-                IsFakeLicensee = IsFakeLicensee()
+                IsFakeLicensee = IsFakeLicensee(licenseeSession.LicenseeId)
             };
 
             return View("~/Views/Desktop/Report/Turnover/Main.cshtml", model);
@@ -76,24 +77,27 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Excel(TurnoverMetaModel metaModel)
+        public async Task<ActionResult> Excel(TurnoverMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            var placeholderUsername = IsFakeLicensee() ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
+            var placeholderUsername = IsFakeLicensee(licenseeSession.LicenseeId) ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
                 metaModel.Username.Trim() == placeholderUsername ? null : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
-            var dataList = _turnoverService.GetDataList(metaModel);
+            var dataList = await _turnoverService.GetDataList(metaModel);
 
             var model = new TurnoverViewModel
             {
                 DataList = dataList,
                 TotalData = _turnoverService.SumTotalData(dataList),
                 Param = metaModel,
-                ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.Turnover),
+                ProductAccess = ProductService.GetSingleWalletProductAccess(
+                    licenseeSession.LicenseeId, 
+                    userSession.Language, 
+                    FunctionNames.Turnover),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
                 IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
@@ -110,7 +114,10 @@ namespace Fanex.Athena.Controllers.Report
 
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeId, SessionService.UserSession.Language, FunctionNames.Turnover);
+            var productAccess = ProductService.GetSingleWalletProductAccess(
+                licenseeId,
+                SessionService.UserSession.Language,
+                FunctionNames.Turnover);
 
             var convertingOption = new ConvertingOption
             {

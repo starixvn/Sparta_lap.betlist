@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
+    using System.Threading.Tasks;
     using Casino.Interfaces;
     using Core.Common.Interfaces;
     using DataAccess.Customer.Interfaces;

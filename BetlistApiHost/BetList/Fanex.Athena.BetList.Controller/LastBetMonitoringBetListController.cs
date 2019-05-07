@@ -43,7 +43,7 @@ namespace Fanex.Athena.BetList.Controller
                     Rows = rows,
                     LastTransId = ticketResult.MainTicketList.Max(t => t.TransId),
                 };
-                ClearData(ticketResult);
+                BetListHelper.ClearData(ticketResult);
                 return Json(result);
             }
             else
@@ -57,6 +57,8 @@ namespace Fanex.Athena.BetList.Controller
 
         private string GetLastMonitorBetListContent(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)
         {
+            const string EndTag = "</td>";
+
             var builder = new BetListHTMLBuilder();
             foreach (var ticket in ticketResult.MainTicketList)
             {
@@ -68,16 +70,16 @@ namespace Fanex.Athena.BetList.Controller
                 builder.Append($"<td data-name='Platform'>{PlatformType.GetPlatformName(ticket.BetFrom.Trim())}</td>");
                 builder.Append($"<td data-name='ExternalId' class='special-color-{ticket.SpecialLevel}'>{ticket.ExternalId}</td>");
                 builder.Append($"<td data-name='SystemId' class='special-color-{ticket.SpecialLevel}'>{ticket.UserName}</td>");
-                builder.AddTrans(ticket, "<td data-name='TransTime' class='special-color-0'>", "</td>");
+                builder.AddTrans(ticket, "<td data-name='TransTime' class='special-color-0'>", EndTag);
                 builder.AddChoice(
                     ticket,
                     _ticketHelper,
                     ticketResult.TicketDataList,
                     "<td data-name='Choice' class='bl-event'>",
-                    "</td>",
+                    EndTag,
                     false);
                 BuildOdds(metaModel, ticketResult, ticket, builder);
-                builder.AddStake(ticket, "<td data-name='Stake' class='bl-stake'>", "</td>");
+                builder.AddStake(ticket, "<td data-name='Stake' class='bl-stake'>", EndTag);
                 builder.Append($"<td data-name='Status' class='bl-status'>{builder.BuildLiveStatus(ticket)}</td></tr>");
             }
 

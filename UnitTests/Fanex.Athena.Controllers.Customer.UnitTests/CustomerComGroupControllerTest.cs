@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Customer;
@@ -18,7 +19,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public partial class CustomerComGroupControllerTest : BaseControllerHelperTest
+    public partial class CustomerComGroupControllerTest : CultureBaseControllerHelperTest
     {
         private IGroupComService _groupComService;
         private IProductService _productService;
@@ -41,7 +42,7 @@
 
         [TestCase(true, false)]
         [TestCase(false, true)]
-        public void Index_WhenCall_AssignViewBagCorrectly(bool isEmptyProductList, bool expectedResult)
+        public async Task Index_WhenCall_AssignViewBagCorrectly(bool isEmptyProductList, bool expectedResult)
         {
             using (var controller = CreateController())
             {
@@ -56,7 +57,7 @@
                     SessionService.UserSession.Language).Returns(new ProductAccess(productList));
 
                 // Action
-                var result = controller.Index() as ViewResult;
+                var result = await controller.Index() as ViewResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -88,7 +89,7 @@
         }
 
         [Test]
-        public void Delete_WhenCall_CallDeleteGroup()
+        public async Task Delete_WhenCall_CallDeleteGroup()
         {
             using (var controller = CreateController())
             {
@@ -104,7 +105,7 @@
                 _groupComService.DeleteGroup(null).ReturnsForAnyArgs(new ResultInfo());
 
                 // Action
-                var result = controller.Delete(GroupId, IsRemovePlayerComm, IsResetDefault) as JsonResult;
+                var result = await controller.Delete(GroupId, IsRemovePlayerComm, IsResetDefault) as JsonResult;
                 var resultInfo = result.Data as ResultInfo;
 
                 // Assert
@@ -127,7 +128,7 @@
 
         [TestCase(false, 0)]
         [TestCase(true, 999)]
-        public void GetDefaultGroup_WhenCall_ReturnCorrectResult(bool isDefaultGroup, int expectedGroupId)
+        public async Task GetDefaultGroup_WhenCall_ReturnCorrectResult(bool isDefaultGroup, int expectedGroupId)
         {
             using (var controller = CreateController())
             {
@@ -141,7 +142,7 @@
                     .Returns(new List<GroupCommMetaModel> { group });
 
                 // Action
-                var result = controller.GetDefaultGroup() as JsonResult;
+                var result = await controller.GetDefaultGroup() as JsonResult;
 
                 // Assert
                 Assert.That(result.Data.GetValue("id"), Is.EqualTo(expectedGroupId));
@@ -149,7 +150,7 @@
         }
 
         [Test]
-        public void ExportExcel_WhenCall_PassCorrectParamsToCreateExcel()
+        public async Task ExportExcel_WhenCall_PassCorrectParamsToCreateExcel()
         {
             using (var controller = CreateController())
             {
@@ -170,7 +171,7 @@
                 controller.CreateExcel(string.Empty, dataTable, new ShowingOption()).ReturnsForAnyArgs(excel);
 
                 // Action
-                var result = controller.ExportExcel() as ExcelResult;
+                var result = await controller.ExportExcel() as ExcelResult;
 
                 // Assert
                 controller.Received(1).CreateExcel(

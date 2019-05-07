@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Common.Interfaces;
@@ -18,7 +19,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public class CustomerTurnoverReportControllerTest : BaseControllerHelperTest
+    public class CustomerTurnoverReportControllerTest : CultureBaseControllerHelperTest
     {
         private ISportTypeDataAccess _sportTypeDataAccess;
 
@@ -55,7 +56,7 @@
         }
 
         [Test]
-        public void GetSportsAndProducts_WhenCall_ReturnCorrectResult()
+        public async Task GetSportsAndProducts_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -72,7 +73,7 @@
                     .Returns(expectedData);
 
                 // Action
-                var result = controller.GetSportsAndProducts() as JsonResult;
+                var result = await controller.GetSportsAndProducts() as JsonResult;
 
                 // Assert
                 Assert.That(result.Data, Is.EqualTo(expectedData));
@@ -80,7 +81,7 @@
         }
 
         [Test]
-        public void Excel_EmptyExcelParam_ReturnNull()
+        public async Task Excel_EmptyExcelParam_ReturnNull()
         {
             using (var controller = CreateController())
             {
@@ -88,7 +89,7 @@
                 MockCreatingExcel(controller);
 
                 // Action
-                var result = controller.Excel(string.Empty);
+                var result = await controller.Excel(string.Empty);
 
                 // Assert
                 Assert.That(result, Is.Null);
@@ -96,7 +97,7 @@
         }
 
         [Test]
-        public void Excel_ModelIsNotValid_ReturnCorrectRedirectResult()
+        public async Task Excel_ModelIsNotValid_ReturnCorrectRedirectResult()
         {
             using (var controller = CreateController())
             {
@@ -105,7 +106,7 @@
                 MockCreatingExcel(controller);
 
                 // Action
-                var result = controller.Excel(excelParam) as RedirectResult;
+                var result = await controller.Excel(excelParam) as RedirectResult;
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo("~/Utility/Error?errCode=400"));
@@ -115,7 +116,7 @@
         [TestCase(1, "MM/dd/yyyy")]
         [TestCase(2, "MM/yyyy")]
         [TestCase(0, "MM/yyyy")]
-        public void Excel_ModelIsValid_ReturnCorrectRedictResult(int reportBy, string expectedFormatDate)
+        public async Task Excel_ModelIsValid_ReturnCorrectRedictResult(int reportBy, string expectedFormatDate)
         {
             using (var controller = CreateController())
             {
@@ -130,7 +131,7 @@
                     SessionService.UserSession.Language).Returns(resultModel);
 
                 // Action
-                var result = controller.Excel(excelParam) as ExcelResult;
+                var result = await controller.Excel(excelParam) as ExcelResult;
 
                 // Assert
                 Assert.Multiple(() =>

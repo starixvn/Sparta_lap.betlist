@@ -299,11 +299,6 @@ namespace Fanex.Athena.Common.Constant
         /// </summary>
         Keno = 202,
 
-        /// <summary>
-        /// MicroGaming product, value = 203.
-        /// </summary>
-        MicroGaming = 203,
-
         AllBet = 211,
 
         Voidbridge = 212,

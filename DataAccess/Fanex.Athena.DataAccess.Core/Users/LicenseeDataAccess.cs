@@ -8,13 +8,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Data;
 
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
     {
@@ -25,9 +22,9 @@ namespace Fanex.Athena.DataAccess.Core.Users
             var isAllow = false;
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("langkey", DbType.String, request.Language);
-                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                db.AddOutParameter("isallow", DbType.Boolean, sizeof(bool));
+                db.SetParameterValue("langkey", request.Language);
+                db.SetParameterValue("LicenseeID", licenseeId);
+                db.SetParameterValue("isallow", null);
 
                 AddResultParam(db);
                 db.ExecuteNonQuery();
@@ -51,55 +48,39 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
         public IList<Licensee> GetByUser(int userId)
         {
-            /*
-             *@Alex20120722
-             *Re:Add more "IsAllowdCustomerComm" field
-            */
             const string UspName = "Lrf_LicenseeSel";
             var uspParams = new { UserId = userId };
-            try
+
+            var entityList = new List<Licensee>();
+            using (var db = this.GetObjectDb(UspName))
             {
-                var entityList = new List<Licensee>();
-                using (var db = this.GetObjectDb(UspName))
+                using (var reader = db.ExecuteReader(uspParams))
                 {
-                    using (var reader = db.ExecuteReader(uspParams))
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        var entity = new Licensee
                         {
-                            var entity = new Licensee
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")),
-                                Name = reader.GetString(reader.GetOrdinal("LicenseeName")),
-                                IsAllowedCustomerComm = reader.GetBoolean(reader.GetOrdinal("IsAllowedMemberComm")),
-                                IsEnableBA = reader.GetBoolean(reader.GetOrdinal("EnableBA"))
-                            };
-                            entityList.Add(entity);
-                        }
+                            Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")),
+                            Name = reader.GetString(reader.GetOrdinal("LicenseeName")),
+                            IsAllowedCustomerComm = reader.GetBoolean(reader.GetOrdinal("IsAllowedMemberComm")),
+                            IsEnableBA = reader.GetBoolean(reader.GetOrdinal("EnableBA"))
+                        };
+                        entityList.Add(entity);
                     }
                 }
+            }
 
-                return entityList;
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, uspParams);
-            }
+            return entityList;
         }
 
         public Licensee GetLicenseeByName(string licenseeName)
         {
             const string UspName = "Lrf_LicenseeSelBySiteName";
             var uspParams = new { siteName = licenseeName };
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    return db.QueryEntity<Licensee>(uspParams);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, uspParams);
+                return db.QueryEntity<Licensee>(uspParams);
             }
         }
     }

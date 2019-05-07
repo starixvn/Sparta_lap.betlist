@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Extension.Utility;
@@ -24,31 +25,35 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class AhForecastController : ForecastBaseController
     {
+        private readonly IForecastAhService _forecastAhService;
+
         public AhForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IForecastService forecastService)
-        : base(languageService, sessionService, appSetting, forecastService)
+            IForecastAhService forecastAhService)
+        : base(languageService, sessionService, appSetting)
         {
+            _forecastAhService = forecastAhService;
         }
 
-        public ActionResult Index(ForecastAHMetaModel metaModel)
+        public async Task<ActionResult> Index(ForecastAHMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var model = GetViewModel(metaModel);
+            var model = await GetViewModel(metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Forecast/ForecastAH/Main.cshtml", model);
         }
 
         private static IList<string> RenderForecastLink(int betType, int currentScore)
         {
+            const int MaxLink = 10;
             var forecastLink = new List<string>();
             var endIndex = 0;
 
             var startIndex = ((currentScore < 0 && IsOverUnder(betType)) ? 0 : currentScore) + 5;
-            endIndex = startIndex - 10;
+            endIndex = startIndex - MaxLink;
 
             if (endIndex < 0 && IsOverUnder(betType))
             {
@@ -67,7 +72,8 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             var forecastHeader = new List<int>();
             var isHandicap = betType == (int)BetType.Handicap || betType == (int)BetType.FirstHalfHandicap;
-            var startIndex = isHandicap ? currentScore + 2 : ((currentScore < 0 && IsOverUnder(betType)) ? 0 : currentScore) + 4;
+            var startIndexOfOverUnder = ((currentScore < 0 && IsOverUnder(betType)) ? 0 : currentScore) + 4;
+            var startIndex = isHandicap ? currentScore + 2 : startIndexOfOverUnder;
 
             var endIndex = startIndex - 4;
 
@@ -89,9 +95,9 @@ namespace Fanex.Athena.Controllers.Forecast
             return IsOverUnder(betType) ? liveHomeScore + liveAwayScore : liveHomeScore - liveAwayScore;
         }
 
-        private ForecastAHViewModel GetViewModel(ForecastAHMetaModel metaModel)
+        private async Task<ForecastAHViewModel> GetViewModel(ForecastAHMetaModel metaModel)
         {
-            var forecastHeaderParam = ForecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
+            var forecastHeaderParam = await _forecastAhService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
             ForecastValue forecastValue = null;
 
             if (forecastHeaderParam != null)
@@ -108,13 +114,13 @@ namespace Fanex.Athena.Controllers.Forecast
                 if (metaModel.BetType == (int)BetType.Handicap || metaModel.BetType == (int)BetType.FirstHalfHandicap)
                 {
                     forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.Handicap ? ViewResources.Handicap : ViewResources.lbl1stHandicap;
-                    forecastValue = ForecastService.GetForecastHandicap(metaModel, userSession.UserId);
+                    forecastValue = await _forecastAhService.GetForecastHandicap(metaModel, userSession.UserId).ConfigureAwait(false);
                 }
                 else
                 {
                     /* Over/Under or 1st Over/Under*/
                     forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.OverUnder ? ViewResources.OverUnder : ViewResources.lbl1stOver_Under;
-                    forecastValue = ForecastService.GetForecastOverUnder(metaModel, userSession.UserId);
+                    forecastValue = await _forecastAhService.GetForecastOverUnder(metaModel, userSession.UserId).ConfigureAwait(false);
                 }
 
                 forecastValue.ForeCastLink = RenderForecastLink(metaModel.BetType, metaModel.CurrentScore);

@@ -97,6 +97,19 @@
         }
 
         [Test]
+        public void GetHappy5Matches_WhenCall_ReturnDataFromDataAccess()
+        {
+            // Arrange
+            var metaModel = new ResultMetaModel();
+
+            // Action
+            _service.GetHappy5Matches(metaModel);
+
+            // Assert
+            _numberGameDataAccess.Received(1).GetHappy5Matches(metaModel);
+        }
+
+        [Test]
         public void GetVirtualSportMatches_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
@@ -186,6 +199,19 @@
 
             // Assert
             _numberGameDataAccess.Received(1).GetPopUpNumberGameMatch(MatchId);
+        }
+
+        [Test]
+        public void GetPopUpHappy5Matches_WhenCall_ReturnDataFromDataAccess()
+        {
+            // Arrange
+            const int MatchId = 1;
+
+            // Action
+            _service.GetPopUpHappy5Matches(MatchId);
+
+            // Assert
+            _numberGameDataAccess.Received(1).GetPopUpHappy5Match(MatchId);
         }
     }
 }

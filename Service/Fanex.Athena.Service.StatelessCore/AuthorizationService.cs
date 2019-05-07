@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.StatelessCore
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.StatelessCore.Interfaces;

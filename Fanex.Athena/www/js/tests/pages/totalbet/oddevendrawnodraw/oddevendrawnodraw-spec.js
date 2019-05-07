@@ -66,7 +66,7 @@
                         );
                     $("#CurrencyId").append('<option value="2">uus</option>');
 
-                    var queryString = "matchid=1&bettype=2&ispopup=true&CurrencyId=2&CurrencyName=uus&BaseCurrency=3";
+                    var queryString = "matchid=1&bettype=2&CurrencyId=2&CurrencyName=uus&BaseCurrency=3";
                     var url = "OneXTwoForecast/Popup?" + queryString;
                     var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
                         return match.toLowerCase();

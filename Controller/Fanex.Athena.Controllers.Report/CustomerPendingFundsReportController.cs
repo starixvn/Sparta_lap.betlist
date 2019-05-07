@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -49,7 +50,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
-                IsFakeLicensee = IsFakeLicensee()
+                IsFakeLicensee = IsFakeLicensee(licenseeSession.LicenseeId)
             };
 
             return View("~/Views/Desktop/Report/CustomerPendingFunds/Main.cshtml", model);

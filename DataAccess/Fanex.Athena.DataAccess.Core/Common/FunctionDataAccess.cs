@@ -7,7 +7,7 @@
 namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
-    using System.Data;
+    using System.Threading.Tasks;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
@@ -62,17 +62,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        /// <summary>
-        /// Get licensee function list.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <returns>The result value.</returns>
         public IList<Function> GetLicenseeFunctionList(int licenseeId)
         {
             var functionList = new List<Function>();
             using (var db = this.GetObjectDb("Lrf_LicenseeFunctionsSel"))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
+                db.SetParameterValue("licenseeid", licenseeId);
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
@@ -95,8 +90,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             using (var db = this.GetObjectDb("Lrf_LicenseeUserFunctionsSel"))
             {
-                db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-                db.AddInParameter("UserId", DbType.Int32, userId);
+                db.SetParameterValue("LicenseeId", licenseeId);
+                db.SetParameterValue("UserId", userId);
 
                 using (var reader = db.ExecuteReader())
                 {
@@ -114,17 +109,17 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        public IResultInfo AssignUserFunction(int licenseeId, int custId, int functionId, int userId, string ip, string langKey)
+        public Task<IResultInfo> AssignUserFunctionAsync(int licenseeId, int custId, int functionId, int userId, string ip, string langKey)
         {
             return ExecuteNonQueryUserFunction("Lrf_LicenseeUserFunctionsIns", licenseeId, userId, custId, ip, functionId, langKey);
         }
 
-        public IResultInfo RemoveUserFunction(int licenseeId, int userId, int custId, string ip, int functionId, string langKey)
+        public Task<IResultInfo> RemoveUserFunctionAsync(int licenseeId, int userId, int custId, string ip, int functionId, string langKey)
         {
             return ExecuteNonQueryUserFunction("Lrf_LicenseeUserFunctionsDel", licenseeId, userId, custId, ip, functionId, langKey);
         }
 
-        private IResultInfo ExecuteNonQueryUserFunction(
+        private async Task<IResultInfo> ExecuteNonQueryUserFunction(
             string uspName,
             int licenseeId,
             int userId,
@@ -135,15 +130,15 @@ namespace Fanex.Athena.DataAccess.Core.Common
         {
             using (var db = GetObjectDb(uspName))
             {
-                db.AddInParameter("UserID", DbType.Int32, userId);
-                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                db.AddInParameter("FunctionID", DbType.Int32, functionId);
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("LangKey", DbType.String, langKey);
-                db.AddInParameter("IP", DbType.String, ip);
+                db.SetParameterValue("UserID", userId);
+                db.SetParameterValue("LicenseeID", licenseeId);
+                db.SetParameterValue("FunctionID", functionId);
+                db.SetParameterValue("CustID", custId);
+                db.SetParameterValue("LangKey", langKey);
+                db.SetParameterValue("IP", ip);
 
                 AddResultParam(db);
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return GetResult(db);
             }

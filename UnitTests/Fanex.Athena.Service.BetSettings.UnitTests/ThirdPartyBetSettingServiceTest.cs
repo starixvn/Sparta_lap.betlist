@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
+    using System.Threading.Tasks;
     using BetSettings;
     using BetSettings.Interfaces;
     using DataAccess.BetSettings.Interfaces;
@@ -38,7 +39,7 @@
         }
 
         [Test]
-        public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
+        public async Task GetViewModelAsync_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -50,10 +51,10 @@
                 IsLineEnabled = true
             };
 
-            _dataAccess.GetBetSetting(CustId, ProductId).Returns(betSetting);
+            _dataAccess.GetBetSettingAsync(CustId, ProductId).Returns(Task.FromResult(betSetting));
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId, ProductId);
+            var result = await _service.GetViewModelAsync(LicenseeId, CustId, ProductId);
 
             // Assert
             Assert.That(result.IsEnabled, Is.EqualTo(betSetting.IsEnabled));
@@ -61,21 +62,21 @@
         }
 
         [Test]
-        public void GetViewModel_HaveNoPermission_ReturnNull()
+        public async Task GetViewModelAsync_HaveNoPermission_ReturnNull()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
             const int ProductId = 100;
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId, ProductId);
+            var result = await _service.GetViewModelAsync(LicenseeId, CustId, ProductId);
 
             // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_CallDataAccessWithCorrectParameters()
+        public async Task UpdateStatusAsync_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -85,24 +86,24 @@
             {
                 IsLineEnabled = true
             };
-            _dataAccess.GetBetSetting(CustId, ProductId).Returns(betSetting);
+            _dataAccess.GetBetSettingAsync(CustId, ProductId).Returns(Task.FromResult(betSetting));
 
             // Action
-            var result = _service.UpdateStatus(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
+            var result = await _service.UpdateStatusAsync(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
 
             // Assert
-            _dataAccess.Received().UpdateStatus(ProductId, UserId, CustId, Language, "ip", true);
+            await _dataAccess.Received(1).UpdateStatusAsync(ProductId, UserId, CustId, Language, "ip", true);
         }
 
         [Test]
-        public void UpdateStatus_HaveNoPermission_ReturnCorrectErrorResult()
+        public async Task UpdateStatusAsync_HaveNoPermission_ReturnCorrectErrorResult()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
             const int ProductId = 100;
 
             // Action
-            var result = _service.UpdateStatus(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
+            var result = await _service.UpdateStatusAsync(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
@@ -110,7 +111,7 @@
         }
 
         [Test]
-        public void UpdateStatus_IsLineEnabledInSettingIsNull_ReturnCorrectErrorResult()
+        public async Task UpdateStatusAsync_IsLineEnabledInSettingIsNull_ReturnCorrectErrorResult()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -119,10 +120,10 @@
             {
                 IsLineEnabled = false
             };
-            _dataAccess.GetBetSetting(CustId, ProductId).Returns(betSetting);
+            _dataAccess.GetBetSettingAsync(CustId, ProductId).Returns(Task.FromResult(betSetting));
 
             // Action
-            var result = _service.UpdateStatus(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
+            var result = await _service.UpdateStatusAsync(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));

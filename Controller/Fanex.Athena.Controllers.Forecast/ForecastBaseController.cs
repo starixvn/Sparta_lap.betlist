@@ -15,27 +15,17 @@ namespace Fanex.Athena.Controllers.Forecast
     using ONEbook.UM.Filters;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Forecast.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
-    public class ForecastBaseController : BaseController
+    public class ForecastBaseController : ContentBaseController
     {
-        private readonly IForecastService _forecastService;
-
         protected ForecastBaseController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting,
-            IForecastService forecastService)
+            IAppSettings appSetting)
         : base(languageService, sessionService, appSetting)
         {
-            _forecastService = forecastService;
-        }
-
-        protected IForecastService ForecastService
-        {
-            get { return _forecastService; }
         }
 
         protected static int GetLeagueId(int leagueId, IEnumerable<League> leagueList)

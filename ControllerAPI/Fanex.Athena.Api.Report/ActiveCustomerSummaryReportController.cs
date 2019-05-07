@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -43,7 +44,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(ActiveCustomerMetaModel metaModel)
+        public Task<dynamic> Index(ActiveCustomerMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
@@ -70,10 +71,10 @@ namespace Fanex.Athena.Api.Report
             if (property == null)
             {
                 // The two last characters is product code.
-                var propertyName = nameof(ActiveCustomer.CustomerCount);
-                var productCode = sortBy.Substring(propertyName.Length);
+                const string PropertyName = nameof(ActiveCustomer.CustomerCount);
+                var productCode = sortBy.Substring(PropertyName.Length);
 
-                dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                dataList.SortByDictionary(productCode, PropertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
             }
             else
             {
@@ -127,14 +128,14 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private dynamic ProcessRequest(ActiveCustomerMetaModel metaModel)
+        private async Task<dynamic> ProcessRequest(ActiveCustomerMetaModel metaModel)
         {
             if (IsValidRequest(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
                 var result = metaModel.IsValid ?
-                    _activeCustomerSummaryDataAccess.GetActiveCustomers(metaModel) :
+                    await _activeCustomerSummaryDataAccess.GetActiveCustomers(metaModel) :
                     new ActiveCustomerSummaryResultModel
                     {
                         DataList = new SortableList<ActiveCustomer>(),

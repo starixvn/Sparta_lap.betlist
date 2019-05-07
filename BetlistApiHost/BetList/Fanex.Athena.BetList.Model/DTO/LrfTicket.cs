@@ -6,12 +6,11 @@
 
 namespace Fanex.Athena.BetList.Model.DTO
 {
+    using System;
     using Fanex.BetList.Core.Entities;
 
-#pragma warning disable CS3009 // Base type is not CLS-compliant
-
+    [CLSCompliant(false)]
     public class LrfTicket : Ticket
-#pragma warning restore CS3009 // Base type is not CLS-compliant
     {
         public string ExternalId { get; set; }
 

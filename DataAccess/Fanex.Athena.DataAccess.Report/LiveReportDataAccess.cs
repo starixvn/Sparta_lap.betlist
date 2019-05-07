@@ -9,14 +9,12 @@ namespace Fanex.Athena.DataAccess.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
-    using Constant.Helper;
     using Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO.LiveReports;
@@ -28,11 +26,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess
     {
-        private static readonly IEnumerable<string> IgnoredProductInBettypeSection = new[]
-        {
-            Product.MGCLC, Product.MGCRNG
-        };
-
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -45,79 +38,67 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel)
+        public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportSummary";
             var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                AddParameters(db, metaModel, moveBetsDate);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    AddParameters(db, metaModel, moveBetsDate);
-                    using (var reader = db.ExecuteReader())
+                    var list = new List<LiveReport>();
+                    var currency = metaModel.BaseCurrency;
+                    while (reader.Read())
                     {
-                        var list = new List<LiveReport>();
-                        var currency = metaModel.BaseCurrency;
-                        while (reader.Read())
+                        var productName = reader.ToString("ProductName");
+                        var productCode = reader.ToString("ProductCode");
+
+                        var item = new LiveReport
                         {
-                            var productName = reader.ToString("ProductName");
-                            var productCode = reader.ToString("ProductCode");
-
-                            var item = new LiveReport
-                            {
-                                ProductName = ProductHelper.GetProductName(productCode, productName),
-                                ProductCode = productCode
-                            };
-                            ReadCommonColumns(reader, currency, item);
-                            list.Add(item);
-                        }
-
-                        return list;
+                            ProductName = ProductHelper.GetProductName(productCode, productName),
+                            ProductCode = productCode
+                        };
+                        ReadCommonColumns(reader, currency, item);
+                        list.Add(item);
                     }
+
+                    return list;
                 }
-            }
-            catch (ObjectDbException exception)
-            {
-                throw new DataAccessException(exception, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 
-        public IList<LiveReport> GetDetailBySport(LiveReportMetaModel metaModel)
+        public async Task<IList<LiveReport>> GetDetailBySport(LiveReportMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportBySport";
             var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
-            try
-            {
-                var currency = metaModel.BaseCurrency;
-                var list = new List<LiveReport>();
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    AddParameters(db, metaModel, moveBetsDate);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var sportType = reader.ToString("SportType");
-                            var item = new LiveReport
-                            {
-                                ProductName = GetProductNameBySport(sportType),
-                                ProductCode = sportType
-                            };
-                            ReadCommonColumns(reader, currency, item);
-                            list.Add(item);
-                        }
 
-                        return list;
-                    }
-                }
-            }
-            catch (ObjectDbException exception)
+            var currency = metaModel.BaseCurrency;
+            var list = new List<LiveReport>();
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(exception, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+                AddParameters(db, metaModel, moveBetsDate);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    while (reader.Read())
+                    {
+                        var sportType = reader.ToString("SportType");
+                        var item = new LiveReport
+                        {
+                            ProductName = GetProductNameBySport(sportType),
+                            ProductCode = sportType
+                        };
+                        ReadCommonColumns(reader, currency, item);
+                        list.Add(item);
+                    }
+
+                    return list;
+                }
             }
         }
 
-        public Tuple<IList<LiveReport>, IList<LiveReportByBetType>> GetDetailByCurrencyAndBettype(
+        public async Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>> GetDetailByCurrencyAndBettype(
             LiveReportMetaModel metaModel,
             IDictionary<int, string> currencyList,
              IEnumerable<Product> products)
@@ -125,92 +106,78 @@ namespace Fanex.Athena.DataAccess.Report
             var currency = metaModel.BaseCurrency;
             const string UspName = "Lrf_Rpt_LiveReportSummaryDetail";
             var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                AddParameters(db, metaModel, moveBetsDate);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    AddParameters(db, metaModel, moveBetsDate);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        var resultByCurrency = ReadDetailByCurrency(reader, currencyList, currency);
+                    var resultByCurrency = ReadDetailByCurrency(reader, currencyList, currency);
 
-                        var resultByBettype = reader.NextResult() ? ReadDetailByBettype(reader, products, currency) : new List<LiveReportByBetType>();
+                    var resultByBettype = reader.NextResult() ? ReadDetailByBettype(reader, products, currency) : new List<LiveReportByBetType>();
 
-                        return new Tuple<IList<LiveReport>, IList<LiveReportByBetType>>(resultByCurrency, resultByBettype);
-                    }
+                    return new Tuple<IList<LiveReport>, IList<LiveReportByBetType>>(resultByCurrency, resultByBettype);
                 }
-            }
-            catch (ObjectDbException exception)
-            {
-                throw new DataAccessException(exception, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-                    Justification = "Reviewed. Suppression is OK here.")]
-        public IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel)
+        public async Task<IList<LiveReportWinLossByMatch>> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportWinlossByMatch";
             var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("fromdate", metaModel.FromDate);
+                db.SetParameterValue("todate", metaModel.ToDate);
+                db.SetParameterValue("movebetsday", moveBetsDate);
+                db.SetParameterValue("sportid", metaModel.SportId);
+                db.SetParameterValue("liveindicator", metaModel.LiveIndicator);
+                var productList = metaModel.ProductCodeList.Split(',');
+                foreach (var product in productList)
                 {
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                    db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                    db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
-                    db.AddInParameter("sportid", DbType.Int32, metaModel.SportId);
-                    db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
-                    var productList = metaModel.ProductCodeList.Split(',');
-                    foreach (var product in productList)
-                    {
-                        db.AddInParameter("show" + product, DbType.Boolean, true);
-                    }
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        var currency = metaModel.BaseCurrency;
-                        var data = new List<LiveReportWinLossByMatch>();
-
-                        while (reader.Read())
-                        {
-                            data.Add(new LiveReportWinLossByMatch
-                            {
-                                MatchId = reader.ToLong("matchid"),
-                                HomeId = reader.ToInt("homeid"),
-                                AwayId = reader.ToInt("awayid"),
-                                BetType = reader.ToInt("bettype"),
-                                ShowTime = reader.ToString("showtime"),
-                                BetCount = reader.ToInt("Betcount"),
-                                TurnOver = reader.ToDecimal("Turnover" + currency),
-                                CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
-                                CustomerComm = reader.ToDecimal("PlayerComm" + currency),
-                                LicenseeComm = reader.ToDecimal("Comm" + currency),
-                                LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency),
-                                AmountDue = reader.ToDecimal("AmtDueto3rd" + currency),
-                                SportId = metaModel.SportId
-                            });
-                        }
-
-                        return data;
-                    }
+                    db.SetParameterValue("show" + product, true);
                 }
-            }
-            catch (ObjectDbException ex)
-            {
-                throw new DataAccessException(ex, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    var currency = metaModel.BaseCurrency;
+                    var data = new List<LiveReportWinLossByMatch>();
+
+                    while (reader.Read())
+                    {
+                        data.Add(new LiveReportWinLossByMatch
+                        {
+                            MatchId = reader.ToLong("matchid"),
+                            HomeId = reader.ToInt("homeid"),
+                            AwayId = reader.ToInt("awayid"),
+                            BetType = reader.ToInt("bettype"),
+                            ShowTime = reader.ToString("showtime"),
+                            BetCount = reader.ToInt("Betcount"),
+                            TurnOver = reader.ToDecimal("Turnover" + currency),
+                            CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
+                            CustomerComm = reader.ToDecimal("PlayerComm" + currency),
+                            LicenseeComm = reader.ToDecimal("Comm" + currency),
+                            LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency),
+                            AmountDue = reader.ToDecimal("AmtDueto3rd" + currency),
+                            SportId = metaModel.SportId
+                        });
+                    }
+
+                    return data;
+                }
             }
         }
 
         private static void AddParameters(IObjectDb db, LiveReportMetaModel metaModel, DateTime moveBetsDate)
         {
-            db.AddInParameter("ProductCodes", DbType.String, metaModel.ProductCodeList);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
-            db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
+            db.SetParameterValue("ProductCodes", metaModel.ProductCodeList);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("movebetsday", moveBetsDate);
+            db.SetParameterValue("liveindicator", metaModel.LiveIndicator);
         }
 
         private static void ReadCommonColumns(IDataReader reader, string currency, LiveReport item)
@@ -226,21 +193,26 @@ namespace Fanex.Athena.DataAccess.Report
 
         protected internal virtual string GetProductNameBySport(string sportType)
         {
+            // 101 -> 104: const from SP to separate names for special bettypes
+            const int MixParlaySportType = 101;
+            const int CombinationMixParlaySportType = 102;
+            const int OutrightSportType = 103;
+            const int VirtualSports2MixParlaySportType = 104;
+
             var sportId = string.IsNullOrEmpty(sportType) ? 0 : Convert.ToInt32(sportType);
 
-            // 101 -> 104: const from SP to separate names for special bettypes
             switch (sportId)
             {
-                case 101:
+                case MixParlaySportType:
                     return _cacheRefAdapter.GetBettype((int)BetType.MixParlay);
 
-                case 102:
+                case CombinationMixParlaySportType:
                     return _cacheRefAdapter.GetBettype((int)BetType.CombinationMixParlay);
 
-                case 103:
+                case OutrightSportType:
                     return _cacheRefAdapter.GetBettype((int)BetType.Outright);
 
-                case 104:
+                case VirtualSports2MixParlaySportType:
                     return _cacheRefAdapter.GetBettypeWithProductName((int)BetType.VirtualSports2MixParlay);
 
                 default:
@@ -287,8 +259,7 @@ namespace Fanex.Athena.DataAccess.Report
             var result = new List<LiveReportByBetType>();
             if (dataList.Any())
             {
-                var supportedProducts = products.Where(p => !IgnoredProductInBettypeSection.Contains(p.ProductCode));
-                result = supportedProducts.Join(
+                result = products.Join(
                     dataList,
                     p => p.ProductCode,
                     d => d.ProductCode,

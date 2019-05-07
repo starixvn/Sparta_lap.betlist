@@ -1,5 +1,5 @@
-﻿define(["./commgrouplist"], function (CustomerCommGroupList) {
-    "use strict";
+﻿define(['./commgrouplist'], function (CustomerCommGroupList) {
+    'use strict';
 
     $(CustomerCommGroupList.initialize);
 });

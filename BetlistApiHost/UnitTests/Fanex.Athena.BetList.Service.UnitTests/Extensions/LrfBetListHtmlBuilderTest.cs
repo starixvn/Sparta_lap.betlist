@@ -2,15 +2,16 @@
 {
     using System.Collections;
     using System.Collections.Generic;
-    using Athena.BetList.Model.DTO;
-    using Athena.BetList.Model.MetaModel;
-    using Athena.BetList.Service.Extensions;
     using Common.Constant;
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Model.DTO;
+    using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
+    using Service.Extensions;
 
     public class LrfBetListHtmlBuilderTest
     {
@@ -26,13 +27,13 @@
             get
             {
                 yield return new TestCaseData(BetType.P2PGames, SportType.AllBet, BetStatus.Running, CoreBetList.running);
-                yield return new TestCaseData(BetType.MiniGames, SportType.MicroGaming, BetStatus.Reject, CoreBetList.reject);
                 yield return new TestCaseData(BetType.CorrectScore, SportType.Keno, BetStatus.Won, CoreBetList.won);
                 yield return new TestCaseData(BetType.P2PGames, SportType.Keno, BetStatus.Lose, CoreBetList.lose);
                 yield return new TestCaseData(BetType.Handicap, SportType.Keno, BetStatus.Draw, CoreBetList.draw);
                 yield return new TestCaseData(BetType.Ft1X2, SportType.Keno, BetStatus.Waiting, CoreBetList.waiting);
                 yield return new TestCaseData(BetType.MixParlay, SportType.Keno, BetStatus.Void, CoreBetList.voided);
                 yield return new TestCaseData(BetType.FirstHalFirsGoalLastGoal, SportType.Keno, BetStatus.Refund, CoreBetList.refund);
+                yield return new TestCaseData(BetType.OverUnder, SportType.Keno, BetStatus.Reject, CoreBetList.reject);
                 yield return new TestCaseData(BetType.MiniGames, SportType.Keno, string.Empty, string.Empty);
             }
         }
@@ -304,6 +305,50 @@
 
             // Action
             var result = _betListBuilder.BuildCustomerWL(ticket, false);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase(true, "#cc0033", "Live")]
+        [TestCase(false, "#000", "NoneLive")]
+        public void BuildLiveStatus_IsNotParlayTicket_ReturnCorrectStatus(bool isLive, string expectedColor, string expectStatus)
+        {
+            // Arrange
+            var ticket = new LrfTicket
+            {
+                BetTypeId = 0,
+                IsLive = isLive
+            };
+
+            var expected = $"<label style='color:{expectedColor}'>{ViewResources.ResourceManager.GetString(expectStatus)}</label>";
+
+            // Action
+            var result = _betListBuilder.BuildLiveStatus(ticket);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase(BetType.MixParlay, LiveStatusTypes.Live, "#cc0033", "Live")]
+        [TestCase(BetType.MixParlay, LiveStatusTypes.Mix, "#0033ff", "MixLiveAndNoneLive")]
+        [TestCase(BetType.MixParlay, LiveStatusTypes.NonLive, "#000", "NoneLive")]
+        [TestCase(BetType.CombinationMixParlay, LiveStatusTypes.Live, "#cc0033", "Live")]
+        [TestCase(BetType.CombinationMixParlay, LiveStatusTypes.Mix, "#0033ff", "MixLiveAndNoneLive")]
+        [TestCase(BetType.CombinationMixParlay, LiveStatusTypes.NonLive, "#000", "NoneLive")]
+        public void BuildLiveStatus_ParlayTicket_ReturnCorrectStatus(int betType, int status, string expectedColor, string expectStatus)
+        {
+            // Arrange
+            var ticket = new LrfTicket
+            {
+                BetTypeId = betType,
+                LiveHomeScore = status
+            };
+
+            var expected = $"<label style='color:{expectedColor}'>{ViewResources.ResourceManager.GetString(expectStatus)}</label>";
+
+            // Action
+            var result = _betListBuilder.BuildLiveStatus(ticket);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

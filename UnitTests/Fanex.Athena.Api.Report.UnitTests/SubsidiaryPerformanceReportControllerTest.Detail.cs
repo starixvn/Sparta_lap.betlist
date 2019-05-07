@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Report.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Model.Core.ResultModel;
     using Model.Report.DTO.SubsidiaryPerformance;
@@ -12,7 +13,7 @@
     public partial class SubsidiaryPerformanceReportControllerTest : BaseApiControllerHelperTest
     {
         [Test]
-        public void Detail_InvalidMetaModel_ReturnEmptyList()
+        public async Task Detail_InvalidMetaModel_ReturnEmptyList()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -21,28 +22,28 @@
             };
 
             // Action
-            var result = _controller.Detail(metaModel);
+            var result = await _controller.Detail(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.Empty);
         }
 
         [Test]
-        public void Detail_EmptyAgentList_ThrowException()
+        public async Task Detail_EmptyAgentList_ThrowException()
         {
             // Arrange
             var metaModel = GetMetaModel();
             _subsidiaryService.GetCurrencyAgentList(Arg.Any<string>(), Arg.Any<bool>()).Returns(new Dictionary<int, IEnumerable<int>>());
 
             // Action
-            var result = _controller.Detail(metaModel);
+            var result = await _controller.Detail(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.Empty);
         }
 
         [Test]
-        public void Detail_WhenCall_ReturnDataFromService()
+        public async Task Detail_WhenCall_ReturnDataFromService()
         {
             // Arrange
             const string AgentListXml = "<sml>So Much Lie</sml>";
@@ -62,7 +63,7 @@
             _service.GetDetailData(metaModel, Arg.Any<IDictionary<int, string>>()).Returns(resultData);
 
             // Action
-            var result = _controller.Detail(metaModel);
+            var result = await _controller.Detail(metaModel);
 
             // Assert
             Assert.Multiple(() =>

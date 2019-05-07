@@ -10,7 +10,10 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
+    using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Model.Core.DataDomain;
@@ -33,26 +36,33 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private readonly IMatchService _matchService;
 
+        private readonly ILeagueDataAccess _leagueDataAccess;
+
+        private readonly INewForecastDataAccess _forecastDataAccess;
+
 #pragma warning disable S107 // Methods should not have too many parameters
 
         public NewHandicapOverUnderForecastController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IForecastService forecastService,
+            INewForecastDataAccess forecastDataAccess,
             ICoreLogger logger,
             ICacheRefAdapter cacheRefAdapter,
-            IMatchService matchService)
+            IMatchService matchService,
+            ILeagueDataAccess leagueDataAccess)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, forecastService)
+        : base(languageService, sessionService, appSetting)
         {
             _logger = logger;
             _cacheRefAdapter = cacheRefAdapter;
             _matchService = matchService;
+            _forecastDataAccess = forecastDataAccess;
+            _leagueDataAccess = leagueDataAccess;
         }
 
         [HttpGet]
-        public ActionResult Index(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
+        public async Task<ActionResult> Index(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             if (AppSettings.LicenseeOfferNewForecast.Contains(licenseeId))
@@ -75,7 +85,8 @@ namespace Fanex.Athena.Controllers.Forecast
                     metaModel.BaseCurrency = baseCurrency;
                 }
 
-                return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
+                var viewModel = await GetViewModel(metaModel).ConfigureAwait(false);
+                return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", viewModel);
             }
             else
             {
@@ -85,24 +96,25 @@ namespace Fanex.Athena.Controllers.Forecast
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(NewForecastHandicapOverUnderMetaModel metaModel)
+        public async Task<ActionResult> Index(NewForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
+            var viewModel = await this.GetViewModel(metaModel).ConfigureAwait(false);
+            return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", viewModel);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ViewResult GetMatchListByLeague(int leagueId)
+        public async Task<ViewResult> GetMatchListByLeague(int leagueId)
         {
-            var matchList = _matchService.GetForecastMatchListByLeague(leagueId).OrderBy(x => x.MatchName).ToList();
+            var matchList = (await _matchService.GetForecastMatchListByLeague(leagueId).ConfigureAwait(false)).OrderBy(x => x.MatchName).ToList();
             return View("~/Views/Desktop/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        private NewForecastHdpOuViewModel GetViewModel(NewForecastHandicapOverUnderMetaModel metaModel)
+        private async Task<NewForecastHdpOuViewModel> GetViewModel(NewForecastHandicapOverUnderMetaModel metaModel)
         {
             IList<Match> matchList = new List<Match>();
             IList<League> leagueList = new List<League>();
@@ -122,12 +134,14 @@ namespace Fanex.Athena.Controllers.Forecast
 
                 if (!Request.IsAjaxRequest())
                 {
-                    AssignDataForNonAjaxRequest(metaModel, model);
+                    await AssignDataForNonAjaxRequest(metaModel, model).ConfigureAwait(false);
                 }
 
                 metaModel.HomeTeamName = _cacheRefAdapter.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
                 metaModel.AwayTeamName = _cacheRefAdapter.GetTeamName(metaModel.AwayTeamId);
-                model.MainData = ForecastService.GetNewForecastData(metaModel, headerInfo);
+                model.MainData = metaModel.IsValid ?
+                    await _forecastDataAccess.GetNewForecastData(metaModel, headerInfo).ConfigureAwait(false) :
+                    new NewForecastHdpOuData();
                 model.HeaderInfo = headerInfo;
             }
             catch (Exception exception)
@@ -138,24 +152,24 @@ namespace Fanex.Athena.Controllers.Forecast
             return model;
         }
 
-        private void AssignDataForNonAjaxRequest(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
+        private async Task AssignDataForNonAjaxRequest(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
         {
-            model.LeagueList = ForecastService.GetForecastRunningLeague(metaModel);
+            model.LeagueList = await _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(false);
             if (model.LeagueList.Any())
             {
                 metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);
                 if (metaModel.LeagueId > 0)
                 {
-                    AssignMatchData(metaModel, model);
+                    await AssignMatchData(metaModel, model).ConfigureAwait(false);
                 }
             }
 
             model.Param = metaModel;
         }
 
-        private void AssignMatchData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
+        private async Task AssignMatchData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
         {
-            model.MatchList = _matchService.GetForecastMatchListByLeague(metaModel.LeagueId).OrderBy(x => x.MatchName).ToList();
+            model.MatchList = (await _matchService.GetForecastMatchListByLeague(metaModel.LeagueId).ConfigureAwait(false)).OrderBy(x => x.MatchName).ToList();
 
             if (model.MatchList.Count > 0)
             {

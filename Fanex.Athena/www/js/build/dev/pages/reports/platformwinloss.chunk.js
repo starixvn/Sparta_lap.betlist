@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([32,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([30,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,21 +290,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! lib/jquery.monthpicker */ "./www/js/source/lib/jquery.monthpicker.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-        "use strict";
-        var PICKER_SELECTOR = "#month-picker";
-        var FORMAT = "MM/dd/yyyy";
+        'use strict';
+        const PICKER_SELECTOR = '#month-picker';
+        const FORMAT = 'MM/dd/yyyy';
 
-        var _historyDate = new Date($("#HistoryDate").val());
+        const _historyDate = new Date($('#HistoryDate').val());
 
         function initMonthPicker(option) {
-            var $picker = $(PICKER_SELECTOR);
-            var $fromDate = $('#FromDate');
-            var $todate = $('#ToDate');
+            const $picker = $(PICKER_SELECTOR);
+            const $fromDate = $('#FromDate');
+            const $todate = $('#ToDate');
 
-            var fromdate = new Date($fromDate.val());
-            var todate = new Date($todate.val());
+            const fromdate = new Date($fromDate.val());
+            const todate = new Date($todate.val());
 
-            var defaultOption = {
+            const defaultOption = {
                 minDate: _historyDate,
                 showDateRange: true,
                 fromDayId: 'fDay',
@@ -315,14 +314,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 fromDay: fromdate.getDate(),
                 toDay: todate.getDate(),
                 afterChangeMonth: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
                 },
                 afterChangeDay: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
 
-                    if (option && typeof option.customAfterChangeDay === "function") {
+                    if (option && typeof option.customAfterChangeDay === 'function') {
                         option.customAfterChangeDay();
                     }
                 }
@@ -336,11 +335,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function getFromDateString() {
-            return $(PICKER_SELECTOR).monPickr("getFromDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getFromDate', FORMAT);
         }
 
         function getToDateString() {
-            return $(PICKER_SELECTOR).monPickr("getToDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getToDate', FORMAT);
         }
 
         return {
@@ -363,30 +362,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jquery.multiselect */ "./www/js/source/lib/jquery.multiselect.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    var _me = {
+    const _me = {
         initProductList: function () {
-            var selector = "#grid-products-multiselect";
-            var data = $.parseJSON($("#productsData").val());
-            var length = data.length;
-            var dataUI = [];
-            var checkedCount = 0;
-            for (var i = 0; i < length; i++) {
-                var item = data[i];
-                var isChecked = item["Status"];
+            const selector = '#grid-products-multiselect';
+            const data = $.parseJSON($('#productsData').val());
+            const length = data.length;
+            const dataUI = [];
+            let checkedCount = 0;
+            for (let i = 0; i < length; i++) {
+                const item = data[i];
+                const isChecked = item['Status'];
                 if (isChecked) {
                     checkedCount++;
                 }
 
                 dataUI.push({
-                    Id: item["Code"],
-                    Value: item["Code"],
-                    Text: Site.getSingleResource(item["Name"]),
+                    Id: item['Code'],
+                    Value: item['Code'],
+                    Text: Site.getSingleResource(item['Name']),
                     Checked: isChecked,
                     Enable: true
                 });
             }
 
-            var isCheckAll = checkedCount === length;
+            const isCheckAll = checkedCount === length;
             $(selector).multiSelect({
                 minWidth: 200,
                 maxHeight: 400,
@@ -399,17 +398,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {
-                    var checkedItems = $(selector).multiSelect("getCheckedItems");
-                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
-                    var hasItemsChecked = checkedItems.length > 0;
+                    const checkedItems = $(selector).multiSelect('getCheckedItems');
+                    $('#product-container input[type=checkbox]:checked').prop('checked', false);
+                    const hasItemsChecked = checkedItems.length > 0;
                     if (hasItemsChecked) {
-                        for (var i = 0; i < checkedItems.length; i++) {
-                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+                        for (let i = 0; i < checkedItems.length; i++) {
+                            $('#product-container #' + checkedItems[i]).prop('checked', true);
                         }
                     }
                     
-                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
+                    $('#ProductList').toggleClass('invalid', !hasItemsChecked);
+                    $('#SubmitButton').prop('disabled', !hasItemsChecked);
                 }
             });
         }
@@ -429,15 +428,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -455,23 +454,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -490,14 +489,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -508,14 +507,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -527,16 +526,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -553,45 +552,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -607,8 +606,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -617,7 +616,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -634,10 +633,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -645,10 +644,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -656,37 +655,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -696,16 +695,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -713,44 +712,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -762,7 +761,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -920,12 +919,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -986,7 +985,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -8357,7 +8358,7 @@ Enumerable = (function ()
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./platformwinloss */ "./www/js/source/pages/report/platformwinloss/platformwinloss.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (PlatformWinLoss) {
-    "use strict";
+    'use strict';
     $(PlatformWinLoss.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -8388,39 +8389,39 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"),
     __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js"),
     __webpack_require__(/*! lib/linq */ "./www/js/source/lib/linq.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper, DataHelper) {
-        "use strict";
+        'use strict';
 
-        var BETLIST_IGNORED_PRODUCTS = ["AB","PP"];
-        var _platformNameMap = {};
+        const BETLIST_IGNORED_PRODUCTS = ['AB','PP'];
+        let _platformNameMap = {};
 
-        var _cacheData = {};
-        var _filterData = {};
+        const _cacheData = {};
+        const _filterData = {};
 
-        var gridControl = {
+        const gridControl = {
             level: 0,
             pageSize: 50,
             sortColumnName: null,
-            sortOrder: "desc"
+            sortOrder: 'desc'
         };
 
         function initialize() {
             Site.initialize();
             Site.addUserGuide({
-                resourceName: "PlatformWinLoss",
-                title: Site.getSingleResource("PlatformWinLoss")
+                resourceName: 'PlatformWinLoss',
+                title: Site.getSingleResource('PlatformWinLoss')
             });
 
             _platformNameMap = {
-                "0": Site.getSingleResource("All"),
-                "1": Site.getSingleResource("Asia"),
-                "2": Site.getSingleResource("China"),
-                "3": Site.getSingleResource("Euro"),
-                "4": Site.getSingleResource("Wap"),
-                "5": Site.getSingleResource("Mobile"),
-                "6": Site.getSingleResource("Tablet"),
-                "7": Site.getSingleResource("NewAsia"),
-                "8": Site.getSingleResource("MobileApp"),
-                "9": Site.getSingleResource("MobileLiteVersion")
+                '0': Site.getSingleResource('All'),
+                '1': Site.getSingleResource('Asia'),
+                '2': Site.getSingleResource('China'),
+                '3': Site.getSingleResource('Euro'),
+                '4': Site.getSingleResource('Wap'),
+                '5': Site.getSingleResource('Mobile'),
+                '6': Site.getSingleResource('Tablet'),
+                '7': Site.getSingleResource('NewAsia'),
+                '8': Site.getSingleResource('MobileApp'),
+                '9': Site.getSingleResource('MobileLiteVersion')
             };
 
             _me.initEvent();
@@ -8429,15 +8430,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             MultiSelect.initProductList();
             MonthPicker.initMonthPicker({
                 minDate: Site.getHistoryDate(),
-                maxDate: $("#MaxDate").val()
+                maxDate: $('#MaxDate').val()
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         }
 
@@ -8446,22 +8447,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 _me.submit();
             });
 
-            $(".main-content").on("click", ".drilldown", function () {
-                var dataDrillDown = $(this).data("drill-down");
+            $('.main-content').on('click', '.drilldown', function () {
+                const dataDrillDown = $(this).data('drill-down');
                 _me.drillDown(1, dataDrillDown);
             });
 
-            $(".main-content").on("click", ".bet-list-link", function () {
-                var dataDrillDown = $(this).data("drill-down");
+            $('.main-content').on('click', '.bet-list-link', function () {
+                const dataDrillDown = $(this).data('drill-down');
                 _me.openBetlistPopUp(gridControl.level, dataDrillDown);
             });
 
-            $("#level-link-container").on("click", ".level-link", function () {
-                var level = Number($(this).attr("data-level"));
+            $('#level-link-container').on('click', '.level-link', function () {
+                const level = Number($(this).attr('data-level'));
                 gridControl.level = level;
                 if (level < 1) {
                     Report.renderBreadCrumb(level);
                     gridControl.level = level;
+                    _me.setReportTitle(_filterData[level]);
                     _me.bindData(level, _cacheData[level], _filterData[level].ProductOptions);
                 }
             });
@@ -8473,16 +8475,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function initSetting() {
             gridControl.pageSize = PlatformWinLossOption.pageSize;
-            PlatformWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+            PlatformWinLossOption.hasCustomerComm = Site.asBool($('#IsAllowedCustomerCommission').val());
 
             PlatformWinLossOption.gridOption.onSortCol = function (index) {
                 Site.blockUI();
-                gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
+                gridControl.pageSize = Number($('#ReportGrid').getGridParam('rowNum'));
                 window.setTimeout(function () {
                     if (gridControl.sortColumnName === index) {
-                        gridControl.sortOrder = gridControl.sortOrder === "asc" ? "desc" : "asc";
+                        gridControl.sortOrder = gridControl.sortOrder === 'asc' ? 'desc' : 'asc';
                     } else {
-                        gridControl.sortOrder = "asc";
+                        gridControl.sortOrder = 'asc';
                         gridControl.sortColumnName = index;
                     }
 
@@ -8490,28 +8492,28 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                     Site.unBlockUI();
                 }, 100);
-                return "stop";
+                return 'stop';
             };
         }
 
         function getSubmitData(){
-            var data = $("#platformwinloss").serializeObject();
+            const data = $('#platformwinloss').serializeObject();
             data.Level = 0;
             addDateParam(data);
             return data;
         }
 
         function submit() {
-            var validProduct = Report.ValidProducts();
+            const validProduct = Report.ValidProducts();
             if (!validProduct) {
                 return false;
             }
 
             gridControl.level = 0;
-            var data = getSubmitData();
+            const data = getSubmitData();
 
             getData(data, Site.resolveClientUrl(PlatformWinLossOption.urlData), function (response) {
-                var submitData = {
+                const submitData = {
                     FromDay: data.FromDay,
                     ToDay: data.ToDay,
                     Month: data.Month,
@@ -8537,7 +8539,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function exportToExcel(level, sortBy, sortOrder) {
-            var data = _filterData[level] ? Site.clone(_filterData[level]) : getSubmitData();
+            const data = _filterData[level] ? Site.clone(_filterData[level]) : getSubmitData();
 
             data.IsExportExcel = true;
             data.Level = level;
@@ -8550,28 +8552,28 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function bindData(level, response, productOptions) {
-            jqGridAdditional.clearGrid("ReportGrid");
+            jqGridAdditional.clearGrid('ReportGrid');
 
-            var numOfRow = response.Data.length;
+            const numOfRow = response.Data.length;
             if (numOfRow === 0) {
                 jqGridAdditional.setNoInfo();
                 return;
             }
 
-            var reportGrid = $("#ReportGrid");
-            var onPaging = false;
-            var data = level === 1 ? sortData(response.Data) : response.Data;
+            const reportGrid = $('#ReportGrid');
+            let onPaging = false;
+            const data = level === 1 ? sortData(response.Data) : response.Data;
 
-            var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
+            const gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
             gridOption.datastr = data;
             gridOption.rowNum = level === 0 ? numOfRow : gridControl.pageSize;
             gridOption.treeGrid = level === 0;
             gridOption.onPaging = function (pgButton) {
-                gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
+                gridControl.pageSize = Number($('#ReportGrid').getGridParam('rowNum'));
 
                 if (numOfRow > PlatformWinLossOption.pageSize) {
                     onPaging = true;
-                    if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+                    if ($('#' + pgButton).hasClass('ui-state-disabled') === false) {
                         Site.blockUI();
                     }
                 }
@@ -8582,22 +8584,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete();
 
-                var showPaging = level === 1 && numOfRow > PlatformWinLossOption.pageSize;
-                $("#pg_ppdata").toggle(showPaging);
+                const showPaging = level === 1 && numOfRow > PlatformWinLossOption.pageSize;
+                $('#pg_ppdata').toggle(showPaging);
 
                 if (onPaging) {
-                    $(".ui-jqgrid-ftable").html($("#footer").html());
+                    $('.ui-jqgrid-ftable').html($('#footer').html());
                 }
                 else {
                     _me.bindTotal(level, response.Total, response.SummaryTotal);
-                    $("#footer").html($(".ui-jqgrid-ftable").html());
+                    $('#footer').html($('.ui-jqgrid-ftable').html());
                 }
 
                 onPaging = false;
                 resizeGrid();
 
                 if (level === 0) {
-                    $("th[role='columnheader']").find("div").removeClass("ui-jqgrid-sortable");
+                    $('th[role="columnheader"]').find('div').removeClass('ui-jqgrid-sortable');
                 }
 
                 Site.unBlockUI();
@@ -8616,66 +8618,66 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function bindTotal(level, totalData, summaryTotal) {
-            var columnModel = PlatformWinLossOption.getColModel(level, _filterData[level].ProductOptions);
+            const columnModel = PlatformWinLossOption.getColModel(level, _filterData[level].ProductOptions);
 
             if (level === 0) {
                 jqGridAdditional.assignTotal(totalData, columnModel);
                 jqGridAdditional.setGroupFooters(1);
             }
             else {
-                var colspan = PlatformWinLossOption.totalColspan[level];
+                const colspan = PlatformWinLossOption.totalColspan[level];
 
-                var summaryColspan = colspan + 1;
+                const summaryColspan = colspan + 1;
                 jqGridAdditional.assignTotal(totalData, columnModel);
 
-                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+                const summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
                 jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
             }
         }
 
         function setReportTitle(data) {
-            var titlePattern = Site.getSingleResource('PlatformWinLoss')
+            const titlePattern = Site.getSingleResource('PlatformWinLoss')
                 + ', {0} → {1} - {2} - {3} - '
                 + Site.getSingleResource('Platform') + ': {4}{5}';
 
-            var selectedCurrency = $('#CurrencyId option[value="' + data.CurrencyId + '"]').text();
-            var currencyText = data.CurrencyId === "0" ?
+            const selectedCurrency = $('#CurrencyId option[value="' + data.CurrencyId + '"]').text();
+            const currencyText = data.CurrencyId === '0' ?
                 Site.getSingleResource('AllCurrencies') :
-                Site.getSingleResource('Currency') + " " + selectedCurrency;
+                Site.getSingleResource('Currency') + ' ' + selectedCurrency;
 
-            var viewinKey = Site.getSingleResource("Viewin");
-            var baseCurrency = {
-                "gbp": viewinKey.replace("{0}", "GBP"),
-                "usd": viewinKey.replace("{0}", "USD"),
-                "eur": viewinKey.replace("{0}", "EUR")
+            const viewinKey = Site.getSingleResource('Viewin');
+            const baseCurrency = {
+                'gbp': viewinKey.replace('{0}', 'GBP'),
+                'usd': viewinKey.replace('{0}', 'USD'),
+                'eur': viewinKey.replace('{0}', 'EUR')
             };
-            var baseCurrencyKey = $('#BaseCurrency').val();
-            var baseCurrencyText = baseCurrency[baseCurrencyKey] ?
+            const baseCurrencyKey = $('#BaseCurrency').val();
+            const baseCurrencyText = baseCurrency[baseCurrencyKey] ?
                 baseCurrency[baseCurrencyKey]
-                : viewinKey.replace("{0}", selectedCurrency);
+                : viewinKey.replace('{0}', selectedCurrency);
 
-            var platformName = _platformNameMap[data.PlatformType];
+            const platformName = _platformNameMap[data.PlatformType];
 
-            var productText = Site.getSingleResource('Product') + ': ';
+            let productText = Site.getSingleResource('Product') + ': ';
             productText = data.ProductOptions && data.ProductOptions.length === 1 ?
                 productText + data.ProductOptions[0].Code :
                 getProductText(data.ProductOptions);
 
-            var title = $.format(titlePattern, data.FromDate, data.ToDate,
+            const title = $.format(titlePattern, data.FromDate, data.ToDate,
                         currencyText, baseCurrencyText, platformName, ', ' + productText);
 
-            $(".report-title").html(title);
-            $(".panel-heading").removeClass("hide");
+            $('.report-title').html(title);
+            $('.panel-heading').removeClass('hide');
         }
 
         function drillDown(level, data) {
             gridControl.level = level;
             gridControl.pageSize = PlatformWinLossOption.pageSize;
             gridControl.sortColumnName = null;
-            gridControl.sortOrder = "desc";
+            gridControl.sortOrder = 'desc';
 
-            var submitData = _filterData[level - 1];
-            var productOptions;
+            const submitData = _filterData[level - 1];
+            let productOptions;
             if (data.ProductCode) {
                 productOptions = [{ Code: data.ProductCode, Status: true }];
             }
@@ -8683,7 +8685,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 productOptions = submitData.ProductOptions;
             }
 
-            var drilldownData = Site.clone(submitData);
+            const drilldownData = Site.clone(submitData);
             drilldownData.Level = level;
             drilldownData.PlatformType = data.PlatformType;
             drilldownData.ProductOptions = productOptions;
@@ -8699,9 +8701,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function getData(data, url, callback) {
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 data: data,
-                dataType: "json",
+                dataType: 'json',
                 cache: false,
                 url: url,
                 success: function (response) {
@@ -8713,10 +8715,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function openBetlistPopUp(onlevel, dataDrillDown) {
-            var url = Site.resolveClientUrl("PlatformWinLossBetList/Index");
-            var onLevelData = _filterData[onlevel];
+            let url = Site.resolveClientUrl('PlatformWinLossBetList/Index');
+            const onLevelData = _filterData[onlevel];
 
-            var param = {
+            const param = {
                 FromDate: onLevelData.FromDate,
                 ToDate: onLevelData.ToDate,
                 PlatformType: onLevelData.PlatformType,
@@ -8732,24 +8734,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             url = QueryString.setParams(url, param);
 
-            var productCodeList = [];
-            for (var i = 0; i < onLevelData.ProductOptions.length; i++) {
-                var product = onLevelData.ProductOptions[i];
+            const productCodeList = [];
+            for (let i = 0; i < onLevelData.ProductOptions.length; i++) {
+                const product = onLevelData.ProductOptions[i];
                 if (product.Status && $.inArray(product.Code, BETLIST_IGNORED_PRODUCTS) < 0 ) {
                     productCodeList.push(product.Code);
                 }
             }
             url = Site.setProductCodeListParam(url, productCodeList);
 
-            var popH = Math.min($(window).height() - 100, 650), popW = 920;
-            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
+            const popH = Math.min($(window).height() - 100, 650), popW = 920;
+            const popupOption = { id: 'betlist-popup', width: popW + 50, height: popH + 50, title: Site.getSingleResource('CustomerBetList') };
             Popup.openPopupWithIframe(url, popupOption);
             window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
 
         function addDateParam(data) {
-            var fromDate = new Date($("#FromDate").val());
-            var toDate = new Date($("#ToDate").val());
+            const fromDate = new Date($('#FromDate').val());
+            const toDate = new Date($('#ToDate').val());
             data.FromDay = fromDate.getDate();
             data.ToDay = toDate.getDate();
             data.Month = fromDate.getMonth() + 1;
@@ -8757,28 +8759,28 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function sortData(arrayData) {
-            var totalData = arrayData.length;
+            const totalData = arrayData.length;
 
             if (!gridControl.sortColumnName || totalData <= 1) {
                 return arrayData;
             }
 
-            var sortThenBy = arrayData[0].Id ? "Id" : "Index";
+            const sortThenBy = arrayData[0].Id ? 'Id' : 'Index';
 
-            var data = DataHelper.sort(
+            const data = DataHelper.sort(
                 arrayData,
                 function (x) { return x[gridControl.sortColumnName]; },
                 gridControl.sortOrder,
                 function (x) { return x[sortThenBy]; },
-                "asc");
+                'asc');
 
-            if (sortThenBy === "Id") {
-                for (var i = 0; i < totalData; i++) {
+            if (sortThenBy === 'Id') {
+                for (let i = 0; i < totalData; i++) {
                     data[i].Index = i + 1;
                 }
             }
             else {
-                for (var j = 0; j < totalData; j++) {
+                for (let j = 0; j < totalData; j++) {
                     arrayData[j].Id = j + 1;
                     data[j].Index = j + 1;
                 }
@@ -8788,25 +8790,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function getProductText(productOptions) {
-            var productSeleted = Enumerable.From(productOptions)
+            const productSeleted = Enumerable.From(productOptions)
                 .Where(function (x) { return x.Status; })
                 .Select(function (x) { return x.Code; })
                 .ToArray();
 
-            var productName = productSeleted.length === productOptions.length
+            const productName = productSeleted.length === productOptions.length
                 ? Site.getSingleResource('All')
-                : productSeleted.join(", ");
+                : productSeleted.join(', ');
 
-            return Site.getSingleResource("Product") + ": " + productName;
+            return Site.getSingleResource('Product') + ': ' + productName;
         }
 
         function resizeGrid() {
-            var reportGrid = $("#ReportGrid");
+            const reportGrid = $('#ReportGrid');
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initSetting: initSetting,
             initEvent: initEvent,
@@ -8832,18 +8834,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path='/@JSense.js' />
 /*
 * Note:in this report, parameter level have 2 value
-*  "0" for master and "1" for member
+*  '0' for master and '1' for member
 */
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
-        "use strict";
-        var BA_PRODUCTCODE = "BA";
+        'use strict';
+        const BA_PRODUCTCODE = 'BA';
 
-        var betlistLink = function (cellvalue, options, rowObject) {
-            var param =
+        const betlistLink = function (cellvalue, options, rowObject) {
+            const param =
             {
                 DrillDownCurrencyId: rowObject.CurrencyId,
                 DrillDownCurrencyName: rowObject.CurrencyName,
@@ -8853,9 +8855,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             };
             return '<a class="bet-list-link" href="javascript:;" data-drill-down=\'' + JSON.stringify(param) + '\'>' + cellvalue + '</a>';
         };
-        var drilldownLink = function (cellvalue, options, rowObject) {
-            var parentClassName = rowObject.IsLeaf ? "" : " text-bold";
-            var param =
+        const drilldownLink = function (cellvalue, options, rowObject) {
+            const parentClassName = rowObject.IsLeaf ? '' : ' text-bold';
+            const param =
             {
                 PlatformType: rowObject.PlatformType > 0 ? rowObject.PlatformType : Number(rowObject.Parent),
                 ProductCode: rowObject.PlatformType < 0 ? rowObject.ProductCode : undefined
@@ -8863,182 +8865,182 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
             return '<a class="drilldown' + parentClassName + '" href="javascript:;" data-drill-down=\'' + JSON.stringify(param) + '\'>' + cellvalue + '</a>';
         };
-        var idColumn = {
-            name: "PlatformType",
-            index: "PlatformType",
+        const idColumn = {
+            name: 'PlatformType',
+            index: 'PlatformType',
             key: true,
             hidden: true,
-            align: "center"
+            align: 'center'
         };
-        var platformNameColumn = {
-            name: "Name",
-            index: "Name",
+        const platformNameColumn = {
+            name: 'Name',
+            index: 'Name',
             width: 120,
-            align: "left",
-            valign: "middle",
+            align: 'left',
+            valign: 'middle',
             sortable: false,
             resizable: false,
             formatter: drilldownLink
         };
-        var indexColumn = {
-            name: "Index",
-            index: "Index",
+        const indexColumn = {
+            name: 'Index',
+            index: 'Index',
             width: 60,
-            align: "center",
-            valign: "middle",
+            align: 'center',
+            valign: 'middle',
             sortable: false,
             resizable: false,
             cellattr: jqGridAdditional.rowSpanSetting
         };
-        var externalIdColumn = {
-            name: "ExternalId",
-            index: "ExternalId",
+        const externalIdColumn = {
+            name: 'ExternalId',
+            index: 'ExternalId',
             width: 85,
-            align: "left",
+            align: 'left',
             sortable: true,
             resizable: false,
             formatter: betlistLink
         };
-        var systemIdColumn = {
-            name: "SystemId",
-            index: "SystemId",
+        const systemIdColumn = {
+            name: 'SystemId',
+            index: 'SystemId',
             width: 120,
-            align: "left",
+            align: 'left',
             sortable: true,
             resizable: false,
             formatter: betlistLink
         };
-        var currencyColumn = {
-            name: "CurrencyName",
-            index: "CurrencyName",
+        const currencyColumn = {
+            name: 'CurrencyName',
+            index: 'CurrencyName',
             width: 60,
-            align: "center",
+            align: 'center',
             sortable: true,
             resizable: false
         };
-        var turnoverColumn = {
-            name: "Turnover",
-            index: "Turnover",
+        const turnoverColumn = {
+            name: 'Turnover',
+            index: 'Turnover',
             resizable: false,
             width: 85,
-            align: "right",
+            align: 'right',
             sortable: true,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-        var turnoverPercentColumn = {
-            name: "TurnoverPercent",
-            index: "TurnoverPercent",
+        const turnoverPercentColumn = {
+            name: 'TurnoverPercent',
+            index: 'TurnoverPercent',
             resizable: false,
             width: 85,
-            align: "right",
+            align: 'right',
             sortable: true,
-            formatter: "currency",
-            formatoptions: { decimalPlaces: 2, suffix: "%" }
+            formatter: 'currency',
+            formatoptions: { decimalPlaces: 2, suffix: '%' }
         };
-        var totalTransColumn = {
-            name: "TotalTransactions",
-            index: "TotalTransactions",
+        const totalTransColumn = {
+            name: 'TotalTransactions',
+            index: 'TotalTransactions',
             width: 95,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "integer",
+            formatter: 'integer',
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
-        var customerWlColumn = {
-            name: "CustomerWinLoss",
-            index: "CustomerWinLoss",
+        const customerWlColumn = {
+            name: 'CustomerWinLoss',
+            index: 'CustomerWinLoss',
             width: 90,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var playerCommColumn = {
-            name: "CustomerComm",
-            index: "CustomerComm",
+        const playerCommColumn = {
+            name: 'CustomerComm',
+            index: 'CustomerComm',
             width: 50,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var customerWlTotalColumn = {
-            name: "CustomerTotal",
-            index: "CustomerTotal",
+        const customerWlTotalColumn = {
+            name: 'CustomerTotal',
+            index: 'CustomerTotal',
             width: 90,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var licenseeWlColumn = {
-            name: "LicenseeWL",
-            index: "LicenseeWL",
+        const licenseeWlColumn = {
+            name: 'LicenseeWL',
+            index: 'LicenseeWL',
             width: 85,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
             frozen: true,
             title: true,
             formatter: jqGridAdditional.formatLicenseeWl
         };
-        var baCommissionColumn = {
-            name: "BACommission",
-            index: "BACommission",
+        const baCommissionColumn = {
+            name: 'BACommission',
+            index: 'BACommission',
             width: 70,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-        var amtDueToBaColumn = {
-            name: "AmtDueToBA",
-            index: "AmtDueToBA",
+        const amtDueToBaColumn = {
+            name: 'AmtDueToBA',
+            index: 'AmtDueToBA',
             width: 60,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-        var currencyIdColumn = {
-            name: "CurrencyId",
-            index: "CurrencyId",
+        const currencyIdColumn = {
+            name: 'CurrencyId',
+            index: 'CurrencyId',
             width: 0,
-            align: "center",
+            align: 'center',
             sortable: false,
             resizable: false,
             hidden: true
         };
-        var customerIdColumn = {
-            name: "CustomerId",
-            index: "CustomerId",
+        const customerIdColumn = {
+            name: 'CustomerId',
+            index: 'CustomerId',
             width: 0,
-            align: "center",
+            align: 'center',
             sortable: false,
             resizable: false,
             hidden: true
         };
-        var columnConfigLevel0 = {
+        const columnConfigLevel0 = {
             colNames: [
-                "Id",
-                "Platform",
-                "Turnover",
-                "%Turnover",
-                "TotalTransaction",
-                "LicenseeW_L",
-                "CurrencyId",
-                "CustomerId"],
+                'Id',
+                'Platform',
+                'Turnover',
+                '%Turnover',
+                'TotalTransaction',
+                'LicenseeW_L',
+                'CurrencyId',
+                'CustomerId'],
             colModels: [
                 idColumn,
                 platformNameColumn,
@@ -9049,18 +9051,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 currencyIdColumn,
                 customerIdColumn]
         };
-        var columnConfigLevel1 = {
+        const columnConfigLevel1 = {
             colNames: [
-                "#",
-                "ExternalId",
-                "SystemId",
-                "Currency",
-                "Turnover",
-                "TotalTransaction",
-                "LicenseeW_L",
-                "Id",
-                "CurrencyId",
-                "CustomerId"],
+                '#',
+                'ExternalId',
+                'SystemId',
+                'Currency',
+                'Turnover',
+                'TotalTransaction',
+                'LicenseeW_L',
+                'Id',
+                'CurrencyId',
+                'CustomerId'],
             colModels: [
                 indexColumn,
                 externalIdColumn,
@@ -9073,23 +9075,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 currencyIdColumn,
                 customerIdColumn]
         };
-        var columnConfigCustomerComm = {
+        const columnConfigCustomerComm = {
             colsCustomerComm: {
-                colNames: ["@[Win]/@[Loss]", "Comm", "Total"],
+                colNames: ['@[Win]/@[Loss]', 'Comm', 'Total'],
                 colModels: [customerWlColumn, playerCommColumn, customerWlTotalColumn]
             },
             colsWithoutComm: {
-                colNames: ["Customer W/L"],
+                colNames: ['Customer W/L'],
                 colModels: [customerWlTotalColumn]
             }
         };
-        var columnConfigBA = {
-            colNames: ["BA<br/>@[Commission]", "@[AmtDueToBA]"],
+        const columnConfigBA = {
+            colNames: ['BA<br/>@[Commission]', '@[AmtDueToBA]'],
             colModels: [baCommissionColumn, amtDueToBaColumn]
         };
 
         function getColConfigLevel0(cols, customerWL) {
-            var customerWlIndex = 4;
+            let customerWlIndex = 4;
 
             customerWL.forEach(function (item) {
                 cols.insertAfter(item, customerWlIndex);
@@ -9100,14 +9102,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         }
 
         function getColConfigLevel1(cols, customerWL, colsBA) {
-            var customerWlIndex = 5;
+            let customerWlIndex = 5;
             customerWL.forEach(function (item) {
                 cols.insertAfter(item, customerWlIndex);
                 ++customerWlIndex;
             });
 
             if (colsBA !== null) {
-                var bAIndex = customerWlIndex + 1;
+                let bAIndex = customerWlIndex + 1;
                 colsBA.forEach(function (item) {
                     cols.insertAfter(item, bAIndex);
                     ++bAIndex;
@@ -9118,9 +9120,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         }
 
         function isProductChecked(productOptions, productCode) {
-            var length = productOptions.length;
+            const length = productOptions.length;
 
-            for (var i = 0; i < length; i++) {
+            for (let i = 0; i < length; i++) {
                 if (productOptions[i].Code === productCode) {
                     return productOptions[i].Status;
                 }
@@ -9129,63 +9131,63 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             return false;
         }
 
-        var _me = {
+        const _me = {
             hasCustomerComm: true,
             pageSize: 50,
             totalColspan: [0, 4],
-            urlData: "api/PlatformWinLossReport/Index",
-            urlExcelData: "api/PlatformWinLossReport/Index",
+            urlData: 'api/PlatformWinLossReport/Index',
+            urlExcelData: 'api/PlatformWinLossReport/Index',
             gridOption: {
-                datatype: "jsonstring",
+                datatype: 'jsonstring',
                 colNames: [],
                 colModel: [],
                 data: [],
                 viewrecords: true,
-                height: "100%",
+                height: '100%',
                 autowidth: false,
                 forceFit: false,
                 shrinkToFit: true,
                 loadtext: '',
-                loadui: "disable",
+                loadui: 'disable',
                 loadonce: true,
                 gridview: true,
                 footerrow: true,
                 cmTemplate: { title: true }, //enable tooltip
                 treeGrid: true,
-                treeGridModel: "adjacency",
-                treedatatype: "local",
-                ExpandColumn: "Name",
+                treeGridModel: 'adjacency',
+                treedatatype: 'local',
+                ExpandColumn: 'Name',
                 treeReader: {
-                    level_field: "Level",       // jshint ignore:line
-                    parent_id_field: "Parent",  // jshint ignore:line
-                    leaf_field: "IsLeaf"        // jshint ignore:line
+                    level_field: 'Level',       // jshint ignore:line
+                    parent_id_field: 'Parent',  // jshint ignore:line
+                    leaf_field: 'IsLeaf'        // jshint ignore:line
                 },
-                treeIcons: { plus: "ui-icon-circlesmall-plus icon-arrow", minus: "ui-icon-circlesmall-minus icon-arrow", leaf: "" },
-                pager: "#ppdata",
+                treeIcons: { plus: 'ui-icon-circlesmall-plus icon-arrow', minus: 'ui-icon-circlesmall-minus icon-arrow', leaf: '' },
+                pager: '#ppdata',
                 rowNum: 50,
                 rowList: [50, 100, 200, 300, 400, 500, 1000, 2000]
             },
 
             getColName: function (level, productOptions) {
-                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
+                const customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
 
                 if (level === 0) {
                     return Site.getResources(getColConfigLevel0(Site.clone(columnConfigLevel0.colNames), customerWL));
                 }
 
-                var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
-                var colsBA = allowedBa ? columnConfigBA.colNames : null;
+                const allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
+                const colsBA = allowedBa ? columnConfigBA.colNames : null;
 
                 return Site.getResources(getColConfigLevel1(Site.clone(columnConfigLevel1.colNames), customerWL, colsBA));
             },
 
             getColModel: function (level, productOptions) {
-                var customerWL =  Site.clone(_me.hasCustomerComm ? 
+                const customerWL =  Site.clone(_me.hasCustomerComm ? 
                     columnConfigCustomerComm.colsCustomerComm.colModels : 
                     columnConfigCustomerComm.colsWithoutComm.colModels);
 
                 if (level === 0) {
-                    var colModels = getColConfigLevel0(Site.clone(columnConfigLevel0.colModels), customerWL);
+                    const colModels = getColConfigLevel0(Site.clone(columnConfigLevel0.colModels), customerWL);
 
                     colModels.forEach(function (item) {
                         item.sortable = false;
@@ -9194,8 +9196,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                     return colModels;
                 }
 
-                var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
-                var colsBA = allowedBa ? columnConfigBA.colModels : null;
+                const allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
+                const colsBA = allowedBa ? columnConfigBA.colModels : null;
 
                 return getColConfigLevel1(Site.clone(columnConfigLevel1.colModels), customerWL, colsBA);
             },
@@ -9222,30 +9224,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -9259,19 +9261,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -9285,8 +9287,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -9296,35 +9298,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -9332,52 +9334,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
+            for (let currency in summaryTotal) {
+                if (summaryTotal.hasOwnProperty(currency)) {
+                    currencyList.push(currency);
+                    const summaryData = summaryTotal[currency];
+                    if (Array.isArray(summaryData)) {
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
+                    }
+                    else {
+                        processColumnModel(summaryData, currency);
+                    }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
-                $(".breadCrumbHolder").hide();
+            const levelNumber = Number(level);
+            if (levelNumber === 0) {
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = level === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };
@@ -9388,7 +9394,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 32:
+/***/ 30:
 /*!**********************************************************************************!*\
   !*** multi ./www/js/source/pages/report/platformwinloss/main-platformwinloss.js ***!
   \**********************************************************************************/

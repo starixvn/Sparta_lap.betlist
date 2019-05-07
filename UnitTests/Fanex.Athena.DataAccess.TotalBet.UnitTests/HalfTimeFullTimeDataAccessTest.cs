@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -18,7 +19,7 @@
         }
 
         [Test]
-        public void GetHalfTimeFullTimeDataList_WhenCall_DataReturnedCorrectly()
+        public async Task GetHalfTimeFullTimeDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var metaModel = new HalfTimeFullTimeMetaModel();
@@ -37,7 +38,7 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetHalfTimeFullTimeDataList(metaModel);
+            var result = await DataAccess.GetHalfTimeFullTimeDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -48,7 +49,7 @@
         }
 
         [Test]
-        public void GetHalfTimeFullTimeDataList_NoDataReturned_ReturnEmptyData()
+        public async Task GetHalfTimeFullTimeDataList_NoDataReturned_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new HalfTimeFullTimeMetaModel();
@@ -58,7 +59,7 @@
             Reader.NextResult().Returns(false);
 
             // Action
-            var result = DataAccess.GetHalfTimeFullTimeDataList(metaModel);
+            var result = await DataAccess.GetHalfTimeFullTimeDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>

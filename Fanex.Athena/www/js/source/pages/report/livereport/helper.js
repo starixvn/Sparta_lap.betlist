@@ -1,42 +1,43 @@
-﻿define(["common/querystring"], function (QueryString) {
-    "use strict";
+﻿define(['common/querystring'], function (QueryString) {
+    'use strict';
     function setSumParams(url, totalValue) {
-        url = QueryString.setParam(url, "totalrows", totalValue.BetCount);
-        url = QueryString.setParam(url, "sumwinlost", totalValue.CustomerWinLoss);
-        url = QueryString.setParam(url, "sumplayercomm", totalValue.CustomerComm);
-        url = QueryString.setParam(url, "sumlicenseewl", totalValue.LicenseeWinLoss);
-        url = QueryString.setParam(url, "sumcomm", totalValue.LicenseeComm);
-        url = QueryString.setParam(url, "sumturnover", totalValue.TurnOver);
-        url = QueryString.setParam(url, "sumamtdueto3rd", totalValue.AmountDue);
+        let newUrl = url;
+        newUrl = QueryString.setParam(newUrl, 'totalrows', totalValue.BetCount);
+        newUrl = QueryString.setParam(newUrl, 'sumwinlost', totalValue.CustomerWinLoss);
+        newUrl = QueryString.setParam(newUrl, 'sumplayercomm', totalValue.CustomerComm);
+        newUrl = QueryString.setParam(newUrl, 'sumlicenseewl', totalValue.LicenseeWinLoss);
+        newUrl = QueryString.setParam(newUrl, 'sumcomm', totalValue.LicenseeComm);
+        newUrl = QueryString.setParam(newUrl, 'sumturnover', totalValue.TurnOver);
+        newUrl = QueryString.setParam(newUrl, 'sumamtdueto3rd', totalValue.AmountDue);
 
-        return url;
+        return newUrl;
     }
 
     function getMatchListProductOption(sportId, productCode) {
-        sportId = Number(sportId);
-        var productOptions = [];
-        if (sportId > 0) {
-            if (sportId === 180 || sportId === 186) {
-                productOptions.push("VS");
+        const newSportId = Number(sportId);
+        let productOptions = [];
+        if (newSportId > 0) {
+            if (newSportId === 180 || newSportId === 186) {
+                productOptions.push('VS');
             }
-            else if (sportId === 162) {
-                productOptions.push("LC");
+            else if (newSportId === 162) {
+                productOptions.push('LC');
             }
-            else if (sportId === 104 || (sportId >= 190 && sportId <= 194)) {
-                productOptions.push("VS2");
+            else if (newSportId === 104 || (newSportId >= 190 && newSportId <= 194)) {
+                productOptions.push('VS2');
             }
             else {
-                if (productCode === "SB" || productCode === "ALL") {
-                    productOptions.push("SB");
+                if (productCode === 'SB' || productCode === 'ALL') {
+                    productOptions.push('SB');
                 }
-                if (productCode === "BA" || productCode === "ALL") {
-                    productOptions.push("BA");
+                if (productCode === 'BA' || productCode === 'ALL') {
+                    productOptions.push('BA');
                 }
             }
         }
         else {
-            if (productCode === "ALL") {
-                productOptions = ["SB", "BA", "NG", "LC", "VS", "CS", "VS2"];
+            if (productCode === 'ALL') {
+                productOptions = ['SB', 'BA', 'NG', 'LC', 'VS', 'CS', 'VS2'];
             }
             else {
                 productOptions.push(productCode);

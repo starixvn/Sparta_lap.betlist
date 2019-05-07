@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -41,7 +42,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(
+        public Task<dynamic> Index(
             ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -53,7 +54,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] ThirdPartyWinLossMetaModel metaModel)
+        public Task<dynamic> Index([FromBody] ThirdPartyWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
@@ -110,7 +111,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, exportedFileName);
         }
 
-        private dynamic ProcessRequest(
+        private async Task<dynamic> ProcessRequest(
             ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -127,7 +128,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
 
-                var data = GetData(metaModel);
+                var data = await GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {
@@ -148,20 +149,20 @@ namespace Fanex.Athena.Api.Report
             return GetEmptyResult();
         }
 
-        private ReportResultModel<ThirdPartyWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
+        private async Task<ReportResultModel<ThirdPartyWinLoss>> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
             var userCurrencyList = SessionService.UserSession.CurrencyList;
 
-            switch (metaModel.DrillDownLevel)
+            switch ((ReportLevel)metaModel.DrillDownLevel)
             {
-                case 0:
-                    return _thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel, userCurrencyList, "Lrf_Rpt_AGCasinoWinloss");
+                case ReportLevel.Main:
+                    return await _thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel, userCurrencyList, "Lrf_Rpt_AGCasinoWinloss").ConfigureAwait(false);
 
-                case 1:
-                    return _thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList, "LRF_Rpt_AGCasinoWinloss_Ag");
+                case ReportLevel.Licensee:
+                    return await _thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList, "LRF_Rpt_AGCasinoWinloss_Ag").ConfigureAwait(false);
 
-                case 2:
-                    return _thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList, "LRF_Rpt_AGCasinoWinloss_Mem");
+                case ReportLevel.Customer:
+                    return await _thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList, "LRF_Rpt_AGCasinoWinloss_Mem").ConfigureAwait(false);
 
                 default:
                     throw new ArgumentException("Invalid level: " + metaModel.DrillDownLevel);

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.Users.Interfaces;
     using Customer.Interfaces;
@@ -21,7 +22,6 @@
     {
         private const int LicenseeId = 9999;
 
-        private ISessionService _sessionService;
         private ICoreBetSettingDataAccess _coreBetSettingDataAccess;
         private IAuthorizationService _authorizationService;
         private ICustomerService _customerService;
@@ -31,20 +31,13 @@
         [OneTimeSetUp]
         public void Setup()
         {
-            _sessionService = Substitute.For<ISessionService>();
             _coreBetSettingDataAccess = Substitute.For<ICoreBetSettingDataAccess>();
             _authorizationService = Substitute.For<IAuthorizationService>();
             _customerService = Substitute.For<ICustomerService>();
             _coreBetSettingService = new CoreBetSettingService(
-                _sessionService,
                 _authorizationService,
                 _coreBetSettingDataAccess,
                 _customerService);
-
-            _sessionService.LicenseeSession.Returns(new Session.Model.LicenseeSession
-            {
-                LicenseeId = LicenseeId
-            });
         }
 
         [Test]
@@ -56,7 +49,7 @@
             _customerService.GetCustomerInfo(LicenseeId, CustId).Returns(expectedCustomer);
 
             // Action
-            var result = _coreBetSettingService.GetCustomerInfo(CustId);
+            var result = _coreBetSettingService.GetCustomerInfo(CustId, LicenseeId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedCustomer));
@@ -72,10 +65,9 @@
                 UserId = 234234,
                 PortalFunctionList = new[] { "sdf", "cxv", "sdfsdf" }
             };
-            _sessionService.UserSession.Returns(userSession);
 
             // Action
-            _coreBetSettingService.IsBetSettingEditable();
+            _coreBetSettingService.IsBetSettingEditable(userSession);
 
             // Assert
             _authorizationService.Received(1).HasPermissions(userSession.PortalFunctionList, PermissionKeys.CustomerInfoEditBetSetting);
@@ -91,26 +83,25 @@
                 UserId = 324234,
                 FunctionIdList = new[] { 23, 45, 67 }
             };
-            _sessionService.UserSession.Returns(userSession);
 
             // Action
-            _coreBetSettingService.IsBetSettingEditable();
+            _coreBetSettingService.IsBetSettingEditable(userSession);
 
             // Assert
             _authorizationService.Received(1).HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting);
         }
 
         [Test]
-        public void GetBetSettingProducts_IsSyncCasino_ReturnCorrectData()
+        public async Task GetBetSettingProducts_IsSyncCasino_ReturnCorrectData()
         {
             // Arrange
             const int CustId = 3434;
             _customerService.GetCustomerInfo(LicenseeId, CustId).Returns(new CustomerInfo { SyncCasino = true });
 
-            _coreBetSettingDataAccess.GetBetSettingProducts(LicenseeId).Returns(GetSampleBetSettingProducts());
+            _coreBetSettingDataAccess.GetBetSettingProductsAsync(LicenseeId).Returns(Task.FromResult(GetSampleBetSettingProducts()));
 
             // Action
-            var result = _coreBetSettingService.GetBetSettingProducts(CustId);
+            var result = await _coreBetSettingService.GetBetSettingProductsAsync(CustId, LicenseeId);
 
             // Assert
             Assert.That(
@@ -119,16 +110,16 @@
         }
 
         [Test]
-        public void GetBetSettingProducts_IsNotSyncCasino_ReturnCorrectData()
+        public async Task GetBetSettingProducts_IsNotSyncCasino_ReturnCorrectData()
         {
             // Arrange
             const int CustId = 3434;
             _customerService.GetCustomerInfo(LicenseeId, CustId).Returns(new CustomerInfo { SyncCasino = false });
 
-            _coreBetSettingDataAccess.GetBetSettingProducts(LicenseeId).Returns(GetSampleBetSettingProducts());
+            _coreBetSettingDataAccess.GetBetSettingProductsAsync(LicenseeId).Returns(Task.FromResult(GetSampleBetSettingProducts()));
 
             // Action
-            var result = _coreBetSettingService.GetBetSettingProducts(CustId);
+            var result = await _coreBetSettingService.GetBetSettingProductsAsync(CustId, LicenseeId).ConfigureAwait(false);
 
             // Assert
             Assert.That(

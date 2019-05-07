@@ -1,41 +1,38 @@
-﻿"use strict";
-define(["jquery", "common/site", "./customerlist.state", "./customerlist.service"], function ($, Site, CustomerListState, CustomerListService) {
-    var _$specialLevelCell = null;
-    var _state;
-
-    var _me = {
+﻿'use strict';
+define(['jquery', 'common/site', './customerlist.state', './customerlist.service'], function ($, Site, CustomerListState, CustomerListService) {
+    let _$specialLevelCell = null;
+    
+    const _me = {
         initialize: function () {
-            _state = CustomerListState.getState();
-
-            $("#report-content").on("click", ".specialLevel", function () {
+            $('#report-content').on('click', '.specialLevel', function () {
                 _$specialLevelCell = $(this);
-                CustomerListService.showGridDropdownById("LevelListContainer", _$specialLevelCell);
+                CustomerListService.showGridDropdownById('LevelListContainer', _$specialLevelCell);
                 return false;
             });
 
-            $("#report-content").on("blur", ".specialLevel", function () {
+            $('#report-content').on('blur', '.specialLevel', function () {
                 setTimeout(function () {
-                    $("#LevelListContainer").hide();
+                    $('#LevelListContainer').hide();
                 }, 300);
             });
 
-            $("#LevelListContainer").on("click", ".levelLink", function () {
-                var level = $(this).data("level");
+            $('#LevelListContainer').on('click', '.levelLink', function () {
+                const level = $(this).data('level');
                 _me.setValue(level);
             });
         },
 
         setValue: function (level) {
-            var option = {
-                dataField: "SpecialLevel",
-                popUpSelector: "#LevelListContainer",
+            const option = {
+                dataField: 'SpecialLevel',
+                popUpSelector: '#LevelListContainer',
                 $context: _$specialLevelCell,
                 param: {
-                    custId: _$specialLevelCell.data("custid"),
+                    custId: _$specialLevelCell.data('custid'),
                     level: level
                 },
-                url: Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel"),
-                oldValue: _$specialLevelCell.data("level"),
+                url: Site.resolveClientUrl('CustomerAPI/UpdateSpecialLevel'),
+                oldValue: _$specialLevelCell.data('level'),
                 newValue: level,
                 confirmMessage: _me.getConfirmMessage(level)
             };
@@ -44,7 +41,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
         },
 
         getConfirmMessage: function (level) {
-            var resourceName = level === 0 ? "AlertRemoveSpecialLevelForCustomerMsg" : "AlertSetSpecialLevelForCustomerMsg";
+            const resourceName = level === 0 ? 'AlertRemoveSpecialLevelForCustomerMsg' : 'AlertSetSpecialLevelForCustomerMsg';
             return Site.getSingleResource(resourceName);
         }
     };

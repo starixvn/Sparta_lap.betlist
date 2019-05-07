@@ -34,5 +34,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
                 return string.Join(",", Customers);
             }
         }
+
+        public string UserName { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
-using System.Web.Http;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -12,7 +11,6 @@ using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.TicketHelper;
 using Fanex.Logging;
 using Fanex.Result.Core.AllBetCasino;
-using Fanex.Result.Core.MicroGaming;
 using Fanex.Result.Core.PP;
 using Fanex.Result.Core.Voidbridge;
 
@@ -23,11 +21,9 @@ namespace Fanex.Athena
         public static void Register()
         {
             var builder = new ContainerBuilder();
-            var config = GlobalConfiguration.Configuration;
             var assemblies = GetAssemblies();
-            var serviceAssemblies = GetServiceAssemblies(assemblies);
             var apiControllerAssemblies = GetControllerAssemblies(assemblies);
-            builder.RegisterAssemblyTypes(serviceAssemblies).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
             builder.RegisterControllers(apiControllerAssemblies);
 
             builder.RegisterFilterProvider();
@@ -50,7 +46,6 @@ namespace Fanex.Athena
             builder.RegisterType<VoidbridgeApiImp>().As<VoidbridgeApi>();
             builder.RegisterType<AllbetResultBuilder>().As<IAllbetResultBuilder>();
 
-            builder.RegisterInstance(ParserService.Instance).As<IParserService>();
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
         }
 
@@ -67,12 +62,6 @@ namespace Fanex.Athena
             }
 
             return assemblies.Where(x => x.FullName.StartsWith("Fanex.Athena", StringComparison.InvariantCulture)).ToArray();
-        }
-
-        private static Assembly[] GetServiceAssemblies(Assembly[] assemblies)
-        {
-            string[] controllerFileNames = new[] { "Fanex.Athena.BetList.Controller", "Fanex.Athena.Result.Controller" };
-            return assemblies.Where(ass => !controllerFileNames.Any(x => ass.FullName.Contains(x))).ToArray();
         }
 
         private static Assembly[] GetControllerAssemblies(Assembly[] assemblies)

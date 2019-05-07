@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using BetSettings;
     using BetSettings.Interfaces;
     using DataAccess.BetSettings.Interfaces;
@@ -34,20 +35,20 @@
         }
 
         [Test]
-        public void GetViewModel_HaveNoPermission_ReturnEmptyData()
+        public async Task GetViewModelAsync_HaveNoPermission_ReturnEmptyData()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId);
+            var result = await _service.GetViewModelAsync(LicenseeId, CustId);
 
             // Assert
             Assert.That(result.MainData, Is.Empty);
         }
 
         [Test]
-        public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
+        public async Task GetViewModelAsync_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -61,14 +62,15 @@
                     new BetSetting()
                 }
             };
-            _dataAccess.GetBetSetting(CustId).Returns(viewModel);
-            _dcsBetSettingService.GetBetSettings(LicenseeId, CustId, Arg.Any<int>()).Returns(new List<BetSetting>
-            {
-                new BetSetting()
-            });
+            _dataAccess.GetBetSettingAsync(CustId).Returns(Task.FromResult(viewModel));
+            _dcsBetSettingService.GetBetSettingsAsync(LicenseeId, CustId, Arg.Any<int>())
+                .Returns(Task.FromResult<IList<BetSetting>>(new List<BetSetting>
+                {
+                    new BetSetting()
+                }));
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId);
+            var result = await _service.GetViewModelAsync(LicenseeId, CustId);
 
             // Assert
             Assert.Multiple(() =>
@@ -78,7 +80,7 @@
         }
 
         [Test]
-        public void GetViewModel_NoEsportData_ThrowException()
+        public void GetViewModelAsync_NoEsportData_ThrowException()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -86,32 +88,32 @@
             {
                 MainData = new List<BetSetting>()
             };
-            _dataAccess.GetBetSetting(CustId).Returns(viewModel);
-            _dcsBetSettingService.GetBetSettings(LicenseeId, CustId, Arg.Any<int>()).Returns(new List<BetSetting>());
+            _dataAccess.GetBetSettingAsync(CustId).Returns(Task.FromResult(viewModel));
+            _dcsBetSettingService.GetBetSettingsAsync(LicenseeId, CustId, Arg.Any<int>()).Returns(Task.FromResult<IList<BetSetting>>(new List<BetSetting>()));
 
             // Action
-            TestDelegate testDelegate = () => _service.GetViewModel(LicenseeId, CustId);
+            AsyncTestDelegate testDelegate = () => _service.GetViewModelAsync(LicenseeId, CustId);
 
             // Assert
-            Assert.Throws<System.InvalidOperationException>(testDelegate, "sdfsdf");
+            Assert.ThrowsAsync<System.InvalidOperationException>(testDelegate, "sdfsdf");
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_CallUpdateBetSettingMethods()
+        public async Task UpdateBetSettingAsync_WhenCall_CallUpdateBetSettingMethods()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.UpdateBetSetting(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>()).Returns(new ResultInfo());
+            _dataAccess.UpdateBetSettingAsync(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo()));
             var commonBetSetting = FakeHelper.Create<CommonBetSetting>();
 
             // Action
-            var result = _service.UpdateBetSetting(commonBetSetting, new Dictionary<string, object>(), new DcsBetSetting());
+            var result = await _service.UpdateBetSettingAsync(commonBetSetting, new Dictionary<string, object>(), new DcsBetSetting());
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received(1).UpdateBetSetting(commonBetSetting, Arg.Any<Dictionary<string, object>>());
-                _dcsBetSettingService.Received(1).UpdateBetSetting(
+                _dataAccess.Received(1).UpdateBetSettingAsync(commonBetSetting, Arg.Any<Dictionary<string, object>>());
+                _dcsBetSettingService.Received(1).UpdateBetSettingAsync(
                     commonBetSetting.LicenseeId,
                     commonBetSetting.CustId,
                     commonBetSetting.UserId,
@@ -121,25 +123,25 @@
         }
 
         [Test]
-        public void UpdateBetSetting_UpdateSportsbookFail_DoNotCallUpdateEsport()
+        public async Task UpdateBetSettingAsync_UpdateSportsbookFail_DoNotCallUpdateEsport()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.UpdateBetSetting(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>()).Returns(
-                new ResultInfo
+            _dataAccess.UpdateBetSettingAsync(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>())
+                .Returns(Task.FromResult<IResultInfo>(new ResultInfo
                 {
                     Code = 1,
                     Message = "Error"
-                });
+                }));
 
             // Action
-            var result = _service.UpdateBetSetting(new CommonBetSetting(), new Dictionary<string, object>(), new DcsBetSetting());
+            var result = await _service.UpdateBetSettingAsync(new CommonBetSetting(), new Dictionary<string, object>(), new DcsBetSetting());
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received(1).UpdateBetSetting(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>());
-                _dcsBetSettingService.DidNotReceive().UpdateBetSetting(
+                _dataAccess.Received(1).UpdateBetSettingAsync(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>());
+                _dcsBetSettingService.DidNotReceive().UpdateBetSettingAsync(
                     Arg.Any<int>(),
                     Arg.Any<int>(),
                     Arg.Any<int>(),
@@ -149,13 +151,13 @@
         }
 
         [Test]
-        public void UpdateBetSetting_SettingParamIsNull_ReturnCorrectErrorResult()
+        public async Task UpdateBetSettingAsync_SettingParamIsNull_ReturnCorrectErrorResult()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
 
             // Action
-            var result = _service.UpdateBetSetting(null, new Dictionary<string, object>(), new DcsBetSetting());
+            var result = await _service.UpdateBetSettingAsync(null, new Dictionary<string, object>(), new DcsBetSetting());
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
@@ -163,13 +165,13 @@
         }
 
         [Test]
-        public void UpdateBetSetting_HaveNoPermission_ReturnCorrectErrorResult()
+        public async Task UpdateBetSettingAsync_HaveNoPermission_ReturnCorrectErrorResult()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _service.UpdateBetSetting(new CommonBetSetting(), new Dictionary<string, object>(), new DcsBetSetting());
+            var result = await _service.UpdateBetSettingAsync(new CommonBetSetting(), new Dictionary<string, object>(), new DcsBetSetting());
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));

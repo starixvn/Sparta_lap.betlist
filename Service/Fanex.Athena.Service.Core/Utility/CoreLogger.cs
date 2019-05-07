@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Fanex.Athena.Service.Core.Utility.Interfaces;
 using Fanex.Athena.Session.Interfaces;
@@ -25,16 +26,16 @@ namespace Fanex.Athena.Service.Core.Utility
             Logging.Extensions.Web.ExceptionHandler.Handle(exception, data);
         }
 
-        public void Error(string message)
+        public async Task ErrorAsync(string message)
         {
             var data = GetCustomInfo();
             var jsonData = new JavaScriptSerializer().Serialize(data);
-            _logger.Error(message + "\n" + jsonData);
+            await _logger.ErrorAsync(message + "\n" + jsonData).ConfigureAwait(false);
         }
 
-        public void Info(string message)
+        public async Task InfoAsync(string message)
         {
-            _logger.Info(message);
+            await _logger.InfoAsync(message).ConfigureAwait(false);
         }
 
         private IDictionary<string, object> GetCustomInfo(string message = null)

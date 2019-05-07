@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Extension.Utility;

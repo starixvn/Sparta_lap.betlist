@@ -16,7 +16,7 @@ namespace Fanex.Athena.Controllers
     using Web.ActionFilter;
 
     [CheckUMFilter]
-    public class HomeController : BaseController
+    public class HomeController : CultureBaseController
     {
         private readonly ILicenseeSettingService _licenseeSettingService;
 

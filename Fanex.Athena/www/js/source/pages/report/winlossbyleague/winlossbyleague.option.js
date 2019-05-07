@@ -1,13 +1,13 @@
-﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], function ($, Site, jqGridAdditional) {
-    "use strict";
+﻿define(['jquery', 'common/site', 'lib/jqgrid/jquery.jqgrid.additional'], function ($, Site, jqGridAdditional) {
+    'use strict';
 
-    var setDrillDownLink = function (custId, cellvalue, externalid, systemId) {
+    const setDrillDownLink = function (custId, cellvalue, externalid, systemId) {
         return '<a class="drilldown" href="javascript:;" data-custid="' + custId +
          '" data-externalid="' + externalid + '" data-systemid="' + systemId + '">' + cellvalue + '</a>';
     };
 
     //#region Columns
-    var indexColumn =
+    const indexColumn =
         {
             name: 'Index',
             index: 'Index',
@@ -17,7 +17,7 @@
             sortable: false,
             resizable: false
         };
-    var externalIdColumn =
+    const externalIdColumn =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -29,7 +29,7 @@
             return setDrillDownLink(rowObject.CustomerId, cellvalue, rowObject.ExternalId, rowObject.SystemId);
         }
     };
-    var systemIdColumn =
+    const systemIdColumn =
     {
         name: 'SystemId',
         index: 'SystemId',
@@ -41,7 +41,7 @@
             return setDrillDownLink(rowObject.CustomerId, cellvalue, rowObject.ExternalId, rowObject.SystemId);
         }
     };
-    var matchColumn =
+    const matchColumn =
      {
          name: 'Match',
          index: 'Match',
@@ -50,10 +50,10 @@
          resizable: false,
          hidden: false,
          formatter: function (cellvalue, options, rowObject) {
-             return rowObject.HomeName + "<br/>" + rowObject.AwayName;
+             return rowObject.HomeName + '<br/>' + rowObject.AwayName;
          }
      };
-    var turnoverColumn =
+    const turnoverColumn =
         {
             name: 'TurnOver',
             index: 'TurnOver',
@@ -65,7 +65,7 @@
             hidden: false,
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-    var betcountColumn =
+    const betcountColumn =
         {
             name: 'BetCount',
             index: 'BetCount',
@@ -77,10 +77,10 @@
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
-    var customerWlColumn =
+    const customerWlColumn =
         {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
@@ -91,7 +91,7 @@
             formatter: jqGridAdditional.formatDecimal
         };
 
-    var licenseeWlColumn =
+    const licenseeWlColumn =
         {
             name: 'LicenseeWL',
             //classes: 'highlight',
@@ -105,7 +105,7 @@
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-    var baCommColumn =
+    const baCommColumn =
         {
             name: 'BACommission',
             // classes: 'highlight',
@@ -117,7 +117,7 @@
             formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-    var amtDueToColumn =
+    const amtDueToColumn =
         {
             name: 'AmountDue',
             index: 'AmountDue',
@@ -130,17 +130,17 @@
         };
 
     //#endregion
-    var colNames = [
+    const colNames = [
          ['#', 'Match', 'BetCount', 'Turnover', 'CustomerW_L', 'LicenseeW_L', 'BACommission', 'AmtDueTo'],
          ['#', 'ExternalID', 'SystemID', 'BetCount', 'Turnover', 'CustomerW_L', 'LicenseeW_L', 'BACommission']
     ];
 
-    var colModels = [
+    const colModels = [
         [indexColumn, matchColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn, amtDueToColumn],
         [indexColumn, externalIdColumn, systemIdColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn]
     ];
 
-    var me = {
+    const me = {
         HasAmountDueToColumn: true,
         currencyIndex: 4,
         systemIdIndex: 3,
@@ -194,10 +194,10 @@
     //#end
 
     me.addLeagueGroupRow = function (leagueid, leagueName) {
-        var $grid = $("#ReportGrid");
-        var $row = $grid.find("tr.jqgrow:first");
-        $row.before("<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id='leagueHeader' data-leagueid='" + leagueid
-            + "' href='javascript:;'>" + leagueName + "</a></td></tr>");
+        const $grid = $('#ReportGrid');
+        const $row = $grid.find('tr.jqgrow:first');
+        $row.before('<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id="leagueHeader" data-leagueid="' + leagueid
+            + '" href="javascript:;">' + leagueName + '</a></td></tr>');
     };
 
     return me;

@@ -2,21 +2,24 @@
 
 'use strict';
 
-define(["jquery"], function ($) {
+define(['jquery'], function ($) {
 
-    var methods = {
-        init: function init(options) {
-            var defaults = {
+    const methods = {
+        init: function(inputOptions) {
+            const defaults = {
                 menuWidth: 260,
                 edge: 'left',
                 closeOnClick: false
             };
-            options = $.extend(defaults, options);
+            const options = $.extend(defaults, inputOptions);
 
             $(this).each(function () {
-                var $this = $(this);
-                
-                var menu_id = $("#" + $this.attr('data-activates'));
+                const $this = $(this);
+
+                // Touch Event
+                let menuOut = false;
+
+                const menu_id = $('#' + $this.attr('data-activates'));
 
                 // Set to width
                 if (options.menuWidth !== 260) {
@@ -24,7 +27,7 @@ define(["jquery"], function ($) {
                 }
 
                 // Add Touch Area
-                var dragTarget = $('<div class="drag-target"></div>');
+                const dragTarget = $('<div class="drag-target"></div>');
                 $('body').append(dragTarget);
 
                 if (options.edge === 'left') {
@@ -49,9 +52,9 @@ define(["jquery"], function ($) {
                 if (menu_id.hasClass('fixed')) {
                     $(window).resize(function () {
                         if ($('body').hasClass('site-menubar-fold')) {
-                            $(".site-menu li.has-sub").removeClass("active");
+                            $('.site-menu li.has-sub').removeClass('active');
                             $('.site-menu .menu-item .collapsible-header').removeClass('active');
-                            $(".site-menu .menu-item div.collapsible-body").css('display', 'none');
+                            $('.site-menu .menu-item div.collapsible-body').css('display', 'none');
                         }
                         if (window.innerWidth > 992) {
                             // Close menu if window is resized bigger than 992 and user has fixed sidenav
@@ -75,13 +78,12 @@ define(["jquery"], function ($) {
 
                 // if closeOnClick, then add close event for all a tags in side sideNav
                 if (options.closeOnClick === true) {
-                    menu_id.on("click.itemclick", "a:not(.collapsible-header)", function () {
+                    menu_id.on('click.itemclick', 'a:not(.collapsible-header)', function () {
                         removeMenu();
                     });
                 }
 
                 function removeMenu(restoreNav) {
-                    panning = false;
                     menuOut = false;
                     // Reenable scrolling
                     $('body').css({
@@ -92,7 +94,7 @@ define(["jquery"], function ($) {
                     $('#sidenav-overlay').velocity({ opacity: 0 }, {
                         duration: 200,
                         queue: false, easing: 'easeOutQuad',
-                        complete: function complete() {
+                        complete: function() {
                             $(this).remove();
                         }
                     });
@@ -103,7 +105,7 @@ define(["jquery"], function ($) {
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function complete() {
+                            complete: function() {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu_id.removeAttr('style');
@@ -119,7 +121,7 @@ define(["jquery"], function ($) {
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function complete() {
+                            complete: function() {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu_id.removeAttr('style');
@@ -129,10 +131,6 @@ define(["jquery"], function ($) {
                         });
                     }
                 }
-
-                // Touch Event
-                var panning = false;
-                var menuOut = false;
 
                 dragTarget.on('click', function () {
                     if (menuOut) {
@@ -144,19 +142,19 @@ define(["jquery"], function ($) {
                     prevent_default: false
                 }).bind('pan', function (e) {
 
-                    if (e.gesture.pointerType === "touch") {
+                    if (e.gesture.pointerType === 'touch') {
 
-                        var x = e.gesture.center.x;
+                        let x = e.gesture.center.x;
 
                         // Disable Scrolling
-                        var $body = $('body');
-                        var oldWidth = $body.innerWidth();
+                        const $body = $('body');
+                        const oldWidth = $body.innerWidth();
                         $body.css('overflow', 'hidden');
                         $body.width(oldWidth);
 
                         // If overlay does not exist, create one and if it is clicked, close menu
                         if ($('#sidenav-overlay').length === 0) {
-                            var overlay = $('<div id="sidenav-overlay"></div>');
+                            const overlay = $('<div id="sidenav-overlay"></div>');
                             overlay.css('opacity', 0).click(function () {
                                 removeMenu();
                             });
@@ -191,7 +189,7 @@ define(["jquery"], function ($) {
                             else if (x >= window.innerWidth - options.menuWidth / 2) {
                                 menuOut = false;
                             }
-                            var rightPos = x - options.menuWidth / 2;
+                            let rightPos = x - options.menuWidth / 2;
                             if (rightPos < 0) {
                                 rightPos = 0;
                             }
@@ -200,7 +198,7 @@ define(["jquery"], function ($) {
                         }
 
                         // Percentage overlay
-                        var overlayPerc;
+                        let overlayPerc;
                         if (options.edge === 'left') {
                             overlayPerc = x / options.menuWidth;
                             $('#sidenav-overlay').velocity({ opacity: overlayPerc }, { duration: 10, queue: false, easing: 'easeOutQuad' });
@@ -211,18 +209,17 @@ define(["jquery"], function ($) {
                     }
                 }).bind('panend', function (e) {
 
-                    if (e.gesture.pointerType === "touch") {
-                        var velocityX = e.gesture.velocityX;
-                        var x = e.gesture.center.x;
-                        var leftPos = x - options.menuWidth;
-                        var rightPos = x - options.menuWidth / 2;
+                    if (e.gesture.pointerType === 'touch') {
+                        const velocityX = e.gesture.velocityX;
+                        const x = e.gesture.center.x;
+                        let leftPos = x - options.menuWidth;
+                        let rightPos = x - options.menuWidth / 2;
                         if (leftPos > 0) {
                             leftPos = 0;
                         }
                         if (rightPos < 0) {
                             rightPos = 0;
                         }
-                        panning = false;
 
                         if (options.edge === 'left') {
                             // If velocityX <= 0.3 then the user is flinging the menu closed so ignore menuOut
@@ -251,7 +248,7 @@ define(["jquery"], function ($) {
                                 });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -278,7 +275,7 @@ define(["jquery"], function ($) {
                                 menu_id.velocity({ 'translateX': [options.menuWidth + 10, rightPos] }, { duration: 200, queue: false, easing: 'easeOutQuad' });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -289,12 +286,12 @@ define(["jquery"], function ($) {
                 });
 
                 $this.click(function () {
-                    var $body = $('body');
-                    var $submenu = $(".site-menu .menu-item div.collapsible-body");
-                    var menuCollapse = $body.hasClass('site-menubar-fold');
+                    const $body = $('body');
+                    const $submenu = $('.site-menu .menu-item div.collapsible-body');
+                    const menuCollapse = $body.hasClass('site-menubar-fold');
 
                     if (window.innerWidth > 992) {
-                        $(".site-menu li.has-sub").removeClass("active");
+                        $('.site-menu li.has-sub').removeClass('active');
                         $('.site-menu .menu-item .collapsible-header').removeClass('active');
                         $submenu.css('display', 'none');
                         menu_id.removeAttr('style');
@@ -303,11 +300,10 @@ define(["jquery"], function ($) {
 
                         if (menuOut === true) {
                             menuOut = false;
-                            panning = false;
                             removeMenu();
                         } else {
                             // Disable Scrolling
-                            var oldWidth = $body.innerWidth();
+                            const oldWidth = $body.innerWidth();
                             $body.css('overflow', 'hidden');
                             $body.width(oldWidth);
 
@@ -322,14 +318,13 @@ define(["jquery"], function ($) {
                                 menu_id.velocity({ 'translateX': [0, options.menuWidth] }, { duration: 300, queue: false, easing: 'easeOutQuad' });
                             }
 
-                            var overlay = $('<div id="sidenav-overlay"></div>');
+                            const overlay = $('<div id="sidenav-overlay"></div>');
                             overlay.css('opacity', 0).click(function () {
                                 menuOut = false;
-                                panning = false;
                                 removeMenu();
                                 overlay.velocity({ opacity: 0 }, {
                                     duration: 300, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -337,28 +332,27 @@ define(["jquery"], function ($) {
                             $body.append(overlay);
                             overlay.velocity({ opacity: 1 }, {
                                 duration: 300, queue: false, easing: 'easeOutQuad',
-                                complete: function complete() {
+                                complete: function() {
                                     menuOut = true;
-                                    panning = false;
                                 }
                             });
                         }
                     }
 
                     if (menuCollapse) {
-                        $submenu.mCustomScrollbar("destroy");
+                        $submenu.mCustomScrollbar('destroy');
                     } else {
-                        $submenu.mCustomScrollbar({ theme: "minimal-dark" });
+                        $submenu.mCustomScrollbar({ theme: 'minimal-dark' });
                     }
 
                     return false;
                 });
             });
         },
-        show: function show() {
+        show: function() {
             this.trigger('click');
         },
-        hide: function hide() {
+        hide: function() {
             $('#sidenav-overlay').trigger('click');
         }
     };
@@ -367,7 +361,7 @@ define(["jquery"], function ($) {
         if (methods[methodOrOptions]) {
             return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.sideNav');
@@ -376,6 +370,6 @@ define(["jquery"], function ($) {
 });
 
 $(document).ready(function () {
-    $(".toggleMenubar").sideNav2();
+    $('.toggleMenubar').sideNav2();
 });
 

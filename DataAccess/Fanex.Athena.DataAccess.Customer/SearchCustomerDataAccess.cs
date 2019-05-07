@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using Fanex.Athena.DataAccess.Core;
 using Fanex.Athena.DataAccess.Customer.Interfaces;
 
@@ -7,15 +8,15 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     public class SearchCustomerDataAccess : BaseDataAccess, ISearchCustomerDataAccess
     {
-        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml, bool isIncludeDormant)
+        public async Task<IEnumerable<string>> SearchCustomers(int userId, string userName, string agentListXml, bool isIncludeDormant)
         {
             using (var db = this.GetObjectDb("Lrf_CustomerSelUserSearch"))
             {
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("username", DbType.String, userName);
-                db.AddInParameter("AgentList", DbType.String, agentListXml);
-                db.AddInParameter("IsIncludeDormant", DbType.Boolean, isIncludeDormant);
-                return db.Query<string>();
+                db.SetParameterValue("userid", userId);
+                db.SetParameterValue("username", userName);
+                db.SetParameterValue("AgentList", agentListXml);
+                db.SetParameterValue("IsIncludeDormant", isIncludeDormant);
+                return await db.QueryAsync<string>().ConfigureAwait(false);
             }
         }
     }

@@ -68,10 +68,6 @@
       <HintPath>..\..\..\packages\Fanex.BetList.GlobalGaming.1.0.0.6\lib\net40\Fanex.BetList.GlobalGaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Microgaming.2.0.0.7\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.BetList.NumberGame, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.NumberGame.1.2.0\lib\net40\Fanex.BetList.NumberGame.dll</HintPath>
       <Private>True</Private>
@@ -88,8 +84,8 @@
       <HintPath>..\..\..\packages\Fanex.BetList.Voidbridge.1.1.0\lib\net40\Fanex.BetList.Voidbridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Logging, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Logging.1.0.4\lib\net40\Fanex.Logging.dll</HintPath>
+    <Reference Include="Fanex.Logging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Logging.2.0.0\lib\net461\Fanex.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -100,26 +96,6 @@
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EnterpriseLibrary.Logging.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -200,7 +176,6 @@
   <ItemGroup>
     <Compile Include="BettingTicketCenterController.cs" />
     <Compile Include="BettingTicketCenterMultiCustomerController.cs" />
-    <Compile Include="CancelledBetsBetListController.cs" />
     <Compile Include="CashOutBetListController.cs" />
     <Compile Include="ColossusBetBetListController.cs" />
     <Compile Include="CustomActionResult\ExcelResult.cs" />
@@ -214,6 +189,8 @@
     <Compile Include="OutstandingDailyStatementBetListController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemParlayBetListController.cs" />
+    <Compile Include="Utility\BettingTicketCenterZipBuilder.cs" />
+    <Compile Include="Utility\IBettingTicketCenterZipBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
@@ -255,6 +232,11 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

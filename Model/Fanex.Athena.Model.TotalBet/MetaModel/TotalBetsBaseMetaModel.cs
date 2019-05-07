@@ -10,11 +10,13 @@ namespace Fanex.Athena.Model.TotalBet.MetaModel
 
     public class TotalBetsBaseMetaModel : BaseMetaModel
     {
+        private const int DefaultPageSize = 1000;
+
         public TotalBetsBaseMetaModel()
         {
             CurrencyId = 0;
             PageIndex = 1;
-            PageSize = 1000;
+            PageSize = DefaultPageSize;
         }
 
         public int PageSize { get; set; }

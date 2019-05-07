@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Common.Extensions;
     using Core;
     using Core.Configuration.Interfaces;
@@ -25,7 +26,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<LicenseeWinLossByTimeZone> GetData(
+        public async Task<ReportResultModel<LicenseeWinLossByTimeZone>> GetData(
             LicenseeWinLossByTimeZoneMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
@@ -36,7 +37,7 @@
             {
                 AssignParameter(objectDb, metaModel);
 
-                using (var reader = objectDb.ExecuteReader())
+                using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
@@ -99,15 +100,15 @@
 
         private void AssignParameter(IObjectDb objectDb, LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
-            objectDb.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            objectDb.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            objectDb.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            objectDb.AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            objectDb.AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
-            objectDb.AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
-            objectDb.AddInParameter("GroupBy", DbType.Byte, metaModel.GroupBy);
-            objectDb.AddInParameter("IncludeDraw", DbType.Boolean, metaModel.IsIncludeDrawData);
+            objectDb.SetParameterValue("FromDate", metaModel.FromDate);
+            objectDb.SetParameterValue("ToDate", metaModel.ToDate);
+            objectDb.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            objectDb.SetParameterValue("ProductList", metaModel.ProductCodeList);
+            objectDb.SetParameterValue("AgentList", metaModel.AgentListXml);
+            objectDb.SetParameterValue("TimeZone", metaModel.TimeZone);
+            objectDb.SetParameterValue("ReportBy", metaModel.ReportBy);
+            objectDb.SetParameterValue("GroupBy", metaModel.GroupBy);
+            objectDb.SetParameterValue("IncludeDraw", metaModel.IsIncludeDrawData);
         }
     }
 }

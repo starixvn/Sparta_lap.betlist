@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
@@ -49,7 +50,7 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnEmptyData()
+        public async Task Index_InvalidModel_ReturnEmptyData()
         {
             // Arrange
             var model = new ThirdPartyWinLossMetaModel
@@ -65,7 +66,7 @@
             });
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -77,7 +78,7 @@
         }
 
         [Test]
-        public void Index_NoDataReturnedFromService_ReturnEmptyData()
+        public async Task Index_NoDataReturnedFromService_ReturnEmptyData()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
@@ -86,7 +87,7 @@
                 new ReportResultModel<GoldDeluxeWinLoss>());
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -98,7 +99,7 @@
         }
 
         [Test]
-        public void Index_ValidModelLevel0_CallServiceWithCorrectParameter()
+        public async Task Index_ValidModelLevel0_CallServiceWithCorrectParameter()
         {
             // Arrange
             var model = CreateValidMetaModel();
@@ -106,7 +107,7 @@
             SetUpForGettingData();
 
             // Action
-            _controller.Index(model);
+            await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -119,7 +120,7 @@
         }
 
         [Test]
-        public void Index_ValidModelLevel0_ReturnCorrectData()
+        public async Task Index_ValidModelLevel0_ReturnCorrectData()
         {
             // Arrange
             var model = CreateValidMetaModel();
@@ -127,7 +128,7 @@
             var expectedResult = SetUpForGettingData();
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -139,7 +140,7 @@
         }
 
         [Test]
-        public void Index_ValidModelLevel1_CallServiceWithCorrectParameter()
+        public async Task Index_ValidModelLevel1_CallServiceWithCorrectParameter()
         {
             // Arrange
             var model = CreateValidMetaModel();
@@ -152,7 +153,7 @@
             SetUpForGettingData(level);
 
             // Action
-            _controller.Index(model, fdate, tdate, level, currencyId, custId);
+            await _controller.Index(model, fdate, tdate, level, currencyId, custId);
 
             // Assert
             Assert.Multiple(() =>
@@ -168,7 +169,7 @@
         }
 
         [Test]
-        public void Index_ValidModelLevel2_CallServiceWithCorrectParameter()
+        public async Task Index_ValidModelLevel2_CallServiceWithCorrectParameter()
         {
             // Arrange
             var model = CreateValidMetaModel();
@@ -181,7 +182,7 @@
             SetUpForGettingData(level);
 
             // Action
-            _controller.Index(model, fdate, tdate, level, currencyId, custId);
+            await _controller.Index(model, fdate, tdate, level, currencyId, custId);
 
             // Assert
             Assert.Multiple(() =>
@@ -197,7 +198,7 @@
         }
 
         [Test]
-        public void Index_ExportExcelLevel0_ExportWithCorrectData()
+        public async Task Index_ExportExcelLevel0_ExportWithCorrectData()
         {
             // Arrange
             var currencyId = 0;
@@ -211,7 +212,7 @@
             SetUpForExportExcel();
 
             // Action
-            _controller.Index(model);
+            await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -224,7 +225,7 @@
 
         [TestCase(1)]
         [TestCase(2)]
-        public void Index_ExportExcel_ExportWithCorrectData(int level)
+        public async Task Index_ExportExcel_ExportWithCorrectData(int level)
         {
             // Arrange
             var modelCurrencyId = 1;
@@ -241,7 +242,7 @@
             SetUpForExportExcel();
 
             // Action
-            _controller.Index(model, fdate, tdate, level, currencyId, custId);
+            await _controller.Index(model, fdate, tdate, level, currencyId, custId);
 
             // Assert
             Assert.Multiple(() =>

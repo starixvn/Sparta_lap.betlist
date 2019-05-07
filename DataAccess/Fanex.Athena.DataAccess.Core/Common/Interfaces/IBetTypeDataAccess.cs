@@ -7,12 +7,13 @@
 namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
 
     public interface IBetTypeDataAccess
     {
-        IList<CheckedItem> GetBettypes(int licenseeId, string xmlSportList, string languageCode);
+        Task<IList<CheckedItem>> GetBettypes(int licenseeId, string xmlSportList, string languageCode);
 
-        IList<CheckedItem> GetBettypesByProduct(int licenseeId, string productCode, string languageCode);
+        Task<IList<CheckedItem>> GetBettypesByProduct(int licenseeId, string productCode, string languageCode);
     }
 }

@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -50,7 +51,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(
+        public Task<dynamic> Index(
             LicenseeWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -63,7 +64,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] LicenseeWinLossMetaModel metaModel)
+        public Task<dynamic> Index([FromBody] LicenseeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
@@ -103,17 +104,17 @@ namespace Fanex.Athena.Api.Report
 
                 if (propertyName.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
                 {
-                    var licenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
+                    const string LicenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
 
-                    productCode = propertyName.Substring(licenseeWLColumn.Length);
-                    propertyName = licenseeWLColumn;
+                    productCode = propertyName.Substring(LicenseeWLColumn.Length);
+                    propertyName = LicenseeWLColumn;
                 }
                 else
                 {
-                    var turnOverColumn = nameof(LicenseeWinLoss.TurnOver);
+                    const string TurnOverColumn = nameof(LicenseeWinLoss.TurnOver);
 
-                    productCode = propertyName.Substring(turnOverColumn.Length);
-                    propertyName = turnOverColumn;
+                    productCode = propertyName.Substring(TurnOverColumn.Length);
+                    propertyName = TurnOverColumn;
                 }
 
                 dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(LicenseeWinLoss.Index), true);
@@ -164,8 +165,6 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.LicenseeWLKN = licenseeWLProducts.GetValueOrDefault(Product.KN, 0);
             licenseeWinLoss.LicenseeWLBT = licenseeWLProducts.GetValueOrDefault(Product.BT, 0);
             licenseeWinLoss.LicenseeWLAGC = licenseeWLProducts.GetValueOrDefault(Product.AGC, 0);
-            licenseeWinLoss.LicenseeWLMGCLC = licenseeWLProducts.GetValueOrDefault(Product.MGCLC, 0);
-            licenseeWinLoss.LicenseeWLMGCRNG = licenseeWLProducts.GetValueOrDefault(Product.MGCRNG, 0);
             licenseeWinLoss.LicenseeWLVB = licenseeWLProducts.GetValueOrDefault(Product.VB, 0);
             licenseeWinLoss.LicenseeWLAB = licenseeWLProducts.GetValueOrDefault(Product.AB, 0);
             licenseeWinLoss.LicenseeWLFW = licenseeWLProducts.GetValueOrDefault(Product.FW, 0);
@@ -185,8 +184,6 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.TurnOverKN = turnOverProducts.GetValueOrDefault(Product.KN, 0);
             licenseeWinLoss.TurnOverBT = turnOverProducts.GetValueOrDefault(Product.BT, 0);
             licenseeWinLoss.TurnOverAGC = turnOverProducts.GetValueOrDefault(Product.AGC, 0);
-            licenseeWinLoss.TurnOverMGCLC = turnOverProducts.GetValueOrDefault(Product.MGCLC, 0);
-            licenseeWinLoss.TurnOverMGCRNG = turnOverProducts.GetValueOrDefault(Product.MGCRNG, 0);
             licenseeWinLoss.TurnOverVB = turnOverProducts.GetValueOrDefault(Product.VB, 0);
             licenseeWinLoss.TurnOverAB = turnOverProducts.GetValueOrDefault(Product.AB, 0);
             licenseeWinLoss.TurnOverFW = turnOverProducts.GetValueOrDefault(Product.FW, 0);
@@ -255,15 +252,24 @@ namespace Fanex.Athena.Api.Report
             return new LicenseeWinLossExcel(templatePath, excelModel);
         }
 
-        private SortableReportResultModel<LicenseeWinLoss> GetData(LicenseeWinLossMetaModel metaModel)
+        private async Task<SortableReportResultModel<LicenseeWinLoss>> GetData(LicenseeWinLossMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
                 var userCurrencyList = SessionService.UserSession.CurrencyList;
-                var result = metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, userCurrencyList) :
-                                metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2
-                               ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList)
-                               : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList);
+                SortableReportResultModel<LicenseeWinLoss> result = null;
+                if (metaModel.DrillDownLevel == 0)
+                {
+                    result = await _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, userCurrencyList).ConfigureAwait(false);
+                }
+                else if (metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == (int)ReportLevel.Customer)
+                {
+                    result = await _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel, userCurrencyList).ConfigureAwait(false);
+                }
+                else
+                {
+                    result = await _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel, userCurrencyList).ConfigureAwait(false);
+                }
 
                 return result;
             }
@@ -276,7 +282,7 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private dynamic ProcessRequest(
+        private async Task<dynamic> ProcessRequest(
             LicenseeWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -297,7 +303,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownCustomerId = custId;
 
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
-                var result = GetData(metaModel);
+                var result = await GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {

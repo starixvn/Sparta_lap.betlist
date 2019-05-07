@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DataDomain;
@@ -45,20 +46,20 @@
         }
 
         [Test]
-        public void GetSummaryData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetSummaryData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryDataSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSummaryData(_metaModel);
+            await DataAccess.GetSummaryData(_metaModel);
 
             // Assert
             AssertSpParameters();
         }
 
         [Test]
-        public void GetSummaryData_WhenCall_ReturnCorrectResult()
+        public async Task GetSummaryData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummaryDataSp)).Returns(ObjectDb);
@@ -74,7 +75,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryData(_metaModel);
+            var result = await DataAccess.GetSummaryData(_metaModel);
             var firstItem = result.DataList.First();
             var secondItem = result.DataList.ElementAt(1);
 
@@ -95,20 +96,20 @@
         }
 
         [Test]
-        public void GetMemberData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetMemberData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMemberDataSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetMemberData(_metaModel, UserCurrencyList);
+            await DataAccess.GetMemberData(_metaModel, UserCurrencyList);
 
             // Assert
             AssertSpParameters();
         }
 
         [Test]
-        public void GetMemberData_WhenCall_ReturnCorrectResult()
+        public async Task GetMemberData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMemberDataSp)).Returns(ObjectDb);
@@ -123,7 +124,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetMemberData(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetMemberData(_metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -140,12 +141,12 @@
         {
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
-                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("DrawFilter", DbType.Int16, _metaModel.DrawFilter);
-                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("PlatformType", _metaModel.PlatformType);
+                ObjectDb.Received(1).SetParameterValue("movebetsday", _balance.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("DrawFilter", _metaModel.DrawFilter);
+                ObjectDb.Received(1).SetParameterValue("FromDate", _metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("ToDate", _metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
             });
         }
     }

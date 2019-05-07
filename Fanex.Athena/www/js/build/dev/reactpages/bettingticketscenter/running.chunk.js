@@ -237,9 +237,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setGridData", function() { return setGridData; });
 /* harmony import */ var _jsroot_actions_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @jsroot/actions/types.js */ "./www/js/source/reactpages/actions/types.js");
 /* harmony import */ var _jsroot_lib_DataService_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @jsroot/lib/DataService.js */ "./www/js/source/reactpages/lib/DataService.js");
-/* harmony import */ var _jsroot_lib_site__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @jsroot/lib/site */ "./www/js/source/reactpages/lib/site.js");
-/* harmony import */ var _jsroot_actions_loaderAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @jsroot/actions/loaderAction */ "./www/js/source/reactpages/actions/loaderAction.js");
-
+/* harmony import */ var _jsroot_actions_loaderAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @jsroot/actions/loaderAction */ "./www/js/source/reactpages/actions/loaderAction.js");
 
 
 
@@ -250,7 +248,7 @@ function getGridData(url, params) {
       dispatch(setGridData(response.data));
     }).catch(function (error) {
       alert("Sorry, an error occurred while processing your request.");
-      dispatch(Object(_jsroot_actions_loaderAction__WEBPACK_IMPORTED_MODULE_3__["toggleLoader"])(false));
+      dispatch(Object(_jsroot_actions_loaderAction__WEBPACK_IMPORTED_MODULE_2__["toggleLoader"])(false));
     });
   };
 }
@@ -2337,14 +2335,17 @@ function (_Component) {
       }; // show detail popup (in choice column)
 
 
-      window.showCombMPDetail = function (transId, refNo, betId, custId, betTeam, baseCurrency) {
+      window.showCombMPDetail = function (transId, refNo, betId, custId, betTeam) {
+        var baseCurrency = _this2.props.isConvertAll ? _this2.props.selectedBaseCurrency : '';
         var url = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
 
         _this2._openPopup(url, betTeam);
       };
 
       window.ViewCashOutHistory = function (transId, refNo, betType, betdaqId) {
-        var _BetList$getCashOutHi = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getCashOutHistoryPopupSetting(_this2.props.requestParam.BaseCurrency, transId, refNo, betType, betdaqId),
+        var baseCurrency = _this2.props.isConvertAll ? _this2.props.selectedBaseCurrency : '';
+
+        var _BetList$getCashOutHi = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getCashOutHistoryPopupSetting(baseCurrency, transId, refNo, betType, betdaqId),
             url = _BetList$getCashOutHi.url,
             isCashOut = _BetList$getCashOutHi.isCashOut;
 
@@ -2354,7 +2355,8 @@ function (_Component) {
       };
 
       window.ShowBonusDetails = function (refCode, transId) {
-        var url = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getBonusDetailUrl(refCode, transId, _this2.props.requestParam.BaseCurrency);
+        var baseCurrency = _this2.props.isConvertAll ? _this2.props.selectedBaseCurrency : '';
+        var url = _lib_BetList__WEBPACK_IMPORTED_MODULE_10__["default"].getBonusDetailUrl(refCode, transId, baseCurrency);
         var title = _jsroot_lib_langHelper__WEBPACK_IMPORTED_MODULE_8__["default"].getSingleResource("TransactionDetail");
 
         _this2._openPopup(url, title);
@@ -2493,9 +2495,11 @@ function mapDispatchToProps(dispatch) {
 ;
 
 function mapStateToProps(state) {
-  var requestParam = state.requestParam;
+  var isConvertAll = state.isConvertAll,
+      selectedBaseCurrency = state.selectedBaseCurrency;
   return Object.assign({}, {
-    requestParam: requestParam
+    isConvertAll: isConvertAll,
+    selectedBaseCurrency: selectedBaseCurrency
   });
 }
 

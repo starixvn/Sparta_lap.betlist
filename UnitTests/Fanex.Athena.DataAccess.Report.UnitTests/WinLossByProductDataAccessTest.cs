@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DTO.Configuration;
@@ -63,25 +64,25 @@
         }
 
         [Test]
-        public void GetWinlossByProducts_WhenCall_ParametersPassedCorrectly()
+        public async Task GetWinlossByProducts_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductsSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetWinlossByProducts(_metaModel, UserCurrencyList);
+            await DataAccess.GetWinlossByProducts(_metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
-                ObjectDb.Received(1).AddInParameter("username", DbType.String, _metaModel.Username);
+                ObjectDb.Received(1).SetParameterValue("reporttype", _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("username", _metaModel.Username);
                 AssertCommonSpParameters(isDrilldown: false);
             });
         }
 
         [Test]
-        public void GetWinlossByProducts_WhenCall_ReturnCorrectResult()
+        public async Task GetWinlossByProducts_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductsSp)).Returns(ObjectDb);
@@ -93,17 +94,17 @@
             var readerDataMapping = new
             {
                 TurnoverUSD = 999,
-                reporttype = 20190101
+                reporttype = "20190101"
             };
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetWinlossByProducts(
+            var result = await DataAccess.GetWinlossByProducts(
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = "USD"
                 }, 
-                UserCurrencyList);
+                UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -117,66 +118,42 @@
         }
 
         [Test]
-        public void GetWinlossByProducts_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetWinlossByProductsSp,
-                () => DataAccess.GetWinlossByProducts(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
-        public void GetWinlossByProductAgents_WhenCall_ParametersPassedCorrectly()
+        public async Task GetWinlossByProductAgents_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductAgentsSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetWinlossByProductAgents(_metaModel, UserCurrencyList);
+            await DataAccess.GetWinlossByProductAgents(_metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.MemberId);
+                ObjectDb.Received(1).SetParameterValue("CustID", _metaModel.MemberId);
                 AssertCommonSpParameters(isDrilldown: true);
             });
         }
 
         [Test]
-        public void GetWinlossByProductAgents_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetWinlossByProductAgentsSp,
-                () => DataAccess.GetWinlossByProductAgents(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
-        public void GetWinlossByProductCustomers_WhenCall_ParametersPassedCorrectly()
+        public async Task GetWinlossByProductCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetWinlossByProductCustomers(_metaModel, UserCurrencyList);
+            await DataAccess.GetWinlossByProductCustomers(_metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustomerId);
-                ObjectDb.Received(1).AddInParameter("MemberID", DbType.Int32, _metaModel.MemberId);
+                ObjectDb.Received(1).SetParameterValue("custid", _metaModel.CustomerId);
+                ObjectDb.Received(1).SetParameterValue("MemberID", _metaModel.MemberId);
                 AssertCommonSpParameters(isDrilldown: true);
             });
         }
 
         [Test]
-        public void GetWinlossByProductCustomers_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetWinlossByProductCustomersSp,
-                () => DataAccess.GetWinlossByProductCustomers(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
-        public void GetData_HasSystemIdColumn_ReturnCorrectData()
+        public async Task GetData_HasSystemIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
@@ -194,7 +171,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetWinlossByProductCustomers(
+            var result = await DataAccess.GetWinlossByProductCustomers(
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
@@ -206,7 +183,7 @@
         }
 
         [Test]
-        public void GetData_HasExternalIdColumn_ReturnCorrectData()
+        public async Task GetData_HasExternalIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
@@ -224,19 +201,19 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetWinlossByProductCustomers(
+            var result = await DataAccess.GetWinlossByProductCustomers(
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 }, 
-                UserCurrencyList);
+                UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).ExternalId, Is.EqualTo(readerDataMapping.nickname));
         }
 
         [Test]
-        public void GetData_HasCustomerIdColumn_ReturnCorrectData()
+        public async Task GetData_HasCustomerIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
@@ -254,12 +231,12 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetWinlossByProductCustomers(
+            var result = await DataAccess.GetWinlossByProductCustomers(
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 }, 
-                UserCurrencyList);
+                UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).CustomerId, Is.EqualTo(readerDataMapping.custid));
@@ -267,12 +244,12 @@
 
         private void AssertCommonSpParameters(bool isDrilldown)
         {
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate.Date : _metaModel.FromDate.Date);
-            ObjectDb.Received(1).AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate.Date : _metaModel.ToDate.Date);
-            ObjectDb.Received(1).AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
-            ObjectDb.Received(1).AddInParameter("productList", DbType.String, "SB,PP");
+            ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("fromdate", isDrilldown ? _metaModel.DrillDownFromDate.Date : _metaModel.FromDate.Date);
+            ObjectDb.Received(1).SetParameterValue("todate", isDrilldown ? _metaModel.DrillDownToDate.Date : _metaModel.ToDate.Date);
+            ObjectDb.Received(1).SetParameterValue("drawfilter", _metaModel.DrawFilter);
+            ObjectDb.Received(1).SetParameterValue("movebetsday", _balanceUp.MoveBetsDay);
+            ObjectDb.Received(1).SetParameterValue("productList", "SB,PP");
         }
     }
 }

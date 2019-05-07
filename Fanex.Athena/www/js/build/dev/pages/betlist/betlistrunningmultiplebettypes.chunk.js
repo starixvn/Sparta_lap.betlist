@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,15 +290,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -317,23 +316,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -352,14 +351,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -370,14 +369,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -389,16 +388,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -415,45 +414,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -469,8 +468,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -479,7 +478,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -496,10 +495,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -507,10 +506,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -518,37 +517,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -558,16 +557,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -575,44 +574,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -624,7 +623,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -3507,34 +3506,32 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! ./betlist.option */ "./www/js/source/pages/betlist/betlist.option.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"),
         __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
-        "use strict";
-        var BETTYPE_CASHOUT = 911;
-        var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
-        var MIN_BETTYPE_FASTMARKET = 221;
-        var MAX_BETTYPE_FASTMARKET = 227;
-        var SPORT_MICROGAMMING_LC = 203;
-        var SPORT_MICROGAMMING_RNG = 205;
-        var SPORT_RNG_GAME = 208;
-        var SPORT_RNG_MINIGAME = 209;
-        var SPORT_RNG_MOBILE = 210;
-        var SPORT_ALLBET = 211;
-        var SPORT_VOIDBRIDGE = 212;
-        var SPORT_PP = 248;
-        var SPORT_GLOBALGAMING = 219;
-        var BETLIST_META_MODEL = "#BetListMetaModel";
+        'use strict';
+        const BETTYPE_CASHOUT = 911;
+        const BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
+        const MIN_BETTYPE_FASTMARKET = 221;
+        const MAX_BETTYPE_FASTMARKET = 227;
+        const SPORT_RNG_GAME = 208;
+        const SPORT_RNG_MINIGAME = 209;
+        const SPORT_RNG_MOBILE = 210;
+        const SPORT_ALLBET = 211;
+        const SPORT_VOIDBRIDGE = 212;
+        const SPORT_PP = 248;
+        const SPORT_GLOBALGAMING = 219;
+        const BETLIST_META_MODEL = '#BetListMetaModel';
 
-        var _sortColumnName, _sortOrder;
-        var _params, _url;
-        var _isShowSumStake;
-        var _onClientPaging = false;
+        let _sortColumnName, _sortOrder;
+        let _params, _url;
+        let _isShowSumStake;
+        let _onClientPaging = false;
 
         function showDetailPopUp(url, option) {
-            option.id = "betlist-popup-detail";
+            option.id = 'betlist-popup-detail';
             Popup.openPopupWithIframe(url, option);
         }
 
         function showResultPopUp(url, option) {
-            option.id = "betlist-popup-result";
+            option.id = 'betlist-popup-result';
             Popup.openPopupWithIframe(url, option);
         }
 
@@ -3542,11 +3539,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
         }
         function getBaseCurrency() {
-            var params = $.parseJSON($(BETLIST_META_MODEL).val());
+            const params = $.parseJSON($(BETLIST_META_MODEL).val());
             return params.BaseCurrency;
         }
 
-        var _me = {
+        const _me = {
             getSortParams: function () {
                 if (!_sortColumnName) {
                     return null;
@@ -3565,10 +3562,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.updateSortColumn();
                 }
 
-                _isShowSumStake = $("#IsShowSumStake").val() === "1";
+                _isShowSumStake = $('#IsShowSumStake').val() === '1';
 
-                _sortColumnName = _sortColumnName || $("#SortBy").val();
-                _sortOrder = _sortOrder || $("#SortOrder").val();
+                _sortColumnName = _sortColumnName || $('#SortBy').val();
+                _sortOrder = _sortOrder || $('#SortOrder').val();
 
                 _me.registerBetListGlobalFunctions();
             },
@@ -3579,16 +3576,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             isMatchWLBetList: function () {
-                var regex = /MatchWinLossBetList/i;
-                return regex.test($("#ApiUrl").val());
+                const regex = /MatchWinLossBetList/i;
+                return regex.test($('#ApiUrl').val());
             },
 
             gridComplete: function (grid) {
-                var $grid = $(grid);
+                const $grid = $(grid);
                 // add sort icon
-                var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
-                sortCol = _sortColumnName === "nickname" ? "ExternalId" : sortCol;
-                sortCol = _sortColumnName === "UserName" ? "SystemId" : sortCol;
+                let sortCol = _sortColumnName === 'Winlost' ? 'WinLoss' : _sortColumnName;
+                sortCol = _sortColumnName === 'nickname' ? 'ExternalId' : sortCol;
+                sortCol = _sortColumnName === 'UserName' ? 'SystemId' : sortCol;
                 if (sortCol && !_onClientPaging) {
                     jqGridAdditional.addSortableHeader($grid, sortCol, _sortOrder);
                 }
@@ -3597,49 +3594,50 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 jqGridAdditional.gridComplete();
                 // Remove unnecessary item
                 if (_isShowSumStake) {
-                    $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Odds]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
+                    $('.ui-jqgrid-ftable td[aria-describedby=BetListGrid_Odds]').html(Site.getSingleResource('GrandTotal')).removeAttr('title');
                 } else {
-                    $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
+                    $('.ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]').html(Site.getSingleResource('GrandTotal')).removeAttr('title');
                 }
 
-                $("#pager2").show();
+                $('#pager2').show();
 
                 // fix cursor on non-sortable columns
-                var cm = $grid[0].p.colModel;
+                const cm = $grid[0].p.colModel;
                 $.each($grid[0].grid.headers, function (index, value) {
-                    var cmi = cm[index];
+                    const cmi = cm[index];
                     if (!cmi.sortable) {
-                        $('.ui-jqgrid-sortable', value.el).css({ cursor: "default" });
+                        $('.ui-jqgrid-sortable', value.el).css({ cursor: 'default' });
                     }
                 });
 
-                $(".ui-jqgrid-bdiv").css({ "height": "auto" });
+                $('.ui-jqgrid-bdiv').css({ 'height': 'auto' });
                 jqGridAdditional.updateGridHeight();
                 Site.unBlockUI();
             },
 
             getGridOption: function () {
-                var gridOption = $.extend(true, {}, BetListOption.gridOption);
+                const gridOption = $.extend(true, {}, BetListOption.gridOption);
 
                 gridOption.onSortCol = function (index) {
                     if (window.disableBetListSorting) {
                         return 'stop';
                     }
                     Site.blockUI();
-                    index = index === "WinLoss" ? "Winlost" : index;
-                    index = index === "ExternalId" ? "nickname" : index;
-                    if (_sortColumnName === index) {
-                        _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
+                    let newIndex = index;
+                    newIndex = newIndex === 'WinLoss' ? 'Winlost' : newIndex;
+                    newIndex = newIndex === 'ExternalId' ? 'nickname' : newIndex;
+                    if (_sortColumnName === newIndex) {
+                        _sortOrder = _sortOrder === 'asc' ? 'desc' : 'asc';
                     } else {
-                        _sortOrder = "desc";
-                        _sortColumnName = index;
+                        _sortOrder = 'desc';
+                        _sortColumnName = newIndex;
                     }
                     if (window.CorrectScoreBetList || window.CancelledBetsBetList) {
-                        $("#SortBy").val(_sortColumnName);
-                        $("#SortOrder").val(_sortOrder);
+                        $('#SortBy').val(_sortColumnName);
+                        $('#SortOrder').val(_sortOrder);
                     }
 
-                    if (window.serverPaging || $("#IsServerPaging").val() === "1") {
+                    if (window.serverPaging || $('#IsServerPaging').val() === '1') {
                         _me.loadDataPaging(_url);
                     }
                     else {
@@ -3650,23 +3648,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 };
 
                 // Specify the hidden column
-                var hiddenColumnList = $("#HiddenColumnList").val();
-                var hiddenColumnTokens = hiddenColumnList.split(",");
-                var showSummary = $("#ShowSummary").val() === "0" ? false : hiddenColumnList.indexOf("licenseewl") < 0;
+                const hiddenColumnList = $('#HiddenColumnList').val();
+                const hiddenColumnTokens = hiddenColumnList.split(',');
+                const showSummary = $('#ShowSummary').val() === '0' ? false : hiddenColumnList.indexOf('licenseewl') < 0;
 
                 $.each(hiddenColumnTokens, function (index, value) {
                     jqGridAdditional.hideColumn(BetListOption.columnModel, value);
                 });
-                if ($("#HasBetEffectiveColumn").val() !== "1") {
-                    jqGridAdditional.hideColumn(BetListOption.columnModel, "BetEffective");
+                if ($('#HasBetEffectiveColumn').val() !== '1') {
+                    jqGridAdditional.hideColumn(BetListOption.columnModel, 'BetEffective');
                 }
                 if (Site.isFakeLicensee()) {
-                    jqGridAdditional.hideColumn(BetListOption.columnModel, "SystemId");
+                    jqGridAdditional.hideColumn(BetListOption.columnModel, 'SystemId');
                 }
                 gridOption.colNames = BetListOption.columnNames;
                 gridOption.colModel = BetListOption.columnModel;
                 gridOption.footerrow = showSummary;
-                var hasCustComm = $('#HasCustComm').val();
+                const hasCustComm = $('#HasCustComm').val();
                 if (hasCustComm === '1') {
                     gridOption.colNames = $.map(gridOption.colNames, function (val) {
                         if (val === 'WinLoss') {
@@ -3684,25 +3682,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             loadData: function (params, url) {
-                if (typeof params === "string") {
-                    params = JSON.parse(params);
+                let jsonParam = params;
+                if (typeof jsonParam === 'string') {
+                    jsonParam = JSON.parse(jsonParam);
                 }
 
-                _params = params;
+                _params = jsonParam;
                 _url = url;
 
-                if (params && _sortColumnName) {
-                    params.SortBy = _sortColumnName;
-                    params.SortOrder = _sortOrder;
+                if (jsonParam && _sortColumnName) {
+                    jsonParam.SortBy = _sortColumnName;
+                    jsonParam.SortOrder = _sortOrder;
                 }
 
-                var paramString = typeof (params) === "object" ? JSON.stringify(params) : params;
+                const paramString = typeof (jsonParam) === 'object' ? JSON.stringify(jsonParam) : jsonParam;
 
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     data: paramString,
                     contentType: 'application/json',
-                    dataType: "json",
+                    dataType: 'json',
                     cache: false,
                     url: url,
                     success: function (response) {
@@ -3722,67 +3721,69 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             loadDataPaging: function (url, params) {
                 Site.blockUI();
-
-                if (url && params) {
-                    url = QueryString.setParams(url, params);
+                let newUrl = url;
+                if (newUrl && params) {
+                    newUrl = QueryString.setParams(newUrl, params);
                 }
 
-                _url = url;
+                _url = newUrl;
 
-                if (url && _sortColumnName) {
-                    url = QueryString.setParam(url, "IsServerPaging", true);
-                    url = QueryString.setParam(url, "SortBy", _sortColumnName);
-                    url = QueryString.setParam(url, "SortOrder", _sortOrder);
+                if (newUrl && _sortColumnName) {
+                    newUrl = QueryString.setParam(newUrl, 'IsServerPaging', true);
+                    newUrl = QueryString.setParam(newUrl, 'SortBy', _sortColumnName);
+                    newUrl = QueryString.setParam(newUrl, 'SortOrder', _sortOrder);
                 }
 
                 _me.submiting = true;
 
-                var gridOption = _me.getGridOption();
-                var rows = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
-                gridOption.url = url;
+                const $grid = $('#BetListGrid');
+                const gridOption = _me.getGridOption();
+                const rows = Number($grid.getGridParam('rowNum')) || gridOption.rowNum;
+                gridOption.url = newUrl;
                 gridOption.rowNum = rows;
                 gridOption.height = 0;
                 gridOption.loadonce = false;
-                gridOption.datatype = "json";
+                gridOption.datatype = 'json';
                 gridOption.gridComplete = function () {
-                    var rowCount = $(this).getGridParam("records");
+                    const rowCount = $(this).getGridParam('records');
                     if (rowCount === 0) {
-                        $("#pager2").hide();
+                        $('#pager2').hide();
                         jqGridAdditional.setNoInfo();
                         Site.unBlockUI();
                         return;
                     }
 
-                    $("#gbox_BetListGrid").show();
+                    $('#gbox_BetListGrid').show();
                     _me.gridComplete(this);
                     if (_me.submiting) {
-                        $(".ui-pg-selbox").val(rows);
+                        $('.ui-pg-selbox').val(rows);
                     }
                     _me.submiting = false;
                 };
 
                 // Show the grid
-                $("#BetListGrid").jqGrid('GridUnload');
-                $("#BetListGrid").jqGrid(gridOption);
-                $("#gbox_BetListGrid").hide();
+                $grid.jqGrid('GridUnload');
+                $('#BetListGrid').jqGrid(gridOption); // must get the grid instance again
+                $('#gbox_BetListGrid').hide();
             },
 
             bindData: function (response) {
-                $("#BetListGrid").jqGrid('GridUnload');
+                $('#BetListGrid').jqGrid('GridUnload');
+                const $grid = $('#BetListGrid'); // must get the grid instance again 
 
                 if (response === null || response.Main.length === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
 
-                var rawData = response.Main;
-                var summary = response.Total;
-                var sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
-                var sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
-                var sumBetEffective = jqGridAdditional.formatDecimal(summary.SumBetEffective);
-                var gridOption = _me.getGridOption();
+                const rawData = response.Main;
+                const summary = response.Total;
+                const sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
+                const sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
+                const sumBetEffective = jqGridAdditional.formatDecimal(summary.SumBetEffective);
+                const gridOption = _me.getGridOption();
 
-                var rowNum = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
+                let rowNum = Number($grid.getGridParam('rowNum')) || gridOption.rowNum;
                 if (rowNum < gridOption.rowList[0]) {
                     rowNum = gridOption.rowList[0];
                 }
@@ -3807,68 +3808,60 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.gridComplete(this);
                 };
 
-                $("#BetListGrid").jqGrid(gridOption);
+                $grid.jqGrid(gridOption);
             },
 
             getMixParlayResultUrl: function (refno, winlostdate, bettype) {
-                var url = Site.resolveClientUrl('ResultReport/ResultPopup');
-                url = QueryString.setParam(url, "refno", refno);
-                url = QueryString.setParam(url, "winlossdate", winlostdate);
-                url = QueryString.setParam(url, "bettype", bettype);
-                url = QueryString.setParam(url, "matchid", 1);
+                let url = Site.resolveClientUrl('ResultReport/ResultPopup');
+                url = QueryString.setParam(url, 'refno', refno);
+                url = QueryString.setParam(url, 'winlossdate', winlostdate);
+                url = QueryString.setParam(url, 'bettype', bettype);
+                url = QueryString.setParam(url, 'matchid', 1);
 
                 return url;
             },
 
             getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2) {
-                var url = Site.resolveClientUrl('ResultReport/ResultPopup');
-                url = QueryString.setParam(url, "matchid", matchid);
-                url = QueryString.setParam(url, "bettype", bettype);
-                url = QueryString.setParam(url, "raceno", raceNo);
-                url = QueryString.setParam(url, "sporttype", sporttype);
-                url = QueryString.setParam(url, "isoutright", isOutright);
+                let url = Site.resolveClientUrl('ResultReport/ResultPopup');
+                url = QueryString.setParam(url, 'matchid', matchid);
+                url = QueryString.setParam(url, 'bettype', bettype);
+                url = QueryString.setParam(url, 'raceno', raceNo);
+                url = QueryString.setParam(url, 'sporttype', sporttype);
+                url = QueryString.setParam(url, 'isoutright', isOutright);
 
                 if (isFastMarket(bettype)) {
-                    url = QueryString.setParam(url, "handicap1", extension1);
-                    url = QueryString.setParam(url, "handicap2", extension2);
+                    url = QueryString.setParam(url, 'handicap1', extension1);
+                    url = QueryString.setParam(url, 'handicap2', extension2);
                 }
                 else {
-                    url = QueryString.setParam(url, "betid", extension1);
+                    url = QueryString.setParam(url, 'betid', extension1);
                 }
-
-                return url;
-            },
-
-            getMicrogamingResultUrl: function (gameid, custid) {
-                var url = Site.resolveClientUrl('ResultReport/MicrogamingResultPopup');
-                url = QueryString.setParam(url, "gameid", gameid);
-                url = QueryString.setParam(url, "custid", custid);
 
                 return url;
             },
 
             viewRngCasinoResult: function (title, refno) {
-                var url = Site.resolveClientUrl('ResultReport/ShowRngCasinoSingleWalletResult');
+                let url = Site.resolveClientUrl('ResultReport/ShowRngCasinoSingleWalletResult');
 
-                var params = { "refNo": refno };
+                const params = { 'refNo': refno };
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     contentType: 'application/json',
-                    dataType: "json",
+                    dataType: 'json',
                     data: JSON.stringify(params),
                     cache: false,
                     url: url,
                     success: function (response) {
-                        var result = response.Result;
+                        const result = response.Result;
                         if (response.Success) {
-                            if (result === "") {
+                            if (result === '') {
                                 return;
                             }
 
                             showResultPopUp(result, { width: 800, height: 380, title: title });
                         }
                         else {
-                            alert(Site.getSingleResource("ErrorProcessingMsg"));
+                            alert(Site.getSingleResource('ErrorProcessingMsg'));
                         }
                     },
                     beforeSend: function () {
@@ -3881,7 +3874,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             viewVoidbridgeResult: function (custId, gamePlayId, title) {
-                var url = Site.resolveClientUrl('ResultReport/VoidbridgeResult');
+                const url = Site.resolveClientUrl('ResultReport/VoidbridgeResult');
                 Site.blockUI();
                 $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
                     if (result !== '') {
@@ -3892,7 +3885,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             viewPPResult: function (custId, gamePlayId, title) {
-                var url = Site.resolveClientUrl('PPResultPopup/Index');
+                const url = Site.resolveClientUrl('PPResultPopup/Index');
                 Site.blockUI();
                 $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
                     if (result !== '') {
@@ -3903,7 +3896,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             viewAllBetResult: function (trasdesc, betcheck, bettype, title) {
-                var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
+                const url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
                     encodeURIComponent(trasdesc) + '&betcheck=' + betcheck + '&bettype=' + bettype);
 
                 Site.blockUI();
@@ -3912,16 +3905,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             setLeagueTitle: function (leagueName) {
-                var leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
-                $(".league-name-title").html(leagueNameText + " - ");
-            },
-            showMicrogamingResultPopup: function (title, gameid, custid) {
-                var url = _me.getMicrogamingResultUrl(gameid, custid);
-
-                showResultPopUp(url, { width: 750, height: 400, title: title });
+                const leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
+                $('.league-name-title').html(leagueNameText + ' - ');
             },
             viewGlobalGamingResult: function (custId, gameId, title) {
-                var url = Site.resolveClientUrl('ResultReport/GlobalGamingResult');
+                const url = Site.resolveClientUrl('ResultReport/GlobalGamingResult');
                 Site.blockUI();
                 $.get(url + '?custid=' + custId + '&gameId=' + gameId, function (result) {
                     if (result !== '') {
@@ -3932,11 +3920,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
             viewResult: function (matchid, raceNo, bettype, sporttype, refno,
                 username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) {
-                var title = Site.getSingleResource("Result");
-                if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
-                    _me.showMicrogamingResultPopup(title, extension2, custid);
-                }
-                else if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
+                const title = Site.getSingleResource('Result');
+
+                if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
                     _me.viewRngCasinoResult(title, refno);
                 }
                 else if (sporttype === SPORT_VOIDBRIDGE) {
@@ -3952,40 +3938,40 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.viewGlobalGamingResult(custid, extension2, title);
                 }
                 else {
-                    bettype = Number(bettype);
-                    var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
-                    var url = isParlay
-                        ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
-                        : _me.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
+                    const numberBettype = Number(bettype);
+                    const isParlay = numberBettype === BETTYPE_MIXPARLAY || numberBettype === BETTYPE_SYSTEMPARLAY || numberBettype === BETTYPE_MIXPARLAY_BETRADAR;
+                    const url = isParlay
+                        ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, numberBettype)
+                        : _me.getSportBookResultUrl(matchid, numberBettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
 
-                    var height = isParlay ? 450 : (isFastMarket(bettype) ? 300 : 250);
-                    var width = 750;
+                    const height = isParlay ? 450 : (isFastMarket(numberBettype) ? 300 : 250);
+                    const width = 750;
 
                     showResultPopUp(url, { width: width + 25, height: height + 70, title: title });
                 }
             },
 
             showMixParlayDetail: function (transId, divEvent, custid) {
-                var url = Site.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId + '&custId=' + custid);
-                if (divEvent.css("display") === 'none') {
+                const url = Site.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId + '&custId=' + custid);
+                if (divEvent.css('display') === 'none') {
                     $.ajax({
-                        type: "GET",
+                        type: 'GET',
                         contentType: 'application/json',
-                        dataType: "json",
+                        dataType: 'json',
                         cache: false,
                         url: url,
                         success: function (response) {
-                            var choice = "";
-                            var len = response.length;
+                            let choice = '';
+                            const len = response.length;
                             $.each(response, function (index, item) {
                                 choice += item;
                                 if (index < len - 1) {
-                                    choice += "<div class='line'></div>";
+                                    choice += '<div class="line"></div>';
                                 }
                             });
 
                             divEvent.html(choice);
-                            divEvent.css("display", "");
+                            divEvent.css('display', '');
                         },
                         beforeSend: function () {
                             Site.blockUI();
@@ -3996,46 +3982,46 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     });
                 }
                 else {
-                    divEvent.css("display", "none");
-                    divEvent.html("");
+                    divEvent.css('display', 'none');
+                    divEvent.html('');
                 }
             },
 
             showNewParlayDetail: function (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
-                var $divEvent = $('#divEvent_' + transId + "" + transIndex);
-                var $nameDiv = $('#combinationOfferName_' + transId + transIndex);
-                $divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+                const $divEvent = $('#divEvent_' + transId + '' + transIndex);
+                const $nameDiv = $('#combinationOfferName_' + transId + transIndex);
+                $divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
 
-                if ($divEvent.is(":hidden")) {
-                    var url = Site.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
-                    url = QueryString.setParam(url, "transId", transId);
-                    url = QueryString.setParam(url, "refNo", refNo);
-                    url = QueryString.setParam(url, "handicap1", handicap1);
-                    url = QueryString.setParam(url, "handicap2", handicap2);
-                    url = QueryString.setParam(url, "betcheck", betcheck);
-                    url = QueryString.setParam(url, "betteam", betteam);
-                    url = QueryString.setParam(url, "custId", custId);
+                if ($divEvent.is(':hidden')) {
+                    let url = Site.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
+                    url = QueryString.setParam(url, 'transId', transId);
+                    url = QueryString.setParam(url, 'refNo', refNo);
+                    url = QueryString.setParam(url, 'handicap1', handicap1);
+                    url = QueryString.setParam(url, 'handicap2', handicap2);
+                    url = QueryString.setParam(url, 'betcheck', betcheck);
+                    url = QueryString.setParam(url, 'betteam', betteam);
+                    url = QueryString.setParam(url, 'custId', custId);
 
                     $.ajax({
-                        type: "GET",
+                        type: 'GET',
                         contentType: 'application/json',
-                        dataType: "json",
+                        dataType: 'json',
                         cache: false,
                         url: url,
                         success: function (response) {
-                            var length = response.Data === null ? 0 : response.Data.length;
+                            let length = response.Data === null ? 0 : response.Data.length;
                             if (length > 0) {
-                                var choice = "";
+                                let choice = '';
                                 $.each(response.Texts, function (index, item) {
                                     choice += item;
                                 });
 
-                                choice += "<div class='line'></div>";
+                                choice += '<div class="line"></div>';
 
                                 $.each(response.Data, function (index, item) {
                                     choice += item;
                                     if (index < length - 1) {
-                                        choice += "<div class='line'></div>";
+                                        choice += '<div class="line"></div>';
                                     }
                                 });
 
@@ -4048,186 +4034,172 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     });
                 }
                 else {
-                    $divEvent.hide().html("");
+                    $divEvent.hide().html('');
                     $nameDiv.show();
-                    $(".ui-jqgrid-bdiv").css("height", "auto");
+                    $('.ui-jqgrid-bdiv').css('height', 'auto');
                 }
             },
 
             showSystemParlayDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {
                 if (Number(transId) === 0) { return; }
 
-                var url = Site.resolveClientUrl('SystemParlayBetList/Detail');
-                url = QueryString.setParam(url, "refno", refNo);
-                url = QueryString.setParam(url, "betteam", betTeam);
-                url = QueryString.setParam(url, "basecurrency", baseCurrency);
+                let url = Site.resolveClientUrl('SystemParlayBetList/Detail');
+                url = QueryString.setParam(url, 'refno', refNo);
+                url = QueryString.setParam(url, 'betteam', betTeam);
+                url = QueryString.setParam(url, 'basecurrency', baseCurrency);
 
                 showDetailPopUp(url, { width: 775, height: 500, title: betTeam });
             },
 
-            showMicroGamingRnGBetsDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('MicroGamingRngBetList/Detail');
-                url = QueryString.setParam(url, "transid", transId);
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
-
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("Microgaming") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
-
-                showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
-            },
-
             showAGCasinoDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('AGCasinoBetList/Detail');
-                url = QueryString.setParam(url, "transid", transId);
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('AGCasinoBetList/Detail');
+                url = QueryString.setParam(url, 'transid', transId);
+                url = QueryString.setParam(url, 'custid', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("AGCasino") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('AGCasino') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
 
             showRnGCasinoDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('RnGCasinoBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "winlostDate", winlostDate);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('RnGCasinoBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'winlostDate', winlostDate);
+                url = QueryString.setParam(url, 'custId', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductCS") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductCS') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
 
             showVoidBridgeDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('VoidbridgeBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "winlostDate", winlostDate);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('VoidbridgeBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'winlostDate', winlostDate);
+                url = QueryString.setParam(url, 'custId', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductVB") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductVB') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             showAllBetDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('AllBetBetList/Detail');
-                url = QueryString.setParam(url, "transid", transId);
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "date", winlostDate);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('AllBetBetList/Detail');
+                url = QueryString.setParam(url, 'transid', transId);
+                url = QueryString.setParam(url, 'custid', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'date', winlostDate);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductAB") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductAB') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
             showColossusBetsDetails: function (refNo, winlostDate, transId, custId, betCheck) {
-                var url = Site.resolveClientUrl('ColossusBetBetList/Detail');
-                url = QueryString.setParam(url, "refNo", refNo);
-                url = QueryString.setParam(url, "date", winlostDate);
-                url = QueryString.setParam(url, "transid", transId);
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "betCheck", betCheck);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('ColossusBetBetList/Detail');
+                url = QueryString.setParam(url, 'refNo', refNo);
+                url = QueryString.setParam(url, 'date', winlostDate);
+                url = QueryString.setParam(url, 'transid', transId);
+                url = QueryString.setParam(url, 'custid', custId);
+                url = QueryString.setParam(url, 'betCheck', betCheck);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("TicketDetailOf").replace("{0}", refNo);
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('TicketDetailOf').replace('{0}', refNo);
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             showGlobalGamingDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "winlostDate", winlostDate);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'winlostDate', winlostDate);
+                url = QueryString.setParam(url, 'custId', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductFW") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductFW') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             showPPDetails: function (transId, winlostDate, custId, transType) {
-                var url = Site.resolveClientUrl('PragmaticPlayBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "winlostDate", winlostDate);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+                let url = Site.resolveClientUrl('PragmaticPlayBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'winlostDate', winlostDate);
+                url = QueryString.setParam(url, 'custId', custId);
+                url = QueryString.setParam(url, 'transType', transType);
+                url = QueryString.setParam(url, 'BaseCurrency', getBaseCurrency());
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = Site.getSingleResource("ProductPP") + " - " +
-                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = Site.getSingleResource('ProductPP') + ' - ' +
+                    Site.getSingleResource('DetailedBetlist') + ' - ' + moment(new Date(winlostDate)).format('MM/DD/YYYY');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             ValidProducts: function () {
-                var temp = true;
-                if ($("#ProductList input:checked").length === 0) {
+                let temp = true;
+                if ($('#ProductList').find('input:checked').length === 0) {
                     temp = false;
-                    var title = Site.getSingleResource("LrfNotification");
-                    var dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource("AlertChooseProductMsg") + '</p></div>';
-                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
+                    const title = Site.getSingleResource('LrfNotification');
+                    const dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource('AlertChooseProductMsg') + '</p></div>';
+                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: 'popup-notification' });
                 }
 
                 return temp;
             },
 
             ViewCasinoHandHistory: function (refNo) {
-                var url = Site.resolveClientUrl('HandHistory/RNGCasino');
-                var urlParam = $("#casino-hand-history-" + refNo).attr('url-param');
+                let url = Site.resolveClientUrl('HandHistory/RNGCasino');
+                const urlParam = $('#casino-hand-history-' + refNo).attr('url-param');
 
                 url += urlParam;
                 Site.redirect(url);
             },
 
             viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
-                var $baseCurrency = $("#BaseCurrency");
-                var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
+                const $baseCurrency = $('#BaseCurrency');
+                const baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
 
-                var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
-                var url = Site.resolveClientUrl('CashOutBetList/Detail');
-                url = QueryString.setParam(url, "transId", transId);
-                url = QueryString.setParam(url, "refNo", refNo);
-                url = QueryString.setParam(url, "betType", betType);
-                url = QueryString.setParam(url, "betdaqId", betdaqId);
-                url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
-                url = QueryString.setParam(url, "isCashout", isCashOut);
+                const isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
+                let url = Site.resolveClientUrl('CashOutBetList/Detail');
+                url = QueryString.setParam(url, 'transId', transId);
+                url = QueryString.setParam(url, 'refNo', refNo);
+                url = QueryString.setParam(url, 'betType', betType);
+                url = QueryString.setParam(url, 'betdaqId', betdaqId);
+                url = QueryString.setParam(url, 'BaseCurrency', baseCurrency);
+                url = QueryString.setParam(url, 'isCashout', isCashOut);
 
-                var popH = Math.min($(window).height() - 100, 550);
-                var title = isCashOut ? Site.getSingleResource("CashOutDetails") : Site.getSingleResource("BoughtDetails");
+                const popH = Math.min($(window).height() - 100, 550);
+                const title = isCashOut ? Site.getSingleResource('CashOutDetails') : Site.getSingleResource('BoughtDetails');
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
 
             showBonusDetails: function (refCode, transId) {
-                var $baseCurrency = $("#BaseCurrency");
-                var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
+                const $baseCurrency = $('#BaseCurrency');
+                const baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
 
-                var url = Site.resolveClientUrl('BonusBetList/Detail');
-                url = QueryString.setParam(url, "RefCode", refCode);
-                url = QueryString.setParam(url, "TransId", transId);
-                url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
+                let url = Site.resolveClientUrl('BonusBetList/Detail');
+                url = QueryString.setParam(url, 'RefCode', refCode);
+                url = QueryString.setParam(url, 'TransId', transId);
+                url = QueryString.setParam(url, 'BaseCurrency', baseCurrency);
 
-                var popH = Math.min($(window).height() - 100, 550), popW = 840;
-                var title = Site.getSingleResource("TransactionDetail");
+                const popH = Math.min($(window).height() - 100, 550), popW = 840;
+                const title = Site.getSingleResource('TransactionDetail');
 
                 showDetailPopUp(url, { width: popW + 50, height: popH + 50, title: title });
             },
@@ -4236,20 +4208,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 window.ViewResult = _me.viewResult;
                 // showMP and showCombMP are only for old tickets
                 window.showMP = function (transId, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId);
-                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+                    const divEvent = $('#divEvent_' + transId);
+                    divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
                 window.showCombMP = function (transId, index, refNo, custId) {
-                    var divEvent = $('#divEvent_' + transId + "" + index);
-                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+                    const divEvent = $('#divEvent_' + transId + '' + index);
+                    divEvent.addClass('mx-parlay'); //to make line-through for void-parlay-ticket
                     _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
                 window.showNewCombMP = _me.showNewParlayDetail;
                 window.showCombMPDetail = _me.showSystemParlayDetail;
-                window.showMicroGamingRnGBetsDetails = _me.showMicroGamingRnGBetsDetails;
                 window.showAGCasinoDetails = _me.showAGCasinoDetails;
                 window.showRnGCasinoDetails = _me.showRnGCasinoDetails;
                 window.showVoidBridgeDetails = _me.showVoidBridgeDetails;
@@ -4262,14 +4233,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 window.ShowBonusDetails = _me.showBonusDetails;
                 window.showPPDetails = _me.showPPDetails;
 
-                var betList = {
+                const betList = {
                     ViewCasinoHandHistory: _me.ViewCasinoHandHistory
                 };
                 window.BetList = betList;
             },
 
             resizeGrid: function () {
-                var grid = $("#BetListGrid");
+                const grid = $('#BetListGrid');
                 jqGridAdditional.updateGridHeight();
                 jqGridAdditional.updateGridWidth(grid);
             }
@@ -4289,10 +4260,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
-    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
+    'use strict';
+    const columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
                     'WinLoss', 'EffectiveBettingValue', '@[LicenseeWL]/@[Comm]', 'Status'];
-    var indexColumn =
+    const indexColumn =
     {
         name: 'Index',
         index: 'Index',
@@ -4301,7 +4272,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: false,
         resizable: false
     };
-    var externalId =
+    const externalId =
     {
         name: 'ExternalId',
         index: 'ExternalId',
@@ -4309,7 +4280,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         align: 'left',
         sortable: false
     };
-    var systemId =
+    const systemId =
     {
         name: 'SystemId',
         index: 'UserName',
@@ -4317,7 +4288,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         align: 'left',
         sortable: false
     };
-    var transTime =
+    const transTime =
     {
         name: 'TransTime',
         index: 'TransTime',
@@ -4328,7 +4299,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: false,
         classes: 'transtime'
     };
-    var choice =
+    const choice =
     {
         name: 'Choice',
         index: 'Choice',
@@ -4337,7 +4308,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: false,
         title: false
     };
-    var odds =
+    const odds =
     {
         name: 'Odds',
         index: 'Odds',
@@ -4347,7 +4318,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var stake =
+    const stake =
     {
         name: 'Stake',
         index: 'Stake',
@@ -4356,7 +4327,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         sortable: true,
         resizable: false
     };
-    var winloss =
+    const winloss =
     {
         name: 'WinLoss',
         index: 'WinLoss',
@@ -4366,7 +4337,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var betEffective =
+    const betEffective =
     {
         name: 'BetEffective',
         index: 'BetEffective',
@@ -4376,7 +4347,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var licenseeWl =
+    const licenseeWl =
     {
         name: 'LicenseeWL',
         index: 'LicenseeWL',
@@ -4386,7 +4357,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         title: false
     };
-    var status =
+    const status =
     {
         name: 'Status',
         index: 'Status',
@@ -4397,7 +4368,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: false
     };
 
-    var columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
+    const columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
 
     return {
         gridOption:
@@ -4423,7 +4394,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return false;
             },
             onPaging: function (pgButton) {
-                if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+                if ($('#' + pgButton).hasClass('ui-state-disabled') === false) {
                     Site.blockUI();
                 }
             }
@@ -4446,49 +4417,49 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path='/@JSense.js' />
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! ./betlist */ "./www/js/source/pages/betlist/betlist.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, BetList) {
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 BetList.initialize();
                 _me.initEvent();
                 _me.submit();
                 Site.addUserGuide({
                     resourceName: $('#userGuideName').val(),
-                    title: Site.getSingleResource("TotalBets") + " - " + $('#title').val()
+                    title: Site.getSingleResource('TotalBets') + ' - ' + $('#title').val()
                 });
             },
 
             initEvent: function () {
                 $('#SubmitButton').click(_me.submit);
 
-                $("#ExportToExcel").click(function () {
-                    var url = Site.getCurrentUrl();
+                $('#ExportToExcel').click(function () {
+                    let url = Site.getCurrentUrl();
                     url = Site.setLicenseeOptionParam(url);
-                    url = QueryString.setParam(url, "IsExportExcel", true);
-                    var sortParams = BetList.getSortParams();
+                    url = QueryString.setParam(url, 'IsExportExcel', true);
+                    const sortParams = BetList.getSortParams();
                     if (sortParams) {
-                        url = QueryString.setParam(url, "SortBy", sortParams.SortBy);
-                        url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
+                        url = QueryString.setParam(url, 'SortBy', sortParams.SortBy);
+                        url = QueryString.setParam(url, 'SortOrder', sortParams.SortOrder);
                     }
                     Site.redirect(url);
                 });
 
-                $(window).on("resize", function () {
+                $(window).on('resize', function () {
                     BetList.resizeGrid();
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             submit: function () {
-                var actionName = Site.getLocation().pathname.split('/').pop();
-                var params = Site.setLicenseeOptionParam();
-                var url = Site.resolveClientUrl('api/RunningBettypesBetList/' + actionName);
+                const actionName = Site.getLocation().pathname.split('/').pop();
+                const params = Site.setLicenseeOptionParam();
+                const url = Site.resolveClientUrl('api/RunningBettypesBetList/' + actionName);
 
                 BetList.loadData(params, url);
             }
@@ -4508,7 +4479,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./betlistrunning.multiplebettypes */ "./www/js/source/pages/betlist/betlistrunning.multiplebettypes.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (BetListRunningMultipleBettypes) {
-    "use strict";
+    'use strict';
 
     $(function () {
         BetListRunningMultipleBettypes.initialize();

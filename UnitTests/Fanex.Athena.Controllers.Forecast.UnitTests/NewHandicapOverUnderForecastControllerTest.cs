@@ -2,8 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Forecast.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
@@ -15,13 +18,15 @@
     using Service.Forecast.Interfaces;
     using VendorAdapter.Interfaces;
 
-    public class NewHandicapOverUnderForecastControllerTest : BaseControllerHelperTest
+    public class NewHandicapOverUnderForecastControllerTest : CultureBaseControllerHelperTest
     {
-        private IForecastService _forecastService;
+        private INewForecastDataAccess _forecastDataAccess;
 
         private ICacheRefAdapter _cacheRefAdapter;
 
         private IMatchService _matchService;
+
+        private ILeagueDataAccess _leagueDataAccess;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -33,7 +38,7 @@
 
         [TestCase("chf", "chf")]
         [TestCase("", "usd")]
-        public void Index_WhenGet_LicenseeOffersNewForecase_ReturnCorrectViewResult(string baseCurrency, string expectedBaseCurrency)
+        public async Task Index_WhenGet_LicenseeOffersNewForecase_ReturnCorrectViewResult(string baseCurrency, string expectedBaseCurrency)
         {
             using (var controler = CreateController())
             {
@@ -47,12 +52,12 @@
 
                 NewForecastHdpOuMatchInfo headerInfo = null;
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Do<NewForecastHdpOuMatchInfo>(x => headerInfo = x)).Returns(mainData);
 
                 // Action
-                var result = controler.Index(baseCurrency: baseCurrency) as ViewResult;
+                var result = await controler.Index(baseCurrency: baseCurrency, leagueId: 1, matchId: 1) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -66,7 +71,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_NoRunningLeague_NoDataIsAssigned()
+        public async Task Index_IsNotAjaxRequest_NoRunningLeague_NoDataIsAssigned()
         {
             using (var controler = CreateController())
             {
@@ -77,14 +82,14 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(Enumerable.Empty<League>());
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(Enumerable.Empty<League>());
 
                 // Action
-                var result = controler.Index() as ViewResult;
+                var result = await controler.Index() as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -101,7 +106,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_NoValidLeague_NoMatchDataIsAssigned()
+        public async Task Index_IsNotAjaxRequest_NoValidLeague_NoMatchDataIsAssigned()
         {
             using (var controler = CreateController())
             {
@@ -112,17 +117,17 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
                 const int LeagueId = 1;
 
                 var leagueList = new List<League> { new League { LeagueId = 0 } };
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
 
                 // Action
-                var result = controler.Index(leagueId: LeagueId) as ViewResult;
+                var result = await controler.Index(leagueId: LeagueId) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -139,7 +144,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_NoMatchList_NoMatchDataIsAssigned()
+        public async Task Index_IsNotAjaxRequest_NoMatchList_NoMatchDataIsAssigned()
         {
             using (var controler = CreateController())
             {
@@ -150,19 +155,19 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
                 const int LeagueId = 1;
 
                 var leagueList = new List<League> { new League { LeagueId = LeagueId } };
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
 
-                _matchService.GetForecastMatchListByLeague(LeagueId).Returns(Enumerable.Empty<Match>());
+                _matchService.GetForecastMatchListByLeague(LeagueId).Returns(Task.FromResult<IList<Match>>(new List<Match>()));
 
                 // Action
-                var result = controler.Index(leagueId: LeagueId) as ViewResult;
+                var result = await controler.Index(leagueId: LeagueId) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -179,7 +184,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_NoMatchFoundInMatchList_MatchDataIsAssignedFromFirstMatchOfList()
+        public async Task Index_IsNotAjaxRequest_NoMatchFoundInMatchList_MatchDataIsAssignedFromFirstMatchOfList()
         {
             using (var controler = CreateController())
             {
@@ -190,14 +195,14 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
                 const int LeagueId = 1;
 
                 var leagueList = new List<League> { new League { LeagueId = LeagueId } };
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
 
                 const int MatchId = 2;
                 var match = new Match { MatchId = 0, HomeId = 1, AwayId = 2, IsNeutral = true };
@@ -205,7 +210,7 @@
                 _matchService.GetForecastMatchListByLeague(LeagueId).Returns(matchList);
 
                 // Action
-                var result = controler.Index(leagueId: LeagueId, matchId: MatchId) as ViewResult;
+                var result = await controler.Index(leagueId: LeagueId, matchId: MatchId) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -222,7 +227,7 @@
         }
 
         [Test]
-        public void Index_IsNotAjaxRequest_MatchFoundInMatchList_MatchDataIsAssignedFromFoundMatchOfList()
+        public async Task Index_IsNotAjaxRequest_MatchFoundInMatchList_MatchDataIsAssignedFromFoundMatchOfList()
         {
             using (var controler = CreateController())
             {
@@ -233,14 +238,14 @@
                 _cacheRefAdapter.GetTeamName(0).Returns(string.Empty);
 
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Any<NewForecastHdpOuMatchInfo>()).Returns(mainData);
 
                 const int LeagueId = 1;
 
                 var leagueList = new List<League> { new League { LeagueId = LeagueId } };
-                _forecastService.GetForecastRunningLeague(Arg.Any<NewForecastHandicapOverUnderMetaModel>()).Returns(leagueList);
+                _leagueDataAccess.GetRunningLeagues(Arg.Any<string>(), Arg.Any<string>()).Returns(leagueList);
 
                 const int MatchId = 2;
                 var match = new Match { MatchId = MatchId, HomeId = 1, AwayId = 2, IsNeutral = true };
@@ -248,7 +253,7 @@
                 _matchService.GetForecastMatchListByLeague(LeagueId).Returns(matchList);
 
                 // Action
-                var result = controler.Index(leagueId: LeagueId, matchId: MatchId) as ViewResult;
+                var result = await controler.Index(leagueId: LeagueId, matchId: MatchId) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -265,7 +270,7 @@
         }
 
         [Test]
-        public void Index_WhenGet_LicenseeDoesNotOffersNewForecase_RedirectToAction()
+        public async Task Index_WhenGet_LicenseeDoesNotOffersNewForecase_RedirectToAction()
         {
             using (var controler = CreateController())
             {
@@ -273,7 +278,7 @@
                 AppSettings.LicenseeOfferNewForecast.Returns(new int[0]);
 
                 // Action
-                var result = controler.Index() as RedirectToRouteResult;
+                var result = await controler.Index() as RedirectToRouteResult;
 
                 // Assert
                 Assert.That(result.RouteValues["action"], Is.EqualTo("ForecastHandicapOverUnder"));
@@ -282,7 +287,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Index_WhenPost_ReturnCorrectViewResult(bool isNeutral)
+        public async Task Index_WhenPost_ReturnCorrectViewResult(bool isNeutral)
         {
             using (var controler = CreateController())
             {
@@ -293,7 +298,9 @@
                 {
                     HomeTeamId = 1,
                     AwayTeamId = 2,
-                    IsNeutral = isNeutral
+                    IsNeutral = isNeutral,
+                    LeagueId = 1,
+                    MatchId = 1
                 };
 
                 const string HomeTeamName = "Home";
@@ -308,12 +315,12 @@
 
                 NewForecastHdpOuMatchInfo headerInfo = null;
                 var mainData = new NewForecastHdpOuData();
-                _forecastService.GetNewForecastData(
+                _forecastDataAccess.GetNewForecastData(
                     Arg.Any<NewForecastHandicapOverUnderMetaModel>(),
                     Arg.Do<NewForecastHdpOuMatchInfo>(x => headerInfo = x)).Returns(mainData);
 
                 // Action
-                var result = controler.Index(metaModel) as ViewResult;
+                var result = await controler.Index(metaModel) as ViewResult;
                 var viewModel = (NewForecastHdpOuViewModel)result.Model;
 
                 // Assert
@@ -327,7 +334,7 @@
         }
 
         [Test]
-        public void GetMatchListByLeague_WhenCall_ReturnCorrectViewResult()
+        public async Task GetMatchListByLeague_WhenCall_ReturnCorrectViewResult()
         {
             using (var controler = CreateController())
             {
@@ -342,7 +349,7 @@
                 var expectedMatchNames = "A,B,C";
 
                 // Action
-                var result = controler.GetMatchListByLeague(0) as ViewResult;
+                var result = (await controler.GetMatchListByLeague(0)) as ViewResult;
                 var viewModel = (List<Match>)result.Model;
 
                 // Assert
@@ -371,18 +378,20 @@
 
         private NewHandicapOverUnderForecastController CreateController()
         {
-            _forecastService = Substitute.For<IForecastService>();
+            _forecastDataAccess = Substitute.For<INewForecastDataAccess>();
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _matchService = Substitute.For<IMatchService>();
+            _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
 
             var controller = new NewHandicapOverUnderForecastController(
                 LangService,
                 SessionService,
                 AppSettings,
-                _forecastService,
+                _forecastDataAccess,
                 Substitute.For<ICoreLogger>(),
                 _cacheRefAdapter,
-                _matchService)
+                _matchService,
+                _leagueDataAccess)
             {
                 ControllerContext = ControllerContext
             };

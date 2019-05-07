@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.Report
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -46,9 +47,9 @@ namespace Fanex.Athena.Service.Report
 
         #region IMatchWinLossService Members
 
-        public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
+        public async Task<IList<MatchWinLoss>> GetDataList(MatchWinLossMetaModel metaModel)
         {
-            var dataList = _matchWinLossDataAccess.GetDataList(metaModel);
+            var dataList = await _matchWinLossDataAccess.GetDataList(metaModel).ConfigureAwait(false);
 
             foreach (var data in dataList)
             {
@@ -61,17 +62,17 @@ namespace Fanex.Athena.Service.Report
             return OrderByProduct(dataList);
         }
 
-        public DataSet GetDetailDataSet(MatchWinLossMetaModel metaModel)
+        public Task<DataSet> GetDetailDataSet(MatchWinLossMetaModel metaModel)
         {
             return _matchWinLossDataAccess.GetDetailDataSet(metaModel);
         }
 
-        public IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel)
+        public Task<IList<MatchWinLoss>> GetDetailDataList(MatchWinLossMetaModel metaModel)
         {
             return _matchWinLossDataAccess.GetDetailDataList(metaModel);
         }
 
-        public IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
+        public Task<IList<MatchWinLoss>> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
         {
             return _matchWinLossDataAccess.GetOutrightParlayList(metaModel);
         }
@@ -123,9 +124,12 @@ namespace Fanex.Athena.Service.Report
 
         private string GetHomeName(MatchWinLoss matchWinLoss)
         {
-            return matchWinLoss.ProductName == Product.NG ?
-                string.Empty :
-               _cacheRefAdapter.GetTeamName(matchWinLoss.HomeId) + (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
+            if (matchWinLoss.ProductName == Product.NG)
+            {
+                return string.Empty;
+            }
+
+            return _cacheRefAdapter.GetTeamName(matchWinLoss.HomeId) + (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
         }
 
         private string GetAwayName(MatchWinLoss matchWinLoss)

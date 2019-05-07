@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Common.Interfaces;
@@ -64,19 +65,21 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpGet]
         [AjaxRequest]
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        public ActionResult GetSportsAndProducts()
+        public async Task<ActionResult> GetSportsAndProducts()
         {
             var productCode = $"{Product.SB},{Product.NG},{Product.VS},{Product.VS2}";
-            return Json(
-                _sportTypeDataAccess.GetSportsAndProducts(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, productCode),
-                JsonRequestBehavior.AllowGet);
+            var data = await _sportTypeDataAccess.GetSportsAndProducts(
+                SessionService.LicenseeSession.LicenseeId, 
+                SessionService.UserSession.Language, 
+                productCode)
+                .ConfigureAwait(false);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [ValidateInput(false)]
         [CustomValidateAntiForgery]
-        public ActionResult Excel(string excelParam)
+        public async Task<ActionResult> Excel(string excelParam)
         {
             const string FileName = "CustomerTurnover";
 
@@ -106,7 +109,7 @@ namespace Fanex.Athena.Controllers.Report
             var currencyName = userSession.CurrencyList
                 .Where(i => i.Key == metaModel.CurrencyId).Select(i => i.Value).SingleOrDefault();
 
-            var result = _customerTurnoverService.GetDataList(metaModel, userSession.CurrencyList, userSession.Language);
+            var result = await _customerTurnoverService.GetDataList(metaModel, userSession.CurrencyList, userSession.Language).ConfigureAwait(false);
 
             var reportTitle = GenerateReportTitle(metaModel, currencyName);
             var excel = CreateExcel(templatePath, formatDateTime, showingOption, result, reportTitle);

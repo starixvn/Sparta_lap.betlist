@@ -1,6 +1,6 @@
-﻿define(["./signin"], function (SignIn) {
-    "use strict";
-    $(window).on("load", function () {
+﻿define(['./signin'], function (SignIn) {
+    'use strict';
+    $(window).on('load', function () {
         SignIn.InitLogin();
     });
 });

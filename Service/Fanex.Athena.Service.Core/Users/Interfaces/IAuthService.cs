@@ -9,6 +9,6 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 
         void Logout(int onuserId);
 
-        IResultInfo<User> ValidateUserForLrfSystem(User requestUser, string loginToken);
+        IResultInfo<User> ValidateUserForLrf(User requestUser, string loginToken);
     }
 }

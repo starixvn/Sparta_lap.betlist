@@ -14,6 +14,8 @@ namespace Fanex.Athena.Model.Customer.MetaModel
     /// </summary>
     public class GroupCommMetaModel
     {
+        private const int MaxGroupNameLength = 100;
+
         public GroupCommMetaModel()
         {
             GroupColor = "#ffffff";
@@ -26,7 +28,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public int GroupCommId { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ViewResources), ErrorMessageResourceName = "GroupNameNotEmptyMsg")]
-        [StringLength(100, ErrorMessageResourceType = typeof(ViewResources), ErrorMessageResourceName = "GroupNameNotExceed100CharactersMsg")]
+        [StringLength(MaxGroupNameLength, ErrorMessageResourceType = typeof(ViewResources), ErrorMessageResourceName = "GroupNameNotExceed100CharactersMsg")]
         [RegularExpression(@"^[a-zA-Z0-9 ]+$",
          ErrorMessageResourceType = typeof(ViewResources), ErrorMessageResourceName = "GroupNameOnlyContainCharactersAndNumberMsg")]
         public string GroupName { get; set; }

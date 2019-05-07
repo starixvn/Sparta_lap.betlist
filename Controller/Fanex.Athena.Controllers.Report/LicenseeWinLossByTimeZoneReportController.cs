@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Model.Report.ViewModel;

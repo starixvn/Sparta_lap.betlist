@@ -1,17 +1,17 @@
-﻿"use strict";
+﻿'use strict';
 
 define([
-    "common/site",
-    "./recheckin",
-    "components/pluginhelper/autocomplete",
-    "./notification",
-    "lib/jquery.cookie",
-    "lib/jquery.marquee",
-    "components/selectlist",
-    "lib/jquery.jclock",
-    "vendor-materialize"],
+    'common/site',
+    './recheckin',
+    'components/pluginhelper/autocomplete',
+    './notification',
+    'lib/jquery.cookie',
+    'lib/jquery.marquee',
+    'components/selectlist',
+    'lib/jquery.jclock',
+    'vendor-materialize'],
     function (Site, Recheckin, AutoComplete, Notification) {
-        var $searchBox;
+        let $searchBox;
 
         function initialize() {
             Site.initialize();
@@ -21,17 +21,17 @@ define([
             Notification.add();
             activeDefaultMenuItem();
             setTimeout(function () {
-                var $mainFrame = $("#mainFrame");
+                const $mainFrame = $('#mainFrame');
                 $mainFrame.attr('src', $mainFrame.data('src'));
             }, 100);
 
-            if ($('#HasRecheckIn').val() === "1") {
+            if ($('#HasRecheckIn').val() === '1') {
                 Recheckin.init();
             }
 
             AutoComplete.initialize({
-                url: Site.resolveClientUrl("SearchCustomerAPI/SearchActiveAndDormantCustomer"),
-                target: "#searchbox"
+                url: Site.resolveClientUrl('SearchCustomerAPI/SearchActiveAndDormantCustomer'),
+                target: '#searchbox'
             });
         }
 
@@ -48,8 +48,8 @@ define([
 
         function initEvent() {
             $searchBox.keyup(function (e) {
-                e = e || window.event;
-                var key = e.keyCode || e.which;
+                const event = e || window.event;
+                const key = event.keyCode || event.which;
 
                 if (key === 13) {
                     searchByUserName();
@@ -60,11 +60,11 @@ define([
                 changeLanguage($(this));
             });
 
-            $("#ddlLicensee")
+            $('#ddlLicensee')
                 .selectList({ canSearch: true })
                 .on('change', function () {
-                    var licenseeId = $(this).val();
-                    top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
+                    const licenseeId = $(this).val();
+                    top.location.href = Site.resolveClientUrl('Header/ChangeLicensee?licenseeid=') + licenseeId + '&nocache=' + (new Date().getTime());
                 });
 
             $('#label-search').click(function () {
@@ -79,52 +79,47 @@ define([
                 }
             });
 
-            $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function () {
-                var $currentMenuItem = $(this);
-                document.title = 'LAP' + ' - ' + $(".active > .menu-title").text() + ' - ' + $currentMenuItem.text();
+            $('.collapsible2').on('click.menuevent', '.collapsible-body  a', function () {
+                const $currentMenuItem = $(this);
+                document.title = 'LAP' + ' - ' + $('.active > .menu-title').text() + ' - ' + $currentMenuItem.text();
 
-                var isCancelledBetListMenu = $currentMenuItem.prop("id") === "MenuItem36";
-                if (isCancelledBetListMenu) {
-                    $("#page-title").text(Site.getSingleResource("CancelledBetsTitle"));
-                    return;
-                }
-                $("#page-title").text($currentMenuItem.text());
+                $('#page-title').text($currentMenuItem.text());
             });
 
             $(window).on('blur', function () {
                 $('.dropdown-button', '.languages-block').dropdown('close');
-                $('#ddlLicensee').selectList("close");
-                $("#suggestionDropdown").hide();
+                $('#ddlLicensee').selectList('close');
+                $('#suggestionDropdown').hide();
             });
         }
 
         function searchByUserName() {
-            var userName = $searchBox.val();
+            const userName = $searchBox.val();
             if (!userName) {
                 return;
             }
 
-            var url = Site.resolveClientUrl("Customer/CustomerList?userName=" + userName);
+            const url = Site.resolveClientUrl('Customer/CustomerList?userName=' + userName);
             top.main.location.href = url;
             $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
             $('#page-title').text(Site.getSingleResource('CustomerList'));
         }
 
         function changeLanguage($target) {
-            var lang = $target.attr('langkey');
-            var mainFrame = top.frames["main"];
+            const lang = $target.attr('langkey');
+            const mainFrame = top.frames['main'];
             if (mainFrame && mainFrame.Site && mainFrame.Site.blockUI) {
                 mainFrame.Site.blockUI();
             }
 
             $.ajax({
-                url: Site.resolveClientUrl("Header/ChangeLanguage?languagesite=") + lang,
+                url: Site.resolveClientUrl('Header/ChangeLanguage?languagesite=') + lang,
                 async: false,
-                type: "GET",
+                type: 'GET',
                 cache: false,
                 success: function (result) {
-                    if (result === "1") {
-                        if ($.cookie("isClosedNotification") !== "1") {
+                    if (result === '1') {
+                        if ($.cookie('isClosedNotification') !== '1') {
                             $.cookie('isFirstLoad', '1', {
                                 path: '/'
                             });
@@ -136,29 +131,29 @@ define([
         }
 
         function activeDefaultMenuItem() {
-            var defaultUrl = $("#DefaultUrl").val().toLowerCase();
-            defaultUrl = defaultUrl.replace(/\/index$/i, ''); // remove the last "/Index"
-            var $menuItem = $("#left-menu .collapsible-body a").filter(function () {
+            let defaultUrl = $('#DefaultUrl').val().toLowerCase();
+            defaultUrl = defaultUrl.replace(/\/index$/i, ''); // remove the last '/Index'
+            const $menuItem = $('#left-menu .collapsible-body a').filter(function () {
                 return $(this).attr('href').toLowerCase() === defaultUrl;
             });
             $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);
 
-            var menuItemName = $menuItem.length > 0 ? $menuItem.text() : "";
-            $("#page-title").text(menuItemName);
+            const menuItemName = $menuItem.length > 0 ? $menuItem.text() : '';
+            $('#page-title').text(menuItemName);
 
-            document.title = 'LAP' + ' - ' + $(".active > .menu-title").text() + ' - ' + menuItemName;
+            document.title = 'LAP' + ' - ' + $('.active > .menu-title').text() + ' - ' + menuItemName;
         }
 
         function checkMoveBetNotification() {
-            var $marquee = $("#notification-marquee");
+            const $marquee = $('#notification-marquee');
 
             if ($marquee.length === 0) {
                 return;
             }
 
-            var previousText = "";
-            var $parent = $marquee.parent();
-            var apiUrl = Site.resolveClientUrl("api/CommonApi/GetMoveBetNotification");
+            let previousText = '';
+            const $parent = $marquee.parent();
+            const apiUrl = Site.resolveClientUrl('api/CommonApi/GetMoveBetNotification');
             function processNotification() {
                 $.get(apiUrl, function (message) {
                     if (message === previousText) {
@@ -167,17 +162,17 @@ define([
 
                     previousText = message;
                     if (message) {
-                        if ($parent.is(":hidden")) {
+                        if ($parent.is(':hidden')) {
                             $parent.slideDown('fast');
                             $('#mainFrame').css('height', 'calc(100% - 30px)');
                         }
 
-                        if ("marquee" in $marquee) {
+                        if ('marquee' in $marquee) {
                             $marquee.text(message);
                             $marquee.marquee({ speed: 30 });
                         }
                     } else {
-                        $marquee.marquee("stop");
+                        $marquee.marquee('stop');
                         $parent.slideUp('fast');
                         $('#mainFrame').css('height', '100%');
                     }

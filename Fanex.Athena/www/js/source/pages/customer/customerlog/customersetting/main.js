@@ -1,4 +1,4 @@
-﻿"use strict";
-define(["./customersetting"], function (CustomerSetting) {
+﻿'use strict';
+define(['./customersetting'], function (CustomerSetting) {
     $(CustomerSetting.initialize);
 });

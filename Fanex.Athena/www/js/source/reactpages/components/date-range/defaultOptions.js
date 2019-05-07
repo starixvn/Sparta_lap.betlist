@@ -23,10 +23,10 @@ const addDistanceDays = (rangeObj, name, start, end, min, max) => {
 };
 
 export default {
-    ranges: (today, min, max, limitMonths) => {
-        today = !today ? moment() : (!moment.isMoment(today) ? moment(today, MomentFormat.default) : today);
-        max = !max ? today : (!moment.isMoment(max) ? moment(max, MomentFormat.default) : max);
-        min = !min ? today : (!moment.isMoment(min) ? moment(min, MomentFormat.default) : min);
+    ranges: (todayDate, minDate, maxDate, limitMonths) => {
+        var today = !todayDate ? moment() : (!moment.isMoment(todayDate) ? moment(todayDate, MomentFormat.default) : todayDate);
+        var max = !maxDate ? today : (!moment.isMoment(maxDate) ? moment(maxDate, MomentFormat.default) : maxDate);
+        var min = !minDate ? today : (!moment.isMoment(minDate) ? moment(minDate, MomentFormat.default) : minDate);
 
         const range = {};
 

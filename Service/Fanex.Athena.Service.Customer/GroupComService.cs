@@ -9,9 +9,8 @@ namespace Fanex.Athena.Service.Customer
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
+    using System.Threading.Tasks;
     using Casino.Interfaces;
-    using Core.Users.Interfaces;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -25,46 +24,37 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly IGroupComDataAccess _groupDataAccess;
 
-        private readonly ISessionService _sessionService;
-
         public GroupComService(
-            ICasinoCustomerService casinoCustomerService, 
-            IGroupComDataAccess groupDataAccess,
-            ISessionService sessionService)
+            ICasinoCustomerService casinoCustomerService,
+            IGroupComDataAccess groupDataAccess)
         {
             _casinoCustomerService = casinoCustomerService;
             _groupDataAccess = groupDataAccess;
-            _sessionService = sessionService;
         }
 
-        public IList<GroupCommMetaModel> GetAll(int licenseeId)
+        public Task<IList<GroupCommMetaModel>> GetAll(int licenseeId)
         {
             return _groupDataAccess.GetAll(licenseeId);
         }
 
-        public DataTable GetDataForExcel(int licenseeId)
+        public Task<DataTable> GetDataForExcel(int licenseeId)
         {
             return _groupDataAccess.GetDataForExcel(licenseeId);
         }
 
-        public GroupCommMetaModel GetById(int groupCommId)
+        public GroupCommMetaModel GetById(int groupCommId, int licenseeId)
         {
-            return _groupDataAccess.GetById(groupCommId, _sessionService.LicenseeSession.LicenseeId);
+            return _groupDataAccess.GetById(groupCommId, licenseeId);
         }
 
-        public int GetDefaultGroup(IList<GroupCommMetaModel> groupList)
-        {
-            return groupList.Where(g => g.IsDefaultGroup).Select(g => g.GroupCommId).FirstOrDefault();
-        }
-
-        public IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId)
+        public Task<IResultInfo> InsertGroup(GroupCommMetaModel item, IRequest request, int userId)
         {
             return _groupDataAccess.InsertGroup(item, request, userId);
         }
 
-        public IResultInfo UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user)
+        public async Task<IResultInfo> UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user)
         {
-            var resultInfo = _groupDataAccess.UpdateGroup(newItem, request, user.UserId);
+            var resultInfo = await _groupDataAccess.UpdateGroup(newItem, request, user.UserId).ConfigureAwait(false);
             var callApiSuccess = true;
             if (newItem.IsUpdateCS && !string.IsNullOrEmpty(resultInfo.ExtendedData))
             {
@@ -79,7 +69,7 @@ namespace Fanex.Athena.Service.Customer
                         ModifyBy = user.UserId,
                         ModifyUserName = user.UserName
                     };
-                    callApiSuccess = _casinoCustomerService.UpdateCommission(apiCasinoMetalModel);
+                    callApiSuccess = await _casinoCustomerService.UpdateCommission(apiCasinoMetalModel);
                 }
             }
 
@@ -92,16 +82,16 @@ namespace Fanex.Athena.Service.Customer
             return resultInfo;
         }
 
-        public IResultInfo DeleteGroup(DeleteGroupMetaModel model)
+        public async Task<IResultInfo> DeleteGroup(DeleteGroupMetaModel model)
         {
-            var resultInfo = _groupDataAccess.DeleteGroup(
+            var resultInfo = await _groupDataAccess.DeleteGroup(
                 model.GroupId,
                 model.LicenseeId,
                 model.UserId,
                 model.Ip,
                 model.Language,
                 model.IsRemoveCommSetting,
-                model.IsResetDefault);
+                model.IsResetDefault).ConfigureAwait(false);
             var callApiSuccess = true;
 
             if (model.IsRemoveCommSetting && model.IsAllowedCSComm && !string.IsNullOrEmpty(resultInfo.ExtendedData))
@@ -109,14 +99,14 @@ namespace Fanex.Athena.Service.Customer
                 var custtomerList = resultInfo.ExtendedData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (custtomerList.Length > 0)
                 {
-                    callApiSuccess = _casinoCustomerService.UpdateCommission(new RNGCasinoUpdateMemberComMetaModel
+                    callApiSuccess = await _casinoCustomerService.UpdateCommission(new RNGCasinoUpdateMemberComMetaModel
                     {
                         Comm = 0,
                         CustomerId = custtomerList,
                         FromIp = model.Ip,
                         ModifyBy = model.UserId,
                         ModifyUserName = model.UserName
-                    });
+                    }).ConfigureAwait(false);
                 }
             }
 

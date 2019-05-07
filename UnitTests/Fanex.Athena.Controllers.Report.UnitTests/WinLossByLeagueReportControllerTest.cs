@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Constant.DataDomain;
@@ -17,7 +18,7 @@
     using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class WinLossByLeagueReportControllerTest : BaseControllerHelperTest
+    public class WinLossByLeagueReportControllerTest : CultureBaseControllerHelperTest
     {
         private ISportTypeDataAccess _sportTypeDataAccess;
 
@@ -36,7 +37,7 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewResult()
+        public async Task Index_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -63,7 +64,7 @@
                 _matchService.GetMatchesByLeague(LeagueId, Arg.Any<DateTime>(), Arg.Any<DateTime>()).Returns(matches);
 
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as WinLossByLeagueViewModel;
 
                 // Assert
@@ -78,7 +79,7 @@
         }
 
         [Test]
-        public void GetLeaguesBySport_WhenCall_ReturnCorrectResult()
+        public async Task GetLeaguesBySport_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -96,7 +97,7 @@
                 _leagueDataAccess.GetLeaguesBySport(metaModel).Returns(data);
 
                 // Action
-                var result = controller.GetLeaguesBySport(metaModel) as JsonResult;
+                var result = await controller.GetLeaguesBySport(metaModel) as JsonResult;
 
                 // Assert
                 Assert.Multiple(() =>
@@ -108,7 +109,7 @@
         }
 
         [Test]
-        public void GetMatchesByLeague_WhenCall_ReturnCorrectResult()
+        public async Task GetMatchesByLeague_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -124,7 +125,7 @@
                 _matchService.GetMatchesByLeague(LeagueId, fromDate, toDate).Returns(data);
 
                 // Action
-                var result = controller.GetMatchesByLeague(LeagueId, fromDate, toDate) as JsonResult;
+                var result = await controller.GetMatchesByLeague(LeagueId, fromDate, toDate) as JsonResult;
 
                 // Assert
                 Assert.Multiple(() =>

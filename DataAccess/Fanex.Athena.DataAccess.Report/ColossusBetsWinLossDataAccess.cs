@@ -8,10 +8,10 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Core;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -32,12 +32,14 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ColossusBetsWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<SortableReportResultModel<ColossusBetWinLoss>> GetSummaryWinloss(
+            ColossusBetsWinLossMetaModel metaModel, 
+            IDictionary<int, string> currencyList)
         {
             return GetData("Lrf_Rpt_ColossusBetsWinloss", currencyList, metaModel);
         }
 
-        public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<SortableReportResultModel<ColossusBetWinLoss>> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             return GetData("Lrf_Rpt_ColossusBetsWinloss_detail", currencyList, metaModel);
         }
@@ -56,33 +58,29 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private SortableReportResultModel<ColossusBetWinLoss> GetData(string spname, IDictionary<int, string> currencyList, ColossusBetsWinLossMetaModel metaModel)
+        private async Task<SortableReportResultModel<ColossusBetWinLoss>> GetData(
+            string spname, 
+            IDictionary<int, string> currencyList, 
+            ColossusBetsWinLossMetaModel metaModel)
         {
-            try
+            using (var db = this.GetObjectDb(spname))
             {
-                using (var db = this.GetObjectDb(spname))
+                UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return ReadData(reader, currencyList, metaModel);
-                    }
+                    return ReadData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, spname, metaModel);
             }
         }
 
         private void UpdateUspParams(IObjectDb db, ColossusBetsWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("TicketType", DbType.Int32, metaModel.TicketType);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("ReportType", metaModel.ReportBy);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("TicketType", metaModel.TicketType);
         }
 
         private SortableReportResultModel<ColossusBetWinLoss> ReadData(

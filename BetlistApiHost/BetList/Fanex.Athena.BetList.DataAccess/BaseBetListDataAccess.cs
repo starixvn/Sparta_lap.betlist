@@ -9,19 +9,17 @@ namespace Fanex.Athena.BetList.DataAccess
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Common.Constant;
     using Common.DataAccess;
     using Common.Utility.Collections;
     using Common.Utility.Extensions;
-    using Fanex.Athena.BetList.Model.DTO;
+    using Model.DTO;
     using Util;
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
+        [CLSCompliant(false)]
         protected internal static LrfTicket MapTicket(
             ISafeDataReader reader,
             IDictionary<string, string> columns,
@@ -30,73 +28,19 @@ namespace Fanex.Athena.BetList.DataAccess
             long custId = 0)
         {
             var currencyId = reader.GetInt("currencyid");
-            return new LrfTicket
+            var ticket = new LrfTicket
             {
-                // string
-                UserName = reader.GetString("username"),
-                RefNo = reader.GetString("refno"),
-                MatchCode = reader.GetString("matchcode"),
-                Status = reader.GetString("status"),
-                BetTeam = reader.GetString("betteam"),
-                EventStatus = reader.GetString("betstatus"),
-                ShowTime = reader.GetString("showtime"),
-                OddsType = reader.GetString("oddstype", "0"),
-                ExternalId = reader.GetString("nickname"),
-                Race = reader.GetString("race"),
-                BetFrom = reader.GetString("betfrom"),
-                BetCheck = reader.GetString("betcheck"),
-
-                // Boolean
-                IsLive = reader.GetBool("liveindicator"),
-                IsNeutral = reader.GetBool("isneutral"),
-
-                // Int
-                SportTypeId = reader.GetInt("sporttype"),
-                BetTypeId = reader.GetInt("bettype"),
-                LeagueId = reader.GetInt("leagueid"),
-                HomeId = reader.GetInt("homeid"),
-                AwayId = reader.GetInt("awayid"),
-                MatchId = reader.GetInt("matchid"),
-                CustId = reader.GetLong("custid", custId),
                 CurrencyId = currencyId,
-                LiveHomeScore = reader.GetInt("livehomescore"),
-                LiveAwayScore = reader.GetInt("liveawayscore"),
-                SpecialLevel = reader.GetInt("SpecialLevel"),
-                StatusId = reader.GetInt("StatusId"),
-                WalletType = (byte)reader.GetInt("wallettype"),
-
-                // Long
-                TransId = reader.GetLong("transid"),
-                RefCode = reader.GetLong("refcode"),
-                BetId = reader.GetNullableLong("betid"),
-
-                // DateTime
-                WinlostDate = reader.GetDateTime("winlostdate", DateTime.Now),
-                TransDate = reader.GetDateTime("transdate", DateTime.Now),
-                EventDate = reader.GetDateTime("eventdate", DateTime.MinValue),
-
-                // Money
-                PlayerComm = reader.GetDecimal(columns["playerCommCol"]),
-                Comm = reader.GetDecimal(columns["commCol"]),
-                LicenseeWL = reader.GetDecimal(columns["licenseeWlCol"]),
-                Winlost = reader.GetDecimal(columns["winlostCol"]),
-                BetEffective = reader.GetDecimal(columns["beteffectiveCol"]),
-                Stake = reader.GetDecimal(columns["stakeCol"]),
-                ActualStake = reader.GetDecimal(columns["actualStakeCol"]),
-                Odds = reader.GetDecimal("odds"),
-                MasterOdds = reader.GetDecimal("modds"),
-                Handicap1 = reader.GetDecimal("hdp1"),
-                Handicap2 = reader.GetDecimal("hdp2"),
-                TransDesc = reader.GetString("transdesc"),
-                Currency = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
-
-                BetdaqId = reader.GetLong("betdaqid", -1),
-                ExtraInfo = reader.GetString("extrainfo"),
-                OriginalStake = reader.GetDecimal(columns["originalStakeCol"], -1),
-                OriginalBetType = reader.GetInt("originalbettype"),
-                OddsSpread = reader.GetDecimal("oddsspread"),
-                SettlementStatus = reader.GetByte("SettlementStatus")
+                CustId = reader.GetLong("custid", custId),
+                Currency = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString())
             };
+
+            ReadStringData(ticket, reader);
+            ReadBooleanData(ticket, reader);
+            ReadDateTimeData(ticket, reader);
+            ReadNumbericData(ticket, reader, columns);
+
+            return ticket;
         }
 
         [CLSCompliant(false)]
@@ -146,6 +90,77 @@ namespace Fanex.Athena.BetList.DataAccess
             result.Add("actualStakeCol", "actual_stake" + columnSuffix);
             result.Add("originalStakeCol", "originalstake" + columnSuffix);
             return result;
+        }
+
+        private static void ReadStringData(LrfTicket ticket, ISafeDataReader reader)
+        {
+            ticket.UserName = reader.GetString("username");
+            ticket.RefNo = reader.GetString("refno");
+            ticket.MatchCode = reader.GetString("matchcode");
+            ticket.Status = reader.GetString("status");
+            ticket.BetTeam = reader.GetString("betteam");
+            ticket.EventStatus = reader.GetString("betstatus");
+            ticket.ShowTime = reader.GetString("showtime");
+            ticket.OddsType = reader.GetString("oddstype", "0");
+            ticket.ExternalId = reader.GetString("nickname");
+            ticket.Race = reader.GetString("race");
+            ticket.BetFrom = reader.GetString("betfrom");
+            ticket.BetCheck = reader.GetString("betcheck");
+            ticket.TransDesc = reader.GetString("transdesc");
+            ticket.ExtraInfo = reader.GetString("extrainfo");
+        }
+
+        private static void ReadBooleanData(LrfTicket ticket, ISafeDataReader reader)
+        {
+            ticket.IsLive = reader.GetBool("liveindicator");
+            ticket.IsNeutral = reader.GetBool("isneutral");
+        }
+
+        private static void ReadDateTimeData(LrfTicket ticket, ISafeDataReader reader)
+        {
+            ticket.WinlostDate = reader.GetDateTime("winlostdate", DateTime.Now);
+            ticket.TransDate = reader.GetDateTime("transdate", DateTime.Now);
+            ticket.EventDate = reader.GetDateTime("eventdate", DateTime.MinValue);
+        }
+
+        private static void ReadNumbericData(LrfTicket ticket, ISafeDataReader reader, IDictionary<string, string> columns)
+        {
+            // Int
+            ticket.SportTypeId = reader.GetInt("sporttype");
+            ticket.BetTypeId = reader.GetInt("bettype");
+            ticket.LeagueId = reader.GetInt("leagueid");
+            ticket.HomeId = reader.GetInt("homeid");
+            ticket.AwayId = reader.GetInt("awayid");
+            ticket.MatchId = reader.GetInt("matchid");
+            ticket.LiveHomeScore = reader.GetInt("livehomescore");
+            ticket.LiveAwayScore = reader.GetInt("liveawayscore");
+            ticket.SpecialLevel = reader.GetInt("SpecialLevel");
+            ticket.StatusId = reader.GetInt("StatusId");
+            ticket.WalletType = (byte)reader.GetInt("wallettype");
+            ticket.OriginalBetType = reader.GetInt("originalbettype");
+
+            // Long
+            ticket.TransId = reader.GetLong("transid");
+            ticket.RefCode = reader.GetLong("refcode");
+            ticket.BetId = reader.GetNullableLong("betid");
+            ticket.BetdaqId = reader.GetLong("betdaqid", -1);
+
+            // Money
+            ticket.PlayerComm = reader.GetDecimal(columns["playerCommCol"]);
+            ticket.Comm = reader.GetDecimal(columns["commCol"]);
+            ticket.LicenseeWL = reader.GetDecimal(columns["licenseeWlCol"]);
+            ticket.Winlost = reader.GetDecimal(columns["winlostCol"]);
+            ticket.BetEffective = reader.GetDecimal(columns["beteffectiveCol"]);
+            ticket.Stake = reader.GetDecimal(columns["stakeCol"]);
+            ticket.ActualStake = reader.GetDecimal(columns["actualStakeCol"]);
+            ticket.Odds = reader.GetDecimal("odds");
+            ticket.MasterOdds = reader.GetDecimal("modds");
+            ticket.Handicap1 = reader.GetDecimal("hdp1");
+            ticket.Handicap2 = reader.GetDecimal("hdp2");
+            ticket.OriginalStake = reader.GetDecimal(columns["originalStakeCol"], -1);
+            ticket.OddsSpread = reader.GetDecimal("oddsspread");
+
+            ticket.SettlementStatus = reader.GetByte("SettlementStatus");
         }
     }
 }

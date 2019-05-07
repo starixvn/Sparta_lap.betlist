@@ -88,7 +88,7 @@
                     };
 
                     var cellvalue = 0;
-                    var expectedFormatter = "<a class='drilldown' href='javascript:;' data-drilldown='{\"level\":2,\"currencyId\":1,\"custId\":2,\"datetime\":\"01/01/2011\"}'>0</a>";
+                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-drilldown=\'{\"level\":2,\"currencyId\":1,\"custId\":2,\"datetime\":\"01/01/2011\"}\'>0</a>';
 
                     var formatter = systemIdColumn.formatter(cellvalue, {}, rowObject);
 
@@ -108,7 +108,7 @@
                     };
 
                     var cellvalue = 0;
-                    var expectedFormatter = "<a class='drilldown' href='javascript:;' data-drilldown='{\"level\":1,\"currencyId\":1,\"custId\":0,\"datetime\":\"01/01/2011\"}'>0</a>";
+                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-drilldown=\'{\"level\":1,\"currencyId\":1,\"custId\":0,\"datetime\":\"01/01/2011\"}\'>0</a>';
 
                     var formatter = currencyColumn.formatter(cellvalue, {}, rowObject);
 

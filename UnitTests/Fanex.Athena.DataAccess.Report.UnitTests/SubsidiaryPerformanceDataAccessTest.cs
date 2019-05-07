@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DTO.Configuration;
@@ -33,7 +34,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_PassCorrectParams()
+        public async Task GetData_WhenCall_PassCorrectParams()
         {
             // Arrange
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
@@ -43,14 +44,14 @@
             var metaModel = GetDefaultMetaModel();
 
             // Action
-            DataAccess.GetData(metaModel, UserCurrencyList);
+            await DataAccess.GetData(metaModel, UserCurrencyList);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);
         }
 
         [Test]
-        public void GetData_DoNotConvertToBasedCurrency_ReturnDataWithOriginalCurrency()
+        public async Task GetData_DoNotConvertToBasedCurrency_ReturnDataWithOriginalCurrency()
         {
             // Arrange
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
@@ -65,14 +66,14 @@
             var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping, false));
 
             // Action
-            var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel, UserCurrencyList));
+            var result = ObjectHelper.ToJson(await DataAccess.GetData(metaModel, UserCurrencyList));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetData_ConvertToBasedCurrency_ReturnDataWithBasedCurrency()
+        public async Task GetData_ConvertToBasedCurrency_ReturnDataWithBasedCurrency()
         {
             // Arrange
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
@@ -87,14 +88,14 @@
             var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping, true));
 
             // Action
-            var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel, UserCurrencyList));
+            var result = ObjectHelper.ToJson(await DataAccess.GetData(metaModel, UserCurrencyList));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetDetailData_WhenCall_PassCorrectParams()
+        public async Task GetDetailData_WhenCall_PassCorrectParams()
         {
             // Arrange
             const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
@@ -104,14 +105,14 @@
             var metaModel = GetDefaultMetaModel();
 
             // Action
-            DataAccess.GetDetailData(metaModel, UserCurrencyList);
+            await DataAccess.GetDetailData(metaModel, UserCurrencyList);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);
         }
 
         [Test]
-        public void GetDetailData_DoNotConvertToBasedCurrency_ReturnDataWithOriginalCurrency()
+        public async Task GetDetailData_DoNotConvertToBasedCurrency_ReturnDataWithOriginalCurrency()
         {
             // Arrange
             const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
@@ -125,7 +126,7 @@
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailData(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetDetailData(metaModel, UserCurrencyList);
             var firstData = result.DataList.First();
 
             // Assert
@@ -138,7 +139,7 @@
         }
 
         [Test]
-        public void GetDetailData_ConvertToBasedCurrency_ReturnDataWithBasedCurrency()
+        public async Task GetDetailData_ConvertToBasedCurrency_ReturnDataWithBasedCurrency()
         {
             // Arrange
             const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
@@ -152,7 +153,7 @@
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailData(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetDetailData(metaModel, UserCurrencyList);
             var firstData = result.DataList.First();
 
             // Assert
@@ -165,7 +166,7 @@
         }
 
         [Test]
-        public void GetDetailData_WhenCall_ReturnTotalDataCorrectly()
+        public async Task GetDetailData_WhenCall_ReturnTotalDataCorrectly()
         {
             // Arrange
             const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
@@ -179,7 +180,7 @@
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailData(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetDetailData(metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -265,13 +266,13 @@
 
         private void AssertParamsPassCorrectly(SubsidiaryPerformanceMetaModel metaModel)
         {
-            ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            ObjectDb.Received(1).AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("IncludeRaw", DbType.Boolean, metaModel.IncludeRaw);
-            ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+            ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
+            ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
+            ObjectDb.Received(1).SetParameterValue("MoveBetsDay", _balance.MoveBetsDay);
+            ObjectDb.Received(1).SetParameterValue("ProductList", metaModel.ProductCodeList);
+            ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("IncludeRaw", metaModel.IncludeRaw);
+            ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
         }
     }
 }

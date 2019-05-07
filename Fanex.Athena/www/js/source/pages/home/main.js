@@ -1,4 +1,4 @@
 ﻿define(['./home'], function (Home) {
-    "use strict";
+    'use strict';
     $(Home.initialize);
 });

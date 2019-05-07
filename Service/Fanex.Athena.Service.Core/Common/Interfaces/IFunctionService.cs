@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Core.Common.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
 
     public interface IFunctionService
@@ -19,12 +20,10 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
 
         IEnumerable<Function> GetMasterFunctions(IEnumerable<Function> functionList);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
-            Justification = "Reviewed. Suppression is OK here.")]
         IDictionary<int, IEnumerable<Function>> GetSubMenus(IEnumerable<Function> functionList);
 
         IDictionary<int, IEnumerable<Function>> GetSubFunctions(IEnumerable<Function> functionList);
 
-        IResultInfo AssignUserFunctions(int licenseeId, int custId, IEnumerable<int> functionIdList, int userId, string ip, string langKey);
+        Task<IResultInfo> AssignUserFunctions(int licenseeId, int custId, IEnumerable<int> functionIdList, int userId, string ip, string langKey);
     }
 }

@@ -10,10 +10,10 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -34,49 +34,37 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetSummary(
-            ThirdPartyWinLossMetaModel metaModel, 
+        public async Task<SortableReportResultModel<CashOutWinLoss>> GetSummary(
+            ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    UpdateUspParams(db, metaModel, false);
-                    db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        var result = GetData(reader, currencyList, metaModel);
-                        AssignRowSpan(result.DataList);
-                        return result;
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                UpdateUspParams(db, metaModel, false);
+                db.SetParameterValue("ReportType", metaModel.ReportBy);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    var result = GetData(reader, currencyList, metaModel);
+                    AssignRowSpan(result.DataList);
+                    return result;
+                }
             }
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<CashOutWinLoss>> GetDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss_Detail";
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel);
-                    }
+                    return GetData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
@@ -141,10 +129,10 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",

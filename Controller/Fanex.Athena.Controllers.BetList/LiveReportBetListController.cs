@@ -31,52 +31,53 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> Match(LiveReportBetListMetaModel metaModel)
+        public Task<ActionResult> Match(LiveReportBetListMetaModel metaModel)
         {
-            return await ProcessRequest(
+            return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossByMatch",
-                "~/Views/Desktop/BetList/LiveReport/Match.cshtml").ConfigureAwait(false);
+                "~/Views/Desktop/BetList/LiveReport/Match.cshtml");
         }
 
         [HttpGet]
-        public async Task<ActionResult> MixParlay(LiveReportBetListMetaModel metaModel)
+        public Task<ActionResult> MixParlay(LiveReportBetListMetaModel metaModel)
         {
-            return await ProcessRequest(
+            return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossParlay",
-                "~/Views/Desktop/BetList/LiveReport/MixParlay.cshtml").ConfigureAwait(false);
+                "~/Views/Desktop/BetList/LiveReport/MixParlay.cshtml");
         }
 
         [HttpGet]
-        public async Task<ActionResult> Outright(LiveReportBetListMetaModel metaModel)
+        public Task<ActionResult> Outright(LiveReportBetListMetaModel metaModel)
         {
-            return await ProcessRequest(
+            return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossOutright",
                 "~/Views/Desktop/BetList/LiveReport/Outright.cshtml",
-                ViewResources.Outright).ConfigureAwait(false);
+                ViewResources.Outright);
         }
 
         [HttpGet]
-        public async Task<ActionResult> NumberGame(LiveReportBetListMetaModel metaModel)
+        public Task<ActionResult> NumberGame(LiveReportBetListMetaModel metaModel)
         {
-            return await ProcessRequest(
+            return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossNumberGame",
                 "~/Views/Desktop/BetList/LiveReport/NumberGame.cshtml",
-                ViewResources.ProductNG).ConfigureAwait(false);
+                ViewResources.ProductNG);
         }
 
         [HttpGet]
         public async Task<ActionResult> VirtualSports(LiveReportBetListMetaModel metaModel)
         {
-            var sportName = CacheRefAdapter.GetSportName(metaModel.SportType);
+            var caption = CacheRefAdapter.GetSportName(metaModel.SportType);
+            var sportName = caption;
             return await ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossVHRacing",
                 "~/Views/Desktop/BetList/LiveReport/VirtualSports.cshtml",
-                sportName,
+                caption,
                 sportName).ConfigureAwait(false);
         }
 

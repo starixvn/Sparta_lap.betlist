@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Api.Base
 {
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Attributes;
     using ONEbook.UM.Filters;
@@ -28,11 +29,11 @@ namespace Fanex.Athena.Api.Base
         }
 
         [HttpGet]
-        public string GetMoveBetNotification()
+        public async Task<string> GetMoveBetNotification()
         {
             var language = _languageService.GetCurrentLanguage();
 
-            return _moveBetService.GetMoveBetNotification(language);
+            return await _moveBetService.GetMoveBetNotificationAsync(language).ConfigureAwait(false);
         }
     }
 }

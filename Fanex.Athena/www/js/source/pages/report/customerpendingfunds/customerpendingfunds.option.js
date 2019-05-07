@@ -1,8 +1,8 @@
-﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
+﻿define(['jquery', 'common/site', 'lib/jqgrid/jquery.jqgrid.additional'],
     function ($, Site, jqGridAdditional) {
-        "use strict";
-        var betlistLink = function (cellvalue, options, rowObject) {
-            var param =
+        'use strict';
+        const betlistLink = function (cellvalue, options, rowObject) {
+            const param =
             {
                 CustId: rowObject.CustId,
                 ExternalId: rowObject.ExternalId,
@@ -12,25 +12,25 @@
             return '<a class="bet-list-link" href="javascript:;" data-drill-down=\'' + JSON.stringify(param) + '\'>' + cellvalue + '</a>';
         };
 
-        var indexColumn =
+        const indexColumn =
         {
-            name: "Index",
-            index: "Index",
+            name: 'Index',
+            index: 'Index',
             resizable: false,
             width: 40,
-            align: "center",
-            valign: "middle",
+            align: 'center',
+            valign: 'middle',
             sortable: false
         };
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
-            name: "ExternalId",
-            index: "ExternalId",
+            name: 'ExternalId',
+            index: 'ExternalId',
             resizable: false,
             width: 200,
-            align: "left",
-            valign: "middle",
+            align: 'left',
+            valign: 'middle',
             sortable: true,
             formatter: betlistLink,
             cellattr: function () {
@@ -38,53 +38,53 @@
             }
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
-            name: "SystemId",
-            index: "SystemId",
+            name: 'SystemId',
+            index: 'SystemId',
             resizable: false,
             width: 200,
-            align: "left",
-            valign: "middle",
+            align: 'left',
+            valign: 'middle',
             sortable: true
         };
 
-        var betCountsColumn =
+        const betCountsColumn =
         {
-            name: "BetCounts",
-            index: "BetCounts",
+            name: 'BetCounts',
+            index: 'BetCounts',
             width: 120,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "integer",
+            formatter: 'integer',
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
 
-        var pendingFundsColumn =
+        const pendingFundsColumn =
         {
-            name: "PendingFunds",
-            index: "PendingFunds",
+            name: 'PendingFunds',
+            index: 'PendingFunds',
             width: 115,
-            align: "right",
+            align: 'right',
             sortable: true,
             resizable: false,
-            formatter: "currency",
+            formatter: 'currency',
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var colNameList = [
-            "#",
-            "ExternalId",
-            "SystemId",
-            "BetCounts",
-            "PendingFunds"
+        const colNameList = [
+            '#',
+            'ExternalId',
+            'SystemId',
+            'BetCounts',
+            'PendingFunds'
         ];
 
-        var colModelList = [
+        const colModelList = [
             indexColumn,
             externalIdColumn,
             systemIdColumn,
@@ -92,24 +92,24 @@
             pendingFundsColumn
         ];
 
-        var _me =
+        const _me =
         {
-            urlData: "api/CustomerPendingFundsReport/Index",
-            urlExcelData: "api/CustomerPendingFundsReport/Index",
+            urlData: 'api/CustomerPendingFundsReport/Index',
+            urlExcelData: 'api/CustomerPendingFundsReport/ExportExcel',
             totalColspan: 3,
             totalColspanFakeLicensee: 2,
             gridOption:
             {
-                datatype: "local",
+                datatype: 'local',
                 colNames: [],
                 colModel: [],
                 data: [],
-                height: "100%",
+                height: '100%',
                 autowidth: false,
                 forceFit: false,
                 shrinkToFit: true,
                 loadtext: '',
-                loadui: "disable",
+                loadui: 'disable',
                 loadonce: true,
                 footerrow: true,
                 userDataOnFooter: false,
@@ -130,7 +130,7 @@
             getColModel: function (totalRows) {
                 systemIdColumn.hidden = Site.isFakeLicensee();
 
-                var colModels = Site.clone(colModelList);
+                const colModels = Site.clone(colModelList);
                 
                 if (totalRows <= 1) {
                     $.each(colModels, function (index, item) {

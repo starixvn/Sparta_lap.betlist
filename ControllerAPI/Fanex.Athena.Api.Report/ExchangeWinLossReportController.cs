@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Helper;
     using Model.Core.DataDomain;
@@ -12,7 +12,6 @@
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
 
@@ -36,17 +35,21 @@
         }
 
         [HttpPost]
-        public dynamic Index(ExchangeWinLossMetaModel metaModel)
+        public async Task<dynamic> Index(ExchangeWinLossMetaModel metaModel)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.IsValid && IsValidParams(metaModel) && IsValidRequest(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                return metaModel.Level == 0 ? _dataAccess.GetMainWinloss(metaModel, currencyList) :
-                                metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2
-                               ? _dataAccess.GetCustomerWinloss(metaModel, currencyList)
-                               : _dataAccess.GetLicenseeWinloss(metaModel, currencyList);
+                if (metaModel.Level == (int)ReportLevel.Main)
+                {
+                    return await _dataAccess.GetMainWinloss(metaModel, currencyList).ConfigureAwait(false);
+                }
+
+                return metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == (int)ReportLevel.Customer
+                            ? await _dataAccess.GetCustomerWinloss(metaModel, currencyList).ConfigureAwait(false)
+                            : await _dataAccess.GetLicenseeWinloss(metaModel, currencyList).ConfigureAwait(false);
             }
 
             return new ReportResultModel<ExchangeWinLoss>

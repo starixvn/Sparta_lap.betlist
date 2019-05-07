@@ -4,9 +4,11 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 {
     public class LastBetsMonitoringMetaModel
     {
+        private const int DefaultPageSize = 10;
+
         public LastBetsMonitoringMetaModel()
         {
-            PageSize = 10;
+            PageSize = DefaultPageSize;
         }
 
         public int SportId { get; set; }

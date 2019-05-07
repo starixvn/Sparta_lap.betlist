@@ -18,6 +18,7 @@ namespace Fanex.Athena.BetList.Controller
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.BetList.Service.Interfaces;
     using Model.ViewModel;
+    using Service.Helpers;
 
     public class BetListController : BaseController
     {
@@ -65,7 +66,7 @@ namespace Fanex.Athena.BetList.Controller
                 },
                 LeagueName = leagueName,
             };
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 
@@ -101,14 +102,8 @@ namespace Fanex.Athena.BetList.Controller
                 }
             };
 
-            ClearData(ticketResult);
+            BetListHelper.ClearData(ticketResult);
             return Json(result);
-        }
-
-        [HttpPost]
-        public async Task<dynamic> GetDailyBetListData(DailyBetListMetaModel metaModel)
-        {
-            return await GetBetListPaging(metaModel).ConfigureAwait(false);
         }
 
         [HttpPost]
@@ -125,12 +120,6 @@ namespace Fanex.Athena.BetList.Controller
 
         [HttpPost]
         public async Task<ExcelResult> ExportExcelLiveReport(LiveReportBetListMetaModel metaModel)
-        {
-            return await ProcessExportExcel(metaModel).ConfigureAwait(false);
-        }
-
-        [HttpPost]
-        public async Task<ExcelResult> ExportExcelDailyBetList(DailyBetListMetaModel metaModel)
         {
             return await ProcessExportExcel(metaModel).ConfigureAwait(false);
         }

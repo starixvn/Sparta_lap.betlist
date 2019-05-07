@@ -10,8 +10,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -23,33 +23,27 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ActiveCustomerSummaryDataAccess : BaseDataAccess, IActiveCustomerSummaryDataAccess
     {
-        public ActiveCustomerSummaryResultModel GetActiveCustomers(ActiveCustomerMetaModel metaModel)
+        public async Task<ActiveCustomerSummaryResultModel> GetActiveCustomers(ActiveCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_ActiveMember";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel);
+                db.SetParameterValue("TotalActive", null);
+                SortableList<ActiveCustomer> data;
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    UpdateUspParams(db, metaModel);
-                    db.AddOutParameter("TotalActive", DbType.Int32, 10);
-                    SortableList<ActiveCustomer> data;
-                    using (var reader = db.ExecuteReader())
-                    {
-                        data = GetData(reader, metaModel);
-                    }
-
-                    var totalCustomer = Convert.ToInt32(db.GetParameterValue("TotalActive"));
-
-                    return new ActiveCustomerSummaryResultModel
-                    {
-                        DataList = data,
-                        TotalCustomer = totalCustomer
-                    };
+                    data = GetData(reader, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+
+                var totalCustomer = Convert.ToInt32(db.GetParameterValue("TotalActive"));
+
+                return new ActiveCustomerSummaryResultModel
+                {
+                    DataList = data,
+                    TotalCustomer = totalCustomer
+                };
             }
         }
 
@@ -84,10 +78,10 @@ namespace Fanex.Athena.DataAccess.Report
         private static void UpdateUspParams(IObjectDb db, ActiveCustomerMetaModel metaModel)
         {
             var productCodes = metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code).ToArray();
-            db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.Date, metaModel.ToDate);
-            db.AddInParameter("products", DbType.String, string.Join(",", productCodes));
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("products", string.Join(",", productCodes));
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
         }
     }
 }

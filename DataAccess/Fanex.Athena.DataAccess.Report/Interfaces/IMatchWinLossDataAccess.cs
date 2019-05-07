@@ -8,17 +8,18 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
 
     public interface IMatchWinLossDataAccess
     {
-        IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel);
+        Task<IList<MatchWinLoss>> GetDataList(MatchWinLossMetaModel metaModel);
 
-        DataSet GetDetailDataSet(MatchWinLossMetaModel metaModel);
+        Task<DataSet> GetDetailDataSet(MatchWinLossMetaModel metaModel);
 
-        IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel);
+        Task<IList<MatchWinLoss>> GetDetailDataList(MatchWinLossMetaModel metaModel);
 
-        IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel);
+        Task<IList<MatchWinLoss>> GetOutrightParlayList(MatchWinLossMetaModel metaModel);
     }
 }

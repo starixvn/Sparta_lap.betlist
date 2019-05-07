@@ -40,9 +40,9 @@
             return new ExchangeBetListViewModel();
         }
 
-        public async Task<IEnumerable<ExchangeTicketDetail>> GetTicketDetailListAsync(ExchangeBetListDetailMetaModel metaModel)
+        public Task<IEnumerable<ExchangeTicketDetail>> GetTicketDetailListAsync(ExchangeBetListDetailMetaModel metaModel)
         {
-            return await _dataAccess.GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
+            return _dataAccess.GetTicketDetailListAsync(metaModel);
         }
     }
 }

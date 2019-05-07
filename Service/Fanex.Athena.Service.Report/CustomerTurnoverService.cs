@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -23,7 +24,7 @@ namespace Fanex.Athena.Service.Report
             _customerTurnoverDataAccess = customerTurnoverDataAccess;
         }
 
-        public ReportResultModel<CustTurnover> GetDataList(
+        public async Task<ReportResultModel<CustTurnover>> GetDataList(
             CustomerTurnoverMetaModel metaModel,
             IDictionary<int, string> currencyList, 
             string languageCode)
@@ -37,7 +38,7 @@ namespace Fanex.Athena.Service.Report
                 };
             }
 
-            var result = _customerTurnoverDataAccess.GetDataList(metaModel, currencyList, languageCode);
+            var result = await _customerTurnoverDataAccess.GetDataList(metaModel, currencyList, languageCode).ConfigureAwait(false);
 
             if (result.DataList.Any())
             {

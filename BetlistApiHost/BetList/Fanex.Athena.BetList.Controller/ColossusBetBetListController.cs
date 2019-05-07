@@ -36,14 +36,12 @@ namespace Fanex.Athena.BetList.Controller
         {
             var viewModel = await _colossusBetBetListDataAccess.GetData(metaModel).ConfigureAwait(false);
 
-            var iframeUrl = GetIframeUrl(metaModel.UserId, metaModel.BetCheck, metaModel.CustId);
+            var iframeUrl = GetIframeAddress(metaModel.UserId, metaModel.BetCheck, metaModel.CustId);
             viewModel.IframeUrl = iframeUrl;
             return Json(viewModel);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private string GetIframeUrl(int userId, long betCheck, int memberId)
+        private string GetIframeAddress(int userId, long betCheck, int memberId)
         {
             var token = GetToken(userId, memberId);
             var siteId = _colossusBetBetListDataAccess.GetSiteId(memberId);
@@ -63,7 +61,7 @@ namespace Fanex.Athena.BetList.Controller
             }
             catch (Exception exception)
             {
-                _logger.Error("ColossusBet Get Token Error - ApiUrl: " + tokenApiUrl, exception);
+                _logger.ErrorAsync("ColossusBet Get Token Error - ApiUrl: " + tokenApiUrl, exception);
                 return string.Empty;
             }
 
@@ -72,7 +70,7 @@ namespace Fanex.Athena.BetList.Controller
             if (token == null)
             {
                 var message = $"Errors from Colossus Bets API (memberid: {memberId}).\r\n" + jobject;
-                _logger.Error(message);
+                _logger.ErrorAsync(message);
                 return string.Empty;
             }
 

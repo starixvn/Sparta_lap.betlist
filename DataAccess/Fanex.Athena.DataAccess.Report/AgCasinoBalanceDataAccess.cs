@@ -10,8 +10,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -24,78 +24,60 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
-        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(
+        public async Task<SortableReportResultModel<AgCasinoBalance>> GetSummaryBalance(
             ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_AGCasinoBalance";
-            try
-            {
-                using (var db = GetObjectDb(UspName))
-                {
-                    UpdateUspParams(db, metaModel, false);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                UpdateUspParams(db, metaModel, false);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetData(reader, currencyList, metaModel);
+                }
             }
         }
 
-        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(
+        public async Task<SortableReportResultModel<AgCasinoBalance>> GetCustomerBalanceDetail(
             ThirdPartyWinLossMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Mem";
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                db.SetParameterValue("custid", metaModel.DrillDownCustomerId);
+                db.SetParameterValue("pagesize", metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
+                db.SetParameterValue("pageindex", metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
+                db.SetParameterValue("TotalRows", null);
+
+                UpdateUspParams(db, metaModel, true);
+                SortableReportResultModel<AgCasinoBalance> result;
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
-                    db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
-                    db.AddInParameter("pageindex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
-                    db.AddOutParameter("TotalRows", DbType.Int32, 10);
-
-                    UpdateUspParams(db, metaModel, true);
-                    SortableReportResultModel<AgCasinoBalance> result;
-                    using (var reader = db.ExecuteReader())
-                    {
-                        result = GetData(reader, currencyList, metaModel);
-                    }
-
-                    result.TotalRows = (int)db.GetParameterValue("TotalRows");
-
-                    return result;
+                    result = GetData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+
+                result.TotalRows = (int)db.GetParameterValue("TotalRows");
+
+                return result;
             }
         }
 
-        public SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SortableReportResultModel<AgCasinoBalance>> GetAgentBalanceDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Ag";
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel, true);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel);
-                    }
+                    return GetData(reader, currencyList, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
@@ -116,9 +98,9 @@ namespace Fanex.Athena.DataAccess.Report
 
         private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
         }
 
         private SortableReportResultModel<AgCasinoBalance> GetData(

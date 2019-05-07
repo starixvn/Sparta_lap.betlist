@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using CitiXchangeLibrary;
     using Constant.DataDomain;
     using DataAccess.BetSettings.Interfaces;
@@ -116,13 +117,13 @@
         }
 
         [Test]
-        public void UpdateCommission_NotHavePerrmissonOnData_ReturnFailedResult()
+        public async Task UpdateCommissionAsync_NotHavePerrmissonOnData_ReturnFailedResult()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(false);
 
             // Action
-            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, 0, 0);
+            var result = await _service.UpdateCommissionAsync(_licenseeId, _userId, _custId, 0, 0);
 
             // Assert
             Assert.Multiple(() =>
@@ -134,14 +135,14 @@
 
         [TestCase(false)]
         [TestCase(null)]
-        public void UpdateCommission_StatusIsNotEnable_ReturnFailedResult(bool? isEnable)
+        public async Task UpdateCommissionAsync_StatusIsNotEnable_ReturnFailedResult(bool? isEnable)
         {
             // Arrange
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(true);
-            _betSettingDataAccess.GetStatus(0, 0).ReturnsForAnyArgs(isEnable);
+            _betSettingDataAccess.GetStatusAsync(0, 0).ReturnsForAnyArgs(Task.FromResult(isEnable));
 
             // Action
-            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, 0, 0);
+            var result = await _service.UpdateCommissionAsync(_licenseeId, _userId, _custId, 0, 0);
 
             // Assert
             Assert.Multiple(() =>
@@ -154,12 +155,12 @@
         [TestCase(1, true)]
         [TestCase(0, false)]
         [TestCase(2, false)]
-        public void UpdateCommission_HavePerrmissonOnData_ReturnCorrectResult(int returnStatus, bool isSuccess)
+        public async Task UpdateCommissionAsync_HavePerrmissonOnData_ReturnCorrectResult(int returnStatus, bool isSuccess)
         {
             // Arrange
             var expectedComm = FakeHelper.Create<double>();
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).Returns(true);
-            _betSettingDataAccess.GetStatus(_custId, ProductTypes.Exchange).Returns(true);
+            _betSettingDataAccess.GetStatusAsync(_custId, ProductTypes.Exchange).Returns(Task.FromResult((bool?)true));
             _apiClient.updateCommission(_custId, expectedComm, Enviro.PRD).Returns(new CommissionInfo
             {
                 status = (CitiStatus)returnStatus,
@@ -167,7 +168,7 @@
             });
 
             // Action
-            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, 0, expectedComm);
+            var result = await _service.UpdateCommissionAsync(_licenseeId, _userId, _custId, 0, expectedComm);
 
             // Assert
             Assert.Multiple(() =>
@@ -179,16 +180,16 @@
         }
 
         [Test]
-        public void UpdateCommission_ApiThrowException_LogAndReturnFailedResult()
+        public async Task UpdateCommissionAsync_ApiThrowException_LogAndReturnFailedResult()
         {
             // Arrange
             var errorMsg = FakeHelper.Create<string>();
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(true);
-            _betSettingDataAccess.GetStatus(_custId, ProductTypes.Exchange).ReturnsForAnyArgs(true);
+            _betSettingDataAccess.GetStatusAsync(_custId, ProductTypes.Exchange).ReturnsForAnyArgs(Task.FromResult((bool?)true));
             _apiClient.updateCommission(_custId, 0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(errorMsg); });
 
             // Action
-            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, 0, 0);
+            var result = await _service.UpdateCommissionAsync(_licenseeId, _userId, _custId, 0, 0);
 
             // Assert
             Assert.Multiple(() =>
@@ -199,16 +200,16 @@
         }
 
         [Test]
-        public void UpdateCommission_CallApiSuccess_CallWriteLogRunSP()
+        public async Task UpdateCommissionAsync_CallApiSuccess_CallWriteLogRunSP()
         {
             // Arrange
             var oldComm = FakeHelper.Create<double>();
             var newComm = FakeHelper.Create<double>();
             _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(true);
-            _betSettingDataAccess.GetStatus(_custId, ProductTypes.Exchange).ReturnsForAnyArgs(true);
+            _betSettingDataAccess.GetStatusAsync(_custId, ProductTypes.Exchange).ReturnsForAnyArgs(Task.FromResult((bool?)true));
 
             // Action
-            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, oldComm, newComm);
+            var result = await _service.UpdateCommissionAsync(_licenseeId, _userId, _custId, oldComm, newComm);
 
             // Assert
             Assert.Multiple(() =>

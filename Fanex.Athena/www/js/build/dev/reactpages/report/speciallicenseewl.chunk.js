@@ -2906,7 +2906,7 @@ function (_Component) {
       }
 
       var title = _lib_service__WEBPACK_IMPORTED_MODULE_9__["Service"].getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency);
-      var excel = new _lib_reportExcel__WEBPACK_IMPORTED_MODULE_10__["default"](gridData, title, parseInt(params.ReportBy), params.ProductCodeList);
+      var excel = new _lib_reportExcel__WEBPACK_IMPORTED_MODULE_10__["default"](gridData, title, parseInt(params.ReportBy, 10), params.ProductCodeList);
       excel.export(function () {
         _this2.props.toggleLoader(false);
       });

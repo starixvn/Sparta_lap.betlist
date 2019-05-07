@@ -1,59 +1,58 @@
 ﻿define([
-    "jquery",
-    "common/querystring",
-    "common/site",
-    "lib/jqgrid/jquery.jqgrid.additional",
-    "./customerpendingfunds.option",
-    "components/pluginhelper/multiselect",
-    "components/paging",
-    "common/popup",
-    "../report",
-    "lib/jqgrid/jquery.jqGrid.en",
-    "lib/jqgrid/jquery.jqGrid.min",
-    "extensions/jquery.extension"],
+    'jquery',
+    'common/querystring',
+    'common/site',
+    'lib/jqgrid/jquery.jqgrid.additional',
+    './customerpendingfunds.option',
+    'components/pluginhelper/multiselect',
+    'components/paging',
+    'common/popup',
+    '../report',
+    'lib/jqgrid/jquery.jqGrid.en',
+    'lib/jqgrid/jquery.jqGrid.min',
+    'extensions/jquery.extension'],
     function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper, Popup, Report) {
-        "use strict";
+        'use strict';
 
-        var SORTING_CODE = {
-            "SystemId": 1,
-            "PendingFunds": 2,
-            "BetCounts": 3,
-            "ExternalId": 4
+        const SORTING_CODE = {
+            'SystemId': 1,
+            'PendingFunds': 2,
+            'BetCounts': 3,
+            'ExternalId': 4
         };
 
-        var _ajaxRequest = null;
-        var _sortDirection = "";
-        var _sortColumn = "";
-        var _orderItem = 0;
-        var _isFirstLoad = true;
-        var _submitData = null;
-        var _pagingOption =
+        let _ajaxRequest = null;
+        let _sortDirection = '';
+        let _sortColumn = '';
+        let _orderItem = 0;
+        let _isFirstLoad = true;
+        let _submitData = null;
+        let _pagingOption =
         {
             pageindex: 1,
             pagesize: 500,
             pagelist: [500, 1000, 2000],
             totalrow: 1,
-            elementcontainer: ".paging",
-            method: "AJAX",
-            ajaxfunction: "CustPendingFunds.ajaxPaging()",
+            elementcontainer: '.paging',
+            method: 'AJAX',
+            ajaxfunction: 'CustPendingFunds.ajaxPaging()',
             alwayshow: true
         };
-        var _selector = {
-            SubmitButton: "#SubmitButton",
-            ExportExcelInput: "#IsExportExcel",
-            ExportToExcel: "#ExportToExcel",
-            Form: "#CustomerPendingFundsForm",
-            GridId: "ReportGrid",
-            SortColumnInput: "#SortColumn",
-            SortDirectionInput: "#SortDirection",
-            BetListLink: ".bet-list-link"
+        const _selector = {
+            SubmitButton: '#SubmitButton',
+            ExportToExcel: '#ExportToExcel',
+            Form: '#CustomerPendingFundsForm',
+            GridId: 'ReportGrid',
+            SortColumnInput: '#SortColumn',
+            SortDirectionInput: '#SortDirection',
+            BetListLink: '.bet-list-link'
         };
 
         function initialize() {
             Site.initialize();
             Site.addUserGuide({
-                resourceName: "CustomerPendingFunds",
-                title: Site.getSingleResource("CustomerPedingFunds")
+                resourceName: 'CustomerPendingFunds',
+                title: Site.getSingleResource('CustomerPedingFunds')
             });
             MultiSelect.initProductList();
 
@@ -63,7 +62,7 @@
 
         function initEvent() {
             $(_selector.SubmitButton).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return;
                 }
@@ -74,33 +73,31 @@
             });
 
             $(_selector.ExportToExcel).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return false;
                 }
 
-                $("#OrderItem").val(_orderItem);
-                $("#IsAscSort").val(_sortDirection === "asc");
-                $(_selector.ExportExcelInput).val(true);
-                var mainForm = $(_selector.Form);
-                var url = Site.resolveClientUrl(CustomerPedingFundsOption.urlExcelData);
-                mainForm.attr("action", url);
+                $('#OrderItem').val(_orderItem);
+                $('#IsAscSort').val(_sortDirection === 'asc');
+                const mainForm = $(_selector.Form);
+                const url = Site.resolveClientUrl(CustomerPedingFundsOption.urlExcelData);
+                mainForm.attr('action', url);
                 mainForm.submit();
-                $(_selector.ExportExcelInput).val(false);
                 return false;
             });
 
-            $(".main-content").on("click", _selector.BetListLink, function () {
-                var data = $(this).data("drill-down");
+            $('.main-content').on('click', _selector.BetListLink, function () {
+                const data = $(this).data('drill-down');
                 _me.viewPendingFundsBetList(data.CustId, data.SystemId, data.ExternalId);
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
 
             window.CustPendingFunds = {
@@ -109,20 +106,20 @@
         }
 
         function initSetting() {
-            _sortColumn = "ExternalId";
-            _sortDirection = "asc";
+            _sortColumn = 'ExternalId';
+            _sortDirection = 'asc';
             _orderItem = SORTING_CODE[_sortColumn];
         }
 
         function submit() {
             buildPostData();
 
-            var option =
+            const option =
             {
-                type: "POST",
+                type: 'POST',
                 data: _submitData,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(CustomerPedingFundsOption.urlData),
                 success: function (response) {
@@ -157,19 +154,19 @@
                 return;
             }
 
-            var gridOption = CustomerPedingFundsOption.getGridOption(response.TotalRows);
+            const gridOption = CustomerPedingFundsOption.getGridOption(response.TotalRows);
             gridOption.rowNum = response.Data.length;
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
                 sort(index);
-                return "stop";
+                return 'stop';
             };
             gridOption.gridComplete = function () {
                 onGridComplete(this, gridOption, response);
                 Site.unBlockUI();
             };
 
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             reportGrid.jqGrid(gridOption);
         }
 
@@ -179,16 +176,16 @@
         }
 
         function viewPendingFundsBetList(custid, systemId, externalId) {
-            var url = Site.resolveClientUrl("PendingFundsBetList/Index");
+            let url = Site.resolveClientUrl('PendingFundsBetList/Index');
             url = Site.setLicenseeOptionOriginalParam(url);
             url = Site.setProductOptionOriginalParamList(url);
-            url = QueryString.setParam(url, "custid", custid);
-            url = QueryString.setParam(url, "systemid", systemId);
-            url = QueryString.setParam(url, "externalid", externalId);
+            url = QueryString.setParam(url, 'custid', custid);
+            url = QueryString.setParam(url, 'systemid', systemId);
+            url = QueryString.setParam(url, 'externalid', externalId);
 
-            var title = Site.getSingleResource("BetListRunning");
-            var popH = Math.min($(window).height() - 100, 650), popW = 920;
-            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: title };
+            const title = Site.getSingleResource('BetListRunning');
+            const popH = Math.min($(window).height() - 100, 650), popW = 920;
+            const popupOption = { id: 'betlist-popup', width: popW + 50, height: popH + 50, title: title };
             Popup.openPopupWithIframe(url, popupOption);
             window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
@@ -202,7 +199,7 @@
             _submitData.PageIndex = _pagingOption.pageindex;
             _submitData.PageSize = _pagingOption.pagesize;
             _submitData.OrderItem = _orderItem;
-            _submitData.IsAscSort = _sortDirection === "asc";
+            _submitData.IsAscSort = _sortDirection === 'asc';
         }
 
         function createPaging(totalRows) {
@@ -218,7 +215,7 @@
 
         function sort(index) {
             if (_pagingOption.totalrow > 1) {
-                _sortDirection = index === _sortColumn ? (_sortDirection === "asc" ? "desc" : "asc") : "asc";
+                _sortDirection = index === _sortColumn ? (_sortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
                 _sortColumn = index;
                 _orderItem = SORTING_CODE[_sortColumn];
                 window.setTimeout(function () {
@@ -233,7 +230,7 @@
             if (_isFirstLoad) {
                 jqGridAdditional.gridComplete();
 
-                var reportGrid = $("#" + _selector.GridId);
+                const reportGrid = $('#' + _selector.GridId);
                 if (_pagingOption.totalrow > 1) {
                     jqGridAdditional.addSortableHeaders(reportGrid, _sortColumn, _sortDirection);
                 }
@@ -251,12 +248,12 @@
         }
 
         function resizeGrid() {
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initEvent: initEvent,
             submit: submit,

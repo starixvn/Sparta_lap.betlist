@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;
@@ -25,7 +26,7 @@
 
         [TestCase(true, true)]
         [TestCase(false, false)]
-        public void GetSummary_WhenCall_ParametersPassedCorrectly(bool isShowSB, bool isShowBA)
+        public async Task GetSummary_WhenCall_ParametersPassedCorrectly(bool isShowSB, bool isShowBA)
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel
@@ -50,18 +51,18 @@
             DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSummary(metaModel);
+            await DataAccess.GetSummary(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+                ObjectDb.Received(1).SetParameterValue("balanceupday", metaModel.BalanceUpDay);
                 AssertCommonSpParam(metaModel, isShowSB, isShowBA);
             });
         }
 
         [Test]
-        public void GetSummary_WhenCall_ReturnCorrectResult()
+        public async Task GetSummary_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
@@ -74,7 +75,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummary(new WinLossByLeagueMetaModel
+            var result = await DataAccess.GetSummary(new WinLossByLeagueMetaModel
             {
                 BaseCurrency = "USD"
             });
@@ -87,17 +88,9 @@
             });
         }
 
-        [Test]
-        public void GetSummary_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSummarySp,
-                () => DataAccess.GetSummary(new WinLossByLeagueMetaModel()));
-        }
-
         [TestCase(true, true)]
         [TestCase(false, false)]
-        public void GetCustomers_WhenCall_ParametersPassedCorrectly(bool showSB, bool showBA)
+        public async Task GetCustomers_WhenCall_ParametersPassedCorrectly(bool showSB, bool showBA)
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel
@@ -125,13 +118,13 @@
             ObjectDb.GetParameterValue("totalrows").Returns(1000);
 
             // Action
-            var result = DataAccess.GetCustomers(metaModel);
+            var result = await DataAccess.GetCustomers(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received(1).AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("pageindex", metaModel.PageIndex);
+                ObjectDb.Received(1).SetParameterValue("pagesize", metaModel.PageSize);
                 AssertCommonSpParam(metaModel, showSB, showBA);
 
                 Assert.That(result.TotalRows, Is.EqualTo(1000));
@@ -139,7 +132,7 @@
         }
 
         [Test]
-        public void GetCustomers_WhenCall_ReturnCorrectResult()
+        public async Task GetCustomers_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomersSp)).Returns(ObjectDb);
@@ -153,7 +146,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomers(
+            var result = await DataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
@@ -169,7 +162,7 @@
         }
 
         [Test]
-        public void GetCustomers_HasSystemIdColumn_ReturnCorrectData()
+        public async Task GetCustomers_HasSystemIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomersSp)).Returns(ObjectDb);
@@ -185,7 +178,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomers(
+            var result = await DataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
@@ -196,7 +189,7 @@
         }
 
         [Test]
-        public void GetCustomers_HasExternalIdColumn_ReturnCorrectData()
+        public async Task GetCustomers_HasExternalIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomersSp)).Returns(ObjectDb);
@@ -212,7 +205,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomers(
+            var result = await DataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
@@ -223,7 +216,7 @@
         }
 
         [Test]
-        public void GetCustomers_HasCustomerIdColumn_ReturnCorrectData()
+        public async Task GetCustomers_HasCustomerIdColumn_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetCustomersSp)).Returns(ObjectDb);
@@ -239,7 +232,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomers(
+            var result = await DataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
@@ -249,28 +242,20 @@
             Assert.That(result.DataList.ElementAt(0).CustomerId, Is.EqualTo(readerDataMapping.custid));
         }
 
-        [Test]
-        public void GetCustomers_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetCustomersSp,
-                () => DataAccess.GetCustomers(new WinLossByLeagueMetaModel()));
-        }
-
         private void AssertCommonSpParam(WinLossByLeagueMetaModel metaModel, bool showSB, bool showBA)
         {
-            ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            ObjectDb.Received(1).AddInParameter("odds", DbType.Decimal, metaModel.Odds);
-            ObjectDb.Received(1).AddInParameter("leagueid", DbType.Int32, metaModel.League);
-            ObjectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.Match);
-            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-            ObjectDb.Received(1).AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
-            ObjectDb.Received(1).AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
-            ObjectDb.Received(1).AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
-            ObjectDb.Received(1).AddInParameter("showsb", DbType.Boolean, showSB);
-            ObjectDb.Received(1).AddInParameter("showba", DbType.Boolean, showBA);
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("fromdate", metaModel.FromDate);
+            ObjectDb.Received(1).SetParameterValue("todate", metaModel.ToDate);
+            ObjectDb.Received(1).SetParameterValue("odds", metaModel.Odds);
+            ObjectDb.Received(1).SetParameterValue("leagueid", metaModel.League);
+            ObjectDb.Received(1).SetParameterValue("matchid", metaModel.Match);
+            ObjectDb.Received(1).SetParameterValue("movebetsday", metaModel.MoveBetsDay);
+            ObjectDb.Received(1).SetParameterValue("showwin", metaModel.ShowWin);
+            ObjectDb.Received(1).SetParameterValue("showloss", metaModel.ShowLoss);
+            ObjectDb.Received(1).SetParameterValue("showdraw", metaModel.ShowDraw);
+            ObjectDb.Received(1).SetParameterValue("showsb", showSB);
+            ObjectDb.Received(1).SetParameterValue("showba", showBA);
+            ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
         }
     }
 }

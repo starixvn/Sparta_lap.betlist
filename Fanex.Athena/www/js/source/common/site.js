@@ -1,16 +1,16 @@
 ﻿/*global _language_en_US*/
-define(["jquery", "common/querystring", "common/popup", "extensions/prototype", "components/selectlist"],  
+define(['jquery', 'common/querystring', 'common/popup', 'extensions/prototype', 'components/selectlist'],  
     function ($, QueryString, Popup) {// jshint ignore:line
-        "use strict";
-        var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
-        var REQUEST_VERIFICATION_TOKEN;
-        var _historyDate = null;
-        var _rootUrl = null;
-        var _pageLanguage = null;
-        var _isFakeLicensee = null;
+        'use strict';
+        const BASE_CURRENT_LIST = ['EUR', 'USD', 'GBP'];
+        let REQUEST_VERIFICATION_TOKEN;
+        let _historyDate = null;
+        let _rootUrl = null;
+        let _pageLanguage = null;
+        let _isFakeLicensee = null;
 
         function setProductCodeListParam(url, productCodeList){
-            return QueryString.setParam(url, "ProductCodeList", productCodeList);
+            return QueryString.setParam(url, 'ProductCodeList', productCodeList);
         }
 
         function reload() {
@@ -22,20 +22,21 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
         }
 
         function setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency) {
-            currencyName = $.trim(currencyName);
-            // Set Url
-            if (typeof (urlOrParams) === "string") {
-                urlOrParams = QueryString.setParam(urlOrParams, "CurrencyId", currencyId);
-                urlOrParams = QueryString.setParam(urlOrParams, "CurrencyName", currencyName);
-                urlOrParams = QueryString.setParam(urlOrParams, "BaseCurrency", baseCurrency);
+            const validCurrencyName = $.trim(currencyName);
+            let returnUrlOrParams = urlOrParams;
+
+            if (typeof (returnUrlOrParams) === 'string') {
+                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, 'CurrencyId', currencyId);
+                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, 'CurrencyName', validCurrencyName);
+                returnUrlOrParams = QueryString.setParam(returnUrlOrParams, 'BaseCurrency', baseCurrency);
             }
             else {
-                urlOrParams.CurrencyId = currencyId;
-                urlOrParams.CurrencyName = currencyName;
-                urlOrParams.BaseCurrency = baseCurrency;
+                returnUrlOrParams.CurrencyId = currencyId;
+                returnUrlOrParams.CurrencyName = validCurrencyName;
+                returnUrlOrParams.BaseCurrency = baseCurrency;
             }
 
-            return urlOrParams;
+            return returnUrlOrParams;
         }
 
         function initSelectElements() {
@@ -45,16 +46,16 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
         }
 
         function initialize() {
-            REQUEST_VERIFICATION_TOKEN = $("input[name=__RequestVerificationToken]").val();
+            REQUEST_VERIFICATION_TOKEN = $('input[name=__RequestVerificationToken]').val();
             initSelectElements();
             currencyConstraint();
             initEvent();
-            _historyDate = new Date($("#HistoryDate").val());
+            _historyDate = new Date($('#HistoryDate').val());
             _rootUrl = $('#RootUrl').val();
             _pageLanguage = $('#PageLanguage').val();
         }
         function initEvent() {
-            $("#CurrencyId").change(function () {
+            $('#CurrencyId').change(function () {
                 currencyConstraint(true);
             });
 
@@ -62,21 +63,23 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
                 cache: false,
                 headers: { '__RequestVerificationToken': REQUEST_VERIFICATION_TOKEN },
                 statusCode: {
-                    0: unBlockUI(),
+                    0: function () {
+                        unBlockUI();
+                    },
                     400: function () {
                         unBlockUI();
-                        alert(getSingleResource("InvalidRequestMsg"));
+                        alert(getSingleResource('InvalidRequestMsg'));
                     },
                     401: function () {
-                        window.location.href = resolveClientUrl("Utility/LocationRestriction");
+                        window.location.href = resolveClientUrl('Utility/LocationRestriction');
                     },
                     403: function () {
                         unBlockUI();
-                        alert(getSingleResource("HttpError_403"));
+                        alert(getSingleResource('HttpError_403'));
                     },
                     500: function () {
                         unBlockUI();
-                        alert(getSingleResource("ErrorProcessingMsg"));
+                        alert(getSingleResource('ErrorProcessingMsg'));
                     }
                 }
             });
@@ -88,27 +91,27 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
             return $.inArray(currencyName.toUpperCase(), BASE_CURRENT_LIST) > -1;
         }
         function addUserGuide(options) {
-            var defaultOptions = {
-                buttonSelector: "#UserGuide",
-                id: "UserGuidePopup"
+            const defaultOptions = {
+                buttonSelector: '#UserGuide',
+                id: 'UserGuidePopup'
             };
-            options = $.extend(defaultOptions, options);
-            options.title = options.title || "";
-            var url = resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
-            var $popup;
-            var isRequesting = false;
-            $(options.buttonSelector).click(function () {
-                var $userGuidePopup = $('<div style="display: none" ></div>');
+            const newOptions = $.extend(defaultOptions, options);
+            newOptions.title = newOptions.title || '';
+            const url = resolveClientUrl('UserGuide/Index?resourcename=' + newOptions.resourceName) + "&_" + (new Date().getTime());
+            let $popup;
+            let isRequesting = false;
+            $(newOptions.buttonSelector).click(function () {
+                const $userGuidePopup = $('<div style="display: none" ></div>');
 
                 if (!$popup) {
                     if (isRequesting === false) {
                         isRequesting = true;
                         $userGuidePopup.empty().attr('style', '').hide()
                             .load(url, function (response, status) {
-                                if (status === "success") {
+                                if (status === 'success') {
                                     setTimeout(function () {
                                         Popup.openPopup($userGuidePopup, defaultOptions);
-                                        $popup = $("#" + defaultOptions.id);
+                                        $popup = $('#' + defaultOptions.id);
                                     }, 50);
                                 } else {
                                     $userGuidePopup.hide();
@@ -117,16 +120,14 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
                             });
                     }
                 } else {
-                    $popup.flatPopup("show");
+                    $popup.flatPopup('show');
                 }
             });
         }
+
         function asNull(text) {
-            if (text != null) {
-                text = text.trim();
-                if (text === '') {
-                    return null;
-                }
+            if (text === null || text.trim() === '') {
+                return null;
             }
 
             return text;
@@ -142,70 +143,70 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
         }
 
         function setLicenseeOptionParam(urlOrParams) {
-            var currencyId = $("#CurrencyId").val();
-            var baseCurrency = $("#BaseCurrency").val();
+            const currencyId = $('#CurrencyId').val();
+            const baseCurrency = $('#BaseCurrency').val();
 
-            var $currencyItem = $("#CurrencyId option[value=" + currencyId + "]");
-            var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
+            const $currencyItem = $('#CurrencyId option[value=' + currencyId + ']');
+            const currencyName = $currencyItem.length ? $currencyItem.text() : $('#CurrencyName').val();
 
             return setLicenseeOption(urlOrParams || {}, currencyId, currencyName, baseCurrency);
         }
 
         function setLicenseeOptionOriginalParam(urlOrParams) {
-            var currencyId = $("#CurrencyId").attr('data-original');
-            var baseCurrency = $("#BaseCurrency").attr('data-original');
+            const currencyId = $('#CurrencyId').attr('data-original');
+            const baseCurrency = $('#BaseCurrency').attr('data-original');
 
-            var $currencyItem = $("#CurrencyId option[value=" + currencyId + "]");
-            var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
+            const $currencyItem = $('#CurrencyId option[value=' + currencyId + ']');
+            const currencyName = $currencyItem.length ? $currencyItem.text() : $('#CurrencyName').val();
 
             return setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency);
         }
 
         function updateOriginalLicenseeOption() {
-            var objectIdList = ["#CurrencyId", "#BaseCurrency", "#CurrencyName"];
+            const objectIdList = ['#CurrencyId', '#BaseCurrency', '#CurrencyName'];
             $(objectIdList).each(function (i, e) {
-                $(e).attr("data-original", $(e).val());
+                $(e).attr('data-original', $(e).val());
             });
         }
 
         function setProductOptionParamList(urlOrParams) {
-            // Set Url
-            if (typeof (urlOrParams) === "string") {
+            let returnUrlOrParams = urlOrParams;
+            if (typeof (returnUrlOrParams) === 'string') {
                 var counter = 0;
-                $(".childCheckbox", "#ProductList").each(function (index, element) {
+                $('.childCheckbox', '#ProductList').each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
-                        urlOrParams = setProductOptionParam(urlOrParams, counter, productCode, $(element).prop("checked"));
+                        returnUrlOrParams = setProductOptionParam(returnUrlOrParams, counter, productCode, $(element).prop("checked"));
                         counter++;
                     }
                 });
 
-                return urlOrParams;
+                return returnUrlOrParams;
             }
             else {
-                urlOrParams.ProductOptions = [];
-                $(".childCheckbox", "#ProductList").each(function (index, element) {
+                returnUrlOrParams.ProductOptions = [];
+                $('.childCheckbox', '#ProductList').each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
-                        urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop("checked") });
+                        returnUrlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop('checked') });
                     }
                 });
 
-                return urlOrParams;
+                return returnUrlOrParams;
             }
         }
 
         function setProductOptionOriginalParamList(urlOrParams) {
-            var productCodeList = [];
-            $(".childCheckbox", "#ProductList").each(function (index, element) {
-                var productCode = $(element).attr('data-product-code');
-                if (productCode && $(element).attr("data-original") === 'true') {
+            const productCodeList = [];
+            $('.childCheckbox', '#ProductList').each(function (index, element) {
+                const productCode = $(element).attr('data-product-code');
+                if (productCode && $(element).attr('data-original') === 'true') {
                     productCodeList.push(productCode.toUpperCase());
                 }
             });
 
-            if (typeof (urlOrParams) === "string") {
-                return QueryString.setParam(urlOrParams, "ProductCodeList", productCodeList);
+            if (typeof (urlOrParams) === 'string') {
+                return QueryString.setParam(urlOrParams, 'ProductCodeList', productCodeList);
             }
             else {
                 urlOrParams.ProductCodeList = productCodeList.toString();
@@ -214,69 +215,72 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
         }
 
         function setProductOptionParam(url, counter, productCode, status) {
-            productCode = productCode == null ? undefined : productCode.toUpperCase();
-            url = QueryString.setParam(url, "ProductOptions[" + counter + "].Code", productCode);
-            url = QueryString.setParam(url, "ProductOptions[" + counter + "].Name", productCode);
-            url = QueryString.setParam(url, "ProductOptions[" + counter + "].Status", status);
+            const validProductCode = productCode == null ? undefined : productCode.toUpperCase();
+            let newUrl = url;
+            newUrl = QueryString.setParam(newUrl, 'ProductOptions[' + counter + '].Code', validProductCode);
+            newUrl = QueryString.setParam(newUrl, 'ProductOptions[' + counter + '].Name', validProductCode);
+            newUrl = QueryString.setParam(newUrl, 'ProductOptions[' + counter + '].Status', status);
 
-            return url;
+            return newUrl;
         }
 
         function setDateRangeParam(url) {
-            url = QueryString.setParam(url, "FromDate", $("#FromDate").val());
-            url = QueryString.setParam(url, "ToDate", $("#ToDate").val());
+            let newUrl = url;
+            newUrl = QueryString.setParam(newUrl, 'FromDate', $('#FromDate').val());
+            newUrl = QueryString.setParam(newUrl, 'ToDate', $('#ToDate').val());
 
-            return url;
+            return newUrl;
         }
 
         function setDateRangeOriginalParam(url) {
-            url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original'));
-            url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original'));
+            let newUrl = url;
+            newUrl = QueryString.setParam(newUrl, 'FromDate', $('#FromDate').attr('data-original'));
+            newUrl = QueryString.setParam(newUrl, 'ToDate', $('#ToDate').attr('data-original'));
 
-            return url;
+            return newUrl;
         }
 
         function currencyConstraint(userChange) {
-            var currency = Number($("#CurrencyId").val()) || 0;
-            var currencyName = $("#CurrencyId option:selected").text();
+            const currency = Number($('#CurrencyId').val()) || 0;
+            let currencyName = $('#CurrencyId option:selected').text();
             currencyName = $.trim(currencyName);
-            $("#CurrencyName").val(currencyName);
+            $('#CurrencyName').val(currencyName);
 
             // Handle outside based currency list in some reports (customer wl, balance)
-            var $baseCurrency = $("#BaseCurrency");
-            var noConvertOption = $("option[value='']", $baseCurrency);
+            var $baseCurrency = $('#BaseCurrency');
+            var noConvertOption = $('option[value=""]', $baseCurrency);
             if (currency === 0 || isBaseCurrency(currencyName)) {
                 noConvertOption.remove();
                 if (userChange && currency !== 0) {
-                    $("option[value='" + currencyName.toLowerCase() + "']", $baseCurrency).prop("selected", true);
+                    $('option[value="' + currencyName.toLowerCase() + '"]', $baseCurrency).prop('selected', true);
                     $baseCurrency.val(currencyName.toLowerCase());
                 }
             }
             else {
                 if (noConvertOption.length === 0
                     && $baseCurrency.find('option').length > 0) { // make sure $baseCurrency is select object
-                    $("<option value='' selected>" + currencyName + "</option>").appendTo($baseCurrency);
+                    $('<option value="" selected>' + currencyName + '</option>').appendTo($baseCurrency);
                 } else {
-                    $("option[value='']", $baseCurrency).text(currencyName);
+                    $('option[value=""]', $baseCurrency).text(currencyName);
                 }
                 if (userChange) {
-                    $baseCurrency.val("");
-                    $("option[value='']", $baseCurrency).text(currencyName);
+                    $baseCurrency.val('');
+                    $('option[value=""]', $baseCurrency).text(currencyName);
                 }
             }
 
             // Handle inside based currency list in some reports(licensee wl, wl by product)
-            var hasBaseCurrencyInDropdown = $("#CurrencyId option").filter(function () {
+            const hasBaseCurrencyInDropdown = $('#CurrencyId option').filter(function () {
                 return $(this).val() < 0;
             }).length > 0;
             if (hasBaseCurrencyInDropdown) {
-                var basedCurrencyMap = { "-1": "eur", "-2": "usd", "-3": "gbp" };
-                var basedCurrency = basedCurrencyMap[currency.toString()];
-                basedCurrency = basedCurrency === undefined ? "" : basedCurrency;
+                const basedCurrencyMap = { '-1': 'eur', '-2': 'usd', '-3': 'gbp' };
+                let basedCurrency = basedCurrencyMap[currency.toString()];
+                basedCurrency = basedCurrency === undefined ? '' : basedCurrency;
                 $baseCurrency.val(basedCurrency);
             }
 
-            $("select#BaseCurrency").selectList();
+            $('select#BaseCurrency').selectList();
         }
 
         function clone(obj) {
@@ -290,20 +294,20 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
             /// <param name="obj"></param>
             /// <returns type=""></returns>
 
-            if (null == obj || "object" !== typeof obj) {
+            if (null == obj || 'object' !== typeof obj) {
                 return obj;
             }
             // Handle Date
             if (obj instanceof Date) {
-                var date = new Date();
+                const date = new Date();
                 date.setTime(obj.getTime());
                 return date;
             }
 
             // Handle Array
             if (obj instanceof Array) {
-                var array = [];
-                for (var i = 0, len = obj.length; i < len; i++) {
+                const array = [];
+                for (let i = 0, len = obj.length; i < len; i++) {
                     array[i] = clone(obj[i]);
                 }
                 return array;
@@ -311,8 +315,8 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
 
             // Handle Object
             if (obj instanceof Object) {
-                var copy = {};
-                for (var attr in obj) {
+                const copy = {};
+                for (let attr in obj) {
                     if (obj.hasOwnProperty(attr)) {
                         copy[attr] = clone(obj[attr]);
                     }
@@ -320,7 +324,7 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
                 return copy;
             }
 
-            throw new Error("Unable to copy obj! Its type isn't supported.");
+            throw new Error('Unable to copy obj! Its type isn\'t supported.');
         }
 
         function asBool(input) {
@@ -335,28 +339,28 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
                 return enghlishName;
             }
 
-            var keyName = "_language_" + _pageLanguage.replace("-", "_");
+            const keyName = '_language_' + _pageLanguage.replace('-', '_');
 
-            var resources = window[keyName];
+            let resources = window[keyName];
             if (!resources) {
-                resources = _language_en_US; // jshint ignore:line
+                resources = window._language_en_US; // jshint ignore:line
             }
 
-            var mapResource = function (key) {
-                var item = resources[key];
+            const mapResource = function (key) {
+                let item = resources[key];
                 if (item === undefined) {
-                    item = _language_en_US[key]; // jshint ignore:line
+                    item = window._language_en_US[key]; // jshint ignore:line
                     return item !== undefined ? item : key;
                 } else {
                     return item;
                 }
             };
-            if (enghlishName.indexOf("@") > -1) {
-                var keys = enghlishName.match(/\@{1}\[{1}[a-zA-Z\d\_]+\]{1}/g);
+            if (enghlishName.indexOf('@') > -1) {
+                const keys = enghlishName.match(/\@{1}\[{1}[a-zA-Z\d\_]+\]{1}/g);
                 if (keys != null) {
-                    var temp = enghlishName;
+                    let temp = enghlishName;
                     for (var i = 0; i < keys.length; i++) {
-                        var realKey = keys[i].replace("@[", "").replace("]", "");
+                        var realKey = keys[i].replace('@[', '').replace(']', '');
                         temp = temp.replace(keys[i], mapResource(realKey));
                     }
                     return temp;
@@ -376,8 +380,8 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
                 return null;
             }
 
-            var newArray = [];
-            for (var i = 0; i < arrayText.length; i++) {
+            const newArray = [];
+            for (let i = 0; i < arrayText.length; i++) {
                 newArray.push(getSingleResource(arrayText[i]));
             }
             return newArray;
@@ -402,17 +406,17 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
         }
 
         function debounce(func, wait, immediate) {
-            var timeout;
+            let timeout;
             return function () {
-                var context = this,
+                const context = this,
                     args = arguments;
-                var later = function () {
+                const later = function () {
                     timeout = null;
                     if (!immediate) {
                         func.apply(context, args);
                     }
                 };
-                var callNow = immediate && !timeout;
+                const callNow = immediate && !timeout;
                 clearTimeout(timeout);
                 timeout = setTimeout(later, wait || 500);
                 if (callNow) {
@@ -422,24 +426,20 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
         }
 
         function addFilterCollapseExpand(containerSelector) {
-            if (!containerSelector) {
-                containerSelector = ".page-form:has(form)";
-            }
-
-            var $handler = $("<div class='filter-handle'><i class='icon-arrow'></i></div>");
-            var $container = $(containerSelector);
+            const $handler = $('<div class="filter-handle"><i class="icon-arrow"></i></div>');
+            const $container = $(containerSelector || '.page-form:has(form)');
 
             $container.append($handler);
 
             $handler.click(function () {
-                $container.toggleClass("filter-collapse");
+                $container.toggleClass('filter-collapse');
                 $(window).resize();
             });
         }
 
         function isFakeLicensee() {
             if (_isFakeLicensee == null) {
-                _isFakeLicensee = $("#IsFakeLicensee").val() === "1";
+                _isFakeLicensee = $('#IsFakeLicensee').val() === '1';
             }
 
             return _isFakeLicensee;

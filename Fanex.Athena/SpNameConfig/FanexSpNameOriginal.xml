@@ -17,7 +17,6 @@
     <Setting Key="Lrf_LicenseeProduct3rdSel" SpName="Lrf_LicenseeProduct3rdSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeProduct3rdSel_active" SpName="Lrf_LicenseeProduct3rdSel_active" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelBalanceUpDay" SpName="Lrf_SelBalanceUpDay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_SelCurrencyByLicensee" SpName="Lrf_SelCurrencyByLicensee" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeSel" SpName="Lrf_LicenseeSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CheckHRAllowedCurrency" SpName="Lrf_CheckHRAllowedCurrency" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_FunctionsSel" SpName="Lrf_FunctionsSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
@@ -89,8 +88,6 @@
     <Setting Key="Lrf_Rpt_AGCasinoBalance" SpName="Lrf_Rpt_AGCasinoBalance" DbName="DBPTCS.bodb_PlaytechCS.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoBalance_Ag" SpName="LRF_Rpt_AGCasinoBalance_Ag" DbName="DBPTCS.bodb_PlaytechCS.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoBalance_Mem" SpName="LRF_Rpt_AGCasinoBalance_Mem" DbName="DBPTCS.bodb_PlaytechCS.bodbLicenseeNet" />
-    <Setting Key="LRF_Rpt_MicroGamingWinloss" SpName="LRF_Rpt_MicroGamingWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_CasinoProgressiveWins" SpName="Lrf_Rpt_CasinoProgressiveWins" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_LiveMatchWeekly" SpName="Lrf_Rpt_LiveMatchWeekly" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_ColossusBetsWinloss" SpName="Lrf_Rpt_ColossusBetsWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_ColossusBetsWinloss_detail" SpName="Lrf_Rpt_ColossusBetsWinloss_detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -191,7 +188,6 @@
 
   <Function Name="Common">
     <Setting Key="Lrf_LeagueMatchSelRunning" SpName="Lrf_LeagueMatchSelRunning" DbName="DB042.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_GetExchangeRateByDate" SpName="Lrf_GetExchangeRateByDate" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_SelBetTypeBySport" SpName="Lrf_SelBetTypeBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelLeagueBySport" SpName="Lrf_SelLeagueBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelMatchByLeague" SpName="Lrf_SelMatchByLeague" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />

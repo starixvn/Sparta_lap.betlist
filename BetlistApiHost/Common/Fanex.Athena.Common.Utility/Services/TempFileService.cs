@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
+using Fanex.Athena.Common.Utility.Services.Internal;
 
 namespace Fanex.Athena.Common.Utility.Services
 {
@@ -7,9 +8,12 @@ namespace Fanex.Athena.Common.Utility.Services
     {
         private readonly IAppSettings _appSettings;
 
-        public TempFileService(IAppSettings appSetting)
+        private readonly IFileSystem _fileSystem;
+
+        public TempFileService(IAppSettings appSetting, IFileSystem fileSystem)
         {
             _appSettings = appSetting;
+            _fileSystem = fileSystem;
         }
 
         public void Delete(string path)
@@ -18,10 +22,7 @@ namespace Fanex.Athena.Common.Utility.Services
             {
                 var realPath = Path.Combine(_appSettings.TempFilePath, path);
 
-                if (File.Exists(realPath))
-                {
-                    File.Delete(realPath);
-                }
+                _fileSystem.Delete(realPath);
             }
             catch
             {
@@ -32,28 +33,19 @@ namespace Fanex.Athena.Common.Utility.Services
         public string ReadString(string path)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            using (var reader = new StreamReader(realPath))
-            {
-                return reader.ReadToEnd();
-            }
+            return _fileSystem.ReadString(realPath);
         }
 
         public void Save(string path, string content)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            using (var stream = new FileStream(realPath, FileMode.CreateNew, FileAccess.Write))
-            {
-                using (var writer = new StreamWriter(stream))
-                {
-                    writer.Write(content);
-                }
-            }
+            _fileSystem.Save(realPath, content);
         }
 
         public byte[] ReadBytes(string path)
         {
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
-            using (FileStream fileStream = new FileStream(realPath, FileMode.Open, FileAccess.Read))
+            using (FileStream fileStream = _fileSystem.OpenRead(realPath))
             {
                 byte[] bytes = new byte[fileStream.Length];
                 int numBytesToRead = (int)fileStream.Length;

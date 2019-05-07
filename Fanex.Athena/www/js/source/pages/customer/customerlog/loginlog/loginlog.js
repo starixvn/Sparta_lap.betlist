@@ -1,13 +1,13 @@
-﻿"use strict";
-define(["jquery", "common/site", "components/pluginhelper/autocomplete", "./loginlog.option", "../customerlog.service"],
+﻿'use strict';
+define(['jquery', 'common/site', 'components/pluginhelper/autocomplete', './loginlog.option', '../customerlog.service'],
     function ($, Site, AutoComplete, LoginLogOption, CustomerLog) {
-        var _me = {
+        const _me = {
             initialize: function () {
                 CustomerLog.initialize();
                 _me.initEvent();
                 AutoComplete.initialize({
-                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
-                    target: "#Username"
+                    url: Site.resolveClientUrl('SearchCustomerAPI/SearchCustomer'),
+                    target: '#Username'
                 });
 
                 // Set menu active
@@ -19,7 +19,7 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "./logi
                     _me.loadGrid();
                 });
 
-                $("#Username").keyup(function (e) {
+                $('#Username').keyup(function (e) {
                     if (e.keyCode === 13) {
                         _me.loadGrid();
                     }
@@ -27,16 +27,16 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "./logi
             },
 
             loadGrid: function () {
-                var gridOption = LoginLogOption.gridOption;
-                var colNames = Site.clone(LoginLogOption.getColNames());
+                const gridOption = LoginLogOption.gridOption;
+                const colNames = Site.clone(LoginLogOption.getColNames());
                 gridOption.colNames = Site.getResources(colNames);
-                var url = _me.getUrl();
+                const url = _me.getUrl();
 
                 CustomerLog.loadGrid(url, gridOption);
             },
 
             getUrl: function () {
-                var userName = $('#Username').val();
+                const userName = $('#Username').val();
                 return Site.resolveClientUrl('api/Log/LoginLog?UserName=' + encodeURIComponent(userName));
             }
         };

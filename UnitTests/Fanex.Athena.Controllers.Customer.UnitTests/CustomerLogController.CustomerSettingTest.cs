@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.Customer.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -18,7 +19,7 @@
         }
 
         [Test]
-        public void GetMoneyLineDataList_WhenCall_DataReturnedCorrectly()
+        public async Task GetMoneyLineDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var metaModel = new MoneyLineMetaModel();
@@ -42,7 +43,7 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetMoneyLineDataList(metaModel);
+            var result = await DataAccess.GetMoneyLineDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -53,7 +54,7 @@
         }
 
         [Test]
-        public void GetMoneyLineDataList_NoDataReturned_ReturnEmptyData()
+        public async Task GetMoneyLineDataList_NoDataReturned_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new MoneyLineMetaModel();
@@ -63,7 +64,7 @@
             Reader.NextResult().Returns(false);
 
             // Action
-            var result = DataAccess.GetMoneyLineDataList(metaModel);
+            var result = await DataAccess.GetMoneyLineDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>

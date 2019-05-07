@@ -6,12 +6,12 @@
 
 namespace Fanex.Athena.Controllers.BetSettings
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
-    using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -35,36 +35,38 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var viewModel = _betSettingService.GetViewModel(licenseeSession.LicenseeId, metaModel.CustId, licenseeSession.LicenseeName);
+            var viewModel = await _betSettingService.GetViewModelAsync(licenseeSession.LicenseeId, metaModel.CustId, licenseeSession.LicenseeName);
             if (viewModel == null)
             {
                 return Redirect("~/Utility/AccessDenied");
             }
 
-            AssignRequiredProperties(viewModel, metaModel);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
             return View("~/Views/Desktop/Customer/BetSetting/AgCasino.cshtml", viewModel);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateStatus(int custId, string nickName, int status)
+        public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status)
         {
-            if (!ProductAccess.IsAllow(ProductTypes.AgCasino) || !IsBetSettingEditable())
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!CheckPermission(userSession, ProductTypes.AgCasino))
             {
                 return AccessDenied();
             }
 
-            var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateStatus(
-                SessionService.LicenseeSession.LicenseeId,
+            var result = await _betSettingService.UpdateStatusAsync(
+                licenseeId,
                 userSession.UserId,
                 custId,
                 userSession.Language,
                 Request.UserHostAddress,
-                status == 1);
+                status == 1).ConfigureAwait(false);
 
             if (result.Code == 0)
             {
@@ -76,15 +78,18 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateBetSetting(string nickName, string group)
+        public async Task<JsonResult> UpdateBetSetting(string nickName, string group)
         {
-            if (!ProductAccess.IsAllow(ProductTypes.AgCasino) || !IsBetSettingEditable())
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!CheckPermission(userSession, ProductTypes.AgCasino))
             {
                 return AccessDenied();
             }
 
-            var setting = GetBetSettingCommonParam();
-            var result = _betSettingService.UpdateAgCasinoBetSetting(setting, group);
+            var setting = GetBetSettingCommonParam(userSession.UserId, licenseeId, userSession.Language);
+            var result = await _betSettingService.UpdateAgCasinoBetSettingAsync(setting, group).ConfigureAwait(false);
 
             if (result.Code == 0)
             {

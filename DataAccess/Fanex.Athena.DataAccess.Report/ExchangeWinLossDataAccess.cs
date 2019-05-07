@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common.Extensions;
     using Core;
-    using Core.Exception;
     using Core.Extensions;
     using Data;
     using Extension.Utility;
@@ -17,77 +17,59 @@
 
     public class ExchangeWinLossDataAccess : BaseDataAccess, IExchangeWinLossDataAccess
     {
-        public ReportResultModel<ExchangeWinLoss> GetMainWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<ExchangeWinLoss>> GetMainWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss";
-            try
-            {
-                using (var db = GetObjectDb(UspName))
-                {
-                    db.AddInParameter("ReportType", DbType.Byte, metaModel.ReportBy);
-                    UpdateUspParams(db, metaModel);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, metaModel, currencyList);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                db.SetParameterValue("ReportType", metaModel.ReportBy);
+                UpdateUspParams(db, metaModel);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetData(reader, metaModel, currencyList);
+                }
             }
         }
 
-        public ReportResultModel<ExchangeWinLoss> GetCustomerWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<ExchangeWinLoss>> GetCustomerWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss_Mem";
-            try
-            {
-                using (var db = GetObjectDb(UspName))
-                {
-                    db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
-                    UpdateUspParams(db, metaModel);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, metaModel, currencyList);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                db.SetParameterValue("CustID", metaModel.CustId);
+                UpdateUspParams(db, metaModel);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetData(reader, metaModel, currencyList);
+                }
             }
         }
 
-        public ReportResultModel<ExchangeWinLoss> GetLicenseeWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<ExchangeWinLoss>> GetLicenseeWinloss(ExchangeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss_Ag";
-            try
-            {
-                using (var db = GetObjectDb(UspName))
-                {
-                    UpdateUspParams(db, metaModel);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, metaModel, currencyList);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                UpdateUspParams(db, metaModel);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetData(reader, metaModel, currencyList);
+                }
             }
         }
 
         private static void UpdateUspParams(IObjectDb db, ExchangeWinLossMetaModel metaModel)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("Fromdate", DbType.Date, metaModel.FromDate.Date);
-            db.AddInParameter("Todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("Fromdate", metaModel.FromDate.Date);
+            db.SetParameterValue("Todate", metaModel.ToDate.Date);
+            db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
         }
 
         private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ExchangeWinLoss> summaryTotal)

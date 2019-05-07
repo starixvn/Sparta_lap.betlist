@@ -8,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
 
     public class RNGCasinoSingleWalletServiceTest
@@ -55,14 +56,14 @@
 
             // Action
             object result = _service.GetResultInfo(refNo);
-            var resultData = result.GetType().GetProperty("Result").GetValue(result, null);
+            var resultData = result.GetValue("Result");
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.GetType().GetProperty("Success").GetValue(result, null), Is.False);
-                Assert.That(resultData.GetType().GetProperty("ErrorCode").GetValue(resultData, null), Is.EqualTo(token.Result.ErrorCode.ToString()));
-                Assert.That(resultData.GetType().GetProperty("ErrorDescription").GetValue(resultData, null), Is.EqualTo(token.Result.ErrorDescription.ToString()));
+                Assert.That(result.GetValue("Success"), Is.False);
+                Assert.That(resultData.GetValue("ErrorCode"), Is.EqualTo(token.Result.ErrorCode.ToString()));
+                Assert.That(resultData.GetValue("ErrorDescription"), Is.EqualTo(token.Result.ErrorDescription.ToString()));
             });
         }
 
@@ -86,14 +87,14 @@
 
             // Action
             object result = _service.GetResultInfo(refNo);
-            var resultData = result.GetType().GetProperty("Result").GetValue(result, null);
+            var resultData = result.GetValue("Result");
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.GetType().GetProperty("Success").GetValue(result, null), Is.False);
-                Assert.That(resultData.GetType().GetProperty("ErrorCode").GetValue(resultData, null), Is.EqualTo(1));
-                Assert.That(resultData.GetType().GetProperty("ErrorDescription").GetValue(resultData, null), Is.EqualTo(ViewResources.ErrorProcessingMsg));
+                Assert.That(result.GetValue("Success"), Is.False);
+                Assert.That(resultData.GetValue("ErrorCode"), Is.EqualTo(1));
+                Assert.That(resultData.GetValue("ErrorDescription"), Is.EqualTo(ViewResources.ErrorProcessingMsg));
             });
         }
 

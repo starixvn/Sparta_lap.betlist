@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
@@ -58,21 +59,13 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(GetMainWinlossSp);
-                ObjectDb.Received(1).AddInParameter("ReportType", DbType.Byte, _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("ReportType", _metaModel.ReportBy);
                 AssertCommonSpParameters();
             });
         }
 
         [Test]
-        public void GetMainWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetMainWinlossSp,
-                () => DataAccess.GetMainWinloss(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
-        public void GetMainWinloss_WhenCall_DataReturnedCorrectly()
+        public async Task GetMainWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             Reader.Read().Returns(true, false);
@@ -84,7 +77,7 @@
             ConfigureReaderForMainResult(firstExpected, expectedList);
 
             // Action
-            var result = DataAccess.GetMainWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetMainWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -98,7 +91,7 @@
         }
 
         [Test]
-        public void GetMainWinloss_WhenCallWithBaseCurrencyUSD_DataConvertedToUSD()
+        public async Task GetMainWinloss_WhenCallWithBaseCurrencyUSD_DataConvertedToUSD()
         {
             // Arrange
             Reader.Read().Returns(true, false, false);
@@ -122,7 +115,7 @@
             ConvertExpectedValueToBaseCurrency(expectedList, model.BaseCurrency.ToUpperInvariant());
 
             // Action
-            var result = DataAccess.GetMainWinloss(model, UserCurrencyList);
+            var result = await DataAccess.GetMainWinloss(model, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -136,10 +129,10 @@
         }
 
         [Test]
-        public void GetLicenseeWinloss_WhenCall_ParametersPassedCorrectly()
+        public async Task GetLicenseeWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
+            await DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -150,15 +143,7 @@
         }
 
         [Test]
-        public void GetLicenseeWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLicenseeWinlossSp,
-                () => DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
-        public void GetLicenseeWinloss_WhenCall_DataReturnedCorrectly()
+        public async Task GetLicenseeWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             Reader.Read().Returns(true, false);
@@ -170,7 +155,7 @@
             ConfigureReaderForLicenseeResult(firstExpected, expectedList);
 
             // Action
-            var result = DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             firstExpected.Date = _metaModel.ToDate;
@@ -195,21 +180,13 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(GetCustomerWinlossSp);
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                ObjectDb.Received(1).SetParameterValue("CustID", _metaModel.CustId);
                 AssertCommonSpParameters();
             });
         }
 
         [Test]
-        public void GetCustomerWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetCustomerWinlossSp,
-                () => DataAccess.GetCustomerWinloss(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
-        public void GetCustomerWinloss_WhenCall_DataReturnedCorrectly()
+        public async Task GetCustomerWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             Reader.Read().Returns(true, false);
@@ -221,7 +198,7 @@
             ConfigureReaderForCustomerResult(firstExpected, expectedList);
 
             // Action
-            var result = DataAccess.GetCustomerWinloss(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetCustomerWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             firstExpected.Date = _metaModel.ToDate;
@@ -407,10 +384,10 @@
 
         private void AssertCommonSpParameters()
         {
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
-            ObjectDb.Received(1).AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
-            ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, _metaModel.LicenseeId);
+            ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("Fromdate", _metaModel.FromDate.Date);
+            ObjectDb.Received(1).SetParameterValue("Todate", _metaModel.ToDate.Date);
+            ObjectDb.Received(1).SetParameterValue("LicenseeId", _metaModel.LicenseeId);
         }
 
         private void AssertSummaryTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency)

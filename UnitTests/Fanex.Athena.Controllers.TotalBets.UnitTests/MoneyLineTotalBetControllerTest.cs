@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
@@ -14,7 +15,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class MoneyLineTotalBetControllerTest : BaseControllerHelperTest
+    public class MoneyLineTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IMoneyLineDataAccess _moneyLineDataAccess;
 
@@ -39,12 +40,12 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        public async Task Index_WhenCall_ReturnCorrectViewName()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
 
                 // Assert
                 StringAssert.Contains("TotalBets/MoneyLine/Main.cshtml", viewResult.ViewName);
@@ -52,22 +53,22 @@
         }
 
         [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
+        public async Task Index_WhenCall_CallAndGetDataFromService()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as MoneyLineViewModel;
 
                 // Assert
-                _moneyLineDataAccess.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>());
+                await _moneyLineDataAccess.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>());
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
 
         [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
+        public async Task Index_InvalidCurrency_ViewNameIsAccessDenied()
         {
             using (var controller = CreateController())
             {
@@ -78,7 +79,7 @@
                 };
 
                 // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
+                var viewResult = await controller.Index(metaModel) as RedirectResult;
 
                 // Assert
                 Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));

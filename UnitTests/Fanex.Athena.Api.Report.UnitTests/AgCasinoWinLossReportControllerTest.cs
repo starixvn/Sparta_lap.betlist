@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
@@ -49,7 +50,7 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnEmptyData()
+        public async Task Index_InvalidModel_ReturnEmptyData()
         {
             // Arrange
             var model = new ThirdPartyWinLossMetaModel
@@ -63,7 +64,7 @@
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -75,7 +76,7 @@
         }
 
         [Test]
-        public void Index_NoDataReturnedFromService_ReturnEmptyData()
+        public async Task Index_NoDataReturnedFromService_ReturnEmptyData()
         {
             // Arrange
             var metaModel = new ThirdPartyWinLossMetaModel
@@ -89,7 +90,7 @@
             });
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -124,7 +125,7 @@
         }
 
         [Test]
-        public void Index_ValidModelLevel0_ReturnCorrectData()
+        public async Task Index_ValidModelLevel0_ReturnCorrectData()
         {
             // Arrange
             var model = new ThirdPartyWinLossMetaModel
@@ -135,7 +136,7 @@
             var expectedData = SetUpForGettingData();
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -182,7 +183,7 @@
         }
 
         [Test]
-        public void Index_ValidModelLevel1_ReturnCorrectData()
+        public async Task Index_ValidModelLevel1_ReturnCorrectData()
         {
             // Arrange
             const int Level = 1;
@@ -195,7 +196,7 @@
             var expectedData = SetUpForGettingData(1);
 
             // Action
-            var result = _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
+            var result = await _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
 
             // Assert
             Assert.Multiple(() =>
@@ -207,7 +208,7 @@
         }
 
         [Test]
-        public void Index_ValidModelLevel2_ReturnCorrectData()
+        public async Task Index_ValidModelLevel2_ReturnCorrectData()
         {
             // Arrange
             const int Level = 2;
@@ -220,7 +221,7 @@
             var expectedData = SetUpForGettingData(2);
 
             // Action
-            var result = _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
+            var result = await _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
 
             // Assert
             Assert.Multiple(() =>

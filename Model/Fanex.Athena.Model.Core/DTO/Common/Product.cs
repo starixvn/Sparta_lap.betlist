@@ -34,10 +34,6 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public const string BT = "BT";
 
-        public const string MGCLC = "MGCLC";
-
-        public const string MGCRNG = "MGCRNG";
-
         public const string VB = "VB";
 
         public const string AB = "AB";

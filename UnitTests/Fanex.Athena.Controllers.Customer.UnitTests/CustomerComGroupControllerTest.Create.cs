@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -10,10 +11,10 @@
     using Resources;
 
     [TestFixture]
-    public partial class CustomerComGroupControllerTest : BaseControllerHelperTest
+    public partial class CustomerComGroupControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void CreateGet_Whencall_ReturnCorrectResult()
+        public async Task CreateGet_Whencall_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -39,7 +40,7 @@
                     });
 
                 // Action
-                var result = controller.Create() as ViewResult;
+                var result = await controller.Create() as ViewResult;
                 var model = result.Model as GroupCommMetaModel;
 
                 // Assert
@@ -57,7 +58,7 @@
         }
 
         [Test]
-        public void CreatePost_InvalidModelState_ReturnCorrectErrorResult()
+        public async Task CreatePost_InvalidModelState_ReturnCorrectErrorResult()
         {
             using (var controller = CreateController())
             {
@@ -65,7 +66,7 @@
                 controller.ModelState.AddModelError("abc", "xxx");
 
                 // Action
-                var result = controller.Create(new GroupCommMetaModel()) as ViewResult;
+                var result = await controller.Create(new GroupCommMetaModel()) as ViewResult;
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert
@@ -79,12 +80,12 @@
         }
 
         [Test]
-        public void CreatePost_GroupNameIsNone_ReturnCorrectErrorResult()
+        public async Task CreatePost_GroupNameIsNone_ReturnCorrectErrorResult()
         {
             using (var controller = CreateController())
             {
                 // Action
-                controller.Create(new GroupCommMetaModel
+                await controller.Create(new GroupCommMetaModel
                 {
                     GroupName = "None  "
                 });
@@ -100,7 +101,7 @@
         }
 
         [Test]
-        public void CreatePost_ValidCommissions_CallInsertGroup()
+        public async Task CreatePost_ValidCommissions_CallInsertGroup()
         {
             using (var controller = CreateController())
             {
@@ -115,7 +116,7 @@
                     .Returns(new ResultInfo());
 
                 // Action
-                controller.Create(metaModel);
+                await controller.Create(metaModel);
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert
@@ -132,7 +133,7 @@
         }
 
         [Test]
-        public void CreatePost_InvalidCommissions_ReturnCorrectError()
+        public async Task CreatePost_InvalidCommissions_ReturnCorrectError()
         {
             using (var controller = CreateController())
             {
@@ -144,7 +145,7 @@
                 };
 
                 // Action
-                controller.Create(metaModel);
+                await controller.Create(metaModel);
                 var resultInfo = controller.ViewBag.Result as ResultInfo;
 
                 // Assert

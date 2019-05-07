@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.SessionState;
@@ -26,8 +27,12 @@
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
-    public class CustomerComGroupController : BaseController
+    public class CustomerComGroupController : ContentBaseController
     {
+        private const int InvalidGroupName = 1;
+        private const int InvalidCommvalue = 2;
+        private const int InvalidParams = 3;
+
         private readonly IGroupComService _groupComService;
         private readonly IProductService _productService;
 
@@ -46,11 +51,11 @@
         #region Get data
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
-            var model = _groupComService.GetAll(licenseeId);
+            var model = await _groupComService.GetAll(licenseeId).ConfigureAwait(false);
 
             ViewBag.IsAllowNG = productAccess.IsAllowNG;
             ViewBag.IsAllowCS = productAccess.IsAllowCS;
@@ -63,18 +68,18 @@
         #region Create group
 
         [HttpGet]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             var model = new GroupCommMetaModel();
 
-            CreateMetaModel(model);
+            await CreateMetaModel(model).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Customer/CustomerComm/CreateNewGroup.cshtml", model);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Create(GroupCommMetaModel metaModel)
+        public async Task<ActionResult> Create(GroupCommMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -85,8 +90,7 @@
             {
                 if (metaModel.GroupName.Trim().Equals("none", StringComparison.OrdinalIgnoreCase))
                 {
-                    result.Code = 1;
-                    result.Message = ViewResources.ChooseGroupNameMsg;
+                    UpdateErrorResult(result, InvalidGroupName);
                 }
                 else if (CustomerComGroupHelper.IsValidCommissions(metaModel))
                 {
@@ -95,7 +99,7 @@
                         Language = userSession.Language,
                         Ip = Request.UserHostAddress
                     };
-                    result = _groupComService.InsertGroup(metaModel, request, userSession.UserId);
+                    result = await _groupComService.InsertGroup(metaModel, request, userSession.UserId).ConfigureAwait(false);
 
                     result.Message = CustomerComGroupHelper.GetCreateGroupErrorMessage(result.Code);
 
@@ -107,14 +111,12 @@
                 }
                 else
                 {
-                    result.Code = 2;
-                    result.Message = ViewResources.MessageInvalidCommValue;
+                    UpdateErrorResult(result, InvalidCommvalue);
                 }
             }
             else
             {
-                result.Code = 3;
-                result.Message = ViewResources.InvalidParams;
+                UpdateErrorResult(result, InvalidParams);
             }
 
             ViewBag.Result = result;
@@ -133,15 +135,15 @@
         #region Update group
 
         [HttpGet]
-        public ActionResult Update(int groupId)
+        public async Task<ActionResult> Update(int groupId)
         {
-            var model = _groupComService.GetById(groupId);
+            var model = _groupComService.GetById(groupId, SessionService.LicenseeSession.LicenseeId);
             if (model == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            CreateMetaModel(model);
+            await CreateMetaModel(model).ConfigureAwait(false);
 
             CustomerComGroupHelper.SetDropDownListComm(model);
 
@@ -150,7 +152,7 @@
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Update(GroupCommMetaModel metaModel)
+        public async Task<ActionResult> Update(GroupCommMetaModel metaModel)
         {
             IResultInfo result = new ResultInfo();
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -159,23 +161,20 @@
             {
                 if (metaModel.GroupName.Trim().ToLower(CultureInfo.CurrentCulture).Equals("none"))
                 {
-                    result.Code = 1;
-                    result.Message = ViewResources.ChooseGroupNameMsg;
+                    UpdateErrorResult(result, InvalidGroupName);
                 }
                 else if (CustomerComGroupHelper.IsValidCommissions(metaModel))
                 {
-                    result = UpdateGroupComm(metaModel);
+                    result = await UpdateGroupComm(metaModel).ConfigureAwait(false);
                 }
                 else
                 {
-                    result.Code = 2;
-                    result.Message = ViewResources.MessageInvalidCommValue;
+                    UpdateErrorResult(result, InvalidCommvalue);
                 }
             }
             else
             {
-                result.Code = 3;
-                result.Message = ViewResources.InvalidParams;
+                UpdateErrorResult(result, InvalidParams);
             }
 
             ViewBag.Result = result;
@@ -189,13 +188,13 @@
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
+        public async Task<JsonResult> Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
             var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
-            var result = _groupComService.DeleteGroup(
+            var result = await _groupComService.DeleteGroup(
                 new DeleteGroupMetaModel
                 {
                     GroupId = groupId,
@@ -207,7 +206,7 @@
                     IsRemoveCommSetting = isRemovePlayerComm,
                     IsAllowedCSComm = productAccess.IsAllowCS,
                     IsResetDefault = isResetDefault
-                });
+                }).ConfigureAwait(false);
 
             if (result.Code == 0)
             {
@@ -222,10 +221,9 @@
         #region Group Comm API
 
         [HttpGet]
-        public JsonResult GetDefaultGroup()
+        public async Task<JsonResult> GetDefaultGroup()
         {
-            /* Gathering group list*/
-            var groupList = _groupComService.GetAll(SessionService.LicenseeSession.LicenseeId);
+            var groupList = await _groupComService.GetAll(SessionService.LicenseeSession.LicenseeId).ConfigureAwait(false);
             var defaultGroupId = groupList.FirstOrDefault(x => x.IsDefaultGroup)?.GroupCommId ?? 0;
 
             return Json(new { id = defaultGroupId }, JsonRequestBehavior.AllowGet);
@@ -237,7 +235,7 @@
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult ExportExcel()
+        public async Task<ActionResult> ExportExcel()
         {
             const string FileName = "CustomerCommGroup";
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/CustomerGroup/CustomerCommGroup.xls");
@@ -252,7 +250,7 @@
                 ABVisible = productAccess.IsAllowAB
             };
 
-            var mainTable = _groupComService.GetDataForExcel(licenseeId);
+            var mainTable = await _groupComService.GetDataForExcel(licenseeId).ConfigureAwait(false);
 
             var excel = CreateExcel(templatePath, mainTable, showingOption);
 
@@ -270,11 +268,30 @@
 
         #region Utility
 
-        private void CreateMetaModel(GroupCommMetaModel metaModel)
+        private static void UpdateErrorResult(IResultInfo result, int errorCode)
+        {
+            switch (errorCode)
+            {
+                case InvalidGroupName:
+                    result.Code = InvalidGroupName;
+                    result.Message = ViewResources.ChooseGroupNameMsg;
+                    break;
+                case InvalidCommvalue:
+                    result.Code = InvalidCommvalue;
+                    result.Message = ViewResources.MessageInvalidCommValue;
+                    break;
+                default:
+                    result.Code = InvalidParams;
+                    result.Message = ViewResources.InvalidParams;
+                    break;
+            }
+        }
+
+        private async Task CreateMetaModel(GroupCommMetaModel metaModel)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
-            var groupList = _groupComService.GetAll(licenseeId);
+            var groupList = await _groupComService.GetAll(licenseeId).ConfigureAwait(false);
             var defaultGroupId = groupList.FirstOrDefault(x => x.IsDefaultGroup)?.GroupCommId ?? 0;
 
             metaModel.LicenseeId = licenseeId;
@@ -284,10 +301,10 @@
             metaModel.OriginalGroupName = metaModel.GroupName;
         }
 
-        private IResultInfo UpdateGroupComm(GroupCommMetaModel metaModel)
+        private async Task<IResultInfo> UpdateGroupComm(GroupCommMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            var currentGroup = _groupComService.GetById(metaModel.GroupCommId);
+            var currentGroup = _groupComService.GetById(metaModel.GroupCommId, metaModel.LicenseeId);
             if (currentGroup != null && !CustomerComGroupHelper.IsSameGroup(currentGroup, metaModel))
             {
                 var request = new Request
@@ -295,7 +312,7 @@
                     Language = userSession.Language,
                     Ip = Request.UserHostAddress
                 };
-                var result = _groupComService.UpdateGroup(metaModel, request, userSession);
+                var result = await _groupComService.UpdateGroup(metaModel, request, userSession).ConfigureAwait(false);
                 if (string.IsNullOrWhiteSpace(result.Message))
                 {
                     result.Message = CustomerComGroupHelper.GetUpdateGroupErrorMessage(result.Code);

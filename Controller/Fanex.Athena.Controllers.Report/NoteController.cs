@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Configuration.Interfaces;
@@ -17,7 +18,7 @@ namespace Fanex.Athena.Controllers.Report
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
-    public class NoteController : BaseController
+    public class NoteController : CultureBaseController
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 

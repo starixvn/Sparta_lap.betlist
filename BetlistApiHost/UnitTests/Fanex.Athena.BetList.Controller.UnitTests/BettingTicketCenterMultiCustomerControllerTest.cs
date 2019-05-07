@@ -15,7 +15,9 @@
     using NUnit.Framework;
     using Resources;
     using Service.Interfaces;
+    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
+    using Utility;
 
     public class BettingTicketCenterMultiCustomerControllerTest : BaseControllerHelperTest
     {
@@ -25,14 +27,14 @@
 
         private IBettingTicketCenterService _service;
 
-        private ITempFileService _tempFileService;
+        private IBettingTicketCenterZipBuilder _zipBuilder;
 
         [SetUp]
         public void SetUp()
         {
             _appSettings = Substitute.For<IAppSettings>();
             _service = Substitute.For<IBettingTicketCenterService>();
-            _tempFileService = Substitute.For<ITempFileService>();
+            _zipBuilder = Substitute.For<IBettingTicketCenterZipBuilder>();
         }
 
         [TearDown]
@@ -40,7 +42,7 @@
         {
             _appSettings = null;
             _service = null;
-            _tempFileService = null;
+            _zipBuilder = null;
         }
 
         [Test]
@@ -68,20 +70,20 @@
 
                 // Action
                 var result = (await controller.GetData(metaModel) as JsonResult).Data;
-                var data = result.GetType().GetProperty("Data").GetValue(result, null);
-                var total = result.GetType().GetProperty("Total").GetValue(result, null);
-                var totalRows = result.GetType().GetProperty("TotalRows").GetValue(result, null);
+                var data = result.GetValue("Data");
+                var total = result.GetValue("Total");
+                var totalRows = result.GetValue("TotalRows");
 
                 // Assert
                 Assert.Multiple(() =>
                 {
                     Assert.That(data, Is.EqualTo(ticketText));
-                    Assert.That(total.GetType().GetProperty("SumWinLoss").GetValue(total, null), Is.EqualTo(sumWL));
+                    Assert.That(total.GetValue("SumWinLoss"), Is.EqualTo(sumWL));
                     Assert.That(
-                        total.GetType().GetProperty("SumLicenseeWL").GetValue(total, null),
+                        total.GetValue("SumLicenseeWL"),
                         Is.EqualTo((ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat)));
                     Assert.That(
-                        total.GetType().GetProperty("SumStake").GetValue(total, null),
+                        total.GetValue("SumStake"),
                         Is.EqualTo(ticketResult.SumStake.ToString(FormatKey.DecimalFormat)));
                     Assert.That(totalRows, Is.EqualTo(ticketResult.TotalRows));
                     AssertClearData(ticketResult);
@@ -103,7 +105,7 @@
 
                 // Action
                 var result = (await controller.GetData(metaModel) as JsonResult).Data;
-                var errorCode = result.GetType().GetProperty("ErrorCode").GetValue(result, null);
+                var errorCode = result.GetValue("ErrorCode");
 
                 // Assert
                 Assert.Multiple(() =>
@@ -183,7 +185,7 @@
         }
 
         [Test]
-        public async Task GetData_WhenExportZipFile_ClientIsNotConnected_ReturnNull()
+        public async Task GetData_ExportZipFile_ZipBuilderReturnNull_ReturnNull()
         {
             using (var controller = CreateController())
             {
@@ -200,12 +202,15 @@
                 var ticketResult = new GroupTicketResult();
                 _service.GetBetListForMultipleCustomers(metaModel, maxRowPerFile, metaModel.UserCurrencyList).Returns(ticketResult);
 
-                var title = FakeHelper.Create<string>();
-                _service.GetTitle(metaModel).Returns(title);
-
                 controller.WhenForAnyArgs(x => x.ReturnExcel(Arg.Any<BettingTicketCenterExcelModel>(), Arg.Any<TicketResult>())).DoNotCallBase();
 
                 SetUpForResponse(controller, false);
+                _zipBuilder.BuildZip(
+                    controller.HttpContext.Response,
+                    ticketResult,
+                    Arg.Any<string>(),
+                    Arg.Any<bool>(),
+                    Arg.Any<string>()).Returns(x => null);
 
                 // Action
                 var result = await controller.GetData(metaModel);
@@ -220,7 +225,7 @@
 
         private BettingTicketCenterMultiCustomerController CreateController()
         {
-            return Substitute.ForPartsOf<BettingTicketCenterMultiCustomerController>(_appSettings, _service, _tempFileService);
+            return Substitute.ForPartsOf<BettingTicketCenterMultiCustomerController>(_appSettings, _service, _zipBuilder);
         }
 
         private void SetUpForResponse(BettingTicketCenterMultiCustomerController controller, bool isClientConnected)

@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
@@ -17,27 +18,27 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerBalanceDataAccess : BaseDataAccess, ICustBalanceDataAccess
     {
-        public ReportResultModel<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel)
+        public async Task<ReportResultModel<CustBalance>> GetDataList(CustomerBalanceMetaModel metaModel)
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerBalance"))
             {
-                db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("topcount", DbType.Int32, metaModel.TopCount);
-                db.AddInParameter("orderitem", DbType.Byte, metaModel.OrderItem);
-                db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
-                db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                db.SetParameterValue("fromdate", metaModel.FromDate);
+                db.SetParameterValue("todate", metaModel.ToDate);
+                db.SetParameterValue("topcount", metaModel.TopCount);
+                db.SetParameterValue("orderitem", metaModel.OrderItem);
+                db.SetParameterValue("pagesize", metaModel.PageSize);
+                db.SetParameterValue("pageindex", metaModel.PageIndex);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
 
                 foreach (var item in metaModel.ProductOptions)
                 {
-                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+                    db.SetParameterValue("show" + item.Code, item.Status);
                 }
 
                 var dataList = new List<CustBalance>();
                 CustBalance totalData = null;
                 int totalRow = 0;
-                using (var reader = db.ExecuteReader())
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
                     while (reader.Read())

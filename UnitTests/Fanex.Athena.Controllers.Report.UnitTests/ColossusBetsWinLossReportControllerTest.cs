@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Constant.DataDomain;
@@ -13,7 +14,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public class ColossusBetsWinLossReportControllerTest : BaseControllerHelperTest
+    public class ColossusBetsWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [OneTimeSetUp]
         public override void FixtureSetUp()

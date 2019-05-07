@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Configuration
 {
+    using System.Threading.Tasks;
     using Core.Configuration;
     using Data;
     using Logging;
@@ -26,7 +27,7 @@
         }
 
         [Test]
-        public void GetMoveBet_WhenCall_DataReturnedCorrectly()
+        public async Task GetMoveBetNotificationAsync_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var data = new
@@ -37,7 +38,6 @@
                 Content_CN = "nee how",
                 Content_TH = "sawa dee-krap",
                 Content_JP = "konnichi ha",
-                Content_KO = "ahn nyeong ha se yo",
                 Content_VI = "xin chao",
             };
             MapReaderData(data);
@@ -45,7 +45,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             // Action
-            var result = DataAccess.GetMoveBetNotification();
+            var result = await DataAccess.GetMoveBetNotificationAsync();
 
             // Assert
             Assert.Multiple(() =>
@@ -56,34 +56,33 @@
                 Assert.That(result.ContentByLanguage["zh-Hans"], Is.EqualTo(data.Content_CN));
                 Assert.That(result.ContentByLanguage["th-TH"], Is.EqualTo(data.Content_TH));
                 Assert.That(result.ContentByLanguage["ja-JP"], Is.EqualTo(data.Content_JP));
-                Assert.That(result.ContentByLanguage["ko-KR"], Is.EqualTo(data.Content_KO));
                 Assert.That(result.ContentByLanguage["vi-VN"], Is.EqualTo(data.Content_VI));
             });
         }
 
         [Test]
-        public void GetMoveBet_NoDataReturned_ReturnEmptyData()
+        public async Task GetMoveBetNotificationAsync_NoDataReturned_ReturnEmptyData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
             Reader.Read().Returns(false);
 
             // Action
-            var result = DataAccess.GetMoveBetNotification();
+            var result = await DataAccess.GetMoveBetNotificationAsync();
 
             // Assert
             Assert.That(result.ContentByLanguage, Is.Empty);
         }
 
         [Test]
-        public void GetMoveBetNotification_WhenObjectDbThrowsException_WriteLog()
+        public async Task GetMoveBetNotification_WhenObjectDbThrowsException_WriteLog()
         {
             // Arrange
             var sqlException = new ObjectDbException("Error");
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw sqlException; });
 
             // Action
-            DataAccess.GetMoveBetNotification();
+            await DataAccess.GetMoveBetNotificationAsync();
 
             // Assert
             _logger.Received().Error("MoveBetNotification: " + sqlException.Message, sqlException);

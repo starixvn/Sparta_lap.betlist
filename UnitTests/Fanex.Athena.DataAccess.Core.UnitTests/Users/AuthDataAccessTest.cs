@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Users
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Core.Users;
     using Data;
     using Model.Core.DTO.Common;
@@ -28,11 +28,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, requestUser.UserID);
-                ObjectDb.Received(1).AddInParameter("NetSessionID", DbType.String, NetSessionId);
-                ObjectDb.Received(1).AddInParameter("ServerID", DbType.Int32, ServerId);
-                ObjectDb.Received(1).AddOutParameter("On_UserID", DbType.Int32, 4);
-                ObjectDb.Received(1).AddInParameter("IP", DbType.String, requestUser.Request.Ip);
+                ObjectDb.Received(1).SetParameterValue("CustID", requestUser.UserID);
+                ObjectDb.Received(1).SetParameterValue("NetSessionID", NetSessionId);
+                ObjectDb.Received(1).SetParameterValue("ServerID", ServerId);
+                ObjectDb.Received(1).SetParameterValue("On_UserID", null);
+                ObjectDb.Received(1).SetParameterValue("IP", requestUser.Request.Ip);
             });
         }
 
@@ -67,15 +67,7 @@
             DataAccess.Logout(UserId);
 
             // Assert
-            ObjectDb.ReceivedWithAnyArgs().ExecuteNonQuery(null);
-        }
-
-        [Test]
-        public void Logout_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                "Lrf_UserLogout",
-                () => DataAccess.Logout(0));
+            ObjectDb.ReceivedWithAnyArgs(1).ExecuteNonQuery();
         }
 
         [Test]
@@ -86,13 +78,13 @@
             var requestUser = GetFakeRequestUserData();
 
             // Action
-            DataAccess.ValidateUserForLrfSystem(requestUser);
+            DataAccess.ValidateUserForLrf(requestUser);
 
             // Assert
             Assert.Multiple(() =>
             {
                 AssertPassedCommonParams(ObjectDb, requestUser);
-                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, requestUser.Request.Language);
+                ObjectDb.Received(1).SetParameterValue("langkey", requestUser.Request.Language);
             });
         }
 
@@ -108,7 +100,7 @@
             ConfigureDataReader(expected);
 
             // Action
-            var result = DataAccess.ValidateUserForLrfSystem(requestUser);
+            var result = DataAccess.ValidateUserForLrf(requestUser);
             var user = result.ExtendedData;
 
             // Assert
@@ -133,15 +125,15 @@
 
         private static void AssertPassedCommonParams(IObjectDb objectDb, User requestUser)
         {
-            objectDb.Received(1).AddInParameter("UserName", DbType.String, requestUser.Username);
-            objectDb.Received(1).AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-            objectDb.Received(1).AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
-            objectDb.Received(1).AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
-            objectDb.Received(1).AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
-            objectDb.Received(1).AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
-            objectDb.Received(1).AddOutParameter("ServerID", DbType.Int32, 4);
-            objectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
-            objectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
+            objectDb.Received(1).SetParameterValue("UserName", requestUser.Username);
+            objectDb.Received(1).SetParameterValue("LoginIP", requestUser.Request.Ip);
+            objectDb.Received(1).SetParameterValue("LoginDomain", requestUser.Request.Domain);
+            objectDb.Received(1).SetParameterValue("BrowserName", requestUser.Request.Browser);
+            objectDb.Received(1).SetParameterValue("Platform", requestUser.Request.Platform);
+            objectDb.Received(1).SetParameterValue("CountryCode", requestUser.Request.CountryCode);
+            objectDb.Received(1).SetParameterValue("ServerID", null);
+            objectDb.Received(1).SetParameterValue("ErrCode", null);
+            objectDb.Received(1).SetParameterValue("ErrMsg", null);
         }
 
         private static User GetFakeUserData(int licenseeId = 1)

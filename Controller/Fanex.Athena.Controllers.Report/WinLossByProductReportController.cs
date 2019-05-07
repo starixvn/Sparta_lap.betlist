@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -57,7 +58,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
-                IsFakeLicensee = IsFakeLicensee(),
+                IsFakeLicensee = IsFakeLicensee(licenseeSession.LicenseeId),
                 HasAmountDueToColumn = AppSettings.HasAmountDueToColumn
             };
             

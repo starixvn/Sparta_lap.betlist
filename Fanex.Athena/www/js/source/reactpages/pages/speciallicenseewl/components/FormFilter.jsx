@@ -73,7 +73,7 @@ export class FormFilter extends Component {
             params.CurrencyId,
             params.CurrencyName,
             params.BaseCurrency);
-        const excel = new ReportExcel(gridData, title, parseInt(params.ReportBy), params.ProductCodeList);
+        const excel = new ReportExcel(gridData, title, parseInt(params.ReportBy, 10), params.ProductCodeList);
         excel.export(() => {
             this.props.toggleLoader(false);
         });

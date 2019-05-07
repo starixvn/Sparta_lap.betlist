@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Customer;
     using Model.Customer.MetaModel;
@@ -13,7 +14,7 @@
     public class DormantCustomerListDataAccessTest : BaseDataAccessHelperTest<DormantCustomerListDataAccess>
     {
         [Test]
-        public void GetDormantCustomers_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDormantCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_DormantCustomerSel")).Returns(ObjectDb);
@@ -26,21 +27,21 @@
             };
 
             // Action
-            DataAccess.GetDormantCustomers(metaModel);
+            await DataAccess.GetDormantCustomers(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("username", DbType.String, metaModel.Username);
-                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received(1).AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddOutParameter("TotalRows", DbType.Int32, 4);
+                ObjectDb.Received(1).SetParameterValue("username", metaModel.Username);
+                ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("TotalRows", null);
             });
         }
 
         [Test]
-        public void GetDormantCustomers_WhenCall_ReturnCorrectData()
+        public async Task GetDormantCustomers_WhenCall_ReturnCorrectData()
         {
             // Arrange
             const int ExpectedCustId = 999;
@@ -51,7 +52,7 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_DormantCustomerSel")).Returns(ObjectDb);
             var reader = Substitute.For<IDataReader>();
             reader.Read().Returns(true, false);
-            ObjectDb.ExecuteReader().ReturnsForAnyArgs(reader);
+            ObjectDb.ExecuteReaderAsync().ReturnsForAnyArgs(reader);
             DataAccessTestHelper.MapReaderData(
                 reader,
                 new
@@ -66,7 +67,7 @@
             var metaModel = new CustomerListMetaModel { BaseCurrency = "GBP" };
 
             // Action
-            var result = DataAccess.GetDormantCustomers(metaModel);
+            var result = await DataAccess.GetDormantCustomers(metaModel);
             var firstItem = result.DataList.First();
 
             // Assert

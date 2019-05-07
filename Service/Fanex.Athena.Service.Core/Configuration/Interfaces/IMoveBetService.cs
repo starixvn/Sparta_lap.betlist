@@ -3,10 +3,12 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
+using System.Threading.Tasks;
+
 namespace Fanex.Athena.Service.Core.Configuration.Interfaces
 {
     public interface IMoveBetService
     {
-        string GetMoveBetNotification(string language);
+        Task<string> GetMoveBetNotificationAsync(string language);
     }
 }

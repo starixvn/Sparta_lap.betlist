@@ -51,7 +51,7 @@
                 controller.CheckDataPermission(custId, transId);
 
                 // Assert
-                AuthorizationService.Received().HasPermissionOnData(SessionLicenseeId, custId, transId);
+                AuthorizationService.Received(1).HasPermissionOnData(SessionLicenseeId, custId, transId);
             }
         }
 

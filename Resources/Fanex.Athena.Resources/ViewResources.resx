@@ -241,12 +241,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="CancelledBets" xml:space="preserve">
-    <value>Cancelled Bets</value>
-  </data>
-  <data name="CancelledBetsTitle" xml:space="preserve">
-    <value>Void/Rejected Bet List (Last 3 days)</value>
-  </data>
   <data name="CasinoTransfer" xml:space="preserve">
     <value>Casino Transfer</value>
   </data>
@@ -366,9 +360,6 @@
   </data>
   <data name="Daily" xml:space="preserve">
     <value>Daily</value>
-  </data>
-  <data name="DailyBetList" xml:space="preserve">
-    <value>Daily Bet List</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
@@ -2440,16 +2431,8 @@
   <data name="BetTradeNotOfferCurrency" xml:space="preserve">
     <value>BetTrade is not offered for this currency.</value>
   </data>
-  <data name="MicroGamingLiveCasinoNotOfferCurrency" xml:space="preserve">
-    <value>Microgaming Live Casino is not offered for this currency.</value>
-    <comment>#46454</comment>
-  </data>
   <data name="DisableMicrogaming" xml:space="preserve">
     <value>Disable Microgaming</value>
-  </data>
-  <data name="EnableMicrogamingLiveCasino" xml:space="preserve">
-    <value>Enable Microgaming Live Casino</value>
-    <comment>#46454</comment>
   </data>
   <data name="EnableBetTrade" xml:space="preserve">
     <value>Enable BetTrade</value>
@@ -2459,9 +2442,6 @@
   </data>
   <data name="BetTradeCommission" xml:space="preserve">
     <value>Bet Trade Commission</value>
-  </data>
-  <data name="MicrogamingWinLoss" xml:space="preserve">
-    <value>Microgaming Win Loss</value>
   </data>
   <data name="DetailTickets" xml:space="preserve">
     <value>Detail Tickets</value>
@@ -2478,25 +2458,6 @@
   <data name="DetailedBetlist" xml:space="preserve">
     <value>Detailed Bet list</value>
     <comment>#43078</comment>
-  </data>
-  <data name="ProductMGCLC" xml:space="preserve">
-    <value>Microgaming-Live Casino</value>
-    <comment>#46454, #49196</comment>
-  </data>
-  <data name="ProductMGCRNG" xml:space="preserve">
-    <value>Microgaming-RNG Casino</value>
-    <comment>#46454, #49196</comment>
-  </data>
-  <data name="EnableMicrogamingRNGCasino" xml:space="preserve">
-    <value>Enable Microgaming RNG Casino</value>
-    <comment>#46454</comment>
-  </data>
-  <data name="MicroGamingRNGCasinoNotOfferCurrency" xml:space="preserve">
-    <value>Microgaming RNG Casino is not offered for this currency.</value>
-    <comment>#46454</comment>
-  </data>
-  <data name="CasinoProgressiveWins" xml:space="preserve">
-    <value>Casino Progressive Wins</value>
   </data>
   <data name="ReferenceNo" xml:space="preserve">
     <value>Reference No</value>
@@ -2547,14 +2508,6 @@
   <data name="Macau" xml:space="preserve">
     <value>Macau</value>
     <comment>#49196</comment>
-  </data>
-  <data name="MicrogamingLiveCasino" xml:space="preserve">
-    <value>Microgaming-Live Casino</value>
-    <comment>#46454</comment>
-  </data>
-  <data name="MicrogamingRNGCasino" xml:space="preserve">
-    <value>Microgaming-RNG Casino</value>
-    <comment>#46454</comment>
   </data>
   <data name="ProductSB" xml:space="preserve">
     <value>Sportsbook</value>
@@ -2723,14 +2676,6 @@
   </data>
   <data name="GoldDeluxeWinLossGuidelineContent" xml:space="preserve">
     <value>Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 3 months per query.</value>
-    <comment>#71725</comment>
-  </data>
-  <data name="CasinoProgressiveWinsGuidelineContent" xml:space="preserve">
-    <value>This report supports up-to-date data. You can filter data up to 12 months per query.</value>
-    <comment>#71725</comment>
-  </data>
-  <data name="MicrogamingWinLossGuidelineContent" xml:space="preserve">
-    <value>This report supports up-to-date data. You can filter data up to 3 months per query.</value>
     <comment>#71725</comment>
   </data>
   <data name="ProductCO" xml:space="preserve">

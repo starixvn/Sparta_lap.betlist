@@ -1,30 +1,30 @@
-﻿define(["jquery", "common/site", "common/popup", "../common/betsettingbase", "../common/betsetting.status", "extensions/jquery.extension"],
+﻿define(['jquery', 'common/site', 'common/popup', '../common/betsettingbase', '../common/betsetting.status', 'extensions/jquery.extension'],
     function ($, Site, Popup, BetSettingBase, BetSettingStatus) {
-        "use strict";
+        'use strict';
 
         function initialize() {
             resizeGrid();
             Site.initialize();
             BetSettingBase.initialize();
             _me.initEvent();
-            var isEnabled = $("#isenabled").val() === "True";
+            const isEnabled = $('#isenabled').val() === 'True';
 
             if (!isEnabled) {
-                $("#btnRngCasino, #btnResetRngCasino").prop("disabled", true);
-                $(".body-content input").prop("disabled", true);
+                $('#btnRngCasino, #btnResetRngCasino').prop('disabled', true);
+                $('.body-content input').prop('disabled', true);
             }
         }
 
         function resizeGrid() {
-            if ($(".body-content").hasVerticalScrollBar()) {
-                $(".table-content").addClass("hasScroll");
+            if ($('.body-content').hasVerticalScrollBar()) {
+                $('.table-content').addClass('hasScroll');
             }
         }
 
         function initEvent() {
             $('#btnRngCasino').on('click', function () {
-                var custId = $(this).attr('data-cust-id');
-                var userName = $(this).attr('data-user-name');
+                const custId = $(this).attr('data-cust-id');
+                const userName = $(this).attr('data-user-name');
                 _me.updateBetSetting(custId, userName);
             });
 
@@ -32,43 +32,43 @@
                 _me.resetBettingLimit();
             });
 
-            $("#btnUpdateStatus").on("click", function () {
+            $('#btnUpdateStatus').on('click', function () {
                 _me.updateStatus($(this));
             });
         }
 
         function resetBettingLimit() {
-            $("input[type=checkbox]").each(function () {
-                this.checked = $(this).data("ischeck");
+            $('input[type=checkbox]').each(function () {
+                this.checked = $(this).data('ischeck');
             });
         }
 
         function updateStatus($context) {
-            var url = Site.resolveClientUrl("RngCasinoBetSetting/UpdateStatus");
-            var params = BetSettingStatus.getCommonPostData($context);
+            const url = Site.resolveClientUrl('RngCasinoBetSetting/UpdateStatus');
+            const params = BetSettingStatus.getCommonPostData($context);
 
             BetSettingStatus.update(url, params);
         }
 
         function updateBetSetting(custId, userName) {
-            var params = _me.getParams(custId);
+            const params = _me.getParams(custId);
             showConfirmAction(params, userName, Site.getSingleResource('UpdateRNGCasinoBetSettings'));
         }
 
         function getParams(custId) {
-            var gameTypeChangedList = [];
-            var params = {
+            const gameTypeChangedList = [];
+            const params = {
                 custId: custId
             };
 
             $('.casino-row').each(function () {
-                var gameTypeId = $(this).attr('data-gametypeid');
+                const gameTypeId = $(this).attr('data-gametypeid');
 
                 // Original stake level list
-                var originalStake = $(this).attr('data-stake-original');
+                const originalStake = $(this).attr('data-stake-original');
 
                 // New stakelevel
-                var newStakeLevelList = [];
+                const newStakeLevelList = [];
 
                 // Get stake level list on selecting
                 $('.input-' + gameTypeId).each(function () {
@@ -77,7 +77,7 @@
                     }
                 });
 
-                var newStake = newStakeLevelList.join(",");
+                const newStake = newStakeLevelList.join(',');
                 // Compare stake
                 if (originalStake !== newStake) {
                     gameTypeChangedList.push(gameTypeId);
@@ -86,43 +86,43 @@
             });
 
             // Get params changed list
-            params.gameTypeChangedList = gameTypeChangedList.join(",");
+            params.gameTypeChangedList = gameTypeChangedList.join(',');
 
             return params;
         }
 
         function showConfirmAction(params, userName, message) {
-            var options = {
-                height: "auto",
-                id: "bet-setting-confirm",
-                title: Site.getSingleResource("Confirmation"),
+            const options = {
+                height: 'auto',
+                id: 'bet-setting-confirm',
+                title: Site.getSingleResource('Confirmation'),
                 onOpen: function () {
                     $('#btnRngCasino, #btnResetRngCasino').prop('disabled', true);
                 },
                 onClose: function () {
                     $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
-                    $("#bet-setting-confirm").remove();
+                    $('#bet-setting-confirm').remove();
                 },
                 width: 380
             };
-            var buttons = [
+            const buttons = [
             {
-                text: Site.getSingleResource("OK"),
+                text: Site.getSingleResource('OK'),
                 click: function () {
                     if (params.gameTypeChangedList.length > 0) {
                         _me.updateStakeLevel(params, userName);
                     }
                     else {
-                        var message = Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName);
-                        showDialogMesage("Success", message, false);
+                        const message = Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace('{0}', userName);
+                        showDialogMesage('Success', message, false);
                     }
                 },
-                classes: "btn btn-submit",
+                classes: 'btn btn-submit',
                 isClosedOnClick: true
             },
             {
-                text: Site.getSingleResource("Cancel"),
-                classes: "btn btn-cancel",
+                text: Site.getSingleResource('Cancel'),
+                classes: 'btn btn-cancel',
                 isClosedOnClick: true
             }];
 
@@ -138,7 +138,7 @@
                 dataType: 'json',
                 success: function (result) {
                     result.Message = getResultMessage(result.Code, userName);
-                    var title = result.Code.toString() === "0" ? "Success" : "Fail";
+                    const title = result.Code.toString() === '0' ? 'Success' : 'Fail';
                     showDialogMesage(title, result.Message, true);
                 }
             });
@@ -149,23 +149,23 @@
                 case 1:
                     return Site.getSingleResource('RNGCasinoUpdateSettingUnAvailableMsg');
                 case 0:
-                    return Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName);
+                    return Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace('{0}', userName);
                 default:
-                    return Site.getSingleResource('UpdateRNGCasinoBetSettingFailMsg').replace("{0}", userName);
+                    return Site.getSingleResource('UpdateRNGCasinoBetSettingFailMsg').replace('{0}', userName);
             }
         }
 
         function showDialogMesage(title, message, reloadPage) {
-            var options = {
-                height: "auto",
-                id: "bet-setting-message",
+            const options = {
+                height: 'auto',
+                id: 'bet-setting-message',
                 title: title,
                 onOpen: function () {
                     $('#btnRngCasino, #btnResetRngCasino').prop('disabled', true);
                 },
                 onClose: function () {
                     $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
-                    $("#bet-setting-message").remove();
+                    $('#bet-setting-message').remove();
                     if (reloadPage) {
                         setTimeout(function () {
                             Site.blockUI();
@@ -175,17 +175,17 @@
                 },
                 width: 480
             };
-            var buttons = [
+            const buttons = [
             {
-                text: Site.getSingleResource("OK"),
-                classes: "btn btn-submit",
+                text: Site.getSingleResource('OK'),
+                classes: 'btn btn-submit',
                 isClosedOnClick: true
             }];
 
             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initEvent: initEvent,
             updateStakeLevel: updateStakeLevel,

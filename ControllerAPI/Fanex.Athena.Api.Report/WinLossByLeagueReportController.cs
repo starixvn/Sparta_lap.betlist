@@ -9,12 +9,11 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Report;
@@ -34,7 +33,7 @@ namespace Fanex.Athena.Api.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly IAppSettings _appSettings;
-        
+
         public WinLossByLeagueReportController(
             ISessionService sessionService,
             IProductService productService,
@@ -50,14 +49,14 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] WinLossByLeagueMetaModel metaModel)
+        public async Task<dynamic> Index([FromBody] WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel.CurrencyId))
             {
                 return BadRequest(ViewResources.InvalidParams);
             }
 
-            var resultModel = GetData(metaModel);
+            var resultModel = await GetData(metaModel).ConfigureAwait(false);
             return new
             {
                 TotalRows = resultModel.TotalRows,
@@ -67,7 +66,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public HttpResponseMessage Excel(WinLossByLeagueMetaModel metaModel)
+        public async Task<HttpResponseMessage> Excel(WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel.CurrencyId))
             {
@@ -77,7 +76,7 @@ namespace Fanex.Athena.Api.Report
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
 
-            var resultModel = GetData(metaModel);
+            var resultModel = await GetData(metaModel).ConfigureAwait(false);
             const string FileName = "WinLossByLeague.xls";
             var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/WinLossByLeagues.xls");
 
@@ -114,7 +113,7 @@ namespace Fanex.Athena.Api.Report
             return total;
         }
 
-        private ReportResultModel<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel)
+        private async Task<ReportResultModel<WinLossByLeague>> GetData(WinLossByLeagueMetaModel metaModel)
         {
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
@@ -126,7 +125,7 @@ namespace Fanex.Athena.Api.Report
             if (metaModel.Level == 0)
             {
                 var dataList = metaModel.IsValid
-                       ? this._winlossByLeagueDataAccess.GetSummary(metaModel)
+                       ? await this._winlossByLeagueDataAccess.GetSummary(metaModel).ConfigureAwait(false)
                        : new List<WinLossByLeague>();
                 resultModel = new ReportResultModel<WinLossByLeague>
                 {
@@ -137,7 +136,7 @@ namespace Fanex.Athena.Api.Report
             else
             {
                 resultModel = metaModel.IsValid ?
-                    _winlossByLeagueDataAccess.GetCustomers(metaModel) :
+                    await _winlossByLeagueDataAccess.GetCustomers(metaModel).ConfigureAwait(false) :
                     new ReportResultModel<WinLossByLeague>
                     {
                         DataList = new List<WinLossByLeague>(),

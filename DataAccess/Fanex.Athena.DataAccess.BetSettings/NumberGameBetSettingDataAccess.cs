@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.DataAccess.Core;
@@ -24,14 +25,14 @@ namespace Fanex.Athena.DataAccess.BetSettings
             _betSettingReader = betSettingReader;
         }
 
-        public IList<BetSetting> GetBetSetting(int custId)
+        public async Task<IList<BetSetting>> GetBetSettingAsync(int custId)
         {
-            var uspName = "Lrf_CustomerSelEditNG";
+            const string UspName = "Lrf_CustomerSelEditNG";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                using (var reader = db.ExecuteReader())
+                db.SetParameterValue("CustID", custId);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     if (reader.Read())
                     {
@@ -43,22 +44,23 @@ namespace Fanex.Athena.DataAccess.BetSettings
             return new List<BetSetting>();
         }
 
-        public IResultInfo UpdateBetSetting(NumberGameBetSetting param)
+        public async Task<IResultInfo> UpdateBetSettingAsync(NumberGameBetSetting param)
         {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet161";
+            const string UspName = "Lrf_CustomerUpdMember_MinMaxBet161";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("custid", DbType.Int32, param.CustId);
-                db.AddInParameter("userid", DbType.Int32, param.UserId);
-                db.AddInParameter("minbetv161", DbType.Decimal, param.MinBet);
-                db.AddInParameter("maxbetv161", DbType.Decimal, param.MaxBet);
-                db.AddInParameter("maxpermatchv161", DbType.Decimal, param.MaxPerMatch);
-                db.AddInParameter("maxperballv161", DbType.Decimal, param.MaxPerBall);
-                db.AddInParameter("language", DbType.String, param.Language);
-                db.AddInParameter("ip", DbType.String, param.Ip);
+                db.SetParameterValue("custid", param.CustId);
+                db.SetParameterValue("userid", param.UserId);
+                db.SetParameterValue("minbetv161", param.MinBet);
+                db.SetParameterValue("maxbetv161", param.MaxBet);
+                db.SetParameterValue("maxpermatchv161", param.MaxPerMatch);
+                db.SetParameterValue("maxperballv161", param.MaxPerBall);
+                db.SetParameterValue("language", param.Language);
+                db.SetParameterValue("ip", param.Ip);
                 AddResultParam(db);
-                db.ExecuteNonQuery();
+
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return GetResult(db);
             }
@@ -66,14 +68,12 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         private IList<BetSetting> RenderNumberGameBetSetting(IDataReader reader)
         {
-            if (reader.FieldCount == 0)
-            {
-                return null;
-            }
-
             var numberGameList = new List<BetSetting>();
 
-            numberGameList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.NumberGame).ToString(), true));
+            if (reader.FieldCount != 0)
+            {
+                numberGameList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.NumberGame).ToString(), true));
+            }
 
             return numberGameList;
         }

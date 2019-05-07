@@ -1,4 +1,4 @@
-﻿define(["./customerbalance"], function (CustomerBalance) {
-    "use strict";
+﻿define(['./customerbalance'], function (CustomerBalance) {
+    'use strict';
     $(CustomerBalance.initialize);
 });

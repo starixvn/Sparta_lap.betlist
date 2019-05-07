@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Constant.DataDomain;
     using Excel.Base.Entities;
@@ -11,11 +12,11 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public partial class MatchWinLossReportControllerTest : BaseControllerHelperTest
+    public partial class MatchWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [TestCase("BA,NG,SB,VS,KN", true)]
         [TestCase("hihi", false)]
-        public void Excel_WhenCall_PassParamsToCreateExcelCorrectly(string productCodeList, bool expectedProductVisible)
+        public async Task Excel_WhenCall_PassParamsToCreateExcelCorrectly(string productCodeList, bool expectedProductVisible)
         {
             using (var controller = CreateController(productCodeList))
             {
@@ -35,7 +36,7 @@
                 _matchWinLossService.GetDetailDataSet(metaModel).Returns(expectedData);
 
                 // Action
-                var result = controller.Index(metaModel);
+                var result = await controller.Index(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>

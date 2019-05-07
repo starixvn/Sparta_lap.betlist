@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Base;
     using DataAccess.Core.Common.Interfaces;
     using Model.Core.DTO.Common;
@@ -45,7 +46,7 @@
         }
 
         [Test]
-        public void GetSports_WhenCall_ReturnCorrectData()
+        public async Task GetSports_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -60,7 +61,7 @@
                  productCode).Returns(new List<SportProductItem> { parent, child });
 
                 // action
-                var result = controller.GetSports(productCode).ElementAt(0);
+                var result = (await controller.GetSports(productCode).ConfigureAwait(false)).ElementAt(0);
 
                 // assert
                 Assert.Multiple(() =>
@@ -72,7 +73,7 @@
         }
 
         [Test]
-        public void GetBetTypes_WhenCall_ReturnCorrectData()
+        public async Task GetBetTypes_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -87,7 +88,7 @@
                  .Returns(new List<CheckedItem> { item });
 
                 // action
-                var result = controller.GetBetTypes(productCode).ElementAt(0);
+                var result = (await controller.GetBetTypes(productCode)).ElementAt(0);
 
                 // assert
                 Assert.Multiple(() =>
@@ -99,7 +100,7 @@
         }
 
         [Test]
-        public void GetLeagues_WhenCall_ReturnCorrectData()
+        public async Task GetLeagues_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -111,10 +112,10 @@
                     .Returns(new List<League> { league });
 
                 // action
-                var result = controller.GetLeagues(
+                var result = (await controller.GetLeagues(
                     FakeHelper.Create<DateTime>(),
                     FakeHelper.Create<DateTime>(),
-                    FakeHelper.Create<int>()).ElementAt(0);
+                    FakeHelper.Create<int>())).ElementAt(0);
 
                 // assert
                 Assert.Multiple(() =>
@@ -126,7 +127,7 @@
         }
 
         [Test]
-        public void GetMatchs_WhenCall_ReturnCorrectData()
+        public async Task GetMatchs_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -141,7 +142,7 @@
                     .Returns(new List<Match> { match });
 
                 // action
-                var result = controller.GetMatches(fromDate, toDate, leagueId).ElementAt(0);
+                var result = (await controller.GetMatches(fromDate, toDate, leagueId)).ElementAt(0);
 
                 // assert
                 Assert.Multiple(() =>

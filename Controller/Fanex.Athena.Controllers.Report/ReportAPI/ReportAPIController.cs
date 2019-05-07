@@ -11,7 +11,7 @@ namespace Fanex.Athena.Controllers.Report
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
-    public partial class ReportAPIController : DefaultCultureBaseController
+    public partial class ReportAPIController : NonCultureBaseController
     {
         private readonly IBetTypeService _betTypeService;
 

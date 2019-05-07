@@ -48,7 +48,7 @@
             {
                 // Arrange
                 const string Url = "http://abc";
-                _kenoApi.CreateKenoResultUrl(Arg.Any<KenoResultMetaModel>(), UserId, Arg.Any<DateTime>()).ReturnsForAnyArgs(Url);
+                _kenoApi.CreateKenoResultAddress(Arg.Any<KenoResultMetaModel>(), UserId, Arg.Any<DateTime>()).ReturnsForAnyArgs(Url);
 
                 // Action
                 var result = controller.GetKenoResultUrl(VendorProductId, UserId);
@@ -68,7 +68,7 @@
                 var result = controller.GetKenoResultUrl(vendorProductId, UserId);
 
                 // Assert
-                _kenoApi.CreateKenoResultUrl(
+                _kenoApi.CreateKenoResultAddress(
                     Arg.Is<KenoResultMetaModel>(x =>
                         x.Language == CultureInfo.CurrentUICulture.TwoLetterISOLanguageName &&
                         x.SiteID == "KenoSiteID" &&
@@ -92,14 +92,14 @@
             {
                 // Arrange
                 var exception = new Exception("Test");
-                _kenoApi.CreateKenoResultUrl(Arg.Any<KenoResultMetaModel>(), Arg.Any<string>(), Arg.Any<DateTime>())
+                _kenoApi.CreateKenoResultAddress(Arg.Any<KenoResultMetaModel>(), Arg.Any<string>(), Arg.Any<DateTime>())
                     .Returns(x => { throw exception; });
 
                 // Action
                 var result = controller.GetKenoResultUrl(0, string.Empty);
 
                 // Assert
-                _logger.Received(1).Error(exception.Message, exception);
+                _logger.Received(1).ErrorAsync(exception.Message, exception);
                 Assert.That(result, Is.Empty);
             }
         }
@@ -139,7 +139,7 @@
                 var result = controller.KeepSession(0, string.Empty) as JsonResult;
 
                 // Assert
-                _logger.Received(1).Error(exception.Message, exception);
+                _logger.Received(1).ErrorAsync(exception.Message, exception);
                 Assert.That((result.Data as KenoExtendedToken).ErrorCode, Is.EqualTo(1));
             }
         }

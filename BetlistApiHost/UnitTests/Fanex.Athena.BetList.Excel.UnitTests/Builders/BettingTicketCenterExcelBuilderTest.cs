@@ -297,13 +297,69 @@
         }
 
         [Test]
-        public void AssignRowData_AddPlatfromCell_IndexIsOdd_BuildCorrectCellWithOddCellStyle()
+        public void AssignRowData_IsShowWinLoss_BuildCustomerWLColumn()
         {
             // Arrange
             var tickets = new TicketResult();
             var ticket = new LrfTicket
             {
-                BetFrom = "g",
+                BetTypeId = (int)BetType.Handicap,
+                Status = BetStatus.Won,
+                Winlost = 100m
+            };
+            tickets.MainTicketList.Add(ticket);
+
+            _ticketHelper.Index.Returns(0);
+
+            _excelBuilder.InitializeFonts();
+            _excelBuilder.InitializeCellStyles();
+
+            // Action
+            _excelBuilder.AssignRowData(tickets, ticket, false, 1, new BettingTicketCenterExcelOption { ShowWinLoss = true });
+
+            // Assert
+            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == "100.00"));
+        }
+
+        [Test]
+        public void AssignRowData_IsShowLicenseeWls_BuildCustomerWLColumn()
+        {
+            // Arrange
+            var tickets = new TicketResult();
+            var ticket = new LrfTicket
+            {
+                BetTypeId = (int)BetType.Handicap,
+                Status = BetStatus.Won,
+                LicenseeWL = 200m
+            };
+            tickets.MainTicketList.Add(ticket);
+
+            _ticketHelper.Index.Returns(0);
+
+            _excelBuilder.InitializeFonts();
+            _excelBuilder.InitializeCellStyles();
+
+            // Action
+            _excelBuilder.AssignRowData(tickets, ticket, false, 1, new BettingTicketCenterExcelOption { ShowLicenseeWl = true });
+
+            // Assert
+            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == "200.00"));
+        }
+
+        [TestCase("a", "China")]
+        [TestCase("z", "China")]
+        [TestCase("g", "Asia")]
+        [TestCase("e", "Euro")]
+        [TestCase("u", "Euro")]
+        [TestCase("y", "Euro")]
+        [TestCase("m", "Wap")]
+        public void AssignRowData_AddPlatfromCell_IndexIsOdd_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
+        {
+            // Arrange
+            var tickets = new TicketResult();
+            var ticket = new LrfTicket
+            {
+                BetFrom = betFrom,
                 BetTypeId = (int)BetType.Handicap,
                 Status = BetStatus.Won
             };
@@ -314,24 +370,31 @@
             _excelBuilder.InitializeFonts();
             _excelBuilder.InitializeCellStyles();
 
+            var expectedPlatformName = ViewResources.ResourceManager.GetString(platformName);
+
             // Action
             _excelBuilder.AssignRowData(tickets, ticket, true, 1, FakeHelper.Create<BettingTicketCenterExcelOption>());
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == PlatformType.GetPlatformName(ticket.BetFrom)),
+                Arg.Is<HSSFRichTextString>(x => x.String == expectedPlatformName),
                 Arg.Is<ICellStyle>(x => x.Alignment == HorizontalAlignment.Center
                 && x.FillBackgroundColor == _evenStyle.FillBackgroundColor));
         }
 
-        [Test]
-        public void AssignRowData_AddPlatfromCell_IndexIsEven_BuildCorrectCellWithOddCellStyle()
+        [TestCase("s", "Mobile")]
+        [TestCase("l", "Mobile")]
+        [TestCase("r", "Tablet")]
+        [TestCase("x", "NewAsia")]
+        [TestCase("o", "MobileApp")]
+        [TestCase("c", "MobileLiteVersion")]
+        public void AssignRowData_AddPlatfromCell_IndexIsEven_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
         {
             // Arrange
             var tickets = new TicketResult();
             var ticket = new LrfTicket
             {
-                BetFrom = "g",
+                BetFrom = betFrom,
                 BetTypeId = (int)BetType.Handicap,
                 Status = BetStatus.Won
             };
@@ -342,12 +405,14 @@
             _excelBuilder.InitializeFonts();
             _excelBuilder.InitializeCellStyles();
 
+            var expectedPlatformName = ViewResources.ResourceManager.GetString(platformName);
+
             // Action
             _excelBuilder.AssignRowData(tickets, ticket, true, 1, FakeHelper.Create<BettingTicketCenterExcelOption>());
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == PlatformType.GetPlatformName(ticket.BetFrom)),
+                Arg.Is<HSSFRichTextString>(x => x.String == expectedPlatformName),
                 Arg.Is<ICellStyle>(x => x.Alignment == HorizontalAlignment.Center
                 && x.FillBackgroundColor == _oddStyle.FillBackgroundColor));
         }

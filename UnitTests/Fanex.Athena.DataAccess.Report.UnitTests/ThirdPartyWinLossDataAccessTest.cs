@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -47,16 +48,16 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(expectedSpName);
-                ObjectDb.Received(1).AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("ReportType", _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("productid", _metaModel.ProductId);
+                ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", _metaModel.ToDate);
             });
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ReturnCorrectResult()
+        public async Task GetSummaryWinloss_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             const string SpName = "Summary1";
@@ -71,7 +72,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -81,15 +82,6 @@
 
                 Assert.That(result.SummaryTotal["USD"].CustomerWinLoss, Is.EqualTo(readerDataMapping.winlostUSD));
             });
-        }
-
-        [Test]
-        public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            const string SpName = "Summary2";
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList, SpName));
         }
 
         [TestCase("Test", "Test")]
@@ -105,16 +97,16 @@
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(expectedSpName);
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+                ObjectDb.Received(1).SetParameterValue("custid", _metaModel.DrillDownCustomerId);
+                ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("productid", _metaModel.ProductId);
+                ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.DrillDownFromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", _metaModel.DrillDownToDate);
             });
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenCall_ReturnCorrectResult()
+        public async Task GetCustomerWinlossDetail_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             const string SpName = "Detail1";
@@ -129,7 +121,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -139,38 +131,29 @@
             });
         }
 
-        [Test]
-        public void GetCustomerWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            const string SpName = "Detail2";
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList, SpName));
-        }
-
         [TestCase("Test", "Test")]
-        public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
+        public async Task GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(expectedSpName)).Returns(ObjectDb);
             _metaModel.ProductId = -1;
 
             // Action
-            DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, spname);
+            await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, spname);
 
             // Assert
             Assert.Multiple(() =>
             {
                 DataAccess.Received(1).GetObjectDb(expectedSpName);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.DidNotReceive().AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+                ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                ObjectDb.DidNotReceive().SetParameterValue("productid", _metaModel.ProductId);
+                ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.DrillDownFromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", _metaModel.DrillDownToDate);
             });
         }
 
         [Test]
-        public void GetAgentWinlossDetail_WhenCall_ReturnCorrectResult()
+        public async Task GetAgentWinlossDetail_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             const string SpName = "Agent1";
@@ -185,7 +168,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -196,7 +179,7 @@
         }
 
         [Test]
-        public void GetData_HasSystemIdColumn_ReturnCorrectData()
+        public async Task GetData_HasSystemIdColumn_ReturnCorrectData()
         {
             // Arrange
             const string SpName = "Agent2";
@@ -213,14 +196,14 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().SystemId, Is.EqualTo(readerDataMapping.username));
         }
 
         [Test]
-        public void GetData_HasExternalIdColumn_ReturnCorrectData()
+        public async Task GetData_HasExternalIdColumn_ReturnCorrectData()
         {
             // Arrange
             const string SpName = "Agent3";
@@ -237,14 +220,14 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().ExternalId, Is.EqualTo(readerDataMapping.nickname));
         }
 
         [Test]
-        public void GetData_HasCustomerIdColumn_ReturnCorrectData()
+        public async Task GetData_HasCustomerIdColumn_ReturnCorrectData()
         {
             // Arrange
             const string SpName = "Agent4";
@@ -261,14 +244,14 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().CustomerId, Is.EqualTo(readerDataMapping.custid));
         }
 
         [Test]
-        public void GetData_HasWinlostDateColumn_ReturnCorrectData()
+        public async Task GetData_HasWinlostDateColumn_ReturnCorrectData()
         {
             // Arrange
             const string SpName = "Agent5";
@@ -285,19 +268,10 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
+            var result = await DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName);
 
             // Assert
             Assert.That(result.DataList.First().Date, Is.EqualTo(readerDataMapping.winlostdate));
-        }
-
-        [Test]
-        public void GetAgentWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            const string SpName = "Agent6";
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList, SpName));
         }
     }
 }

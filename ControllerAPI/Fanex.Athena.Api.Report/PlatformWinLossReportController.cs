@@ -10,10 +10,10 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
@@ -46,7 +46,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(PlatformWinLossMetaModel metaModel)
+        public Task<dynamic> Index(PlatformWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
@@ -116,7 +116,10 @@ namespace Fanex.Athena.Api.Report
             var userSession = SessionService.UserSession;
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossMember.xls");
 
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.PlatformWinloss);
+            var productAccess = ProductService.GetProductAccess(
+                licenseeSession.LicenseeId,
+                userSession.Language,
+                FunctionNames.PlatformWinloss);
 
             if (dataList.Any())
             {
@@ -142,7 +145,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(platformWinLossExcel.Workbook, FileName);
         }
 
-        private dynamic ProcessRequest(PlatformWinLossMetaModel metaModel)
+        private async Task<dynamic> ProcessRequest(PlatformWinLossMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel.CurrencyId))
             {
@@ -154,7 +157,7 @@ namespace Fanex.Athena.Api.Report
             if (metaModel.Level == 0)
             {
                 var result = metaModel.IsValid ?
-                    _platformWinLossDataAccess.GetSummaryData(metaModel) :
+                    await _platformWinLossDataAccess.GetSummaryData(metaModel) :
                     new ReportResultModel<PlatformWinLossSummary>
                     {
                         DataList = new List<PlatformWinLossSummary>(),
@@ -172,7 +175,7 @@ namespace Fanex.Athena.Api.Report
             else
             {
                 var result = metaModel.IsValid ?
-                    _platformWinLossDataAccess.GetMemberData(metaModel, SessionService.UserSession.CurrencyList) :
+                    await _platformWinLossDataAccess.GetMemberData(metaModel, SessionService.UserSession.CurrencyList) :
                     new SortableReportResultModel<PlatformWinLossMember>
                     {
                         DataList = new SortableList<PlatformWinLossMember>(),

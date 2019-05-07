@@ -55,7 +55,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
@@ -106,12 +106,12 @@ namespace Fanex.Athena.Excel.Report
                 if (item.RowSpan > 1)
                 {
                     var currentRow = index + RowContentTemplate;
-                    sheet.MergeCells(currentRow, ColumnIndex, currentRow + item.RowSpan - 1, ColumnIndex);
-                    sheet.MergeCells(currentRow, ColumnDate, currentRow + item.RowSpan - 1, ColumnDate);
+                    sheet.MergeRows(currentRow, currentRow + item.RowSpan - 1, ColumnIndex);
+                    sheet.MergeRows(currentRow, currentRow + item.RowSpan - 1, ColumnDate);
                 }
             }
 
-            rowIndex = AssignTotalData(sheet, index + 2);
+            rowIndex = AssignTotalData(sheet, index + RowContentTemplate);
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
@@ -119,10 +119,10 @@ namespace Fanex.Athena.Excel.Report
         {
             var reportName = _metaModel.ProductName + " " + ViewResources.WinLoss;
             var reportTitle = ReportExcelHelper.GenerateReportTitle(reportName, _convertingOption, _metaModel);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 2);
+            sheet.CreateFreezePane(0, RowContentTemplate);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -167,7 +167,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignCommonData(row, _resultData.SummaryTotal[currency]);
 
                 // Merge first two column
-                sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
+                sheet.MergeCols(ColumnIndex, ColumnCurrency, rowIndex);
                 rowIndex++;
             }
         }
@@ -202,7 +202,8 @@ namespace Fanex.Athena.Excel.Report
             }
 
             // Merge first two column
-            sheet.MergeCells(rowIndex - totalCurrencyList.Count(), 0, rowIndex - 1, 3);
+            const int LastIndexMergedCol = 3;
+            sheet.MergeCells(rowIndex - totalCurrencyList.Count(), 0, rowIndex - 1, LastIndexMergedCol);
 
             return rowIndex;
         }

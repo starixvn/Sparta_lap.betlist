@@ -101,7 +101,7 @@
             var content = new StringBuilder("ApiOneAuthorization: ");
             content.AppendLine(message);
             content.AppendLine("Url: " + request.RequestUri);
-            logger.Info(content.ToString());
+            logger.InfoAsync(content.ToString());
         }
     }
 }

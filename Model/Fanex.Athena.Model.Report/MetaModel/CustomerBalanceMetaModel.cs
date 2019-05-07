@@ -15,7 +15,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
             FromDate = ToDate = DateTime.Today;
             IsExcludeTest = true;
             PageIndex = 1;
-            PageSize = 1000;
+            PageSize = DefaultPageSize;
             OrderItem = 1;
         }
 

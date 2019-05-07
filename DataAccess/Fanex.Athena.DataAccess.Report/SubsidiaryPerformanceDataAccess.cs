@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Core.Configuration.Interfaces;
     using Data;
@@ -22,7 +23,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<IEnumerable<SubsidiaryPerformance>> GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
             var dataList = new List<SubsidiaryPerformance>();
@@ -31,7 +32,7 @@
             {
                 AssignParameter(objectDb, metaModel);
 
-                using (var reader = objectDb.ExecuteReader())
+                using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     while (reader.Read())
                     {
@@ -45,7 +46,7 @@
             return dataList;
         }
 
-        public ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<SubsidiaryPerformanceDetail>> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
             var dataList = new List<SubsidiaryPerformanceDetail>();
@@ -55,7 +56,7 @@
             {
                 AssignParameter(objectDb, metaModel);
 
-                using (var reader = objectDb.ExecuteReader())
+                using (var reader = await objectDb.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var baseColumnSuffix = metaModel.ConvertAll ? "Base" : string.Empty;
 
@@ -183,13 +184,13 @@
 
         private void AssignParameter(IObjectDb objectDb, SubsidiaryPerformanceMetaModel metaModel)
         {
-            objectDb.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            objectDb.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            objectDb.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            objectDb.AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            objectDb.AddInParameter("IncludeRaw", DbType.Boolean, metaModel.IncludeRaw);
-            objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            objectDb.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+            objectDb.SetParameterValue("FromDate", metaModel.FromDate);
+            objectDb.SetParameterValue("ToDate", metaModel.ToDate);
+            objectDb.SetParameterValue("MoveBetsDay", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            objectDb.SetParameterValue("ProductList", metaModel.ProductCodeList);
+            objectDb.SetParameterValue("IncludeRaw", metaModel.IncludeRaw);
+            objectDb.SetParameterValue("AgentList", metaModel.AgentListXml);
+            objectDb.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
         }
     }
 }

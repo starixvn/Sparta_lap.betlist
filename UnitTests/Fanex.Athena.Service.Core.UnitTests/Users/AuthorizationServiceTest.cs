@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
@@ -171,7 +172,7 @@
             _authorizationService.HasPermissionOnData(licenseeId, custId, transId);
 
             // Assert
-            _authorizationDataAccess.Received().IsCustomerBelonging(licenseeId, custId, transId);
+            _authorizationDataAccess.Received(1).IsCustomerBelonging(licenseeId, custId, transId);
         }
     }
 }

@@ -21,7 +21,7 @@
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
-    public class BetListBaseController : BaseController
+    public class BetListBaseController : ContentBaseController
     {
         protected const int PageSizeExcel = 63000;
 
@@ -161,21 +161,22 @@
         /// <returns>The bet list metal model.</returns>
         protected BetListMetaModel CreateDefaultMetaModel(BetListMetaModel metaModel = null)
         {
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
             var defaultMetaModel = metaModel ?? new BetListMetaModel();
-            defaultMetaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            defaultMetaModel.LicenseeId = licenseeId;
             defaultMetaModel.UserId = SessionService.UserSession.UserId;
             defaultMetaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Unspecified);
+            defaultMetaModel.IsFakeLicensee = IsFakeLicensee(licenseeId);
+            defaultMetaModel.CurrencyList = UserCurrencyList;
+            defaultMetaModel.AgentListXml = SessionService.GenerateAgentListXml(defaultMetaModel.CurrencyId);
 
             var balanceUp = GetBalanceUp();
             defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Unspecified);
             defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Unspecified);
-            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Unspecified);
-            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Unspecified);
-            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Unspecified);
-
-            defaultMetaModel.IsFakeLicensee = IsFakeLicensee();
-            defaultMetaModel.CurrencyList = UserCurrencyList;
-            defaultMetaModel.AgentListXml = SessionService.GenerateAgentListXml(defaultMetaModel.CurrencyId);
 
             return defaultMetaModel;
         }
@@ -192,9 +193,9 @@
             return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        protected virtual async Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
+        protected virtual Task<ActionResult> ExportExcel(BetListExcelMetaModel metaModel)
         {
-            return await Task.FromResult<ActionResult>(null).ConfigureAwait(false);
+            return Task.FromResult<ActionResult>(null);
         }
 
         protected virtual void AssignViewBag(BetListMetaModel model)

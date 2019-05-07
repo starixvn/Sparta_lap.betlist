@@ -1,5 +1,5 @@
-﻿define(["./agcasinowinloss"], function (AgCasinoWinLoss) {
-    "use strict";
+﻿define(['./agcasinowinloss'], function (AgCasinoWinLoss) {
+    'use strict';
     $(function () {
         AgCasinoWinLoss.initialize();
     });

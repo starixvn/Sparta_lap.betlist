@@ -67,7 +67,7 @@
             _apiController.Index();
 
             // Assert
-            _moveBetService.Received(1).GetMoveBetNotification("zh-CN");
+            _moveBetService.Received(1).GetMoveBetNotificationAsync("zh-CN");
         }
 
         [Test]

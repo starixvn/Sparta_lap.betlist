@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
@@ -70,21 +71,21 @@
         }
 
         [Test]
-        public void GetLiveReportSummary_WhenCall_ParametersPassedCorrectly()
+        public async Task GetLiveReportSummary_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLiveReportSummarySp)).Returns(ObjectDb);
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            DataAccess.GetLiveReportSummary(_metaModel);
+            await DataAccess.GetLiveReportSummary(_metaModel);
 
             // Assert
-            AssertCommonAddInParameters();
+            AssertCommonSetParameterValues();
         }
 
         [Test]
-        public void GetLiveReportSummary_WhenCall_ReturnCorrectResult()
+        public async Task GetLiveReportSummary_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLiveReportSummarySp)).Returns(ObjectDb);
@@ -100,7 +101,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetLiveReportSummary(_metaModel);
+            var result = await DataAccess.GetLiveReportSummary(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -119,29 +120,21 @@
         }
 
         [Test]
-        public void GetLiveReportSummary_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLiveReportSummarySp,
-                () => DataAccess.GetLiveReportSummary(_metaModel));
-        }
-
-        [Test]
-        public void GetDetailBySport_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDetailBySport_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailBySportSp)).Returns(ObjectDb);
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            DataAccess.GetDetailBySport(_metaModel);
+            await DataAccess.GetDetailBySport(_metaModel);
 
             // Assert
-            AssertCommonAddInParameters();
+            AssertCommonSetParameterValues();
         }
 
         [Test]
-        public void GetDetailBySport_WhenCall_ReturnCorrectResult()
+        public async Task GetDetailBySport_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailBySportSp)).Returns(ObjectDb);
@@ -156,7 +149,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailBySport(_metaModel);
+            var result = await DataAccess.GetDetailBySport(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -194,29 +187,21 @@
         }
 
         [Test]
-        public void GetDetailBySport_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetDetailBySportSp,
-                () => DataAccess.GetDetailBySport(_metaModel));
-        }
-
-        [Test]
-        public void GetDetailByCurrencyAndBettype_WhenCall_ParametersPassedCorrectly()
+        public async Task GetDetailByCurrencyAndBettype_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetDetailByCurrencyAndBettypeSp)).Returns(ObjectDb);
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, new List<Product>());
+            await DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, new List<Product>());
 
             // Assert
-            AssertCommonAddInParameters();
+            AssertCommonSetParameterValues();
         }
 
         [Test]
-        public void GetDetailByCurrencyAndBettype_WhenCall_ReturnCorrectResult()
+        public async Task GetDetailByCurrencyAndBettype_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             var productList = new List<Product>
@@ -238,7 +223,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
+            var result = await DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
 
             // Assert
             Assert.Multiple(() =>
@@ -257,7 +242,7 @@
         [TestCase("2804")]
         [TestCase("2805")]
         [TestCase("2806")]
-        public void GetDetailByCurrencyAndBettype_BettypeOfVirtualBasketball_ReturnCorrectBetTypeName(string betType)
+        public async Task GetDetailByCurrencyAndBettype_BettypeOfVirtualBasketball_ReturnCorrectBetTypeName(string betType)
         {
             // Arrange
             var productList = new List<Product>
@@ -282,14 +267,14 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
+            var result = await DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
 
             // Assert
             Assert.That(result.Item2[0].LiveReports[0].ProductName, Is.EqualTo($"{betType} (Virtual Basketball)"));
         }
 
         [Test]
-        public void GetDetailByCurrencyAndBettype_NoData_ReturnEmptyResult()
+        public async Task GetDetailByCurrencyAndBettype_NoData_ReturnEmptyResult()
         {
             // Arrange
             var productList = new List<Product>
@@ -303,7 +288,7 @@
             Reader.NextResult().Returns(true);
 
             // Action
-            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
+            var result = await DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, productList);
 
             // Assert
             Assert.Multiple(() =>
@@ -314,15 +299,7 @@
         }
 
         [Test]
-        public void GetDetailByCurrencyAndBettype_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetDetailByCurrencyAndBettypeSp,
-                () => DataAccess.GetDetailByCurrencyAndBettype(_metaModel, UserCurrencyList, null));
-        }
-
-        [Test]
-        public void GetLiveReportWinlossByMatch_WhenCall_ParametersPassedCorrectly()
+        public async Task GetLiveReportWinlossByMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLiveReportWinlossByMatch)).Returns(ObjectDb);
@@ -337,23 +314,23 @@
             };
 
             // Action
-            DataAccess.GetLiveReportWinlossByMatch(metaModel);
+            await DataAccess.GetLiveReportWinlossByMatch(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
-                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("sportid", DbType.Int32, metaModel.SportId);
-                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
+                ObjectDb.Received(1).SetParameterValue("fromdate", metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("liveindicator", metaModel.LiveIndicator);
+                ObjectDb.Received(1).SetParameterValue("movebetsday", _balance.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("sportid", metaModel.SportId);
+                ObjectDb.Received(1).SetParameterValue("showNG", true);
             });
         }
 
         [Test]
-        public void GetLiveReportWinlossByMatch_WhenCall_ReturnCorrectResult()
+        public async Task GetLiveReportWinlossByMatch_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetLiveReportWinlossByMatch)).Returns(ObjectDb);
@@ -370,7 +347,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel());
+            var result = await DataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -382,22 +359,14 @@
             });
         }
 
-        [Test]
-        public void GetLiveReportWinlossByMatch_WhenReceiveObjectDbException_ThrowDataAccessException()
+        private void AssertCommonSetParameterValues()
         {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLiveReportWinlossByMatch,
-                () => DataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel()));
-        }
-
-        private void AssertCommonAddInParameters()
-        {
-            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate.Date);
-            ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
-            ObjectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
-            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            ObjectDb.Received(1).AddInParameter("ProductCodes", DbType.String, _metaModel.ProductCodeList);
+            ObjectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.FromDate.Date);
+            ObjectDb.Received(1).SetParameterValue("todate", _metaModel.ToDate.Date);
+            ObjectDb.Received(1).SetParameterValue("liveindicator", _metaModel.LiveIndicator);
+            ObjectDb.Received(1).SetParameterValue("movebetsday", _balance.MoveBetsDay);
+            ObjectDb.Received(1).SetParameterValue("ProductCodes", _metaModel.ProductCodeList);
         }
     }
 }

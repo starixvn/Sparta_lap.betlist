@@ -1,5 +1,5 @@
 ﻿define(['./halftimefulltime'], function (HalfTimeFullTime) {
-    "use strict";
+    'use strict';
 
     $(HalfTimeFullTime.initialize);
 });

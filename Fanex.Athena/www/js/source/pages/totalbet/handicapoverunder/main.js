@@ -1,4 +1,4 @@
 ﻿define(['./handicapoverunder'], function (HandicapOU) {
-    "use strict";
+    'use strict';
     $(HandicapOU.initialize);
 });

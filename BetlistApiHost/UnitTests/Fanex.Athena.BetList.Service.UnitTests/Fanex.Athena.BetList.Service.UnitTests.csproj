@@ -145,6 +145,7 @@
     <Compile Include="BettingTicketCenterServiceTest.cs" />
     <Compile Include="ExchangeBetListServiceTest.cs" />
     <Compile Include="Extensions\LrfBetListHtmlBuilderTest.cs" />
+    <Compile Include="Extensions\TicketHelperExtensionTest.cs" />
     <Compile Include="Helpers\BetListHelperTest.cs" />
     <Compile Include="LastBetsMonitoringBetListServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -154,6 +155,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>
+      <Name>Fanex.Athena.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BetList\Fanex.Athena.BetList.DataAccess\Fanex.Athena.BetList.DataAccess.csproj">
       <Project>{B269F027-9AE1-4969-89D6-56C401B96051}</Project>
       <Name>Fanex.Athena.BetList.DataAccess</Name>

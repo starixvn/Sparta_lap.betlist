@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([54,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([52,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,9 +290,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! bootstrap-daterangepicker */ "./node_modules/bootstrap-daterangepicker/daterangepicker.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, moment) {
-        "use strict";
+        'use strict';
 
-        var _daysOfWeek, _monthNames;
+        let _daysOfWeek, _monthNames;
 
         function initCommonTextResource() {
             if (!_daysOfWeek || !_monthNames) {
@@ -311,12 +310,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function initDateRangePicker(firstDayOfWeekIsMonday, rangeOption) {
-            var $dateRange = $('#DateRange');
+            const $dateRange = $('#DateRange');
 
-            var $from = $('#FromDate');
-            var $to = $('#ToDate');
-            var start = moment($from.attr('data-original-from'), "MM/DD/YYYY");
-            var end = moment($to.attr('data-original-to'), "MM/DD/YYYY");
+            const $from = $('#FromDate');
+            const $to = $('#ToDate');
+            const start = moment($from.attr('data-original-from'), 'MM/DD/YYYY');
+            const end = moment($to.attr('data-original-to'), 'MM/DD/YYYY');
 
             function setRangeDate(start, end) {
                 $from.val(start.format('MM/DD/YYYY'));
@@ -324,12 +323,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $dateRange.val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
             }
 
-            var now = moment($dateRange.attr('data-today'), "MM/DD/YYYY");
-            var isoDayOfWeek = firstDayOfWeekIsMonday ? 1 : 7; // 1.Monday  7.Sunday
-            var startDayOfWeek = now.clone().startOf('week').isoWeekday(isoDayOfWeek);
-            var startDayOfLastWeek = now.clone().subtract(1, 'week').startOf('week').isoWeekday(isoDayOfWeek);
+            const now = moment($dateRange.attr('data-today'), 'MM/DD/YYYY');
+            const isoDayOfWeek = firstDayOfWeekIsMonday ? 1 : 7; // 1.Monday  7.Sunday
+            const startDayOfWeek = now.clone().startOf('week').isoWeekday(isoDayOfWeek);
+            const startDayOfLastWeek = now.clone().subtract(1, 'week').startOf('week').isoWeekday(isoDayOfWeek);
 
-            var ranges = {};
+            const ranges = {};
             ranges[Site.getSingleResource('Today')] = [now, now];
             ranges[Site.getSingleResource('Yesterday')] = [now.clone().subtract(1, 'days'), now.clone().subtract(1, 'days')];
             ranges[Site.getSingleResource('Currentweek')] = [startDayOfWeek, now];
@@ -338,17 +337,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             ranges[Site.getSingleResource('Lastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')];
             ranges[Site.getSingleResource('Sincelastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now];
 
-            var customRanges = {};
-            var hasRangeOption = rangeOption && rangeOption.length > 0;
+            const customRanges = {};
+            const hasRangeOption = rangeOption && rangeOption.length > 0;
             if (hasRangeOption) {
-                for (var i = 0; i < rangeOption.length; i++) {
-                    var rangeLabel = Site.getSingleResource(rangeOption[i]);
+                for (let i = 0; i < rangeOption.length; i++) {
+                    const rangeLabel = Site.getSingleResource(rangeOption[i]);
                     customRanges[rangeLabel] = ranges[rangeLabel];
                 }
             }
 
             initCommonTextResource();
-            var locale = {
+            const locale = {
                 format: 'MM/DD/YYYY',
                 applyLabel: Site.getSingleResource('OK'),
                 cancelLabel: Site.getSingleResource('Cancel'),
@@ -360,8 +359,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             $dateRange.daterangepicker({
                 startDate: start,
                 endDate: end,
-                minDate: moment($dateRange.attr('data-mindate'), "MM/DD/YYYY"),
-                maxDate: moment($dateRange.attr('data-maxdate'), "MM/DD/YYYY"),
+                minDate: moment($dateRange.attr('data-mindate'), 'MM/DD/YYYY'),
+                maxDate: moment($dateRange.attr('data-maxdate'), 'MM/DD/YYYY'),
                 ranges: hasRangeOption ? customRanges : ranges,
                 locale: locale,
                 showDropdowns: true,
@@ -375,14 +374,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $dateRange.on('show.daterangepicker', function (ev, picker) {
-                var toDate = picker.endDate || new Date();
-                var toMoment = moment(toDate);
+                const toDate = picker.endDate || new Date();
+                const toMoment = moment(toDate);
 
                 picker.rightCalendar.month = toMoment;
-                picker.renderCalendar("right");
+                picker.renderCalendar('right');
             });
 
-            $('.date-range').on("click", ".icon-calendar", function () {
+            $('.date-range').on('click', '.icon-calendar', function () {
                 $dateRange.data('daterangepicker').toggle();
             });
 
@@ -390,26 +389,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function initSingleDatePicker(idElement, parentElement) {
-            var $picker = $("#" + idElement);
+            const $picker = $('#' + idElement);
             initCommonTextResource();
-            var locale = {
+            const locale = {
                 format: 'MM/DD/YYYY',
                 daysOfWeek: _daysOfWeek,
                 monthNames: _monthNames
             };
 
             $picker.daterangepicker({
-                startDate: moment($picker.attr('data-original'), "MM/DD/YYYY"),
-                endDate: moment($picker.attr('data-original'), "MM/DD/YYYY"),
-                minDate: moment($picker.attr('data-mindate'), "MM/DD/YYYY"),
-                maxDate: moment($picker.attr('data-maxdate'), "MM/DD/YYYY"),
+                startDate: moment($picker.attr('data-original'), 'MM/DD/YYYY'),
+                endDate: moment($picker.attr('data-original'), 'MM/DD/YYYY'),
+                minDate: moment($picker.attr('data-mindate'), 'MM/DD/YYYY'),
+                maxDate: moment($picker.attr('data-maxdate'), 'MM/DD/YYYY'),
                 locale: locale,
                 singleDatePicker: true,
                 showDropdowns: true,
-                parentEl: parentElement && parentElement !== "" ? parentElement : ".single-date"
+                parentEl: parentElement ? parentElement : '.single-date'
             });
 
-            $('.single-date').on("click", ".icon-calendar", function () {
+            $('.single-date').on('click', '.icon-calendar', function () {
                 $picker.data('daterangepicker').toggle();
             });
         }
@@ -449,15 +448,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -475,23 +474,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -510,14 +509,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -528,14 +527,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -547,16 +546,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -573,45 +572,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -627,8 +626,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -637,7 +636,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -654,10 +653,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -665,10 +664,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -676,37 +675,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -716,16 +715,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -733,44 +732,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -782,7 +781,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -940,12 +939,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1006,7 +1005,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -3936,30 +3937,30 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
+    'use strict';
+    const REPORT_BY_MONTHLY = 2;
+    const LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
 
-    var _me = {
+    const _me = {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
+            let fdate = typeof drilldownDate === 'string' ? new Date(drilldownDate) : drilldownDate;
+            let tdate = fdate;
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
+                let fday = 1;
+                const month = fdate.getMonth();
+                const year = fdate.getFullYear();
+                const orignalFDate = new Date(fromDate);
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
+                const originalTDate = new Date(toDate);
 
                 if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
+                    const tday = originalTDate.getDate();
                     tdate = new Date(year, month, tday, 0, 0, 0, 0);
                 }
                 else {
@@ -3973,19 +3974,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         },
         ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
+            let temp = true;
+            if ($('.childCheckbox:checked').length === 0) {
                 temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+                const title = Site.getSingleResource('LrfNotification');
+                const message = Site.getSingleResource('AlertChooseProductMsg');
+                const $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 
                 Popup.openPopup($dialog, {
                     width: 380,
                     height: 150,
                     title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
+                    id: 'product-invalid',
+                    className: 'popup-notification',
                     onOpen: function () {
                         $('#SubmitButton').prop('disabled', true);
                     },
@@ -3999,8 +4000,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
+            $('.childCheckbox[type="checkbox"]', '#ProductList').each(function (index, element) {
+                const isCheck = $(this).is(':checked');
                 $(element).attr({ 'data-original': isCheck });
             });
         },
@@ -4010,35 +4011,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
+            const mainFooter = $('.ui-jqgrid-ftable tr:last-child');
+            let rowCount = 0;
+            const currencyList = [];
 
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
+            function processColumnModel(dataItem, currency) {
+                const row = mainFooter.clone();
+                const cellList = $('td', row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                    const isCustomFormater = typeof modelElement.formatter === 'function';
+                    const rawValue = dataItem[modelElement.name];
+                    const value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 
-                    var $cell = $(cellList.get(cellIndex));
+                    const $cell = $(cellList.get(cellIndex));
                     if (cellIndex === 0) {
-                        var content = "Total in " + currency;
+                        const content = 'Total in ' + currency;
                         $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
+                            .addClass('group-' + currency)
+                            .attr('title', content);
                     }
                     else {
-                        var title = value;
+                        let title = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
-                            var wrapper = document.createElement('div');
+                            const wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             title = wrapper.innerText;
                         }
-                        $cell.html(value).attr("title", title);
+                        $cell.html(value).attr('title', title);
                     }
                 });
 
@@ -4046,52 +4047,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 rowCount++;
             }
 
-            for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
+            for (let currency in summaryTotal) {
+                if (summaryTotal.hasOwnProperty(currency)) {
+                    currencyList.push(currency);
+                    const summaryData = summaryTotal[currency];
+                    if (Array.isArray(summaryData)) {
+                        summaryData.forEach(function (item) {
+                            processColumnModel(item, currency);
+                        });
+                    }
+                    else {
+                        processColumnModel(summaryData, currency);
+                    }
                 }
             }
 
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            $('.ui-jqgrid-ftable').attr('data-total-currency-list', currencyList.join());
             mainFooter.remove();
 
             return rowCount;
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            const viewinKey = Site.getSingleResource('Viewin');
+            const currencyTextList = {
+                '-3': viewinKey.replace('{0}', 'GBP'),
+                '-2': viewinKey.replace('{0}', 'USD'),
+                '-1': viewinKey.replace('{0}', 'EUR'),
+                '0': Site.getSingleResource('AllCurrencies')
             };
 
             return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace('{0}', $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
         },
 
         renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
-                $(".breadCrumbHolder").hide();
+            const levelNumber = Number(level);
+            if (levelNumber === 0) {
+                $('.breadCrumbHolder').hide();
             }
             else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
+                $('.breadCrumbHolder').show();
+                $('#level-link-container .level0').show();
 
-                var isLevel2 = level === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+                const isLevel2 = levelNumber === 2;
+                $('#level-link-container .level2').toggle(isLevel2).toggleClass('active', isLevel2);
 
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+                const allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $('#level-link-container .level1').toggle(allowShowLevel1);
+                $('#level-link-container .level1').toggleClass('active', allowShowLevel1 && !isLevel2);
             }
         }
     };
@@ -4122,44 +4127,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"),
     __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"),
     __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, Report, jqGridAdditional, DatePicker, DateHelper, moment, Popup) {
-        "use strict";
-        var defaultOption = {
-            UserGuideResourceName: "",
-            UserGuideTitle: "",
+        'use strict';
+        const defaultOption = {
+            UserGuideResourceName: '',
+            UserGuideTitle: '',
             ValidMonthRange: 0,
-            ReportTitle: "",
+            ReportTitle: '',
             GridOption: {}
         };
 
-        var _selector = {
-            SubmitButton: "#SubmitButton",
-            ExportExcelInput: "#IsExportExcel",
-            ExportToExcel: "#ExportToExcel",
-            Form: "#ThirdPartyWinLossForm",
-            Title: ".report-title",
-            Header: ".panel-heading",
-            GridId: "ReportGrid",
-            OrderItemInput: "#OrderItem",
+        const _selector = {
+            SubmitButton: '#SubmitButton',
+            ExportExcelInput: '#IsExportExcel',
+            ExportToExcel: '#ExportToExcel',
+            Form: '#ThirdPartyWinLossForm',
+            Title: '.report-title',
+            Header: '.panel-heading',
+            GridId: 'ReportGrid',
+            OrderItemInput: '#OrderItem',
             CanDrilldown: false,
-            LevelLinkContainer: "#level-link-container",
-            LevelLink: ".level-link",
-            DrillDownLink: ".drilldown",
-            BetListLink: ".bet-list-link"
+            LevelLinkContainer: '#level-link-container',
+            LevelLink: '.level-link',
+            DrillDownLink: '.drilldown',
+            BetListLink: '.bet-list-link'
         };
 
-        var _ajaxRequest;
-        var _cacheData = [];
-        var _submitData;
-        var _reportTitle;
-        var _urlExcelData;
-        var _thirdPartyWinLossOption;
+        let _ajaxRequest;
+        const _cacheData = [];
+        let _submitData;
+        let _reportTitle;
+        let _urlExcelData;
+        let _thirdPartyWinLossOption;
 
         function initialize(memberOption) {
             Site.initialize();
 
-            var option = $.extend({}, defaultOption, memberOption || {});
+            const option = $.extend({}, defaultOption, memberOption || {});
 
-            if (option.UserGuideResourceName !== "") {
+            if (option.UserGuideResourceName !== '') {
                 Site.addUserGuide({
                     resourceName: option.UserGuideResourceName,
                     title: Site.getSingleResource(option.UserGuideTitle)
@@ -4189,20 +4194,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             $(_selector.ExportToExcel).click(function () {
                 $(_selector.ExportExcelInput).val(true);
-                var mainForm = $(_selector.Form);
-                var url = Site.resolveClientUrl(_urlExcelData);
-                mainForm.attr("action", url);
+                const mainForm = $(_selector.Form);
+                const url = Site.resolveClientUrl(_urlExcelData);
+                mainForm.attr('action', url);
                 mainForm.submit();
                 $(_selector.ExportExcelInput).val(false);
                 return false;
             });
 
-            $(_selector.LevelLinkContainer).on("click", _selector.LevelLink, function () {
-                var level = $(this).data("level");
+            $(_selector.LevelLinkContainer).on('click', _selector.LevelLink, function () {
+                const level = $(this).data('level');
                 if (level < 2) {
                     Report.renderBreadCrumb(level, _thirdPartyWinLossOption.licenseeId);
                     _me.bindData(level, _cacheData[level]);
-                    _urlExcelData = _urlExcelData.replace("level=2", "level=1");
+                    _urlExcelData = _urlExcelData.replace('level=2', 'level=1');
                 }
                 if (level === 0) {
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
@@ -4210,42 +4215,43 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 }
             });
 
-            $(".main-content").on("click", _selector.DrillDownLink, function () {
-                var data = $(this).data("drill-down");
+            $('.main-content').on('click', _selector.DrillDownLink, function () {
+                const data = $(this).data('drill-down');
                 _me.submit(data);
             });
 
-            $(".main-content").on("click", _selector.BetListLink, function () {
-                var dataDrillDown = $(this).data("drill-down");
+            $('.main-content').on('click', _selector.BetListLink, function () {
+                const dataDrillDown = $(this).data('drill-down');
                 openBetlistPopUp(dataDrillDown);
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         }
 
         function submit(drillDownData) {
-            var postdata;
-            var currencyId = 0;
-            var fromDate = "";
-            var toDate = "";
-            var custId = 0;
-            var level = 0;
+            let postdata;
+            let currencyId = 0;
+            let fromDate = '';
+            let toDate = '';
+            let custId = 0;
+            let level = 0;
 
             if (drillDownData) {
                 level = drillDownData.Level;
+                
                 postdata = _submitData;
-                currencyId = drillDownData.CurrencyId;
+                currencyId = drillDownData.CurrencyId || _submitData.CurrencyId;
                 custId = drillDownData.CustId;
 
-                var drilldownDateRange = Report.GetDrilldownDateRange(postdata.ReportBy, postdata.FromDate, postdata.ToDate, drillDownData.Datetime);
-                fromDate = moment(drilldownDateRange.FromDate).format("MM/DD/YYYY");
-                toDate = moment(drilldownDateRange.ToDate).format("MM/DD/YYYY");
+                const drilldownDateRange = Report.GetDrilldownDateRange(postdata.ReportBy, postdata.FromDate, postdata.ToDate, drillDownData.Datetime);
+                fromDate = moment(drilldownDateRange.FromDate).format('MM/DD/YYYY');
+                toDate = moment(drilldownDateRange.ToDate).format('MM/DD/YYYY');
             }
             else {
                 postdata = $(_selector.Form).serializeObject();
@@ -4254,19 +4260,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 toDate = postdata.ToDate;
             }
 
-            var url = setUpUrl(_thirdPartyWinLossOption.urlData, level, currencyId, custId, fromDate, toDate);
-            var option = {
-                type: "POST",
+            const url = setUpUrl(_thirdPartyWinLossOption.urlData, level, currencyId, custId, fromDate, toDate);
+            const option = {
+                type: 'POST',
                 data: postdata,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(url),
                 success: function (response) {
                     setExcelUrl(level, currencyId, custId, fromDate, toDate);
                     ajaxComplete(level, response, postdata);
 
-                    var currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : "";
+                    const currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : '';
                     _me.setReportTitle(currencyId, fromDate, toDate, currencyName);
                 },
                 beforeSend: function () {
@@ -4294,11 +4300,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return;
             }
 
-            var numOfRow = response.Data.length;
+            const numOfRow = response.Data.length;
 
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
 
-            var gridOption = _thirdPartyWinLossOption.getGridOption(level, _submitData.ReportBy);
+            const gridOption = _thirdPartyWinLossOption.getGridOption(level, _submitData.ReportBy);
             gridOption.data = response.Data;
             gridOption.rowNum = numOfRow;
             gridOption.gridComplete = function () {
@@ -4313,25 +4319,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function bindTotal(level, totalData, summaryTotal) {
-            var columnModel = _thirdPartyWinLossOption.getTotalColModel(level, _submitData.ReportBy);
-            var colspan = _thirdPartyWinLossOption.totalColspan[level];
-            var summaryColspan = colspan + 1;
+            const columnModel = _thirdPartyWinLossOption.getTotalColModel(level, _submitData.ReportBy);
+            const colspan = _thirdPartyWinLossOption.totalColspan[level];
+            const summaryColspan = colspan + 1;
 
             jqGridAdditional.assignTotal(totalData, columnModel);
-            var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+            const summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
             jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
         }
 
         function setReportTitle(currencyId, fromdate, todate, currencyName) {
-            var titlePattern = _reportTitle + ', {0} → {1} - {2}';
+            const titlePattern = _reportTitle + ', {0} → {1} - {2}';
             //get currencyName
-            var currencyStr = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
+            const currencyStr = currencyName ? Site.getSingleResource('Viewin').replace('{0}', currencyName)
                                                         : Report.getCurrencyNameForReportTitle(currencyId);
 
-            var title = $.format(titlePattern, fromdate, todate, currencyStr);
+            const title = $.format(titlePattern, fromdate, todate, currencyStr);
 
             $(_selector.Title).html(title);
-            $(_selector.Header).removeClass("hide");
+            $(_selector.Header).removeClass('hide');
         }
 
         function ajaxComplete(level, response, param) {
@@ -4351,47 +4357,48 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function setUpUrl(url, level, currencyId, custId, fdate, tdate) {
+            let newUrl = url;
             if (level > 0) {
-                url = QueryString.setParam(url, "level", level);
-                url = QueryString.setParam(url, "currencyId", currencyId);
-                url = QueryString.setParam(url, "custId", custId);
-                url = QueryString.setParam(url, "fdate", fdate);
-                url = QueryString.setParam(url, "tdate", tdate);
+                newUrl = QueryString.setParam(newUrl, 'level', level);
+                newUrl = QueryString.setParam(newUrl, 'currencyId', currencyId);
+                newUrl = QueryString.setParam(newUrl, 'custId', custId);
+                newUrl = QueryString.setParam(newUrl, 'fdate', fdate);
+                newUrl = QueryString.setParam(newUrl, 'tdate', tdate);
             }
 
-            return url;
+            return newUrl;
         }
 
         function resizeGrid() {
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
         function openBetlistPopUp(dataDrillDown) {
-            var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
+            const dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
 
-            var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
-            url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
-            url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
-            url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
-            url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-            url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
-            url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);
-            url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
-            url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
-            url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
-            url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
-            url = QueryString.setParam(url, "excelfilename", "ColossusBetsWinLossBetList");
-            url = Site.setProductCodeListParam(url, "CB");
+            let url = Site.resolveClientUrl('LicenseeWinLossBetList/Index');
+            url = QueryString.setParam(url, 'fromdate', moment(dateRange.FromDate).format('MM/DD/YYYY'));
+            url = QueryString.setParam(url, 'todate', moment(dateRange.ToDate).format('MM/DD/YYYY'));
+            url = QueryString.setParam(url, 'excludetest', _submitData.IsExcludedTestData);
+            url = QueryString.setParam(url, 'CurrencyId', dataDrillDown.DrillDownCurrencyId);
+            url = QueryString.setParam(url, 'CurrencyName', dataDrillDown.DrillDownCurrencyName);
+            url = QueryString.setParam(url, 'drawfilter', _submitData.DrawFilter);
+            url = QueryString.setParam(url, 'custid', dataDrillDown.CustomerId);
+            url = QueryString.setParam(url, 'systemId', dataDrillDown.SystemId);
+            url = QueryString.setParam(url, 'externalId', dataDrillDown.ExternalId);
+            url = QueryString.setParam(url, 'BaseCurrency', _submitData.BaseCurrency);
+            url = QueryString.setParam(url, 'excelfilename', 'ColossusBetsWinLossBetList');
+            url = Site.setProductCodeListParam(url, 'CB');
 
-            var popH = Math.min($(window).height() - 100, 650), popW = 920;
-            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
+            const popH = Math.min($(window).height() - 100, 650), popW = 920;
+            const popupOption = { id: 'betlist-popup', width: popW + 50, height: popH + 50, title: Site.getSingleResource('CustomerBetList') };
             Popup.openPopupWithIframe(url, popupOption);
             window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initSetting: initSetting,
             initEvent: initEvent,
@@ -4415,10 +4422,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site) {
-        "use strict";
+        'use strict';
 
         function setDrillDownLink(level, currencyId, custId, datetime, cellvalue) {
-            var param = {
+            const param = {
                 Level: level,
                 CurrencyId: currencyId,
                 CustId: custId,
@@ -4429,7 +4436,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function betlistLink(cellvalue, options, rowObject) {
-            var param =
+            const param =
             {
                 DrillDownDate: rowObject.Date,
                 DrillDownCurrencyId: rowObject.CurrencyId,
@@ -4491,18 +4498,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return Site.clone(this.colModelList);
             },
             getGridOption: function (level, reportBy) {
-                var gridOption = Site.clone(this.gridOption);
+                const gridOption = Site.clone(this.gridOption);
                 gridOption.colNames = this.getColName();
                 gridOption.colModel = this.getColModel(level, reportBy);
                 return gridOption;
             },
 
             getTotalColModel: function (level, reportBy) {
-                var colModel = this.getColModel(level, reportBy);
+                const colModel = this.getColModel(level, reportBy);
 
-                for (var i = 0; i < colModel.length; i++) {
-                    var item = colModel[i];
-                    if (item.name === "CurrencyName") {
+                for (let i = 0; i < colModel.length; i++) {
+                    const item = colModel[i];
+                    if (item.name === 'CurrencyName') {
                         item.formatter = null;
                         break;
                     }
@@ -4531,7 +4538,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./reports/golddeluxewinloss */ "./www/js/source/pages/report/thirdpartywinloss/reports/golddeluxewinloss.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (GoldDeluxeWinLoss) {
-    "use strict";
+    'use strict';
     $(GoldDeluxeWinLoss.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -4547,20 +4554,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! ../common/thirdpartywinloss */ "./www/js/source/pages/report/thirdpartywinloss/common/thirdpartywinloss.js"), __webpack_require__(/*! ./golddeluxewinloss.option */ "./www/js/source/pages/report/thirdpartywinloss/reports/golddeluxewinloss.option.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, ThirdPartyWinLoss, GoldDeluxeWinLossOption) {
-        "use strict";
+        'use strict';
         function initialize() {
-            GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+            GoldDeluxeWinLossOption.licenseeId = parseInt($('#drillDownLicenseeId').val(), 10);
 
             ThirdPartyWinLoss.initialize({
-                UserGuideResourceName: "GoldDeluxeWL",
-                UserGuideTitle: "GoldDeluxeWinLoss",
+                UserGuideResourceName: 'GoldDeluxeWL',
+                UserGuideTitle: 'GoldDeluxeWinLoss',
                 ValidMonthRange: 3,
-                ReportTitle: "GoldDeluxeWinLoss",
+                ReportTitle: 'GoldDeluxeWinLoss',
                 GridOption: GoldDeluxeWinLossOption
             });
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize
         };
 
@@ -4578,12 +4585,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! ../common/thirdpartywinloss.option */ "./www/js/source/pages/report/thirdpartywinloss/common/thirdpartywinloss.option.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (jqGridAdditional, ThirdPartyWinLossOption) {
-        "use strict";
+        'use strict';
 
-        var LICENSEE_12BET = 1;
-        var REPORT_BY_DAILY = 1;
+        const LICENSEE_12BET = 1;
+        const REPORT_BY_DAILY = 1;
 
-        var indexColumn =
+        const indexColumn =
         {
             name: 'Index',
             index: 'Index',
@@ -4596,7 +4603,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var dateColumn =
+        const dateColumn =
         {
             name: 'Date',
             index: 'Date',
@@ -4614,7 +4621,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
             name: 'ExternalId',
             index: 'ExternalId',
@@ -4624,7 +4631,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
             name: 'SystemId',
             index: 'SystemId',
@@ -4634,7 +4641,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var currencyColumn =
+        const currencyColumn =
         {
             name: 'CurrencyName',
             index: 'CurrencyName',
@@ -4644,7 +4651,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false
         };
 
-        var turnoverColumn =
+        const turnoverColumn =
         {
             name: 'TurnOver',
             index: 'TurnOver',
@@ -4657,7 +4664,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var totalTransColumn =
+        const totalTransColumn =
         {
             name: 'TotalTransaction',
             index: 'TotalTransaction',
@@ -4669,11 +4676,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
 
-        var customerWlColumn =
+        const customerWlColumn =
         {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
@@ -4684,7 +4691,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var licenseeWlColumn =
+        const licenseeWlColumn =
         {
             name: 'LicenseeWL',
             index: 'LicenseeWL',
@@ -4697,7 +4704,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-        var tipsAmountColumn =
+        const tipsAmountColumn =
         {
             name: 'TipAmount',
             index: 'TipAmount',
@@ -4710,7 +4717,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var tipsSharingColumn =
+        const tipsSharingColumn =
         {
             name: 'TipSharing',
             index: 'TipSharing',
@@ -4723,7 +4730,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var amountDueColumn =
+        const amountDueColumn =
         {
             name: 'AmountDue',
             index: 'AmountDue',
@@ -4736,7 +4743,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var currencyIdColumn =
+        const currencyIdColumn =
         {
             name: 'CurrencyId',
             index: 'CurrencyId',
@@ -4747,7 +4754,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             hidden: true
         };
 
-        var customerIdColumn =
+        const customerIdColumn =
         {
             name: 'CustomerId',
             index: 'CustomerId',
@@ -4758,15 +4765,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             hidden: true
         };
 
-        var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+        const colNameList = ['#', 'Date', 'ExternalId', 'SystemId', 'Currency',
             'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L',
             'TipAmount', 'TipSharing', 'AmountDue', 'CurrencyId', 'CustomerId'];
 
-        var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+        const colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
             turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn,
             tipsAmountColumn, tipsSharingColumn, amountDueColumn, currencyIdColumn, customerIdColumn];
 
-        var _me = new ThirdPartyWinLossOption({
+        const _me = new ThirdPartyWinLossOption({
             TotalColspan: [2, 2, 3],
             UrlData: 'api/GoldDeluxeWinLossReport/Index',
             UrlExcelData: 'api/GoldDeluxeWinLossReport/Index',
@@ -4775,21 +4782,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         });
 
         _me.getColModel = function (level, reportBy) {
-            level = Number(level);
-            dateColumn.hidden = level > 0;
+            const levelNumber = Number(level);
+            dateColumn.hidden = levelNumber > 0;
             dateColumn.formatoptions =
             {
-                newformat: parseInt(reportBy) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
+                newformat: parseInt(reportBy, 10) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
             };
 
-            currencyColumn.formatter = level === 0 ? function (cellvalue, options, rowObject) {
-                var level = _me.licenseeId === LICENSEE_12BET ? 1 : 2;
-                return _me.currencyFormatter(cellvalue, options, rowObject, level);
+            currencyColumn.formatter = levelNumber === 0 ? function (cellvalue, options, rowObject) {
+                const drilldownLevel = _me.licenseeId === LICENSEE_12BET ? 1 : 2;
+                return _me.currencyFormatter(cellvalue, options, rowObject, drilldownLevel);
             } : null;
-            systemIdColumn.formatter = level === 1 ? _me.systemIdFormatter : null;
+            systemIdColumn.formatter = levelNumber === 1 ? _me.systemIdFormatter : null;
 
-            externalIdColumn.hidden = level < 2;
-            systemIdColumn.hidden = level === 0;
+            externalIdColumn.hidden = levelNumber < 2;
+            systemIdColumn.hidden = levelNumber === 0;
             return ThirdPartyWinLossOption.prototype.getColModel.call(this);
         };
 
@@ -4799,7 +4806,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 54:
+/***/ 52:
 /*!**************************************************************************************!*\
   !*** multi ./www/js/source/pages/report/thirdpartywinloss/main-golddeluxewinloss.js ***!
   \**************************************************************************************/

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
@@ -53,7 +54,7 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnEmptyData()
+        public async Task Index_InvalidModel_ReturnEmptyData()
         {
             // Arrange
             var model = new ExchangeWinLossMetaModel
@@ -63,7 +64,7 @@
             };
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>
@@ -75,7 +76,7 @@
         }
 
         [Test]
-        public void Index_InvalidRequest_ReturnEmptyData()
+        public async Task Index_InvalidRequest_ReturnEmptyData()
         {
             // Arrange
             StubUserSessionData(new UserSession
@@ -93,7 +94,7 @@
             };
 
             // Action
-            var result = _controller.Index(model);
+            var result = await _controller.Index(model);
 
             // Assert
             Assert.Multiple(() =>

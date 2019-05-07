@@ -15,7 +15,7 @@
     using VendorAdapter.Interfaces;
 
     [TestFixture]
-    public class MatchWinLossReportControllerTest_AssignMatchName : BaseControllerHelperTest
+    public class MatchWinLossReportControllerTest_AssignMatchName : CultureBaseControllerHelperTest
     {
         private ICacheRefAdapter _cacheRefAdapter;
 

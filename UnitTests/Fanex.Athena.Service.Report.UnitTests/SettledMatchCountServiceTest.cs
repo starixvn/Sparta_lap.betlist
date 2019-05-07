@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Model.Core.DTO.Common;
@@ -30,7 +31,7 @@
         }
 
         [Test]
-        public void GetDataList_SportIsNotAllowed_ReturnEmptyData()
+        public async Task GetDataList_SportIsNotAllowed_ReturnEmptyData()
         {
             // Arrange
             var productList = new List<Product>
@@ -50,14 +51,14 @@
             _dataAccess.GetDataList(false, 0).ReturnsForAnyArgs(dataList);
 
             // Action
-            var result = _service.GetDataList(false, 0, productAccess);
+            var result = await _service.GetDataList(false, 0, productAccess);
 
             // Assert
             Assert.That(result, Is.Empty);
         }
 
         [Test]
-        public void GetDataList_WhenCall_ReturnCorrectData()
+        public async Task GetDataList_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var productList = new List<Product>
@@ -81,7 +82,7 @@
             const int ExpectedToDayRecords = 3;
 
             // Action
-            var result = _service.GetDataList(false, 0, productAccess);
+            var result = await _service.GetDataList(false, 0, productAccess);
 
             // Assert
             Assert.That(result.Count, Is.GreaterThanOrEqualTo(ExpectedToDayRecords));

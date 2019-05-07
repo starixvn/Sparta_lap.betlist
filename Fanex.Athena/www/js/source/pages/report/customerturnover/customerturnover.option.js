@@ -1,7 +1,7 @@
-﻿define(["common/site", "lib/jqgrid/jquery.jqgrid.additional"],
+﻿define(['common/site', 'lib/jqgrid/jquery.jqgrid.additional'],
     function (Site, jqGridAdditional) {
-        "use strict";
-        var indexColumn = {
+        'use strict';
+        const indexColumn = {
             name: 'Index',
             index: 'Index',
             width: 30,
@@ -12,7 +12,7 @@
             frozen: true,
             cellattr: jqGridAdditional.rowSpanSetting
         };
-        var dateColumn = {
+        const dateColumn = {
             name: 'ReportBy',
             index: 'ReportBy',
             width: 60,
@@ -28,7 +28,7 @@
                 newformat: 'm/d/Y'
             }
         };
-        var userNameColumn = {
+        const userNameColumn = {
             name: 'UserName',
             index: 'UserName',
             width: 85,
@@ -38,7 +38,7 @@
             resizable: false,
             cellattr: jqGridAdditional.rowSpanSetting
         };
-        var currencyColumn = {
+        const currencyColumn = {
             name: 'Currency',
             index: 'Currency',
             width: 50,
@@ -48,7 +48,7 @@
             frozen: true,
             cellattr: jqGridAdditional.rowSpanSetting
         };
-        var sportColumn = {
+        const sportColumn = {
             name: 'SportType',
             index: 'SportType',
             width: 110,
@@ -58,7 +58,7 @@
             frozen: true,
             cellattr: jqGridAdditional.rowSpanSetting2
         };
-        var bettypeColumn = {
+        const bettypeColumn = {
             name: 'Bettype',
             index: 'Bettype',
             width: 140,
@@ -67,7 +67,7 @@
             resizable: false,
             frozen: true
         };
-        var effectiveBettingVlueColumn = {
+        const effectiveBettingVlueColumn = {
             name: 'EffectiveBettingValue',
             index: 'EffectiveBettingValue',
             width: 90,
@@ -77,7 +77,7 @@
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var totalTransColumn = {
+        const totalTransColumn = {
             name: 'TotalTransactions',
             index: 'TotalTransactions',
             width: 65,
@@ -88,10 +88,10 @@
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
-        var turnoverColumn = {
+        const turnoverColumn = {
             name: 'Turnover',
             index: 'Turnover',
             resizable: false,
@@ -101,7 +101,7 @@
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var totalturnoverColumn = {
+        const totalturnoverColumn = {
             name: 'TotalTurnover',
             index: 'TotalTurnover',
             resizable: false,
@@ -112,7 +112,7 @@
             cellattr: jqGridAdditional.rowSpanSetting,
             formatter: jqGridAdditional.formatDecimal
         };
-        var customerWlColumn = {
+        const customerWlColumn = {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
             width: 90,
@@ -122,7 +122,7 @@
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var playerCommColumn = {
+        const playerCommColumn = {
             name: 'CustomerComm',
             index: 'CustomerComm',
             width: 50,
@@ -132,7 +132,7 @@
             frozen: true,
             formatter: jqGridAdditional.formatDecimal
         };
-        var customerWlTotalColumn = {
+        const customerWlTotalColumn = {
             name: 'CustomerTotal',
             index: 'CustomerTotal',
             width: 90,
@@ -143,16 +143,16 @@
             formatter: jqGridAdditional.formatDecimal
         };
         //#endregion
-        var colNameList = ['#', 'Date', "Username", "Currency", 'Sport', 'BetType', 'EffectiveBettingValue',
+        const colNameList = ['#', 'Date', 'Username', 'Currency', 'Sport', 'BetType', 'EffectiveBettingValue',
         'TotalTransaction', 'Turnover', 'TotalTurnover', '@[Win]/@[Loss]', 'Comm', 'Total'];
 
-        var colModelList = [indexColumn, dateColumn, userNameColumn, currencyColumn, sportColumn, bettypeColumn,
+        const colModelList = [indexColumn, dateColumn, userNameColumn, currencyColumn, sportColumn, bettypeColumn,
                         effectiveBettingVlueColumn, totalTransColumn, turnoverColumn, totalturnoverColumn,
                         customerWlColumn, playerCommColumn, customerWlTotalColumn];
-        var customerWlTotalIndex = 12;
+        const customerWlTotalIndex = 12;
 
-        var _me = {
-            urlData: "reportapi/CustomerTurnover",
+        const _me = {
+            urlData: 'reportapi/CustomerTurnover',
             hasCustomerComm: false,
             totalColspan: 6,
             reportBy: 1, //1:daily ,2 :monthly,
@@ -197,7 +197,7 @@
         };
 
         _me.getGridOption = function () {
-            var option = Site.clone(_me.gridOption);
+            const option = Site.clone(_me.gridOption);
             option.colNames = _me.getColName();
             option.colModel = _me.getColModel();
 

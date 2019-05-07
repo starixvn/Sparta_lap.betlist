@@ -19,6 +19,10 @@
         },
 		new SiteInfo
         {
+            SiteEnvironment = SiteEnvironment.UATTW
+        },
+		new SiteInfo
+        {
             SiteEnvironment = SiteEnvironment.SIT
         },
         new SiteInfo
@@ -33,6 +37,7 @@
 		DEV,
         LOCAL,
         UAT,
+		UATTW,
 		SIT,
         PRO
     }

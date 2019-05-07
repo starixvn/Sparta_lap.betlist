@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers
     using System.IO;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Caching;
     using System.Web.Mvc;
@@ -32,7 +33,7 @@ namespace Fanex.Athena.Controllers
     using Resources;
     using Service.Core.Common.Interfaces;
 
-    public class AuthorizationController : BaseController
+    public class AuthorizationController : CultureBaseController
     {
         #region Constant
 
@@ -116,7 +117,7 @@ namespace Fanex.Athena.Controllers
                     Request = new Request { Ip = Request.UserHostAddress },
                 };
 
-                var resultInfo = _authService.ValidateUserForLrfSystem(requestUser, model.LogInToken);
+                var resultInfo = _authService.ValidateUserForLrf(requestUser, model.LogInToken);
 
                 if (resultInfo.IsSuccessful)
                 {
@@ -224,7 +225,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult InternalSignOut()
         {
             DoSignOut();
-            return RedirectToAction("OneTokenRestriction", "Utility", new { Code = 100 });
+            return RedirectToAction("OneTokenRestriction", "Utility", new { Code = OneAuthorizationErrorCode.TokenWasExpired });
         }
 
         /// <summary>
@@ -299,10 +300,12 @@ namespace Fanex.Athena.Controllers
 
         private static string CreateRandomCaptchaCode()
         {
+            const int CapchaLength = 4;
+            const int MaxValueOfCharacter = 9;
             var randomNumber = new StringBuilder();
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < CapchaLength; i++)
             {
-                randomNumber.Append(RandomNumber.GenerateRandomInt32(0, 9));
+                randomNumber.Append(RandomNumber.GenerateRandomInt32(0, MaxValueOfCharacter));
             }
 
             return randomNumber.ToString();
@@ -380,10 +383,13 @@ namespace Fanex.Athena.Controllers
 
         private FileContentResult CreateCaptcha(string code, int height = 25)
         {
+            const int CharacterWidth = 12;
+            const int MinPointX = 2;
+
             var brushColor = Color.Black;
             var backgroundColor = Color.LightGray;
 
-            var iwidth = (code.Length * 12) + 10;
+            var iwidth = (code.Length * CharacterWidth) + 10;
             using (var mem = new MemoryStream())
             using (var bmp = new Bitmap(iwidth, height))
             using (var gfx = Graphics.FromImage((Image)bmp))
@@ -396,9 +402,11 @@ namespace Fanex.Athena.Controllers
                 Brush b = new SolidBrush(brushColor);
                 gfx.Clear(backgroundColor);
 
-                gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
+                gfx.DrawString(code, f, b, random.Next(MinPointX, CharacterWidth), random.Next(-1, 1));
 
-                for (int i = 0; i < 50; i++)
+                const int NoisePoint = 50;
+
+                for (int i = 0; i < NoisePoint; i++)
                 {
                     int x = random.Next(iwidth);
                     int y = random.Next(height);

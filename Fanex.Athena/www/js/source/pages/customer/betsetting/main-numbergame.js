@@ -1,4 +1,4 @@
-﻿"use strict";
-define(["./products/numbergame"], function (NumberGameBetSetting) {
+﻿'use strict';
+define(['./products/numbergame'], function (NumberGameBetSetting) {
     $(NumberGameBetSetting.initialize);
 });

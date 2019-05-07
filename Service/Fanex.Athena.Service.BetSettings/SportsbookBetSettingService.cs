@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.BetSettings
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.Model.BetSettings.DTO;
@@ -34,7 +35,7 @@ namespace Fanex.Athena.Service.BetSettings
             _dcsBetSettingService = dcsBetSettingService;
         }
 
-        public BetSettingViewModel GetViewModel(int licenseeId, int custId)
+        public async Task<BetSettingViewModel> GetViewModelAsync(int licenseeId, int custId)
         {
             const int EsportIndex = 2;
             if (!HasPermissionOnData(licenseeId, custId))
@@ -45,14 +46,15 @@ namespace Fanex.Athena.Service.BetSettings
                 };
             }
 
-            var viewModel = _betSettingDataAccess.GetBetSetting(custId);
+            var viewModel = await _betSettingDataAccess.GetBetSettingAsync(custId).ConfigureAwait(false);
 
             // Esport must be inserted in this "Feng Shui" position.
-            viewModel.MainData.Insert(EsportIndex, GetESportsSetting(licenseeId, custId));
+            var betSetting = await GetESportsSettingAsync(licenseeId, custId).ConfigureAwait(false);
+            viewModel.MainData.Insert(EsportIndex, betSetting);
             return viewModel;
         }
 
-        public IResultInfo UpdateBetSetting(
+        public async Task<IResultInfo> UpdateBetSettingAsync(
             CommonBetSetting setting,
             IDictionary<string, object> hashParam,
             DcsBetSetting esportSetting)
@@ -67,18 +69,19 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            var result = _betSettingDataAccess.UpdateBetSetting(setting, hashParam);
-            if (result.IsSuccessful)
+            var result = await _betSettingDataAccess.UpdateBetSettingAsync(setting, hashParam);
+
+            if (!result.IsSuccessful)
             {
-                return _dcsBetSettingService.UpdateBetSetting(setting.LicenseeId, setting.CustId, setting.UserId, setting.Ip, new[] { esportSetting });
+                return result;
             }
 
-            return result;
+            return await _dcsBetSettingService.UpdateBetSettingAsync(setting.LicenseeId, setting.CustId, setting.UserId, setting.Ip, new[] { esportSetting });
         }
 
-        private BetSetting GetESportsSetting(int licenseeId, int custId)
+        private async Task<BetSetting> GetESportsSettingAsync(int licenseeId, int custId)
         {
-            var dataList = _dcsBetSettingService.GetBetSettings(licenseeId, custId, ProductTypes.Sportsbooks2);
+            var dataList = await _dcsBetSettingService.GetBetSettingsAsync(licenseeId, custId, ProductTypes.Sportsbooks2).ConfigureAwait(false);
             if (!dataList.Any())
             {
                 throw new InvalidOperationException("There is no E-sport setting data.");

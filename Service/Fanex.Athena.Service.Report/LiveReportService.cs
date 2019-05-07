@@ -6,10 +6,8 @@
 
 namespace Fanex.Athena.Service.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
     using Constant.DataDomain;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -32,14 +30,14 @@ namespace Fanex.Athena.Service.Report
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel model)
+        public async Task<IList<LiveReport>> GetLiveReportSummary(LiveReportMetaModel model)
         {
             return model.IsValid ?
-                _liveReportDataAccess.GetLiveReportSummary(model) :
+                await _liveReportDataAccess.GetLiveReportSummary(model).ConfigureAwait(false) :
                 new List<LiveReport>();
         }
 
-        public LiveReportDetailResultModel GetLiveReportSumaryDetail(
+        public async Task<LiveReportDetailResultModel> GetLiveReportSumaryDetail(
             LiveReportMetaModel model,
             IDictionary<int, string> currencyList,
             IEnumerable<Product> products)
@@ -54,25 +52,22 @@ namespace Fanex.Athena.Service.Report
                 };
             }
 
-            var taskForSport = Task<IList<LiveReport>>.Factory.StartNew(() =>
-            {
-                return _liveReportDataAccess.GetDetailBySport(model);
-            });
+            var detailBySport = await _liveReportDataAccess.GetDetailBySport(model).ConfigureAwait(false);
 
-            var tupleCurrencyAndBettype = _liveReportDataAccess.GetDetailByCurrencyAndBettype(model, currencyList, products);
+            var tupleCurrencyAndBettype = await _liveReportDataAccess.GetDetailByCurrencyAndBettype(model, currencyList, products).ConfigureAwait(false);
             return new LiveReportDetailResultModel
             {
-                DataBySport = taskForSport.Result,
+                DataBySport = detailBySport,
                 DataByCurrency = tupleCurrencyAndBettype.Item1,
                 DataByBetType = tupleCurrencyAndBettype.Item2
             };
         }
 
-        public IList<LiveReportWinLossByMatch> GetLiveReportWinLossByMatch(LiveReportMatchListMetalModel model)
+        public async Task<IList<LiveReportWinLossByMatch>> GetLiveReportWinLossByMatch(LiveReportMatchListMetalModel model)
         {
             if (model.IsValid)
             {
-                var dataList = _liveReportDataAccess.GetLiveReportWinlossByMatch(model);
+                var dataList = await _liveReportDataAccess.GetLiveReportWinlossByMatch(model).ConfigureAwait(false);
 
                 foreach (var data in dataList)
                 {

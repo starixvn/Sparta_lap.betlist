@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using DataAccess.Core.Configuration.Interfaces;
@@ -16,7 +17,7 @@
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.BettingTicketCenter)]
-    public class BettingTicketCenterController : BaseController
+    public class BettingTicketCenterController : ContentBaseController
     {
         private readonly IProductService _productService;
 

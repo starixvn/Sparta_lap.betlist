@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Report.MetaModel;
@@ -44,36 +45,28 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ParametersPassedCorrectly()
+        public async Task GetData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(Sp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetData(_metaModel, UserCurrencyList);
+            await DataAccess.GetData(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
-                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.ToDate);
-                ObjectDb.Received(1).AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
-                ObjectDb.Received(1).AddInParameter("productCodes", DbType.String, string.Join(",", _metaModel.ProductCodeList));
-                ObjectDb.Received(1).AddInParameter("currencylist", DbType.String, _metaModel.CurrencyListXml);
-                ObjectDb.Received(1).AddInParameter("siteName", DbType.String, _metaModel.SiteName);
+                ObjectDb.Received(1).SetParameterValue("fromdate", _metaModel.FromDate);
+                ObjectDb.Received(1).SetParameterValue("todate", _metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("reporttype", _metaModel.ReportBy);
+                ObjectDb.Received(1).SetParameterValue("productCodes", string.Join(",", _metaModel.ProductCodeList));
+                ObjectDb.Received(1).SetParameterValue("currencylist", _metaModel.CurrencyListXml);
+                ObjectDb.Received(1).SetParameterValue("siteName", _metaModel.SiteName);
             });
         }
 
         [Test]
-        public void GetData_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                Sp,
-                () => DataAccess.GetData(_metaModel, UserCurrencyList));
-        }
-
-        [Test]
-        public void ReadData_WhenCall_ReturnCorrectResult()
+        public async Task ReadData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(Sp)).Returns(ObjectDb);
@@ -93,7 +86,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetData(_metaModel, UserCurrencyList);
+            var result = await DataAccess.GetData(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
             var firstTotalItem = result.TotalDataList.First();
 

@@ -10,6 +10,7 @@ namespace Fanex.Athena.BetList.Service
     using System.Linq;
     using System.Threading.Tasks;
     using Common.Constant;
+    using Common.Utility.Helpers;
     using Common.Utility.Services.Interfaces;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
@@ -83,14 +84,15 @@ namespace Fanex.Athena.BetList.Service
 
                 case OddsType.American:
                     {
+                        const int EvenOdds = 2;
                         var odds = ticket.Odds * 100;
                         if (odds < 0)
                         {
                             ticket.Odds = 1 - (1 / ticket.Odds);
                         }
-                        else if (odds % 2 == 0)
+                        else if (odds.IsEvenNumber())
                         {
-                            ticket.Odds = 2;
+                            ticket.Odds = EvenOdds;
                         }
                         else
                         {

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System;
-    using System.Data;
+    using System.Threading.Tasks;
     using Core.Common;
     using Extension.Utility;
     using Model.Core.DTO.Common;
@@ -23,22 +23,22 @@
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(100)]
-        public void GetForecastMatchListByLeague_WhenCall_ParametersPassedCorrectly(int leagueId)
+        public async Task GetForecastMatchListByLeague_WhenCall_ParametersPassedCorrectly(int leagueId)
         {
             // Arrange
             dynamic param = new { LeagueId = 0 };
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchList")).Returns(ObjectDb);
-            ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => param = x[0]);
+            ObjectDb.When(x => x.ExecuteReaderAsync(Arg.Any<object>())).Do(x => param = x[0]);
 
             // Action
-            DataAccess.GetForecastMatchListByLeague(leagueId);
+            await DataAccess.GetForecastMatchListByLeague(leagueId);
 
             // Assert
             Assert.That(param.LeagueId, Is.EqualTo(leagueId));
         }
 
         [Test]
-        public void GetForecastMatchListByLeague_WhenCall_DataReturnedCorrectly()
+        public async Task GetForecastMatchListByLeague_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             const int LeagueId = 1;
@@ -49,7 +49,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = DataAccess.GetForecastMatchListByLeague(LeagueId);
+            var result = await DataAccess.GetForecastMatchListByLeague(LeagueId);
 
             // Assert
             Assert.Multiple(() =>
@@ -62,25 +62,9 @@
             });
         }
 
-        [Test]
-        public void GetForecastMatchListByLeague_ReaderIsNull_ReturnEmptyResult()
-        {
-            // Arrange
-            const int LeagueId = 1;
-
-            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchList")).Returns(ObjectDb);
-            ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(x => { return null; });
-
-            // Action
-            var result = DataAccess.GetForecastMatchListByLeague(LeagueId);
-
-            // Assert
-            Assert.That(result, Is.Empty);
-        }
-
         [TestCase(false)]
         [TestCase(true)]
-        public void GetAllRunningMatch_WhenCall_ParametersPassedCorrectly(bool isProduction)
+        public async Task GetAllRunningMatch_WhenCall_ParametersPassedCorrectly(bool isProduction)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueMatchSelRunning")).Returns(ObjectDb);
@@ -88,15 +72,15 @@
             _appSettings.IsProduction.Returns(isProduction);
 
             // Action
-            DataAccess.GetAllRunningMatch(SportId);
+            await DataAccess.GetAllRunningMatch(SportId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("sporttype", DbType.Int32, SportId);
-            ObjectDb.Received(1).AddInParameter("IsIncludeTestLeague", DbType.Boolean, !isProduction);
+            ObjectDb.Received(1).SetParameterValue("sporttype", SportId);
+            ObjectDb.Received(1).SetParameterValue("IsIncludeTestLeague", !isProduction);
         }
 
         [Test]
-        public void GetAllRunningMatch_WhenCall_DataReturnedCorrectly()
+        public async Task GetAllRunningMatch_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             const int SportId = 1;
@@ -107,7 +91,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = DataAccess.GetAllRunningMatch(SportId);
+            var result = await DataAccess.GetAllRunningMatch(SportId);
 
             // Assert
             Assert.Multiple(() =>
@@ -121,7 +105,7 @@
         }
 
         [Test]
-        public void GetMatchesByLeague_WhenCall_ExecuteReaderMethodIsCalled()
+        public async Task GetMatchesByLeague_WhenCall_ExecuteReaderMethodIsCalled()
         {
             // Arrange
             var leagueId = 1;
@@ -130,10 +114,10 @@
 
             dynamic param = new { LeagueId = 0 };
             DataAccess.GetObjectDb(Arg.Is("Lrf_SelMatchByLeague")).Returns(ObjectDb);
-            ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => param = x[0]);
+            ObjectDb.When(x => x.ExecuteReaderAsync(Arg.Any<object>())).Do(x => param = x[0]);
 
             // Action
-            DataAccess.GetMatchesByLeague(leagueId, fromDate, toDate);
+            await DataAccess.GetMatchesByLeague(leagueId, fromDate, toDate);
 
             // Assert
             Assert.Multiple(() =>
@@ -145,7 +129,7 @@
         }
 
         [Test]
-        public void GetMatchesByLeague_WhenCall_DataReturnedCorrectly()
+        public async Task GetMatchesByLeague_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             const int LeagueId = 1;
@@ -158,7 +142,7 @@
             Reader.Read().Returns(true, false);
 
             // Action
-            var result = DataAccess.GetMatchesByLeague(LeagueId, fromDate, toDate);
+            var result = await DataAccess.GetMatchesByLeague(LeagueId, fromDate, toDate);
 
             // Assert
             Assert.Multiple(() =>

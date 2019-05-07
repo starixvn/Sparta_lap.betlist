@@ -6,11 +6,12 @@
 
 namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Report.ResultModel;
 
     public interface IWeeklyLiveMatchDataAccess
     {
-        WeeklyLiveMatchResultModel GetDataList(WeeklyLiveMatchMetaModel metaModel);
+        Task<WeeklyLiveMatchResultModel> GetDataList(WeeklyLiveMatchMetaModel metaModel);
     }
 }

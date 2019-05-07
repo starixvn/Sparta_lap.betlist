@@ -1,4 +1,4 @@
 ﻿define(['./livereportmatchlist'], function (MatchList) {
-    "use strict";
+    'use strict';
     $(MatchList.initialize);
 });

@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([39,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([37,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -293,101 +292,101 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
-    var me = {};
-    var _settings = {}; // store multi setting instances by "elementcontainer" as key
+    const me = {};
+    const _settings = {}; // store multi setting instances by 'elementcontainer' as key
 
-    var defaultSetting = {
+    const defaultSetting = {
         pageindex: 1,
         pagesize: 50,
         pagelist: [50, 100, 1000],
         totalrow: 1,
-        formId: "formreport",
-        elementcontainer: "#page",
-        method: "AJAX",
-        ajaxfunction: "",
+        formId: 'formreport',
+        elementcontainer: '#page',
+        method: 'AJAX',
+        ajaxfunction: '',
         alwayshow: false
     };
 
     function getByName($pagerContainer, name){
-        return $("input[name='" + name + "']", $pagerContainer);
+        return $('input[name="' + name + '"]', $pagerContainer);
     }
 
     function goToPage($pagerContainer, method, index) {
-        var $pageSize = getByName($pagerContainer, "PageSize");
-        if (method === "POST") {
-            $("#IsExportExcel").val(false);
-            var formName = getByName($pagerContainer, "FormName").val();
-            var form = $("#" + formName);
-            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
-            var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
+        const $pageSize = getByName($pagerContainer, 'PageSize');
+        if (method === 'POST') {
+            $('#IsExportExcel').val(false);
+            const formName = getByName($pagerContainer, 'FormName').val();
+            const form = $('#' + formName);
+            const pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
+            const pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
             form.append(pageIndex);
             form.append(pageSize);
             Site.blockUI();
             form.submit();
         }
-        else if (method === "AJAX") {
-            var $pageIndex = getByName($pagerContainer, "PageIndex");
+        else if (method === 'AJAX') {
+            const $pageIndex = getByName($pagerContainer, 'PageIndex');
             $pageIndex.val(index);
-            var fc = getByName($pagerContainer, "AjaxPagingFunction").val();
+            const fc = getByName($pagerContainer, 'AjaxPagingFunction').val();
             eval(fc); // jshint ignore:line
         } else {
-            var url = Site.getCurrentUrl();
-            url = QueryString.setParam(url, "PageSize", $pageSize.val());
-            url = QueryString.setParam(url, "PageIndex", index);
+            let url = Site.getCurrentUrl();
+            url = QueryString.setParam(url, 'PageSize', $pageSize.val());
+            url = QueryString.setParam(url, 'PageIndex', index);
 
             Site.redirect(url);
         }
     }
 
     function isVisible(element) {
-        return !$(element).hasClass("pagingDisable");
+        return !$(element).hasClass('pagingDisable');
     }
 
     me.render = function (option) {
         /// <summary>
         ///
         /// </summary>
-        /// <param name="pageindex"></param>
-        /// <param name="pagesize"></param>
-        /// <param name="totalrow"></param>
-        /// <param name="elementcontainer">ex: "#page"</param>
-        /// <param name="method">POST or GET or AJAX</param>
-        var pageHtml = "";
-        var setting = $.extend({}, defaultSetting, option);
+        /// <param name='pageindex'></param>
+        /// <param name='pagesize'></param>
+        /// <param name='totalrow'></param>
+        /// <param name='elementcontainer'>ex: '#page'</param>
+        /// <param name='method'>POST or GET or AJAX</param>
+        let pageHtml = '';
+        const setting = $.extend({}, defaultSetting, option);
         _settings[setting.elementcontainer] = setting;
-        var noOfPage = 1;
-        var pagingVisible = setting.totalrow > setting.pagesize;
+        let noOfPage = 1;
+        const pagingVisible = setting.totalrow > setting.pagesize;
 
         if (pagingVisible) {
             noOfPage = parseInt(setting.totalrow / setting.pagesize
-         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
+         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1), 10);
         }
 
         if (pagingVisible || setting.alwayshow) {
-            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
-            var pageControl = ['<div class="pagingContainer center-align">',
+            const prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
+            const pageControl = ['<div class="pagingContainer center-align">',
                           '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
                           '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
                           '<span class="pagingSeperator"></span>'];
 
-            var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
+            const pagingInfo = '<div class="paging-info">' + Site.getSingleResource('Page') +
                 '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
-            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
+            + '&nbsp;' + Site.getSingleResource('of') + '&nbsp;' + noOfPage + '</div>';
 
             pageControl.push(pagingInfo);
 
             pageControl.push('<span class="pagingSeperator"></span>');
 
-            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
-            var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
+            const nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
+            const pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
             pageControl.push(pageNext);
-            var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
+            const pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
             pageControl.push(pageLast);
 
-            var pageListLength = setting.pagelist.length;
-            var pageSizeSelectHtml = '<select class="pageSizeSelected">';
-            var pageSize = parseInt(setting.pagesize);
-            for (var i = 0; i < pageListLength; i++) {
+            const pageListLength = setting.pagelist.length;
+            let pageSizeSelectHtml = '<select class="pageSizeSelected">';
+            const pageSize = parseInt(setting.pagesize, 10);
+            for (let i = 0; i < pageListLength; i++) {
                 pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
                 + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
                 + '>' + setting.pagelist[i] + '</option>';
@@ -402,19 +401,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
 
             pageControl.push('</div>');
-            pageHtml = pageControl.join("");
+            pageHtml = pageControl.join('');
         }
 
-        var $pagerContainer = $(setting.elementcontainer);
+        const $pagerContainer = $(setting.elementcontainer);
         $pagerContainer.html(pageHtml);
         me._bindEvent(setting);
     };
     me.getSetting = function (elementcontainer) {
-        elementcontainer = elementcontainer || Object.keys(_settings)[0];
-        var setting = _settings[elementcontainer];
-        var $pagerContainer = $(elementcontainer);
-        var $pageIndex = getByName($pagerContainer, "PageIndex");
-        var $pageSize = getByName($pagerContainer, "PageSize");
+        const newElementcontainer = elementcontainer || Object.keys(_settings)[0];
+        const setting = _settings[newElementcontainer];
+        const $pagerContainer = $(newElementcontainer);
+        const $pageIndex = getByName($pagerContainer, 'PageIndex');
+        const $pageSize = getByName($pagerContainer, 'PageSize');
         setting.pageindex = parseInt($pageIndex.val(), 10);
         setting.pagesize = $pageSize.val();
         return setting;
@@ -422,46 +421,46 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
     // private methods
     me._bindEvent = function (setting) {
-        var $pagerContainer = $(setting.elementcontainer);
-        var $pageIndex = getByName($pagerContainer, "PageIndex");
-        var method = getByName($pagerContainer, "Method").val();
-        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagerContainer).val(), 10);
+        const $pagerContainer = $(setting.elementcontainer);
+        const $pageIndex = getByName($pagerContainer, 'PageIndex');
+        const method = getByName($pagerContainer, 'Method').val();
+        const noOfPage = parseInt($('input[name="NoOfPage"]', $pagerContainer).val(), 10);
 
-        $(".pagingFirst", $pagerContainer).on("click", function () {
+        $('.pagingFirst', $pagerContainer).on('click', function () {
             if (isVisible(this)) {
                 goToPage($pagerContainer, method, 1);
             }
         });
-        $(".pagingPrev", $pagerContainer).on("click", function () {
-            var currentPage = parseInt($pageIndex.val(), 10);
+        $('.pagingPrev', $pagerContainer).on('click', function () {
+            const currentPage = parseInt($pageIndex.val(), 10);
             if (isVisible(this) && currentPage > 1) {
                 goToPage($pagerContainer, method, currentPage - 1);
             }
         });
-        $(".pagingLast", $pagerContainer).on("click", function () {
+        $('.pagingLast', $pagerContainer).on('click', function () {
             if (isVisible(this)) {
                 goToPage($pagerContainer, method, noOfPage);
             }
         });
-        $(".pagingNext", $pagerContainer).on("click", function () {
+        $('.pagingNext', $pagerContainer).on('click', function () {
             if (isVisible(this)) {
-                var currentPage = parseInt($pageIndex.val(), 10);
+                const currentPage = parseInt($pageIndex.val(), 10);
                 goToPage($pagerContainer, method, currentPage + 1);
             }
         });
 
-        $("select.pageSizeSelected", $pagerContainer).on("change", function () {
-            var $pageSize = getByName($pagerContainer, "PageSize");
-            var pageSize = $(this).val();
+        $('select.pageSizeSelected', $pagerContainer).on('change', function () {
+            const $pageSize = getByName($pagerContainer, 'PageSize');
+            const pageSize = $(this).val();
             $pageSize.val(pageSize);
             setting.pagesize = pageSize;
             goToPage($pagerContainer, method, 1);
         });
 
-        $pageIndex.on("keyup", function (e) {
-            var code = e.keyCode ? e.keyCode : e.which;
+        $pageIndex.on('keyup', function (e) {
+            const code = e.keyCode ? e.keyCode : e.which;
             if (code === 13) {
-                var value = parseInt($(this).val());
+                const value = parseInt($(this).val(), 10);
                 if (value > 0 && value <= noOfPage) {
                     $(this).val(value);
                     goToPage($pagerContainer, method, value);
@@ -484,19 +483,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js"), __webpack_require__(/*! materialize-autocomplete */ "./node_modules/materialize-autocomplete/jquery.materialize-autocomplete.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
+    'use strict';
 
-    var mainOption = {
+    const mainOption = {
         suggestionDropdown: '#suggestionDropdown',
         url: null,
         target: null
     };
 
-    var DELAY_MILLISECOND = 600;
+    const DELAY_MILLISECOND = 600;
 
-    var _autoComplete;
+    let _autoComplete;
 
-    var _me = {
+    const _me = {
         initialize: function (option) {
             _me.initAutoComplete(option);
             _me.initEvent();
@@ -517,7 +516,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         initAutoComplete: function (option) {
             $.extend(mainOption, option);
             if (!mainOption.url || !mainOption.target) {
-                throw Error("Missing data in option");
+                throw Error('Missing data in option');
             }
 
             _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
@@ -530,23 +529,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         search: function (value, callback) {
-            var query = $.trim(value);
+            const query = $.trim(value);
             if (query.length < 3)
             {
                 return;
             }
 
-            var url = mainOption.url + "?query=" + value;
+            const url = mainOption.url + '?query=' + value;
 
             $.ajax({
-                type: "GET",
-                dataType: "json",
+                type: 'GET',
+                dataType: 'json',
                 url: url,
                 success: function (response) {
-                    var suggestions = response.suggestions;
+                    const suggestions = response.suggestions;
 
                     if (suggestions && suggestions.length > 0) {
-                        var data = suggestions.map(function (item) {
+                        const data = suggestions.map(function (item) {
                             return { id: item, text: item };
                         });
 
@@ -561,8 +560,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         updateWidthOfSuggestionDropdown: function () {
-            var $autoCompleteTarget = $(mainOption.target);
-            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+            const $autoCompleteTarget = $(mainOption.target);
+            const $suggestionDropdown = $(mainOption.suggestionDropdown);
             if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
                 $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
             }
@@ -587,15 +586,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -613,23 +612,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -648,14 +647,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -666,14 +665,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -685,16 +684,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -711,45 +710,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -765,8 +764,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -775,7 +774,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -792,10 +791,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -803,10 +802,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -814,37 +813,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -854,16 +853,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -871,44 +870,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -920,7 +919,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -1078,12 +1077,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1144,7 +1143,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -4847,32 +4848,32 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"), __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListState, CustomerListService) {
-    var _state;
+    let _state;
 
-    var _me = {
+    const _me = {
         initialize: function () {
             _state = CustomerListState.getState();
 
-            $("#report-content").on("change", "input[type=checkbox].baStatus", function () {
+            $('#report-content').on('change', 'input[type=checkbox].baStatus', function () {
                 _me.updateBASetting($(this));
             });
         },
 
         updateBASetting: function ($context) {
-            var canUpdateBA = $("#CanUpdateBA").val();
+            const canUpdateBA = $('#CanUpdateBA').val();
             if (!canUpdateBA) {
-                alert($("#CanUpdateBAMessage").val());
+                alert($('#CanUpdateBAMessage').val());
                 return;
             }
 
-            var data = $context.data("val");
-            var confirmMsg = data.isAllowBA ? Site.getSingleResource("AlertTurnOnBAMsg") : Site.getSingleResource("AlertTurnOffBAMsg");
-            var currentBAStatus = !data.isAllowBA;
+            const data = $context.data('val');
+            const confirmMsg = data.isAllowBA ? Site.getSingleResource('AlertTurnOnBAMsg') : Site.getSingleResource('AlertTurnOffBAMsg');
+            const currentBAStatus = !data.isAllowBA;
 
             if (window.confirm(confirmMsg)) {
-                var url = Site.resolveClientUrl("CustomerAPI/UpdateBAStatus");
+                const url = Site.resolveClientUrl('CustomerAPI/UpdateBAStatus');
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     url: url,
                     data: data,
                     beforeSend: function () {
@@ -4880,18 +4881,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     },
                     success: function (response) {
                         if (response.IsSuccessful) {
-                            var rowIndex = ($context.closest("tr").attr("id") - 1) % _state.pagingOption.pagesize;
+                            const rowIndex = ($context.closest('tr').attr('id') - 1) % _state.pagingOption.pagesize;
                             _state.cachedData.Data[rowIndex].BAStatus = data.isAllowBA;
                             _state.cachedData.Data[rowIndex].OddsGroup = response.OddsGroup;
                             CustomerListService.bindData(_state.cachedData, true);
                         }
                         else {
-                            $context.prop("checked", currentBAStatus);
+                            $context.prop('checked', currentBAStatus);
                             alert(response.Message);
                         }
                     },
                     error: function () {
-                        $context.prop("checked", currentBAStatus);
+                        $context.prop('checked', currentBAStatus);
                     },
                     complete: function () {
                         Site.unBlockUI();
@@ -4899,14 +4900,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     statusCode:
                     {
                         404: function () {
-                            $context.prop("checked", currentBAStatus);
+                            $context.prop('checked', currentBAStatus);
                             alert('Error-Page not found');
                         }
                     }
                 });
             }
             else {
-                $context.prop("checked", currentBAStatus);
+                $context.prop('checked', currentBAStatus);
             }
         }
     };
@@ -4925,11 +4926,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"), __webpack_require__(/*! ./customerlist.grid */ "./www/js/source/pages/customer/customerlist/customerlist.grid.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional, Popup, CustomerListState, CustomerListGrid) {
-        "use strict";
+        'use strict';
 
-        var _state;
+        let _state;
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
 
@@ -4938,13 +4939,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 });
 
                 $('#UpdateComm').click(function () {
-                    var groupCommId = $('#UpdateComm').data('group-id');
+                    const groupCommId = $('#UpdateComm').data('group-id');
                     _me.showUpdateCustComm(groupCommId);
                 });
 
                 $('#RemoveFromGroup').click(_me.showRemoveFromGroup);
 
-                $("#GroupListSelect").change(function () {
+                $('#GroupListSelect').change(function () {
                     _me.newGroupChanged(this);
                 });
 
@@ -4970,37 +4971,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             commissionOnChange: function (value, idName) {
-                var comm2 = "#" + idName + "2", comm3 = "#" + idName + "3";
+                const comm2 = '#' + idName + '2', comm3 = '#' + idName + '3';
 
                 if (Number(value) === 15) {
                     $(comm2).val(0);
-                    $(comm2).selectList("update", {
+                    $(comm2).selectList('update', {
                         isDisabled: true,
-                        selectionId: "select-list-" + idName + "2",
-                        labelText: "0"
+                        selectionId: 'select-list-' + idName + '2',
+                        labelText: '0'
                     });
                     $(comm3).val(0);
-                    $(comm3).selectList("update", {
+                    $(comm3).selectList('update', {
                         isDisabled: true,
-                        selectionId: "select-list-" + idName + "3",
-                        labelText: "0"
+                        selectionId: 'select-list-' + idName + '3',
+                        labelText: '0'
                     });
                 } else {
-                    $(comm2).selectList("disabled", false);
-                    $(comm3).selectList("disabled", false);
+                    $(comm2).selectList('disabled', false);
+                    $(comm3).selectList('disabled', false);
                 }
             },
 
             // This function used to remove data row after updated/remove or move group commission.
             processGroupCommItem: function (status) {
-                var selectList = [];
-                var list = $("input:checkbox.check-child:checked");
-                for (var i = 0; i < list.length; i++) {
+                const selectList = [];
+                const list = $('input:checkbox.check-child:checked');
+                for (let i = 0; i < list.length; i++) {
                     selectList.push(list[i].id);
                 }
 
                 if (status) {
-                    for (var j = 0; j < selectList.length; j++) {
+                    for (let j = 0; j < selectList.length; j++) {
                         $('#row' + selectList[j]).remove();
                     }
                 }
@@ -5008,14 +5009,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             /* move customer to group*/
             showMoveCustomerToGroup: function () {
-                $('#lblMoveToGroupMsg').html("");
+                $('#lblMoveToGroupMsg').html('');
                 _me.clearNotification();
 
-                Popup.openPopupWithButton($("#MoveToGroupPopUp"),
+                Popup.openPopupWithButton($('#MoveToGroupPopUp'),
                     {
                         title: Site.getSingleResource('MoveToGroup'),
                         id: 'MoveToGroupPopUp',
-                        height: "auto",
+                        height: 'auto',
                         width: 350
                     },
                     [
@@ -5024,37 +5025,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             click: function () {
                                 _me.moveCustomerToGroup();
                             },
-                            classes: "btn btn-submit"
+                            classes: 'btn btn-submit'
                         },
                         {
                             text: Site.getSingleResource('Cancel'),
                             isClosedOnClick: true,
-                            classes: "btn btn-cancel"
+                            classes: 'btn btn-cancel'
                         }
                     ]
                 );
             },
 
             moveCustomerToGroup: function () {
-                var groupid = Number($('#GroupListSelect').val());
+                const groupid = Number($('#GroupListSelect').val());
 
                 if (groupid === -1) {
                     _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
                     return;
                 }
 
-                var selectedCustomers = _state.selectedCustomers;
+                const selectedCustomers = _state.selectedCustomers;
 
                 if (Object.keys(selectedCustomers).length === 0) {
                     _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                     return;
                 }
 
-                var custList = [];
+                const custList = [];
 
-                for (var custId in selectedCustomers) {
+                for (let custId in selectedCustomers) {
                     if (selectedCustomers.hasOwnProperty(custId)) {
-                        var currentGroupId = selectedCustomers[custId];
+                        const currentGroupId = selectedCustomers[custId];
                         if (currentGroupId === 0 || currentGroupId !== groupid) {
                             custList.push(custId);
                         }
@@ -5065,16 +5066,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     _me.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
                     return;
                 }
-                var param =
+                const param =
                 {
                     CustomerIds: custList.toString(),
                     GroupComId: groupid
                 };
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     data: param,
-                    url: Site.resolveClientUrl("CustomerAPI/MoveToGroupCom"),
-                    dataType: "json",
+                    url: Site.resolveClientUrl('CustomerAPI/MoveToGroupCom'),
+                    dataType: 'json',
                     beforeSend: function () {
                         _me.ajaxStart();
                     },
@@ -5085,12 +5086,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         if (result.Success) {
                             _me.showMsg(Site.getSingleResource('MoveSuccessfullyMsg'), result.Success);
 
-                            var groupName = result.ExtendedData.GroupName;
+                            let groupName = result.ExtendedData.GroupName;
                             if (groupName.length > 17) {
                                 groupName = groupName.substring(0, 14);
-                                groupName += "...";
+                                groupName += '...';
                             }
-                            var groupNameText = "<span title='" + result.ExtendedData.GroupName + "'>" + groupName + "</span>";
+                            const groupNameText = '<span title="' + result.ExtendedData.GroupName + '">' + groupName + '</span>';
 
                             CustomerListGrid.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
@@ -5106,10 +5107,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             /* update customer*/
             showUpdateCustComm: function (groupCommId) {
-                var isShowInfo = false;
-                var selectedCustomers = _state.selectedCustomers;
+                let isShowInfo = false;
+                const selectedCustomers = _state.selectedCustomers;
 
-                for (var custId in selectedCustomers) {
+                for (let custId in selectedCustomers) {
                     if (selectedCustomers.hasOwnProperty(custId) && selectedCustomers[custId] !== 0) {
                         isShowInfo = true;
                         break;
@@ -5119,20 +5120,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $('#InfoMsg').toggle(isShowInfo);
                 _me.clearNotification();
 
-                Popup.openPopupWithButton($("#UpdateCustCommPopUp"),
+                Popup.openPopupWithButton($('#UpdateCustCommPopUp'),
                     {
-                        title: Site.getSingleResource("UpdateCustomerCommission"),
+                        title: Site.getSingleResource('UpdateCustomerCommission'),
                         id: 'UpdateCustCommPopUp',
-                        height: "auto",
+                        height: 'auto',
                         width: 500,
                         onOpen: function () {
-                            $(".commission-selection").each(function (index, value) {
-                                var $this = $(this);
+                            $('.commission-selection').each(function (index, value) {
+                                const $this = $(this);
                                 $this.val(0);
-                                $this.selectList("update", {
+                                $this.selectList('update', {
                                     isDisabled: false,
-                                    selectionId: "select-list-" + value.id,
-                                    labelText: "0"
+                                    selectionId: 'select-list-' + value.id,
+                                    labelText: '0'
                                 });
                             });
                         }
@@ -5143,37 +5144,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             click: function () {
                                 _me.updateCustomerComm(groupCommId);
                             },
-                            classes: "btn btn-submit"
+                            classes: 'btn btn-submit'
                         },
                         {
                             text: Site.getSingleResource('Cancel'),
                             isClosedOnClick: true,
-                            classes: "btn btn-cancel"
+                            classes: 'btn btn-cancel'
                         }
                     ]
                 );
             },
             initCommissionParam: function (id) {
-                var comm1 = parseInt($(id + 1).val());
-                var comm2 = parseInt($(id + 2).val());
-                var comm3 = parseInt($(id + 3).val());
-                var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
+                const comm1 = parseInt($(id + 1).val(), 10);
+                const comm2 = parseInt($(id + 2).val(), 10);
+                const comm3 = parseInt($(id + 3).val(), 10);
+                const comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
                 return comm;
             },
             updateCustomerComm: function (groupCommId) {
-                var custList = Object.keys(_state.selectedCustomers);
+                const custList = Object.keys(_state.selectedCustomers);
 
                 if (custList.length === 0) {
                     _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                     return;
                 }
 
-                var sbcom = _me.initCommissionParam('#CustSBComm');
-                var parlayCom = _me.initCommissionParam('#CustParlayComm');
-                var ngcom = _me.initCommissionParam('#CustNGComm');
-                var lccom = _me.initCommissionParam('#CustLCComm');
-                var cscom = _me.initCommissionParam('#CustCSComm');
-                var param =
+                const sbcom = _me.initCommissionParam('#CustSBComm');
+                const parlayCom = _me.initCommissionParam('#CustParlayComm');
+                const ngcom = _me.initCommissionParam('#CustNGComm');
+                const lccom = _me.initCommissionParam('#CustLCComm');
+                const cscom = _me.initCommissionParam('#CustCSComm');
+                const param =
                 {
                     GroupId: groupCommId,
                     CustomerIds: custList.toString(),
@@ -5185,9 +5186,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 };
 
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     data: param,
-                    url: Site.resolveClientUrl("CustomerAPI/UpdateCustomerCom"),
+                    url: Site.resolveClientUrl('CustomerAPI/UpdateCustomerCom'),
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     dataType: 'json',
                     beforeSend: function () {
@@ -5214,19 +5215,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             /* remove from group*/
             showRemoveFromGroup: function () {
-                var msg = Object.keys(_state.selectedCustomers).length > 1
+                const msg = Object.keys(_state.selectedCustomers).length > 1
                     ? Site.getSingleResource('RemoveTheseCustomersFromGroupMsg')
                     : Site.getSingleResource('RemoveThisCustomerFromGroupMsg');
 
-                $("#RemoveConfirmMsg").html(msg);
+                $('#RemoveConfirmMsg').html(msg);
 
                 _me.clearNotification();
 
-                Popup.openPopupWithButton($("#ConfirmRemoveFromGroupPopUp"),
+                Popup.openPopupWithButton($('#ConfirmRemoveFromGroupPopUp'),
                     {
-                        title: Site.getSingleResource("RemoveFromGroup"),
+                        title: Site.getSingleResource('RemoveFromGroup'),
                         id: 'ConfirmRemoveFromGroupPopUp',
-                        height: "auto",
+                        height: 'auto',
                         width: 400
                     },
                     [
@@ -5235,26 +5236,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             click: function () {
                                 _me.removeFromGroupComm();
                             },
-                            classes: "btn btn-submit"
+                            classes: 'btn btn-submit'
                         },
                         {
                             text: Site.getSingleResource('Cancel'),
                             isClosedOnClick: true,
                             click: function () {
-                                $('input[name="RadioComm"]:eq(1)').prop("checked", true);
+                                $('input[name="RadioComm"]:eq(1)').prop('checked', true);
                             },
-                            classes: "btn btn-cancel"
+                            classes: 'btn btn-cancel'
                         }
                     ]
                 );
             },
 
             removeFromGroupComm: function () {
-                var checkedCustomers = _state.selectedCustomers;
-                var numberOfCheckedCustomers = Object.keys(checkedCustomers).length;
-                var groupList = [];
+                const checkedCustomers = _state.selectedCustomers;
+                const numberOfCheckedCustomers = Object.keys(checkedCustomers).length;
+                const groupList = [];
 
-                for (var customerId in checkedCustomers) {
+                for (let customerId in checkedCustomers) {
                     if (checkedCustomers.hasOwnProperty(customerId) && checkedCustomers[customerId] > 0) {
                         groupList.push(checkedCustomers[customerId]);
                     }
@@ -5270,30 +5271,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     return;
                 }
 
-                var iskeepcom = $('#KeepComm').is(':checked');
-                var param =
+                const iskeepcom = $('#KeepComm').is(':checked');
+                const param =
                 {
                     CustomerIds: Object.keys(checkedCustomers).toString(),
                     isRemovePlayercomm: !iskeepcom
                 };
 
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     data: param,
-                    url: Site.resolveClientUrl("CustomerAPI/RemoveFromGroupCom"),
-                    dataType: "json",
+                    url: Site.resolveClientUrl('CustomerAPI/RemoveFromGroupCom'),
+                    dataType: 'json',
                     beforeSend: _me.ajaxStart,
                     complete: _me.ajaxStop,
                     success: function (result) {
                         if (result.Success) {
                             if (numberOfCheckedCustomers > 0 && groupList.length > 0 && groupList.length < numberOfCheckedCustomers) {
-                                _me.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
+                                _me.showMsg(result.Message + '! </br> ' + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
                             }
                             else {
                                 _me.showMsg(result.Message, result.Success);
                             }
                             if (param.isRemovePlayercomm) {
-                                CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
+                                CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, '',
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
                                                 result.ExtendedData.RNGComm);
                             }
@@ -5310,42 +5311,42 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             showMsg: function (msg, isSuccess) {
                 if (isSuccess) {
-                    $(".success-message").html(msg).show();
-                    $(".error-message").hide();
+                    $('.success-message').html(msg).show();
+                    $('.error-message').hide();
                 }
                 else {
-                    $(".error-message").html(msg).show();
-                    $(".success-message").hide();
+                    $('.error-message').html(msg).show();
+                    $('.success-message').hide();
                 }
             },
 
             ajaxStart: function () {
-                $(".error-message").hide();
-                $(".success-message").hide();
-                $(".ajax-loading").show();
-                $("button", ".popup-button").attr("disabled", true);
-                $(".popup-close").addClass("disabled");
+                $('.error-message').hide();
+                $('.success-message').hide();
+                $('.ajax-loading').show();
+                $('button', '.popup-button').attr('disabled', true);
+                $('.popup-close').addClass('disabled');
             },
 
             ajaxStop: function () {
-                $(".ajax-loading").hide();
-                $("button", ".popup-button").attr("disabled", false);
-                $(".popup-close").removeClass("disabled");
+                $('.ajax-loading').hide();
+                $('button', '.popup-button').attr('disabled', false);
+                $('.popup-close').removeClass('disabled');
             },
 
             clearNotification: function () {
-                $(".ajax-loading").hide();
-                $(".error-message").hide();
-                $(".success-message").hide();
+                $('.ajax-loading').hide();
+                $('.error-message').hide();
+                $('.success-message').hide();
             },
 
             newGroupChanged: function (obj) {
-                var groupId = obj.options[obj.selectedIndex].value;
-                $('#NewSbComm').text($("#SBComm" + groupId).val());
-                $('#NewParlayComm').text($("#ParlayComm" + groupId).val());
-                $('#NewNgComm').text($("#NGComm" + groupId).val());
-                $('#NewLcComm').text($("#LCComm" + groupId).val());
-                $('#NewCsComm').text($("#CSComm" + groupId).val());
+                const groupId = obj.options[obj.selectedIndex].value;
+                $('#NewSbComm').text($('#SBComm' + groupId).val());
+                $('#NewParlayComm').text($('#ParlayComm' + groupId).val());
+                $('#NewNgComm').text($('#NGComm' + groupId).val());
+                $('#NewLcComm').text($('#LCComm' + groupId).val());
+                $('#NewCsComm').text($('#CSComm' + groupId).val());
             }
         };
 
@@ -5363,35 +5364,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, Popup, CustomerListService) {
-        "use strict";
+        'use strict';
 
-        var OPTIONLIST_SELECTOR = "#ViewOptionList";
+        const OPTIONLIST_SELECTOR = '#ViewOptionList';
 
         function getCustomerInfo() {
-            var $optionList = $(OPTIONLIST_SELECTOR);
+            const $optionList = $(OPTIONLIST_SELECTOR);
             return {
-                CustId: $optionList.data("custid"),
-                SystemId: $optionList.data("systemid"),
-                ExternalId: $optionList.data("externalid")
+                CustId: $optionList.data('custid'),
+                SystemId: $optionList.data('systemid'),
+                ExternalId: $optionList.data('externalid')
             };
         }
 
-        var _me = {
+        const _me = {
             initialize: function () {
-                $("#report-content").on("click", ".custoptionlink", function () {
-                    CustomerListService.showGridDropdownById("ViewOptionList", $(this));
+                $('#report-content').on('click', '.custoptionlink', function () {
+                    CustomerListService.showGridDropdownById('ViewOptionList', $(this));
                 });
 
-                $("#report-content").on("blur", ".custoptionlink", function () {
+                $('#report-content').on('blur', '.custoptionlink', function () {
                     setTimeout(function () {
-                        $("#ViewOptionList").hide();
+                        $('#ViewOptionList').hide();
                     }, 300);
                 });
 
-                $("#bet-setting-link").on("click", _me.viewBetSetting);
-                $("#bet-list-link").on("click", _me.viewBetList);
-                $("#statement-link").on("click", _me.viewStatement);
-                $("#login-info-link").on("click", _me.viewLogInfo);
+                $('#bet-setting-link').on('click', _me.viewBetSetting);
+                $('#bet-list-link').on('click', _me.viewBetList);
+                $('#statement-link').on('click', _me.viewStatement);
+                $('#login-info-link').on('click', _me.viewLogInfo);
             },
 
             closeCustOption: function () {
@@ -5399,36 +5400,36 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             viewBetSetting: function () {
-                var customer = getCustomerInfo();
+                const customer = getCustomerInfo();
 
                 _me.closeCustOption();
 
-                var url = Site.resolveClientUrl("SportsbookBetSetting/Index?custid=" +
-                    customer.CustId + "&username=" + customer.SystemId + "&nickname=" + customer.ExternalId);
+                const url = Site.resolveClientUrl('SportsbookBetSetting/Index?custid=' +
+                    customer.CustId + '&username=' + customer.SystemId + '&nickname=' + customer.ExternalId);
 
-                var popupOption = { id: "viewOptionBetSettingFrame", width: 905, height: 600, title: Site.getSingleResource("BetSetting") };
+                const popupOption = { id: 'viewOptionBetSettingFrame', width: 905, height: 600, title: Site.getSingleResource('BetSetting') };
                 Popup.openPopupWithIframe(url, popupOption);
             },
 
             viewLogInfo: function () {
                 _me.closeCustOption();
 
-                var customer = getCustomerInfo();
-                var url = Site.resolveClientUrl("Customer/LogInfo");
+                const customer = getCustomerInfo();
+                let url = Site.resolveClientUrl('Customer/LogInfo');
                 url = QueryString.setParams(url, customer);
 
-                var popupOption = { width: 360, height: 280, title: Site.getSingleResource("LogInfo"), id: "CustomerLogInfo" };
+                const popupOption = { width: 360, height: 280, title: Site.getSingleResource('LogInfo'), id: 'CustomerLogInfo' };
 
-                var $popup = $("#" + popupOption.id);
+                let $popup = $('#' + popupOption.id);
                 if ($popup.length > 0) {
-                    $popup = $popup.find(".wrapContent");
+                    $popup = $popup.find('.wrapContent');
                 }
                 else {
                     $popup = $('<div style="display: none" class="customer-logInfo"></div>');
                 }
 
                 $popup.load(url, function (response, status) {
-                    if (status === "success") {
+                    if (status === 'success') {
                         Popup.openPopup($(this), popupOption);
                     }
                 });
@@ -5438,31 +5439,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             viewBetList: function () {
                 _me.closeCustOption();
-                var customer = getCustomerInfo();
+                const customer = getCustomerInfo();
 
-                var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
+                let url = Site.resolveClientUrl('CustomerOutstandingBetList/Index');
                 url = QueryString.setParams(url, customer);
-                url = QueryString.setParam(url, "betlistname", "betlist");
+                url = QueryString.setParam(url, 'betlistname', 'betlist');
                 url = Site.setLicenseeOptionOriginalParam(url);
 
-                var popH = Math.min(window.innerHeight - 100, 600), popW = 900;
-                var popupOption = { id: "viewOptionFrame", width: popW + 30, height: popH + 70 };
+                const popH = Math.min(window.innerHeight - 100, 600), popW = 900;
+                const popupOption = { id: 'viewOptionFrame', width: popW + 30, height: popH + 70 };
 
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
             viewStatement: function () {
-                var customer = getCustomerInfo();
+                const customer = getCustomerInfo();
                 _me.closeCustOption();
 
-                var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
+                let url = Site.resolveClientUrl('CustomerOutstandingBetList/Index');
                 url = QueryString.setParams(url, customer);
-                url = QueryString.setParam(url, "betlistname", "dailystatement");
+                url = QueryString.setParam(url, 'betlistname', 'dailystatement');
                 url = Site.setLicenseeOptionOriginalParam(url);
 
-                var popH = Math.min(window.innerHeight - 100, 600), popW = 900;
-                var popupOption = { id: "viewOptionFrame", width: popW + 30, height: popH + 70 };
+                const popH = Math.min(window.innerHeight - 100, 600), popW = 900;
+                const popupOption = { id: 'viewOptionFrame', width: popW + 30, height: popH + 70 };
 
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
@@ -5486,78 +5487,78 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* This column only view in licensee HAIFA */
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    var _me = {
+    const _me = {
         initialize: function () {
             _me.initEvent();
         },
 
         initEvent: function () {
-            $("#report-content").on("click", ".custStatusOption", function () {
+            $('#report-content').on('click', '.custStatusOption', function () {
                 _me.showUpdatePopUp($(this));
                 return false;
             });
 
-            $("#custStatusUpdate").on("click", function () {
+            $('#custStatusUpdate').on('click', function () {
                 _me.updateCustStatus();
             });
 
-            $("#custStatusCancel").on("click", function () {
+            $('#custStatusCancel').on('click', function () {
                 _me.closeUpdatePopUp();
             });
 
-            $("#UpdateCustStatus").on("change", ".chkCustStatus", function () {
+            $('#UpdateCustStatus').on('change', '.chkCustStatus', function () {
                 _me.checkStatusChange();
             });
 
-            $("html").click(function (e) {
-                if ($(e.target).closest("#UpdateCustStatus").length === 0) {
-                    $("#UpdateCustStatus").fadeOut();
+            $('html').click(function (e) {
+                if ($(e.target).closest('#UpdateCustStatus').length === 0) {
+                    $('#UpdateCustStatus').fadeOut();
                 }
             });
         },
 
         showUpdatePopUp: function ($context) {
-            var custId = $context.data("custid");
-            var $statusLink = $("#edit-cust-status-" + custId);
-            var $popup = $("#UpdateCustStatus");
+            const custId = $context.data('custid');
+            const $statusLink = $('#edit-cust-status-' + custId);
+            const $popup = $('#UpdateCustStatus');
 
-            var position = $context.offset();
-            var isOverFlow = position.top + $popup.outerHeight() > window.innerHeight - 15;
+            const position = $context.offset();
+            const isOverFlow = position.top + $popup.outerHeight() > window.innerHeight - 15;
 
-            var popupTop = isOverFlow ? position.top - $popup.outerHeight() - 1 :
+            const popupTop = isOverFlow ? position.top - $popup.outerHeight() - 1 :
                                         position.top + $context.outerHeight() + 1;
 
             $popup.css({
                 top: popupTop,
                 left: position.left,
-                width: "auto"
+                width: 'auto'
             });
 
-            if ($popup.data("custid") === custId) {
+            if ($popup.data('custid') === custId) {
                 _me.checkStatusChange();
                 $popup.fadeToggle();
             }
             else {
-                var isClosed = $statusLink.data("isclosed");
-                var isSuspended = $statusLink.data("issuspended");
-                var externalId = $statusLink.data("externalid");
+                const isClosed = $statusLink.data('isclosed');
+                const isSuspended = $statusLink.data('issuspended');
+                const externalId = $statusLink.data('externalid');
 
-                $("#custStatus-externalId").text(externalId);
-                $("#custStatus-suspended").prop('checked', isSuspended);
-                $("#custStatus-closed").prop('checked', isClosed);
+                $('#custStatus-externalId').text(externalId);
+                $('#custStatus-suspended').prop('checked', isSuspended);
+                $('#custStatus-closed').prop('checked', isClosed);
 
-                $popup.data("custid", custId);
-                $popup.data("closed", isClosed);
-                $popup.data("suspended", isSuspended);
+                $popup.data('custid', custId);
+                $popup.data('closed', isClosed);
+                $popup.data('suspended', isSuspended);
 
-                $("#custStatusUpdate").prop("disabled", true);
+                $('#custStatusUpdate').prop('disabled', true);
                 $popup.fadeIn();
             }
         },
 
         closeUpdatePopUp: function () {
-            var $popup = $("#UpdateCustStatus");
-            if ($popup.is(":visible")) {
+            const $popup = $('#UpdateCustStatus');
+            if ($popup.is(':visible')) {
                 $popup.fadeOut();
             }
         },
@@ -5568,24 +5569,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* This colum
                 return;
             }
 
-            var $popup = $("#UpdateCustStatus");
-            var custId = $popup.data("custid");
-            var $statusLink = $("#edit-cust-status-" + custId);
+            const $popup = $('#UpdateCustStatus');
+            const custId = $popup.data('custid');
+            const $statusLink = $('#edit-cust-status-' + custId);
 
-            var isSuspended = $("#custStatus-suspended").prop('checked');
-            var isClosed = $("#custStatus-closed").prop('checked');
-            var url = Site.resolveClientUrl("CustomerAPI/UpdateCustStatus");
-            var params = {
+            const isSuspended = $('#custStatus-suspended').prop('checked');
+            const isClosed = $('#custStatus-closed').prop('checked');
+            const url = Site.resolveClientUrl('CustomerAPI/UpdateCustStatus');
+            const params = {
                 custId: custId,
                 isSuspended: isSuspended,
                 isClosed: isClosed
             };
 
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 data: params,
                 url: url,
-                dataType: "json",
+                dataType: 'json',
                 beforeSend: function () {
                     Site.blockUI();
                 },
@@ -5594,17 +5595,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* This colum
                     _me.closeUpdatePopUp(custId);
                 },
                 success: function (result) {
-                    var isSuccess = Number(result.Code) === 0;
+                    const isSuccess = Number(result.Code) === 0;
                     if (isSuccess) {
-                        var statusText = isClosed === true ? Site.getSingleResource("Closed") :
-                                    isSuspended === true ? Site.getSingleResource("Suspended") : Site.getSingleResource("Open");
+                        const statusText = isClosed === true ? Site.getSingleResource('Closed') :
+                                    isSuspended === true ? Site.getSingleResource('Suspended') : Site.getSingleResource('Open');
 
                         $statusLink.text(statusText);
-                        $statusLink.data("isclosed", isClosed);
-                        $statusLink.data("issuspended", isSuspended);
+                        $statusLink.data('isclosed', isClosed);
+                        $statusLink.data('issuspended', isSuspended);
 
-                        $popup.data("closed", isClosed);
-                        $popup.data("suspended", isSuspended);
+                        $popup.data('closed', isClosed);
+                        $popup.data('suspended', isSuspended);
                     }
                     else {
                         alert(result.Message);
@@ -5614,12 +5615,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* This colum
         },
 
         checkStatusChange: function () {
-            var $popup = $("#UpdateCustStatus");
-            var isSuspended = $("#custStatus-suspended").prop('checked');
-            var isClosed = $("#custStatus-closed").prop('checked');
+            const $popup = $('#UpdateCustStatus');
+            const isSuspended = $('#custStatus-suspended').prop('checked');
+            const isClosed = $('#custStatus-closed').prop('checked');
 
-            var changed = $popup.data("closed") !== isClosed || $popup.data("suspended") !== isSuspended;
-            $("#custStatusUpdate").prop("disabled", !changed);
+            const changed = $popup.data('closed') !== isClosed || $popup.data('suspended') !== isSuspended;
+            $('#custStatusUpdate').prop('disabled', !changed);
         }
     };
 
@@ -5640,20 +5641,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* This colum
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"), __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js"), __webpack_require__(/*! ./customerlist.service.dormant */ "./www/js/source/pages/customer/customerlist/customerlist.service.dormant.js"),
     __webpack_require__(/*! components/pluginhelper/autocomplete */ "./www/js/source/components/pluginhelper/autocomplete.js"), __webpack_require__(/*! lib/jquery.multiselect */ "./www/js/source/lib/jquery.multiselect.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListState, CustomerListService, CustomerListServiceDormant, AutoComplete) {
-        var _state;
-        var _dormantState;
+        let _state;
+        let _dormantState;
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
                 _dormantState = CustomerListState.getDormantState();
                 Site.addUserGuide({
-                    resourceName: "CustomerList",
-                    title: Site.getSingleResource("CustomerList")
+                    resourceName: 'CustomerList',
+                    title: Site.getSingleResource('CustomerList')
                 });
                 AutoComplete.initialize({
-                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchActiveAndDormantCustomer"),
-                    target: "#Username"
+                    url: Site.resolveClientUrl('SearchCustomerAPI/SearchActiveAndDormantCustomer'),
+                    target: '#Username'
                 });
                 _me.initEvent();
             },
@@ -5662,14 +5663,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 _dormantState.pagingOption.pageindex = 1;
                 CustomerListService.submit();
                 CustomerListServiceDormant.submit();
-                $(".page-results").show();
+                $('.page-results').show();
             },
             initEvent: function () {
                 $('#SubmitButton').click(function () {
                     _me.submit();
                 });
 
-                $("#Username").on('keyup', function (e) {
+                $('#Username').on('keyup', function (e) {
                     if (e.keyCode === 13) {
                         _state.pagingOption.pageindex = 1;
                         _dormantState.pagingOption.pageindex = 1;
@@ -5684,12 +5685,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             initGridColumnOption: function () {
-                var data = $.parseJSON($("#AllowedGridColumns").val());
-                var totalColumns = data.length;
-                var dataUI = [];
-                var checkedCount = 0;
-                for (var i = 0; i < totalColumns; i++) {
-                    var isChecked = Site.asBool(data[i].Checked);
+                const data = $.parseJSON($('#AllowedGridColumns').val());
+                const totalColumns = data.length;
+                const dataUI = [];
+                let checkedCount = 0;
+                for (let i = 0; i < totalColumns; i++) {
+                    const isChecked = Site.asBool(data[i].Checked);
                     if (isChecked) {
                         checkedCount++;
                     }
@@ -5699,12 +5700,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         Text: Site.getSingleResource(data[i].Name),
                         Checked: isChecked,
                         Enable: true,
-                        Css: "",
-                        CssClass: ""
+                        Css: '',
+                        CssClass: ''
                     });
                 }
-                var ischeckAll = checkedCount === totalColumns;
-                $("#grid-columns-multiselect").multiSelect({
+                const ischeckAll = checkedCount === totalColumns;
+                $('#grid-columns-multiselect').multiSelect({
                     minWidth: 160,
                     maxHeight: 400,
                     shadow: true,
@@ -5712,40 +5713,40 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     isCheckAll: ischeckAll,
                     showFooter: false,
                     checkAllText: Site.getSingleResource('All'),
-                    noneSelectedText: Site.getSingleResource("Columns"),
-                    selectedText: Site.getSingleResource("SelectedItemCount"),
+                    noneSelectedText: Site.getSingleResource('Columns'),
+                    selectedText: Site.getSingleResource('SelectedItemCount'),
                     listData: dataUI,
                     onCheck: function () {
-                        var checkedItems = $("#grid-columns-multiselect").multiSelect("getCheckedItems");
+                        const checkedItems = $('#grid-columns-multiselect').multiSelect('getCheckedItems');
                         if (checkedItems.length === 0) {
-                            $("#SubmitButton").prop("disabled", true);
-                            $("#grid-columns-multiselect-null").removeClass("hide");
-                            $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
+                            $('#SubmitButton').prop('disabled', true);
+                            $('#grid-columns-multiselect-null').removeClass('hide');
+                            $('#grid-columns-option-container input[type=checkbox]:checked').prop('checked', false);
                         }
                         else {
-                            $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
-                            for (var i = 0; i < checkedItems.length; i++) {
-                                $('#grid-columns-option-container input#' + checkedItems[i]).prop("checked", true);
+                            $('#grid-columns-option-container input[type=checkbox]:checked').prop('checked', false);
+                            for (let i = 0; i < checkedItems.length; i++) {
+                                $('#grid-columns-option-container input#' + checkedItems[i]).prop('checked', true);
                             }
-                            $("#SubmitButton").prop("disabled", false);
-                            $("#grid-columns-multiselect-null").addClass("hide");
+                            $('#SubmitButton').prop('disabled', false);
+                            $('#grid-columns-multiselect-null').addClass('hide');
                         }
                     }
                 });
             },
 
             initOddGroupOption: function () {
-                var data = $("#OddsGroups").val();
+                let data = $('#OddsGroups').val();
                 if (!data) {
                     return;
                 }
 
                 data = $.parseJSON(data);
-                var totalColumns = data.length;
-                var dataUI = [];
-                var checkedCount = 0;
-                for (var i = 0; i < totalColumns; i++) {
-                    var isChecked = Site.asBool(data[i].Checked);
+                const totalColumns = data.length;
+                const dataUI = [];
+                let checkedCount = 0;
+                for (let i = 0; i < totalColumns; i++) {
+                    const isChecked = Site.asBool(data[i].Checked);
                     if (isChecked) {
                         checkedCount++;
                     }
@@ -5756,13 +5757,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         Text: Site.getSingleResource(data[i].Name),
                         Checked: isChecked,
                         Enable: true,
-                        Css: "",
-                        CssClass: ""
+                        Css: '',
+                        CssClass: ''
                     });
                 }
 
-                var ischeckAll = checkedCount === totalColumns;
-                $("#odds-group-multiselect").multiSelect({
+                const ischeckAll = checkedCount === totalColumns;
+                $('#odds-group-multiselect').multiSelect({
                     minWidth: 100,
                     maxHeight: 400,
                     shadow: true,
@@ -5770,33 +5771,33 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     isCheckAll: ischeckAll,
                     showFooter: false,
                     checkAllText: Site.getSingleResource('All'),
-                    noneSelectedText: Site.getSingleResource("Odds"),
-                    selectedText: Site.getSingleResource("SelectedItemCount"),
+                    noneSelectedText: Site.getSingleResource('Odds'),
+                    selectedText: Site.getSingleResource('SelectedItemCount'),
                     listData: dataUI,
                     onCheck: function () {
-                        var checkedItems = $("#odds-group-multiselect").multiSelect("getCheckedItems");
-                        $("#SubmitButton").prop("disabled", checkedItems.length === 0);
+                        const checkedItems = $('#odds-group-multiselect').multiSelect('getCheckedItems');
+                        $('#SubmitButton').prop('disabled', checkedItems.length === 0);
                     }
                 });
             },
 
             initSubsidiaryOption: function () {
-                var data = $("#SubsidiaryList").val();
+                let data = $('#SubsidiaryList').val();
                 if (!data) {
                     return;
                 }
 
                 data = $.parseJSON(data);
-                var totalColumns = data.length;
-                var dataUI = [{
+                const totalColumns = data.length;
+                const dataUI = [{
                     Value: '(others)',
                     Text: Site.getSingleResource('Others'),
                     Checked: true,
                     Enable: true
                 }];
-                var checkedCount = 0;
-                for (var i = 0; i < totalColumns; i++) {
-                    var isChecked = Site.asBool(data[i].Checked);
+                let checkedCount = 0;
+                for (let i = 0; i < totalColumns; i++) {
+                    const isChecked = Site.asBool(data[i].Checked);
                     if (isChecked) {
                         checkedCount++;
                     }
@@ -5809,8 +5810,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     });
                 }
 
-                var ischeckAll = checkedCount === totalColumns;
-                $("#subsidiary-multiselect").multiSelect(
+                const ischeckAll = checkedCount === totalColumns;
+                $('#subsidiary-multiselect').multiSelect(
                 {
                     minWidth: 100,
                     maxHeight: 400,
@@ -5820,11 +5821,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     isCheckAll: ischeckAll,
                     showFooter: false,
                     checkAllText: Site.getSingleResource('All'),
-                    selectedText: Site.getSingleResource("SelectedItemCount"),
+                    selectedText: Site.getSingleResource('SelectedItemCount'),
                     listData: dataUI,
                     onCheck: function () {
-                        var checkedItems = $("#subsidiary-multiselect").multiSelect("getCheckedItems");
-                        $("#SubmitButton").prop("disabled", checkedItems.length === 0);
+                        const checkedItems = $('#subsidiary-multiselect').multiSelect('getCheckedItems');
+                        $('#SubmitButton').prop('disabled', checkedItems.length === 0);
                     }
                 });
             }
@@ -5872,18 +5873,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         PagingHelper,
         Popup,
         jqGridAdditional) {
-        var _state;
-        var _dormantState;
+        let _state;
+        let _dormantState;
         function updateGroupForCheckCustomerArray(groupid) {
-            var selectedCustomers = _state.selectedCustomers;
-            for (var custId in selectedCustomers) {
+            const selectedCustomers = _state.selectedCustomers;
+            for (let custId in selectedCustomers) {
                 if (selectedCustomers.hasOwnProperty(custId)) {
                     selectedCustomers[custId] = groupid;
                 }
             }
         }
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
                 _dormantState = CustomerListState.getDormantState();
@@ -5892,7 +5893,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     ajaxPagingDormant: _me.ajaxPagingDormant,
                 };
 
-                $("#SubmitButton").prop("disabled", true);
+                $('#SubmitButton').prop('disabled', true);
 
                 CustomerListBAStatus.initialize();
                 CustomerListSpecialLevel.initialize();
@@ -5900,16 +5901,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 CustomerListCustStatus.initialize();
 
                 _me.initEvent();
-                $("#SubmitButton").prop("disabled", false);
+                $('#SubmitButton').prop('disabled', false);
             },
 
             ajaxPaging: function () {
-                _state.pagingOption = PagingHelper.getSetting("#ActiveCustomerPager");
+                _state.pagingOption = PagingHelper.getSetting('#ActiveCustomerPager');
                 CustomerListService.submit();
             },
 
             ajaxPagingDormant: function () {
-                _dormantState.pagingOption = PagingHelper.getSetting("#DormantCustomerPager");
+                _dormantState.pagingOption = PagingHelper.getSetting('#DormantCustomerPager');
                 CustomerListServiceDormant.submit();
             },
 
@@ -5922,29 +5923,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 });
                 _me.registerCheckboxEvent();
 
-                $("#report-content").on("click", ".pendingFunds", function () {
-                    var $this = $(this);
-                    var custId = $this.data("custid");
-                    var systemId = $this.data("systemid");
-                    var externalId = $this.data("externalid");
+                $('#report-content').on('click', '.pendingFunds', function () {
+                    const $this = $(this);
+                    const custId = $this.data('custid');
+                    const systemId = $this.data('systemid');
+                    const externalId = $this.data('externalid');
 
                     _me.viewRunningBetlist(custId, systemId, externalId);
                 });
 
-                $(window).on("resize", function () {
-                    CustomerListService.resizeGrid("#ReportGrid");
-                    jqGridAdditional.updateGridHeight($("#tabDormantCustomer"));
+                $(window).on('resize', function () {
+                    CustomerListService.resizeGrid('#ReportGrid');
+                    jqGridAdditional.updateGridHeight($('#tabDormantCustomer'));
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
             },
 
             registerCheckboxEvent: function () {
-                $("#report-content").on("change", "#CheckAll", function () {
-                    var isCheckedAll = this.checked;
-                    var selectedCustomers = {};
+                $('#report-content').on('change', '#CheckAll', function () {
+                    const isCheckedAll = this.checked;
+                    const selectedCustomers = {};
 
                     if (isCheckedAll) {
                         _state.cachedData.Data.map(function (item) {
@@ -5957,10 +5958,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     CustomerListService.bindData(_state.cachedData);
                 });
 
-                $("#report-content").on("change", ".select-cust-checkbox", function () {
-                    var custid = Number(this.id);
-                    var group = $(this).data("group-comm-id");
-                    var selectedCustomers = _state.selectedCustomers;
+                $('#report-content').on('change', '.select-cust-checkbox', function () {
+                    const custid = Number(this.id);
+                    const group = $(this).data('group-comm-id');
+                    const selectedCustomers = _state.selectedCustomers;
 
                     if (this.checked) {
                         selectedCustomers[custid] = group;
@@ -5969,27 +5970,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     }
 
                     _state.checkedAllRows = Object.keys(selectedCustomers).length === _state.cachedData.Data.length;
-                    $("#CheckAll").prop("checked", _state.checkedAllRows);
+                    $('#CheckAll').prop('checked', _state.checkedAllRows);
                 });
             },
 
             viewRunningBetlist: function (custId, systemId, externalId) {
-                var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
-                url = QueryString.setParam(url, "custid", custId);
-                url = QueryString.setParam(url, "externalid", externalId);
-                url = QueryString.setParam(url, "systemid", systemId);
-                url = QueryString.setParam(url, "betlistname", "betlistrunning");
+                let url = Site.resolveClientUrl('CustomerOutstandingBetList/Index');
+                url = QueryString.setParam(url, 'custid', custId);
+                url = QueryString.setParam(url, 'externalid', externalId);
+                url = QueryString.setParam(url, 'systemid', systemId);
+                url = QueryString.setParam(url, 'betlistname', 'betlistrunning');
                 url = Site.setLicenseeOptionOriginalParam(url);
 
-                var popH = Math.min(window.innerHeight - 100, 700), popW = 900;
-                var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 70, title: Site.getSingleResource('BetListRunning') };
+                const popH = Math.min(window.innerHeight - 100, 700), popW = 900;
+                const popupOption = { id: 'betlist-popup', width: popW + 30, height: popH + 70, title: Site.getSingleResource('BetListRunning') };
                 Popup.openPopupWithIframe(url, popupOption);
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
             updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, csCom) {
-                var count = 0;
-                var length = Object.keys(_state.selectedCustomers).length;
+                let count = 0;
+                const length = Object.keys(_state.selectedCustomers).length;
 
                 $.each(_state.cachedData.Data, function (index, item) {
                     if (count === length) {
@@ -6011,8 +6012,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             updateGridGroup: function (groupid, groupName, groupColor) {
-                var count = 0;
-                var length = Object.keys(_state.selectedCustomers).length;
+                let count = 0;
+                const length = Object.keys(_state.selectedCustomers).length;
                 $.each(_state.cachedData.Data, function (index, item) {
                     if (count === length) {
                         return false;
@@ -6045,9 +6046,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-        "use strict";
+        'use strict';
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
             name: 'ExternalId',
             index: 'ExternalId',
@@ -6057,7 +6058,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
             name: 'SystemId',
             index: 'SystemId',
@@ -6067,7 +6068,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var balanceColumn = {
+        const balanceColumn = {
             name: 'Balance',
             index: 'Balance',
             width: 150,
@@ -6075,25 +6076,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false,
             resizable: false,
             formatter: 'number',
-            formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' },
+            formatteroptions: { decimalSeparator: '.', thousandsSeparator: ' ', decimalPlaces: 2, defaultValue: '0.00' },
             frozen: true
         };
-        var archivedDateColumn =
+        const archivedDateColumn =
         {
             name: 'ArchivedDate',
             index: 'ArchivedDate',
             width: 140,
             align: 'center',
-            formatter: "date",
+            formatter: 'date',
             sortable: false,
             resizable: false
         };
         //#endregion
-        var colNameList = ['ExternalId', "SystemId", "Balance", 'ArchivedDate'];
+        const colNameList = ['ExternalId', 'SystemId', 'Balance', 'ArchivedDate'];
 
-        var colModelList = [externalIdColumn, systemIdColumn, balanceColumn, archivedDateColumn];
+        const colModelList = [externalIdColumn, systemIdColumn, balanceColumn, archivedDateColumn];
 
-        var me = {
+        const me = {
             urlData: 'Customer/DormantCustomerList',
             gridOption: {
                 datatype: 'local',
@@ -6124,13 +6125,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         
-        var getColName = function () {
-            var temp = Site.clone(colNameList);
+        const getColName = function () {
+            const temp = Site.clone(colNameList);
             return Site.getResources(temp);
         };
 
-        var getColModel = function () {
-            var temp = Site.clone(colModelList);
+        const getColModel = function () {
+            const temp = Site.clone(colModelList);
 
             return temp;
         };
@@ -6155,9 +6156,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
-        "use strict";
+        'use strict';
 
-        var indexColumn = {
+        const indexColumn = {
             key: true,
             name: 'Index',
             index: 'Index',
@@ -6168,7 +6169,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var groupColumn =
+        const groupColumn =
         {
             name: 'Group',
             index: 'Group',
@@ -6177,16 +6178,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             align: 'left',
             sortable: false,
             formatter: function (cellValue, options, rowObject) {
+                let newCellValue = cellValue;
                 if (Number(rowObject.GroupCommId) === 0) {
-                    cellValue = Site.getSingleResource("None");
+                    newCellValue = Site.getSingleResource('None');
                 }
 
-                return "<div id='groupName-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor +
-                         "' class='commission-color'>" + cellValue + "</div>";
+                return '<div id="groupName-' + rowObject.CustId + '" style="background-color:' + rowObject.GroupColor +
+                         '" class="commission-color">' + newCellValue + '</div>';
             }
         };
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
             name: 'ExternalId',
             index: 'ExternalId',
@@ -6196,7 +6198,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
             name: 'SystemId',
             index: 'SystemId',
@@ -6206,7 +6208,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false
         };
 
-        var availableFundColumn = {
+        const availableFundColumn = {
             name: 'AvailableFunds',
             index: 'AvailableFunds',
             width: 100,
@@ -6214,10 +6216,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false,
             resizable: false,
             formatter: 'number',
-            formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' },
+            formatteroptions: { decimalSeparator: '.', thousandsSeparator: ' ', decimalPlaces: 2, defaultValue: '0.00' },
             frozen: true
         };
-        var pendingFundColumn = {
+        const pendingFundColumn = {
             name: 'PendingFunds',
             index: 'PendindFunds',
             resizable: false,
@@ -6226,18 +6228,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                var number = Number(cellValue);
+                const number = Number(cellValue);
                 if (number === 0) {
                     return jqGridAdditional.formatDecimal(cellValue);
                 }
                 else {
-                    return "<a href='javascript:;' class='pendingFunds' " +
-                    "data-custid='" + rowObject.CustId + "' data-systemid='" + rowObject.SystemId + "' data-externalid='" + rowObject.ExternalId + "'>"
-                        + jqGridAdditional.formatDecimal(cellValue) + "</a>";
+                    return '<a href="javascript:;" class="pendingFunds" ' +
+                    'data-custid="' + rowObject.CustId + '" data-systemid="' + rowObject.SystemId + '" data-externalid="' + rowObject.ExternalId + '">'
+                        + jqGridAdditional.formatDecimal(cellValue) + '</a>';
                 }
             }
         };
-        var statusColumn =
+        const statusColumn =
         {
             name: 'Status',
             index: 'Status',
@@ -6246,14 +6248,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             align: 'center',
             sortable: false,
             formatter: function (cellValue, options, rowObject) {
-                var dataAttribute = " data-custid='" + rowObject.CustId + "' data-externalid='" + rowObject.ExternalId + "'" +
-                                    " data-issuspended='" + rowObject.IsSuspended + "' data-isclosed='" + rowObject.IsClosed + "'";
+                const dataAttribute = ' data-custid="' + rowObject.CustId + '" data-externalid="' + rowObject.ExternalId + '"' +
+                                    ' data-issuspended="' + rowObject.IsSuspended + '" data-isclosed="' + rowObject.IsClosed + '"';
 
-                return "<a href='javascript:;' title='" + Site.getSingleResource("Status") +
-                    "' class='custStatusOption' id='edit-cust-status-" + rowObject.CustId + "'" + dataAttribute + ">" + cellValue + "</a>";
+                return '<a href="javascript:;" title="' + Site.getSingleResource('Status') +
+                    '" class="custStatusOption" id="edit-cust-status-' + rowObject.CustId + '"' + dataAttribute + '>' + cellValue + '</a>';
             }
         };
-        var baStatusColumn =
+        const baStatusColumn =
         {
             name: 'BAStatus',
             index: 'BAStatus',
@@ -6262,17 +6264,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             align: 'left',
             sortable: false,
             formatter: function (cellValue, options, rowObject) {
-                var paramString = JSON.stringify({ custId: rowObject.CustId, isAllowBA: !cellValue, externalId: rowObject.ExternalId });
-                var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
+                const paramString = JSON.stringify({ custId: rowObject.CustId, isAllowBA: !cellValue, externalId: rowObject.ExternalId });
+                const title = Site.getSingleResource(cellValue ? 'TurnOffBaTooltip' : 'TurnOnBaTooltip');
 
-                return "<div title='" + title + "'" +
-                    " class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
-                    "<label><input class='baStatus' type='checkbox'" + (cellValue ? " checked" : "") + " data-val='" + paramString +
-                    "' /><span class='lever'></span><label>" +
-                    "</div>";
+                return '<div title="' + title + '"' +
+                    ' class="center-align switch ba-' + (cellValue ? 'on' : 'off') + '">' +
+                    '<label><input class="baStatus" type="checkbox"' + (cellValue ? ' checked' : '') + ' data-val=\'' + paramString +
+                    '\' /><span class="lever"></span><label>' +
+                    '</div>';
             }
         };
-        var specialLevelColumn = {
+        const specialLevelColumn = {
             name: 'SpecialLevel',
             index: 'SpecialLevel',
             resizable: false,
@@ -6281,14 +6283,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<a href='javascript:;' class='grid-dropdown specialLevel' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
-                    + "<span class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
-                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
-                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
-                    + "</a>";
+                return '<a href="javascript:;" class="grid-dropdown specialLevel" data-custid="' + rowObject.CustId + '" data-level="' + cellValue + '">'
+                    + '<span class="grid-dropdown-item grid-dropdown-label level-' + cellValue + '">'
+                    + (Number(cellValue) === 0 ? Site.getSingleResource('None') : cellValue) + '</span>'
+                    + '<i class="grid-dropdown-item grid-dropdown-icon icon-arrow text-bold" title="' + Site.getSingleResource('SpecialLevel') + '"></i>'
+                    + '</a>';
             }
         };
-        var oddsGroupColumn = {
+        const oddsGroupColumn = {
             name: 'OddsGroup',
             index: 'OddsGroup',
             resizable: false,
@@ -6297,15 +6299,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             sortable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<a href='javascript:;' class='grid-dropdown oddsGroup" + (rowObject.BAStatus ? " disabled" : "")
-                + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
-                + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
-                + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
-                + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
-                + "</a>";
+                return '<a href="javascript:;" class="grid-dropdown oddsGroup' + (rowObject.BAStatus ? ' disabled' : '')
+                + '" data-custid="' + rowObject.CustId + '" data-group="' + cellValue + '">'
+                + '<span class="grid-dropdown-item grid-dropdown-label group-' + cellValue + '">'
+                + (Number(cellValue) === 0 ? Site.getSingleResource('None') : cellValue) + '</span>'
+                + '<i class="grid-dropdown-item grid-dropdown-icon icon-arrow text-bold" title="' + Site.getSingleResource('OddsGroup') + '"></i>'
+                + '</a>';
             }
         };
-        var customerOptionColumn = {
+        const customerOptionColumn = {
             name: 'CustomerOption',
             index: 'CustomerOption',
             width: 80,
@@ -6314,14 +6316,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<a href='javascript:;' data-systemid='" + rowObject.SystemId +
-                    "' data-externalid='" + rowObject.ExternalId + "' data-custid='" + rowObject.CustId
-                    + "' title='" + Site.getSingleResource("CustomerOption") + "' class='custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>"
-                    + Site.getSingleResource("View")
-                    + "<i class='grid-dropdown-icon icon-arrow'></i></a>";
+                return '<a href="javascript:;" data-systemid="' + rowObject.SystemId +
+                    '" data-externalid="' + rowObject.ExternalId + '" data-custid="' + rowObject.CustId
+                    + '" title="' + Site.getSingleResource('CustomerOption') + '" class="custoptionlink" id="cust-option-link-' + rowObject.CustId + '">'
+                    + Site.getSingleResource('View')
+                    + '<i class="grid-dropdown-icon icon-arrow"></i></a>';
             }
         };
-        var commissionColumn =
+        const commissionColumn =
         {
             name: 'Commission',
             index: 'Commission',
@@ -6331,16 +6333,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             title: true,
             formatter: 'number',
-            formatteroptions: { decimalSeparator: ".", decimalPlaces: 2, defaultValue: '0.00' }
+            formatteroptions: { decimalSeparator: '.', decimalPlaces: 2, defaultValue: '0.00' }
         };
         //#endregion
-        var colNameList = ['#', 'ExternalId', "SystemId", "AvailableFunds", 'PendingFunds',
+        const colNameList = ['#', 'ExternalId', 'SystemId', 'AvailableFunds', 'PendingFunds',
          'Status', 'BAStatus', 'SpecialLevel', 'OddsGroup', 'CustomerOption'];
 
-        var colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
+        const colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
                         pendingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, oddsGroupColumn, customerOptionColumn];
 
-        var me = {
+        const me = {
             urlData: 'Customer/CustomerList',
             urlExcelData: 'Customer/ExportExcel',
             gridOption: {
@@ -6373,23 +6375,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
 
-        var PRODUCTS = [
-            { Code: "SB", Display: "SB" },
-            { Code: "NG", Display: "NG" },
-            { Code: "LC", Display: "LC" },
-            { Code: "CS", Display: "CS" }];
-        var numOfProductColumns = 0;
-        var firstProductCode;
+        const PRODUCTS = [
+            { Code: 'SB', Display: 'SB' },
+            { Code: 'NG', Display: 'NG' },
+            { Code: 'LC', Display: 'LC' },
+            { Code: 'CS', Display: 'CS' }];
+        let numOfProductColumns = 0;
+        let firstProductCode;
 
-        var getColName = function (productList, isAllowedCustomerCommission) {
+        const getColName = function (productList, isAllowedCustomerCommission) {
             numOfProductColumns = 1;
-            var temp = Site.clone(colNameList);
+            const temp = Site.clone(colNameList);
             if (isAllowedCustomerCommission) {
-                temp.insertAfter("Group", 0);
+                temp.insertAfter('Group', 0);
 
                 firstProductCode = null;
-                for (var i = 0; i < PRODUCTS.length; i++) {
-                    var product = PRODUCTS[i];
+                for (let i = 0; i < PRODUCTS.length; i++) {
+                    const product = PRODUCTS[i];
                     if (productList.indexOf(product.Code) >= 0) {
                         if (!firstProductCode) {
                             firstProductCode = product.Code.toUpperCase();
@@ -6404,23 +6406,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return Site.getResources(temp);
         };
 
-        var getColModel = function (productList, isAllowedCustomerCommission) {
-            var temp = Site.clone(colModelList);
+        const getColModel = function (productList, isAllowedCustomerCommission) {
+            const temp = Site.clone(colModelList);
 
             if (isAllowedCustomerCommission) {
-                var getCellAttrFunction = function (colName) {
+                const getCellAttrFunction = function (colName) {
                     return function (rowId, val, rowObj) {
-                        return " id='" + colName + "-" + rowObj.CustId + "' ";
+                        return ' id="' + colName + '-' + rowObj.CustId + '" ';
                     };
                 };
 
-                var col = Site.clone(groupColumn);
+                let col = Site.clone(groupColumn);
                 temp.insertAfter(col, 0);
 
                 $.each(PRODUCTS, function (index, value) {
                     if (productList.indexOf(value.Code) >= 0) {
                         col = Site.clone(commissionColumn);
-                        col.name = value.Code + "Comm";
+                        col.name = value.Code + 'Comm';
                         col.index = col.name;
                         col.cellattr = getCellAttrFunction(col.name);
                         temp.push(col);
@@ -6436,9 +6438,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             {
                 useColSpanStyle: true,
                 groupHeaders: [{
-                    startColumnName: firstProductCode + "Comm",
+                    startColumnName: firstProductCode + 'Comm',
                     numberOfColumns: numOfProductColumns,
-                    titleText: Site.getSingleResource('Commission') + " (%)"
+                    titleText: Site.getSingleResource('Commission') + ' (%)'
                 }]
             });
         };
@@ -6465,50 +6467,50 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListService) {
-    var _$oddsGroupCell;
+    let _$oddsGroupCell;
 
-    var _me = {
+    const _me = {
         initialize: function () {
 
-            $("#report-content").on("click", ".oddsGroup", function () {
+            $('#report-content').on('click', '.oddsGroup', function () {
                 _$oddsGroupCell = $(this);
                 _me.showGridDropdown();
             });
 
-            $("#report-content").on("blur", ".oddsGroup", function () {
+            $('#report-content').on('blur', '.oddsGroup', function () {
                 setTimeout(function () {
-                    $("#OddsGroupListContainer").hide();
+                    $('#OddsGroupListContainer').hide();
                 }, 300);
             });
 
-            $("#OddsGroupListContainer").on("click", ".oddsGroupLink", function () {
-                var group = $(this).data("group");
+            $('#OddsGroupListContainer').on('click', '.oddsGroupLink', function () {
+                const group = $(this).data('group');
                 _me.setValue(group);
             });
         },
 
         showGridDropdown: function () {
-            if (_$oddsGroupCell.hasClass("disabled")) {
+            if (_$oddsGroupCell.hasClass('disabled')) {
                 return;
             }
 
-            CustomerListService.showGridDropdownById("OddsGroupListContainer", _$oddsGroupCell);
+            CustomerListService.showGridDropdownById('OddsGroupListContainer', _$oddsGroupCell);
         },
 
         setValue: function (oddsGroup) {
-            var confirmMessage = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
-            confirmMessage = confirmMessage.replace("{0}", oddsGroup);
+            let confirmMessage = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
+            confirmMessage = confirmMessage.replace('{0}', oddsGroup);
 
-            var option = {
-                dataField: "OddsGroup",
-                popUpSelector: "#OddsGroupListContainer",
+            const option = {
+                dataField: 'OddsGroup',
+                popUpSelector: '#OddsGroupListContainer',
                 $context: _$oddsGroupCell,
                 param: {
-                    custId: _$oddsGroupCell.data("custid"),
+                    custId: _$oddsGroupCell.data('custid'),
                     oddsGroup: oddsGroup
                 },
-                url: Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup"),
-                oldValue: _$oddsGroupCell.data("group"),
+                url: Site.resolveClientUrl('CustomerAPI/UpdateOddsGroup'),
+                oldValue: _$oddsGroupCell.data('group'),
                 newValue: oddsGroup,
                 confirmMessage: confirmMessage
             };
@@ -6534,23 +6536,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.gridoption.dormant */ "./www/js/source/pages/customer/customerlist/customerlist.gridoption.dormant.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"),
     __webpack_require__(/*! components/paging */ "./www/js/source/components/paging.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, CustomerListState) {
-    var _ajaxRequest = null;
+    let _ajaxRequest = null;
 
-    var _state;
+    let _state;
     
-    var _me = {
+    const _me = {
         initialize: function () {
             _state = CustomerListState.getDormantState();
         },
 
         submit: function () {
             
-            var data = _me.getPostData();
-            var option = {
-                type: "POST",
+            const data = _me.getPostData();
+            const option = {
+                type: 'POST',
                 data: data,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(CustomerListOptionDormant.urlData),
                 success: function (response) {
@@ -6571,53 +6573,53 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         getPostData: function () {
-            var data = {};
+            const data = {};
 
-            if ($("#subsidiary-multiselect").length > 0) {
-                data.SubsidiaryList = $("#subsidiary-multiselect").multiSelect('getCheckedItems').join();
+            if ($('#subsidiary-multiselect').length > 0) {
+                data.SubsidiaryList = $('#subsidiary-multiselect').multiSelect('getCheckedItems').join();
             }
 
             data.PageIndex = _state.pagingOption.pageindex;
             data.PageSize = _state.pagingOption.pagesize;
-            data.CurrencyId = $("#CurrencyId").val();
-            data.Username = Site.asNull($("#Username").val());
-            data.CurrencyName = $("#CurrencyName").val();
-            data.BaseCurrency = $("#BaseCurrency").val();
+            data.CurrencyId = $('#CurrencyId').val();
+            data.Username = Site.asNull($('#Username').val());
+            data.CurrencyName = $('#CurrencyName').val();
+            data.BaseCurrency = $('#BaseCurrency').val();
 
-            $("#excelDormantParam").val(JSON.stringify(data));
+            $('#excelDormantParam').val(JSON.stringify(data));
 
-            $("#CurrencyId").attr('data-original', data.CurrencyId);
-            $("#BaseCurrency").attr('data-original', data.BaseCurrency);
+            $('#CurrencyId').attr('data-original', data.CurrencyId);
+            $('#BaseCurrency').attr('data-original', data.BaseCurrency);
 
             return data;
         },
 
         bindData: function (gridData) {
-            var width = 708;
-            var $container = $("#tabDormantCustomer");
-            jqGridAdditional.clearGrid("DormantCustomerGrid");
+            const width = 708;
+            const $container = $('#tabDormantCustomer');
+            jqGridAdditional.clearGrid('DormantCustomerGrid');
 
-            var hasData = gridData && gridData.TotalRows > 0;
-            $("#DormantCustomerPager, #tabDormantCustomer .excel-container").toggle(hasData);
+            const hasData = gridData && gridData.TotalRows > 0;
+            $('#DormantCustomerPager, #tabDormantCustomer .excel-container').toggle(hasData);
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo(null, $container);
-                $container.find(".panel-heading").width(width);
-                $container.find("#noInfoRow").width(width - 10);
-                $("#num-of-dormant-customer, #num-of-dormant-customer-header").html("0");
+                $container.find('.panel-heading').width(width);
+                $container.find('#noInfoRow').width(width - 10);
+                $('#num-of-dormant-customer, #num-of-dormant-customer-header').html('0');
                 Site.unBlockUI();
                 return;
             }
 
-            $("#num-of-dormant-customer, #num-of-dormant-customer-header").html(gridData.TotalRows);
+            $('#num-of-dormant-customer, #num-of-dormant-customer-header').html(gridData.TotalRows);
 
-            var pagingOption = _state.pagingOption;
-            pagingOption.totalrow = parseInt(gridData.TotalRows);
+            const pagingOption = _state.pagingOption;
+            pagingOption.totalrow = parseInt(gridData.TotalRows, 10);
             PagingHelper.render(pagingOption);
 
-            var $reportGrid = $("#DormantCustomerGrid");
+            const $reportGrid = $('#DormantCustomerGrid');
             
-            var gridOption = CustomerListOptionDormant.getGridOption();
+            const gridOption = CustomerListOptionDormant.getGridOption();
             gridOption.data = gridData.Data;
             gridOption.rowNum = gridData.Data.length;
             gridOption.gridComplete = function () {
@@ -6629,9 +6631,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
             jqGridAdditional.updateGridHeight($container);
             
-            $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
-            $container.find(".panel-heading").width(width);
-            $("#DormantCustomerPager").width(width);
+            $('#DormantCustomerGrid').jqGrid('setGridWidth', width);
+            $container.find('.panel-heading').width(width);
+            $('#DormantCustomerPager').width(width);
             
             if ($.active <= 1) {
                 Site.unBlockUI();
@@ -6639,8 +6641,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         resizeGrid: function (gridSelector) {
-            var $reportGrid = $(gridSelector);
-            jqGridAdditional.updateGridHeight($reportGrid.closest(".theme_jqGrid"));
+            const $reportGrid = $(gridSelector);
+            jqGridAdditional.updateGridHeight($reportGrid.closest('.theme_jqGrid'));
             jqGridAdditional.updateGridWidth($reportGrid);
         }
     };
@@ -6662,18 +6664,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.gridoption */ "./www/js/source/pages/customer/customerlist/customerlist.gridoption.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! components/paging */ "./www/js/source/components/paging.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"),
     __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
-    var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
-    var _isAllowedCustomerCommission, _isAllowedUserEditComm;
-    var _productList;
-    var _ajaxRequest = null;
+    const _POPUP_LIST = ['#ViewOptionList', '#update-cust-status-popup', '#LevelListContainer', '#OddsGroupListContainer'];
+    let _isAllowedCustomerCommission, _isAllowedUserEditComm;
+    let _productList;
+    let _ajaxRequest = null;
 
-    var _state;
+    let _state;
 
-    var _me = {
+    const _me = {
         initialize: function () {
-            _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
-            _isAllowedUserEditComm = $("#IsAllowedUserEditComm").val() === "True";
-            _productList = $("#ProductList").val().split(",");
+            _isAllowedCustomerCommission = $('#IsAllowedCustomerCommission').val() === 'True';
+            _isAllowedUserEditComm = $('#IsAllowedUserEditComm').val() === 'True';
+            _productList = $('#ProductList').val().split(',');
             _state = CustomerListState.getState();
         },
 
@@ -6681,12 +6683,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             _state.selectedCustomers = {};
             _state.checkedAllRows = false;
 
-            var data = _me.getPostData();
-            var option = {
-                type: "POST",
+            const data = _me.getPostData();
+            const option = {
+                type: 'POST',
                 data: data,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(CustomerListOption.urlData),
                 success: function (response) {
@@ -6708,10 +6710,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         getPostData: function () {
-            var data = {};
+            const data = {};
 
             data.GridColumns = [];
-            var $gridColumnMultiselect = $("#ui-multiselect-options-grid-columns-multiselect ul.ui-multiselect-checkboxes input");
+            const $gridColumnMultiselect = $('#ui-multiselect-options-grid-columns-multiselect ul.ui-multiselect-checkboxes input');
             $gridColumnMultiselect.each(function (index, element) {
                 data.GridColumns.push({
                     Name: element.name,
@@ -6719,14 +6721,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 });
             });
 
-            var gridColumnCount = data.GridColumns.filter(function (item) { return item.Checked; }).length;
+            const gridColumnCount = data.GridColumns.filter(function (item) { return item.Checked; }).length;
             if (gridColumnCount === 0) {
                 return;
             }
 
-            if ($("#OddsGroups").length > 0) {
+            if ($('#OddsGroups').length > 0) {
                 data.OddsGroups = [];
-                var $oddsGroupsMultiselect = $("#ui-multiselect-options-odds-group-multiselect .ui-multiselect-checkboxes input");
+                const $oddsGroupsMultiselect = $('#ui-multiselect-options-odds-group-multiselect .ui-multiselect-checkboxes input');
                 $oddsGroupsMultiselect.each(function (index, element) {
                     data.OddsGroups.push({
                         Name: element.name,
@@ -6734,31 +6736,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     });
                 });
 
-                var oddsGroupCount = data.OddsGroups.filter(function (item) { return item.Checked; }).length;
+                const oddsGroupCount = data.OddsGroups.filter(function (item) { return item.Checked; }).length;
                 if (oddsGroupCount === 0) {
                     return;
                 }
             }
 
-            if ($("#subsidiary-multiselect").length > 0) {
-                data.SubsidiaryList = $("#subsidiary-multiselect").multiSelect('getCheckedItems').join();
+            if ($('#subsidiary-multiselect').length > 0) {
+                data.SubsidiaryList = $('#subsidiary-multiselect').multiSelect('getCheckedItems').join();
             }
 
             data.PageIndex = _state.pagingOption.pageindex;
             data.PageSize = _state.pagingOption.pagesize;
-            data.CurrencyId = $("#CurrencyId").val();
-            data.SpecialLevel = $("#special-level-list-search").val();
-            data.Username = Site.asNull($("#Username").val());
-            data.CurrencyName = $("#CurrencyName").val();
-            data.BaFilter = $("#BAFilterOption").val();
-            data.GroupCommId = $("#DdlGroupCommId").val();
-            data.BaseCurrency = $("#BaseCurrency").val();
-            data.CustStatus = $("#CustStatusOption").val();
+            data.CurrencyId = $('#CurrencyId').val();
+            data.SpecialLevel = $('#special-level-list-search').val();
+            data.Username = Site.asNull($('#Username').val());
+            data.CurrencyName = $('#CurrencyName').val();
+            data.BaFilter = $('#BAFilterOption').val();
+            data.GroupCommId = $('#DdlGroupCommId').val();
+            data.BaseCurrency = $('#BaseCurrency').val();
+            data.CustStatus = $('#CustStatusOption').val();
 
-            $("#excelParam").val(JSON.stringify(data));
+            $('#excelParam').val(JSON.stringify(data));
 
-            $("#CurrencyId").attr('data-original', data.CurrencyId);
-            $("#BaseCurrency").attr('data-original', data.BaseCurrency);
+            $('#CurrencyId').attr('data-original', data.CurrencyId);
+            $('#BaseCurrency').attr('data-original', data.BaseCurrency);
 
             return data;
         },
@@ -6767,48 +6769,48 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             _me.bindData(_state.cachedData, true);
         },
         bindData: function (gridData, keepScrollPosition) {
-            jqGridAdditional.clearGrid("ReportGrid");
+            jqGridAdditional.clearGrid('ReportGrid');
             
-            var hasData = gridData && gridData.TotalRows > 0;
-            $("#ActiveCustomerPager, #tabActiveCustomer .excel-container").toggle(hasData);
-            var $container = $("#tabActiveCustomer");
+            const hasData = gridData && gridData.TotalRows > 0;
+            $('#ActiveCustomerPager, #tabActiveCustomer .excel-container').toggle(hasData);
+            const $container = $('#tabActiveCustomer');
             if (!hasData) {
                 jqGridAdditional.setNoInfo(null, $container);
-                $("#num-of-customer, #num-of-customer-header").html("0");
+                $('#num-of-customer, #num-of-customer-header').html('0');
                 Site.unBlockUI();
                 return;
             }
 
-            var oldScrollTop = $("#report-content .ui-jqgrid-bdiv").scrollTop();
-            $("#num-of-customer, #num-of-customer-header").html(gridData.TotalRows);
+            const oldScrollTop = $('#report-content .ui-jqgrid-bdiv').scrollTop();
+            $('#num-of-customer, #num-of-customer-header').html(gridData.TotalRows);
 
-            var pagingOption = _state.pagingOption;
-            pagingOption.totalrow = parseInt(gridData.TotalRows);
+            const pagingOption = _state.pagingOption;
+            pagingOption.totalrow = parseInt(gridData.TotalRows, 10);
             PagingHelper.render(pagingOption);
 
-            var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
-            var gridOption = _me.processGridOption(showingColumns);
+            const showingColumns = $('#ui-multiselect-options-grid-columns-multiselect input').serializeObject();
+            const gridOption = _me.processGridOption(showingColumns);
             gridOption.data = gridData.Data;
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete($container);
             };
 
             // Show the grid
-            var $reportGrid = $("#ReportGrid");
+            const $reportGrid = $('#ReportGrid');
             $reportGrid.jqGrid(gridOption);
             CustomerListOption.setGroupHeaderColumns($reportGrid);
 
-            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
-                $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
+            if (_isAllowedCustomerCommission && showingColumns['Group'] !== undefined && _isAllowedUserEditComm) {
+                $('#jqgh_ReportGrid_Index').attr('class', '').html('<input type="checkbox" id="CheckAll" /><label for="CheckAll"></label>');
             } else {
-                $("#jqgh_ReportGrid_Index").html("#");
+                $('#jqgh_ReportGrid_Index').html('#');
             }
 
-            $("#CheckAll").prop("checked", _state.checkedAllRows);
-            _me.resizeGrid("#ReportGrid");
+            $('#CheckAll').prop('checked', _state.checkedAllRows);
+            _me.resizeGrid('#ReportGrid');
 
             if (keepScrollPosition === true) {
-                $("#report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
+                $('#report-content .ui-jqgrid-bdiv').scrollTop(oldScrollTop);
             }
 
             if ($.active <= 1) {
@@ -6821,17 +6823,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         resizeGrid: function (gridSelector) {
-            var $reportGrid = $(gridSelector);
-            jqGridAdditional.updateGridHeight($reportGrid.closest(".theme_jqGrid"));
+            const $reportGrid = $(gridSelector);
+            jqGridAdditional.updateGridHeight($reportGrid.closest('.theme_jqGrid'));
             jqGridAdditional.updateGridWidth($reportGrid);
         },
 
         addGridScrollEventToHidePopups: function () {
             // Hide popup if scroll
-            $(".ui-jqgrid-bdiv").on("scroll", function () {
+            $('.ui-jqgrid-bdiv').on('scroll', function () {
                 $(_POPUP_LIST).each(function (index, element) {
-                    var popup = $(element);
-                    if (popup.is(":visible")) {
+                    const popup = $(element);
+                    if (popup.is(':visible')) {
                         popup.hide();
                     }
                 });
@@ -6839,8 +6841,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         processGridOption: function (showingColumns) {
-            var gridOption = CustomerListOption.getGridOption(_productList, _isAllowedCustomerCommission);
-            var indexColumn = gridOption.colModel[0];
+            const gridOption = CustomerListOption.getGridOption(_productList, _isAllowedCustomerCommission);
+            const indexColumn = gridOption.colModel[0];
 
             _me.updateIndexColumnFormatter(indexColumn, showingColumns);
             _me.toggleColumn(gridOption, showingColumns);
@@ -6849,15 +6851,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         updateIndexColumnFormatter: function (indexColumn, showingColumns) {
-            var indexFormatter = function (cellValue, options, rowObject) {
-                var checkedText = $("#CheckAll").prop("checked") || _state.selectedCustomers[rowObject.CustId] !== undefined ? "checked" : "";
+            const indexFormatter = function (cellValue, options, rowObject) {
+                const checkedText = $('#CheckAll').prop('checked') || _state.selectedCustomers[rowObject.CustId] !== undefined ? 'checked' : '';
 
-                return "<input type='checkbox' " + checkedText + " title='" + rowObject.CustId +
-                        "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />" +
-                    "<label for='" + rowObject.CustId + "'></label>";
+                return '<input type="checkbox" ' + checkedText + ' title="' + rowObject.CustId +
+                        '" id="' + rowObject.CustId + '" data-group-comm-id="' + rowObject.GroupCommId + '" class="select-cust-checkbox check-child" />' +
+                    '<label for="' + rowObject.CustId + '"></label>';
             };
 
-            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
+            if (_isAllowedCustomerCommission && showingColumns['Group'] !== undefined && _isAllowedUserEditComm) {
                 indexColumn.formatter = indexFormatter;
             }
             else {
@@ -6866,18 +6868,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         toggleColumn: function (gridOption, showingColumns) {
-            var colNames = gridOption.colNames;
-            var colModel = gridOption.colModel;
-            var collength = colModel.length;
-            var colIndex = 0;
+            const colNames = gridOption.colNames;
+            const colModel = gridOption.colModel;
+            let collength = colModel.length;
+            let colIndex = 0;
             while (colIndex < collength) {
-                var col = colModel[colIndex];
-                if (!col.name || col.name === "Index") {
+                const col = colModel[colIndex];
+                if (!col.name || col.name === 'Index') {
                     colIndex++;
                     continue;
                 }
 
-                var colName = col.name.match(/^\w\wComm$/) !== null ? "Commission" : col.name;
+                const colName = col.name.match(/^\w\wComm$/) !== null ? 'Commission' : col.name;
 
                 if (showingColumns[colName] === undefined) {
                     colModel.splice(colIndex, 1);
@@ -6891,11 +6893,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         showGridDropdownById: function (listId, $context) {
-            var $popup = $("#" + listId);
-            var position = $context.offset();
-            var isOverFlow = position.top + $popup.outerHeight() > window.innerHeight - 15;
+            const $popup = $('#' + listId);
+            const position = $context.offset();
+            const isOverFlow = position.top + $popup.outerHeight() > window.innerHeight - 15;
 
-            var popupTop = isOverFlow ? position.top - $popup.outerHeight() - 1 :
+            const popupTop = isOverFlow ? position.top - $popup.outerHeight() - 1 :
                                         position.top + $context.outerHeight() + 1;
 
             $popup.css({
@@ -6904,15 +6906,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 width: $context.outerWidth()
             });
 
-            var custId = $context.data("custid");
-            if ($popup.data("custid") === custId) {
+            const custId = $context.data('custid');
+            if ($popup.data('custid') === custId) {
                 $popup.toggle();
             }
             else {
-                var $customerOption = $("#cust-option-link-" + custId);
-                $popup.data("custid", custId);
-                $popup.data("externalid", $customerOption.data("externalid"));
-                $popup.data("systemid", $customerOption.data("systemid"));
+                const $customerOption = $('#cust-option-link-' + custId);
+                $popup.data('custid', custId);
+                $popup.data('externalid', $customerOption.data('externalid'));
+                $popup.data('systemid', $customerOption.data('systemid'));
                 $popup.show();
             }
 
@@ -6921,22 +6923,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
         updateGridData: function (option) {
             _me.closePopup(option.popUpSelector);
-            var oldValue = option.oldValue;
-            var newValue = option.newValue;
+            const oldValue = option.oldValue;
+            const newValue = option.newValue;
 
             if (oldValue === newValue || !window.confirm(option.confirmMessage)) {
                 return;
             }
 
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 data: option.param,
                 url: option.url,
-                dataType: "json",
+                dataType: 'json',
                 success: function (data) {
                     if (data.Success) {
-                        var rowIndex = (option.$context.closest("tr").attr("id") - 1) % _state.pagingOption.pagesize;
-                        var dataItem = _state.cachedData.Data[rowIndex];
+                        const rowIndex = (option.$context.closest('tr').attr('id') - 1) % _state.pagingOption.pagesize;
+                        const dataItem = _state.cachedData.Data[rowIndex];
                         dataItem[option.dataField] = newValue;
                         _me.bindData(_state.cachedData, true);
                     }
@@ -6968,42 +6970,39 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"), __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListState, CustomerListService) {
-    var _$specialLevelCell = null;
-    var _state;
-
-    var _me = {
+    let _$specialLevelCell = null;
+    
+    const _me = {
         initialize: function () {
-            _state = CustomerListState.getState();
-
-            $("#report-content").on("click", ".specialLevel", function () {
+            $('#report-content').on('click', '.specialLevel', function () {
                 _$specialLevelCell = $(this);
-                CustomerListService.showGridDropdownById("LevelListContainer", _$specialLevelCell);
+                CustomerListService.showGridDropdownById('LevelListContainer', _$specialLevelCell);
                 return false;
             });
 
-            $("#report-content").on("blur", ".specialLevel", function () {
+            $('#report-content').on('blur', '.specialLevel', function () {
                 setTimeout(function () {
-                    $("#LevelListContainer").hide();
+                    $('#LevelListContainer').hide();
                 }, 300);
             });
 
-            $("#LevelListContainer").on("click", ".levelLink", function () {
-                var level = $(this).data("level");
+            $('#LevelListContainer').on('click', '.levelLink', function () {
+                const level = $(this).data('level');
                 _me.setValue(level);
             });
         },
 
         setValue: function (level) {
-            var option = {
-                dataField: "SpecialLevel",
-                popUpSelector: "#LevelListContainer",
+            const option = {
+                dataField: 'SpecialLevel',
+                popUpSelector: '#LevelListContainer',
                 $context: _$specialLevelCell,
                 param: {
-                    custId: _$specialLevelCell.data("custid"),
+                    custId: _$specialLevelCell.data('custid'),
                     level: level
                 },
-                url: Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel"),
-                oldValue: _$specialLevelCell.data("level"),
+                url: Site.resolveClientUrl('CustomerAPI/UpdateSpecialLevel'),
+                oldValue: _$specialLevelCell.data('level'),
                 newValue: level,
                 confirmMessage: _me.getConfirmMessage(level)
             };
@@ -7012,7 +7011,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         getConfirmMessage: function (level) {
-            var resourceName = level === 0 ? "AlertRemoveSpecialLevelForCustomerMsg" : "AlertSetSpecialLevelForCustomerMsg";
+            const resourceName = level === 0 ? 'AlertRemoveSpecialLevelForCustomerMsg' : 'AlertSetSpecialLevelForCustomerMsg';
             return Site.getSingleResource(resourceName);
         }
     };
@@ -7033,36 +7032,36 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-    var _pagingOption = {
+    const _pagingOption = {
         pageindex: 1,
         pagesize: 1000,
         pagelist: [1000, 2000, 3000, 4000],
         totalrow: 1,
-        elementcontainer: "#ActiveCustomerPager",
-        method: "AJAX",
-        ajaxfunction: "CustomerList.ajaxPaging()",
+        elementcontainer: '#ActiveCustomerPager',
+        method: 'AJAX',
+        ajaxfunction: 'CustomerList.ajaxPaging()',
         alwayshow: true
     };
 
-    var _dormantPagingOption = {
+    const _dormantPagingOption = {
         pageindex: 1,
         pagesize: 1000,
         pagelist: [1000, 2000, 3000, 4000],
         totalrow: 1,
-        elementcontainer: "#DormantCustomerPager",
-        method: "AJAX",
-        ajaxfunction: "CustomerList.ajaxPagingDormant()",
+        elementcontainer: '#DormantCustomerPager',
+        method: 'AJAX',
+        ajaxfunction: 'CustomerList.ajaxPagingDormant()',
         alwayshow: true
     };
 
-    var state = {
+    const state = {
         cachedData: {},
         selectedCustomers: {},
         checkedAllRows: false,
         pagingOption: _pagingOption
     };
 
-    var dormantState = {
+    const dormantState = {
         pagingOption: _dormantPagingOption
     };
 
@@ -7094,17 +7093,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
         $(document).ready(function () {
             Site.initialize();
-            $(".tablinks").click(function () {
-                var tabId = $(this).data('tab');
-                var $tab = $("#" + tabId);
-                $(".tabcontent").hide();
-                $(".tablinks").removeClass('active');
+            $('.tablinks').click(function () {
+                const tabId = $(this).data('tab');
+                const $tab = $('#' + tabId);
+                $('.tabcontent').hide();
+                $('.tablinks').removeClass('active');
 
                 $tab.show();
-                $(this).addClass("active");
+                $(this).addClass('active');
 
-                var isDormantTab = tabId === 'tabDormantCustomer';
-                $(".page-button input[type=button]").prop('disabled', isDormantTab);
+                const isDormantTab = tabId === 'tabDormantCustomer';
+                $('.page-button input[type=button]').prop('disabled', isDormantTab);
                 if (isDormantTab) {
                     jqGridAdditional.updateGridHeight($tab);
                 }
@@ -7120,9 +7119,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             CustomerListGrid.initialize();
             CustomerListViewOption.initialize();
 
-            var url = Site.getCurrentUrl();
-            if (QueryString.getParam(url, "userName") ||
-                QueryString.getParam(url, "groupId")) {
+            const url = Site.getCurrentUrl();
+            if (QueryString.getParam(url, 'userName') ||
+                QueryString.getParam(url, 'groupId')) {
                 CustomerListFilter.submit();
             } else {
                 Site.unBlockUI();
@@ -7135,7 +7134,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 39:
+/***/ 37:
 /*!*****************************************************************!*\
   !*** multi ./www/js/source/pages/customer/customerlist/main.js ***!
   \*****************************************************************/

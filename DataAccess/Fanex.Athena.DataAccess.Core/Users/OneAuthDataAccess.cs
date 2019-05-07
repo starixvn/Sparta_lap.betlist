@@ -19,11 +19,11 @@ namespace Fanex.Athena.DataAccess.Core.Users
             const string UspName = "Lrf_GetUserLevelInfo";
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("VendorID", DbType.String, vendorId);
-                db.AddInParameter("UserSEQ", DbType.Int32, userSEQ);
-                db.AddOutParameter("UserLevel", DbType.Byte, 0);
-                db.AddOutParameter("SubsidiaryEnabled", DbType.Boolean, 0);
-                db.AddOutParameter("OperatorID", DbType.String, 50);
+                db.SetParameterValue("VendorID", vendorId);
+                db.SetParameterValue("UserSEQ", userSEQ);
+                db.SetParameterValue("UserLevel", null);
+                db.SetParameterValue("SubsidiaryEnabled", null);
+                db.SetParameterValue("OperatorID", null);
 
                 var result = new OneAuthUserInfo();
                 db.ExecuteNonQuery();

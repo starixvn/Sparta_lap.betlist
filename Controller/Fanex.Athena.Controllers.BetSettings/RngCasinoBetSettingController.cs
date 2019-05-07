@@ -7,7 +7,9 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Data;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
@@ -35,11 +37,11 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index(BetSettingMetaModel metaModel)
+        public async Task<ActionResult> Index(BetSettingMetaModel metaModel)
         {
             var customer = GetCustomerInfo(metaModel.CustId);
             var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language);
-            AssignRequiredProperties(viewModel, metaModel);
+            await AssignRequiredProperties(viewModel, metaModel).ConfigureAwait(false);
 
             return View("~/Views/Desktop/Customer/BetSetting/RngCasino.cshtml", viewModel);
         }
@@ -48,17 +50,22 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(int custId, string gameTypeChangedList)
         {
-            var customer = ProductAccess.IsAllowCS ? GetCustomerInfo(custId) : null;
-            if (customer == null || !customer.SyncCasino || !IsBetSettingEditable())
+            var userSession = SessionService.UserSession;
+            var licenseeSession = SessionService.LicenseeSession;
+
+            if (!CheckPermission(userSession, ProductTypes.RngCasino))
+            {
+                return AccessDenied();
+            }
+
+            var customer = GetCustomerInfo(custId);
+            if (customer == null || !customer.SyncCasino)
             {
                 return AccessDenied();
             }
 
             try
             {
-                var licenseeSession = SessionService.LicenseeSession;
-                var userSession = SessionService.UserSession;
-
                 var metaModel = new RngCasinoBetSettingMetaModel
                 {
                     LicenseeId = licenseeSession.LicenseeId,
@@ -85,18 +92,22 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateStatus(int custId, string nickName, int status)
+        public async Task<JsonResult> UpdateStatus(int custId, string nickName, int status)
         {
-            if (!ProductAccess.IsAllowCS ||
-                !GetCustomerInfo(custId).SyncCasino ||
-                !IsBetSettingEditable())
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            if (!CheckPermission(userSession, ProductTypes.RngCasino))
             {
                 return AccessDenied();
             }
 
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var customer = GetCustomerInfo(custId);
-            var userSession = SessionService.UserSession;
+            if (customer == null || !customer.SyncCasino)
+            {
+                return AccessDenied();
+            }
+
             var metaModel = new BetSettingCasinoStatusMetaModel
             {
                 LicenseeId = licenseeId,
@@ -108,7 +119,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 UserName = userSession.UserName,
                 IsSyncCasino = customer.SyncCasino
             };
-            var result = _betSettingService.UpdateStatus(metaModel);
+            var result = await _betSettingService.UpdateStatusAsync(metaModel).ConfigureAwait(false);
 
             if (result.Code == 0)
             {

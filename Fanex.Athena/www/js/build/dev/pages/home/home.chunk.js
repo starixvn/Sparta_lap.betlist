@@ -417,41 +417,40 @@ return t.apply(e,arguments)}}function a(){this.onload=null,e(t).addClass(d[2]),r
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -462,8 +461,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -471,10 +470,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -493,18 +492,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -525,7 +524,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -550,19 +549,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
 
-    var methods = {
-        init: function init(options) {
-            var defaults = {
+    const methods = {
+        init: function(inputOptions) {
+            const defaults = {
                 menuWidth: 260,
                 edge: 'left',
                 closeOnClick: false
             };
-            options = $.extend(defaults, options);
+            const options = $.extend(defaults, inputOptions);
 
             $(this).each(function () {
-                var $this = $(this);
-                
-                var menu_id = $("#" + $this.attr('data-activates'));
+                const $this = $(this);
+
+                // Touch Event
+                let menuOut = false;
+
+                const menu_id = $('#' + $this.attr('data-activates'));
 
                 // Set to width
                 if (options.menuWidth !== 260) {
@@ -570,7 +572,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
 
                 // Add Touch Area
-                var dragTarget = $('<div class="drag-target"></div>');
+                const dragTarget = $('<div class="drag-target"></div>');
                 $('body').append(dragTarget);
 
                 if (options.edge === 'left') {
@@ -595,9 +597,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 if (menu_id.hasClass('fixed')) {
                     $(window).resize(function () {
                         if ($('body').hasClass('site-menubar-fold')) {
-                            $(".site-menu li.has-sub").removeClass("active");
+                            $('.site-menu li.has-sub').removeClass('active');
                             $('.site-menu .menu-item .collapsible-header').removeClass('active');
-                            $(".site-menu .menu-item div.collapsible-body").css('display', 'none');
+                            $('.site-menu .menu-item div.collapsible-body').css('display', 'none');
                         }
                         if (window.innerWidth > 992) {
                             // Close menu if window is resized bigger than 992 and user has fixed sidenav
@@ -621,13 +623,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 // if closeOnClick, then add close event for all a tags in side sideNav
                 if (options.closeOnClick === true) {
-                    menu_id.on("click.itemclick", "a:not(.collapsible-header)", function () {
+                    menu_id.on('click.itemclick', 'a:not(.collapsible-header)', function () {
                         removeMenu();
                     });
                 }
 
                 function removeMenu(restoreNav) {
-                    panning = false;
                     menuOut = false;
                     // Reenable scrolling
                     $('body').css({
@@ -638,7 +639,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $('#sidenav-overlay').velocity({ opacity: 0 }, {
                         duration: 200,
                         queue: false, easing: 'easeOutQuad',
-                        complete: function complete() {
+                        complete: function() {
                             $(this).remove();
                         }
                     });
@@ -649,7 +650,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function complete() {
+                            complete: function() {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu_id.removeAttr('style');
@@ -665,7 +666,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function complete() {
+                            complete: function() {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu_id.removeAttr('style');
@@ -675,10 +676,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         });
                     }
                 }
-
-                // Touch Event
-                var panning = false;
-                var menuOut = false;
 
                 dragTarget.on('click', function () {
                     if (menuOut) {
@@ -690,19 +687,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     prevent_default: false
                 }).bind('pan', function (e) {
 
-                    if (e.gesture.pointerType === "touch") {
+                    if (e.gesture.pointerType === 'touch') {
 
-                        var x = e.gesture.center.x;
+                        let x = e.gesture.center.x;
 
                         // Disable Scrolling
-                        var $body = $('body');
-                        var oldWidth = $body.innerWidth();
+                        const $body = $('body');
+                        const oldWidth = $body.innerWidth();
                         $body.css('overflow', 'hidden');
                         $body.width(oldWidth);
 
                         // If overlay does not exist, create one and if it is clicked, close menu
                         if ($('#sidenav-overlay').length === 0) {
-                            var overlay = $('<div id="sidenav-overlay"></div>');
+                            const overlay = $('<div id="sidenav-overlay"></div>');
                             overlay.css('opacity', 0).click(function () {
                                 removeMenu();
                             });
@@ -737,7 +734,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             else if (x >= window.innerWidth - options.menuWidth / 2) {
                                 menuOut = false;
                             }
-                            var rightPos = x - options.menuWidth / 2;
+                            let rightPos = x - options.menuWidth / 2;
                             if (rightPos < 0) {
                                 rightPos = 0;
                             }
@@ -746,7 +743,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         }
 
                         // Percentage overlay
-                        var overlayPerc;
+                        let overlayPerc;
                         if (options.edge === 'left') {
                             overlayPerc = x / options.menuWidth;
                             $('#sidenav-overlay').velocity({ opacity: overlayPerc }, { duration: 10, queue: false, easing: 'easeOutQuad' });
@@ -757,18 +754,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     }
                 }).bind('panend', function (e) {
 
-                    if (e.gesture.pointerType === "touch") {
-                        var velocityX = e.gesture.velocityX;
-                        var x = e.gesture.center.x;
-                        var leftPos = x - options.menuWidth;
-                        var rightPos = x - options.menuWidth / 2;
+                    if (e.gesture.pointerType === 'touch') {
+                        const velocityX = e.gesture.velocityX;
+                        const x = e.gesture.center.x;
+                        let leftPos = x - options.menuWidth;
+                        let rightPos = x - options.menuWidth / 2;
                         if (leftPos > 0) {
                             leftPos = 0;
                         }
                         if (rightPos < 0) {
                             rightPos = 0;
                         }
-                        panning = false;
 
                         if (options.edge === 'left') {
                             // If velocityX <= 0.3 then the user is flinging the menu closed so ignore menuOut
@@ -797,7 +793,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                                 });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -824,7 +820,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                                 menu_id.velocity({ 'translateX': [options.menuWidth + 10, rightPos] }, { duration: 200, queue: false, easing: 'easeOutQuad' });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -835,12 +831,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 });
 
                 $this.click(function () {
-                    var $body = $('body');
-                    var $submenu = $(".site-menu .menu-item div.collapsible-body");
-                    var menuCollapse = $body.hasClass('site-menubar-fold');
+                    const $body = $('body');
+                    const $submenu = $('.site-menu .menu-item div.collapsible-body');
+                    const menuCollapse = $body.hasClass('site-menubar-fold');
 
                     if (window.innerWidth > 992) {
-                        $(".site-menu li.has-sub").removeClass("active");
+                        $('.site-menu li.has-sub').removeClass('active');
                         $('.site-menu .menu-item .collapsible-header').removeClass('active');
                         $submenu.css('display', 'none');
                         menu_id.removeAttr('style');
@@ -849,11 +845,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                         if (menuOut === true) {
                             menuOut = false;
-                            panning = false;
                             removeMenu();
                         } else {
                             // Disable Scrolling
-                            var oldWidth = $body.innerWidth();
+                            const oldWidth = $body.innerWidth();
                             $body.css('overflow', 'hidden');
                             $body.width(oldWidth);
 
@@ -868,14 +863,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                                 menu_id.velocity({ 'translateX': [0, options.menuWidth] }, { duration: 300, queue: false, easing: 'easeOutQuad' });
                             }
 
-                            var overlay = $('<div id="sidenav-overlay"></div>');
+                            const overlay = $('<div id="sidenav-overlay"></div>');
                             overlay.css('opacity', 0).click(function () {
                                 menuOut = false;
-                                panning = false;
                                 removeMenu();
                                 overlay.velocity({ opacity: 0 }, {
                                     duration: 300, queue: false, easing: 'easeOutQuad',
-                                    complete: function complete() {
+                                    complete: function() {
                                         $(this).remove();
                                     }
                                 });
@@ -883,28 +877,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             $body.append(overlay);
                             overlay.velocity({ opacity: 1 }, {
                                 duration: 300, queue: false, easing: 'easeOutQuad',
-                                complete: function complete() {
+                                complete: function() {
                                     menuOut = true;
-                                    panning = false;
                                 }
                             });
                         }
                     }
 
                     if (menuCollapse) {
-                        $submenu.mCustomScrollbar("destroy");
+                        $submenu.mCustomScrollbar('destroy');
                     } else {
-                        $submenu.mCustomScrollbar({ theme: "minimal-dark" });
+                        $submenu.mCustomScrollbar({ theme: 'minimal-dark' });
                     }
 
                     return false;
                 });
             });
         },
-        show: function show() {
+        show: function() {
             this.trigger('click');
         },
-        hide: function hide() {
+        hide: function() {
             $('#sidenav-overlay').trigger('click');
         }
     };
@@ -913,7 +906,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (methods[methodOrOptions]) {
             return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.sideNav');
@@ -923,7 +916,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 $(document).ready(function () {
-    $(".toggleMenubar").sideNav2();
+    $('.toggleMenubar').sideNav2();
 });
 
 
@@ -940,19 +933,19 @@ $(document).ready(function () {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js"), __webpack_require__(/*! materialize-autocomplete */ "./node_modules/materialize-autocomplete/jquery.materialize-autocomplete.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
+    'use strict';
 
-    var mainOption = {
+    const mainOption = {
         suggestionDropdown: '#suggestionDropdown',
         url: null,
         target: null
     };
 
-    var DELAY_MILLISECOND = 600;
+    const DELAY_MILLISECOND = 600;
 
-    var _autoComplete;
+    let _autoComplete;
 
-    var _me = {
+    const _me = {
         initialize: function (option) {
             _me.initAutoComplete(option);
             _me.initEvent();
@@ -973,7 +966,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         initAutoComplete: function (option) {
             $.extend(mainOption, option);
             if (!mainOption.url || !mainOption.target) {
-                throw Error("Missing data in option");
+                throw Error('Missing data in option');
             }
 
             _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
@@ -986,23 +979,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         search: function (value, callback) {
-            var query = $.trim(value);
+            const query = $.trim(value);
             if (query.length < 3)
             {
                 return;
             }
 
-            var url = mainOption.url + "?query=" + value;
+            const url = mainOption.url + '?query=' + value;
 
             $.ajax({
-                type: "GET",
-                dataType: "json",
+                type: 'GET',
+                dataType: 'json',
                 url: url,
                 success: function (response) {
-                    var suggestions = response.suggestions;
+                    const suggestions = response.suggestions;
 
                     if (suggestions && suggestions.length > 0) {
-                        var data = suggestions.map(function (item) {
+                        const data = suggestions.map(function (item) {
                             return { id: item, text: item };
                         });
 
@@ -1017,8 +1010,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         updateWidthOfSuggestionDropdown: function () {
-            var $autoCompleteTarget = $(mainOption.target);
-            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+            const $autoCompleteTarget = $(mainOption.target);
+            const $suggestionDropdown = $(mainOption.suggestionDropdown);
             if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
                 $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
             }
@@ -1043,15 +1036,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -1069,23 +1062,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -1104,14 +1097,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -1122,14 +1115,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -1141,16 +1134,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -1167,45 +1160,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -1221,8 +1214,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -1231,7 +1224,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -1248,10 +1241,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -1259,10 +1252,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -1270,37 +1263,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -1310,16 +1303,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -1327,44 +1320,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -1376,7 +1369,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -1412,32 +1405,32 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         /*jshint validthis: true*/
         $(this).find('.collapsible-body li.active').removeClass('active');
         $target.closest('li').addClass('active');
-        var $groupHeader = $target.closest('.menu-item').find('.collapsible-header');
+        const $groupHeader = $target.closest('.menu-item').find('.collapsible-header');
         if ($groupHeader.hasClass('active') === false) {
-            $groupHeader.trigger("click");
+            $groupHeader.trigger('click');
         }
     }
 
-    function init(options) {
+    function init(inputOptions) {
         /*jshint validthis: true*/
 
-        var defaults = {
+        const defaults = {
             accordion: undefined
         };
 
-        options = $.extend(defaults, options);
-        var touch = 'ontouchstart' in window || navigator.maxTouchPoints;
+        const options = $.extend(defaults, inputOptions);
+        const touch = 'ontouchstart' in window || navigator.maxTouchPoints;
 
         return this.each(function () {
-            var $this = $(this);
+            const $this = $(this);
 
             if (!$this.parent().hasClass('site-menu')) {
                 return;
             }
 
-            var $panel_headers = $this.find('> li > .collapsible-header');
+            const $panel_headers = $this.find('> li > .collapsible-header');
 
-            var collapsible_type = $this.data("collapsible");
+            const collapsible_type = $this.data('collapsible');
 
             // Turn off any existing event handlers
             $this.off('click.collapse2', '> li > .collapsible-header');
@@ -1459,9 +1452,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         .stop(true, false)
                         .slideDown({
                             duration: 350,
-                            easing: "easeOutQuart",
+                            easing: 'easeOutQuart',
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -1470,9 +1463,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         .stop(true, false)
                         .slideUp({
                             duration: 350,
-                            easing: "easeOutQuart",
+                            easing: 'easeOutQuart',
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -1481,9 +1474,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $panel_headers.not(object).removeClass('active').parent().removeClass('active');
                 $panel_headers.not(object).parent().children('.collapsible-body').stop(true, false).slideUp({
                     duration: 350,
-                    easing: "easeOutQuart",
+                    easing: 'easeOutQuart',
                     queue: false,
-                    complete: function complete() {
+                    complete: function() {
                         $(this).css('height', '');
                     }
                 });
@@ -1501,9 +1494,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         .stop(true, false)
                         .slideDown({
                             duration: 350,
-                            easing: "easeOutQuart",
+                            easing: 'easeOutQuart',
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -1512,9 +1505,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         .stop(true, false)
                         .slideUp({
                             duration: 350,
-                            easing: "easeOutQuart",
+                            easing: 'easeOutQuart',
                             queue: false,
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).css('height', '');
                             }
                         });
@@ -1527,7 +1520,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              * @return {Boolean} true if it is children
              */
             function isChildrenOfPanelHeader(object) {
-                var panelHeader = getPanelHeader(object);
+                const panelHeader = getPanelHeader(object);
 
                 return panelHeader.length > 0;
             }
@@ -1548,16 +1541,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 if ($('#sidenav-overlay').length > 0) {
                     if (!$($this).hasClass('active')) {
-                        $('#sidenav-overlay').unbind("click");
+                        $('#sidenav-overlay').unbind('click');
                         $('#sidenav-overlay').remove();
                     }
                 } else {
-                    var overlay = $('<div id="sidenav-overlay"></div>');
+                    const overlay = $('<div id="sidenav-overlay"></div>');
                     overlay.css('opacity', 0).click(function () {
                         collapse($this, event);
                         overlay.velocity({ opacity: 0 }, {
                             duration: 300, queue: false, easing: 'easeOutQuad',
-                            complete: function complete() {
+                            complete: function() {
                                 $(this).remove();
                             }
                         });
@@ -1565,14 +1558,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     $('body').append(overlay);
                     overlay.velocity({ opacity: 1 }, {
                         duration: 300, queue: false, easing: 'easeOutQuad',
-                        complete: function complete() { }
+                        complete: function() { }
                     });
                 }
             }
 
             function collapse($this, event) {
-                var $header = $($this),
-                    element = $(event.target);
+                const $header = $($this);
+                let element = $(event.target);
 
                 if (isChildrenOfPanelHeader(element)) {
                     element = getPanelHeader(element);
@@ -1580,7 +1573,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 element.toggleClass('active');
 
-                if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
+                if (options.accordion || collapsible_type === 'accordion' || collapsible_type === undefined) {
                     // Handle Accordion
                     accordionOpen(element);
                 } else {
@@ -1609,15 +1602,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             if (!touch) {
                 // Add focusout event
                 $this.on('mouseleave.closesub', '> li > .collapsible-body', function (e) {
-                    var $header = $(this);
-                    var temp = $(e.target).closest('li > .collapsible-body');
+                    const $header = $(this);
+                    const temp = $(e.target).closest('li > .collapsible-body');
 
-                    var element = temp.parent().find('.collapsible-header');
+                    const element = temp.parent().find('.collapsible-header');
 
                     if ($('body').hasClass('site-menubar-fold') && element.hasClass('active')) {
                         element.toggleClass('active');
 
-                        if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
+                        if (options.accordion || collapsible_type === 'accordion' || collapsible_type === undefined) {
                             // Handle Accordion
                             accordionOpen(element);
                         } else {
@@ -1634,20 +1627,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             //click menu event
             $this.on('click.menuevent', '> li > .collapsible-body  a', function (e) {
-                var url = $(this).attr("data-url");
+                const url = $(this).attr('data-url');
                 $('#mainFrame').prop('src', url);
 
-                var element = $(e.target);
+                const element = $(e.target);
                 if (touch && $('body').hasClass('site-menubar-fold')) {
-                    var temp = element.closest('li > .collapsible-body');
+                    const temp = element.closest('li > .collapsible-body');
 
-                    temp.parent().find('.collapsible-header').trigger("click");
+                    temp.parent().find('.collapsible-header').trigger('click');
                 }
                 activeMenuItem.call($this, element);
             });
 
             // Open first active
-            if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
+            if (options.accordion || collapsible_type === 'accordion' || collapsible_type === undefined) {
                 // Handle Accordion
                 accordionOpen($panel_headers.filter('.active').first());
             } else {
@@ -1659,7 +1652,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         });
     }
 
-    var methods = {
+    const methods = {
         init: init,
         activeMenuItem: activeMenuItem
     };
@@ -1668,7 +1661,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         if (methods[methodOrOptions]) {
             return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.collapsibleMenu');
@@ -1823,12 +1816,12 @@ $(document).ready(function () {
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1889,7 +1882,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -2488,7 +2483,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     __webpack_require__(/*! components/selectlist */ "./www/js/source/components/selectlist.js"),
     __webpack_require__(/*! lib/jquery.jclock */ "./www/js/source/lib/jquery.jclock.js"),
     __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site, Recheckin, AutoComplete, Notification) {
-        var $searchBox;
+        let $searchBox;
 
         function initialize() {
             Site.initialize();
@@ -2498,17 +2493,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             Notification.add();
             activeDefaultMenuItem();
             setTimeout(function () {
-                var $mainFrame = $("#mainFrame");
+                const $mainFrame = $('#mainFrame');
                 $mainFrame.attr('src', $mainFrame.data('src'));
             }, 100);
 
-            if ($('#HasRecheckIn').val() === "1") {
+            if ($('#HasRecheckIn').val() === '1') {
                 Recheckin.init();
             }
 
             AutoComplete.initialize({
-                url: Site.resolveClientUrl("SearchCustomerAPI/SearchActiveAndDormantCustomer"),
-                target: "#searchbox"
+                url: Site.resolveClientUrl('SearchCustomerAPI/SearchActiveAndDormantCustomer'),
+                target: '#searchbox'
             });
         }
 
@@ -2525,8 +2520,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
         function initEvent() {
             $searchBox.keyup(function (e) {
-                e = e || window.event;
-                var key = e.keyCode || e.which;
+                const event = e || window.event;
+                const key = event.keyCode || event.which;
 
                 if (key === 13) {
                     searchByUserName();
@@ -2537,11 +2532,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 changeLanguage($(this));
             });
 
-            $("#ddlLicensee")
+            $('#ddlLicensee')
                 .selectList({ canSearch: true })
                 .on('change', function () {
-                    var licenseeId = $(this).val();
-                    top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
+                    const licenseeId = $(this).val();
+                    top.location.href = Site.resolveClientUrl('Header/ChangeLicensee?licenseeid=') + licenseeId + '&nocache=' + (new Date().getTime());
                 });
 
             $('#label-search').click(function () {
@@ -2556,52 +2551,47 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 }
             });
 
-            $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function () {
-                var $currentMenuItem = $(this);
-                document.title = 'LAP' + ' - ' + $(".active > .menu-title").text() + ' - ' + $currentMenuItem.text();
+            $('.collapsible2').on('click.menuevent', '.collapsible-body  a', function () {
+                const $currentMenuItem = $(this);
+                document.title = 'LAP' + ' - ' + $('.active > .menu-title').text() + ' - ' + $currentMenuItem.text();
 
-                var isCancelledBetListMenu = $currentMenuItem.prop("id") === "MenuItem36";
-                if (isCancelledBetListMenu) {
-                    $("#page-title").text(Site.getSingleResource("CancelledBetsTitle"));
-                    return;
-                }
-                $("#page-title").text($currentMenuItem.text());
+                $('#page-title').text($currentMenuItem.text());
             });
 
             $(window).on('blur', function () {
                 $('.dropdown-button', '.languages-block').dropdown('close');
-                $('#ddlLicensee').selectList("close");
-                $("#suggestionDropdown").hide();
+                $('#ddlLicensee').selectList('close');
+                $('#suggestionDropdown').hide();
             });
         }
 
         function searchByUserName() {
-            var userName = $searchBox.val();
+            const userName = $searchBox.val();
             if (!userName) {
                 return;
             }
 
-            var url = Site.resolveClientUrl("Customer/CustomerList?userName=" + userName);
+            const url = Site.resolveClientUrl('Customer/CustomerList?userName=' + userName);
             top.main.location.href = url;
             $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
             $('#page-title').text(Site.getSingleResource('CustomerList'));
         }
 
         function changeLanguage($target) {
-            var lang = $target.attr('langkey');
-            var mainFrame = top.frames["main"];
+            const lang = $target.attr('langkey');
+            const mainFrame = top.frames['main'];
             if (mainFrame && mainFrame.Site && mainFrame.Site.blockUI) {
                 mainFrame.Site.blockUI();
             }
 
             $.ajax({
-                url: Site.resolveClientUrl("Header/ChangeLanguage?languagesite=") + lang,
+                url: Site.resolveClientUrl('Header/ChangeLanguage?languagesite=') + lang,
                 async: false,
-                type: "GET",
+                type: 'GET',
                 cache: false,
                 success: function (result) {
-                    if (result === "1") {
-                        if ($.cookie("isClosedNotification") !== "1") {
+                    if (result === '1') {
+                        if ($.cookie('isClosedNotification') !== '1') {
                             $.cookie('isFirstLoad', '1', {
                                 path: '/'
                             });
@@ -2613,29 +2603,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
 
         function activeDefaultMenuItem() {
-            var defaultUrl = $("#DefaultUrl").val().toLowerCase();
-            defaultUrl = defaultUrl.replace(/\/index$/i, ''); // remove the last "/Index"
-            var $menuItem = $("#left-menu .collapsible-body a").filter(function () {
+            let defaultUrl = $('#DefaultUrl').val().toLowerCase();
+            defaultUrl = defaultUrl.replace(/\/index$/i, ''); // remove the last '/Index'
+            const $menuItem = $('#left-menu .collapsible-body a').filter(function () {
                 return $(this).attr('href').toLowerCase() === defaultUrl;
             });
             $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);
 
-            var menuItemName = $menuItem.length > 0 ? $menuItem.text() : "";
-            $("#page-title").text(menuItemName);
+            const menuItemName = $menuItem.length > 0 ? $menuItem.text() : '';
+            $('#page-title').text(menuItemName);
 
-            document.title = 'LAP' + ' - ' + $(".active > .menu-title").text() + ' - ' + menuItemName;
+            document.title = 'LAP' + ' - ' + $('.active > .menu-title').text() + ' - ' + menuItemName;
         }
 
         function checkMoveBetNotification() {
-            var $marquee = $("#notification-marquee");
+            const $marquee = $('#notification-marquee');
 
             if ($marquee.length === 0) {
                 return;
             }
 
-            var previousText = "";
-            var $parent = $marquee.parent();
-            var apiUrl = Site.resolveClientUrl("api/CommonApi/GetMoveBetNotification");
+            let previousText = '';
+            const $parent = $marquee.parent();
+            const apiUrl = Site.resolveClientUrl('api/CommonApi/GetMoveBetNotification');
             function processNotification() {
                 $.get(apiUrl, function (message) {
                     if (message === previousText) {
@@ -2644,17 +2634,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
                     previousText = message;
                     if (message) {
-                        if ($parent.is(":hidden")) {
+                        if ($parent.is(':hidden')) {
                             $parent.slideDown('fast');
                             $('#mainFrame').css('height', 'calc(100% - 30px)');
                         }
 
-                        if ("marquee" in $marquee) {
+                        if ('marquee' in $marquee) {
                             $marquee.text(message);
                             $marquee.marquee({ speed: 30 });
                         }
                     } else {
-                        $marquee.marquee("stop");
+                        $marquee.marquee('stop');
                         $parent.slideUp('fast');
                         $('#mainFrame').css('height', '100%');
                     }
@@ -2682,7 +2672,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./home */ "./www/js/source/pages/home/home.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Home) {
-    "use strict";
+    'use strict';
     $(Home.initialize);
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -2701,62 +2691,62 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site, moment, Popup) {
-        var NOTIFICATION_ITEM = "<li class='notification-item' id='notification-item-{0}' title='{1}'>" +
-                                "<a href='javascript:void(0)'>{2}</a><span class='type'>{3}</span><span class='date-time'>{4}</span>" +
-                                "</li>";
-        var GET_NOTIFICATION_URL = "api/NotificationReport/GetNotificationMessages";
-        var MARK_NOTIFICATION = "api/NotificationReport/MarkNotificationAsRead";
-        var POPUP_ID = "view-notification";
-        var POPUP_CONTENT_MIN_HEIGHT = 300;
+        const NOTIFICATION_ITEM = '<li class="notification-item" id="notification-item-{0}" title="{1}">' +
+                                '<a href="javascript:void(0)">{2}</a><span class="type">{3}</span><span class="date-time">{4}</span>' +
+                                '</li>';
+        const GET_NOTIFICATION_URL = 'api/NotificationReport/GetNotificationMessages';
+        const MARK_NOTIFICATION = 'api/NotificationReport/MarkNotificationAsRead';
+        const POPUP_ID = 'view-notification';
+        const POPUP_CONTENT_MIN_HEIGHT = 300;
 
-        var $notificationDdl = "";
-        var $notificationLabel = "";
-        var _newMsg = null;
-        var _totalMsg = 0;
+        let $notificationDdl = '';
+        let $notificationLabel = '';
+        let _newMsg = null;
+        let _totalMsg = 0;
 
         function openDetailPopup(message, index) {
-            var popup = $("#" + POPUP_ID);
-            if (popup.is(":visible")) {
+            const popup = $('#' + POPUP_ID);
+            if (popup.is(':visible')) {
                 popup.find('a.popup-close').click();
             }
 
-            var options = {
+            const options = {
                 modal: true,
-                title: Site.getSingleResource("ViewNotification"),
-                height: "80%",
+                title: Site.getSingleResource('ViewNotification'),
+                height: '80%',
                 id: POPUP_ID,
-                width: "55%",
+                width: '55%',
                 onOpened: function () {
-                    var popupHeight = $(".wrapContent", ".view-notification").height();
-                    var subjectHeight = $(".subject", ".view-notification").height();
-                    var dateTimeHeight = $(".date-time", ".view-notification").height();
-                    var height = popupHeight - subjectHeight - dateTimeHeight - 60;
+                    const popupHeight = $('.wrapContent', '.view-notification').height();
+                    const subjectHeight = $('.subject', '.view-notification').height();
+                    const dateTimeHeight = $('.date-time', '.view-notification').height();
+                    const height = popupHeight - subjectHeight - dateTimeHeight - 60;
 
                     if (height > POPUP_CONTENT_MIN_HEIGHT) {
-                        $(".content", ".view-notification").height(height);
+                        $('.content', '.view-notification').height(height);
                     }
                 },
                 onClose: function () {
-                    var postData = {
+                    const postData = {
                         MessageType: message.Type,
                         MessageId: message.Id
                     };
 
                     markMessageAsRead(postData, index);
-                    $("#" + POPUP_ID).remove();
+                    $('#' + POPUP_ID).remove();
                 }
             };
 
-            var buttons = [
+            const buttons = [
                 {
-                    text: Site.getSingleResource("Close"),
+                    text: Site.getSingleResource('Close'),
                     isClosedOnClick: true,
-                    classes: "btn btn-close"
+                    classes: 'btn btn-close'
                 }];
 
-            var popupContent = '<div class="view-notification">'
-                                + '<p class="subject">' + Site.getSingleResource("Subject") + ": " + message.Subject + '</p>'
-                                + '<p class="date-time">' + moment(message.DateTime).format("MM/DD/YYYY") + '</p>'
+            const popupContent = '<div class="view-notification">'
+                                + '<p class="subject">' + Site.getSingleResource('Subject') + ': ' + message.Subject + '</p>'
+                                + '<p class="date-time">' + moment(message.DateTime).format('MM/DD/YYYY') + '</p>'
                                 + '<div class="content">' + (message.Content || '') + '</div>'
                                 + '</div>';
 
@@ -2764,21 +2754,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
 
         function addNotificationItems(data) {
-            $notificationDdl.find(".notification-item").remove();
+            $notificationDdl.find('.notification-item').remove();
             updateNumberLabel(data.TotalRows);
 
-            var $container = $notificationDdl.find(".first-notification").parent();
+            const $container = $notificationDdl.find('.first-notification').parent();
             if (data.DataList !== null && data.DataList.length > 0) {
                 data.DataList.forEach(function (item, index) {
-                    var time = moment(item.DateTime).format("MM/DD/YYYY");
-                    var subject = item.Subject || '';
-                    var message = $($.format(NOTIFICATION_ITEM,
+                    const time = moment(item.DateTime).format('MM/DD/YYYY');
+                    const subject = item.Subject || '';
+                    const message = $($.format(NOTIFICATION_ITEM,
                         index,
                         subject,
                         (subject.length > 100 ? subject.substr(0, 97) + '...' : subject),
                         Site.getSingleResource(item.Type),
                         time));
-                    message.on("click", function () {
+                    message.on('click', function () {
                         openDetailPopup(item, index);
                     });
 
@@ -2790,15 +2780,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         function markMessageAsRead(postData, index) {
             $.ajax({
                 url: Site.resolveClientUrl(MARK_NOTIFICATION),
-                type: "POST",
+                type: 'POST',
                 data: postData,
-                dataType: "json",
+                dataType: 'json',
                 cache: false,
                 success: function (response) {
                     setTimeout(function () {
                         if (_newMsg === null && response.IsSuccessful) {
                             updateNumberLabel(_totalMsg - 1);
-                            $notificationDdl.find("#notification-item-" + index).remove();
+                            $notificationDdl.find('#notification-item-' + index).remove();
                         }
                     }, 100);
                 }
@@ -2806,7 +2796,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
 
         function updateNumberLabel(num) {
-            var $numberOfMsg = $(".number-notifications", ".notifications-block");
+            const $numberOfMsg = $('.number-notifications', '.notifications-block');
 
             _totalMsg = num;
 
@@ -2818,7 +2808,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                     $numberOfMsg.text(num);
                 }
                 else {
-                    $notificationLabel.append("<span class='number-notifications'>" + num + "</span>");
+                    $notificationLabel.append('<span class="number-notifications">' + num + '</span>');
                 }
             }
         }
@@ -2836,29 +2826,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
 
         function addNotification() {
-            $notificationDdl = $("#notificationmsg");
+            $notificationDdl = $('#notificationmsg');
 
             if ($notificationDdl.length === 0) {
                 return;
             }
 
-            $notificationLabel = $(".notification-button", ".notifications-block");
+            $notificationLabel = $('.notification-button', '.notifications-block');
 
             $notificationLabel.click(function (e) {
                 e.stopPropagation();
-                showNotification(!$notificationDdl.is(":visible"));
+                showNotification(!$notificationDdl.is(':visible'));
             });
 
-            var apiUrl = Site.resolveClientUrl(GET_NOTIFICATION_URL);
+            const apiUrl = Site.resolveClientUrl(GET_NOTIFICATION_URL);
 
-            var processNotification = function () {
+            const processNotification = function () {
                 $.ajax({
                     url: apiUrl,
-                    type: "GET",
+                    type: 'GET',
                     cache: false,
-                    contentType: "application/json; charset=utf-8",
+                    contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        if ($notificationDdl.is(":visible")) {
+                        if ($notificationDdl.is(':visible')) {
                             _newMsg = data;
                             return;
                         }
@@ -2873,19 +2863,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             };
 
             $('html').on('click', function () {
-                if ($notificationDdl.is(":visible")) {
+                if ($notificationDdl.is(':visible')) {
                     showNotification(false);
                 }
             });
             $(window).on('blur', function () {
-                if ($notificationDdl.is(":visible")) {
+                if ($notificationDdl.is(':visible')) {
                     showNotification(false);
                 }
             });
 
             processNotification();
             setInterval(processNotification, 60000);
-            $notificationDdl.mCustomScrollbar({ theme: "minimal" });
+            $notificationDdl.mCustomScrollbar({ theme: 'minimal' });
         }
 
         return {
@@ -2904,14 +2894,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path='/@JSense.js' />
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site) {
-    "use strict";
-    var _handle;
-    var _onUserId;
+    'use strict';
+    let _handle;
+    let _onUserId;
 
     function logout() {
-        var index = window;
+        let index = window;
         while (index !== index.parent) {
             index = index.parent;
         }
@@ -2920,7 +2910,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function closeBrowser() {
-        var index = window;
+        let index = window;
         while (index !== index.parent) {
             index = index.parent;
         }
@@ -2929,37 +2919,37 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function reCheckin() {
-        var Success = 0;
-        // var Unknown = -1;
-        // var AccessDenied = 1;
-        // var AccountClosed = 2;
-        // var KickedOut = 3;
-        // var UnderMaintenance = 4;
-        var SessionOverride = 5;
+        const Success = 0;
+        // const Unknown = -1;
+        // const AccessDenied = 1;
+        // const AccountClosed = 2;
+        // const KickedOut = 3;
+        // const UnderMaintenance = 4;
+        const SessionOverride = 5;
 
         $.ajax({
-            url: Site.resolveClientUrl("Authorization/ReCheckIn?onid=") + _onUserId,
+            url: Site.resolveClientUrl('Authorization/ReCheckIn?onid=') + _onUserId,
             async: true,
-            type: "GET",
+            type: 'GET',
             cache: false,
             success: function (result) {
-                if (typeof result !== "object") {
+                if (typeof result !== 'object') {
                     return;
                 }
 
-                var errCode = result.ErrCode;
+                const errCode = result.ErrCode;
                 if (errCode !== Success) {
                     clearInterval(_handle);
                     alert(result.ErrMsg, true);
-                    var isInternal = $("#IsInternal").val() === "1";
+                    const isInternal = $('#IsInternal').val() === '1';
                     if (isInternal || SessionOverride === errCode) {
-                        var signOutUrl = Site.resolveClientUrl('Authorization/SignOut');
+                        const signOutUrl = Site.resolveClientUrl('Authorization/SignOut');
                         $.ajax({
                             url: signOutUrl,
                             complete: function () {
                                 closeBrowser();
                             },
-                            type: "GET",
+                            type: 'GET',
                             async: true
                         });
                     }
@@ -2973,7 +2963,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     return {
         init: function () {
-            _onUserId = $("#OnUserId").val();
+            _onUserId = $('#OnUserId').val();
             reCheckin();
             _handle = setInterval(reCheckin, 30000);
         }

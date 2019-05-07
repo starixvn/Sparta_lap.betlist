@@ -12,6 +12,7 @@ namespace Fanex.Athena.Api.Base
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
@@ -51,12 +52,6 @@ namespace Fanex.Athena.Api.Base
             }
         }
 
-        /// <summary>
-        /// Generate excel steam.
-        /// </summary>
-        /// <param name="workbook">Excel workbook.</param>
-        /// <param name="fileName">Excel file name.</param>
-        /// <returns>Http Response Message.</returns>
         [System.CLSCompliant(false)]
         protected internal virtual HttpResponseMessage ExcelStream(IWorkbook workbook, string fileName)
         {
@@ -98,10 +93,11 @@ namespace Fanex.Athena.Api.Base
                 return string.Empty;
             }
 
-            var productList = ProductService.GetProductAccess(
+            var productAccess = ProductService.GetProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                functionProductConfigKey).ProductList;
+                functionProductConfigKey);
+            var productList = productAccess.ProductList;
 
             var validProductCodes = productCodeList.Split(',').Where(x => productList.Any(y => y.ProductCode.Equals(x, StringComparison.OrdinalIgnoreCase)));
             return string.Join(",", validProductCodes.ToArray());

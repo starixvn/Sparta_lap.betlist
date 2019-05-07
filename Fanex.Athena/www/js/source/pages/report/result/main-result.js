@@ -1,4 +1,4 @@
-﻿"use strict";
-define(["./result"], function (Result) {
+﻿'use strict';
+define(['./result'], function (Result) {
     $(Result.initialize);
 });

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
@@ -14,7 +15,7 @@
     using Service.Core.Common.Interfaces;
     using UnitTest.Common.Helpers;
 
-    public class BettingTicketCenterControllerTest : BaseControllerHelperTest
+    public class BettingTicketCenterControllerTest : CultureBaseControllerHelperTest
     {
         private static readonly DateTime BalanceUpDate = new DateTime(2018, 11, 2);
 

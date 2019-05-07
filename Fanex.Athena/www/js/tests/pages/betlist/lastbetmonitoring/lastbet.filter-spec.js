@@ -218,7 +218,7 @@
                         };
 
                         ajaxOption.success(response);
-                        var expectedParam = "<option value='1'>Soccer</option>";
+                        var expectedParam = '<option value="1">Soccer</option>';
 
                         expect($.fn.append).toHaveBeenCalledWith(expectedParam);
                     });

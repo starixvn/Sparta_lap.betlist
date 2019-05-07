@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([26,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([24,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -292,19 +291,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js"), __webpack_require__(/*! materialize-autocomplete */ "./node_modules/materialize-autocomplete/jquery.materialize-autocomplete.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
+    'use strict';
 
-    var mainOption = {
+    const mainOption = {
         suggestionDropdown: '#suggestionDropdown',
         url: null,
         target: null
     };
 
-    var DELAY_MILLISECOND = 600;
+    const DELAY_MILLISECOND = 600;
 
-    var _autoComplete;
+    let _autoComplete;
 
-    var _me = {
+    const _me = {
         initialize: function (option) {
             _me.initAutoComplete(option);
             _me.initEvent();
@@ -325,7 +324,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         initAutoComplete: function (option) {
             $.extend(mainOption, option);
             if (!mainOption.url || !mainOption.target) {
-                throw Error("Missing data in option");
+                throw Error('Missing data in option');
             }
 
             _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
@@ -338,23 +337,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         search: function (value, callback) {
-            var query = $.trim(value);
+            const query = $.trim(value);
             if (query.length < 3)
             {
                 return;
             }
 
-            var url = mainOption.url + "?query=" + value;
+            const url = mainOption.url + '?query=' + value;
 
             $.ajax({
-                type: "GET",
-                dataType: "json",
+                type: 'GET',
+                dataType: 'json',
                 url: url,
                 success: function (response) {
-                    var suggestions = response.suggestions;
+                    const suggestions = response.suggestions;
 
                     if (suggestions && suggestions.length > 0) {
-                        var data = suggestions.map(function (item) {
+                        const data = suggestions.map(function (item) {
                             return { id: item, text: item };
                         });
 
@@ -369,8 +368,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         updateWidthOfSuggestionDropdown: function () {
-            var $autoCompleteTarget = $(mainOption.target);
-            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+            const $autoCompleteTarget = $(mainOption.target);
+            const $suggestionDropdown = $(mainOption.suggestionDropdown);
             if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
                 $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
             }
@@ -395,21 +394,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! lib/jquery.monthpicker */ "./www/js/source/lib/jquery.monthpicker.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-        "use strict";
-        var PICKER_SELECTOR = "#month-picker";
-        var FORMAT = "MM/dd/yyyy";
+        'use strict';
+        const PICKER_SELECTOR = '#month-picker';
+        const FORMAT = 'MM/dd/yyyy';
 
-        var _historyDate = new Date($("#HistoryDate").val());
+        const _historyDate = new Date($('#HistoryDate').val());
 
         function initMonthPicker(option) {
-            var $picker = $(PICKER_SELECTOR);
-            var $fromDate = $('#FromDate');
-            var $todate = $('#ToDate');
+            const $picker = $(PICKER_SELECTOR);
+            const $fromDate = $('#FromDate');
+            const $todate = $('#ToDate');
 
-            var fromdate = new Date($fromDate.val());
-            var todate = new Date($todate.val());
+            const fromdate = new Date($fromDate.val());
+            const todate = new Date($todate.val());
 
-            var defaultOption = {
+            const defaultOption = {
                 minDate: _historyDate,
                 showDateRange: true,
                 fromDayId: 'fDay',
@@ -419,14 +418,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 fromDay: fromdate.getDate(),
                 toDay: todate.getDate(),
                 afterChangeMonth: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
                 },
                 afterChangeDay: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
-                    $todate.val($picker.monPickr("getToDate", FORMAT));
+                    $fromDate.val($picker.monPickr('getFromDate', FORMAT));
+                    $todate.val($picker.monPickr('getToDate', FORMAT));
 
-                    if (option && typeof option.customAfterChangeDay === "function") {
+                    if (option && typeof option.customAfterChangeDay === 'function') {
                         option.customAfterChangeDay();
                     }
                 }
@@ -440,11 +439,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function getFromDateString() {
-            return $(PICKER_SELECTOR).monPickr("getFromDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getFromDate', FORMAT);
         }
 
         function getToDateString() {
-            return $(PICKER_SELECTOR).monPickr("getToDate", FORMAT);
+            return $(PICKER_SELECTOR).monPickr('getToDate', FORMAT);
         }
 
         return {
@@ -467,30 +466,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jquery.multiselect */ "./www/js/source/lib/jquery.multiselect.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    var _me = {
+    const _me = {
         initProductList: function () {
-            var selector = "#grid-products-multiselect";
-            var data = $.parseJSON($("#productsData").val());
-            var length = data.length;
-            var dataUI = [];
-            var checkedCount = 0;
-            for (var i = 0; i < length; i++) {
-                var item = data[i];
-                var isChecked = item["Status"];
+            const selector = '#grid-products-multiselect';
+            const data = $.parseJSON($('#productsData').val());
+            const length = data.length;
+            const dataUI = [];
+            let checkedCount = 0;
+            for (let i = 0; i < length; i++) {
+                const item = data[i];
+                const isChecked = item['Status'];
                 if (isChecked) {
                     checkedCount++;
                 }
 
                 dataUI.push({
-                    Id: item["Code"],
-                    Value: item["Code"],
-                    Text: Site.getSingleResource(item["Name"]),
+                    Id: item['Code'],
+                    Value: item['Code'],
+                    Text: Site.getSingleResource(item['Name']),
                     Checked: isChecked,
                     Enable: true
                 });
             }
 
-            var isCheckAll = checkedCount === length;
+            const isCheckAll = checkedCount === length;
             $(selector).multiSelect({
                 minWidth: 200,
                 maxHeight: 400,
@@ -503,17 +502,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {
-                    var checkedItems = $(selector).multiSelect("getCheckedItems");
-                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
-                    var hasItemsChecked = checkedItems.length > 0;
+                    const checkedItems = $(selector).multiSelect('getCheckedItems');
+                    $('#product-container input[type=checkbox]:checked').prop('checked', false);
+                    const hasItemsChecked = checkedItems.length > 0;
                     if (hasItemsChecked) {
-                        for (var i = 0; i < checkedItems.length; i++) {
-                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+                        for (let i = 0; i < checkedItems.length; i++) {
+                            $('#product-container #' + checkedItems[i]).prop('checked', true);
                         }
                     }
                     
-                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
+                    $('#ProductList').toggleClass('invalid', !hasItemsChecked);
+                    $('#SubmitButton').prop('disabled', !hasItemsChecked);
                 }
             });
         }
@@ -533,15 +532,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -559,23 +558,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -594,14 +593,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -612,14 +611,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -631,16 +630,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -657,45 +656,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -711,8 +710,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -721,7 +720,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -738,10 +737,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -749,10 +748,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -760,37 +759,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -800,16 +799,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -817,44 +816,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -866,7 +865,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -1024,12 +1023,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1090,7 +1089,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -5636,16 +5637,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./turnover */ "./www/js/source/pages/report/turnover/turnover.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Turnover) {
-    "use strict";
+    'use strict';
     $(function () {
         Turnover.initialize();
-       // jqGridAdditional.resizeGrid();
-
-       // $(window).resize(jqGridAdditional.resizeGrid);
-
-       /* $(window).unload(function () {
-            $(window).unbind("resize");
-        }); */
     });
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -5663,90 +5657,90 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./turnover.option */ "./www/js/source/pages/report/turnover/turnover.option.js"),
         __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! components/pluginhelper/monthpicker */ "./www/js/source/components/pluginhelper/monthpicker.js"), __webpack_require__(/*! components/pluginhelper/multiselect */ "./www/js/source/components/pluginhelper/multiselect.js"),
         __webpack_require__(/*! components/pluginhelper/autocomplete */ "./www/js/source/components/pluginhelper/autocomplete.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, AutoComplete) {
-        "use strict";
-    var ajaxRequest = null;
-    var _fromDate, _toDate, _currencyId;
+        'use strict';
+    let ajaxRequest = null;
+    let _fromDate, _toDate, _currencyId;
 
-    var _me = {
-        defaultUserName: "",
+    const _me = {
+        defaultUserName: '',
         initialize: function () {
             Site.initialize();
             _me.initEvent();
             AutoComplete.initialize({
-                url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
-                target: "#Username"
+                url: Site.resolveClientUrl('SearchCustomerAPI/SearchCustomer'),
+                target: '#Username'
             });
             MonthPicker.initMonthPicker();
 
-            TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-            TurnoverOption.hasCasinoTransfer = Site.asBool($("#IsAllowedCasinoTransfer").val());
-            TurnoverOption.isAllowBa = Site.asBool($("#IsAllowBa").val());
+            TurnoverOption.hasCustomerComm = Site.asBool($('#IsAllowedCustomerCommission').val());
+            TurnoverOption.hasCasinoTransfer = Site.asBool($('#IsAllowedCasinoTransfer').val());
+            TurnoverOption.isAllowBa = Site.asBool($('#IsAllowBa').val());
             MultiSelect.initProductList();
             Site.addUserGuide({
-                resourceName: "Turnover",
-                title: Site.getSingleResource("Turnover")
+                resourceName: 'Turnover',
+                title: Site.getSingleResource('Turnover')
             });
         },
         
         initEvent: function () {
-            $("#TurnoverForm input").keypress(function (e) {
+            $('#TurnoverForm input').keypress(function (e) {
                 if (e.keyCode === 13) {
                     $('#IsExportExcel').val(false);
                     _me.submit();
                 }
             });
 
-            $("#SubmitButton").click(function () {
+            $('#SubmitButton').click(function () {
                 $('#IsExportExcel').val(false);
                 _me.submit();
             });
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#TurnoverForm");
-                var url = Site.resolveClientUrl(TurnoverOption.urlExcelData);
-                mainForm.attr("action", url);
+                const mainForm = $('#TurnoverForm');
+                const url = Site.resolveClientUrl(TurnoverOption.urlExcelData);
+                mainForm.attr('action', url);
                 mainForm.submit();
                 $('#IsExportExcel').val(false);
                 return false;
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 _me.resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         },
 
         setReportTitle: function () {
-            var titlePattern = Site.getSingleResource('Turnover');
-            var title = null;
-            var username = $('#Username').val().trim();
-            var currencyTextList =
+            let titlePattern = Site.getSingleResource('Turnover');
+            let title = null;
+            const username = $('#Username').val().trim();
+            const currencyTextList =
                 {
-                    "-3": "gbp",
-                    "-2": "usd",
-                    "-1": "eur",
-                    "0": Site.getSingleResource('AllCurrencies')
+                    '-3': 'gbp',
+                    '-2': 'usd',
+                    '-1': 'eur',
+                    '0': Site.getSingleResource('AllCurrencies')
                 };
 
-            var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId]
+            let currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId]
                                                             : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
-            var dateString = _fromDate.format("MM/DD/YYYY") + ' → ' + _toDate.format("MM/DD/YYYY");
+            const dateString = _fromDate.format('MM/DD/YYYY') + ' → ' + _toDate.format('MM/DD/YYYY');
             currencyName = currencyName.toUpperCase();
             if (username === _me.defaultUserName) {
-                titlePattern += ", {0} - {1}";
-                var currencyStr = Site.getSingleResource("Viewin").replace("{0}", currencyName);
+                titlePattern += ', {0} - {1}';
+                const currencyStr = Site.getSingleResource('Viewin').replace('{0}', currencyName);
                 title = $.format(titlePattern, dateString, currencyStr);
             } else {
-                titlePattern += ", {0} - {1} {2} ({3})";
+                titlePattern += ', {0} - {1} {2} ({3})';
                 title = $.format(titlePattern, dateString, Site.getSingleResource('Customer'), username, currencyName);
             }
 
-            $(".report-title").html(title);
-            $(".panel-heading").removeClass("hide");
+            $('.report-title').html(title);
+            $('.panel-heading').removeClass('hide');
         },
         ajaxComplete: function (response) {
             if (response !== null) {
@@ -5756,37 +5750,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         setDateParam: function(){
-            _fromDate = moment($("#FromDate").val(), "MM/DD/YYYY");
-            _toDate = moment($("#ToDate").val(), "MM/DD/YYYY");
+            _fromDate = moment($('#FromDate').val(), 'MM/DD/YYYY');
+            _toDate = moment($('#ToDate').val(), 'MM/DD/YYYY');
 
-            $("#FromDay").val(_fromDate.date());
-            $("#ToDay").val(_toDate.date());
-            $("#Month").val(_fromDate.month() + 1);
-            $("#Year").val(_fromDate.year());
+            $('#FromDay').val(_fromDate.date());
+            $('#ToDay').val(_toDate.date());
+            $('#Month').val(_fromDate.month() + 1);
+            $('#Year').val(_fromDate.year());
         },
 
         submit: function () {
-            if ($("#ProductList .childCheckbox:checked").length === 0) {
+            if ($('#ProductList .childCheckbox:checked').length === 0) {
                 return;
             }
 
             _me.setDateParam();
-            _currencyId = $("#CurrencyId").val();
+            _currencyId = $('#CurrencyId').val();
 
-            var mainForm = $("#TurnoverForm");
-            var postdata = mainForm.serializeObject();
+            const mainForm = $('#TurnoverForm');
+            const postdata = mainForm.serializeObject();
             if (postdata.Username === _me.defaultUserName) {
                 postdata.Username = undefined;
             }
 
             postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
            
-            var option =
+            const option =
             {
-                type: "POST",
+                type: 'POST',
                 data: postdata,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(TurnoverOption.urlData),
                 success: function (response) {
@@ -5808,29 +5802,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         bindData: function (response) {
-            jqGridAdditional.clearGrid("ReportGrid");
-            var numOfRow = response.Data.length;
+            jqGridAdditional.clearGrid('ReportGrid');
+            const numOfRow = response.Data.length;
             if (!response || numOfRow === 0) {
                 jqGridAdditional.setNoInfo();
                 return;
             }
             
-            var reportGrid = $("#ReportGrid");
-            var gridOption = TurnoverOption.getGridOption();
+            const reportGrid = $('#ReportGrid');
+            const gridOption = TurnoverOption.getGridOption();
             gridOption.data = response.Data;
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete();
                 _me.bindTotal(response.TotalData);
 
-                var groupHeaders = [{
-                    startColumnName: "TurnoverBA",
+                const groupHeaders = [{
+                    startColumnName: 'TurnoverBA',
                     numberOfColumns: 3,
                     titleText: Site.getSingleResource('BA')
                 }];
 
                 if (TurnoverOption.hasCustomerComm) {
                     groupHeaders.push({
-                        startColumnName: "WinLoss",
+                        startColumnName: 'WinLoss',
                         numberOfColumns: 3,
                         titleText: Site.getSingleResource('CustomerW_L')
                     });
@@ -5851,16 +5845,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         bindTotal: function (totalData) {
-            var columnModel = TurnoverOption.getColModel();
-            var colspan = 2;
+            const columnModel = TurnoverOption.getColModel();
+            const colspan = 2;
             jqGridAdditional.assignTotal(totalData, columnModel);
             jqGridAdditional.setGroupFooters(colspan, 0, 0);
-            var $tr = $(".ui-jqgrid-sdiv table tr");
-            $tr.find("td[aria-describedby=ReportGrid_OpeningBalance], td[aria-describedby=ReportGrid_ClosingBalance]").css("text-align", "center").html("-");
+            const $tr = $('.ui-jqgrid-sdiv table tr');
+            $tr.find('td[aria-describedby=ReportGrid_OpeningBalance], td[aria-describedby=ReportGrid_ClosingBalance]').css('text-align', 'center').html('-');
         },
 
         resizeGrid: function () {
-            var reportGrid = $("#ReportGrid");
+            const reportGrid = $('#ReportGrid');
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
@@ -5880,9 +5874,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, jqGridAdditional) {
-        "use strict";
+        'use strict';
 
-    var indexColumn = {
+    const indexColumn = {
         name: 'Index',
         index: 'Index',
         width: 30,
@@ -5892,7 +5886,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         frozen: true
     };
-    var dateColumn = {
+    const dateColumn = {
         name: 'Date',
         index: 'Date',
         width: 85,
@@ -5901,7 +5895,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         resizable: false
     };
-    var openingBalanceColumn = {
+    const openingBalanceColumn = {
         name: 'OpeningBalance',
         index: 'OpeningBalance',
         width: 110,
@@ -5911,7 +5905,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var depositColumn = {
+    const depositColumn = {
         name: 'Deposit',
         index: 'Deposit',
         width: 100,
@@ -5921,7 +5915,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var withdrawalColumn = {
+    const withdrawalColumn = {
         name: 'Withdrawal',
         index: 'Withdrawal',
         resizable: false,
@@ -5932,7 +5926,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
-    var bonusColumn = {
+    const bonusColumn = {
         name: 'Bonus',
         index: 'Bonus',
         width: 85,
@@ -5942,7 +5936,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         formatter: 'currency',
         frozen: true
     };
-    var adjustmentColumn = {
+    const adjustmentColumn = {
         name: 'Adjustment',
         index: 'Adjustment',
         width: 75,
@@ -5952,7 +5946,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var turnoverColumn = {
+    const turnoverColumn = {
         name: 'Turnover',
         index: 'Turnover',
         width: 120,
@@ -5962,7 +5956,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var drawGameColumn = {
+    const drawGameColumn = {
         name: 'DrawGame',
         index: 'DrawGame',
         width: 100,
@@ -5972,7 +5966,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         frozen: true,
         formatter: 'currency'
     };
-    var netTurnoverColumn = {
+    const netTurnoverColumn = {
         name: 'NetTurnover',
         index: 'NetTurnover',
         width: 120,
@@ -5983,7 +5977,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         title: true,
         formatter: 'currency'
     };
-    var pendingFundsColumn = {
+    const pendingFundsColumn = {
         name: 'PendingFunds',
         index: 'PendingFunds',
         width: 70,
@@ -5992,7 +5986,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var winLossColumn = {
+    const winLossColumn = {
         name: 'WinLoss',
         index: 'WinLoss',
         width: 100,
@@ -6001,7 +5995,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var playerCommColumn = {
+    const playerCommColumn = {
         name: 'PlayerComm',
         index: 'PlayerComm',
         width: 60,
@@ -6010,7 +6004,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var winlossCommColumn = {
+    const winlossCommColumn = {
         name: 'WinLossComm',
         index: 'WinLossComm',
         width: 100,
@@ -6019,7 +6013,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var closingBalanceColumn = {
+    const closingBalanceColumn = {
         name: 'ClosingBalance',
         index: 'ClosingBalance',
         width: 110,
@@ -6028,7 +6022,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         resizable: false,
         formatter: 'currency'
     };
-    var affiliateTransferColumn = {
+    const affiliateTransferColumn = {
         name: 'AffiliateTransfer',
         index: 'AffiliateTransfer',
         width: 90,
@@ -6038,7 +6032,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         formatter: 'currency'
     };
 
-        var transfer3rdColumn = {
+        const transfer3rdColumn = {
             name: 'Transfer3rd',
             index: 'Transfer3rd',
             width: 90,
@@ -6047,7 +6041,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             formatter: 'currency'
         };
-        var turnoverBAColumn = {
+        const turnoverBAColumn = {
             name: 'TurnoverBA',
             index: 'TurnoverBA',
             width: 80,
@@ -6056,7 +6050,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             formatter: 'currency'
         };
-        var commBAColumn = {
+        const commBAColumn = {
             name: 'CommBA',
             index: 'CommBA',
             width: 60,
@@ -6065,7 +6059,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             resizable: false,
             formatter: 'currency'
         };
-        var amountDueToBAColumn = {
+        const amountDueToBAColumn = {
             name: 'AmountDueToBA',
             index: 'AmountDueToBA',
             width: 70,
@@ -6075,17 +6069,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: 'currency'
         };
 
-        var colNameList = ['#', 'Day', "OpeningBalance", "Deposit", 'Withdrawal', 'Bonus', 'Adjustment',
+        const colNameList = ['#', 'Day', 'OpeningBalance', 'Deposit', 'Withdrawal', 'Bonus', 'Adjustment',
                     'Turnover', 'DrawGame', 'NetTurnover', 'PendingFunds',
                     'WinLoss', 'Comm', 'Total', 'ClosingBalance',
                      'AffiliateTransfer', 'CasinoTransfer', 'Turnover', 'Comm', 'AmountDueTo'];
-        var colModelList = [indexColumn, dateColumn, openingBalanceColumn, depositColumn, withdrawalColumn, bonusColumn, adjustmentColumn,
+        const colModelList = [indexColumn, dateColumn, openingBalanceColumn, depositColumn, withdrawalColumn, bonusColumn, adjustmentColumn,
                      turnoverColumn, drawGameColumn, netTurnoverColumn, pendingFundsColumn,
                      winLossColumn, playerCommColumn, winlossCommColumn, closingBalanceColumn,
                     affiliateTransferColumn, transfer3rdColumn, turnoverBAColumn, commBAColumn, amountDueToBAColumn];
-        var customerWlTotalIndex = 11;
+        const customerWlTotalIndex = 11;
 
-        var _me = {
+        const _me = {
             licenseeId: 0,
             hasCustomerComm: true,
             totalColspan: [3],
@@ -6141,7 +6135,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         _me.getTotalColModel = function () {
-            var colModel = _me.getColModel();
+            const colModel = _me.getColModel();
             return colModel;
         };
 
@@ -6151,7 +6145,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 26:
+/***/ 24:
 /*!***********************************************************!*\
   !*** multi ./www/js/source/pages/report/turnover/main.js ***!
   \***********************************************************/

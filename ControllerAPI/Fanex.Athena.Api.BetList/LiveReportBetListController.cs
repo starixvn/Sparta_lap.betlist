@@ -115,11 +115,13 @@ namespace Fanex.Athena.Api.BetList
 
         private async Task<HttpResponseMessage> GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
+            const int DefautlPageSize = 100;
+
             var licenseeSession = SessionService.LicenseeSession;
             var currencyList = SessionService.UserSession.CurrencyList;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
-            metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
+            metaModel.PageSize = pageSize < 1 ? DefautlPageSize : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.HasPlayerCom = licenseeSession.IsAllowedCustomerComm;
             metaModel.CurrencyList = currencyList;

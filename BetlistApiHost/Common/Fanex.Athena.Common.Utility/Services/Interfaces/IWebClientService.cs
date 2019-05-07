@@ -8,13 +8,9 @@ namespace Fanex.Athena.Common.Utility.Services.Interfaces
     {
         string UploadString(Uri address, string parameters);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        string DownloadString(string url);
+        string DownloadString(string address);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        byte[] DownloadData(string url);
+        byte[] DownloadData(string address);
 
         string UploadString(Uri address, string parameters, IDictionary<HttpRequestHeader, string> headers);
     }

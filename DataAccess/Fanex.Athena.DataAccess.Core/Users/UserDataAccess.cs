@@ -8,16 +8,13 @@ namespace Fanex.Athena.DataAccess.Core.Users
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
 
     public class UserDataAccess : BaseDataAccess, IUserDataAccess
     {
@@ -27,11 +24,11 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("UserName", DbType.String, requestUser.Username);
-                db.AddInParameter("OldPwd", DbType.String, oldPassword);
-                db.AddInParameter("NewPwd", DbType.String, newPassword);
-                db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-                db.AddInParameter("UserSalt", DbType.String, salt);
+                db.SetParameterValue("UserName", requestUser.Username);
+                db.SetParameterValue("OldPwd", oldPassword);
+                db.SetParameterValue("NewPwd", newPassword);
+                db.SetParameterValue("LoginIP", requestUser.Request.Ip);
+                db.SetParameterValue("UserSalt", salt);
                 AddResultParam(db);
 
                 db.ExecuteNonQuery();
@@ -44,38 +41,32 @@ namespace Fanex.Athena.DataAccess.Core.Users
         {
             const string UspName = "Lrf_UserAccessSel";
             var uspParams = new { LicenseeID = licenseeId, IsInternal = isInternal };
-            try
-            {
-                var entityList = new List<User>();
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    using (var reader = db.ExecuteReader(uspParams))
-                    {
-                        while (reader.Read())
-                        {
-                            var entity = new User
-                            {
-                                UserID = Convert.ToInt32(reader["UserID"]),
-                                Username = reader.ToString("username"),
-                                FirstName = reader.ToString("firstname"),
-                                LastName = reader.ToString("lastname"),
-                                Status = reader.ToString("status"),
-                                IsManageAccount = Convert.ToBoolean(reader["ismanageaccount"]),
-                                Licensee = new Licensee { Id = licenseeId },
-                                IsInternal = Converter.ToBool(reader["isinternal"])
-                            };
 
-                            entityList.Add(entity);
-                        }
+            var entityList = new List<User>();
+            using (var db = this.GetObjectDb(UspName))
+            {
+                using (var reader = db.ExecuteReader(uspParams))
+                {
+                    while (reader.Read())
+                    {
+                        var entity = new User
+                        {
+                            UserID = Convert.ToInt32(reader["UserID"]),
+                            Username = reader.ToString("username"),
+                            FirstName = reader.ToString("firstname"),
+                            LastName = reader.ToString("lastname"),
+                            Status = reader.ToString("status"),
+                            IsManageAccount = Convert.ToBoolean(reader["ismanageaccount"]),
+                            Licensee = new Licensee { Id = licenseeId },
+                            IsInternal = Converter.ToBool(reader["isinternal"])
+                        };
+
+                        entityList.Add(entity);
                     }
                 }
+            }
 
-                return entityList;
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, uspParams);
-            }
+            return entityList;
         }
 
         public User GetByUsername(string userName, bool isInternal, int licenseeId = 0)
@@ -125,8 +116,8 @@ namespace Fanex.Athena.DataAccess.Core.Users
             bool isKickedOut;
             using (var db = GetObjectDb(UspName, 30))
             {
-                db.AddInParameter("On_Userid", DbType.Int32, userId);
-                db.AddOutParameter("IsKickedOut", DbType.Boolean, 0);
+                db.SetParameterValue("On_Userid", userId);
+                db.SetParameterValue("IsKickedOut", null);
                 db.ExecuteNonQuery();
 
                 // get OnUserId
@@ -142,13 +133,13 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                db.AddInParameter("UserId", DbType.Int32, user.UserID);
-                db.AddInParameter("UpdateBy", DbType.Int32, resetPwdBy);
-                db.AddInParameter("Pwd", DbType.String, user.Password);
-                db.AddInParameter("UserSalt", DbType.String, salt);
-                db.AddInParameter("langkey", DbType.String, user.Request.Language);
-                db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+                db.SetParameterValue("LicenseeID", user.Licensee.Id);
+                db.SetParameterValue("UserId", user.UserID);
+                db.SetParameterValue("UpdateBy", resetPwdBy);
+                db.SetParameterValue("Pwd", user.Password);
+                db.SetParameterValue("UserSalt", salt);
+                db.SetParameterValue("langkey", user.Request.Language);
+                db.SetParameterValue("LoginIP", user.Request.Ip);
 
                 AddResultParam(db);
 
@@ -164,14 +155,14 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                db.AddInParameter("UserId", DbType.Int32, user.UserID);
-                db.AddInParameter("UpdateBy", DbType.Int32, updatedBy);
-                db.AddInParameter("FirstName", DbType.String, user.FirstName);
-                db.AddInParameter("LastName", DbType.String, user.LastName);
-                db.AddInParameter("Status", DbType.String, user.Status);
-                db.AddInParameter("langkey", DbType.String, user.Request.Language);
-                db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+                db.SetParameterValue("LicenseeID", user.Licensee.Id);
+                db.SetParameterValue("UserId", user.UserID);
+                db.SetParameterValue("UpdateBy", updatedBy);
+                db.SetParameterValue("FirstName", user.FirstName);
+                db.SetParameterValue("LastName", user.LastName);
+                db.SetParameterValue("Status", user.Status);
+                db.SetParameterValue("langkey", user.Request.Language);
+                db.SetParameterValue("LoginIP", user.Request.Ip);
                 AddResultParam(db);
 
                 db.ExecuteNonQuery();

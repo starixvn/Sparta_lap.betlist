@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Model.Core.DataDomain;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
 
@@ -15,7 +13,7 @@
         private const string XFrameOptionHeaderName = "X-Frame-Options";
 
         public ISessionService SessionService { get; set; }
-        
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             AddXFrameOption(filterContext);

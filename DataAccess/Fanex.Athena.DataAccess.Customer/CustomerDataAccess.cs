@@ -13,7 +13,7 @@
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("custid", DbType.Int32, custId);
+                db.SetParameterValue("custid", custId);
 
                 return db.QueryEntity<CustomerInfo>();
             }

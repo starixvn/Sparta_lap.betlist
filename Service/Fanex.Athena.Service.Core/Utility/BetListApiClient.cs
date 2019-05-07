@@ -51,31 +51,31 @@
             }
         }
 
-        public async Task<HttpResponseMessage> PostAsync(string path, object value)
+        public Task<HttpResponseMessage> PostAsync(string path, object value)
         {
-            return await Handle(path, value, async (x) => await Task.FromResult(x).ConfigureAwait(false)).ConfigureAwait(false);
+            return Handle(path, value, x => Task.FromResult(x));
         }
 
-        public async Task<T> PostAsync<T>(string path, object value)
+        public Task<T> PostAsync<T>(string path, object value)
         {
-            return await Handle<T>(
+            return Handle<T>(
                 path,
                 value,
-                async (x) =>
+                 async (x) =>
              {
                  var data = await x.Content.ReadAsStringAsync().ConfigureAwait(false);
                  return JsonConvert.DeserializeObject<T>(data);
-             }).ConfigureAwait(false);
+             });
         }
 
-        public async Task<Stream> PostAsyncStream(string path, object value)
+        public Task<Stream> PostAsyncStream(string path, object value)
         {
-            return await Handle(path, value, async (x) => await x.Content.ReadAsStreamAsync().ConfigureAwait(false)).ConfigureAwait(false);
+            return Handle(path, value, async (x) => await x.Content.ReadAsStreamAsync().ConfigureAwait(false));
         }
 
-        public async Task<string> PostAsyncString(string path, object value)
+        public Task<string> PostAsyncString(string path, object value)
         {
-            return await Handle(path, value, async (x) => await x.Content.ReadAsStringAsync().ConfigureAwait(false)).ConfigureAwait(false);
+            return Handle(path, value, async (x) => await x.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
     }
 }

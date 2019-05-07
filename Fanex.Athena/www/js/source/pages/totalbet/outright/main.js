@@ -1,5 +1,5 @@
 ﻿define(['./outright'], function (Outright) {
-    "use strict";
+    'use strict';
 
     $(Outright.initialize);
 });

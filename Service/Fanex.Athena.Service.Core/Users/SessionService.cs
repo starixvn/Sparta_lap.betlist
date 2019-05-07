@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Web;
     using Constant.DataDomain;
     using DataAccess.Core.Common.Interfaces;

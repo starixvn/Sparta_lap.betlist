@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using Model.Core.DTO.Common;
@@ -40,7 +41,7 @@
         public void FunctionList_DataFromDataAccessIsNull_ReturnNull()
         {
             // Arrange
-            _functionDataAccess.GetFunctionList().Returns(x => { return null; });
+            _functionDataAccess.GetFunctionList().Returns(x => null);
 
             // Action
             var result = _functionStorage.FunctionList;

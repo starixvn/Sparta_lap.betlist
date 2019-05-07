@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
     using NSubstitute;
@@ -10,26 +10,26 @@
     public class AgCasinoBetSettingDataAccessTest : BaseDataAccessHelperTest<AgCasinoBetSettingDataAccess>
     {
         [Test]
-        public void GetBetSetting_WhenCall_ParameterPassedCorrectly()
+        public async Task GetBetSettingAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_SelCustSetting")).Returns(ObjectDb);
             var custId = 1;
 
             // Action
-            DataAccess.GetBetSetting(custId);
+            await DataAccess.GetBetSettingAsync(custId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
-            ObjectDb.Received(1).AddOutParameter("Currency", DbType.Int32, int.MaxValue);
-            ObjectDb.Received(1).AddOutParameter("AGGroup", DbType.String, 20);
-            ObjectDb.Received(1).AddOutParameter("IsEnabled", DbType.Boolean, 1);
-            ObjectDb.Received(1).AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-            ObjectDb.Received(1).AddOutParameter("CheckedGroups", DbType.String, 500);
+            ObjectDb.Received(1).SetParameterValue("CustID", custId);
+            ObjectDb.Received(1).SetParameterValue("Currency", null);
+            ObjectDb.Received(1).SetParameterValue("AGGroup", null);
+            ObjectDb.Received(1).SetParameterValue("IsEnabled", null);
+            ObjectDb.Received(1).SetParameterValue("IsLineEnabled", null);
+            ObjectDb.Received(1).SetParameterValue("CheckedGroups", null);
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_ParameterPassedCorrectly()
+        public async Task UpdateBetSettingAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustSetting")).Returns(ObjectDb);
@@ -43,20 +43,20 @@
             };
 
             // Action
-            DataAccess.UpdateBetSetting(data, group);
+            await DataAccess.UpdateBetSettingAsync(data, group);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("aggroup", DbType.String, group);
-            ObjectDb.Received(1).AddInParameter("ip", DbType.String, data.Ip);
-            ObjectDb.Received(1).AddInParameter("language", DbType.String, data.Language);
-            ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, data.UserId);
-            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, data.CustId);
-            ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
-            ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
+            ObjectDb.Received(1).SetParameterValue("aggroup", group);
+            ObjectDb.Received(1).SetParameterValue("ip", data.Ip);
+            ObjectDb.Received(1).SetParameterValue("language", data.Language);
+            ObjectDb.Received(1).SetParameterValue("userid", data.UserId);
+            ObjectDb.Received(1).SetParameterValue("custid", data.CustId);
+            ObjectDb.Received(1).SetParameterValue("ErrCode", null);
+            ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_ParameterPassedCorrectly()
+        public async Task UpdateStatusAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustStatus")).Returns(ObjectDb);
@@ -67,17 +67,17 @@
             var isEnabled = true;
 
             // Action
-            DataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
+            await DataAccess.UpdateStatusAsync(userId, custId, language, ip, isEnabled);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("isenabled", DbType.Boolean, isEnabled);
-            ObjectDb.Received(1).AddInParameter("ip", DbType.String, ip);
-            ObjectDb.Received(1).AddInParameter("language", DbType.String, language);
-            ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
-            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+            ObjectDb.Received(1).SetParameterValue("isenabled", isEnabled);
+            ObjectDb.Received(1).SetParameterValue("ip", ip);
+            ObjectDb.Received(1).SetParameterValue("language", language);
+            ObjectDb.Received(1).SetParameterValue("userid", userId);
+            ObjectDb.Received(1).SetParameterValue("custid", custId);
 
-            ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
-            ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
+            ObjectDb.Received(1).SetParameterValue("ErrCode", null);
+            ObjectDb.Received(1).SetParameterValue("ErrMsg", null);
         }
     }
 }

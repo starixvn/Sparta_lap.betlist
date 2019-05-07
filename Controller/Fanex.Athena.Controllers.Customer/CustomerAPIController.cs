@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Users.Interfaces;
@@ -35,7 +36,7 @@ namespace Fanex.Athena.Controllers.Customer
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class CustomerApiController : BaseController
+    public class CustomerApiController : ContentBaseController
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
 
@@ -75,17 +76,9 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Level & Status API
 
-        /// <summary>
-        /// Update customer status.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="isClosed">Close customer if ISCLOSED equal true.</param>
-        /// <param name="isSuspended">TClose customer if ISSUSPENDEND equal true.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
         {
             try
@@ -127,19 +120,13 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(new ResultInfo { Code = 1, Message = ViewResources.HttpError_Default });
         }
 
-        /// <summary>
-        /// Update customer level.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="level">The customer level.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
         {
-            var isFakeLicensee = IsFakeLicensee();
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var isFakeLicensee = IsFakeLicensee(licenseeId);
 
             if (!isFakeLicensee)
             {
@@ -148,7 +135,7 @@ namespace Fanex.Athena.Controllers.Customer
                 try
                 {
                     var dataResult = _customerListService.UpdateSpecialLevel(
-                        SessionService.LicenseeSession.LicenseeId,
+                        licenseeId,
                         userSession.UserId,
                         custId,
                         level,
@@ -180,19 +167,13 @@ namespace Fanex.Athena.Controllers.Customer
             });
         }
 
-        /// <summary>
-        /// Update customer group.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="oddsGroup">The customer group.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
         {
-            var isFakeLicensee = IsFakeLicensee();
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var isFakeLicensee = IsFakeLicensee(licenseeId);
 
             if (!isFakeLicensee)
             {
@@ -202,7 +183,7 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     var metaModel = new CustomerOddsGroupMetaModel
                     {
-                        LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                        LicenseeId = licenseeId,
                         CustId = custId,
                         Ip = Request.UserHostAddress,
                         Language = userSession.Language,
@@ -289,20 +270,11 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Customer Comm API
 
-        /// <summary>
-        /// Update customer commission.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
-        [SuppressMessage(
-         "StyleCop.CSharp.StylecopPlus.Rules",
-         "SP2101:MethodMustNotContainMoreLinesThan",
-         Justification = "Reviewed. Suppression is OK here.")]
-        public ActionResult UpdateCustomerCom(UpdatedCustomerComMetaModel metaModel)
+        public async Task<ActionResult> UpdateCustomerCom(UpdatedCustomerComMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             if (!licenseeSession.IsAllowedCustomerComm)
@@ -329,6 +301,7 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     metaModel.LicenseeId = licenseeSession.LicenseeId;
                     metaModel.UserId = userSession.UserId;
+                    metaModel.UserName = userSession.UserName;
                     metaModel.Ip = this.Request.UserHostAddress;
                     metaModel.IsAllowedNG = productAccess.IsAllowNG;
                     metaModel.IsAllowedCS = productAccess.IsAllowCS;
@@ -343,7 +316,7 @@ namespace Fanex.Athena.Controllers.Customer
                     }
                     else
                     {
-                        this.ProcessUpdatingCustomerCom(metaModel, result);
+                        await this.ProcessUpdatingCustomerCom(metaModel, result).ConfigureAwait(false);
                     }
                 }
             }
@@ -351,17 +324,11 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(result);
         }
 
-        /// <summary>
-        /// Remove customer from group commission.
-        /// </summary>
-        /// <param name="customerIds">Customer id list.</param>
-        /// <param name="isRemovePlayercomm">Remove Player commission or not.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
-        public ActionResult RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
+        public async Task<ActionResult> RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
         {
             var licenseeSession = SessionService.LicenseeSession;
             if (!licenseeSession.IsAllowedCustomerComm)
@@ -381,10 +348,11 @@ namespace Fanex.Athena.Controllers.Customer
                 IsRemovePlayercomm = isRemovePlayercomm,
                 LicenseeId = licenseeSession.LicenseeId,
                 UserId = userSession.UserId,
+                UserName = userSession.UserName,
                 Ip = Request.UserHostAddress,
                 Language = userSession.Language
             };
-            var removalResult = _customerCommService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCS);
+            var removalResult = await _customerCommService.RemoveCustomersFromGroupAsync(metaModel, productAccess.IsAllowCS).ConfigureAwait(false);
             var result = new ResultViewModel
             {
                 Success = removalResult.IsSuccessful,
@@ -405,17 +373,11 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(result);
         }
 
-        /// <summary>
-        /// Move customer in a group commission.
-        /// </summary>
-        /// <param name="customerIds">Customer id list.</param>
-        /// <param name="groupComId">Group commission id.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
         [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
-        public ActionResult MoveToGroupCom(string customerIds, int groupComId)
+        public async Task<ActionResult> MoveToGroupCom(string customerIds, int groupComId)
         {
             var licenseeSession = SessionService.LicenseeSession;
             if (!licenseeSession.IsAllowedCustomerComm)
@@ -435,11 +397,12 @@ namespace Fanex.Athena.Controllers.Customer
                 GroupComId = groupComId,
                 LicenseeId = licenseeSession.LicenseeId,
                 UserId = userSession.UserId,
+                UserName = userSession.UserName,
                 Ip = Request.UserHostAddress,
                 Language = userSession.Language
             };
 
-            var temp = _customerCommService.MoveCustomersToGroup(metaModel);
+            var temp = await _customerCommService.MoveCustomersToGroupAsync(metaModel).ConfigureAwait(false);
             var result = new ResultViewModel
             {
                 Success = temp.IsSuccessful,
@@ -450,7 +413,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             if (result.Success)
             {
-                var newGroup = _groupComService.GetById(metaModel.GroupComId);
+                var newGroup = _groupComService.GetById(metaModel.GroupComId, licenseeSession.LicenseeId);
                 if (newGroup != null)
                 {
                     result.ExtendedData = CreateExtendedData(newGroup);
@@ -466,9 +429,9 @@ namespace Fanex.Athena.Controllers.Customer
         {
             return new
             {
-                SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
-                NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
-                RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
+                SBComm = NumberHelper.PercentageFormat(newGroup.SBComm),
+                NGComm = NumberHelper.PercentageFormat(newGroup.NGComm),
+                RNGComm = NumberHelper.PercentageFormat(newGroup.CSComm),
                 newGroup.GroupName,
                 newGroup.GroupColor,
             };
@@ -479,38 +442,31 @@ namespace Fanex.Athena.Controllers.Customer
             HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
             return new JsonResult
             {
-                Data = new { ErrCode = 403, ErrMsg = "Access Denied." },
+                Data = new { ErrCode = (int)HttpStatusCode.Forbidden, ErrMsg = "Access Denied." },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
         private bool IsSameOldComm(UpdatedCustomerComMetaModel metaModel)
         {
-            var oldGroup = this._groupComService.GetById(metaModel.GroupId);
-#pragma warning disable S1067 // Expressions should not be too complex
+            var oldGroup = this._groupComService.GetById(metaModel.GroupId, metaModel.LicenseeId);
             return oldGroup.NGComm == metaModel.NGComm && oldGroup.SBComm == metaModel.SBComm &&
                                oldGroup.CSComm == metaModel.CSComm;
-#pragma warning restore S1067 // Expressions should not be too complex
         }
 
-        /// <summary>
-        /// Process updating customer commission.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="result">The result view model.</param>
-        private void ProcessUpdatingCustomerCom(UpdatedCustomerComMetaModel metaModel, ResultViewModel result)
+        private async Task ProcessUpdatingCustomerCom(UpdatedCustomerComMetaModel metaModel, ResultViewModel result)
         {
             metaModel.Language = SessionService.UserSession.Language;
-            var temp = _customerCommService.UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
+            var temp = await _customerCommService.UpdateCustomersCommissionAsync(metaModel, metaModel.IsAllowedCS);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;
             result.ErrorMessage = temp.Message;
             result.ErrorCode = temp.Code;
             result.ExtendedData = new
             {
-                SBComm = NumberHelper.DecFormat(metaModel.SBComm * 100, 2),
-                NGComm = NumberHelper.DecFormat(metaModel.NGComm * 100, 2),
-                RNGComm = NumberHelper.DecFormat(metaModel.CSComm * 100, 2),
+                SBComm = NumberHelper.PercentageFormat(metaModel.SBComm),
+                NGComm = NumberHelper.PercentageFormat(metaModel.NGComm),
+                RNGComm = NumberHelper.PercentageFormat(metaModel.CSComm),
                 GroupName = ViewResources.None,
                 GroupColor = "#ffffff",
             };

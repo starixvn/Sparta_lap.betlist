@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
@@ -22,7 +23,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public class WinLossByBetTypeReportControllerTest : BaseControllerHelperTest
+    public class WinLossByBetTypeReportControllerTest : CultureBaseControllerHelperTest
     {
         private const int CurrencyId = 999;
 
@@ -77,7 +78,7 @@
         [TestCase("BA", false, 8)]
         [TestCase(null, true, 8)]
         [TestCase("BA", true, 10)]
-        public void IndexPost_NotExportExcel_ReturnCorrectViewResult(
+        public async Task IndexPost_NotExportExcel_ReturnCorrectViewResult(
             string productCodeList,
             bool isAllowedCustomerComm,
             int expectedColumnCount)
@@ -96,7 +97,7 @@
                 _winLossByBetTypeDataAccess.GetDataList(metaModel).Returns(expectedData);
 
                 // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
+                var viewResult = await controller.Index(metaModel) as ViewResult;
                 var viewModel = viewResult.Model as WinLossByBetTypeViewModel;
 
                 // Assert
@@ -115,7 +116,7 @@
 
         [TestCase(null, false, false)]
         [TestCase("BA,NG,SB,VS", true, true)]
-        public void IndexPost_ExportExcel_ReturnCorrectResult(
+        public async Task IndexPost_ExportExcel_ReturnCorrectResult(
             string productCodeList, bool expectedProductVisible, bool isAllowCustomerComm)
         {
             using (var controller = CreateController(productCodeList))
@@ -134,7 +135,7 @@
                 _winLossByBetTypeDataAccess.GetDataList(metaModel).Returns(expectedData);
 
                 // Action
-                var result = controller.Index(metaModel);
+                var result = await controller.Index(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>

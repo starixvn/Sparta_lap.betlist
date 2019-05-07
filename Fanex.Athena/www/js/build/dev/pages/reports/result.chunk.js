@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([27,"www/js/build/dev/pages/lib/common"]);
+/******/ 	deferredModules.push([25,"www/js/build/dev/pages/lib/common"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,9 +290,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! bootstrap-daterangepicker */ "./node_modules/bootstrap-daterangepicker/daterangepicker.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, moment) {
-        "use strict";
+        'use strict';
 
-        var _daysOfWeek, _monthNames;
+        let _daysOfWeek, _monthNames;
 
         function initCommonTextResource() {
             if (!_daysOfWeek || !_monthNames) {
@@ -311,12 +310,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function initDateRangePicker(firstDayOfWeekIsMonday, rangeOption) {
-            var $dateRange = $('#DateRange');
+            const $dateRange = $('#DateRange');
 
-            var $from = $('#FromDate');
-            var $to = $('#ToDate');
-            var start = moment($from.attr('data-original-from'), "MM/DD/YYYY");
-            var end = moment($to.attr('data-original-to'), "MM/DD/YYYY");
+            const $from = $('#FromDate');
+            const $to = $('#ToDate');
+            const start = moment($from.attr('data-original-from'), 'MM/DD/YYYY');
+            const end = moment($to.attr('data-original-to'), 'MM/DD/YYYY');
 
             function setRangeDate(start, end) {
                 $from.val(start.format('MM/DD/YYYY'));
@@ -324,12 +323,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $dateRange.val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
             }
 
-            var now = moment($dateRange.attr('data-today'), "MM/DD/YYYY");
-            var isoDayOfWeek = firstDayOfWeekIsMonday ? 1 : 7; // 1.Monday  7.Sunday
-            var startDayOfWeek = now.clone().startOf('week').isoWeekday(isoDayOfWeek);
-            var startDayOfLastWeek = now.clone().subtract(1, 'week').startOf('week').isoWeekday(isoDayOfWeek);
+            const now = moment($dateRange.attr('data-today'), 'MM/DD/YYYY');
+            const isoDayOfWeek = firstDayOfWeekIsMonday ? 1 : 7; // 1.Monday  7.Sunday
+            const startDayOfWeek = now.clone().startOf('week').isoWeekday(isoDayOfWeek);
+            const startDayOfLastWeek = now.clone().subtract(1, 'week').startOf('week').isoWeekday(isoDayOfWeek);
 
-            var ranges = {};
+            const ranges = {};
             ranges[Site.getSingleResource('Today')] = [now, now];
             ranges[Site.getSingleResource('Yesterday')] = [now.clone().subtract(1, 'days'), now.clone().subtract(1, 'days')];
             ranges[Site.getSingleResource('Currentweek')] = [startDayOfWeek, now];
@@ -338,17 +337,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             ranges[Site.getSingleResource('Lastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')];
             ranges[Site.getSingleResource('Sincelastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now];
 
-            var customRanges = {};
-            var hasRangeOption = rangeOption && rangeOption.length > 0;
+            const customRanges = {};
+            const hasRangeOption = rangeOption && rangeOption.length > 0;
             if (hasRangeOption) {
-                for (var i = 0; i < rangeOption.length; i++) {
-                    var rangeLabel = Site.getSingleResource(rangeOption[i]);
+                for (let i = 0; i < rangeOption.length; i++) {
+                    const rangeLabel = Site.getSingleResource(rangeOption[i]);
                     customRanges[rangeLabel] = ranges[rangeLabel];
                 }
             }
 
             initCommonTextResource();
-            var locale = {
+            const locale = {
                 format: 'MM/DD/YYYY',
                 applyLabel: Site.getSingleResource('OK'),
                 cancelLabel: Site.getSingleResource('Cancel'),
@@ -360,8 +359,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             $dateRange.daterangepicker({
                 startDate: start,
                 endDate: end,
-                minDate: moment($dateRange.attr('data-mindate'), "MM/DD/YYYY"),
-                maxDate: moment($dateRange.attr('data-maxdate'), "MM/DD/YYYY"),
+                minDate: moment($dateRange.attr('data-mindate'), 'MM/DD/YYYY'),
+                maxDate: moment($dateRange.attr('data-maxdate'), 'MM/DD/YYYY'),
                 ranges: hasRangeOption ? customRanges : ranges,
                 locale: locale,
                 showDropdowns: true,
@@ -375,14 +374,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $dateRange.on('show.daterangepicker', function (ev, picker) {
-                var toDate = picker.endDate || new Date();
-                var toMoment = moment(toDate);
+                const toDate = picker.endDate || new Date();
+                const toMoment = moment(toDate);
 
                 picker.rightCalendar.month = toMoment;
-                picker.renderCalendar("right");
+                picker.renderCalendar('right');
             });
 
-            $('.date-range').on("click", ".icon-calendar", function () {
+            $('.date-range').on('click', '.icon-calendar', function () {
                 $dateRange.data('daterangepicker').toggle();
             });
 
@@ -390,26 +389,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function initSingleDatePicker(idElement, parentElement) {
-            var $picker = $("#" + idElement);
+            const $picker = $('#' + idElement);
             initCommonTextResource();
-            var locale = {
+            const locale = {
                 format: 'MM/DD/YYYY',
                 daysOfWeek: _daysOfWeek,
                 monthNames: _monthNames
             };
 
             $picker.daterangepicker({
-                startDate: moment($picker.attr('data-original'), "MM/DD/YYYY"),
-                endDate: moment($picker.attr('data-original'), "MM/DD/YYYY"),
-                minDate: moment($picker.attr('data-mindate'), "MM/DD/YYYY"),
-                maxDate: moment($picker.attr('data-maxdate'), "MM/DD/YYYY"),
+                startDate: moment($picker.attr('data-original'), 'MM/DD/YYYY'),
+                endDate: moment($picker.attr('data-original'), 'MM/DD/YYYY'),
+                minDate: moment($picker.attr('data-mindate'), 'MM/DD/YYYY'),
+                maxDate: moment($picker.attr('data-maxdate'), 'MM/DD/YYYY'),
                 locale: locale,
                 singleDatePicker: true,
                 showDropdowns: true,
-                parentEl: parentElement && parentElement !== "" ? parentElement : ".single-date"
+                parentEl: parentElement ? parentElement : '.single-date'
             });
 
-            $('.single-date').on("click", ".icon-calendar", function () {
+            $('.single-date').on('click', '.icon-calendar', function () {
                 $picker.data('daterangepicker').toggle();
             });
         }
@@ -451,9 +450,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var _me = {
+    const _me = {
         resizeGrid: function ($scrollableContent) {
-            var $grid = $scrollableContent || $(".body-content");
+            const $grid = $scrollableContent || $('.body-content');
             if ($grid.length === 0) {
                 return;
             }
@@ -463,22 +462,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         updateHeight: function ($grid) {
-            var gridTop = $grid.offset().top;
-            var footerSite = 18;
-            var footerHeight = $(".footer-content").length > 0 ? $(".footer-content").height() : 0;
-            var pagingHeight = $(".pagingContainer").length > 0 ? $(".pagingContainer").height() : 0;
+            const gridTop = $grid.offset().top;
+            const footerSite = 18;
+            const footerHeight = $('.footer-content').length > 0 ? $('.footer-content').height() : 0;
+            const pagingHeight = $('.pagingContainer').length > 0 ? $('.pagingContainer').height() : 0;
 
-            var gridHeight = window.innerHeight - gridTop - footerHeight - pagingHeight - footerSite - 10;
+            let gridHeight = window.innerHeight - gridTop - footerHeight - pagingHeight - footerSite - 10;
             gridHeight = Math.max(150, gridHeight);
-            $grid.css("max-height", gridHeight);
+            $grid.css('max-height', gridHeight);
         },
 
         updateWidth: function ($grid) {
             if (!$grid.hasVerticalScrollBar()) {
-                $grid.addClass("noScroll").find("table").css("width", "");
+                $grid.addClass('noScroll').find('table').css('width', '');
             }
             else {
-                $grid.removeClass("noScroll").find("table").css("width", $grid.width() - 17);
+                $grid.removeClass('noScroll').find('table').css('width', $grid.width() - 17);
             }
         }
     };
@@ -497,15 +496,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -523,23 +522,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -558,14 +557,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -576,14 +575,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -595,16 +594,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -621,45 +620,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -675,8 +674,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -685,7 +684,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -702,10 +701,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -713,10 +712,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -724,37 +723,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -764,16 +763,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -781,44 +780,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -830,7 +829,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -988,12 +987,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     jQuery.fn.numbericTextBox = function (min, max) {
         var thousandFormater = function (x) {
-            x = x.toString();
+            var value = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
+            while (pattern.test(value)) {
+                value = value.replace(pattern, "$1,$2");
             }
-            return x;
+            return value;
         };
 
         var maxLength = max.toString().length;
@@ -1054,7 +1053,9 @@ jQuery.extend({
         var formatted = arguments[0];
         var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            if (passValue.hasOwnProperty(arg)) {
+                formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+            }
         }
         return formatted;
     }
@@ -1206,73 +1207,73 @@ Array.prototype.insertBefore = function (value, before) {
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! components/pluginhelper/daterangepicker */ "./www/js/source/components/pluginhelper/daterangepicker.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! components/scrollablegrid */ "./www/js/source/components/scrollablegrid.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, DatePicker, Popup, GridHelper) {
-        var DATA_API = "ResultReport/Index";
-        var EXCEL_API = "ResultReport/ResultExcel?";
-        var SPORT_API = "ResultReport/GetSports";
-        var KENO_RESULT_API = "ResultKenoReport/Index";
-        var KENO_RESULT_SESSION_API = "ResultKenoReport/KeepSession";
-        var ajaxRequest = null;
-        var ajaxFilterRequest = null;
-        var kenoAjaxRequest = null;
-        var kenoIntervalId = 0;
-        var lotteryAjaxRequest = null;
-        var lotteryIntervalId = 0;
-        var param = {
-            FromDate: "",
-            ToDate: "",
+        const DATA_API = 'ResultReport/Index';
+        const EXCEL_API = 'ResultReport/ResultExcel?';
+        const SPORT_API = 'ResultReport/GetSports';
+        const KENO_RESULT_API = 'ResultKenoReport/Index';
+        const KENO_RESULT_SESSION_API = 'ResultKenoReport/KeepSession';
+        let ajaxRequest = null;
+        let ajaxFilterRequest = null;
+        let kenoAjaxRequest = null;
+        let kenoIntervalId = 0;
+        let lotteryAjaxRequest = null;
+        let lotteryIntervalId = 0;
+        const param = {
+            FromDate: '',
+            ToDate: '',
             IsOutRight: false,
             IsExportExcel: false,
             SportId: 0,
             LeagueId: 0
         };
 
-        var ACTIVE_CLASS = "active";
+        const ACTIVE_CLASS = 'active';
 
-        var _me = {
+        const _me = {
             initialize: function () {
                 Site.initialize();
-                DatePicker.initSingleDatePicker("Date");
+                DatePicker.initSingleDatePicker('Date');
                 DatePicker.initDateRangePicker();
                 _me.initEvent();
             },
 
             initEvent: function () {
-                var $submitOutright = $("#submitOutright");
+                const $submitOutright = $('#submitOutright');
 
-                $("#resultContent").on("click", ".detail-link", function () {
-                    var url = Site.resolveClientUrl("ResultReport/ResultDetail")
-                     + "?matchid=" + $(this).attr("data-match-id") + "&SportType=" + param.SportId;
+                $('#resultContent').on('click', '.detail-link', function () {
+                    const url = Site.resolveClientUrl('ResultReport/ResultDetail')
+                     + '?matchid=' + $(this).attr('data-match-id') + '&SportType=' + param.SportId;
 
-                    var popupOption = { id: "result-popup", width: 775, height: 520, title: Site.getSingleResource("Result") };
+                    const popupOption = { id: 'result-popup', width: 775, height: 520, title: Site.getSingleResource('Result') };
                     Popup.openPopupWithIframe(url, popupOption);
                 });
 
                 $submitOutright.click(function () {
                     if (_me.canSubmit(this)) {
                         _me.showOutRight(true);
-                        var startDate = $("#Date").val();
+                        const startDate = $('#Date').val();
                         DatePicker.setValueForDateRange(startDate);
                         _me.submit();
                     }
                 });
 
-                $("#submitNormal").click(function () {
+                $('#submitNormal').click(function () {
                     if (_me.canSubmit(this)) {
                         _me.showOutRight(false);
-                        DatePicker.setValueForSingleDate($("#Date"), $('#FromDate').val());
+                        DatePicker.setValueForSingleDate($('#Date'), $('#FromDate').val());
                         _me.submit();
                     }
                 });
 
-                $("#SubmitButton").click(function () {
+                $('#SubmitButton').click(function () {
                     _me.submit();
                 });
 
-                $("#submitToday").click(function () {
+                $('#submitToday').click(function () {
                     _me.clearExcelExport();
                     _me.clearResult();
-                    var date = $(this).attr("data-date");
-                    var isShowOutright = $submitOutright.attr("data-isoutright") === "1";
+                    const date = $(this).attr('data-date');
+                    const isShowOutright = $submitOutright.attr('data-isoutright') === '1';
                     param.FromDate = date;
                     param.ToDate = date;
                     param.IsExportExcel = false;
@@ -1284,11 +1285,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     _me.getData();
                 });
 
-                $("#submitYesterday").click(function () {
+                $('#submitYesterday').click(function () {
                     _me.clearExcelExport();
                     _me.clearResult();
-                    var date = $(this).attr("data-date");
-                    var isShowOutright = $submitOutright.attr("data-isoutright") === "1";
+                    const date = $(this).attr('data-date');
+                    const isShowOutright = $submitOutright.attr('data-isoutright') === '1';
                     param.FromDate = date;
                     param.ToDate = date;
                     param.IsExportExcel = false;
@@ -1300,19 +1301,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     _me.getData();
                 });
 
-                $("#ExportToExcel").click(function (e) {
+                $('#ExportToExcel').click(function (e) {
                     e.preventDefault();
-                    var isShowOutright = $submitOutright.attr("data-isoutright") === "1";
+                    const isShowOutright = $submitOutright.attr('data-isoutright') === '1';
                     _me.setDateParam(isShowOutright);
 
                     param.IsExportExcel = true;
                     param.IsOutRight = isShowOutright;
-                    param.SportId = $("#ddlSport option").length > 0 ? $("#ddlSport").val() : 0;
-                    param.LeagueId = $("#ddlLeague").val();
+                    param.SportId = $('#ddlSport option').length > 0 ? $('#ddlSport').val() : 0;
+                    param.LeagueId = $('#ddlLeague').val();
                     _me.getData();
                 });
 
-                $("#ddlSport").change(function () {
+                $('#ddlSport').change(function () {
                     _me.clearExcelExport();
                     _me.clearLeagueFilter();
 
@@ -1321,29 +1322,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     _me.getData();
                 });
 
-                $("#ddlLeague").change(function () {
+                $('#ddlLeague').change(function () {
                     _me.clearExcelExport();
                     param.LeagueId = $(this).val();
                     _me.getReportData();
                 });
 
-                $(window).on("resize", function () {
-                    GridHelper.resizeGrid($(".fn-rs-content-scroll"));
+                $(window).on('resize', function () {
+                    GridHelper.resizeGrid($('.fn-rs-content-scroll'));
                 });
 
-                $(window).on("unload", function () {
-                    $(window).off("resize");
+                $(window).on('unload', function () {
+                    $(window).off('resize');
                 });
 
-                if ($("#submitKeno").length) {
-                    $("#submitKeno").click(function () {
-                        _me.showKeno($(this).data("vendorproductid"));
+                if ($('#submitKeno').length) {
+                    $('#submitKeno').click(function () {
+                        _me.showKeno($(this).data('vendorproductid'));
                     });
                 }
 
-                if ($("#submitLottery").length) {
-                    $("#submitLottery").click(function () {
-                        _me.showLottery($(this).data("vendorproductid"));
+                if ($('#submitLottery').length) {
+                    $('#submitLottery').click(function () {
+                        _me.showLottery($(this).data('vendorproductid'));
                     });
                 }
             },
@@ -1351,7 +1352,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             submit: function () {
                 _me.clearExcelExport();
                 _me.clearResult();
-                var isShowOutright = $("#submitOutright").attr("data-isoutright") === "1";
+                const isShowOutright = $('#submitOutright').attr('data-isoutright') === '1';
                 _me.setDateParam(isShowOutright);
 
                 param.IsExportExcel = false;
@@ -1362,8 +1363,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             showKeno: function (vendorProductId) {
-                var option = {
-                    type: "GET",
+                const option = {
+                    type: 'GET',
                     cache: false,
                     data: { vendorProductId: vendorProductId },
                     url: Site.resolveClientUrl(KENO_RESULT_API),
@@ -1384,8 +1385,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             showLottery: function (vendorProductId) {
-                var option = {
-                    type: "GET",
+                const option = {
+                    type: 'GET',
                     cache: false,
                     data: { vendorProductId: vendorProductId },
                     url: Site.resolveClientUrl(KENO_RESULT_API),
@@ -1412,8 +1413,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
 
                 kenoIntervalId = setInterval(function () {
-                    var option = {
-                        type: "POST",
+                    const option = {
+                        type: 'POST',
                         cache: false,
                         data: {
                             userId: userId,
@@ -1432,8 +1433,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
 
                 lotteryIntervalId = setInterval(function () {
-                    var option = {
-                        type: "POST",
+                    const option = {
+                        type: 'POST',
                         cache: false,
                         data: {
                             userId: userId,
@@ -1455,22 +1456,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             exportExcel: function () {
-                var url = Site.resolveClientUrl(EXCEL_API);
-                url += "FromDate=" + param.FromDate;
-                url += "&ToDate=" + param.ToDate;
-                url += "&IsOutRight=" + param.IsOutRight;
-                url += "&SportId=" + param.SportId;
-                url += "&LeagueId=" + param.LeagueId;
-                url += "&IsExportExcel=" + param.IsExportExcel;
+                let url = Site.resolveClientUrl(EXCEL_API);
+                url += 'FromDate=' + param.FromDate;
+                url += '&ToDate=' + param.ToDate;
+                url += '&IsOutRight=' + param.IsOutRight;
+                url += '&SportId=' + param.SportId;
+                url += '&LeagueId=' + param.LeagueId;
+                url += '&IsExportExcel=' + param.IsExportExcel;
 
                 $('#iframeForExportExcel').attr('src', url);
             },
 
             getFilter: function () {
-                var url = Site.resolveClientUrl(SPORT_API);
-                var option = {
-                    type: "POST",
-                    dataType: "json",
+                const url = Site.resolveClientUrl(SPORT_API);
+                const option = {
+                    type: 'POST',
+                    dataType: 'json',
                     data: param,
                     cache: false,
                     url: url,
@@ -1479,7 +1480,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         if (response !== null && response.toString().length > 1) {
                             _me.getReportData();
                         } else {
-                            $("#noInfoRow").show();
+                            $('#noInfoRow').show();
                             Site.unBlockUI();
                         }
                     },
@@ -1493,22 +1494,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             getReportData: function () {
-                var url = Site.resolveClientUrl(DATA_API);
-                var option = {
-                    type: "POST",
+                const url = Site.resolveClientUrl(DATA_API);
+                const option = {
+                    type: 'POST',
                     cache: false,
                     data: param,
                     url: url,
                     success: function (response) {
                         if (response !== null && response.length > 0) {
-                            $("#noInfoRow").hide();
-                            $("#resultContent").html(response);
+                            $('#noInfoRow').hide();
+                            $('#resultContent').html(response);
 
-                            if ($(".fn-rs-content-scroll").length > 0) {
-                                GridHelper.resizeGrid($(".fn-rs-content-scroll"));
+                            if ($('.fn-rs-content-scroll').length > 0) {
+                                GridHelper.resizeGrid($('.fn-rs-content-scroll'));
                             }
                         } else {
-                            $("#noInfoRow").show();
+                            $('#noInfoRow').show();
                         }
                     },
                     beforeSend: function () {
@@ -1528,20 +1529,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     _me.renderLeagueFilter(data.Leagues);
                     Site.initSelectElements();
 
-                    $("#sportAndLeagueFilter").css("visibility", "visible");
-                    $("#noInfoRow").hide();
+                    $('#sportAndLeagueFilter').css('visibility', 'visible');
+                    $('#noInfoRow').hide();
                 }
                 else {
-                    $("#sportAndLeagueFilter").css("visibility", "hidden");
+                    $('#sportAndLeagueFilter').css('visibility', 'hidden');
                 }
             },
 
             renderSportFilter: function (sportList) {
                 if (param.SportId === 0 && sportList.length > 0) {
-                    var firstSport = sportList[0].SportId;
+                    const firstSport = sportList[0].SportId;
                     param.SportId = firstSport;
 
-                    var $sport = $("#ddlSport");
+                    const $sport = $('#ddlSport');
                     $.each(sportList, function (index, value) {
                         $sport.append('<option value="' + value.SportId + '">' + value.SportName + '</option>');
                     });
@@ -1550,7 +1551,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
             renderLeagueFilter: function (leagueList) {
                 if (leagueList !== null && leagueList.length > 0) {
-                    var $league = $("#ddlLeague");
+                    const $league = $('#ddlLeague');
                     $.each(leagueList, function (index, value) {
                         $league.append('<option value="' + value.LeagueId + '">' + value.LeagueName + '</option>');
                     });
@@ -1560,45 +1561,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
             clearResult: function () {
                 _me.clearLeagueFilter();
-                $("#ddlSport option").remove();
-                $("#resultContent").html("");
-                $("#sportAndLeagueFilter").css("visibility", "hidden");
+                $('#ddlSport option').remove();
+                $('#resultContent').html('');
+                $('#sportAndLeagueFilter').css('visibility', 'hidden');
             },
 
             clearLeagueFilter: function () {
-                var defaultLeague = $('#ddlLeague option[value="0"]').clone();
+                const defaultLeague = $('#ddlLeague option[value="0"]').clone();
                 $('#ddlLeague option').remove();
                 $('#ddlLeague').append(defaultLeague);
             },
 
             clearExcelExport: function () {
                 param.IsExportExcel = false;
-                $('#iframeForExportExcel').attr('src', "");
+                $('#iframeForExportExcel').attr('src', '');
             },
 
             showOutRight: function (isShow) {
                 if (isShow) {
-                    $("#singleDate").hide();
-                    $("#dateRange").show();
-                    $("#submitOutright").addClass(ACTIVE_CLASS);
-                    $("#submitNormal").removeClass(ACTIVE_CLASS);
+                    $('#singleDate').hide();
+                    $('#dateRange').show();
+                    $('#submitOutright').addClass(ACTIVE_CLASS);
+                    $('#submitNormal').removeClass(ACTIVE_CLASS);
                 } else {
-                    $("#dateRange").hide();
-                    $("#singleDate").show();
-                    $("#submitOutright").removeClass(ACTIVE_CLASS);
-                    $("#submitNormal").addClass(ACTIVE_CLASS);
+                    $('#dateRange').hide();
+                    $('#singleDate').show();
+                    $('#submitOutright').removeClass(ACTIVE_CLASS);
+                    $('#submitNormal').addClass(ACTIVE_CLASS);
                 }
-                $("#submitOutright").attr("data-isOutright", isShow ? "1" : "0");
+                $('#submitOutright').attr('data-isOutright', isShow ? '1' : '0');
             },
 
             setDateParam: function (isShowOutright) {
                 if (isShowOutright) {
-                    param.FromDate = $("#FromDate").val();
-                    param.ToDate = $("#ToDate").val();
+                    param.FromDate = $('#FromDate').val();
+                    param.ToDate = $('#ToDate').val();
                 }
                 else {
-                    param.FromDate = $("#Date").val();
-                    param.ToDate = $("#Date").val();
+                    param.FromDate = $('#Date').val();
+                    param.ToDate = $('#Date').val();
                 }
             },
 
@@ -1607,7 +1608,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     DatePicker.setValueForDateRange(param.FromDate, param.ToDate);
                 }
                 else {
-                    DatePicker.setValueForSingleDate($("#Date"), param.FromDate);
+                    DatePicker.setValueForSingleDate($('#Date'), param.FromDate);
                 }
             },
 
@@ -1628,7 +1629,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 27:
+/***/ 25:
 /*!****************************************************************!*\
   !*** multi ./www/js/source/pages/report/result/main-result.js ***!
   \****************************************************************/

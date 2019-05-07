@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using Model.BetSettings.DTO;
@@ -51,12 +52,12 @@
                 controller.GetCustomerInfo(CustId);
 
                 // Assert
-                CoreBetSettingService.Received(1).GetCustomerInfo(CustId);
+                CoreBetSettingService.Received(1).GetCustomerInfo(CustId, DefaultLicenseeSession.LicenseeId);
             }
         }
 
         [Test]
-        public void AssignRequiredProperties_WhenCall_ReturnCorrectData()
+        public async Task AssignRequiredProperties_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
@@ -66,7 +67,7 @@
                 var metaModel = new BetSettingMetaModel();
 
                 // Action
-                controller.AssignRequiredProperties(viewModel, metaModel);
+                await controller.AssignRequiredProperties(viewModel, metaModel);
 
                 // Assert
                 AssertRequiredProperties(viewModel, metaModel);
@@ -75,7 +76,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void AssignRequiredProperties_IsNotSyncCasino_DisableRngCasinoProduct(bool isEnableRngCasino)
+        public async Task AssignRequiredProperties_WhenCall_AssignCorrectBetSettingProducts(bool isEnableRngCasino)
         {
             using (var controller = CreateController())
             {
@@ -83,17 +84,18 @@
                 var viewModel = new BetSettingBaseViewModel();
                 var metaModel = new BetSettingMetaModel();
 
-                CoreBetSettingService.GetCustomerInfo(metaModel.CustId)
-                    .Returns(new CustomerInfo { SyncCasino = false });
-
-                CoreBetSettingService.GetBetSettingProducts(DefaultLicenseeSession.LicenseeId)
-                    .Returns(new List<BetSettingProduct> { new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino } });
+                var betSettingProducts = new List<BetSettingProduct>
+                {
+                    new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino }
+                };
+                CoreBetSettingService.GetBetSettingProductsAsync(metaModel.CustId, DefaultLicenseeSession.LicenseeId)
+                    .Returns(Task.FromResult<IEnumerable<BetSettingProduct>>(betSettingProducts));
 
                 // Action
-                controller.AssignRequiredProperties(viewModel, metaModel);
+                await controller.AssignRequiredProperties(viewModel, metaModel);
 
                 // Assert
-                Assert.That(viewModel.BetSettingProducts.Any(x => x.ProductId == ProductTypes.RngCasino), Is.False);
+                Assert.That(viewModel.BetSettingProducts, Is.EqualTo(betSettingProducts));
             }
         }
 
@@ -110,7 +112,7 @@
                 controller.HttpContext.Request.UserHostAddress.Returns(UserHostAddress);
 
                 // Action
-                var result = controller.GetBetSettingCommonParam();
+                var result = controller.GetBetSettingCommonParam(DefaultUserSession.UserId, DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language);
 
                 // Assert
                 Assert.Multiple(() =>

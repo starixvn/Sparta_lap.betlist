@@ -22,7 +22,6 @@ namespace Fanex.Athena.Extension.Utility
                         { "en-US", "English" },
                         { "zh-TW", "繁體中文" },
                         { "zh-CN", "简体中文" },
-                        { "ko-KR", "한국의" },
                         { "zh-Hans", "简体中文(新)" }
                     };
             }
@@ -40,7 +39,6 @@ namespace Fanex.Athena.Extension.Utility
                     { "zh-Hans", "zhcn" },
                     { "ja-JP", "jp" },
                     { "th-TH", "th" },
-                    { "ko-KR", "ko" },
                     { "vi-VN", "vn" }
                 };
             }
@@ -58,7 +56,6 @@ namespace Fanex.Athena.Extension.Utility
                     { "zhcn", "zh-Hans" },
                     { "jp", "ja-JP" },
                     { "th", "th-TH" },
-                    { "ko", "ko-KR" },
                     { "vn", "vi-VN" }
                 };
             }
@@ -89,10 +86,6 @@ namespace Fanex.Athena.Extension.Utility
         /// </summary>
         /// <param name="password">The password.</param>
         /// <returns>The valid password or invalid password.</returns>
-        [SuppressMessage(
-        "StyleCop.CSharp.StylecopPlus.Rules",
-        "SP2101:MethodMustNotContainMoreLinesThan",
-        Justification = "Reviewed. Suppression is OK here.")]
         public static bool IsPasswordValid(string password)
         {
             const string Pattern = @"^(?=.*[A-z].*[A-z])(?=.*\d.*\d).{6,}$";

@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Generated at: 04/02/2019 3:14:44 PM
+// Generated at: 4/10/2019 9:27:39 AM
 window._language_zh_CN = {
   AA: "客客",
   AbnormalBet: "非正规注单",
@@ -188,8 +188,6 @@ window._language_zh_CN = {
   ByCurrency: "根据货币",
   BySportsType: "根据运动类型",
   Cancel: "取消",
-  CancelledBets: "已删除/作废注单",
-  CancelledBetsTitle: "作废/已删除注单(3天纪录)",
   CashOutAmount: "预先兑现金额",
   CashOutAmt: "兑现金额",
   CashOutCommission: "即时兑现佣金",
@@ -203,7 +201,6 @@ window._language_zh_CN = {
   CashOutValue: "会员卖出的实际投注额",
   CashOutWinLoss: "即时兑现输赢",
   CASINOHANDHISTORY: "赌场下注历史",
-  CasinoProgressiveWinsGuidelineContent: "此报告提供最新数据。您每次查询可以过滤最多12个月内的数据。",
   CasinoTransfer: "娱乐城的总转账额",
   ChangePassword: "更改密码",
   ChangeStatus: "更改 {0}&apos;s 状态",
@@ -280,7 +277,6 @@ window._language_zh_CN = {
   CustomerWinnings: "会员总赢",
   DA: "和客",
   Daily: "每日",
-  DailyBetList: "每日投注历史",
   DailyStatement: "每日账目",
   DailyStatementMsg: "Support data up to 4 months only",
   Date: "日期",
@@ -549,7 +545,6 @@ window._language_zh_CN = {
   MessageGroupHasAlreadyChoosen: "此组名称已经被选择, 请尝试另一个名称!",
   MessageInvalidCommValue: "佣金值无效!",
   MessageSuccess: "成功",
-  MicrogamingWinLossGuidelineContent: "此报告提供最新数据。您每次查询可以过滤最多3个月内的数据。",
   MinBet: "最低投注",
   MinBetCanNotGreaterThanMaxBet: "最小投注不能超过最大投注",
   MinBetCount: "最低投注计数",

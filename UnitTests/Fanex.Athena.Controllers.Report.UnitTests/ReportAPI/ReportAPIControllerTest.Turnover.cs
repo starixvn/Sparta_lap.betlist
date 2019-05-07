@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Report.DTO;
@@ -10,10 +11,10 @@
     using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public partial class ReportAPIControllerTest : BaseControllerHelperTest
+    public partial class ReportAPIControllerTest : CultureBaseControllerHelperTest
     {
         [Test]
-        public void Turnover_WhenCall_ReturnCorrectViewResult()
+        public async Task Turnover_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -32,7 +33,7 @@
                 _turnoverService.SumTotalData(data).Returns(total);
 
                 // Action
-                var result = controller.Turnover(metaModel) as JsonResult;
+                var result = await controller.Turnover(metaModel) as JsonResult;
                 var resultData = ObjectHelper.ToDictionary(result.Data);
 
                 // Assert

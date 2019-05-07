@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Users
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Users;
     using NSubstitute;
     using NUnit.Framework;
@@ -29,10 +30,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, LicenseeId);
-                ObjectDb.Received(1).AddInParameter("transid", DbType.Int64, TransId);
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
-                ObjectDb.Received(1).AddOutParameter("status", DbType.Boolean, sizeof(bool));
+                ObjectDb.Received(1).SetParameterValue("licenseeid", LicenseeId);
+                ObjectDb.Received(1).SetParameterValue("transid", TransId);
+                ObjectDb.Received(1).SetParameterValue("custid", CustId);
+                ObjectDb.Received(1).SetParameterValue("status", null);
             });
         }
 

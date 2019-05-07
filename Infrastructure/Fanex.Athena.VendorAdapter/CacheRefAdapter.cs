@@ -11,8 +11,6 @@ namespace Fanex.Athena.VendorAdapter
 {
     public class CacheRefAdapter : ICacheRefAdapter
     {
-        private const string MicrogamingResourceKey = "MG_Casino";
-
         private readonly Lazy<IRemotingRefService> _remotingRefService = new Lazy<IRemotingRefService>(() => new RemotingRefService());
 
         public static CacheRefAdapter Instance { get; } = new CacheRefAdapter();
@@ -20,16 +18,6 @@ namespace Fanex.Athena.VendorAdapter
 #pragma warning disable CS3003 // Type is not CLS-compliant
         public IRemotingRefService RemotingRefService => _remotingRefService.Value;
 #pragma warning restore CS3003 // Type is not CLS-compliant
-
-        public string GetMicroGamingGameName(string resourceId)
-        {
-            if (!IsValidId(resourceId))
-            {
-                return string.Empty;
-            }
-
-            return RemotingRefService.GetResourceDataByRefIdAndResourceId(MicrogamingResourceKey, resourceId, GetCurrentIBCLanguageCode(), string.Empty);
-        }
 
         public string GetBettype(object bettypeId)
         {

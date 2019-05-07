@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
@@ -16,20 +17,20 @@ namespace Fanex.Athena.DataAccess.Customer
 
     public class CustomerLogDataAccess : BaseDataAccess, ICustomerLogDataAccess
     {
-        public IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel)
+        public async Task<IList<CustomerLog>> GetCustomerSettingList(CustomerLogMetaModel metaModel)
         {
             const string SpName = "Lrf_CustomerSettingLog_Sel";
             using (var db = this.GetObjectDb(SpName))
             {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-                db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("FilterBy", DbType.Int16, metaModel.ViewById);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("UserName", metaModel.UserName);
+                db.SetParameterValue("FromDate", metaModel.FromDate);
+                db.SetParameterValue("ToDate", metaModel.ToDate);
+                db.SetParameterValue("FilterBy", metaModel.ViewById);
+                db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
+                db.SetParameterValue("siteName", metaModel.SiteName);
 
-                return db.Query<CustomerLog>().ToList();
+                return (await db.QueryAsync<CustomerLog>().ConfigureAwait(false)).ToList();
             }
         }
 
@@ -38,17 +39,17 @@ namespace Fanex.Athena.DataAccess.Customer
         /// </summary>
         /// <param name="metaModel">Group commission log MeteModel.</param>
         /// <returns>A list of group commission log.</returns>
-        public IList<CustomerLog> GetGroupCommList(CustomerLogMetaModel metaModel)
+        public async Task<IList<CustomerLog>> GetGroupCommList(CustomerLogMetaModel metaModel)
         {
             const string SpName = "Lrf_GroupCommLog_Sel";
 
             using (var db = this.GetObjectDb(SpName))
             {
-                db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
-                return db.Query<CustomerLog>().ToList();
+                db.SetParameterValue("FromDate", metaModel.FromDate);
+                db.SetParameterValue("ToDate", metaModel.ToDate);
+                db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
+                db.SetParameterValue("siteName", metaModel.SiteName);
+                return (await db.QueryAsync<CustomerLog>().ConfigureAwait(false)).ToList();
             }
         }
     }

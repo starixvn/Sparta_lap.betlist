@@ -1,5 +1,5 @@
 ﻿define(['./forecast.ah'], function (Forecast) {
-    "use strict";
+    'use strict';
 
     $(Forecast.initialize);
 });

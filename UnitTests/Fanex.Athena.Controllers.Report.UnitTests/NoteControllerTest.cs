@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
@@ -14,7 +15,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public class NoteControllerTest : BaseControllerHelperTest
+    public class NoteControllerTest : CultureBaseControllerHelperTest
     {
         private IBalanceUpDataAccess _balanceUpDataAccess;
         private IProductService _productService;

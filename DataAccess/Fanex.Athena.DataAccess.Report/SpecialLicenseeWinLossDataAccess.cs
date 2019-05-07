@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Core.Extensions;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -16,24 +16,18 @@
 
     public class SpecialLicenseeWinLossDataAccess : BaseDataAccess, ISpecialLicenseeWinLossDataAccess
     {
-        public ReportResultModel<LicenseeWinLoss> GetData(SpecialLicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<ReportResultModel<LicenseeWinLoss>> GetData(SpecialLicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinloss_FromAPI";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    UpdateUspParams(db, metaModel);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return ReadData(reader, currencyList, metaModel);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                UpdateUspParams(db, metaModel);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return ReadData(reader, currencyList, metaModel);
+                }
             }
         }
 
@@ -155,12 +149,12 @@
 
         private static void UpdateUspParams(IObjectDb db, SpecialLicenseeWinLossMetaModel metaModel)
         {
-            db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
-            db.AddInParameter("productCodes", DbType.String, string.Join(",", metaModel.ProductCodeList));
-            db.AddInParameter("currencylist", DbType.String, metaModel.CurrencyListXml);
-            db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
+            db.SetParameterValue("fromdate", metaModel.FromDate.Date);
+            db.SetParameterValue("todate", metaModel.ToDate.Date);
+            db.SetParameterValue("reporttype", metaModel.ReportBy);
+            db.SetParameterValue("productCodes", string.Join(",", metaModel.ProductCodeList));
+            db.SetParameterValue("currencylist", metaModel.CurrencyListXml);
+            db.SetParameterValue("siteName", metaModel.SiteName);
         }
 
         private ReportResultModel<LicenseeWinLoss> ReadData(

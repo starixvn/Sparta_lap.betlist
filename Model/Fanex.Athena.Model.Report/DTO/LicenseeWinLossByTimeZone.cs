@@ -1,9 +1,11 @@
-﻿using System;
-
-namespace Fanex.Athena.Model.Report.DTO
+﻿namespace Fanex.Athena.Model.Report.DTO
 {
+    using System;
+
     public class LicenseeWinLossByTimeZone
     {
+        private const int OneHundredPercent = 100;
+
         public DateTime ReportBy { get; set; }
 
         public string GroupBy { get; set; }
@@ -30,7 +32,7 @@ namespace Fanex.Athena.Model.Report.DTO
         {
             get
             {
-                return Turnover == 0 ? 0 : (LicenseeNetWinLoss / Turnover) * 100;
+                return Turnover == 0 ? 0 : (LicenseeNetWinLoss / Turnover) * OneHundredPercent;
             }
         }
     }

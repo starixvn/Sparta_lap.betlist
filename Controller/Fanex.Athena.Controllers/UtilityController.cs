@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers
 
             if (requestHost.Contains(_appSettings.GetValue("LapSubDomain")))
             {
-                return RedirectToAction("OneTokenRestriction", "Utility", new { code = 100 });
+                return RedirectToAction("OneTokenRestriction", "Utility", new { code = OneAuthorizationErrorCode.TokenWasExpired });
             }
 
             return View("~/Views/Desktop/Utility/LocationRestriction.cshtml");

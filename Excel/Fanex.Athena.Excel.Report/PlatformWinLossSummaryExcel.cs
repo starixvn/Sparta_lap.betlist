@@ -56,7 +56,7 @@
 
         protected override void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             var headerTextList = new[]
             {
                 ViewResources.Platform,
@@ -71,7 +71,7 @@
 
             SetTextRowHeader(row, headerTextList);
 
-            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1);
 
             row.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
@@ -116,10 +116,10 @@
                                         GetBaseCurrencyTitle(),
                                         platformText) + ", " + GetProductTitle();
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, reportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnNoContent, reportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, RowParentContentTemplate);
 
             ClearTemplate(sheet, RowParentContentTemplate);
         }

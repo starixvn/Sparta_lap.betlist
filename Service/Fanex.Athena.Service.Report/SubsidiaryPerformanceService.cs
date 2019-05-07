@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Constant.DataDomain;
     using Core.Users.Interfaces;
     using DataAccess.Report.Interfaces;
@@ -30,9 +31,9 @@
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
 
-        public SubsidiaryResultViewModel GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<SubsidiaryResultViewModel> GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            var dataList = _subLicenseePerformanceDataAccess.GetData(metaModel, currencyList);
+            var dataList = await _subLicenseePerformanceDataAccess.GetData(metaModel, currencyList);
 
             if (dataList.Any())
             {
@@ -45,7 +46,7 @@
             };
         }
 
-        public ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<ReportResultModel<SubsidiaryPerformanceDetail>> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             return _subLicenseePerformanceDataAccess.GetDetailData(metaModel, currencyList);
         }

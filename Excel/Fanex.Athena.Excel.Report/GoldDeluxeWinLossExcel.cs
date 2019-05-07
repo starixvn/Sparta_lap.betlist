@@ -25,7 +25,7 @@
 
         protected override void PostAssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate);
             row.Cells[ColumnTipsAmount].SetCellValue(ViewResources.TipAmount);
             row.Cells[ColumnTipsSharing].SetCellValue(ViewResources.TipSharing);
             row.Cells[ColumnAmountDue].SetCellValue(ViewResources.AmountDue);

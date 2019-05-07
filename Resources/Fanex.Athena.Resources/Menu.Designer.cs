@@ -27,8 +27,7 @@ namespace Fanex.Athena.Resources {
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
-        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+
         internal Menu() {
         }
         
@@ -286,24 +285,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancelled Bets.
-        /// </summary>
-        public static string Menu_36 {
-            get {
-                return ResourceManager.GetString("Menu_36", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Daily Bet List.
-        /// </summary>
-        public static string Menu_37 {
-            get {
-                return ResourceManager.GetString("Menu_37", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Live Report.
         /// </summary>
         public static string Menu_38 {
@@ -507,24 +488,6 @@ namespace Fanex.Athena.Resources {
         public static string Menu_65 {
             get {
                 return ResourceManager.GetString("Menu_65", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Microgaming Win Loss.
-        /// </summary>
-        public static string Menu_67 {
-            get {
-                return ResourceManager.GetString("Menu_67", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Casino Progressive Wins.
-        /// </summary>
-        public static string Menu_68 {
-            get {
-                return ResourceManager.GetString("Menu_68", resourceCulture);
             }
         }
         

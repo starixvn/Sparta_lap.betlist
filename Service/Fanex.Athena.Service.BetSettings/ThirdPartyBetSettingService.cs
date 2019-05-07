@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.BetSettings
 {
+    using System.Threading.Tasks;
     using BetSettings.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.Service.StatelessCore.Interfaces;
@@ -25,14 +26,14 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = betSettingDataAccess;
         }
 
-        public ThirdPartyBetSettingViewModel GetViewModel(int licenseeId, int custId, int productid)
+        public async Task<ThirdPartyBetSettingViewModel> GetViewModelAsync(int licenseeId, int custId, int productid)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
 
-            var setting = _betSettingDataAccess.GetBetSetting(custId, productid);
+            var setting = await _betSettingDataAccess.GetBetSettingAsync(custId, productid).ConfigureAwait(false);
 
             return new ThirdPartyBetSettingViewModel
             {
@@ -41,20 +42,20 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IResultInfo UpdateStatus(int licenseeId, int productId, int userId, int custId, string language, string ip, bool isEnabled)
+        public async Task<IResultInfo> UpdateStatusAsync(int licenseeId, int productId, int userId, int custId, string language, string ip, bool isEnabled)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            var setting = _betSettingDataAccess.GetBetSetting(custId, productId);
+            var setting = await _betSettingDataAccess.GetBetSettingAsync(custId, productId).ConfigureAwait(false);
             if (!setting.IsLineEnabled)
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            return _betSettingDataAccess.UpdateStatus(productId, userId, custId, language, ip, isEnabled);
+            return await _betSettingDataAccess.UpdateStatusAsync(productId, userId, custId, language, ip, isEnabled);
         }
     }
 }

@@ -33,7 +33,7 @@
             Assert.Multiple(() =>
             {
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
-                ObjectDb.Received(1).SetParameterValue("MatchID", metaModel.MatchId);
+                ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveIndicator);
@@ -61,7 +61,7 @@
             {
                 refno = expectResult.RefNo,
                 status = expectResult.Status,
-                bettype = expectResult.BetTypeId,
+                BetType = expectResult.BetTypeId,
                 odds = expectResult.Odds
             });
             var metaModel = new LiveReportBetListMetaModel
@@ -100,7 +100,7 @@
             {
                 refno = expectResult.RefNo,
                 status = expectResult.Status,
-                bettype = expectResult.BetTypeId,
+                BetType = expectResult.BetTypeId,
                 odds = expectResult.Odds
             });
             var metaModel = new LiveReportBetListMetaModel
@@ -189,7 +189,7 @@
                 ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
                 ObjectDb.Received(1).SetParameterValue("showSB", true);
                 ObjectDb.DidNotReceive().SetParameterValue("showNG", true);
-                ObjectDb.Received(1).SetParameterValue("Bettype", metaModel.BetType);
+                ObjectDb.Received(1).SetParameterValue("BetType", metaModel.BetType);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveIndicator);
             });
         }
@@ -250,7 +250,7 @@
             {
                 refno = expectResult.RefNo,
                 status = expectResult.Status,
-                bettype = expectResult.BetTypeId,
+                BetType = expectResult.BetTypeId,
                 odds = expectResult.Odds,
                 betteam = expectedBetTeam,
                 stake = expectedStake

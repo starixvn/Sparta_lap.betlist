@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DataDomain;
@@ -14,7 +15,7 @@
     using Service.Core.Configuration.Interfaces;
 
     [TestFixture]
-    public class CustomerWinLossReportControllerTest : BaseControllerHelperTest
+    public class CustomerWinLossReportControllerTest : CultureBaseControllerHelperTest
     {
         [OneTimeSetUp]
         public override void FixtureSetUp()

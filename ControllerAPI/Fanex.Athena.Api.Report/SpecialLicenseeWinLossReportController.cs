@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report.Interfaces;
@@ -43,7 +44,7 @@
         }
 
         [HttpPost]
-        public dynamic Index(SpecialLicenseeWinLossMetaModel metaModel)
+        public Task<dynamic> Index(SpecialLicenseeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
@@ -83,7 +84,7 @@
                 DateTimeHelper.IsBetween(metaModel.ToDate, setting.MinDate, setting.MaxDate);
         }
 
-        private dynamic ProcessRequest(SpecialLicenseeWinLossMetaModel metaModel)
+        private async Task<dynamic> ProcessRequest(SpecialLicenseeWinLossMetaModel metaModel)
         {
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
 
@@ -95,7 +96,7 @@
                 metaModel.SiteName = _siteNameList[SessionService.LicenseeSession.LicenseeId];
                 metaModel.CurrencyListXml = GenerateCurrencyListXml(metaModel);
 
-                var result = _licenseeWinLossDataAccess.GetData(metaModel, SessionService.UserSession.CurrencyList);
+                var result = await _licenseeWinLossDataAccess.GetData(metaModel, SessionService.UserSession.CurrencyList);
 
                 if (result.DataList.Any())
                 {
@@ -128,7 +129,9 @@
 
         protected internal virtual bool IsValidParams(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
         {
-            return IsValidDateRange(metaModel, setting) && IsValidProduct(metaModel) && IsValidCurrency(metaModel);
+            return IsValidDateRange(metaModel, setting) &&
+                IsValidProduct(metaModel) && 
+                IsValidCurrency(metaModel);
         }
 
         private bool IsValidCurrency(SpecialLicenseeWinLossMetaModel metaModel)
@@ -147,9 +150,10 @@
             var productAccess = this.ProductService.GetSingleWalletProductAccess(
                SessionService.LicenseeSession.LicenseeId,
                SessionService.UserSession.Language,
-               FunctionNames.LicenseeWinLoss).ProductList.Select(x => x.ProductCode);
+               FunctionNames.LicenseeWinLoss);
+            var productList = productAccess.ProductList.Select(x => x.ProductCode);
 
-            return productAccess.Intersect(metaModel.ProductCodeList).Count() == metaModel.ProductCodeList.Count();
+            return productList.Intersect(metaModel.ProductCodeList).Count() == metaModel.ProductCodeList.Count();
         }
     }
 }

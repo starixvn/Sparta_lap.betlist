@@ -51,7 +51,7 @@
                         GroupColor: "#fff",
                         GroupCommId: 0
                     };
-                    var expectedFormat = "<div id='groupName-custId' style='background-color:#fff' class='commission-color'>None</div>";
+                    var expectedFormat = '<div id="groupName-custId" style="background-color:#fff" class="commission-color">None</div>';
 
                     CustomerListOption.getGridOption([], true);
 
@@ -68,7 +68,7 @@
                         GroupCommId: 1
                     };
                     var cellValue = "cellValue";
-                    var expectedFormat = "<div id='groupName-custId' style='background-color:#fff' class='commission-color'>cellValue</div>";
+                    var expectedFormat = '<div id="groupName-custId" style="background-color:#fff" class="commission-color">cellValue</div>';
 
                     CustomerListOption.getGridOption([], true);
 
@@ -99,7 +99,7 @@
                         ExternalId: "externalId"
                     };
                     var cellValue = 10;
-                    var expectedFormat = "<a href='javascript:;' class='pendingFunds' data-custid='custId' data-systemid='systemId' data-externalid='externalId'>10.00</a>";
+                    var expectedFormat = '<a href="javascript:;" class="pendingFunds" data-custid="custId" data-systemid="systemId" data-externalid="externalId">10.00</a>';
 
                     CustomerListOption.getGridOption([], false);
 
@@ -119,8 +119,8 @@
                         IsClosed: false,
                         ExternalId: "externalId"
                     };
-                    var expectedFormat = "<a href='javascript:;' title='Status' class='custStatusOption' id='edit-cust-status-custId'"
-                            + " data-custid='custId' data-externalid='externalId' data-issuspended='true' data-isclosed='false'>status</a>";
+                    var expectedFormat = '<a href="javascript:;" title="Status" class="custStatusOption" id="edit-cust-status-custId"'
+                            + ' data-custid="custId" data-externalid="externalId" data-issuspended="true" data-isclosed="false">status</a>';
 
                     CustomerListOption.getGridOption([], false);
 
@@ -139,11 +139,11 @@
                         ExternalId: "externalId"
                     };
                     var paramString = '{"custId":"custId","isAllowBA":false,"externalId":"externalId"}'
-                    var expectedFormat = "<div title='TurnOffBaTooltip'"
-                    + " class='center-align switch ba-on'>"
-                    + "<label><input class='baStatus' type='checkbox' checked data-val='" + paramString
-                    + "' /><span class='lever'></span><label>"
-                    + "</div>";
+                    var expectedFormat = '<div title="TurnOffBaTooltip"'
+                    + ' class="center-align switch ba-on">'
+                    + '<label><input class="baStatus" type="checkbox" checked data-val=\'' + paramString
+                    + '\' /><span class="lever"></span><label>'
+                    + '</div>';
 
                     CustomerListOption.getGridOption([], false);
 
@@ -160,11 +160,11 @@
                         ExternalId: "externalId"
                     };
                     var paramString = '{"custId":"custId","isAllowBA":true,"externalId":"externalId"}'
-                    var expectedFormat = "<div title='TurnOnBaTooltip'"
-                    + " class='center-align switch ba-off'>"
-                    + "<label><input class='baStatus' type='checkbox' data-val='" + paramString
-                    + "' /><span class='lever'></span><label>"
-                    + "</div>";
+                    var expectedFormat = '<div title="TurnOnBaTooltip"'
+                    + ' class="center-align switch ba-off">'
+                    + '<label><input class="baStatus" type="checkbox" data-val=\'' + paramString
+                    + '\' /><span class="lever"></span><label>'
+                    + '</div>';
 
                     CustomerListOption.getGridOption([], false);
 
@@ -181,10 +181,10 @@
                     var rowObject = {
                         CustId: "custId"
                     };
-                    var expectedFormat = "<a href='javascript:;' class='grid-dropdown specialLevel' data-custid='custId' data-level='0'>"
-                    + "<span class='grid-dropdown-item grid-dropdown-label level-0'>None</span>"
-                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='SpecialLevel'></i>"
-                    + "</a>";
+                    var expectedFormat = '<a href="javascript:;" class="grid-dropdown specialLevel" data-custid="custId" data-level="0">'
+                    + '<span class="grid-dropdown-item grid-dropdown-label level-0">None</span>'
+                    + '<i class="grid-dropdown-item grid-dropdown-icon icon-arrow text-bold" title="SpecialLevel"></i>'
+                    + '</a>';
 
                     CustomerListOption.getGridOption([], false);
 
@@ -199,10 +199,10 @@
                     var rowObject = {
                         CustId: "custId"
                     };
-                    var expectedFormat = "<a href='javascript:;' class='grid-dropdown specialLevel' data-custid='custId' data-level='1'>"
-                    + "<span class='grid-dropdown-item grid-dropdown-label level-1'>1</span>"
-                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='SpecialLevel'></i>"
-                    + "</a>";
+                    var expectedFormat = '<a href="javascript:;" class="grid-dropdown specialLevel" data-custid="custId" data-level="1">'
+                    + '<span class="grid-dropdown-item grid-dropdown-label level-1">1</span>'
+                    + '<i class="grid-dropdown-item grid-dropdown-icon icon-arrow text-bold" title="SpecialLevel"></i>'
+                    + '</a>';
 
                     CustomerListOption.getGridOption([], false);
 
@@ -220,10 +220,10 @@
                         CustId: "custId",
                         BAStatus: true
                     };
-                    var expectedFormat = "<a href='javascript:;' class='grid-dropdown oddsGroup disabled' "
-                    + "data-custid='custId' data-group='0'>"
-                    + "<span class='grid-dropdown-item grid-dropdown-label group-0'>None</span>"
-                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='OddsGroup'></i></a>";
+                    var expectedFormat = '<a href="javascript:;" class="grid-dropdown oddsGroup disabled" '
+                    + 'data-custid="custId" data-group="0">'
+                    + '<span class="grid-dropdown-item grid-dropdown-label group-0">None</span>'
+                    + '<i class="grid-dropdown-item grid-dropdown-icon icon-arrow text-bold" title="OddsGroup"></i></a>';
 
                     CustomerListOption.getGridOption([], false);
 
@@ -239,10 +239,10 @@
                         CustId: "custId",
                         BAStatus: false
                     };
-                    var expectedFormat = "<a href='javascript:;' class='grid-dropdown oddsGroup' "
-                    + "data-custid='custId' data-group='1'>"
-                    + "<span class='grid-dropdown-item grid-dropdown-label group-1'>1</span>"
-                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='OddsGroup'></i></a>";
+                    var expectedFormat = '<a href="javascript:;" class="grid-dropdown oddsGroup" '
+                    + 'data-custid="custId" data-group="1">'
+                    + '<span class="grid-dropdown-item grid-dropdown-label group-1">1</span>'
+                    + '<i class="grid-dropdown-item grid-dropdown-icon icon-arrow text-bold" title="OddsGroup"></i></a>';
 
                     CustomerListOption.getGridOption([], false);
 
@@ -261,8 +261,8 @@
                         SystemId: "systemId",
                         ExternalId: "externalId"
                     };
-                    var expectedFormat = "<a href='javascript:;' data-systemid='systemId' data-externalid='externalId' data-custid='custId' "
-                        + "title='CustomerOption' class='custoptionlink' id='cust-option-link-custId'>View<i class='grid-dropdown-icon icon-arrow'></i></a>";
+                    var expectedFormat = '<a href="javascript:;" data-systemid="systemId" data-externalid="externalId" data-custid="custId" '
+                        + 'title="CustomerOption" class="custoptionlink" id="cust-option-link-custId">View<i class="grid-dropdown-icon icon-arrow"></i></a>';
 
                     CustomerListOption.getGridOption([], false);
 
@@ -278,7 +278,7 @@
                     var rowObject = {
                         CustId: "custId"
                     };
-                    var expectedFormat = " id='SBComm-custId' ";
+                    var expectedFormat = ' id="SBComm-custId" ';
 
                     CustomerListOption.getGridOption(["SB"], true);
 

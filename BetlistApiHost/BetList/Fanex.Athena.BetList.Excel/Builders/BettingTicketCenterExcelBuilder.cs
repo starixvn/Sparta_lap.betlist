@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.Common.Constant;
+using Fanex.Athena.Common.Utility.Helpers;
 using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -88,30 +90,41 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         public void AddHeader(bool isShowCustomerComm, BettingTicketCenterExcelOption option)
         {
+            var columnWidths = new short[] { 1500, 4800, 4800, 5400, 5400, 15500, 2600, 2600, 4200, 4200, 5400, 5400, 3400, 3400 };
+            var index = 0;
+
             var headerStyle = _builder.CreateHeaderCellStyle();
-            AddHeaderCell("#", 1500, headerStyle);
-            AddHeaderCell(ViewResources.ExternalId, 4800, headerStyle);
-            AddHeaderCell(ViewResources.SystemId, 4800, headerStyle);
-            AddHeaderCell(ViewResources.RefNo, 5400, headerStyle);
-            AddHeaderCell(ViewResources.TransTime, 5400, headerStyle);
-            AddHeaderCell(ViewResources.Choice, 15500, headerStyle);
-            AddHeaderCell(ViewResources.Odds, 2600, headerStyle);
-            AddHeaderCell(ViewResources.OddsType, 2600, headerStyle);
-            AddHeaderCell(ViewResources.Stake, 4200, headerStyle);
+            AddHeaderCell("#", columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.ExternalId, columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.SystemId, columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.RefNo, columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.TransTime, columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.Choice, columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.Odds, columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.OddsType, columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.Stake, columnWidths[index++], headerStyle);
 
             if (option.ShowWinLoss)
             {
-                AddHeaderCell(ViewResources.WinLoss + (isShowCustomerComm ? "/" + ViewResources.Comm : string.Empty), 4200, headerStyle);
+                AddHeaderCell(ViewResources.WinLoss + (isShowCustomerComm ? "/" + ViewResources.Comm : string.Empty), columnWidths[index++], headerStyle);
+            }
+            else
+            {
+                ++index;
             }
 
             if (option.ShowLicenseeWl)
             {
-                AddHeaderCell(ViewResources.LicenseeWL + "/" + ViewResources.Comm, 5400, headerStyle);
+                AddHeaderCell(ViewResources.LicenseeWL + "/" + ViewResources.Comm, columnWidths[index++], headerStyle);
+            }
+            else
+            {
+                ++index;
             }
 
-            AddHeaderCell(ViewResources.Status, 5400, headerStyle);
-            AddHeaderCell(ViewResources.Platform, 3400, headerStyle);
-            AddHeaderCell(ViewResources.Live, 3400, headerStyle);
+            AddHeaderCell(ViewResources.Status, columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.Platform, columnWidths[index++], headerStyle);
+            AddHeaderCell(ViewResources.Live, columnWidths[index], headerStyle);
         }
 
         public void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumPlayerComm, decimal? sumLicenseeWL, string totalText)
@@ -252,7 +265,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         private void BuilDataAlignedCenterCell(IRichTextString text)
         {
-            _builder.AddCell(text, _ticketHelper.Index % 2 == 0 ? _oddCellCenterAlign : _evenCellCenterAlign);
+            _builder.AddCell(text, _ticketHelper.Index.IsEvenNumber() ? _oddCellCenterAlign : _evenCellCenterAlign);
         }
 
         private ICellStyle CreateCellStyle(HorizontalAlignment align, bool isEvenCell)
@@ -288,19 +301,12 @@ namespace Fanex.Athena.BetList.Excel.Builders
             {
                 (_builder as IDisposable)?.Dispose();
                 _builder = null;
-
                 _evenCellLeftAlign = null;
-
                 _oddCellLeftAlign = null;
-
                 _evenCellCenterAlign = null;
-
                 _oddCellCenterAlign = null;
-
                 _negativeWinLossFont = null;
-
                 _winLossFont = null;
-
                 _liveFont = null;
                 _mixLiveFont = null;
             }

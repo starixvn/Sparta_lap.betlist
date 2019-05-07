@@ -24,14 +24,12 @@ namespace Fanex.Athena.BetList.Service
 
         private readonly ITicketHelper _ticketHelper;
 
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
-
+        [CLSCompliant(false)]
         public BettingTicketCenterService(
             IBettingTicketCenterDataAccess dataAccess,
             IBettingTicketCenterMultiCustomerDataAccess multiCustomerDataAccess,
             IBetListHTMLBuilder betlistHtmlBuilder,
             ITicketHelper ticketHelper)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             _dataAccess = dataAccess;
             _multiCustomerDataAccess = multiCustomerDataAccess;
@@ -39,37 +37,37 @@ namespace Fanex.Athena.BetList.Service
             _ticketHelper = ticketHelper;
         }
 
-        public async Task<GroupTicketResult> GetBetListForMultipleCustomers(
+        public Task<GroupTicketResult> GetBetListForMultipleCustomers(
             MultipleCustomersBetListMetaModel metaModel,
             int rowPerGroup,
             IDictionary<int, string> currencyList)
         {
-            return await _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, rowPerGroup, currencyList);
+            return _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, rowPerGroup, currencyList);
         }
 
-        public async Task<TicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<TicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, currencyList);
+            return _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, currencyList);
         }
 
-        public async Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        public Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
-            return await _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false);
+            return _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel);
         }
 
-        public async Task<TicketResult> GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<TicketResult> GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await _dataAccess.GetBetListForSingleCustomer(metaModel, currencyList);
+            return _dataAccess.GetBetListForSingleCustomer(metaModel, currencyList);
         }
 
-        public async Task<TicketResult> GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<TicketResult> GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await _dataAccess.GetBetListByRefno(metaModel, currencyList);
+            return _dataAccess.GetBetListByRefno(metaModel, currencyList);
         }
 
-        public async Task<TicketResult> GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
+        public Task<TicketResult> GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await _dataAccess.GetRunningBetList(metaModel, currencyList);
+            return _dataAccess.GetRunningBetList(metaModel, currencyList);
         }
 
         public string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm)

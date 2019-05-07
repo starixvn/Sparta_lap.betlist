@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System.Data;
+    using System.Threading.Tasks;
     using Core.Common;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -25,7 +26,7 @@
             DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, LicenseeId);
+            ObjectDb.Received(1).SetParameterValue("licenseeid", LicenseeId);
         }
 
         [TestCase(true)]

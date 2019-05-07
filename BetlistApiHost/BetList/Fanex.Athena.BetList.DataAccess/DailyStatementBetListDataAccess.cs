@@ -8,10 +8,10 @@
     using System.Threading.Tasks;
     using Common.DataAccess.Interfaces;
     using Common.Utility.Extensions;
-    using Fanex.Athena.BetList.Model.DTO;
-    using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Common.Extensions;
     using Interfaces;
+    using Model.DTO;
+    using Model.MetaModel;
     using Util;
 
     public class DailyStatementBetListDataAccess : BaseBetListDataAccess, IDailyStatementBetListDataAccess
@@ -35,7 +35,7 @@
         {
             const string UspKey = "Lrf_Statement_Mem";
 
-            var balanceUp = await _balanceUpDataAccess.GetBalanceUp().ConfigureAwait(false);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
 
@@ -74,13 +74,12 @@
                 var comm = reader.ToDecimal(commissionColumn);
                 var turnover = reader.ToDecimal(turnoverColumn);
 
-                if (transType == "bal")
+                // Add commission.
+                if (!transType.Equals("gp"))
                 {
-                    balance = reader.ToDecimal(totalAmtColumn);
-                }
-                else if (!transType.Equals("gp"))
-                {
-                    balance = balance + credit + (metaModel.HasPlayerCom ? comm : 0) - (isOutstandingBet ? turnover : 0);
+                    var outstanding = isOutstandingBet ? turnover : 0;
+                    var playerComm = metaModel.HasPlayerCom ? comm : 0;
+                    balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + playerComm - outstanding;
                 }
 
                 result.Add(new DailyStatement

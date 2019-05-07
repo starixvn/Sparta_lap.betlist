@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Fanex.Athena.DataAccess.Core.Users.Interfaces;
 using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.DTO.Users;
@@ -36,7 +37,7 @@ namespace Fanex.Athena.Service.Core.Users
             this._authenticationDataAccess.Logout(onuserId);
         }
 
-        public IResultInfo<User> ValidateUserForLrfSystem(User requestUser, string loginToken)
+        public IResultInfo<User> ValidateUserForLrf(User requestUser, string loginToken)
         {
             var user = _userDataAccess.GetByUsername(requestUser.Username, isInternal: false);
 
@@ -51,7 +52,7 @@ namespace Fanex.Athena.Service.Core.Users
                 return new ResultInfo<User> { Code = WrongUserNameOrPasswordError, Message = ViewResources.WrongUserNamePassword };
             }
 
-            return _authenticationDataAccess.ValidateUserForLrfSystem(requestUser);
+            return _authenticationDataAccess.ValidateUserForLrf(requestUser);
         }
     }
 }

@@ -6,7 +6,7 @@
 
     public class CustomMemoryCache : MemoryCache, ICustomMemoryCache
     {
-        public CustomMemoryCache() : base("LAP_MEMORY_CUSTOM_CACHING")
+        public CustomMemoryCache() : base("LAP_BETLIST_MEMORY_CUSTOM_CACHING")
         {
         }
 

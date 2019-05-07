@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -17,6 +18,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -58,6 +60,8 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = viewParam,
                 ProductOptions = GetProductOptions(viewParam.ProductCodeList, productAccess.ProductList)
             };
+
+            ViewBag.ViewTitle = GetViewTite(metaModel.BetListName);
             return View("~/Views/Desktop/BetList/CustomerOutstanding/Main.cshtml", viewModel);
         }
 
@@ -79,6 +83,21 @@ namespace Fanex.Athena.Controllers.BetList
             }
 
             return productOptions;
+        }
+
+        private static string GetViewTite(string name)
+        {
+            switch (name)
+            {
+                case "dailystatement":
+                    return ViewResources.DailyStatement;
+
+                case "betlistrunning":
+                    return ViewResources.BetListRunning;
+
+                default:
+                    return ViewResources.BetList;
+            }
         }
     }
 }

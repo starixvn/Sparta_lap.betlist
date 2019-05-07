@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -17,65 +18,66 @@
         /// </summary>
         /// <param name="metaModel">Meta model value.</param>
         /// <returns>The result value.</returns>
-        public IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel)
+        public async Task<IResultInfo> MoveCustomersToGroupAsync(MoveToGroupComMetaModel metaModel)
         {
             const string UspName = "Lrf_CustomerMoveGroupComm";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupComId);
-                db.AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
-                db.AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedRNG);
+                db.SetParameterValue("GroupCommId", metaModel.GroupComId);
+                db.SetParameterValue("IsUpdateNG", metaModel.IsAllowedNG);
+                db.SetParameterValue("IsUpdateRNG", metaModel.IsAllowedRNG);
                 AddCommonParameters(db, metaModel);
-                return GetExecutionResult(db);
+                return await GetExecutionResult(db);
             }
         }
 
-        public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel)
+        public async Task<IResultInfo> RemoveCustomersFromGroupAsync(RemoveFromGroupComMetaModel metaModel)
         {
             const string UspName = "Lrf_CustomerRemoveGroupComm";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("IsRemovePlayercomm", DbType.Boolean, metaModel.IsRemovePlayercomm);
+                db.SetParameterValue("IsRemovePlayercomm", metaModel.IsRemovePlayercomm);
                 AddCommonParameters(db, metaModel);
-                return GetExecutionResult(db);
+                return await GetExecutionResult(db);
             }
         }
 
-        public IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel)
+        public async Task<IResultInfo> UpdateCustomersCommissionAsync(UpdatedCustomerComMetaModel metaModel)
         {
             const string UspName = "Lrf_LicenseeCustCommUpd";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("SBComm", DbType.Decimal, metaModel.SBComm);
-                db.AddInParameter("ParlayComm", DbType.Decimal, metaModel.ParlayComm);
-                db.AddInParameter("NGComm", DbType.Decimal, metaModel.NGComm);
-                db.AddInParameter("RNGComm", DbType.Decimal, metaModel.CSComm);
-                db.AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
-                db.AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedCS);
+                db.SetParameterValue("SBComm", metaModel.SBComm);
+                db.SetParameterValue("ParlayComm", metaModel.ParlayComm);
+                db.SetParameterValue("NGComm", metaModel.NGComm);
+                db.SetParameterValue("RNGComm", metaModel.CSComm);
+                db.SetParameterValue("IsUpdateNG", metaModel.IsAllowedNG);
+                db.SetParameterValue("IsUpdateRNG", metaModel.IsAllowedCS);
                 AddCommonParameters(db, metaModel);
-                return GetExecutionResult(db);
+                return await GetExecutionResult(db);
             }
         }
 
         private static void AddCommonParameters(IObjectDb db, BaseCustomerComMetaModel metaModel)
         {
-            db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("Ip", DbType.String, metaModel.Ip);
-            db.AddInParameter("langkey", DbType.String, metaModel.Language);
-            db.AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
+            db.SetParameterValue("LicenseeId", metaModel.LicenseeId);
+            db.SetParameterValue("UserId", metaModel.UserId);
+            db.SetParameterValue("Ip", metaModel.Ip);
+            db.SetParameterValue("langkey", metaModel.Language);
+            db.SetParameterValue("strCustIDOriginal", metaModel.CustomerToSQLParam);
 
-            db.AddOutParameter("strCustID", DbType.String, int.MaxValue);
+            db.SetParameterValue("strCustID", null);
 
             AddResultParam(db);
         }
 
-        private static IResultInfo GetExecutionResult(IObjectDb db)
+        private static async Task<IResultInfo> GetExecutionResult(IObjectDb db)
         {
-            db.ExecuteNonQuery();
+            await db.ExecuteNonQueryAsync().ConfigureAwait(false);
+
             var result = GetResult(db);
             result.ExtendedData = Convert.ToString(db.GetParameterValue("strCustId"));
             return result;

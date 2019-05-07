@@ -44,7 +44,7 @@
         }
 
         [Test]
-        public void GetRunningMatchList_WhenCall_ReturnCorrectResult()
+        public async Task GetRunningMatchList_WhenCall_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -67,7 +67,7 @@
                 var expectedLeagueList = "1,2,3,4,5";
 
                 // Action
-                var result = controller.GetRunningMatchList(SportId);
+                var result = await controller.GetRunningMatchList(SportId);
 
                 // Assert
                 Assert.Multiple(() =>

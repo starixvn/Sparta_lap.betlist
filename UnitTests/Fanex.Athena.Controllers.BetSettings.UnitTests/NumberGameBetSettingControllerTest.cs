@@ -2,7 +2,9 @@
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
@@ -31,17 +33,18 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewResult()
+        public async Task Index_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
 
-                _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId).Returns(new BetSettingViewModel());
+                _betSettingService.GetViewModelAsync(SessionService.LicenseeSession.LicenseeId, metaModel.CustId)
+                    .Returns(Task.FromResult(new BetSettingViewModel()));
 
                 // Action
-                var result = controller.Index(metaModel) as ViewResult;
+                var result = await controller.Index(metaModel) as ViewResult;
                 var viewModel = (BetSettingViewModel)result.Model;
 
                 // Assert
@@ -54,7 +57,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_NoPermission_ReturnAccessDeniedResult()
+        public async Task UpdateBetSetting_NoPermission_ReturnAccessDeniedResult()
         {
             using (var controller = CreateController())
             {
@@ -63,7 +66,7 @@
                     .Returns(new ProductAccess(new List<Product>()));
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -76,24 +79,24 @@
         }
 
         [Test]
-        public void UpdateBetSetting_UpdateSuccessfully_ReturnSuccessfullResultInfo()
+        public async Task UpdateBetSetting_UpdateSuccessfully_ReturnSuccessfullResultInfo()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG } }));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG, ProductID = ProductTypes.NumberGame } }));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
-                _betSettingService.UpdateBetSetting(
+                _betSettingService.UpdateBetSettingAsync(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Any<Hashtable>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<Hashtable>()).Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -106,24 +109,24 @@
         }
 
         [Test]
-        public void UpdateBetSetting_UpdateFailed_ReturnFailedResultInfo()
+        public async Task UpdateBetSetting_UpdateFailed_ReturnFailedResultInfo()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG } }));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG, ProductID = ProductTypes.NumberGame } }));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
-                _betSettingService.UpdateBetSetting(
+                _betSettingService.UpdateBetSettingAsync(
                    Arg.Any<CommonBetSetting>(),
                    Arg.Any<Hashtable>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
-                var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
+                var result = await controller.UpdateBetSetting(string.Empty) as JsonResult;
                 var resultInfo = (ResultInfo)result.Data;
 
                 // Assert
@@ -132,15 +135,15 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_PassCorrectParam()
+        public async Task UpdateBetSetting_WhenCall_PassCorrectParam()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG } }));
+                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.NG, ProductID = ProductTypes.NumberGame } }));
 
-                CoreBetSettingService.IsBetSettingEditable().Returns(true);
+                CoreBetSettingService.IsBetSettingEditable(DefaultUserSession).Returns(true);
 
                 const decimal MinBet = 2.5m;
                 const decimal MaxBet = 3.552m;
@@ -153,12 +156,13 @@
                 controller.HttpContext.Request["maxperball"].Returns(MaxPerBall.ToString());
 
                 Hashtable param = null;
-                _betSettingService.UpdateBetSetting(
+                _betSettingService.UpdateBetSettingAsync(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Do<Hashtable>(x => param = x)).Returns(new ResultInfo { Code = 0 });
+                   Arg.Do<Hashtable>(x => param = x))
+                   .Returns(Task.FromResult<IResultInfo>(new ResultInfo { Code = 0 }));
 
                 // Action
-                controller.UpdateBetSetting(string.Empty);
+                await controller.UpdateBetSetting(string.Empty);
 
                 // Assert
                 Assert.Multiple(() =>

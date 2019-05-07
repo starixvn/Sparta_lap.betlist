@@ -6,6 +6,7 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -71,7 +72,7 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 IsHistory = isHistory,
                 ProductAccess = productAccess,
-                IsFakeLicensee = IsFakeLicensee(),
+                IsFakeLicensee = IsFakeLicensee(licenseeSession.LicenseeId),
                 MinDate = reportSetting.MinDate,
                 MaxDate = reportSetting.MaxDate
             };

@@ -129,7 +129,7 @@ export class FormFilter extends Component {
     }
 
     changeReportBy = (event) => {
-        const newValue = parseInt(event.target.value);
+        const newValue = parseInt(event.target.value, 10);
         if (!isNaN(newValue) && this.props.selectedReportBy !== newValue) {
             this.props.setReportBy(newValue);
         }

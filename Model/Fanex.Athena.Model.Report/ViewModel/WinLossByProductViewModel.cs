@@ -18,8 +18,6 @@ namespace Fanex.Athena.Model.Report.ViewModel
     {
         public IList<WinLossByProduct> MainResult { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
-            Justification = "Reviewed. Suppression is OK here.")]
         public IDictionary<string, IList<WinLossByProduct>> SummaryTotal { get; set; }
 
         public WinLossByProductMetaModel Param { get; set; }

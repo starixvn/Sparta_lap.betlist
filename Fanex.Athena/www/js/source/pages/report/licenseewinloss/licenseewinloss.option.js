@@ -1,16 +1,16 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/// <reference path='/@JSense.js' />
 /*
 * Note:in this report, parameter level have 3 value
-*  "0" for master,"1" for agent and "2" for member
+*  '0' for master,'1' for agent and '2' for member
 */
 
 define(
-    ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "lib/linq"],
+    ['jquery', 'common/querystring', 'common/site', 'lib/jqgrid/jquery.jqgrid.additional', 'lib/linq'],
     function ($, QueryString, Site, jqGridAdditional) {
-        "use strict";
-        var IGNORED_LICENSEEWL_PRODUCTS = ["BA"];
-        var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
-        var _me =
+        'use strict';
+        const IGNORED_LICENSEEWL_PRODUCTS = ['BA'];
+        const IGNORED_TURNOVER_PRODUCTS = ['BT', 'CO'];
+        const _me =
         {
             isDisableBetList: false,
             licenseeId: 0,
@@ -28,7 +28,7 @@ define(
             //level 0,1,2
             urlData: 'api/LicenseeWinLossReport/Index',
             urlExcelData: 'api/LicenseeWinLossReport/Index',
-            urlPromotionPrizeExcelData: "api/PromotionPrizeReport/ExportExcel",
+            urlPromotionPrizeExcelData: 'api/PromotionPrizeReport/ExportExcel',
             gridOption:
             {
                 datatype: 'local',
@@ -51,7 +51,7 @@ define(
                 rownumbers: true
             },
             restoreExpanse: function () {
-                for (var property in _expanseTypes) {
+                for (let property in _expanseTypes) {
                     if (_expanseTypes.hasOwnProperty(property)) {
                         _me.toggle(_expanseTypes[property], property);
                     }
@@ -60,24 +60,24 @@ define(
         };
 
         // store state of toggle() function
-        var _expanseTypes = {};
+        const _expanseTypes = {};
 
-        var setDrillDownLink = function (level, currencyId, custId, datetime, currencyName, cellvalue) {
+        const setDrillDownLink = function (level, currencyId, custId, datetime, currencyName, cellvalue) {
             return '<a class="drilldown" href="javascript:;" onclick="return licenseewinlossDrilldown(' + level + ',' +
              currencyId + ',' + custId + ',\'' + datetime + '\',\'' + currencyName + '\');">' + cellvalue + '</a>';
         };
 
-        var currencyFormatter = function (cellvalue, options, rowObject) {
-            var level = Number(_me.licenseeId) === 1 ? 1 : 2;
+        const currencyFormatter = function (cellvalue, options, rowObject) {
+            const level = Number(_me.licenseeId) === 1 ? 1 : 2;
             return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, rowObject.CurrencyName, cellvalue);
         };
 
-        var systemIdFormatter = function (cellvalue, options, rowObject) {
+        const systemIdFormatter = function (cellvalue, options, rowObject) {
             return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, rowObject.CurrencyName, cellvalue);
         };
 
-        var betlistLink = function (cellvalue, options, rowObject) {
-            var param =
+        const betlistLink = function (cellvalue, options, rowObject) {
+            const param =
             {
                 DrillDownFromDate: rowObject.Date,
                 DrillDownToDate: rowObject.Date,
@@ -93,7 +93,7 @@ define(
 
         //#region Columns
 
-        var indexColumn =
+        const indexColumn =
         {
             name: 'Index',
             index: 'Index',
@@ -104,7 +104,7 @@ define(
             sortable: false
         };
 
-        var dateColumn =
+        const dateColumn =
         {
             name: 'Date',
             index: 'Date',
@@ -120,7 +120,7 @@ define(
             }
         };
 
-        var externalIdColumn =
+        const externalIdColumn =
         {
             name: 'ExternalId',
             index: 'ExternalId',
@@ -130,7 +130,7 @@ define(
             sortable: true
         };
 
-        var systemIdColumn =
+        const systemIdColumn =
         {
             name: 'SystemId',
             index: 'SystemId',
@@ -140,7 +140,7 @@ define(
             sortable: true
         };
 
-        var currencyColumn =
+        const currencyColumn =
         {
             name: 'CurrencyName',
             index: 'CurrencyName',
@@ -151,7 +151,7 @@ define(
             formatter: currencyFormatter
         };
 
-        var turnoverColumn =
+        const turnoverColumn =
         {
             name: 'TotalTurnOverSingle',
             index: 'TotalTurnOverSingle',
@@ -164,7 +164,7 @@ define(
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var actualStakeColumn =
+        const actualStakeColumn =
         {
             name: 'ActualStake',
             index: 'ActualStake',
@@ -177,7 +177,7 @@ define(
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var buybackColumn =
+        const buybackColumn =
         {
             name: 'TotalBuyBackAmountSingle',
             index: 'TotalBuyBackAmountSingle',
@@ -190,7 +190,7 @@ define(
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var totalTransColumn =
+        const totalTransColumn =
         {
             name: 'TotalTransaction',
             index: 'TotalTransaction',
@@ -202,11 +202,11 @@ define(
             frozen: true,
             formatoptions:
             {
-                thousandsSeparator: ","
+                thousandsSeparator: ','
             }
         };
 
-        var customerWlColumn =
+        const customerWlColumn =
         {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
@@ -217,7 +217,7 @@ define(
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var playerCommColumn =
+        const playerCommColumn =
         {
             name: 'CustomerComm',
             index: 'CustomerComm',
@@ -228,7 +228,7 @@ define(
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var customerWlTotalColumn =
+        const customerWlTotalColumn =
         {
             name: 'CustomerTotal',
             index: 'CustomerTotal',
@@ -239,7 +239,7 @@ define(
             formatter: jqGridAdditional.formatDecimal
         };
 
-        var licenseeWlColumn =
+        const licenseeWlColumn =
         {
             name: 'TotalLicenseeWLSingle',
             index: 'TotalLicenseeWLSingle',
@@ -252,7 +252,7 @@ define(
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
-        var betTradeCommissionColumn =
+        const betTradeCommissionColumn =
         {
             name: 'BetTradeCommission',
             index: 'BetTradeCommission',
@@ -264,7 +264,7 @@ define(
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var cashOutCommissionColumn =
+        const cashOutCommissionColumn =
         {
             name: 'CashOutCommission',
             index: 'CashOutCommission',
@@ -276,7 +276,7 @@ define(
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var baCommissionColumn =
+        const baCommissionColumn =
         {
             name: 'BACommission',
             index: 'BACommission',
@@ -288,7 +288,7 @@ define(
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var amtDueToBetTradeColumn =
+        const amtDueToBetTradeColumn =
         {
             name: 'AmtDueToBetTrade',
             index: 'AmtDueToBetTrade',
@@ -300,7 +300,7 @@ define(
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var amtDueToBaColumn =
+        const amtDueToBaColumn =
         {
             name: 'AmtDueToBA',
             index: 'AmtDueToBA',
@@ -312,7 +312,7 @@ define(
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var currencyIdColumn =
+        const currencyIdColumn =
         {
             name: 'CurrencyId',
             index: 'CurrencyId',
@@ -323,7 +323,7 @@ define(
             hidden: true
         };
 
-        var customerIdColumn =
+        const customerIdColumn =
         {
             name: 'CustomerId',
             index: 'CustomerId',
@@ -334,14 +334,14 @@ define(
             hidden: true
         };
 
-        var productColumn =
+        const productColumn =
         {
             name: 'productName',
             index: 'productName',
             width: 120,
             sortable: true,
             resizable: false,
-            align: "right",
+            align: 'right',
             hidden: true,
             title: true,
             formatter: jqGridAdditional.formatLicenseeWl
@@ -349,12 +349,12 @@ define(
 
         //#endregion
 
-        var colNameList = [
+        const colNameList = [
             '#',
             'Date',
             'ExternalId',
-            "SystemId",
-            "Currency",
+            'SystemId',
+            'Currency',
             'Turnover',
             'ActualStake',
             'BuyBackAmount',
@@ -369,15 +369,15 @@ define(
              'CurrencyId',
              'CustomerId'];
 
-        var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+        const colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
             turnoverColumn, actualStakeColumn, buybackColumn, totalTransColumn, customerWlColumn, playerCommColumn,
             customerWlTotalColumn, licenseeWlColumn, betTradeCommissionColumn, cashOutCommissionColumn, baCommissionColumn,
             amtDueToBetTradeColumn, amtDueToBaColumn, currencyIdColumn, customerIdColumn];
 
         function isProductChecked(productOptions, productCode) {
-            var length = productOptions.length;
+            const length = productOptions.length;
 
-            for (var i = 0; i < length; i++) {
+            for (let i = 0; i < length; i++) {
                 if (productOptions[i].Code === productCode) {
                     return productOptions[i].Status;
                 }
@@ -403,17 +403,17 @@ define(
         }
 
         function addBuyBackAmountColumns(columns, columnIndex) {
-            var buyBackAmountColumn = Site.clone(productColumn);
-            buyBackAmountColumn.name = "TotalBuyBackAmount";
-            buyBackAmountColumn.index = "TotalBuyBackAmount";
+            const buyBackAmountColumn = Site.clone(productColumn);
+            buyBackAmountColumn.name = 'TotalBuyBackAmount';
+            buyBackAmountColumn.index = 'TotalBuyBackAmount';
 
-            var buyBackAmountSBColumn = Site.clone(productColumn);
-            buyBackAmountSBColumn.name = "BuyBackAmountSB";
-            buyBackAmountSBColumn.index = "BuyBackAmountSB";
+            const buyBackAmountSBColumn = Site.clone(productColumn);
+            buyBackAmountSBColumn.name = 'BuyBackAmountSB';
+            buyBackAmountSBColumn.index = 'BuyBackAmountSB';
 
-            var buyBackAmountBAColumn = Site.clone(productColumn);
-            buyBackAmountBAColumn.name = "BuyBackAmountBA";
-            buyBackAmountBAColumn.index = "BuyBackAmountBA";
+            const buyBackAmountBAColumn = Site.clone(productColumn);
+            buyBackAmountBAColumn.name = 'BuyBackAmountBA';
+            buyBackAmountBAColumn.index = 'BuyBackAmountBA';
 
             columns.insertAfter(buyBackAmountColumn, columnIndex);
             columns.insertAfter(buyBackAmountBAColumn, columnIndex);
@@ -421,32 +421,32 @@ define(
         }
 
         _me.setGroupHeaderColumns = function (grid, productOptions) {
-            var numOfTurnover = Enumerable.From(productOptions).Count(turnoverProductsFilter) + 1;
-            var lastOfTurnover = numOfTurnover > 1 ? Enumerable.From(productOptions).Last(turnoverProductsFilter) : null;
+            const numOfTurnover = Enumerable.From(productOptions).Count(turnoverProductsFilter) + 1;
+            const lastOfTurnover = numOfTurnover > 1 ? Enumerable.From(productOptions).Last(turnoverProductsFilter) : null;
 
-            var numOfLicenseeWL = Enumerable.From(productOptions).Count(licenseeWLProductsFilter) + 1;
-            var lastOfLicenseeWL = numOfLicenseeWL > 1 ? Enumerable.From(productOptions).Last(licenseeWLProductsFilter) : null;
+            const numOfLicenseeWL = Enumerable.From(productOptions).Count(licenseeWLProductsFilter) + 1;
+            const lastOfLicenseeWL = numOfLicenseeWL > 1 ? Enumerable.From(productOptions).Last(licenseeWLProductsFilter) : null;
 
-            var groupCustomerWinloss = _me.hasCustomerComm ? {
+            const groupCustomerWinloss = _me.hasCustomerComm ? {
                 startColumnName: 'CustomerWinLoss',
                 numberOfColumns: 3,
                 titleText: Site.getSingleResource('CustomerW_L')
             } : {};
 
-            var groupTurnoverWL = lastOfTurnover !== null ? {
-                startColumnName: "TurnOver" + lastOfTurnover.Code,
+            const groupTurnoverWL = lastOfTurnover !== null ? {
+                startColumnName: 'TurnOver' + lastOfTurnover.Code,
                 numberOfColumns: numOfTurnover,
                 titleText: Site.getSingleResource('Turnover')
             } : {};
 
-            var groupLicenseeWL = lastOfLicenseeWL !== null ? {
-                startColumnName: "LicenseeWL" + lastOfLicenseeWL.Code,
+            const groupLicenseeWL = lastOfLicenseeWL !== null ? {
+                startColumnName: 'LicenseeWL' + lastOfLicenseeWL.Code,
                 numberOfColumns: numOfLicenseeWL,
                 titleText: Site.getSingleResource('LicenseeW_L')
             } : {};
 
-            var groupBuyBackAmount = lastOfLicenseeWL !== null ? {
-                startColumnName: "BuyBackAmountSB",
+            const groupBuyBackAmount = lastOfLicenseeWL !== null ? {
+                startColumnName: 'BuyBackAmountSB',
                 numberOfColumns: 3,
                 titleText: Site.getSingleResource('BuyBackAmount')
             } : {};
@@ -460,10 +460,10 @@ define(
 
         _me.getColName = function (productOptions) {
             // Column Customer Wl
-            var temp = Site.clone(colNameList);
-            var turnOverIndex = _me.turnoverIndex;
-            var licenseeIndex = _me.licenseeWlIndex;
-            var customerWLTotalIndex = _me.customerWlTotalIndex;
+            const temp = Site.clone(colNameList);
+            let turnOverIndex = _me.turnoverIndex;
+            let licenseeIndex = _me.licenseeWlIndex;
+            let customerWLTotalIndex = _me.customerWlTotalIndex;
             temp[_me.customerWlIndex] = _me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
             $.each(productOptions, function (index, item) {
                 //insert turn over column
@@ -481,42 +481,41 @@ define(
                 }
             });
             //add total column
-            temp.insertBefore("Total", turnOverIndex);
+            temp.insertBefore('Total', turnOverIndex);
             licenseeIndex++;
-            temp.insertBefore("Total", licenseeIndex);
+            temp.insertBefore('Total', licenseeIndex);
 
-            var buyBackIndex = turnOverIndex + 2;
-            if (isProductChecked(productOptions, "BA") !== null) {
-                temp.insertAfter("Total", buyBackIndex);
-                temp.insertAfter("BA", buyBackIndex);
-                temp.insertAfter("Sportsbook", buyBackIndex);
+            const buyBackIndex = turnOverIndex + 2;
+            if (isProductChecked(productOptions, 'BA') !== null) {
+                temp.insertAfter('Total', buyBackIndex);
+                temp.insertAfter('BA', buyBackIndex);
+                temp.insertAfter('Sportsbook', buyBackIndex);
             }
 
             return Site.getResources(temp);
         };
 
         _me.getColModel = function (level, reportBy, productOptions) {
-            reportBy = Number(reportBy);
-
+            
             // Column hidden by customer comm
             customerWlTotalColumn.hidden = !_me.hasCustomerComm;
             playerCommColumn.hidden = !_me.hasCustomerComm;
-            level = Number(level);
+            const levelNumber = Number(level);
             //set width of licenseeWL column
             if (!_me.hasCustomerComm) { licenseeWlColumn.width = 90; }
             // Column hidden by level
-            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-            systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
+            currencyColumn.formatter = levelNumber === 0 ? currencyFormatter : null;
+            systemIdColumn.formatter = levelNumber === 1 ? systemIdFormatter : null;
 
-            dateColumn.hidden = level > 0;
-            externalIdColumn.hidden = level < 2;
-            systemIdColumn.hidden = level === 0;
+            dateColumn.hidden = levelNumber > 0;
+            externalIdColumn.hidden = levelNumber < 2;
+            systemIdColumn.hidden = levelNumber === 0;
 
             // Column hidden by product
-            var allowedSb = isProductChecked(productOptions, "SB");
-            var allowedBa = isProductChecked(productOptions, "BA");
-            var allowedBetTrade = isProductChecked(productOptions, "BT");
-            var allowedCashOut = isProductChecked(productOptions, "CO");
+            const allowedSb = isProductChecked(productOptions, 'SB');
+            const allowedBa = isProductChecked(productOptions, 'BA');
+            const allowedBetTrade = isProductChecked(productOptions, 'BT');
+            const allowedCashOut = isProductChecked(productOptions, 'CO');
             buybackColumn.hidden = !allowedBetTrade;
             actualStakeColumn.hidden = !allowedBetTrade;
             baCommissionColumn.hidden = !allowedBa;
@@ -525,27 +524,27 @@ define(
             amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
             cashOutCommissionColumn.hidden = !allowedCashOut;
 
-            if (level === 2) {
+            if (levelNumber === 2) {
                 externalIdColumn.formatter = betlistLink;
                 systemIdColumn.formatter = betlistLink;
             }
-            dateColumn.formatoptions = { newformat: reportBy === 2 ? 'm/Y' : 'm/d/Y' };
+            dateColumn.formatoptions = { newformat: Number(reportBy) === 2 ? 'm/Y' : 'm/d/Y' };
 
-            var temp = Site.clone(colModelList);
+            const temp = Site.clone(colModelList);
 
-            var turnOverIndex = _me.turnoverIndex;
+            let turnOverIndex = _me.turnoverIndex;
 
-            var licenseeIndex = _me.licenseeWlIndex;
+            let licenseeIndex = _me.licenseeWlIndex;
 
-            var customerWLTotalIndex = _me.customerWlTotalIndex;
+            let customerWLTotalIndex = _me.customerWlTotalIndex;
             $.each(productOptions, function (index, item) {
                 //insert turn over column
                 if (item.Status === true) {
                     // Exclude bettrade
                     if (isIgnoredTurnoverProduct(item.Code) === false) {
-                        var turnOver = Site.clone(productColumn);
-                        turnOver.name = "TurnOver" + item.Code;
-                        turnOver.index = "TurnOver" + item.Code;
+                        const turnOver = Site.clone(productColumn);
+                        turnOver.name = 'TurnOver' + item.Code;
+                        turnOver.index = 'TurnOver' + item.Code;
                         turnOver.sortable = true;
 
                         temp.insertAfter(turnOver, _me.currencyIndex);
@@ -555,9 +554,9 @@ define(
                     }
 
                     if (isIgnoredLicenseeWLProduct(item.Code) === false) {
-                        var licenseeWL = Site.clone(productColumn);
-                        licenseeWL.name = "LicenseeWL" + item.Code;
-                        licenseeWL.index = "LicenseeWL" + item.Code;
+                        const licenseeWL = Site.clone(productColumn);
+                        licenseeWL.name = 'LicenseeWL' + item.Code;
+                        licenseeWL.index = 'LicenseeWL' + item.Code;
                         licenseeWL.sortable = true;
 
                         temp.insertAfter(licenseeWL, customerWLTotalIndex);
@@ -568,14 +567,14 @@ define(
 
             //add total
 
-            var turnOverTotal = Site.clone(productColumn);
-            turnOverTotal.name = "TotalTurnOver";
-            turnOverTotal.index = "TotalTurnOver";
+            const turnOverTotal = Site.clone(productColumn);
+            turnOverTotal.name = 'TotalTurnOver';
+            turnOverTotal.index = 'TotalTurnOver';
             temp.insertBefore(turnOverTotal, turnOverIndex);
             licenseeIndex++;
-            var licenseeWLTotal = Site.clone(productColumn);
-            licenseeWLTotal.name = "TotalLicenseeWL";
-            licenseeWLTotal.index = "TotalLicenseeWL";
+            const licenseeWLTotal = Site.clone(productColumn);
+            licenseeWLTotal.name = 'TotalLicenseeWL';
+            licenseeWLTotal.index = 'TotalLicenseeWL';
             temp.insertBefore(licenseeWLTotal, licenseeIndex);
 
             if (allowedBa !== null) {
@@ -592,10 +591,10 @@ define(
         };
 
         _me.getTotalColModel = function (level, productOptions) {
-            var colModel = _me.getColModel(level, -1, productOptions);
+            const colModel = _me.getColModel(level, -1, productOptions);
             // Not show drill down link on total link
-            var curCol = Enumerable.From(colModel).First(function (item) {
-                return item.name === "CurrencyName";
+            const curCol = Enumerable.From(colModel).First(function (item) {
+                return item.name === 'CurrencyName';
             });
 
             curCol.formatter = null;
@@ -606,74 +605,74 @@ define(
             /// <summary>
             /// add collapse/expand button to header product columns
             /// </summary>
-            /// <param name="grid">grid instance</param>
+            /// <param name='grid'>grid instance</param>
 
-            var numOfActiveLicPro = Enumerable.From(productOptions).Count(licenseeWLProductsFilter);
-            var numOfActiveTurnPro = Enumerable.From(productOptions).Count(turnoverProductsFilter);
-            var isAllowedBetTrade = isProductChecked(productOptions, "BT");
-            var isAllowBA = isProductChecked(productOptions, "BA");
-            var clear = function (button) {
-                $(button).off("click").remove();
+            const numOfActiveLicPro = Enumerable.From(productOptions).Count(licenseeWLProductsFilter);
+            const numOfActiveTurnPro = Enumerable.From(productOptions).Count(turnoverProductsFilter);
+            const isAllowedBetTrade = isProductChecked(productOptions, 'BT');
+            const isAllowBA = isProductChecked(productOptions, 'BA');
+            const clear = function (button) {
+                $(button).off('click').remove();
             };
             //reset licenseWL column
-            var curWidth = $("#ReportGrid_TotalLicenseeWLSingle div").width();
+            const curWidth = $('#ReportGrid_TotalLicenseeWLSingle div').width();
 
             if (curWidth < 100) {
-                $("#ReportGrid_TotalLicenseeWLSingle div").css("width", "100px");
+                $('#ReportGrid_TotalLicenseeWLSingle div').css('width', '100px');
             }
 
             //#region Toggle
             // column params: TurnOver, LicenseeWL, BuyBackAmount
-            var toggle = function (isShow, column) {
-                if ((column === "LicenseeWL" && numOfActiveLicPro <= 1) ||
-                    (column === "TurnOver" && numOfActiveTurnPro <= 1) ||
-                    (column === "BuyBackAmount" && (!isAllowedBetTrade || isAllowBA === null))) {
+            const toggle = function (isShow, column) {
+                if ((column === 'LicenseeWL' && numOfActiveLicPro <= 1) ||
+                    (column === 'TurnOver' && numOfActiveTurnPro <= 1) ||
+                    (column === 'BuyBackAmount' && (!isAllowedBetTrade || isAllowBA === null))) {
                     return;
                 }
                 _expanseTypes[column] = isShow;
 
-                var param = isShow ? "showCol" : "hideCol";
-                var fColumns = [];
-                var productColumnNames = [];
+                const param = isShow ? 'showCol' : 'hideCol';
+                let fColumns = [];
+                let productColumnNames = [];
 
-                if (column === "BuyBackAmount") {
-                    var sbColumnName = column + "SB";
-                    var baColumnName = column + "BA";
-                    fColumns = [gridName + "_" + sbColumnName, gridName + "_" + baColumnName];
+                if (column === 'BuyBackAmount') {
+                    const sbColumnName = column + 'SB';
+                    const baColumnName = column + 'BA';
+                    fColumns = [gridName + '_' + sbColumnName, gridName + '_' + baColumnName];
                     productColumnNames.push(sbColumnName, baColumnName);
                 } else {
                     $.each(productOptions, function (index, value) {
                         if (value.Status === true) {
-                            var columnName = column + value.Code;
+                            const columnName = column + value.Code;
                             productColumnNames.push(columnName);
-                            fColumns.push(gridName + "_" + columnName);
+                            fColumns.push(gridName + '_' + columnName);
                         }
                     });
                 }
 
-                var totalColumn = 'Total' + column;
+                const totalColumn = 'Total' + column;
                 productColumnNames.push(totalColumn);
 
                 grid.jqGrid(param, productColumnNames);
 
-                var fTotalColumn = gridName + "_" + totalColumn;
+                const fTotalColumn = gridName + '_' + totalColumn;
                 fColumns.push(fTotalColumn);
 
                 /*show /hide single column*/
-                var singleColumn = totalColumn + 'Single';
-                var singleParam = isShow ? "hideCol" : "showCol";
+                const singleColumn = totalColumn + 'Single';
+                const singleParam = isShow ? 'hideCol' : 'showCol';
                 grid.jqGrid(singleParam, singleColumn);
 
                 /*show/hide footer column*/
                 jqGridAdditional.setFooterColumns(param, fColumns);
 
-                var singleFColumn = gridName + "_" + singleColumn;
+                const singleFColumn = gridName + '_' + singleColumn;
                 jqGridAdditional.setFooterColumns(singleParam, [singleFColumn]);
 
-                if (column === "TurnOver") {
+                if (column === 'TurnOver') {
                     addTurnOverExpand();
                 }
-                else if (column === "LicenseeWL") {
+                else if (column === 'LicenseeWL') {
                     addLicenseeExpand();
                 }
                 else {
@@ -686,7 +685,7 @@ define(
                 addBuyBackCollapse();
 
                 //update footer row
-                $("#footer").html($(".ui-jqgrid-ftable").html());
+                $('#footer').html($('.ui-jqgrid-ftable').html());
                 $('.report-content').css('cursor', 'default');
 
                 jqGridAdditional.updateGridHeight();
@@ -702,64 +701,64 @@ define(
                 .click(function () { return toggle(isToggle, column); });
             }
 
-            var addTurnOverExpand = function () {
+            const addTurnOverExpand = function () {
                 if (numOfActiveTurnPro > 1) {
-                    clear("#btnTurnOverExpand");
-                    var $container = $("#" + gridId + "_" + "TotalTurnOverSingle");
-                    var $button = $('<button title="Expand to view details" id="btnTurnOverExpand" class="header-button btn"></button>');
-                    addToggleButton($container, $button, true, "TurnOver");
+                    clear('#btnTurnOverExpand');
+                    const $container = $('#' + gridId + '_' + 'TotalTurnOverSingle');
+                    const $button = $('<button title="Expand to view details" id="btnTurnOverExpand" class="header-button btn"></button>');
+                    addToggleButton($container, $button, true, 'TurnOver');
                 }
             };
 
-            var addTurnOverCollapse = function () {
+            const addTurnOverCollapse = function () {
                 if (numOfActiveTurnPro > 1) {
-                    clear("#btnTurnOverCollapse");
+                    clear('#btnTurnOverCollapse');
 
-                    var $container = $(grid).closest(".ui-jqgrid-view")
-                            .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:first");
+                    const $container = $(grid).closest('.ui-jqgrid-view')
+                            .find('.ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:first');
 
-                    var $button = $('<button class="header-button btnCollapse btn" id="btnTurnOverCollapse"></button>');
-                    addToggleButton($container, $button, false, "TurnOver");
+                    const $button = $('<button class="header-button btnCollapse btn" id="btnTurnOverCollapse"></button>');
+                    addToggleButton($container, $button, false, 'TurnOver');
                 }
             };
 
-            var addLicenseeExpand = function () {
+            const addLicenseeExpand = function () {
                 if (numOfActiveLicPro > 1) {
-                    clear("#btnLicenseeWLExpand");
-                    var $container = $("#" + gridId + "_" + "TotalLicenseeWLSingle");
-                    var $button = $('<button title="Expand to view details" id="btnLicenseeWLExpand" class="header-button btn"></button>');
-                    addToggleButton($container, $button, true, "LicenseeWL");
+                    clear('#btnLicenseeWLExpand');
+                    const $container = $('#' + gridId + '_' + 'TotalLicenseeWLSingle');
+                    const $button = $('<button title="Expand to view details" id="btnLicenseeWLExpand" class="header-button btn"></button>');
+                    addToggleButton($container, $button, true, 'LicenseeWL');
                 }
             };
 
-            var addLicenseeWlCollapse = function () {
+            const addLicenseeWlCollapse = function () {
                 if (numOfActiveLicPro > 1) {
-                    clear("#btnLicenseeWLCollapse");
+                    clear('#btnLicenseeWLCollapse');
 
-                    var $container = $(grid).closest(".ui-jqgrid-view")
-                            .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:last");
-                    var $button = $('<button class="header-button btnCollapse btn" id="btnLicenseeWLCollapse">');
-                    addToggleButton($container, $button, false, "LicenseeWL");
+                    const $container = $(grid).closest('.ui-jqgrid-view')
+                            .find('.ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:last');
+                    const $button = $('<button class="header-button btnCollapse btn" id="btnLicenseeWLCollapse">');
+                    addToggleButton($container, $button, false, 'LicenseeWL');
                 }
             };
 
-            var addBuyBackExpand = function () {
+            const addBuyBackExpand = function () {
                 if (isAllowBA !== null) {
-                    clear("#btnBuyBackExpand");
-                    var $container = $("#" + gridId + "_" + "TotalBuyBackAmountSingle");
-                    var $button = $('<button title="Expand to view details" id="btnBuyBackExpand" class="header-button btn"></button>');
-                    addToggleButton($container, $button, true, "BuyBackAmount");
+                    clear('#btnBuyBackExpand');
+                    const $container = $('#' + gridId + '_' + 'TotalBuyBackAmountSingle');
+                    const $button = $('<button title="Expand to view details" id="btnBuyBackExpand" class="header-button btn"></button>');
+                    addToggleButton($container, $button, true, 'BuyBackAmount');
                 }
             };
 
-            var addBuyBackCollapse = function () {
+            const addBuyBackCollapse = function () {
                 if (isAllowBA !== null) {
-                    clear("#btnBuyBackCollapse");
-                    var $container = $(grid).closest(".ui-jqgrid-view")
-                            .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header");
+                    clear('#btnBuyBackCollapse');
+                    let $container = $(grid).closest('.ui-jqgrid-view')
+                            .find('.ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header');
                     $container = $container[$container.length - (_me.hasCustomerComm ? 3 : 2)];
-                    var $button = $('<button class="header-button btnCollapse btn" id="btnBuyBackCollapse">');
-                    addToggleButton($container, $button, false, "BuyBackAmount");
+                    const $button = $('<button class="header-button btnCollapse btn" id="btnBuyBackCollapse">');
+                    addToggleButton($container, $button, false, 'BuyBackAmount');
                 }
             };
 

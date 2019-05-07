@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.TotalBet.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
@@ -15,6 +16,6 @@ namespace Fanex.Athena.DataAccess.TotalBet.Interfaces
     /// </summary>
     public interface IOutrightDataAccess
     {
-        IList<Outright> GetOutrightDataList(OutrightMetaModel metaModel);
+        Task<IList<Outright>> GetOutrightDataList(OutrightMetaModel metaModel);
     }
 }

@@ -4,8 +4,7 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Web.Http;
-    using System.Web.Http.Hosting;
+    using System.Threading.Tasks;
     using System.Web.Http.Results;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
@@ -39,10 +38,10 @@
             _dataAccess = Substitute.For<IWinLossByLeagueDataAccess>();
 
             _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(
-                SessionService, 
-                ProductService, 
-                LangService, 
-                balanceUpDataAccess, 
+                SessionService,
+                ProductService,
+                LangService,
+                balanceUpDataAccess,
                 _dataAccess,
                 appSettings);
             _controller.Request = new HttpRequestMessage();
@@ -61,20 +60,20 @@
         }
 
         [Test]
-        public void Index_InvalidModel_ReturnBadRequestWithCorrectMessage()
+        public async Task Index_InvalidModel_ReturnBadRequestWithCorrectMessage()
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel { CurrencyId = 1 };
 
             // Action
-            var result = _controller.Index(metaModel) as BadRequestErrorMessageResult;
+            var result = await _controller.Index(metaModel) as BadRequestErrorMessageResult;
 
             // Assert
             Assert.That(result.Message, Is.EqualTo(ViewResources.InvalidParams));
         }
 
         [Test]
-        public void Index_Level0_GetCorrectDataFromService()
+        public async Task Index_Level0_GetCorrectDataFromService()
         {
             // Arrange
             var dataListResult = new List<WinLossByLeague>
@@ -92,7 +91,7 @@
             _dataAccess.GetSummary(Arg.Any<WinLossByLeagueMetaModel>()).Returns(dataListResult);
 
             // Action
-            var result = _controller.Index(new WinLossByLeagueMetaModel());
+            var result = await _controller.Index(new WinLossByLeagueMetaModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -104,7 +103,7 @@
         }
 
         [Test]
-        public void Index_Level1_GetCorrectDataFromService()
+        public async Task Index_Level1_GetCorrectDataFromService()
         {
             // Arrange
             const decimal ExpectedAmountDue = 999;
@@ -127,7 +126,7 @@
                 .ReturnsForAnyArgs(expectedResult);
 
             // Action
-            var result = _controller.Index(new WinLossByLeagueMetaModel
+            var result = await _controller.Index(new WinLossByLeagueMetaModel
             {
                 Level = 1
             });
@@ -143,20 +142,20 @@
         }
 
         [Test]
-        public void Excel_InvalidModel_ReturnBadRequestWithCorrectMessage()
+        public async Task Excel_InvalidModel_ReturnBadRequestWithCorrectMessage()
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel { CurrencyId = 1 };
 
             // Action
-            var result = _controller.Excel(metaModel);
+            var result = await _controller.Excel(metaModel);
 
             // Assert
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
         }
 
         [Test]
-        public void Excel_ValidModel_ExportWithCorrectData()
+        public async Task Excel_ValidModel_ExportWithCorrectData()
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel
@@ -188,7 +187,7 @@
             });
 
             // Action
-            _controller.Excel(metaModel);
+            await _controller.Excel(metaModel);
 
             // Assert
             Assert.Multiple(() =>

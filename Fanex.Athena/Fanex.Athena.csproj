@@ -88,27 +88,40 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLLs\ExchangeProduct\CitiXchangeLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EasyNetQ, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EasyNetQ.2.3.3\lib\net451\EasyNetQ.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Data, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Data.3.0.2\lib\net461\Fanex.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Data.DbSettingProviderExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.DbSettingProviderExtension.1.0.0.1\lib\net40\Fanex.Data.DbSettingProviderExtension.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Logging, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Logging.1.0.4\lib\net40\Fanex.Logging.dll</HintPath>
+    <Reference Include="Fanex.Logging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Logging.2.0.0\lib\net461\Fanex.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Logging.Extensions, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Logging.Extensions.1.0.5\lib\net40\Fanex.Logging.Extensions.dll</HintPath>
+    <Reference Include="Fanex.Logging.Extensions, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Logging.Extensions.1.0.6\lib\net461\Fanex.Logging.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Logging.Extensions.Database.V62, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Logging.Extensions.Database.V62.1.0.3\lib\net40\Fanex.Logging.Extensions.Database.V62.dll</HintPath>
+    <Reference Include="Fanex.Logging.Extensions.Database, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Logging.Extensions.Database.1.0.5\lib\net461\Fanex.Logging.Extensions.Database.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Logging.Extensions.Web, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Logging.Extensions.Web.1.0.6\lib\net40\Fanex.Logging.Extensions.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Logging.RabbitMQ, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Logging.RabbitMQ.1.0.1\lib\net461\Fanex.Logging.RabbitMQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.RemotingRef, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -143,23 +156,9 @@
       <HintPath>..\packages\MessagePack.1.7.3.4\lib\net45\MessagePack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Logging.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net46\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -183,6 +182,10 @@
     <Reference Include="ONEbook.UM, Version=2.0.2.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ONEbook.UM.2.0.2.9\lib\net40\ONEbook.UM.dll</HintPath>
     </Reference>
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RazorEngine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorEngine.3.7.0\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
@@ -201,6 +204,7 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
     </Reference>
@@ -229,6 +233,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -431,15 +436,15 @@
     <Content Include="SpNameConfig\FanexSpName.UAT.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
+    <Content Include="SpNameConfig\FanexSpName.UATTW.xml">
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
     <Content Include="SpNameConfig\FanexSpName.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\UserGuide\ActiveCustomerSummary\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\ActiveCustomerSummary\zh-TW.htm" />
-    <Content Include="App_Data\UserGuide\CancelledBets\en-US.htm" />
-    <Content Include="App_Data\UserGuide\CancelledBets\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\CancelledBets\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\AGCasinoWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\AGCasinoWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\AGCasinoWL\zh-TW.htm" />
@@ -494,14 +499,11 @@
     <Content Include="App_Data\UserGuide\CustomerWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\en-US.htm" />
-    <Content Include="App_Data\UserGuide\DailyBetList\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\DailyBetList\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\MatchWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\MatchWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\en-US.htm" />
-    <Content Include="App_Data\UserGuide\DailyBetList\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBets3WayHandicap\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBets3WayHandicap\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBets3WayHandicap\zh-TW.htm" />
@@ -575,14 +577,11 @@
     <Content Include="Content\Plugin\Toast\toast.min.css">
       <DependentUpon>toast.css</DependentUpon>
     </Content>
-    <Content Include="Content\Report\microgamingwinLoss.css" />
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="robots.txt" />
     <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
-    <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
-    <Content Include="karma.conf-dev.js" />
     <Content Include="Scripts\Extension\ajaxBinaryTransporting.js" />
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
@@ -648,6 +647,14 @@
     <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
     <Content Include="App_Data\Template\Reports\PP_PromotionPrize.xls" />
+    <Content Include="SiteConfig\Web.AppSettings.UATTW.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SiteConfig\Web.ConnectionStrings.UATTW.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SiteConfig\WebConfigTransforms\UATTW.config" />
+    <Content Include="SiteConfig\Web.UATTW.config" />
     <None Include="www\css\source\reactpages\components\custom3rd\react-toastify.scss" />
     <None Include="www\css\source\pages\betlist\result\result.happy5.scss" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\bonus.png" />
@@ -655,7 +662,6 @@
     <Content Include="www\css\source\reactpages\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\tab_topbg.gif" />
-    <Content Include="www\js\build\dev\language-ko-KR.chunk.js" />
     <Content Include="www\js\build\dev\language-zh-CN.chunk.js" />
     <Content Include="www\js\build\dev\language-zh-Hans.chunk.js" />
     <Content Include="www\js\build\dev\language-zh-TW.chunk.js" />
@@ -668,7 +674,6 @@
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\singlecustomer.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\common.chunk.js" />
-    <Content Include="www\js\build\dev\reactpages\lib\lang-ko-KR.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-CN.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-Hans.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-TW.chunk.js" />
@@ -679,7 +684,6 @@
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\report\speciallicenseewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
-    <Content Include="www\js\build\pro\language-ko-KR.chunk.js" />
     <Content Include="www\js\build\pro\language-zh-CN.chunk.js" />
     <Content Include="www\js\build\pro\language-zh-Hans.chunk.js" />
     <Content Include="www\js\build\pro\language-zh-TW.chunk.js" />
@@ -692,7 +696,6 @@
     <Content Include="www\js\build\pro\reactpages\bettingticketscenter\singlecustomer.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\common.chunk.js" />
-    <Content Include="www\js\build\pro\reactpages\lib\lang-ko-KR.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\lang-zh-CN.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\lang-zh-Hans.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\lang-zh-TW.chunk.js" />
@@ -799,7 +802,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="SiteConfig\Web.BACKUPMNLStatic.config" />
-    <Content Include="Views\Desktop\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\Desktop\Report\Result\Popup\AllBet.cshtml" />
     <Content Include="Views\Desktop\BetList\BettingTicketCenter\MultiCustomer.cshtml" />
     <Content Include="www\css\source\reactpages\pages\bettingticketscenter\index.scss" />
@@ -821,11 +823,9 @@
     <Content Include="www\js\build\dev\language-zh-CN.chunk.js.map" />
     <Content Include="www\js\build\dev\language-zh-Hans.chunk.js.map" />
     <Content Include="www\js\build\dev\language-zh-TW.chunk.js.map" />
-    <Content Include="www\js\build\dev\reactpages\lib\lang-ko-KR.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-CN.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-Hans.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-TW.chunk.js.map" />
-    <Content Include="www\js\build\dev\language-ko-KR.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\lib\common.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\lib\jqgrid.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\common.chunk.js.map" />
@@ -901,6 +901,8 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\bettypeAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\sportAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\__tests__\sportAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\__tests__\leagueAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\__tests__\bettypeAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\FormFilter.jsx" />
@@ -921,16 +923,16 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\index.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\AppContainer.redux.test.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\AppContainer.test.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\DataGrid.redux.test.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\DataGrid.test.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\FormFilter.redux.test.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__test__\FormFilter.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__tests__\AppContainer.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__tests__\AppContainer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__tests__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__tests__\DataGrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__tests__\FormFilter.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\__tests__\FormFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\service.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\__test__\reportExcel.test.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\__test__\service.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\__tests__\reportExcel.test.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\__tests__\service.test.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.test.js" />
@@ -983,11 +985,11 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\filterHandlerAction.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\DataGrid.redux.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\DataGrid.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\FormFilter.redux.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\FormFilter.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\lib\__test__\resultAmendmentService.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__tests__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__tests__\DataGrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__tests__\FormFilter.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__tests__\FormFilter.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\lib\__tests__\resultAmendmentService.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\index.js" />
@@ -996,8 +998,8 @@
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\index.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\dataHandlerReducer.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\filterHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__tests__\dataHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__tests__\filterHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\types.js" />
@@ -1098,8 +1100,6 @@
     <Content Include="www\css\build\dev\home.css" />
     <Content Include="www\css\build\dev\main.chunk.js" />
     <Content Include="www\css\build\dev\main.css" />
-    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.chunk.js" />
-    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.css" />
     <Content Include="www\css\build\dev\pages\betlist\betlistLayout.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\dev\pages\betlist\betlistResult.chunk.js" />
@@ -1243,9 +1243,7 @@
     <Content Include="www\css\source\pages\customer\betsetting.scss" />
     <Content Include="Views\Desktop\Customer\BetSetting\Macau.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\BetTrade.cshtml" />
-    <Content Include="Views\Desktop\Customer\BetSetting\MicroGamingLiveCasino.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\ColossusBets.cshtml" />
-    <Content Include="Views\Desktop\Customer\BetSetting\MicroGamingRNGCasino.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\AllBet.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\FishingWorld.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\Voidbridge.cshtml" />
@@ -1352,7 +1350,6 @@
     <Content Include="www\css\build\images\UM.png" />
     <Content Include="www\css\build\pro\home.css" />
     <Content Include="www\css\build\pro\main.css" />
-    <Content Include="www\css\build\pro\pages\betlist\betlistdaily.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistSimpleLayout.css" />
@@ -1388,7 +1385,6 @@
     <Content Include="www\css\source\components\select2\select2.min.css" />
     <Content Include="www\css\source\pages\betlist\AGCasino.css" />
     <Content Include="www\css\source\pages\betlist\Allbet.css" />
-    <Content Include="www\css\source\pages\betlist\Microgaming.css" />
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
     <Content Include="www\css\source\pages\login\login.css" />
@@ -1480,9 +1476,7 @@
     <None Include="www\css\source\pages\utility\licenseelist.scss" />
     <Content Include="www\js\build\dev\language.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlist.chunk.js" />
-    <Content Include="www\js\build\dev\pages\betlist\betlistcancelledbets.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistcorrectscore.chunk.js" />
-    <Content Include="www\js\build\dev\pages\betlist\betlistdaily.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistrunning.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
@@ -1539,9 +1533,7 @@
     <Content Include="www\js\build\dev\pages\totalbet\totalgoal.chunk.js" />
     <Content Include="www\js\build\pro\language.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlist.chunk.js" />
-    <Content Include="www\js\build\pro\pages\betlist\betlistcancelledbets.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistcorrectscore.chunk.js" />
-    <Content Include="www\js\build\pro\pages\betlist\betlistdaily.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistrunning.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
@@ -1599,9 +1591,6 @@
     <Content Include="www\js\source\common\languages\ViewResources.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
-    <Content Include="www\js\source\common\languages\ViewResources.ko-KR.js">
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
     <Content Include="www\js\source\common\languages\ViewResources.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewResources.txt</LastGenOutput>
@@ -1642,8 +1631,6 @@
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
-    <Content Include="www\js\source\pages\betlist\betlistcancelledbets.js" />
-    <Content Include="www\js\source\pages\betlist\betlistdaily.js" />
     <Content Include="www\js\source\pages\betlist\customer\customer.dailystatement.js" />
     <Content Include="www\js\source\pages\betlist\customer\customer.dailystatement.option.js" />
     <Content Include="www\js\source\pages\betlist\customer\customer.outstandingbetlist.js" />
@@ -1653,9 +1640,7 @@
     <Content Include="www\js\source\pages\betlist\betlistcorrectscore.js" />
     <Content Include="www\js\source\pages\betlist\lastbetmonitoring\lastbet.grid.js" />
     <Content Include="www\js\source\pages\betlist\lastbetmonitoring\main.js" />
-    <Content Include="www\js\source\pages\betlist\main-betlistcancelledbets.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistcorrectscore.js" />
-    <Content Include="www\js\source\pages\betlist\main-betlistdaily.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistrunning.multiplebettypes.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistrunning.js" />
     <Content Include="www\js\source\pages\betlist\main-simple.js" />
@@ -1827,8 +1812,6 @@
     <Content Include="www\js\tests\helpers\excel-spec.js" />
     <Content Include="www\js\tests\helpers\sortableheader-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlist-spec.js" />
-    <Content Include="www\js\tests\pages\betlist\betlistcancelledbets-spec.js" />
-    <Content Include="www\js\tests\pages\betlist\betlistdaily-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistrunning.multiplebettypes-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistrunning-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistcorrectscore-spec.js" />
@@ -1939,7 +1922,6 @@
     <None Include="SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Content\Report\casinoprogressivewins.css" />
     <Content Include="Content\jasmine\jasmine.css" />
     <Content Include="Content\jasmine\jasmine_favicon.png" />
     <Content Include="Content\Report\agcasinobalance.css" />
@@ -1960,8 +1942,6 @@
     <Content Include="App_Data\Template\Reports\ThirdPartyWinLoss.xls" />
     <Content Include="App_Data\Template\RNGCasino\HandHistory.xls" />
     <Content Include="App_Data\Template\Reports\AgCasinoBalance.xls" />
-    <Content Include="App_Data\Template\Reports\MicroGamingWinLoss.xls" />
-    <Content Include="App_Data\Template\Reports\CasinoProgressiveWins.xls" />
     <Content Include="App_Data\Template\Reports\PlatformWinLossSummary.xls" />
     <Content Include="GruntFilters.json" />
     <Content Include="App_Data\Template\Reports\WeeklyLiveMatch.xls" />
@@ -1980,7 +1960,6 @@
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\40x40\icon_40x40_doubleWild.jpg.exclude" />
-    <None Include="img\Slot\S0026\Thumbs.db" />
     <Content Include="Gruntfile.js" />
     <Content Include="img\Slot8\S8003\01.jpg" />
     <Content Include="img\Slot8\S8003\02.jpg" />
@@ -2022,10 +2001,6 @@
     <Content Include="jasmine-specs\Global\site-test.js" />
     <Content Include="jasmine-specs\Report\agcasinobalance-test.js" />
     <Content Include="jasmine-specs\Report\agcasinobalance.option-test.js" />
-    <Content Include="jasmine-specs\Report\casinoprogressivewins-test.js" />
-    <Content Include="jasmine-specs\Report\casinoprogressivewins.option-test.js" />
-    <Content Include="jasmine-specs\Report\microgamingwinloss-test.js" />
-    <Content Include="jasmine-specs\Report\microgamingwinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\report-test.js" />
     <Content Include="jasmine-specs\setup.js" />
     <Content Include="Jasmine\SpecRunner.html" />
@@ -2034,9 +2009,6 @@
     <Content Include="package.json" />
     <Content Include="karma.conf.js" />
     <Content Include="Scripts\Languages\ViewResources.js">
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Languages\ViewResources.ko-KR.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\Languages\ViewResources.txt">
@@ -2060,10 +2032,6 @@
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
     <Content Include="Scripts\Report\agcasinobalance.js" />
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
-    <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
-    <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
-    <Content Include="Scripts\Report\microgamingwinloss.js" />
-    <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
       <SubType>Designer</SubType>
@@ -2086,12 +2054,6 @@
     <Content Include="Views\Report\AgCasinoBalance\Content.cshtml" />
     <Content Include="Views\Report\AgCasinoBalance\Filter.cshtml" />
     <Content Include="Views\Report\AgCasinoBalance\Main.cshtml" />
-    <Content Include="Views\Report\MicrogamingWinLoss\Content.cshtml" />
-    <Content Include="Views\Report\MicrogamingWinLoss\Main.cshtml" />
-    <Content Include="Views\Report\MicrogamingWinLoss\Filter.cshtml" />
-    <Content Include="Views\Report\CasinoProgressiveWins\Content.cshtml" />
-    <Content Include="Views\Report\CasinoProgressiveWins\Filter.cshtml" />
-    <Content Include="Views\Report\CasinoProgressiveWins\Main.cshtml" />
     <Content Include="SiteConfig\WebConfigTransforms\BACKUPMNL.config" />
     <Content Include="SiteConfig\WebConfigTransforms\LOCAL.config" />
     <Content Include="SiteConfig\WebConfigTransforms\PRO.config" />
@@ -2154,7 +2116,6 @@
     <Content Include="Views\Desktop\BetList\AGCasinoDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\ColossusBetDetail\Main.cshtml" />
     <Content Include="www\css\source\pages\betlist\colossusbetdetail.scss" />
-    <Content Include="Views\Desktop\BetList\MicroGamingRngDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\SystemParlayDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\VoidbridgeDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Shared\_SessionScript.cshtml" />
@@ -2307,11 +2268,6 @@
     <Content Include="Views\Desktop\BetList\LiveReport\NumberGame.cshtml" />
     <Content Include="www\css\source\components\select2\select2.main.scss" />
     <Content Include="www\css\source\components\select2\select2-ex.scss" />
-    <Content Include="Views\Desktop\BetList\CancelledBetsBetList\Main.cshtml" />
-    <Content Include="Views\Desktop\BetList\CancelledBetsBetList\Filter.cshtml" />
-    <Content Include="Views\Desktop\BetList\DailyBetList\Main.cshtml" />
-    <Content Include="Views\Desktop\BetList\DailyBetList\Filter.cshtml" />
-    <Content Include="www\css\source\pages\betlist\betlistdaily.scss" />
     <Content Include="Views\Desktop\Report\SettledMatchCount\Main.cshtml" />
     <Content Include="Views\Desktop\Report\SettledMatchCount\ContentHeader.cshtml" />
     <Content Include="Views\Desktop\Report\SettledMatchCount\ContentData.cshtml" />
@@ -2322,8 +2278,6 @@
     <Content Include="Views\Desktop\Report\WeeklyLiveMatch\Content.cshtml" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.css.map" />
-    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.chunk.js.map" />
-    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.css.map" />
     <Content Include="www\css\source\components\scrollablegrid\scrollablegrid.scss" />
     <Content Include="www\css\source\components\paging\paging.scss" />
     <Content Include="Views\Desktop\Report\Turnover\Content.cshtml" />
@@ -2422,8 +2376,6 @@
     <Content Include="www\js\build\dev\pages\forecast\forecasthdpou.chunk.js.map" />
     <Content Include="www\css\source\pages\common\reportcommon.main.scss" />
     <Content Include="www\css\source\pages\common\reportjqgridlayout.main.scss" />
-    <Content Include="www\js\build\dev\pages\betlist\betlistcancelledbets.chunk.js.map" />
-    <Content Include="www\js\build\dev\pages\betlist\betlistdaily.chunk.js.map" />
     <Content Include="www\css\source\pages\report\settledmatchcount.scss" />
     <Content Include="www\js\build\dev\pages\reports\licenseewinloss.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js.map" />
@@ -5443,10 +5395,6 @@
       <Project>{a765275a-f566-4122-8e8e-47defab7b56b}</Project>
       <Name>Fanex.Athena.Api.CustomerLog</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ControllerAPI\Fanex.Athena.Api.Dashboard\Fanex.Athena.Api.Dashboard.csproj">
-      <Project>{0fd46119-9f38-4c3a-ba06-719cf00d75d8}</Project>
-      <Name>Fanex.Athena.Api.Dashboard</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ControllerAPI\Fanex.Athena.Api.Report\Fanex.Athena.Api.Report.csproj">
       <Project>{8efb14a8-0a10-4095-a857-c6496e830458}</Project>
       <Name>Fanex.Athena.Api.Report</Name>
@@ -5490,6 +5438,10 @@
     <ProjectReference Include="..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Module.Dashboard\Fanex.Athena.Module.Dashboard.csproj">
+      <Project>{b5c8656b-6c30-4c82-bdb9-85b1c71b00c3}</Project>
+      <Name>Fanex.Athena.Module.Dashboard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
       <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
@@ -5541,9 +5493,9 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\index.jsx" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -5570,7 +5522,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55049</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55049/</IISUrl>
+          <IISUrl>http://localhost:55045/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

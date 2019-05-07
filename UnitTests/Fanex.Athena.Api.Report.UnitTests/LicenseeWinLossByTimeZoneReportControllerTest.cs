@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Model.Core.ResultModel;
@@ -9,8 +10,6 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
 
     [TestFixture]
     public class LicenseeWinLossByTimeZoneReportControllerTest : BaseApiControllerHelperTest
@@ -34,7 +33,7 @@
         }
 
         [Test]
-        public void Index_MetaModelIsInvalid_ReturnEmptyResult()
+        public async Task Index_MetaModelIsInvalid_ReturnEmptyResult()
         {
             // Arrange
             var metaModel = new LicenseeWinLossByTimeZoneMetaModel
@@ -46,19 +45,19 @@
             // Action
             using (var controller = CreateController())
             {
-                result = controller.Index(metaModel);
+                result = await controller.Index(metaModel);
             }
 
             // Assert
-            Assert.Multiple(() =>
+            Assert.Multiple(async () =>
             {
-                _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<LicenseeWinLossByTimeZoneMetaModel>(), Arg.Any<IDictionary<int, string>>());
+                await _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<LicenseeWinLossByTimeZoneMetaModel>(), Arg.Any<IDictionary<int, string>>());
                 Assert.That(result.Data, Is.Empty);
             });
         }
 
         [Test]
-        public void Index_ValidMetaModel_AssignCorrectAgentListXml()
+        public async Task Index_ValidMetaModel_AssignCorrectAgentListXml()
         {
             // Arrange
             const string AgentListXml = "<Root><Agent AgentId=\"1\" Currency=\"1\"/></Root>";
@@ -70,15 +69,15 @@
             // Action
             using (var controller = CreateController())
             {
-                controller.Index(metaModel);
+                await controller.Index(metaModel);
             }
 
             // Assert
-            _dataAccess.Received(1).GetData(Arg.Is<LicenseeWinLossByTimeZoneMetaModel>(x => x.AgentListXml == AgentListXml), UserCurrencyList);
+            await _dataAccess.Received(1).GetData(Arg.Is<LicenseeWinLossByTimeZoneMetaModel>(x => x.AgentListXml == AgentListXml), UserCurrencyList);
         }
 
         [Test]
-        public void Index_ValidMetaModel_ReturnCorrectResultFromDataAccess()
+        public async Task Index_ValidMetaModel_ReturnCorrectResultFromDataAccess()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
@@ -97,7 +96,7 @@
             // Action
             using (var controller = CreateController())
             {
-                result = controller.Index(metaModel);
+                result = await controller.Index(metaModel);
             }
 
             // Assert

@@ -6837,8 +6837,8 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./signin */ "./www/js/source/pages/signin/signin.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (SignIn) {
-    "use strict";
-    $(window).on("load", function () {
+    'use strict';
+    $(window).on('load', function () {
         SignIn.InitLogin();
     });
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -6857,25 +6857,25 @@
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _page, resolveClientUrl */
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! crypto-js */ "./node_modules/crypto-js/index.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, CryptoJS) {
-    "use strict";
+    'use strict';
     function isIE() { return (/msie/i).test(navigator.userAgent) && !/opera/i.test(navigator.userAgent); }
     window.IE = isIE();
 
-    var LanguageMessages = {
-        errUserName: "Please input username and password",
-        errValidCode: "You must input validation code."
+    const LanguageMessages = {
+        errUserName: 'Please input username and password',
+        errValidCode: 'You must input validation code.'
     };
 
     function getUserSalt() {
-        var salt;
-        var userName = $("#userName").val();
+        let salt;
+        const userName = $('#userName').val();
         if (userName) {
-            var url = resolveClientUrl("Authorization/GetUserSalt?userName=" + userName);
+            const url = window.resolveClientUrl('Authorization/GetUserSalt?userName=' + userName);
             $.ajax({
                 url: url,
-                type: "GET",
+                type: 'GET',
                 async: false,
-                contentType: "application/json; charset=utf-8",
+                contentType: 'application/json; charset=utf-8',
                 cache: false,
                 beforeSend: function () {
                 },
@@ -6883,7 +6883,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _pag
                     salt = result;
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + ": " + thrownError);
+                    alert(xhr.status + ': ' + thrownError);
                 }
             });
         }
@@ -6892,28 +6892,28 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _pag
     }
 
     function getValidateImage() {
-        var url = $("#captchaUrl").val();
-        $("#imgCode").attr("src", url);
+        const url = $('#captchaUrl').val();
+        $('#imgCode').attr('src', url);
 
         setTimeout(getValidateImage, 120000);
     }
 
     function checkInputValid() {
-        var $username = $("#userName");
-        var $password = $("#passWord");
-        var $captcha = $('#captcha');
+        const $username = $('#userName');
+        const $password = $('#passWord');
+        const $captcha = $('#captcha');
 
         if ($username.val() && $password.val() && $captcha.val()) {
             return true;
         }
 
-        var $errorMessage = $("#errmsg");
+        const $errorMessage = $('#errmsg');
         $errorMessage.html(LanguageMessages.errUserName);
 
-        if ($username.val() === "") {
+        if ($username.val() === '') {
             $username.focus();
         }
-        else if ($password.val() === "") {
+        else if ($password.val() === '') {
             $password.focus();
         }
         else {
@@ -6921,7 +6921,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _pag
             $('#captcha').focus();
         }
 
-        $errorMessage.css("opacity", 1);
+        $errorMessage.css('opacity', 1);
         return false;
     }
 
@@ -6932,16 +6932,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _pag
         }
 
         getValidateImage();
+        const pageResult = window._page;
 
-        if (typeof _page.errCode !== 'undefined' && _page.errCode !== 0) {
-            $("#errmsg").html(_page.errMsg).css("opacity", 1);
-            if (_page.errCode === 101) {
+        if (typeof pageResult.errCode !== 'undefined' && pageResult.errCode !== 0) {
+            $('#errmsg').html(pageResult.errMsg).css('opacity', 1);
+            if (pageResult.errCode === 101) {
                 $('#txtCaptcha').focus().select();
             }
         }
 
         document.fLogin.onsubmit = function () {
-            var $username = $("#userName");
+            const $username = $('#userName');
             $username.val($.trim($username.val()));
             if (!checkInputValid()) {
                 return false;
@@ -6949,20 +6950,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _pag
 
             $('#btnLogin').prop('disabled', true);
 
-            var $loginToken = $('#LogInToken');
-            var $loginTokenTemp = $('#LogInTokenTemp');
+            const $loginToken = $('#LogInToken');
+            const $loginTokenTemp = $('#LogInTokenTemp');
 
-            var userSalt = getUserSalt();
+            const userSalt = getUserSalt();
 
             $loginToken.val($loginTokenTemp.val());
-            var $password = $("#passWord");
-            var hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
-            var encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
+            const $password = $('#passWord');
+            const hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
+            const encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
             $password.val(encryptedPass);
             return true;
         };
 
-        $("#captcha-img").on("click", function () {
+        $('#captcha-img').on('click', function () {
             getValidateImage();
         });
     }

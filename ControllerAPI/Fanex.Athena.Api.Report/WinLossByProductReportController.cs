@@ -11,6 +11,7 @@ namespace Fanex.Athena.Api.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -51,7 +52,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
 #pragma warning disable S107 // Methods should not have too many parameters
-        public dynamic Index(
+        public Task<dynamic> Index(
            WinLossByProductMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -67,7 +68,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] WinLossByProductMetaModel metaModel)
+        public Task<dynamic> Index([FromBody] WinLossByProductMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
@@ -138,12 +139,15 @@ namespace Fanex.Athena.Api.Report
 
         private static string GetErrorMessage(int code)
         {
+            const int NoCustomerFoundErrorCode = 100;
+            const int MoreThanOneCustomerFoundErrorCode = 101;
+
             switch (code)
             {
-                case 100:
+                case NoCustomerFoundErrorCode:
                     return ViewResources.NoCustomerFoundMsg;
 
-                case 101:
+                case MoreThanOneCustomerFoundErrorCode:
                     return ViewResources.MoreThanOneCustomerFoundMsg;
 
                 default:
@@ -208,7 +212,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(winlossByProduct.Workbook, FileName);
         }
 
-        private WinLossByProductResultModel GetData(WinLossByProductMetaModel metaModel)
+        private async Task<WinLossByProductResultModel> GetData(WinLossByProductMetaModel metaModel)
         {
             if (!metaModel.IsValid)
             {
@@ -224,24 +228,20 @@ namespace Fanex.Athena.Api.Report
             var userCurrencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.Level == 0)
             {
-                return _winlossByProductDataAccess.GetWinlossByProducts(metaModel, userCurrencyList);
+                return await _winlossByProductDataAccess.GetWinlossByProducts(metaModel, userCurrencyList).ConfigureAwait(false);
             }
-            else if (SessionService.LicenseeSession.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2)
+            else if (SessionService.LicenseeSession.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == (int)ReportLevel.Customer)
             {
-                return _winlossByProductDataAccess.GetWinlossByProductCustomers(metaModel, userCurrencyList);
+                return await _winlossByProductDataAccess.GetWinlossByProductCustomers(metaModel, userCurrencyList).ConfigureAwait(false);
             }
             else
             {
-                return _winlossByProductDataAccess.GetWinlossByProductAgents(metaModel, userCurrencyList);
+                return await _winlossByProductDataAccess.GetWinlossByProductAgents(metaModel, userCurrencyList).ConfigureAwait(false);
             }
         }
 
-        [SuppressMessage(
-           "StyleCop.CSharp.StylecopPlus.Rules",
-           "SP2101:MethodMustNotContainMoreLinesThan",
-           Justification = "Reviewed. Suppression is OK here.")]
 #pragma warning disable S107 // Methods should not have too many parameters
-        private dynamic ProcessRequest(
+        private async Task<dynamic> ProcessRequest(
             WinLossByProductMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -271,9 +271,7 @@ namespace Fanex.Athena.Api.Report
             }
 
             AssignDrilldownDates(metaModel, fdate, tdate);
-
-            var result = GetData(metaModel);
-
+            var result = await GetData(metaModel);
             result.ResultInfo.Message = GetErrorMessage(result.ResultInfo.Code);
 
             var drillDownSystemId = systemId;

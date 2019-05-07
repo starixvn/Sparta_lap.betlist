@@ -9,10 +9,10 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Helper;
@@ -35,79 +35,61 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public WinLossByProductResultModel GetWinlossByProducts(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<WinLossByProductResultModel> GetWinlossByProducts(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_WinlossByProduct";
-            try
-            {
-                WinLossByProductResultModel data;
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
-                    db.AddInParameter("username", DbType.String, metaModel.Username);
-                    db.AddOutParameter("SystemName", DbType.String, 100);
-                    db.AddOutParameter("CustID", DbType.Int32, 10);
-                    UpdateUspParams(db, metaModel, false);
-                    AddResultParam(db);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        data = GetData(reader, currencyList, metaModel, false);
-                    }
 
-                    var resultInfo = GetResult(db);
-                    resultInfo.ExtendedData = db.GetParameterValue("CustID") + ";" + db.GetParameterValue("SystemName");
-                    data.ResultInfo = resultInfo;
+            WinLossByProductResultModel data;
+            using (var db = this.GetObjectDb(UspName))
+            {
+                db.SetParameterValue("reporttype", metaModel.ReportBy);
+                db.SetParameterValue("username", metaModel.Username);
+                db.SetParameterValue("SystemName", null);
+                db.SetParameterValue("CustID", null);
+                UpdateUspParams(db, metaModel, false);
+                AddResultParam(db);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    data = GetData(reader, currencyList, metaModel, false);
                 }
 
-                return data;
+                var resultInfo = GetResult(db);
+                resultInfo.ExtendedData = db.GetParameterValue("CustID") + ";" + db.GetParameterValue("SystemName");
+                data.ResultInfo = resultInfo;
             }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
-            }
+
+            return data;
         }
 
-        public WinLossByProductResultModel GetWinlossByProductAgents(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<WinLossByProductResultModel> GetWinlossByProductAgents(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_WinlossByProductDetail_Ag";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel, true);
+                db.SetParameterValue("CustID", metaModel.MemberId);
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    UpdateUspParams(db, metaModel, true);
-                    db.AddInParameter("CustID", DbType.Int32, metaModel.MemberId);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, true);
-                    }
+                    return GetData(reader, currencyList, metaModel, true);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
-        public WinLossByProductResultModel GetWinlossByProductCustomers(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<WinLossByProductResultModel> GetWinlossByProductCustomers(WinLossByProductMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_WinlossByProductDetail";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, metaModel.CustomerId);
-                    db.AddInParameter("MemberID", DbType.Int32, metaModel.MemberId);
-                    UpdateUspParams(db, metaModel, true);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, currencyList, metaModel, true);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                db.SetParameterValue("custid", metaModel.CustomerId);
+                db.SetParameterValue("MemberID", metaModel.MemberId);
+                UpdateUspParams(db, metaModel, true);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return GetData(reader, currencyList, metaModel, true);
+                }
             }
         }
 
@@ -178,12 +160,12 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void UpdateUspParams(IObjectDb db, WinLossByProductMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate.Date : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate.Date : metaModel.ToDate.Date);
-            db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            db.AddInParameter("productList", DbType.String, string.Join(",", metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code)));
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("fromdate", drilldown ? metaModel.DrillDownFromDate.Date : metaModel.FromDate.Date);
+            db.SetParameterValue("todate", drilldown ? metaModel.DrillDownToDate.Date : metaModel.ToDate.Date);
+            db.SetParameterValue("drawfilter", metaModel.DrawFilter);
+            db.SetParameterValue("movebetsday", _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.SetParameterValue("productList", string.Join(",", metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code)));
         }
 
         private WinLossByProductResultModel GetData(

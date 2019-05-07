@@ -1,97 +1,97 @@
 ﻿define([
-    "jquery",
-    "common/querystring",
-    "common/site",
-    "../report",
-    "./customerwinloss.option",
-    "lib/jqgrid/jquery.jqgrid.additional",
-    "components/pluginhelper/daterangepicker",
-    "components/pluginhelper/monthpicker",
-    "components/pluginhelper/multiselect",
-    "common/popup",
-    "components/paging",
-    "helpers/excel",
-    "components/pluginhelper/autocomplete",
-    "helpers/downloader",
-    "components/toast",
-    "lib/jqgrid/jquery.jqGrid.en",
-    "lib/jqgrid/jquery.jqGrid.min",
-    "extensions/jquery.extension",
-    "extensions/ajaxBinaryTransporting"],
+    'jquery',
+    'common/querystring',
+    'common/site',
+    '../report',
+    './customerwinloss.option',
+    'lib/jqgrid/jquery.jqgrid.additional',
+    'components/pluginhelper/daterangepicker',
+    'components/pluginhelper/monthpicker',
+    'components/pluginhelper/multiselect',
+    'common/popup',
+    'components/paging',
+    'helpers/excel',
+    'components/pluginhelper/autocomplete',
+    'helpers/downloader',
+    'components/toast',
+    'lib/jqgrid/jquery.jqGrid.en',
+    'lib/jqgrid/jquery.jqGrid.min',
+    'extensions/jquery.extension',
+    'extensions/ajaxBinaryTransporting'],
     function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup,
         PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
-        "use strict";
+        'use strict';
 
-        var EXCEL_FILENAME = "CustomerWinLoss.xls";
-        var EXCEL_PP_FILENAME = "PP_PromotionPrize.xls";
-        var SORTING_CODE = {
-            "ExternalId": 2,
-            "SystemId": 1,
-            "Turnover": 3,
-            "TotalTransaction": 13,
-            "CustomerWL": 4,
-            "BetEffective": 5,
-            "PlayerComm": 10,
-            "CustomerTotalWL": 14,
-            "LicenseeWL": 6,
-            "BAComm": 8,
-            "RacingRevenue": 15,
-            "AmtDueToBA": 11,
-            "AmtDueToRacing": 12
+        const EXCEL_FILENAME = 'CustomerWinLoss.xls';
+        const EXCEL_PP_FILENAME = 'PP_PromotionPrize.xls';
+        const SORTING_CODE = {
+            'ExternalId': 2,
+            'SystemId': 1,
+            'Turnover': 3,
+            'TotalTransaction': 13,
+            'CustomerWL': 4,
+            'BetEffective': 5,
+            'PlayerComm': 10,
+            'CustomerTotalWL': 14,
+            'LicenseeWL': 6,
+            'BAComm': 8,
+            'RacingRevenue': 15,
+            'AmtDueToBA': 11,
+            'AmtDueToRacing': 12
         };
 
-        var _ajaxRequest = null;
-        var _submitData = null;
-        var _productCodes = [];
+        let _ajaxRequest = null;
+        let _submitData = null;
+        let _productCodes = [];
 
-        var _sortColumnName = "";
-        var _sortOrder = "";
-        var _orderItem = 0;
-        var _isFirstLoad = false;
+        let _sortColumnName = '';
+        let _sortOrder = '';
+        let _orderItem = 0;
+        let _isFirstLoad = false;
 
-        var _pagingOption =
+        let _pagingOption =
         {
             pageindex: 1,
             pagesize: 500,
             pagelist: [500, 1000, 2000],
             totalrow: 1,
-            elementcontainer: ".paging",
-            method: "AJAX",
-            ajaxfunction: "CustomerWinLoss.ajaxPaging()",
+            elementcontainer: '.paging',
+            method: 'AJAX',
+            ajaxfunction: 'CustomerWinLoss.ajaxPaging()',
             alwayshow: true
         };
 
-        var _url = {
-            SearchCustomer: "SearchCustomerAPI/SearchCustomer"
+        const _url = {
+            SearchCustomer: 'SearchCustomerAPI/SearchCustomer'
         };
 
-        var _selector = {
-            SubmitButton: "#SubmitButton",
-            ExportToExcel: "#ExportToExcel",
-            Form: "#CustomerWinlossForm",
-            Title: ".report-title",
-            Header: ".panel-heading",
-            GridId: "ReportGrid",
-            IsHistoryInput: "#IsHistory",
-            IsAllowedBAInput: "#IsAllowedBA",
-            IsAllowedCustomerCommissionInput: "#IsAllowedCustomerCommission",
-            HistoryLink: "#history-report-link",
-            CurrentLink: "#current-report-link",
-            BetListLink: ".bet-list-link",
-            Username: "#Username",
-            PromotionPrizeLink: "#ExportPromotionPrizeLink"
+        const _selector = {
+            SubmitButton: '#SubmitButton',
+            ExportToExcel: '#ExportToExcel',
+            Form: '#CustomerWinlossForm',
+            Title: '.report-title',
+            Header: '.panel-heading',
+            GridId: 'ReportGrid',
+            IsHistoryInput: '#IsHistory',
+            IsAllowedBAInput: '#IsAllowedBA',
+            IsAllowedCustomerCommissionInput: '#IsAllowedCustomerCommission',
+            HistoryLink: '#history-report-link',
+            CurrentLink: '#current-report-link',
+            BetListLink: '.bet-list-link',
+            Username: '#Username',
+            PromotionPrizeLink: '#ExportPromotionPrizeLink'
         };
 
         function initialize() {
             Site.initialize();
 
             Site.addUserGuide({
-                resourceName: "CustomerWL",
-                title: Site.getSingleResource("CustomerWinLoss")
+                resourceName: 'CustomerWL',
+                title: Site.getSingleResource('CustomerWinLoss')
             });
             MultiSelect.initProductList();
             DatePicker.initDateRangePicker();
-            if ($(_selector.IsHistoryInput).val() === "True") {
+            if ($(_selector.IsHistoryInput).val() === 'True') {
                 MonthPicker.initMonthPicker();
             }
 
@@ -102,7 +102,7 @@
 
         function initEvent() {
             $(_selector.SubmitButton).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return;
                 }
@@ -112,12 +112,12 @@
             });
 
             $(_selector.ExportToExcel).click(function () {
-                var validProduct = Report.ValidProducts();
+                const validProduct = Report.ValidProducts();
                 if (!validProduct) {
                     return;
                 }
 
-                var data = getPostData();
+                const data = getPostData();
                 data.PageIndex = 1;
                 data.isExportExcel = true;
 
@@ -125,8 +125,8 @@
             });
 
             $(_selector.PromotionPrizeLink).click(function () {
-                var filterData = getPostData();
-                var data = {
+                const filterData = getPostData();
+                const data = {
                     __RequestVerificationToken: filterData.__RequestVerificationToken,
                     FromDate: filterData.FromDate,
                     ToDate: filterData.ToDate,
@@ -151,27 +151,27 @@
                 ajaxPaging: _me.ajaxPaging
             };
 
-            $(".main-content").on("click", _selector.BetListLink, function () {
-                var data = $(this).data("drill-down");
+            $('.main-content').on('click', _selector.BetListLink, function () {
+                const data = $(this).data('drill-down');
                 _me.viewWinlossBetList(data.CustId, data.SystemId, data.ExternalId);
             });
 
-            $(window).on("resize", function () {
+            $(window).on('resize', function () {
                 resizeGrid();
             });
 
-            $(window).on("unload", function () {
-                $(window).off("resize");
+            $(window).on('unload', function () {
+                $(window).off('resize');
             });
         }
 
         function exportExcel(url, data, fileName) {
-            var option = {
-                type: "POST",
+            const option = {
+                type: 'POST',
                 data: data,
-                dataType: "binary",
-                responseType: "blob",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'binary',
+                responseType: 'blob',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(url),
                 success: function (response) {
@@ -194,7 +194,7 @@
 
         function initAutoComplete() {
             if ($(_selector.Username).length > 0) {
-                var option = {
+                const option = {
                     url: Site.resolveClientUrl(_url.SearchCustomer),
                     target: _selector.Username
                 };
@@ -206,12 +206,12 @@
         function submit() {
             buildPostData();
 
-            var option =
+            const option =
             {
-                type: "POST",
+                type: 'POST',
                 data: _submitData,
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 cache: false,
                 url: Site.resolveClientUrl(CustomerWinLossOption.urlData),
                 success: function (response) {
@@ -248,24 +248,24 @@
                 return;
             }
 
-            var gridOption = CustomerWinLossOption.getGridOption(response.TotalRows);
+            const gridOption = CustomerWinLossOption.getGridOption(response.TotalRows);
             gridOption.rowNum = response.Data.length;
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
                 sort(index);
-                return "stop";
+                return 'stop';
             };
             gridOption.gridComplete = function () {
                 onGridComplete(this, gridOption, response);
                 Site.unBlockUI();
             };
 
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             reportGrid.jqGrid(gridOption);
 
             CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
-            var pprizeCount = response.PromotionPrize;
-            showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount) > 0);
+            const pprizeCount = response.PromotionPrize;
+            showPromotionPrizeLink(Site.isNumber(pprizeCount) && parseInt(pprizeCount, 10) > 0);
         }
 
         function ajaxPaging() {
@@ -275,51 +275,51 @@
 
         function viewHistoryReport() {
             Site.blockUI();
-            Site.redirect(Site.resolveClientUrl("CustomerWinlossReport/History"));
+            Site.redirect(Site.resolveClientUrl('CustomerWinlossReport/History'));
         }
 
         function viewCurrentReport() {
             Site.blockUI();
-            Site.redirect(Site.resolveClientUrl("CustomerWinLossReport/Index"));
+            Site.redirect(Site.resolveClientUrl('CustomerWinLossReport/Index'));
         }
 
         function viewWinlossBetList(custId, systemId, externalId) {
-            var url = Site.resolveClientUrl("CustomerWinlossBetList/Index");
-            url = QueryString.setParam(url, "ProductCodeList", _productCodes);
-            url = QueryString.setParam(url, "currencyid", _submitData.CurrencyId);
-            url = QueryString.setParam(url, "CurrencyName", _submitData.CurrencyName);
-            url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
-            url = QueryString.setParam(url, "custid", custId);
-            url = QueryString.setParam(url, "systemid", systemId);
-            url = QueryString.setParam(url, "externalid", externalId);
-            url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
-            url = QueryString.setParam(url, "todate", _submitData.ToDate);
-            url = QueryString.setParam(url, "ishistoryreport", $('input#IsHistory').val());
+            let url = Site.resolveClientUrl('CustomerWinlossBetList/Index');
+            url = QueryString.setParam(url, 'ProductCodeList', _productCodes);
+            url = QueryString.setParam(url, 'currencyid', _submitData.CurrencyId);
+            url = QueryString.setParam(url, 'CurrencyName', _submitData.CurrencyName);
+            url = QueryString.setParam(url, 'BaseCurrency', _submitData.BaseCurrency);
+            url = QueryString.setParam(url, 'custid', custId);
+            url = QueryString.setParam(url, 'systemid', systemId);
+            url = QueryString.setParam(url, 'externalid', externalId);
+            url = QueryString.setParam(url, 'fromdate', _submitData.FromDate);
+            url = QueryString.setParam(url, 'todate', _submitData.ToDate);
+            url = QueryString.setParam(url, 'ishistoryreport', $('input#IsHistory').val());
 
-            var popH = Math.min($(window).height() - 100, 650), popW = 920;
-            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: Site.getSingleResource("CustomerBetList") };
+            const popH = Math.min($(window).height() - 100, 650), popW = 920;
+            const popupOption = { id: 'betlist-popup', width: popW + 50, height: popH + 50, title: Site.getSingleResource('CustomerBetList') };
             Popup.openPopupWithIframe(url, popupOption);
             window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
 
         function setReportTitle() {
-            var titlePattern = "{0}, {1} → {2}, {3}{4}{5}";
-            var licenseeWLNote = getLicenseeWLNote();
-            var tempUserName = _submitData.Username.length > 0
-                ? ", " + Site.getSingleResource("Username") + ": " + _submitData.Username
-                : "";
+            const titlePattern = '{0}, {1} → {2}, {3}{4}{5}';
+            const licenseeWLNote = getLicenseeWLNote();
+            const tempUserName = _submitData.Username.length > 0
+                ? ', ' + Site.getSingleResource('Username') + ': ' + _submitData.Username
+                : '';
 
-            var title = $.format(titlePattern,
-                Site.getSingleResource("CustomerWinLoss"),
+            const title = $.format(titlePattern,
+                Site.getSingleResource('CustomerWinLoss'),
                 _submitData.FromDate,
                 _submitData.ToDate,
-                Site.getSingleResource("Viewin").replace("{0}",
-                _submitData.BaseCurrency === "" ? _submitData.CurrencyName : _submitData.BaseCurrency.toUpperCase()),
-                licenseeWLNote === "" ? "" : ", " + licenseeWLNote,
+                Site.getSingleResource('Viewin').replace('{0}',
+                _submitData.BaseCurrency === '' ? _submitData.CurrencyName : _submitData.BaseCurrency.toUpperCase()),
+                licenseeWLNote === '' ? '' : ', ' + licenseeWLNote,
                 tempUserName);
 
             $(_selector.Title).html(title);
-            $(_selector.Header).removeClass("hide");
+            $(_selector.Header).removeClass('hide');
         }
 
         function showPromotionPrizeLink(isShow) {
@@ -346,9 +346,9 @@
             if (_pagingOption.totalrow > 1) {
                 setTimeout(function () {
                     if (_sortColumnName === index) {
-                        _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
+                        _sortOrder = _sortOrder === 'asc' ? 'desc' : 'asc';
                     } else {
-                        _sortOrder = "asc";
+                        _sortOrder = 'asc';
                         _sortColumnName = index;
                         _orderItem = SORTING_CODE[_sortColumnName];
                     }
@@ -361,7 +361,7 @@
             if (_isFirstLoad) {
                 jqGridAdditional.gridComplete();
 
-                var reportGrid = $("#" + _selector.GridId);
+                const reportGrid = $('#' + _selector.GridId);
                 if (_pagingOption.totalrow > 1) {
                     jqGridAdditional.addSortableHeaders(reportGrid, _sortColumnName, _sortOrder);
                 }
@@ -380,16 +380,16 @@
 
         function getLicenseeWLNote() {
             if (_productCodes.length > 0) {
-                return Site.getSingleResource("LicenseeW_L") + "(" + _productCodes.join(', ') + ")";
+                return Site.getSingleResource('LicenseeW_L') + '(' + _productCodes.join(', ') + ')';
             }
-            return "";
+            return '';
         }
 
         function getProductList() {
-            var productCodeList = [];
-            $(".childCheckbox", "#ProductList").each(function (index, element) {
-                var productCode = $(element).attr('data-product-code');
-                if (productCode && $(element).attr("data-original") === 'true') {
+            const productCodeList = [];
+            $('.childCheckbox', '#ProductList').each(function (index, element) {
+                const productCode = $(element).attr('data-product-code');
+                if (productCode && $(element).attr('data-original') === 'true') {
                     productCodeList.push(productCode.toUpperCase());
                 }
             });
@@ -407,38 +407,38 @@
                 _submitData.PageIndex = _pagingOption.pageindex;
                 _submitData.PageSize = _pagingOption.pagesize;
                 _submitData.OrderItem = _orderItem;
-                _submitData.IsAscSort = _sortOrder === "asc";
+                _submitData.IsAscSort = _sortOrder === 'asc';
             }
         }
 
         function resetParam() {
-            _sortColumnName = "ExternalId";
-            _sortOrder = "asc";
+            _sortColumnName = 'ExternalId';
+            _sortOrder = 'asc';
             _orderItem = SORTING_CODE[_sortColumnName];
             _pagingOption.pageindex = 1;
             _submitData = null;
         }
 
         function getPostData() {
-            var param = $(_selector.Form).serializeObject();
+            const param = $(_selector.Form).serializeObject();
             param.PageIndex = _pagingOption.pageindex;
             param.PageSize = _pagingOption.pagesize;
             param.OrderItem = _orderItem;
-            param.IsAscSort = _sortOrder === "asc";
+            param.IsAscSort = _sortOrder === 'asc';
             
             if (param.Username === undefined) {
-                param.Username = "";
+                param.Username = '';
             }
             return param;
         }
 
         function resizeGrid() {
-            var reportGrid = $("#" + _selector.GridId);
+            const reportGrid = $('#' + _selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
         }
 
-        var _me = {
+        const _me = {
             initialize: initialize,
             initEvent: initEvent,
             initSetting: initSetting,

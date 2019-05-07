@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.Customer.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using DataAccess.Core.Users.Interfaces;
     using Excel.Customer;
@@ -18,7 +19,7 @@
     using Service.Report.Interfaces;
     using Session.Model;
 
-    public partial class CustomerControllerTest : BaseControllerHelperTest
+    public partial class CustomerControllerTest : CultureBaseControllerHelperTest
     {
         private ICustomerListService _customerListService;
         private IGroupComService _groupComService;
@@ -42,7 +43,7 @@
             SessionService.IsAllowedSpecialBA(Arg.Any<UserSession>()).Returns(true);
 
             _groupComService.GetAll(Arg.Any<int>()).Returns(new List<GroupCommMetaModel>());
-            _groupComService.GetById(Arg.Any<int>()).Returns(new GroupCommMetaModel());
+            _groupComService.GetById(Arg.Any<int>(), Arg.Any<int>()).Returns(new GroupCommMetaModel());
         }
 
         [OneTimeTearDown]
@@ -114,12 +115,12 @@
         }
 
         [Test]
-        public void ExportExcel_ParameterIsNull_ReturnNull()
+        public async Task ExportExcel_ParameterIsNull_ReturnNull()
         {
             using (var controller = CreateContoller())
             {
                 // Action
-                var result = controller.ExportExcel(null);
+                var result = await controller.ExportExcel(null);
 
                 // Assert
                 Assert.That(result, Is.Null);
@@ -127,7 +128,7 @@
         }
 
         [Test]
-        public void ExportExcel_GridColumnIsEmpty_ReturnEmptyFile()
+        public async Task ExportExcel_GridColumnIsEmpty_ReturnEmptyFile()
         {
             using (var controller = CreateContoller())
             {
@@ -136,7 +137,7 @@
                 const string ExcelParam = "{'GridColumns': []}";
 
                 // Action
-                var result = controller.ExportExcel(ExcelParam) as FileContentResult;
+                var result = await controller.ExportExcel(ExcelParam) as FileContentResult;
 
                 // Assert
                 Assert.That(result.FileDownloadName, Is.EqualTo(ExcelFileName));

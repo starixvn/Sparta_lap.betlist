@@ -2,16 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-    using Athena.BetList.DataAccess.Interfaces;
-    using Athena.BetList.Model.DTO;
-    using Athena.BetList.Model.MetaModel;
-    using Athena.BetList.Service;
-    using Athena.BetList.Service.Interfaces;
     using Common.Constant;
+    using DataAccess.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Interfaces;
+    using Model.DTO;
+    using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
@@ -49,6 +49,89 @@
             _bettingTicketCenterDataAccess = null;
             _bettingTicketCenterMultiCustomerDataAccess = null;
             _bettingTicketCenterService = null;
+        }
+
+        [Test]
+        public void GetBetListForMultipleCustomers_WhenCall_CallDataAccess()
+        {
+            // Arrange
+            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
+            var currencyList = FakeHelper.Create<IDictionary<int, string>>();
+
+            // Action
+            _bettingTicketCenterService.GetBetListForMultipleCustomers(metaModel, currencyList);
+
+            // Assert
+            _bettingTicketCenterMultiCustomerDataAccess.Received().GetBetListForMultipleCustomers(metaModel, currencyList);
+        }
+
+        [Test]
+        public void GetTotalRowForMultipleCustomers_WhenCall_CallDataAccess()
+        {
+            // Arrange
+            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
+
+            // Action
+            _bettingTicketCenterService.GetTotalRowForMultipleCustomers(metaModel);
+
+            // Assert
+            _bettingTicketCenterMultiCustomerDataAccess.Received().GetTotalRowForMultipleCustomers(metaModel);
+        }
+
+        [Test]
+        public void GetBetListForSingleCustomer_WhenCall_CallDataAccess()
+        {
+            // Arrange
+            var metaModel = FakeHelper.Create<SingleCustomersBetListMetaModel>();
+            var currencyList = FakeHelper.Create<IDictionary<int, string>>();
+
+            // Action
+            _bettingTicketCenterService.GetBetListForSingleCustomer(metaModel, currencyList);
+
+            // Assert
+            _bettingTicketCenterDataAccess.Received().GetBetListForSingleCustomer(metaModel, currencyList);
+        }
+
+        [Test]
+        public void GetBetListByRefno_WhenCall_CallDataAccess()
+        {
+            // Arrange
+            var metaModel = FakeHelper.Create<RefNoBetListMetaModel>();
+            var currencyList = FakeHelper.Create<IDictionary<int, string>>();
+
+            // Action
+            _bettingTicketCenterService.GetBetListByRefno(metaModel, currencyList);
+
+            // Assert
+            _bettingTicketCenterDataAccess.Received().GetBetListByRefno(metaModel, currencyList);
+        }
+
+        [Test]
+        public void GetRunningBetList_WhenCall_CallDataAccess()
+        {
+            // Arrange
+            var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>();
+            var currencyList = FakeHelper.Create<IDictionary<int, string>>();
+
+            // Action
+            _bettingTicketCenterService.GetRunningBetList(metaModel, currencyList);
+
+            // Assert
+            _bettingTicketCenterDataAccess.Received().GetRunningBetList(metaModel, currencyList);
+        }
+
+        [Test]
+        public void BuildSumWinLoss_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            var ticket = new TicketResult();
+            var isAllowedCustomerComm = FakeHelper.Create<bool>();
+
+            // Action
+            var result = _bettingTicketCenterService.BuildSumWinLoss(ticket, isAllowedCustomerComm);
+
+            // Assert
+            Assert.That(result, Is.Not.Empty);
         }
 
         [Test]

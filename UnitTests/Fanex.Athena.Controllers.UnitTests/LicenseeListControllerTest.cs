@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Users.Interfaces;
@@ -9,7 +10,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class LicenseeListControllerTest : BaseControllerHelperTest
+    public class LicenseeListControllerTest : CultureBaseControllerHelperTest
     {
         private ILicenseeDataAccess _licenseeDataAccess;
 

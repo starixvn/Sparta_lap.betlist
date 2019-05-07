@@ -104,14 +104,6 @@
     "FunctionKey": "WinLossByBetType33"
   },
   {
-    "FunctionId": 36,
-    "FunctionKey": "CancelledBets36"
-  },
-  {
-    "FunctionId": 37,
-    "FunctionKey": "DailyBetList37"
-  },
-  {
     "FunctionId": 38,
     "FunctionKey": "LiveReport38"
   },
@@ -194,14 +186,6 @@
   {
     "FunctionId": 65,
     "FunctionKey": "GoldDeluxeWinloss65"
-  },
-  {
-    "FunctionId": 67,
-    "FunctionKey": "MicrogamingWinloss67"
-  },
-  {
-    "FunctionId": 68,
-    "FunctionKey": "CasinoProgressiveWins68"
   },
   {
     "FunctionId": 69,

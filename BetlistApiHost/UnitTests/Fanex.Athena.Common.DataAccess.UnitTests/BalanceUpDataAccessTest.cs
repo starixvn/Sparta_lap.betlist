@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Common.DataAccess.UnitTests
 {
     using System;
-    using System.Threading.Tasks;
     using Data;
     using DataAccess;
     using Model.DTO;
@@ -32,7 +31,7 @@
         }
 
         [Test]
-        public async Task GetBalanceUp_NoCache_ReturnDataFromDB()
+        public void GetBalanceUp_NoCache_ReturnDataFromDB()
         {
             // Arrange
             var balanceUpDay = new DateTime(2017, 1, 1);
@@ -47,7 +46,7 @@
             _cache.Get<BalanceUp>(Arg.Any<string>()).Returns(x => { return null; });
 
             // Action
-            var result = await DataAccess.GetBalanceUp().ConfigureAwait(false);
+            var result = DataAccess.GetBalanceUp();
 
             // Assert
             Assert.Multiple(() =>
@@ -62,7 +61,7 @@
         }
 
         [Test]
-        public async Task GetBalanceUp_NoCache_DataFromDBIsEmpty_ReturnEmptyData()
+        public void GetBalanceUp_NoCache_DataFromDBIsEmpty_ReturnEmptyData()
         {
             // Arrange
             Reader.Read().Returns(false);
@@ -72,7 +71,7 @@
             var expectedBalanceUp = new BalanceUp();
 
             // Action
-            var result = await DataAccess.GetBalanceUp().ConfigureAwait(false);
+            var result = DataAccess.GetBalanceUp();
 
             // Assert
             Assert.Multiple(() =>
@@ -83,7 +82,7 @@
         }
 
         [Test]
-        public async Task GetBalanceUp_Cached_ReturnDataFromCache()
+        public void GetBalanceUp_Cached_ReturnDataFromCache()
         {
             // Arrange
             var balanceUp = new BalanceUp
@@ -94,7 +93,7 @@
             _cache.Get<BalanceUp>(Arg.Any<string>()).Returns(balanceUp);
 
             // Action
-            var result = await DataAccess.GetBalanceUp().ConfigureAwait(false);
+            var result = DataAccess.GetBalanceUp();
 
             // Assert
             Assert.That(result, Is.EqualTo(balanceUp));

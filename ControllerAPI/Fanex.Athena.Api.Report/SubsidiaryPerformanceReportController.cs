@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Base.Attributes;
     using Constant.DataDomain;
@@ -32,7 +33,7 @@
         }
 
         [HttpPost]
-        public SubsidiaryResultViewModel Index(SubsidiaryPerformanceMetaModel metaModel)
+        public async Task<SubsidiaryResultViewModel> Index(SubsidiaryPerformanceMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             CheckValidProducts(FunctionNames.SubsidiaryPerformance, metaModel.ProductCodeList);
@@ -60,11 +61,11 @@
             }
 
             metaModel.AgentListXml = agentListXml;
-            return _subsidiaryPerformanceService.GetData(metaModel, userSession.CurrencyList);
+            return await _subsidiaryPerformanceService.GetData(metaModel, userSession.CurrencyList).ConfigureAwait(false);
         }
 
         [HttpPost]
-        public dynamic Detail(SubsidiaryPerformanceMetaModel metaModel)
+        public async Task<dynamic> Detail(SubsidiaryPerformanceMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
@@ -77,7 +78,7 @@
                 {
                     metaModel.AgentListXml = SessionService.GenerateAgentListXml(agentIdListByCurrency);
 
-                    var result = _subsidiaryPerformanceService.GetDetailData(metaModel, SessionService.UserSession.CurrencyList);
+                    var result = await _subsidiaryPerformanceService.GetDetailData(metaModel, SessionService.UserSession.CurrencyList).ConfigureAwait(false);
 
                     return new
                     {

@@ -10,8 +10,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Configuration.Interfaces;
-    using Core.Exception;
     using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -32,47 +32,41 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel)
+        public async Task<ReportResultModel<CustomerWinLoss>> GetDataList(CustomerWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinLoss";
-            try
+
+            using (var db = GetObjectDb(UspName))
             {
-                using (var db = GetObjectDb(UspName))
+                AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-
-                    using (var reader = db.ExecuteReader())
+                    var dataList = new List<CustomerWinLoss>();
+                    var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
+                    while (reader.Read())
                     {
-                        var dataList = new List<CustomerWinLoss>();
-                        var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-                        while (reader.Read())
-                        {
-                            dataList.Add(ReadDataItem(reader, metaModel.BaseCurrency, index++));
-                        }
-
-                        var result = new ReportResultModel<CustomerWinLoss>
-                        {
-                            DataList = dataList
-                        };
-
-                        if (dataList.Any() && reader.NextResult() && reader.Read())
-                        {
-                            result.TotalData = ReadTotalData(reader, metaModel.BaseCurrency);
-                            result.TotalRows = reader.ToInt("TotalRows");
-                            result.AdditionalInfo = reader.ToString("SumPromotionPrize");
-                        }
-                        else
-                        {
-                            result.TotalData = new CustomerWinLoss();
-                        }
-
-                        return result;
+                        dataList.Add(ReadDataItem(reader, metaModel.BaseCurrency, index++));
                     }
+
+                    var result = new ReportResultModel<CustomerWinLoss>
+                    {
+                        DataList = dataList
+                    };
+
+                    if (dataList.Any() && reader.NextResult() && reader.Read())
+                    {
+                        result.TotalData = ReadTotalData(reader, metaModel.BaseCurrency);
+                        result.TotalRows = reader.ToInt("TotalRows");
+                        result.AdditionalInfo = reader.ToString("SumPromotionPrize");
+                    }
+                    else
+                    {
+                        result.TotalData = new CustomerWinLoss();
+                    }
+
+                    return result;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
@@ -98,19 +92,19 @@ namespace Fanex.Athena.DataAccess.Report
 
         private static void AddParameters(IObjectDb db, CustomerWinLossMetaModel metaModel, DateTime moveBetsDay)
         {
-            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? PageSizeExcel : metaModel.PageSize);
-            db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-            db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDay);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("username", DbType.String, metaModel.Username);
-            db.AddInParameter("OrderItem", DbType.Int16, metaModel.OrderItem);
-            db.AddInParameter("IsAscSort", DbType.Boolean, metaModel.IsAscSort);
-            db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency.ToUpperInvariant());
+            db.SetParameterValue("fromdate", metaModel.FromDate);
+            db.SetParameterValue("todate", metaModel.ToDate);
+            db.SetParameterValue("pagesize", metaModel.IsExportExcel ? PageSizeExcel : metaModel.PageSize);
+            db.SetParameterValue("pageindex", metaModel.PageIndex);
+            db.SetParameterValue("movebetsday", moveBetsDay);
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("username", metaModel.Username);
+            db.SetParameterValue("OrderItem", metaModel.OrderItem);
+            db.SetParameterValue("IsAscSort", metaModel.IsAscSort);
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency.ToUpperInvariant());
             foreach (var item in metaModel.ProductOptions)
             {
-                db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+                db.SetParameterValue("show" + item.Code, item.Status);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿"use strict";
-define(["./products/dcsbetsetting"], function (DcsBetSetting) {
+﻿'use strict';
+define(['./products/dcsbetsetting'], function (DcsBetSetting) {
     $(DcsBetSetting.initialize);
 });

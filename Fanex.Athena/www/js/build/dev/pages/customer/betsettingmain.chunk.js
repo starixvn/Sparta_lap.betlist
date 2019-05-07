@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([44,"www/js/build/dev/pages/lib/common"]);
+/******/ 	deferredModules.push([42,"www/js/build/dev/pages/lib/common"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -164,41 +164,40 @@
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    var $blockBody;
-    var DEFAULT_MODAL = true;
-
-    var _methods = {
-        init: function (options) {
-            var defaultOptions = {
+    let $blockBody;
+    
+    const _methods = {
+        init: function (inputOptions) {
+            const defaultOptions = {
                 width: 640,
                 height: 480,
                 padding: 0,
-                id: "popup-content",
-                className: "",
-                title: "&nbsp;",
-                container: "body",
-                modal: DEFAULT_MODAL,
+                id: 'popup-content',
+                className: '',
+                title: '&nbsp;',
+                container: 'body',
+                modal: true,
                 onOpen: null,
                 onOpened: null,
                 onClose: null
             };
 
-            $blockBody = $(".popup-block-body");
-            options = $.extend(defaultOptions, options || {});
+            $blockBody = $('.popup-block-body');
+            const options = $.extend(defaultOptions, inputOptions || {});
             return this.each(function () {
-                var $self = $(this);
-                var $container = $(options.container);
+                let $self = $(this);
+                const $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
                 
-                var $popupElement = $("#" + options.id);
+                const $popupElement = $('#' + options.id);
                 if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
-                    $self.attr("id", options.id);
-                    $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.attr('id', options.id);
+                    $self.addClass('flat-popup ' + options.className);
+                    $self.children().wrapAll('<div class="wrapContent" style="padding:' + options.padding + 'px"></div>');
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -209,8 +208,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                             options.onClose.apply($self);
                         }
 
-                        if ($self.find("iframe").length > 0) {
-                            $self.find(".wrapContent").empty();
+                        if ($self.find('iframe').length > 0) {
+                            $self.find('.wrapContent').empty();
                         }
                         _methods.hide.apply($self);
                     });
@@ -218,10 +217,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     $container.append($self);
                 }
                 else {
-                    $self = $("#" + options.id);
-                    $self.find(".txt-title").text(options.title);
-                    var $wrapContent = $self.find(".wrapContent");
-                    $wrapContent.append($self.children().not(".popup-title"));
+                    $self = $('#' + options.id);
+                    $self.find('.txt-title').text(options.title);
+                    const $wrapContent = $self.find('.wrapContent');
+                    $wrapContent.append($self.children().not('.popup-title'));
                 }
 
                 $self.width(options.width);
@@ -240,18 +239,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         show: function (modal) {
-            var $self = this;
+            const $self = this;
             //Set the center alignment padding + border see css style
-            var left = ($(window).width() - $self.width()) / 2;
-            var top = ($(window).height() - $self.height()) / 2;
+            const left = ($(window).width() - $self.width()) / 2;
+            let top = ($(window).height() - $self.height()) / 2;
 
             if (top > 300) {
                 top -= 100;
             }
 
             $self.css({
-                'top': (top < 0 ? 0 : top) + "px",
-                'left': (left < 0 ? 0 : left) + "px"
+                'top': (top < 0 ? 0 : top) + 'px',
+                'left': (left < 0 ? 0 : left) + 'px'
             });
 
             if (modal === true || modal === undefined) {
@@ -272,7 +271,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         if (_methods[methodOrOptions]) {
             return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
+            // Default to 'init'
             return _methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
@@ -291,15 +290,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
+    'use strict';
 
-    var CONTAINER_SELECTOR = ".select-list-container";
-    var DISABLED_CLASS = "disabled";
-    var HIGHLIGHT_CLASS = "highlighted";
+    const CONTAINER_SELECTOR = '.select-list-container';
+    const DISABLED_CLASS = 'disabled';
+    const HIGHLIGHT_CLASS = 'highlighted';
 
     function getLabelHtml(option) {
-        var targetDropdownId = option.selectionId + "-result-container";
-        var className = option.isDisabled ? "selection disabled" : "selection";
+        const targetDropdownId = option.selectionId + '-result-container';
+        const className = option.isDisabled ? 'selection disabled' : 'selection';
         return '<div class="select-list-container">' +
                 '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
                     '<div class="selection-label">' + option.labelText + '</div>' +
@@ -317,23 +316,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function getOptionListHtml(dataList) {
-        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+        const htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-        for (var i = 0; i < dataList.length; i++) {
-            var dataItem = dataList[i];
+        for (let i = 0; i < dataList.length; i++) {
+            const dataItem = dataList[i];
             htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
 
-        return htmlArray.join("");
+        return htmlArray.join('');
     }
 
     function scrollToHighLightItem($container, $item, index) {
-        var itemTop = $item.offset().top;
-        var itemHeight = $item.outerHeight();
-        var containerTop = $container.offset().top;
-        var scrollUp = null;
+        const itemTop = $item.offset().top;
+        const itemHeight = $item.outerHeight();
+        const containerTop = $container.offset().top;
+        let scrollUp = null;
         if (itemTop <= containerTop) {
             scrollUp = true;
         }
@@ -352,14 +351,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyUp($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== 0) {
-            var $preItem = showOptionList.eq(index - 1);
+            const $preItem = showOptionList.eq(index - 1);
             $preItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $preItem, index - 1);
         }
@@ -370,14 +369,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function keyDown($element) {
-        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-        var showOptionList = $selectList.find(".option-item:visible");
-        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
-        var index = showOptionList.index($highlightItem);
+        const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+        const showOptionList = $selectList.find('.option-item:visible');
+        const $highlightItem = $selectList.find('.option-item.' + HIGHLIGHT_CLASS + ':visible').first();
+        const index = showOptionList.index($highlightItem);
 
         $highlightItem.removeClass(HIGHLIGHT_CLASS);
         if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-            var $nextItem = showOptionList.eq(index + 1);
+            const $nextItem = showOptionList.eq(index + 1);
             $nextItem.addClass(HIGHLIGHT_CLASS);
             scrollToHighLightItem($selectList, $nextItem, index + 1);
         }
@@ -389,16 +388,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     function keySearch($element, canEnter) {
         setTimeout(function () {
-            var query = $element.val().toUpperCase();
-            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
-            var optionList = $selectList.find(".option-item");
-            var isFirstItem = canEnter;
+            const query = $element.val().toUpperCase();
+            const $selectList = $element.closest('.select-list-dropdown').find('.select-list-dropdown-results');
+            const optionList = $selectList.find('.option-item');
+            let isFirstItem = canEnter;
             if (canEnter) {
                 optionList.removeClass(HIGHLIGHT_CLASS);
             }
             optionList.each(function (index, item) {
-                var $item = $(item);
-                var currentText = $item.text().toUpperCase();
+                const $item = $(item);
+                const currentText = $item.text().toUpperCase();
                 if (currentText.indexOf(query) === -1) {
                     $item.hide();
                 }
@@ -415,45 +414,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function enter($element) {
-        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        const $highlightItem = $element.closest('.select-list-dropdown').find('.option-item.' + HIGHLIGHT_CLASS + ':visible');
         $highlightItem.click();
     }
 
     function getDropdownList(resultContainerId, canSearch, canEnter) {
         /*jshint validthis: true*/
-        var $originalSelectElement = $(this);
-        var dataList = $originalSelectElement.find("option").map(function (index, item) {
-            var key = item.value;
-            var text = item.text;
+        const $originalSelectElement = $(this);
+        const dataList = $originalSelectElement.find('option').map(function (index, item) {
+            const key = item.value;
+            const text = item.text;
 
             return { key: key, value: text, className: item.className };
         });
-        var selectedValue = $originalSelectElement.val();
+        const selectedValue = $originalSelectElement.val();
 
-        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+        const dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
                                 getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
                             '</div></div>';
-        var $dropdown = $(dropdownListHtml);
+        const $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-        $dropdown.on("click", ".option-item", function () {
-            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+        $dropdown.on('click', '.option-item', function () {
+            $('.option-item').removeClass(HIGHLIGHT_CLASS);
             $(this).addClass(HIGHLIGHT_CLASS);
-            var selectedKey = $(this).data("key");
+            const selectedKey = $(this).data('key');
             $originalSelectElement.val(selectedKey);
 
-            $originalSelectElement.trigger("change");
+            $originalSelectElement.trigger('change');
         });
 
-        var $searchBox = $dropdown.find(".select-list-search-results");
+        const $searchBox = $dropdown.find('.select-list-search-results');
 
-        $searchBox.on("click", function (e) {
+        $searchBox.on('click', function (e) {
             e.stopPropagation();
         });
 
         if (canEnter) {
-            $searchBox.on("keyup", function (e) {
-                var $this = $(this);
+            $searchBox.on('keyup', function (e) {
+                const $this = $(this);
                 if (e.keyCode === 40) {
                     keyDown($this);
                 }
@@ -469,8 +468,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         }
         else {
-            $searchBox.on("keyup", function () {
-                var $this = $(this);
+            $searchBox.on('keyup', function () {
+                const $this = $(this);
                 keySearch($this, false);
             });
         }
@@ -479,7 +478,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateId($element) {
-        var id = '';
+        let id = '';
 
         if ($element.attr('id') !== null) {
             id = $element.attr('id');
@@ -496,10 +495,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function generateChars(length) {
-        var chars = '';
+        let chars = '';
 
-        for (var i = 0; i < length; i++) {
-            var randomChar = Math.floor(Math.random() * 36);
+        for (let i = 0; i < length; i++) {
+            const randomChar = Math.floor(Math.random() * 36);
             chars += randomChar.toString(36);
         }
 
@@ -507,10 +506,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }
 
     function closeAll() {
-        $(".select-list-result-container").remove();
+        $('.select-list-result-container').remove();
     }
 
-    var defaultOption = {
+    const defaultOption = {
         canSearch: false,
         canEnter: false,
         isDisabled: false,
@@ -518,37 +517,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         afterOpen: function () { }
     };
 
-    var _methods = {
+    const _methods = {
         init: function (options) {
-            var selectListOption = $.extend({}, defaultOption, options || {});
+            const selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var self = this;
-                var $element = $(self);
+                const self = this;
+                const $element = $(self);
                 if (!selectListOption.canSearch) {
-                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                    selectListOption.canSearch = $element.attr('data-can-search') === '1';
                 }
                 if (!selectListOption.canEnter) {
-                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                    selectListOption.canEnter = $element.attr('data-can-enter') === '1';
                 }
 
                 _methods.buildLabel.call(self);
 
-                var $container = $element.parent();
-                $container.off("click", ".selection");
-                $container.on("click", ".selection", function () {
-                    var $selection = $(this);
+                const $container = $element.parent();
+                $container.off('click', '.selection');
+                $container.on('click', '.selection', function () {
+                    const $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);
                     }
                 });
 
-                $element.on("change", function () {
+                $element.on('change', function () {
                     _methods.update.call(self);
                 });
 
-                $("html").on("click", function (e) {
-                    var $target = $(e.target);
+                $('html').on('click', function (e) {
+                    const $target = $(e.target);
 
                     if (!$target.closest(CONTAINER_SELECTOR).length) {
                         closeAll();
@@ -558,16 +557,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         buildLabel: function (option) {
-            option = option || {};
-            var $self = $(this);
+            const newOption = option || {};
+            const $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
-            var optionSelected = $self.find("option:selected");
-            var labelText = optionSelected.length ? optionSelected.text() : "";
-            var selectionId = generateId($self);
+            const optionSelected = $self.find('option:selected');
+            const labelText = optionSelected.length ? optionSelected.text() : '';
+            const selectionId = generateId($self);
 
-            option.labelText = labelText;
-            option.selectionId = selectionId;
-            var $selectionLabel = $(getLabelHtml(option));
+            newOption.labelText = labelText;
+            newOption.selectionId = selectionId;
+            const $selectionLabel = $(getLabelHtml(newOption));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -575,44 +574,44 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         open: function (resultContainerId, canSearch, canEnter) {
             closeAll();
 
-            var $self = $(this);
-            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+            const $self = $(this);
+            const $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 
-            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
-            var offset = $selection.offset();
+            const $selection = $self.siblings(CONTAINER_SELECTOR).find('.selection');
+            const offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
-            $("body").append($dropdown);
-            $dropdown.find(".select-list-search-results").focus();
+            $('body').append($dropdown);
+            $dropdown.find('.select-list-search-results').focus();
         },
 
         close: function () {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
-            $("#" + resultContainerId).remove();
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
+            $('#' + resultContainerId).remove();
         },
 
         toggle: function (option) {
-            var $this = $(this);
-            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
-            var resultContainerId = $selection.attr("aria-targetDropdown");
+            const $this = $(this);
+            const $selection = $this.siblings(CONTAINER_SELECTOR).find('.selection');
+            const resultContainerId = $selection.attr('aria-targetDropdown');
 
             if (resultContainerId && resultContainerId.length > 0) {
-                var $currentDropdown = $("#" + resultContainerId);
-                var isShowing = $currentDropdown.length > 0;
+                const $currentDropdown = $('#' + resultContainerId);
+                const isShowing = $currentDropdown.length > 0;
 
                 if (isShowing) {
                     $currentDropdown.remove();
                 }
                 else {
-                    if (typeof option.beforeOpen === "function") {
+                    if (typeof option.beforeOpen === 'function') {
                         option.beforeOpen.call(this);
                     }
 
                     _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 
-                    if (typeof option.afterOpen === "function") {
+                    if (typeof option.afterOpen === 'function') {
                         option.afterOpen.call(this);
                     }
                 }
@@ -624,7 +623,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         },
 
         disabled: function (isDisabled) {
-            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            const $selection = $(this).siblings(CONTAINER_SELECTOR).find('.selection');
             $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
@@ -1392,9 +1391,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! ./betsetting.validation */ "./www/js/source/pages/customer/betsetting/common/betsetting.validation.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, BetSettingValidation) {
     
-    var _me = {
+    const _me = {
         checkCopyAllValues: function ($checkbox) {
-            var enabled = $checkbox.prop("checked");
+            const enabled = $checkbox.prop('checked');
 
             _me.setCopyValueBetSetting($('input[id^="min"]'), enabled);
             _me.setCopyValueBetSetting($('input[id^="max-bet"]'), enabled);
@@ -1402,14 +1401,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         setCopyValueBetSetting: function ($inputTextList, enabled) {
-            var copyValue = $inputTextList.first().val();
+            const copyValue = $inputTextList.first().val();
 
             // Enable or disable textbox, except the first one
             $inputTextList.not(':eq(0)').each(function () {
                 $(this).prop('disabled', enabled);
             });
 
-            var firstSportsbookSportId = 1;
+            const firstSportsbookSportId = 1;
             if (!BetSettingValidation.checkLimitMinMaxBet(firstSportsbookSportId)) {
                 return false;
             }
@@ -1444,17 +1443,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         return /^\+?\d+$/.test(text);
     }
 
-    var _me = {
+    const _me = {
         showDialogMesage: function (title, message) {
-            var options = {
+            const options = {
                 title: title,
-                height: "auto",
-                id: "result-update-betsetting",
+                height: 'auto',
+                id: 'result-update-betsetting',
                 onOpen: function () {
                     $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
                 },
                 onClose: function () {
-                    $("#result-update-betsetting").remove();
+                    $('#result-update-betsetting').remove();
                     $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
                     setTimeout(function () {
                         Site.blockUI();
@@ -1464,19 +1463,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 width: 450
             };
 
-            var buttons = [
+            const buttons = [
                 {
-                    text: Site.getSingleResource("OK"),
+                    text: Site.getSingleResource('OK'),
                     isClosedOnClick: true,
-                    classes: "btn btn-submit"
+                    classes: 'btn btn-submit'
                 }];
 
             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
         },
 
         convertToFloat: function (str) {
-            var temp = str.replace(/,/g, "");
-            var temp2 = temp.replace(".", "");
+            const temp = str.replace(/,/g, '');
+            const temp2 = temp.replace('.', '');
 
             if (isInteger(temp2)) {
                 return parseFloat(temp);
@@ -1487,7 +1486,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         showBalloonMsg: function (elementSelector, strMsg) {
-            var contents = '<div onclick="hideBalloonMsg(\'' + elementSelector + '\')" style="width:140px;" class="msgerr">' + strMsg + '</div>';
+            const contents = '<div onclick="hideBalloonMsg(\'' + elementSelector + '\')" style="width:140px;" class="msgerr">' + strMsg + '</div>';
 
             $(elementSelector).blur(function () { _me.hideBalloonMsg(elementSelector); })
                               .focus()
@@ -1516,17 +1515,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
-    var SPORTID_NUMBERGAME = 161;
+    const SPORTID_NUMBERGAME = 161;
 
-    var _me = {
+    const _me = {
         checkValidationNumberGame: function () {
             if (!_me.checkLimitMinMaxBet(SPORTID_NUMBERGAME)) {
                 return false;
             }
 
-            var maxPerBallSelector = "#max-per-ball-161";
-            var maxPerBall = BetSettingHelper.convertToFloat($(maxPerBallSelector).val());
-            var maxPerBallLimit = BetSettingHelper.convertToFloat($(maxPerBallSelector).attr('data-max-value'));
+            const maxPerBallSelector = '#max-per-ball-161';
+            const maxPerBall = BetSettingHelper.convertToFloat($(maxPerBallSelector).val());
+            const maxPerBallLimit = BetSettingHelper.convertToFloat($(maxPerBallSelector).attr('data-max-value'));
 
             if (isNaN(maxPerBall)) {
                 BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('IncorrectMaxPerBall'));
@@ -1534,7 +1533,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             }
 
             if (maxPerBallLimit > 0 && maxPerBall > maxPerBallLimit) {
-                BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('MaxPerBallLessThanOrEqual') + " " + maxPerBallLimit);
+                BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('MaxPerBallLessThanOrEqual') + ' ' + maxPerBallLimit);
                 return false;
             }
 
@@ -1542,13 +1541,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         checkLimitMinMaxBet: function (sportId) {
-            var minBetId = "#min-bet-" + sportId;
-            var maxBetId = "#max-bet-" + sportId;
-            var maxPerMatchId = "#max-per-match-" + sportId;
+            const minBetId = '#min-bet-' + sportId;
+            const maxBetId = '#max-bet-' + sportId;
+            const maxPerMatchId = '#max-per-match-' + sportId;
 
-            var $minBetTextBox = $(minBetId);
-            var $maxBetTextBox = $(maxBetId);
-            var $maxPerMatchTextBox = $(maxPerMatchId);
+            const $minBetTextBox = $(minBetId);
+            const $maxBetTextBox = $(maxBetId);
+            const $maxPerMatchTextBox = $(maxPerMatchId);
             if ($minBetTextBox.length === 0 ||
                 $maxBetTextBox.length === 0 ||
                 $maxPerMatchTextBox.length === 0) {
@@ -1556,14 +1555,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             }
 
             // Get value in attribute
-            var limitMinBet = BetSettingHelper.convertToFloat($minBetTextBox.attr('data-min-value'));
-            var limitMaxBet = BetSettingHelper.convertToFloat($maxBetTextBox.attr('data-max-value'));
-            var limitMaxPerMatch = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-max-value'));
-            var limitMaxPerMatchMin = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-min-value'));
+            const limitMinBet = BetSettingHelper.convertToFloat($minBetTextBox.attr('data-min-value'));
+            const limitMaxBet = BetSettingHelper.convertToFloat($maxBetTextBox.attr('data-max-value'));
+            const limitMaxPerMatch = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-max-value'));
+            const limitMaxPerMatchMin = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-min-value'));
 
-            var minBet = BetSettingHelper.convertToFloat($minBetTextBox.val());
-            var maxBet = BetSettingHelper.convertToFloat($maxBetTextBox.val());
-            var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatchTextBox.val());
+            const minBet = BetSettingHelper.convertToFloat($minBetTextBox.val());
+            const maxBet = BetSettingHelper.convertToFloat($maxBetTextBox.val());
+            const maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatchTextBox.val());
 
             // Check if minbet, maxbet, maxpermatch is valid number
             if (isNaN(minBet)) {
@@ -1584,19 +1583,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             // Check contrains
             // min bet <=maxbet <= max per match
             if (limitMinBet > 0 && minBet < BetSettingHelper.convertToFloat(limitMinBet.toString())) {
-                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('MinBetGreaterThanOrEqual') + " " + limitMinBet);
+                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('MinBetGreaterThanOrEqual') + ' ' + limitMinBet);
                 return false;
             }
             if (limitMaxBet > 0 && maxBet > BetSettingHelper.convertToFloat(limitMaxBet.toString())) {
-                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('MaxBetLessThanOrEqual') + " " + limitMaxBet);
+                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('MaxBetLessThanOrEqual') + ' ' + limitMaxBet);
                 return false;
             }
             if (limitMaxPerMatchMin > 0 && maxPerMatcth < BetSettingHelper.convertToFloat(limitMaxPerMatchMin.toString())) {
-                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchMoreThanOrEqual') + " " + limitMaxPerMatchMin);
+                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchMoreThanOrEqual') + ' ' + limitMaxPerMatchMin);
                 return false;
             }
             if (limitMaxPerMatch > 0 && maxPerMatcth > BetSettingHelper.convertToFloat(limitMaxPerMatch.toString())) {
-                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchLessThanOrEqual') + " " + limitMaxPerMatch);
+                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchLessThanOrEqual') + ' ' + limitMaxPerMatch);
                 return false;
             }
             if (minBet > maxBet) {
@@ -1612,7 +1611,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         checkLimitMinMaxBets: function (sportIds) {
-            for (var i = 0; i < sportIds.length; i++) {
+            for (let i = 0; i < sportIds.length; i++) {
                 if (!_me.checkLimitMinMaxBet(sportIds[i])) {
                     return false;
                 }
@@ -1638,43 +1637,43 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! ./constant */ "./www/js/source/pages/customer/betsetting/common/constant.js"), __webpack_require__(/*! lib/numberformat */ "./www/js/source/lib/numberformat.js"), __webpack_require__(/*! ./betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js"), __webpack_require__(/*! ./betsetting.validation */ "./www/js/source/pages/customer/betsetting/common/betsetting.validation.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
-        var Product = Constant.Product;
+        const Product = Constant.Product;
 
-        var _me = {
+        const _me = {
             initialize: function () {
-                $("#product-dropdown").on('change', function () {
-                    var url = $(this).find("option:selected").data("href");
+                $('#product-dropdown').on('change', function () {
+                    const url = $(this).find('option:selected').data('href');
                     Site.blockUI();
                     Site.redirect(url);
                 });
             },
 
             getSportIds: function () {
-                var $idList = $("#IDList");
-                return $idList.length ? $idList.val().split(",") : [];
+                const $idList = $('#IDList');
+                return $idList.length ? $idList.val().split(',') : [];
             },
 
             setEnable: function () {
-                var editable = $("#editable").val();
-                var isEnable = !editable || editable === "True";
+                const editable = $('#editable').val();
+                const isEnable = !editable || editable === 'True';
 
                 if (!isEnable) {
-                    var sportIds = _me.getSportIds();
+                    const sportIds = _me.getSportIds();
 
-                    for (var i = 0; i < sportIds.length; i++) {
-                        var sportId = sportIds[i];
-                        var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
-                        $(selector).prop("disabled", true);
+                    for (let i = 0; i < sportIds.length; i++) {
+                        const sportId = sportIds[i];
+                        const selector = '#min-bet-' + sportId + ',' + '#max-bet-' + sportId + ',' + '#max-per-match-' + sportId;
+                        $(selector).prop('disabled', true);
                     }
                 }
             },
 
             formatInputText: function () {
-                var formatter = new NumberFormatter();
+                const formatter = new NumberFormatter();
 
-                $("input[type=text]").blur(function () {
-                    var inputValue = $(this).val().replace(/,/g, "");
-                    var formattedValue = formatter.formatNumber(inputValue, { format: "#,###,##0.##" });
+                $('input[type=text]').blur(function () {
+                    const inputValue = $(this).val().replace(/,/g, '');
+                    const formattedValue = formatter.formatNumber(inputValue, { format: '#,###,##0.##' });
                     $(this).val(formattedValue);
                 });
             },
@@ -1687,57 +1686,57 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             showComfirm: function ($target, resourceMessage, callback) {
-                var productId = parseInt($("#ProductId").val());
-                var isValid = productId === Product.LiveCasino ? true :
+                const productId = parseInt($('#ProductId').val(), 10);
+                const isValid = productId === Product.LiveCasino ? true :
                              productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
                                                                 BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds());
                 if (!isValid) {
                     return;
                 }
 
-                var custId = $target.attr("data-cust-id");
-                var userName = $target.attr("data-user-name");
-                var nickName = $target.attr("data-nick-name");
+                const custId = $target.attr('data-cust-id');
+                const userName = $target.attr('data-user-name');
+                const nickName = $target.attr('data-nick-name');
 
                 _me.showConfirmAction(Site.getSingleResource(resourceMessage), custId, userName, nickName, callback);
             },
 
             showConfirmAction: function (message, custId, userName, nickName, callback) {
-                var options = {
-                    title: Site.getSingleResource("Confirmation"),
-                    height: "auto",
-                    id: "confirm-update-betsetting",
+                const options = {
+                    title: Site.getSingleResource('Confirmation'),
+                    height: 'auto',
+                    id: 'confirm-update-betsetting',
                     onOpen: function () {
                         $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
                     },
                     onClose: function () {
                         $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
-                        $("#confirm-update-betsetting").remove();
+                        $('#confirm-update-betsetting').remove();
                     },
                     width: 450
                 };
 
-                var buttons = [
+                const buttons = [
                     {
-                        text: Site.getSingleResource("OK"),
+                        text: Site.getSingleResource('OK'),
                         isClosedOnClick: true,
                         click: function () {
                             callback(custId, userName, nickName);
                         },
-                        classes: "btn btn-submit"
+                        classes: 'btn btn-submit'
                     }, {
-                        text: Site.getSingleResource("Cancel"),
+                        text: Site.getSingleResource('Cancel'),
                         isClosedOnClick: true,
-                        classes: "btn btn-cancel"
+                        classes: 'btn btn-cancel'
                     }];
 
                 Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
             },
 
             getBetSettingParamsForSports: function () {
-                var params = {};
-                var sportIds = _me.getSportIds();
-                for (var i = 0; i < sportIds.length; i++) {
+                const params = {};
+                const sportIds = _me.getSportIds();
+                for (let i = 0; i < sportIds.length; i++) {
                     $.extend(params, _me.getBetSettingParams(sportIds[i]));
                 }
 
@@ -1745,20 +1744,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             getBetSettingParams: function (sportId) {
-                var $minbet = $("#min-bet-" + sportId);
-                var $maxbet = $("#max-bet-" + sportId);
-                var $maxPerMatch = $("#max-per-match-" + sportId);
+                const $minbet = $('#min-bet-' + sportId);
+                const $maxbet = $('#max-bet-' + sportId);
+                const $maxPerMatch = $('#max-per-match-' + sportId);
 
                 if ($minbet.length === 0 ||
                     $maxbet.length === 0 ||
                     $maxPerMatch.length === 0) {
-                    return "";
+                    return '';
                 }
 
-                var isUpdate = true;
-                var originalMinBet = $('#min-bet-' + sportId).attr('data-original');
-                var originalMaxBet = $('#max-bet-' + sportId).attr('data-original');
-                var originalMaxPerMatch = $('#max-per-match-' + sportId).attr('data-original');
+                let isUpdate = true;
+                const originalMinBet = $('#min-bet-' + sportId).attr('data-original');
+                const originalMaxBet = $('#max-bet-' + sportId).attr('data-original');
+                const originalMaxPerMatch = $('#max-per-match-' + sportId).attr('data-original');
 
                 // Check if data is changed
                 if ($minbet.val() === originalMinBet
@@ -1768,17 +1767,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
 
                 // Data is changed, update it
-                var minBet = BetSettingHelper.convertToFloat($minbet.val());
-                var maxBet = BetSettingHelper.convertToFloat($maxbet.val());
-                var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
-                var betType = $("#bet-type-" + sportId).val();
+                const minBet = BetSettingHelper.convertToFloat($minbet.val());
+                const maxBet = BetSettingHelper.convertToFloat($maxbet.val());
+                const maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
+                const betType = $('#bet-type-' + sportId).val();
 
-                var result = {};
-                result["minbet" + sportId] = minBet;
-                result["maxbet" + sportId] = maxBet;
-                result["maxpermatch" + sportId] = maxPerMatcth;
-                result["update" + sportId] = isUpdate;
-                result["bettype" + sportId] = betType;
+                const result = {};
+                result['minbet' + sportId] = minBet;
+                result['maxbet' + sportId] = maxBet;
+                result['maxpermatch' + sportId] = maxPerMatcth;
+                result['update' + sportId] = isUpdate;
+                result['bettype' + sportId] = betType;
 
                 return result;
             },
@@ -1789,9 +1788,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     cache: false,
                     url: url,
                     data: params,
-                    dataType: "json",
+                    dataType: 'json',
                     success: function (result) {
-                        var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
+                        const messageResource = Number(result.Code) === 0 ? 'MessageSuccess' : 'Fail';
                         BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
                     }
                 });
@@ -1814,7 +1813,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-    var Product = {
+    const Product = {
         Sportsbook: 0,
         Racing: 1,
         NumberGame: 2,
@@ -1826,9 +1825,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         GoldDeluxe: 11,
         Macau: 12,
         BetTrade: 13,
-        MgcLiveCasino: 14,
         Colossusbets: 15,
-        MgcRngCasino: 17,
         AllBet: 21,
         VoidBridge: 22,
         FishingWorld: 24,
@@ -1837,7 +1834,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         Lottery: 28
     };
 
-    var _me = {
+    const _me = {
         Product: Product
     };
 
@@ -1874,17 +1871,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ../common/constant */ "./www/js/source/pages/customer/betsetting/common/constant.js"), __webpack_require__(/*! ../common/betsettingbase */ "./www/js/source/pages/customer/betsetting/common/betsettingbase.js"), __webpack_require__(/*! ../common/betsetting.copy */ "./www/js/source/pages/customer/betsetting/common/betsetting.copy.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Constant, BetSettingBase, BetSettingCopy) {
-    var Product = Constant.Product;
+    const Product = Constant.Product;
 
     function getConfirmMessage(productId) {
-        return parseInt(productId) === Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
+        return parseInt(productId, 10) === Product.Sportsbook ? 'UpdateSportsbookBetSettings' : '';
     }
 
     function getUpdateUrl(productId) {
-        return parseInt(productId) === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
+        return parseInt(productId, 10) === Product.Sportsbook ? 'SportsbookBetSetting/UpdateBetSetting' : null;
     }
 
-    var _me = {
+    const _me = {
         initialize: function () {
             Site.initialize();
             BetSettingBase.initialize();
@@ -1899,13 +1896,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             });
 
             // Bind event
-            $("#btnReset").on("click", function () {
+            $('#btnReset').on('click', function () {
                 BetSettingBase.resetInput();
             });
 
-            $("#btnSubmitBetSetting").on("click", function () {
-                var productId = parseInt($("#ProductId").val());
-                var messageResource = getConfirmMessage(productId);
+            $('#btnSubmitBetSetting').on('click', function () {
+                const productId = parseInt($('#ProductId').val(), 10);
+                const messageResource = getConfirmMessage(productId);
 
                 BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
             });
@@ -1915,14 +1912,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         updateBetSetting: function (custId, userName, nickName) {
-            var productId = parseInt($("#ProductId").val());
-            var url = getUpdateUrl(productId);
+            const productId = parseInt($('#ProductId').val(), 10);
+            const url = getUpdateUrl(productId);
 
             if (url === null) {
                 return;
             }
 
-            var params = BetSettingBase.getBetSettingParamsForSports();
+            const params = BetSettingBase.getBetSettingParamsForSports();
             params.custid = custId;
             params.userName = userName;
             params.nickName = nickName;
@@ -1937,7 +1934,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 44:
+/***/ 42:
 /*!**************************************************************************!*\
   !*** multi ./www/js/source/pages/customer/betsetting/main-betsetting.js ***!
   \**************************************************************************/

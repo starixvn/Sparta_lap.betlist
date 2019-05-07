@@ -7,7 +7,6 @@
 namespace Fanex.Athena.DataAccess.Core
 {
     using System;
-    using System.Data;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Data;
@@ -17,8 +16,8 @@ namespace Fanex.Athena.DataAccess.Core
         [CLSCompliant(false)]
         protected static void AddResultParam(IObjectDb db)
         {
-            db.AddOutParameter("ErrCode", DbType.Int32, 4);
-            db.AddOutParameter("ErrMsg", DbType.String, 4000);
+            db.SetParameterValue("ErrCode", null);
+            db.SetParameterValue("ErrMsg", null);
         }
 
         [CLSCompliant(false)]

@@ -113,6 +113,25 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
         }
 
         [Test]
+        public void ProcessUi_NotHaveHidenColumns_DoNothing()
+        {
+            // Arrange
+            var betListExcel = CreateBetListExcel(hiddenColumns: null);
+            var sheet = Substitute.For<ISheet>();
+            var workbook = Substitute.For<IWorkbook>();
+            workbook.GetSheetAt(0).Returns(sheet);
+
+            // Action
+            betListExcel.ProcessUi(workbook);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                sheet.DidNotReceiveWithAnyArgs().SetColumnHidden(Arg.Any<int>(), Arg.Any<bool>());
+            });
+        }
+
+        [Test]
         public void ProcessUi_FakeLicensee_HideSystemIdColumn()
         {
             // Arrange
@@ -144,7 +163,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
                 _ticketHelper,
                 showingOption ?? new BetListShowingOption(),
                 LicenseeId,
-                hiddenColumns ?? new int[] { },
+                hiddenColumns,
                 false);
             betListExcel.CreateExcelBuilder().Returns(_builder);
             return betListExcel;

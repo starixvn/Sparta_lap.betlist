@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
+    using System.Threading.Tasks;
     using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -23,7 +24,7 @@
         }
 
         [Test]
-        public void GetOutrightDataList_WhenCall_DataReturnedCorrectly()
+        public async Task GetOutrightDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var metaModel = new OutrightMetaModel();
@@ -38,7 +39,7 @@
             ConfigureReaderForGetOutrightDataListMethod(expected);
 
             // Action
-            var result = DataAccess.GetOutrightDataList(metaModel)[0];
+            var result = (await DataAccess.GetOutrightDataList(metaModel))[0];
 
             // Assert
             Assert.Multiple(() =>

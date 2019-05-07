@@ -1,6 +1,6 @@
-﻿"use strict";
-define(["jquery", "common/site", "../common/betsettingbase"], function ($, Site, BetSettingBase) {
-    var _me = {
+﻿'use strict';
+define(['jquery', 'common/site', '../common/betsettingbase'], function ($, Site, BetSettingBase) {
+    const _me = {
         initialize: function () {
             Site.initialize();
             BetSettingBase.initialize();
@@ -9,11 +9,11 @@ define(["jquery", "common/site", "../common/betsettingbase"], function ($, Site,
         },
 
         initEvent: function () {
-            $("#btnReset").on("click", function () {
+            $('#btnReset').on('click', function () {
                 BetSettingBase.resetInput();
             });
 
-            $("#btnSubmitBetSetting").on("click", function () {
+            $('#btnSubmitBetSetting').on('click', function () {
                 BetSettingBase.showComfirm($(this), 'UpdateKenoBetSettings', _me.updateBetSetting);
             });
 
@@ -22,12 +22,12 @@ define(["jquery", "common/site", "../common/betsettingbase"], function ($, Site,
         },
 
         updateBetSetting: function (custId, userName, nickName) {
-            var url = Site.resolveClientUrl('KenoBetSetting/UpdateBetSetting');
-            var params = BetSettingBase.getBetSettingParamsForSports();
+            const url = Site.resolveClientUrl('KenoBetSetting/UpdateBetSetting');
+            const params = BetSettingBase.getBetSettingParamsForSports();
             params.custid = custId;
             params.userName = userName;
             params.nickName = nickName;
-            params.id = $("#IDList").val();
+            params.id = $('#IDList').val();
 
             BetSettingBase.updateBetSetting(url, params);
         }

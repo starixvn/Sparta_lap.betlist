@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
@@ -41,7 +42,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(ThirdPartyWinLossMetaModel metaModel)
+        public Task<dynamic> Index(ThirdPartyWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
@@ -140,7 +141,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private SortableReportResultModel<AgCasinoBalance> GetData(ThirdPartyWinLossMetaModel metaModel)
+        private async Task<SortableReportResultModel<AgCasinoBalance>> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(
                 metaModel.DrillDownCurrencyId == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId,
@@ -148,24 +149,24 @@ namespace Fanex.Athena.Api.Report
             var userCurrencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.DrillDownLevel == 0)
             {
-                var result = _agcasinoBalanceDataAccess.GetSummaryBalance(metaModel, userCurrencyList);
+                var result = await _agcasinoBalanceDataAccess.GetSummaryBalance(metaModel, userCurrencyList).ConfigureAwait(false);
                 AssignRowSpan(result.DataList);
                 return result;
             }
             else
             {
                 return metaModel.DrillDownLevel == 1 ?
-                    _agcasinoBalanceDataAccess.GetAgentBalanceDetail(metaModel, userCurrencyList) :
-                    _agcasinoBalanceDataAccess.GetCustomerBalanceDetail(metaModel, userCurrencyList);
+                    await _agcasinoBalanceDataAccess.GetAgentBalanceDetail(metaModel, userCurrencyList).ConfigureAwait(false) :
+                    await _agcasinoBalanceDataAccess.GetCustomerBalanceDetail(metaModel, userCurrencyList).ConfigureAwait(false);
             }
         }
 
-        private dynamic ProcessRequest(ThirdPartyWinLossMetaModel metaModel)
+        private async Task<dynamic> ProcessRequest(ThirdPartyWinLossMetaModel metaModel)
         {
             if (IsValidRequest(metaModel.CurrencyId, metaModel.DrillDownCurrencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                var result = GetData(metaModel);
+                var result = await GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {

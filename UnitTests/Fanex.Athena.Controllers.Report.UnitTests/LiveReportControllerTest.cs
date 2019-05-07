@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
@@ -24,7 +25,7 @@
     using Web.ResultExtension;
 
     [TestFixture]
-    public class LiveReportControllerTest : BaseControllerHelperTest
+    public class LiveReportControllerTest : CultureBaseControllerHelperTest
     {
         private const int CurrencyId = 999;
 
@@ -79,7 +80,7 @@
         }
 
         [Test]
-        public void IndexPost_NotExportExcel_ReturnCorrectViewResult()
+        public async Task IndexPost_NotExportExcel_ReturnCorrectViewResult()
         {
             using (var controller = CreateController("AB,BC,CD"))
             {
@@ -97,7 +98,7 @@
                 _liveReportService.GetLiveReportSummary(metaModel).Returns(expectedData);
 
                 // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
+                var viewResult = await controller.Index(metaModel) as ViewResult;
                 var viewModel = viewResult.Model as LiveReportViewModel;
 
                 // Assert
@@ -118,7 +119,7 @@
         [TestCase("AB", false, true)]
         [TestCase("BA,AB", true, false)]
         [TestCase("AB", false, false)]
-        public void IndexPost_ExportExcel_PassParamsToCreateExcelCorrectly(string productCodeList, bool expectedBaVisible, bool expectedRbVisible)
+        public async Task IndexPost_ExportExcel_PassParamsToCreateExcelCorrectly(string productCodeList, bool expectedBaVisible, bool expectedRbVisible)
         {
             using (var controller = CreateController(productCodeList))
             {
@@ -140,7 +141,7 @@
                 _liveReportService.GetLiveReportSummary(metaModel).Returns(expectedData);
 
                 // Action
-                var result = controller.Index(metaModel);
+                var result = await controller.Index(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
@@ -160,7 +161,7 @@
         }
 
         [Test]
-        public void MatchList_WhenGet_ReturnCorrectViewResult()
+        public async Task MatchList_WhenGet_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
             {
@@ -174,7 +175,7 @@
                 _liveReportService.GetLiveReportWinLossByMatch(metaModel).Returns(dataList);
 
                 // Action
-                var viewResult = controller.MatchList(metaModel) as ViewResult;
+                var viewResult = await controller.MatchList(metaModel) as ViewResult;
                 var viewModel = viewResult.Model as LiveReportMatchListViewModel;
 
                 // Assert
@@ -191,7 +192,7 @@
 
         [TestCase("ALL", "AB,BC,CD")]
         [TestCase("CD", "CD")]
-        public void Detail_WhenGet_ReturnCorrectViewResult(string productCode, string expectedProductCodeList)
+        public async Task Detail_WhenGet_ReturnCorrectViewResult(string productCode, string expectedProductCodeList)
         {
             using (var controller = CreateController("AB,BC,CD"))
             {
@@ -210,7 +211,7 @@
                 _liveReportService.GetLiveReportSumaryDetail(metaModel, UserCurrencyList, Arg.Any<IEnumerable<Product>>()).Returns(resultModel);
 
                 // Action
-                var viewResult = controller.Detail(metaModel, productCode) as ViewResult;
+                var viewResult = await controller.Detail(metaModel, productCode) as ViewResult;
                 var viewModel = viewResult.Model as LiveReportDetailViewModel;
 
                 // Assert

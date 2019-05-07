@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -10,7 +11,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public partial class MenuControllerTest : BaseControllerHelperTest
+    public partial class MenuControllerTest : CultureBaseControllerHelperTest
     {
         private IFunctionService _functionService;
 

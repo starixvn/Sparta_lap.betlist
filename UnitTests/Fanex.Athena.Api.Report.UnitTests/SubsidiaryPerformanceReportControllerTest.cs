@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Base.UnitTests;
     using Constant.DataDomain;
     using Fanex.Athena.Service.Report.Interfaces;
@@ -48,7 +49,7 @@
         }
 
         [Test]
-        public void Index_SubsidiaryView_DoNotCallServiceToGetSubsidiaryList()
+        public async Task Index_SubsidiaryView_DoNotCallServiceToGetSubsidiaryList()
         {
             // Arrange
             var metaModel = GetMetaModel();
@@ -67,7 +68,7 @@
             _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>()).Returns(resultData);
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -78,7 +79,7 @@
         }
 
         [Test]
-        public void Index_LicenseeView_CallServiceToGetSubsidiaryList()
+        public async Task Index_LicenseeView_CallServiceToGetSubsidiaryList()
         {
             // Arrange
             var metaModel = GetMetaModel();
@@ -100,7 +101,7 @@
             _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>()).Returns(resultData);
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -111,7 +112,7 @@
         }
 
         [Test]
-        public void Index_FromDateIsGreaterThanToDate_DoNotCallService()
+        public async Task Index_FromDateIsGreaterThanToDate_DoNotCallService()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -123,14 +124,14 @@
             };
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
-            _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
+            await _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
         }
 
         [Test]
-        public void Index_ProductCodeListIsEmpty_DoNotCallService()
+        public async Task Index_ProductCodeListIsEmpty_DoNotCallService()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -142,14 +143,14 @@
             };
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
-            _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
+            await _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
         }
 
         [Test]
-        public void Index_BaseCurrencyIsEmpty_DoNotCallService()
+        public async Task Index_BaseCurrencyIsEmpty_DoNotCallService()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -160,27 +161,27 @@
             };
 
             // Action
-            _controller.Index(metaModel);
+            await _controller.Index(metaModel);
 
             // Assert
-            _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
+            await _service.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), Arg.Any<IDictionary<int, string>>());
         }
 
         [Test]
-        public void Index_MetaModelIsNotValid_ReturnEmptyList()
+        public async Task Index_MetaModelIsNotValid_ReturnEmptyList()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel();
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.Empty);
         }
 
         [Test]
-        public void Index_InvalidSubsidiaryList_ReturnEmptyList()
+        public async Task Index_InvalidSubsidiaryList_ReturnEmptyList()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -193,7 +194,7 @@
             };
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = await _controller.Index(metaModel);
 
             // Assert
             Assert.That(result.Data, Is.Empty);

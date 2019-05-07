@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Constant.DataDomain;
@@ -14,7 +15,7 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public partial class UserGuideControllerTest : BaseControllerHelperTest
+    public partial class UserGuideControllerTest : CultureBaseControllerHelperTest
     {
         private const string DefaultLanguage = "en-US";
 
@@ -359,10 +360,10 @@
         private UserGuideController CreateController()
         {
             var controller = new UserGuideController(
-                LangService, 
-                SessionService, 
-                AppSettings, 
-                _fileSystem, 
+                LangService,
+                SessionService,
+                AppSettings,
+                _fileSystem,
                 _productService,
                 _balanceUpDataAccess)
             {

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
@@ -12,7 +13,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class OutrightTotalBetControllerTest : BaseControllerHelperTest
+    public class OutrightTotalBetControllerTest : CultureBaseControllerHelperTest
     {
         private IOutrightDataAccess _outrightDataAccess;
 
@@ -37,12 +38,12 @@
         }
 
         [Test]
-        public void Index_WhenGet_ReturnMainView()
+        public async Task Index_WhenGet_ReturnMainView()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
 
                 // Assert
                 StringAssert.Contains("TotalBets/Outright/Main.cshtml", viewResult.ViewName);
@@ -50,22 +51,22 @@
         }
 
         [Test]
-        public void Index_WhenGet_GetDataFromService()
+        public async Task Index_WhenGet_GetDataFromService()
         {
             using (var controller = CreateController())
             {
                 // Action
-                var viewResult = controller.Index() as ViewResult;
+                var viewResult = await controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as OutrightViewModel;
 
                 // Assert
-                _outrightDataAccess.ReceivedWithAnyArgs().GetOutrightDataList(Arg.Any<OutrightMetaModel>());
+                await _outrightDataAccess.ReceivedWithAnyArgs().GetOutrightDataList(Arg.Any<OutrightMetaModel>());
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
 
         [Test]
-        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
+        public async Task Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
             using (var controller = CreateController())
             {
@@ -76,7 +77,7 @@
                 };
 
                 // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
+                var viewResult = await controller.Index(metaModel) as RedirectResult;
 
                 // Assert
                 Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));

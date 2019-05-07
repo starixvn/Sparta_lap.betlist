@@ -7,13 +7,14 @@
 namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Model.Core.MetaModel.Common;
 
     public interface ILeagueDataAccess
     {
-        IEnumerable<League> GetLeaguesBySport(LeagueMetaModel metaModel);
+        Task<IEnumerable<League>> GetLeaguesBySport(LeagueMetaModel metaModel);
 
-        IEnumerable<League> GetRunningLeagues(string agentList, string betTypes);
+        Task<IEnumerable<League>> GetRunningLeagues(string agentList, string betTypes);
     }
 }

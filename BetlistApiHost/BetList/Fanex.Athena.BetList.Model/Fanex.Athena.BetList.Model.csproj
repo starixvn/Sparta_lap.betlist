@@ -132,7 +132,6 @@
     <Compile Include="DTO\BetListTotalData.cs" />
     <Compile Include="DTO\CashOutTicketText.cs" />
     <Compile Include="DTO\CashOutTicket.cs" />
-    <Compile Include="DTO\CustomerCancelBetItem.cs" />
     <Compile Include="DTO\DailyStatement.cs" />
     <Compile Include="DTO\ExchangeBetList.cs" />
     <Compile Include="DTO\ExchangeSumWinLoss.cs" />
@@ -159,7 +158,6 @@
     <Compile Include="MetaModel\BetListShowingOption.cs" />
     <Compile Include="MetaModel\SingleCustomersBetListMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueBetListMetaModel.cs" />
-    <Compile Include="MetaModel\DailyBetListMetaModel.cs" />
     <Compile Include="MetaModel\CashOutBetListDetailMetaModel.cs" />
     <Compile Include="MetaModel\ColossusBetDetailMetaModel.cs" />
     <Compile Include="MetaModel\SystemParlayDetailMetaModel.cs" />
@@ -189,6 +187,11 @@
       <Project>{90F037EA-E730-44D0-8957-5FCA2295D22E}</Project>
       <Name>Fanex.Athena.Common.Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.11.0.8083\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

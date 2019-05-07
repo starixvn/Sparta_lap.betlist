@@ -1,5 +1,5 @@
-﻿define(["./settledmatchcount"], function (SettledMatchCount) {
-    "use strict";
+﻿define(['./settledmatchcount'], function (SettledMatchCount) {
+    'use strict';
 
     $(SettledMatchCount.initialize);
 });

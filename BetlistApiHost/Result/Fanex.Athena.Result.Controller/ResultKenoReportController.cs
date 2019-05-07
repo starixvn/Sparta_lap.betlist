@@ -31,11 +31,11 @@
         {
             try
             {
-                return _kenoApi.CreateKenoResultUrl(GetKenoSetting(vendorProductId), userId, DateTime.Now);
+                return _kenoApi.CreateKenoResultAddress(GetKenoSetting(vendorProductId), userId, DateTime.Now);
             }
             catch (Exception exception)
             {
-                _logger.Error(exception.Message, exception);
+                _logger.ErrorAsync(exception.Message, exception);
 
                 return string.Empty;
             }
@@ -51,7 +51,7 @@
             }
             catch (Exception exception)
             {
-                _logger.Error(exception.Message, exception);
+                _logger.ErrorAsync(exception.Message, exception);
 
                 return Json(new KenoExtendedToken
                 {

@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.BetSettings
 {
-    using System.Data;
+    using System.Threading.Tasks;
     using Common;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.BetSettings.DTO;
@@ -15,18 +15,18 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class ThirdPartyBetSettingDataAccess : BaseDataAccess, IThirdPartyBetSettingDataAccess
     {
-        public ThirdPartyBetSetting GetBetSetting(int custId, int productid)
+        public async Task<ThirdPartyBetSetting> GetBetSettingAsync(int custId, int productid)
         {
-            var uspName = "Lrf_3rdProductSelCustStatus";
-            using (var db = this.GetObjectDb(uspName))
+            const string UspName = "Lrf_3rdProductSelCustStatus";
+            using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, productid);
-                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("Currency", DbType.Int32, 1);
+                db.SetParameterValue("CustID", custId);
+                db.SetParameterValue("ProductId", productid);
+                db.SetParameterValue("IsEnabled", null);
+                db.SetParameterValue("IsLineEnabled", null);
+                db.SetParameterValue("Currency", null);
 
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 return new ThirdPartyBetSetting
                 {
@@ -37,7 +37,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        public IResultInfo UpdateStatus(
+        public async Task<IResultInfo> UpdateStatusAsync(
             int productId,
             int userId,
             int custId,
@@ -45,20 +45,20 @@ namespace Fanex.Athena.DataAccess.BetSettings
             string ip,
             bool isEnabled)
         {
-            var uspName = "Lrf_3rdProductUpdCustStatus";
+            const string UspName = "Lrf_3rdProductUpdCustStatus";
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("productid", DbType.Int32, productId);
-                db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
-                db.AddInParameter("ip", DbType.String, ip);
-                db.AddInParameter("language", DbType.String, language);
+                db.SetParameterValue("custid", custId);
+                db.SetParameterValue("userid", userId);
+                db.SetParameterValue("productid", productId);
+                db.SetParameterValue("isenabled", isEnabled);
+                db.SetParameterValue("ip", ip);
+                db.SetParameterValue("language", language);
 
-                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+                db.SetParameterValue("ErrMsg", null);
 
-                db.ExecuteNonQuery();
+                await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var errorMessage = db.GetParameterValue("ErrMsg");
 

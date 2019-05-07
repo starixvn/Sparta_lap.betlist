@@ -17,7 +17,7 @@ namespace Fanex.Athena.Controllers
     using Web.ActionFilter;
 
     [AuthorizeRestriction(AppMode.Self)]
-    public class MenuController : BaseController
+    public class MenuController : CultureBaseController
     {
         private readonly IFunctionService _functionService;
 
@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers
                 IsAllowedCustonmerCommission = licenseeSession.IsAllowedCustomerComm,
                 IsInternalLogin = userSession.IsInternal,
                 IsAllowedManagementMember = canManageMember,
-                IsFakeLicensee = IsFakeLicensee()
+                IsFakeLicensee = IsFakeLicensee(licenseeSession.LicenseeId)
             };
 
             viewModel.MasterFunctions = _functionService.GetMasterFunctions(viewModel.UserFunctions);

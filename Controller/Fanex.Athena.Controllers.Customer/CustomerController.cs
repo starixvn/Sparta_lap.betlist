@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Constant.DataDomain;
     using DataAccess.Core.Users.Interfaces;
@@ -31,7 +32,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class CustomerController : BaseController
+    public class CustomerController : ContentBaseController
     {
         private const string GROUP = "Group";
         private const string BASTATUS = "BAStatus";
@@ -87,13 +88,13 @@ namespace Fanex.Athena.Controllers.Customer
         #region Action
 
         [HttpGet]
-        public ActionResult CustomerList(string userName = "", int groupId = -1)
+        public async Task<ActionResult> CustomerList(string userName = "", int groupId = -1)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
             var productAccess = this._productService.GetProductAccess(licenseeId, userSession.Language);
             var allowLicensees = AppSettings.LicenseeOfferStatusFunction;
-            var placeholderUsername = IsFakeLicensee() ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
+            var placeholderUsername = IsFakeLicensee(licenseeId) ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             var metaModel = new CustomerListMetaModel
             {
                 Username = userName == placeholderUsername ? string.Empty : userName,
@@ -106,7 +107,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var model = CreateCustomerViewModel(metaModel);
+            var model = await CreateCustomerViewModel(metaModel);
 
             if (!model.IsSubsidiary)
             {
@@ -120,11 +121,11 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public dynamic CustomerList(CustomerListMetaModel metaModel)
+        public async Task<dynamic> CustomerList(CustomerListMetaModel metaModel)
         {
             AssignMetaModelData(metaModel);
 
-            var result = _customerListService.GetActiveCustomers(metaModel);
+            var result = await _customerListService.GetActiveCustomers(metaModel).ConfigureAwait(false);
             return new JsonResult
             {
                 Data = new
@@ -139,11 +140,11 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public dynamic DormantCustomerList(CustomerListMetaModel metaModel)
+        public async Task<dynamic> DormantCustomerList(CustomerListMetaModel metaModel)
         {
             AssignMetaModelData(metaModel);
 
-            var result = _customerListService.GetDormantCustomers(metaModel);
+            var result = await _customerListService.GetDormantCustomers(metaModel).ConfigureAwait(false);
             return new JsonResult
             {
                 Data = new
@@ -157,7 +158,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult ExportExcel(string excelParam)
+        public async Task<ActionResult> ExportExcel(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))
             {
@@ -176,7 +177,7 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
 
-                    var model = GetCustomers(metaModel);
+                    var model = await GetCustomers(metaModel).ConfigureAwait(false);
                     var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
                     var reportTitle = ViewResources.CustomerList + " - "
                         + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
@@ -194,7 +195,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult ExportExcelDormantCustomer(string excelParam)
+        public async Task<ActionResult> ExportExcelDormantCustomer(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))
             {
@@ -209,7 +210,7 @@ namespace Fanex.Athena.Controllers.Customer
 
                 var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/DormantCustomerList.xls");
 
-                var resultModel = _customerListService.GetDormantCustomers(metaModel);
+                var resultModel = await _customerListService.GetDormantCustomers(metaModel).ConfigureAwait(false);
                 if (resultModel.DataList.Any())
                 {
                     var fileName = "DormantCustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
@@ -276,17 +277,18 @@ namespace Fanex.Athena.Controllers.Customer
 
         private void AssignMetaModelData(CustomerListMetaModel metaModel)
         {
-            var placeholderUsername = IsFakeLicensee() ?
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var placeholderUsername = IsFakeLicensee(licenseeId) ?
                             ViewResources.ExternalId :
                             ViewResources.ExternalIdOrSystemId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
+            metaModel.LicenseeId = licenseeId;
             metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(metaModel.LicenseeId);
             metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
         }
 
-        private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel)
+        private async Task<CustomerListViewModel> CreateCustomerViewModel(CustomerListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -301,7 +303,7 @@ namespace Fanex.Athena.Controllers.Customer
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                IsFakeLicensee = IsFakeLicensee(),
+                IsFakeLicensee = IsFakeLicensee(licenseeSession.LicenseeId),
                 IsSubsidiary = isSubsidiary,
                 HasSubsidiaryList = userSession.IsManageableSubsidiary,
                 SubsidiaryList = subsidiaryNames.Select(x => new CheckedItem
@@ -312,18 +314,18 @@ namespace Fanex.Athena.Controllers.Customer
             };
             if (!isSubsidiary && licenseeSession.IsAllowedCustomerComm)
             {
-                model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
-                model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId);
+                model.GroupCommDataList = await _groupComService.GetAll(licenseeSession.LicenseeId).ConfigureAwait(false);
+                model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId, licenseeSession.LicenseeId);
             }
 
             return model;
         }
 
-        private CustomerListViewModel GetCustomers(CustomerListMetaModel metaModel)
+        private async Task<CustomerListViewModel> GetCustomers(CustomerListMetaModel metaModel)
         {
-            var model = CreateCustomerViewModel(metaModel);
+            var model = await CreateCustomerViewModel(metaModel).ConfigureAwait(false);
 
-            var result = _customerListService.GetActiveCustomers(model.Param);
+            var result = await _customerListService.GetActiveCustomers(model.Param).ConfigureAwait(false);
             model.DataList = result.DataList;
             model.TotalRows = result.TotalRows;
 
@@ -368,7 +370,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
             var isSubsidiary = SessionService.UserSession.UserLevel == UserLevelType.Subsidiary;
-            var isFakeLicensee = IsFakeLicensee();
+            var isFakeLicensee = IsFakeLicensee(licenseeSession.LicenseeId);
             var gridColumns = isFakeLicensee ? GridColumnsForFakeLincesee : GridColumns;
             var items = new List<CheckedItem>();
             foreach (var name in gridColumns)

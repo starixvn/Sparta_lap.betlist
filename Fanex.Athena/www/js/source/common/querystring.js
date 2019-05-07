@@ -1,13 +1,13 @@
 ﻿/// <reference path="/@JSense.js" />
-define(["jquery"], function ($) {
-    "use strict";
+define(['jquery'], function ($) {
+    'use strict';
 
-    var parseQueryString = function (queryString) {
-        var args = queryString.split('&');
-        var argsList = {};
+    function parseQueryString(queryString) {
+        const args = queryString.split('&');
+        const argsList = {};
 
-        for (var i = 0; i < args.length; i++) {
-            var arg = unescape(args[i]);
+        for (let i = 0; i < args.length; i++) {
+            const arg = unescape(args[i]);
             if (arg.length > 0) {
                 if (arg.indexOf('=') === -1) {
                     argsList[$.trim(arg.toLowerCase())] = null;
@@ -22,29 +22,29 @@ define(["jquery"], function ($) {
         return argsList;
     };
 
-    var getQueryString = function (url) {
-        var index = url.indexOf("?");
+    function getQueryString(url) {
+        const index = url.indexOf("?");
         return index < 0 ? "" : url.substring(index + 1, url.length);
     };
 
-    var getRawUrl = function (url) {
-        var index = url.indexOf("?");
+    function getRawUrl(url) {
+        const index = url.indexOf("?");
         return index < 0 ? url : url.substring(0, index);
     };
 
     function setParam(url, name, value) {
-        var rawUrl = getRawUrl(url);
-        var queryString = getQueryString(url);
-        var args = parseQueryString(queryString);
+        const rawUrl = getRawUrl(url);
+        const queryString = getQueryString(url);
+        const args = parseQueryString(queryString);
 
-        if (name == null || name === undefined) {
+        if (name == null) {
             return url;
         }
 
         // Update value
-        var found = false;
-        for (var key in args) {
-            if (key != null && key !== undefined && key.toLowerCase() === name.toLowerCase()) {
+        let found = false;
+        for (let key in args) {
+            if (key != null && key.toLowerCase() === name.toLowerCase()) {
                 // Does not update data if value = undefined
                 if (value !== undefined) {
                     args[key] = value;
@@ -57,26 +57,27 @@ define(["jquery"], function ($) {
             args[name.toLowerCase()] = value;
         }
 
-        var queryArray = [];
+        const queryArray = [];
 
         // Rebuild query string, ignore null value
-        for (var key1 in args) {
+        for (let key1 in args) {
             if (args[key1] != null && args[key1] !== undefined) {
-                queryArray.push(key1.toLowerCase() + "=" + args[key1]);
+                queryArray.push(key1.toLowerCase() + '=' + args[key1]);
             }
         }
 
-        return rawUrl + "?" + queryArray.join("&");
+        return rawUrl + '?' + queryArray.join('&');
     }
 
     function setParams(url, parameters) {
-        for (var property in parameters) {
+        let returnUrl = url;
+        for (let property in parameters) {
             if (parameters.hasOwnProperty(property)) {
-                url = setParam(url, property, parameters[property]);
+                returnUrl = setParam(returnUrl, property, parameters[property]);
             }
         }
 
-        return url;
+        return returnUrl;
     }
 
     return {
@@ -85,10 +86,10 @@ define(["jquery"], function ($) {
         setParam: setParam,
         setParams: setParams,
         getParam: function (url, name) {
-            var queryString = getQueryString(url);
-            var args = parseQueryString(queryString);
+            let queryString = getQueryString(url);
+            const args = parseQueryString(queryString);
 
-            for (var key in args) {
+            for (let key in args) {
                 if (key != null && key.toLowerCase() === name.toLowerCase()) {
                     return args[key];
                 }

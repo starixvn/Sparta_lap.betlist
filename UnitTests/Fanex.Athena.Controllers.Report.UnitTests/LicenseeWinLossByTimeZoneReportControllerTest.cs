@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
@@ -10,7 +11,7 @@
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
 
-    public class LicenseeWinLossByTimeZoneReportControllerTest : BaseControllerHelperTest
+    public class LicenseeWinLossByTimeZoneReportControllerTest : CultureBaseControllerHelperTest
     {
         private IProductService _productService;
 

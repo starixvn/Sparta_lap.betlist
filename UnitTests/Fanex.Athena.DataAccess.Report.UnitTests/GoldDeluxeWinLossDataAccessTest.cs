@@ -55,7 +55,7 @@
             DataAccess.Public_UpdateUspParams(ObjectDb, metaModel, true);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("licenseeId", DbType.Int32, metaModel.LicenseeId);
+            ObjectDb.Received(1).SetParameterValue("licenseeId", metaModel.LicenseeId);
         }
 
         [Test]
