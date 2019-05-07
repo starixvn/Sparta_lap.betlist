@@ -78,7 +78,7 @@
                 };
             }
 
-            var result = await ValidateCurrencyList(userInfo).ConfigureAwait(false);
+            var result = await ValidateCurrencyList(userInfo);
             if (!result.IsSuccessful)
             {
                 return result;
