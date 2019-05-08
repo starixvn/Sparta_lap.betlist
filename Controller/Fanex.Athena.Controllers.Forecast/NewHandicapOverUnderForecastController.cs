@@ -85,7 +85,7 @@ namespace Fanex.Athena.Controllers.Forecast
                     metaModel.BaseCurrency = baseCurrency;
                 }
 
-                var viewModel = await GetViewModel(metaModel).ConfigureAwait(false);
+                var viewModel = await GetViewModel(metaModel).ConfigureAwait(true);
                 return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", viewModel);
             }
             else
@@ -101,7 +101,7 @@ namespace Fanex.Athena.Controllers.Forecast
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            var viewModel = await this.GetViewModel(metaModel).ConfigureAwait(false);
+            var viewModel = await GetViewModel(metaModel).ConfigureAwait(true);
             return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", viewModel);
         }
 
