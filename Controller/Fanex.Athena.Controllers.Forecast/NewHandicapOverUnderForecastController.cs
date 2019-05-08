@@ -101,7 +101,7 @@ namespace Fanex.Athena.Controllers.Forecast
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            var viewModel = await GetViewModel(metaModel).ConfigureAwait(true);
+            var viewModel = await GetViewModel(metaModel);
             return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", viewModel);
         }
 
@@ -109,7 +109,7 @@ namespace Fanex.Athena.Controllers.Forecast
         [CustomValidateAntiForgery]
         public async Task<ViewResult> GetMatchListByLeague(int leagueId)
         {
-            var matchList = (await _matchService.GetForecastMatchListByLeague(leagueId).ConfigureAwait(false)).OrderBy(x => x.MatchName).ToList();
+            var matchList = (await _matchService.GetForecastMatchListByLeague(leagueId)).OrderBy(x => x.MatchName).ToList();
             return View("~/Views/Desktop/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
         }
 
