@@ -27,6 +27,7 @@ namespace Fanex.Athena.DataAccess.Forecast
                 db.SetParameterValue("HomeScore", null);
                 db.SetParameterValue("AwayScore", null);
                 db.SetParameterValue("MatchTime", null);
+
                 using (var ds = await db.ExecuteDataSetAsync().ConfigureAwait(false))
                 {
                     var forecastData = new NewForecastHdpOuData();
@@ -59,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Forecast
                         }
                     }
 
-                    var date = db.GetParameterValue("MatchTime").ToString();
+                    var date = db.GetParameterValue("MatchTime")?.ToString();
                     matchInfo.HomeScore = Converter.ToInt(db.GetParameterValue("HomeScore"));
                     matchInfo.AwayScore = Converter.ToInt(db.GetParameterValue("AwayScore"));
                     matchInfo.KickOffDateString = string.IsNullOrEmpty(date)
