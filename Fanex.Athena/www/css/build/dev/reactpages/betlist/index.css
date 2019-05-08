@@ -40,7 +40,7 @@
     color: #D2592D; }
   .betlist-container a {
     text-decoration: none; }
-  .betlist-container .mx-parlay .void, .betlist-container .mx-parlay .reject, .betlist-container .mx-parlay .refund {
+  .betlist-container .mx-parlay .void, .betlist-container .mx-parlay .refund {
     text-decoration: line-through; }
   .betlist-container .line {
     border-bottom: 1px solid #A0A0A0;
