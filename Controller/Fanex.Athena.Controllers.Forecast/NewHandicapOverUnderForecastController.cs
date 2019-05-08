@@ -85,7 +85,7 @@ namespace Fanex.Athena.Controllers.Forecast
                     metaModel.BaseCurrency = baseCurrency;
                 }
 
-                var viewModel = await GetViewModel(metaModel).ConfigureAwait(true);
+                var viewModel = await GetViewModel(metaModel);
                 return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", viewModel);
             }
             else
@@ -134,13 +134,13 @@ namespace Fanex.Athena.Controllers.Forecast
 
                 if (!Request.IsAjaxRequest())
                 {
-                    await AssignDataForNonAjaxRequest(metaModel, model).ConfigureAwait(false);
+                    await AssignDataForNonAjaxRequest(metaModel, model);
                 }
 
                 metaModel.HomeTeamName = _cacheRefAdapter.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
                 metaModel.AwayTeamName = _cacheRefAdapter.GetTeamName(metaModel.AwayTeamId);
                 model.MainData = metaModel.IsValid ?
-                    await _forecastDataAccess.GetNewForecastData(metaModel, headerInfo).ConfigureAwait(false) :
+                    await _forecastDataAccess.GetNewForecastData(metaModel, headerInfo) :
                     new NewForecastHdpOuData();
                 model.HeaderInfo = headerInfo;
             }
@@ -154,13 +154,13 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private async Task AssignDataForNonAjaxRequest(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
         {
-            model.LeagueList = await _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).ConfigureAwait(false);
+            model.LeagueList = await _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString);
             if (model.LeagueList.Any())
             {
                 metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);
                 if (metaModel.LeagueId > 0)
                 {
-                    await AssignMatchData(metaModel, model).ConfigureAwait(false);
+                    await AssignMatchData(metaModel, model);
                 }
             }
 
@@ -169,7 +169,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private async Task AssignMatchData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
         {
-            model.MatchList = (await _matchService.GetForecastMatchListByLeague(metaModel.LeagueId).ConfigureAwait(false)).OrderBy(x => x.MatchName).ToList();
+            model.MatchList = (await _matchService.GetForecastMatchListByLeague(metaModel.LeagueId)).OrderBy(x => x.MatchName).ToList();
 
             if (model.MatchList.Count > 0)
             {
