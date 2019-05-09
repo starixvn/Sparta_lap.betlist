@@ -1,9 +1,7 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
-
-@{ 
-    var appSettings = new AppSettings();
+@{
+    var maxDate = DateTime.Today.AddDays(1);
 }
-
 <div class="page-form">
     @using (Html.BeginForm("Index", "MatchWinLossReport", FormMethod.Post, new { @id = "MatchWinLossForm" }))
     {
@@ -12,7 +10,7 @@
         <div class="row">
             @*// ----------------------------Date---------------------------//*@
             <div class="col l2 m3 s12 input-field calendar single-date">
-                @DesktopRazorHelper.SingleDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), appSettings.MaxDate, "Date")
+                @DesktopRazorHelper.SingleDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), maxDate, "Date")
             </div>
 
             @*// -----------------------------Currency-----------------------------------//*@
