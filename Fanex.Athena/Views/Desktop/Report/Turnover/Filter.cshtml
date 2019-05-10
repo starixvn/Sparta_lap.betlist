@@ -16,10 +16,13 @@
             @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
 
             <div class="input-field col l2 m3 s12">
-                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "currency", Model.Param.CurrencyId, false, true)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
-
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+                <label>@ViewResources.BaseCurrency</label>
+            </div>
             <div class="input-field col l2 m3 s12">
                 @Html.TextBox("Username", Model.Param.Username, new { placeholder = (Model.IsFakeLicensee ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId), autocomplete = "off" })
                 <label>@ViewResources.Username</label>

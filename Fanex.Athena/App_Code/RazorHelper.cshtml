@@ -89,3 +89,15 @@ if (addMoreAllOption)
         }
     </select>
 }
+@helper BasedCurrency(string selectedBasedCurrency = null, string CurrencyName = null)
+{
+selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
+selectedBasedCurrency = selectedBasedCurrency.ToLower();
+
+    <select class="based-currency" name="BaseCurrency" id="BaseCurrency" data-original="@selectedBasedCurrency">
+        <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>EUR</option>
+        <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>USD</option>
+        <option value="gbp" @(selectedBasedCurrency == "gbp" ? new HtmlString("selected=selected") : new HtmlString(""))>GBP</option>
+        <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
+    </select>
+}

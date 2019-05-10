@@ -254,6 +254,34 @@ module.exports = ods;
 
 /***/ }),
 
+/***/ "./www/js/source/reactpages/actions/baseCurrencyAction.js":
+/*!****************************************************************!*\
+  !*** ./www/js/source/reactpages/actions/baseCurrencyAction.js ***!
+  \****************************************************************/
+/*! exports provided: setSelectedBaseCurrency, setBaseCurrencyList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSelectedBaseCurrency", function() { return setSelectedBaseCurrency; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBaseCurrencyList", function() { return setBaseCurrencyList; });
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./www/js/source/reactpages/actions/types.js");
+
+var setSelectedBaseCurrency = function setSelectedBaseCurrency(baseCurrency) {
+  return {
+    type: _types__WEBPACK_IMPORTED_MODULE_0__["SET_SELECTED_BASECURRENCY"],
+    data: baseCurrency
+  };
+};
+var setBaseCurrencyList = function setBaseCurrencyList(baseCurrencyList) {
+  return {
+    type: _types__WEBPACK_IMPORTED_MODULE_0__["SET_BASECURRENCY_LIST"],
+    data: baseCurrencyList
+  };
+};
+
+/***/ }),
+
 /***/ "./www/js/source/reactpages/actions/currencyAction.js":
 /*!************************************************************!*\
   !*** ./www/js/source/reactpages/actions/currencyAction.js ***!
@@ -3731,16 +3759,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dataHandlerAction_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dataHandlerAction.js */ "./www/js/source/reactpages/pages/exchangewl/actions/dataHandlerAction.js");
 /* harmony import */ var _filterHandlerAction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filterHandlerAction.js */ "./www/js/source/reactpages/pages/exchangewl/actions/filterHandlerAction.js");
 /* harmony import */ var _actions_currencyAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/currencyAction */ "./www/js/source/reactpages/actions/currencyAction.js");
-/* harmony import */ var _actions_loaderAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/loaderAction */ "./www/js/source/reactpages/actions/loaderAction.js");
-/* harmony import */ var _actions_excludeTestAction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/excludeTestAction */ "./www/js/source/reactpages/actions/excludeTestAction.js");
-/* harmony import */ var _actions_dateRangeAction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/dateRangeAction */ "./www/js/source/reactpages/actions/dateRangeAction.js");
+/* harmony import */ var _actions_baseCurrencyAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/baseCurrencyAction */ "./www/js/source/reactpages/actions/baseCurrencyAction.js");
+/* harmony import */ var _actions_loaderAction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/loaderAction */ "./www/js/source/reactpages/actions/loaderAction.js");
+/* harmony import */ var _actions_excludeTestAction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/excludeTestAction */ "./www/js/source/reactpages/actions/excludeTestAction.js");
+/* harmony import */ var _actions_dateRangeAction__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/dateRangeAction */ "./www/js/source/reactpages/actions/dateRangeAction.js");
 
 
 
 
 
 
-var ActionCreators = Object.assign({}, _dataHandlerAction_js__WEBPACK_IMPORTED_MODULE_0__, _filterHandlerAction_js__WEBPACK_IMPORTED_MODULE_1__, _actions_currencyAction__WEBPACK_IMPORTED_MODULE_2__, _actions_loaderAction__WEBPACK_IMPORTED_MODULE_3__, _actions_excludeTestAction__WEBPACK_IMPORTED_MODULE_4__, _actions_dateRangeAction__WEBPACK_IMPORTED_MODULE_5__);
+
+var ActionCreators = Object.assign({}, _dataHandlerAction_js__WEBPACK_IMPORTED_MODULE_0__, _filterHandlerAction_js__WEBPACK_IMPORTED_MODULE_1__, _actions_currencyAction__WEBPACK_IMPORTED_MODULE_2__, _actions_baseCurrencyAction__WEBPACK_IMPORTED_MODULE_3__, _actions_loaderAction__WEBPACK_IMPORTED_MODULE_4__, _actions_excludeTestAction__WEBPACK_IMPORTED_MODULE_5__, _actions_dateRangeAction__WEBPACK_IMPORTED_MODULE_6__);
 
 /***/ }),
 
@@ -5096,19 +5126,13 @@ function (_Component) {
   }, {
     key: "_getParams",
     value: function _getParams() {
-      var _this3 = this;
-
       var param = {};
       var _this$props$dateRange = this.props.dateRange,
           fromDate = _this$props$dateRange.fromDate,
           toDate = _this$props$dateRange.toDate;
-      var baseCurrency = _constants_currency__WEBPACK_IMPORTED_MODULE_10__["BaseCurrency"].find(function (x) {
-        return x.value === _this3.props.selectedCurrency.value;
-      });
       param = {
         CurrencyId: this.props.selectedCurrency.value,
-        BaseCurrency: baseCurrency ? baseCurrency.text : "",
-        CurrencyName: baseCurrency ? baseCurrency.text : this.props.selectedCurrency.label,
+        BaseCurrency: this.props.selectedBaseCurrency,
         FromDate: _jsroot_lib_site__WEBPACK_IMPORTED_MODULE_7__["default"].convertDateToString(fromDate),
         ToDate: _jsroot_lib_site__WEBPACK_IMPORTED_MODULE_7__["default"].convertDateToString(toDate),
         ReportBy: this.props.selectedReportBy,
@@ -5137,7 +5161,7 @@ function (_Component) {
   }, {
     key: "_renderCurrencySelectList",
     value: function _renderCurrencySelectList() {
-      var _this4 = this;
+      var _this3 = this;
 
       var selectedCurrency = this.props.selectedCurrency;
       var currencyList = _jsroot_lib_AppData__WEBPACK_IMPORTED_MODULE_8__["default"].currencyList;
@@ -5147,9 +5171,25 @@ function (_Component) {
         value: selectedCurrency,
         options: currencyList,
         onChange: function onChange(item) {
-          return _this4.props.setSelectedCurrency(item);
+          return _this3.props.setSelectedCurrency(item);
         }
       });
+    }
+  }, {
+    key: "_renderBaseCurrencySelectList",
+    value: function _renderBaseCurrencySelectList() {
+      var _this4 = this;
+
+      var selectedBaseCurrency = this.props.selectedBaseCurrency;
+      var baseCurrencyList = _jsroot_lib_AppData__WEBPACK_IMPORTED_MODULE_8__["default"].baseCurrencyList;
+      return baseCurrencyList && baseCurrencyList.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        instanceId: "ddlBased",
+        value: selectedBaseCurrency,
+        options: baseCurrencyList,
+        onChange: function onChange(item) {
+          return _this4.props.setSelectedBaseCurrency(item.value);
+        }
+      }) : null;
     }
   }, {
     key: "_renderReportByOption",
@@ -5220,6 +5260,12 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "label-text"
       }, _lib_langHelper__WEBPACK_IMPORTED_MODULE_6__["default"].getSingleResource('Currency')), this._renderCurrencySelectList())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "label-text"
+      }, _lib_langHelper__WEBPACK_IMPORTED_MODULE_6__["default"].getSingleResource("BaseCurrency")), this._renderBaseCurrencySelectList())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-12 col-sm-4 col-md-2 col-xl-2"
       }, this._renderReportByOption()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-12 col-sm-3 col-md-2 col-xl-2"
@@ -6103,9 +6149,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dataHandlerReducer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dataHandlerReducer.js */ "./www/js/source/reactpages/pages/exchangewl/reducers/dataHandlerReducer.js");
 /* harmony import */ var _filterHandlerReducer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./filterHandlerReducer.js */ "./www/js/source/reactpages/pages/exchangewl/reducers/filterHandlerReducer.js");
 /* harmony import */ var _reducers_currencyReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../reducers/currencyReducer */ "./www/js/source/reactpages/reducers/currencyReducer.js");
-/* harmony import */ var _reducers_loaderReducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../reducers/loaderReducer */ "./www/js/source/reactpages/reducers/loaderReducer.js");
-/* harmony import */ var _reducers_excludeTestReducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../reducers/excludeTestReducer */ "./www/js/source/reactpages/reducers/excludeTestReducer.js");
-/* harmony import */ var _reducers_dateRangeReducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../reducers/dateRangeReducer */ "./www/js/source/reactpages/reducers/dateRangeReducer.js");
+/* harmony import */ var _reducers_baseCurrencyReducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../reducers/baseCurrencyReducer */ "./www/js/source/reactpages/reducers/baseCurrencyReducer.js");
+/* harmony import */ var _reducers_loaderReducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../reducers/loaderReducer */ "./www/js/source/reactpages/reducers/loaderReducer.js");
+/* harmony import */ var _reducers_excludeTestReducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../reducers/excludeTestReducer */ "./www/js/source/reactpages/reducers/excludeTestReducer.js");
+/* harmony import */ var _reducers_dateRangeReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../reducers/dateRangeReducer */ "./www/js/source/reactpages/reducers/dateRangeReducer.js");
 
 
 
@@ -6113,7 +6160,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(Object.assign(_dataHandlerReducer_js__WEBPACK_IMPORTED_MODULE_1__, _filterHandlerReducer_js__WEBPACK_IMPORTED_MODULE_2__, _reducers_currencyReducer__WEBPACK_IMPORTED_MODULE_3__, _reducers_loaderReducer__WEBPACK_IMPORTED_MODULE_4__, _reducers_excludeTestReducer__WEBPACK_IMPORTED_MODULE_5__, _reducers_dateRangeReducer__WEBPACK_IMPORTED_MODULE_6__)));
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(Object.assign(_dataHandlerReducer_js__WEBPACK_IMPORTED_MODULE_1__, _filterHandlerReducer_js__WEBPACK_IMPORTED_MODULE_2__, _reducers_currencyReducer__WEBPACK_IMPORTED_MODULE_3__, _reducers_baseCurrencyReducer__WEBPACK_IMPORTED_MODULE_4__, _reducers_loaderReducer__WEBPACK_IMPORTED_MODULE_5__, _reducers_excludeTestReducer__WEBPACK_IMPORTED_MODULE_6__, _reducers_dateRangeReducer__WEBPACK_IMPORTED_MODULE_7__)));
+
+/***/ }),
+
+/***/ "./www/js/source/reactpages/reducers/baseCurrencyReducer.js":
+/*!******************************************************************!*\
+  !*** ./www/js/source/reactpages/reducers/baseCurrencyReducer.js ***!
+  \******************************************************************/
+/*! exports provided: selectedBaseCurrency, baseCurrencyList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectedBaseCurrency", function() { return selectedBaseCurrency; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "baseCurrencyList", function() { return baseCurrencyList; });
+/* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./www/js/source/reactpages/actions/types.js");
+/* harmony import */ var _lib_createReducer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var selectedBaseCurrency = Object(_lib_createReducer_js__WEBPACK_IMPORTED_MODULE_1__["default"])({}, _defineProperty({}, _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_SELECTED_BASECURRENCY"], function (state, action) {
+  return action.data;
+}));
+var baseCurrencyList = Object(_lib_createReducer_js__WEBPACK_IMPORTED_MODULE_1__["default"])({}, _defineProperty({}, _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_BASECURRENCY_LIST"], function (state, action) {
+  return action.data;
+}));
 
 /***/ }),
 

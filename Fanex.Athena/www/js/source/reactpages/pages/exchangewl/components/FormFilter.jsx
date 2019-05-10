@@ -100,12 +100,10 @@ export class FormFilter extends Component {
         let param = {};
 
         const { fromDate, toDate } = this.props.dateRange;
-        const baseCurrency = BaseCurrency.find(x => x.value === this.props.selectedCurrency.value);
-
+        
         param = {
             CurrencyId: this.props.selectedCurrency.value,
-            BaseCurrency: baseCurrency ? baseCurrency.text : "",
-            CurrencyName: baseCurrency ? baseCurrency.text : this.props.selectedCurrency.label,
+            BaseCurrency: this.props.selectedBaseCurrency,
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
             ReportBy: this.props.selectedReportBy,
@@ -155,6 +153,17 @@ export class FormFilter extends Component {
             options={currencyList}
             onChange={(item) => this.props.setSelectedCurrency(item)} />
     }
+    
+    _renderBaseCurrencySelectList() {
+        const { selectedBaseCurrency } = this.props;
+        const baseCurrencyList = AppData.baseCurrencyList;
+        return baseCurrencyList && baseCurrencyList.length ? (
+            <Select instanceId="ddlBased"
+                value={selectedBaseCurrency}
+            options={baseCurrencyList}
+            onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
+        ) : null;
+    }
 
     _renderReportByOption() {
         const { reportByOption, selectedReportBy } = this.props;
@@ -197,6 +206,13 @@ export class FormFilter extends Component {
                         <div className='form-group'>
                             <label className='label-text'>{LangHelper.getSingleResource('Currency')}</label>
                             {this._renderCurrencySelectList()}
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
+                            {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
 

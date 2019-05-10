@@ -13,10 +13,13 @@
             </div>
 
             <div class="input-field col l2 m2 s12">
-                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
-
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+                <label>@ViewResources.BaseCurrency</label>
+            </div>
             <div class="input-field input col l2 m2 s12">
                 <input type="radio" class="with-gap" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="ReportBy" id="reportbydaily" />
                 <label for="reportbydaily">
