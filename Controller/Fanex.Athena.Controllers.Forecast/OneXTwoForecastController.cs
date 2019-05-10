@@ -57,7 +57,6 @@ namespace Fanex.Athena.Controllers.Forecast
             return await ProcessAction(metaModel).ConfigureAwait(false);
         }
 
-        [HttpGet]
         public async Task<ActionResult> Popup(ForecastOneXTwoMetaModel metaModel)
         {
             metaModel.IsPopUp = true;
