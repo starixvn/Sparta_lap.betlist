@@ -100,7 +100,8 @@ namespace Fanex.Athena.BetList.Controller
 
             foreach (var ticket in ticketResult.MainTicketList)
             {
-                var statusTemplate = _betlistHtmlBuilder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, _ticketHelper, ticketResult.TicketDataList, isShowVNIP: false);                statusTemplate.ShowIP = null;
+                var statusTemplate = _betlistHtmlBuilder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, _ticketHelper, ticketResult.TicketDataList, isShowVNIP: false);
+                statusTemplate.ShowIP = null;
                 statusTemplate.StatusResult = null;
 
                 var choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false);
