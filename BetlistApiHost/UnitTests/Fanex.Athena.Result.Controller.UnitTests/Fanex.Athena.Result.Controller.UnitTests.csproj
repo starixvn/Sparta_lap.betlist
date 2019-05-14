@@ -51,13 +51,13 @@
       <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.2.1.0\lib\net40\Fanex.Result.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.AllBetCasino, Version=1.0.1.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.3-beta\lib\net40\Fanex.Result.Core.AllBetCasino.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.AllBetCasino, Version=1.0.1.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.5\lib\net40\Fanex.Result.Core.AllBetCasino.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Base, Version=2.1.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.8\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Fanex.Result.Core.Base, Version=2.1.9.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.2.1.0\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.NumberGame">
       <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.1.0.3\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
@@ -87,8 +87,8 @@
       <HintPath>..\..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LiveCasinoResult, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.3-beta\lib\net40\LiveCasinoResult.dll</HintPath>
+    <Reference Include="LiveCasinoResult, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.5\lib\net40\LiveCasinoResult.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />

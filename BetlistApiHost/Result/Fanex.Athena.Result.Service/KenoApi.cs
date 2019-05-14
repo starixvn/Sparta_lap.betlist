@@ -54,7 +54,8 @@
             }
 
             var kenoResultUrl = new StringBuilder(setting.ResultUrl);
-            kenoResultUrl.Append("?Authorization=" + authorizedData.Data.Authorization);
+            kenoResultUrl.Append(setting.ResultUrl.Contains("?") ? "&" : "?");
+            kenoResultUrl.Append("Authorization=" + authorizedData.Data.Authorization);
             kenoResultUrl.Append("&cust=" + GetGameName(setting.VendorProduct));
             kenoResultUrl.Append("&siteID=" + setting.SiteID);
             kenoResultUrl.Append("&action=R");
