@@ -272,6 +272,8 @@ namespace Fanex.Athena.Controllers.Customer
                 new CheckedItem { Name = "B", Checked = true },
                 new CheckedItem { Name = "C", Checked = true },
                 new CheckedItem { Name = "D", Checked = true },
+                new CheckedItem { Name = "E", Checked = true },
+                new CheckedItem { Name = "F", Checked = true }
             };
         }
 
