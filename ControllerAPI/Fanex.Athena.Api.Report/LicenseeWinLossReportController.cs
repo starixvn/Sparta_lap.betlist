@@ -210,8 +210,7 @@ namespace Fanex.Athena.Api.Report
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.DrillDownLevel == 0 ? metaModel.CurrencyName : metaModel.DrillDownCurrencyName
+                BaseCurrency = metaModel.BaseCurrency
             };
 
             if (metaModel.DrillDownLevel > 0)

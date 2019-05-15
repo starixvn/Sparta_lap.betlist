@@ -57,6 +57,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
 
         private static readonly LicenseeWinLossMetaModel MetaModel = new LicenseeWinLossMetaModel
         {
+            BaseCurrency = string.Empty,
+            CurrencyName = "INH",
             FromDate = new DateTime(2018, 1, 1),
             ToDate = new DateTime(2018, 2, 2),
         };
@@ -115,7 +117,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Arrange
             var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, 0);
             var excel = CreateExcel();
-            var title = ReportExcelHelper.GetTitleCurrencyName(ExcelModel.ConvertingOption, ExcelModel.MetaModel);
+            var title = ReportExcelHelper.GetTitleBaseCurrency(
+                ExcelModel.MetaModel.BaseCurrency, 
+                ExcelModel.MetaModel.CurrencyName);
             var reportTitle = ReportExcelHelper.GenerateReportTitle(
                 ViewResources.LicenseeWinLoss,
                 ExcelModel.MetaModel.FromDate,

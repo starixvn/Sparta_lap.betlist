@@ -30,7 +30,7 @@
         {
             var productCodeList = productOptions.Where(p => p.Status)
                             .Aggregate(string.Empty, (current, p) => current + (string.IsNullOrEmpty(current) ? p.Code : ", " + p.Code));
-            
+
             if (string.IsNullOrEmpty(productCodeList))
             {
                 return string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption;
@@ -67,6 +67,14 @@
             }
 
             return title;
+        }
+
+        public static string GetTitleBaseCurrency(string baseCurrency, string currencyName)
+        {
+            var currency = string.IsNullOrEmpty(baseCurrency) ?
+                currencyName :
+                baseCurrency;
+            return ViewResources.BaseCurrency + ": " + currency.ToUpperInvariant();
         }
 
         public static string GetTitleCurrencyName(ConvertingOption convertingOption)

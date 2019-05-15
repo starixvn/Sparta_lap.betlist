@@ -146,6 +146,7 @@
             }
 
             const url = setUpUrl(_thirdPartyWinLossOption.urlData, level, currencyId, custId, fromDate, toDate);
+            console.log(postdata)
             const option = {
                 type: 'POST',
                 data: postdata,
@@ -157,8 +158,7 @@
                     setExcelUrl(level, currencyId, custId, fromDate, toDate);
                     ajaxComplete(level, response, postdata);
 
-                    const currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : '';
-                    _me.setReportTitle(currencyId, fromDate, toDate, currencyName);
+                    _me.setReportTitle(currencyId, fromDate, toDate, postdata.BaseCurrency.toUpperCase());
                 },
                 beforeSend: function () {
                     Site.blockUI();
