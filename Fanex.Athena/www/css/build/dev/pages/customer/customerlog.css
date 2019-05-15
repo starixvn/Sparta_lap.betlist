@@ -554,7 +554,10 @@ input[type="checkbox"] {
     width: 100%;
     position: relative; }
     .select-list-container .selection-label {
-      cursor: pointer; }
+      cursor: pointer;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden; }
     .select-list-container .selection-icon {
       position: absolute;
       top: 1px;
