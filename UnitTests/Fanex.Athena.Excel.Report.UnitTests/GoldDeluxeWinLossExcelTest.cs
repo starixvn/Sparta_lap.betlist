@@ -72,7 +72,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             var excel = Substitute.ForPartsOf<GoldDeluxeWinLossExcelTestable>(
                 string.Empty,
-                new ConvertingOption(),
                 new ThirdPartyWinLossMetaModel(),
                 new ReportResultModel<GoldDeluxeWinLoss>
                 {

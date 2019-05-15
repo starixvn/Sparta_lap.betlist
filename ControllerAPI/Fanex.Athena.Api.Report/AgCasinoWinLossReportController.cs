@@ -15,11 +15,9 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report.Interfaces;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
     using Resources;
@@ -61,11 +59,10 @@ namespace Fanex.Athena.Api.Report
 
         protected internal virtual ThirdPartyWinLossExcel<ThirdPartyWinLoss> CreateExcel(
             string templatePath,
-            ConvertingOption convertingOption,
             ThirdPartyWinLossMetaModel metaModel,
             ReportResultModel<ThirdPartyWinLoss> resultData)
         {
-            return new ThirdPartyWinLossExcel<ThirdPartyWinLoss>(templatePath, convertingOption, metaModel, resultData);
+            return new ThirdPartyWinLossExcel<ThirdPartyWinLoss>(templatePath, metaModel, resultData);
         }
 
         private static dynamic GetEmptyResult()
@@ -88,12 +85,6 @@ namespace Fanex.Athena.Api.Report
             var fromDate = metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate;
             var currencyText = currency.Key == 0 ? "All" : currency.Value;
             var exportedFileName = $"AGWinLoss_{fromDate:ddMMMyyyy}_{currencyText}.xls";
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Value
-            };
 
             if (metaModel.DrillDownLevel > 0)
             {
@@ -104,7 +95,7 @@ namespace Fanex.Athena.Api.Report
 
             metaModel.ProductName = ViewResources.ProductAGC;
 
-            var excel = CreateExcel(templatePath, convertingOption, metaModel, resultData);
+            var excel = CreateExcel(templatePath, metaModel, resultData);
 
             excel.Export();
 

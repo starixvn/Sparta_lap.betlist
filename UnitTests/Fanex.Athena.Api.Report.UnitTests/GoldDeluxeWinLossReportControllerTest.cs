@@ -314,7 +314,6 @@
         {
             var excel = Substitute.ForPartsOf<GoldDeluxeWinLossExcel>(
                    Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
                    new ThirdPartyWinLossMetaModel(),
                    new ReportResultModel<GoldDeluxeWinLoss>
                    {
@@ -326,7 +325,6 @@
 
             _controller.CreateExcel(
                    Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
                    new ThirdPartyWinLossMetaModel(),
                    new ReportResultModel<GoldDeluxeWinLoss>()).ReturnsForAnyArgs(excel);
         }
