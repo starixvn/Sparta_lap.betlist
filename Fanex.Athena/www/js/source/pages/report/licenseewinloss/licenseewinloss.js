@@ -195,7 +195,7 @@
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
                 const titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ": " + baseCurrency.toUpperCase();
+                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
                 const title = $.format(titlePattern,
                     moment(fromdate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
                     moment(todate, 'MM/DD/YYYY').format('MM/DD/YYYY'),

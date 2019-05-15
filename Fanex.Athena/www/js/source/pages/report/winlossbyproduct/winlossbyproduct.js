@@ -179,7 +179,7 @@
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 const titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
                 const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
-                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ": " + baseCurrency.toUpperCase();
+                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
                 let licenseeWLNote = getLicenseeWLNote(_submitData.ProductOptions, _systemId);
                 licenseeWLNote = licenseeWLNote === '' ? '' : ', ' + licenseeWLNote;
 

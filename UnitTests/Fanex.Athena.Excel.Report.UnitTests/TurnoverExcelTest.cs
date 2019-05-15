@@ -50,7 +50,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 Month = 2,
                 Year = 2018,
                 CurrencyId = 1,
-                CurrencyName = "UUS"
+                CurrencyName = "UUS",
+                BaseCurrency = string.Empty
             },
             DataList = new List<TurnoverDTO> { DataItem },
             TotalData = FakeHelper.Create<TurnoverDTO>()
@@ -128,7 +129,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             });
         }
 
-        [TestCase("", "Turnover, 02/01/2018 --> 02/02/2018 - View in USD")]
+        [TestCase("", "Turnover, 02/01/2018 --> 02/02/2018 - Base Currency: UUS")]
         [TestCase("ABC", "Turnover, 02/01/2018 --> 02/02/2018 - Customer ABC (UUS)")]
         public void AssignTitle_WhenCall_CallRelevantMethods(string userName, string expectedTitle)
         {
@@ -213,7 +214,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             var excel = Substitute.ForPartsOf<TurnoverExcelTestable>(
                 string.Empty,
-                new ConvertingOption { BaseCurrency = "USD" },
                 showingOption ?? new ShowingOption(),
                 ViewModel);
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());

@@ -127,10 +127,6 @@
                         Arg.Is<TurnoverViewModel>(x =>
                             x.DataList == expectedData &&
                             x.TotalData == expectedTotalData),
-                        Arg.Is<ConvertingOption>(x =>
-                            x.IsConvert == metaModel.IsConvert &&
-                            x.BaseCurrency == metaModel.BaseCurrency &&
-                            x.CurrencyName == CurrencyName),
                         Arg.Is<ShowingOption>(x => x.BAVisible),
                         false);
                     Assert.That(result, Is.InstanceOf<ExcelResult>());
@@ -142,7 +138,7 @@
         {
             var excel = Substitute.ForPartsOf<TurnoverExcel>();
             excel.When(x => x.Export()).DoNotCallBase();
-            controller.CreateExcel(string.Empty, null, null, null, false).ReturnsForAnyArgs(excel);
+            controller.CreateExcel(string.Empty, null, null, false).ReturnsForAnyArgs(excel);
         }
 
         private TurnoverReportController CreateController(string productCodeList = null)
@@ -164,7 +160,7 @@
                 AppSettings,
                 productService,
                 _turnoverService);
-            controller.WhenForAnyArgs(x => x.CreateExcel(string.Empty, null, null, null, false)).DoNotCallBase();
+            controller.WhenForAnyArgs(x => x.CreateExcel(string.Empty, null, null, false)).DoNotCallBase();
             return controller;
         }
     }

@@ -1,8 +1,8 @@
 ﻿define(
     ['jquery', 'common/site', './turnover.option',
         'lib/jqgrid/jquery.jqgrid.additional', 'moment', 'components/pluginhelper/monthpicker', 'components/pluginhelper/multiselect',
-        'components/pluginhelper/autocomplete', 'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min', 'extensions/jquery.extension'],
-    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, AutoComplete) {
+        'components/pluginhelper/autocomplete', '../report', 'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min', 'extensions/jquery.extension'],
+    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, AutoComplete, Report) {
         'use strict';
     let ajaxRequest = null;
     let _fromDate, _toDate, _currencyId;
@@ -64,21 +64,13 @@
             let titlePattern = Site.getSingleResource('Turnover');
             let title = null;
             const username = $('#Username').val().trim();
-            const currencyTextList =
-                {
-                    '-3': 'gbp',
-                    '-2': 'usd',
-                    '-1': 'eur',
-                    '0': Site.getSingleResource('AllCurrencies')
-                };
 
-            let currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId]
-                                                            : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
+            const currencyName = ($("#BaseCurrency").val() || Report.getCurrencyName(_currencyId)).toUpperCase();
             const dateString = _fromDate.format('MM/DD/YYYY') + ' → ' + _toDate.format('MM/DD/YYYY');
-            currencyName = currencyName.toUpperCase();
+            
             if (username === _me.defaultUserName) {
                 titlePattern += ', {0} - {1}';
-                const currencyStr = Site.getSingleResource('Viewin').replace('{0}', currencyName);
+                const currencyStr = Site.getSingleResource('BaseCurrency') + ': ' + currencyName;
                 title = $.format(titlePattern, dateString, currencyStr);
             } else {
                 titlePattern += ', {0} - {1} {2} ({3})';

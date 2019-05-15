@@ -8,10 +8,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
     {
         public TurnoverExcelTestable(
                                  string templatePath,
-                                 ConvertingOption convertingOption,
                                  ShowingOption showingOption,
                                  TurnoverViewModel viewModel)
-            : base(templatePath, convertingOption, showingOption, viewModel)
+            : base(templatePath, showingOption, viewModel)
         {
         }
 
