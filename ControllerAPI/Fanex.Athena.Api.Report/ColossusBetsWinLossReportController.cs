@@ -14,7 +14,6 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -23,7 +22,6 @@ namespace Fanex.Athena.Api.Report
     using Model.Core.ResultModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Report;
     using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportColossusBetsWinLoss)]
@@ -61,11 +59,10 @@ namespace Fanex.Athena.Api.Report
 
         protected internal virtual ColossusBetsWinLossExcel CreateExcel(
             string templatePath,
-            ConvertingOption convertingOption,
             ColossusBetsWinLossMetaModel metaModel,
             ColossusBetWinLossViewModel excelModel)
         {
-            return new ColossusBetsWinLossExcel(templatePath, convertingOption, metaModel, excelModel);
+            return new ColossusBetsWinLossExcel(templatePath, metaModel, excelModel);
         }
 
         private static dynamic GetEmptyThirdPartyWinLossResult()
@@ -91,12 +88,6 @@ namespace Fanex.Athena.Api.Report
                 "ColossusBetsWinLoss_{0:ddMMMyyyy}_{1}.xls",
                 metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
                 currency.Key == 0 ? "All" : currency.Value);
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Value
-            };
 
             if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
             {
@@ -115,7 +106,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = CreateExcel(templatePath, convertingOption, metaModel, excelModel);
+            var excel = CreateExcel(templatePath, metaModel, excelModel);
             excel.Export();
 
             return ExcelStream(excel.Workbook, exportedFileName);

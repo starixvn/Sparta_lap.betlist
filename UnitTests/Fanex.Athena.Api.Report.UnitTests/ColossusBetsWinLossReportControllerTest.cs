@@ -185,7 +185,6 @@
 
             _controller.CreateExcel(
                    Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
                    Arg.Any<ColossusBetsWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel
                    {
@@ -239,7 +238,6 @@
 
             _controller.CreateExcel(
                    Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
                    Arg.Any<ColossusBetsWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel()).ReturnsForAnyArgs(excel);
 

@@ -9,7 +9,6 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
     using Model.Report.DTO;
@@ -47,16 +46,12 @@ namespace Fanex.Athena.Excel.Report
         private readonly ThirdPartyWinLossMetaModel _metaModel;
         private readonly IDictionary<string, ColossusBetWinLoss> _summaryTotal;
 
-        private readonly ConvertingOption _convertingOption;
-
         public ColossusBetsWinLossExcel(
                 string templatePath,
-                ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 ColossusBetWinLossViewModel viewModel)
             : base(templatePath, viewModel.MainResult.Count())
         {
-            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _winLossList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
@@ -127,7 +122,8 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignTitle(ISheet sheet)
         {
             var reportName = ViewResources.ProductCB + " " + ViewResources.WinLoss;
-            var reportTitle = ReportExcelHelper.GenerateReportTitle(reportName, _convertingOption, _metaModel);
+            var currencyTitle = ReportExcelHelper.GetTitleBaseCurrency(_metaModel.BaseCurrency, _metaModel.CurrencyName);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(reportName, _metaModel.FromDate, _metaModel.ToDate, currencyTitle);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze rows title and header
