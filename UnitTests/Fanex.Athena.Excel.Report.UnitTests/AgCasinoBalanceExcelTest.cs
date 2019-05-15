@@ -35,7 +35,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                         Code = "SB",
                         Status = true
                     }
-                }
+                },
+            CurrencyName = "AUD",
+            BaseCurrency = string.Empty
         };
 
         private static readonly AgCasinoBalanceViewModel ViewModel = new AgCasinoBalanceViewModel
@@ -110,7 +112,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Arrange
             var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
             var excel = CreateExcel();
-            var expectedTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, new ConvertingOption(), MetaModel);
+            const string ExpectedTitle = "AG Casino Balance, 01/01/2017 --> 02/02/2017 - Base Currency: AUD";
 
             // Action
             excel.Public_AssignTitle(FakeSheet);
@@ -118,7 +120,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                row.Cells[0].Received(1).SetCellValue(expectedTitle);
+                row.Cells[0].Received(1).SetCellValue(ExpectedTitle);
                 FakeSheet.Received(1).CreateFreezePane(0, 2);
                 FakeSheet.ReceivedWithAnyArgs().DeleteRow(0);
             });
@@ -185,7 +187,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             MetaModel.DrillDownLevel = level;
             var excel = Substitute.ForPartsOf<AgCasinoBalanceExcelTestable>(
                 string.Empty,
-                new ConvertingOption(),
                 MetaModel,
                 ViewModel);
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());

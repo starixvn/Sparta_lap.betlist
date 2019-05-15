@@ -217,7 +217,6 @@
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
-                Arg.Any<ConvertingOption>(),
                 Arg.Any<ThirdPartyWinLossMetaModel>(),
                 Arg.Any<AgCasinoBalanceViewModel>())
                 .ReturnsForAnyArgs(excel);

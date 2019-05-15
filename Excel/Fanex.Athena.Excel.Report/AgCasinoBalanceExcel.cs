@@ -10,7 +10,6 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
     using Model.Core.DataDomain;
@@ -49,20 +48,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly ThirdPartyWinLossMetaModel _metaModel;
         private readonly IDictionary<string, AgCasinoBalance> _summaryTotal;
 
-        private readonly ConvertingOption _convertingOption;
-
         protected internal AgCasinoBalanceExcel() : base(string.Empty, 0)
         {
         }
 
         public AgCasinoBalanceExcel(
                 string templatePath,
-                ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 AgCasinoBalanceViewModel viewModel)
             : base(templatePath, viewModel.MainResult.Count())
         {
-            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
@@ -137,7 +132,8 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var reportTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, _convertingOption, _metaModel);
+            var currencyTitle = ReportExcelHelper.GetTitleBaseCurrency(_metaModel.BaseCurrency, _metaModel.CurrencyName);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, _metaModel.FromDate, _metaModel.ToDate, currencyTitle);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header

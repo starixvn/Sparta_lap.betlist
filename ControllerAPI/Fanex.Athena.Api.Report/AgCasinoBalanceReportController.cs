@@ -14,9 +14,7 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -49,11 +47,10 @@ namespace Fanex.Athena.Api.Report
 
         protected internal virtual AgCasinoBalanceExcel CreateExcel(
             string templatePath,
-            ConvertingOption convertingOption,
             ThirdPartyWinLossMetaModel metaModel,
             AgCasinoBalanceViewModel viewModel)
         {
-            return new AgCasinoBalanceExcel(templatePath, convertingOption, metaModel, viewModel);
+            return new AgCasinoBalanceExcel(templatePath, metaModel, viewModel);
         }
 
         private static dynamic GetAgCasinoBalanceEmptyResult()
@@ -111,16 +108,6 @@ namespace Fanex.Athena.Api.Report
             const string FileName = "AgCasinoBalance.xls";
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/AgCasinoBalance.xls");
 
-            var currencyList = userSession.CurrencyList;
-
-            var currencyName = currencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currencyName.Value
-            };
-
             if (metaModel.DrillDownLevel > 0)
             {
                 metaModel.FromDate = metaModel.DrillDownFromDate;
@@ -134,7 +121,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = CreateExcel(templatePath, convertingOption, metaModel, viewModel);
+            var excel = CreateExcel(templatePath, metaModel, viewModel);
 
             excel.Export();
 
