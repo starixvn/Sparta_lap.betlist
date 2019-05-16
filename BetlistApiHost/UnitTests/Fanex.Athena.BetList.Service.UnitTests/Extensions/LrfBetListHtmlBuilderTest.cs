@@ -20,7 +20,7 @@
         private ITicketHelper _ticketHelper;
 
         /// <summary>
-        /// Return test cases to test special ticket - include Bet type 'P2PGames' & 'MiniGames' and Sport type 'Keno'
+        /// Return test cases to test special ticket - include Bet type 'P2PGames' & 'MiniGames' and Sport type 'RNG Keno'
         /// </summary>
         private static IEnumerable StatusNormalTextTestCase
         {

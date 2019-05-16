@@ -2147,14 +2147,14 @@
     <value>Win Loss By Leagues</value>
   </data>
   <data name="ProductKN" xml:space="preserve">
-    <value>Keno</value>
+    <value>RNG Keno</value>
     <comment>#49196</comment>
   </data>
   <data name="UpdateKenoBetSettings" xml:space="preserve">
-    <value>Are you sure you want to update all Keno bet settings?</value>
+    <value>Are you sure you want to update all RNG Keno bet settings?</value>
   </data>
   <data name="UpdateKenoBetSettingSuccessMsg" xml:space="preserve">
-    <value>The Keno bet setting of {0} was updated successfully</value>
+    <value>The RNG Keno bet setting of {0} was updated successfully</value>
   </data>
   <data name="CopyBetSettingFrom" xml:space="preserve">
     <value>Copy All Bet Setting from {0}</value>
@@ -2164,10 +2164,6 @@
   </data>
   <data name="DateRangeLimitNote" xml:space="preserve">
     <value>Data is available within 3 months, from {0} to {1}.</value>
-  </data>
-  <data name="RngCasinoAndKenoExcludedNote" xml:space="preserve">
-    <value>RNG Casino and Keno are not included in the report</value>
-    <comment>#13958</comment>
   </data>
   <data name="RB" xml:space="preserve">
     <value>RB</value>
@@ -2489,9 +2485,6 @@
   </data>
   <data name="VirtualSports" xml:space="preserve">
     <value>Virtual Sports</value>
-  </data>
-  <data name="Keno" xml:space="preserve">
-    <value>Keno</value>
   </data>
   <data name="AGCasino" xml:space="preserve">
     <value>AG Casino</value>
@@ -3083,7 +3076,7 @@
     <comment>103698</comment>
   </data>
   <data name="BettingTicketCenter_RefnoTabNote2" xml:space="preserve">
-    <value>For Keno, Lottery: Please provide username also in order to search ticket later than {0}</value>
+    <value>For RNG Keno, Lottery: Please provide username also in order to search ticket later than {0}</value>
     <comment>103555</comment>
   </data>
   <data name="ResultPending" xml:space="preserve">
