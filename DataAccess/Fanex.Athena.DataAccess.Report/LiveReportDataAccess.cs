@@ -52,12 +52,11 @@ namespace Fanex.Athena.DataAccess.Report
                     var currency = metaModel.BaseCurrency;
                     while (reader.Read())
                     {
-                        var productName = reader.ToString("ProductName");
                         var productCode = reader.ToString("ProductCode");
 
                         var item = new LiveReport
                         {
-                            ProductName = ProductHelper.GetProductName(productCode, productName),
+                            ProductName = ProductHelper.GetProductName(productCode),
                             ProductCode = productCode
                         };
                         ReadCommonColumns(reader, currency, item);

@@ -41,7 +41,9 @@
                 { "VS2193", nameof(ViewResources.VirtualBasketball) },
                 { "VS2194", nameof(ViewResources.VirtualSoccerAsianCup) },
                 { Product.LT, nameof(ViewResources.ProductLT) },
-                { Product.AB, nameof(ViewResources.ProductAB) }
+                { Product.AB, nameof(ViewResources.ProductAB) },
+                { Product.PP, nameof(ViewResources.ProductPP) },
+                { Product.FW, nameof(ViewResources.ProductFW) }
             };
 
         public static string GetProductCode(int productId)

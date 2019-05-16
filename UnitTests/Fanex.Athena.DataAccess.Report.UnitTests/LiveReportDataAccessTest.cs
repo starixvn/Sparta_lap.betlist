@@ -13,6 +13,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
@@ -94,7 +95,7 @@
 
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
-                { "ProductName", "Sportsbook" }, { "ProductCode", "SB" }, { "TurnoverUUS", 100 }, { "WinlostUUS", 200 },
+                { "ProductCode", "SB" }, { "TurnoverUUS", 100 }, { "WinlostUUS", 200 },
                 { "PlayerCommUUS", 300 }, { "CommUUS", 400 }, { "LicenseeWLUUS", 500 }, { "AmtDueto3rdUUS", 600 }, { "Betcount", 700 },
             };
 
@@ -107,7 +108,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].ProductName, Is.EqualTo("Sportsbook"));
+                Assert.That(result[0].ProductName, Is.EqualTo(ViewResources.Sportsbook));
                 Assert.That(result[0].ProductCode, Is.EqualTo("SB"));
                 Assert.That(result[0].TurnOver, Is.EqualTo(100));
                 Assert.That(result[0].CustomerWinLoss, Is.EqualTo(200));
