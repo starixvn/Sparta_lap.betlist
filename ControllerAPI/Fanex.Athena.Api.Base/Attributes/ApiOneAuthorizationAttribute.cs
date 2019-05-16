@@ -12,6 +12,8 @@
     using System.Web.Http.Filters;
     using DataAccess.Core.Users.Interfaces;
     using Extensions;
+    using ONEbook.UM.Services;
+    using ONEbook.UM.Services.Impl;
     using Resources;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -28,14 +30,20 @@
         {
             var scope = actionContext.Request.GetDependencyScope();
             var logger = scope.Resolve<ICoreLogger>();
+            var umService = scope.Resolve<IMaintenanceService>();
 
             try
             {
+                if (umService.IsUnderMaintenance())
+                {
+                    return UnauthorizeAccessHandlerAsync(actionContext, ViewResources.UnderMaintenance);
+                }
+
                 var tokenValue = GetAuthToken(actionContext.Request);
                 if (string.IsNullOrEmpty(tokenValue))
                 {
                     LogInfo(logger, actionContext.Request, "Auth Token is null");
-                    return UnauthorizeAccessHandlerAsync(actionContext);
+                    return UnauthorizeAccessHandlerAsync(actionContext, ViewResources.AccessDeniedMsg);
                 }
 
                 var oneAuthenticationService = scope.Resolve<IOneAuthenticationService>();
@@ -44,7 +52,7 @@
                 if (token == null || string.IsNullOrWhiteSpace(token.SiteName) || token.UserSEQ <= 0)
                 {
                     LogInfo(logger, actionContext.Request, "TokenInfo is null");
-                    return UnauthorizeAccessHandlerAsync(actionContext);
+                    return UnauthorizeAccessHandlerAsync(actionContext, ViewResources.AccessDeniedMsg);
                 }
 
                 var licenseeDataAccess = scope.Resolve<ILicenseeDataAccess>();
@@ -52,7 +60,7 @@
                 if (licensee == null)
                 {
                     LogInfo(logger, actionContext.Request, "Licensee is null");
-                    return UnauthorizeAccessHandlerAsync(actionContext);
+                    return UnauthorizeAccessHandlerAsync(actionContext, ViewResources.AccessDeniedMsg);
                 }
 
                 actionContext.ActionArguments["licenseeid"] = licensee.Id;
@@ -67,7 +75,7 @@
             catch (Exception exception)
             {
                 logger.Error(exception);
-                return UnauthorizeAccessHandlerAsync(actionContext);
+                return UnauthorizeAccessHandlerAsync(actionContext, ViewResources.AccessDeniedMsg);
             }
         }
 
@@ -82,13 +90,14 @@
             return request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase)).Value;
         }
 
-        private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext)
+        private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext,
+            string message)
         {
             actionContext.Response = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.Forbidden,
                 RequestMessage = actionContext.ControllerContext.Request,
-                Content = new StringContent(ViewResources.AccessDeniedMsg)
+                Content = new StringContent(message)
             };
 
             var source = new TaskCompletionSource<HttpResponseMessage>();
