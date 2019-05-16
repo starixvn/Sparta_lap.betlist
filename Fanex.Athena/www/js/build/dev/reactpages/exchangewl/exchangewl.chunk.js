@@ -5083,6 +5083,33 @@ function (_Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "_onChangeCurrency", function (currency) {
+      var currencyName = currency.label;
+      var baseCurrencyList = _jsroot_lib_AppData__WEBPACK_IMPORTED_MODULE_8__["default"].baseCurrencyList;
+      var baseCurrency = _this.defaultBaseCurrency;
+
+      if (currency.value > 0 && !_this.baseCurrencyList.find(function (x) {
+        return x.label === currencyName;
+      })) {
+        _this.baseCurrencyList = _jsroot_lib_AppData__WEBPACK_IMPORTED_MODULE_8__["default"].baseCurrencyList.slice(0);
+
+        _this.baseCurrencyList.push({
+          value: currencyName,
+          label: currencyName
+        });
+
+        baseCurrency = currencyName;
+      } else {
+        _this.baseCurrencyList = _jsroot_lib_AppData__WEBPACK_IMPORTED_MODULE_8__["default"].baseCurrencyList;
+      }
+
+      _this.props.setSelectedCurrency(currency);
+
+      _this.props.setSelectedBaseCurrency(baseCurrency);
+    });
+
+    _this.baseCurrencyList = _jsroot_lib_AppData__WEBPACK_IMPORTED_MODULE_8__["default"].baseCurrencyList;
+    _this.defaultBaseCurrency = props.selectedBaseCurrency;
     return _this;
   }
 
@@ -5171,7 +5198,7 @@ function (_Component) {
         value: selectedCurrency,
         options: currencyList,
         onChange: function onChange(item) {
-          return _this3.props.setSelectedCurrency(item);
+          return _this3._onChangeCurrency(item);
         }
       });
     }
@@ -5181,7 +5208,7 @@ function (_Component) {
       var _this4 = this;
 
       var selectedBaseCurrency = this.props.selectedBaseCurrency;
-      var baseCurrencyList = _jsroot_lib_AppData__WEBPACK_IMPORTED_MODULE_8__["default"].baseCurrencyList;
+      var baseCurrencyList = this.baseCurrencyList;
       return baseCurrencyList && baseCurrencyList.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
         instanceId: "ddlBased",
         value: selectedBaseCurrency,
@@ -6053,10 +6080,10 @@ function () {
 
   _createClass(Service, null, [{
     key: "getReportTitle",
-    value: function getReportTitle(dateRange, selectedCurrency, allCurrencies) {
+    value: function getReportTitle(dateRange, selectedCurrency) {
       var fromDate = _lib_site__WEBPACK_IMPORTED_MODULE_1__["default"].convertDateToString(dateRange.fromDate);
       var toDate = _lib_site__WEBPACK_IMPORTED_MODULE_1__["default"].convertDateToString(dateRange.toDate);
-      var viewInByCurrency = allCurrencies ? _lib_langHelper__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleResource('AllCurrencies') : "".concat(_lib_langHelper__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleResource('Viewin').replace('{0}', selectedCurrency));
+      var viewInByCurrency = _lib_langHelper__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleResource('BaseCurrency') + ': ' + selectedCurrency;
       return "".concat(_lib_langHelper__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleResource('ExchangeWinLoss'), ", ").concat(fromDate, " - ").concat(toDate, " - ").concat(viewInByCurrency);
     }
   }, {

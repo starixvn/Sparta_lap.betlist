@@ -18,6 +18,8 @@ const RANGE_MONTH_CONSTRAINT = 3;
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
+        this.baseCurrencyList = AppData.baseCurrencyList;
+        this.defaultBaseCurrency = props.selectedBaseCurrency;
     }
 
     submit = (event) => {
@@ -151,12 +153,28 @@ export class FormFilter extends Component {
             name='form-field-name'
             value={selectedCurrency}
             options={currencyList}
-            onChange={(item) => this.props.setSelectedCurrency(item)} />
+            onChange={(item) => this._onChangeCurrency(item)} />
+   }
+
+   _onChangeCurrency = (currency) => {
+       const currencyName = currency.label;
+       const baseCurrencyList = AppData.baseCurrencyList;
+       let baseCurrency = this.defaultBaseCurrency;
+       if(currency.value > 0 && !this.baseCurrencyList.find(x => x.label === currencyName)){
+            this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
+            this.baseCurrencyList.push({value: currencyName, label: currencyName});      
+            baseCurrency = currencyName;
+        } else {
+            this.baseCurrencyList = AppData.baseCurrencyList;
+        }
+
+        this.props.setSelectedCurrency(currency)
+        this.props.setSelectedBaseCurrency(baseCurrency);
     }
     
     _renderBaseCurrencySelectList() {
         const { selectedBaseCurrency } = this.props;
-        const baseCurrencyList = AppData.baseCurrencyList;
+        const baseCurrencyList = this.baseCurrencyList;
         return baseCurrencyList && baseCurrencyList.length ? (
             <Select instanceId="ddlBased"
                 value={selectedBaseCurrency}
