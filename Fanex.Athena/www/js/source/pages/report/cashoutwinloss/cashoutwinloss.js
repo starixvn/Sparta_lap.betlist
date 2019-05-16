@@ -115,7 +115,7 @@ define(['jquery', 'common/querystring', 'common/site', './cashoutwinloss.option'
                 if (response !== null) {
                     cacheData[levelNumber] = response;
                     if (levelNumber === 0) {
-                        _me.setReportTitle($('#CurrencyId').val(), _submitData.FromDate, _submitData.ToDate);
+                        _me.setReportTitle($('#CurrencyId').val(), _submitData.FromDate, _submitData.ToDate, _submitData.BaseCurrency);
                     }
 
                     Report.renderBreadCrumb(levelNumber);
@@ -125,8 +125,8 @@ define(['jquery', 'common/querystring', 'common/site', './cashoutwinloss.option'
 
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 const titlePattern = Site.getSingleResource('CashOutWinLoss') + ', {0} → {1} - {2}';
-                const currencyNameOnTitle = currencyName ? Site.getSingleResource('Viewin').replace('{0}', currencyName)
-                                                        : Report.getCurrencyNameForReportTitle(currencyId);
+                const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
+                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
                 const title = $.format(titlePattern,
                     moment(fromdate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
                     moment(todate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
@@ -186,7 +186,7 @@ define(['jquery', 'common/querystring', 'common/site', './cashoutwinloss.option'
 
                 if (level === 0) {
                     _me.setExcelUrl(0, 0, 0, '', '');
-                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate, _submitData.BaseCurrency);
                 }
                 else if (level === 1) {
                     CashOutWinLossOption.urlExcelData = CashOutWinLossOption.urlExcelData.replace('level=2', 'level=1');
@@ -233,13 +233,8 @@ define(['jquery', 'common/querystring', 'common/site', './cashoutwinloss.option'
                     success: function (response) {
                         _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {                     
-                            if (levelNumber > 0 && Number(param.CurrencyId) === 0) {
-                                const viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : '';
-                                _me.setReportTitle(newCurrencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
-                            } else {
-                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
-                            }
-
+                            _me.setReportTitle(newCurrencyId, dateRange.FromDate, dateRange.ToDate, param.BaseCurrency);
+                            
                             _me.setExcelUrl(levelNumber, newCurrencyId, customerId, dateRange.FromDate, dateRange.ToDate);
                         }
                     },

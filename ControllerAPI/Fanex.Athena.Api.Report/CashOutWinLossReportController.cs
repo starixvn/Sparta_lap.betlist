@@ -15,7 +15,6 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report.Interfaces;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -61,11 +60,10 @@ namespace Fanex.Athena.Api.Report
         protected internal virtual CashOutWinLossExcel CreateExcel(
             string templatePath,
             string exportingFileName,
-            ConvertingOption convertingOption,
             ThirdPartyWinLossMetaModel metaModel,
             CashOutWinLossViewModel viewModel)
         {
-            return new CashOutWinLossExcel(templatePath, convertingOption, metaModel, viewModel);
+            return new CashOutWinLossExcel(templatePath, metaModel, viewModel);
         }
 
         private static dynamic GetEmptyResult()
@@ -94,12 +92,6 @@ namespace Fanex.Athena.Api.Report
                 "CashOutWinLoss_{0:ddMMMyyyy}_{1}.xls",
                 metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
                 currency.Key == 0 ? "All" : currency.Value);
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Value
-            };
 
             if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
             {
@@ -120,7 +112,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal
             };
 
-            var excel = CreateExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel);
+            var excel = CreateExcel(templatePath, exportedFileName, metaModel, excelModel);
 
             excel.Export();
 

@@ -175,7 +175,6 @@
 
             var excel = Substitute.ForPartsOf<ColossusBetsWinLossExcel>(
                    Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
                    Arg.Any<ColossusBetsWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel
                    {
@@ -228,7 +227,6 @@
 
             var excel = Substitute.ForPartsOf<ColossusBetsWinLossExcel>(
                    Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
                    Arg.Any<ColossusBetsWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel
                    {

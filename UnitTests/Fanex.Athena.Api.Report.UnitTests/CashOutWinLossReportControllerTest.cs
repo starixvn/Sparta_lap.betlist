@@ -192,7 +192,6 @@
             _dataAccess.GetSummary(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
             var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(
                 string.Empty,
-                new ConvertingOption(),
                 metaModel,
                 new CashOutWinLossViewModel
                 {
@@ -202,7 +201,6 @@
             _controller.CreateExcel(
                 Arg.Any<string>(),
                 Arg.Any<string>(),
-                Arg.Any<ConvertingOption>(),
                 Arg.Any<ThirdPartyWinLossMetaModel>(),
                 Arg.Any<CashOutWinLossViewModel>())
                 .Returns(excel);
@@ -236,7 +234,6 @@
             _dataAccess.GetSummary(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
             var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(
                 string.Empty,
-                new ConvertingOption(),
                 metaModel,
                 new CashOutWinLossViewModel
                 {
@@ -246,7 +243,6 @@
             _controller.CreateExcel(
                 Arg.Any<string>(),
                 Arg.Any<string>(),
-                Arg.Any<ConvertingOption>(),
                 Arg.Any<ThirdPartyWinLossMetaModel>(),
                 Arg.Any<CashOutWinLossViewModel>())
                 .Returns(excel);
