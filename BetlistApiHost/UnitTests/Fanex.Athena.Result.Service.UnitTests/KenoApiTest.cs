@@ -120,7 +120,8 @@
             {
                 SiteID = "grabbike",
                 VendorProduct = ResultVendorProductTypes.Keno,
-                KickOutUrl = "xxx.com"
+                KickOutUrl = "xxx.com",
+                ResultUrl = "TestUrl?data=1"
             };
             _service.WhenForAnyArgs(x => x.Authorize(null, null)).DoNotCallBase();
             _service.Authorize(setting, UserId).Returns(new KenoAuthorization
@@ -132,7 +133,7 @@
             var resultUrl = _service.CreateKenoResultAddress(setting, UserId, DateTime.MinValue);
 
             // Assert
-            Assert.That(resultUrl, Is.EqualTo("?Authorization=uber&cust=Keno&siteID=grabbike&action=R&lang=&date=00010101&redirectURL=xxx.com"));
+            Assert.That(resultUrl, Is.EqualTo("TestUrl?data=1&Authorization=uber&cust=Keno&siteID=grabbike&action=R&lang=&date=00010101&redirectURL=xxx.com"));
         }
 
         [Test]
@@ -144,7 +145,8 @@
             {
                 SiteID = "grabbike",
                 VendorProduct = ResultVendorProductTypes.Keno,
-                KickOutUrl = "xxx.com"
+                KickOutUrl = "xxx.com",
+                ResultUrl = "TestUrl"
             };
             _service.WhenForAnyArgs(x => x.Authorize(null, null)).DoNotCallBase();
             _service.Authorize(setting, UserId).Returns(new KenoAuthorization
@@ -156,7 +158,7 @@
             var resultUrl = _service.CreateKenoResultAddress(setting, UserId, DateTime.MinValue);
 
             // Assert
-            Assert.That(resultUrl, Is.EqualTo("?Authorization=uber&cust=Keno&siteID=grabbike&action=R&lang=&date=00010101&redirectURL=xxx.com"));
+            Assert.That(resultUrl, Is.EqualTo("TestUrl?Authorization=uber&cust=Keno&siteID=grabbike&action=R&lang=&date=00010101&redirectURL=xxx.com"));
         }
 
         [Test]

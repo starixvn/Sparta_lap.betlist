@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.BetList.Controller", "BetlistApiHost\BetList\Fanex.Athena.BetList.Controller\Fanex.Athena.BetList.Controller.csproj", "{0C22899B-6CE0-4187-9BCF-7F503213F207}"
 EndProject
@@ -74,6 +74,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.DataAccess.UnitTests", "BetlistApiHost\UnitTests\Fanex.Athena.Common.DataAccess.UnitTests\Fanex.Athena.Common.DataAccess.UnitTests.csproj", "{EF93477D-9D07-4B4B-9193-DB4C1F4021E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Utility.UnitTests", "BetlistApiHost\UnitTests\Fanex.Athena.Common.Utility.UnitTests\Fanex.Athena.Common.Utility.UnitTests.csproj", "{615B72A6-2628-480A-90E2-92A503063779}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A3A70F50-6085-4313-BA7A-191C62FA921A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -181,6 +183,10 @@ Global
 		{615B72A6-2628-480A-90E2-92A503063779}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615B72A6-2628-480A-90E2-92A503063779}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{615B72A6-2628-480A-90E2-92A503063779}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3A70F50-6085-4313-BA7A-191C62FA921A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3A70F50-6085-4313-BA7A-191C62FA921A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3A70F50-6085-4313-BA7A-191C62FA921A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3A70F50-6085-4313-BA7A-191C62FA921A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,5 +219,8 @@ Global
 		{A8D8F72E-D53F-4E02-A698-682D40D1F8A8} = {2D1DCF79-EDB0-464B-BFF8-9A9AC0FF50EC}
 		{EF93477D-9D07-4B4B-9193-DB4C1F4021E3} = {F58944D6-A913-4E03-833B-42FDB06C2EE1}
 		{615B72A6-2628-480A-90E2-92A503063779} = {F58944D6-A913-4E03-833B-42FDB06C2EE1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2496C007-CEDC-43CD-A3CC-4C91A93649E1}
 	EndGlobalSection
 EndGlobal

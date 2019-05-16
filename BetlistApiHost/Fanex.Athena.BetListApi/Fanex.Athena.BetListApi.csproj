@@ -44,6 +44,7 @@
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
     <Use64BitIISExpress />
+    <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -127,8 +128,8 @@
       <HintPath>..\..\packages\Fanex.BetList.Keno.1.0.0\lib\net40\Fanex.BetList.Keno.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.KenoLottery, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.KenoLottery.1.0.0\lib\net40\Fanex.BetList.KenoLottery.dll</HintPath>
+    <Reference Include="Fanex.BetList.KenoLottery, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.KenoLottery.1.1.0\lib\net40\Fanex.BetList.KenoLottery.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.NumberGame, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -423,6 +424,10 @@
     <Content Include="App_Data\Fanex.Result\ESport.xls" />
     <Content Include="App_Data\Fanex.Result\Happy5.xls" />
     <Content Include="Fanex.Athena.BetListApi.ruleset" />
+    <None Include="Dockerfile" />
+    <None Include=".dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
     <None Include="SiteConfig\Web.DEV.config" />
     <None Include="SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>

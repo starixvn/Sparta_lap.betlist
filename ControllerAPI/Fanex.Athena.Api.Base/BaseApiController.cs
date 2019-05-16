@@ -12,7 +12,6 @@ namespace Fanex.Athena.Api.Base
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Threading.Tasks;
     using System.Web.Http;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;

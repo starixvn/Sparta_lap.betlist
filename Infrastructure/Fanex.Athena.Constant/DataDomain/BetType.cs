@@ -249,6 +249,10 @@ namespace Fanex.Athena.Constant.DataDomain
 
         CashOutBought = 912,
 
+        LotteryPenaltyShootOut = 1041,
+
+        LotteryPenaltyShootOut2 = 1042,
+
         VirtualSports2Ft1X2 = 2701,
 
         VirtualSports2MixParlay = 2799,
