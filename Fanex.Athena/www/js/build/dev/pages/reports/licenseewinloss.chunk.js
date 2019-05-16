@@ -7982,9 +7982,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 LicenseeWinLossOption.urlExcelData = temp;
             },
 
-            setReportTitle: function (fromdate, todate, baseCurrency) {
+            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
+                const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
                 const titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ": " + baseCurrency.toUpperCase();
+                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
                 const title = $.format(titlePattern,
                     moment(fromdate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
                     moment(todate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
@@ -8012,7 +8013,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     cacheData[levelNumber] = response;
 
                     if (levelNumber === 0) {
-                        _me.setReportTitle($('#FromDate').val(), $('#ToDate').val(), $('#BaseCurrency').val() || $("#CurrencyName").val());
+                        _me.setReportTitle($('#CurrencyId').val(), $('#FromDate').val(), $('#ToDate').val(), $('#BaseCurrency').val());
                     }
 
                     Report.renderBreadCrumb(levelNumber, LicenseeWinLossOption.licenseeId);
@@ -8114,8 +8115,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     success: function (response) {
                         _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {
-                            const baseCurrency = param.BaseCurrency || $('#CurrencyId option[value="' + currencyId + '"]').text();
-                            _me.setReportTitle(dateRange.FromDate, dateRange.ToDate, baseCurrency);
+                            _me.setReportTitle(_submitData.CurrencyId, dateRange.FromDate, dateRange.ToDate, _submitData.BaseCurrency);
                         }
 
                         //update excel ULR
@@ -8158,7 +8158,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 if (level === 0) {
                     _me.setExcelUrl(0, 0, 0, '', '', '');
-                    _me.setReportTitle(_submitData.FromDate, _submitData.ToDate, _submitData.BaseCurrency || _submitData.CurrencyName);
+                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate, _submitData.BaseCurrency);
                 }
                 else if (level === 1) {
                     _me.updateDrilldownData(drillDownData.CurrencyId, drillDownData.CurrencyName, drillDownData.FromDate, drillDownData.ToDate, 0);
@@ -9264,6 +9264,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             mainFooter.remove();
 
             return rowCount;
+        },
+
+        getCurrencyName: function (currencyId) {
+            return $('#CurrencyId option[value="' + currencyId + '"]').text();
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {

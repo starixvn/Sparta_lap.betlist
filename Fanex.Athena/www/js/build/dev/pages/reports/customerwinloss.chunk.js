@@ -7109,6 +7109,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return rowCount;
         },
 
+        getCurrencyName: function (currencyId) {
+            return $('#CurrencyId option[value="' + currencyId + '"]').text();
+        },
+
         getCurrencyNameForReportTitle: function (currencyId) {
             const viewinKey = Site.getSingleResource('Viewin');
             const currencyTextList = {
