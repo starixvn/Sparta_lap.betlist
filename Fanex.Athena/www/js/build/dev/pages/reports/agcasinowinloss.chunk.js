@@ -4012,9 +4012,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             setReportTitle: function (currencyId, fromdate, todate, baseCurrency) {
-                const titlePattern = Site.getSingleResource('AGCasinoWinLoss') + ', {0} → {1} - {2}';
-                const currencyName = baseCurrency || Report.getCurrencyName(currencyId);
-                const currencyTitle = Site.getSingleResource('BaseCurrency') + ': ' + currencyName.toUpperCase();
+                const titlePattern = Site.getSingleResource('AGCasinoWinLoss') + ', {0} → {1}, {2}';
+                const currencyTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
                 const title = $.format(titlePattern, moment(fromdate).format('MM/DD/YYYY'), moment(todate).format('MM/DD/YYYY'), currencyTitle);
                 $('.report-title').html(title);
                 $('.panel-heading').removeClass('hide');
@@ -4630,8 +4629,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return rowCount;
         },
 
-        getCurrencyName: function (currencyId) {
-            return $('#CurrencyId option[value="' + currencyId + '"]').text();
+        getCurrencyTitle: function (currencyId, baseCurrency) {
+            const currencyName = Number(currencyId) === 0 ? 
+                               Site.getSingleResource('All') :
+                               $('#CurrencyId option[value="' + currencyId + '"]').text();
+            return Site.getSingleResource('Currency') + ': ' + currencyName + ', ' +
+                Site.getSingleResource('BaseCurrency') + ': ' + (baseCurrency || currencyName).toUpperCase();
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {

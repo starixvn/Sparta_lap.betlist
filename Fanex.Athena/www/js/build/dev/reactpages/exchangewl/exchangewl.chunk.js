@@ -4879,7 +4879,7 @@ function (_Component) {
       var title = _lib_service__WEBPACK_IMPORTED_MODULE_7__["Service"].getReportTitle({
         fromDate: params.FromDate,
         toDate: params.ToDate
-      }, params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, reportLevel === _constants_report__WEBPACK_IMPORTED_MODULE_8__["ReportLevel"].MAIN ? params.CurrencyId === 0 : false);
+      }, params.CurrencyName, params.BaseCurrency || params.CurrencyName, reportLevel === _constants_report__WEBPACK_IMPORTED_MODULE_8__["ReportLevel"].MAIN ? params.CurrencyId === 0 : false);
 
       if (!gridData.data.DataList.length) {
         return this._renderNodata(title);
@@ -5144,7 +5144,7 @@ function (_Component) {
       var title = _lib_service__WEBPACK_IMPORTED_MODULE_12__["Service"].getReportTitle({
         fromDate: excelData.FromDate,
         toDate: excelData.ToDate
-      }, excelData.BaseCurrency ? excelData.BaseCurrency : excelData.CurrencyName, level === _constants_report__WEBPACK_IMPORTED_MODULE_9__["ReportLevel"].MAIN ? excelData.CurrencyId === 0 : false);
+      }, excelData.CurrencyName, excelData.BaseCurrency || excelData.CurrencyName, level === _constants_report__WEBPACK_IMPORTED_MODULE_9__["ReportLevel"].MAIN ? excelData.CurrencyId === 0 : false);
       var excel = new _lib_reportExcel__WEBPACK_IMPORTED_MODULE_11__["default"](gridData, title, level, isAllowedCustomerComm, excelData.ReportBy);
       excel.export(function () {
         _this2.props.toggleLoader(false);
@@ -5159,6 +5159,7 @@ function (_Component) {
           toDate = _this$props$dateRange.toDate;
       param = {
         CurrencyId: this.props.selectedCurrency.value,
+        CurrencyName: this.props.selectedCurrency.label,
         BaseCurrency: this.props.selectedBaseCurrency,
         FromDate: _jsroot_lib_site__WEBPACK_IMPORTED_MODULE_7__["default"].convertDateToString(fromDate),
         ToDate: _jsroot_lib_site__WEBPACK_IMPORTED_MODULE_7__["default"].convertDateToString(toDate),
@@ -6080,11 +6081,11 @@ function () {
 
   _createClass(Service, null, [{
     key: "getReportTitle",
-    value: function getReportTitle(dateRange, selectedCurrency) {
+    value: function getReportTitle(dateRange, currencyName, baseCurrency) {
       var fromDate = _lib_site__WEBPACK_IMPORTED_MODULE_1__["default"].convertDateToString(dateRange.fromDate);
       var toDate = _lib_site__WEBPACK_IMPORTED_MODULE_1__["default"].convertDateToString(dateRange.toDate);
-      var viewInByCurrency = _lib_langHelper__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleResource('BaseCurrency') + ': ' + selectedCurrency;
-      return "".concat(_lib_langHelper__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleResource('ExchangeWinLoss'), ", ").concat(fromDate, " - ").concat(toDate, " - ").concat(viewInByCurrency);
+      var viewInByCurrency = _lib_langHelper__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleResource('Currency') + ': ' + currencyName + ', ' + _lib_langHelper__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleResource('BaseCurrency') + ': ' + baseCurrency;
+      return "".concat(_lib_langHelper__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleResource('ExchangeWinLoss'), ", ").concat(fromDate, " - ").concat(toDate, ", ").concat(viewInByCurrency);
     }
   }, {
     key: "showErrorMsg",

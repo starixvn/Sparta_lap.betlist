@@ -4068,8 +4068,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return rowCount;
         },
 
-        getCurrencyName: function (currencyId) {
-            return $('#CurrencyId option[value="' + currencyId + '"]').text();
+        getCurrencyTitle: function (currencyId, baseCurrency) {
+            const currencyName = Number(currencyId) === 0 ? 
+                               Site.getSingleResource('All') :
+                               $('#CurrencyId option[value="' + currencyId + '"]').text();
+            return Site.getSingleResource('Currency') + ': ' + currencyName + ', ' +
+                Site.getSingleResource('BaseCurrency') + ': ' + (baseCurrency || currencyName).toUpperCase();
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
@@ -4331,11 +4335,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
         }
 
-        function setReportTitle(currencyId, fromdate, todate, currencyName) {
-            const titlePattern = _reportTitle + ', {0} → {1} - {2}';
-            //get currencyName
-            const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
-            const currencyTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
+        function setReportTitle(currencyId, fromdate, todate, baseCurrency) {
+            const titlePattern = _reportTitle + ', {0} → {1}, {2}';
+            
+            const currencyTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
             const title = $.format(titlePattern, fromdate, todate, currencyTitle);
 
             $(_selector.Title).html(title);

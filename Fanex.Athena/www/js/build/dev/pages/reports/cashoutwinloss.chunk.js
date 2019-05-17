@@ -4061,10 +4061,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
             },
 
-            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
-                const titlePattern = Site.getSingleResource('CashOutWinLoss') + ', {0} → {1} - {2}';
-                const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
-                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
+            setReportTitle: function (currencyId, fromdate, todate, baseCurrency) {
+                const titlePattern = Site.getSingleResource('CashOutWinLoss') + ', {0} → {1}, {2}';
+                const currencyNameOnTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
                 const title = $.format(titlePattern,
                     moment(fromdate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
                     moment(todate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
@@ -4755,8 +4754,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return rowCount;
         },
 
-        getCurrencyName: function (currencyId) {
-            return $('#CurrencyId option[value="' + currencyId + '"]').text();
+        getCurrencyTitle: function (currencyId, baseCurrency) {
+            const currencyName = Number(currencyId) === 0 ? 
+                               Site.getSingleResource('All') :
+                               $('#CurrencyId option[value="' + currencyId + '"]').text();
+            return Site.getSingleResource('Currency') + ': ' + currencyName + ', ' +
+                Site.getSingleResource('BaseCurrency') + ': ' + (baseCurrency || currencyName).toUpperCase();
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {

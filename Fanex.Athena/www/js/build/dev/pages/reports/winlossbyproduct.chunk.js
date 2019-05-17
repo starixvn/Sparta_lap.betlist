@@ -5117,8 +5117,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return rowCount;
         },
 
-        getCurrencyName: function (currencyId) {
-            return $('#CurrencyId option[value="' + currencyId + '"]').text();
+        getCurrencyTitle: function (currencyId, baseCurrency) {
+            const currencyName = Number(currencyId) === 0 ? 
+                               Site.getSingleResource('All') :
+                               $('#CurrencyId option[value="' + currencyId + '"]').text();
+            return Site.getSingleResource('Currency') + ': ' + currencyName + ', ' +
+                Site.getSingleResource('BaseCurrency') + ': ' + (baseCurrency || currencyName).toUpperCase();
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
@@ -5361,10 +5365,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 WinLossByProductOption.urlExcelData = temp;
             },
 
-            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
-                const titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
-                const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
-                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
+            setReportTitle: function (currencyId, fromdate, todate, baseCurrency) {
+                const titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1}, {2}{3}';
+                const currencyNameOnTitle = Report.getCurrencyTitle(currencyId, baseCurrency)
                 let licenseeWLNote = getLicenseeWLNote(_submitData.ProductOptions, _systemId);
                 licenseeWLNote = licenseeWLNote === '' ? '' : ', ' + licenseeWLNote;
 

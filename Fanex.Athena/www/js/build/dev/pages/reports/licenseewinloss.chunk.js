@@ -7982,14 +7982,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 LicenseeWinLossOption.urlExcelData = temp;
             },
 
-            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
-                const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
-                const titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
+            setReportTitle: function (currencyId, fromdate, todate, baseCurrency) {
+                const titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1}, {2}';
+                const currencyNameTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
                 const title = $.format(titlePattern,
                     moment(fromdate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
                     moment(todate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
-                    currencyNameOnTitle);
+                    currencyNameTitle);
                 $('.report-title').html(title);
                 $('.panel-heading').removeClass('hide');
             },
@@ -8115,7 +8114,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     success: function (response) {
                         _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {
-                            _me.setReportTitle(_submitData.CurrencyId, dateRange.FromDate, dateRange.ToDate, _submitData.BaseCurrency);
+                            _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, _submitData.BaseCurrency);
                         }
 
                         //update excel ULR
@@ -9266,8 +9265,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return rowCount;
         },
 
-        getCurrencyName: function (currencyId) {
-            return $('#CurrencyId option[value="' + currencyId + '"]').text();
+        getCurrencyTitle: function (currencyId, baseCurrency) {
+            const currencyName = Number(currencyId) === 0 ? 
+                               Site.getSingleResource('All') :
+                               $('#CurrencyId option[value="' + currencyId + '"]').text();
+            return Site.getSingleResource('Currency') + ': ' + currencyName + ', ' +
+                Site.getSingleResource('BaseCurrency') + ': ' + (baseCurrency || currencyName).toUpperCase();
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {
