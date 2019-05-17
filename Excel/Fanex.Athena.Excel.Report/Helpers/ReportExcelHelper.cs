@@ -74,7 +74,8 @@
             var currency = string.IsNullOrEmpty(baseCurrency) ?
                 currencyName :
                 baseCurrency;
-            return ViewResources.BaseCurrency + ": " + currency.ToUpperInvariant();
+            return ViewResources.Currency + ": " + currencyName + ", " + 
+                ViewResources.BaseCurrency + ": " + currency.ToUpperInvariant();
         }
 
         public static string GetTitleCurrencyName(ConvertingOption convertingOption)
@@ -94,7 +95,7 @@
         public static string GenerateReportTitle(string reportName, DateTime fromDate, DateTime toDate, string currencyTitle)
         {
             var reportTitle = new StringBuilder(reportName);
-            reportTitle.Append($", {fromDate.ToString(FormatDate)} --> {toDate.ToString(FormatDate)} - {currencyTitle}");
+            reportTitle.Append($", {fromDate.ToString(FormatDate)} --> {toDate.ToString(FormatDate)}, {currencyTitle}");
             return reportTitle.ToString();
         }
     }

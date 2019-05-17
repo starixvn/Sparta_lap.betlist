@@ -45,15 +45,14 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             CurrencyId = 1,
             DrillDownCurrencyId = 2,
             ProductOptions = new List<ProductOption>(),
-            BaseCurrency = string.Empty,
+            BaseCurrency = "USD",
             CurrencyName = "AUD"
         };
 
         private static readonly WinLossByProductExcelModel ExcelModel = new WinLossByProductExcelModel
         {
             DataList = new[] { DataItem },
-            MetaModel = MetaModel,
-            ConvertingOption = new ConvertingOption()
+            MetaModel = MetaModel
         };
 
         [Test]
@@ -138,8 +137,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             });
         }
 
-        [TestCase(0, "Win Loss By Products, 01/01/2018 --> 02/02/2018 - Base Currency: AUD")]
-        [TestCase(1, "Win Loss By Products, 03/03/2018 --> 04/04/2018 - Base Currency: AUD")]
+        [TestCase(0, "Win Loss By Products, 01/01/2018 --> 02/02/2018, Currency: AUD, Base Currency: USD")]
+        [TestCase(1, "Win Loss By Products, 03/03/2018 --> 04/04/2018, Currency: AUD, Base Currency: USD")]
         public void AssignTitle_WhenCall_CallRelevantMethods(int level, string expectedTitle)
         {
             // Arrange

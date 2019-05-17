@@ -37,7 +37,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                     }
                 },
             CurrencyName = "AUD",
-            BaseCurrency = string.Empty
+            BaseCurrency = "USD"
         };
 
         private static readonly AgCasinoBalanceViewModel ViewModel = new AgCasinoBalanceViewModel
@@ -112,7 +112,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Arrange
             var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
             var excel = CreateExcel();
-            const string ExpectedTitle = "AG Casino Balance, 01/01/2017 --> 02/02/2017 - Base Currency: AUD";
+            const string ExpectedTitle = "AG Casino Balance, 01/01/2017 --> 02/02/2017, Currency: AUD, Base Currency: USD";
 
             // Action
             excel.Public_AssignTitle(FakeSheet);

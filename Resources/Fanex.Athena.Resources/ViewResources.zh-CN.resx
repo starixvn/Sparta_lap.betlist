@@ -1763,7 +1763,7 @@
     <value>交易額, {0} --&gt; {1} - {2} {3} ({4})</value>
   </data>
   <data name="TurnoverTitleNoUser" xml:space="preserve">
-    <value>交易額, {0} --&gt; {1} - {2}</value>
+    <value>交易額, {0} --&gt; {1}, {2}</value>
   </data>
   <data name="TwoWeek" xml:space="preserve">
     <value>两星期</value>
@@ -1876,7 +1876,7 @@
     <value>体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考</value>
   </data>
   <data name="WinLossByProductTitle" xml:space="preserve">
-    <value>投注产品输赢, {0} --&gt; {1} - {2}</value>
+    <value>投注产品输赢, {0} --&gt; {1}, {2}</value>
   </data>
   <data name="WinPlace" xml:space="preserve">
     <value>独赢 位置</value>

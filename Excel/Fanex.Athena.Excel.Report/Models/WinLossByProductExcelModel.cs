@@ -1,14 +1,11 @@
 ﻿namespace Fanex.Athena.Excel.Report.Models
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
 
     public class WinLossByProductExcelModel
     {
-        public ConvertingOption ConvertingOption { get; set; }
-
         public WinLossByProductMetaModel MetaModel { get; set; }
 
         public string SystemId { get; set; }

@@ -125,9 +125,6 @@ namespace Fanex.Athena.Controllers.Report
                 BAVisible = productAccess.IsAllowBA
             };
 
-            viewModel.Param.CurrencyName = viewModel.Param.IsConvert ?
-                viewModel.Param.BaseCurrency
-                : viewModel.CurrencyList.FirstOrDefault(a => a.Key == viewModel.Param.CurrencyId).Value;
             var isShowCasinoTransfer = AppSettings.LicenseeAllowCasinoTransfer.Contains(licenseeId);
             var excel = CreateExcel(templatePath, viewModel, showingOption, isShowCasinoTransfer);
 

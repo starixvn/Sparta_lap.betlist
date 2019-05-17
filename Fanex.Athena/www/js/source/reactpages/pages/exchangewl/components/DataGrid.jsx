@@ -362,8 +362,9 @@ export class DataGrid extends Component {
         const reportLevel = gridData.level;
         const params = this.drillDownParams[reportLevel];
         const title = Service.getReportTitle(
-            { fromDate: params.FromDate, toDate: params.ToDate }, 
-            params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, 
+            { fromDate: params.FromDate, toDate: params.ToDate },
+            params.CurrencyName,
+            params.BaseCurrency || params.CurrencyName, 
             reportLevel === ReportLevel.MAIN ? params.CurrencyId === 0 : false);
 
         if (!gridData.data.DataList.length) {

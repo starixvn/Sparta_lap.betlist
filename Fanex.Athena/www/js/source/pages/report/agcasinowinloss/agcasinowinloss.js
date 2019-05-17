@@ -74,9 +74,8 @@ define(['jquery', 'common/site', './agcasinowinloss.option', '../report', 'lib/j
             },
 
             setReportTitle: function (currencyId, fromdate, todate, baseCurrency) {
-                const titlePattern = Site.getSingleResource('AGCasinoWinLoss') + ', {0} → {1} - {2}';
-                const currencyName = baseCurrency || Report.getCurrencyName(currencyId);
-                const currencyTitle = Site.getSingleResource('BaseCurrency') + ': ' + currencyName.toUpperCase();
+                const titlePattern = Site.getSingleResource('AGCasinoWinLoss') + ', {0} → {1}, {2}';
+                const currencyTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
                 const title = $.format(titlePattern, moment(fromdate).format('MM/DD/YYYY'), moment(todate).format('MM/DD/YYYY'), currencyTitle);
                 $('.report-title').html(title);
                 $('.panel-heading').removeClass('hide');

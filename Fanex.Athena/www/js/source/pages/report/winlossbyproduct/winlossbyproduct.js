@@ -176,10 +176,9 @@
                 WinLossByProductOption.urlExcelData = temp;
             },
 
-            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
-                const titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
-                const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
-                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
+            setReportTitle: function (currencyId, fromdate, todate, baseCurrency) {
+                const titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1}, {2}{3}';
+                const currencyNameOnTitle = Report.getCurrencyTitle(currencyId, baseCurrency)
                 let licenseeWLNote = getLicenseeWLNote(_submitData.ProductOptions, _systemId);
                 licenseeWLNote = licenseeWLNote === '' ? '' : ', ' + licenseeWLNote;
 

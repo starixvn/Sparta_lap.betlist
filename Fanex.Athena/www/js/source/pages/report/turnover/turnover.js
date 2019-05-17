@@ -64,16 +64,15 @@
             let titlePattern = Site.getSingleResource('Turnover');
             let title = null;
             const username = $('#Username').val().trim();
-
-            const currencyName = ($("#BaseCurrency").val() || Report.getCurrencyName(_currencyId)).toUpperCase();
             const dateString = _fromDate.format('MM/DD/YYYY') + ' → ' + _toDate.format('MM/DD/YYYY');
             
             if (username === _me.defaultUserName) {
-                titlePattern += ', {0} - {1}';
-                const currencyStr = Site.getSingleResource('BaseCurrency') + ': ' + currencyName;
+                titlePattern += ', {0}, {1}';
+                const currencyStr = Report.getCurrencyTitle(_currencyId, $("#BaseCurrency").val());
                 title = $.format(titlePattern, dateString, currencyStr);
             } else {
                 titlePattern += ', {0} - {1} {2} ({3})';
+                const currencyName = ($("#BaseCurrency").val() || $('#CurrencyId option[value="' + _currencyId + '"]').text()).toUpperCase();
                 title = $.format(titlePattern, dateString, Site.getSingleResource('Customer'), username, currencyName);
             }
 

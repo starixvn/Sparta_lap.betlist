@@ -83,7 +83,7 @@
             model.CurrencyId = currencyId;
 
             var expectedTitle = $"{ViewResources.ProductPP} - {@ViewResources.PromotionPrize}, "
-                + $"{model.FromDate.ToString(FormatKey.DateFormat)} --> {model.ToDate.ToString(FormatKey.DateFormat)} - "
+                + $"{model.FromDate.ToString(FormatKey.DateFormat)} --> {model.ToDate.ToString(FormatKey.DateFormat)}, "
                 + ViewResources.AllCurrencies;
 
             // Action
@@ -109,7 +109,7 @@
             model.CurrencyId = currencyId;
 
             var expectedTitle = $"{ViewResources.ProductPP} - {@ViewResources.PromotionPrize}, "
-                + $"{model.FromDate.ToString(FormatKey.DateFormat)} --> {model.ToDate.ToString(FormatKey.DateFormat)} - "
+                + $"{model.FromDate.ToString(FormatKey.DateFormat)} --> {model.ToDate.ToString(FormatKey.DateFormat)}, "
                 + model.CurrencyName;
 
             // Action

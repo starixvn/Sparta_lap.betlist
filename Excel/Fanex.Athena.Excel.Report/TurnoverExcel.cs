@@ -162,7 +162,7 @@ namespace Fanex.Athena.Excel.Report
                                          _viewModel.Param.ToDate.ToString(FormatDate),
                                          ViewResources.Customer,
                                          _viewModel.Param.Username,
-                                         _viewModel.Param.CurrencyName.ToUpperInvariant());
+                                         _viewModel.Param.BaseCurrency.ToUpperInvariant());
             var reportTitle = _viewModel.Param.Username.IsNullOrTrimEmpty() ? titleNoUserName : title;
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 

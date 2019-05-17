@@ -212,11 +212,10 @@
             jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
         }
 
-        function setReportTitle(currencyId, fromdate, todate, currencyName) {
-            const titlePattern = _reportTitle + ', {0} → {1} - {2}';
-            //get currencyName
-            const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
-            const currencyTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
+        function setReportTitle(currencyId, fromdate, todate, baseCurrency) {
+            const titlePattern = _reportTitle + ', {0} → {1}, {2}';
+            
+            const currencyTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
             const title = $.format(titlePattern, fromdate, todate, currencyTitle);
 
             $(_selector.Title).html(title);

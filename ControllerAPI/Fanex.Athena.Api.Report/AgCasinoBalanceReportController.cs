@@ -104,15 +104,17 @@ namespace Fanex.Athena.Api.Report
             IList<AgCasinoBalance> dataList,
             IDictionary<string, AgCasinoBalance> summaryTotal)
         {
-            var userSession = SessionService.UserSession;
             const string FileName = "AgCasinoBalance.xls";
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/AgCasinoBalance.xls");
 
             if (metaModel.DrillDownLevel > 0)
             {
+                var currencyName = SessionService.UserSession.CurrencyList
+                    .SingleOrDefault(i => i.Key == metaModel.DrillDownCurrencyId).Value;
                 metaModel.FromDate = metaModel.DrillDownFromDate;
                 metaModel.ToDate = metaModel.DrillDownToDate;
                 metaModel.CurrencyId = metaModel.CurrencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
+                metaModel.CurrencyName = currencyName;
             }
 
             var viewModel = new AgCasinoBalanceViewModel

@@ -20,6 +20,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
+    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
@@ -98,6 +99,7 @@ namespace Fanex.Athena.Api.Report
             {
                 metaModel.FromDate = metaModel.DrillDownFromDate;
                 metaModel.ToDate = metaModel.DrillDownToDate;
+                metaModel.CurrencyName = currency.Key == 0 ? ViewResources.All : currency.Value;
             }
 
             var excelModel = new ColossusBetWinLossViewModel

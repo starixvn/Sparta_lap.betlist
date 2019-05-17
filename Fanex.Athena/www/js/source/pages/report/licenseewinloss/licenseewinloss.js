@@ -192,14 +192,13 @@
                 LicenseeWinLossOption.urlExcelData = temp;
             },
 
-            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
-                const baseCurrency = currencyName || Report.getCurrencyName(currencyId);
-                const titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                const currencyNameOnTitle = Site.getSingleResource('BaseCurrency') + ': ' + baseCurrency.toUpperCase();
+            setReportTitle: function (currencyId, fromdate, todate, baseCurrency) {
+                const titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1}, {2}';
+                const currencyNameTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
                 const title = $.format(titlePattern,
                     moment(fromdate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
                     moment(todate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
-                    currencyNameOnTitle);
+                    currencyNameTitle);
                 $('.report-title').html(title);
                 $('.panel-heading').removeClass('hide');
             },
@@ -325,7 +324,7 @@
                     success: function (response) {
                         _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {
-                            _me.setReportTitle(_submitData.CurrencyId, dateRange.FromDate, dateRange.ToDate, _submitData.BaseCurrency);
+                            _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, _submitData.BaseCurrency);
                         }
 
                         //update excel ULR
