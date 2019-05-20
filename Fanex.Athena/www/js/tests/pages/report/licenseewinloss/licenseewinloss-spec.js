@@ -213,7 +213,7 @@
 
                     LicenseeWinLoss.setReportTitle('-1', date, date);
 
-                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin EUR');
+                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001, Currency: , BaseCurrency: ');
                 });
 
                 it("currencyName is not empty - .report-title should has correct html content with currency name", function () {
@@ -224,7 +224,7 @@
 
                     LicenseeWinLoss.setReportTitle('-1', date, date, currencyName);
 
-                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin USD');
+                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001, Currency: , BaseCurrency: USD');
                 });
 
                 it("class 'hide' should be removed in .panel-heading", function () {
@@ -280,7 +280,7 @@
                 it("LicenseeWinLoss.setReportTitle(currencyId, fromDate, toDate) should be called with correct parameter if level param is 0", function () {
                     LicenseeWinLoss.ajaxComplete(0, { Data: "Hello", Total: [] });
 
-                    expect(LicenseeWinLoss.setReportTitle).toHaveBeenCalledWith("1", "03/01/2017", "03/31/2017");
+                    expect(LicenseeWinLoss.setReportTitle).toHaveBeenCalledWith("1", "03/01/2017", "03/31/2017", undefined);
                 });
 
                 it("LicenseeWinLoss.setReportTitle(currencyId, fromDate, toDate) should not be called with correct parameter if level param greater than 0", function () {
@@ -623,7 +623,7 @@
                         ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test" }] });
 
                         var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
-                        expect(args[0]).toBe(1);
+                        expect(args[0]).toBe(9);
                         expect(args[1]).toEqual(new Date(2017, 2, 1));
                         expect(args[2]).toEqual(new Date(2017, 2, 31));
                     });
@@ -647,7 +647,6 @@
                         expect(args[0]).toBe(9);
                         expect(args[1]).toEqual(new Date(2017, 2, 1));
                         expect(args[2]).toEqual(new Date(2017, 2, 31));
-                        expect(args[3]).toEqual(currencyName);
                     });
 
                     it("LicenseeWinLoss.setReportTitle should be called with correct parameter when level > 0 & currencyId === 0 & BaseCurrency is not empty", function () {
@@ -669,7 +668,6 @@
                         expect(args[0]).toBe(9);
                         expect(args[1]).toEqual(new Date(2017, 2, 1));
                         expect(args[2]).toEqual(new Date(2017, 2, 31));
-                        expect(args[3]).toEqual("EUR");
                     });
 
                     it("LicenseeWinLoss.updateDrilldownData should be called with correct parameter", function () {

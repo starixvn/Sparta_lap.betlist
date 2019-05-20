@@ -339,7 +339,7 @@
                         ReportTitle: "Title"
                     });
                     spyOn(Report, "getCurrencyNameForReportTitle").and.callFake(function (currencyId) { return currencyId; });
-                    var expectedTitle = "Title, 01/01/2011 → 01/11/2011 - 0";
+                    var expectedTitle = "Title, 01/01/2011 → 01/11/2011, Currency: All, BaseCurrency: ALL";
 
                     ThirdPartyWinLoss.setReportTitle(0, "01/01/2011", "01/11/2011");
 

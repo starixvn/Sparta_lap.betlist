@@ -142,13 +142,13 @@
             describe("setReportTitle(currencyId, fromdate, todate)", function () {
                 it(".report-title content should be correct", function () {
                     var currencyId = 1, fromdate = new Date("01/01/2011"), todate = new Date("01/31/2011");
-                    var expectedTitle = "AGCasinoWinLoss, 01/01/2011 → 01/31/2011 - 1";
+                    var expectedTitle = "AGCasinoWinLoss, 01/01/2011 → 01/31/2011, Currency: , BaseCurrency: USD";
                     setFixtures('<div class="report-title"></div>');
                     spyOn(Report, "getCurrencyNameForReportTitle").and.callFake(function (currencyId) {
                         return currencyId;
                     });
 
-                    AgCasinoWinLoss.setReportTitle(currencyId, fromdate, todate);
+                    AgCasinoWinLoss.setReportTitle(currencyId, fromdate, todate, 'USD');
 
                     expect($(".report-title").html()).toEqual(expectedTitle);
                 });
@@ -382,7 +382,7 @@
 
                     AgCasinoWinLoss.drillDown(data);
 
-                    expect(AgCasinoWinLoss.setReportTitle).toHaveBeenCalledWith("0", new Date("01/05/2011"), new Date("01/31/2011"));
+                    expect(AgCasinoWinLoss.setReportTitle).toHaveBeenCalledWith(1, new Date("01/05/2011"), new Date("01/31/2011"), 'USD');
                 });
 
                 it("AgCasinoWinLoss.setReportTitle should be called with todate is the submitted date if the drilldown todate is equal to the submitted todate ", function () {
@@ -392,7 +392,7 @@
 
                     AgCasinoWinLoss.drillDown(data);
 
-                    expect(AgCasinoWinLoss.setReportTitle).toHaveBeenCalledWith(1, new Date("02/01/2011"), new Date("02/10/2011"));
+                    expect(AgCasinoWinLoss.setReportTitle).toHaveBeenCalledWith(1, new Date("02/01/2011"), new Date("02/10/2011"), 'USD');
                 });
             });
 

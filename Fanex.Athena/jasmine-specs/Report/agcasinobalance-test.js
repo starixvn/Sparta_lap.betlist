@@ -126,14 +126,13 @@
     describe("setReportTitle(currencyId, fromdate, todate)", function () {
         it("setReportTitle() should assign correct content to .report-title.", function () {
             var $title = affix('.report-title');
-            var date = new Date();
             spyOn(Date.prototype, 'toString').and.callFake(function() {
                 return '1/1/2016';
             });
 
-            AgCasinoBalance.setReportTitle('-1', new Date(), new Date());
+            AgCasinoBalance.setReportTitle('20', new Date(), new Date(), 'USD');
             
-            expect($title.html()).toBe('AGCasinoBalance, 1/1/2016 → 1/1/2016 - Viewin');
+            expect($title.html()).toBe('AGCasinoBalance, 1/1/2016 → 1/1/2016, Currency: , BaseCurrency: USD');
         });
     });
 
