@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 05/16/2019 1:51:36 PM
+﻿// Generated at: 5/20/2019 4:00:30 PM
 window._language_zh_CN = {
 AA:"客客",
 AbnormalBet:"非正规注单",
@@ -560,7 +560,7 @@ MobileLiteVersion:"手机轻量版",
 Mode:"模式",
 Monday:"星期一",
 Money:"金额",
-MoneyLine:"独赢",
+MoneyLine:"胜负盘",
 MoneyPlay:"普通投注",
 Month:"月份",
 Monthly:"每月",
@@ -627,7 +627,7 @@ OldColor:"旧色",
 OldPassword:"旧密码",
 On:"开",
 OneMonth:"1个月",
-OneXTwo:"1 X 2",
+OneXTwo:"独赢盘",
 Open:"开启",
 OpeningBalance:"前期余额",
 OriginalBetTicket:"原始注单",

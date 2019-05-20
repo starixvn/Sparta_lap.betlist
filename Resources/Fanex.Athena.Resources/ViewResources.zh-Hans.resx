@@ -1173,7 +1173,7 @@
     <value>星期一</value>
   </data>
   <data name="MoneyLine" xml:space="preserve">
-    <value>独赢</value>
+    <value>胜负盘</value>
   </data>
   <data name="Month" xml:space="preserve">
     <value>月份</value>
@@ -1320,7 +1320,7 @@
     <value>1个月</value>
   </data>
   <data name="OneXTwo" xml:space="preserve">
-    <value>1 X 2</value>
+    <value>独赢盘</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>开启</value>

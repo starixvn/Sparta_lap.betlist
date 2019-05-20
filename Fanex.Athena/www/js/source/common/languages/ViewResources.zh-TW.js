@@ -1,4 +1,4 @@
-﻿// Generated at: 05/16/2019 1:51:36 PM
+﻿// Generated at: 5/20/2019 4:00:30 PM
 window._language_zh_TW = {
 AA:"客客",
 AbnormalBet:"非正規註單",
@@ -462,7 +462,7 @@ Mobile:"移動",
 Mode:"模式",
 Monday:"星期一",
 Money:"金額",
-MoneyLine:"獨贏",
+MoneyLine:"勝負盤",
 MoneyPlay:"普通投注",
 Month:"月份",
 Monthly:"每月",
@@ -529,7 +529,7 @@ OldColor:"舊色",
 OldPassword:"舊密碼",
 On:"開",
 OneMonth:"1個月",
-OneXTwo:"1 X 2",
+OneXTwo:"獨贏盤",
 Open:"開啟",
 OpeningBalance:"前期餘額",
 OriginalBetTicket:"原始注單",
