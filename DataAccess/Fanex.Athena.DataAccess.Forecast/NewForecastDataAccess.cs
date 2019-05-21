@@ -18,15 +18,13 @@ namespace Fanex.Athena.DataAccess.Forecast
 
     public class NewForecastDataAccess : BaseDataAccess, INewForecastDataAccess
     {
-        public async Task<NewForecastHdpOuData> GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo)
+        public async Task<NewForecastHdpOuData> GetNewForecastData(
+            NewForecastHandicapOverUnderMetaModel metaModel,
+            NewForecastHdpOuMatchInfo matchInfo)
         {
             using (var db = this.GetObjectDb("Lrf_Forecast_MatchTotalForecast"))
             {
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
-                db.SetParameterValue("MatchId", metaModel.MatchId);
-                db.SetParameterValue("HomeScore", null);
-                db.SetParameterValue("AwayScore", null);
-                db.SetParameterValue("MatchTime", null);
+                SetParams(metaModel, db);
 
                 using (var ds = await db.ExecuteDataSetAsync().ConfigureAwait(false))
                 {
@@ -69,6 +67,15 @@ namespace Fanex.Athena.DataAccess.Forecast
                     return forecastData;
                 }
             }
+        }
+
+        private static void SetParams(NewForecastHandicapOverUnderMetaModel metaModel, Data.IObjectDb db)
+        {
+            db.SetParameterValue("AgentList", metaModel.AgentListXml);
+            db.SetParameterValue("MatchId", metaModel.MatchId);
+            db.SetParameterValue("HomeScore", null);
+            db.SetParameterValue("AwayScore", null);
+            db.SetParameterValue("MatchTime", null);
         }
     }
 }
