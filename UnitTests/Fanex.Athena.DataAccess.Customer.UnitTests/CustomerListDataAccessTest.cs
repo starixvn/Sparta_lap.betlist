@@ -181,7 +181,6 @@
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMemberBAStatus")).Returns(ObjectDb);
-            ObjectDb.GetParameterValue("OddsGroup").Returns(string.Empty);
             const int LicenseeId = 0;
             const int CustId = 0;
             const int ModifiedBy = 0;
@@ -202,6 +201,20 @@
                 ObjectDb.Received(1).SetParameterValue("IP", request.Ip);
                 ObjectDb.Received(1).SetParameterValue("OddsGroup", null);
             });
+        }
+
+        [Test]
+        public void UpdateCustomerBAStatus_WhenCall_ReturnDataCorrectly()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMemberBAStatus")).Returns(ObjectDb);
+            ObjectDb.GetParameterValue("OddsGroup").Returns(null);
+
+            // Action
+            var result = DataAccess.UpdateCustomerBAStatus(0, 0, 0, false, new Request());
+
+            // Assert
+            Assert.That(result.ExtendedData, Is.EqualTo(string.Empty));
         }
 
         [Test]

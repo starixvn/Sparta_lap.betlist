@@ -12,8 +12,8 @@
     using System.Web.Http.Filters;
     using DataAccess.Core.Users.Interfaces;
     using Extensions;
+    using Model.Core.DTO.OneAuth;
     using ONEbook.UM.Services;
-    using ONEbook.UM.Services.Impl;
     using Resources;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
@@ -30,11 +30,11 @@
         {
             var scope = actionContext.Request.GetDependencyScope();
             var logger = scope.Resolve<ICoreLogger>();
-            var umService = scope.Resolve<IMaintenanceService>();
+            var maintainanceService = scope.Resolve<IMaintenanceService>();
 
             try
             {
-                if (umService.IsUnderMaintenance())
+                if (maintainanceService.IsUnderMaintenance())
                 {
                     return UnauthorizeAccessHandlerAsync(actionContext, ViewResources.UnderMaintenance);
                 }
@@ -64,11 +64,7 @@
                 }
 
                 actionContext.ActionArguments["licenseeid"] = licensee.Id;
-                actionContext.ActionArguments["userid"] = token.UserSEQ;
-                actionContext.ActionArguments["currencyIDList"] = string.Join(",", token.Currency.Select(i => i.CurrencyId).ToArray());
-                actionContext.ActionArguments["username"] = token.UserID;
-                actionContext.ActionArguments["sitename"] = token.SiteName;
-                actionContext.ActionArguments["language"] = token.Language;
+                AssignActionArguments(actionContext, token);
 
                 return continuation?.Invoke();
             }
@@ -77,6 +73,15 @@
                 logger.Error(exception);
                 return UnauthorizeAccessHandlerAsync(actionContext, ViewResources.AccessDeniedMsg);
             }
+        }
+
+        private static void AssignActionArguments(HttpActionContext actionContext, OneAuthToken token)
+        {
+            actionContext.ActionArguments["userid"] = token.UserSEQ;
+            actionContext.ActionArguments["currencyIDList"] = string.Join(",", token.Currency.Select(i => i.CurrencyId).ToArray());
+            actionContext.ActionArguments["username"] = token.UserID;
+            actionContext.ActionArguments["sitename"] = token.SiteName;
+            actionContext.ActionArguments["language"] = token.Language;
         }
 
         private static string GetAuthToken(HttpRequestMessage request)
@@ -90,8 +95,7 @@
             return request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase)).Value;
         }
 
-        private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext,
-            string message)
+        private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext, string message)
         {
             actionContext.Response = new HttpResponseMessage
             {

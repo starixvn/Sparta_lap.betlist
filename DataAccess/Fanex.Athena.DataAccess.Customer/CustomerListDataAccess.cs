@@ -109,7 +109,7 @@
                 db.ExecuteNonQuery();
 
                 var resultInfo = GetResult(db);
-                resultInfo.ExtendedData = db.GetParameterValue("OddsGroup").ToString().ToUpper(CultureInfo.CurrentCulture);
+                resultInfo.ExtendedData = Converter.ToString2(db.GetParameterValue("OddsGroup")).ToUpper(CultureInfo.CurrentCulture);
 
                 return resultInfo;
             }
