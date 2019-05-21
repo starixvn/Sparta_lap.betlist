@@ -11,6 +11,7 @@
     using Model.Core.DTO.OneAuth;
     using NSubstitute;
     using NUnit.Framework;
+    using ONEbook.UM.Services;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
     using UnitTest.Common.Helpers;
@@ -27,12 +28,15 @@
 
         private ILicenseeDataAccess _licenseeDataAccess;
 
+        private IMaintenanceService _maintenanceService;
+
         [SetUp]
         public void SetUp()
         {
             _logger = Substitute.For<ICoreLogger>();
             _oneAuthenticationService = Substitute.For<IOneAuthenticationService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
+            _maintenanceService = Substitute.For<IMaintenanceService>();
         }
 
         [Test]
@@ -153,6 +157,7 @@
             builder.RegisterInstance(_logger);
             builder.RegisterInstance(_oneAuthenticationService);
             builder.RegisterInstance(_licenseeDataAccess);
+            builder.RegisterInstance(_maintenanceService);
             WebApiHelper.SetupResolver(builder, actionContext);
             return actionContext;
         }
