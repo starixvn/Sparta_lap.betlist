@@ -52,9 +52,7 @@
                     }
                     message.Append($"\n ErrMsg={ex.Message}");
                     message.Append($"\n StackTrace={ex.StackTrace}");
-                    message.Append($"\n Source={ex.Source}");
                     message.Append($"\n InnerExceptionMsg={ex.InnerException.Message}");
-                    message.Append($"\n InnerExceptionSource={ex.InnerException.Source}");
                     throw new ServiceException(message.ToString(), "BetListApiClient");
                 }
             }
