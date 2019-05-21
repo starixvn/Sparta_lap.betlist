@@ -147,7 +147,7 @@
                 {
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossByMatchUsp));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -173,7 +173,7 @@
                 {
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossOutrightUsp));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -206,7 +206,7 @@
                     Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossNumberGameUsp));
                     Assert.That(metaModel.PageIndex, Is.EqualTo(expectedPageIndex));
                     Assert.That(metaModel.PageSize, Is.EqualTo(expectedPageSize));
-                    BetListApiClient.Received().PostAsync(PageApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(PageApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -239,7 +239,7 @@
                     Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossParlayUsp));
                     Assert.That(metaModel.PageIndex, Is.EqualTo(expectedPageIndex));
                     Assert.That(metaModel.PageSize, Is.EqualTo(expectedPageSize));
-                    BetListApiClient.Received().PostAsync(PageApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(PageApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -272,7 +272,7 @@
                     Assert.That(metaModel.UspKey, Is.EqualTo(SelWinlossVHRacingUsp));
                     Assert.That(metaModel.PageIndex, Is.EqualTo(expectedPageIndex));
                     Assert.That(metaModel.PageSize, Is.EqualTo(expectedPageSize));
-                    BetListApiClient.Received().PostAsync(PageApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(PageApiPath, metaModel, SessionLanguage);
                 });
             }
         }

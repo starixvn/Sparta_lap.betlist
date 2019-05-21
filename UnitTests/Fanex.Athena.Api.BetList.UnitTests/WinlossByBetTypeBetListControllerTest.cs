@@ -81,7 +81,9 @@
                             && x.CurrencyName == CurrencyName
                             && x.BaseCurrency == expectedBaseCurrency
                             && x.SortBy == SortBy
-                            && x.SortOrder == SortOrder));
+                            && x.SortOrder == SortOrder),
+                        SessionLanguage
+                        );
                 });
             }
         }

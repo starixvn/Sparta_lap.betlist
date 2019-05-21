@@ -67,7 +67,7 @@
                 _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CustId, metaModel.TransId).Returns(true);
 
                 var expect = new HttpResponseMessage();
-                _betListApiClient.PostAsync(ApiPath, metaModel).Returns(Task.FromResult(expect));
+                _betListApiClient.PostAsync(ApiPath, metaModel, SessionLanguage).Returns(Task.FromResult(expect));
 
                 // Action
                 var actual = await controller.Index(metaModel);
@@ -76,7 +76,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(expect, Is.EqualTo(actual));
-                    _betListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    _betListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }

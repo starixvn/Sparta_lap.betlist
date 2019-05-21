@@ -25,7 +25,8 @@
                 // Arrang
                 var metaModel = new SystemParlayDetailMetaModel();
 
-                BetListApiClient.PostAsyncString("/SystemParlayBetList/Detail", metaModel).Returns(Task.FromResult(string.Empty));
+                BetListApiClient.PostAsyncString("/SystemParlayBetList/Detail", metaModel,
+                    SessionService.UserSession.Language).Returns(Task.FromResult(string.Empty));
 
                 // Action
                 var result = await controller.Detail(metaModel) as ViewResult;
@@ -44,7 +45,8 @@
                 var metaModel = new SystemParlayDetailMetaModel();
 
                 var systemParlayText = "sdfsdl;fklskhflskdhlfkjshdlfkjhslkdjfhlskjdhf|";
-                BetListApiClient.PostAsyncString("/SystemParlayBetList/Detail", metaModel).Returns(Task.FromResult(systemParlayText));
+                BetListApiClient.PostAsyncString("/SystemParlayBetList/Detail", metaModel,
+                    SessionService.UserSession.Language).Returns(Task.FromResult(systemParlayText));
 
                 // Action
                 var result = (await controller.Detail(metaModel)) as ViewResult;

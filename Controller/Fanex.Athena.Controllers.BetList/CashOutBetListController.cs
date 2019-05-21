@@ -31,11 +31,12 @@
         [HttpGet]
         public async Task<ActionResult> Detail(CashOutBetListDetailMetaModel metaModel)
         {
+            var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
             metaModel.HasPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
-            metaModel.UserCurrencyList = SessionService.UserSession.CurrencyList;
+            metaModel.UserCurrencyList = userSession.CurrencyList;
 
-            var viewModel = await BetListApiClient.PostAsync<CashOutBetListDetailViewModel>("/CashOutBetList/Detail", metaModel).ConfigureAwait(false);
+            var viewModel = await BetListApiClient.PostAsync<CashOutBetListDetailViewModel>("/CashOutBetList/Detail", metaModel, userSession.Language).ConfigureAwait(false);
 
             return this.View("~/Views/Desktop/BetList/CashOutDetail/Main.cshtml", viewModel);
         }

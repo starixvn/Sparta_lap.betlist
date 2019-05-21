@@ -88,7 +88,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(metaModel.UspKey, Is.EqualTo(uspKey));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }

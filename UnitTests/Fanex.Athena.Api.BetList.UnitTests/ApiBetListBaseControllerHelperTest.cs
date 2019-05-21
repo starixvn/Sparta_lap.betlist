@@ -48,7 +48,7 @@
             string apiPath,
             HttpResponseMessage result)
         {
-            BetListApiClient.PostAsync(apiPath, metaModel).Returns(Task.FromResult(result));
+            BetListApiClient.PostAsync(apiPath, metaModel, SessionLanguage).Returns(Task.FromResult(result));
         }
     }
 }

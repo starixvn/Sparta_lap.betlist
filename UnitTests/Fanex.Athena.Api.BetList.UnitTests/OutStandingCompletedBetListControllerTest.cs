@@ -110,7 +110,7 @@
                     Assert.That(actual, Is.EqualTo(expect));
                     Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
                     Assert.That(metaModel.ProductCodeList, Is.EqualTo("Product1"));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }

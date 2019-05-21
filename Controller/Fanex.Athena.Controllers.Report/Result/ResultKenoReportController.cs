@@ -34,19 +34,20 @@
         [AjaxRequest]
         public async Task<ActionResult> Index(int vendorProductId)
         {
-            var userId = SessionService.UserSession.UserId;
+            var userSession = SessionService.UserSession;
             var model = new
             {
                 vendorProductId,
-                UserId = userId.ToString()
+                UserId = userSession.UserId.ToString()
             };
-            var kenoUrl = await _betListApiClient.PostAsyncString("/ResultKenoReport/GetKenoResultUrl", model).ConfigureAwait(false);
+            var kenoUrl = await _betListApiClient.PostAsyncString("/ResultKenoReport/GetKenoResultUrl",
+                model, userSession.Language).ConfigureAwait(false);
 
             return Json(
                 new
                 {
                     Url = kenoUrl,
-                    UserId = userId
+                    UserId = userSession.UserId
                 },
             JsonRequestBehavior.AllowGet);
         }
@@ -56,7 +57,8 @@
         [CustomValidateAntiForgery]
         public async Task<string> KeepSession(string userId, int vendorProductId)
         {
-            if (string.IsNullOrEmpty(userId) || !SessionService.UserSession.UserId.ToString().Equals(userId))
+            var userSession = SessionService.UserSession;
+            if (string.IsNullOrEmpty(userId) || !userSession.UserId.ToString().Equals(userId))
             {
                 await _logger.ErrorAsync("Keno Result page just submited invalid userId").ConfigureAwait(false);
 
@@ -69,7 +71,8 @@
                 UserId = userId
             };
 
-            var result = await _betListApiClient.PostAsync<KenoExtendedToken>("/ResultKenoReport/KeepSession", model).ConfigureAwait(false);
+            var result = await _betListApiClient.PostAsync<KenoExtendedToken>("/ResultKenoReport/KeepSession",
+                model, userSession.Language).ConfigureAwait(false);
 
             if (result.ErrorCode > 0)
             {

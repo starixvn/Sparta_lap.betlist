@@ -20,15 +20,12 @@
 
         private readonly IAppSettings _appSetting;
 
-        private readonly ISessionStorage _sessionStorage;
-
-        public BetListApiClient(IAppSettings appSettings, ISessionStorage sessionStorage)
+        public BetListApiClient(IAppSettings appSettings)
         {
             _appSetting = appSettings;
-            _sessionStorage = sessionStorage;
         }
 
-        private async Task<T> Handle<T>(string path, object value, Func<HttpResponseMessage, Task<T>> codeBlock)
+        private async Task<T> Handle<T>(string path, object value, string language, Func<HttpResponseMessage, Task<T>> codeBlock)
         {
             using (var source = new CancellationTokenSource())
             using (var client = new HttpClient())
@@ -37,7 +34,7 @@
                 {
                     client.Timeout = TimeSpan.FromMinutes(_appSetting.BetListApiClientTimeOutMinutes);
                     client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
-                    client.DefaultRequestHeaders.Add(LANGUAGEKEY, _sessionStorage.UserSession.Language);
+                    client.DefaultRequestHeaders.Add(LANGUAGEKEY, language);
                     var url = new Uri(_appSetting.BetListApiHostUrl + path);
                     var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                     var response = await client.PostAsync(url, stringContent, source.Token).ConfigureAwait(false);
@@ -51,16 +48,17 @@
             }
         }
 
-        public Task<HttpResponseMessage> PostAsync(string path, object value)
+        public Task<HttpResponseMessage> PostAsync(string path, object value, string language)
         {
-            return Handle(path, value, x => Task.FromResult(x));
+            return Handle(path, value, language, x => Task.FromResult(x));
         }
 
-        public Task<T> PostAsync<T>(string path, object value)
+        public Task<T> PostAsync<T>(string path, object value, string language)
         {
             return Handle<T>(
                 path,
                 value,
+                language,
                  async (x) =>
              {
                  var data = await x.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -68,14 +66,14 @@
              });
         }
 
-        public Task<Stream> PostAsyncStream(string path, object value)
+        public Task<Stream> PostAsyncStream(string path, object value, string language)
         {
-            return Handle(path, value, async (x) => await x.Content.ReadAsStreamAsync().ConfigureAwait(false));
+            return Handle(path, value, language, async (x) => await x.Content.ReadAsStreamAsync().ConfigureAwait(false));
         }
 
-        public Task<string> PostAsyncString(string path, object value)
+        public Task<string> PostAsyncString(string path, object value, string language)
         {
-            return Handle(path, value, async (x) => await x.Content.ReadAsStringAsync().ConfigureAwait(false));
+            return Handle(path, value, language, async (x) => await x.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
     }
 }
