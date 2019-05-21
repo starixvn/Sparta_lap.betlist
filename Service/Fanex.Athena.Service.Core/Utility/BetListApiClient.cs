@@ -46,6 +46,10 @@
                 {
                     var message = new StringBuilder($"Error when calling LAP.BETLIST API - Path = { path }");
                     message.Append($"\n IsCancellationRequested={source.IsCancellationRequested}");
+                    if (ex is TaskCanceledException && !(ex as TaskCanceledException).CancellationToken.IsCancellationRequested)
+                    {
+                        message.Append("Request timed out");
+                    }
                     message.Append($"\n ErrMsg={ex.Message}");
                     message.Append($"\n StackTrace={ex.StackTrace}");
                     message.Append($"\n Source={ex.Source}");
