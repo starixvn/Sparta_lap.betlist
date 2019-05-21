@@ -56,7 +56,7 @@
                             }
                         }
                         message.Append($"\n ErrMsg={ex.Message}");
-                        message.Append($"\n InnerExceptionMsg={ex.InnerException.Message}");
+                        message.Append($"\n InnerExceptionMsg={ex.InnerException?.Message}");
                         throw new ServiceException(message.ToString(), "BetListApiClient");
                     }
                 }
