@@ -45,10 +45,14 @@
                 catch (Exception ex)
                 {
                     var message = new StringBuilder($"Error when calling LAP.BETLIST API - Path = { path }");
-                    message.Append($"\n IsCancellationRequested={source.IsCancellationRequested}");
-                    if (ex is TaskCanceledException && !(ex as TaskCanceledException).CancellationToken.IsCancellationRequested)
+                    if (ex is TaskCanceledException)
                     {
-                        message.Append("\n Request timed out");
+                        var temp = ex as TaskCanceledException;
+                        message.Append($"\n IsCancellationRequested={temp.CancellationToken.IsCancellationRequested}");
+                        if (!temp.CancellationToken.IsCancellationRequested)
+                        {
+                            message.Append("\n Request timed out");
+                        }
                     }
                     message.Append($"\n ErrMsg={ex.Message}");
                     message.Append($"\n InnerExceptionMsg={ex.InnerException.Message}");
