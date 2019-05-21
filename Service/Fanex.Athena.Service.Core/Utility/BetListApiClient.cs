@@ -29,34 +29,36 @@
         private async Task<T> Handle<T>(string path, object value, string language, Func<HttpResponseMessage, Task<T>> codeBlock)
         {
             using (var source = new CancellationTokenSource())
-            using (var client = new HttpClient())
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    client.Timeout = TimeSpan.FromMinutes(_appSetting.BetListApiClientTimeOutMinutes);
-                    client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
-                    client.DefaultRequestHeaders.Add(LANGUAGEKEY, language);
-                    var url = new Uri(_appSetting.BetListApiHostUrl + path);
-                    var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
-                    var response = await client.PostAsync(url, stringContent, source.Token).ConfigureAwait(false);
-                    response.EnsureSuccessStatusCode();
-                    return await codeBlock(response);
-                }
-                catch (Exception ex)
-                {
-                    var message = new StringBuilder($"Error when calling LAP.BETLIST API - Path = { path }");
-                    if (ex is TaskCanceledException)
+                    try
                     {
-                        var temp = ex as TaskCanceledException;
-                        message.Append($"\n IsCancellationRequested={temp.CancellationToken.IsCancellationRequested}");
-                        if (!temp.CancellationToken.IsCancellationRequested)
-                        {
-                            message.Append("\n Request timed out");
-                        }
+                        client.Timeout = TimeSpan.FromMinutes(_appSetting.BetListApiClientTimeOutMinutes);
+                        client.DefaultRequestHeaders.Add(KEYNAME, _appSetting.GetValue("BetListApiTokenValue"));
+                        client.DefaultRequestHeaders.Add(LANGUAGEKEY, language);
+                        var url = new Uri(_appSetting.BetListApiHostUrl + path);
+                        var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+                        var response = await client.PostAsync(url, stringContent, source.Token).ConfigureAwait(false);
+                        response.EnsureSuccessStatusCode();
+                        return await codeBlock(response);
                     }
-                    message.Append($"\n ErrMsg={ex.Message}");
-                    message.Append($"\n InnerExceptionMsg={ex.InnerException.Message}");
-                    throw new ServiceException(message.ToString(), "BetListApiClient");
+                    catch (Exception ex)
+                    {
+                        var message = new StringBuilder($"Error when calling LAP.BETLIST API - Path = { path }");
+                        if (ex is TaskCanceledException)
+                        {
+                            var temp = ex as TaskCanceledException;
+                            message.Append($"\n IsCancellationRequested={temp.CancellationToken.IsCancellationRequested}");
+                            if (!temp.CancellationToken.IsCancellationRequested)
+                            {
+                                message.Append("\n Request timed out");
+                            }
+                        }
+                        message.Append($"\n ErrMsg={ex.Message}");
+                        message.Append($"\n InnerExceptionMsg={ex.InnerException.Message}");
+                        throw new ServiceException(message.ToString(), "BetListApiClient");
+                    }
                 }
             }
         }
