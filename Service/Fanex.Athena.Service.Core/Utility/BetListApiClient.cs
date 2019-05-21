@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using System.Web;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Core.Utility.Interfaces;
     using Fanex.Athena.Session.Interfaces;
     using Newtonsoft.Json;
@@ -39,11 +40,18 @@
                     var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
                     var response = await client.PostAsync(url, stringContent, source.Token).ConfigureAwait(false);
                     response.EnsureSuccessStatusCode();
-                    return await codeBlock(response).ConfigureAwait(false);
+                    return await codeBlock(response);
                 }
                 catch (Exception ex)
                 {
-                    throw new HttpException($"Error when calling LAP.BETLIST API - Path= {path}", ex);
+                    var message = new StringBuilder($"Error when calling LAP.BETLIST API - Path = { path }");
+                    message.Append($"\n IsCancellationRequested={source.IsCancellationRequested}");
+                    message.Append($"\n ErrMsg={ex.Message}");
+                    message.Append($"\n StackTrace={ex.StackTrace}");
+                    message.Append($"\n Source={ex.Source}");
+                    message.Append($"\n InnerExceptionMsg={ex.InnerException.Message}");
+                    message.Append($"\n InnerExceptionSource={ex.InnerException.Source}");
+                    throw new ServiceException(message.ToString(), "BetListApiClient");
                 }
             }
         }
@@ -61,19 +69,19 @@
                 language,
                  async (x) =>
              {
-                 var data = await x.Content.ReadAsStringAsync().ConfigureAwait(false);
+                 var data = await x.Content.ReadAsStringAsync();
                  return JsonConvert.DeserializeObject<T>(data);
              });
         }
 
         public Task<Stream> PostAsyncStream(string path, object value, string language)
         {
-            return Handle(path, value, language, async (x) => await x.Content.ReadAsStreamAsync().ConfigureAwait(false));
+            return Handle(path, value, language, async (x) => await x.Content.ReadAsStreamAsync());
         }
 
         public Task<string> PostAsyncString(string path, object value, string language)
         {
-            return Handle(path, value, language, async (x) => await x.Content.ReadAsStringAsync().ConfigureAwait(false));
+            return Handle(path, value, language, async (x) => await x.Content.ReadAsStringAsync());
         }
     }
 }
