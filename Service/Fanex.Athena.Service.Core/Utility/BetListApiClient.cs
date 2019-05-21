@@ -48,10 +48,9 @@
                     message.Append($"\n IsCancellationRequested={source.IsCancellationRequested}");
                     if (ex is TaskCanceledException && !(ex as TaskCanceledException).CancellationToken.IsCancellationRequested)
                     {
-                        message.Append("Request timed out");
+                        message.Append("\n Request timed out");
                     }
                     message.Append($"\n ErrMsg={ex.Message}");
-                    message.Append($"\n StackTrace={ex.StackTrace}");
                     message.Append($"\n InnerExceptionMsg={ex.InnerException.Message}");
                     throw new ServiceException(message.ToString(), "BetListApiClient");
                 }
