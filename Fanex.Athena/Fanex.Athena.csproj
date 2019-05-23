@@ -308,6 +308,7 @@
     <Content Include="App_Data\UserGuide\CashOutWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\en-US.htm" />
+    <Content Include="App_Data\UserGuide\CustomerList\zh-Hans.htm" />
     <Content Include="App_Data\UserGuide\GoldDeluxeWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-CN.htm" />
@@ -655,6 +656,8 @@
     </Content>
     <Content Include="SiteConfig\WebConfigTransforms\UATTW.config" />
     <Content Include="SiteConfig\Web.UATTW.config" />
+    <Content Include="App_Data\UserGuide\CustomerList\pdf\zh-Hans\Odds Group Feature_Licensee.pdf" />
+    <Content Include="App_Data\UserGuide\CustomerList\pdf\zh-Hans\Odds Group Feature_Licensee_BA.pdf" />
     <None Include="www\css\source\reactpages\components\custom3rd\react-toastify.scss" />
     <None Include="www\css\source\pages\betlist\result\result.happy5.scss" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\bonus.png" />

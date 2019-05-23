@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System;
+
 namespace Fanex.Athena.BetList.Model.DTO
 {
     /// <summary>
@@ -26,5 +28,7 @@ namespace Fanex.Athena.BetList.Model.DTO
         public int AwayId { get; set; }
 
         public string Race { get; set; }
+
+        public DateTime EventDate { get; set; }
     }
 }

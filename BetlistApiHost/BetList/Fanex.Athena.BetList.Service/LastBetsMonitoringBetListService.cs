@@ -217,6 +217,7 @@ namespace Fanex.Athena.BetList.Service
                     ticket.HomeId = match.HomeId;
                     ticket.AwayId = match.AwayId;
                     ticket.Race = match.Race;
+                    ticket.EventDate = match.EventDate;
                 }
 
                 // Update time zone
