@@ -10,6 +10,7 @@ using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.TicketHelper;
 using Fanex.Logging;
+using Fanex.RemotingRef;
 using Fanex.Result.Core.AllBetCasino;
 using Fanex.Result.Core.PP;
 using Fanex.Result.Core.Voidbridge;
@@ -45,7 +46,7 @@ namespace Fanex.Athena
             builder.RegisterType<PPResult>().As<IPPResult>();
             builder.RegisterType<VoidbridgeApiImp>().As<VoidbridgeApi>();
             builder.RegisterType<AllbetResultBuilder>().As<IAllbetResultBuilder>();
-
+            builder.RegisterType<RemotingRefService>().As<IRemotingRefService>().SingleInstance();
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
         }
 

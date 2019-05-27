@@ -6,7 +6,7 @@ namespace Fanex.Athena.Common.Utility.Services.Internal
     {
         void Delete(string path);
 
-        FileStream OpenRead(string path);
+        byte[] ReadAllBytes(string path);
 
         string ReadString(string path);
 

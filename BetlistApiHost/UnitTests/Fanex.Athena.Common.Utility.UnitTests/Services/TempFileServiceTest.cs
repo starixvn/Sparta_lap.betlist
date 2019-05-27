@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Common.Utility.UnitTests.Helpers
 {
+    using Fanex.Athena.Common.Utility.Services;
+    using Fanex.Athena.Common.Utility.Services.Interfaces;
+    using Fanex.Athena.Common.Utility.Services.Internal;
     using NSubstitute;
     using NUnit.Framework;
-    using Services;
-    using Services.Interfaces;
-    using Services.Internal;
 
     [TestFixture]
     public class TempFileServiceTest
@@ -17,7 +17,7 @@
 
         private IFileSystem _fileSystem;
 
-        private TempFileService _tempFileService;
+        private ITempFileService _tempFileService;
 
         [SetUp]
         public void SetUp()
@@ -65,6 +65,20 @@
 
             // Assert
             _fileSystem.Received(1).Save(TempFilePath + FilePath, Content);
+        }
+
+        [Test]
+        public void ReadAllBytes_WhenCall_CallFileSystemReadAllBytes()
+        {
+            // Arrange
+            var ExpectedContent = new byte[2] { 0x20, 0x21 };
+            _fileSystem.ReadAllBytes(TempFilePath + FilePath).Returns(ExpectedContent);
+
+            // Action
+            var content = _tempFileService.ReadBytes(FilePath);
+
+            // Assert
+            _fileSystem.Received(1).ReadAllBytes(TempFilePath + FilePath);
         }
     }
 }

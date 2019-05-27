@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Common.Utility.UnitTests.Helpers
 {
     using System;
+    using Fanex.Athena.Common.Utility.Services;
+    using Fanex.Athena.Common.Utility.Services.Internal;
     using NSubstitute;
     using NUnit.Framework;
-    using Services;
-    using Services.Internal;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
@@ -24,6 +24,12 @@
             _memoryCacheService = new MemoryCacheService(_cache);
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            _cache = null;
+            _memoryCacheService = null;
+        }
         [TestCase(true)]
         [TestCase(false)]
         public void Contains_WhenCall_ReturnFromCacheMethod(bool expectedResult)

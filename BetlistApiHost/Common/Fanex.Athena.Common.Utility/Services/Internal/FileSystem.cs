@@ -12,6 +12,16 @@ namespace Fanex.Athena.Common.Utility.Services.Internal
             }
         }
 
+        public byte[] ReadAllBytes(string path)
+        {
+            if (File.Exists(path))
+            {
+                return File.ReadAllBytes(path);
+            }
+
+            return new byte[0];
+        }
+
         public string ReadString(string path)
         {
             using (var reader = new StreamReader(path))
@@ -31,9 +41,5 @@ namespace Fanex.Athena.Common.Utility.Services.Internal
             }
         }
 
-        public FileStream OpenRead(string path)
-        {
-            return new FileStream(path, FileMode.Open, FileAccess.Read);
-        }
     }
 }
