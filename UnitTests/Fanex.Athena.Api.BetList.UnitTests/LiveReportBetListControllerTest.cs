@@ -286,7 +286,7 @@
 
         private LiveReportBetListMetaModel CreateValidCurrencyMetaModel(int currency)
         {
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currency, "Currency Name" } } });
+            StubUserSessionData(new UserSession { Language = SessionLanguage, CurrencyList = new Dictionary<int, string> { { currency, "Currency Name" } } });
 
             return new LiveReportBetListMetaModel { CurrencyId = currency };
         }

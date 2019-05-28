@@ -39,6 +39,7 @@
             SessionService = Substitute.For<ISessionService>();
             SessionService.UserSession.Returns(new UserSession
             {
+                Language = SessionLanguage,
                 CurrencyList = new Dictionary<int, string>()
             });
             ProductService = Substitute.For<IProductService>();

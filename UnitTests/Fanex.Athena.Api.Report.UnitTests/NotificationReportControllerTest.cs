@@ -88,6 +88,7 @@
         public void ResultAmendment_WhenCall_CallServiceWithCorrectParameter()
         {
             // Arrange
+            const string expectedLanguage = "en";
             var metaModel = new NotificationMetaModel();
 
             _service.GetResultAmendment(Arg.Any<NotificationMetaModel>()).Returns(new ReportResultModel<ResultAmendment>
@@ -104,7 +105,7 @@
             {
                 _service.Received().GetResultAmendment(Arg.Any<NotificationMetaModel>());
                 Assert.That(metaModel.UserName, Is.EqualTo(SessionUserName));
-                Assert.That(metaModel.Language, Is.EqualTo(SessionLanguage));
+                Assert.That(metaModel.Language, Is.EqualTo(expectedLanguage));
                 Assert.That(metaModel.LicenseeName, Is.EqualTo(SessionLicenseeName));
             });
         }

@@ -68,7 +68,7 @@
                 };
 
                 BalanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp { BalanceUpDay = DateTime.Parse(balanceUpDay) });
-                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Test" } } });
+                StubUserSessionData(new UserSession { Language = SessionLanguage, CurrencyList = new Dictionary<int, string> { { currencyId, "Test" } } });
 
                 dynamic betListResult = new
                 {

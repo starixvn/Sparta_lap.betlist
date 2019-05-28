@@ -90,6 +90,7 @@
 
                 StubUserSessionData(new UserSession
                 {
+                    Language = SessionLanguage,
                     CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
                 });
 
