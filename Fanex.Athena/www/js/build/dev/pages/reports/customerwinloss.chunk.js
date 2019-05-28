@@ -1390,7 +1390,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
+/* WEBPACK VAR INJECTION */(function(jQuery) {﻿///
 
 (function ($) {
     $.fn.checkboxgroup = function () {
@@ -1606,7 +1606,7 @@ jQuery.extend({
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-﻿/// <reference path="/@JSense.js" />
+﻿///
 ///
 /*
 * @Alex-1/11/2013
@@ -4540,7 +4540,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
+/* WEBPACK VAR INJECTION */(function(jQuery) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;///
 /*
 * monPickr - jQuery Plugin
 * Just a simple month picker
@@ -5385,7 +5385,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
+/* WEBPACK VAR INJECTION */(function(jQuery) {﻿///
 (function ($) {
     var currentTriggerEvents = [];
     var methods = {

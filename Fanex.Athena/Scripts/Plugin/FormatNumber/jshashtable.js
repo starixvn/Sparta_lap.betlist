@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 /**
 * Copyright 2010 Tim Down.
 *

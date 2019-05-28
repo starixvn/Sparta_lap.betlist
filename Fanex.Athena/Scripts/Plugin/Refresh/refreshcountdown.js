@@ -1,5 +1,5 @@
 ﻿/*global Site, QueryString */
-/// <reference path="/@JSense.js" />
+///
 "use strict";
 var RefreshCountDown = (function ($) {
     var curCountDown = 0;

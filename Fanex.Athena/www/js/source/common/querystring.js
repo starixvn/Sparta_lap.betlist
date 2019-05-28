@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 define(['jquery'], function ($) {
     'use strict';
 

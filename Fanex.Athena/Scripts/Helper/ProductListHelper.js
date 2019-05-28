@@ -1,6 +1,6 @@
 ﻿/*global Site*/
 /*exported ProductListHelper*/
-/// <reference path="/@JSense.js" />
+///
 "use strict";
 var ProductListHelper = (function () {
     return {

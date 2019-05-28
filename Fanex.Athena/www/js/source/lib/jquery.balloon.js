@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 /**
 * Hover balloon on elements without css and images.
 *

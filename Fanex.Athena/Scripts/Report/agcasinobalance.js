@@ -1,5 +1,5 @@
 ﻿/*global jqGridAdditional, AgCasinoBalanceOption, Report, Site, PagingHeper */
-/// <reference path="/@JSense.js" />
+///
 ///
 var AgCasinoBalance = (function ($) {
     "use strict";

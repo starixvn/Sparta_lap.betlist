@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 // autor: Piotr kwiatkowski
 // www: http://pasjonata.net
 

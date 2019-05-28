@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 Calendar.LANG("jp", "Japanese", {
     fdow: 1,                // 地元の週の初めの日; 0 = 日曜日, 1 = 月曜日, 等.
 

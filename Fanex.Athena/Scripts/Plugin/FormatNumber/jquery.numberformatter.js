@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 /**
 * jquery.numberformatter - Formatting/Parsing Numbers in jQuery
 *

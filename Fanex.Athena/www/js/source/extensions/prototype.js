@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 ///
 /*
 * @Alex-1/11/2013

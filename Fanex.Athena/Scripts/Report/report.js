@@ -1,6 +1,6 @@
 ﻿/*global Site*/
 /*exported Report*/
-/// <reference path="/@JSense.js" />
+///
 "use strict";
 var Report = (function ($) {
     var REPORT_BY_MONTHLY = 2;

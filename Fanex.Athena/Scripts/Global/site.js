@@ -1,5 +1,5 @@
 ﻿/*global QueryString, _language_en_US, _page*/
-/// <reference path="/@JSense.js" />
+///
 /* Preset */
 // root JSON object
 "use strict";

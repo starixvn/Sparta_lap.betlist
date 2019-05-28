@@ -1,5 +1,5 @@
 ﻿/*exported QueryString*/
-/// <reference path="/@JSense.js" />
+///
 /// class:QueryString
 "use strict";
 var QueryString = (function ($) {

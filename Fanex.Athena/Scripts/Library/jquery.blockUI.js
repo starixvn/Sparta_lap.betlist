@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 ///
 /* !jQuery blockUI plugin
 * Version 2.56.0-2013.01.31

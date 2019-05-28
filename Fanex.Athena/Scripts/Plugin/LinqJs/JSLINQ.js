@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 //-----------------------------------------------------------------------
 // Part of the LINQ to JavaScript (JSLINQ) v2.10 Project - http://jslinq.codeplex.com
 // Copyright (C) 2009 Chris Pietschmann (http://pietschsoft.com). All rights reserved.

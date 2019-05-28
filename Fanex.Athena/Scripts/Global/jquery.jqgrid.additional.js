@@ -1,5 +1,5 @@
 ﻿/*global Site, MathContext, BigDecimal*/
-/// <reference path="/@JSense.js" />
+///
 ///
 var jqGridAdditional = (function () {
     "use strict";
