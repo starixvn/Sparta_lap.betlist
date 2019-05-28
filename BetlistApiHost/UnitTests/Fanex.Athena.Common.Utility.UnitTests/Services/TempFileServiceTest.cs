@@ -71,11 +71,11 @@
         public void ReadAllBytes_WhenCall_CallFileSystemReadAllBytes()
         {
             // Arrange
-            var ExpectedContent = new byte[2] { 0x20, 0x21 };
+            var ExpectedContent = new byte[] { 0x20, 0x21 };
             _fileSystem.ReadAllBytes(TempFilePath + FilePath).Returns(ExpectedContent);
 
             // Action
-            var content = _tempFileService.ReadBytes(FilePath);
+            _tempFileService.ReadBytes(FilePath);
 
             // Assert
             _fileSystem.Received(1).ReadAllBytes(TempFilePath + FilePath);
