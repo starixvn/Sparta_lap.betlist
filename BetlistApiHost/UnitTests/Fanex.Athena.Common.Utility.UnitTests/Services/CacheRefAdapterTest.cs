@@ -25,7 +25,7 @@ namespace Fanex.Athena.Common.Utility.UnitTests.Services
                .Returns(ExpectedLeagueName);
 
             _remotingRefService.GetCombinationTypeCombo(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<int>(),
-                Arg.Any<int>(), Arg.Any<string>()).Returns(new string[] { "call1", "call2" });
+                Arg.Any<int>(), Arg.Any<string>()).Returns(new[] { "call1", "call2" });
             _cacheRefAdapter = new CacheRefAdapter(_remotingRefService);
 
         }
