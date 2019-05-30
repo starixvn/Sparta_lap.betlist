@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 5/20/2019 4:00:30 PM
+﻿// Generated at: 05/30/2019 11:01:55 AM
 window._language_zh_Hans = {
 AA:"客客",
 AbnormalBet:"非正规注单",
@@ -607,7 +607,7 @@ Odd:"单",
 Odd_Dec:"欧洲盘",
 Odd_MY:"马来盘",
 OddEven:"单双盘",
-OddEvenDND:"单双盘 + 1 X 2 + 平局/不是和局",
+OddEvenDND:"单双盘 + 独赢盘 + 平局/不是和局",
 Odds:"赔率",
 OddsAvg:"平均赔率",
 OddsMatched:"匹配赔率",

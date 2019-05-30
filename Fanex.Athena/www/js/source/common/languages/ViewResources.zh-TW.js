@@ -1,4 +1,4 @@
-﻿// Generated at: 5/20/2019 4:00:30 PM
+﻿// Generated at: 05/30/2019 11:01:55 AM
 window._language_zh_TW = {
 AA:"客客",
 AbnormalBet:"非正規註單",
@@ -514,7 +514,7 @@ Odd:"單",
 Odd_Dec:"歐洲盤",
 Odd_MY:"馬來盤",
 OddEven:"單雙盤",
-OddEvenDND:"單雙盤 + 1 X 2 + 平局/不是和局",
+OddEvenDND:"單雙盤 + 獨贏盤 + 平局/不是和局",
 Odds:"賠率",
 OddsAvg:"平均賠率",
 OddsMatched:"匹配賠率",

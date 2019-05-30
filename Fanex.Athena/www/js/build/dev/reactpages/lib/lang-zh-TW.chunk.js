@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Generated at: 05/16/2019 1:51:36 PM
+// Generated at: 05/30/2019 11:01:55 AM
 window._language_zh_TW = {
   AA: "客客",
   AbnormalBet: "非正規註單",
@@ -437,6 +437,7 @@ window._language_zh_TW = {
   Jun: "六月",
   June: "六月",
   KeepCurrentComm: "保持當前的佣金",
+  Keno: "Keno",
   KickOffTime: "开赛时间",
   Kidnapping: "綁架",
   Last: "最後",
@@ -557,7 +558,7 @@ window._language_zh_TW = {
   Mode: "模式",
   Monday: "星期一",
   Money: "金額",
-  MoneyLine: "獨贏",
+  MoneyLine: "勝負盤",
   MoneyPlay: "普通投注",
   Month: "月份",
   Monthly: "每月",
@@ -609,7 +610,7 @@ window._language_zh_TW = {
   Odd_Dec: "歐洲盤",
   Odd_MY: "馬來盤",
   OddEven: "單雙盤",
-  OddEvenDND: "單雙盤 + 1 X 2 + 平局/不是和局",
+  OddEvenDND: "單雙盤 + 獨贏盤 + 平局/不是和局",
   Odds: "賠率",
   OddsAvg: "平均賠率",
   OddsMatched: "匹配賠率",
@@ -624,7 +625,7 @@ window._language_zh_TW = {
   OldPassword: "舊密碼",
   On: "開",
   OneMonth: "1個月",
-  OneXTwo: "1 X 2",
+  OneXTwo: "獨贏盤",
   Open: "開啟",
   OpeningBalance: "前期餘額",
   OriginalBetTicket: "原始注單",
@@ -665,7 +666,6 @@ window._language_zh_TW = {
   Product: "產品",
   ProductCO: "即時兌現",
   ProductCS: "娛樂城",
-  ProductKN: "快樂彩",
   ProductNG: "百練賽",
   ProductSB: "體育博彩",
   ProductVS: "虛擬運動",
@@ -708,6 +708,7 @@ window._language_zh_TW = {
   RM: "RM",
   RNGCasino: "娛樂城",
   RngCasinoAndBingoExcludedNote: "此報告不包含娛樂城及賓果",
+  RngCasinoAndKenoExcludedNote: "RNG Casino and Keno are not included in the report",
   RNGCasinoUpdateSettingUnAvailableMsg: "RNG Casino Database is not currently available. Please try again later.",
   RoundType: "每局類型",
   Running: "進行中",
@@ -842,8 +843,8 @@ window._language_zh_TW = {
   UpdateCurrencySuccessfulMsg: "更新貨幣成功",
   UpdateCustomerCommission: "更新會員的佣金",
   UpdateFunctionSuccessfulMsg: "更新成功",
-  UpdateKenoBetSettings: "Are you sure you want to update all RNG Keno bet settings?",
-  UpdateKenoBetSettingSuccessMsg: "The RNG Keno bet setting of {0} was updated successfully",
+  UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
+  UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
   UpdateNumberGameBetSettings: "您確定您要更新的所有百練賽投注設置嗎？",
   UpdateNumberGameBetSettingSuccessMsg: "{0}的百練賽投注設置已成功更新",
   UpdateRNGCasinoBetSettingFailMsg: "The RNG Casino bet setting of {0} updated is failed",

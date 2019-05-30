@@ -1287,7 +1287,7 @@
     <value>单双盘</value>
   </data>
   <data name="OddEvenDND" xml:space="preserve">
-    <value>单双盘 + 1 X 2 + 平局/不是和局</value>
+    <value>单双盘 + 独赢盘 + 平局/不是和局</value>
   </data>
   <data name="Odds" xml:space="preserve">
     <value>赔率</value>
