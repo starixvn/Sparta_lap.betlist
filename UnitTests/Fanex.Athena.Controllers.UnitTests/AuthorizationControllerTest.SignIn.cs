@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
-    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;

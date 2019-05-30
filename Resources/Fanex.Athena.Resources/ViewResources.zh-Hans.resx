@@ -2155,24 +2155,17 @@
   <data name="CSComm" xml:space="preserve">
     <value>娱乐城佣金</value>
   </data>
-  <data name="Keno" xml:space="preserve">
-    <value>Keno</value>
-  </data>
   <data name="UpdateKenoBetSettings" xml:space="preserve">
-    <value>Are you sure you want to update all Keno bet settings?</value>
+    <value>Are you sure you want to update all RNG Keno bet settings?</value>
   </data>
   <data name="UpdateKenoBetSettingSuccessMsg" xml:space="preserve">
-    <value>The Keno bet setting of {0} was updated successfully</value>
+    <value>The RNG Keno bet setting of {0} was updated successfully</value>
   </data>
   <data name="CopyBetSettingFrom" xml:space="preserve">
     <value>Copy All Bet Setting from {0}</value>
   </data>
   <data name="InvalidParams" xml:space="preserve">
     <value>Invalid parameters</value>
-  </data>
-  <data name="RngCasinoAndKenoExcludedNote" xml:space="preserve">
-    <value>RNG Casino and Keno are not included in the report</value>
-    <comment>#13958</comment>
   </data>
   <data name="RB" xml:space="preserve">
     <value>赛马</value>
@@ -2605,5 +2598,9 @@
   <data name="PromotionPrize" xml:space="preserve">
     <value>活动奖金</value>
     <comment>109471</comment>
+  </data>
+  <data name="ProductKN" xml:space="preserve">
+    <value>快乐彩</value>
+    <comment>113398</comment>
   </data>
 </root>

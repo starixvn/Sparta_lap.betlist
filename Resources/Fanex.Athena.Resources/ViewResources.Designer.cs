@@ -27,7 +27,8 @@ namespace Fanex.Athena.Resources {
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal ViewResources() {
         }
         
@@ -879,7 +880,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For Keno, Lottery: Please provide username also in order to search ticket later than {0}.
+        ///   Looks up a localized string similar to For RNG Keno, Lottery: Please provide username also in order to search ticket later than {0}.
         /// </summary>
         public static string BettingTicketCenter_RefnoTabNote2 {
             get {
@@ -3669,15 +3670,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keno.
-        /// </summary>
-        public static string Keno {
-            get {
-                return ResourceManager.GetString("Keno", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kick Off. Time.
         /// </summary>
         public static string KickOffTime {
@@ -6000,7 +5992,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keno.
+        ///   Looks up a localized string similar to RNG Keno.
         /// </summary>
         public static string ProductKN {
             get {
@@ -6464,15 +6456,6 @@ namespace Fanex.Athena.Resources {
         public static string RngCasinoAndBingoExcludedNote {
             get {
                 return ResourceManager.GetString("RngCasinoAndBingoExcludedNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to RNG Casino and Keno are not included in the report.
-        /// </summary>
-        public static string RngCasinoAndKenoExcludedNote {
-            get {
-                return ResourceManager.GetString("RngCasinoAndKenoExcludedNote", resourceCulture);
             }
         }
         
@@ -7800,7 +7783,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to update all Keno bet settings?.
+        ///   Looks up a localized string similar to Are you sure you want to update all RNG Keno bet settings?.
         /// </summary>
         public static string UpdateKenoBetSettings {
             get {
@@ -7809,7 +7792,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Keno bet setting of {0} was updated successfully.
+        ///   Looks up a localized string similar to The RNG Keno bet setting of {0} was updated successfully.
         /// </summary>
         public static string UpdateKenoBetSettingSuccessMsg {
             get {

@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Generated at: 4/10/2019 9:27:39 AM
+// Generated at: 05/16/2019 1:51:36 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -186,7 +186,7 @@ window._language_en_US = {
   BettingTicketCenter_MultiCustomersTabNote1: "All bettypes, League, and Match filter available only when 1 day is selected",
   BettingTicketCenter_MultiCustomersTabNote2: "Data is available from {0}",
   BettingTicketCenter_RefnoTabNote1: "For Sportsbook, the search result includes the related Bonus/Cash tickets.",
-  BettingTicketCenter_RefnoTabNote2: "For Keno, Lottery: Please provide username also in order to search ticket later than {0}",
+  BettingTicketCenter_RefnoTabNote2: "For RNG Keno, Lottery: Please provide username also in order to search ticket later than {0}",
   BetTrade: "Bet Trade",
   BetTradeCommission: "Bet Trade Commission",
   BetTradeNotOfferCurrency: "BetTrade is not offered for this currency.",
@@ -496,7 +496,6 @@ window._language_en_US = {
   Jun: "Jun",
   June: "June",
   KeepCurrentComm: "Keep current commission",
-  Keno: "Keno",
   KickOffTime: "Kick Off. Time",
   Kidnapping: "Kidnapping",
   Last: "Last",
@@ -755,7 +754,7 @@ window._language_en_US = {
   ProductCS: "RNG Casino",
   ProductFW: "Fishing World",
   ProductGD: "Gold Deluxe",
-  ProductKN: "Keno",
+  ProductKN: "RNG Keno",
   ProductLT: "Lottery",
   ProductNG: "Number Game",
   ProductPP: "PP",
@@ -807,7 +806,6 @@ window._language_en_US = {
   RM: "RM",
   RNGCasino: "RNG Casino",
   RngCasinoAndBingoExcludedNote: "RNG Casino and Bingo are not included in the report",
-  RngCasinoAndKenoExcludedNote: "RNG Casino and Keno are not included in the report",
   RNGCasinoUpdateSettingUnAvailableMsg: "RNG Casino Database is not currently available. Please try again later.",
   RNGGame: "RNG Game",
   RoundType: "Round Type",
@@ -955,8 +953,8 @@ window._language_en_US = {
   UpdateCustomerCommission: "Update Customer Commission",
   UpdateFunctionSuccessfulMsg: "Updating Functions is successul.",
   UpdateGoldDeluxeBetSettings: "Are you sure you want to update all Gold Deluxe bet settings?",
-  UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
-  UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
+  UpdateKenoBetSettings: "Are you sure you want to update all RNG Keno bet settings?",
+  UpdateKenoBetSettingSuccessMsg: "The RNG Keno bet setting of {0} was updated successfully",
   UpdateNumberGameBetSettings: "Are you sure you want to update all Number Game bet settings?",
   UpdateNumberGameBetSettingSuccessMsg: "The Number Game bet setting of {0} was updated successfully",
   UpdateProductBetSettings: "Are you sure you want to update all {0} bet settings?",
