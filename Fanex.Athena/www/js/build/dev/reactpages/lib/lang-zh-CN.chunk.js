@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Generated at: 05/30/2019 11:01:55 AM
+// Generated at: 05/31/2019 4:04:01 PM
 window._language_zh_CN = {
   AA: "客客",
   AbnormalBet: "非正规注单",
@@ -438,7 +438,6 @@ window._language_zh_CN = {
   Jun: "六月",
   June: "六月",
   KeepCurrentComm: "保持当前的佣金",
-  Keno: "Keno",
   KickOffTime: "开赛时间",
   Kidnapping: "绑架",
   Last: "最后",
@@ -669,6 +668,7 @@ window._language_zh_CN = {
   Product: "产品",
   ProductCO: "即时兑现",
   ProductCS: "娱乐城",
+  ProductKN: "快乐彩",
   ProductNG: "百练赛",
   ProductSB: "体育博彩",
   ProductVS: "虚拟运动",
@@ -711,7 +711,6 @@ window._language_zh_CN = {
   RM: "RM",
   RNGCasino: "娱乐城",
   RngCasinoAndBingoExcludedNote: "此报告不包含娱乐城及宾果",
-  RngCasinoAndKenoExcludedNote: "RNG Casino and Keno are not included in the report",
   RNGCasinoUpdateSettingUnAvailableMsg: "RNG Casino Database is not currently available. Please try again later.",
   RoundType: "每局类型",
   Running: "进行中",
@@ -827,7 +826,7 @@ window._language_zh_CN = {
   TurnOnBaTooltip: "点击打开",
   Turnover: "交易额",
   TurnoverTitle: "交易額, {0} --&gt; {1} - {2} {3} ({4})",
-  TurnoverTitleNoUser: "交易額, {0} --&gt; {1} - {2}",
+  TurnoverTitleNoUser: "交易額, {0} --&gt; {1}, {2}",
   TwoWeek: "两星期",
   Type: "类型",
   UnAccessLoginMsg: "您不能访问登录",
@@ -846,8 +845,8 @@ window._language_zh_CN = {
   UpdateCurrencySuccessfulMsg: "更新货币成功",
   UpdateCustomerCommission: "更新会员的佣金",
   UpdateFunctionSuccessfulMsg: "更新成功",
-  UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
-  UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
+  UpdateKenoBetSettings: "Are you sure you want to update all RNG Keno bet settings?",
+  UpdateKenoBetSettingSuccessMsg: "The RNG Keno bet setting of {0} was updated successfully",
   UpdateNumberGameBetSettings: "您确定您要更新的所有百练赛投注设置吗？",
   UpdateNumberGameBetSettingSuccessMsg: "{0}的百练赛投注设定已成功更新",
   UpdateRNGCasinoBetSettingFailMsg: "The RNG Casino bet setting of {0} updated is failed",
@@ -888,7 +887,7 @@ window._language_zh_CN = {
   WinLossByLeague: "Win Loss By Leagues",
   WinLossByProduct: "投注产品输赢",
   WinLossByProductNote1: "体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考",
-  WinLossByProductTitle: "投注产品输赢, {0} --&gt; {1} - {2}",
+  WinLossByProductTitle: "投注产品输赢, {0} --&gt; {1}, {2}",
   WinLossByTimeZone: "投注时区输赢",
   WinPlace: "独赢 位置",
   Withdrawal: "提款",

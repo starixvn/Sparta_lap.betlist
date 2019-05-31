@@ -1,4 +1,4 @@
-﻿// Generated at: 05/30/2019 11:01:55 AM
+﻿// Generated at: 05/31/2019 4:04:01 PM
 window._language_zh_TW = {
 AA:"客客",
 AbnormalBet:"非正規註單",
@@ -728,7 +728,7 @@ TurnOffBaTooltip:"點擊關閉",
 TurnOnBaTooltip:"點擊打開",
 Turnover:"交易額",
 TurnoverTitle:"交易額, {0} --&gt; {1} - {2} {3} ({4})",
-TurnoverTitleNoUser:"交易額，{0} - {1} - {2}",
+TurnoverTitleNoUser:"交易額，{0} - {1}, {2}",
 TwoWeek:"兩星期",
 Type:"類型",
 UnAccessLoginMsg:"您不能訪問登錄",
@@ -789,7 +789,7 @@ WinLossByBetTypeTitle:"投注類別輸贏, {0} --&gt; {1} - {2}",
 WinLossByLeague:"Win Loss By Leagues",
 WinLossByProduct:"投注產品輸贏",
 WinLossByProductNote1:"體育博彩之數額{0}（到期金額）顯示為斜體並僅供參考",
-WinLossByProductTitle:"投注產品輸贏, {0} --&gt; {1} - {2}",
+WinLossByProductTitle:"投注產品輸贏, {0} --&gt; {1}, {2}",
 WinLossByTimeZone:"投注時區輸贏",
 WinPlace:"獨贏 位置",
 Withdrawal:"提款",

@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 05/30/2019 11:01:55 AM
+﻿// Generated at: 05/31/2019 4:04:01 PM
 window._language_zh_CN = {
 AA:"客客",
 AbnormalBet:"非正规注单",
@@ -826,7 +826,7 @@ TurnOffBaTooltip:"点击关闭",
 TurnOnBaTooltip:"点击打开",
 Turnover:"交易额",
 TurnoverTitle:"交易額, {0} --&gt; {1} - {2} {3} ({4})",
-TurnoverTitleNoUser:"交易額, {0} --&gt; {1} - {2}",
+TurnoverTitleNoUser:"交易額, {0} --&gt; {1}, {2}",
 TwoWeek:"两星期",
 Type:"类型",
 UnAccessLoginMsg:"您不能访问登录",
@@ -887,7 +887,7 @@ WinLossByBetTypeTitle:"投注类别输赢, {0} --&gt; {1} - {2}",
 WinLossByLeague:"Win Loss By Leagues",
 WinLossByProduct:"投注产品输赢",
 WinLossByProductNote1:"体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考",
-WinLossByProductTitle:"投注产品输赢, {0} --&gt; {1} - {2}",
+WinLossByProductTitle:"投注产品输赢, {0} --&gt; {1}, {2}",
 WinLossByTimeZone:"投注时区输赢",
 WinPlace:"独赢 位置",
 Withdrawal:"提款",
