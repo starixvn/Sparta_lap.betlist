@@ -121,7 +121,7 @@
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
             var hasWinlostdate = reader.HasColumn("Winlostdate");
-            var baseCurrency = metaModel.BaseCurrency.ToUpperInvariant();
+            var baseCurrency = metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : string.Empty;
 
             while (reader.Read())
             {
