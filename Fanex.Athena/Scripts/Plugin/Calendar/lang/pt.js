@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 Calendar.LANG("pt", "Portuguese", {
     fdow: 1,                // primeiro dia da semana para esse local; 0 = Domingo, 1 = Segunda, etc.
 

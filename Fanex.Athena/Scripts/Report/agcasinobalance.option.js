@@ -1,6 +1,6 @@
 ﻿/*global Site, jqGridAdditional*/
 /*exported AgCasinoBalanceOption*/
-/// <reference path="/@JSense.js" />
+///
 
 var AgCasinoBalanceOption = (function () {
     "use strict";

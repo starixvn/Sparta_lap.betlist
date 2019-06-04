@@ -10,6 +10,5 @@
 
         public string NickName { get; set; }
 
-        public IDictionary<int, string> Children { get; set; }
     }
 }

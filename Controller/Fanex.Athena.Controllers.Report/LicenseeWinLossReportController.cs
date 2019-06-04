@@ -96,6 +96,7 @@ namespace Fanex.Athena.Controllers.Report
                 ReportBy = ReportByType.Daily,
                 ProductOptions = ToProductOptions(productAccess.ProductList)
             };
+            SetConvetedUSDCurrencyName(param);
             SetConvetedUSDCurrencyId(param);
 
             var model = new LicenseeWinLossViewModel
@@ -123,6 +124,7 @@ namespace Fanex.Athena.Controllers.Report
                 ReportBy = ReportByType.Daily,
                 ProductOptions = ToProductOptions(productAccess.ProductList)
             };
+            SetConvetedUSDCurrencyName(param);
             SetConvetedUSDCurrencyId(param);
 
             var model = new SpecialLicenseeWinLossViewModel

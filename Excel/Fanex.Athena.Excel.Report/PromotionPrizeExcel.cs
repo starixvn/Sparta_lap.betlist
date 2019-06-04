@@ -27,11 +27,6 @@
 
         private readonly string _title;
 
-        protected internal PromotionPrizeExcel(string templatePath)
-            : base(templatePath, 0)
-        {
-        }
-
         public PromotionPrizeExcel(string templatePath, string title, ReportResultModel<PromotionPrize> data)
             : base(templatePath, data.TotalRows)
         {
@@ -42,7 +37,7 @@
         protected override void AssignHeader(ISheet sheet)
         {
             // row 1
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, destRowIndex: RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
@@ -80,7 +75,7 @@
 
         protected override void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _title);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, destRowIndex: RowTitleTemplate, columnCount: ColumnTemplateCount, value: _title);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, RowContentTemplate);
@@ -101,7 +96,7 @@
                 row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
-                sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnSystemId);
+                sheet.MergeCells(rowIndex, ColumnIndex, lastRow: rowIndex, lastCol: ColumnSystemId);
                 rowIndex++;
             }
 

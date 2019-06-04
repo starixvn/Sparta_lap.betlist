@@ -8,7 +8,6 @@ namespace Fanex.Athena.Api.Report
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -18,7 +17,6 @@ namespace Fanex.Athena.Api.Report
     using DataAccess.Report.Interfaces;
     using Excel.Report.Models;
     using Extension.Utility;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -181,19 +179,15 @@ namespace Fanex.Athena.Api.Report
             var userSession = SessionService.UserSession;
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
-            metaModel.FromDate = metaModel.Level == 0 ? metaModel.FromDate : metaModel.DrillDownFromDate;
-            metaModel.ToDate = metaModel.Level == 0 ? metaModel.ToDate : metaModel.DrillDownToDate;
-
-            var convertingOption = new ConvertingOption
+            if (metaModel.Level > 0)
             {
-                IsConvert = false,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.Level == 0 ? metaModel.CurrencyName : metaModel.DrillDownCurrencyName
-            };
+                metaModel.FromDate = metaModel.DrillDownFromDate;
+                metaModel.ToDate = metaModel.DrillDownToDate;
+                metaModel.CurrencyName = metaModel.DrillDownCurrencyName;
+            }
 
             var excelModel = new WinLossByProductExcelModel
             {
-                ConvertingOption = convertingOption,
                 DataList = resultModel.DataList,
                 ErrorMessage = resultModel.ResultInfo.Message,
                 MetaModel = metaModel,
@@ -241,6 +235,7 @@ namespace Fanex.Athena.Api.Report
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         private async Task<dynamic> ProcessRequest(
             WinLossByProductMetaModel metaModel,
             DateTime? fdate,

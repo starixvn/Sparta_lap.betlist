@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 (function ($) {
     var currentTriggerEvents = [];
     var methods = {

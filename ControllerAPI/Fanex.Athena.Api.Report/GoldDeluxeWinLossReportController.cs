@@ -9,7 +9,6 @@
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report.Interfaces;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -53,11 +52,10 @@
 
         protected internal virtual GoldDeluxeWinLossExcel CreateExcel(
             string templatePath,
-            ConvertingOption convertingOption,
             ThirdPartyWinLossMetaModel metaModel,
             ReportResultModel<GoldDeluxeWinLoss> data)
         {
-            return new GoldDeluxeWinLossExcel(templatePath, convertingOption, metaModel, data);
+            return new GoldDeluxeWinLossExcel(templatePath, metaModel, data);
         }
 
         private static string GetExcelFileName(ThirdPartyWinLossMetaModel metaModel, ref KeyValuePair<int, string> currency)
@@ -79,21 +77,15 @@
 
             var exportedFileName = GetExcelFileName(metaModel, ref currency);
 
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Value
-            };
-
             if (metaModel.DrillDownLevel > 0)
             {
                 metaModel.FromDate = metaModel.DrillDownFromDate;
                 metaModel.ToDate = metaModel.DrillDownToDate;
                 metaModel.CurrencyId = metaModel.CurrencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
+                metaModel.CurrencyName = currency.Value;
             }
 
-            var excel = CreateExcel(templatePath, convertingOption, metaModel, data);
+            var excel = CreateExcel(templatePath, metaModel, data);
 
             excel.Export();
 

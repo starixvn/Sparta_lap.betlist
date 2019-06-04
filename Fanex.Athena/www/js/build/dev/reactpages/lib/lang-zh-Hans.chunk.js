@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Generated at: 05/16/2019 1:51:36 PM
+// Generated at: 05/31/2019 4:04:01 PM
 window._language_zh_Hans = {
   AA: "客客",
   AbnormalBet: "非正规注单",
@@ -554,7 +554,7 @@ window._language_zh_Hans = {
   Mode: "模式",
   Monday: "星期一",
   Money: "金额",
-  MoneyLine: "独赢",
+  MoneyLine: "胜负盘",
   MoneyPlay: "普通投注",
   Month: "月份",
   Monthly: "每月",
@@ -606,7 +606,7 @@ window._language_zh_Hans = {
   Odd_Dec: "欧洲盘",
   Odd_MY: "马来盘",
   OddEven: "单双盘",
-  OddEvenDND: "单双盘 + 1 X 2 + 平局/不是和局",
+  OddEvenDND: "单双盘 + 独赢盘 + 平局/不是和局",
   Odds: "赔率",
   OddsAvg: "平均赔率",
   OddsMatched: "匹配赔率",
@@ -621,7 +621,7 @@ window._language_zh_Hans = {
   OldPassword: "旧密码",
   On: "开",
   OneMonth: "1个月",
-  OneXTwo: "1 X 2",
+  OneXTwo: "独赢盘",
   Open: "开启",
   OpeningBalance: "前期余额",
   OriginalBetTicket: "原始注单",
@@ -820,7 +820,7 @@ window._language_zh_Hans = {
   TurnOnBaTooltip: "点击打开",
   Turnover: "交易额",
   TurnoverTitle: "交易額, {0} --&gt; {1} - {2} {3} ({4})",
-  TurnoverTitleNoUser: "交易額, {0} --&gt; {1} - {2}",
+  TurnoverTitleNoUser: "交易額, {0} --&gt; {1}, {2}",
   TwoWeek: "两星期",
   Type: "类型",
   UnAccessLoginMsg: "您不能访问登录",
@@ -880,7 +880,7 @@ window._language_zh_Hans = {
   WinLossByLeague: "Win Loss By Leagues",
   WinLossByProduct: "投注产品输赢",
   WinLossByProductNote1: "体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考",
-  WinLossByProductTitle: "投注产品输赢, {0} --&gt; {1} - {2}",
+  WinLossByProductTitle: "投注产品输赢, {0} --&gt; {1}, {2}",
   WinLossByTimeZone: "投注时区输赢",
   WinPlace: "独赢 位置",
   Withdrawal: "提款",

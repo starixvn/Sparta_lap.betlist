@@ -86,7 +86,7 @@
                         Assert.That(metaModel.HasPlayerCom, Is.EqualTo(SessionService.LicenseeSession.IsAllowedCustomerComm));
                         Assert.That(metaModel.CurrencyList, Is.EqualTo(UserCurrencyList));
                         Assert.That(metaModel.UspKey, Is.EqualTo(uspKey));
-                        BetListApiClient.Received().PostAsync(apiPath, metaModel);
+                        BetListApiClient.Received().PostAsync(apiPath, metaModel, SessionLanguage);
                     });
                 });
             }
@@ -126,7 +126,7 @@
                         Assert.That(metaModel.HasPlayerCom, Is.EqualTo(SessionService.LicenseeSession.IsAllowedCustomerComm));
                         Assert.That(metaModel.CurrencyList, Is.EqualTo(UserCurrencyList));
                         Assert.That(metaModel.UspKey, Is.EqualTo(uspKey));
-                        BetListApiClient.Received().PostAsync(apiPath, metaModel);
+                        BetListApiClient.Received().PostAsync(apiPath, metaModel, SessionLanguage);
                     });
                 });
             }

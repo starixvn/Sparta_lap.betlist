@@ -25,13 +25,14 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
         [HttpGet]
         public async Task<string> Index(string custId, string gamePlayId)
         {
-            var model = new 
+            var language = SessionService.UserSession.Language;
+            var model = new
             {
                 custId,
                 gamePlayId,
-                languageCode = SessionService.UserSession.Language
+                languageCode = language
             };
-            return await _betListApiClient.PostAsyncString("/PPResultPopup/Index", model).ConfigureAwait(false);
+            return await _betListApiClient.PostAsyncString("/PPResultPopup/Index", model, language).ConfigureAwait(false);
         }
     }
 }

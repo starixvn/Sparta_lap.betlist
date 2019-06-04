@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 "use strict";
 var EditAccount = (function ($) {
     return {

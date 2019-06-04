@@ -208,7 +208,10 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var title = ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel);
+            var title = ReportExcelHelper.GetTitleBaseCurrency(
+                _excelModel.MetaModel.BaseCurrency,
+                _excelModel.MetaModel.CurrencyName);
+
             var reportTitle = ReportExcelHelper.GenerateReportTitle(
                 ViewResources.LicenseeWinLoss,
                 _excelModel.MetaModel.FromDate,

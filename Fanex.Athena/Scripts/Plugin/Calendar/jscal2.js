@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 /**
 *                                                        ____   _____
 *  Dynarch Calendar -- JSCal2, version 1.9               \  /_  /   /

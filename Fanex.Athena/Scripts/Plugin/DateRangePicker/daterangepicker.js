@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 /**
 * --------------------------------------------------------------------
 * jQuery-Plugin "daterangepicker.jQuery.js"

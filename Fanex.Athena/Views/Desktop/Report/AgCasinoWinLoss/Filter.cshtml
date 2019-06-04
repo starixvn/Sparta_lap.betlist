@@ -13,12 +13,16 @@
                 @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, appSettings.HistoryDate, DateTime.Today)
             </div>
 
-            <div class="input-field col l2 m2 s12">
-                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+                <label>@ViewResources.BaseCurrency</label>
+            </div>
 
-            <div class="input-field input col l2 m2 s12">
+            <div class="input-field input col l2 m3 s12">
                 <input type="radio" class="with-gap" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="ReportBy" id="reportbydaily" />
                 <label for="reportbydaily">
                     @ViewResources.Daily
@@ -31,7 +35,7 @@
                 <label class="active">@ViewResources.ReportBy</label>
             </div>
 
-            <div class="input-field input col l2 m2 s12">
+            <div class="input-field input col l2 m3 s12">
                 <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData0" />
                 <label for="IsExcludedTestData0">
                     @ViewResources.Yes
@@ -43,6 +47,8 @@
 
                 <label class="active">@ViewResources.ExcludeTestData</label>
             </div>
+        </div>
+        <div class="row">
 
             <div class="col l2 m2 s12 button-block">
                 <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>

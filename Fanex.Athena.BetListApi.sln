@@ -75,8 +75,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.DataAcc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Common.Utility.UnitTests", "BetlistApiHost\UnitTests\Fanex.Athena.Common.Utility.UnitTests\Fanex.Athena.Common.Utility.UnitTests.csproj", "{615B72A6-2628-480A-90E2-92A503063779}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A3A70F50-6085-4313-BA7A-191C62FA921A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,10 +181,6 @@ Global
 		{615B72A6-2628-480A-90E2-92A503063779}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615B72A6-2628-480A-90E2-92A503063779}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{615B72A6-2628-480A-90E2-92A503063779}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3A70F50-6085-4313-BA7A-191C62FA921A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3A70F50-6085-4313-BA7A-191C62FA921A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3A70F50-6085-4313-BA7A-191C62FA921A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3A70F50-6085-4313-BA7A-191C62FA921A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,5 @@
 ﻿/*global Site*/
-/// <reference path="/@JSense.js" />
+///
 "use strict";
 var EditPermission = (function ($) {
     var colUrl = null;

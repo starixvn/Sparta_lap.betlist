@@ -28,6 +28,9 @@ $colorDisableDropdown: $colorDisabled;
 
             &-label {
                 cursor: pointer;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
             }
 
             &-icon {

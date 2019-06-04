@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Fanex.Athena.Excel.Base;
-using Fanex.Athena.Excel.Base.Entities;
 using Fanex.Athena.Excel.Base.Extension;
 using Fanex.Athena.Excel.Report.UnitTests.TestableClasses;
 using Fanex.Athena.Model.Core.MetaModel.Product;
 using Fanex.Athena.Model.Core.ResultModel;
 using Fanex.Athena.Model.Report.DTO;
 using Fanex.Athena.Model.Report.MetaModel;
-using Fanex.Athena.Model.Report.ViewModel;
 using Fanex.Athena.Resources;
 using Fanex.Athena.UnitTest.Common.Helpers;
 using NPOI.SS.UserModel;
@@ -47,7 +45,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                         Code = "SB",
                         Status = true
                     }
-                }
+                },
+            CurrencyName = "AUD",
+            BaseCurrency = "USD"
         };
 
         private static readonly ReportResultModel<ThirdPartyWinLoss> ResultData = new ReportResultModel<ThirdPartyWinLoss>
@@ -140,7 +140,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Arrange
             var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
             var excel = CreateExcel();
-            var expectedTitle = MetaModel.ProductName + " Win Loss, 01/01/2017 --> 02/02/2017 - All Currencies";
+            var expectedTitle = MetaModel.ProductName + " Win Loss, 01/01/2017 --> 02/02/2017, Currency: AUD, Base Currency: USD";
 
             // Action
             excel.Public_AssignTitle(FakeSheet);
@@ -214,7 +214,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             MetaModel.DrillDownLevel = level;
             var excel = Substitute.ForPartsOf<ThirdPartyWinLossExcelTestable>(
                 string.Empty,
-                new ConvertingOption(),
                 MetaModel,
                 ResultData);
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());

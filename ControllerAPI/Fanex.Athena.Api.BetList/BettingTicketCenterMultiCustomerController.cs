@@ -51,7 +51,9 @@
                 };
             }
 
-            var userCurrencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+
+            var userCurrencyList = userSession.CurrencyList;
             var currencyList = metaModel.CurrencyIdList?.Split(',').Select(x => int.Parse(x)).ToArray();
             if (!metaModel.IsValid || !BetListHelper.IsValidCurrencyId(currencyList, userCurrencyList))
             {
@@ -62,7 +64,8 @@
             metaModel.HasPlayerCom = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.UserCurrencyList = userCurrencyList;
 
-            return await _betListApiClient.PostAsync("/BettingTicketCenterMultiCustomer/GetData", metaModel).ConfigureAwait(false);
+            return await _betListApiClient.PostAsync("/BettingTicketCenterMultiCustomer/GetData",
+                metaModel, userSession.Language).ConfigureAwait(false);
         }
     }
 }

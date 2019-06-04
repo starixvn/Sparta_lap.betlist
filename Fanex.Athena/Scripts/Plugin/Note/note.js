@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 var note = (function ($) {
     return {
         initialize: function () {

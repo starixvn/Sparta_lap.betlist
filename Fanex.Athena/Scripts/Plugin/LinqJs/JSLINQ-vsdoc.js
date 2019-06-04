@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 //-----------------------------------------------------------------------
 // Visual Studio JavaScript Intellisense Helper for LINQ to JavaScript
 // Part of the LINQ to JavaScript (JSLINQ) v2.10 Project - http://jslinq.codeplex.com

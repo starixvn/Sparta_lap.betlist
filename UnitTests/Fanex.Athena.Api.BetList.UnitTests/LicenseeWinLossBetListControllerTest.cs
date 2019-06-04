@@ -90,6 +90,7 @@
 
                 StubUserSessionData(new UserSession
                 {
+                    Language = SessionLanguage,
                     CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
                 });
 
@@ -104,7 +105,7 @@
                 {
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }

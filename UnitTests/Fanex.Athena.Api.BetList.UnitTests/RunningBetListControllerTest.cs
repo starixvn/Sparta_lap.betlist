@@ -96,7 +96,7 @@
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
                     Assert.That(metaModel.BetType, Is.EqualTo((int)BetType.CleanSheet));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -123,7 +123,7 @@
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
                     Assert.That(metaModel.BetType, Is.EqualTo((int)BetType.ToWinToNil));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -150,7 +150,7 @@
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(MultipleBettypeUspKey));
                     Assert.That(metaModel.MultipleBettype, Is.EqualTo($"{(int)BetType.ThreeWayHandicap},{(int)BetType.FirstHalfThreeWayHandicap}"));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -159,7 +159,7 @@
         {
             var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
-            StubUserSessionData(new UserSession { CurrencyList = sessionCurrencyList });
+            StubUserSessionData(new UserSession { Language = SessionLanguage, CurrencyList = sessionCurrencyList });
 
             return metaModel;
         }

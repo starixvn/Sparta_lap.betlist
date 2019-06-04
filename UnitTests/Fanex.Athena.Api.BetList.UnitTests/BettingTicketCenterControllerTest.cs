@@ -74,7 +74,7 @@
                 };
 
                 var expect = new HttpResponseMessage();
-                _betListApiClient.PostAsync(ApiPath, metaModel).Returns(Task.FromResult(expect));
+                _betListApiClient.PostAsync(ApiPath, metaModel, SessionLanguage).Returns(Task.FromResult(expect));
 
                 // Action
                 var actual = await controller.GetByRefno(metaModel);
@@ -83,7 +83,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(expect, Is.EqualTo(actual));
-                    _betListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    _betListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -170,7 +170,7 @@
                 };
 
                 var expect = new HttpResponseMessage();
-                _betListApiClient.PostAsync(ApiPath, metaModel).Returns(Task.FromResult(expect));
+                _betListApiClient.PostAsync(ApiPath, metaModel, SessionLanguage).Returns(Task.FromResult(expect));
 
                 // Action
                 var actual = await controller.GetByRunning(metaModel);
@@ -179,7 +179,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(expect, Is.EqualTo(actual));
-                    _betListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    _betListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -265,7 +265,7 @@
                 };
 
                 var expect = new HttpResponseMessage();
-                _betListApiClient.PostAsync(ApiPath, metaModel).Returns(Task.FromResult(expect));
+                _betListApiClient.PostAsync(ApiPath, metaModel, SessionLanguage).Returns(Task.FromResult(expect));
 
                 // Action
                 var actual = await controller.GetBySingleCustomer(metaModel);
@@ -274,7 +274,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(expect, Is.EqualTo(actual));
-                    _betListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    _betListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }

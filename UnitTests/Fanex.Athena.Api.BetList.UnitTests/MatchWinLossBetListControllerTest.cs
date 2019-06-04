@@ -107,7 +107,8 @@
                 {
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(MatchBetTypeUspKey));
-                    BetListApiClient.Received().PostAsync(PageApiPath, Arg.Is<BetListMetaModel>(x => x.PageIndex == page && x.PageSize == row));
+                    BetListApiClient.Received().PostAsync(PageApiPath,
+                        Arg.Is<BetListMetaModel>(x => x.PageIndex == page && x.PageSize == row), SessionLanguage);
                 });
             }
         }
@@ -133,7 +134,8 @@
                 {
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(OutrightUspKey));
-                    BetListApiClient.Received().PostAsync(ApiPath, Arg.Is<BetListMetaModel>(x => x.IsServerPaging));
+                    BetListApiClient.Received().PostAsync(ApiPath,
+                        Arg.Is<BetListMetaModel>(x => x.IsServerPaging), SessionLanguage);
                 });
             }
         }
@@ -155,7 +157,7 @@
                 var sortBy = FakeHelper.Create<string>();
                 var sortOrder = FakeHelper.Create<string>();
 
-                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
+                StubUserSessionData(new UserSession { Language = "en-US", CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
 
                 var expect = new HttpResponseMessage();
                 StubBetListApiPostAsync(Arg.Any<BetListMetaModel>(), PageApiPath, expect);
@@ -169,7 +171,9 @@
                     Assert.That(expect, Is.EqualTo(actual));
                     BetListApiClient.Received().PostAsync(
                         PageApiPath,
-                        Arg.Is<BetListMetaModel>(x => x.UspKey == MixParlayUspKey && x.BaseCurrency == expectedBaseCurrency));
+                        Arg.Is<BetListMetaModel>(x => x.UspKey == MixParlayUspKey && x.BaseCurrency == expectedBaseCurrency),
+                        SessionService.UserSession.Language
+                        );
                 });
             }
         }
@@ -178,7 +182,7 @@
         {
             var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
-            StubUserSessionData(new UserSession { CurrencyList = sessionCurrencyList });
+            StubUserSessionData(new UserSession { Language = SessionLanguage, CurrencyList = sessionCurrencyList });
 
             return metaModel;
         }

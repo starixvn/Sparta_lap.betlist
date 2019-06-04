@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 /// // Spectrum Colorpicker v1.0.9
 // https://github.com/bgrins/spectrum
 // Author: Brian Grinstead

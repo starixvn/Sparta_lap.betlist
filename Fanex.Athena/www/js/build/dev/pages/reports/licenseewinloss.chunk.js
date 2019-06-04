@@ -1024,7 +1024,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
+/* WEBPACK VAR INJECTION */(function(jQuery) {﻿///
 
 (function ($) {
     $.fn.checkboxgroup = function () {
@@ -1240,7 +1240,7 @@ jQuery.extend({
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-﻿/// <reference path="/@JSense.js" />
+﻿///
 ///
 /*
 * @Alex-1/11/2013
@@ -4218,7 +4218,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
+/* WEBPACK VAR INJECTION */(function(jQuery) {﻿///
 (function ($) {
     var currentTriggerEvents = [];
     var methods = {
@@ -7982,14 +7982,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 LicenseeWinLossOption.urlExcelData = temp;
             },
 
-            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
-                const titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                const currencyNameOnTitle = currencyName ? Site.getSingleResource('Viewin').replace('{0}', currencyName)
-                                                        : Report.getCurrencyNameForReportTitle(currencyId);
+            setReportTitle: function (currencyId, fromdate, todate, baseCurrency) {
+                const titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1}, {2}';
+                const currencyNameTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
                 const title = $.format(titlePattern,
                     moment(fromdate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
                     moment(todate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
-                    currencyNameOnTitle);
+                    currencyNameTitle);
                 $('.report-title').html(title);
                 $('.panel-heading').removeClass('hide');
             },
@@ -8011,9 +8010,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     const reportBy = $('input[name="ReportBy"]:checked').val();
                     _reportBy = reportBy;
                     cacheData[levelNumber] = response;
-                    //reset layout
+
                     if (levelNumber === 0) {
-                        _me.setReportTitle($('#CurrencyId').val(), $('#FromDate').val(), $('#ToDate').val());
+                        _me.setReportTitle($('#CurrencyId').val(), $('#FromDate').val(), $('#ToDate').val(), $('#BaseCurrency').val());
                     }
 
                     Report.renderBreadCrumb(levelNumber, LicenseeWinLossOption.licenseeId);
@@ -8054,6 +8053,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             FromDate: data.FromDate,
                             ToDate: data.ToDate,
                             CurrencyName: data.CurrencyName,
+                            BaseCurrency: data.BaseCurrency,
                             IsExcludedTestData: data.IsExcludedTestData
                         };
 
@@ -8094,7 +8094,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     ReportBy: _submitData.ReportBy,
                     FromDate: _submitData.FromDate,
                     ToDate: _submitData.ToDate,
-                    BaseCurrency: $('#BaseCurrency').attr('data-original')
+                    BaseCurrency: _submitData.BaseCurrency
                 };
                 const drilldownDate = new Date(datetime);
                 const dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
@@ -8114,12 +8114,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     success: function (response) {
                         _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {
-                            if (levelNumber > 0 && Number(param.CurrencyId) === 0) {
-                                const viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : currencyName;
-                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
-                            } else {
-                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
-                            }
+                            _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, _submitData.BaseCurrency);
                         }
 
                         //update excel ULR
@@ -8162,7 +8157,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 if (level === 0) {
                     _me.setExcelUrl(0, 0, 0, '', '', '');
-                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate, _submitData.BaseCurrency);
                 }
                 else if (level === 1) {
                     _me.updateDrilldownData(drillDownData.CurrencyId, drillDownData.CurrencyName, drillDownData.FromDate, drillDownData.ToDate, 0);
@@ -9268,6 +9263,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             mainFooter.remove();
 
             return rowCount;
+        },
+
+        getCurrencyTitle: function (currencyId, baseCurrency) {
+            const currencyName = Number(currencyId) === 0 ? 
+                               Site.getSingleResource('All') :
+                               $('#CurrencyId option[value="' + currencyId + '"]').text();
+            return Site.getSingleResource('Currency') + ': ' + currencyName + ', ' +
+                Site.getSingleResource('BaseCurrency') + ': ' + (baseCurrency || currencyName).toUpperCase();
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {

@@ -130,6 +130,14 @@
             return rowCount;
         },
 
+        getCurrencyTitle: function (currencyId, baseCurrency) {
+            const currencyName = Number(currencyId) === 0 ? 
+                               Site.getSingleResource('All') :
+                               $('#CurrencyId option[value="' + currencyId + '"]').text();
+            return Site.getSingleResource('Currency') + ': ' + currencyName + ', ' +
+                Site.getSingleResource('BaseCurrency') + ': ' + (baseCurrency || currencyName).toUpperCase();
+        },
+
         getCurrencyNameForReportTitle: function (currencyId) {
             const viewinKey = Site.getSingleResource('Viewin');
             const currencyTextList = {

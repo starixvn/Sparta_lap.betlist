@@ -9,8 +9,13 @@
             </div>
 
             <div class="input-field col l2 m3 s12">
-                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true, Model.ReportSetting.BaseCurrencies)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
+            </div>
+
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+                <label>@ViewResources.BaseCurrency</label>
             </div>
 
             @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions)

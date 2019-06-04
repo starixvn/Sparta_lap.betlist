@@ -16,10 +16,9 @@
 
         public GoldDeluxeWinLossExcel(
                 string templatePath,
-                ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 ReportResultModel<GoldDeluxeWinLoss> data)
-            : base(templatePath, convertingOption, metaModel, data)
+            : base(templatePath, metaModel, data)
         {
         }
 

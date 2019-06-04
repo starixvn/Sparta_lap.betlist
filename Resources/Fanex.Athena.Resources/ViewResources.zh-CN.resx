@@ -1173,7 +1173,7 @@
     <value>星期一</value>
   </data>
   <data name="MoneyLine" xml:space="preserve">
-    <value>独赢</value>
+    <value>胜负盘</value>
   </data>
   <data name="Month" xml:space="preserve">
     <value>月份</value>
@@ -1287,7 +1287,7 @@
     <value>单双盘</value>
   </data>
   <data name="OddEvenDND" xml:space="preserve">
-    <value>单双盘 + 1 X 2 + 平局/不是和局</value>
+    <value>单双盘 + 独赢盘 + 平局/不是和局</value>
   </data>
   <data name="Odds" xml:space="preserve">
     <value>赔率</value>
@@ -1320,7 +1320,7 @@
     <value>1个月</value>
   </data>
   <data name="OneXTwo" xml:space="preserve">
-    <value>1 X 2</value>
+    <value>独赢盘</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>开启</value>
@@ -1763,7 +1763,7 @@
     <value>交易額, {0} --&gt; {1} - {2} {3} ({4})</value>
   </data>
   <data name="TurnoverTitleNoUser" xml:space="preserve">
-    <value>交易額, {0} --&gt; {1} - {2}</value>
+    <value>交易額, {0} --&gt; {1}, {2}</value>
   </data>
   <data name="TwoWeek" xml:space="preserve">
     <value>两星期</value>
@@ -1876,7 +1876,7 @@
     <value>体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考</value>
   </data>
   <data name="WinLossByProductTitle" xml:space="preserve">
-    <value>投注产品输赢, {0} --&gt; {1} - {2}</value>
+    <value>投注产品输赢, {0} --&gt; {1}, {2}</value>
   </data>
   <data name="WinPlace" xml:space="preserve">
     <value>独赢 位置</value>

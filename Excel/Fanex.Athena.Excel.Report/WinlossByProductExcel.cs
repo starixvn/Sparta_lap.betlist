@@ -139,10 +139,9 @@ namespace Fanex.Athena.Excel.Report
                             ? _excelModel.MetaModel.ToDate.ToString(FormatDate)
                             : _excelModel.MetaModel.DrillDownToDate.ToString(FormatDate);
 
-            var currencyId = _excelModel.MetaModel.Level > 0 && _excelModel.MetaModel.CurrencyId == 0 ?
-                _excelModel.MetaModel.DrillDownCurrencyId : _excelModel.MetaModel.CurrencyId;
-
-            var currencyName = ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, currencyId);
+            var currencyName = ReportExcelHelper.GetTitleBaseCurrency(
+                _excelModel.MetaModel.BaseCurrency,
+                _excelModel.MetaModel.CurrencyName);
             var productsTitle = ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions, _excelModel.SystemId);
             var reportTitle = string.Format(ViewResources.WinLossByProductTitle, fromdate, todate, currencyName + productsTitle);
 

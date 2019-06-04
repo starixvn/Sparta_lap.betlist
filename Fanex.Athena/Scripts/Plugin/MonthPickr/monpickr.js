@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 /*
 * monPickr - jQuery Plugin
 * Just a simple month picker

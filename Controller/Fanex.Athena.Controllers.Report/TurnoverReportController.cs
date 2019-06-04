@@ -95,8 +95,8 @@ namespace Fanex.Athena.Controllers.Report
                 TotalData = _turnoverService.SumTotalData(dataList),
                 Param = metaModel,
                 ProductAccess = ProductService.GetSingleWalletProductAccess(
-                    licenseeSession.LicenseeId, 
-                    userSession.Language, 
+                    licenseeSession.LicenseeId,
+                    userSession.Language,
                     FunctionNames.Turnover),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
@@ -119,24 +119,14 @@ namespace Fanex.Athena.Controllers.Report
                 SessionService.UserSession.Language,
                 FunctionNames.Turnover);
 
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = viewModel.Param.IsConvert,
-                BaseCurrency = viewModel.Param.BaseCurrency,
-                CurrencyName = viewModel.Param.CurrencyName
-            };
-
             var showingOption = new ShowingOption
             {
                 CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm,
                 BAVisible = productAccess.IsAllowBA
             };
 
-            viewModel.Param.CurrencyName = viewModel.Param.IsConvert ?
-                viewModel.Param.BaseCurrency
-                : viewModel.CurrencyList.FirstOrDefault(a => a.Key == viewModel.Param.CurrencyId).Value;
             var isShowCasinoTransfer = AppSettings.LicenseeAllowCasinoTransfer.Contains(licenseeId);
-            var excel = CreateExcel(templatePath, viewModel, convertingOption, showingOption, isShowCasinoTransfer);
+            var excel = CreateExcel(templatePath, viewModel, showingOption, isShowCasinoTransfer);
 
             excel.Export();
 
@@ -146,11 +136,10 @@ namespace Fanex.Athena.Controllers.Report
         protected internal virtual TurnoverExcel CreateExcel(
             string templatePath,
             TurnoverViewModel viewModel,
-            ConvertingOption convertingOption,
             ShowingOption showingOption,
             bool isShowCasinoTransfer)
         {
-            return new TurnoverExcel(templatePath, convertingOption, showingOption, viewModel) { IsShowCasinoTransfer = isShowCasinoTransfer };
+            return new TurnoverExcel(templatePath, showingOption, viewModel) { IsShowCasinoTransfer = isShowCasinoTransfer };
         }
 
         private IDictionary<int, string> GetCurrenciesForTurnoverReport(int licenseeId)

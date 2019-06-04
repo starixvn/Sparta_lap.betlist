@@ -44,16 +44,15 @@
             }
         }
 
-        [Test]
-        public async Task GetData_WhenCall_ReturnCorrectData()
+        [TestCase(1_570_000)]
+        public async Task GetData_WhenCall_ReturnCorrectData(decimal expected)
         {
             // Arrange
-            const decimal Expected = 1570000M;
             var metaModel = new DashboardBaseModel
             {
                 BaseCurrency = "EUR"
             };
-            _dataAccess.GetPendingFunds(metaModel).Returns(Expected);
+            _dataAccess.GetPendingFunds(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {
@@ -61,7 +60,7 @@
                 var result = await controller.GetData(metaModel);
 
                 // Assert
-                Assert.That(result, Is.EqualTo(Expected));
+                Assert.That(result, Is.EqualTo(expected));
             }
         }
 

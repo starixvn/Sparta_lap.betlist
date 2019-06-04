@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 "use strict";
 (function ($) {
     $.fn.checkboxgroup = function () {

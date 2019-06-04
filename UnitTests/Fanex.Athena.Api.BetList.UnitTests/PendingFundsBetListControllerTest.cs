@@ -50,7 +50,7 @@
                 // Arrange
                 var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
-                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
+                StubUserSessionData(new UserSession { Language = SessionLanguage, CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
 
                 var expect = new HttpResponseMessage();
                 StubBetListApiPostAsync(Arg.Any<BetListMetaModel>(), ApiPath, expect);
@@ -64,7 +64,7 @@
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
                     Assert.That(metaModel.ToDate, Is.EqualTo(metaModel.FromDate.AddYears(2)));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }

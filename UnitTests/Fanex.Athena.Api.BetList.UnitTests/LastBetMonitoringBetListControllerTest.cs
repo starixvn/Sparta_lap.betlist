@@ -90,7 +90,7 @@
                 SessionService.GenerateAgentListXml(0, false).Returns(AgentListXml);
 
                 var expect = new HttpResponseMessage();
-                _betListApiClient.PostAsync(ApiPath, metaModel).Returns(Task.FromResult(expect));
+                _betListApiClient.PostAsync(ApiPath, metaModel, SessionLanguage).Returns(Task.FromResult(expect));
 
                 // Action
                 var actual = await controller.Index(metaModel);
@@ -100,7 +100,7 @@
                 {
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.AgentListXml, Is.EqualTo(AgentListXml));
-                    _betListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    _betListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -117,7 +117,7 @@
                 SessionService.GenerateAgentListXml(Arg.Any<IEnumerable<int>>(), false).Returns(AgentListXml);
 
                 var expect = new HttpResponseMessage();
-                _betListApiClient.PostAsync(ApiPath, metaModel).Returns(Task.FromResult(expect));
+                _betListApiClient.PostAsync(ApiPath, metaModel, SessionLanguage).Returns(Task.FromResult(expect));
 
                 // Action
                 var actual = await controller.Index(metaModel);
@@ -127,7 +127,7 @@
                 {
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.AgentListXml, Is.EqualTo(AgentListXml));
-                    _betListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    _betListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }

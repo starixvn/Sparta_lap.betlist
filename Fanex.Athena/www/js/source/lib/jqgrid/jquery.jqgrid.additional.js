@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 ///
 define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber) {
     "use strict";

@@ -26,7 +26,7 @@
             });
             var betListApiClient = Substitute.For<IBetListApiClient>();
 
-            betListApiClient.PostAsyncString(Url, Arg.Any<object>()).Returns(ExpectedResult);
+            betListApiClient.PostAsyncString(Url, Arg.Any<object>(), SessionService.UserSession.Language).Returns(ExpectedResult);
             using (var controller = new PPResultPopupController(LangService, SessionService, AppSettings, betListApiClient))
             {
                 // Action
@@ -36,11 +36,11 @@
                 Assert.Multiple(() =>
                 {
                     betListApiClient.Received(1).PostAsyncString(
-                        Url, 
+                        Url,
                         Arg.Is<object>(
-                            x => (string)x.GetValue("custId") == CustId && 
+                            x => (string)x.GetValue("custId") == CustId &&
                                 (string)x.GetValue("gamePlayId") == GamePlayId &&
-                                (string)x.GetValue("languageCode") == Language));
+                                (string)x.GetValue("languageCode") == Language), Language);
                     Assert.That(result, Is.EqualTo(ExpectedResult));
                 });
             }

@@ -37,25 +37,13 @@
         private ExchangeWinLossViewModel CreateViewModel()
         {
             var licensee = SessionService.LicenseeSession;
-            var currencyList = new Dictionary<int, string>
-            {
-                { BaseCurrencyType.All, ViewResources.All },
-                { BaseCurrencyType.Eur, $"{ViewResources.Based} {ViewResources.EUR}" },
-                { BaseCurrencyType.Usd, $"{ViewResources.Based} {ViewResources.USD}" },
-                { BaseCurrencyType.Gbp, $"{ViewResources.Based} {ViewResources.GBP}" }
-            };
-
-            foreach (var item in SessionService.UserSession.CurrencyList)
-            {
-                currencyList.Add(item.Key, item.Value);
-            }
-
+            
             var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportExchangeWinLoss);
             return new ExchangeWinLossViewModel
             {
                 MinDate = reportSetting.MinDate,
                 MaxDate = reportSetting.MaxDate,
-                CurrencyList = currencyList,
+                CurrencyList = SessionService.UserSession.CurrencyList,
                 CurrencyId = GetConvetedUSDCurrencyId(licensee.LicenseeId),
                 IsAllowedCustomerComm = licensee.IsAllowedCustomerComm,
                 LicenseeId = licensee.LicenseeId,

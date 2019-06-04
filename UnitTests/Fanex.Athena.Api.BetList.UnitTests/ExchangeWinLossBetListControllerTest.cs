@@ -150,13 +150,14 @@
 
                 StubUserSessionData(new UserSession
                 {
+                    Language = SessionLanguage,
                     CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
                 });
 
                 _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CustId, 0).Returns(true);
 
                 var expect = new HttpResponseMessage();
-                _betListApiClient.PostAsync(MainApiPath, metaModel).Returns(Task.FromResult(expect));
+                _betListApiClient.PostAsync(MainApiPath, metaModel, SessionLanguage).Returns(Task.FromResult(expect));
 
                 // Action
                 var actual = await controller.Index(metaModel);
@@ -165,7 +166,8 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(expect, Is.EqualTo(actual));
-                    _betListApiClient.Received().PostAsync(MainApiPath, Arg.Is<ExchangeBetListMetaModel>(x => x == metaModel && x.BaseCurrency == expectedBaseCurrency));
+                    _betListApiClient.Received().PostAsync(MainApiPath,
+                        Arg.Is<ExchangeBetListMetaModel>(x => x == metaModel && x.BaseCurrency == expectedBaseCurrency), SessionLanguage);
                 });
             }
         }
@@ -275,13 +277,14 @@
 
                 StubUserSessionData(new UserSession
                 {
+                    Language = SessionLanguage,
                     CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
                 });
 
                 _authorizationService.HasPermissionOnData(SessionLicenseeId, metaModel.CustId, 0).Returns(true);
 
                 var expect = new HttpResponseMessage();
-                _betListApiClient.PostAsync(DetailApiPath, metaModel).Returns(Task.FromResult(expect));
+                _betListApiClient.PostAsync(DetailApiPath, metaModel, SessionLanguage).Returns(Task.FromResult(expect));
 
                 // Action
                 var actual = await controller.Detail(metaModel);
@@ -290,7 +293,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(expect, Is.EqualTo(actual));
-                    _betListApiClient.Received().PostAsync(DetailApiPath, metaModel);
+                    _betListApiClient.Received().PostAsync(DetailApiPath, metaModel, SessionLanguage);
                 });
             }
         }

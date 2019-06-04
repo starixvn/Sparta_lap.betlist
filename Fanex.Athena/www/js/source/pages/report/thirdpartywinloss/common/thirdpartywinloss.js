@@ -95,7 +95,7 @@
                     _urlExcelData = _urlExcelData.replace('level=2', 'level=1');
                 }
                 if (level === 0) {
-                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate, _submitData.BaseCurrency);
                     setExcelUrl(0);
                 }
             });
@@ -157,8 +157,7 @@
                     setExcelUrl(level, currencyId, custId, fromDate, toDate);
                     ajaxComplete(level, response, postdata);
 
-                    const currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : '';
-                    _me.setReportTitle(currencyId, fromDate, toDate, currencyName);
+                    _me.setReportTitle(currencyId, fromDate, toDate, postdata.BaseCurrency.toUpperCase());
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -213,13 +212,11 @@
             jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
         }
 
-        function setReportTitle(currencyId, fromdate, todate, currencyName) {
-            const titlePattern = _reportTitle + ', {0} → {1} - {2}';
-            //get currencyName
-            const currencyStr = currencyName ? Site.getSingleResource('Viewin').replace('{0}', currencyName)
-                                                        : Report.getCurrencyNameForReportTitle(currencyId);
-
-            const title = $.format(titlePattern, fromdate, todate, currencyStr);
+        function setReportTitle(currencyId, fromdate, todate, baseCurrency) {
+            const titlePattern = _reportTitle + ', {0} → {1}, {2}';
+            
+            const currencyTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
+            const title = $.format(titlePattern, fromdate, todate, currencyTitle);
 
             $(_selector.Title).html(title);
             $(_selector.Header).removeClass('hide');

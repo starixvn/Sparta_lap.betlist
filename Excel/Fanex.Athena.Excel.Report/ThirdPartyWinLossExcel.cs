@@ -39,16 +39,12 @@ namespace Fanex.Athena.Excel.Report
         private readonly ThirdPartyWinLossMetaModel _metaModel;
         private readonly ReportResultModel<T> _resultData;
 
-        private readonly ConvertingOption _convertingOption;
-
         public ThirdPartyWinLossExcel(
                 string templatePath,
-                ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 ReportResultModel<T> resultData)
             : base(templatePath, resultData.DataList.Count())
         {
-            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _resultData = resultData;
         }
@@ -118,7 +114,9 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignTitle(ISheet sheet)
         {
             var reportName = _metaModel.ProductName + " " + ViewResources.WinLoss;
-            var reportTitle = ReportExcelHelper.GenerateReportTitle(reportName, _convertingOption, _metaModel);
+            var currencyTitle = ReportExcelHelper.GetTitleBaseCurrency(_metaModel.BaseCurrency, _metaModel.CurrencyName);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(reportName, _metaModel.FromDate, _metaModel.ToDate, currencyTitle);
+            
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header

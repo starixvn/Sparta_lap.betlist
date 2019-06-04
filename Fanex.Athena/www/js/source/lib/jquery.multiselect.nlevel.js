@@ -1,4 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
+﻿///
 /*
 *Edited by Alex.Nguyen
 * Support get checked item.

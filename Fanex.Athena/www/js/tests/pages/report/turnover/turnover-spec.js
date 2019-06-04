@@ -186,7 +186,7 @@
                 });
 
                 it("'.report-title' should have correct text when '#Username' is empty", function () {
-                    var expected = "Turnover, 03/01/2017 → 03/31/2017 - Viewin EUR";
+                    var expected = "Turnover, 03/01/2017 → 03/31/2017, Currency: EUR, BaseCurrency: EUR";
                     Turnover.setReportTitle();
 
                     expect($(".report-title").html()).toBe(expected);

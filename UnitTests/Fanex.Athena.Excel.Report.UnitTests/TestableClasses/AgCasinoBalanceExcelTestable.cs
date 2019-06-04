@@ -1,5 +1,4 @@
-﻿using Fanex.Athena.Excel.Base.Entities;
-using Fanex.Athena.Model.Report.MetaModel;
+﻿using Fanex.Athena.Model.Report.MetaModel;
 using Fanex.Athena.Model.Report.ViewModel;
 using NPOI.SS.UserModel;
 
@@ -9,10 +8,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
     {
         public AgCasinoBalanceExcelTestable(
                                  string templatePath,
-                                 ConvertingOption convertingOption,
                                  ThirdPartyWinLossMetaModel metaModel,
                                  AgCasinoBalanceViewModel viewModel)
-            : base(templatePath, convertingOption, metaModel, viewModel)
+            : base(templatePath, metaModel, viewModel)
         {
         }
 

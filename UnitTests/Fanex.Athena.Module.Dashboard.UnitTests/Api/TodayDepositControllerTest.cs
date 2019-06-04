@@ -44,11 +44,10 @@
             }
         }
 
-        [Test]
-        public async Task Index_WhenCall_ReturnCorrectData()
+        [TestCase(2_500_000)]
+        public async Task Index_WhenCall_ReturnCorrectData(decimal expected)
         {
             // Arrange
-            var expected = 2500000M;
             var metaModel = new DashboardBaseModel
             {
                 BaseCurrency = "EUR"

@@ -178,7 +178,7 @@
     <comment>Handicap/Over Under/Live</comment>
   </data>
   <data name="Menu_25" xml:space="preserve">
-    <value>1 X 2</value>
+    <value>独赢盘</value>
     <comment>1 X 2</comment>
   </data>
   <data name="Menu_26" xml:space="preserve">
@@ -306,11 +306,11 @@
     <comment>Handicap/Over Under/Live</comment>
   </data>
   <data name="Menu_8" xml:space="preserve">
-    <value>独赢</value>
+    <value>胜负盘</value>
     <comment>Money Line</comment>
   </data>
   <data name="Menu_9" xml:space="preserve">
-    <value>单双盘/1X2/和局/不是和局</value>
+    <value>单双盘/独赢盘/和局/不是和局</value>
     <comment>Odd/Even + 1x2 + DND</comment>
   </data>
   <data name="Menu_71" xml:space="preserve">

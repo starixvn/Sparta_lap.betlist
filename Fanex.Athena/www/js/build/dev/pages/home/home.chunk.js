@@ -1685,7 +1685,7 @@ $(document).ready(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
+/* WEBPACK VAR INJECTION */(function(jQuery) {﻿///
 
 (function ($) {
     $.fn.checkboxgroup = function () {
@@ -1901,7 +1901,7 @@ jQuery.extend({
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-﻿/// <reference path="/@JSense.js" />
+﻿///
 ///
 /*
 * @Alex-1/11/2013

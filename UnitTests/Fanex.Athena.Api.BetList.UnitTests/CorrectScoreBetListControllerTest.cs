@@ -55,7 +55,7 @@
                 {
                     CurrencyId = currencyId
                 };
-                StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Test" } } });
+                StubUserSessionData(new UserSession { Language = SessionLanguage, CurrencyList = new Dictionary<int, string> { { currencyId, "Test" } } });
 
                 var expect = new HttpResponseMessage();
                 StubBetListApiPostAsync(metaModel, ApiPath, expect);
@@ -68,7 +68,7 @@
                 {
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }

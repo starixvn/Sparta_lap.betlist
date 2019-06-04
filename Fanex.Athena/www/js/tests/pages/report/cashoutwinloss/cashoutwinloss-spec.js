@@ -291,7 +291,7 @@
                     var level = 0, response = {};
                     CashOutWinLoss.ajaxComplete(level, response);
 
-                    expect(CashOutWinLoss.setReportTitle).toHaveBeenCalledWith("1", "04/01/2017", "04/20/2017");
+                    expect(CashOutWinLoss.setReportTitle).toHaveBeenCalledWith("1", "04/01/2017", "04/20/2017", undefined);
                 });
 
                 it("CashOutWinLoss.setReportTitle() should not be called with correct parameter when level is 1", function () {
@@ -324,7 +324,7 @@
                 });
 
                 it(".report-title should has correct html content", function () {
-                    var expectedResult = "CashOutWinLoss, 04/01/2017 → 04/20/2017 - EUR";
+                    var expectedResult = "CashOutWinLoss, 04/01/2017 → 04/20/2017, Currency: , BaseCurrency: ";
                     var currencyId = 1, fromdate = new Date(2017, 3, 1), todate = new Date(2017, 3, 20);
 
                     CashOutWinLoss.setReportTitle(currencyId, fromdate, todate);
@@ -545,7 +545,7 @@
 
                         ajaxOption.success(response);
 
-                        expect(CashOutWinLoss.setReportTitle).toHaveBeenCalledWith(level, new Date(2017, 3, 1), new Date(2017, 3, 20));
+                        expect(CashOutWinLoss.setReportTitle).toHaveBeenCalledWith(currencyId, new Date(2017, 3, 1), new Date(2017, 3, 20), 'EUR');
                     });
 
                     it("CashOutWinLoss.setExcelUrl() should be called with correct parameter with level is 0", function () {
@@ -561,7 +561,6 @@
             });
 
             describe("goBack(level)", function () {
-                var originalLicenseeId;
                 var originalExcelUrl;
 
                 beforeEach(function () {
@@ -569,7 +568,7 @@
                 });
 
                 afterEach(function () {
-                    CashOutWinLossOption.urlExcelData - originalExcelUrl;
+                    CashOutWinLossOption.urlExcelData = originalExcelUrl;
                 });
 
                 it("functions should be called with correct parameter (if any) when level is 0", function () {
@@ -581,7 +580,7 @@
                     expect(Report.renderBreadCrumb).toHaveBeenCalledWith(level);
                     expect(CashOutWinLoss.bindData).toHaveBeenCalledWith(level, response);
                     expect(CashOutWinLoss.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "");
-                    expect(CashOutWinLoss.setReportTitle).toHaveBeenCalledWith("1", "04/01/2017", "04/20/2017");
+                    expect(CashOutWinLoss.setReportTitle).toHaveBeenCalledWith("1", "04/01/2017", "04/20/2017", undefined);
                 });
 
                 it("url excel should be correct when level is 1", function () {

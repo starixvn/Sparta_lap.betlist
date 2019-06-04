@@ -1,4 +1,4 @@
-/// <reference path="/@JSense.js" />
+///
 /**
 * Note: While Microsoft is not the author of this file, Microsoft is
 * offering you a license subject to the terms of the Microsoft Software

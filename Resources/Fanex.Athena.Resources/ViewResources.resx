@@ -1267,7 +1267,7 @@
     <value>Turnover, {0} --&gt; {1} - {2} {3} ({4})</value>
   </data>
   <data name="TurnoverTitleNoUser" xml:space="preserve">
-    <value>Turnover, {0} --&gt; {1} - {2}</value>
+    <value>Turnover, {0} --&gt; {1}, {2}</value>
   </data>
   <data name="TwoWeek" xml:space="preserve">
     <value>2 weeks</value>
@@ -1340,7 +1340,7 @@
     <value>Figures of Sportsbook {0} (Amount Due) are displayed in Italic and for reference only</value>
   </data>
   <data name="WinLossByProductTitle" xml:space="preserve">
-    <value>Win Loss By Products, {0} --&gt; {1} - {2}</value>
+    <value>Win Loss By Products, {0} --&gt; {1}, {2}</value>
   </data>
   <data name="WinPlace" xml:space="preserve">
     <value>Win Place</value>

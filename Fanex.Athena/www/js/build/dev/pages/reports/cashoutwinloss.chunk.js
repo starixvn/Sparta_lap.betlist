@@ -808,7 +808,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
+/* WEBPACK VAR INJECTION */(function(jQuery) {﻿///
 
 (function ($) {
     $.fn.checkboxgroup = function () {
@@ -1024,7 +1024,7 @@ jQuery.extend({
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-﻿/// <reference path="/@JSense.js" />
+﻿///
 ///
 /*
 * @Alex-1/11/2013
@@ -4053,7 +4053,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 if (response !== null) {
                     cacheData[levelNumber] = response;
                     if (levelNumber === 0) {
-                        _me.setReportTitle($('#CurrencyId').val(), _submitData.FromDate, _submitData.ToDate);
+                        _me.setReportTitle($('#CurrencyId').val(), _submitData.FromDate, _submitData.ToDate, _submitData.BaseCurrency);
                     }
 
                     Report.renderBreadCrumb(levelNumber);
@@ -4061,10 +4061,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
             },
 
-            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
-                const titlePattern = Site.getSingleResource('CashOutWinLoss') + ', {0} → {1} - {2}';
-                const currencyNameOnTitle = currencyName ? Site.getSingleResource('Viewin').replace('{0}', currencyName)
-                                                        : Report.getCurrencyNameForReportTitle(currencyId);
+            setReportTitle: function (currencyId, fromdate, todate, baseCurrency) {
+                const titlePattern = Site.getSingleResource('CashOutWinLoss') + ', {0} → {1}, {2}';
+                const currencyNameOnTitle = Report.getCurrencyTitle(currencyId, baseCurrency);
                 const title = $.format(titlePattern,
                     moment(fromdate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
                     moment(todate, 'MM/DD/YYYY').format('MM/DD/YYYY'),
@@ -4124,7 +4123,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 if (level === 0) {
                     _me.setExcelUrl(0, 0, 0, '', '');
-                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate, _submitData.BaseCurrency);
                 }
                 else if (level === 1) {
                     CashOutWinLossOption.urlExcelData = CashOutWinLossOption.urlExcelData.replace('level=2', 'level=1');
@@ -4171,13 +4170,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     success: function (response) {
                         _me.ajaxComplete(levelNumber, response);
                         if (response !== null && response.Data.length > 0) {                     
-                            if (levelNumber > 0 && Number(param.CurrencyId) === 0) {
-                                const viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : '';
-                                _me.setReportTitle(newCurrencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
-                            } else {
-                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
-                            }
-
+                            _me.setReportTitle(newCurrencyId, dateRange.FromDate, dateRange.ToDate, param.BaseCurrency);
+                            
                             _me.setExcelUrl(levelNumber, newCurrencyId, customerId, dateRange.FromDate, dateRange.ToDate);
                         }
                     },
@@ -4758,6 +4752,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             mainFooter.remove();
 
             return rowCount;
+        },
+
+        getCurrencyTitle: function (currencyId, baseCurrency) {
+            const currencyName = Number(currencyId) === 0 ? 
+                               Site.getSingleResource('All') :
+                               $('#CurrencyId option[value="' + currencyId + '"]').text();
+            return Site.getSingleResource('Currency') + ': ' + currencyName + ', ' +
+                Site.getSingleResource('BaseCurrency') + ': ' + (baseCurrency || currencyName).toUpperCase();
         },
 
         getCurrencyNameForReportTitle: function (currencyId) {

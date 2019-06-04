@@ -10,10 +10,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
     {
         public GoldDeluxeWinLossExcelTestable(
                                  string templatePath,
-                                 ConvertingOption convertingOption,
                                  ThirdPartyWinLossMetaModel metaModel,
                                  ReportResultModel<GoldDeluxeWinLoss> resultData)
-            : base(templatePath, convertingOption, metaModel, resultData)
+            : base(templatePath, metaModel, resultData)
         {
         }
 

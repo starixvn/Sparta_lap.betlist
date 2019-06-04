@@ -53,8 +53,6 @@ namespace Fanex.Athena.Excel.Report
         private readonly IList<TurnoverDTO> _turnoverList;
         private readonly TurnoverViewModel _viewModel;
 
-        private readonly ConvertingOption _convertingOption;
-
         protected internal TurnoverExcel()
             : base(null, 0)
         {
@@ -62,12 +60,10 @@ namespace Fanex.Athena.Excel.Report
 
         public TurnoverExcel(
                              string templatePath,
-                             ConvertingOption convertingOption,
                              ShowingOption showingOption,
                              TurnoverViewModel viewModel)
             : base(templatePath, viewModel.DataList.Count, showingOption)
         {
-            _convertingOption = convertingOption;
             _viewModel = viewModel;
             _turnoverList = viewModel.DataList;
             _total = viewModel.TotalData;
@@ -159,14 +155,14 @@ namespace Fanex.Athena.Excel.Report
                         ViewResources.TurnoverTitleNoUser,
                         _viewModel.Param.FromDate.ToString(FormatDate),
                         _viewModel.Param.ToDate.ToString(FormatDate),
-                        ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _viewModel.Param.CurrencyId));
+                        ReportExcelHelper.GetTitleBaseCurrency(_viewModel.Param.BaseCurrency, _viewModel.Param.CurrencyName));
             var title = string.Format(
                                         ViewResources.TurnoverTitle,
                                          _viewModel.Param.FromDate.ToString(FormatDate),
                                          _viewModel.Param.ToDate.ToString(FormatDate),
                                          ViewResources.Customer,
                                          _viewModel.Param.Username,
-                                         _viewModel.Param.CurrencyName);
+                                         _viewModel.Param.BaseCurrency.ToUpperInvariant());
             var reportTitle = _viewModel.Param.Username.IsNullOrTrimEmpty() ? titleNoUserName : title;
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 

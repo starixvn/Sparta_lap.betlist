@@ -7603,7 +7603,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turnover, {0} --&gt; {1} - {2}.
+        ///   Looks up a localized string similar to Turnover, {0} --&gt; {1}, {2}.
         /// </summary>
         public static string TurnoverTitleNoUser {
             get {
@@ -8314,7 +8314,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Win Loss By Products, {0} --&gt; {1} - {2}.
+        ///   Looks up a localized string similar to Win Loss By Products, {0} --&gt; {1}, {2}.
         /// </summary>
         public static string WinLossByProductTitle {
             get {

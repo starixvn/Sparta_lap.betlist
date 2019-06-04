@@ -97,7 +97,7 @@
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
                     Assert.That(metaModel.MultipleBettype, Is.EqualTo(((int)BetType.CombinationMixParlay).ToString()));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -124,7 +124,7 @@
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
                     Assert.That(metaModel.MultipleBettype, Is.EqualTo(DoubleChangeBettypes));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -151,7 +151,7 @@
                     Assert.That(expect, Is.EqualTo(actual));
                     Assert.That(metaModel.UspKey, Is.EqualTo(UspKey));
                     Assert.That(metaModel.MultipleBettype, Is.EqualTo(BONTeamToScoreBettypes));
-                    BetListApiClient.Received().PostAsync(ApiPath, metaModel);
+                    BetListApiClient.Received().PostAsync(ApiPath, metaModel, SessionLanguage);
                 });
             }
         }
@@ -160,7 +160,7 @@
         {
             var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
-            StubUserSessionData(new UserSession { CurrencyList = sessionCurrencyList });
+            StubUserSessionData(new UserSession { Language = SessionLanguage, CurrencyList = sessionCurrencyList });
 
             return metaModel;
         }

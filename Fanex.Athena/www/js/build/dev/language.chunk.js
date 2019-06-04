@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 05/16/2019 1:51:36 PM
+﻿// Generated at: 05/31/2019 4:04:01 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -933,7 +933,7 @@ TurnOnBaTooltip:"Click to turn on",
 Turnover:"Turnover",
 TurnoverPercent:"%Turnover",
 TurnoverTitle:"Turnover, {0} --&gt; {1} - {2} {3} ({4})",
-TurnoverTitleNoUser:"Turnover, {0} --&gt; {1} - {2}",
+TurnoverTitleNoUser:"Turnover, {0} --&gt; {1}, {2}",
 TwoWeek:"2 weeks",
 Type:"Type",
 UnAccessLoginMsg:"You can not access login",
@@ -1012,7 +1012,7 @@ WinLossByBetTypeTitle:"Win Loss By Bet Type, {0} --&gt; {1} - {2}",
 WinLossByLeague:"Win Loss By Leagues",
 WinLossByProduct:"Win Loss By Products",
 WinLossByProductNote1:"Figures of Sportsbook {0} (Amount Due) are displayed in Italic and for reference only",
-WinLossByProductTitle:"Win Loss By Products, {0} --&gt; {1} - {2}",
+WinLossByProductTitle:"Win Loss By Products, {0} --&gt; {1}, {2}",
 WinLossByTimeZone:"Win Loss By Time Zone",
 WinPlace:"Win Place",
 Withdrawal:"Withdrawal",

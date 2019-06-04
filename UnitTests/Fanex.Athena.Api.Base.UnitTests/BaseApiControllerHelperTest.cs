@@ -19,7 +19,7 @@
 
         protected const string SessionUserName = "Test User";
 
-        protected const string SessionLanguage = "en";
+        protected const string SessionLanguage = "en-US";
 
         protected const string AgentListXml = "XmlData";
 
@@ -39,9 +39,9 @@
             SessionService = Substitute.For<ISessionService>();
             SessionService.UserSession.Returns(new UserSession
             {
+                Language = SessionLanguage,
                 CurrencyList = new Dictionary<int, string>()
             });
-
             ProductService = Substitute.For<IProductService>();
             AppSetting = Substitute.For<IAppSettings>();
             LangService = Substitute.For<ILanguageService>();
