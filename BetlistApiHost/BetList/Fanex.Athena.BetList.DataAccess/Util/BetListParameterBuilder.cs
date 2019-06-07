@@ -17,8 +17,6 @@
         private const string AgentListColumn = "AgentList";
         private const string BetTypeColumn = "BetType";
 
-        private static readonly IEnumerable<string> SupportedBaseCurrencies = SystemConstants.BaseCurrencyList;
-
         private static readonly Dictionary<string, Action<IObjectDb, BetListMetaModel>> NonBaseCurrencySpNameActionMap =
             new Dictionary<string, Action<IObjectDb, BetListMetaModel>>(StringComparer.OrdinalIgnoreCase)
         {
@@ -148,7 +146,7 @@
             db.SetParameterValue("fromdate", metaModel.FromDate);
             db.SetParameterValue("transtype", metaModel.TransType);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db, false);
+            CreateSummaryOutputParameters(db);
         }
 
         private static void CreateDailyStatementBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -160,7 +158,7 @@
             db.SetParameterValue("transtype", metaModel.TransType);
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db, false);
+            CreateSummaryOutputParameters(db);
         }
 
         private static void CreateCustomerListBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -170,7 +168,7 @@
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db, false);
+            CreateSummaryOutputParameters(db);
             CreateProductListParameters(db, metaModel.ProductCodeList);
             CreateBetlistBUParameters(db, metaModel);
             if (!string.IsNullOrWhiteSpace(metaModel.SortBy))
@@ -190,7 +188,7 @@
             CreateBetlistBUParameters(db, metaModel);
             CreateProductListParameters(db, metaModel.ProductCodeList);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db, false);
+            CreateSummaryOutputParameters(db);
         }
 
         private static void CreateMatchWLParlayBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -202,7 +200,7 @@
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db, false);
+            CreateSummaryOutputParameters(db);
 
             var supportedProducts = new[] { ProductCodes.SB, ProductCodes.NG, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
@@ -216,7 +214,7 @@
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
             CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db, false);
+            CreateSummaryOutputParameters(db);
 
             var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
@@ -232,7 +230,7 @@
             db.SetParameterValue("Date", metaModel.Date);
             CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db, false);
+            CreateSummaryOutputParameters(db);
 
             var supportedProducts = new[] { ProductCodes.SB, ProductCodes.NG, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
@@ -375,7 +373,7 @@
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db, false);
+            CreateSummaryOutputParameters(db);
         }
 
         private static void CreateBonusDetailParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -402,23 +400,17 @@
             }
         }
 
-        private static void CreateSummaryOutputParameters(IObjectDb db, bool hasBaseCurrency = true)
+        private static void CreateSummaryOutputParameters(IObjectDb db)
         {
             var defaultParams = new[] { "SumWinlost", "SumLicenseeWL", "SumComm", "SumPlayerComm" };
 
-            var summaryParameters = hasBaseCurrency ?
-                GetOutputSummaryParametersWithBaseCurrency(defaultParams, SupportedBaseCurrencies) :
-                defaultParams;
-
-            foreach (var name in summaryParameters)
+            foreach (var name in defaultParams)
             {
                 db.SetParameterValue(name, null);
             }
         }
 
-        private static IEnumerable<string> GetOutputSummaryParametersWithBaseCurrency(IEnumerable<string> parameters, IEnumerable<string> baseCurrencyCols)
-            => baseCurrencyCols.Join(parameters, b => true, d => true, (b, d) => d + b.ToUpperInvariant()).Concat(parameters);
-
+       
         private static void CreateProductListParameters(IObjectDb db, string productCodeList, IEnumerable<string> supportedProducts = null)
         {
             if (string.IsNullOrWhiteSpace(productCodeList))
