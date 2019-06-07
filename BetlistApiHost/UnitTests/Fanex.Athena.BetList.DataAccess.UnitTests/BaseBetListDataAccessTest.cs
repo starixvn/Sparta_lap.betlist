@@ -34,7 +34,7 @@
             ConfigureReader(dataList);
 
             // Action
-            var result = DataAccess.ReadBetListTicket(Reader, UserCurrencyList, baseCurrency)[0];
+            var result = DataAccess.ReadBetListTicket(Reader, UserCurrencyList)[0];
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
@@ -42,26 +42,26 @@
 
         private static IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket)
         {
-            var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency) ? baseCurrency : string.Empty;
+            var playerCommCol = "playercomm";
+            var commCol = "comm";
+            var licenseeWlCol = "licenseewl";
+            var winlostCol = "winlost";
+            var beteffectiveCol = "beteffective";
+            var stakeCol = "stake";
+            var actualStakeCol = "actual_stake";
+            var originalStakeCol = "originalstake";
 
-            var playerCommCol = "playercomm" + columnSuffix;
-            var commCol = "comm" + columnSuffix;
-            var licenseeWlCol = "licenseewl" + columnSuffix;
-            var winlostCol = "winlost" + columnSuffix;
-            var beteffectiveCol = "beteffective" + columnSuffix;
-            var stakeCol = "stake" + columnSuffix;
-            var actualStakeCol = "actual_stake" + columnSuffix;
-            var originalStakeCol = "originalstake" + columnSuffix;
-
-            var dataList = new Dictionary<string, object>();
-            dataList.Add(playerCommCol, ticket.PlayerComm);
-            dataList.Add(commCol, ticket.Comm);
-            dataList.Add(licenseeWlCol, ticket.LicenseeWL);
-            dataList.Add(winlostCol, ticket.Winlost);
-            dataList.Add(beteffectiveCol, ticket.BetEffective);
-            dataList.Add(stakeCol, ticket.Stake);
-            dataList.Add(actualStakeCol, ticket.ActualStake);
-            dataList.Add(originalStakeCol, ticket.OriginalStake);
+            var dataList = new Dictionary<string, object>
+            {
+                { playerCommCol, ticket.PlayerComm },
+                { commCol, ticket.Comm },
+                { licenseeWlCol, ticket.LicenseeWL },
+                { winlostCol, ticket.Winlost },
+                { beteffectiveCol, ticket.BetEffective },
+                { stakeCol, ticket.Stake },
+                { actualStakeCol, ticket.ActualStake },
+                { originalStakeCol, ticket.OriginalStake }
+            };
 
             AddStringData(dataList, ticket);
             AddBooleanData(dataList, ticket);

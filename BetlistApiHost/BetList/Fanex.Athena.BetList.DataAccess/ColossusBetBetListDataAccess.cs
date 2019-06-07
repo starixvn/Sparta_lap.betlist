@@ -53,6 +53,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("custid", metaModel.CustId);
                 db.SetParameterValue("refno", metaModel.RefNo);
+                db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadData(reader, _ticketHelper, metaModel.BaseCurrency);

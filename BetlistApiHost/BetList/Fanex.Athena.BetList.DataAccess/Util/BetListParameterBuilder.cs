@@ -19,57 +19,40 @@
 
         private static readonly IEnumerable<string> SupportedBaseCurrencies = SystemConstants.BaseCurrencyList;
 
-        private static readonly Dictionary<string, Action<IObjectDb, BetListMetaModel>> SpNameActionMap =
-            new Dictionary<string, Action<IObjectDb, BetListMetaModel>>(StringComparer.OrdinalIgnoreCase)
-        {
-            { "Lrf_BetList_WinlostByLeague_Mem", (db, metalModel) => CreateWinlossByLeagueParameters(db, metalModel) },
-            { "Lrf_TotalBets_Sel430", (db, metalModel) => CreateCorectScoreBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_SelWinLossByDate_Mem", (db, metalModel) => CreateCustomerWlBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_SelWinloss_Mem", (db, metalModel) => CreateLicenseeWLBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_SelRunningByBettype", (db, metalModel) => CreateRunningBetListByBettypePaprameters(db, metalModel) },
-            { "Lrf_BetList_SelRunningByBettypeList", (db, metalModel) => CreateRunningBetListByMultipleBettypePaprameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossByMatch", (db, metalModel) => CreateLiveReportBetListByMatchParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossOutright", (db, metalModel) => CreateLiveReportOutRightBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossParlay", (db, metalModel) => CreateLiveReportParlayBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossVHRacing", (db, metalModel) => CreateLiveReportBetListVHRacingParameters(db, metalModel) },
-            { "Lrf_BetList_MatchWL_Bettype", (db, metalModel) => CreateMatchWLBettypeBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_MatchWL_Outright", (db, metalModel) => CreateMatchWLOutRightBetListParameters(db, metalModel) },
-            { "Lrf_BetList_MatchWL_Parlay", (db, metalModel) => CreateMatchWLParlayBetListParameters(db, metalModel) },
-            { "Lrf_BetList_PlatformWinLoss_Mem", (db, metalModel) => CreatePlatformWinLossBetListParameters(db, metalModel) },
-            { "Lrf_BetList_SelByDayAll_Mem", (db, metalModel) => CreateDailyStatementBetListParameters(db, metalModel) },
-            { "Lrf_BetList_SelByDayAll_Mem_Old", (db, metalModel) => CreateDailyStatementBetListOldParameters(db, metalModel) },
-            { "Lrf_BetList_SelRunningByDate_Mem", (db, metalModel) => CreateRunningBetListParameters(db, metalModel) },
-            { "Lrf_BetList_SelRunningByBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByBettypeParameters(db, metalModel) },
-            { "Lrf_BetList_SelRunningByMultipleBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metalModel) },
-            { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
-            { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
-            { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
-            { "Lrf_BetList_SelWinLossByBetType", (db, metalModel) => CreateWinLossByBetTypeParameters(db, metalModel) }
-        };
-
         private static readonly Dictionary<string, Action<IObjectDb, BetListMetaModel>> NonBaseCurrencySpNameActionMap =
             new Dictionary<string, Action<IObjectDb, BetListMetaModel>>(StringComparer.OrdinalIgnoreCase)
         {
+            { "Lrf_BetList_WinlostByLeague_Mem", (db, metalModel) => CreateWinlossByLeagueParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL_Parlay", (db, metalModel) => CreateMatchWLParlayBetListParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL_Outright", (db, metalModel) => CreateMatchWLOutRightBetListParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL_Bettype", (db, metalModel) => CreateMatchWLBettypeBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelWinLossByDate_Mem", (db, metalModel) => CreateCustomerWlBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelWinloss_Mem", (db, metalModel) => CreateLicenseeWLBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByBettype", (db, metalModel) => CreateRunningBetListByBettypePaprameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByMultipleBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByBettypeList", (db, metalModel) => CreateRunningBetListByMultipleBettypePaprameters(db, metalModel) },
+            { "Lrf_TotalBets_Sel430", (db, metalModel) => CreateCorectScoreBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByBettypeParameters(db, metalModel) },
             { "Lrf_BetList_CustomerList_Mem", (db, metalModel) => CreateCustomerListBetListParameters(db, metalModel) },
             { "Lrf_BetList_LicenseeBonus_Detail", (db, metalModel) => CreateBonusDetailParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossNumberGame", (db, metalModel) => CreateLiveReportNumberGameBetlistParameters(db, metalModel) }
+            { "Lrf_BetList_LiveReport_SelWinlossNumberGame", (db, metalModel) => CreateLiveReportNumberGameBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelWinLossByBetType", (db, metalModel) => CreateWinLossByBetTypeParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossByMatch", (db, metalModel) => CreateLiveReportBetListByMatchParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossParlay", (db, metalModel) => CreateLiveReportParlayBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossOutright", (db, metalModel) => CreateLiveReportOutRightBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossVHRacing", (db, metalModel) => CreateLiveReportBetListVHRacingParameters(db, metalModel) },
+            { "Lrf_BetList_PlatformWinLoss_Mem", (db, metalModel) => CreatePlatformWinLossBetListParameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByDate_Mem", (db, metalModel) => CreateRunningBetListParameters(db, metalModel) },
+            { "Lrf_BetList_SelByDayAll_Mem", (db, metalModel) => CreateDailyStatementBetListParameters(db, metalModel) },
+            { "Lrf_BetList_SelByDayAll_Mem_Old", (db, metalModel) => CreateDailyStatementBetListOldParameters(db, metalModel) },
+            { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
+            { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
+
         };
-
-        public static bool HasBaseCurrencyOutputColumn(string uspKey)
-        {
-            return SpNameActionMap.ContainsKey(uspKey);
-        }
-
         public static void CreateBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            if (NonBaseCurrencySpNameActionMap.ContainsKey(metaModel.UspKey))
-            {
-                NonBaseCurrencySpNameActionMap[metaModel.UspKey](db, metaModel);
-            }
-            else
-            {
-                SpNameActionMap[metaModel.UspKey](db, metaModel);
-            }
+            NonBaseCurrencySpNameActionMap[metaModel.UspKey](db, metaModel);
         }
 
         public static void CreateBetListDateRangeParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -93,6 +76,7 @@
 
         private static void CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, !string.IsNullOrEmpty(metaModel.MultipleBettype) ? metaModel.MultipleBettype : string.Empty);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
@@ -105,7 +89,7 @@
         {
             var metaModel = betlistMetaModel as WinLossByLeagueBetListMetaModel;
             var products = metaModel.ProductCodeList.Split(',');
-
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue("LeagueID", metaModel.LeagueId);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
@@ -124,6 +108,7 @@
 
         private static void CreateRunningBetListByForeCastMatchParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
@@ -141,11 +126,13 @@
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
             db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
             db.SetParameterValue("betteam", metaModel.BetTeam);
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             CreateBetListPagingParameters(db, metaModel);
         }
 
         private static void CreateRunningBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -155,24 +142,25 @@
 
         private static void CreateDailyStatementBetListOldParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue("fromdate", metaModel.FromDate);
             db.SetParameterValue("transtype", metaModel.TransType);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
+            CreateSummaryOutputParameters(db, false);
         }
 
         private static void CreateDailyStatementBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue("fromdate", metaModel.FromDate);
             db.SetParameterValue("transtype", metaModel.TransType);
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
-            CreateBetListErrorParameters(db);
+            CreateSummaryOutputParameters(db, false);
         }
 
         private static void CreateCustomerListBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -193,6 +181,7 @@
 
         private static void CreatePlatformWinLossBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue("drawfilter", metaModel.DrawFilter);
@@ -201,18 +190,19 @@
             CreateBetlistBUParameters(db, metaModel);
             CreateProductListParameters(db, metaModel.ProductCodeList);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
+            CreateSummaryOutputParameters(db, false);
         }
 
         private static void CreateMatchWLParlayBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             CreateBetListSortingParameters(db, metaModel);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
+            CreateSummaryOutputParameters(db, false);
 
             var supportedProducts = new[] { ProductCodes.SB, ProductCodes.NG, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
@@ -220,12 +210,13 @@
 
         private static void CreateMatchWLOutRightBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
             CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
+            CreateSummaryOutputParameters(db, false);
 
             var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
@@ -233,6 +224,7 @@
 
         private static void CreateMatchWLBettypeBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
@@ -240,7 +232,7 @@
             db.SetParameterValue("Date", metaModel.Date);
             CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
+            CreateSummaryOutputParameters(db, false);
 
             var supportedProducts = new[] { ProductCodes.SB, ProductCodes.NG, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
@@ -257,9 +249,8 @@
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue("SportType", metaModel.SportType);
-
-            var summaryParameters = GetOutputSummaryParametersWithBaseCurrency(defaultParams, SupportedBaseCurrencies);
-            foreach (var name in summaryParameters)
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            foreach (var name in defaultParams)
             {
                 db.SetParameterValue(name, null);
             }
@@ -268,7 +259,7 @@
         private static void CreateLiveReportParlayBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
             var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
-
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             CreateBetListSortingParameters(db, metaModel);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -297,7 +288,7 @@
         private static void CreateLiveReportBetListByMatchParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
             var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
-
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
             AddLiveReportPagingParams(db, metaModel);
@@ -309,7 +300,7 @@
         private static void CreateLiveReportOutRightBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
             var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
-
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
@@ -320,6 +311,7 @@
 
         private static void CreateLicenseeWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue("drawfilter", metaModel.DrawFilter);
@@ -332,12 +324,14 @@
 
         private static void CreateCorectScoreBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListPagingParameters(db, metaModel);
         }
 
         private static void CreateCustomerWlBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -349,6 +343,7 @@
 
         private static void CreateRunningBetListByBettypePaprameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             CreateBetListPagingParameters(db, metaModel);
@@ -356,6 +351,7 @@
 
         private static void CreateRunningBetListByMultipleBettypePaprameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.MultipleBettype);
             CreateBetListPagingParameters(db, metaModel);
@@ -363,6 +359,7 @@
 
         private static void CreateCasinoDetailParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue("refno", metaModel.TransId);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
@@ -371,13 +368,14 @@
 
         private static void CreateWinLossByBetTypeParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             CreateBetListSortingParameters(db, metaModel);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
+            CreateSummaryOutputParameters(db, false);
         }
 
         private static void CreateBonusDetailParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -400,18 +398,8 @@
         {
             if (!string.IsNullOrWhiteSpace(metaModel.SortBy))
             {
-                var nonBaseCurrencyColumns = new[] { "nickname", "username" };
-                var isNonBaseCurrencySp = NonBaseCurrencySpNameActionMap.ContainsKey(metaModel.UspKey);
-                var sortBy = isNonBaseCurrencySp || nonBaseCurrencyColumns.Contains(metaModel.SortBy.ToLowerInvariant()) ?
-                    metaModel.SortBy : metaModel.SortBy + metaModel.BaseCurrency;
-                db.SetParameterValue("Sort", sortBy + " " + metaModel.SortOrder);
+                db.SetParameterValue("Sort", metaModel.SortBy + " " + metaModel.SortOrder);
             }
-        }
-
-        private static void CreateBetListErrorParameters(IObjectDb db)
-        {
-            db.SetParameterValue("ErrCode", null);
-            db.SetParameterValue("ErrMsg", null);
         }
 
         private static void CreateSummaryOutputParameters(IObjectDb db, bool hasBaseCurrency = true)
