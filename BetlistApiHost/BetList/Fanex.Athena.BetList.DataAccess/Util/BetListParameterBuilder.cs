@@ -74,7 +74,7 @@
 
         private static void CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, !string.IsNullOrEmpty(metaModel.MultipleBettype) ? metaModel.MultipleBettype : string.Empty);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
@@ -87,7 +87,7 @@
         {
             var metaModel = betlistMetaModel as WinLossByLeagueBetListMetaModel;
             var products = metaModel.ProductCodeList.Split(',');
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue("LeagueID", metaModel.LeagueId);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
@@ -106,7 +106,7 @@
 
         private static void CreateRunningBetListByForeCastMatchParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
@@ -124,13 +124,13 @@
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
             db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
             db.SetParameterValue("betteam", metaModel.BetTeam);
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             CreateBetListPagingParameters(db, metaModel);
         }
 
         private static void CreateRunningBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -140,7 +140,7 @@
 
         private static void CreateDailyStatementBetListOldParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue("fromdate", metaModel.FromDate);
@@ -151,7 +151,7 @@
 
         private static void CreateDailyStatementBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue("fromdate", metaModel.FromDate);
@@ -165,7 +165,7 @@
         {
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
@@ -179,7 +179,7 @@
 
         private static void CreatePlatformWinLossBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue("drawfilter", metaModel.DrawFilter);
@@ -193,7 +193,7 @@
 
         private static void CreateMatchWLParlayBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             CreateBetListSortingParameters(db, metaModel);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
@@ -208,7 +208,7 @@
 
         private static void CreateMatchWLOutRightBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
@@ -222,7 +222,7 @@
 
         private static void CreateMatchWLBettypeBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
@@ -257,7 +257,7 @@
         private static void CreateLiveReportParlayBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
             var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             CreateBetListSortingParameters(db, metaModel);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -280,13 +280,13 @@
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator);
             db.SetParameterValue("SportType", metaModel.SportType);
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
         }
 
         private static void CreateLiveReportBetListByMatchParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
             var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
             AddLiveReportPagingParams(db, metaModel);
@@ -298,7 +298,7 @@
         private static void CreateLiveReportOutRightBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
             var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.SetParameterValue(MoveBetDayColumn, metaModel.MoveBetsDay);
@@ -309,7 +309,7 @@
 
         private static void CreateLicenseeWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue("drawfilter", metaModel.DrawFilter);
@@ -322,14 +322,14 @@
 
         private static void CreateCorectScoreBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListPagingParameters(db, metaModel);
         }
 
         private static void CreateCustomerWlBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -341,7 +341,7 @@
 
         private static void CreateRunningBetListByBettypePaprameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             CreateBetListPagingParameters(db, metaModel);
@@ -349,7 +349,7 @@
 
         private static void CreateRunningBetListByMultipleBettypePaprameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.MultipleBettype);
             CreateBetListPagingParameters(db, metaModel);
@@ -357,7 +357,7 @@
 
         private static void CreateCasinoDetailParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue("refno", metaModel.TransId);
             db.SetParameterValue(CustIdColumn, metaModel.CustId);
@@ -366,7 +366,7 @@
 
         private static void CreateWinLossByBetTypeParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             CreateBetListSortingParameters(db, metaModel);
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
@@ -410,7 +410,7 @@
             }
         }
 
-       
+
         private static void CreateProductListParameters(IObjectDb db, string productCodeList, IEnumerable<string> supportedProducts = null)
         {
             if (string.IsNullOrWhiteSpace(productCodeList))

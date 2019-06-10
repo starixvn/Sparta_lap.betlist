@@ -29,7 +29,7 @@
         {
             // Arrange
             var expected = GetFakeTicket();
-            var dataList = GetFakeBetListData(baseCurrency, expected);
+            var dataList = GetFakeBetListData(expected);
             Reader.Read().Returns(true, false);
             ConfigureReader(dataList);
 
@@ -40,7 +40,7 @@
             Assert.That(result, Tobe.SameProperties(expected));
         }
 
-        private static IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket)
+        private static IDictionary<string, object> GetFakeBetListData(LrfTicket ticket)
         {
             var playerCommCol = "playercomm";
             var commCol = "comm";
