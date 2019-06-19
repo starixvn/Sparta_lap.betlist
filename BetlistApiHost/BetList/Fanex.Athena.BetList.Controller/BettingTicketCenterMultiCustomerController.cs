@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -44,23 +45,32 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<ActionResult> GetData(MultipleCustomersBetListMetaModel metaModel)
         {
-            if (metaModel.IsExport)
+            try
             {
-                var totalRow = await _service.GetTotalRowForMultipleCustomers(metaModel);
-                if (totalRow > MaxRowSupportExportExcel)
+                if (metaModel.IsExport)
                 {
-                    return Json(new
+                    var totalRow = await _service.GetTotalRowForMultipleCustomers(metaModel);
+                    if (totalRow > MaxRowSupportExportExcel)
                     {
-                        ErrorCode = RowsExceedLimitErrorCode
-                    });
+                        return Json(new
+                        {
+                            ErrorCode = RowsExceedLimitErrorCode
+                        });
+                    }
+
+                    return await Export(metaModel, metaModel.UserCurrencyList, totalRow);
                 }
 
-                return await Export(metaModel, metaModel.UserCurrencyList, totalRow);
+                var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList);
+
+                return GenerateJsonResult(metaModel, ticketResult, metaModel.HasPlayerCom);
+            }
+            catch (Exception ex)
+            {
+                Logging.LogService.Error(ex.Message, ex);
             }
 
-            var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList);
-
-            return GenerateJsonResult(metaModel, ticketResult, metaModel.HasPlayerCom);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
         }
 
         protected internal virtual ExcelResult ReturnExcel(BettingTicketCenterExcelModel excelModel, TicketResult ticketResult)
