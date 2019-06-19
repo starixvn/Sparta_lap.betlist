@@ -54,6 +54,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 db.SetParameterValue("custid", metaModel.CustId);
                 db.SetParameterValue("refno", metaModel.RefNo);
                 db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     return ReadData(reader, _ticketHelper, metaModel.BaseCurrency);
@@ -63,9 +64,6 @@ namespace Fanex.Athena.BetList.DataAccess
 
         private static ColossusBetDetailViewModel ReadData(IDataReader reader, ITicketHelper ticketHelper, string baseCurrency)
         {
-            var winlossColumn = "winlost" + baseCurrency;
-            var commColumn = "comm" + baseCurrency;
-
             var dataList = new List<ColossusBetDetail>();
             decimal totalSoldPercent = 0;
             decimal totalWinLoss = 0;
@@ -75,8 +73,8 @@ namespace Fanex.Athena.BetList.DataAccess
             {
                 var bettypeId = reader.ToInt("BetType");
                 var sold = reader.ToDecimal("Sold");
-                var winloss = reader.ToDecimal(winlossColumn);
-                var comm = reader.ToDecimal(commColumn);
+                var winloss = reader.ToDecimal("winlost");
+                var comm = reader.ToDecimal("comm");
                 totalSoldPercent += sold;
                 totalWinLoss += winloss;
                 totalComm += comm;
