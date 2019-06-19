@@ -606,10 +606,12 @@
     <value>导出至Excel</value>
   </data>
   <data name="ExternalId" xml:space="preserve">
-    <value>外部ID</value>
+    <value>用户名</value>
+    <comment>114794</comment>
   </data>
   <data name="ExternalIdOrSystemId" xml:space="preserve">
-    <value>外部识别或系统识别</value>
+    <value>用户名或系统账号</value>
+    <comment>114794</comment>
   </data>
   <data name="Fail" xml:space="preserve">
     <value>失败</value>
