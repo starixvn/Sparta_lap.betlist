@@ -46,7 +46,7 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<ActionResult> GetData(MultipleCustomersBetListMetaModel metaModel)
         {
-            Logging.LogService.Error("btc\n"+ JsonConvert.SerializeObject(metaModel));
+            Logging.LogService.Error("btc\n" + JsonConvert.SerializeObject(metaModel));
             try
             {
                 if (metaModel.IsExport)
@@ -70,7 +70,8 @@ namespace Fanex.Athena.BetList.Controller
             catch (Exception ex)
             {
                 Logging.LogService.Error(ex.Message, ex);
-            }finally
+            }
+            finally
             {
                 Logging.LogService.Error("end-btc\n");
             }
@@ -151,11 +152,8 @@ namespace Fanex.Athena.BetList.Controller
             return ReturnExcel(excelModel, ticketResult);
         }
 
-        protected FileContentResult ZipContentResult(ZipFile zipFile)
+        protected FileContentResult ZipContentResult(MemoryStream stream)
         {
-            MemoryStream stream = new MemoryStream();
-
-            zipFile.Save(stream);
             var bytes = stream.ToArray();
             return File(bytes, "application/zip", "BettingTicketsCenter_MultiCustomer.zip");
         }

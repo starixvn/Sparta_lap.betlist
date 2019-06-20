@@ -28,36 +28,35 @@ namespace Fanex.Athena.BetList.Controller.Utility
             _tempFileService = tempFileService;
         }
 
-        public ZipFile BuildZip(HttpResponseBase response, GroupTicketResult ticketResult, string title, bool hasPlayerComm, string totalText)
+        public MemoryStream BuildZip(HttpResponseBase response, GroupTicketResult ticketResult, string title, bool hasPlayerComm, string totalText)
         {
             var excelFiles = new List<string>();
 
             for (int i = 0; i < ticketResult.DataPath.Count; i++)
             {
-                if (response.IsClientConnected)
+
+                using (var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>())
                 {
-                    using (var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>())
+                    var contentData = _tempFileService.ReadString(ticketResult.DataPath[i]);
+                    var excelModel = CreateExcelModel(ticketResult, contentData, title, hasPlayerComm, totalText);
+                    if (excelModel != null)
                     {
-                        var contentData = _tempFileService.ReadString(ticketResult.DataPath[i]);
-                        var excelModel = CreateExcelModel(ticketResult, contentData, title, hasPlayerComm, totalText);
-                        if (excelModel != null)
-                        {
-                            var workbook = excelService.Export(excelModel);
-                            var dataFileName = ticketResult.DataPath[i] + ".dat";
-                            var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
+                        var workbook = excelService.Export(excelModel);
+                        var dataFileName = ticketResult.DataPath[i] + ".dat";
+                        var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
 
-                            SaveFile(workbook, dataFilePath);
+                        SaveFile(workbook, dataFilePath);
 
-                            excelFiles.Add(dataFileName);
-                            BetListHelper.ClearData(excelModel.Data);
-                            excelModel.Data = null;
-                        }
+                        excelFiles.Add(dataFileName);
+                        BetListHelper.ClearData(excelModel.Data);
+                        excelModel.Data = null;
                     }
                 }
+
             }
 
             CleanDataFile(ticketResult.DataPath);
-            return CreateZipFile(excelFiles, response);
+            return CreateZipFile(excelFiles);
         }
 
         private static BettingTicketCenterExcelModel CreateExcelModel(
@@ -116,21 +115,20 @@ namespace Fanex.Athena.BetList.Controller.Utility
             }
         }
 
-        private ZipFile CreateZipFile(IList<string> excelFiles, HttpResponseBase response)
+        private MemoryStream CreateZipFile(IList<string> excelFiles)
         {
+            var mem = new MemoryStream();
             using (var zip = new ZipFile())
             {
                 for (var i = 0; i < excelFiles.Count; i++)
                 {
-                    if (response.IsClientConnected)
-                    {
-                        zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
-                    }
+                    zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
                 }
 
                 CleanDataFile(excelFiles);
-                return response.IsClientConnected ? zip : null;
+                zip.Save(mem);
             }
+            return mem;
         }
     }
 }
