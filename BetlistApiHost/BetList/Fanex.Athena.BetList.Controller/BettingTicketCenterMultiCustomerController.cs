@@ -46,7 +46,7 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<ActionResult> GetData(MultipleCustomersBetListMetaModel metaModel)
         {
-            Logging.LogService.Error("btc\n" + JsonConvert.SerializeObject(metaModel));
+            Logging.LogService.Info("btc\n" + JsonConvert.SerializeObject(metaModel));
             try
             {
                 if (metaModel.IsExport)
@@ -73,7 +73,7 @@ namespace Fanex.Athena.BetList.Controller
             }
             finally
             {
-                Logging.LogService.Error("end-btc\n");
+                Logging.LogService.Info("end-btc\n");
             }
 
 
