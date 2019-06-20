@@ -70,8 +70,11 @@ namespace Fanex.Athena.BetList.Controller
             catch (Exception ex)
             {
                 Logging.LogService.Error(ex.Message, ex);
+            }finally
+            {
+                Logging.LogService.Error("end-btc\n");
             }
-            Logging.LogService.Error("end-btc\n");
+
 
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
         }
@@ -87,6 +90,8 @@ namespace Fanex.Athena.BetList.Controller
 
         private async Task<ActionResult> Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
         {
+            Logging.LogService.Info("BTC- Generate excel file");
+
             var title = _service.GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}";
 
@@ -104,6 +109,8 @@ namespace Fanex.Athena.BetList.Controller
             var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, MaxRowPerFile, userCurrencyList).ConfigureAwait(true);
 
             var zipFile = _zipBuilder.BuildZip(HttpContext.Response, ticketResult, title, metaModel.HasPlayerCom, totalText);
+            Logging.LogService.Info("END-BTC- Generate excel file");
+
             return zipFile == null ? null : ZipContentResult(zipFile);
         }
 
