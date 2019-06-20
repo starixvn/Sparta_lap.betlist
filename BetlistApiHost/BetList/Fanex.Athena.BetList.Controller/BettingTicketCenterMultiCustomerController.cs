@@ -15,6 +15,7 @@ using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.Athena.Resources;
 using Ionic.Zip;
+using Newtonsoft.Json;
 
 namespace Fanex.Athena.BetList.Controller
 {
@@ -45,6 +46,7 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<ActionResult> GetData(MultipleCustomersBetListMetaModel metaModel)
         {
+            Logging.LogService.Error("btc\n"+ JsonConvert.SerializeObject(metaModel));
             try
             {
                 if (metaModel.IsExport)
@@ -69,6 +71,7 @@ namespace Fanex.Athena.BetList.Controller
             {
                 Logging.LogService.Error(ex.Message, ex);
             }
+            Logging.LogService.Error("end-btc\n");
 
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
         }
