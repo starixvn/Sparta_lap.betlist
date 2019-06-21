@@ -45,29 +45,29 @@ namespace Fanex.Athena.BetList.Service
             return _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, rowPerGroup, currencyList);
         }
 
-        public Task<TicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, currencyList);
+            return await _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, currencyList).ConfigureAwait(false);
         }
 
-        public Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        public async Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
-            return _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel);
+            return await _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false); 
         }
 
-        public Task<TicketResult> GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _dataAccess.GetBetListForSingleCustomer(metaModel, currencyList);
+            return await _dataAccess.GetBetListForSingleCustomer(metaModel, currencyList);
         }
 
-        public Task<TicketResult> GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _dataAccess.GetBetListByRefno(metaModel, currencyList);
+            return await _dataAccess.GetBetListByRefno(metaModel, currencyList).ConfigureAwait(false);
         }
 
-        public Task<TicketResult> GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _dataAccess.GetRunningBetList(metaModel, currencyList);
+            return await _dataAccess.GetRunningBetList(metaModel, currencyList).ConfigureAwait(false);
         }
 
         public string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm)

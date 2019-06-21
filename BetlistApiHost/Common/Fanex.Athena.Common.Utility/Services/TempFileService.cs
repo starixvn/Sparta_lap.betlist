@@ -12,8 +12,8 @@ namespace Fanex.Athena.Common.Utility.Services
 
         public TempFileService(IAppSettings appSetting, IFileSystem fileSystem)
         {
-            _appSettings = appSetting;
-            _fileSystem = fileSystem;
+            _appSettings = appSetting ?? new AppSettings();
+            _fileSystem = fileSystem ?? new FileSystem();
         }
 
         public void Delete(string path)

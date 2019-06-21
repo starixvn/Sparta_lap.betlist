@@ -7,6 +7,7 @@ using Fanex.Athena.BetList.Excel.Builders;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Service.Helpers;
+using Fanex.Athena.Common.Utility.Services;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Ionic.Zip;
 using Newtonsoft.Json;
@@ -19,45 +20,52 @@ namespace Fanex.Athena.BetList.Controller.Utility
         private readonly IAppSettings _appSettings;
 
         private readonly ITempFileService _tempFileService;
+        private IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
         public BettingTicketCenterZipBuilder(
             IAppSettings appSettings,
-            ITempFileService tempFileService)
+            ITempFileService tempFileService,
+            IBettingTicketCenterExcel bettingTicketCenterExcel
+            )
         {
-            _appSettings = appSettings;
-            _tempFileService = tempFileService;
+            _appSettings = appSettings ?? new AppSettings();
+            _tempFileService = tempFileService ?? new TempFileService(_appSettings, null);
+            _bettingTicketCenterExcel = bettingTicketCenterExcel ?? new BettingTicketCenterExcel(null);
         }
 
-        public ZipFile BuildZip(HttpResponseBase response, GroupTicketResult ticketResult, string title, bool hasPlayerComm, string totalText)
+        public IBettingTicketCenterExcel ExcelBuilder
+        {
+            get { return _bettingTicketCenterExcel ?? new BettingTicketCenterExcel(null); }
+            set { _bettingTicketCenterExcel = value; }
+        }
+
+        public MemoryStream BuildZip(HttpResponseBase response, GroupTicketResult ticketResult, string title, bool hasPlayerComm, string totalText)
         {
             var excelFiles = new List<string>();
 
             for (int i = 0; i < ticketResult.DataPath.Count; i++)
             {
-                if (response.IsClientConnected)
+                var contentData = _tempFileService.ReadString(ticketResult.DataPath[i]);
+                var excelModel = CreateExcelModel(ticketResult, contentData, title, hasPlayerComm, totalText);
+                if (excelModel != null)
                 {
-                    using (var excelService = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>())
-                    {
-                        var contentData = _tempFileService.ReadString(ticketResult.DataPath[i]);
-                        var excelModel = CreateExcelModel(ticketResult, contentData, title, hasPlayerComm, totalText);
-                        if (excelModel != null)
-                        {
-                            var workbook = excelService.Export(excelModel);
-                            var dataFileName = ticketResult.DataPath[i] + ".dat";
-                            var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
+                    var workbook = ExcelBuilder.Export(excelModel);
+                    var dataFileName = ticketResult.DataPath[i] + ".dat";
+                    var dataFilePath = Path.Combine(_appSettings.TempFilePath, dataFileName);
 
-                            SaveFile(workbook, dataFilePath);
+                    SaveFile(workbook, dataFilePath);
 
-                            excelFiles.Add(dataFileName);
-                            BetListHelper.ClearData(excelModel.Data);
-                            excelModel.Data = null;
-                        }
-                    }
+                    excelFiles.Add(dataFileName);
+                    BetListHelper.ClearData(excelModel.Data);
+                    excelModel.Data = null;
+                    ExcelBuilder.Dispose();
+                    ExcelBuilder = null;
                 }
+
             }
 
             CleanDataFile(ticketResult.DataPath);
-            return CreateZipFile(excelFiles, response);
+            return CreateZipFile(excelFiles);
         }
 
         private static BettingTicketCenterExcelModel CreateExcelModel(
@@ -116,21 +124,20 @@ namespace Fanex.Athena.BetList.Controller.Utility
             }
         }
 
-        private ZipFile CreateZipFile(IList<string> excelFiles, HttpResponseBase response)
+        private MemoryStream CreateZipFile(IList<string> excelFiles)
         {
+            var mem = new MemoryStream();
             using (var zip = new ZipFile())
             {
                 for (var i = 0; i < excelFiles.Count; i++)
                 {
-                    if (response.IsClientConnected)
-                    {
-                        zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
-                    }
+                    zip.AddEntry($"sheet{i}.xls", _tempFileService.ReadBytes(excelFiles[i]));
                 }
 
                 CleanDataFile(excelFiles);
-                return response.IsClientConnected ? zip : null;
+                zip.Save(mem);
             }
+            return mem;
         }
     }
 }

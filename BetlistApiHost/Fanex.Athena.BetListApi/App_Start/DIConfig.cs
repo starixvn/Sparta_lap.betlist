@@ -42,7 +42,7 @@ namespace Fanex.Athena
         {
             builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
             builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
-            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerDependency();
+            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerRequest();
             builder.RegisterType<PPResult>().As<IPPResult>();
             builder.RegisterType<VoidbridgeApiImp>().As<VoidbridgeApi>();
             builder.RegisterType<AllbetResultBuilder>().As<IAllbetResultBuilder>();
