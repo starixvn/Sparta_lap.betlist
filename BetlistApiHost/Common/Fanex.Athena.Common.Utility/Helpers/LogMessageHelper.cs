@@ -25,7 +25,8 @@ namespace Fanex.Athena.Common.Utility.Helpers
             {
                 messageBuilder.AppendLine($"\t{item.Key}: {item.Value}");
             }
-
+            messageBuilder.Append($"\t ErrMsg: {exception.Message}");
+            messageBuilder.Append($"\t StackTrace: {exception.StackTrace}");
             return messageBuilder.ToString();
         }
 
