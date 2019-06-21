@@ -607,9 +607,11 @@
   </data>
   <data name="ExternalId" xml:space="preserve">
     <value>用户名</value>
+    <comment>114797</comment>
   </data>
   <data name="ExternalIdOrSystemId" xml:space="preserve">
     <value>用户名或系统账号</value>
+    <comment>114797</comment>
   </data>
   <data name="Fail" xml:space="preserve">
     <value>失败</value>
