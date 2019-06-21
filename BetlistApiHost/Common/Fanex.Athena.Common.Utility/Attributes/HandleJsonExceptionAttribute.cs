@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Fanex.Athena.Common.Utility.Helpers;
+using System;
 using System.Web.Mvc;
-using Fanex.Logging.Extensions.Web;
 
 namespace Fanex.Athena.Common.Utility.Attributes
 {
@@ -11,7 +11,8 @@ namespace Fanex.Athena.Common.Utility.Attributes
         {
             if (filterContext.Exception != null)
             {
-                ExceptionHandler.Handle(filterContext.Exception);
+                Logging.LogService.Error(
+                    LogMessageHelper.GenerateMessage(filterContext.Exception));
                 filterContext.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 filterContext.Result = new JsonResult
                 {

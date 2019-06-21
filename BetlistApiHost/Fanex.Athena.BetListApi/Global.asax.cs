@@ -7,15 +7,20 @@
 namespace Fanex.Athena
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Text;
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Routing;
     using App_Start;
     using Data;
+    using Fanex.Athena.Common.Utility.Helpers;
     using Fanex.BetList.Core;
     using Fanex.BetList.Core.RemotingRef;
     using Fanex.RemotingRef;
@@ -23,7 +28,6 @@ namespace Fanex.Athena
     using Fanex.Result.Core.RemotingRef;
     using Logging;
     using Logging.Extensions.Database;
-    using Logging.Extensions.Web;
     using Logging.RabbitMQ;
 
     public class MvcApplication : HttpApplication
@@ -32,16 +36,18 @@ namespace Fanex.Athena
         {
             // Code that runs when an unhandled error occurs
             var exception = Server.GetLastError();
-
+            var isIgnore = exception is HttpAntiForgeryException
+               || exception is HttpException
+            || (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
+                 exception.TargetSite.Name == "ExtractParameterFromDictionary");
             // Exception when passing wrong data type to action method
-            if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
-                 exception.TargetSite.Name == "ExtractParameterFromDictionary")
+            if (!isIgnore)
             {
-                return;
+                LogService.Error(LogMessageHelper.GenerateMessage(exception));
             }
 
-            ExceptionHandler.Handle(exception);
         }
+        
 
         public void Application_Start(object sender, EventArgs e)
         {
@@ -74,10 +80,7 @@ namespace Fanex.Athena
                      new RabbitMQLogging(ConfigurationManager.AppSettings["RabbitMQ-ConnectionString"])
                  });
 
-            Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
-                .IgnoreException<HttpAntiForgeryException>()
-                .GetHttpHeaderInfo()
-                .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+
             DIConfig.Register();
         }
     }

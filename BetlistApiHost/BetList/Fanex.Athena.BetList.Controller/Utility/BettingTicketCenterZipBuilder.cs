@@ -45,8 +45,6 @@ namespace Fanex.Athena.BetList.Controller.Utility
 
             for (int i = 0; i < ticketResult.DataPath.Count; i++)
             {
-
-
                 var contentData = _tempFileService.ReadString(ticketResult.DataPath[i]);
                 var excelModel = CreateExcelModel(ticketResult, contentData, title, hasPlayerComm, totalText);
                 if (excelModel != null)
@@ -63,7 +61,6 @@ namespace Fanex.Athena.BetList.Controller.Utility
                     ExcelBuilder.Dispose();
                     ExcelBuilder = null;
                 }
-
 
             }
 

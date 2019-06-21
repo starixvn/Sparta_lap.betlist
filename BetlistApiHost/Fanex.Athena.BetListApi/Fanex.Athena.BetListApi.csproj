@@ -172,10 +172,6 @@
       <HintPath>..\..\packages\Fanex.Logging.Extensions.Database.1.0.5\lib\net461\Fanex.Logging.Extensions.Database.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Logging.Extensions.Web, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Logging.Extensions.Web.1.0.6\lib\net40\Fanex.Logging.Extensions.Web.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Logging.RabbitMQ, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Logging.RabbitMQ.1.0.1\lib\net461\Fanex.Logging.RabbitMQ.dll</HintPath>
       <Private>True</Private>
