@@ -29,14 +29,20 @@ namespace Fanex.Athena.BetList.Controller
 
         private readonly IBettingTicketCenterZipBuilder _zipBuilder;
 
+        private readonly IBettingTicketCenterExcel _bettingTicketCenterExcel;
+
         public BettingTicketCenterMultiCustomerController(
             IAppSettings appSettings,
             IBettingTicketCenterService service,
-            IBettingTicketCenterZipBuilder zipBuilder)
+            IBettingTicketCenterZipBuilder zipBuilder,
+            IBettingTicketCenterExcel bettingTicketCenterExcel
+
+            )
         {
             _appSettings = appSettings;
             _service = service;
-            _zipBuilder = zipBuilder;
+            _bettingTicketCenterExcel = bettingTicketCenterExcel ?? new BettingTicketCenterExcel(null);
+            _zipBuilder = zipBuilder ?? new BettingTicketCenterZipBuilder(_appSettings, null, _bettingTicketCenterExcel);
         }
 
         private int MaxRowSupportExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportExportExcel"));
@@ -46,44 +52,30 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<ActionResult> GetData(MultipleCustomersBetListMetaModel metaModel)
         {
-            Logging.LogService.Info("btc\n" + JsonConvert.SerializeObject(metaModel));
-            try
-            {
-                if (metaModel.IsExport)
-                {
-                    var totalRow = await _service.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false);
-                    if (totalRow > MaxRowSupportExportExcel)
-                    {
-                        return Json(new
-                        {
-                            ErrorCode = RowsExceedLimitErrorCode
-                        });
-                    }
 
-                    return await Export(metaModel, metaModel.UserCurrencyList, totalRow).ConfigureAwait(false);
+            if (metaModel.IsExport)
+            {
+                var totalRow = await _service.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false);
+                if (totalRow > MaxRowSupportExportExcel)
+                {
+                    return Json(new
+                    {
+                        ErrorCode = RowsExceedLimitErrorCode
+                    });
                 }
 
-                var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
-
-                return GenerateJsonResult(metaModel, ticketResult, metaModel.HasPlayerCom);
-            }
-            catch (Exception ex)
-            {
-                Logging.LogService.Error(ex.Message, ex);
-            }
-            finally
-            {
-                Logging.LogService.Info("end-btc\n");
+                return await Export(metaModel, metaModel.UserCurrencyList, totalRow).ConfigureAwait(false);
             }
 
+            var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
 
-            return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
+            return GenerateJsonResult(metaModel, ticketResult, metaModel.HasPlayerCom);
+
         }
 
         protected internal virtual ExcelResult ReturnExcel(BettingTicketCenterExcelModel excelModel, TicketResult ticketResult)
         {
-            var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-            var workbook = excel.Export(excelModel);
+            var workbook = _bettingTicketCenterExcel.Export(excelModel);
             excelModel.Data = null;
             BetListHelper.ClearData(ticketResult);
             return new ExcelResult(workbook);
@@ -91,8 +83,6 @@ namespace Fanex.Athena.BetList.Controller
 
         private async Task<ActionResult> Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
         {
-            Logging.LogService.Info("BTC- Generate excel file");
-
             var title = _service.GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}";
 
@@ -110,7 +100,6 @@ namespace Fanex.Athena.BetList.Controller
             var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, MaxRowPerFile, userCurrencyList).ConfigureAwait(false);
 
             var zipFile = _zipBuilder.BuildZip(HttpContext.Response, ticketResult, title, metaModel.HasPlayerCom, totalText);
-            Logging.LogService.Info("END-BTC- Generate excel file");
 
             return zipFile == null ? null : ZipContentResult(zipFile);
         }

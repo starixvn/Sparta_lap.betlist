@@ -8,6 +8,7 @@ using Fanex.Athena.Common.Utility.Helpers;
 using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
+using Fanex.BetList.Core.TicketHelper;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
@@ -48,8 +49,8 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         public BettingTicketCenterExcelBuilder(IBetListExcelBuilder builder, ITicketHelper ticketHelper)
         {
-            _builder = builder;
-            _ticketHelper = ticketHelper;
+            _builder = builder ?? new BetListExcelBuilder();
+            _ticketHelper = ticketHelper ?? new TicketHelper();
         }
 
         public IWorkbook GetWorkbook()

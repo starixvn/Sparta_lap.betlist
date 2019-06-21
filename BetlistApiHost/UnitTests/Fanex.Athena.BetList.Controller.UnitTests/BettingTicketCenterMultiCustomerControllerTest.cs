@@ -9,6 +9,8 @@
     using Common.Utility.Collections;
     using Common.Utility.Services.Interfaces;
     using Excel.Model;
+    using Fanex.Athena.BetList.Excel;
+    using Fanex.Athena.BetList.Excel.Builders;
     using Model.DTO;
     using Model.MetaModel;
     using NSubstitute;
@@ -28,6 +30,7 @@
         private IBettingTicketCenterService _service;
 
         private IBettingTicketCenterZipBuilder _zipBuilder;
+        private IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
         [SetUp]
         public void SetUp()
@@ -35,6 +38,7 @@
             _appSettings = Substitute.For<IAppSettings>();
             _service = Substitute.For<IBettingTicketCenterService>();
             _zipBuilder = Substitute.For<IBettingTicketCenterZipBuilder>();
+            _bettingTicketCenterExcel = Substitute.For<IBettingTicketCenterExcel>();
         }
 
         [TearDown]
@@ -43,6 +47,7 @@
             _appSettings = null;
             _service = null;
             _zipBuilder = null;
+            _bettingTicketCenterExcel = null;
         }
 
         [Test]
@@ -225,7 +230,12 @@
 
         private BettingTicketCenterMultiCustomerController CreateController()
         {
-            return Substitute.ForPartsOf<BettingTicketCenterMultiCustomerController>(_appSettings, _service, _zipBuilder);
+            return Substitute.ForPartsOf<BettingTicketCenterMultiCustomerController>(
+                _appSettings,
+                _service,
+                _zipBuilder,
+                _bettingTicketCenterExcel
+                );
         }
 
         private void SetUpForResponse(BettingTicketCenterMultiCustomerController controller, bool isClientConnected)

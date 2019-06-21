@@ -16,7 +16,7 @@
 
         public BettingTicketCenterExcel(IBettingTicketCenterExcelBuilder builder)
         {
-            _builder = builder;
+            _builder = builder ?? new BettingTicketCenterExcelBuilder(null, null);
         }
 
         public virtual IWorkbook Export(BettingTicketCenterExcelModel excelModel)
