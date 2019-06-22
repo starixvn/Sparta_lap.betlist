@@ -134,6 +134,7 @@
                 ObjectDb.Received(1).SetParameterValue("PageSize", _metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", _metaModel.PageIndex);
                 ObjectDb.Received(1).SetParameterValue("totalrows", null);
+                ObjectDb.Received(1).SetParameterValue("BaseCurrency", _metaModel.BaseCurrency);
             });
         }
 
@@ -197,16 +198,12 @@
 
         private void ConfigureReaderForGetDailyStatementData(BetListMetaModel metaModel, dynamic testCaseData)
         {
-            var commissionColumn = "commission" + metaModel.BaseCurrency;
-            var totalAmtColumn = "totalamt" + metaModel.BaseCurrency;
-            var turnoverColumn = "turnover" + metaModel.BaseCurrency;
-
             Reader["winlostdate"].Returns(new DateTime(2016, 8, 19, 14, 4, 2));
             Reader["transtype"].Returns((string)testCaseData.TransType);
             Reader["transdesc"].Returns((string)testCaseData.TransDesc);
-            Reader[commissionColumn].Returns((decimal)testCaseData.Commission);
-            Reader[turnoverColumn].Returns(11.5m);
-            Reader[totalAmtColumn].Returns((decimal)testCaseData.TotalAmt);
+            Reader["commission"].Returns((decimal)testCaseData.Commission);
+            Reader["turnover"].Returns(11.5m);
+            Reader["totalamt"].Returns((decimal)testCaseData.TotalAmt);
         }
     }
 }
