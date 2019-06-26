@@ -119,10 +119,19 @@ namespace Fanex.Athena.BetList.Service
         {
             var date = metaModel.FromDate == DateTime.MinValue
                 ? string.Empty
-                : ", " + metaModel.FromDate.ToString(FormatKey.DateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.DateFormat);
-            var baseCurrency = string.IsNullOrWhiteSpace(metaModel.BaseCurrency)
-                ? string.Empty
-                : ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant();
+                : $", {metaModel.FromDate.ToString(FormatKey.DateFormat)}-->{metaModel.ToDate.ToString(FormatKey.DateFormat)}";
+
+            var baseCurrency = string.Empty;
+
+            if (metaModel.IsConvertAll)
+            {
+                var baseCurrencyName = !string.IsNullOrEmpty(metaModel.BaseCurrencyName) ? metaModel.BaseCurrencyName : metaModel.BaseCurrency?.ToUpperInvariant();
+
+                if (!string.IsNullOrEmpty(baseCurrencyName))
+                {
+                    baseCurrency = $", {ViewResources.BaseCurrency}: {baseCurrencyName}";
+                }
+            }
 
             return ViewResources.BettingTicketCenter + date + baseCurrency;
         }

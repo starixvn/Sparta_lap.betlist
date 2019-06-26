@@ -320,7 +320,7 @@
                        && x.Option.ShowSumStake
                        && !x.Option.ShowLicenseeWl
                        && !x.Option.ShowWinLoss
-                       && x.Option.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}"
+                       && x.Option.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
                        && x.CustomerCommVisible == metaModel.HasPlayerCom
                        && x.Title == title));
                     AssertClearData(ticketResult);

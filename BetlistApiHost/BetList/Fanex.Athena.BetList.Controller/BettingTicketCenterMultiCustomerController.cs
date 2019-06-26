@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -14,8 +13,6 @@ using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.Athena.Resources;
-using Ionic.Zip;
-using Newtonsoft.Json;
 
 namespace Fanex.Athena.BetList.Controller
 {
@@ -52,7 +49,6 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<ActionResult> GetData(MultipleCustomersBetListMetaModel metaModel)
         {
-
             if (metaModel.IsExport)
             {
                 var totalRow = await _service.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false);
@@ -70,7 +66,6 @@ namespace Fanex.Athena.BetList.Controller
             var ticketResult = await _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
 
             return GenerateJsonResult(metaModel, ticketResult, metaModel.HasPlayerCom);
-
         }
 
         protected internal virtual ExcelResult ReturnExcel(BettingTicketCenterExcelModel excelModel, TicketResult ticketResult)
@@ -84,7 +79,7 @@ namespace Fanex.Athena.BetList.Controller
         private async Task<ActionResult> Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
         {
             var title = _service.GetTitle(metaModel);
-            var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}";
+            var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}";
 
             if (totalRow <= MaxRowPerFile)
             {

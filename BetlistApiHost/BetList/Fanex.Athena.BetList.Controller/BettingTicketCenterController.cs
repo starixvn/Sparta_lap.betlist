@@ -107,7 +107,7 @@ namespace Fanex.Athena.BetList.Controller
                     {
                         ShowTotal = true,
                         ShowSumStake = true,
-                        TotalText = $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}"
+                        TotalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
                     },
                     CustomerCommVisible = false,
                     Title = _service.GetTitle(metaModel)
