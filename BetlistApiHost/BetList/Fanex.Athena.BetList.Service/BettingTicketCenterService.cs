@@ -120,12 +120,11 @@ namespace Fanex.Athena.BetList.Service
             var date = metaModel.FromDate == DateTime.MinValue
                 ? string.Empty
                 : ", " + metaModel.FromDate.ToString(FormatKey.DateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.DateFormat);
-            var currency = string.IsNullOrWhiteSpace(metaModel.CurrencyName) ? string.Empty : ", " + ViewResources.Currency + ": " + metaModel.CurrencyName;
             var baseCurrency = string.IsNullOrWhiteSpace(metaModel.BaseCurrency)
                 ? string.Empty
                 : ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant();
 
-            return ViewResources.BettingTicketCenter + date + currency + baseCurrency;
+            return ViewResources.BettingTicketCenter + date + baseCurrency;
         }
     }
 }
