@@ -52,7 +52,7 @@ namespace Fanex.Athena.BetList.Service
 
         public async Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
-            return await _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false); 
+            return await _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false);
         }
 
         public async Task<TicketResult> GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
@@ -121,17 +121,11 @@ namespace Fanex.Athena.BetList.Service
                 ? string.Empty
                 : $", {metaModel.FromDate.ToString(FormatKey.DateFormat)}-->{metaModel.ToDate.ToString(FormatKey.DateFormat)}";
 
-            var baseCurrency = string.Empty;
+            var baseCurrencyName = !string.IsNullOrEmpty(metaModel.BaseCurrency) ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.BaseCurrencyName;
 
-            if (metaModel.IsConvertAll)
-            {
-                var baseCurrencyName = !string.IsNullOrEmpty(metaModel.BaseCurrencyName) ? metaModel.BaseCurrencyName : metaModel.BaseCurrency?.ToUpperInvariant();
-
-                if (!string.IsNullOrEmpty(baseCurrencyName))
-                {
-                    baseCurrency = $", {ViewResources.BaseCurrency}: {baseCurrencyName}";
-                }
-            }
+            var baseCurrency = string.IsNullOrEmpty(baseCurrencyName)
+                ? string.Empty
+                : $", {ViewResources.BaseCurrency}: {baseCurrencyName}";
 
             return ViewResources.BettingTicketCenter + date + baseCurrency;
         }
