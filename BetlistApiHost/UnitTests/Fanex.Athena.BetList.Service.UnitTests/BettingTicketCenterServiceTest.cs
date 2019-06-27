@@ -174,11 +174,12 @@
             Assert.That(_ticketHelper.ClientDetailSystemParlayFunction, Is.Empty);
         }
 
-        [TestCase("", "", "1/1/0001", "1/1/0001", "Betting Ticket Center")]
-        [TestCase("EUR", null, "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]
-        [TestCase("", "USD", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: USD")]
-        [TestCase("EUR", "USD", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]
-        public void GetTitle_WhenCall_ReturnCorrectTitle(string baseCurrency, string baseCurrencyName, string fromDate, string toDate, string expectedTitle)
+        [TestCase(false, "", "EUR", "1/1/0001", "1/1/0001", "Betting Ticket Center")]
+        [TestCase(false, "EUR", "", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]
+        [TestCase(true, "", null, "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002")]
+        [TestCase(true, "EUR", "USD", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]
+        [TestCase(true, "EUR", "", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]
+        public void GetTitle_WhenCall_ReturnCorrectTitle(bool isConvert, string baseCurrency, string baseCurrencyName, string fromDate, string toDate, string expectedTitle)
         {
             // Arrange
             var metaModel = new BaseBettingTicketMetaModel
@@ -186,7 +187,8 @@
                 FromDate = DateTime.Parse(fromDate),
                 ToDate = DateTime.Parse(toDate),
                 BaseCurrency = baseCurrency,
-                BaseCurrencyName = baseCurrencyName
+                BaseCurrencyName = baseCurrencyName,
+                IsConvertAll = isConvert
             };
 
             // Action
