@@ -37,12 +37,12 @@ namespace Fanex.Athena.BetList.Service
             _ticketHelper = ticketHelper;
         }
 
-        public Task<GroupTicketResult> GetBetListForMultipleCustomersTask(
+        public async Task<GroupTicketResult> GetBetListForMultipleCustomersAsync(
             MultipleCustomersBetListMetaModel metaModel,
             int rowPerGroup,
             IDictionary<int, string> currencyList)
         {
-            return _multiCustomerDataAccess.GetBetListForMultipleCustomersAsync(metaModel, rowPerGroup, currencyList);
+            return await _multiCustomerDataAccess.GetBetListForMultipleCustomersAsync(metaModel, rowPerGroup, currencyList).ConfigureAwait(false);
         }
 
         public async Task<TicketResult> GetBetListForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)

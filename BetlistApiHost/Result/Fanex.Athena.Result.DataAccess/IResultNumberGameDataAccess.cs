@@ -15,12 +15,12 @@ namespace Fanex.Athena.Result.DataAccess
     [System.CLSCompliant(false)]
     public interface IResultNumberGameDataAccess
     {
-        Task<IList<NumberGame>> GetNumberGameMatches(ResultMetaModel metalModel);
+        Task<IList<NumberGame>> GetNumberGameMatchesAsync(ResultMetaModel metalModel);
 
-        Task<IList<Happy5>> GetHappy5Matches(ResultMetaModel metalModel);
+        Task<IList<Happy5>> GetHappy5MatchesAsync(ResultMetaModel metalModel);
 
-        Task<IList<NumberGame>> GetPopUpNumberGameMatch(int matchId);
+        Task<IList<NumberGame>> GetPopUpNumberGameMatchAsync(int matchId);
 
-        Task<IList<Happy5>> GetPopUpHappy5Match(int matchId);
+        Task<IList<Happy5>> GetPopUpHappy5MatchAsync(int matchId);
     }
 }

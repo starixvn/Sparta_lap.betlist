@@ -205,7 +205,7 @@
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
 
                 var ticketResult = new GroupTicketResult();
-                _service.GetBetListForMultipleCustomersTask(metaModel, maxRowPerFile, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListForMultipleCustomersAsync(metaModel, maxRowPerFile, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 controller.WhenForAnyArgs(x => x.ReturnExcel(Arg.Any<BettingTicketCenterExcelModel>(), Arg.Any<TicketResult>())).DoNotCallBase();
 

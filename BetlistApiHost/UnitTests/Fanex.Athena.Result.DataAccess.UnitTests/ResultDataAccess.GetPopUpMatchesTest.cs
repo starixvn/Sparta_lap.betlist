@@ -16,7 +16,7 @@
         [TestCase(null, null)]
         [TestCase(0, "0")]
         [TestCase(1, "1")]
-        public async Task GetPopUpMatches_WhenCall_ParametersPassedCorrectly(int? raceNo, string expectedRaceNo)
+        public async Task GetPopUpMatchesAsync_WhenCall_ParametersPassedCorrectly(int? raceNo, string expectedRaceNo)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
@@ -35,7 +35,7 @@
             };
 
             // Action
-            await DataAccess.GetPopUpMatches<Sportsbook>(metaModel).ConfigureAwait(false);
+            await DataAccess.GetPopUpMatchesAsync<Sportsbook>(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
@@ -43,7 +43,7 @@
 
         [TestCase(null, "0")]
         [TestCase(1, "1")]
-        public async Task GetPopUpMatches_TypeIsSportsbook_ReturnCorrectData(int? betId, string expectedBetId)
+        public async Task GetPopUpMatchesAsync_TypeIsSportsbook_ReturnCorrectData(int? betId, string expectedBetId)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
@@ -69,7 +69,7 @@
             metaModel.BetId = betId;
 
             // Action
-            var result = await DataAccess.GetPopUpMatches<Sportsbook>(metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpMatchesAsync<Sportsbook>(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -86,7 +86,7 @@
         [TestCase(225)]
         [TestCase(226)]
         [TestCase(227)]
-        public async Task GetPopUpMatches_TypeIsSportsbookAndFastMarketBetType_ReturnCorrectData(int betType)
+        public async Task GetPopUpMatchesAsync_TypeIsSportsbookAndFastMarketBetType_ReturnCorrectData(int betType)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
@@ -114,7 +114,7 @@
             var expectedResult = new List<Sportsbook> { expectedData };
 
             // Action
-            var result = await DataAccess.GetPopUpMatches<Sportsbook>(metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpMatchesAsync<Sportsbook>(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -124,7 +124,7 @@
         }
 
         [Test]
-        public async Task GetPopUpMatches_TypeIsSportsbookWithSomeReturnedNullValues_ReturnCorrectData()
+        public async Task GetPopUpMatchesAsync_TypeIsSportsbookWithSomeReturnedNullValues_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
@@ -154,7 +154,7 @@
             var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = await DataAccess.GetPopUpMatches<Sportsbook>(BuildResultPopupMetalModel()).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpMatchesAsync<Sportsbook>(BuildResultPopupMetalModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -165,7 +165,7 @@
         }
 
         [Test]
-        public async Task GetPopUpMatches_TypeIsSportsbookWithSomeReturnedNullValuesAndColumnColorNotExist_ReturnCorrectData()
+        public async Task GetPopUpMatchesAsync_TypeIsSportsbookWithSomeReturnedNullValuesAndColumnColorNotExist_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
@@ -193,7 +193,7 @@
             var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = await DataAccess.GetPopUpMatches<Sportsbook>(BuildResultPopupMetalModel()).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpMatchesAsync<Sportsbook>(BuildResultPopupMetalModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -204,7 +204,7 @@
         }
 
         [Test]
-        public async Task GetPopUpMatches_TypeIsRacing_ReturnCorrectData()
+        public async Task GetPopUpMatchesAsync_TypeIsRacing_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
@@ -241,7 +241,7 @@
             };
 
             // Action
-            var result = await DataAccess.GetPopUpMatches<Racing>(BuildResultPopupMetalModel()).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpMatchesAsync<Racing>(BuildResultPopupMetalModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -252,7 +252,7 @@
         }
 
         [Test]
-        public async Task GetPopUpMatches_TypeIsRacingWithSomeReturnedNullValues_ReturnCorrectData()
+        public async Task GetPopUpMatchesAsync_TypeIsRacingWithSomeReturnedNullValues_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
@@ -289,7 +289,7 @@
             };
 
             // Action
-            var result = await DataAccess.GetPopUpMatches<Racing>(BuildResultPopupMetalModel()).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpMatchesAsync<Racing>(BuildResultPopupMetalModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -300,13 +300,13 @@
         }
 
         [Test]
-        public void GetPopUpMatches_TypeIsNotSupported_ThrowException()
+        public void GetPopUpMatchesAsync_TypeIsNotSupported_ThrowException()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
 
             // Action
-            AsyncTestDelegate result = () => DataAccess.GetPopUpMatches<object>(BuildResultPopupMetalModel());
+            AsyncTestDelegate result = () => DataAccess.GetPopUpMatchesAsync<object>(BuildResultPopupMetalModel());
 
             // Assert
             Assert.ThrowsAsync<NotSupportedException>(result, "The type 'object' is not supported.");

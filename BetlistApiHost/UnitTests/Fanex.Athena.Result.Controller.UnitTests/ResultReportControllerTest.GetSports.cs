@@ -30,7 +30,7 @@
                     SportId = SportId,
                     IsOutRight = true
                 };
-                _resultService.GetOutRight(metaModel).Returns(dataList);
+                _resultService.GetOutRightAsync(metaModel).Returns(dataList);
 
                 // Action
                 var result = (await controller.GetSports(metaModel)) as JsonResult;
@@ -60,7 +60,7 @@
                     LicenseeId = 123,
                     ProductCodeList = "SB"
                 };
-                _resultService.GetSports(metaModel.FromDate, metaModel.LicenseeId).Returns(dataList);
+                _resultService.GetSportsAsync(metaModel.FromDate, metaModel.LicenseeId).Returns(dataList);
 
                 // Action
                 var result = await controller.GetSports(metaModel) as JsonResult;
@@ -88,7 +88,7 @@
                     SportId = SportId,
                     FromDate = new DateTime(2017, 1, 1)
                 };
-                _resultService.GetLeagues(metaModel.FromDate, SportId).Returns(dataList);
+                _resultService.GetLeaguesAsync(metaModel.FromDate, SportId).Returns(dataList);
 
                 // Action
                 var result = await controller.GetSports(metaModel) as JsonResult;

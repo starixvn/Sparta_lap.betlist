@@ -34,7 +34,7 @@
         };
 
         [Test]
-        public async Task GetHappy5Matches_WhenCall_ParametersPassedCorrectly()
+        public async Task GetHappy5MatchesAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetHappy5MatchesSp)).Returns(ObjectDb);
@@ -51,14 +51,14 @@
             };
 
             // Action
-            await DataAccess.GetHappy5Matches(_metaModel).ConfigureAwait(false);
+            await DataAccess.GetHappy5MatchesAsync(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
-        public async Task GetHappy5Matches_WhenCall_ReturnCorrectData()
+        public async Task GetHappy5MatchesAsync_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetHappy5MatchesSp)).Returns(ObjectDb);
@@ -76,7 +76,7 @@
             };
 
             // Action
-            var result = await DataAccess.GetHappy5Matches(_metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetHappy5MatchesAsync(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -87,7 +87,7 @@
         }
 
         [Test]
-        public async Task GetPopUpHappy5Match_WhenCall_ParameterPassedCorrectly()
+        public async Task GetPopUpHappy5MatchAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpHappy5MatchSp)).Returns(ObjectDb);
@@ -99,14 +99,14 @@
             };
 
             // Action
-            await DataAccess.GetPopUpHappy5Match(MatchId).ConfigureAwait(false);
+            await DataAccess.GetPopUpHappy5MatchAsync(MatchId).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
         }
 
         [Test]
-        public async Task GetPopUpHappy5Match_WhenCall_ReturnCorrectData()
+        public async Task GetPopUpHappy5MatchAsync_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpHappy5MatchSp)).Returns(ObjectDb);
@@ -121,7 +121,7 @@
             var expectedResult = new List<Happy5> { dataItem };
 
             // Action
-            var result = await DataAccess.GetPopUpHappy5Match(222).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpHappy5MatchAsync(222).ConfigureAwait(false);
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedResult)));

@@ -92,7 +92,7 @@ namespace Fanex.Athena.BetList.Controller
                 return ExportXls(normalTicketResult, title, metaModel.HasPlayerCom, totalText);
             }
 
-            var ticketResult = await _service.GetBetListForMultipleCustomersTask(metaModel, MaxRowPerFile, userCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _service.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile, userCurrencyList).ConfigureAwait(false);
 
             var zipFile = _zipBuilder.BuildZip(HttpContext.Response, ticketResult, title, metaModel.HasPlayerCom, totalText);
 

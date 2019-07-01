@@ -49,7 +49,7 @@
                         SportType = SportId
                     }
                 };
-                _resultService.GetOutRight(metaModel).Returns(dataList);
+                _resultService.GetOutRightAsync(metaModel).Returns(dataList);
                 _resultService.HtmlParser(Arg.Any<IList<Outright>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
@@ -76,7 +76,7 @@
                     IsOutRight = false
                 };
                 var dataList = new List<Racing> { new Racing() };
-                _resultService.GetVirtualSportMatches(metaModel).Returns(dataList);
+                _resultService.GetVirtualSportMatchesAsync(metaModel).Returns(dataList);
                 _resultService.HtmlParser(Arg.Any<IList<Racing>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
@@ -99,7 +99,7 @@
                     IsOutRight = false
                 };
                 var dataList = new List<NumberGame> { new NumberGame() };
-                _resultService.GetNumberGameMatches(metaModel).Returns(dataList);
+                _resultService.GetNumberGameMatchesAsync(metaModel).Returns(dataList);
                 _resultService.HtmlParser(Arg.Any<IList<NumberGame>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action

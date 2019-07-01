@@ -48,7 +48,7 @@ namespace Fanex.Athena.Result.DataAccess
             _appSettings = appSettings;
         }
 
-        public async Task<IList<Outright>> GetOutRight(ResultMetaModel metal)
+        public async Task<IList<Outright>> GetOutRightAsync(ResultMetaModel metal)
         {
             const string UspName = "Lrf_Result_Outright";
             var uspParams = new
@@ -81,7 +81,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public async Task<IList<Sport>> GetSports(DateTime dateValue, int licenseeId)
+        public async Task<IList<Sport>> GetSportsAsync(DateTime dateValue, int licenseeId)
         {
             const string UspName = "Lrf_Result_SportSelByDate";
 
@@ -109,7 +109,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public async Task<IList<League>> GetLeagues(DateTime dateValue, int sportId)
+        public async Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId)
         {
             const string UspName = "Lrf_Result_LeagueSelByDate";
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
@@ -144,7 +144,7 @@ namespace Fanex.Athena.Result.DataAccess
         /// <summary>
         /// Get data for VS
         /// </summary>
-        public async Task<IList<Racing>> GetVirtualSportMatches(ResultMetaModel metalModel)
+        public async Task<IList<Racing>> GetVirtualSportMatchesAsync(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_RaceSelByMeeting";
             var uspParams = new
@@ -163,7 +163,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public async Task<IList<T>> GetPopUpMatches<T>(ResultPopupMetaModel metaModel)
+        public async Task<IList<T>> GetPopUpMatchesAsync<T>(ResultPopupMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelMatchResult";
             var uspParams = new
@@ -201,7 +201,7 @@ namespace Fanex.Athena.Result.DataAccess
         /// </summary>
         /// <param name="refNo">Reference Number value.</param>
         /// <returns>The result value.</returns>
-        public async Task<IList<Parlay>> GetPopUpParalayMatch(long refNo)
+        public async Task<IList<Parlay>> GetPopUpParalayMatchAsync(long refNo)
         {
             const string UspName = "Lrf_BetList_SelMatchResultParlay";
             var uspParams = new { refno = refNo };
@@ -290,7 +290,7 @@ namespace Fanex.Athena.Result.DataAccess
         /// <typeparam name="T">Type of result.</typeparam>
         /// <param name="metalModel">Meta model value.</param>
         /// <returns>The result value.</returns>
-        public async Task<IList<T>> GetMatches<T>(ResultMetaModel metalModel)
+        public async Task<IList<T>> GetMatchesAsync<T>(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelByLeague";
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
@@ -326,7 +326,7 @@ namespace Fanex.Athena.Result.DataAccess
         /// <param name=MatchidColumn>The match ID.</param>
         /// <returns>The SPORTSBOOK data.</returns>
         [System.CLSCompliant(false)]
-        public async Task<Sportsbook> GetSportsbookGameDetail(int matchId)
+        public async Task<Sportsbook> GetSportsbookGameDetailAsync(int matchId)
         {
             using (var db = this.GetObjectDb("Lrf_Result_MatchSelByLeague_Detail"))
             {

@@ -34,7 +34,7 @@
         };
 
         [Test]
-        public async Task GetPopUpNumberGameMatch_WhenCall_ParameterPassedCorrectly()
+        public async Task GetPopUpNumberGameMatchAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpNumberGameMatchSp)).Returns(ObjectDb);
@@ -46,14 +46,14 @@
             };
 
             // Action
-            await DataAccess.GetPopUpNumberGameMatch(MatchId).ConfigureAwait(false);
+            await DataAccess.GetPopUpNumberGameMatchAsync(MatchId).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
         }
 
         [Test]
-        public async Task GetPopUpNumberGameMatch_WhenCall_ReturnCorrectData()
+        public async Task GetPopUpNumberGameMatchAsync_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpNumberGameMatchSp)).Returns(ObjectDb);
@@ -68,14 +68,14 @@
             var expectedResult = new List<NumberGame> { dataItem };
 
             // Action
-            var result = await DataAccess.GetPopUpNumberGameMatch(222).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpNumberGameMatchAsync(222).ConfigureAwait(false);
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
         }
 
         [Test]
-        public async Task GetPopUpNumberGameMatch_IsRefundColumnNotExist_ReturnCorrectData()
+        public async Task GetPopUpNumberGameMatchAsync_IsRefundColumnNotExist_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpNumberGameMatchSp)).Returns(ObjectDb);
@@ -87,14 +87,14 @@
             var expectedResult = new List<NumberGame> { dataItem };
 
             // Action
-            var result = await DataAccess.GetPopUpNumberGameMatch(222).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpNumberGameMatchAsync(222).ConfigureAwait(false);
 
             // Assert
             Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
         }
 
         [Test]
-        public async Task GetNumberGameMatches_WhenCall_ParametersPassedCorrectly()
+        public async Task GetNumberGameMatchesAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetNumberGameMatchesSp)).Returns(ObjectDb);
@@ -111,14 +111,14 @@
             };
 
             // Action
-            await DataAccess.GetNumberGameMatches(_metaModel).ConfigureAwait(false);
+            await DataAccess.GetNumberGameMatchesAsync(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
-        public async Task GetNumberGameMatches_WhenCall_ReturnCorrectData()
+        public async Task GetNumberGameMatchesAsync_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetNumberGameMatchesSp)).Returns(ObjectDb);
@@ -136,7 +136,7 @@
             };
 
             // Action
-            var result = await DataAccess.GetNumberGameMatches(_metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetNumberGameMatchesAsync(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

@@ -52,7 +52,7 @@
             _bettingTicketCenterService = null;
         }
         [Test]
-        public async Task GetBetListForMultipleCustomersTask_WhenCall_CallDataAccess()
+        public async Task GetBetListForMultipleCustomersAsync_GetDataSavedInFile_CallDataAccess()
         {
             // Arrange
             var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
@@ -60,7 +60,7 @@
             var rowPerGroup = FakeHelper.Create<int>();
 
             // Action
-            await _bettingTicketCenterService.GetBetListForMultipleCustomersTask(metaModel, rowPerGroup, currencyList);
+            await _bettingTicketCenterService.GetBetListForMultipleCustomersAsync(metaModel, rowPerGroup, currencyList);
 
             // Assert
             Assert.Multiple(() =>
