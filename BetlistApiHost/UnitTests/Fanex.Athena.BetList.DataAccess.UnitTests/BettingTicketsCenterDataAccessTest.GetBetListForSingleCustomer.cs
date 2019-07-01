@@ -13,7 +13,7 @@
         [TestCase("P1,SB,P2", "P1,SB,P2", false)]
         [TestCase("BA,P1,P2", "P1,P2", true)]
         [TestCase("P1,BA,P2,SB", "P1,P2,SB", true)]
-        public async Task GetBetListForSingleCustomer_WhenCall_ParametersPassedCorrectly(string productCode, string productList, bool showBA)
+        public async Task GetBetListForSingleCustomerAsync_WhenCall_ParametersPassedCorrectly(string productCode, string productList, bool showBA)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListBySingleCustomerUspKey)).Returns(ObjectDb);
@@ -24,7 +24,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = productCode };
 
             // Action
-            await DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListForSingleCustomerAsync(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -53,7 +53,7 @@
         }
 
         [Test]
-        public async Task GetBetListForSingleCustomer_Export_PagingParametersPassedCorrectly()
+        public async Task GetBetListForSingleCustomerAsync_Export_PagingParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListBySingleCustomerUspKey)).Returns(ObjectDb);
@@ -64,7 +64,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
             // Action
-            await DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListForSingleCustomerAsync(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -75,7 +75,7 @@
         }
 
         [Test]
-        public async Task GetBetListForSingleCustomer_Sort_SortParametersPassedCorrectly()
+        public async Task GetBetListForSingleCustomerAsync_Sort_SortParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListBySingleCustomerUspKey)).Returns(ObjectDb);
@@ -86,14 +86,14 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
             // Action
-            await DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListForSingleCustomerAsync(metaModel, UserCurrencyList);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + " " + metaModel.SortOrder);
         }
 
         [Test]
-        public async Task GetBetListForSingleCustomer_WhenCall_ReturnTotalDataCorrectly()
+        public async Task GetBetListForSingleCustomerAsync_WhenCall_ReturnTotalDataCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListBySingleCustomerUspKey)).Returns(ObjectDb);
@@ -114,7 +114,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty };
 
             // Action
-            var result = await DataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetBetListForSingleCustomerAsync(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>

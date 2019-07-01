@@ -45,7 +45,7 @@
         }
 
         [Test]
-        public async Task GetBetListForMultipleCustomers_WhenCall_ParametersPassedCorrectly()
+        public async Task GetBetListForMultipleCustomersAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
@@ -57,7 +57,7 @@
             metaModel.IsExport = false;
 
             // Action
-            await DataAccess.GetBetListForMultipleCustomers(metaModel, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -99,7 +99,7 @@
             var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
 
             // Action
-            var result = await DataAccess.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -124,7 +124,7 @@
         }
 
         [Test]
-        public async Task GetBetListForMultipleCustomers_ExportExcel_ParametersPassedCorrectly()
+        public async Task GetBetListForMultipleCustomersAsync_ExportExcel_ParametersPassedCorrectly()
         {
             // Arrange
             const int RowPerGroup = 1000;
@@ -138,7 +138,7 @@
             metaModel.SortBy = string.Empty;
 
             // Action
-            await DataAccess.GetBetListForMultipleCustomers(metaModel, RowPerGroup, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -171,7 +171,7 @@
         }
 
         [Test]
-        public async Task GetBetListForMultipleCustomers_ExportExcel_HaveOneSheet_SaveOneFileToMemory()
+        public async Task GetBetListForMultipleCustomersAsync_ExportExcel_HaveOneSheet_SaveOneFileToMemory()
         {
             // Arrange
             const int RowPerGroup = 1000;
@@ -187,14 +187,14 @@
             MapReaderData(ticket);
 
             // Action
-            await DataAccess.GetBetListForMultipleCustomers(metaModel, RowPerGroup, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             _tempFileService.Received(1).Save(Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Test]
-        public async Task GetBetListForMultipleCustomers_ExportExcel_HaveTwoSheets_SaveTwoFilesToMemory()
+        public async Task GetBetListForMultipleCustomersAsync_ExportExcel_HaveTwoSheets_SaveTwoFilesToMemory()
         {
             // Arrange
             const int RowPerGroup = 1;
@@ -210,7 +210,7 @@
             MapReaderData(ticket);
 
             // Action
-            await DataAccess.GetBetListForMultipleCustomers(metaModel, RowPerGroup, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup, UserCurrencyList).ConfigureAwait(false);
 
             // Assert
             _tempFileService.Received(2).Save(Arg.Any<string>(), Arg.Any<string>());

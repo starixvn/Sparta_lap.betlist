@@ -29,7 +29,7 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<ActionResult> GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
-            var ticketResult = await _service.GetBetListForSingleCustomer(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _service.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
 
             if (metaModel.IsExport)
             {
@@ -66,7 +66,7 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<ActionResult> GetByRefno(RefNoBetListMetaModel metaModel)
         {
-            var ticketResult = await _service.GetBetListByRefno(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _service.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
 
             if (metaModel.IsExport)
             {
@@ -96,7 +96,7 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<ActionResult> GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
-            var ticketResult = await _service.GetRunningBetList(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _service.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
 
             if (metaModel.IsExport)
             {

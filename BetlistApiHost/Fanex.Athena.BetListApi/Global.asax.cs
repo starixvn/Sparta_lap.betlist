@@ -27,7 +27,6 @@ namespace Fanex.Athena
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.RemotingRef;
     using Logging;
-    using Logging.Extensions.Database;
     using Logging.RabbitMQ;
 
     public class MvcApplication : HttpApplication

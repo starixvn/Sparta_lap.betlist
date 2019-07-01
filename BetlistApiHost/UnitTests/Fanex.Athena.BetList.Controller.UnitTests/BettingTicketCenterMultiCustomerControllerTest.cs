@@ -65,7 +65,7 @@
                     SumLicenseeWL = FakeHelper.Create<decimal>(),
                     SumComm = FakeHelper.Create<decimal>(),
                 };
-                _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
                 _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText.ToList());
@@ -105,7 +105,7 @@
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _service.GetTotalRowForMultipleCustomers(metaModel).Returns(totalRow);
+                _service.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow - 1).ToString());
 
                 // Action
@@ -129,12 +129,12 @@
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _service.GetTotalRowForMultipleCustomers(metaModel).Returns(totalRow);
+                _service.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns((totalRow + 1).ToString());
 
                 var ticketResult = new TicketResult();
-                _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
                 var result = await controller.GetData(metaModel) as HttpStatusCodeResult;
@@ -156,13 +156,13 @@
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _service.GetTotalRowForMultipleCustomers(metaModel).Returns(totalRow);
+                _service.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns((totalRow + 1).ToString());
 
                 var ticket = FakeHelper.Create<LrfTicket>();
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
-                _service.GetBetListForMultipleCustomers(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var title = FakeHelper.Create<string>();
                 _service.GetTitle(metaModel).Returns(title);
@@ -198,14 +198,14 @@
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _service.GetTotalRowForMultipleCustomers(metaModel).Returns(totalRow);
+                _service.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
 
                 var maxRowPerFile = totalRow - 1;
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
 
                 var ticketResult = new GroupTicketResult();
-                _service.GetBetListForMultipleCustomers(metaModel, maxRowPerFile, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListForMultipleCustomersTask(metaModel, maxRowPerFile, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 controller.WhenForAnyArgs(x => x.ReturnExcel(Arg.Any<BettingTicketCenterExcelModel>(), Arg.Any<TicketResult>())).DoNotCallBase();
 

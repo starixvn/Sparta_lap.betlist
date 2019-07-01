@@ -31,7 +31,7 @@
         }
 
         [Test]
-        public async Task GetBetListByRefno_WhenCall_ParameterIsPassesCorrectly()
+        public async Task GetBetListByRefnoAsync_WhenCall_ParameterIsPassesCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListByRefnoUspKey)).Returns(ObjectDb);
@@ -41,7 +41,7 @@
             var metaModel = new RefNoBetListMetaModel();
 
             // Action
-            await DataAccess.GetBetListByRefno(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListByRefnoAsync(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>

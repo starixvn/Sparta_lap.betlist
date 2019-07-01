@@ -7,10 +7,10 @@
 
     public interface IBettingTicketCenterMultiCustomerDataAccess
     {
-        Task<TicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList);
+        Task<TicketResult> GetBetListForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList);
 
-        Task<GroupTicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, int rowPerGroup, IDictionary<int, string> currencyList);
+        Task<GroupTicketResult> GetBetListForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel, int rowPerGroup, IDictionary<int, string> currencyList);
 
-        Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
+        Task<int> GetTotalRowForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel);
     }
 }

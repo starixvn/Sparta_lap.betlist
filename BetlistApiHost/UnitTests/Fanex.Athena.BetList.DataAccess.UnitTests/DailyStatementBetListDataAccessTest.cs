@@ -149,7 +149,7 @@
 
             Reader.Read().Returns(true, false);
 
-            ConfigureReaderForGetDailyStatementData(_metaModel, testCaseData);
+            ConfigureReaderForGetDailyStatementData(testCaseData);
 
             var expected = GetDailyStatementData(_metaModel, testCaseData);
 
@@ -196,7 +196,7 @@
             };
         }
 
-        private void ConfigureReaderForGetDailyStatementData(BetListMetaModel metaModel, dynamic testCaseData)
+        private void ConfigureReaderForGetDailyStatementData(dynamic testCaseData)
         {
             Reader["winlostdate"].Returns(new DateTime(2016, 8, 19, 14, 4, 2));
             Reader["transtype"].Returns((string)testCaseData.TransType);

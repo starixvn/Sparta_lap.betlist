@@ -57,12 +57,12 @@ namespace Fanex.Athena.BetList.DataAccess
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    return ReadData(reader, _ticketHelper, metaModel.BaseCurrency);
+                    return ReadData(reader, _ticketHelper);
                 }
             }
         }
 
-        private static ColossusBetDetailViewModel ReadData(IDataReader reader, ITicketHelper ticketHelper, string baseCurrency)
+        private static ColossusBetDetailViewModel ReadData(IDataReader reader, ITicketHelper ticketHelper)
         {
             var dataList = new List<ColossusBetDetail>();
             decimal totalSoldPercent = 0;
