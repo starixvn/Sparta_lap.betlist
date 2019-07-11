@@ -18,10 +18,6 @@
             PageSize = DefaultPageSize;
         }
 
-        public int CurrencyId { get; set; }
-
-        public string CurrencyName { get; set; }
-
         public string BaseCurrency
         {
             get
@@ -78,5 +74,7 @@
         public IDictionary<int, string> UserCurrencyList { get; set; }
 
         public bool IsConvertAll { get; set; }
+
+        public string BaseCurrencyName { get; set; }
     }
 }

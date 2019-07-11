@@ -79,7 +79,7 @@
                     RefNo = refNo
                 };
                 var dataList = new List<Parlay> { new Parlay() };
-                _resultService.GetPopUpParlayMatch(metaModel.RefNo.HasValue ? metaModel.RefNo.Value : 0).Returns(dataList);
+                _resultService.GetPopUpParlayMatchAsync(metaModel.RefNo.HasValue ? metaModel.RefNo.Value : 0).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
@@ -102,7 +102,7 @@
                 // Arrange
                 var metaModel = CreateResultPopupMetaModel(sportType);
                 var dataList = new List<Racing> { new Racing() };
-                _resultService.GetPopUpVirtualSportMatch(metaModel).Returns(dataList);
+                _resultService.GetPopUpVirtualSportMatchAsync(metaModel).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
@@ -121,7 +121,7 @@
                 // Arrange
                 var metaModel = CreateResultPopupMetaModel(Fanex.Result.Core.Base.SportType.NumberGame);
                 var dataList = new List<NumberGame> { new NumberGame() };
-                _resultService.GetPopUpNumberGameMatchs(metaModel.MatchId).Returns(dataList);
+                _resultService.GetPopUpNumberGameMatchsAsync(metaModel.MatchId).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
@@ -140,7 +140,7 @@
                 // Arrange
                 var metaModel = CreateResultPopupMetaModel(Fanex.Result.Core.Base.SportType.Soccer);
                 var dataList = new List<Sportsbook> { new Sportsbook() };
-                _resultService.GetPopUpMatch(metaModel).Returns(dataList);
+                _resultService.GetPopUpMatchAsync(metaModel).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action

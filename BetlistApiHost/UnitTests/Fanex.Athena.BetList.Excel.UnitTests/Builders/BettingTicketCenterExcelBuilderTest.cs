@@ -57,6 +57,39 @@
             _builder = null;
         }
 
+        [Test]
+        public void GetWorkbook_WhenCall_CallGetBetListFunctionFromBuilder()
+        {
+            // Action
+            _excelBuilder.GetWorkbook();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _builder.Received(1).GetBetList();
+            });
+        }
+
+        [TestCase(true, true, 14)]
+        [TestCase(false, false, 12)]
+        [TestCase(true, false, 13)]
+        [TestCase(false, true, 13)]
+        public void CreateSheet_WhenCall_BuildWorksheetWithCorrectParameters(bool showWinLoss, bool showLicenseeWl, short expectedCols)
+        {
+            // Arrange
+            var sheetName = FakeHelper.Create<string>();
+            var option = new BettingTicketCenterExcelOption { ShowWinLoss = showWinLoss, ShowLicenseeWl = showLicenseeWl };
+
+            // Action
+            _excelBuilder.CreateSheet(sheetName, option);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _builder.Received(1).BuildWorksheet(sheetName, expectedCols);
+            });
+        }
+
         [TestCase(true, true, NumberOfColumns - 1)]
         [TestCase(false, false, NumberOfColumns - 3)]
         [TestCase(true, false, NumberOfColumns - 2)]

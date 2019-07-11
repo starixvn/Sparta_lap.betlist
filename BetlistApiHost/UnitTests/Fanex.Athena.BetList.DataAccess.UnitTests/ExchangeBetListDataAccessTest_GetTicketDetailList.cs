@@ -37,6 +37,7 @@
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
                 ObjectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
                 ObjectDb.Received(1).SetParameterValue("BetID", metaModel.BetId);
+                ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             });
         }
 
@@ -63,7 +64,7 @@
             {
                 { "BetTaken", "2018/02/02" },
                 { "OddsRequest", 2 },
-                { "Stake" + BaseCurrency.ToUpperInvariant(), 3 },
+                { "Stake", 3 },
                 { "OddsMatched", 4 },
             });
 

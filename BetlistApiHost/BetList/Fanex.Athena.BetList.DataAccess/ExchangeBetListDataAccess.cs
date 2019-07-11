@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
-    using Common.Constant;
     using Common.DataAccess;
     using Common.Utility.Helpers;
     using Fanex.Common;
@@ -26,21 +25,18 @@
                 db.SetParameterValue("CustId", metaModel.CustId);
                 db.SetParameterValue("FromDate", metaModel.FromDate);
                 db.SetParameterValue("ToDate", metaModel.ToDate);
+                db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 db.SetParameterValue("SumWinLost", null);
-                db.SetParameterValue("SumWinLostEUR", null);
-                db.SetParameterValue("SumWinLostGBP", null);
-                db.SetParameterValue("SumWinLostUSD", null);
 
-                var baseCurrency = GetBaseCurrency(metaModel.BaseCurrency);
                 var result = new ExchangeBetListResult();
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    result.SumWinLossList = ReadSumWinLossData(reader, baseCurrency);
-                    result.TicketList = ReadTicketData(reader, baseCurrency);
+                    result.SumWinLossList = ReadSumWinLossData(reader);
+                    result.TicketList = ReadTicketData(reader);
                 }
 
-                result.GrandTotal = Converter.ToDecimal(db.GetParameterValue("SumWinLost" + baseCurrency));
+                result.GrandTotal = Converter.ToDecimal(db.GetParameterValue("SumWinLost"));
                 return result;
             }
         }
@@ -54,19 +50,16 @@
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("CustId", metaModel.CustId);
                 db.SetParameterValue("BetID", metaModel.BetId);
+                db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    var baseCurrency = GetBaseCurrency(metaModel.BaseCurrency);
-
-                    return ReadTicketDetailData(reader, baseCurrency, metaModel.Type);
+                    return ReadTicketDetailData(reader, metaModel.Type);
                 }
             }
         }
 
-        private static string GetBaseCurrency(string baseCurrency) => SystemConstants.BaseCurrencyList.Contains(baseCurrency) ? baseCurrency : string.Empty;
-
-        private IEnumerable<ExchangeTicketDetail> ReadTicketDetailData(IDataReader reader, string baseCurrency, string type)
+        private IEnumerable<ExchangeTicketDetail> ReadTicketDetailData(IDataReader reader, string type)
         {
             var mainData = new List<ExchangeTicketDetail>();
 
@@ -76,7 +69,7 @@
                 {
                     BetTaken = reader.ToDateTime("BetTaken"),
                     OddsReq = reader.ToDecimal("OddsRequest"),
-                    Stake = reader.ToDecimal("Stake" + baseCurrency),
+                    Stake = reader.ToDecimal("Stake"),
                     OddsMatched = reader.ToDecimal("OddsMatched")
                 };
 
@@ -87,7 +80,7 @@
             return mainData;
         }
 
-        private IEnumerable<ExchangeSumWinLoss> ReadSumWinLossData(IDataReader reader, string baseCurrency)
+        private IEnumerable<ExchangeSumWinLoss> ReadSumWinLossData(IDataReader reader)
         {
             var mainData = new List<ExchangeSumWinLoss>();
 
@@ -101,15 +94,15 @@
                     EventTypeName = reader.ToString("EventTypeName"),
                     MarketId = reader.ToString("MarketId"),
                     MarketName = reader.ToString("MarketName"),
-                    WinLost = reader.ToDecimal("WinLost" + baseCurrency),
-                    Commission = reader.ToDecimal("Commission" + baseCurrency)
+                    WinLost = reader.ToDecimal("WinLost"),
+                    Commission = reader.ToDecimal("Commission")
                 });
             }
 
             return mainData;
         }
 
-        private IEnumerable<ExchangeTicket> ReadTicketData(IDataReader reader, string baseCurrency)
+        private IEnumerable<ExchangeTicket> ReadTicketData(IDataReader reader)
         {
             var detailData = new List<ExchangeTicket>();
 
@@ -125,10 +118,10 @@
                         BetId = reader.ToLong("BetId"),
                         SelectionName = reader.ToString("SelectionName"),
                         OddsAvg = reader.ToDecimal("OddsAvg"),
-                        Stake = reader.ToDecimal("Stake" + baseCurrency),
+                        Stake = reader.ToDecimal("Stake"),
                         Type = reader.ToString("Type"),
                         BetPlaced = reader.ToDateTime("BetPlaced"),
-                        WinLost = reader.ToDecimal("WinLost" + baseCurrency)
+                        WinLost = reader.ToDecimal("WinLost")
                     });
                 }
             }

@@ -188,7 +188,7 @@
                 _objectDb.Received(1).SetParameterValue("BetType", _metaModel.BetType);
                 _objectDb.Received(1).SetParameterValue("MatchId", _metaModel.MatchId);
                 _objectDb.Received(1).SetParameterValue("LiveIndicator", expectedLiveIndicator);
-                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + " " + _metaModel.SortOrder);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
                 _objectDb.Received(1).SetParameterValue("Date", _metaModel.Date);
@@ -213,7 +213,7 @@
                 _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 _objectDb.Received(1).SetParameterValue("MoveBetsDay", _metaModel.MoveBetsDay);
-                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy +  " " + _metaModel.SortOrder);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
                 _objectDb.Received(1).SetParameterValue("showSB", true);
@@ -235,7 +235,7 @@
             Assert.Multiple(() =>
             {
                 _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
-                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + " " + _metaModel.SortOrder);
                 _objectDb.Received(1).SetParameterValue("BetType", _metaModel.BetType);
                 _objectDb.Received(1).SetParameterValue("MoveBetsDay", _metaModel.MoveBetsDay);
                 AssertDateRangeParameters(_objectDb, _metaModel);
@@ -290,7 +290,7 @@
                 _objectDb.Received(1).SetParameterValue("CustId", _metaModel.CustId);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb, Enumerable.Empty<string>());
+                AssertSummaryParameters(_objectDb);
                 _objectDb.Received(1).SetParameterValue("showSB", true);
                 _objectDb.Received(1).SetParameterValue("showNG", true);
                 _objectDb.DidNotReceive().SetParameterValue("Sort", Arg.Any<string>());
@@ -316,7 +316,7 @@
                 _objectDb.Received(1).SetParameterValue("CustId", _metaModel.CustId);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb, Enumerable.Empty<string>());
+                AssertSummaryParameters(_objectDb);
                 _objectDb.Received(1).SetParameterValue("showSB", true);
                 _objectDb.Received(1).SetParameterValue("showNG", true);
                 _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + " " + _metaModel.SortOrder);
@@ -337,8 +337,6 @@
             Assert.Multiple(() =>
             {
                 AssertDailyStatementBetList(_objectDb, _metaModel);
-                _objectDb.Received(1).SetParameterValue("ErrCode", null);
-                _objectDb.Received(1).SetParameterValue("ErrMsg", null);
             });
         }
 
@@ -502,7 +500,7 @@
             Assert.Multiple(() =>
             {
                 _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
-                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + " " + _metaModel.SortOrder);
                 _objectDb.Received(1).SetParameterValue("BetType", _metaModel.BetType);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertMoveBetParams(_objectDb, _metaModel);
@@ -512,7 +510,7 @@
         }
 
         [TestCase("nickname", "usd", "nickname ")]
-        [TestCase("test", "usd", "testusd ")]
+        [TestCase("test", "usd", "test ")]
         public void CreateBetListParameters_CreateBetListSortingParameters_ParametersPassedCorrectly(string sortBy, string baseCurrency, string expectedSortBy)
         {
             // Arrange
@@ -596,14 +594,11 @@
             });
         }
 
-        private static void AssertSummaryParameters(IObjectDb objectDb, IEnumerable<string> baseCurrencyCols = null)
+        private static void AssertSummaryParameters(IObjectDb objectDb)
         {
-            var baseCurrencyExpectedCols = baseCurrencyCols ?? SystemConstants.BaseCurrencyList;
             var summaryParams = new[] { "SumWinlost", "SumLicenseeWL", "SumComm", "SumPlayerComm" };
 
-            var expectedParams = summaryParams.Join(baseCurrencyExpectedCols, b => true, s => true, (b, s) => b + s).Concat(summaryParams);
-
-            foreach (var param in expectedParams)
+            foreach (var param in summaryParams)
             {
                 objectDb.Received(1).SetParameterValue(param, null);
             }

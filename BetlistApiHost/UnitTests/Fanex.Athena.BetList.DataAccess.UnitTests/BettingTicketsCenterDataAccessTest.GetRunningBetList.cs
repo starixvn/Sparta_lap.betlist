@@ -13,7 +13,7 @@
         [TestCase("P1,SB,P2", "P1,SB,P2", false)]
         [TestCase("BA,P1,P2", "P1,P2", true)]
         [TestCase("P1,BA,P2,SB", "P1,P2,SB", true)]
-        public async Task GetRunningBetList_WhenCall_ParametersPassedCorrectly(string productCode, string productList, bool showBA)
+        public async Task GetRunningBetListAsync_WhenCall_ParametersPassedCorrectly(string productCode, string productList, bool showBA)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
@@ -24,7 +24,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = productCode };
 
             // Action
-            await DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
+            await DataAccess.GetRunningBetListAsync(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -42,7 +42,7 @@
         }
 
         [Test]
-        public async Task GetRunningBetList_Export_PagingParametersPassedCorrectly()
+        public async Task GetRunningBetListAsync_Export_PagingParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
@@ -53,7 +53,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
             // Action
-            await DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
+            await DataAccess.GetRunningBetListAsync(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -64,7 +64,7 @@
         }
 
         [Test]
-        public async Task GetRunningBetList_Sort_SortParametersPassedCorrectly()
+        public async Task GetRunningBetListAsync_Sort_SortParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
@@ -75,14 +75,14 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
             // Action
-            await DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
+            await DataAccess.GetRunningBetListAsync(metaModel, UserCurrencyList);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + " " + metaModel.SortOrder);
         }
 
         [Test]
-        public async Task GetRunningBetList_WhenCall_ReturnTotalDataCorrectly()
+        public async Task GetRunningBetListAsync_WhenCall_ReturnTotalDataCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
@@ -99,7 +99,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty };
 
             // Action
-            var result = await DataAccess.GetRunningBetList(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetRunningBetListAsync(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>

@@ -3,7 +3,7 @@
     public class MultipleCustomersBetListMetaModel : BaseBettingTicketMetaModel
     {
         public string LiveStatus { get; set; }
-        
+
         public int SportId { get; set; }
 
         public int BetTypeId { get; set; }

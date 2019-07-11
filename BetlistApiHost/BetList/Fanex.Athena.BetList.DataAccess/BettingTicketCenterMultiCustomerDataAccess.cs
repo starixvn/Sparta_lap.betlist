@@ -25,7 +25,7 @@
             _tempFileService = tempFileService;
         }
 
-        public async Task<GroupTicketResult> GetBetListForMultipleCustomers(
+        public async Task<GroupTicketResult> GetBetListForMultipleCustomersAsync(
             MultipleCustomersBetListMetaModel metaModel,
             int rowPerGroup,
             IDictionary<int, string> currencyList)
@@ -74,7 +74,7 @@
             }
         }
 
-        public async Task<TicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_Licensee";
 
@@ -101,7 +101,7 @@
             return ticketResult;
         }
 
-        public async Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        public async Task<int> GetTotalRowForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Licensee_TotalRows";
 

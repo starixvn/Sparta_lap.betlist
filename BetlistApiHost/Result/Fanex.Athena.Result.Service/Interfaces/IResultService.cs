@@ -15,7 +15,7 @@
     [System.CLSCompliant(false)]
     public interface IResultService
     {
-        Task<IList<Outright>> GetOutRight(ResultMetaModel metal);
+        Task<IList<Outright>> GetOutRightAsync(ResultMetaModel metal);
 
         #region ResultEngine
 
@@ -29,31 +29,31 @@
 
         #region Filter
 
-        Task<IList<Sport>> GetSports(DateTime dateValue, int licenseeId);
+        Task<IList<Sport>> GetSportsAsync(DateTime dateValue, int licenseeId);
 
-        Task<IList<League>> GetLeagues(DateTime dateValue, int sportId);
+        Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId);
 
         #endregion Filter
 
         #region Report
 
-        Task<IList<Sportsbook>> GetMatches(ResultMetaModel metalModel);
+        Task<IList<Sportsbook>> GetMatchesAsync(ResultMetaModel metalModel);
 
-        Task<IList<NumberGame>> GetNumberGameMatches(ResultMetaModel metalModel);
+        Task<IList<NumberGame>> GetNumberGameMatchesAsync(ResultMetaModel metalModel);
 
-        Task<IList<Happy5>> GetHappy5Matches(ResultMetaModel metalModel);
+        Task<IList<Happy5>> GetHappy5MatchesAsync(ResultMetaModel metalModel);
 
-        Task<IList<Racing>> GetVirtualSportMatches(ResultMetaModel metalModel);
+        Task<IList<Racing>> GetVirtualSportMatchesAsync(ResultMetaModel metalModel);
 
         #endregion Report
 
         #region Popup
 
-        Task<Sportsbook> GetSportsbookGameDetail(int matchId);
+        Task<Sportsbook> GetSportsbookGameDetailAsync(int matchId);
 
-        Task<IList<Sportsbook>> GetPopUpMatch(ResultPopupMetaModel metalModel);
+        Task<IList<Sportsbook>> GetPopUpMatchAsync(ResultPopupMetaModel metalModel);
 
-        Task<IList<Racing>> GetPopUpVirtualSportMatch(ResultPopupMetaModel metalModel);
+        Task<IList<Racing>> GetPopUpVirtualSportMatchAsync(ResultPopupMetaModel metalModel);
 
         /// <summary>
         /// Select matches from BetTransM by reference no.
@@ -61,16 +61,16 @@
         /// </summary>
         /// <param name="refNo">The reference no.</param>
         /// <returns>The parlay list.</returns>
-        Task<IList<Parlay>> GetPopUpParlayMatch(long refNo);
+        Task<IList<Parlay>> GetPopUpParlayMatchAsync(long refNo);
 
         /// <summary>
         ///  Get match result of number game.
         /// </summary>
         /// <param name="matchId">The match id.</param>
         /// <returns>The match info.</returns>
-        Task<IList<NumberGame>> GetPopUpNumberGameMatchs(int matchId);
+        Task<IList<NumberGame>> GetPopUpNumberGameMatchsAsync(int matchId);
 
-        Task<IList<Happy5>> GetPopUpHappy5Matches(int matchId);
+        Task<IList<Happy5>> GetPopUpHappy5MatchesAsync(int matchId);
 
         #endregion Popup
     }

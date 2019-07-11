@@ -42,6 +42,7 @@
             using (var db = this.GetObjectDb(UspKey))
             {
                 db.SetParameterValue("CustID", metaModel.CustId);
+                db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 BetListParameterBuilder.CreateBetListDateRangeParameters(db, metaModel);
                 BetListParameterBuilder.CreateBetlistBUParameters(db, metaModel);
                 BetListParameterBuilder.CreateBetListPagingParameters(db, metaModel);
@@ -56,9 +57,6 @@
         {
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
             var index = 1;
-            var commissionColumn = "commission" + metaModel.BaseCurrency;
-            var totalAmtColumn = "totalamt" + metaModel.BaseCurrency;
-            var turnoverColumn = "turnover" + metaModel.BaseCurrency;
             decimal balance = 0;
             var currentCulture = CultureInfo.CurrentCulture;
 
@@ -70,16 +68,16 @@
                 var transDesc = reader.ToString("transdesc");
                 var isOutstandingBet = transDesc.ToLower(currentCulture) == "outstanding bet";
                 var transTypeId = TransTypeIdMap.GetValueOrDefault(transDesc.ToLower(currentCulture), 0);
-                var credit = isOutstandingBet || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
-                var comm = reader.ToDecimal(commissionColumn);
-                var turnover = reader.ToDecimal(turnoverColumn);
+                var credit = isOutstandingBet || transType == "bal" ? 0 : reader.ToDecimal("totalamt");
+                var comm = reader.ToDecimal("commission");
+                var turnover = reader.ToDecimal("turnover");
 
                 // Add commission.
                 if (!transType.Equals("gp"))
                 {
                     var outstanding = isOutstandingBet ? turnover : 0;
                     var playerComm = metaModel.HasPlayerCom ? comm : 0;
-                    balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + playerComm - outstanding;
+                    balance = transType == "bal" ? reader.ToDecimal("totalamt") : balance + credit + playerComm - outstanding;
                 }
 
                 result.Add(new DailyStatement

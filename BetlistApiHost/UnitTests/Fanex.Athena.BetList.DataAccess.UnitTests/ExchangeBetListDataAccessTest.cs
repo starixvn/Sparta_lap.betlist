@@ -38,10 +38,8 @@
                 ObjectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
                 ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
                 ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
+                ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 ObjectDb.Received(1).SetParameterValue("SumWinLost", null);
-                ObjectDb.Received(1).SetParameterValue("SumWinLostEUR", null);
-                ObjectDb.Received(1).SetParameterValue("SumWinLostGBP", null);
-                ObjectDb.Received(1).SetParameterValue("SumWinLostUSD", null);
             });
         }
 
@@ -65,42 +63,21 @@
             });
         }
 
-        [TestCase("test", 2.5, 3.5, 2.5)]
-        [TestCase("usd", 1.5, 4.5, 4.5)]
-        [TestCase("eur", 3.25, 5.1, 5.1)]
-        [TestCase("gbp", 2.45, 2.58, 2.58)]
-        public async Task GetBetListData_HasSumWinLossListData_ReturnCorrectResult(
-            string baseCurrency,
-            decimal winlossComm,
-            decimal baseCurrencyWinlossComm,
-            decimal expectedWinlossComm)
+        [Test]
+        public async Task GetBetListData_HasSumWinLossListData_ReturnCorrectResult()
         {
             // Arrange
-            ObjectDb.GetParameterValue("SumWinLost").Returns(winlossComm);
-            ObjectDb.GetParameterValue("SumWinLost" + baseCurrency.ToUpperInvariant()).Returns(baseCurrencyWinlossComm);
+            var sumWL = FakeHelper.Create<decimal>();
+            ObjectDb.GetParameterValue("SumWinLost").Returns(sumWL);
 
-            var ticket = new ExchangeSumWinLoss
-            {
-                UserId = "UserId",
-                EventId = 2,
-                EventName = "EventName",
-                EventTypeName = "EventTypeName",
-                MarketId = "MarketId",
-                MarketName = "MarketName",
-                WinLost = winlossComm,
-                Commission = winlossComm
-            };
+            var ticket = FakeHelper.Create<ExchangeSumWinLoss>();
+
             MapReaderData(ticket);
 
-            Reader["WinLost" + baseCurrency.ToUpperInvariant()].Returns(baseCurrencyWinlossComm);
-            Reader["Commission" + baseCurrency.ToUpperInvariant()].Returns(baseCurrencyWinlossComm);
             Reader.Read().Returns(true, false, false);
             Reader.NextResult().Returns(true);
 
-            var metaModel = new ExchangeBetListMetaModel
-            {
-                BaseCurrency = baseCurrency
-            };
+            var metaModel = new ExchangeBetListMetaModel();
 
             // Action
             var result = await DataAccess.GetBetListDataAsync(metaModel).ConfigureAwait(false);
@@ -115,35 +92,25 @@
                 Assert.That(firstSumWL.EventTypeName, Is.EqualTo(ticket.EventTypeName));
                 Assert.That(firstSumWL.MarketId, Is.EqualTo(ticket.MarketId));
                 Assert.That(firstSumWL.MarketName, Is.EqualTo(ticket.MarketName));
-                Assert.That(firstSumWL.WinLost, Is.EqualTo(expectedWinlossComm));
-                Assert.That(firstSumWL.Commission, Is.EqualTo(expectedWinlossComm));
+                Assert.That(firstSumWL.WinLost, Is.EqualTo(ticket.WinLost));
+                Assert.That(firstSumWL.Commission, Is.EqualTo(ticket.Commission));
 
-                Assert.That(result.GrandTotal, Is.EqualTo(expectedWinlossComm));
+                Assert.That(result.GrandTotal, Is.EqualTo(sumWL));
             });
         }
 
-        [TestCase("test", 2.5, 3.5, 2.5)]
-        [TestCase("usd", 1.5, 4.5, 4.5)]
-        [TestCase("eur", 3.25, 5.1, 5.1)]
-        [TestCase("gbp", 2.45, 2.58, 2.58)]
-        public async Task GetBetListData_HasTicketDataData_ReturnCorrectResult(string baseCurrency, decimal figure, decimal baseCurrencyFigure, decimal expectedFigure)
+        [Test]
+        public async Task GetBetListData_HasTicketDataData_ReturnCorrectResult()
         {
             // Arrange
             var ticket = FakeHelper.Create<ExchangeTicket>();
-            ticket.WinLost = figure;
-            ticket.Stake = figure;
             ticket.BetPlaced = FakeHelper.TruncateMiliseconds(ticket.BetPlaced);
             MapReaderData(ticket);
 
-            Reader["WinLost" + baseCurrency.ToUpperInvariant()].Returns(baseCurrencyFigure);
-            Reader["Stake" + baseCurrency.ToUpperInvariant()].Returns(baseCurrencyFigure);
             Reader.Read().Returns(false, true, false);
             Reader.NextResult().Returns(true);
 
-            var metaModel = new ExchangeBetListMetaModel
-            {
-                BaseCurrency = baseCurrency
-            };
+            var metaModel = new ExchangeBetListMetaModel();
 
             // Action
             var result = (await DataAccess.GetBetListDataAsync(metaModel).ConfigureAwait(false)).TicketList.ElementAt(0);
@@ -157,8 +124,8 @@
                 Assert.That(result.BetId, Is.EqualTo(ticket.BetId));
                 Assert.That(result.SelectionName, Is.EqualTo(ticket.SelectionName));
                 Assert.That(result.OddsAvg, Is.EqualTo(ticket.OddsAvg));
-                Assert.That(result.WinLost, Is.EqualTo(expectedFigure));
-                Assert.That(result.Stake, Is.EqualTo(expectedFigure));
+                Assert.That(result.WinLost, Is.EqualTo(ticket.WinLost));
+                Assert.That(result.Stake, Is.EqualTo(ticket.Stake));
                 Assert.That(result.BetPlaced, Is.EqualTo(ticket.BetPlaced));
                 Assert.That(result.BetPlacedDateString, Is.EqualTo(ticket.BetPlaced.ToString(FormatKey.DateTimeFormat)));
             });

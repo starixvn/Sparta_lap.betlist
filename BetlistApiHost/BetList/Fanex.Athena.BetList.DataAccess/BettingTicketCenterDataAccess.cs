@@ -20,7 +20,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public async Task<TicketResult> GetBetListForSingleCustomer(
+        public async Task<TicketResult> GetBetListForSingleCustomerAsync(
             SingleCustomersBetListMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
@@ -49,7 +49,7 @@
             return ticketResult;
         }
 
-        public async Task<TicketResult> GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListByRefnoAsync(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_RefNo_Mem";
 
@@ -74,7 +74,7 @@
             return ticketResult;
         }
 
-        public async Task<TicketResult> GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetRunningBetListAsync(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_Running";
 

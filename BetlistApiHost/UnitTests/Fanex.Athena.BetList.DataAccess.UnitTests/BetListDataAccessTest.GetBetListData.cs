@@ -180,7 +180,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                ObjectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + " " + metaModel.SortOrder);
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
                 ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
                 ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
@@ -208,7 +208,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                ObjectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + " " + metaModel.SortOrder);
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
                 ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
                 ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
@@ -218,21 +218,16 @@
                 ObjectDb.Received(1).SetParameterValue("SportType", metaModel.SportType);
                 ObjectDb.Received(1).SetParameterValue("SUMWL", null);
                 ObjectDb.Received(1).SetParameterValue("SUMLicenseeWL", null);
-                ObjectDb.Received(1).SetParameterValue("SUMWLUSD", null);
-                ObjectDb.Received(1).SetParameterValue("SUMLicenseeWLUSD", null);
-                ObjectDb.Received(1).SetParameterValue("SUMWLEUR", null);
-                ObjectDb.Received(1).SetParameterValue("SUMLicenseeWLEUR", null);
-                ObjectDb.Received(1).SetParameterValue("SUMWLGBP", null);
-                ObjectDb.Received(1).SetParameterValue("SUMLicenseeWLGBP", null);
+
             });
         }
 
         [TestCase(true, "Team1", true, 2)]
         [TestCase(false, "", false, 0)]
         public async Task GetBetListData_ReadLrfReferneceTicket_ReturnCorrectData(
-            bool hasOrdinalBetTeam, 
-            string expectedBetTeam, 
-            bool hasOrdinalStake, 
+            bool hasOrdinalBetTeam,
+            string expectedBetTeam,
+            bool hasOrdinalStake,
             decimal expectedStake)
         {
             // Arrange
@@ -342,36 +337,31 @@
 
         [TestCase("Lrf_BetList_SelWinLossByDate_Mem")]
         [TestCase("Lrf_BetList_SelWinloss_Mem")]
-        public async Task GetBetListData_CallSpHaveOutPutParamBaseOnCurrency_GetSummaryFromOutputParamsWithBaseCurrency(string uspName)
+        public async Task GetBetListData_CallSpHaveOutPutParam_GetSummaryFromOutputParams(string uspName)
         {
             // Arrange
-            const string BaseCurrency = "usd";
+            const string BaseCurrency = "USD";
             var expectSummaryResult = new Hashtable
             {
                 { "totalrows", 6 },
-                { "sumwinlostusd", 7 },
-                { "sumbeteffectiveusd", 8 },
-                { "sumlicenseewlusd", 9 },
-                { "sumcommusd", 10 },
-                { "sumplayercommusd", 11 },
-                { "sumwinlost", 12 },
-                { "sumbeteffective", 13 },
-                { "sumlicenseewl", 14 },
-                { "sumcomm", 15 },
-                { "sumplayercomm", 16 },
+                { "sumwinlost", 7 },
+                { "sumbeteffective", 8 },
+                { "sumlicenseewl", 9 },
+                { "sumcomm", 10 },
+                { "sumplayercomm", 11 }
             };
             DataAccess.GetObjectDb(Arg.Is(uspName)).Returns(ObjectDb);
             MapReaderData(new
             {
-                winlostusd = 1,
-                beteffectiveusd = 2,
-                licenseewlusd = 3,
-                commusd = 4,
-                playercommusd = 5
+                winlost = 1,
+                beteffective = 2,
+                licenseewl = 3,
+                comm = 4,
+                playercomm = 5
             });
             Reader.NextResult().Returns(false);
             Reader.Read().Returns(true, false, false);
-            SetUpColumnsForReader(5, new[] { "winlostusd", "beteffectiveusd", "licenseewlusd", "commusd", "playercommusd" });
+            SetUpColumnsForReader(5, new[] { "winlost", "beteffective", "licenseewl", "comm", "playercomm" });
 
             ObjectDb.GetOuputParams().Returns(expectSummaryResult);
 
@@ -381,7 +371,7 @@
             var result = await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
 
             // Assert
-            AssertTicketResult(result, expectSummaryResult, BaseCurrency);
+            AssertTicketResult(result, expectSummaryResult);
         }
 
         [TestCase("Lrf_BetList_CustomerList_Mem")]
@@ -422,16 +412,16 @@
             AssertTicketResult(result, expectSummaryResult);
         }
 
-        private static void AssertTicketResult(TicketResult result, Hashtable expectSummaryResult, string baseCurrency = "")
+        private static void AssertTicketResult(TicketResult result, Hashtable expectSummaryResult)
         {
             Assert.Multiple(() =>
             {
                 Assert.That(result.TotalRows, Is.EqualTo(expectSummaryResult["totalrows"]));
-                Assert.That(result.SumWinLoss, Is.EqualTo(expectSummaryResult["sumwinlost" + baseCurrency]));
-                Assert.That(result.SumBetEffective, Is.EqualTo(expectSummaryResult["sumbeteffective" + baseCurrency]));
-                Assert.That(result.SumLicenseeWL, Is.EqualTo(expectSummaryResult["sumlicenseewl" + baseCurrency]));
-                Assert.That(result.SumComm, Is.EqualTo(expectSummaryResult["sumcomm" + baseCurrency]));
-                Assert.That(result.SumPlayerComm, Is.EqualTo(expectSummaryResult["sumplayercomm" + baseCurrency]));
+                Assert.That(result.SumWinLoss, Is.EqualTo(expectSummaryResult["sumwinlost"]));
+                Assert.That(result.SumBetEffective, Is.EqualTo(expectSummaryResult["sumbeteffective"]));
+                Assert.That(result.SumLicenseeWL, Is.EqualTo(expectSummaryResult["sumlicenseewl"]));
+                Assert.That(result.SumComm, Is.EqualTo(expectSummaryResult["sumcomm"]));
+                Assert.That(result.SumPlayerComm, Is.EqualTo(expectSummaryResult["sumplayercomm"]));
             });
         }
 

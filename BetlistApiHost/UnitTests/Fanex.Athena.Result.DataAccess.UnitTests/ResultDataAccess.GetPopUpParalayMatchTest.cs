@@ -12,7 +12,7 @@
     public partial class ResultDataAccessTest
     {
         [Test]
-        public async Task GetPopUpParalayMatch_WhenCall_ParameterPassedCorrectly()
+        public async Task GetPopUpParalayMatchAsync_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
@@ -25,14 +25,14 @@
             };
 
             // Action
-            await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
+            await DataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
         }
 
         [Test]
-        public async Task GetPopUpParalayMatch_WhenCall_ReturnCorrectData()
+        public async Task GetPopUpParalayMatchAsync_WhenCall_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
@@ -71,7 +71,7 @@
             };
 
             // Action
-            var result = await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -82,7 +82,7 @@
         }
 
         [Test]
-        public async Task GetPopUpParalayMatch_SomeColumnsAreNotExist_ReturnCorrectData()
+        public async Task GetPopUpParalayMatchAsync_SomeColumnsAreNotExist_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
@@ -118,7 +118,7 @@
             };
 
             // Action
-            var result = await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -129,7 +129,7 @@
         }
 
         [Test]
-        public async Task GetPopUpParalayMatch_SomeColumnsReturnedNullValue_ReturnCorrectData()
+        public async Task GetPopUpParalayMatchAsync_SomeColumnsReturnedNullValue_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
@@ -168,7 +168,7 @@
             var expectedResult = new List<Parlay> { parlay };
 
             // Action
-            var result = await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -179,7 +179,7 @@
         }
 
         [Test]
-        public async Task GetPopUpParalayMatch_ParlayItemHasMultipleSportsbookItems_ReturnCorrectLengthOfSportsbookList()
+        public async Task GetPopUpParalayMatchAsync_ParlayItemHasMultipleSportsbookItems_ReturnCorrectLengthOfSportsbookList()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
@@ -196,7 +196,7 @@
             DataAccessTestHelper.MapReaderData(Reader, dataMapping);
 
             // Action
-            var result = await DataAccess.GetPopUpParalayMatch(refNo).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.That(result[0].Sportbook.Count, Is.EqualTo(2));

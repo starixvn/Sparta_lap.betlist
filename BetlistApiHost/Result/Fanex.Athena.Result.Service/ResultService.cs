@@ -28,19 +28,19 @@
             _numberGameDataAccess = numberGameDataAccess;
         }
 
-        public Task<IList<Outright>> GetOutRight(ResultMetaModel metal)
+        public async Task<IList<Outright>> GetOutRightAsync(ResultMetaModel metal)
         {
-            return this._dataAccess.GetOutRight(metal);
+            return await this._dataAccess.GetOutRightAsync(metal).ConfigureAwait(false);
         }
 
-        public Task<IList<Sport>> GetSports(DateTime dateValue, int licenseeId)
+        public async Task<IList<Sport>> GetSportsAsync(DateTime dateValue, int licenseeId)
         {
-            return this._dataAccess.GetSports(dateValue, licenseeId);
+            return await this._dataAccess.GetSportsAsync(dateValue, licenseeId).ConfigureAwait(false);
         }
 
-        public Task<IList<League>> GetLeagues(DateTime dateValue, int sportId)
+        public async Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId)
         {
-            return this._dataAccess.GetLeagues(dateValue, sportId);
+            return await this._dataAccess.GetLeaguesAsync(dateValue, sportId).ConfigureAwait(false);
         }
 
         #region ResultEngine wrapping
@@ -64,24 +64,24 @@
 
         #region Report
 
-        public Task<IList<Sportsbook>> GetMatches(ResultMetaModel metalModel)
+        public async Task<IList<Sportsbook>> GetMatchesAsync(ResultMetaModel metalModel)
         {
-            return this._dataAccess.GetMatches<Sportsbook>(metalModel);
+            return await this._dataAccess.GetMatchesAsync<Sportsbook>(metalModel).ConfigureAwait(false);
         }
 
-        public Task<IList<NumberGame>> GetNumberGameMatches(ResultMetaModel metalModel)
+        public async Task<IList<NumberGame>> GetNumberGameMatchesAsync(ResultMetaModel metalModel)
         {
-            return this._numberGameDataAccess.GetNumberGameMatches(metalModel);
+            return await this._numberGameDataAccess.GetNumberGameMatchesAsync(metalModel).ConfigureAwait(false);
         }
 
-        public Task<IList<Happy5>> GetHappy5Matches(ResultMetaModel metalModel)
+        public async Task<IList<Happy5>> GetHappy5MatchesAsync(ResultMetaModel metalModel)
         {
-            return this._numberGameDataAccess.GetHappy5Matches(metalModel);
+            return await this._numberGameDataAccess.GetHappy5MatchesAsync(metalModel).ConfigureAwait(false);
         }
 
-        public Task<IList<Racing>> GetVirtualSportMatches(ResultMetaModel metalModel)
+        public async Task<IList<Racing>> GetVirtualSportMatchesAsync(ResultMetaModel metalModel)
         {
-            return this._dataAccess.GetVirtualSportMatches(metalModel);
+            return await this._dataAccess.GetVirtualSportMatchesAsync(metalModel).ConfigureAwait(false);
         }
 
         #endregion Report
@@ -89,35 +89,35 @@
         #region Popup
 
         [System.CLSCompliant(false)]
-        public Task<Sportsbook> GetSportsbookGameDetail(int matchId)
+        public async Task<Sportsbook> GetSportsbookGameDetailAsync(int matchId)
         {
-            return this._dataAccess.GetSportsbookGameDetail(matchId);
+            return await this._dataAccess.GetSportsbookGameDetailAsync(matchId).ConfigureAwait(false);
         }
 
-        public Task<IList<Sportsbook>> GetPopUpMatch(ResultPopupMetaModel metalModel)
+        public async Task<IList<Sportsbook>> GetPopUpMatchAsync(ResultPopupMetaModel metalModel)
         {
             metalModel.RaceNo = null;
-            return this._dataAccess.GetPopUpMatches<Sportsbook>(metalModel);
+            return await this._dataAccess.GetPopUpMatchesAsync<Sportsbook>(metalModel).ConfigureAwait(false);
         }
 
-        public Task<IList<Racing>> GetPopUpVirtualSportMatch(ResultPopupMetaModel metalModel)
+        public async Task<IList<Racing>> GetPopUpVirtualSportMatchAsync(ResultPopupMetaModel metalModel)
         {
-            return this._dataAccess.GetPopUpMatches<Racing>(metalModel);
+            return await this._dataAccess.GetPopUpMatchesAsync<Racing>(metalModel).ConfigureAwait(false);
         }
 
-        public Task<IList<Parlay>> GetPopUpParlayMatch(long refNo)
+        public async Task<IList<Parlay>> GetPopUpParlayMatchAsync(long refNo)
         {
-            return this._dataAccess.GetPopUpParalayMatch(refNo);
+            return await this._dataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
         }
 
-        public Task<IList<NumberGame>> GetPopUpNumberGameMatchs(int matchId)
+        public async Task<IList<NumberGame>> GetPopUpNumberGameMatchsAsync(int matchId)
         {
-            return this._numberGameDataAccess.GetPopUpNumberGameMatch(matchId);
+            return await this._numberGameDataAccess.GetPopUpNumberGameMatchAsync(matchId).ConfigureAwait(false);
         }
 
-        public Task<IList<Happy5>> GetPopUpHappy5Matches(int matchId)
+        public async Task<IList<Happy5>> GetPopUpHappy5MatchesAsync(int matchId)
         {
-            return this._numberGameDataAccess.GetPopUpHappy5Match(matchId);
+            return await this._numberGameDataAccess.GetPopUpHappy5MatchAsync(matchId).ConfigureAwait(false);
         }
 
         #endregion Popup

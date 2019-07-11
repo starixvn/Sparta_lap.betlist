@@ -57,7 +57,7 @@
                 // Arrange
                 const int MatchId = 23;
                 const int SportType = 45445;
-                _resultService.GetSportsbookGameDetail(MatchId).Returns(x => Task.FromResult<Sportsbook>(null));
+                _resultService.GetSportsbookGameDetailAsync(MatchId).Returns(x => Task.FromResult<Sportsbook>(null));
 
                 // Action
                 var result = await controller.ResultDetail(MatchId, SportType, LanguageCode).ConfigureAwait(false);
@@ -80,7 +80,7 @@
                 {
                     MatchId = MatchId
                 };
-                _resultService.GetSportsbookGameDetail(MatchId).Returns(detailedData);
+                _resultService.GetSportsbookGameDetailAsync(MatchId).Returns(detailedData);
                 _resultService.HtmlGameDetailParser(detailedData, Arg.Any<ResultSetting>()).Returns(ExpectedHtmlGameDetail);
 
                 // Action

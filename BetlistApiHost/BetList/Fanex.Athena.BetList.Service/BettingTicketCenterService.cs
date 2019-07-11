@@ -37,37 +37,37 @@ namespace Fanex.Athena.BetList.Service
             _ticketHelper = ticketHelper;
         }
 
-        public Task<GroupTicketResult> GetBetListForMultipleCustomers(
+        public async Task<GroupTicketResult> GetBetListForMultipleCustomersAsync(
             MultipleCustomersBetListMetaModel metaModel,
             int rowPerGroup,
             IDictionary<int, string> currencyList)
         {
-            return _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, rowPerGroup, currencyList);
+            return await _multiCustomerDataAccess.GetBetListForMultipleCustomersAsync(metaModel, rowPerGroup, currencyList).ConfigureAwait(false);
         }
 
-        public async Task<TicketResult> GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await _multiCustomerDataAccess.GetBetListForMultipleCustomers(metaModel, currencyList).ConfigureAwait(false);
+            return await _multiCustomerDataAccess.GetBetListForMultipleCustomersAsync(metaModel, currencyList).ConfigureAwait(false);
         }
 
-        public async Task<int> GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        public async Task<int> GetTotalRowForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel)
         {
-            return await _multiCustomerDataAccess.GetTotalRowForMultipleCustomers(metaModel).ConfigureAwait(false); 
+            return await _multiCustomerDataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
         }
 
-        public async Task<TicketResult> GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListForSingleCustomerAsync(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await _dataAccess.GetBetListForSingleCustomer(metaModel, currencyList);
+            return await _dataAccess.GetBetListForSingleCustomerAsync(metaModel, currencyList);
         }
 
-        public async Task<TicketResult> GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListByRefnoAsync(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await _dataAccess.GetBetListByRefno(metaModel, currencyList).ConfigureAwait(false);
+            return await _dataAccess.GetBetListByRefnoAsync(metaModel, currencyList).ConfigureAwait(false);
         }
 
-        public async Task<TicketResult> GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetRunningBetListAsync(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return await _dataAccess.GetRunningBetList(metaModel, currencyList).ConfigureAwait(false);
+            return await _dataAccess.GetRunningBetListAsync(metaModel, currencyList).ConfigureAwait(false);
         }
 
         public string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm)
@@ -119,13 +119,16 @@ namespace Fanex.Athena.BetList.Service
         {
             var date = metaModel.FromDate == DateTime.MinValue
                 ? string.Empty
-                : ", " + metaModel.FromDate.ToString(FormatKey.DateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.DateFormat);
-            var currency = string.IsNullOrWhiteSpace(metaModel.CurrencyName) ? string.Empty : ", " + ViewResources.Currency + ": " + metaModel.CurrencyName;
-            var baseCurrency = string.IsNullOrWhiteSpace(metaModel.BaseCurrency)
-                ? string.Empty
-                : ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant();
+                : $", {metaModel.FromDate.ToString(FormatKey.DateFormat)}-->{metaModel.ToDate.ToString(FormatKey.DateFormat)}";
 
-            return ViewResources.BettingTicketCenter + date + currency + baseCurrency;
+            var baseCurrencyName = metaModel.IsConvertAll ? metaModel.BaseCurrencyName : string.Empty;
+            var baseCurrencyText = !string.IsNullOrEmpty(metaModel.BaseCurrency) ? metaModel.BaseCurrency.ToUpperInvariant() : baseCurrencyName;
+
+            var baseCurrency = string.IsNullOrEmpty(baseCurrencyText)
+                ? string.Empty
+                : $", {ViewResources.BaseCurrency}: {baseCurrencyText}";
+
+            return ViewResources.BettingTicketCenter + date + baseCurrency;
         }
     }
 }

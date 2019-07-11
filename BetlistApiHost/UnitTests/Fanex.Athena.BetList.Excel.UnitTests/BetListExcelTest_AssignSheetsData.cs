@@ -91,15 +91,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             const string Title = "aaaa";
             var betListExcel = CreateBetListExcel(showingOption: new BetListShowingOption { GrandTotalVisible = false });
             betListExcel.When(x => x.BuildTicket(Arg.Any<IBetListExcelBuilder>(), Arg.Any<TicketResult>(), Arg.Any<LrfTicket>())).DoNotCallBase();
-            var ticketResult = new TicketResult
-            {
-                SumWinLoss = 100,
-                SumPlayerComm = 0.88m,
-                SumLicenseeWL = 200,
-                SumComm = 0.99m,
-                SumBetEffective = 999
-            };
-            ticketResult.MainTicketList.Add(new LrfTicket { Stake = 0 });
+            var ticketResult = CreateTicketResult();
 
             // Action
             betListExcel.AssignSheetsData(_builder, ticketResult, Title, 0);
@@ -124,13 +116,8 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             });
         }
 
-        [Test]
-        public void AssignSheetsData_NotShowCustomerComm_AddCorrectHeader()
+        private static TicketResult CreateTicketResult()
         {
-            // Arrange
-            const string Title = "aaaa";
-            var betListExcel = CreateBetListExcel(showingOption: new BetListShowingOption { GrandTotalVisible = false, CustomerCommVisible = false });
-            betListExcel.When(x => x.BuildTicket(Arg.Any<IBetListExcelBuilder>(), Arg.Any<TicketResult>(), Arg.Any<LrfTicket>())).DoNotCallBase();
             var ticketResult = new TicketResult
             {
                 SumWinLoss = 100,
@@ -140,6 +127,17 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
                 SumBetEffective = 999
             };
             ticketResult.MainTicketList.Add(new LrfTicket { Stake = 0 });
+            return ticketResult;
+        }
+
+        [Test]
+        public void AssignSheetsData_NotShowCustomerComm_AddCorrectHeader()
+        {
+            // Arrange
+            const string Title = "aaaa";
+            var betListExcel = CreateBetListExcel(showingOption: new BetListShowingOption { GrandTotalVisible = false, CustomerCommVisible = false });
+            betListExcel.When(x => x.BuildTicket(Arg.Any<IBetListExcelBuilder>(), Arg.Any<TicketResult>(), Arg.Any<LrfTicket>())).DoNotCallBase();
+            var ticketResult = CreateTicketResult();
 
             // Action
             betListExcel.AssignSheetsData(_builder, ticketResult, Title, 0);

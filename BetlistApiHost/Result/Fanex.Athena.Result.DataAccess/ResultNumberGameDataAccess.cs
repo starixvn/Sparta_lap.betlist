@@ -21,7 +21,7 @@ namespace Fanex.Athena.Result.DataAccess
     [CLSCompliant(false)]
     public class ResultNumberGameDataAccess : BaseDataAccess, IResultNumberGameDataAccess
     {
-        public async Task<IList<NumberGame>> GetNumberGameMatches(ResultMetaModel metalModel)
+        public async Task<IList<NumberGame>> GetNumberGameMatchesAsync(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelNumberGameByLeague";
             var uspParams = new
@@ -41,7 +41,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public async Task<IList<Happy5>> GetHappy5Matches(ResultMetaModel metalModel)
+        public async Task<IList<Happy5>> GetHappy5MatchesAsync(ResultMetaModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelNumberGameByLeague";
             var uspParams = new
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public async Task<IList<NumberGame>> GetPopUpNumberGameMatch(int matchId)
+        public async Task<IList<NumberGame>> GetPopUpNumberGameMatchAsync(int matchId)
         {
             const string UspName = "Lrf_BetList_SelMatchResultNumberGame";
             var uspParams = new
@@ -78,7 +78,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public async Task<IList<Happy5>> GetPopUpHappy5Match(int matchId)
+        public async Task<IList<Happy5>> GetPopUpHappy5MatchAsync(int matchId)
         {
             const string UspName = "Lrf_BetList_SelMatchResultNumberGame";
             var uspParams = new

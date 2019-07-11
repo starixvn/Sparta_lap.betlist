@@ -12,7 +12,7 @@
     public partial class ResultDataAccessTest
     {
         [Test]
-        public async Task GetMatches_WhenCall_ParametersPassedCorrectly()
+        public async Task GetMatchesAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMatchesSp)).Returns(ObjectDb);
@@ -30,14 +30,14 @@
             };
 
             // Action
-            await DataAccess.GetMatches<Sportsbook>(_metaModel).ConfigureAwait(false);
+            await DataAccess.GetMatchesAsync<Sportsbook>(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(param, Tobe.SameProperties(expected));
         }
 
         [Test]
-        public async Task GetMatches_TypeIsSportsbook_ReturnCorrectData()
+        public async Task GetMatchesAsync_TypeIsSportsbook_ReturnCorrectData()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMatchesSp)).Returns(ObjectDb);
@@ -61,7 +61,7 @@
             var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = await DataAccess.GetMatches<Sportsbook>(_metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetMatchesAsync<Sportsbook>(_metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -72,13 +72,13 @@
         }
 
         [Test]
-        public void GetMatches_TypeIsNotSupported_ThrowException()
+        public void GetMatchesAsync_TypeIsNotSupported_ThrowException()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMatchesSp)).Returns(ObjectDb);
 
             // Action
-            AsyncTestDelegate result = () => DataAccess.GetMatches<object>(_metaModel);
+            AsyncTestDelegate result = () => DataAccess.GetMatchesAsync<object>(_metaModel);
 
             // Assert
             Assert.ThrowsAsync<NotSupportedException>(result, "The type 'object' is not supported.");

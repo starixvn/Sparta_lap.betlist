@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Result.Service.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using DataAccess;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -30,113 +31,116 @@
         }
 
         [Test]
-        public void GetOutRight_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetOutRightAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ResultMetaModel();
 
             // Action
-            _service.GetOutRight(metaModel);
+            await _service.GetOutRightAsync(metaModel);
 
             // Assert
-            _dataAccess.Received(1).GetOutRight(metaModel);
+            Assert.Multiple(() =>
+            {
+                _dataAccess.Received(1).GetOutRightAsync(metaModel);
+            });
         }
 
         [Test]
-        public void GetSports_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetSportsAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             const int LicenseeId = 1;
             var date = new DateTime(2018, 1, 1);
 
             // Action
-            _service.GetSports(date, LicenseeId);
+            await _service.GetSportsAsync(date, LicenseeId);
 
             // Assert
-            _dataAccess.Received(1).GetSports(date, LicenseeId);
+            _dataAccess.Received(1).GetSportsAsync(date, LicenseeId);
         }
 
         [Test]
-        public void GetLeagues_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetLeaguesAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             const int LicenseeId = 1;
             var date = new DateTime(2018, 1, 1);
 
             // Action
-            _service.GetLeagues(date, LicenseeId);
+            await _service.GetLeaguesAsync(date, LicenseeId);
 
             // Assert
-            _dataAccess.Received(1).GetLeagues(date, LicenseeId);
+            _dataAccess.Received(1).GetLeaguesAsync(date, LicenseeId);
         }
 
         [Test]
-        public void GetMatches_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetMatchesAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ResultMetaModel();
 
             // Action
-            _service.GetMatches(metaModel);
+            await _service.GetMatchesAsync(metaModel);
 
             // Assert
-            _dataAccess.Received(1).GetMatches<Sportsbook>(metaModel);
+            _dataAccess.Received(1).GetMatchesAsync<Sportsbook>(metaModel);
         }
 
         [Test]
-        public void GetNumberGameMatches_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetNumberGameMatchesAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ResultMetaModel();
 
             // Action
-            _service.GetNumberGameMatches(metaModel);
+            await _service.GetNumberGameMatchesAsync(metaModel);
 
             // Assert
-            _numberGameDataAccess.Received(1).GetNumberGameMatches(metaModel);
+            _numberGameDataAccess.Received(1).GetNumberGameMatchesAsync(metaModel);
         }
 
         [Test]
-        public void GetHappy5Matches_WhenCall_ReturnDataFromDataAccess()
+        public async Task  GetHappy5MatcheAsyncs_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ResultMetaModel();
 
             // Action
-            _service.GetHappy5Matches(metaModel);
+            await _service.GetHappy5MatchesAsync(metaModel);
 
             // Assert
-            _numberGameDataAccess.Received(1).GetHappy5Matches(metaModel);
+            _numberGameDataAccess.Received(1).GetHappy5MatchesAsync(metaModel);
         }
 
         [Test]
-        public void GetVirtualSportMatches_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetVirtualSportMatchesAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ResultMetaModel();
 
             // Action
-            _service.GetVirtualSportMatches(metaModel);
+            await _service.GetVirtualSportMatchesAsync(metaModel);
 
             // Assert
-            _dataAccess.Received(1).GetVirtualSportMatches(metaModel);
+            _dataAccess.Received(1).GetVirtualSportMatchesAsync(metaModel);
         }
 
         [Test]
-        public void GetSportsbookGameDetail_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetSportsbookGameDetailAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             const int MatchId = 1;
 
             // Action
-            _service.GetSportsbookGameDetail(MatchId);
+            await _service.GetSportsbookGameDetailAsync(MatchId);
 
             // Assert
-            _dataAccess.Received(1).GetSportsbookGameDetail(MatchId);
+            _dataAccess.Received(1).GetSportsbookGameDetailAsync(MatchId);
         }
 
         [Test]
-        public void GetPopUpMatch_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetPopUpMatchAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ResultPopupMetaModel
@@ -150,14 +154,14 @@
             };
 
             // Action
-            _service.GetPopUpMatch(metaModel);
+            await _service.GetPopUpMatchAsync(metaModel);
 
             // Assert
-            _dataAccess.Received(1).GetPopUpMatches<Sportsbook>(Arg.Is<ResultPopupMetaModel>(x => x == metaModel && !x.RaceNo.HasValue));
+            _dataAccess.Received(1).GetPopUpMatchesAsync<Sportsbook>(Arg.Is<ResultPopupMetaModel>(x => x == metaModel && !x.RaceNo.HasValue));
         }
 
         [Test]
-        public void GetPopUpRacingMatch_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetPopUpRacingMatchAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ResultPopupMetaModel
@@ -169,49 +173,49 @@
             };
 
             // Action
-            _service.GetPopUpVirtualSportMatch(metaModel);
+            await _service.GetPopUpVirtualSportMatchAsync(metaModel);
 
             // Assert
-            _dataAccess.Received(1).GetPopUpMatches<Racing>(metaModel);
+            _dataAccess.Received(1).GetPopUpMatchesAsync<Racing>(metaModel);
         }
 
         [Test]
-        public void GetPopUpParlayMatch_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetPopUpParlayMatchAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             const long RefNo = 4;
 
             // Action
-            _service.GetPopUpParlayMatch(RefNo);
+            await _service.GetPopUpParlayMatchAsync(RefNo);
 
             // Assert
-            _dataAccess.Received(1).GetPopUpParalayMatch(RefNo);
+            _dataAccess.Received(1).GetPopUpParalayMatchAsync(RefNo);
         }
 
         [Test]
-        public void GetPopUpNumberGameMatchs_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetPopUpNumberGameMatchsAsync_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             const int MatchId = 1;
 
             // Action
-            _service.GetPopUpNumberGameMatchs(MatchId);
+            await _service.GetPopUpNumberGameMatchsAsync(MatchId);
 
             // Assert
-            _numberGameDataAccess.Received(1).GetPopUpNumberGameMatch(MatchId);
+            _numberGameDataAccess.Received(1).GetPopUpNumberGameMatchAsync(MatchId);
         }
 
         [Test]
-        public void GetPopUpHappy5Matches_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetPopUpHappy5Matches_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             const int MatchId = 1;
 
             // Action
-            _service.GetPopUpHappy5Matches(MatchId);
+            await _service.GetPopUpHappy5MatchesAsync(MatchId);
 
             // Assert
-            _numberGameDataAccess.Received(1).GetPopUpHappy5Match(MatchId);
+            _numberGameDataAccess.Received(1).GetPopUpHappy5MatchAsync(MatchId);
         }
     }
 }

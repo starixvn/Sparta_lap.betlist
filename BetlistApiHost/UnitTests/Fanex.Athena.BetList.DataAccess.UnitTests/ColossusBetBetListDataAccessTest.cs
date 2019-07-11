@@ -63,9 +63,9 @@
             var readerDataMapping = new
             {
                 TransDate = "1/1/2017",
-                CommUSD = 123,
+                Comm = 123,
                 BetType = isSoldBetType ? SoldBetType : 0,
-                WinlostUSD = isSoldBetType ? expectedTotalSoldWinLoss : 1234
+                Winlost = isSoldBetType ? expectedTotalSoldWinLoss : 1234
             };
             MapReaderData(readerDataMapping);
 

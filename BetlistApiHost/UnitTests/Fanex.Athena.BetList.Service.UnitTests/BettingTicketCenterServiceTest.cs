@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Common.Constant;
     using DataAccess.Interfaces;
     using Fanex.BetList.Core.Builder;
@@ -50,74 +51,91 @@
             _bettingTicketCenterMultiCustomerDataAccess = null;
             _bettingTicketCenterService = null;
         }
+        [Test]
+        public async Task GetBetListForMultipleCustomersAsync_GetDataSavedInFile_CallDataAccess()
+        {
+            // Arrange
+            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
+            var currencyList = FakeHelper.Create<IDictionary<int, string>>();
+            var rowPerGroup = FakeHelper.Create<int>();
+
+            // Action
+            await _bettingTicketCenterService.GetBetListForMultipleCustomersAsync(metaModel, rowPerGroup, currencyList);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _bettingTicketCenterMultiCustomerDataAccess.Received(1).GetBetListForMultipleCustomersAsync(metaModel, rowPerGroup, currencyList);
+            });
+        }
 
         [Test]
-        public void GetBetListForMultipleCustomers_WhenCall_CallDataAccess()
+        public void GetBetListForMultipleCustomersAsync_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
             var currencyList = FakeHelper.Create<IDictionary<int, string>>();
 
             // Action
-            _bettingTicketCenterService.GetBetListForMultipleCustomers(metaModel, currencyList);
+            _bettingTicketCenterService.GetBetListForMultipleCustomersAsync(metaModel, currencyList);
 
             // Assert
-            _bettingTicketCenterMultiCustomerDataAccess.Received().GetBetListForMultipleCustomers(metaModel, currencyList);
+            _bettingTicketCenterMultiCustomerDataAccess.Received().GetBetListForMultipleCustomersAsync(metaModel, currencyList);
         }
 
         [Test]
-        public void GetTotalRowForMultipleCustomers_WhenCall_CallDataAccess()
+        public void GetTotalRowForMultipleCustomersAsync_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
 
             // Action
-            _bettingTicketCenterService.GetTotalRowForMultipleCustomers(metaModel);
+            _bettingTicketCenterService.GetTotalRowForMultipleCustomersAsync(metaModel);
 
             // Assert
-            _bettingTicketCenterMultiCustomerDataAccess.Received().GetTotalRowForMultipleCustomers(metaModel);
+            _bettingTicketCenterMultiCustomerDataAccess.Received().GetTotalRowForMultipleCustomersAsync(metaModel);
         }
 
         [Test]
-        public void GetBetListForSingleCustomer_WhenCall_CallDataAccess()
+        public void GetBetListForSingleCustomerAsync_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = FakeHelper.Create<SingleCustomersBetListMetaModel>();
             var currencyList = FakeHelper.Create<IDictionary<int, string>>();
 
             // Action
-            _bettingTicketCenterService.GetBetListForSingleCustomer(metaModel, currencyList);
+            _bettingTicketCenterService.GetBetListForSingleCustomerAsync(metaModel, currencyList);
 
             // Assert
-            _bettingTicketCenterDataAccess.Received().GetBetListForSingleCustomer(metaModel, currencyList);
+            _bettingTicketCenterDataAccess.Received().GetBetListForSingleCustomerAsync(metaModel, currencyList);
         }
 
         [Test]
-        public void GetBetListByRefno_WhenCall_CallDataAccess()
+        public void GetBetListByRefnoAsync_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = FakeHelper.Create<RefNoBetListMetaModel>();
             var currencyList = FakeHelper.Create<IDictionary<int, string>>();
 
             // Action
-            _bettingTicketCenterService.GetBetListByRefno(metaModel, currencyList);
+            _bettingTicketCenterService.GetBetListByRefnoAsync(metaModel, currencyList);
 
             // Assert
-            _bettingTicketCenterDataAccess.Received().GetBetListByRefno(metaModel, currencyList);
+            _bettingTicketCenterDataAccess.Received().GetBetListByRefnoAsync(metaModel, currencyList);
         }
 
         [Test]
-        public void GetRunningBetList_WhenCall_CallDataAccess()
+        public void GetRunningBetListAsync_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>();
             var currencyList = FakeHelper.Create<IDictionary<int, string>>();
 
             // Action
-            _bettingTicketCenterService.GetRunningBetList(metaModel, currencyList);
+            _bettingTicketCenterService.GetRunningBetListAsync(metaModel, currencyList);
 
             // Assert
-            _bettingTicketCenterDataAccess.Received().GetRunningBetList(metaModel, currencyList);
+            _bettingTicketCenterDataAccess.Received().GetRunningBetListAsync(metaModel, currencyList);
         }
 
         [Test]
@@ -174,17 +192,21 @@
             Assert.That(_ticketHelper.ClientDetailSystemParlayFunction, Is.Empty);
         }
 
-        [TestCase("  ", "1/1/0001", "1/1/0001", "Betting Ticket Center")]
-        [TestCase("  ", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002")]
-        [TestCase("EUR", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]
-        public void GetTitle_WhenCall_ReturnCorrectTitle(string baseCurrency, string fromDate, string toDate, string expectedTitle)
+        [TestCase(false, "", "EUR", "1/1/0001", "1/1/0001", "Betting Ticket Center")]
+        [TestCase(false, "EUR", "", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]
+        [TestCase(true, "", null, "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002")]
+        [TestCase(true, "EUR", "USD", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]
+        [TestCase(true, "EUR", "", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]
+        public void GetTitle_WhenCall_ReturnCorrectTitle(bool isConvert, string baseCurrency, string baseCurrencyName, string fromDate, string toDate, string expectedTitle)
         {
             // Arrange
             var metaModel = new BaseBettingTicketMetaModel
             {
                 FromDate = DateTime.Parse(fromDate),
                 ToDate = DateTime.Parse(toDate),
-                BaseCurrency = baseCurrency
+                BaseCurrency = baseCurrency,
+                BaseCurrencyName = baseCurrencyName,
+                IsConvertAll = isConvert
             };
 
             // Action

@@ -37,7 +37,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = new TicketResult();
-                    result.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.UserCurrencyList, string.Empty));
+                    result.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.UserCurrencyList));
                     return result;
                 }
             }
@@ -103,16 +103,13 @@ namespace Fanex.Athena.BetList.DataAccess
             using (var db = GetObjectDb(metaModel.UspKey))
             {
                 BetListParameterBuilder.CreateBetListParameters(db, metaModel);
-                var baseCurrency = BetListParameterBuilder.HasBaseCurrencyOutputColumn(metaModel.UspKey) ?
-                    metaModel.BaseCurrency :
-                    string.Empty;
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.CurrencyList, baseCurrency, metaModel.CustId));
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.CurrencyList, metaModel.CustId));
                     if (reader.NextResult())
                     {
-                        ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader, baseCurrency).ToList());
+                        ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader).ToList());
                     }
 
                     SortData(metaModel, ticketResult.MainTicketList);
@@ -120,35 +117,35 @@ namespace Fanex.Athena.BetList.DataAccess
 
                 Hashtable outSqlParams = db.GetOuputParams() ?? new Hashtable();
 
-                UpdateSummaryData(ticketResult, outSqlParams, baseCurrency);
+                UpdateSummaryData(ticketResult, outSqlParams);
 
                 return ticketResult;
             }
         }
 
-        private static void UpdateSummaryData(TicketResult ticketResult, Hashtable outPutParams, string baseCurrency)
+        private static void UpdateSummaryData(TicketResult ticketResult, Hashtable outPutParams)
         {
             ticketResult.TotalRows = Converter.ToInt(outPutParams["totalrows"]);
-            ticketResult.SumWinLoss = outPutParams.ContainsKey("sumwinlost" + baseCurrency)
-                ? Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency])
+            ticketResult.SumWinLoss = outPutParams.ContainsKey("sumwinlost")
+                ? Converter.ToDecimal(outPutParams["sumwinlost"])
                 : ticketResult.MainTicketList.Sum(x => x.Winlost);
-            ticketResult.SumBetEffective = outPutParams.ContainsKey("sumbeteffective" + baseCurrency)
-                ? Converter.ToDecimal(outPutParams["sumbeteffective" + baseCurrency])
+            ticketResult.SumBetEffective = outPutParams.ContainsKey("sumbeteffective")
+                ? Converter.ToDecimal(outPutParams["sumbeteffective"])
                 : ticketResult.MainTicketList.Sum(x => x.BetEffective);
-            ticketResult.SumLicenseeWL = outPutParams.ContainsKey("sumlicenseewl" + baseCurrency)
-                ? Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency])
+            ticketResult.SumLicenseeWL = outPutParams.ContainsKey("sumlicenseewl")
+                ? Converter.ToDecimal(outPutParams["sumlicenseewl"])
                 : ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
-            ticketResult.SumComm = outPutParams.ContainsKey("sumcomm" + baseCurrency)
-                ? Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency])
+            ticketResult.SumComm = outPutParams.ContainsKey("sumcomm")
+                ? Converter.ToDecimal(outPutParams["sumcomm"])
                 : ticketResult.MainTicketList.Sum(x => x.Comm);
-            ticketResult.SumPlayerComm = outPutParams.ContainsKey("sumplayercomm" + baseCurrency)
-                ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency])
+            ticketResult.SumPlayerComm = outPutParams.ContainsKey("sumplayercomm")
+                ? Converter.ToDecimal(outPutParams["sumplayercomm"])
                 : ticketResult.MainTicketList.Sum(x => x.PlayerComm);
         }
 
-        private static IEnumerable<ITicketData> ReadLrfReferneceTicket(IDataReader reader, string baseCurrency)
+        private static IEnumerable<ITicketData> ReadLrfReferneceTicket(IDataReader reader)
         {
-            var stakeColumn = "stake" + baseCurrency;
+            const string stakeColumn = "stake";
             var hasOrdinalBetTeam = reader.HasColumn("betteam");
             var hasOrdinalStake = reader.HasColumn(stakeColumn);
             while (reader.Read())

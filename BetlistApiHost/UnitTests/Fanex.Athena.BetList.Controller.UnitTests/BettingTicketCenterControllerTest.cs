@@ -48,7 +48,7 @@
                 metaModel.IsExport = false;
 
                 var ticketResult = new TicketResult();
-                _service.GetBetListForSingleCustomer(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
                 _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
@@ -88,7 +88,7 @@
                 metaModel.IsExport = true;
 
                 var ticketResult = new TicketResult();
-                _service.GetBetListForSingleCustomer(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 _service.GetTitle(metaModel).Returns(string.Empty);
 
@@ -116,7 +116,7 @@
                         FakeHelper.Create<LrfTicket>()
                     }
                 };
-                _service.GetBetListForSingleCustomer(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var title = FakeHelper.Create<string>();
                 _service.GetTitle(metaModel).Returns(title);
@@ -152,7 +152,7 @@
                 metaModel.IsExport = false;
 
                 var ticketResult = new TicketResult();
-                _service.GetBetListByRefno(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
                 _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
@@ -180,7 +180,7 @@
                 metaModel.IsExport = true;
 
                 var ticketResult = new TicketResult();
-                _service.GetBetListByRefno(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
                 var result = await controller.GetByRefno(metaModel) as HttpStatusCodeResult;
@@ -206,7 +206,7 @@
                         FakeHelper.Create<LrfTicket>()
                     }
                 };
-                _service.GetBetListByRefno(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var title = FakeHelper.Create<string>();
                 _service.GetTitle(metaModel).Returns(title);
@@ -241,7 +241,7 @@
                 metaModel.IsExport = false;
 
                 var ticketResult = new TicketResult();
-                _service.GetRunningBetList(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
                 _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
@@ -274,7 +274,7 @@
                 metaModel.IsExport = true;
 
                 var ticketResult = new TicketResult();
-                _service.GetRunningBetList(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 _service.GetTitle(metaModel).Returns(string.Empty);
 
@@ -302,7 +302,7 @@
                         FakeHelper.Create<LrfTicket>()
                     }
                 };
-                _service.GetRunningBetList(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _service.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var title = FakeHelper.Create<string>();
                 _service.GetTitle(metaModel).Returns(title);
@@ -320,7 +320,7 @@
                        && x.Option.ShowSumStake
                        && !x.Option.ShowLicenseeWl
                        && !x.Option.ShowWinLoss
-                       && x.Option.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrency.ToUpperInvariant()}"
+                       && x.Option.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
                        && x.CustomerCommVisible == metaModel.HasPlayerCom
                        && x.Title == title));
                     AssertClearData(ticketResult);

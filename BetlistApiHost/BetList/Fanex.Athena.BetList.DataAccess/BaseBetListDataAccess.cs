@@ -24,7 +24,6 @@ namespace Fanex.Athena.BetList.DataAccess
             ISafeDataReader reader,
             IDictionary<string, string> columns,
             IDictionary<int, string> currencyList,
-            string baseCurrency = "",
             long custId = 0)
         {
             var currencyId = reader.GetInt("currencyid");
@@ -47,16 +46,15 @@ namespace Fanex.Athena.BetList.DataAccess
         protected internal SortableList<LrfTicket> ReadBetListTicket(
             IDataReader dataReader,
             IDictionary<int, string> currencyList,
-            string baseCurrency = "",
             long custId = 0)
         {
-            var columns = GetColumns(baseCurrency);
+            var columns = GetColumns();
             var tickets = new SortableList<LrfTicket>();
 
             var reader = this.GetSafeDataReader(dataReader, columns.Select(x => x.Value).ToList());
             while (reader.Read())
             {
-                tickets.Add(MapTicket(reader, columns, currencyList, baseCurrency, custId));
+                tickets.Add(MapTicket(reader, columns, currencyList, custId));
             }
 
             return tickets;
@@ -69,7 +67,6 @@ namespace Fanex.Athena.BetList.DataAccess
 
         protected static IDictionary<string, string> GetColumns(string baseCurrency = "")
         {
-            var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency?.ToUpperInvariant()) ? baseCurrency : string.Empty;
 
             var columns = new[]
              {
@@ -81,14 +78,14 @@ namespace Fanex.Athena.BetList.DataAccess
                 "refcode", "wallettype", "oddsspread", "SettlementStatus", "eventdate"
             };
             var result = columns.ToDictionary(x => x, y => y);
-            result.Add("playerCommCol", "playercomm" + columnSuffix);
-            result.Add("commCol", "comm" + columnSuffix);
-            result.Add("licenseeWlCol", "licenseewl" + columnSuffix);
-            result.Add("winlostCol", "winlost" + columnSuffix);
-            result.Add("beteffectiveCol", "beteffective" + columnSuffix);
-            result.Add("stakeCol", "stake" + columnSuffix);
-            result.Add("actualStakeCol", "actual_stake" + columnSuffix);
-            result.Add("originalStakeCol", "originalstake" + columnSuffix);
+            result.Add("playerCommCol", "playercomm");
+            result.Add("commCol", "comm");
+            result.Add("licenseeWlCol", "licenseewl");
+            result.Add("winlostCol", "winlost");
+            result.Add("beteffectiveCol", "beteffective");
+            result.Add("stakeCol", "stake");
+            result.Add("actualStakeCol", "actual_stake");
+            result.Add("originalStakeCol", "originalstake");
             return result;
         }
 
