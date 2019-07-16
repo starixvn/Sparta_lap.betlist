@@ -212,4 +212,25 @@
     <value>注單中心</value>
     <comment>80941</comment>
   </data>
+  <data name="China" xml:space="preserve">
+    <value>中國</value>
+  </data>
+  <data name="Asia" xml:space="preserve">
+    <value>亞洲</value>
+  </data>
+  <data name="NewAsia" xml:space="preserve">
+    <value>新亞洲版</value>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>歐洲</value>
+  </data>
+  <data name="Wap" xml:space="preserve">
+    <value>WAP</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>移動</value>
+  </data>
+  <data name="Tablet" xml:space="preserve">
+    <value>平板</value>
+  </data>
 </root>

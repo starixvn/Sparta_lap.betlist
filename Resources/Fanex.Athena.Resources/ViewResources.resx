@@ -213,4 +213,38 @@
     <value>Betting Ticket Center</value>
     <comment>80941</comment>
   </data>
+  <data name="China" xml:space="preserve">
+    <value>China</value>
+    <comment>#50939</comment>
+  </data>
+  <data name="Asia" xml:space="preserve">
+    <value>Asia</value>
+    <comment>#50939</comment>
+  </data>
+  <data name="NewAsia" xml:space="preserve">
+    <value>New Asia</value>
+    <comment>#85203</comment>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>Euro</value>
+    <comment>#50939</comment>
+  </data>
+  <data name="Wap" xml:space="preserve">
+    <value>WAP</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>Mobile App</value>
+    <comment>104587</comment>
+  </data>
+  <data name="MobileLiteVersion" xml:space="preserve">
+    <value>Mobile Lite Version</value>
+    <comment>106088</comment>
+  </data>
+  <data name="Tablet" xml:space="preserve">
+    <value>Tablet</value>
+    <comment>80687</comment>
+  </data>
 </root>
