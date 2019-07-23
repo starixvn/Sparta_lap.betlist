@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.Excel.BetList.Builders.UnitTests
 {
     using Athena.BetList.Excel.Builders;
-    using Athena.BetList.Excel.Model;
     using Athena.BetList.Model.DTO;
     using Common.Constant;
+    using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NPOI.HSSF.UserModel;
@@ -78,7 +78,7 @@
         {
             // Arrange
             var sheetName = FakeHelper.Create<string>();
-            var option = new BettingTicketCenterExcelOption { ShowWinLoss = showWinLoss, ShowLicenseeWl = showLicenseeWl };
+            var option = new BettingTicketCenterOption { ShowWinLoss = showWinLoss, ShowLicenseeWl = showLicenseeWl };
 
             // Action
             _excelBuilder.CreateSheet(sheetName, option);
@@ -101,7 +101,7 @@
             _builder.CreateCellStyle().Returns(titleStyle);
 
             // Action
-            _excelBuilder.AddNoInfoRow(new BettingTicketCenterExcelOption
+            _excelBuilder.AddNoInfoRow(new BettingTicketCenterOption
             {
                 ShowWinLoss = isShowWinLoss,
                 ShowLicenseeWl = isShowLicenseeWL
@@ -137,7 +137,7 @@
             // Action
             _excelBuilder.AddTitle(
                 Title,
-                new BettingTicketCenterExcelOption
+                new BettingTicketCenterOption
                 {
                     ShowWinLoss = isShowWinLoss,
                     ShowLicenseeWl = isShowLicenseeWL
@@ -185,7 +185,7 @@
             };
 
             // Action
-            _excelBuilder.AddHeader(isShowCustomerComm, new BettingTicketCenterExcelOption { ShowWinLoss = true, ShowLicenseeWl = true });
+            _excelBuilder.AddHeader(new BettingTicketCenterOption { ShowWinLoss = true, ShowLicenseeWl = true, IsAllowedCustomerComm = isShowCustomerComm });
 
             // Assert
             Assert.Multiple(() =>
@@ -207,7 +207,7 @@
             _builder.CreateCellStyle().Returns(cellStyle);
 
             // Action
-            _excelBuilder.AddHeader(false, new BettingTicketCenterExcelOption { ShowWinLoss = false, ShowLicenseeWl = true });
+            _excelBuilder.AddHeader(new BettingTicketCenterOption { ShowWinLoss = false, ShowLicenseeWl = true });
 
             // Assert
             _builder.DidNotReceive().AddCell(
@@ -223,7 +223,7 @@
             _builder.CreateCellStyle().Returns(cellStyle);
 
             // Action
-            _excelBuilder.AddHeader(false, new BettingTicketCenterExcelOption { ShowWinLoss = true, ShowLicenseeWl = false });
+            _excelBuilder.AddHeader(new BettingTicketCenterOption { ShowWinLoss = true, ShowLicenseeWl = false });
 
             // Assert
             _builder.DidNotReceive().AddCell(
@@ -348,7 +348,7 @@
             _excelBuilder.InitializeCellStyles();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 1, new BettingTicketCenterExcelOption { ShowWinLoss = true });
+            _excelBuilder.AssignRowData(tickets, ticket, 1, new BettingTicketCenterOption { ShowWinLoss = true });
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == "100.00"));
@@ -373,7 +373,7 @@
             _excelBuilder.InitializeCellStyles();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 1, new BettingTicketCenterExcelOption { ShowLicenseeWl = true });
+            _excelBuilder.AssignRowData(tickets, ticket, 1, new BettingTicketCenterOption { ShowLicenseeWl = true });
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == "200.00"));
@@ -406,7 +406,7 @@
             var expectedPlatformName = ViewResources.ResourceManager.GetString(platformName);
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, true, 1, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 1, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, true));
 
             // Assert
             _builder.Received(1).AddCell(
@@ -441,7 +441,7 @@
             var expectedPlatformName = ViewResources.ResourceManager.GetString(platformName);
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, true, 1, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 1, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, true));
 
             // Assert
             _builder.Received(1).AddCell(
@@ -473,7 +473,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 2, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 2, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, false));
 
             // Assert
             _builder.Received(1).AddCell(
@@ -504,7 +504,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 2, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 2, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, false));
 
             // Assert
             _builder.Received(1).AddCell(
@@ -530,7 +530,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, true, 3, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 3, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, true));
 
             // Assert
             _builder.Received(1).AddCell(

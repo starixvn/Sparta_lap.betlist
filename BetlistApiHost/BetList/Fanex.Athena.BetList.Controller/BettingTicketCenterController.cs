@@ -1,149 +1,114 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Fanex.Athena.BetList.Controller.CustomActionResult;
-using Fanex.Athena.BetList.Excel;
-using Fanex.Athena.BetList.Excel.Model;
-using Fanex.Athena.BetList.Model.MetaModel;
-using Fanex.Athena.BetList.Service.Helpers;
-using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.Common.Constant;
-using Fanex.Athena.Resources;
-
-namespace Fanex.Athena.BetList.Controller
+﻿namespace Fanex.Athena.BetList.Controller
 {
-    public class BettingTicketCenterController : BaseController
-    {
-        private readonly IBettingTicketCenterService _service;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using Fanex.Athena.BetList.DataAccess.Interfaces;
+    using Fanex.Athena.BetList.Excel;
+    using Fanex.Athena.BetList.Excel.Model;
+    using Fanex.Athena.BetList.Model.DTO;
+    using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.BetList.Service.Interfaces;
+    using Fanex.Athena.Resources;
 
-        private readonly IBettingTicketCenterExcel _bettingTicketCenterExcel;
-        private readonly ITicketBuilderService _ticketBuilderService;
+    public class BettingTicketCenterController : BettingTicketCenterBaseController
+    {
+        private readonly IBettingTicketCenterDataAccess _dataAccess;
 
         public BettingTicketCenterController(
-            IBettingTicketCenterService service,
-            IBettingTicketCenterExcel bettingTicketCenterExcel,
-            ITicketBuilderService ticketBuilderService
-            )
+            IBettingTicketCenterDataAccess dataAccess,
+            ITicketBuilderService ticketBuilderService,
+            IBettingTicketCenterExcel bettingTicketCenterExcel)
+            : base (ticketBuilderService, bettingTicketCenterExcel)
         {
-            _service = service;
-            _bettingTicketCenterExcel = bettingTicketCenterExcel;
-            _ticketBuilderService = ticketBuilderService;
-
+            _dataAccess = dataAccess;
         }
 
         [HttpPost]
         public async Task<ActionResult> GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
-            var ticketResult = await _service.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _dataAccess.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+
+            var option = new BettingTicketCenterOption
+            {
+                ShowTotal = true,
+                ShowSumStake = true,
+                ShowLicenseeWl = true,
+                ShowWinLoss = true,
+                ShowExternalId = true,
+                ShowSystemId = true,
+                IsAllowedCustomerComm = metaModel.HasPlayerCom
+            };
 
             if (metaModel.IsExport)
             {
-                var excelModel = new BettingTicketCenterExcelModel
-                {
-                    Data = ticketResult,
-                    Option = new BettingTicketCenterExcelOption
-                    {
-                        ShowTotal = true,
-                        ShowSumStake = true,
-                        ShowLicenseeWl = true,
-                        ShowWinLoss = true,
-                        TotalText = ViewResources.Total
-                    },
-                    CustomerCommVisible = metaModel.HasPlayerCom,
-                    Title = _service.GetTitle(metaModel)
-                };
-                return Export(excelModel);
+                return Export(ticketResult, option, metaModel, ViewResources.Total);
             }
 
-            return Json(new
-            {
-                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom),
-                Total = new
-                {
-                    SumWinLoss = _service.BuildSumWinLoss(ticketResult, metaModel.HasPlayerCom),
-                    SumLicenseeWL = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
-                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
-                },
-                TotalRows = ticketResult.TotalRows
-            });
+            return ReturnData(ticketResult, option, metaModel);
         }
 
         [HttpPost]
         public async Task<ActionResult> GetByRefno(RefNoBetListMetaModel metaModel)
         {
-            var ticketResult = await _service.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _dataAccess.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+
+            var option = new BettingTicketCenterOption
+            {
+                ShowLicenseeWl = true,
+                ShowWinLoss = true,
+                ShowTotal = false,
+                ShowExternalId = true,
+                ShowSystemId = true,
+                IsAllowedCustomerComm = metaModel.HasPlayerCom
+            };
 
             if (metaModel.IsExport)
             {
-                var excelModel = new BettingTicketCenterExcelModel
-                {
-                    Data = ticketResult,
-                    Option = new BettingTicketCenterExcelOption
-                    {
-                        ShowLicenseeWl = true,
-                        ShowWinLoss = true,
-                        ShowTotal = false
-                    },
-                    CustomerCommVisible = metaModel.HasPlayerCom,
-                    Title = _service.GetTitle(metaModel)
-                };
-                return Export(excelModel);
+                return Export(ticketResult, option, metaModel, null);
             }
 
-            var result = new
-            {
-                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom)
-            };
-            BetListHelper.ClearData(ticketResult);
-            return Json(result);
+            return ReturnData(ticketResult, option, metaModel);
         }
 
         [HttpPost]
         public async Task<ActionResult> GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
-            var ticketResult = await _service.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _dataAccess.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+
+            var option = new BettingTicketCenterOption
+            {
+                ShowTotal = true,
+                ShowSumStake = true,
+                IsAllowedCustomerComm = false,
+                ShowExternalId = true,
+                ShowSystemId = true
+            };
 
             if (metaModel.IsExport)
             {
-                var excelModel = new BettingTicketCenterExcelModel
-                {
-                    Data = ticketResult,
-                    Option = new BettingTicketCenterExcelOption
-                    {
-                        ShowTotal = true,
-                        ShowSumStake = true,
-                        TotalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
-                    },
-                    CustomerCommVisible = false,
-                    Title = _service.GetTitle(metaModel)
-                };
-                return Export(excelModel);
+                return Export(ticketResult, option, metaModel, $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}");
             }
 
-            var result = new
-            {
-                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom),
-                Total = new
-                {
-                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
-                },
-                TotalRows = ticketResult.TotalRows
-            };
-            BetListHelper.ClearData(ticketResult);
-            return Json(result);
+            return ReturnData(ticketResult, option, metaModel);
         }
 
-        private ActionResult Export(BettingTicketCenterExcelModel excelModel)
+        private ActionResult Export(TicketResult ticket, BettingTicketCenterOption option, BaseBettingTicketMetaModel metaModel, string totalText)
         {
-            if (excelModel.Data.MainTicketList.Count == 0)
+            if (ticket.MainTicketList.Count == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NoContent);
             }
 
-            var workbook = _bettingTicketCenterExcel.Export(excelModel);
-            BetListHelper.ClearData(excelModel.Data);
-            excelModel.Data = null;
-            return new ExcelResult(workbook);
+            var excelModel = new BettingTicketCenterExcelModel
+            {
+                Data = ticket,
+                Option = option,
+                Title = GetTitle(metaModel),
+                TotalText = totalText
+            };
+
+            return ExportExcel(excelModel);
         }
     }
 }

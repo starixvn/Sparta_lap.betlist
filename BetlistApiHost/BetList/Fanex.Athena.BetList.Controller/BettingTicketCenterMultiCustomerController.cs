@@ -1,46 +1,40 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Fanex.Athena.BetList.Controller.CustomActionResult;
-using Fanex.Athena.BetList.Controller.Utility;
-using Fanex.Athena.BetList.Excel;
-using Fanex.Athena.BetList.Excel.Model;
-using Fanex.Athena.BetList.Model.DTO;
-using Fanex.Athena.BetList.Model.MetaModel;
-using Fanex.Athena.BetList.Service.Helpers;
-using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.Common.Constant;
-using Fanex.Athena.Common.Utility.Services.Interfaces;
-using Fanex.Athena.Resources;
-
-namespace Fanex.Athena.BetList.Controller
+﻿namespace Fanex.Athena.BetList.Controller
 {
-    public class BettingTicketCenterMultiCustomerController : BaseController
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using Fanex.Athena.BetList.Controller.CustomActionResult;
+    using Fanex.Athena.BetList.Controller.Utility;
+    using Fanex.Athena.BetList.DataAccess.Interfaces;
+    using Fanex.Athena.BetList.Excel;
+    using Fanex.Athena.BetList.Excel.Model;
+    using Fanex.Athena.BetList.Model.DTO;
+    using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.BetList.Service.Interfaces;
+    using Fanex.Athena.Common.Utility.Services.Interfaces;
+    using Fanex.Athena.Resources;
+
+    public class BettingTicketCenterMultiCustomerController : BettingTicketCenterBaseController
     {
         private const int RowsExceedLimitErrorCode = 1001;
 
         private readonly IAppSettings _appSettings;
 
-        private readonly IBettingTicketCenterService _service;
+        private readonly IBettingTicketCenterMultiCustomerDataAccess _dataAccess;
 
         private readonly IBettingTicketCenterZipBuilder _zipBuilder;
 
-        private readonly IBettingTicketCenterExcel _bettingTicketCenterExcel;
-        private readonly ITicketBuilderService _ticketBuilderService;
         public BettingTicketCenterMultiCustomerController(
             IAppSettings appSettings,
-            IBettingTicketCenterService service,
+            IBettingTicketCenterMultiCustomerDataAccess dataAccess,
+            ITicketBuilderService ticketBuilderService,
             IBettingTicketCenterZipBuilder zipBuilder,
-            IBettingTicketCenterExcel bettingTicketCenterExcel,
-            ITicketBuilderService ticketBuilderService
-            )
+            IBettingTicketCenterExcel bettingTicketCenterExcel) : base(ticketBuilderService, bettingTicketCenterExcel)
         {
             _appSettings = appSettings;
-            _service = service;
-            _bettingTicketCenterExcel = bettingTicketCenterExcel ?? new BettingTicketCenterExcel(null);
-            _zipBuilder = zipBuilder ?? new BettingTicketCenterZipBuilder(_appSettings, null, _bettingTicketCenterExcel);
-            _ticketBuilderService = ticketBuilderService;
+            _dataAccess = dataAccess;
+            _zipBuilder = zipBuilder ?? new BettingTicketCenterZipBuilder(_appSettings, null, bettingTicketCenterExcel);
         }
 
         private int MaxRowSupportExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportExportExcel"));
@@ -52,7 +46,7 @@ namespace Fanex.Athena.BetList.Controller
         {
             if (metaModel.IsExport)
             {
-                var totalRow = await _service.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
+                var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
                 if (totalRow > MaxRowSupportExportExcel)
                 {
                     return Json(new
@@ -64,27 +58,19 @@ namespace Fanex.Athena.BetList.Controller
                 return await Export(metaModel, metaModel.UserCurrencyList, totalRow).ConfigureAwait(false);
             }
 
-            var ticketResult = await _service.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
 
-            return GenerateJsonResult(metaModel, ticketResult, metaModel.HasPlayerCom);
-        }
-
-        protected internal virtual ExcelResult ReturnExcel(BettingTicketCenterExcelModel excelModel, TicketResult ticketResult)
-        {
-            var workbook = _bettingTicketCenterExcel.Export(excelModel);
-            excelModel.Data = null;
-            BetListHelper.ClearData(ticketResult);
-            return new ExcelResult(workbook);
+            return ReturnData(ticketResult, GetBetListOption(metaModel.HasPlayerCom), metaModel);
         }
 
         private async Task<ActionResult> Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
         {
-            var title = _service.GetTitle(metaModel);
+            var title = GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}";
 
             if (totalRow <= MaxRowPerFile)
             {
-                var normalTicketResult = await _service.GetBetListForMultipleCustomersAsync(metaModel, userCurrencyList).ConfigureAwait(false);
+                var normalTicketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, userCurrencyList).ConfigureAwait(false);
                 if (normalTicketResult.MainTicketList.Count == 0)
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
@@ -93,28 +79,11 @@ namespace Fanex.Athena.BetList.Controller
                 return ExportXls(normalTicketResult, title, metaModel.HasPlayerCom, totalText);
             }
 
-            var ticketResult = await _service.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile, userCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile, userCurrencyList).ConfigureAwait(false);
 
             var zipFile = _zipBuilder.BuildZip(HttpContext.Response, ticketResult, title, metaModel.HasPlayerCom, totalText);
 
             return zipFile == null ? null : ZipContentResult(zipFile);
-        }
-
-        private JsonResult GenerateJsonResult(MultipleCustomersBetListMetaModel metaModel, TicketResult ticketResult, bool isAllowedCustomerComm)
-        {
-            var result = new
-            {
-                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
-                Total = new
-                {
-                    SumWinLoss = _service.BuildSumWinLoss(ticketResult, isAllowedCustomerComm),
-                    SumLicenseeWL = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
-                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat),
-                },
-                ticketResult.TotalRows
-            };
-            BetListHelper.ClearData(ticketResult);
-            return Json(result);
         }
 
         private ExcelResult ExportXls(TicketResult ticketResult, string title, bool hasPlayerComm, string totalText)
@@ -122,19 +91,12 @@ namespace Fanex.Athena.BetList.Controller
             var excelModel = new BettingTicketCenterExcelModel
             {
                 Data = ticketResult,
-                Option = new BettingTicketCenterExcelOption
-                {
-                    ShowTotal = true,
-                    ShowSumStake = true,
-                    ShowLicenseeWl = true,
-                    ShowWinLoss = true,
-                    TotalText = totalText
-                },
-                CustomerCommVisible = hasPlayerComm,
-                Title = title
+                Option = GetBetListOption(hasPlayerComm),
+                Title = title,
+                TotalText = totalText
             };
 
-            return ReturnExcel(excelModel, ticketResult);
+            return ExportExcel(excelModel);
         }
 
         protected FileContentResult ZipContentResult(MemoryStream stream)
@@ -142,5 +104,17 @@ namespace Fanex.Athena.BetList.Controller
             var bytes = stream.ToArray();
             return File(bytes, "application/zip", "BettingTicketsCenter_MultiCustomer.zip");
         }
+
+        private static BettingTicketCenterOption GetBetListOption(bool hasPlayerComm) => new BettingTicketCenterOption
+        {
+            ShowTotal = true,
+            ShowSumStake = true,
+            ShowLicenseeWl = true,
+            ShowWinLoss = true,
+            ShowExternalId = true,
+            ShowSystemId = true,
+            IsAllowedCustomerComm = hasPlayerComm
+        };
+
     }
 }

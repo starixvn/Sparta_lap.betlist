@@ -31,7 +31,7 @@
             {
                 _builder.CreateSheet(ViewResources.BettingTicketCenter, excelModel.Option);
                 _builder.AddTitle(excelModel.Title, excelModel.Option);
-                _builder.AddHeader(excelModel.CustomerCommVisible, excelModel.Option);
+                _builder.AddHeader(excelModel.Option);
                 _builder.AddNoInfoRow(excelModel.Option);
             }
 
@@ -45,7 +45,7 @@
             {
                 _builder.CreateSheet(ViewResources.Page + (sheetIndex + 1), excelModel.Option);
                 _builder.AddTitle(excelModel.Title, excelModel.Option);
-                _builder.AddHeader(excelModel.CustomerCommVisible, excelModel.Option);
+                _builder.AddHeader(excelModel.Option);
 
                 var endIndex = Math.Min((sheetIndex + 1) * SystemConstants.SheetSizeExcel, excelModel.Data.MainTicketList.Count);
 
@@ -67,7 +67,6 @@
                 _builder.AssignRowData(
                     excelModel.Data,
                     excelModel.Data.MainTicketList[i],
-                    excelModel.CustomerCommVisible,
                     excelModel.LicenseeId,
                     excelModel.Option);
             }
@@ -77,10 +76,10 @@
         {
             var sumStake = excelModel.Option.ShowSumStake ? excelModel.Data.SumStake : (decimal?)null;
             var sumWinLoss = excelModel.Option.ShowWinLoss ? excelModel.Data.SumWinLoss : (decimal?)null;
-            var sumPlayerComm = excelModel.Option.ShowWinLoss && excelModel.CustomerCommVisible ? excelModel.Data.SumPlayerComm : (decimal?)null;
+            var sumPlayerComm = excelModel.Option.ShowWinLoss && excelModel.Option.IsAllowedCustomerComm ? excelModel.Data.SumPlayerComm : (decimal?)null;
             var sumLicenseeWL = excelModel.Option.ShowLicenseeWl ? (excelModel.Data.SumLicenseeWL + excelModel.Data.SumComm) : (decimal?)null;
 
-            _builder.AddFooter(sumStake, sumWinLoss, sumPlayerComm, sumLicenseeWL, excelModel.Option.TotalText);
+            _builder.AddFooter(sumStake, sumWinLoss, sumPlayerComm, sumLicenseeWL, excelModel.TotalText);
         }
 
         public void Dispose()

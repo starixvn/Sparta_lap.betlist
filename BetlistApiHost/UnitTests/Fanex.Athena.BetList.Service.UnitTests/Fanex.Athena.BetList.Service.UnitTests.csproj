@@ -142,9 +142,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BetListServiceTest.cs" />
+<<<<<<< HEAD
     <Compile Include="BetListByProductServiceTest.cs" />
     <Compile Include="TicketBuilderServiceTest.cs" />
     <Compile Include="BettingTicketCenterServiceTest.cs" />
+=======
+>>>>>>> a64bfa046... 112658 - Remove Betting ticket center service
     <Compile Include="ExchangeBetListServiceTest.cs" />
     <Compile Include="Extensions\LrfBetListHtmlBuilderTest.cs" />
     <Compile Include="Extensions\TicketHelperExtensionTest.cs" />

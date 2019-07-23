@@ -148,6 +148,7 @@
     <Compile Include="MetaModel\BaseMetaModel.cs" />
     <Compile Include="MetaModel\BetListByProductMetaModel.cs" />
     <Compile Include="MetaModel\BetListExcelMetaModel.cs" />
+    <Compile Include="MetaModel\BettingTicketCenterOption.cs" />
     <Compile Include="MetaModel\ExchangeBetListDetailMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListMetaModel.cs" />
     <Compile Include="MetaModel\BetListMetaModel.cs" />

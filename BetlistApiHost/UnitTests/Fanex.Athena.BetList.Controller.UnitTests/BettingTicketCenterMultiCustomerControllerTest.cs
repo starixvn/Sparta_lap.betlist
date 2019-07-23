@@ -1,43 +1,44 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
-    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
-    using Common.Constant;
-    using Common.Utility.Collections;
     using Common.Utility.Services.Interfaces;
     using Excel.Model;
+    using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Excel;
-    using Fanex.Athena.BetList.Excel.Builders;
+    using Fanex.Athena.BetList.Service.Interfaces;
+    using Fanex.Athena.Common.Utility.Collections;
+    using Fanex.Athena.Resources;
+    using Fanex.Athena.UnitTest.Common.Extensions;
     using Model.DTO;
     using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Resources;
-    using Service.Interfaces;
-    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
     using Utility;
 
-    public class BettingTicketCenterMultiCustomerControllerTest : BaseControllerHelperTest
+    public class BettingTicketCenterMultiCustomerControllerTest
     {
         private const int RowsExceedLimitErrorCode = 1001;
 
         private IAppSettings _appSettings;
 
-        private IBettingTicketCenterService _service;
+        private IBettingTicketCenterMultiCustomerDataAccess _dataAccess;
 
         private IBettingTicketCenterZipBuilder _zipBuilder;
+
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
+
         private  ITicketBuilderService _ticketBuilderService;
+
         [SetUp]
         public void SetUp()
         {
             _ticketBuilderService = Substitute.For<ITicketBuilderService>();
             _appSettings = Substitute.For<IAppSettings>();
-            _service = Substitute.For<IBettingTicketCenterService>();
+            _dataAccess = Substitute.For<IBettingTicketCenterMultiCustomerDataAccess>();
             _zipBuilder = Substitute.For<IBettingTicketCenterZipBuilder>();
             _bettingTicketCenterExcel = Substitute.For<IBettingTicketCenterExcel>();
         }
@@ -46,53 +47,38 @@
         public void TearDown()
         {
             _appSettings = null;
-            _service = null;
+            _dataAccess = null;
             _zipBuilder = null;
             _bettingTicketCenterExcel = null;
+            _ticketBuilderService = null;
         }
 
         [Test]
-        public async Task GetData_WhenCall_ReturnCorrectData()
+        public async Task GetData_WhenGet_GenerateDataWithCorrectOption()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, false);
 
-                var ticketResult = new TicketResult
-                {
-                    TotalRows = FakeHelper.Create<int>(),
-                    SumStake = FakeHelper.Create<decimal>(),
-                    SumLicenseeWL = FakeHelper.Create<decimal>(),
-                    SumComm = FakeHelper.Create<decimal>(),
-                };
-                _service.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
-
-                var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText.ToList());
-
-                var sumWL = FakeHelper.Create<string>();
-                _service.BuildSumWinLoss(ticketResult, metaModel.HasPlayerCom).Returns(sumWL);
+                var ticketResult = new TicketResult();
+                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
-                var result = (await controller.GetData(metaModel) as JsonResult).Data;
-                var data = result.GetValue("Data");
-                var total = result.GetValue("Total");
-                var totalRows = result.GetValue("TotalRows");
+                await controller.GetData(metaModel);
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(data, Is.EqualTo(ticketText));
-                    Assert.That(total.GetValue("SumWinLoss"), Is.EqualTo(sumWL));
-                    Assert.That(
-                        total.GetValue("SumLicenseeWL"),
-                        Is.EqualTo((ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat)));
-                    Assert.That(
-                        total.GetValue("SumStake"),
-                        Is.EqualTo(ticketResult.SumStake.ToString(FormatKey.DecimalFormat)));
-                    Assert.That(totalRows, Is.EqualTo(ticketResult.TotalRows));
-                    AssertClearData(ticketResult);
+                    controller.Received(1).ReturnData(
+                        ticketResult,
+                        Arg.Is<BettingTicketCenterOption>(x =>
+                            x.ShowTotal
+                            && x.ShowSumStake
+                            && x.ShowLicenseeWl
+                            && x.ShowWinLoss
+                            && x.IsAllowedCustomerComm == metaModel.HasPlayerCom),
+                        metaModel);
                 });
             }
         }
@@ -106,7 +92,7 @@
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _service.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow - 1).ToString());
 
                 // Action
@@ -130,12 +116,12 @@
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _service.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns((totalRow + 1).ToString());
 
                 var ticketResult = new TicketResult();
-                _service.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
                 var result = await controller.GetData(metaModel) as HttpStatusCodeResult;
@@ -149,7 +135,7 @@
         }
 
         [Test]
-        public async Task GetData_WhenExportExcel_ReturnExcelFile()
+        public async Task GetData_WhenExportExcel_ExportWithCorrectParameter()
         {
             using (var controller = CreateController())
             {
@@ -157,18 +143,12 @@
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _service.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns((totalRow + 1).ToString());
 
-                var ticket = FakeHelper.Create<LrfTicket>();
-                var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
-                _service.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
-
-                var title = FakeHelper.Create<string>();
-                _service.GetTitle(metaModel).Returns(title);
-
-                controller.WhenForAnyArgs(x => x.ReturnExcel(Arg.Any<BettingTicketCenterExcelModel>(), Arg.Any<TicketResult>())).DoNotCallBase();
+                var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { FakeHelper.Create<LrfTicket>() } };
+                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
                 await controller.GetData(metaModel);
@@ -176,16 +156,15 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    controller.Received().ReturnExcel(
-                        Arg.Is<BettingTicketCenterExcelModel>(x => x.Title == title
-                            && x.Option.ShowTotal
+                    controller.Received(1).ExportExcel(
+                        Arg.Is<BettingTicketCenterExcelModel>(x =>
+                            x.Option.ShowTotal
                             && x.Option.ShowSumStake
                             && x.Option.ShowLicenseeWl
                             && x.Option.ShowWinLoss
-                            && x.Option.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
-                            && x.CustomerCommVisible == metaModel.HasPlayerCom
-                            && x.Data == ticketResult),
-                        ticketResult);
+                            && x.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
+                            && x.Option.IsAllowedCustomerComm == metaModel.HasPlayerCom
+                            && x.Data == ticketResult));
                 });
             }
         }
@@ -199,16 +178,14 @@
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _service.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
 
                 var maxRowPerFile = totalRow - 1;
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
 
                 var ticketResult = new GroupTicketResult();
-                _service.GetBetListForMultipleCustomersAsync(metaModel, maxRowPerFile, metaModel.UserCurrencyList).Returns(ticketResult);
-
-                controller.WhenForAnyArgs(x => x.ReturnExcel(Arg.Any<BettingTicketCenterExcelModel>(), Arg.Any<TicketResult>())).DoNotCallBase();
+                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, maxRowPerFile, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 SetUpForResponse(controller, false);
                 _zipBuilder.BuildZip(
@@ -231,13 +208,17 @@
 
         private BettingTicketCenterMultiCustomerController CreateController()
         {
-            return Substitute.ForPartsOf<BettingTicketCenterMultiCustomerController>(
+            var controller = Substitute.ForPartsOf<BettingTicketCenterMultiCustomerController>(
                 _appSettings,
-                _service,
+                _dataAccess,
+                _ticketBuilderService,
                 _zipBuilder,
-                _bettingTicketCenterExcel,
-                _ticketBuilderService
-                );
+                _bettingTicketCenterExcel);
+
+            controller.When(x => x.ReturnData(Arg.Any<TicketResult>(), Arg.Any<BettingTicketCenterOption>(), Arg.Any<ICommonValueMetaModel>())).DoNotCallBase();
+            controller.When(x => x.ExportExcel(Arg.Any<BettingTicketCenterExcelModel>())).DoNotCallBase();
+
+            return controller;
         }
 
         private static void SetUpForResponse(BettingTicketCenterMultiCustomerController controller, bool isClientConnected)

@@ -1,4 +1,5 @@
 ﻿using Fanex.Athena.BetList.Model.DTO;
+using Fanex.Athena.BetList.Model.MetaModel;
 
 namespace Fanex.Athena.BetList.Excel.Model
 {
@@ -6,12 +7,12 @@ namespace Fanex.Athena.BetList.Excel.Model
     {
         public TicketResult Data { get; set; }
 
-        public bool CustomerCommVisible { get; set; }
-
         public int LicenseeId { get; set; }
+
+        public string TotalText { get; set; }
 
         public string Title { get; set; }
 
-        public BettingTicketCenterExcelOption Option { get; set; }
+        public BettingTicketCenterOption Option { get; set; }
     }
 }

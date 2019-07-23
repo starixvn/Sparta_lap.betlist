@@ -1,6 +1,7 @@
 ﻿using Fanex.Athena.BetList.Excel.Builders;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.DTO;
+using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.Resources;
 using Fanex.Athena.UnitTest.Common.Helpers;
 using NPOI.SS.UserModel;
@@ -56,9 +57,8 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             var model = new BettingTicketCenterExcelModel
             {
                 Title = FakeHelper.Create<string>(),
-                CustomerCommVisible = true,
                 Data = new TicketResult(),
-                Option = FakeHelper.Create<BettingTicketCenterExcelOption>()
+                Option = FakeHelper.Create<BettingTicketCenterOption>()
             };
             var workbook = Substitute.For<IWorkbook>();
             _builder.GetWorkbook().Returns(workbook);
@@ -72,7 +72,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             {
                 _builder.Received(1).CreateSheet(ViewResources.BettingTicketCenter, model.Option);
                 _builder.Received(1).AddTitle(model.Title, model.Option);
-                _builder.Received(1).AddHeader(model.CustomerCommVisible, model.Option);
+                _builder.Received(1).AddHeader(model.Option);
                 _builder.Received(1).AddNoInfoRow(model.Option);
                 Assert.That(result, Is.SameAs(workbook));
             });
@@ -88,7 +88,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             {
                 Title = FakeHelper.Create<string>(),
                 Data = ticketResult,
-                Option = FakeHelper.Create<BettingTicketCenterExcelOption>()
+                Option = FakeHelper.Create<BettingTicketCenterOption>()
             };
 
             _excel.When(x => x.AssignSheetData(Arg.Any<BettingTicketCenterExcelModel>(), Arg.Any<int>(), Arg.Any<int>())).DoNotCallBase();
@@ -102,7 +102,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             {
                 _builder.Received(1).CreateSheet(ViewResources.Page + "1", model.Option);
                 _builder.Received(1).AddTitle(model.Title, model.Option);
-                _builder.Received(1).AddHeader(model.CustomerCommVisible, model.Option);
+                _builder.Received(1).AddHeader(model.Option);
                 _excel.Received(1).AssignSheetData(model, 0, 1);
                 _builder.Received(1).GetWorkbook();
             });
@@ -117,7 +117,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             ticketResult.MainTicketList.Add(new LrfTicket());
             var model = new BettingTicketCenterExcelModel
             {
-                Option = new BettingTicketCenterExcelOption
+                Option = new BettingTicketCenterOption
                 {
                     ShowTotal = isShowTotal
                 },
@@ -152,14 +152,14 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             {
                 Data = ticketResult,
                 LicenseeId = FakeHelper.Create<int>(),
-                Option = FakeHelper.Create<BettingTicketCenterExcelOption>()
+                Option = FakeHelper.Create<BettingTicketCenterOption>()
             };
 
             // Action
             _excel.AssignSheetData(model, 0, 1);
 
             // Assert
-            _builder.Received(1).AssignRowData(model.Data, model.Data.MainTicketList[0], model.CustomerCommVisible, model.LicenseeId, model.Option);
+            _builder.Received(1).AssignRowData(model.Data, model.Data.MainTicketList[0], model.LicenseeId, model.Option);
         }
 
         [TestCase(false, false, false, false)]
@@ -176,22 +176,22 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             var sumLicenseeWL = FakeHelper.Create<decimal>();
             var model = new BettingTicketCenterExcelModel
             {
-                Option = new BettingTicketCenterExcelOption
+                Option = new BettingTicketCenterOption
                 {
                     ShowSumStake = isShowSumStake,
                     ShowWinLoss = isShowSumWL,
                     ShowLicenseeWl = isShowSumLicenseeWL,
-                    TotalText = FakeHelper.Create<string>()
+                    IsAllowedCustomerComm = isShowPlayerComm
                 },
-                CustomerCommVisible = isShowPlayerComm,
                 Data = new TicketResult
                 {
                     SumStake = sumStake,
                     SumWinLoss = sumWL,
                     SumPlayerComm = SumPlayerComm,
                     SumLicenseeWL = sumLicenseeWL,
-                    SumComm = SumComm
-                }
+                    SumComm = SumComm,
+                },
+                TotalText = FakeHelper.Create<string>()
             };
             var expectedSumStake = isShowSumStake ? (decimal?)sumStake : null;
             var expectedSumWL = isShowSumWL ? (decimal?)sumWL : null;
@@ -202,7 +202,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             _excel.AddFooter(model);
 
             // Assert
-            _builder.Received(1).AddFooter(expectedSumStake, expectedSumWL, expectedSumPlayerComm, expectedSumLicenseeWL, model.Option.TotalText);
+            _builder.Received(1).AddFooter(expectedSumStake, expectedSumWL, expectedSumPlayerComm, expectedSumLicenseeWL, model.TotalText);
         }
     }
 }

@@ -15,5 +15,7 @@ namespace Fanex.Athena.BetList.Service.Interfaces
            int startIndex = 1,
            bool showOdds = false,
            bool isAllowedCustomerComm = false);
+
+        string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm);
     }
 }
