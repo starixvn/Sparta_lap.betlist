@@ -97,6 +97,7 @@
         {
             dataList.Add("winlostdate", ticket.WinlostDate);
             dataList.Add("transdate", ticket.TransDate);
+            dataList.Add("eventdate", ticket.EventDate);
         }
 
         private static void AddNumbericData(Dictionary<string, object> dataList, LrfTicket ticket)
@@ -181,6 +182,7 @@
                 BetId = 101,
                 WinlostDate = new DateTime(2016, 8, 10),
                 TransDate = new DateTime(2016, 8, 17),
+                EventDate = new DateTime(2016, 8, 11),
                 PlayerComm = 200.1m,
                 Comm = 200.2m,
                 LicenseeWL = 200.3m,
