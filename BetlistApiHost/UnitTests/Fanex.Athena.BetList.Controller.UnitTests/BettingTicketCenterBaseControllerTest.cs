@@ -79,44 +79,45 @@
         }
 
         [Test]
-        public async Task ReturnData_DoesNotShowWinLossAndLicenseeWl_GenerateCorrectData()
+        public async Task ReturnData_ShowTotal_GenerateCorrectData()
         {
             using (var controller = CreateController())
             {
                 // Assert
-                var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>(x => x.IsExport, false);
+                var metaModel = FakeHelper.Create<SingleCustomersBetListMetaModel>(x => x.IsExport, false);
 
-                var ticketResult = new TicketResult { TotalRows = FakeHelper.Create<int>(), SumStake = FakeHelper.Create<decimal>() };
-                _dataAccess.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                var ticketResult = new TicketResult
+                {
+                    TotalRows = FakeHelper.Create<int>(),
+                    SumLicenseeWL = FakeHelper.Create<decimal>(),
+                    SumComm = FakeHelper.Create<decimal>(),
+                    SumStake = FakeHelper.Create<decimal>()
+                };
+                _dataAccess.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
-                var result = (await controller.GetByRunning(metaModel) as JsonResult).Data;
+                var result = (await controller.GetBySingleCustomer(metaModel) as JsonResult).Data;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.GetValue("Total").GetValue("SumWinLoss"), Is.Null);
-                    Assert.That(result.GetValue("Total").GetValue("SumLicenseeWL"), Is.Null);
+                    Assert.That(result.GetValue("Total").GetValue("SumWinLoss"), Is.Not.Null);
+                    Assert.That(result.GetValue("Total").GetValue("SumLicenseeWL"), Is.EqualTo((ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat)));
                     Assert.That(result.GetValue("TotalRows"), Is.EqualTo(ticketResult.TotalRows));
-                    Assert.That(result.GetValue("Total").GetValue("SumStake"), Is.EqualTo(ticketResult.SumStake.ToString(FormatKey.DecimalFormat)));
+                    Assert.That(result.GetValue("Total").GetValue("SumStake"), Is.EqualTo((ticketResult.SumStake).ToString(FormatKey.DecimalFormat)));
                 });
             }
         }
 
         [Test]
-        public async Task ReturnData_DoesNotShowSumStake_GenerateCorrectData()
+        public async Task ReturnData_DoNotShowTotal_GenerateCorrectData()
         {
             using (var controller = CreateController())
             {
                 // Assert
                 var metaModel = FakeHelper.Create<RefNoBetListMetaModel>(x => x.IsExport, false);
 
-                var ticketResult = new TicketResult
-                {
-                    TotalRows = FakeHelper.Create<int>(),
-                    SumLicenseeWL = FakeHelper.Create<decimal>(),
-                    SumComm = FakeHelper.Create<decimal>()
-                };
+                var ticketResult = new TicketResult();
                 _dataAccess.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 // Action
