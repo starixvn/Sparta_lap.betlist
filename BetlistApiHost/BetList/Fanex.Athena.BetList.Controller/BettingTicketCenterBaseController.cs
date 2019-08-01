@@ -58,9 +58,9 @@
                 Data = _ticketBuilderService.BuildTicketText(ticket, metaModel, option.IsAllowedCustomerComm),
                 Total = new
                 {
-                    SumWinLoss = (option.ShowTotal && option.ShowWinLoss) ? _ticketBuilderService.BuildSumWinLoss(ticket, option.IsAllowedCustomerComm) : null,
-                    SumLicenseeWL = (option.ShowTotal && option.ShowLicenseeWl) ? (ticket.SumLicenseeWL + ticket.SumComm).ToString(FormatKey.DecimalFormat) : null,
-                    SumStake = option.ShowSumStake ? ticket.SumStake.ToString(FormatKey.DecimalFormat) : null
+                    WinLoss = (option.ShowTotal && option.ShowWinLoss) ? BuildSumWinLoss(ticket, option.IsAllowedCustomerComm) : null,
+                    LicenseeWL = (option.ShowTotal && option.ShowLicenseeWl) ? (ticket.SumLicenseeWL + ticket.SumComm).ToString(FormatKey.DecimalFormat) : null,
+                    Stake = option.ShowSumStake ? ticket.SumStake.ToString(FormatKey.DecimalFormat) : null
                 },
                 TotalRows = ticket.TotalRows
             };

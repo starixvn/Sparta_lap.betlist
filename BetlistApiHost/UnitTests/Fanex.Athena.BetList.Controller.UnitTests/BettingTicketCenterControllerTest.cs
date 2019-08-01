@@ -66,6 +66,8 @@
                             && x.ShowSumStake
                             && x.ShowLicenseeWl
                             && x.ShowWinLoss
+                            && x.ShowExternalId
+                            && x.ShowSystemId
                             && x.IsAllowedCustomerComm == metaModel.HasPlayerCom),
                         metaModel);
                 });
@@ -120,6 +122,8 @@
                         && x.Option.ShowLicenseeWl
                         && x.Option.ShowWinLoss
                         && x.TotalText == ViewResources.Total
+                        && x.Option.ShowExternalId
+                        && x.Option.ShowSystemId
                         && x.Option.IsAllowedCustomerComm == metaModel.HasPlayerCom));
                 });
             }
@@ -149,6 +153,8 @@
                             && !x.ShowSumStake
                             && x.ShowLicenseeWl
                             && x.ShowWinLoss
+                            && x.ShowExternalId
+                            && x.ShowSystemId
                             && x.IsAllowedCustomerComm == metaModel.HasPlayerCom),
                         metaModel);
                 });
@@ -183,6 +189,8 @@
                         && !x.Option.ShowSumStake
                         && x.Option.ShowLicenseeWl
                         && x.Option.ShowWinLoss
+                        && x.Option.ShowExternalId
+                        && x.Option.ShowSystemId
                         && x.TotalText == null
                         && x.Option.IsAllowedCustomerComm == metaModel.HasPlayerCom));
                 });
@@ -213,6 +221,8 @@
                             && x.ShowSumStake
                             && !x.ShowLicenseeWl
                             && !x.ShowWinLoss
+                            && x.ShowExternalId
+                            && x.ShowSystemId
                             && !x.IsAllowedCustomerComm),
                         metaModel);
                 });
@@ -248,6 +258,8 @@
                         && x.Option.ShowSumStake
                         && !x.Option.ShowLicenseeWl
                         && !x.Option.ShowWinLoss
+                        && x.Option.ShowExternalId
+                        && x.Option.ShowSystemId
                         && x.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
                         && !x.Option.IsAllowedCustomerComm));
                 });

@@ -101,10 +101,10 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.GetValue("Total").GetValue("SumWinLoss"), Is.Not.Null);
-                    Assert.That(result.GetValue("Total").GetValue("SumLicenseeWL"), Is.EqualTo((ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat)));
+                    Assert.That(result.GetValue("Total").GetValue("WinLoss"), Is.Not.Null);
+                    Assert.That(result.GetValue("Total").GetValue("LicenseeWL"), Is.EqualTo((ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat)));
                     Assert.That(result.GetValue("TotalRows"), Is.EqualTo(ticketResult.TotalRows));
-                    Assert.That(result.GetValue("Total").GetValue("SumStake"), Is.EqualTo((ticketResult.SumStake).ToString(FormatKey.DecimalFormat)));
+                    Assert.That(result.GetValue("Total").GetValue("Stake"), Is.EqualTo((ticketResult.SumStake).ToString(FormatKey.DecimalFormat)));
                 });
             }
         }
@@ -126,7 +126,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.GetValue("Total").GetValue("SumStake"), Is.Null);
+                    Assert.That(result.GetValue("Total").GetValue("Stake"), Is.Null);
                 });
             }
         }

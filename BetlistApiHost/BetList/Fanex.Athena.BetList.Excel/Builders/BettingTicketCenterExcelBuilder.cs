@@ -59,8 +59,8 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         public void CreateSheet(string sheetName, BettingTicketCenterOption option)
         {
-            short cols = (short)(NumberOfColumns - (option.ShowWinLoss ? 0 : 1) - (option.ShowLicenseeWl ? 0 : 1));
-            _builder.BuildWorksheet(sheetName, cols);
+            var cols = GetActualCols(option);
+            _builder.BuildWorksheet(sheetName, (short)cols);
         }
 
         public void AddNoInfoRow(BettingTicketCenterOption option)
@@ -68,7 +68,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
             var titleStyle = _builder.CreateCellStyle();
             titleStyle.Alignment = HorizontalAlignment.Center;
 
-            var mergeCol = NumberOfColumns - 1 - (option.ShowWinLoss ? 0 : 1) - (option.ShowLicenseeWl ? 0 : 1);
+            var mergeCol = GetActualCols(option) - 1;
             _builder.AddCell(new HSSFRichTextString(ViewResources.NoInfo), titleStyle);
             _builder.MergeCell(new CellRangeAddress(ContentRowIndex, ContentRowIndex, 0, mergeCol));
         }
@@ -83,7 +83,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
             titleStyle.VerticalAlignment = VerticalAlignment.Center;
             titleStyle.SetFont(font);
 
-            var mergeCol = NumberOfColumns - 1 - (option.ShowWinLoss ? 0 : 1) - (option.ShowLicenseeWl ? 0 : 1);
+            var mergeCol = GetActualCols(option) - 1;
             _builder.AddCell(new HSSFRichTextString(title), titleStyle);
             _builder.MergeCell(new CellRangeAddress(0, 0, 0, mergeCol));
         }
@@ -95,8 +95,18 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
             var headerStyle = _builder.CreateHeaderCellStyle();
             AddHeaderCell("#", columnWidths[index++], headerStyle);
-            AddHeaderCell(ViewResources.ExternalId, columnWidths[index++], headerStyle);
-            AddHeaderCell(ViewResources.SystemId, columnWidths[index++], headerStyle);
+            if (option.ShowExternalId)
+            {
+                AddHeaderCell(ViewResources.ExternalId, columnWidths[index], headerStyle);
+            }
+            ++index;
+
+            if (option.ShowSystemId)
+            {
+                AddHeaderCell(ViewResources.SystemId, columnWidths[index], headerStyle);
+            }
+            ++index;
+
             AddHeaderCell(ViewResources.RefNo, columnWidths[index++], headerStyle);
             AddHeaderCell(ViewResources.TransTime, columnWidths[index++], headerStyle);
             AddHeaderCell(ViewResources.Choice, columnWidths[index++], headerStyle);
@@ -106,21 +116,15 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
             if (option.ShowWinLoss)
             {
-                AddHeaderCell(ViewResources.WinLoss + (option.IsAllowedCustomerComm ? "/" + ViewResources.Comm : string.Empty), columnWidths[index++], headerStyle);
+                AddHeaderCell(ViewResources.WinLoss + (option.IsAllowedCustomerComm ? "/" + ViewResources.Comm : string.Empty), columnWidths[index], headerStyle);
             }
-            else
-            {
-                ++index;
-            }
+            ++index;
 
             if (option.ShowLicenseeWl)
             {
-                AddHeaderCell(ViewResources.LicenseeWL + "/" + ViewResources.Comm, columnWidths[index++], headerStyle);
+                AddHeaderCell(ViewResources.LicenseeWL + "/" + ViewResources.Comm, columnWidths[index], headerStyle);
             }
-            else
-            {
-                ++index;
-            }
+            ++index;
 
             AddHeaderCell(ViewResources.Status, columnWidths[index++], headerStyle);
             AddHeaderCell(ViewResources.Platform, columnWidths[index++], headerStyle);
@@ -178,8 +182,17 @@ namespace Fanex.Athena.BetList.Excel.Builders
         {
             _ticketHelper.Index++;
             _builder.AddIndex(_ticketHelper, _ticketHelper.Index);
-            _builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellLeftAlign, _evenCellLeftAlign);
-            _builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellLeftAlign, _evenCellLeftAlign);
+
+            if (option.ShowExternalId)
+            {
+                _builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellLeftAlign, _evenCellLeftAlign);
+            }
+
+            if (option.ShowSystemId)
+            {
+                _builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellLeftAlign, _evenCellLeftAlign);
+            }
+
             _builder.AddRefNo(ticket, _ticketHelper);
             _builder.AddTransTime(ticket, _ticketHelper);
             _builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
@@ -228,6 +241,9 @@ namespace Fanex.Athena.BetList.Excel.Builders
             _mixLiveFont = _builder.CreateFont();
             _mixLiveFont.Color = MixLiveColor;
         }
+
+        private static int GetActualCols(BettingTicketCenterOption option)
+            => NumberOfColumns - (!option.ShowWinLoss).ToInt() - (!option.ShowLicenseeWl).ToInt() - (!option.ShowExternalId).ToInt() - (!option.ShowSystemId).ToInt();
 
         private void AddPlatfromCell(LrfTicket ticket)
         {

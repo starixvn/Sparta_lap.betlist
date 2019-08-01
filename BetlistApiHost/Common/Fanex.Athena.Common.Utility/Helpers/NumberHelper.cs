@@ -29,5 +29,10 @@
         {
             return value % EvenNumber == 0;
         }
+
+        public static int ToInt(this bool value)
+        {
+            return value ? 1 : 0;
+        }
     }
 }

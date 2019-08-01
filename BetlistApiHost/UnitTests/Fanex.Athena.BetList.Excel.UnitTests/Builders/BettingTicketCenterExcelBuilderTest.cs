@@ -70,15 +70,26 @@
             });
         }
 
-        [TestCase(true, true, 14)]
-        [TestCase(false, false, 12)]
-        [TestCase(true, false, 13)]
-        [TestCase(false, true, 13)]
-        public void CreateSheet_WhenCall_BuildWorksheetWithCorrectParameters(bool showWinLoss, bool showLicenseeWl, short expectedCols)
+        [TestCase(true, true, true, true, NumberOfColumns)]
+        [TestCase(false, false, false, false, NumberOfColumns - 4)]
+        [TestCase(true, false, true, false, NumberOfColumns - 2)]
+        [TestCase(false, true, false, true, NumberOfColumns - 2)]
+        public void CreateSheet_WhenCall_BuildWorksheetWithCorrectParameters(
+            bool showWinLoss,
+            bool showLicenseeWL,
+            bool showExtternalId,
+            bool showSystemId,
+            short expectedCols)
         {
             // Arrange
             var sheetName = FakeHelper.Create<string>();
-            var option = new BettingTicketCenterOption { ShowWinLoss = showWinLoss, ShowLicenseeWl = showLicenseeWl };
+            var option = new BettingTicketCenterOption
+            {
+                ShowWinLoss = showWinLoss,
+                ShowLicenseeWl = showLicenseeWL,
+                ShowExternalId = showExtternalId,
+                ShowSystemId = showSystemId
+            };
 
             // Action
             _excelBuilder.CreateSheet(sheetName, option);
@@ -90,11 +101,16 @@
             });
         }
 
-        [TestCase(true, true, NumberOfColumns - 1)]
-        [TestCase(false, false, NumberOfColumns - 3)]
-        [TestCase(true, false, NumberOfColumns - 2)]
-        [TestCase(false, true, NumberOfColumns - 2)]
-        public void AddNoInfoRow_WhenCall_WorkCorrectly(bool isShowWinLoss, bool isShowLicenseeWL, int expectedMergedLastCol)
+        [TestCase(true, true, true, true, NumberOfColumns - 1)]
+        [TestCase(false, false, false, false, NumberOfColumns - 5)]
+        [TestCase(true, false, true, false, NumberOfColumns - 3)]
+        [TestCase(false, true, false, true, NumberOfColumns - 3)]
+        public void AddNoInfoRow_WhenCall_WorkCorrectly(
+            bool showWinLoss,
+            bool showLicenseeWL,
+            bool showExtternalId,
+            bool showSystemId,
+            int expectedMergedLastCol)
         {
             // Arrange
             var titleStyle = Substitute.For<ICellStyle>();
@@ -103,8 +119,10 @@
             // Action
             _excelBuilder.AddNoInfoRow(new BettingTicketCenterOption
             {
-                ShowWinLoss = isShowWinLoss,
-                ShowLicenseeWl = isShowLicenseeWL
+                ShowWinLoss = showWinLoss,
+                ShowLicenseeWl = showLicenseeWL,
+                ShowExternalId = showExtternalId,
+                ShowSystemId = showSystemId
             });
 
             // Assert
@@ -121,11 +139,16 @@
             });
         }
 
-        [TestCase(true, true, NumberOfColumns - 1)]
-        [TestCase(false, false, NumberOfColumns - 3)]
-        [TestCase(true, false, NumberOfColumns - 2)]
-        [TestCase(false, true, NumberOfColumns - 2)]
-        public void AddTitle_WhenCall_WorkCorrectly(bool isShowWinLoss, bool isShowLicenseeWL, int expectedMergedLastCol)
+        [TestCase(true, true, true, true, NumberOfColumns - 1)]
+        [TestCase(false, false, false, false, NumberOfColumns - 5)]
+        [TestCase(true, false, true, false, NumberOfColumns - 3)]
+        [TestCase(false, true, false, true, NumberOfColumns - 3)]
+        public void AddTitle_WhenCall_WorkCorrectly(
+            bool showWinLoss,
+            bool showLicenseeWL,
+            bool showExtternalId,
+            bool showSystemId,
+            int expectedMergedLastCol)
         {
             // Arrange
             const string Title = "sddflghdlkfjghldjfg";
@@ -139,8 +162,10 @@
                 Title,
                 new BettingTicketCenterOption
                 {
-                    ShowWinLoss = isShowWinLoss,
-                    ShowLicenseeWl = isShowLicenseeWL
+                    ShowWinLoss = showWinLoss,
+                    ShowLicenseeWl = showLicenseeWL,
+                    ShowExternalId = showExtternalId,
+                    ShowSystemId = showSystemId
                 });
 
             // Assert
@@ -185,7 +210,14 @@
             };
 
             // Action
-            _excelBuilder.AddHeader(new BettingTicketCenterOption { ShowWinLoss = true, ShowLicenseeWl = true, IsAllowedCustomerComm = isShowCustomerComm });
+            _excelBuilder.AddHeader(new BettingTicketCenterOption
+            {
+                ShowWinLoss = true,
+                ShowLicenseeWl = true,
+                IsAllowedCustomerComm = isShowCustomerComm,
+                ShowSystemId = true,
+                ShowExternalId = true
+            });
 
             // Assert
             Assert.Multiple(() =>

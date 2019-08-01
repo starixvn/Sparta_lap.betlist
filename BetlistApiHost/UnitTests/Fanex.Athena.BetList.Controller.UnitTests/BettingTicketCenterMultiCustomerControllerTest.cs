@@ -77,6 +77,8 @@
                             && x.ShowSumStake
                             && x.ShowLicenseeWl
                             && x.ShowWinLoss
+                            && x.ShowExternalId
+                            && x.ShowSystemId
                             && x.IsAllowedCustomerComm == metaModel.HasPlayerCom),
                         metaModel);
                 });
@@ -162,6 +164,8 @@
                             && x.Option.ShowSumStake
                             && x.Option.ShowLicenseeWl
                             && x.Option.ShowWinLoss
+                            && x.Option.ShowExternalId
+                            && x.Option.ShowSystemId
                             && x.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
                             && x.Option.IsAllowedCustomerComm == metaModel.HasPlayerCom
                             && x.Data == ticketResult));
