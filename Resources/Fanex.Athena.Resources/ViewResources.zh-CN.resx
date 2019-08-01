@@ -229,7 +229,8 @@
     <value>WAP</value>
   </data>
   <data name="Mobile" xml:space="preserve">
-    <value>移动</value>
+    <value>手机版</value>
+    <comment>118018</comment>
   </data>
   <data name="Tablet" xml:space="preserve">
     <value>平板</value>
