@@ -214,22 +214,23 @@
     <comment>80941</comment>
   </data>
   <data name="China" xml:space="preserve">
-    <value>中国</value>
+    <value>中国版</value>
   </data>
   <data name="Asia" xml:space="preserve">
-    <value>亚洲</value>
+    <value>亚洲版</value>
   </data>
   <data name="NewAsia" xml:space="preserve">
     <value>新亚洲版</value>
   </data>
   <data name="Euro" xml:space="preserve">
-    <value>欧洲</value>
+    <value>欧洲版</value>
   </data>
   <data name="Wap" xml:space="preserve">
     <value>WAP</value>
   </data>
   <data name="Mobile" xml:space="preserve">
-    <value>移动</value>
+    <value>手机版</value>
+    <comment>118018</comment>
   </data>
   <data name="Tablet" xml:space="preserve">
     <value>平板</value>
