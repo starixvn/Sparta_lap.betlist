@@ -69,7 +69,7 @@
                             && !x.ShowLicenseeWl
                             && !x.ShowWinLoss
                             && !x.IsAllowedCustomerComm),
-                        metaModel.Currency,
+                        string.Empty,
                         1);
                 });
             }

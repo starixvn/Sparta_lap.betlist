@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
+    using System.Collections;
     using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
@@ -34,7 +35,7 @@
             {
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
                 ObjectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
-                ObjectDb.Received(1).SetParameterValue("SumStake", metaModel.SumStake);
+                ObjectDb.Received(1).SetParameterValue("SumStake", 0);
             });
         }
 
@@ -98,8 +99,10 @@
         {
             // Arrange
             var metaModel = new PlayerAdminBetListMetaModel();
+            var sumStake = FakeHelper.Create<decimal>();
 
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
+            ObjectDb.GetOuputParams().Returns(new Hashtable { { "sumstake", sumStake } });
             Reader.Read().Returns(false);
             Reader.NextResult().Returns(false);
 
@@ -110,7 +113,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.TotalRows, Is.EqualTo(result.MainTicketList.Count));
-                Assert.That(result.SumStake, Is.EqualTo(metaModel.SumStake));
+                Assert.That(result.SumStake, Is.EqualTo(sumStake));
             });
         }
     }

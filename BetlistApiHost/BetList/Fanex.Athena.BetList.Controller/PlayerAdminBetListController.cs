@@ -30,7 +30,7 @@
         {
             var ticketResult = await _dataAccess.GetRunningBetListAsync(metaModel).ConfigureAwait(false);
 
-            return ReturnData(ticketResult, GetBetListOption(), metaModel.Currency, 1);
+            return ReturnData(ticketResult, GetBetListOption(), string.Empty, 1);
         }
 
         [HttpPost]

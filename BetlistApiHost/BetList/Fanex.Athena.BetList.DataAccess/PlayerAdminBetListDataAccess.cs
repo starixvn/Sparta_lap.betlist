@@ -4,6 +4,7 @@
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Common;
     using Fanex.Data;
 
     public class PlayerAdminBetListDataAccess : BaseBetListDataAccess, IPlayerAdminBetListDataAccess
@@ -28,7 +29,8 @@
                     }
                 }
 
-                ticketResult.SumStake = metaModel.SumStake;
+                var outSqlParams = db.GetOuputParams();
+                ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
                 ticketResult.TotalRows = ticketResult.MainTicketList.Count;
             }
 
@@ -39,7 +41,7 @@
         {
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("CustId", metaModel.CustId);
-            db.SetParameterValue("SumStake", metaModel.SumStake);
+            db.SetParameterValue("SumStake", 0);
 
             if (!string.IsNullOrEmpty(metaModel.SortBy) && !string.IsNullOrEmpty(metaModel.SortOrder))
             {

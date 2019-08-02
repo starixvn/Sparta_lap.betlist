@@ -12,8 +12,6 @@
 
         public string AgentListXml { get; set; }
 
-        public decimal SumStake { get; set; }
-
         public string Currency { get; set; }
 
         public IDictionary<int, string> CurrencyList { get; set; }
