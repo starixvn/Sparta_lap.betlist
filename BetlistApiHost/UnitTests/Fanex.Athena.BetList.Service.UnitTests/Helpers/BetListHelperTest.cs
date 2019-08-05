@@ -54,19 +54,12 @@
             Assert.That(result, Is.False);
         }
 
-        [TestCase("running")]
-        [TestCase("RUNNING")]
-        public void IsRunning_IsRunningTicket_ReturnTrue(string status)
-        {
-            // Action
-            var result = BetListHelper.IsRunning(status);
-
-            // Assert
-            Assert.That(result, Is.True);
-        }
-
         [TestCase("waiting")]
         [TestCase("WAITING")]
+        [TestCase("running")]
+        [TestCase("RUNNING")]
+        [TestCase("pending")]
+        [TestCase("PEnDINg")]
         public void IsRunning_IsWaitingTicket_ReturnTrue(string status)
         {
             // Action

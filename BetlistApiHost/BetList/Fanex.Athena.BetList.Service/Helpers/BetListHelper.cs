@@ -65,7 +65,8 @@
             }
 
             return status.Equals("running", StringComparison.OrdinalIgnoreCase) ||
-                    status.Equals("waiting", StringComparison.OrdinalIgnoreCase);
+                    status.Equals("waiting", StringComparison.OrdinalIgnoreCase) ||
+                    status.Equals("pending", StringComparison.OrdinalIgnoreCase);
         }
 
         private static string GetBetTypeName(ITicketHelper tickerHelper, LrfTicket ticket)
