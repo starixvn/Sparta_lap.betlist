@@ -131,51 +131,55 @@ namespace Fanex.Athena.BetList.Excel.Builders
             AddHeaderCell(ViewResources.Live, columnWidths[index], headerStyle);
         }
 
-        public void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumPlayerComm, decimal? sumLicenseeWL, string totalText)
+        public void AddFooter(
+            decimal sumStake,
+            decimal sumWinLoss,
+            decimal sumPlayerComm,
+            decimal sumLicenseeWL,
+            string totalText,
+            BettingTicketCenterOption option)
         {
             var footerStyle = _builder.CreateFooterCellStyle();
-            var cols = NumberOfColumns;
-            var totalColIndex = ColumnTotalStart;
+            var cols = GetActualCols(option);
+            var totalColIndex = ColumnTotalStart - (!option.ShowExternalId).ToInt() - (!option.ShowSystemId).ToInt();
+            var currentTotalColIndex = totalColIndex;
 
             var rtfTotal = new HSSFRichTextString(totalText);
-            for (int i = 0; i < ColumnTotalStart; i++)
+            for (int i = 0; i < totalColIndex; i++)
             {
                 _builder.AddCell(rtfTotal, footerStyle);
             }
 
             _builder.AddCell(
-                new HSSFRichTextString(sumStake.HasValue ? sumStake.Value.ToString(FormatKey.DecimalFormat) : string.Empty),
+                new HSSFRichTextString(option.ShowSumStake ? sumStake.ToString(FormatKey.DecimalFormat) : string.Empty),
                 footerStyle);
+            currentTotalColIndex++;
 
-            if (sumWinLoss.HasValue)
+            if (option.ShowWinLoss)
             {
-                var sumWinLossString = sumPlayerComm.HasValue
-                    ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", sumWinLoss.Value, sumPlayerComm.Value)
-                    : string.Format("{0:#,##0.00}", sumWinLoss.Value);
+                var sumWinLossString = option.IsAllowedCustomerComm
+                    ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", sumWinLoss, sumPlayerComm)
+                    : string.Format("{0:#,##0.00}", sumWinLoss);
                 _builder.AddCell(new HSSFRichTextString(sumWinLossString), footerStyle);
-
-                --cols;
-                --totalColIndex;
+                currentTotalColIndex++;
             }
 
-            if (sumLicenseeWL.HasValue)
+            if (option.ShowLicenseeWl)
             {
-                var rtfSumLicenseeWl = new HSSFRichTextString(sumLicenseeWL.Value.ToString(FormatKey.DecimalFormat));
-                rtfSumLicenseeWl.ApplyFont(sumLicenseeWL.Value < 0 ? _negativeWinLossFont : _winLossFont);
+                var rtfSumLicenseeWl = new HSSFRichTextString(sumLicenseeWL.ToString(FormatKey.DecimalFormat));
+                rtfSumLicenseeWl.ApplyFont(sumLicenseeWL < 0 ? _negativeWinLossFont : _winLossFont);
                 _builder.AddCell(rtfSumLicenseeWl, footerStyle);
-
-                --cols;
-                --totalColIndex;
+                currentTotalColIndex++;
             }
 
             // add the rest column
-            for (int i = totalColIndex + 3; i < cols; i++)
+            for (int i = currentTotalColIndex; i < cols; i++)
             {
                 _builder.AddCell(new HSSFRichTextString(), footerStyle);
             }
 
             var lastRowIndex = _builder.LastContentRow;
-            _builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, ColumnTotalStart - 1), footerStyle);
+            _builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, totalColIndex - 1), footerStyle);
         }
 
         public void AssignRowData(TicketResult ticketResult, LrfTicket ticket, int licenseeId, BettingTicketCenterOption option)

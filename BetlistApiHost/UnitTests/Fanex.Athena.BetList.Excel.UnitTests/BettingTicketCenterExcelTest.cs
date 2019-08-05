@@ -162,11 +162,8 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             _builder.Received(1).AssignRowData(model.Data, model.Data.MainTicketList[0], model.LicenseeId, model.Option);
         }
 
-        [TestCase(false, false, false, false)]
-        [TestCase(false, true, false, false)]
-        [TestCase(false, false, true, false)]
-        [TestCase(true, true, true, true)]
-        public void AddFooter_WhenCall_CallRelevantMethods(bool isShowSumStake, bool isShowSumWL, bool isShowPlayerComm, bool isShowSumLicenseeWL)
+        [Test]
+        public void AddFooter_WhenCall_CallRelevantMethods()
         {
             // Arrange
             const decimal SumPlayerComm = 0.12m;
@@ -176,13 +173,7 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
             var sumLicenseeWL = FakeHelper.Create<decimal>();
             var model = new BettingTicketCenterExcelModel
             {
-                Option = new BettingTicketCenterOption
-                {
-                    ShowSumStake = isShowSumStake,
-                    ShowWinLoss = isShowSumWL,
-                    ShowLicenseeWl = isShowSumLicenseeWL,
-                    IsAllowedCustomerComm = isShowPlayerComm
-                },
+                Option = FakeHelper.Create<BettingTicketCenterOption>(),
                 Data = new TicketResult
                 {
                     SumStake = sumStake,
@@ -193,16 +184,12 @@ namespace Fanex.Athena.BetList.Excel.UnitTests
                 },
                 TotalText = FakeHelper.Create<string>()
             };
-            var expectedSumStake = isShowSumStake ? (decimal?)sumStake : null;
-            var expectedSumWL = isShowSumWL ? (decimal?)sumWL : null;
-            var expectedSumPlayerComm = isShowSumWL && isShowPlayerComm ? (decimal?)SumPlayerComm : null;
-            var expectedSumLicenseeWL = isShowSumLicenseeWL ? (decimal?)(sumLicenseeWL + SumComm) : null;
 
             // Action
             _excel.AddFooter(model);
 
             // Assert
-            _builder.Received(1).AddFooter(expectedSumStake, expectedSumWL, expectedSumPlayerComm, expectedSumLicenseeWL, model.TotalText);
+            _builder.Received(1).AddFooter(sumStake, sumWL, SumPlayerComm, sumLicenseeWL + SumComm, model.TotalText, model.Option);
         }
     }
 }
