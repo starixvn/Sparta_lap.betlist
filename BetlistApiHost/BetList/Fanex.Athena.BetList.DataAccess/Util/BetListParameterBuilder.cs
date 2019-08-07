@@ -227,7 +227,7 @@
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
             db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
-            db.SetParameterValue("Date", metaModel.Date);
+            db.SetParameterValue("Date", metaModel.FromDate);
             CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
