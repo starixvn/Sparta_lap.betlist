@@ -30,8 +30,8 @@
                 }
 
                 var outSqlParams = db.GetOuputParams();
-                ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
-                ticketResult.TotalRows = ticketResult.MainTicketList.Count;
+                ticketResult.SumStake = Converter.ToDecimal(outSqlParams["SumStake"]);
+                ticketResult.TotalRows = Converter.ToInt(outSqlParams["TotalRows"]);
             }
 
             return ticketResult;
@@ -41,7 +41,10 @@
         {
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("CustId", metaModel.CustId);
+            db.SetParameterValue("PageIndex", metaModel.PageIndex);
+            db.SetParameterValue("PageSize", metaModel.PageSize);
             db.SetParameterValue("SumStake", 0);
+            db.SetParameterValue("TotalRows", 0);
 
             if (!string.IsNullOrEmpty(metaModel.SortBy) && !string.IsNullOrEmpty(metaModel.SortOrder))
             {

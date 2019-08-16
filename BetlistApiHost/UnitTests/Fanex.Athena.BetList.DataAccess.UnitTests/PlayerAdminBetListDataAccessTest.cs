@@ -35,7 +35,10 @@
             {
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
                 ObjectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
+                ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("SumStake", 0);
+                ObjectDb.Received(1).SetParameterValue("TotalRows", 0);
             });
         }
 
@@ -100,9 +103,10 @@
             // Arrange
             var metaModel = new PlayerAdminBetListMetaModel();
             var sumStake = FakeHelper.Create<decimal>();
+            var totalRows = FakeHelper.Create<int>();
 
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
-            ObjectDb.GetOuputParams().Returns(new Hashtable { { "sumstake", sumStake } });
+            ObjectDb.GetOuputParams().Returns(new Hashtable { { "SumStake", sumStake }, { "TotalRows", totalRows } });
             Reader.Read().Returns(false);
             Reader.NextResult().Returns(false);
 
@@ -112,7 +116,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.TotalRows, Is.EqualTo(result.MainTicketList.Count));
+                Assert.That(result.TotalRows, Is.EqualTo(totalRows));
                 Assert.That(result.SumStake, Is.EqualTo(sumStake));
             });
         }
