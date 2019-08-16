@@ -36,6 +36,8 @@
         [HttpPost]
         public async Task<ActionResult> Export(PlayerAdminBetListMetaModel metaModel)
         {
+            metaModel.PageIndex = 1;
+            metaModel.PageSize = int.MaxValue - 1;
             var ticketResult = await _dataAccess.GetRunningBetListAsync(metaModel).ConfigureAwait(false);
 
             if (ticketResult.MainTicketList.Count == 0)

@@ -82,6 +82,8 @@
             {
                 // Assert
                 var metaModel = FakeHelper.Create<PlayerAdminBetListMetaModel>();
+                metaModel.PageIndex = 1;
+                metaModel.PageSize = int.MaxValue - 1;
 
                 var ticketResult = new TicketResult();
                 _dataAccess.GetRunningBetListAsync(metaModel).Returns(ticketResult);
