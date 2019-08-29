@@ -6,7 +6,7 @@
     using ResultPopup;
 
     [TestFixture]
-    public partial class PPResultPopupControllerTest
+    public class PPResultPopupControllerTest
     {
         [Test]
         public void Index_WhenCall_ReturnResultFromApi()

@@ -7,13 +7,8 @@
 namespace Fanex.Athena
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Data.SqlClient;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Text;
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
