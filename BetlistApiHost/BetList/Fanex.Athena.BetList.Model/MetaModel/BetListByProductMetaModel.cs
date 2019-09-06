@@ -19,7 +19,7 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public IDictionary<int, string> UserCurrencyList { get; set; }
         public bool HasPlayerCom { get; set; }
         public int TransType { get; set; }
-        public string AgentList { get; set; }
+        public string AgentListXml { get; set; }
         public string Sort { get; set; } = "Transid ASC";
     }
 }

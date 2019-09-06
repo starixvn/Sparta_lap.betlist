@@ -38,7 +38,7 @@
             ObjectDb.Received(1).SetParameterValue("Date", metaModel.Date);
             ObjectDb.Received(1).SetParameterValue("TransType", metaModel.TransType);
             ObjectDb.Received(1).SetParameterValue("ProductCode", metaModel.ProductCode);
-            ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentList);
+            ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
             ObjectDb.Received(1).SetParameterValue("Sort", metaModel.Sort);
 
             ObjectDb.Received(1).SetParameterValue("TotalRows", null);

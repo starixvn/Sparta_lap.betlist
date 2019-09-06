@@ -52,7 +52,7 @@ namespace Fanex.Athena.BetList.DataAccess
         private void SetParam(BetListByProductMetaModel metaModel, Data.IObjectDb db)
         {
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-            db.SetParameterValue("@AgentList", metaModel.AgentList);
+            db.SetParameterValue("@AgentList", metaModel.AgentListXml);
             db.SetParameterValue("CustId", metaModel.CustId);
             db.SetParameterValue("@Date", metaModel.Date);
             db.SetParameterValue("@MoveBetsDay", balanceUp.MoveBetsDay);
