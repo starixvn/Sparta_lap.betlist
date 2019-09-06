@@ -21,8 +21,6 @@ namespace Fanex.Athena.BetList.Service.Interfaces
 
         string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm);
 
-        IList<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel, bool isAllowedCustomerComm);
-
         string GetTitle(BaseBettingTicketMetaModel metaModel);
     }
 }

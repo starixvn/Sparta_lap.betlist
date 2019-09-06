@@ -131,11 +131,13 @@
     <Compile Include="Interfaces\IBettingTicketCenterService.cs" />
     <Compile Include="Interfaces\IExchangeBetListService.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListService.cs" />
+    <Compile Include="Interfaces\ITicketBuilderService.cs" />
     <Compile Include="LastBetsMonitoringBetListService.cs" />
     <Compile Include="BetListService.cs" />
     <Compile Include="Interfaces\IBetListService.cs" />
     <Compile Include="Extensions\LrfBetListHtmlBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TicketBuilderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">

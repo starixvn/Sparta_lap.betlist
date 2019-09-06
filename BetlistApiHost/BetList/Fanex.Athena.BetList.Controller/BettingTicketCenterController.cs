@@ -17,13 +17,18 @@ namespace Fanex.Athena.BetList.Controller
         private readonly IBettingTicketCenterService _service;
 
         private readonly IBettingTicketCenterExcel _bettingTicketCenterExcel;
+        private readonly ITicketBuilderService _ticketBuilderService;
 
         public BettingTicketCenterController(
             IBettingTicketCenterService service,
-            IBettingTicketCenterExcel bettingTicketCenterExcel)
+            IBettingTicketCenterExcel bettingTicketCenterExcel,
+            ITicketBuilderService ticketBuilderService
+            )
         {
             _service = service;
             _bettingTicketCenterExcel = bettingTicketCenterExcel;
+            _ticketBuilderService = ticketBuilderService;
+
         }
 
         [HttpPost]
@@ -52,7 +57,7 @@ namespace Fanex.Athena.BetList.Controller
 
             return Json(new
             {
-                Data = _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom),
+                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom),
                 Total = new
                 {
                     SumWinLoss = _service.BuildSumWinLoss(ticketResult, metaModel.HasPlayerCom),
@@ -87,7 +92,7 @@ namespace Fanex.Athena.BetList.Controller
 
             var result = new
             {
-                Data = _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom)
+                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom)
             };
             BetListHelper.ClearData(ticketResult);
             return Json(result);
@@ -117,7 +122,7 @@ namespace Fanex.Athena.BetList.Controller
 
             var result = new
             {
-                Data = _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom),
+                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom),
                 Total = new
                 {
                     SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
