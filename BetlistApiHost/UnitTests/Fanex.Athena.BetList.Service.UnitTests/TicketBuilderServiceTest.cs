@@ -32,7 +32,7 @@
 
         private ITicketHelper _ticketHelper;
         private  ITicketBuilderService _ticketBuilderService;
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _betlistHtmlBuilder = Substitute.For<IBetListHTMLBuilder>();
@@ -42,7 +42,7 @@
                 _ticketHelper);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _ticketHelper = null;

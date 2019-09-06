@@ -25,7 +25,7 @@
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
         private ITicketBuilderService _ticketBuilderService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void FixtureSetUp()
         {
             _service = Substitute.For<IBettingTicketCenterService>();
@@ -33,11 +33,13 @@
             _ticketBuilderService = Substitute.For<ITicketBuilderService>();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void FixtureTearDown()
         {
             _ticketBuilderService = null;
             _service = null;
+            _bettingTicketCenterExcel.Dispose();
+            _bettingTicketCenterExcel.ClearReceivedCalls();
             _bettingTicketCenterExcel = null;
         }
 
@@ -295,7 +297,7 @@
             using (var controller = CreateController())
             {
                 // Assert
-                var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>();
+                var metaModel = new BaseBettingTicketMetaModel();
                 metaModel.IsExport = true;
 
                 var ticketResult = new TicketResult
