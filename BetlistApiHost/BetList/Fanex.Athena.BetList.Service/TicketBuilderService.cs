@@ -69,6 +69,45 @@ namespace Fanex.Athena.BetList.Service
             return ticketTextList;
         }
 
+        public List<TicketText> BuildTicketText(
+            TicketResult ticketResult,
+            BetListMetaModel metaModel = null,
+            int startIndex = 1,
+            bool showOdds = false,
+            bool isAllowedCustomerComm = false)
+        {
+            var baseCurrency = metaModel == null ? string.Empty : metaModel.BaseCurrency;
+            var ticketTextList = new List<TicketText>();
 
+            _ticketHelper.IsShowOddsWithChoice = showOdds;
+
+            foreach (var ticket in ticketResult.MainTicketList)
+            {
+                if (ticket.BetTypeId == (int)BetType.CombinationMixParlay && metaModel != null)
+                {
+                    var custid = ticket.CustId != 0 ? ticket.CustId : metaModel.CustId;
+                    _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, custid);
+                }
+
+                var ticketText = new TicketText
+                {
+                    Index = startIndex++,
+                    ExternalId = ticket.ExternalId,
+                    SystemId = ticket.UserName,
+                    TransTime = _betlistHtmlBuilder.BuildTrans(ticket),
+                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel),
+                    Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
+                    Odds = _betlistHtmlBuilder.BuildOdds(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById),
+                    Stake = _betlistHtmlBuilder.BuildStake(ticket),
+                    LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
+                    WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
+                    BetEffective = _betlistHtmlBuilder.BuildBetEffective(ticket)
+                };
+
+                ticketTextList.Add(ticketText);
+            }
+
+            return ticketTextList;
+        }
     }
 }

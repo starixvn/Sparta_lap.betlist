@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 
@@ -12,6 +9,11 @@ namespace Fanex.Athena.BetList.Service.Interfaces
     {
         IList<TicketText> BuildTicketText(TicketResult ticketResult, ICommonValueMetaModel metaModel,
             bool isAllowedCustomerComm);
-
+        List<TicketText> BuildTicketText(
+           TicketResult ticketResult,
+           BetListMetaModel metaModel = null,
+           int startIndex = 1,
+           bool showOdds = false,
+           bool isAllowedCustomerComm = false);
     }
 }

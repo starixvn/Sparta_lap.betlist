@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Helpers;
@@ -22,24 +23,28 @@ namespace Fanex.Athena.BetList.Controller
         private readonly ITicketHelper _ticketHelper;
 
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
+        private readonly ITicketBuilderService _ticketBuilderService;
 
         public MixParlayBetListController(
             ICacheRefAdapter cacheRefAdapter,
             IBetListService betListService,
             ITicketHelper ticketHelper,
-            IBetListHTMLBuilder betlistHtmlBuilder)
+            IBetListHTMLBuilder betlistHtmlBuilder,
+             ITicketBuilderService ticketBuilderService)
         {
             _cacheRefAdapter = cacheRefAdapter;
             _betListService = betListService;
             _ticketHelper = ticketHelper;
             _betlistHtmlBuilder = betlistHtmlBuilder;
+            _ticketBuilderService = ticketBuilderService;
+
         }
 
         [HttpPost]
         public async Task<JsonResult> Detail(MixParlayDetailMetaModel metaModel)
         {
             var ticketResult = await _betListService.GetMixParlayDetailTicket(metaModel).ConfigureAwait(false);
-            var result = _betListService.BuildTicketTextList(ticketResult: ticketResult, showOdds: true);
+            var result = _ticketBuilderService.BuildTicketText(ticketResult: ticketResult, showOdds: true);
             BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
