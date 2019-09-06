@@ -35,8 +35,18 @@
             ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
             ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
             ObjectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
-            ObjectDb.Received(1).SetParameterValue("WinLossDate", metaModel.WinLossDate);
+            ObjectDb.Received(1).SetParameterValue("Date", metaModel.Date);
+            ObjectDb.Received(1).SetParameterValue("TransType", metaModel.TransType);
+            ObjectDb.Received(1).SetParameterValue("ProductCode", metaModel.ProductCode);
+            ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentList);
+            ObjectDb.Received(1).SetParameterValue("Sort", metaModel.Sort);
+
             ObjectDb.Received(1).SetParameterValue("TotalRows", null);
+            ObjectDb.Received(1).SetParameterValue("SumStake", null);
+            ObjectDb.Received(1).SetParameterValue("SumWinLost", null);
+            ObjectDb.Received(1).SetParameterValue("SumLicenseeWL", null);
+            ObjectDb.Received(1).SetParameterValue("SumComm", null);
+            ObjectDb.Received(1).SetParameterValue("SumPlayerComm", null);
 
         }
 
@@ -69,7 +79,13 @@
             Reader.Read().Returns(false);
             var outPut = new Hashtable
             {
-                { "totalrows", FakeHelper.Create<int>() }
+                { "totalrows", FakeHelper.Create<int>() },
+                { "SumStake", FakeHelper.Create<int>() },
+                { "SumWinLost", FakeHelper.Create<int>() },
+                { "SumLicenseeWL", FakeHelper.Create<int>() },
+                { "SumComm", FakeHelper.Create<int>() },
+                { "SumPlayerComm", FakeHelper.Create<int>() }
+
             };
 
             ObjectDb.GetOuputParams().Returns(outPut);
@@ -83,6 +99,12 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.TotalRows, Is.EqualTo(outPut["totalrows"]));
+                Assert.That(result.SumStake, Is.EqualTo(outPut["SumStake"]));
+                Assert.That(result.SumWinLoss, Is.EqualTo(outPut["SumWinLost"]));
+                Assert.That(result.SumLicenseeWL, Is.EqualTo(outPut["SumLicenseeWL"]));
+                Assert.That(result.SumComm, Is.EqualTo(outPut["SumComm"]));
+                Assert.That(result.SumPlayerComm, Is.EqualTo(outPut["SumPlayerComm"]));
+
             });
 
         }
