@@ -191,7 +191,7 @@
                 _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + " " + _metaModel.SortOrder);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).SetParameterValue("Date", _metaModel.Date);
+                _objectDb.Received(1).SetParameterValue("Date", _metaModel.FromDate);
                 _objectDb.Received(1).SetParameterValue("showSB", true);
                 _objectDb.Received(1).SetParameterValue("showNG", true);
             });

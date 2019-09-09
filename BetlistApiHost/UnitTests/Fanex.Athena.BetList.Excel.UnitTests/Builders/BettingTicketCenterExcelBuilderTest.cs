@@ -384,7 +384,7 @@
         [TestCase("g", "Asia")]
         [TestCase("e", "Euro")]
         [TestCase("u", "Euro")]
-        [TestCase("y", "Euro")]
+        [TestCase("t", "DeepLink")]
         [TestCase("m", "Wap")]
         public void AssignRowData_AddPlatfromCell_IndexIsOdd_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
         {
@@ -415,7 +415,7 @@
                 && x.FillBackgroundColor == _evenStyle.FillBackgroundColor));
         }
 
-        [TestCase("s", "Mobile")]
+        [TestCase("t", "DeepLink")]
         [TestCase("l", "Mobile")]
         [TestCase("r", "Tablet")]
         [TestCase("x", "NewAsia")]
