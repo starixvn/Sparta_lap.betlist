@@ -247,4 +247,8 @@
     <value>Tablet</value>
     <comment>80687</comment>
   </data>
+  <data name="DeepLink" xml:space="preserve">
+    <value>Deep Link</value>
+    <comment>119010</comment>
+  </data>
 </root>

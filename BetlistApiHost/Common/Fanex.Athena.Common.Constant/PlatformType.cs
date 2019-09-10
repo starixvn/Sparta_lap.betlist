@@ -13,14 +13,13 @@
             { "g", "Asia" },
             { "e", "Euro" },
             { "u", "Euro" },
-            { "y", "Euro" },
             { "m", "Wap" },
-            { "s", "Mobile" },
             { "l", "Mobile" },
             { "r", "Tablet" },
             { "x", "NewAsia" },
             { "o", "MobileApp" },
-            { "c", "MobileLiteVersion" }
+            { "c", "MobileLiteVersion" },
+            { "t", "DeepLink" }
         };
 
         public static string GetPlatformName(string code)
