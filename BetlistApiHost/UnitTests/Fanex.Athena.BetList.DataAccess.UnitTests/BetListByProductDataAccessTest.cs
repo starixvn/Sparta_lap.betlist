@@ -1,11 +1,14 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
+    using System;
     using System.Collections;
     using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.UnitTests;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
+    using Fanex.Athena.Common.DataAccess.Interfaces;
+    using Fanex.Athena.Common.Model.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -13,16 +16,26 @@
     [TestFixture]
     public class BetListByProductDataAccessTest : BaseDataAccessHelperTest<BetListByProductDataAccess>
     {
+        private IBalanceUpDataAccess _balanceUpDataAccess;
+        private BalanceUp _balanceUpInfo = new BalanceUp
+        {
+
+            BalanceUpDay = DateTime.Now,
+            MoveBetsDay = DateTime.Now
+
+        };
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<BetListByProductDataAccess>();
+            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            _balanceUpDataAccess.GetBalanceUp().Returns(_balanceUpInfo);
+            DataAccess = Substitute.ForPartsOf<BetListByProductDataAccess>(_balanceUpDataAccess);
         }
 
         [Test]
         public async Task QueryAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_Running";
+            const string UspKey = "Lrf_BetList_Statement_Mem";
 
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             var metaModel = FakeHelper.Create<BetListByProductMetaModel>();
@@ -35,18 +48,23 @@
             ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
             ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
             ObjectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
-            ObjectDb.Received(1).SetParameterValue("Date", metaModel.Date);
-            ObjectDb.Received(1).SetParameterValue("TransType", metaModel.TransType);
-            ObjectDb.Received(1).SetParameterValue("ProductCode", metaModel.ProductCode);
-            ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
-            ObjectDb.Received(1).SetParameterValue("Sort", metaModel.Sort);
+            ObjectDb.Received(1).SetParameterValue("@Date", metaModel.Date);
+            ObjectDb.Received(1).SetParameterValue("@TransType", metaModel.TransType);
+            ObjectDb.Received(1).SetParameterValue("@ProductCode", metaModel.ProductCode);
+            ObjectDb.Received(1).SetParameterValue("@AgentList", metaModel.AgentListXml);
+            ObjectDb.Received(1).SetParameterValue("@Sort", metaModel.Sort);
+            ObjectDb.Received(1).SetParameterValue("@BalanceUpDay", _balanceUpInfo.BalanceUpDay);
+            ObjectDb.Received(1).SetParameterValue("@MoveBetsDay", _balanceUpInfo.MoveBetsDay);
 
-            ObjectDb.Received(1).SetParameterValue("TotalRows", null);
-            ObjectDb.Received(1).SetParameterValue("SumStake", null);
-            ObjectDb.Received(1).SetParameterValue("SumWinLost", null);
-            ObjectDb.Received(1).SetParameterValue("SumLicenseeWL", null);
-            ObjectDb.Received(1).SetParameterValue("SumComm", null);
-            ObjectDb.Received(1).SetParameterValue("SumPlayerComm", null);
+            ObjectDb.Received(1).SetParameterValue("@Sort", metaModel.Sort);
+
+
+            ObjectDb.Received(1).SetParameterValue("@TotalRows", null);
+            ObjectDb.Received(1).SetParameterValue("@SumStake", null);
+            ObjectDb.Received(1).SetParameterValue("@SumWinLost", null);
+            ObjectDb.Received(1).SetParameterValue("@SumLicenseeWL", null);
+            ObjectDb.Received(1).SetParameterValue("@SumComm", null);
+            ObjectDb.Received(1).SetParameterValue("@SumPlayerComm", null);
 
         }
 
@@ -54,7 +72,7 @@
         public async Task QueryAsync_WhenCall_CallReadBetListTicket()
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_Running";
+            const string UspKey = "Lrf_BetList_Statement_Mem";
 
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
@@ -72,7 +90,7 @@
         public async Task QueryAsync_WhenCall_ReadCorrectOutPutResult()
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_Running";
+            const string UspKey = "Lrf_BetList_Statement_Mem";
 
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
