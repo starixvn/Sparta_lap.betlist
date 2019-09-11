@@ -48,7 +48,7 @@
             ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
             ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
             ObjectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
-            ObjectDb.Received(1).SetParameterValue("@Date", metaModel.Date);
+            ObjectDb.Received(1).SetParameterValue("@Date", metaModel.Date.Date);
             ObjectDb.Received(1).SetParameterValue("@TransType", metaModel.TransType);
             ObjectDb.Received(1).SetParameterValue("@ProductCode", metaModel.ProductCode);
             ObjectDb.Received(1).SetParameterValue("@AgentList", metaModel.AgentListXml);
