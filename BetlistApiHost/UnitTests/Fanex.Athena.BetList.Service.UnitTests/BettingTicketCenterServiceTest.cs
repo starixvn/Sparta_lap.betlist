@@ -40,8 +40,8 @@
             _bettingTicketCenterService = new BettingTicketCenterService(
                 _bettingTicketCenterDataAccess,
                 _bettingTicketCenterMultiCustomerDataAccess,
-                _betlistHtmlBuilder,
-                _ticketHelper);
+                _betlistHtmlBuilder
+                );
         }
 
         [OneTimeTearDown]
@@ -152,45 +152,6 @@
             Assert.That(result, Is.Not.Empty);
         }
 
-        [Test]
-        public void BuildTicketText_IsCombinationMixParlay_ReturnCustomOddText()
-        {
-            // Arrange
-            var metaModel = new RefNoBetListMetaModel
-            {
-                RefNo = FakeHelper.Create<int>()
-            };
-            var ticketResult = new TicketResult();
-            var ticket = new LrfTicket { BetTypeId = (int)BetType.CombinationMixParlay, Status = BetStatus.Lose };
-            ticketResult.MainTicketList.Add(ticket);
-
-            // Action
-            _bettingTicketCenterService.BuildTicketText(ticketResult, metaModel, false);
-
-            // Assert
-            Assert.That(_ticketHelper.ClientDetailSystemParlayFunction, Is.Not.Empty);
-        }
-
-        [Test]
-        public void BuildTicketText_NotCombinationMixParlay_ReturnNormalOddText()
-        {
-            // Arrange
-            var metaModel = new RefNoBetListMetaModel
-            {
-                RefNo = FakeHelper.Create<int>()
-            };
-            var ticketResult = new TicketResult();
-            var ticket = new LrfTicket { BetTypeId = (int)BetType.Handicap, Status = BetStatus.Won };
-            ticketResult.MainTicketList.Add(ticket);
-
-            _ticketHelper.ClientDetailSystemParlayFunction.Returns(string.Empty);
-
-            // Action
-            _bettingTicketCenterService.BuildTicketText(ticketResult, metaModel, false);
-
-            // Assert
-            Assert.That(_ticketHelper.ClientDetailSystemParlayFunction, Is.Empty);
-        }
 
         [TestCase(false, "", "EUR", "1/1/0001", "1/1/0001", "Betting Ticket Center")]
         [TestCase(false, "EUR", "", "1/1/2001", "12/1/2002", "Betting Ticket Center, 01/01/2001-->12/01/2002, Base Currency: EUR")]

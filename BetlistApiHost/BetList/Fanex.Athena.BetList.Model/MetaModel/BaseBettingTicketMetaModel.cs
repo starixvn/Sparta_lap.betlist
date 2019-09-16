@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
 
-    public class BaseBettingTicketMetaModel
+    public class BaseBettingTicketMetaModel : ICommonValueMetaModel
     {
         private const int DefaultPageSize = 50;
 
@@ -76,5 +76,6 @@
         public bool IsConvertAll { get; set; }
 
         public string BaseCurrencyName { get; set; }
+        public int CustId { get; set; }
     }
 }

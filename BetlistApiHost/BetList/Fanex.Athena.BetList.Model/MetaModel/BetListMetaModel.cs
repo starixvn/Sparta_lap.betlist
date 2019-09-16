@@ -10,7 +10,7 @@ namespace Fanex.Athena.BetList.Model.MetaModel
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
 
-    public class BetListMetaModel : BaseMetaModel
+    public class BetListMetaModel : BaseMetaModel, ICommonValueMetaModel
     {
         public BetListMetaModel()
         {

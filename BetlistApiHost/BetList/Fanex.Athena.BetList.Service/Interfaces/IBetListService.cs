@@ -22,12 +22,5 @@ namespace Fanex.Athena.BetList.Service.Interfaces
         Task<TicketResult> GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel);
 
         Task<TicketResult> GetBetListData(BetListMetaModel metaModel);
-
-        List<TicketText> BuildTicketTextList(
-            TicketResult ticketResult,
-            BetListMetaModel metaModel = null,
-            int startIndex = 1,
-            bool showOdds = false,
-            bool isShowPlayerComm = false);
     }
 }

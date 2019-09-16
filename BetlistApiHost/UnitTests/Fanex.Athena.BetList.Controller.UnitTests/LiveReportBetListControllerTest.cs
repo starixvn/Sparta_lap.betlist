@@ -17,17 +17,20 @@
         private const string AgentListXml = "<xml/>";
 
         private IBetListService _betListService;
+        private ITicketBuilderService _ticketBuilderService;
 
         [SetUp]
         public void SetUp()
         {
             _betListService = Substitute.For<IBetListService>();
+            _ticketBuilderService = Substitute.For<ITicketBuilderService>();
         }
 
         [TearDown]
         public void TearDown()
         {
             _betListService = Substitute.For<IBetListService>();
+            _ticketBuilderService = null;
         }
 
         [Test]
@@ -48,7 +51,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _betListService.BuildTicketTextList(ticketResult).Returns(ticketText.ToList());
+                _ticketBuilderService.BuildTicketText(ticketResult).Returns(ticketText.ToList());
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
@@ -83,7 +86,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _betListService.BuildTicketTextList(ticketResult, metaModel, startIndex).Returns(ticketText.ToList());
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, startIndex).Returns(ticketText.ToList());
 
                 // Action
                 var result = (await controller.GetPagingData(metaModel)).Data;
@@ -122,7 +125,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _betListService.BuildTicketTextList(ticketResult, metaModel, Arg.Any<int>()).Returns(ticketText.ToList());
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, Arg.Any<int>()).Returns(ticketText.ToList());
 
                 var expectedWinloss = NumberHelper.DecFormat(metaModel.SumWinlost + metaModel.SumPlayerComm, 2);
 
@@ -141,7 +144,7 @@
 
         private LiveReportBetListController CreateController()
         {
-            return new LiveReportBetListController(_betListService);
+            return new LiveReportBetListController(_betListService, _ticketBuilderService);
         }
     }
 }

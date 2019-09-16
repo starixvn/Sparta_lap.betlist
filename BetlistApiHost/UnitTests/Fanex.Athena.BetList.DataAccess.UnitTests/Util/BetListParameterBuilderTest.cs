@@ -13,24 +13,22 @@
     [TestFixture]
     public class BetListParameterBuilderTest
     {
-        private readonly BetListMetaModel _metaModel;
+        private BetListMetaModel _metaModel;
         private IObjectDb _objectDb;
-
-        public BetListParameterBuilderTest()
-        {
-            _metaModel = FakeHelper.Create<BetListMetaModel>();
-            _metaModel.ProductCodeList = "SB,NG";
-        }
 
         [SetUp]
         public void SetUp()
         {
+            _metaModel = FakeHelper.Create<BetListMetaModel>();
+            _metaModel.ProductCodeList = "SB,NG";
+
             _objectDb = Substitute.For<IObjectDb>();
         }
 
         [TearDown]
         public void TearDown()
         {
+            _metaModel = null;
             _objectDb = null;
         }
 
@@ -213,7 +211,7 @@
                 _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 _objectDb.Received(1).SetParameterValue("MoveBetsDay", _metaModel.MoveBetsDay);
-                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy +  " " + _metaModel.SortOrder);
+                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + " " + _metaModel.SortOrder);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
                 _objectDb.Received(1).SetParameterValue("showSB", true);

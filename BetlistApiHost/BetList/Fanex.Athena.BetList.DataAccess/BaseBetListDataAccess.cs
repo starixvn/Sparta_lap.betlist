@@ -43,7 +43,7 @@ namespace Fanex.Athena.BetList.DataAccess
         }
 
         [CLSCompliant(false)]
-        protected internal SortableList<LrfTicket> ReadBetListTicket(
+        protected internal virtual SortableList<LrfTicket> ReadBetListTicket(
             IDataReader dataReader,
             IDictionary<int, string> currencyList,
             long custId = 0)

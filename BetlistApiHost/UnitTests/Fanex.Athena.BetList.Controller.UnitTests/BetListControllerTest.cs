@@ -20,12 +20,15 @@
         private ICacheRefAdapter _cacheRefAdapter;
 
         private IBetListService _betListService;
+        private ITicketBuilderService _ticketBuilderService;
 
         [SetUp]
         public void SetUp()
         {
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _betListService = Substitute.For<IBetListService>();
+            _ticketBuilderService = Substitute.For<ITicketBuilderService>();
+
         }
 
         [TearDown]
@@ -33,6 +36,8 @@
         {
             _cacheRefAdapter = null;
             _betListService = null;
+            _ticketBuilderService = null;
+
         }
 
         [Test]
@@ -67,7 +72,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
-                _betListService.BuildTicketTextList(ticketResult, metaModel, isShowPlayerComm: metaModel.HasPlayerCom).Returns(ticketText);
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm: metaModel.HasPlayerCom).Returns(ticketText);
 
                 // Action
                 var result = (await controller.GetBetList(metaModel)).Data as BetListResultViewModel;
@@ -109,7 +114,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
-                _betListService.BuildTicketTextList(ticketResult, metaModel, isShowPlayerComm: metaModel.HasPlayerCom).Returns(ticketText);
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm: metaModel.HasPlayerCom).Returns(ticketText);
 
                 var leagueName = FakeHelper.Create<string>();
                 _betListService.GetLeagueName(ticket.LeagueId).Returns(leagueName);
@@ -148,7 +153,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _betListService.BuildTicketTextList(ticketResult, metaModel, startIndex, isShowPlayerComm: metaModel.HasPlayerCom).Returns(ticketText.ToList());
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, startIndex, isAllowedCustomerComm: metaModel.HasPlayerCom).Returns(ticketText.ToList());
 
                 // Action
                 var result = (await controller.GetBetListPaging(metaModel)).Data;
@@ -189,7 +194,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _betListService.BuildTicketTextList(ticketResult, metaModel, Arg.Any<int>(), isShowPlayerComm: metaModel.HasPlayerCom)
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, Arg.Any<int>(), isAllowedCustomerComm: metaModel.HasPlayerCom)
                     .Returns(ticketText.ToList());
 
                 var expectedWinloss = NumberHelper.DecFormat(ticketResult.SumWinLoss + ticketResult.SumPlayerComm, 2);
@@ -219,7 +224,7 @@
                 _betListService.GetBetListData(Arg.Any<BetListMetaModel>()).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
-                _betListService.BuildTicketTextList(ticketResult, Arg.Any<BetListMetaModel>(), isShowPlayerComm: metaModel.HasPlayerCom).Returns(ticketText);
+                _ticketBuilderService.BuildTicketText(ticketResult, Arg.Any<BetListMetaModel>(), isAllowedCustomerComm: metaModel.HasPlayerCom).Returns(ticketText);
 
                 // Action
                 await controller.GetWinLossByLeagueData(metaModel);
@@ -228,7 +233,7 @@
                 Assert.Multiple(() =>
                 {
                     _betListService.Received().GetBetListData(metaModel);
-                    _betListService.Received().BuildTicketTextList(ticketResult, metaModel, isShowPlayerComm: metaModel.HasPlayerCom);
+                    _ticketBuilderService.Received().BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm: metaModel.HasPlayerCom);
                 });
             }
         }
@@ -355,7 +360,7 @@
 
         private BetListController CreateController()
         {
-            return Substitute.ForPartsOf<BetListController>(_cacheRefAdapter, _betListService);
+            return Substitute.ForPartsOf<BetListController>(_cacheRefAdapter, _betListService, _ticketBuilderService);
         }
     }
 }

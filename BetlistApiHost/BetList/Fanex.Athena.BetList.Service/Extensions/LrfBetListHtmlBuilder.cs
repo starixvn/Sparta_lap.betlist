@@ -86,7 +86,7 @@ namespace Fanex.Athena.BetList.Service.Extensions
         [CLSCompliant(false)]
         public static string BuildCustomerWL(this IBetListHTMLBuilder builder, Ticket ticket, bool showPlayerComm)
         {
-            bool isRunning = BetListHelper.IsRunning(ticket.Status);
+            var isRunning = BetListHelper.IsRunning(ticket.Status);
             var winloss = isRunning
                             ? "-"
                             : string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.Winlost);

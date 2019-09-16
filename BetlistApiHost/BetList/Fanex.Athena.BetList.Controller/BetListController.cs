@@ -30,10 +30,14 @@ namespace Fanex.Athena.BetList.Controller
 
         private readonly IBetListService _betListService;
 
-        public BetListController(ICacheRefAdapter cacheRefAdapter, IBetListService betListService)
+        private readonly ITicketBuilderService _ticketBuilderService;
+
+        public BetListController(ICacheRefAdapter cacheRefAdapter, IBetListService betListService, ITicketBuilderService ticketBuilderService)
         {
             _cacheRefAdapter = cacheRefAdapter;
             _betListService = betListService;
+            _ticketBuilderService = ticketBuilderService;
+
         }
 
         [HttpGet]
@@ -56,7 +60,7 @@ namespace Fanex.Athena.BetList.Controller
 
             var result = new BetListResultViewModel
             {
-                Main = _betListService.BuildTicketTextList(ticketResult, metaModel, isShowPlayerComm: metaModel.HasPlayerCom),
+                Main = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm: metaModel.HasPlayerCom),
                 Total = new BetListTotalData
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
@@ -94,7 +98,7 @@ namespace Fanex.Athena.BetList.Controller
                 page = pageIndex,
                 total = totalPage,
                 records = ticketResult.TotalRows,
-                rows = _betListService.BuildTicketTextList(ticketResult, metaModel, startIndex, isShowPlayerComm: metaModel.HasPlayerCom),
+                rows = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, startIndex, isAllowedCustomerComm: metaModel.HasPlayerCom),
                 userdata = new
                 {
                     WinLoss = sumWinLossText,

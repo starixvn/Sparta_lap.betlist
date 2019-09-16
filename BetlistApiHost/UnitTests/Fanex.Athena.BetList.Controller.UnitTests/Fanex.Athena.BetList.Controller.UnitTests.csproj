@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="BaseControllerHelperTest.cs" />
     <Compile Include="BetListControllerTest.cs" />
+    <Compile Include="BetListByProductControllerTest.cs" />
     <Compile Include="BettingTicketCenterControllerTest.cs" />
     <Compile Include="BettingTicketCenterMultiCustomerControllerTest.cs" />
     <Compile Include="CashOutBetListControllerTest.cs" />

@@ -178,6 +178,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BetListByProductController.cs" />
     <Compile Include="BettingTicketCenterController.cs" />
     <Compile Include="BettingTicketCenterMultiCustomerController.cs" />
     <Compile Include="CashOutBetListController.cs" />

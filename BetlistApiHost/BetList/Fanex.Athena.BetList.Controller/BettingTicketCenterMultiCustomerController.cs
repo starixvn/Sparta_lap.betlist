@@ -27,19 +27,20 @@ namespace Fanex.Athena.BetList.Controller
         private readonly IBettingTicketCenterZipBuilder _zipBuilder;
 
         private readonly IBettingTicketCenterExcel _bettingTicketCenterExcel;
-
+        private readonly ITicketBuilderService _ticketBuilderService;
         public BettingTicketCenterMultiCustomerController(
             IAppSettings appSettings,
             IBettingTicketCenterService service,
             IBettingTicketCenterZipBuilder zipBuilder,
-            IBettingTicketCenterExcel bettingTicketCenterExcel
-
+            IBettingTicketCenterExcel bettingTicketCenterExcel,
+            ITicketBuilderService ticketBuilderService
             )
         {
             _appSettings = appSettings;
             _service = service;
             _bettingTicketCenterExcel = bettingTicketCenterExcel ?? new BettingTicketCenterExcel(null);
             _zipBuilder = zipBuilder ?? new BettingTicketCenterZipBuilder(_appSettings, null, _bettingTicketCenterExcel);
+            _ticketBuilderService = ticketBuilderService;
         }
 
         private int MaxRowSupportExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportExportExcel"));
@@ -103,7 +104,7 @@ namespace Fanex.Athena.BetList.Controller
         {
             var result = new
             {
-                Data = _service.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
+                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
                 Total = new
                 {
                     SumWinLoss = _service.BuildSumWinLoss(ticketResult, isAllowedCustomerComm),

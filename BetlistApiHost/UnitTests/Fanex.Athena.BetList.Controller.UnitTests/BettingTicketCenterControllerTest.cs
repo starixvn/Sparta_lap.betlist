@@ -23,18 +23,23 @@
         private IBettingTicketCenterService _service;
 
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
+        private ITicketBuilderService _ticketBuilderService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void FixtureSetUp()
         {
             _service = Substitute.For<IBettingTicketCenterService>();
             _bettingTicketCenterExcel = Substitute.For<IBettingTicketCenterExcel>();
+            _ticketBuilderService = Substitute.For<ITicketBuilderService>();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void FixtureTearDown()
         {
+            _ticketBuilderService = null;
             _service = null;
+            _bettingTicketCenterExcel.Dispose();
+            _bettingTicketCenterExcel.ClearReceivedCalls();
             _bettingTicketCenterExcel = null;
         }
 
@@ -51,7 +56,7 @@
                 _service.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
-                _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
 
                 var sumWL = FakeHelper.Create<string>();
                 _service.BuildSumWinLoss(ticketResult, metaModel.HasPlayerCom).Returns(sumWL);
@@ -155,7 +160,7 @@
                 _service.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
-                _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
 
                 // Action
                 var result = (await controller.GetByRefno(metaModel) as JsonResult).Data;
@@ -244,7 +249,7 @@
                 _service.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
-                _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText);
 
                 // Action
                 var result = (await controller.GetByRunning(metaModel) as JsonResult).Data;
@@ -292,7 +297,7 @@
             using (var controller = CreateController())
             {
                 // Assert
-                var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>();
+                var metaModel = new BaseBettingTicketMetaModel();
                 metaModel.IsExport = true;
 
                 var ticketResult = new TicketResult
@@ -332,7 +337,7 @@
         {
             return new BettingTicketCenterController(
                 _service,
-                _bettingTicketCenterExcel);
+                _bettingTicketCenterExcel, _ticketBuilderService);
         }
     }
 }

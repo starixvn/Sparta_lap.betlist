@@ -31,10 +31,11 @@
 
         private IBettingTicketCenterZipBuilder _zipBuilder;
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
-
+        private  ITicketBuilderService _ticketBuilderService;
         [SetUp]
         public void SetUp()
         {
+            _ticketBuilderService = Substitute.For<ITicketBuilderService>();
             _appSettings = Substitute.For<IAppSettings>();
             _service = Substitute.For<IBettingTicketCenterService>();
             _zipBuilder = Substitute.For<IBettingTicketCenterZipBuilder>();
@@ -68,7 +69,7 @@
                 _service.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _service.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText.ToList());
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom).Returns(ticketText.ToList());
 
                 var sumWL = FakeHelper.Create<string>();
                 _service.BuildSumWinLoss(ticketResult, metaModel.HasPlayerCom).Returns(sumWL);
@@ -234,11 +235,12 @@
                 _appSettings,
                 _service,
                 _zipBuilder,
-                _bettingTicketCenterExcel
+                _bettingTicketCenterExcel,
+                _ticketBuilderService
                 );
         }
 
-        private void SetUpForResponse(BettingTicketCenterMultiCustomerController controller, bool isClientConnected)
+        private static void SetUpForResponse(BettingTicketCenterMultiCustomerController controller, bool isClientConnected)
         {
             var response = Substitute.For<HttpResponseBase>();
             response.IsClientConnected.Returns(isClientConnected);
