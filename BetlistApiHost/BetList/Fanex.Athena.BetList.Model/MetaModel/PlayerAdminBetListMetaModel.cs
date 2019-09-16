@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class PlayerAdminBetListMetaModel
+    public class PlayerAdminBetListMetaModel : ICommonValueMetaModel
     {
         public int CustId { get; set; }
 
@@ -19,5 +19,7 @@
         public int PageSize { get; set; }
 
         public IDictionary<int, string> CurrencyList { get; set; }
+
+        public string BaseCurrency { get; set; } = string.Empty;
     }
 }

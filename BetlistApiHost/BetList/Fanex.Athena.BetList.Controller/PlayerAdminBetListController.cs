@@ -7,9 +7,8 @@
     using Fanex.Athena.BetList.Excel;
     using Fanex.Athena.BetList.Excel.Model;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.BetList.Service.Interfaces;
     using Fanex.Athena.Resources;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
 
     public class PlayerAdminBetListController : BettingTicketCenterBaseController
     {
@@ -17,10 +16,9 @@
 
         public PlayerAdminBetListController(
             IPlayerAdminBetListDataAccess dataAccess,
-            IBetListHTMLBuilder betlistHtmlBuilder,
-            ITicketHelper ticketHelper,
+            ITicketBuilderService ticketBuilderService,
             IBettingTicketCenterExcel excel)
-            : base(betlistHtmlBuilder, ticketHelper, excel)
+            : base(ticketBuilderService, excel)
         {
             _dataAccess = dataAccess;
         }
@@ -30,7 +28,7 @@
         {
             var ticketResult = await _dataAccess.GetRunningBetListAsync(metaModel).ConfigureAwait(false);
 
-            return ReturnData(ticketResult, GetBetListOption(), string.Empty, 1);
+            return ReturnData(ticketResult, GetBetListOption(), metaModel);
         }
 
         [HttpPost]

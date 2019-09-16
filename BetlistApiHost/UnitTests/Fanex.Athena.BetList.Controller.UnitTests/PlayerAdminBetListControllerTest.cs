@@ -7,8 +7,7 @@
     using Excel;
     using Excel.Model;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
-    using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
+    using Fanex.Athena.BetList.Service.Interfaces;
     using Model.DTO;
     using Model.MetaModel;
     using NSubstitute;
@@ -20,9 +19,7 @@
     {
         private IPlayerAdminBetListDataAccess _dataAccess;
 
-        private IBetListHTMLBuilder _betlistHtmlBuilder;
-
-        private ITicketHelper _ticketHelper;
+        private ITicketBuilderService _ticketBuilderService;
 
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
@@ -30,8 +27,7 @@
         public void FixtureSetUp()
         {
             _dataAccess = Substitute.For<IPlayerAdminBetListDataAccess>();
-            _betlistHtmlBuilder = Substitute.For<IBetListHTMLBuilder>();
-            _ticketHelper = Substitute.For<ITicketHelper>();
+            _ticketBuilderService = Substitute.For<ITicketBuilderService>();
             _bettingTicketCenterExcel = Substitute.For<IBettingTicketCenterExcel>();
         }
 
@@ -39,8 +35,7 @@
         public void FixtureTearDown()
         {
             _dataAccess = null;
-            _betlistHtmlBuilder = null;
-            _ticketHelper = null;
+            _ticketBuilderService = null;
             _bettingTicketCenterExcel = null;
         }
 
@@ -69,8 +64,7 @@
                             && !x.ShowLicenseeWl
                             && !x.ShowWinLoss
                             && !x.IsAllowedCustomerComm),
-                        string.Empty,
-                        1);
+                        metaModel);
                 });
             }
         }
@@ -135,11 +129,10 @@
         {
             var controller = Substitute.ForPartsOf<PlayerAdminBetListController>(
                 _dataAccess,
-                _betlistHtmlBuilder,
-                _ticketHelper,
+                _ticketBuilderService,
                 _bettingTicketCenterExcel);
 
-            controller.When(x => x.ReturnData(Arg.Any<TicketResult>(), Arg.Any<BettingTicketCenterOption>(), Arg.Any<string>(), Arg.Any<int>())).DoNotCallBase();
+            controller.When(x => x.ReturnData(Arg.Any<TicketResult>(), Arg.Any<BettingTicketCenterOption>(), Arg.Any<ICommonValueMetaModel>())).DoNotCallBase();
             controller.When(x => x.ExportExcel(Arg.Any<BettingTicketCenterExcelModel>())).DoNotCallBase();
 
             return controller;
