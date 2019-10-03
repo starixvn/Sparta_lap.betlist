@@ -98,6 +98,8 @@ namespace Fanex.Athena.BetList.Controller.Utility
                     ShowSumStake = true,
                     ShowLicenseeWl = true,
                     ShowWinLoss = true,
+                    ShowExternalId = true,
+                    ShowSystemId = true,
                     IsAllowedCustomerComm = hasPlayerComm
                 },
                 Title = title,

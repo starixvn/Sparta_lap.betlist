@@ -2,16 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Web;
-    using System.Web.Mvc;
     using Common.Utility.Services.Interfaces;
     using Excel;
     using Excel.Model;
     using Model.DTO;
-    using Model.MetaModel;
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
     using Utility;
 
     public class BettingTicketCenterZipBuilderTest
@@ -67,7 +64,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _bettingTicketCenterExcel.Received(1).Export(Arg.Any<BettingTicketCenterExcelModel>());
+                _bettingTicketCenterExcel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(
+                    x => x.Option.ShowTotal
+                    && x.Option.ShowSumStake
+                    && x.Option.ShowLicenseeWl
+                    && x.Option.ShowWinLoss
+                    && x.Option.ShowExternalId
+                    && x.Option.ShowSystemId));
                 _zipBuilder.Received(1).SaveFile(workbook, DataPath + ".dat");
                 Assert.That(result, Is.Not.Null);
             });
