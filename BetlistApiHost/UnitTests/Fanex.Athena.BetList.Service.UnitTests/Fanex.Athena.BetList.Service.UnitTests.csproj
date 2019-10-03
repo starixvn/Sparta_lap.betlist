@@ -144,7 +144,6 @@
     <Compile Include="BetListServiceTest.cs" />
     <Compile Include="BetListByProductServiceTest.cs" />
     <Compile Include="TicketBuilderServiceTest.cs" />
-    <Compile Include="BettingTicketCenterServiceTest.cs" />
     <Compile Include="ExchangeBetListServiceTest.cs" />
     <Compile Include="Extensions\LrfBetListHtmlBuilderTest.cs" />
     <Compile Include="Extensions\TicketHelperExtensionTest.cs" />

@@ -235,4 +235,7 @@
   <data name="Tablet" xml:space="preserve">
     <value>平板</value>
   </data>
+  <data name="Currency" xml:space="preserve">
+    <value>货币</value>
+  </data>
 </root>

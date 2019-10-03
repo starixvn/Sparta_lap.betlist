@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.DTO;
+using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.Utility.Helpers;
@@ -58,23 +57,23 @@ namespace Fanex.Athena.BetList.Excel.Builders
             return _builder.GetBetList();
         }
 
-        public void CreateSheet(string sheetName, BettingTicketCenterExcelOption option)
+        public void CreateSheet(string sheetName, BettingTicketCenterOption option)
         {
-            short cols = (short)(NumberOfColumns - (option.ShowWinLoss ? 0 : 1) - (option.ShowLicenseeWl ? 0 : 1));
-            _builder.BuildWorksheet(sheetName, cols);
+            var cols = GetActualCols(option);
+            _builder.BuildWorksheet(sheetName, (short)cols);
         }
 
-        public void AddNoInfoRow(BettingTicketCenterExcelOption option)
+        public void AddNoInfoRow(BettingTicketCenterOption option)
         {
             var titleStyle = _builder.CreateCellStyle();
             titleStyle.Alignment = HorizontalAlignment.Center;
 
-            var mergeCol = NumberOfColumns - 1 - (option.ShowWinLoss ? 0 : 1) - (option.ShowLicenseeWl ? 0 : 1);
+            var mergeCol = GetActualCols(option) - 1;
             _builder.AddCell(new HSSFRichTextString(ViewResources.NoInfo), titleStyle);
             _builder.MergeCell(new CellRangeAddress(ContentRowIndex, ContentRowIndex, 0, mergeCol));
         }
 
-        public void AddTitle(string title, BettingTicketCenterExcelOption option)
+        public void AddTitle(string title, BettingTicketCenterOption option)
         {
             var font = _builder.CreateFont();
             font.Boldweight = (short)FontBoldWeight.Bold;
@@ -84,20 +83,30 @@ namespace Fanex.Athena.BetList.Excel.Builders
             titleStyle.VerticalAlignment = VerticalAlignment.Center;
             titleStyle.SetFont(font);
 
-            var mergeCol = NumberOfColumns - 1 - (option.ShowWinLoss ? 0 : 1) - (option.ShowLicenseeWl ? 0 : 1);
+            var mergeCol = GetActualCols(option) - 1;
             _builder.AddCell(new HSSFRichTextString(title), titleStyle);
             _builder.MergeCell(new CellRangeAddress(0, 0, 0, mergeCol));
         }
 
-        public void AddHeader(bool isShowCustomerComm, BettingTicketCenterExcelOption option)
+        public void AddHeader(BettingTicketCenterOption option)
         {
             var columnWidths = new short[] { 1500, 4800, 4800, 5400, 5400, 15500, 2600, 2600, 4200, 4200, 5400, 5400, 3400, 3400 };
             var index = 0;
 
             var headerStyle = _builder.CreateHeaderCellStyle();
             AddHeaderCell("#", columnWidths[index++], headerStyle);
-            AddHeaderCell(ViewResources.ExternalId, columnWidths[index++], headerStyle);
-            AddHeaderCell(ViewResources.SystemId, columnWidths[index++], headerStyle);
+            if (option.ShowExternalId)
+            {
+                AddHeaderCell(ViewResources.ExternalId, columnWidths[index], headerStyle);
+            }
+            ++index;
+
+            if (option.ShowSystemId)
+            {
+                AddHeaderCell(ViewResources.SystemId, columnWidths[index], headerStyle);
+            }
+            ++index;
+
             AddHeaderCell(ViewResources.RefNo, columnWidths[index++], headerStyle);
             AddHeaderCell(ViewResources.TransTime, columnWidths[index++], headerStyle);
             AddHeaderCell(ViewResources.Choice, columnWidths[index++], headerStyle);
@@ -107,80 +116,87 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
             if (option.ShowWinLoss)
             {
-                AddHeaderCell(ViewResources.WinLoss + (isShowCustomerComm ? "/" + ViewResources.Comm : string.Empty), columnWidths[index++], headerStyle);
+                AddHeaderCell(ViewResources.WinLoss + (option.IsAllowedCustomerComm ? "/" + ViewResources.Comm : string.Empty), columnWidths[index], headerStyle);
             }
-            else
-            {
-                ++index;
-            }
+            ++index;
 
             if (option.ShowLicenseeWl)
             {
-                AddHeaderCell(ViewResources.LicenseeWL + "/" + ViewResources.Comm, columnWidths[index++], headerStyle);
+                AddHeaderCell(ViewResources.LicenseeWL + "/" + ViewResources.Comm, columnWidths[index], headerStyle);
             }
-            else
-            {
-                ++index;
-            }
+            ++index;
 
             AddHeaderCell(ViewResources.Status, columnWidths[index++], headerStyle);
             AddHeaderCell(ViewResources.Platform, columnWidths[index++], headerStyle);
             AddHeaderCell(ViewResources.Live, columnWidths[index], headerStyle);
         }
 
-        public void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumPlayerComm, decimal? sumLicenseeWL, string totalText)
+        public void AddFooter(
+            decimal sumStake,
+            decimal sumWinLoss,
+            decimal sumPlayerComm,
+            decimal sumLicenseeWL,
+            string totalText,
+            BettingTicketCenterOption option)
         {
             var footerStyle = _builder.CreateFooterCellStyle();
-            var cols = NumberOfColumns;
-            var totalColIndex = ColumnTotalStart;
+            var cols = GetActualCols(option);
+            var totalColIndex = ColumnTotalStart - (!option.ShowExternalId).ToInt() - (!option.ShowSystemId).ToInt();
+            var currentTotalColIndex = totalColIndex;
 
             var rtfTotal = new HSSFRichTextString(totalText);
-            for (int i = 0; i < ColumnTotalStart; i++)
+            for (int i = 0; i < totalColIndex; i++)
             {
                 _builder.AddCell(rtfTotal, footerStyle);
             }
 
             _builder.AddCell(
-                new HSSFRichTextString(sumStake.HasValue ? sumStake.Value.ToString(FormatKey.DecimalFormat) : string.Empty),
+                new HSSFRichTextString(option.ShowSumStake ? sumStake.ToString(FormatKey.DecimalFormat) : string.Empty),
                 footerStyle);
+            currentTotalColIndex++;
 
-            if (sumWinLoss.HasValue)
+            if (option.ShowWinLoss)
             {
-                var sumWinLossString = sumPlayerComm.HasValue
-                    ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", sumWinLoss.Value, sumPlayerComm.Value)
-                    : string.Format("{0:#,##0.00}", sumWinLoss.Value);
+                var sumWinLossString = option.IsAllowedCustomerComm
+                    ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", sumWinLoss, sumPlayerComm)
+                    : string.Format("{0:#,##0.00}", sumWinLoss);
                 _builder.AddCell(new HSSFRichTextString(sumWinLossString), footerStyle);
-
-                --cols;
-                --totalColIndex;
+                currentTotalColIndex++;
             }
 
-            if (sumLicenseeWL.HasValue)
+            if (option.ShowLicenseeWl)
             {
-                var rtfSumLicenseeWl = new HSSFRichTextString(sumLicenseeWL.Value.ToString(FormatKey.DecimalFormat));
-                rtfSumLicenseeWl.ApplyFont(sumLicenseeWL.Value < 0 ? _negativeWinLossFont : _winLossFont);
+                var rtfSumLicenseeWl = new HSSFRichTextString(sumLicenseeWL.ToString(FormatKey.DecimalFormat));
+                rtfSumLicenseeWl.ApplyFont(sumLicenseeWL < 0 ? _negativeWinLossFont : _winLossFont);
                 _builder.AddCell(rtfSumLicenseeWl, footerStyle);
-
-                --cols;
-                --totalColIndex;
+                currentTotalColIndex++;
             }
 
             // add the rest column
-            for (int i = totalColIndex + 3; i < cols; i++)
+            for (int i = currentTotalColIndex; i < cols; i++)
             {
                 _builder.AddCell(new HSSFRichTextString(), footerStyle);
             }
 
             var lastRowIndex = _builder.LastContentRow;
-            _builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, ColumnTotalStart - 1), footerStyle);
+            _builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, totalColIndex - 1), footerStyle);
         }
 
-        public void AssignRowData(TicketResult ticketResult, LrfTicket ticket, bool isShowCustomerComm, int licenseeId, BettingTicketCenterExcelOption option)
+        public void AssignRowData(TicketResult ticketResult, LrfTicket ticket, int licenseeId, BettingTicketCenterOption option)
         {
             _ticketHelper.Index++;
             _builder.AddIndex(_ticketHelper, _ticketHelper.Index);
-            _builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellLeftAlign, _evenCellLeftAlign);
-            _builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellLeftAlign, _evenCellLeftAlign);
+
+            if (option.ShowExternalId)
+            {
+                _builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellLeftAlign, _evenCellLeftAlign);
+            }
+
+            if (option.ShowSystemId)
+            {
+                _builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellLeftAlign, _evenCellLeftAlign);
+            }
+
             _builder.AddRefNo(ticket, _ticketHelper);
             _builder.AddTransTime(ticket, _ticketHelper);
             _builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
@@ -190,7 +206,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
             if (option.ShowWinLoss)
             {
-                _builder.AddCustomerWL(ticket, isShowCustomerComm, _winLossFont);
+                _builder.AddCustomerWL(ticket, option.IsAllowedCustomerComm, _winLossFont);
             }
 
             if (option.ShowLicenseeWl)
@@ -229,6 +245,9 @@ namespace Fanex.Athena.BetList.Excel.Builders
             _mixLiveFont = _builder.CreateFont();
             _mixLiveFont.Color = MixLiveColor;
         }
+
+        private static int GetActualCols(BettingTicketCenterOption option)
+            => NumberOfColumns - (!option.ShowWinLoss).ToInt() - (!option.ShowLicenseeWl).ToInt() - (!option.ShowExternalId).ToInt() - (!option.ShowSystemId).ToInt();
 
         private void AddPlatfromCell(LrfTicket ticket)
         {

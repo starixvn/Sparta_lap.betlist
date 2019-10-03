@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Extensions;
@@ -108,6 +105,12 @@ namespace Fanex.Athena.BetList.Service
             }
 
             return ticketTextList;
+        }
+
+        public string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm)
+        {
+            var ticket = new LrfTicket { Winlost = ticketResult.SumWinLoss, PlayerComm = ticketResult.SumPlayerComm };
+            return _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm);
         }
     }
 }

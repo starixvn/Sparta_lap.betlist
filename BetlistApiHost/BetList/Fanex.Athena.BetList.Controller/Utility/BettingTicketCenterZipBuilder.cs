@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web;
-using System.Web.Mvc;
 using Fanex.Athena.BetList.Excel;
-using Fanex.Athena.BetList.Excel.Builders;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.DTO;
+using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.Common.Utility.Services;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
@@ -93,16 +92,16 @@ namespace Fanex.Athena.BetList.Controller.Utility
             return new BettingTicketCenterExcelModel
             {
                 Data = dataBySheet,
-                Option = new BettingTicketCenterExcelOption
+                Option = new BettingTicketCenterOption
                 {
                     ShowTotal = true,
                     ShowSumStake = true,
                     ShowLicenseeWl = true,
                     ShowWinLoss = true,
-                    TotalText = totalText
+                    IsAllowedCustomerComm = hasPlayerComm
                 },
-                CustomerCommVisible = hasPlayerComm,
-                Title = title
+                Title = title,
+                TotalText = totalText
             };
         }
 

@@ -14,6 +14,9 @@ namespace Fanex.Athena.BetList.DataAccess
     using Common.DataAccess;
     using Common.Utility.Collections;
     using Common.Utility.Extensions;
+    using Fanex.Athena.Common.DataAccess.Extensions;
+    using Fanex.BetList.Core.Entities;
+    using Fanex.Common.Extensions;
     using Model.DTO;
     using Util;
 
@@ -67,7 +70,6 @@ namespace Fanex.Athena.BetList.DataAccess
 
         protected static IDictionary<string, string> GetColumns(string baseCurrency = "")
         {
-
             var columns = new[]
              {
                 "username", "refno", "matchcode", "status", "betteam", "betstatus", "showtime", "oddstype",
@@ -87,6 +89,30 @@ namespace Fanex.Athena.BetList.DataAccess
             result.Add("actualStakeCol", "actual_stake");
             result.Add("originalStakeCol", "originalstake");
             return result;
+        }
+
+        [CLSCompliant(false)]
+        protected static IEnumerable<ITicketData> ReadReferneceTicket(IDataReader reader)
+        {
+            const string StakeColumn = "stake";
+            const string BetteamColum = "betteam";
+
+            var hasOrdinalBetTeam = reader.HasColumn(BetteamColum);
+            var hasOrdinalStake = reader.HasColumn(StakeColumn);
+            while (reader.Read())
+            {
+                var ticket = new TicketData
+                {
+                    BetTeam = hasOrdinalBetTeam ? reader.ToString(BetteamColum) : string.Empty,
+                    RefNo = reader.ToString("refno"),
+                    Status = reader.ToString("status"),
+                    BetTypeId = reader.ToInt("bettype"),
+                    Stake = hasOrdinalStake ? reader.ToDecimal(StakeColumn) : 0,
+                    Odds = reader.ToDecimal("odds")
+                };
+
+                yield return ticket;
+            }
         }
 
         private static void ReadStringData(LrfTicket ticket, ISafeDataReader reader)

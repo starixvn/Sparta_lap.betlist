@@ -68,6 +68,7 @@
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
+                    ticketResult.TotalRows = ticketResult.MainTicketList.Count;
                 }
             }
 

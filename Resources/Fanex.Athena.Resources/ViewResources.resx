@@ -251,4 +251,7 @@
     <value>Deep Link</value>
     <comment>119010</comment>
   </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
 </root>

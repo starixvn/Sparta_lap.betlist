@@ -125,12 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BetListByProductService.cs" />
-    <Compile Include="BettingTicketCenterService.cs" />
     <Compile Include="ExchangeBetListService.cs" />
     <Compile Include="Extensions\TicketHelperExtension.cs" />
     <Compile Include="Helpers\BetListHelper.cs" />
     <Compile Include="Interfaces\IBetListByProductService.cs" />
-    <Compile Include="Interfaces\IBettingTicketCenterService.cs" />
     <Compile Include="Interfaces\IExchangeBetListService.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListService.cs" />
     <Compile Include="Interfaces\ITicketBuilderService.cs" />

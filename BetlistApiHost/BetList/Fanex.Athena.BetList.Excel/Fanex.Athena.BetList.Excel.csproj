@@ -151,7 +151,6 @@
     <Compile Include="Builders\BettingTicketCenterExcelBuilder.cs" />
     <Compile Include="Builders\IBettingTicketCenterExcelBuilder.cs" />
     <Compile Include="Model\BettingTicketCenterExcelModel.cs" />
-    <Compile Include="Model\BettingTicketCenterExcelOption.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="IBettingTicketCenterExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

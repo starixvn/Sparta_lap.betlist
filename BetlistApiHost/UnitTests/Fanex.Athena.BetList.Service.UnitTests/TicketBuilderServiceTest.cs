@@ -1,33 +1,22 @@
 ﻿namespace Fanex.Athena.BetList.Service.UnitTests
 {
-    using System.Collections.Generic;
-
     using Common.Constant;
-
     using Fanex.Athena.BetList.Service.Helpers;
     using Fanex.Athena.Common.Utility.Collections;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-
     using Interfaces;
-
     using Model.DTO;
     using Model.MetaModel;
-
     using NSubstitute;
-
     using NUnit.Framework;
-
     using Service;
-
     using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class TicketBuilderServiceTest
     {
-        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
-
         private IBetListHTMLBuilder _betlistHtmlBuilder;
 
         private ITicketHelper _ticketHelper;
@@ -186,6 +175,22 @@
 
             // Assert
             Assert.That(_ticketHelper.ClientDetailSystemParlayFunction, Is.Empty);
+        }
+
+        [Test]
+        public void BuildSumWinLoss_WhenCall_ShouldHasData()
+        {
+            // Assert
+            var ticketResult = new TicketResult { SumWinLoss = FakeHelper.Create<decimal>(), SumPlayerComm = FakeHelper.Create<decimal>() };
+
+            // Action
+            var result = _ticketBuilderService.BuildSumWinLoss(ticketResult, FakeHelper.Create<bool>());
+            
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+            });
         }
     }
 }

@@ -57,7 +57,7 @@
             await _service.GetSportsAsync(date, LicenseeId);
 
             // Assert
-            _dataAccess.Received(1).GetSportsAsync(date, LicenseeId);
+            await _dataAccess.Received(1).GetSportsAsync(date, LicenseeId);
         }
 
         [Test]
@@ -71,7 +71,7 @@
             await _service.GetLeaguesAsync(date, LicenseeId);
 
             // Assert
-            _dataAccess.Received(1).GetLeaguesAsync(date, LicenseeId);
+            await _dataAccess.Received(1).GetLeaguesAsync(date, LicenseeId);
         }
 
         [Test]
@@ -84,7 +84,7 @@
             await _service.GetMatchesAsync(metaModel);
 
             // Assert
-            _dataAccess.Received(1).GetMatchesAsync<Sportsbook>(metaModel);
+            await _dataAccess.Received(1).GetMatchesAsync<Sportsbook>(metaModel);
         }
 
         [Test]
@@ -97,7 +97,7 @@
             await _service.GetNumberGameMatchesAsync(metaModel);
 
             // Assert
-            _numberGameDataAccess.Received(1).GetNumberGameMatchesAsync(metaModel);
+            await _numberGameDataAccess.Received(1).GetNumberGameMatchesAsync(metaModel);
         }
 
         [Test]
@@ -110,7 +110,7 @@
             await _service.GetHappy5MatchesAsync(metaModel);
 
             // Assert
-            _numberGameDataAccess.Received(1).GetHappy5MatchesAsync(metaModel);
+            await _numberGameDataAccess.Received(1).GetHappy5MatchesAsync(metaModel);
         }
 
         [Test]
@@ -123,7 +123,7 @@
             await _service.GetVirtualSportMatchesAsync(metaModel);
 
             // Assert
-            _dataAccess.Received(1).GetVirtualSportMatchesAsync(metaModel);
+            await _dataAccess.Received(1).GetVirtualSportMatchesAsync(metaModel);
         }
 
         [Test]
@@ -136,7 +136,7 @@
             await _service.GetSportsbookGameDetailAsync(MatchId);
 
             // Assert
-            _dataAccess.Received(1).GetSportsbookGameDetailAsync(MatchId);
+            await _dataAccess.Received(1).GetSportsbookGameDetailAsync(MatchId);
         }
 
         [Test]
@@ -157,7 +157,7 @@
             await _service.GetPopUpMatchAsync(metaModel);
 
             // Assert
-            _dataAccess.Received(1).GetPopUpMatchesAsync<Sportsbook>(Arg.Is<ResultPopupMetaModel>(x => x == metaModel && !x.RaceNo.HasValue));
+            await _dataAccess.Received(1).GetPopUpMatchesAsync<Sportsbook>(Arg.Is<ResultPopupMetaModel>(x => x == metaModel && !x.RaceNo.HasValue));
         }
 
         [Test]
@@ -176,7 +176,7 @@
             await _service.GetPopUpVirtualSportMatchAsync(metaModel);
 
             // Assert
-            _dataAccess.Received(1).GetPopUpMatchesAsync<Racing>(metaModel);
+            await _dataAccess.Received(1).GetPopUpMatchesAsync<Racing>(metaModel);
         }
 
         [Test]
@@ -189,7 +189,7 @@
             await _service.GetPopUpParlayMatchAsync(RefNo);
 
             // Assert
-            _dataAccess.Received(1).GetPopUpParalayMatchAsync(RefNo);
+            await _dataAccess.Received(1).GetPopUpParalayMatchAsync(RefNo);
         }
 
         [Test]
@@ -202,7 +202,7 @@
             await _service.GetPopUpNumberGameMatchsAsync(MatchId);
 
             // Assert
-            _numberGameDataAccess.Received(1).GetPopUpNumberGameMatchAsync(MatchId);
+            await _numberGameDataAccess.Received(1).GetPopUpNumberGameMatchAsync(MatchId);
         }
 
         [Test]
@@ -215,7 +215,7 @@
             await _service.GetPopUpHappy5MatchesAsync(MatchId);
 
             // Assert
-            _numberGameDataAccess.Received(1).GetPopUpHappy5MatchAsync(MatchId);
+            await _numberGameDataAccess.Received(1).GetPopUpHappy5MatchAsync(MatchId);
         }
     }
 }

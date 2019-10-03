@@ -78,7 +78,7 @@
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, !string.IsNullOrEmpty(metaModel.MultipleBettype) ? metaModel.MultipleBettype : string.Empty);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
-            db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
+            db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator ?? -1);
             db.SetParameterValue("betteam", metaModel.BetTeam);
             CreateBetListPagingParameters(db, metaModel);
         }
@@ -110,7 +110,7 @@
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
-            db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
+            db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator ?? -1);
             db.SetParameterValue("betteam", metaModel.BetTeam);
             db.SetParameterValue("BetChoice", metaModel.BetChoice);
             db.SetParameterValue("Handicap", metaModel.Handicap);
@@ -122,7 +122,7 @@
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
-            db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
+            db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator ?? -1);
             db.SetParameterValue("betteam", metaModel.BetTeam);
             db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             CreateBetListPagingParameters(db, metaModel);
@@ -226,7 +226,7 @@
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue(BetTypeColumn, metaModel.BetType);
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
-            db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
+            db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator ?? -1);
             db.SetParameterValue("Date", metaModel.FromDate);
             CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);

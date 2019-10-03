@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.Excel.BetList.Builders.UnitTests
 {
     using Athena.BetList.Excel.Builders;
-    using Athena.BetList.Excel.Model;
     using Athena.BetList.Model.DTO;
     using Common.Constant;
+    using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NPOI.HSSF.UserModel;
@@ -70,15 +70,26 @@
             });
         }
 
-        [TestCase(true, true, 14)]
-        [TestCase(false, false, 12)]
-        [TestCase(true, false, 13)]
-        [TestCase(false, true, 13)]
-        public void CreateSheet_WhenCall_BuildWorksheetWithCorrectParameters(bool showWinLoss, bool showLicenseeWl, short expectedCols)
+        [TestCase(true, true, true, true, NumberOfColumns)]
+        [TestCase(false, false, false, false, NumberOfColumns - 4)]
+        [TestCase(true, false, true, false, NumberOfColumns - 2)]
+        [TestCase(false, true, false, true, NumberOfColumns - 2)]
+        public void CreateSheet_WhenCall_BuildWorksheetWithCorrectParameters(
+            bool showWinLoss,
+            bool showLicenseeWL,
+            bool showExtternalId,
+            bool showSystemId,
+            short expectedCols)
         {
             // Arrange
             var sheetName = FakeHelper.Create<string>();
-            var option = new BettingTicketCenterExcelOption { ShowWinLoss = showWinLoss, ShowLicenseeWl = showLicenseeWl };
+            var option = new BettingTicketCenterOption
+            {
+                ShowWinLoss = showWinLoss,
+                ShowLicenseeWl = showLicenseeWL,
+                ShowExternalId = showExtternalId,
+                ShowSystemId = showSystemId
+            };
 
             // Action
             _excelBuilder.CreateSheet(sheetName, option);
@@ -90,21 +101,28 @@
             });
         }
 
-        [TestCase(true, true, NumberOfColumns - 1)]
-        [TestCase(false, false, NumberOfColumns - 3)]
-        [TestCase(true, false, NumberOfColumns - 2)]
-        [TestCase(false, true, NumberOfColumns - 2)]
-        public void AddNoInfoRow_WhenCall_WorkCorrectly(bool isShowWinLoss, bool isShowLicenseeWL, int expectedMergedLastCol)
+        [TestCase(true, true, true, true, NumberOfColumns - 1)]
+        [TestCase(false, false, false, false, NumberOfColumns - 5)]
+        [TestCase(true, false, true, false, NumberOfColumns - 3)]
+        [TestCase(false, true, false, true, NumberOfColumns - 3)]
+        public void AddNoInfoRow_WhenCall_WorkCorrectly(
+            bool showWinLoss,
+            bool showLicenseeWL,
+            bool showExtternalId,
+            bool showSystemId,
+            int expectedMergedLastCol)
         {
             // Arrange
             var titleStyle = Substitute.For<ICellStyle>();
             _builder.CreateCellStyle().Returns(titleStyle);
 
             // Action
-            _excelBuilder.AddNoInfoRow(new BettingTicketCenterExcelOption
+            _excelBuilder.AddNoInfoRow(new BettingTicketCenterOption
             {
-                ShowWinLoss = isShowWinLoss,
-                ShowLicenseeWl = isShowLicenseeWL
+                ShowWinLoss = showWinLoss,
+                ShowLicenseeWl = showLicenseeWL,
+                ShowExternalId = showExtternalId,
+                ShowSystemId = showSystemId
             });
 
             // Assert
@@ -121,11 +139,16 @@
             });
         }
 
-        [TestCase(true, true, NumberOfColumns - 1)]
-        [TestCase(false, false, NumberOfColumns - 3)]
-        [TestCase(true, false, NumberOfColumns - 2)]
-        [TestCase(false, true, NumberOfColumns - 2)]
-        public void AddTitle_WhenCall_WorkCorrectly(bool isShowWinLoss, bool isShowLicenseeWL, int expectedMergedLastCol)
+        [TestCase(true, true, true, true, NumberOfColumns - 1)]
+        [TestCase(false, false, false, false, NumberOfColumns - 5)]
+        [TestCase(true, false, true, false, NumberOfColumns - 3)]
+        [TestCase(false, true, false, true, NumberOfColumns - 3)]
+        public void AddTitle_WhenCall_WorkCorrectly(
+            bool showWinLoss,
+            bool showLicenseeWL,
+            bool showExtternalId,
+            bool showSystemId,
+            int expectedMergedLastCol)
         {
             // Arrange
             const string Title = "sddflghdlkfjghldjfg";
@@ -137,10 +160,12 @@
             // Action
             _excelBuilder.AddTitle(
                 Title,
-                new BettingTicketCenterExcelOption
+                new BettingTicketCenterOption
                 {
-                    ShowWinLoss = isShowWinLoss,
-                    ShowLicenseeWl = isShowLicenseeWL
+                    ShowWinLoss = showWinLoss,
+                    ShowLicenseeWl = showLicenseeWL,
+                    ShowExternalId = showExtternalId,
+                    ShowSystemId = showSystemId
                 });
 
             // Assert
@@ -185,7 +210,14 @@
             };
 
             // Action
-            _excelBuilder.AddHeader(isShowCustomerComm, new BettingTicketCenterExcelOption { ShowWinLoss = true, ShowLicenseeWl = true });
+            _excelBuilder.AddHeader(new BettingTicketCenterOption
+            {
+                ShowWinLoss = true,
+                ShowLicenseeWl = true,
+                IsAllowedCustomerComm = isShowCustomerComm,
+                ShowSystemId = true,
+                ShowExternalId = true
+            });
 
             // Assert
             Assert.Multiple(() =>
@@ -207,7 +239,7 @@
             _builder.CreateCellStyle().Returns(cellStyle);
 
             // Action
-            _excelBuilder.AddHeader(false, new BettingTicketCenterExcelOption { ShowWinLoss = false, ShowLicenseeWl = true });
+            _excelBuilder.AddHeader(new BettingTicketCenterOption { ShowWinLoss = false, ShowLicenseeWl = true });
 
             // Assert
             _builder.DidNotReceive().AddCell(
@@ -223,7 +255,7 @@
             _builder.CreateCellStyle().Returns(cellStyle);
 
             // Action
-            _excelBuilder.AddHeader(false, new BettingTicketCenterExcelOption { ShowWinLoss = true, ShowLicenseeWl = false });
+            _excelBuilder.AddHeader(new BettingTicketCenterOption { ShowWinLoss = true, ShowLicenseeWl = false });
 
             // Assert
             _builder.DidNotReceive().AddCell(
@@ -231,38 +263,46 @@
                 cellStyle);
         }
 
-        [Test]
-        public void AddFooter_WhenCall_WorkCorrectly()
+        [TestCase(false, false, false, false, ColumnTotalStart - 2)]
+        [TestCase(true, true, true, true, ColumnTotalStart)]
+        [TestCase(false, true, false, true, ColumnTotalStart - 1)]
+        [TestCase(true, false, true, false, ColumnTotalStart - 1)]
+        public void AddFooter_WhenCall_WorkCorrectly(
+            bool showExternalId,
+            bool showSystemId,
+            bool showWinLoss,
+            bool showLicenseeWL,
+            int expectedColumnTotalStart)
         {
             // Arrange
-            const decimal SumStake = 12.12m;
-            const decimal SumWinLoss = 23.23m;
-            const decimal SumPlayerComm = 34.34m;
-            const decimal SumLicenseeWL = 45.45m;
+            const int ExpectedNonTotalColumn = 3;
             var lastRow = FakeHelper.Create<int>();
             _builder.LastContentRow.Returns(lastRow);
             _excelBuilder.InitializeFonts();
 
             var totalText = FakeHelper.Create<string>();
+            var option = new BettingTicketCenterOption {
+                ShowExternalId = showExternalId,
+                ShowSystemId = showSystemId,
+                ShowLicenseeWl = showLicenseeWL,
+                ShowWinLoss = showWinLoss,
+                ShowSumStake = true,
+                IsAllowedCustomerComm = true
+            };
 
             // Action
-            _excelBuilder.AddFooter(SumStake, SumWinLoss, SumPlayerComm, SumLicenseeWL, totalText);
+            _excelBuilder.AddFooter(0, 0, 0, 0, totalText, option);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _builder.Received(ColumnTotalStart).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == totalText), Arg.Any<ICellStyle>());
-                _builder.Received(NumberOfColumns - ColumnTotalStart - 3).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumStake.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(
-                    Arg.Is<HSSFRichTextString>(x => x.String == SumWinLoss.ToString(FormatKey.DecimalFormat) + "\n" + SumPlayerComm.ToString(FormatKey.DecimalFormat)),
-                    Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumLicenseeWL.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+                _builder.Received(expectedColumnTotalStart).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == totalText), Arg.Any<ICellStyle>());
+                _builder.Received(ExpectedNonTotalColumn).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
             });
         }
 
         [TestCase(45698, "45,698.00")]
-        [TestCase(0, "0.00")]
+        [TestCase(0.1, "0.10")]
         [TestCase(-654321.123, "-654,321.12")]
         public void AddFooter_ShowSumStake_AddSumStakeCell(decimal original, string expected)
         {
@@ -272,14 +312,14 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(original, null, null, null, FakeHelper.Create<string>());
+            _excelBuilder.AddFooter(original, 0, 0, 0, FakeHelper.Create<string>(), FakeHelper.Create<BettingTicketCenterOption>(x => x.ShowSumStake, true));
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [TestCase(0.996, "1.00")]
-        [TestCase(0, "0.00")]
+        [TestCase(0.2, "0.20")]
         [TestCase(-0.99, "-0.99")]
         public void AddFooter_ShowSumWinLoss_AddSumWinLossCell(decimal original, string expected)
         {
@@ -289,16 +329,16 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(null, original, null, null, FakeHelper.Create<string>());
+            _excelBuilder.AddFooter(0, original, 0, 0, FakeHelper.Create<string>(), FakeHelper.Create<BettingTicketCenterOption>(x => x.ShowWinLoss, true));
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
-        [TestCase(0.996, 0, "1.00\n0.00")]
-        [TestCase(0, null, "0.00")]
-        [TestCase(-0.99, 0.111, "-0.99\n0.11")]
-        public void AddFooter_ShowSumPlayerComm_AddSumWinLossCell(decimal originalWL, decimal? originalComm, string expected)
+        [TestCase(0.996, 0, true, "1.00\n0.00")]
+        [TestCase(0.8, 1.258, false, "0.80")]
+        [TestCase(-0.99, 0.111, true, "-0.99\n0.11")]
+        public void AddFooter_ShowSumPlayerComm_AddSumWinLossCell(decimal originalWL, decimal originalComm, bool isAllowedCustomerComm, string expected)
         {
             // Arrange
             var lastRow = FakeHelper.Create<int>();
@@ -306,14 +346,20 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(null, originalWL, originalComm, null, FakeHelper.Create<string>());
+            _excelBuilder.AddFooter(
+                0,
+                originalWL,
+                originalComm,
+                0,
+                FakeHelper.Create<string>(),
+                new BettingTicketCenterOption { ShowWinLoss = true, IsAllowedCustomerComm = isAllowedCustomerComm });
 
             // Assert
              _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [TestCase(12.345, "12.35")]
-        [TestCase(0, "0.00")]
+        [TestCase(0.5, "0.50")]
         [TestCase(-654321, "-654,321.00")]
         public void AddFooter_ShowSumLicenseeWL_AddSumLicenseeWLCell(decimal original, string expected)
         {
@@ -323,7 +369,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(null, null, null, original, FakeHelper.Create<string>());
+            _excelBuilder.AddFooter(0, 0, 0, original, FakeHelper.Create<string>(), FakeHelper.Create<BettingTicketCenterOption>(x => x.ShowLicenseeWl, true));
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
@@ -348,7 +394,7 @@
             _excelBuilder.InitializeCellStyles();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 1, new BettingTicketCenterExcelOption { ShowWinLoss = true });
+            _excelBuilder.AssignRowData(tickets, ticket, 1, new BettingTicketCenterOption { ShowWinLoss = true });
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == "100.00"));
@@ -373,7 +419,7 @@
             _excelBuilder.InitializeCellStyles();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 1, new BettingTicketCenterExcelOption { ShowLicenseeWl = true });
+            _excelBuilder.AssignRowData(tickets, ticket, 1, new BettingTicketCenterOption { ShowLicenseeWl = true });
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == "200.00"));
@@ -406,7 +452,7 @@
             var expectedPlatformName = ViewResources.ResourceManager.GetString(platformName);
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, true, 1, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 1, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, true));
 
             // Assert
             _builder.Received(1).AddCell(
@@ -441,7 +487,7 @@
             var expectedPlatformName = ViewResources.ResourceManager.GetString(platformName);
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, true, 1, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 1, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, true));
 
             // Assert
             _builder.Received(1).AddCell(
@@ -473,7 +519,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 2, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 2, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, false));
 
             // Assert
             _builder.Received(1).AddCell(
@@ -504,7 +550,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, false, 2, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 2, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, false));
 
             // Assert
             _builder.Received(1).AddCell(
@@ -530,7 +576,7 @@
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, true, 3, FakeHelper.Create<BettingTicketCenterExcelOption>());
+            _excelBuilder.AssignRowData(tickets, ticket, 3, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, true));
 
             // Assert
             _builder.Received(1).AddCell(

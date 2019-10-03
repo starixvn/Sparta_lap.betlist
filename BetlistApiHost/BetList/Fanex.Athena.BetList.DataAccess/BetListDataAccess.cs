@@ -112,7 +112,7 @@ namespace Fanex.Athena.BetList.DataAccess
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.CurrencyList, metaModel.CustId));
                     if (reader.NextResult())
                     {
-                        ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader).ToList());
+                        ticketResult.TicketDataList.AddRange(ReadReferneceTicket(reader).ToList());
                     }
 
                     SortData(metaModel, ticketResult.MainTicketList);
@@ -144,27 +144,6 @@ namespace Fanex.Athena.BetList.DataAccess
             ticketResult.SumPlayerComm = outPutParams.ContainsKey("sumplayercomm")
                 ? Converter.ToDecimal(outPutParams["sumplayercomm"])
                 : ticketResult.MainTicketList.Sum(x => x.PlayerComm);
-        }
-
-        private static IEnumerable<ITicketData> ReadLrfReferneceTicket(IDataReader reader)
-        {
-            const string stakeColumn = "stake";
-            var hasOrdinalBetTeam = reader.HasColumn("betteam");
-            var hasOrdinalStake = reader.HasColumn(stakeColumn);
-            while (reader.Read())
-            {
-                var ticket = new TicketData
-                {
-                    BetTeam = hasOrdinalBetTeam ? reader.ToString("betteam") : string.Empty,
-                    RefNo = reader.ToString("refno"),
-                    Status = reader.ToString("status"),
-                    BetTypeId = reader.ToInt("bettype"),
-                    Stake = hasOrdinalStake ? reader.ToDecimal(stakeColumn) : 0,
-                    Odds = reader.ToDecimal("odds")
-                };
-
-                yield return ticket;
-            }
         }
 
         private static void SortData(BetListMetaModel metaModel, SortableList<LrfTicket> ticketList)
