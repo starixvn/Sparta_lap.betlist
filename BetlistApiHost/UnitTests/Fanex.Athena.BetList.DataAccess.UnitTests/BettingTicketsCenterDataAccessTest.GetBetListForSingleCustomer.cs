@@ -19,7 +19,7 @@
             DataAccess.GetObjectDb(Arg.Is(BetListBySingleCustomerUspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = productCode };
 
@@ -59,7 +59,7 @@
             DataAccess.GetObjectDb(Arg.Is(BetListBySingleCustomerUspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
@@ -81,7 +81,7 @@
             DataAccess.GetObjectDb(Arg.Is(BetListBySingleCustomerUspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
@@ -109,7 +109,7 @@
                 { "sumcomm", FakeHelper.Create<decimal>() },
                 { "sumplayercomm", FakeHelper.Create<int>() }
             };
-            ObjectDb.GetOuputParams().Returns(outPut);
+            ObjectDb.GetOutputParams().Returns(outPut);
 
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty };
 

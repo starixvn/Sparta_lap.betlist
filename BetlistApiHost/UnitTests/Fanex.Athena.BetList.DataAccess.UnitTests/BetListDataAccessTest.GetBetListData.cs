@@ -24,7 +24,7 @@
             DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossByMatchSp)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel(LiveReportWinlossByMatchSp);
 
-            ObjectDb.GetOuputParams().Returns(x => { return null; });
+            ObjectDb.GetOutputParams().Returns(x => { return null; });
 
             // Action
             await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
@@ -54,7 +54,7 @@
                 Odds = 5
             };
             DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossByMatchSp)).Returns(ObjectDb);
-            ObjectDb.GetOuputParams().Returns(x => { return null; });
+            ObjectDb.GetOutputParams().Returns(x => { return null; });
             Reader.NextResult().Returns(true);
             Reader.Read().Returns(false, true, false);
             MapReaderData(new
@@ -93,7 +93,7 @@
             };
             const int TotalRows = 10;
             DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossByMatchSp)).Returns(ObjectDb);
-            ObjectDb.GetOuputParams().Returns(x => { return new Hashtable { { "totalrows", TotalRows } }; });
+            ObjectDb.GetOutputParams().Returns(x => { return new Hashtable { { "totalrows", TotalRows } }; });
             Reader.NextResult().Returns(true);
             Reader.Read().Returns(false, true, false);
             MapReaderData(new
@@ -316,7 +316,7 @@
             Reader.Read().Returns(true, false, false);
             SetUpColumnsForReader(5, new[] { "winlost", "beteffective", "licenseewl", "comm", "playercomm" });
 
-            ObjectDb.GetOuputParams().Returns(x => { return null; });
+            ObjectDb.GetOutputParams().Returns(x => { return null; });
 
             var metaModel = new BetListMetaModel { BaseCurrency = string.Empty, UspKey = uspName };
 
@@ -363,7 +363,7 @@
             Reader.Read().Returns(true, false, false);
             SetUpColumnsForReader(5, new[] { "winlost", "beteffective", "licenseewl", "comm", "playercomm" });
 
-            ObjectDb.GetOuputParams().Returns(expectSummaryResult);
+            ObjectDb.GetOutputParams().Returns(expectSummaryResult);
 
             var metaModel = new BetListMetaModel { BaseCurrency = BaseCurrency, UspKey = uspName };
 
@@ -401,7 +401,7 @@
             Reader.Read().Returns(true, false, false);
             SetUpColumnsForReader(5, new[] { "winlost", "beteffective", "licenseewl", "comm", "playercomm" });
 
-            ObjectDb.GetOuputParams().Returns(expectSummaryResult);
+            ObjectDb.GetOutputParams().Returns(expectSummaryResult);
 
             var metaModel = new BetListMetaModel { BaseCurrency = BaseCurrency, UspKey = uspName };
 

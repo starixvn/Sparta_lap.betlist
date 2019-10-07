@@ -1,29 +1,28 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
-    using System;
-    using System.Collections;
-    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.UnitTests;
-    using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.Common.DataAccess.Interfaces;
     using Fanex.Athena.Common.Model.DTO;
     using NSubstitute;
     using NUnit.Framework;
+    using System;
+    using System.Collections;
+    using System.Threading.Tasks;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class BetListByProductDataAccessTest : BaseDataAccessHelperTest<BetListByProductDataAccess>
     {
         private IBalanceUpDataAccess _balanceUpDataAccess;
+
         private BalanceUp _balanceUpInfo = new BalanceUp
         {
-
             BalanceUpDay = DateTime.Now,
             MoveBetsDay = DateTime.Now
-
         };
+
         protected override void SetUpDataAccess()
         {
             _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
@@ -58,14 +57,12 @@
 
             ObjectDb.Received(1).SetParameterValue("@Sort", metaModel.Sort);
 
-
             ObjectDb.Received(1).SetParameterValue("@TotalRows", null);
             ObjectDb.Received(1).SetParameterValue("@SumStake", null);
             ObjectDb.Received(1).SetParameterValue("@SumWinLost", null);
             ObjectDb.Received(1).SetParameterValue("@SumLicenseeWL", null);
             ObjectDb.Received(1).SetParameterValue("@SumComm", null);
             ObjectDb.Received(1).SetParameterValue("@SumPlayerComm", null);
-
         }
 
         [Test]
@@ -84,8 +81,8 @@
 
             // Assert
             DataAccess.Received(1).ReadBetListTicket(Reader, metaModel.UserCurrencyList, 0);
-
         }
+
         [Test]
         public async Task QueryAsync_WhenCall_ReadCorrectOutPutResult()
         {
@@ -103,10 +100,9 @@
                 { "SumLicenseeWL", FakeHelper.Create<int>() },
                 { "SumComm", FakeHelper.Create<int>() },
                 { "SumPlayerComm", FakeHelper.Create<int>() }
-
             };
 
-            ObjectDb.GetOuputParams().Returns(outPut);
+            ObjectDb.GetOutputParams().Returns(outPut);
 
             var metaModel = FakeHelper.Create<BetListByProductMetaModel>();
 
@@ -122,9 +118,7 @@
                 Assert.That(result.SumLicenseeWL, Is.EqualTo(outPut["SumLicenseeWL"]));
                 Assert.That(result.SumComm, Is.EqualTo(outPut["SumComm"]));
                 Assert.That(result.SumPlayerComm, Is.EqualTo(outPut["SumPlayerComm"]));
-
             });
-
         }
     }
 }

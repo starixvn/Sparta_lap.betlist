@@ -1,14 +1,13 @@
 ﻿namespace Fanex.Athena.Common.Utility.Helpers
 {
+    using Fanex.Data;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Data.SqlClient;
     using System.Linq;
     using System.Text;
     using System.Web;
-    using Fanex.Data;
 
     public static class LogMessageHelper
     {
@@ -83,10 +82,9 @@
             return new Dictionary<string, object>();
         }
 
-        private static string GetParameters(ICollection parameters)
+        private static string GetParameters(IDictionary<string, object> parameters)
            => parameters.Count > 0
-               ? parameters.Cast<KeyValuePair<string, object>>()
-                       .Select(parameter => $"{parameter.Key}={parameter.Value}")
+               ? parameters.Select(parameter => $"{parameter.Key}={parameter.Value}")
                        .Aggregate((firstPair, secondPair) => $"{firstPair};{secondPair}")
                : string.Empty;
 

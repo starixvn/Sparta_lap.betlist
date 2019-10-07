@@ -51,7 +51,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
             metaModel.IsExport = false;
@@ -94,7 +94,7 @@
             DataAccess.GetObjectDb(Arg.Is(TotalRowUspKey)).Returns(ObjectDb);
 
             var totalRow = FakeHelper.Create<int>();
-            ObjectDb.GetOuputParams().Returns(new Hashtable { { "totalrows", totalRow } });
+            ObjectDb.GetOutputParams().Returns(new Hashtable { { "totalrows", totalRow } });
 
             var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
 
@@ -132,7 +132,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
             metaModel.SortBy = string.Empty;
@@ -179,7 +179,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(true, false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 
@@ -202,7 +202,7 @@
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(true, true, false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
 

@@ -6,25 +6,19 @@
 
 namespace Fanex.Athena.BetList.DataAccess
 {
+    using Common.Utility.Collections;
+    using Data;
+    using Fanex.Athena.BetList.DataAccess.Interfaces;
+    using Fanex.Athena.BetList.Model.DTO;
+    using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.BetList.Core.Entities;
+    using Fanex.Common;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
-
-    using Common.DataAccess.Extensions;
-    using Common.Utility.Collections;
-
-    using Data;
-
-    using Fanex.Athena.BetList.DataAccess.Interfaces;
-    using Fanex.Athena.BetList.Model.DTO;
-    using Fanex.Athena.BetList.Model.MetaModel;
-    using Fanex.BetList.Core.Entities;
-    using Fanex.Common;
-    using Fanex.Common.Extensions;
-
     using Util;
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
@@ -118,7 +112,7 @@ namespace Fanex.Athena.BetList.DataAccess
                     SortData(metaModel, ticketResult.MainTicketList);
                 }
 
-                Hashtable outSqlParams = db.GetOuputParams() ?? new Hashtable();
+                Hashtable outSqlParams = db.GetOutputParams() ?? new Hashtable();
 
                 UpdateSummaryData(ticketResult, outSqlParams);
 
