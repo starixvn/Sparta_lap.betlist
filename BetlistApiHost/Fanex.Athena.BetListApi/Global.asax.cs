@@ -13,19 +13,20 @@ namespace Fanex.Athena
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Routing;
+
     using App_Start;
+
     using Data;
-    using Fanex.Athena.Common.Utility.Extensions;
+
     using Fanex.Athena.Common.Utility.Helpers;
     using Fanex.BetList.Core;
     using Fanex.BetList.Core.RemotingRef;
     using Fanex.RemotingRef;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.RemotingRef;
+
     using Logging;
     using Logging.RabbitMQ;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
 
     public class MvcApplication : HttpApplication
     {
