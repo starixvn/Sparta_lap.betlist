@@ -6,6 +6,12 @@
 
 namespace Fanex.Athena.BetList.DataAccess
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Common.Utility.Collections;
     using Data;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
@@ -13,12 +19,7 @@ namespace Fanex.Athena.BetList.DataAccess
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using System.Threading.Tasks;
+
     using Util;
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
@@ -176,7 +177,6 @@ namespace Fanex.Athena.BetList.DataAccess
                 Stake = Converter.ToDecimal(row["stake"]),
                 Status = Converter.ToString2(row["status"]),
                 StatusId = Converter.ToInt(row["statusid"]),
-                TransId = Convert.ToInt64(row["transid"]),
                 WinLost = Converter.ToDecimal(row["winlost"]),
                 WinLostDate = Converter.ToDateTime(row["winlostdate"])
             };
