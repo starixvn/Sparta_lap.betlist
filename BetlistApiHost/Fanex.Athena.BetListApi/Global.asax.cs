@@ -15,6 +15,7 @@ namespace Fanex.Athena
     using System.Web.Routing;
     using App_Start;
     using Data;
+    using Fanex.Athena.Common.Utility.Extensions;
     using Fanex.Athena.Common.Utility.Helpers;
     using Fanex.BetList.Core;
     using Fanex.BetList.Core.RemotingRef;
@@ -23,6 +24,8 @@ namespace Fanex.Athena
     using Fanex.Result.Core.RemotingRef;
     using Logging;
     using Logging.RabbitMQ;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
 
     public class MvcApplication : HttpApplication
     {
@@ -41,7 +44,7 @@ namespace Fanex.Athena
             }
 
         }
-        
+
 
         public void Application_Start(object sender, EventArgs e)
         {
