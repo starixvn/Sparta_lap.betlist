@@ -12,6 +12,11 @@ namespace Fanex.Athena.Common.Utility.Extensions
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class JsonNetModelBinderAttribute : ActionFilterAttribute
     {
+        private static readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            DateTimeZoneHandling = DateTimeZoneHandling.Unspecified
+        };
         public Type JsonDataType { get; set; }
         public string Parameter { get; set; }
 
@@ -26,7 +31,7 @@ namespace Fanex.Athena.Common.Utility.Extensions
                     inputContent = sr.ReadToEnd();
                 }
 
-                var result = JsonConvert.DeserializeObject(inputContent, JsonDataType);
+                var result = JsonConvert.DeserializeObject(inputContent, JsonDataType, _jsonSerializerSettings);
                 filterContext.ActionParameters[Parameter] = result;
             }
         }
