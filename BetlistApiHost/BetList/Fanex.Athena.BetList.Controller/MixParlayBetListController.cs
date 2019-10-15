@@ -8,6 +8,7 @@ using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
+using Fanex.Athena.Common.Utility.Extensions;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -50,6 +51,7 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
+        [JsonNetModelBinder(Parameter = "metaModel", JsonDataType = typeof(NewParlayDetailMetaModel))]
         public async Task<JsonResult> NewParlayDetail(NewParlayDetailMetaModel metaModel)
         {
             var texts = _cacheRefAdapter.GetCombinationTypeCombo(metaModel.BetTeam, metaModel.BetCheck, metaModel.Handicap1, metaModel.Handicap2);
