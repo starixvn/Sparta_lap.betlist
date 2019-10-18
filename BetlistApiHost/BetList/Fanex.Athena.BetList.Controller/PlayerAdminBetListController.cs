@@ -8,6 +8,7 @@
     using Fanex.Athena.BetList.Excel.Model;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.BetList.Service.Interfaces;
+    using Fanex.Athena.Common.Utility.Extensions;
     using Fanex.Athena.Resources;
 
     public class PlayerAdminBetListController : BettingTicketCenterBaseController
@@ -24,6 +25,7 @@
         }
 
         [HttpPost]
+        [JsonNetModelBinder(Parameter = "metaModel", JsonDataType = typeof(PlayerAdminBetListMetaModel))]
         public async Task<JsonResult> GetBetList(PlayerAdminBetListMetaModel metaModel)
         {
             var ticketResult = await _dataAccess.GetRunningBetListAsync(metaModel).ConfigureAwait(false);
