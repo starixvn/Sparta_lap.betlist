@@ -1,15 +1,15 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess
 {
-    using System.Threading.Tasks;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Common;
     using Fanex.Data;
+    using System.Threading.Tasks;
 
     public class PlayerAdminBetListDataAccess : BaseBetListDataAccess, IPlayerAdminBetListDataAccess
     {
-        const string UspKey = "Lrf_BetList_Running_Mem";
+        private const string UspKey = "Lrf_BetList_Running_Mem";
 
         public async Task<TicketResult> GetRunningBetListAsync(PlayerAdminBetListMetaModel metaModel)
         {
@@ -29,7 +29,7 @@
                     }
                 }
 
-                var outSqlParams = db.GetOuputParams();
+                var outSqlParams = db.GetOutputParams();
                 ticketResult.SumStake = Converter.ToDecimal(outSqlParams["SumStake"]);
                 ticketResult.TotalRows = Converter.ToInt(outSqlParams["TotalRows"]);
             }

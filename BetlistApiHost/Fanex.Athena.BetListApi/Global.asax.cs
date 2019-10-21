@@ -6,13 +6,6 @@
 
 namespace Fanex.Athena
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Web;
-    using System.Web.Http;
-    using System.Web.Mvc;
-    using System.Web.Routing;
 
     using App_Start;
 
@@ -21,12 +14,20 @@ namespace Fanex.Athena
     using Fanex.Athena.Common.Utility.Helpers;
     using Fanex.BetList.Core;
     using Fanex.BetList.Core.RemotingRef;
+    using Fanex.Data.SqlServer;
     using Fanex.RemotingRef;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.RemotingRef;
 
     using Logging;
     using Logging.RabbitMQ;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Web;
+    using System.Web.Http;
+    using System.Web.Mvc;
+    using System.Web.Routing;
 
     public class MvcApplication : HttpApplication
     {
@@ -43,7 +44,6 @@ namespace Fanex.Athena
             {
                 LogService.Error(LogMessageHelper.GenerateMessage(exception));
             }
-
         }
 
 
@@ -62,8 +62,7 @@ namespace Fanex.Athena
 
             DbSettingProviderManager
                 .StartNewSession()
-                .UseDefaultConnectionStringProvider()
-                .UseDefaultDbSettingProvider(resourcePath: SpNameConfigSource)
+                .WithSqlServer(resourcePath: SpNameConfigSource)
                 .Run();
             RefDataTypeContainer
            .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
@@ -77,7 +76,6 @@ namespace Fanex.Athena
                  {
                      new RabbitMQLogging(ConfigurationManager.AppSettings["RabbitMQ-ConnectionString"])
                  });
-
 
             DIConfig.Register();
         }

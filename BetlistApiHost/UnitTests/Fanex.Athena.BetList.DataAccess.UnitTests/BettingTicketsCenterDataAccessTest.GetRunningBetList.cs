@@ -19,7 +19,7 @@
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = productCode };
 
@@ -48,7 +48,7 @@
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
@@ -70,7 +70,7 @@
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
-            ObjectDb.GetOuputParams().Returns(new Hashtable());
+            ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
@@ -94,7 +94,7 @@
                 { "sumstake", FakeHelper.Create<decimal>() },
                 { "totalrows", FakeHelper.Create<int>() }
             };
-            ObjectDb.GetOuputParams().Returns(outPut);
+            ObjectDb.GetOutputParams().Returns(outPut);
 
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty };
 

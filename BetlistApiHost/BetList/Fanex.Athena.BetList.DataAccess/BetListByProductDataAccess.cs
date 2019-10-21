@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-
-using Fanex.Athena.BetList.DataAccess.Interfaces;
+﻿using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.Common.DataAccess.Interfaces;
 using Fanex.Common;
+using System.Threading.Tasks;
 
 namespace Fanex.Athena.BetList.DataAccess
 {
@@ -16,6 +15,7 @@ namespace Fanex.Athena.BetList.DataAccess
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
+
         public async Task<TicketResult> QueryAsync(BetListByProductMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Statement_Mem";
@@ -31,9 +31,8 @@ namespace Fanex.Athena.BetList.DataAccess
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.UserCurrencyList));
                 }
 
-                var outSqlParams = db.GetOuputParams();
+                var outSqlParams = db.GetOutputParams();
                 GetOutPutResult(ticketResult, outSqlParams);
-
             }
 
             return ticketResult;

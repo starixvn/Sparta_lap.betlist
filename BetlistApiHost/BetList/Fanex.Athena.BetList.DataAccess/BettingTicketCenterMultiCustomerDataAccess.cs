@@ -1,10 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
     using Common.DataAccess.Interfaces;
@@ -13,6 +8,11 @@
     using Fanex.Common;
     using Interfaces;
     using Newtonsoft.Json;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class BettingTicketCenterMultiCustomerDataAccess : BaseBetListDataAccess, IBettingTicketCenterMultiCustomerDataAccess
     {
@@ -67,7 +67,7 @@
                     }
                 }
 
-                var outSqlParams = db.GetOuputParams();
+                var outSqlParams = db.GetOutputParams();
                 ReadOutputParams(groupData, outSqlParams);
 
                 return groupData;
@@ -89,7 +89,7 @@
                     ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                 }
 
-                var outSqlParams = db.GetOuputParams();
+                var outSqlParams = db.GetOutputParams();
                 ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
                 ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
                 ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
@@ -125,7 +125,7 @@
 
                 await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
-                var outSqlParams = db.GetOuputParams();
+                var outSqlParams = db.GetOutputParams();
                 return Converter.ToInt(outSqlParams["totalrows"]);
             }
         }

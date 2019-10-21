@@ -106,7 +106,7 @@
             var totalRows = FakeHelper.Create<int>();
 
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
-            ObjectDb.GetOuputParams().Returns(new Hashtable { { "SumStake", sumStake }, { "TotalRows", totalRows } });
+            ObjectDb.GetOutputParams().Returns(new Hashtable { { "SumStake", sumStake }, { "TotalRows", totalRows } });
             Reader.Read().Returns(false);
             Reader.NextResult().Returns(false);
 
