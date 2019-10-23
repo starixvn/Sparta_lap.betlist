@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Fanex.Athena.BetList.Model.DTO;
 
 namespace Fanex.Athena.BetList.Model.ViewModel
 {
     public class SystemParlayDetailViewModel
     {
-        public IEnumerable<SystemParlayDetailItem> DataList { get; set; }
+        public IEnumerable<IGrouping<DateTime, SystemParlayDetailItem>> DataList { get; set; }
 
         public decimal Outstanding { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Fanex.Athena.BetList.DataAccess.Interfaces;
@@ -56,7 +57,7 @@ namespace Fanex.Athena.BetList.Service
             return result;
         }
 
-        private static IEnumerable<SystemParlayDetailItem> BuildTicketList(SystemParlayDetailData data, ITicketHelper ticketHelper)
+        private static IEnumerable<IGrouping<DateTime, SystemParlayDetailItem>> BuildTicketList(SystemParlayDetailData data, ITicketHelper ticketHelper)
         {
             return data.TicketList
                 .OrderBy(t =>
@@ -80,7 +81,8 @@ namespace Fanex.Athena.BetList.Service
                         HomeTeam = ticketHelper.GetTeamNameById(x.HomeId),
                         AwayTeam = ticketHelper.GetTeamNameById(x.AwayId)
                     })
-                });
+                })
+                .GroupBy(p => p.Date);
         }
 
         private static string GetBetListStatusName(int status)

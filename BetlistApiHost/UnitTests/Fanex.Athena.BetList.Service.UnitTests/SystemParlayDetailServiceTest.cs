@@ -45,7 +45,7 @@ namespace Fanex.Athena.BetList.Service.UnitTests
 
             // Action
             var result = await service.BuildHtmlContent(metaModel, ticketHelper, ViewPath);
-            var dataList = viewModel.DataList.ToList();
+            var dataList = viewModel.DataList.ElementAt(0).ToList();
 
             // Assert
             Assert.Multiple(() =>
@@ -67,18 +67,22 @@ namespace Fanex.Athena.BetList.Service.UnitTests
             var ticket1 = FakeHelper.Create<SystemParlayDetailTicket>();
             ticket1.Serial = 1;
             ticket1.StatusId = Convert.ToInt32(BetStatusId.Lost);
+            ticket1.WinLostDate = new DateTime(2019, 10, 23);
 
             var ticket2 = FakeHelper.Create<SystemParlayDetailTicket>();
             ticket2.Serial = 2;
             ticket2.StatusId = Convert.ToInt32(BetStatusId.Won);
+            ticket2.WinLostDate = new DateTime(2019, 10, 23);
 
             var ticket3 = FakeHelper.Create<SystemParlayDetailTicket>();
             ticket3.Serial = 3;
             ticket3.StatusId = Convert.ToInt32(BetStatusId.Draw);
+            ticket3.WinLostDate = new DateTime(2019, 10, 23);
 
             var unknownStatusTicket = FakeHelper.Create<SystemParlayDetailTicket>();
             unknownStatusTicket.Serial = 4;
             unknownStatusTicket.StatusId = 999;
+            unknownStatusTicket.WinLostDate = new DateTime(2019, 10, 23);
 
             var serial1 = FakeHelper.Create<SystemParlayDetailSerial>(x => x.Serial, 1);
             var serial2 = FakeHelper.Create<SystemParlayDetailSerial>(x => x.Serial, 2);
