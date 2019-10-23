@@ -1,0 +1,90 @@
+﻿@using Fanex.Athena.Common.Utility.Helpers;
+@using System.Linq;
+@using Fanex.BetList.Core.App_GlobalResources;
+
+@model Fanex.Athena.BetList.Model.ViewModel.SystemParlayDetailViewModel
+@{
+    var groupedData = Model.DataList.GroupBy(p => p.Date);
+}
+
+<style type="text/css">
+    .system-parlay-detail .negative {
+        color: #ff0000;
+    }
+
+    .system-parlay-detail .match-group {
+        padding: 3px 0;
+    }
+</style>
+<table class="system-parlay-detail" style="text-align: right;white-space: nowrap; width: 100%; font-weight: bold" cellspacing="0" cellpadding="0" border="0">
+    <thead>
+        <tr class="system-parlay-header">
+            <th width="100">@CoreBetList.date</th>
+            <th>@CoreBetList.events</th>
+            <th width="80">@CoreBetList.odds</th>
+            <th width="80">@CoreBetList.stake</th>
+            <th width="80">@CoreBetList.winloss</th>
+            <th width="80">@CoreBetList.status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dataByDate in groupedData)
+        {
+            var rowSpan = dataByDate.Count().ToString();
+            var isFirstItem = true;
+
+            var subTotalPlayerCommission = Model.ShowPlayerComm ? dataByDate.Sum(d => d.PlayerComm) : 0;
+            var subTotal = dataByDate.Sum(x => x.WinLoss) + subTotalPlayerCommission;
+
+            foreach (var dataByMatch in dataByDate)
+            {
+                <tr>
+                    @if (isFirstItem)
+                    {
+                        <td rowspan="@rowSpan" style="text-align: center; font-weight: normal;">@dataByMatch.Date.ToString("MM/dd/yyyy")</td>
+                        isFirstItem = false;
+                    }
+                    <td style="text-align: left; font-weight: normal;">
+                        @foreach (var match in dataByMatch.MatchList)
+                        {
+                            <div class="match-group">@match.HomeTeam -vs- @match.AwayTeam</div>
+                        }
+                    </td>
+                    <td>@NumberHelper.DecFormat(dataByMatch.Odds, 4)</td>
+                    <td>@NumberHelper.DecFormat(dataByMatch.Stake)</td>
+                    <td>
+                        <div class="@(dataByMatch.WinLoss < 0 ? "negative" : string.Empty)">@NumberHelper.DecFormat(dataByMatch.WinLoss)</div>
+                        @if (Model.ShowPlayerComm)
+                        {
+                            <div>@NumberHelper.DecFormat(dataByMatch.PlayerComm, 4)</div>
+                        }
+                    </td>
+                    <td style="text-align: center;">@dataByMatch.Status</td>
+                </tr>
+            }
+
+            <tr class="system-parlay-subtotal">
+                <td colspan="4">@CoreBetList.subTotal:</td>
+                <td class="@(subTotal < 0 ? "negative" : string.Empty)">@NumberHelper.DecFormat(subTotal)</td>
+                <td>&nbsp;</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr class="system-parlay-outstanding">
+            <td colspan="4">@CoreBetList.outstanding:</td>
+            <td class="@(Model.Outstanding < 0 ? "negative" : string.Empty)" style="border-left: none;">
+                @(Model.Outstanding == 0 ? "0" : NumberHelper.DecFormat(Model.Outstanding))
+            </td>
+            <td style="border-left: none;">&nbsp;</td>
+        </tr>
+        @if (Model.DataList.Any())
+        {
+            <tr class="system-parlay-total">
+                <td colspan="4">@CoreBetList.total:</td>
+                <td class="@(Model.Total < 0 ? "negative" : string.Empty)">@NumberHelper.DecFormat(Model.Total)</td>
+                <td>&nbsp;</td>
+            </tr>
+        }
+    </tfoot>
+</table>

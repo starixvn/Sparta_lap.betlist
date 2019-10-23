@@ -18,5 +18,7 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public DateTime MoveBetsDay { get; set; }
 
         public DateTime BalanceUpDay { get; set; }
+
+        public bool IsAllowedCustomerComm { get; set; }
     }
 }

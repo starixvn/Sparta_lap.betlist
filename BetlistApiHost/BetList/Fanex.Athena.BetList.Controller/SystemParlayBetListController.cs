@@ -13,22 +13,27 @@ namespace Fanex.Athena.BetList.Controller
         private readonly IBetListHTMLBuilder _betListBuilder;
         private readonly IBetListService _betListService;
 
+        private readonly ISystemParlayDetailService _systemParlayDetailService;
+
         public SystemParlayBetListController(
             ITicketHelper ticketHelper,
             IBetListHTMLBuilder betListBuilder,
-            IBetListService betListService)
+            IBetListService betListService,
+            ISystemParlayDetailService systemParlayDetailService)
         {
             _ticketHelper = ticketHelper;
             _betListBuilder = betListBuilder;
             _betListService = betListService;
+            _systemParlayDetailService = systemParlayDetailService;
         }
 
         [HttpPost]
         public async Task<string> Detail(SystemParlayDetailMetaModel metaModel)
         {
-            var systemParlayData = await _betListService.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
+            var viewPath = Server.MapPath("~/Views/SystemParlayDetail/Index.cshtml");
+            _ticketHelper.ShowSystemParlayPlayerComm = metaModel.IsAllowedCustomerComm;
 
-            return _betListBuilder.BuildSystemParlayDetail(this._ticketHelper, systemParlayData);
+            return await _systemParlayDetailService.BuildHtmlContent(metaModel, _ticketHelper, viewPath);
         }
     }
 }
