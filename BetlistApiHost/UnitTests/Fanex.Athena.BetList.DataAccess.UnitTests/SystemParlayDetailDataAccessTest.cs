@@ -1,16 +1,19 @@
-﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
-{
-    using System;
-    using System.Data;
-    using System.Threading.Tasks;
-    using Athena.BetList.Model.MetaModel;
-    using Fanex.BetList.Core.Entities;
-    using NSubstitute;
-    using NUnit.Framework;
-    using UnitTest.Common.Helpers;
-    using UnitTest.Common.NUnitExtensions;
+﻿using System;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using Fanex.Athena.BetList.Model.DTO;
+using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.Common.DataAccess.UnitTests;
+using Fanex.Athena.UnitTest.Common.Helpers;
+using Fanex.Athena.UnitTest.Common.NUnitExtensions;
+using NSubstitute;
+using NUnit.Framework;
 
-    public partial class BetListDataAccessTest
+namespace Fanex.Athena.BetList.DataAccess.UnitTests
+{
+    [TestFixture]
+    public class SystemParlayDetailDataAccessTest : BaseDataAccessHelperTest<SystemParlayDetailDataAccess>
     {
         private const string GetSystemParlayDetailSp = "Lrf_BetList_SelCombinationParlayDetail";
 
@@ -25,7 +28,7 @@
             ObjectDb.ExecuteDataSet().Returns(dataset);
 
             // Action
-            await DataAccess.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
+            await DataAccess.GetData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -43,23 +46,24 @@
         public async Task GetSystemParlayDetail_WhenCall_GetTicketDataCorrectly()
         {
             // Arrange
-            var expectedResult = FakeHelper.Create<SystemParlayTicket>();
+            var expectedResult = FakeHelper.Create<SystemParlayDetailTicket>();
+            expectedResult.TransId = 0;
             var metaModel = GetSystemParlayDetailMetaModel();
             DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
             ObjectDb.ExecuteDataSetAsync().Returns(CreateFakeDataSetForSystemParlayTickeData(expectedResult));
 
             // Action
-            var result = await DataAccess.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetData(metaModel).ConfigureAwait(false);
 
             // Assert
-            Assert.That(result.TicketList[0], Tobe.SameProperties(expectedResult));
+            Assert.That(result.TicketList.ElementAt(0), Tobe.SameProperties(expectedResult));
         }
 
         [Test]
         public async Task GetSystemParlayDetail_WhenCall_GetSerialDataCorrectly()
         {
             // Arrange
-            var expectedResult = new SystemParlaySerial
+            var expectedResult = new SystemParlayDetailSerial
             {
                 Serial = 1,
                 HomeId = 2,
@@ -70,13 +74,13 @@
             ObjectDb.ExecuteDataSetAsync().Returns(CreateFakeDataSetForSystemParlaySerialData(expectedResult));
 
             // Action
-            var result = await DataAccess.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetData(metaModel).ConfigureAwait(false);
 
             // Assert
-            Assert.That(result.SerialList[0], Tobe.SameProperties(expectedResult));
+            Assert.That(result.SerialList.ElementAt(0), Tobe.SameProperties(expectedResult));
         }
 
-        private static DataSet CreateFakeDataSetForSystemParlayTickeData(SystemParlayTicket data)
+        private static DataSet CreateFakeDataSetForSystemParlayTickeData(SystemParlayDetailTicket data)
         {
             var dataSet = new DataSet();
             var table = new DataTable();
@@ -107,7 +111,7 @@
             return dataSet;
         }
 
-        private static DataSet CreateFakeDataSetForSystemParlaySerialData(SystemParlaySerial data)
+        private static DataSet CreateFakeDataSetForSystemParlaySerialData(SystemParlayDetailSerial data)
         {
             var dataSet = new DataSet();
             dataSet.Tables.Add(new DataTable());

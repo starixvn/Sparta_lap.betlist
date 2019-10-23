@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Fanex.Athena.BetList.DataAccess.Interfaces;
+using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
-using Fanex.BetList.Core.Entities;
 using Fanex.Common;
 using Fanex.Data;
 
@@ -13,7 +13,7 @@ namespace Fanex.Athena.BetList.DataAccess
     public class SystemParlayDetailDataAccess : BaseBetListDataAccess, ISystemParlayDetailDataAccess
     {
         [CLSCompliant(false)]
-        public async Task<SystemParlayData> GetData(SystemParlayDetailMetaModel metaModel)
+        public async Task<SystemParlayDetailData> GetData(SystemParlayDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelCombinationParlayDetail";
             using (var db = this.GetObjectDb(UspName))
@@ -21,11 +21,8 @@ namespace Fanex.Athena.BetList.DataAccess
                 SetSystemParlayDetailParameter(db, metaModel);
 
                 var dataSet = await db.ExecuteDataSetAsync().ConfigureAwait(false);
-                var systemParlayData = new SystemParlayData
-                {
-                    TicketList = new List<ISystemParlayTicket>(),
-                    SerialList = new List<ISystemParlaySerial>()
-                };
+                var ticketList = new List<SystemParlayDetailTicket>();
+                var serialList = new List<SystemParlayDetailSerial>();
 
                 if (dataSet.Tables.Count > 0)
                 {
@@ -33,7 +30,7 @@ namespace Fanex.Athena.BetList.DataAccess
                     {
                         foreach (DataRow row in ticketData.Rows)
                         {
-                            systemParlayData.TicketList.Add(ReadSystemParlayTicket(row));
+                            ticketList.Add(ReadSystemParlayTicket(row));
                         }
                     }
 
@@ -43,15 +40,18 @@ namespace Fanex.Athena.BetList.DataAccess
                         {
                             foreach (DataRow row in serialData.Rows)
                             {
-                                systemParlayData.SerialList.Add(ReadSystemParlaySerial(row));
+                                serialList.Add(ReadSystemParlaySerial(row));
                             }
                         }
                     }
                 }
 
-                systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding"));
-
-                return systemParlayData;
+                return new SystemParlayDetailData
+                {
+                    Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding")),
+                    TicketList = ticketList,
+                    SerialList = serialList
+                };
             }
         }
 
@@ -65,9 +65,9 @@ namespace Fanex.Athena.BetList.DataAccess
             db.SetParameterValue("outstanding", null);
         }
 
-        private SystemParlayTicket ReadSystemParlayTicket(DataRow row)
+        private SystemParlayDetailTicket ReadSystemParlayTicket(DataRow row)
         {
-            return new SystemParlayTicket
+            return new SystemParlayDetailTicket
             {
                 Comm = Converter.ToDecimal(row["comm"]),
                 MOdds = Converter.ToDecimal(row["modds"]),
@@ -81,9 +81,9 @@ namespace Fanex.Athena.BetList.DataAccess
             };
         }
 
-        private SystemParlaySerial ReadSystemParlaySerial(DataRow row)
+        private SystemParlayDetailSerial ReadSystemParlaySerial(DataRow row)
         {
-            return new SystemParlaySerial
+            return new SystemParlayDetailSerial
             {
                 Serial = Convert.ToInt64(row["serial"]),
                 HomeId = Converter.ToInt(row["homeid"]),

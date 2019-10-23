@@ -86,21 +86,6 @@
         }
 
         [Test]
-        public async Task GetSystemParlayDetail_WhenCall_ReturnDataFromDataAccess()
-        {
-            // Arrange
-            var expectedResult = new SystemParlayData { Outstanding = 999 };
-            var metaModel = new SystemParlayDetailMetaModel();
-            _betlistDataAccess.GetSystemParlayDetail(metaModel).Returns(expectedResult);
-
-            // Action
-            var result = await _betListService.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        [Test]
         public async Task GetBetListData_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
@@ -131,7 +116,5 @@
             // Assert
             _cacheRefAdapter.Received().GetLeagueName(leagueId);
         }
-
-   
     }
 }

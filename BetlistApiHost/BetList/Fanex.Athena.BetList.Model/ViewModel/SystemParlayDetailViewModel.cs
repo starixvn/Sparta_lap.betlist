@@ -5,7 +5,7 @@ namespace Fanex.Athena.BetList.Model.ViewModel
 {
     public class SystemParlayDetailViewModel
     {
-        public IEnumerable<SystemParlayDetail> DataList { get; set; }
+        public IEnumerable<SystemParlayDetailItem> DataList { get; set; }
 
         public decimal Outstanding { get; set; }
 

@@ -41,14 +41,14 @@ namespace Fanex.Athena.BetList.Service
             var data = await _dataAccess.GetData(metaModel);
             var ticketList = BuildTicketList(data, ticketHelper);
 
-            var totalPlayerCommission = ticketHelper.ShowSystemParlayPlayerComm ? data.TicketList.Sum(d => d.PlayerComm) : 0;
+            var totalPlayerCommission = metaModel.IsAllowedCustomerComm ? data.TicketList.Sum(d => d.PlayerComm) : 0;
 
             var viewModel = new SystemParlayDetailViewModel
             {
                 DataList = ticketList,
                 Outstanding = data.Outstanding,
                 Total = data.TicketList.Sum(x => x.WinLost) + totalPlayerCommission,
-                ShowPlayerComm = ticketHelper.ShowSystemParlayPlayerComm
+                ShowPlayerComm = metaModel.IsAllowedCustomerComm
             };
 
             var result = _templateBuilder.BuildContent(viewPath, viewModel);
@@ -56,9 +56,9 @@ namespace Fanex.Athena.BetList.Service
             return result;
         }
 
-        private static IEnumerable<SystemParlayDetail> BuildTicketList(ISystemParlayData data, ITicketHelper ticketHelper)
+        private static IEnumerable<SystemParlayDetailItem> BuildTicketList(SystemParlayDetailData data, ITicketHelper ticketHelper)
         {
-            var result = data.TicketList
+            return data.TicketList
                 .OrderBy(t =>
             {
                 var statusId = t.StatusId.ToString();
@@ -67,7 +67,7 @@ namespace Fanex.Athena.BetList.Service
             .GroupJoin(data.SerialList,
                 t => t.Serial,
                 s => s.Serial,
-                (ticket, serialList) => new SystemParlayDetail
+                (ticket, serialList) => new SystemParlayDetailItem
                 {
                     Date = ticket.WinLostDate,
                     Odds = ticket.MOdds,
@@ -81,8 +81,6 @@ namespace Fanex.Athena.BetList.Service
                         AwayTeam = ticketHelper.GetTeamNameById(x.AwayId)
                     })
                 });
-
-            return result;
         }
 
         private static string GetBetListStatusName(int status)

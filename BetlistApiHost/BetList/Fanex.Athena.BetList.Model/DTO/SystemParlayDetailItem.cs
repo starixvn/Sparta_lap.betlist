@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Fanex.Athena.BetList.Model.DTO
 {
-    public class SystemParlayDetail
+    public class SystemParlayDetailItem
     {
         public DateTime Date { get; set; }
 
