@@ -32,10 +32,6 @@
         table-layout: fixed;
     }
 
-    .system-parlay-detail .tbody-container {
-        max-height: 400px;
-    }
-
     .system-parlay-detail .date-cell {
         width: 70px;
     }
@@ -152,6 +148,22 @@
         var tbody = document.getElementById('tbodyData');
         if (theader && tbody) {
             tbody.style.width = (theader.clientWidth - 18) + 'px';
+        }
+
+        window.onload = function () {
+            var noteBlock = document.getElementsByClassName('note-block');
+            var systemParlayDetail = document.getElementsByClassName('system-parlay-detail');
+            var systemParlayDetailContainer = document.getElementsByClassName('system-parlay-detail-container');
+            var paddingTop = window.getComputedStyle(systemParlayDetailContainer[0], null).getPropertyValue('padding-top');
+            paddingTop = parseInt(paddingTop.substring(0, paddingTop.length - 2));
+            var paddingBottom = window.getComputedStyle(systemParlayDetailContainer[0], null).getPropertyValue('padding-top');
+            paddingBottom = parseInt(paddingBottom.substring(0, paddingBottom.length - 2));
+            systemParlayDetailHeight = systemParlayDetailContainer[0].clientHeight - noteBlock[0].offsetHeight - paddingTop - paddingBottom; 
+            systemParlayDetail[0].style.height = systemParlayDetailHeight + 'px';
+            
+            var tfooter = document.getElementsByClassName('tfooter-container');
+            var tbodyContainer = document.getElementsByClassName('tbody-container');
+            tbodyContainer[0].style.maxHeight = systemParlayDetailHeight - tfooter[0].offsetHeight - theader.offsetHeight + 'px';
         }
     </script>
 </div>
