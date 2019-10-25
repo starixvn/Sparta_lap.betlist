@@ -72,7 +72,7 @@
             </thead>
         </table>
     </div>
-    <div class="tcontainer tbody-container" style="overflow: auto; border-right: 1px solid #ddd; border-left: 1px solid #ddd">
+    <div id="tbodyContainer" class="tcontainer tbody-container" style="overflow: auto; border-right: 1px solid #ddd; border-left: 1px solid #ddd">
         <table id="tbodyData" style="text-align: right;white-space: nowrap; font-weight: bold; width: 100%;" cellspacing="0" cellpadding="0" border="0">
             <tbody>
                 @RenderFirstRow()
@@ -120,7 +120,8 @@
             </tbody>
         </table>
     </div>
-    <div class="tcontainer tfooter-container" style="padding-right: 18px; border: 1px solid #ddd">
+
+    <div id="tfooterContainer" class="tcontainer tfooter-container" style="padding-right: 18px; border: 1px solid #ddd">
         <table style="text-align: right;white-space: nowrap; font-weight: bold" cellspacing="0" cellpadding="0" border="0">
             <tfoot>
                 @RenderFirstRow()
@@ -144,26 +145,30 @@
     </div>
 
     <script type="text/javascript">
-        var theader = document.getElementById('theaderContainer');
-        var tbody = document.getElementById('tbodyData');
-        if (theader && tbody) {
-            tbody.style.width = (theader.clientWidth - 2) + 'px';
+        var PADDING_HEIGHT = 30;
+        var MARGIN_NOTE = 5;
+        var SCROLLBAR_WIDTH = 18;
+
+        function calculateContentSize() {
+            var windowHeightWithoutPadding = window.innerHeight - PADDING_HEIGHT;
+
+            var tfooter = document.getElementById('tfooterContainer');
+            var footerClientRect = tfooter.getBoundingClientRect();
+            var noteBlock = document.getElementsByClassName('note-block');
+            var noteBlockHeight = noteBlock.length > 0 ? noteBlock[0].offsetHeight + MARGIN_NOTE : 0;
+            var contentHeight = footerClientRect.bottom + noteBlockHeight;
+
+            var theader = document.getElementById('theaderContainer');
+            if (contentHeight > windowHeightWithoutPadding) {
+                var maxHeightForBody = windowHeightWithoutPadding - theader.offsetHeight - tfooter.offsetHeight - noteBlockHeight;
+
+                document.getElementById('tbodyContainer').style.maxHeight = maxHeightForBody + 'px';
+            }
+            document.getElementById('tbodyData').style.width = (theader.clientWidth - SCROLLBAR_WIDTH) + 'px';
         }
 
         window.onload = function () {
-            var systemParlayDetailContainer = document.getElementsByClassName('system-parlay-detail-container')[0];
-            systemParlayDetailContainer.style.height = '100%';
-            var noteBlock = document.getElementsByClassName('note-block')[0];
-            var noteBlockHeight = noteBlock ? noteBlock.offsetHeight : 0;
-            var windowHeight = window.innerHeight;
-            systemParlayDetailHeight = windowHeight - noteBlockHeight - 30;
-            var systemParlayDetail = document.getElementsByClassName('system-parlay-detail')[0];
-            if (systemParlayDetail.offsetHeight > systemParlayDetailHeight) {
-                var tfooter = document.getElementsByClassName('tfooter-container')[0];
-                var tfooterHeight = tfooter ? tfooter.offsetHeight : 0;
-                var tbodyContainer = document.getElementsByClassName('tbody-container')[0];
-                tbodyContainer.style.maxHeight = systemParlayDetailHeight - tfooterHeight - theader.offsetHeight + 'px';
-            }
+            calculateContentSize();
         }
     </script>
 </div>
