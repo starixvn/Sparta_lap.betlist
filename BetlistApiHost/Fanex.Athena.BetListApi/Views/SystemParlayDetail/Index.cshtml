@@ -147,24 +147,23 @@
         var theader = document.getElementById('theaderContainer');
         var tbody = document.getElementById('tbodyData');
         if (theader && tbody) {
-            tbody.style.width = (theader.clientWidth - 18) + 'px';
+            tbody.style.width = (theader.clientWidth - 2) + 'px';
         }
 
         window.onload = function () {
             var systemParlayDetailContainer = document.getElementsByClassName('system-parlay-detail-container')[0];
             systemParlayDetailContainer.style.height = '100%';
             var noteBlock = document.getElementsByClassName('note-block')[0];
+            var noteBlockHeight = noteBlock ? noteBlock.offsetHeight : 0;
+            var windowHeight = window.innerHeight;
+            systemParlayDetailHeight = windowHeight - noteBlockHeight - 30;
             var systemParlayDetail = document.getElementsByClassName('system-parlay-detail')[0];
-            var paddingTop = window.getComputedStyle(systemParlayDetailContainer, null).getPropertyValue('padding-top');
-            paddingTop = parseInt(paddingTop.substring(0, paddingTop.length - 2));
-            var paddingBottom = window.getComputedStyle(systemParlayDetailContainer, null).getPropertyValue('padding-top');
-            paddingBottom = parseInt(paddingBottom.substring(0, paddingBottom.length - 2));
-            systemParlayDetailHeight = systemParlayDetailContainer.clientHeight - noteBlock.offsetHeight - paddingTop - paddingBottom; 
-            systemParlayDetail.style.height = systemParlayDetailHeight + 'px';
-
-            var tfooter = document.getElementsByClassName('tfooter-container')[0];
-            var tbodyContainer = document.getElementsByClassName('tbody-container')[0];
-            tbodyContainer.style.maxHeight = systemParlayDetailHeight - tfooter.offsetHeight - theader.offsetHeight + 'px';
+            if (systemParlayDetail.offsetHeight > systemParlayDetailHeight) {
+                var tfooter = document.getElementsByClassName('tfooter-container')[0];
+                var tfooterHeight = tfooter ? tfooter.offsetHeight : 0;
+                var tbodyContainer = document.getElementsByClassName('tbody-container')[0];
+                tbodyContainer.style.maxHeight = systemParlayDetailHeight - tfooterHeight - theader.offsetHeight + 'px';
+            }
         }
     </script>
 </div>
