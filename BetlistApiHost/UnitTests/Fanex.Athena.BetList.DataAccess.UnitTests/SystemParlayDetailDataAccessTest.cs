@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.Common.DataAccess.Interfaces;
 using Fanex.Athena.Common.DataAccess.UnitTests;
+using Fanex.Athena.Common.Model.DTO;
 using Fanex.Athena.UnitTest.Common.Helpers;
 using Fanex.Athena.UnitTest.Common.NUnitExtensions;
 using NSubstitute;
@@ -16,6 +18,21 @@ namespace Fanex.Athena.BetList.DataAccess.UnitTests
     public class SystemParlayDetailDataAccessTest : BaseDataAccessHelperTest<SystemParlayDetailDataAccess>
     {
         private const string GetSystemParlayDetailSp = "Lrf_BetList_SelCombinationParlayDetail";
+
+        private IBalanceUpDataAccess _balanceUpDataAccess;
+
+        private readonly BalanceUp _balanceUpInfo = new BalanceUp
+        {
+            BalanceUpDay = new DateTime(2016, 8, 18),
+            MoveBetsDay = new DateTime(2016, 8, 10)
+        };
+
+        protected override void SetUpDataAccess()
+        {
+            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            _balanceUpDataAccess.GetBalanceUp().Returns(_balanceUpInfo);
+            DataAccess = Substitute.ForPartsOf<SystemParlayDetailDataAccess>(_balanceUpDataAccess);
+        }
 
         [Test]
         public async Task GetSystemParlayDetail_WhenCall_ParametersPassedCorrectly()
@@ -35,8 +52,8 @@ namespace Fanex.Athena.BetList.DataAccess.UnitTests
             {
                 ObjectDb.Received(1).SetParameterValue("refno", metaModel.RefNo);
                 ObjectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
-                ObjectDb.Received(1).SetParameterValue("movebetsday", metaModel.MoveBetsDay);
-                ObjectDb.Received(1).SetParameterValue("balanceupday", metaModel.BalanceUpDay);
+                ObjectDb.Received(1).SetParameterValue("movebetsday", _balanceUpInfo.MoveBetsDay);
+                ObjectDb.Received(1).SetParameterValue("balanceupday", _balanceUpInfo.BalanceUpDay);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 ObjectDb.Received(1).SetParameterValue("outstanding", null);
             });
@@ -133,9 +150,7 @@ namespace Fanex.Athena.BetList.DataAccess.UnitTests
                 BaseCurrency = baseCurrency,
                 RefNo = 1,
                 UserId = 2,
-                LicenseeId = 3,
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 18)
+                LicenseeId = 3
             };
         }
     }

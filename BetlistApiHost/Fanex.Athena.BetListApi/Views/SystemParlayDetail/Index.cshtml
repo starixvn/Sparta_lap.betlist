@@ -104,7 +104,7 @@
                                 <div class="@(dataByMatch.WinLoss < 0 ? "negative" : string.Empty)">@NumberHelper.DecFormat(dataByMatch.WinLoss)</div>
                                 @if (Model.ShowPlayerComm)
                                 {
-                                    <div>@NumberHelper.DecFormat(dataByMatch.PlayerComm, 4)</div>
+                                    <div>@NumberHelper.DecFormat(dataByMatch.PlayerComm)</div>
                                 }
                             </td>
                             <td style="text-align: center;">@dataByMatch.Status</td>

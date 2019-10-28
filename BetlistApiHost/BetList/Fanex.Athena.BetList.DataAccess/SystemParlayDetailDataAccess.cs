@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
+using Fanex.Athena.Common.DataAccess.Interfaces;
 using Fanex.Common;
 using Fanex.Data;
 
@@ -12,6 +13,13 @@ namespace Fanex.Athena.BetList.DataAccess
 {
     public class SystemParlayDetailDataAccess : BaseBetListDataAccess, ISystemParlayDetailDataAccess
     {
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
+        public SystemParlayDetailDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
+        }
+
         [CLSCompliant(false)]
         public async Task<SystemParlayDetailData> GetData(SystemParlayDetailMetaModel metaModel)
         {
@@ -55,12 +63,14 @@ namespace Fanex.Athena.BetList.DataAccess
             }
         }
 
-        private static void SetSystemParlayDetailParameter(IObjectDb db, SystemParlayDetailMetaModel metaModel)
+        private void SetSystemParlayDetailParameter(IObjectDb db, SystemParlayDetailMetaModel metaModel)
         {
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+
             db.SetParameterValue("AgentList", metaModel.AgentListXml);
             db.SetParameterValue("refno", metaModel.RefNo);
-            db.SetParameterValue("movebetsday", metaModel.MoveBetsDay);
-            db.SetParameterValue("balanceupday", metaModel.BalanceUpDay);
+            db.SetParameterValue("movebetsday", balanceUp.MoveBetsDay);
+            db.SetParameterValue("balanceupday", balanceUp.BalanceUpDay);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
             db.SetParameterValue("outstanding", null);
         }
