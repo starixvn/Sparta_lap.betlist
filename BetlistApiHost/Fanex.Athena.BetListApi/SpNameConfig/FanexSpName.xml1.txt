@@ -1,1 +1,10 @@
-﻿ErrorGeneratingOutput
+﻿
+
+// Generated helper templates
+// Generated items
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.BACKUPMNL.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.PRO.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.SIT.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.UAT.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.LOCAL.xml
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.xml
