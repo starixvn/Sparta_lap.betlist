@@ -58,7 +58,6 @@ namespace Fanex.Athena.BetList.Service.UnitTests
                 Assert.That(dataList[3].Status.ToLowerInvariant(), Is.EqualTo(string.Empty));
 
                 Assert.That(viewModel.Outstanding, Is.EqualTo(ExpectedOutstanding));
-                Assert.That(viewModel.ShowPlayerComm, Is.EqualTo(metaModel.IsAllowedCustomerComm));
             });
         }
 

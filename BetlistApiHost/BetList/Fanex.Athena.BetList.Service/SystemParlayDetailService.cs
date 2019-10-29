@@ -42,14 +42,11 @@ namespace Fanex.Athena.BetList.Service
             var data = await _dataAccess.GetData(metaModel);
             var ticketList = BuildTicketList(data, ticketHelper);
 
-            var totalPlayerCommission = metaModel.IsAllowedCustomerComm ? data.TicketList.Sum(d => d.PlayerComm) : 0;
-
             var viewModel = new SystemParlayDetailViewModel
             {
                 DataList = ticketList,
                 Outstanding = data.Outstanding,
-                Total = data.TicketList.Sum(x => x.WinLost) + totalPlayerCommission,
-                ShowPlayerComm = metaModel.IsAllowedCustomerComm
+                Total = data.TicketList.Sum(x => x.WinLost)
             };
 
             var result = _templateBuilder.BuildContent(viewPath, viewModel);

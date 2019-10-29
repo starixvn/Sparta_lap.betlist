@@ -81,8 +81,7 @@
                 var rowSpan = dataByDate.Count().ToString();
                 var isFirstItem = true;
 
-                var subTotalPlayerCommission = Model.ShowPlayerComm ? dataByDate.Sum(d => d.PlayerComm) : 0;
-                var subTotal = dataByDate.Sum(x => x.WinLoss) + subTotalPlayerCommission;
+                var subTotal = dataByDate.Sum(x => x.WinLoss);
 
                 foreach (var dataByMatch in dataByDate)
                 {
@@ -102,10 +101,6 @@
                             <td>@NumberHelper.DecFormat(dataByMatch.Stake)</td>
                             <td>
                                 <div class="@(dataByMatch.WinLoss < 0 ? "negative" : string.Empty)">@NumberHelper.DecFormat(dataByMatch.WinLoss)</div>
-                                @if (Model.ShowPlayerComm)
-                                {
-                                    <div>@NumberHelper.DecFormat(dataByMatch.PlayerComm)</div>
-                                }
                             </td>
                             <td style="text-align: center;">@dataByMatch.Status</td>
                         </tr>
