@@ -91,10 +91,11 @@
                                 <td rowspan="@rowSpan" style="text-align: center; font-weight: normal;">@dataByMatch.Date.ToString("MM/dd/yyyy")</td>
                                 isFirstItem = false;
                             }
-                            <td style="text-align: left; font-weight: normal;">
+                            <td style="text-align: left; font-weight: normal; overflow:hidden; text-overflow: ellipsis; white-space: normal">
                                 @foreach (var match in dataByMatch.MatchList)
                                 {
-                                    <div class="match-group">@match.HomeTeam -vs- @match.AwayTeam</div>
+                                    var matchText = match.HomeTeam + " -vs- " + match.AwayTeam;
+                                    <div class="match-group" title="@matchText">@matchText</div>
                                 }
                             </td>
                             <td>@NumberHelper.DecFormat(dataByMatch.Odds, 4)</td>
