@@ -79,7 +79,8 @@ namespace Fanex.Athena.BetList.Service
                         AwayTeam = ticketHelper.GetTeamNameById(x.AwayId)
                     })
                 })
-                .GroupBy(p => p.Date);
+                .GroupBy(p => p.Date)
+                .OrderByDescending(t => t.Key);
         }
 
         private static string GetBetListStatusName(int status)
