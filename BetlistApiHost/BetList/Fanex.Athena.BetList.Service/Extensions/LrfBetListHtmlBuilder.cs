@@ -63,24 +63,14 @@ namespace Fanex.Athena.BetList.Service.Extensions
         {
             var isRunning = BetListHelper.IsRunning(ticket.Status);
 
-            if (BetListHelper.IsBoughtTicket(ticket.BetTypeId) ||
-                BetListHelper.IsColossusBet(ticket.BetTypeId))
+            if (isRunning)
             {
-                var licenseeWl = isRunning
-                    ? "-"
-                    : FormatLicenseeWl(ticket.LicenseeWL);
-                var comm = isRunning
-                    ? "-"
-                    : string.Format("{0:#,##0.00}", ticket.Comm);
-
-                return string.Format("<div class ='lic-win-loss'>{0}<br/>{1}</div>", licenseeWl, comm);
+                return "-";
             }
 
-            return isRunning
-                    ? "-"
-                    : string.Format(
-                        "<div class='lic-win-loss'>{0}</div>",
-                        FormatLicenseeWl(ticket.LicenseeWL + ticket.Comm));
+            return BetListHelper.IsBoughtTicket(ticket.BetTypeId) || BetListHelper.IsColossusBet(ticket.BetTypeId)
+                ? $"<div class ='lic-win-loss'>{FormatLicenseeWl(ticket.LicenseeWL)}<br/>{string.Format("{0:#,##0.00}", ticket.Comm)}</div>"
+                : $"<div class='lic-win-loss'>{FormatLicenseeWl(ticket.LicenseeWL + ticket.Comm)}</div>";
         }
 
         [CLSCompliant(false)]
