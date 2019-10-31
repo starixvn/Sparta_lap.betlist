@@ -6,18 +6,14 @@
 
 namespace Fanex.Athena.BetList.Service.Interfaces
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
-    using Fanex.BetList.Core.Entities;
 
     [System.CLSCompliant(false)]
     public interface IBetListService
     {
         string GetLeagueName(int leagueId);
-
-        Task<SystemParlayData> GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);
 
         Task<TicketResult> GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel);
 

@@ -1,12 +1,5 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListService.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.BetList.Service
+﻿namespace Fanex.Athena.BetList.Service
 {
-    using System;
     using System.Threading.Tasks;
 
     using Common.DataAccess.Interfaces;
@@ -16,7 +9,6 @@ namespace Fanex.Athena.BetList.Service
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.BetList.Service.Interfaces;
-    using Fanex.BetList.Core.Entities;
 
     public class BetListService : IBetListService
     {
@@ -45,12 +37,6 @@ namespace Fanex.Athena.BetList.Service
         public async Task<TicketResult> GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel)
         {
             return await _betlistDataAccess.GetMixParlayDetailTicket(metaModel);
-        }
-
-        [CLSCompliant(false)]
-        public async Task<SystemParlayData> GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
-        {
-            return await _betlistDataAccess.GetSystemParlayDetail(metaModel).ConfigureAwait(false);
         }
 
         public async Task<TicketResult> GetBetListData(BetListMetaModel metaModel)

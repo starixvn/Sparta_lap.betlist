@@ -143,6 +143,7 @@
   <ItemGroup>
     <Compile Include="BetListServiceTest.cs" />
     <Compile Include="BetListByProductServiceTest.cs" />
+    <Compile Include="SystemParlayDetailServiceTest.cs" />
     <Compile Include="TicketBuilderServiceTest.cs" />
     <Compile Include="ExchangeBetListServiceTest.cs" />
     <Compile Include="Extensions\LrfBetListHtmlBuilderTest.cs" />

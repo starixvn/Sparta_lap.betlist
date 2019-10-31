@@ -1,24 +1,15 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListDataAccess.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.BetList.DataAccess
+﻿namespace Fanex.Athena.BetList.DataAccess
 {
+    using System;
+    using System.Collections;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Common.Utility.Collections;
-    using Data;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
-    using Fanex.BetList.Core.Entities;
     using Fanex.Common;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using System.Threading.Tasks;
+
     using Util;
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
@@ -37,59 +28,6 @@ namespace Fanex.Athena.BetList.DataAccess
                     result.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.UserCurrencyList));
                     return result;
                 }
-            }
-        }
-
-        private static void SetSystemParlayDetailParameter(IObjectDb db, SystemParlayDetailMetaModel metaModel)
-        {
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("refno", metaModel.RefNo);
-            db.SetParameterValue("movebetsday", metaModel.MoveBetsDay);
-            db.SetParameterValue("balanceupday", metaModel.BalanceUpDay);
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-            db.SetParameterValue("outstanding", null);
-        }
-
-        [CLSCompliant(false)]
-        public async Task<SystemParlayData> GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
-        {
-            const string UspName = "Lrf_BetList_SelCombinationParlayDetail";
-            using (var db = this.GetObjectDb(UspName))
-            {
-                SetSystemParlayDetailParameter(db, metaModel);
-
-                var dataSet = await db.ExecuteDataSetAsync().ConfigureAwait(false);
-                var systemParlayData = new SystemParlayData
-                {
-                    TicketList = new List<ISystemParlayTicket>(),
-                    SerialList = new List<ISystemParlaySerial>()
-                };
-
-                if (dataSet.Tables.Count > 0)
-                {
-                    using (var ticketData = dataSet.Tables[0])
-                    {
-                        foreach (DataRow row in ticketData.Rows)
-                        {
-                            systemParlayData.TicketList.Add(ReadSystemParlayTicket(row));
-                        }
-                    }
-
-                    if (dataSet.Tables.Count > 1)
-                    {
-                        using (var serialData = dataSet.Tables[1])
-                        {
-                            foreach (DataRow row in serialData.Rows)
-                            {
-                                systemParlayData.SerialList.Add(ReadSystemParlaySerial(row));
-                            }
-                        }
-                    }
-                }
-
-                systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding"));
-
-                return systemParlayData;
             }
         }
 
@@ -163,33 +101,6 @@ namespace Fanex.Athena.BetList.DataAccess
 
                 ticketList.Sort(metaModel.SortBy, metaModel.SortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
             }
-        }
-
-        private SystemParlayTicket ReadSystemParlayTicket(DataRow row)
-        {
-            return new SystemParlayTicket
-            {
-                Comm = Converter.ToDecimal(row["comm"]),
-                MOdds = Converter.ToDecimal(row["modds"]),
-                PlayerComm = Converter.ToDecimal(row["playercomm"]),
-                Serial = Convert.ToInt64(row["serial"]),
-                Stake = Converter.ToDecimal(row["stake"]),
-                Status = Converter.ToString2(row["status"]),
-                StatusId = Converter.ToInt(row["statusid"]),
-                TransId = Convert.ToInt64(row["transid"]),
-                WinLost = Converter.ToDecimal(row["winlost"]),
-                WinLostDate = Converter.ToDateTime(row["winlostdate"])
-            };
-        }
-
-        private SystemParlaySerial ReadSystemParlaySerial(DataRow row)
-        {
-            return new SystemParlaySerial
-            {
-                Serial = Convert.ToInt64(row["serial"]),
-                HomeId = Converter.ToInt(row["homeid"]),
-                AwayId = Converter.ToInt(row["awayid"])
-            };
         }
     }
 }

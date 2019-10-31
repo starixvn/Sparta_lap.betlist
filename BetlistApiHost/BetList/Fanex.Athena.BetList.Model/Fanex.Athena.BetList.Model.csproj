@@ -142,6 +142,11 @@
     <Compile Include="DTO\LrfTicket.cs" />
     <Compile Include="DTO\BetListMatch.cs" />
     <Compile Include="DTO\ColossusBetDetail.cs" />
+    <Compile Include="DTO\SystemParlayDetailData.cs" />
+    <Compile Include="DTO\SystemParlayDetailItem.cs" />
+    <Compile Include="DTO\SystemParlayDetailMatch.cs" />
+    <Compile Include="DTO\SystemParlayDetailSerial.cs" />
+    <Compile Include="DTO\SystemParlayDetailTicket.cs" />
     <Compile Include="DTO\TicketText.cs" />
     <Compile Include="DTO\TicketResult.cs" />
     <Compile Include="MetaModel\BaseBettingTicketMetaModel.cs" />
@@ -172,6 +177,7 @@
     <Compile Include="ViewModel\CashOutBetListDetailViewModel.cs" />
     <Compile Include="ViewModel\ColossusBetDetailViewModel.cs" />
     <Compile Include="ViewModel\ExchangeBetListViewModel.cs" />
+    <Compile Include="ViewModel\SystemParlayDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
