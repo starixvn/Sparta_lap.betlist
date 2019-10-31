@@ -13,16 +13,25 @@ namespace Fanex.Athena.BetList.DataAccess
     using BetList.Model.ViewModel;
     using Common.Utility.Collections;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.Common.DataAccess.Interfaces;
     using Fanex.Common.Extensions;
     using Interfaces;
 
     public class CashOutBetListDataAccess : BaseBetListDataAccess, ICashOutBetListDataAccess
     {
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
+        public CashOutBetListDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
+        }
+
         public async Task<CashOutBetListDetailViewModel> GetDetail(
             CashOutBetListDetailMetaModel metaModel,
             IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_CashOut_Detail";
+            var balanceUpData = _balanceUpDataAccess.GetBalanceUp();
 
             using (var db = GetObjectDb(UspKey))
             {
@@ -33,7 +42,9 @@ namespace Fanex.Athena.BetList.DataAccess
                     metaModel.BetType,
                     OriginalTransId = metaModel.BetdaqId,
                     AgentList = metaModel.AgentListXml,
-                    metaModel.BaseCurrency
+                    metaModel.BaseCurrency,
+                    balanceUpData.MoveBetsDay,
+                    balanceUpData.BalanceUpDay
                 };
                 using (var reader = await db.ExecuteReaderAsync(param).ConfigureAwait(false))
                 {
