@@ -62,7 +62,7 @@
                     LicenseeWL = (option.ShowTotal && option.ShowLicenseeWl) ? (ticket.SumLicenseeWL + ticket.SumComm).ToString(FormatKey.DecimalFormat) : null,
                     Stake = option.ShowSumStake ? ticket.SumStake.ToString(FormatKey.DecimalFormat) : null
                 },
-                TotalRows = ticket.TotalRows
+                ticket.TotalRows
             };
 #pragma warning restore S1067 // Expressions should not be too complex
 

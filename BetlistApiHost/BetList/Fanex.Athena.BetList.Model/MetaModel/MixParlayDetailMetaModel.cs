@@ -8,6 +8,5 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public int CustId { get; set; }
 
-        public IDictionary<int, string> UserCurrencyList { get; set; }
     }
 }

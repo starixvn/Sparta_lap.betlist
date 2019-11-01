@@ -39,9 +39,9 @@ namespace Fanex.Athena.BetList.Service
             _cache = cache;
         }
 
-        public async Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
         {
-            var ticketResult = await this._lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(metaModel, currencyList).ConfigureAwait(false);
+            var ticketResult = await this._lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(metaModel).ConfigureAwait(false);
 
             await UpdateMatchInfo(metaModel, ticketResult).ConfigureAwait(false);
 

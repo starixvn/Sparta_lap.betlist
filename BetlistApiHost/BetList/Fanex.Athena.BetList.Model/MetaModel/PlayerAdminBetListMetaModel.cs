@@ -17,9 +17,6 @@
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
-
-        public IDictionary<int, string> CurrencyList { get; set; }
-
         public string BaseCurrency { get; set; } = string.Empty;
     }
 }

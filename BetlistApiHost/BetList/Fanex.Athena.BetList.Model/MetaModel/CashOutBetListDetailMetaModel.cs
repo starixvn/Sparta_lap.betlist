@@ -25,7 +25,5 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public bool IsCashOut { get; set; }
 
         public bool HasPlayerComm { get; set; }
-
-        public IDictionary<int, string> UserCurrencyList { get; set; }
     }
 }

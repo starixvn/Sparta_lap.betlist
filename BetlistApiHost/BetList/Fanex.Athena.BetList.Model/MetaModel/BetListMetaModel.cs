@@ -24,9 +24,6 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public bool HasPlayerCom { get; set; }
 
         [ScriptIgnore]
-        public IDictionary<int, string> CurrencyList { get; set; }
-
-        [ScriptIgnore]
         public string UspKey { get; set; }
 
         public string ProductCodeList { get; set; } = string.Empty;

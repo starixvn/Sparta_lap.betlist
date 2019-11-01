@@ -13,7 +13,12 @@
     public class LastBetsMonitoringBetListDataAccessTest : BaseDataAccessHelperTest<LastBetsMonitoringBetListDataAccess>
     {
         private const string UspKey = "Lrf_Monitor_BetlistSel_New";
-
+        protected override void SetUpDataAccess()
+        {
+          
+            DataAccess = Substitute.ForPartsOf<LastBetsMonitoringBetListDataAccess>(
+                CurrencyDataAccess);
+        }
         [Test]
         public async Task GetLastBetsMonitoringData_WhenCall_ParametersPassedCorrectly()
         {
@@ -22,7 +27,7 @@
             var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
 
             // Action
-            await DataAccess.GetLastBetsMonitoringData(metaModel, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetLastBetsMonitoringData(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>

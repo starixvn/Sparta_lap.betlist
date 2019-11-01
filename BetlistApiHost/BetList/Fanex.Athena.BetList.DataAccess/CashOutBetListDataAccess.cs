@@ -21,17 +21,18 @@ namespace Fanex.Athena.BetList.DataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public CashOutBetListDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public CashOutBetListDataAccess(ICurrencyDataAccess currencyService, IBalanceUpDataAccess balanceUpDataAccess) : base(currencyService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public async Task<CashOutBetListDetailViewModel> GetDetail(
-            CashOutBetListDetailMetaModel metaModel,
-            IDictionary<int, string> currencyList)
+            CashOutBetListDetailMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_CashOut_Detail";
+
             var balanceUpData = _balanceUpDataAccess.GetBalanceUp();
+            var currencyList = await this.GetCurrencyListAsync().ConfigureAwait(false);
 
             using (var db = GetObjectDb(UspKey))
             {

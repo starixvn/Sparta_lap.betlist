@@ -21,7 +21,7 @@
 
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<BetListDataAccess>();
+            DataAccess = Substitute.ForPartsOf<BetListDataAccess>(CurrencyDataAccess);
         }
 
         [Test]
@@ -33,7 +33,6 @@
             {
                 TransId = 123,
                 CustId = 232,
-                UserCurrencyList = UserCurrencyList
             };
 
             // Action

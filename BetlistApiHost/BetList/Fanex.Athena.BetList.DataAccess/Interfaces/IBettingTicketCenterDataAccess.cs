@@ -8,11 +8,11 @@
     public interface IBettingTicketCenterDataAccess
     {
         Task<TicketResult> GetBetListForSingleCustomerAsync(
-            SingleCustomersBetListMetaModel metaModel,
-            IDictionary<int, string> currencyList);
+            SingleCustomersBetListMetaModel metaModel);
 
-        Task<TicketResult> GetBetListByRefnoAsync(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList);
+        Task<TicketResult> GetBetListByRefnoAsync(RefNoBetListMetaModel metaModel
+           );
 
-        Task<TicketResult> GetRunningBetListAsync(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList);
+        Task<TicketResult> GetRunningBetListAsync(BaseBettingTicketMetaModel metaModel);
     }
 }

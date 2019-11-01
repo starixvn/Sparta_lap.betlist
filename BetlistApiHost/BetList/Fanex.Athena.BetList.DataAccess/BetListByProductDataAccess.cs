@@ -11,7 +11,8 @@ namespace Fanex.Athena.BetList.DataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public BetListByProductDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public BetListByProductDataAccess(IBalanceUpDataAccess balanceUpDataAccess,
+            ICurrencyDataAccess currenyDataAccess) : base(currenyDataAccess)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -21,14 +22,15 @@ namespace Fanex.Athena.BetList.DataAccess
             const string UspKey = "Lrf_BetList_Statement_Mem";
 
             var ticketResult = new TicketResult();
-
+            var currencyList = await this.GetCurrencyListAsync();
             using (var db = GetObjectDb(UspKey))
             {
                 SetParam(metaModel, db);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.UserCurrencyList));
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader,
+                        currencyList));
                 }
 
                 var outSqlParams = db.GetOutputParams();

@@ -7,6 +7,6 @@
 
     public interface ICashOutBetListDataAccess
     {
-        Task<CashOutBetListDetailViewModel> GetDetail(CashOutBetListDetailMetaModel metaModel, IDictionary<int, string> currencyList);
+        Task<CashOutBetListDetailViewModel> GetDetail(CashOutBetListDetailMetaModel metaModel);
     }
 }

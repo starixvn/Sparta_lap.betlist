@@ -35,7 +35,8 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<JsonResult> Detail(CashOutBetListDetailMetaModel metaModel)
         {
-            var viewModel = await _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var viewModel = await _cashOutBetListDataAccess.GetDetail(metaModel
+              ).ConfigureAwait(false);
             if (viewModel.OriginalTicket != null)
             {
                 viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId ||

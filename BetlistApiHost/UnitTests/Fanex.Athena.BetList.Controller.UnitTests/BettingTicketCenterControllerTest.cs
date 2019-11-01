@@ -51,7 +51,7 @@
                 var metaModel = FakeHelper.Create<SingleCustomersBetListMetaModel>(x => x.IsExport, false);
 
                 var ticketResult = new TicketResult();
-                _dataAccess.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListForSingleCustomerAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 await controller.GetBySingleCustomer(metaModel);
@@ -83,7 +83,7 @@
                 var metaModel = FakeHelper.Create<SingleCustomersBetListMetaModel>(x => x.IsExport, true);
 
                 var ticketResult = new TicketResult();
-                _dataAccess.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListForSingleCustomerAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 var result = await controller.GetBySingleCustomer(metaModel) as HttpStatusCodeResult;
@@ -108,7 +108,7 @@
                         FakeHelper.Create<LrfTicket>()
                     }
                 };
-                _dataAccess.GetBetListForSingleCustomerAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListForSingleCustomerAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 await controller.GetBySingleCustomer(metaModel);
@@ -138,7 +138,7 @@
                 var metaModel = FakeHelper.Create<RefNoBetListMetaModel>(x => x.IsExport, false);
 
                 var ticketResult = new TicketResult();
-                _dataAccess.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListByRefnoAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 await controller.GetByRefno(metaModel);
@@ -176,7 +176,7 @@
                         FakeHelper.Create<LrfTicket>()
                     }
                 };
-                _dataAccess.GetBetListByRefnoAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListByRefnoAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 await controller.GetByRefno(metaModel);
@@ -206,7 +206,7 @@
                 var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>(x => x.IsExport, false);
 
                 var ticketResult = new TicketResult();
-                _dataAccess.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetRunningBetListAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 await controller.GetByRunning(metaModel);
@@ -245,7 +245,7 @@
                         FakeHelper.Create<LrfTicket>()
                     }
                 };
-                _dataAccess.GetRunningBetListAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetRunningBetListAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 await controller.GetByRunning(metaModel);

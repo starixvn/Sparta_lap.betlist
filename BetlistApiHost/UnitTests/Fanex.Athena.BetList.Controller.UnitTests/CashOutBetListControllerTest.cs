@@ -54,7 +54,7 @@
 
                 var viewModel = new CashOutBetListDetailViewModel();
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 // Action
                 var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
@@ -74,7 +74,7 @@
 
                 var viewModel = new CashOutBetListDetailViewModel();
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 // Action
                 var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
@@ -94,7 +94,7 @@
 
                 var viewModel = new CashOutBetListDetailViewModel { CashOutTicketList = Enumerable.Empty<CashOutTicket>() };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 // Action
                 var result = (CashOutBetListDetailViewModel)(await controller.Detail(metaModel)).Data;
@@ -117,7 +117,7 @@
                 originalTicket.Status = "running";
                 var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 var statusHtml = FakeHelper.Create<Status_Template>();
                 var status = Substitute.For<IStatus>();
@@ -173,7 +173,7 @@
                 var cashOutTicketList = new List<CashOutTicket> { cashOutTicket };
                 var viewModel = new CashOutBetListDetailViewModel { CashOutTicketList = cashOutTicketList };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 var statusHtml = FakeHelper.Create<Status_Template>();
                 var status = Substitute.For<IStatus>();
@@ -222,7 +222,7 @@
 
                 var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 var statusHtml = FakeHelper.Create<Status_Template>();
                 var status = Substitute.For<IStatus>();
@@ -252,7 +252,7 @@
 
                 var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 var statusHtml = FakeHelper.Create<Status_Template>();
                 var status = Substitute.For<IStatus>();
@@ -284,7 +284,7 @@
 
                 var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 var statusHtml = FakeHelper.Create<Status_Template>();
                 var status = Substitute.For<IStatus>();
@@ -315,7 +315,7 @@
 
                 var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 var statusHtml = FakeHelper.Create<Status_Template>();
                 var status = Substitute.For<IStatus>();
@@ -346,7 +346,7 @@
 
                 var viewModel = new CashOutBetListDetailViewModel { OriginalTicket = originalTicket };
 
-                _cashOutBetListDataAccess.GetDetail(metaModel, metaModel.UserCurrencyList).Returns(viewModel);
+                _cashOutBetListDataAccess.GetDetail(metaModel).Returns(viewModel);
 
                 var statusHtml = FakeHelper.Create<Status_Template>();
                 var status = Substitute.For<IStatus>();

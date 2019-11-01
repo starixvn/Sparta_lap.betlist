@@ -13,6 +13,7 @@ namespace Fanex.Athena.BetList.Service.Interfaces
 
     public interface ILastBetsMonitoringBetListService
     {
-        Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList);
+        Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel
+           );
     }
 }

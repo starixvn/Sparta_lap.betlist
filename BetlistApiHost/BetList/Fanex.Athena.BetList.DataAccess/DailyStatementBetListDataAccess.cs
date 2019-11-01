@@ -26,7 +26,8 @@
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public DailyStatementBetListDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public DailyStatementBetListDataAccess(IBalanceUpDataAccess balanceUpDataAccess
+               ) : base(null)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

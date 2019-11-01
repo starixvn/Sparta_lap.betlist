@@ -55,6 +55,5 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public string AgentListXml { get; set; }
 
-        public IDictionary<int, string> UserCurrencyList { get; set; }
     }
 }

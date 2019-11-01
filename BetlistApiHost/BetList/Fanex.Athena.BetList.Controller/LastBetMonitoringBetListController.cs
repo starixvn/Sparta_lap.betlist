@@ -32,7 +32,8 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<JsonResult> GetData(LastBetsMonitoringMetaModel metaModel)
         {
-            var ticketResult = await _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(
+                metaModel).ConfigureAwait(false);
 
             if (ticketResult.MainTicketList.Any())
             {

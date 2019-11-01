@@ -62,7 +62,7 @@
                 var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, false);
 
                 var ticketResult = new TicketResult();
-                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 await controller.GetData(metaModel);
@@ -123,7 +123,7 @@
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns((totalRow + 1).ToString());
 
                 var ticketResult = new TicketResult();
-                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 var result = await controller.GetData(metaModel) as HttpStatusCodeResult;
@@ -150,7 +150,7 @@
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns((totalRow + 1).ToString());
 
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { FakeHelper.Create<LrfTicket>() } };
-                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel).Returns(ticketResult);
 
                 // Action
                 await controller.GetData(metaModel);
@@ -189,7 +189,7 @@
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
 
                 var ticketResult = new GroupTicketResult();
-                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, maxRowPerFile, metaModel.UserCurrencyList).Returns(ticketResult);
+                _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, maxRowPerFile).Returns(ticketResult);
 
                 SetUpForResponse(controller, false);
                 _zipBuilder.BuildZip(

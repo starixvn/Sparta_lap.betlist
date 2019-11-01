@@ -15,7 +15,8 @@ namespace Fanex.Athena.BetList.DataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public SystemParlayDetailDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public SystemParlayDetailDataAccess(IBalanceUpDataAccess balanceUpDataAccess
+              ) : base(null)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -75,7 +76,7 @@ namespace Fanex.Athena.BetList.DataAccess
             db.SetParameterValue("outstanding", null);
         }
 
-        private SystemParlayDetailTicket ReadSystemParlayTicket(DataRow row)
+        private static SystemParlayDetailTicket ReadSystemParlayTicket(DataRow row)
         {
             return new SystemParlayDetailTicket
             {
@@ -91,7 +92,7 @@ namespace Fanex.Athena.BetList.DataAccess
             };
         }
 
-        private SystemParlayDetailSerial ReadSystemParlaySerial(DataRow row)
+        private static SystemParlayDetailSerial ReadSystemParlaySerial(DataRow row)
         {
             return new SystemParlayDetailSerial
             {
