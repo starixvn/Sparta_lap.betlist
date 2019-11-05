@@ -7,6 +7,8 @@
     using Athena.BetList.DataAccess.Util;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.UnitTests;
+    using Fanex.Athena.Common.DataAccess.Interfaces;
+    using Fanex.Athena.Common.Model.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -16,9 +18,15 @@
     {
         private const string UspName = "Lrf_BetList_CashOut_Detail";
 
+        private readonly BalanceUp _balanceUp = FakeHelper.Create<BalanceUp>();
+
+        private IBalanceUpDataAccess _balanceUpDataAccess;
+
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<CashOutBetListDataAccess>();
+            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            _balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
+            DataAccess = Substitute.ForPartsOf<CashOutBetListDataAccess>(_balanceUpDataAccess);
         }
 
         [Test]
@@ -33,7 +41,9 @@
                 metaModel.BetType,
                 OriginalTransId = metaModel.BetdaqId,
                 AgentList = metaModel.AgentListXml,
-                metaModel.BaseCurrency
+                metaModel.BaseCurrency,
+                _balanceUp.MoveBetsDay,
+                _balanceUp.BalanceUpDay
             };
 
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
