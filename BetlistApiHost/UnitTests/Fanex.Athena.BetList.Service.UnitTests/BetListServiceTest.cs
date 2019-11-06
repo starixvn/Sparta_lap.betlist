@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.Service.UnitTests
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Common.DataAccess.Interfaces;
@@ -28,8 +27,6 @@
     [TestFixture]
     public class BetListServiceTest
     {
-        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
-
         private IBetListDataAccess _betlistDataAccess;
 
         private IBetListService _betListService;
@@ -93,7 +90,7 @@
             {
                 TotalRows = 1234
             };
-            var spname = FakeHelper.Create<string>();
+
             var metaModel = new BetListMetaModel();
             _betlistDataAccess.GetBetListData(metaModel).Returns(expectedResult);
 
@@ -114,7 +111,10 @@
             _betListService.GetLeagueName(leagueId);
 
             // Assert
-            _cacheRefAdapter.Received().GetLeagueName(leagueId);
+            Assert.Multiple(() =>
+            {
+                _cacheRefAdapter.Received().GetLeagueName(leagueId);
+            });
         }
     }
 }

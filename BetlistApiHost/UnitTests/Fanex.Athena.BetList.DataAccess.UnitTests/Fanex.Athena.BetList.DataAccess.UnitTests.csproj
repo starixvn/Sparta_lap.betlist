@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="BaseBetListDataAccessTest.cs" />
     <Compile Include="BetListByProductDataAccessTest.cs" />
+    <Compile Include="SingleMatchParlayDetailDataAccessTest.cs" />
     <Compile Include="BetListDataAccessTest.cs" />
     <Compile Include="BetListDataAccessTest.GetBetListData.cs" />
     <Compile Include="PlayerAdminBetListDataAccessTest.cs" />

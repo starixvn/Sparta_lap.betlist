@@ -18,8 +18,6 @@
 
         private const string HtmlResult = "<abc>hello</abc>";
 
-        private static readonly DateTime BalanceUpDate = new DateTime(2017, 3, 4);
-
         private IResultService _resultService;
 
         private IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
@@ -29,6 +27,12 @@
         {
             _resultService = Substitute.For<IResultService>();
             _rngCasinoSingleWalletService = Substitute.For<IRNGCasinoSingleWalletService>();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _resultService.ClearReceivedCalls();
         }
 
         [Test]
@@ -99,7 +103,7 @@
             }
         }
 
-        private ResultReportController CreateController(string productCodeList = null)
+        private ResultReportController CreateController()
         {
             var controller = new ResultReportController(
                 _resultService,
