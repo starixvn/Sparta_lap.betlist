@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-using Fanex.Athena.BetList.DataAccess.Interfaces;
-using Fanex.Athena.BetList.Model.DTO;
-using Fanex.Athena.BetList.Model.MetaModel;
-using Fanex.Athena.Common.DataAccess.Interfaces;
-using Fanex.Common;
-using Fanex.Data;
-
-namespace Fanex.Athena.BetList.DataAccess
+﻿namespace Fanex.Athena.BetList.DataAccess
 {
-    public class SystemParlayDetailDataAccess : BaseBetListDataAccess, ISystemParlayDetailDataAccess
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading.Tasks;
+    using Fanex.Athena.BetList.DataAccess.Interfaces;
+    using Fanex.Athena.BetList.Model.DTO;
+    using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.Common.DataAccess;
+    using Fanex.Athena.Common.DataAccess.Interfaces;
+    using Fanex.Common;
+    using Fanex.Data;
+
+    public class SystemParlayDetailDataAccess : BaseDataAccess, ISystemParlayDetailDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 

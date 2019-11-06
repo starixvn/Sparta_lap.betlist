@@ -140,6 +140,7 @@
     <Compile Include="DTO\LrfTicket.cs" />
     <Compile Include="DTO\BetListMatch.cs" />
     <Compile Include="DTO\ColossusBetDetail.cs" />
+    <Compile Include="DTO\SingleMatchParlayDetail.cs" />
     <Compile Include="DTO\SystemParlayDetailData.cs" />
     <Compile Include="DTO\SystemParlayDetailItem.cs" />
     <Compile Include="DTO\SystemParlayDetailMatch.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="MetaModel\RefNoBetListMetaModel.cs" />
     <Compile Include="MetaModel\BetListShowingOption.cs" />
     <Compile Include="MetaModel\SingleCustomersBetListMetaModel.cs" />
+    <Compile Include="MetaModel\SingleMatchParlayDetailMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueBetListMetaModel.cs" />
     <Compile Include="MetaModel\CashOutBetListDetailMetaModel.cs" />
     <Compile Include="MetaModel\ColossusBetDetailMetaModel.cs" />

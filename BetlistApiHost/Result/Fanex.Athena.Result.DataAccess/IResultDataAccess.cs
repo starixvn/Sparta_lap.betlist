@@ -43,6 +43,8 @@ namespace Fanex.Athena.Result.DataAccess
 
         Task<Sportsbook> GetSportsbookGameDetailAsync(int matchId);
 
+        Task<Sportsbook> GetPopUpSingleMatchParlayAsync(int matchId, string marketId);
+
         #endregion Popup
     }
 }

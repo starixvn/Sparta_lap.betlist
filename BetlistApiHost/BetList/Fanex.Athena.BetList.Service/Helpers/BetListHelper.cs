@@ -69,6 +69,16 @@
                     status.Equals("pending", StringComparison.OrdinalIgnoreCase);
         }
 
+        public static bool IsVoid(string status)
+        {
+            if (string.IsNullOrWhiteSpace(status))
+            {
+                return false;
+            }
+
+            return status.Equals("void", StringComparison.OrdinalIgnoreCase);
+        }
+
         private static string GetBetTypeName(ITicketHelper tickerHelper, LrfTicket ticket)
         {
             return (ticket.BetTypeId == (int)BetType.CombinationMixParlay && ticket.BetTeam == "1") ?
