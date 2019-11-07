@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Common.Constant;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Happy5.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -50,18 +51,21 @@
                 };
 
                 // Action
-                var result = await controller.ResultPopup(new ResultPopupMetaModel()).ConfigureAwait(false);
+                await controller.ResultPopup(new ResultPopupMetaModel()).ConfigureAwait(false);
 
                 // Assert
-                _resultService.HtmlParser(
-                        Arg.Any<IList<Sportsbook>>(),
-                        Arg.Is<ResultSetting>(x =>
-                            x.SportType == (Fanex.Result.Core.Base.SportType)metaModel.SportType &&
-                            x.IsOutright == expectedIsOutRight &&
-                            x.IsParlayPopUp == expectedIsParlayPopup &&
-                            x.IsPopUp &&
-                            x.LanguageCode == LanguageCode &&
-                            x.EnableCheckScoreCalculated));
+                Assert.Multiple(() =>
+                {
+                    _resultService.HtmlParser(
+                            Arg.Any<IList<Sportsbook>>(),
+                            Arg.Is<ResultSetting>(x =>
+                                x.SportType == (Fanex.Result.Core.Base.SportType)metaModel.SportType &&
+                                x.IsOutright == expectedIsOutRight &&
+                                x.IsParlayPopUp == expectedIsParlayPopup &&
+                                x.IsPopUp &&
+                                x.LanguageCode == LanguageCode &&
+                                x.EnableCheckScoreCalculated));
+                });
             }
         }
 
@@ -122,6 +126,25 @@
                 var metaModel = CreateResultPopupMetaModel(Fanex.Result.Core.Base.SportType.NumberGame);
                 var dataList = new List<NumberGame> { new NumberGame() };
                 _resultService.GetPopUpNumberGameMatchsAsync(metaModel.MatchId).Returns(dataList);
+                _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
+
+                // Action
+                var result = await controller.ResultPopup(metaModel).ConfigureAwait(false);
+
+                // Assert
+                Assert.That(result, Is.EqualTo(HtmlResult));
+            }
+        }
+
+        [Test]
+        public async Task ResultPopup_Happy5Sport_ResultIsCorrect()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = CreateResultPopupMetaModel(Fanex.Result.Core.Base.SportType.Happy5);
+                var dataList = new List<Happy5> { new Happy5() };
+                _resultService.GetPopUpHappy5MatchesAsync(metaModel.MatchId).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
