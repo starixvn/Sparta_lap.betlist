@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.BetList.Model.DTO
+﻿namespace Fanex.Athena.BetList.Model.DTO
 {
+    using System;
+    using System.Collections.Generic;
+
     public class SystemParlayDetailItem
     {
         public DateTime Date { get; set; }

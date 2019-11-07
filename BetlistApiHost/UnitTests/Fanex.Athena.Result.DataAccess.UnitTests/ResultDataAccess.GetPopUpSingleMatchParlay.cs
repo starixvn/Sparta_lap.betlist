@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
+    using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -51,8 +52,7 @@
             var dataMapping = GetReaderDataMappingForSportsbookType();
             MapReaderData(dataMapping);
 
-            var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.GameDetails.Clear();
+            var sportsbookData = GetExpectedSportsbookData(new List<GameDetail>());
             sportsbookData.BetID = null;
             sportsbookData.Bettype = 0;
 

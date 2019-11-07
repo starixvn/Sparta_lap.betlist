@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Fanex.Athena.BetList.Model.DTO;
-
-namespace Fanex.Athena.BetList.Model.ViewModel
+﻿namespace Fanex.Athena.BetList.Model.ViewModel
 {
+    using System.Collections.Generic;
+    using Fanex.Athena.BetList.Model.DTO;
+
     public class BetListResultViewModel
     {
         public List<TicketText> Main { get; set; }

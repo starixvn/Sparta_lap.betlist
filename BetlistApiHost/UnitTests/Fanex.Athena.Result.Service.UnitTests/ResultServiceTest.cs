@@ -230,7 +230,10 @@
             await _service.GetPopUpSingleMatchParlayAsync(matchId, marketId);
 
             // Assert
-            _dataAccess.Received(1).GetPopUpSingleMatchParlayAsync(matchId, marketId);
+            Assert.Multiple(() =>
+            {
+                _dataAccess.Received(1).GetPopUpSingleMatchParlayAsync(matchId, marketId);
+            });
         }
     }
 }

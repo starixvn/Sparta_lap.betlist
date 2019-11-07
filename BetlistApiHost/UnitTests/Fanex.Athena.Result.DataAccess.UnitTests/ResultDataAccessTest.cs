@@ -323,7 +323,7 @@
             Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
-        private static Sportsbook GetExpectedSportsbookData()
+        private static Sportsbook GetExpectedSportsbookData(List<GameDetail> gameDetails = null)
         {
             return new Sportsbook
             {
@@ -350,7 +350,7 @@
                 LiveHomeScore = 10,
                 BetID = BetId.ToString(),
                 Bettype = BettypeId,
-                GameDetails = GetExpectedGameDetailData()
+                GameDetails = gameDetails ?? GetExpectedGameDetailData()
             };
         }
 

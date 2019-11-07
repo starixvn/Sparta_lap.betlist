@@ -3,12 +3,11 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
 namespace Fanex.Athena.BetList.Model.MetaModel
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class LastBetsMonitoringMetaModel
     {
         private const int DefaultPageSize = 10;

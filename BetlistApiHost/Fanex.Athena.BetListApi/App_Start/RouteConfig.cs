@@ -1,8 +1,8 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
-
-namespace Fanex.Athena.App_Start
+﻿namespace Fanex.Athena.App_Start
 {
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
     public static class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes, bool includeAttributeMapping = true)
