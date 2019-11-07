@@ -31,6 +31,7 @@ namespace Fanex.Athena.Result.DataAccess
         private const string KickOffTimeColumn = "kickofftime";
         private const string LcolorColumn = "lcolor";
         private const string IsFavorColumn = "IsFavor";
+        private const string LeagueIdColumn = "leagueid";
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -70,7 +71,7 @@ namespace Fanex.Athena.Result.DataAccess
                         {
                             EventDate = DateTime.Parse(reader.ToString(EventDateColumn)),
                             SportType = reader.ToInt("sporttype"),
-                            LeagueId = reader.ToInt("leagueid"),
+                            LeagueId = reader.ToInt(LeagueIdColumn),
                             TeamId = reader.ToInt("teamid"),
                             Status = reader.ToString("status")
                         });
@@ -128,7 +129,7 @@ namespace Fanex.Athena.Result.DataAccess
                     var data = new List<League>();
                     while (reader.Read())
                     {
-                        var leagueId = Convert.ToInt32(reader["leagueid"]);
+                        var leagueId = Convert.ToInt32(reader[LeagueIdColumn]);
                         data.Add(new League
                         {
                             LeagueId = leagueId,
@@ -214,7 +215,7 @@ namespace Fanex.Athena.Result.DataAccess
 
                     while (reader.Read())
                     {
-                        var leagueId = reader.ToInt("leagueid");
+                        var leagueId = reader.ToInt(LeagueIdColumn);
                         var parlay = results.SingleOrDefault(x => x.LeagueId == leagueId);
                         if (parlay == null)
                         {
@@ -347,7 +348,7 @@ namespace Fanex.Athena.Result.DataAccess
                 AwayId = reader.ToInt("awayID"),
                 HomeId = reader.ToInt("homeID"),
                 BetStatus = reader[BetstatusColumn] != DBNull.Value ? reader.ToString(BetstatusColumn) : string.Empty,
-                LeagueId = leagueId ?? reader.ToInt("leagueid"),              
+                LeagueId = leagueId ?? reader.ToInt(LeagueIdColumn),
                 MatchId = reader.ToInt(MatchidColumn),
                 EventStatus = reader.ToString("eventstatus"),
                 FinalAwayScore = reader.ToNullableInt("finalawayscore"),

@@ -5,11 +5,6 @@
         public BetListShowingOption()
         {
             GrandTotalVisible = true;
-            NGVisible = false;
-            BAVisible = false;
-            CSVisible = false;
-            KNVisible = false;
-            ABVisible = false;
         }
 
         public bool GrandTotalVisible { get; set; }

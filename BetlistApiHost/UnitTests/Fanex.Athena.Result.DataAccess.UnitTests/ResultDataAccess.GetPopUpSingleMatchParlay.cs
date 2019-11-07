@@ -28,7 +28,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).SetParameterValue("matchId", matchId);
+                ObjectDb.Received(1).SetParameterValue("matchid", matchId);
                 ObjectDb.Received(1).SetParameterValue("marketId", marketId);
             });
         }

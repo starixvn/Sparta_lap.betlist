@@ -117,10 +117,7 @@
             var result = await DataAccess.GetPopUpMatchesAsync<Sportsbook>(metaModel).ConfigureAwait(false);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
+            Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
         }
 
         [Test]

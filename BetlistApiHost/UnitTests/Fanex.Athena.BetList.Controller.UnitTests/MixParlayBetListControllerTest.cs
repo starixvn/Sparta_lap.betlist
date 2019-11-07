@@ -82,6 +82,28 @@
         }
 
         [Test]
+        public async Task NewParlayDetail_CombinationTypeComboIsNull_ReturnNull()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = FakeHelper.Create<NewParlayDetailMetaModel>();
+
+                _cacheRefAdapter.GetCombinationTypeCombo(metaModel.BetTeam, metaModel.BetCheck, metaModel.Handicap1, metaModel.Handicap2)
+                    .Returns(x => null);
+
+                var ticketResult = new TicketResult();
+                _betListService.GetMixParlayDetailTicket(metaModel).Returns(ticketResult);
+
+                // Action
+                var result = await controller.NewParlayDetail(metaModel);
+
+                // Assert
+                Assert.That(result, Is.Null);
+            }
+        }
+
+        [Test]
         public async Task NewParlayDetail_NoMainTicket_ReturnEmptyResult()
         {
             using (var controller = CreateController())

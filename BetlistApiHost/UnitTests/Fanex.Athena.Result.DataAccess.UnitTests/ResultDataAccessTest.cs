@@ -282,7 +282,10 @@
             await DataAccess.GetSportsbookGameDetailAsync(MatchId).ConfigureAwait(false);
 
             // Assert
-            ObjectDb.Received(1).SetParameterValue("matchid", MatchId);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received(1).SetParameterValue("matchid", MatchId);
+            });
         }
 
         [TestCase(true)]
