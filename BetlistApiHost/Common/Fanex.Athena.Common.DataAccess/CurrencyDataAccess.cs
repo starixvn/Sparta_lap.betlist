@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Fanex.Athena.Common.DataAccess.Interfaces;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.Common.Extensions;
 
 namespace Fanex.Athena.Common.DataAccess
 {
-    public class CurrencyDataAccess : BaseDataAccess
+    public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess
     {
         private const int CacheTime1DayInSecond = 86400;
 

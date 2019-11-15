@@ -21,11 +21,11 @@ namespace Fanex.Athena
 
     using Logging;
     using Logging.RabbitMQ;
+
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Web;
-    using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Routing;
 
@@ -57,8 +57,6 @@ namespace Fanex.Athena
             AreaRegistration.RegisterAllAreas();
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 
             DbSettingProviderManager
                 .StartNewSession()

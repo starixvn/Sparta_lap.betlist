@@ -24,16 +24,16 @@ namespace Fanex.Athena
         {
             var builder = new ContainerBuilder();
             var assemblies = GetAssemblies();
-            var apiControllerAssemblies = GetControllerAssemblies(assemblies);
+            var controllerAss = GetControllerAssemblies(assemblies);
             builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
-            builder.RegisterControllers(apiControllerAssemblies);
-
             builder.RegisterFilterProvider();
 
             RegisterThirdpartyServices(builder);
 
             // static services
             builder.RegisterInstance(new CustomMemoryCache()).As<ICustomMemoryCache>();
+
+            builder.RegisterControllers(controllerAss);
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
