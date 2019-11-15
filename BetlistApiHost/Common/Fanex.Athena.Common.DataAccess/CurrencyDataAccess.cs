@@ -46,7 +46,7 @@ namespace Fanex.Athena.Common.DataAccess
                 {
                     while (reader.Read())
                     {
-                        result.Add(reader.ToInt("ToInt"), reader["Name"].ToString());
+                        result.Add(reader.ToInt("Id"), reader["Name"].ToString());
                     }
                     return result;
                 }
