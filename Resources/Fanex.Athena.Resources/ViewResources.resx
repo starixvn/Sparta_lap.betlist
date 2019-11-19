@@ -254,4 +254,8 @@
   <data name="Currency" xml:space="preserve">
     <value>Currency</value>
   </data>
+  <data name="ShortedNeutral" xml:space="preserve">
+    <value>(N)</value>
+    <comment>123772</comment>
+  </data>
 </root>

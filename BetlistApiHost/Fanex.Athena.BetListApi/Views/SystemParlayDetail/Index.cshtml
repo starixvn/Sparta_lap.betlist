@@ -1,6 +1,7 @@
 ﻿@using Fanex.Athena.Common.Utility.Helpers;
 @using System.Linq;
 @using Fanex.BetList.Core.App_GlobalResources;
+@using Fanex.Athena.Resources;
 
 @model Fanex.Athena.BetList.Model.ViewModel.SystemParlayDetailViewModel
 @{
@@ -94,7 +95,8 @@
                             <td style="text-align: left; font-weight: normal; overflow:hidden; text-overflow: ellipsis; white-space: normal">
                                 @foreach (var match in dataByMatch.MatchList)
                                 {
-                                    var matchText = match.HomeTeam + " -vs- " + match.AwayTeam;
+                                    var homeTeamText = match.HomeTeam + (match.IsNeutral ? " " + ViewResources.ShortedNeutral : string.Empty);
+                                    var matchText = homeTeamText + " -vs- " + match.AwayTeam;
                                     <div class="match-group" title="@matchText">@matchText</div>
                                 }
                             </td>

@@ -237,4 +237,8 @@
   <data name="Currency" xml:space="preserve">
     <value>貨幣</value>
   </data>
+  <data name="ShortedNeutral" xml:space="preserve">
+    <value>(中)</value>
+    <comment>123772</comment>
+  </data>
 </root>
