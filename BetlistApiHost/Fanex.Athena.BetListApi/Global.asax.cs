@@ -6,28 +6,23 @@
 
 namespace Fanex.Athena
 {
-
-    using App_Start;
-
-    using Data;
-
-    using Fanex.Athena.Common.Utility.Helpers;
-    using Fanex.BetList.Core;
-    using Fanex.BetList.Core.RemotingRef;
-    using Fanex.Data.SqlServer;
-    using Fanex.RemotingRef;
-    using Fanex.Result.Core.Base;
-    using Fanex.Result.Core.RemotingRef;
-
-    using Logging;
-    using Logging.RabbitMQ;
-
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using App_Start;
+    using Data;
+    using Fanex.Athena.Common.Utility.Helpers;
+    using Fanex.BetList.Core;
+    using Fanex.BetList.Core.RemotingRef;
+    using Fanex.Data.SqlServer;
+    using Fanex.Logging.Sentry.RavenClient;
+    using Fanex.RemotingRef;
+    using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.RemotingRef;
+    using Logging;
+    using SharpRaven;
 
     public class MvcApplication : HttpApplication
     {
@@ -45,7 +40,6 @@ namespace Fanex.Athena
                 LogService.Error(LogMessageHelper.GenerateMessage(exception));
             }
         }
-
 
         public void Application_Start(object sender, EventArgs e)
         {
@@ -70,10 +64,11 @@ namespace Fanex.Athena
 
             LogManager
                 .SetDefaultLogCategory(ConfigurationManager.AppSettings["Fanex.Logging-LogCategory"])
-                .Use(new List<ILogEngine>
-                 {
-                     new RabbitMQLogging(ConfigurationManager.AppSettings["RabbitMQ-ConnectionString"])
-                 });
+                .Use(new SentryLogging(
+                new SentryEngineOptions
+                {
+                    Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry-Dsn"])
+                }));
 
             DIConfig.Register();
         }
