@@ -77,14 +77,15 @@ namespace Fanex.Athena.BetList.DataAccess.UnitTests
         }
 
         [Test]
-        public async Task GetSystemParlayDetail_WhenCall_GetSerialDataCorrectly()
+        public async Task GetData_WhenCall_GetSerialDataCorrectly()
         {
             // Arrange
             var expectedResult = new SystemParlayDetailSerial
             {
                 Serial = 1,
                 HomeId = 2,
-                AwayId = 3
+                AwayId = 3,
+                IsNeutral = true
             };
             var metaModel = GetSystemParlayDetailMetaModel();
             DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
@@ -137,8 +138,9 @@ namespace Fanex.Athena.BetList.DataAccess.UnitTests
             table.Columns.Add("serial", typeof(long));
             table.Columns.Add("homeid", typeof(int));
             table.Columns.Add("awayid", typeof(int));
+            table.Columns.Add("IsNeutral", typeof(bool));
 
-            table.Rows.Add(data.Serial, data.HomeId, data.AwayId);
+            table.Rows.Add(data.Serial, data.HomeId, data.AwayId, data.IsNeutral);
 
             return dataSet;
         }
