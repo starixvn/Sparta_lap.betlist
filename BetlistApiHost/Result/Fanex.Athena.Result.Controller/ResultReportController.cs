@@ -5,6 +5,7 @@ namespace Fanex.Athena.Result.Controller
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Hosting;
@@ -211,7 +212,7 @@ namespace Fanex.Athena.Result.Controller
                 IsOutright = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
                 IsParlayPopUp = IsPalayBetType(metalModel.Bettype),
                 IsPopUp = true,
-                LanguageCode = LanguageCode,
+                LanguageCode = Thread.CurrentThread.CurrentUICulture.Name,
                 EnableCheckScoreCalculated = true
             };
 
@@ -462,7 +463,7 @@ namespace Fanex.Athena.Result.Controller
                 SportType = sportType,
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = HostingEnvironment.MapPath(ResultExcelTemplateAddress),
-                LanguageCode = LanguageCode,
+                LanguageCode = Thread.CurrentThread.CurrentUICulture.Name,
                 VisibleDetailedLink = true,
                 VisibleFreeHeader = true,
                 EnableCheckScoreCalculated = sportType == SportType.Soccer,
