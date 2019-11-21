@@ -28,9 +28,6 @@ namespace Fanex.Athena.Result.Controller
         private static readonly IEnumerable<SportType> ShowingMatchCodeSportTypes = new[]
         {
             SportType.GoldDeluxe,
-            SportType.HorseRacing,
-            SportType.Greyhound,
-            SportType.Harness,
             SportType.VirtualHorseRacing,
             SportType.VirtualGreyhounds,
             SportType.VirtualSpeedway,
