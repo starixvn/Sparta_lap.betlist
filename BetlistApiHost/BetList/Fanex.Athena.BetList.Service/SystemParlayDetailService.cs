@@ -76,7 +76,8 @@ namespace Fanex.Athena.BetList.Service
                     MatchList = serialList.Select(x => new SystemParlayDetailMatch
                     {
                         HomeTeam = ticketHelper.GetTeamNameById(x.HomeId),
-                        AwayTeam = ticketHelper.GetTeamNameById(x.AwayId)
+                        AwayTeam = ticketHelper.GetTeamNameById(x.AwayId),
+                        IsNeutral = x.IsNeutral
                     })
                 })
                 .GroupBy(p => p.Date)

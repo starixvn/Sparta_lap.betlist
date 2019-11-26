@@ -7,5 +7,7 @@
         public int HomeId { get; set; }
 
         public long Serial { get; set; }
+
+        public bool IsNeutral { get; set; }
     }
 }

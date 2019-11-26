@@ -97,7 +97,8 @@ namespace Fanex.Athena.BetList.DataAccess
             {
                 Serial = Convert.ToInt64(row["serial"]),
                 HomeId = Converter.ToInt(row["homeid"]),
-                AwayId = Converter.ToInt(row["awayid"])
+                AwayId = Converter.ToInt(row["awayid"]),
+                IsNeutral = Converter.ToBool(row["IsNeutral"])
             };
         }
     }

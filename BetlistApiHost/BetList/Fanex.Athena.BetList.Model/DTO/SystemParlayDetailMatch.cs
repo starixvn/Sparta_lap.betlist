@@ -5,5 +5,7 @@
         public string HomeTeam { get; set; }
 
         public string AwayTeam { get; set; }
+
+        public bool IsNeutral { get; set; }
     }
 }
