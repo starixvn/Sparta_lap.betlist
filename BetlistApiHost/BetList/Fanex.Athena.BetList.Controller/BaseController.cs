@@ -10,11 +10,12 @@ namespace Fanex.Athena.BetList.Controller
     using System.Web.SessionState;
     using Common.Utility.Attributes;
     using Fanex.Athena.BetList.Controller.CustomActionResult;
+    using Fanex.Athena.Common.Utility.Controllers;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CustomAuth]
     [HandleJsonException]
-    public class BaseController : Controller
+    public class BaseController : CultureController
     {
         protected new JsonResult Json(object data)
         {
