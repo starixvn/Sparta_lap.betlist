@@ -43,6 +43,14 @@ namespace Fanex.Athena
 
         public void Application_Start(object sender, EventArgs e)
         {
+            LogManager
+                .SetDefaultLogCategory(ConfigurationManager.AppSettings["Fanex.Logging-LogCategory"])
+                .Use(new SentryLogging(
+                new SentryEngineOptions
+                {
+                    Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry-Dsn"])
+                }));
+
             const string SpNameConfigSource = "~/SpNameConfig/FanexSpName.xml";
 
             ViewEngines.Engines.Clear();
@@ -61,14 +69,6 @@ namespace Fanex.Athena
            .FromApplication("Fanex.LAP.BetListApi");
             BetListManager.RegisterRemotingRef(new CacheRef());
             ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
-
-            LogManager
-                .SetDefaultLogCategory(ConfigurationManager.AppSettings["Fanex.Logging-LogCategory"])
-                .Use(new SentryLogging(
-                new SentryEngineOptions
-                {
-                    Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry-Dsn"])
-                }));
 
             DIConfig.Register();
         }
