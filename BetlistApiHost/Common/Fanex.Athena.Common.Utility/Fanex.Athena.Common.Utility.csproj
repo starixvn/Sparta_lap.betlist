@@ -136,6 +136,7 @@
   <ItemGroup>
     <Compile Include="Attributes\CustomAuthAttribute.cs" />
     <Compile Include="Attributes\HandleJsonExceptionAttribute.cs" />
+    <Compile Include="Controllers\CultureController.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Attributes\JsonNetModelBinderAttribute.cs" />
     <Compile Include="Helpers\LogMessageHelper.cs" />
