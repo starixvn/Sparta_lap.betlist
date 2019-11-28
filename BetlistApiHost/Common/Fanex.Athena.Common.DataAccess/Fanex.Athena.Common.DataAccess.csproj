@@ -96,8 +96,10 @@
   <ItemGroup>
     <Compile Include="BalanceUpDataAccess.cs" />
     <Compile Include="BaseDataAccess.cs" />
+    <Compile Include="CurrencyDataAccess.cs" />
     <Compile Include="Extensions\DataReaderExtensions.cs" />
     <Compile Include="Interfaces\IBalanceUpDataAccess.cs" />
+    <Compile Include="Interfaces\ICurrencyDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

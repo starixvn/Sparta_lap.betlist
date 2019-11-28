@@ -33,7 +33,7 @@
                 // Arrange
                 var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
 
-                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(Task.FromResult(new TicketResult()));
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel).Returns(Task.FromResult(new TicketResult()));
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
@@ -54,7 +54,7 @@
                 var ticket = FakeHelper.Create<LrfTicket>();
                 ticket.BetTypeId = 1;
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
-                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(Task.FromResult(ticketResult));
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel).Returns(Task.FromResult(ticketResult));
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
@@ -87,7 +87,7 @@
                 var ticket = FakeHelper.Create<LrfTicket>();
                 ticket.BetTypeId = betType;
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
-                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(Task.FromResult(ticketResult));
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel).Returns(Task.FromResult(ticketResult));
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
@@ -116,7 +116,7 @@
                 ticket.BetTypeId = betType;
                 ticket.Odds = -FakeHelper.Create<uint>();
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
-                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel, metaModel.UserCurrencyList).Returns(Task.FromResult(ticketResult));
+                _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel).Returns(Task.FromResult(ticketResult));
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;

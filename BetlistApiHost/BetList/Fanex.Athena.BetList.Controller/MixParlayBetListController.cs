@@ -51,7 +51,6 @@ namespace Fanex.Athena.BetList.Controller
         }
 
         [HttpPost]
-        [JsonNetModelBinder(Parameter = "metaModel", JsonDataType = typeof(NewParlayDetailMetaModel))]
         public async Task<JsonResult> NewParlayDetail(NewParlayDetailMetaModel metaModel)
         {
             var texts = _cacheRefAdapter.GetCombinationTypeCombo(metaModel.BetTeam, metaModel.BetCheck, metaModel.Handicap1, metaModel.Handicap2);

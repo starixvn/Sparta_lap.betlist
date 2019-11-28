@@ -14,7 +14,12 @@
     public class PlayerAdminBetListDataAccessTest : BaseDataAccessHelperTest<PlayerAdminBetListDataAccess>
     {
         private const string UspKey = "Lrf_BetList_Running_Mem";
+        protected override void SetUpDataAccess()
+        {
 
+            DataAccess = Substitute.ForPartsOf<PlayerAdminBetListDataAccess>(
+                CurrencyDataAccess);
+        }
         [TestCase(null, null)]
         [TestCase("", "ASC")]
         [TestCase("Index", "")]

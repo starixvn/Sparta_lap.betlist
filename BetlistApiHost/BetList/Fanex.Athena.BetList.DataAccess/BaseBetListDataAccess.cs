@@ -10,11 +10,12 @@ namespace Fanex.Athena.BetList.DataAccess
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Common.Constant;
+    using System.Threading.Tasks;
     using Common.DataAccess;
     using Common.Utility.Collections;
     using Common.Utility.Extensions;
     using Fanex.Athena.Common.DataAccess.Extensions;
+    using Fanex.Athena.Common.DataAccess.Interfaces;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common.Extensions;
     using Model.DTO;
@@ -22,12 +23,24 @@ namespace Fanex.Athena.BetList.DataAccess
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
+        private readonly ICurrencyDataAccess _currencyDataAccess;
+        protected BaseBetListDataAccess(ICurrencyDataAccess currenyDataAccess)
+        {
+            _currencyDataAccess = currenyDataAccess;
+        }
+
+        protected async Task<IDictionary<int, string>> GetCurrencyListAsync()
+        {
+            return await _currencyDataAccess.GetCurrencyListAsync().ConfigureAwait(false);
+        }
+
+
         [CLSCompliant(false)]
         protected internal static LrfTicket MapTicket(
-            ISafeDataReader reader,
-            IDictionary<string, string> columns,
-            IDictionary<int, string> currencyList,
-            long custId = 0)
+                ISafeDataReader reader,
+                IDictionary<string, string> columns,
+                IDictionary<int, string> currencyList,
+                long custId = 0)
         {
             var currencyId = reader.GetInt("currencyid");
             var ticket = new LrfTicket

@@ -19,7 +19,8 @@
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ITempFileService _tempFileService;
 
-        public BettingTicketCenterMultiCustomerDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ITempFileService tempFileService)
+        public BettingTicketCenterMultiCustomerDataAccess(IBalanceUpDataAccess balanceUpDataAccess,
+            ITempFileService tempFileService, ICurrencyDataAccess currencyService) : base(currencyService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _tempFileService = tempFileService;
@@ -27,14 +28,14 @@
 
         public async Task<GroupTicketResult> GetBetListForMultipleCustomersAsync(
             MultipleCustomersBetListMetaModel metaModel,
-            int rowPerGroup,
-            IDictionary<int, string> currencyList)
+            int rowPerGroup)
         {
             const string UspKey = "Lrf_BetList_Licensee";
             var groupData = new GroupTicketResult
             {
                 RowPerGroup = rowPerGroup
             };
+            var currencyList = await this.GetCurrencyListAsync();
 
             using (var db = GetObjectDb(UspKey))
             {
@@ -74,11 +75,12 @@
             }
         }
 
-        public async Task<TicketResult> GetBetListForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Licensee";
 
             var ticketResult = new TicketResult();
+            var currencyList = await this.GetCurrencyListAsync();
 
             using (var db = GetObjectDb(UspKey))
             {

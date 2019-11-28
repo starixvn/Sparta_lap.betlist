@@ -3,12 +3,19 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
+
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.DTO;
-    using Common.Constant;
+
     using Common.DataAccess.UnitTests;
+
+    using Fanex.Athena.Common.DataAccess.Interfaces;
+
     using NSubstitute;
+
     using NUnit.Framework;
+
     using UnitTest.Common.Helpers;
     using UnitTest.Common.NUnitExtensions;
 
@@ -17,15 +24,11 @@
     {
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<BaseBetListDataAccess>();
+            DataAccess = Substitute.ForPartsOf<BaseBetListDataAccess>(CurrencyDataAccess);
         }
 
-        [TestCase("")]
-        [TestCase("UUS")]
-        [TestCase(null)]
-        [TestCase("USD")]
-        [TestCase("ABC")]
-        public void ReadLrfTicket_WhenCall_DataReturnedCorrectly(string baseCurrency)
+
+        public void ReadLrfTicket_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             var expected = GetFakeTicket();

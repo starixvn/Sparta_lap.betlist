@@ -24,7 +24,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = productCode };
 
             // Action
-            await DataAccess.GetBetListForSingleCustomerAsync(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListForSingleCustomerAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -64,7 +64,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
             // Action
-            await DataAccess.GetBetListForSingleCustomerAsync(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListForSingleCustomerAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -86,7 +86,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
             // Action
-            await DataAccess.GetBetListForSingleCustomerAsync(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListForSingleCustomerAsync(metaModel);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + " " + metaModel.SortOrder);
@@ -114,7 +114,7 @@
             var metaModel = new SingleCustomersBetListMetaModel { ProductCodeList = string.Empty };
 
             // Action
-            var result = await DataAccess.GetBetListForSingleCustomerAsync(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetBetListForSingleCustomerAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>

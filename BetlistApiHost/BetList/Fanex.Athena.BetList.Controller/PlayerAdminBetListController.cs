@@ -25,7 +25,6 @@
         }
 
         [HttpPost]
-        [JsonNetModelBinder(Parameter = "metaModel", JsonDataType = typeof(PlayerAdminBetListMetaModel))]
         public async Task<JsonResult> GetBetList(PlayerAdminBetListMetaModel metaModel)
         {
             var ticketResult = await _dataAccess.GetRunningBetListAsync(metaModel).ConfigureAwait(false);

@@ -17,7 +17,7 @@
     {
         private IBalanceUpDataAccess _balanceUpDataAccess;
 
-        private BalanceUp _balanceUpInfo = new BalanceUp
+        private readonly BalanceUp _balanceUpInfo = new BalanceUp
         {
             BalanceUpDay = DateTime.Now,
             MoveBetsDay = DateTime.Now
@@ -27,7 +27,8 @@
         {
             _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balanceUpDataAccess.GetBalanceUp().Returns(_balanceUpInfo);
-            DataAccess = Substitute.ForPartsOf<BetListByProductDataAccess>(_balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<BetListByProductDataAccess>(_balanceUpDataAccess,
+                CurrencyDataAccess);
         }
 
         [Test]
@@ -80,7 +81,7 @@
             await DataAccess.QueryAsync(metaModel).ConfigureAwait(false);
 
             // Assert
-            DataAccess.Received(1).ReadBetListTicket(Reader, metaModel.UserCurrencyList, 0);
+            DataAccess.Received(1).ReadBetListTicket(Reader, UserCurrencyList, 0);
         }
 
         [Test]

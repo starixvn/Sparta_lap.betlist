@@ -6,28 +6,23 @@
 
 namespace Fanex.Athena
 {
-
+    using System;
+    using System.Configuration;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
     using App_Start;
-
     using Data;
-
     using Fanex.Athena.Common.Utility.Helpers;
     using Fanex.BetList.Core;
     using Fanex.BetList.Core.RemotingRef;
     using Fanex.Data.SqlServer;
+    using Fanex.Logging.Sentry.RavenClient;
     using Fanex.RemotingRef;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.RemotingRef;
-
     using Logging;
-    using Logging.RabbitMQ;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Web;
-    using System.Web.Http;
-    using System.Web.Mvc;
-    using System.Web.Routing;
+    using SharpRaven;
 
     public class MvcApplication : HttpApplication
     {
@@ -46,9 +41,16 @@ namespace Fanex.Athena
             }
         }
 
-
         public void Application_Start(object sender, EventArgs e)
         {
+            LogManager
+                .SetDefaultLogCategory(ConfigurationManager.AppSettings["Fanex.Logging-LogCategory"])
+                .Use(new SentryLogging(
+                new SentryEngineOptions
+                {
+                    Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry-Dsn"])
+                }));
+
             const string SpNameConfigSource = "~/SpNameConfig/FanexSpName.xml";
 
             ViewEngines.Engines.Clear();
@@ -57,8 +59,6 @@ namespace Fanex.Athena
             AreaRegistration.RegisterAllAreas();
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 
             DbSettingProviderManager
                 .StartNewSession()
@@ -69,13 +69,6 @@ namespace Fanex.Athena
            .FromApplication("Fanex.LAP.BetListApi");
             BetListManager.RegisterRemotingRef(new CacheRef());
             ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
-
-            LogManager
-                .SetDefaultLogCategory(ConfigurationManager.AppSettings["Fanex.Logging-LogCategory"])
-                .Use(new List<ILogEngine>
-                 {
-                     new RabbitMQLogging(ConfigurationManager.AppSettings["RabbitMQ-ConnectionString"])
-                 });
 
             DIConfig.Register();
         }

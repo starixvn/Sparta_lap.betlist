@@ -11,6 +11,7 @@ namespace Fanex.Athena.BetList.DataAccess
     using System.Data;
     using System.Threading.Tasks;
     using Common.Utility.Helpers;
+    using Fanex.Athena.Common.DataAccess.Interfaces;
     using Fanex.BetList.ColossusBets.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common.Extensions;
@@ -26,7 +27,7 @@ namespace Fanex.Athena.BetList.DataAccess
         private readonly ITicketHelper _ticketHelper;
 
         [CLSCompliant(false)]
-        public ColossusBetBetListDataAccess(ITicketHelper ticketHelper)
+        public ColossusBetBetListDataAccess(ITicketHelper ticketHelper) : base(null)
         {
             _ticketHelper = ticketHelper;
         }

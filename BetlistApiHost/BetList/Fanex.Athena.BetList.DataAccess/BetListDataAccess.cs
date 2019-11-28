@@ -8,16 +8,22 @@
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.Common.DataAccess.Interfaces;
     using Fanex.Common;
 
     using Util;
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
+        public BetListDataAccess(ICurrencyDataAccess currencyDataAccess) : base(currencyDataAccess)
+        {
+
+        }
+
         public async Task<TicketResult> GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";
-
+            var currencyList = await this.GetCurrencyListAsync();
             using (var db = this.GetObjectDb(UspName))
             {
                 db.SetParameterValue("TransId", metaModel.TransId);
@@ -25,7 +31,8 @@
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = new TicketResult();
-                    result.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.UserCurrencyList));
+                    result.MainTicketList.AddRange(ReadBetListTicket(reader,
+                        currencyList));
                     return result;
                 }
             }
@@ -34,6 +41,7 @@
         public async Task<TicketResult> GetBetListData(BetListMetaModel metaModel)
         {
             var ticketResult = new TicketResult();
+            var currencyList = await this.GetCurrencyListAsync();
 
             using (var db = GetObjectDb(metaModel.UspKey))
             {
@@ -41,7 +49,8 @@
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.CurrencyList, metaModel.CustId));
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader,
+                       currencyList, metaModel.CustId));
                     if (reader.NextResult())
                     {
                         ticketResult.TicketDataList.AddRange(ReadReferneceTicket(reader).ToList());
@@ -50,7 +59,7 @@
                     SortData(metaModel, ticketResult.MainTicketList);
                 }
 
-                Hashtable outSqlParams = db.GetOutputParams() ?? new Hashtable();
+                var outSqlParams = db.GetOutputParams() ?? new Hashtable();
 
                 UpdateSummaryData(ticketResult, outSqlParams);
 

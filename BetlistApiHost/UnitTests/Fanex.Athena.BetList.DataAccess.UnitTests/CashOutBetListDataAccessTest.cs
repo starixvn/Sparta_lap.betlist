@@ -26,7 +26,7 @@
         {
             _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
-            DataAccess = Substitute.ForPartsOf<CashOutBetListDataAccess>(_balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<CashOutBetListDataAccess>(CurrencyDataAccess, _balanceUpDataAccess);
         }
 
         [Test]
@@ -51,7 +51,7 @@
             await ObjectDb.ExecuteReaderAsync(Arg.Do<object>(x => param = x));
 
             // Action
-            await DataAccess.GetDetail(metaModel, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetDetail(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.That(param, Tobe.SameProperties(expectedParam));
@@ -74,7 +74,7 @@
             safeReader.GetDecimal("playercomm").Returns(PlayerComm);
 
             // Action
-            var result = await DataAccess.GetDetail(new CashOutBetListDetailMetaModel(), UserCurrencyList).ConfigureAwait(false);
+            var result = await DataAccess.GetDetail(new CashOutBetListDetailMetaModel()).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -101,7 +101,7 @@
             MapReaderData(dataReader);
 
             // Action
-            var result = await DataAccess.GetDetail(new CashOutBetListDetailMetaModel(), UserCurrencyList).ConfigureAwait(false);
+            var result = await DataAccess.GetDetail(new CashOutBetListDetailMetaModel()).ConfigureAwait(false);
 
             var firstCashoutTicket = result.CashOutTicketList.First();
 

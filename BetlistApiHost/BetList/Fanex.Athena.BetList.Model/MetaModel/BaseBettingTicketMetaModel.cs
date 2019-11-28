@@ -70,9 +70,6 @@
 
         public bool HasPlayerCom { get; set; }
 
-        [ScriptIgnore]
-        public IDictionary<int, string> UserCurrencyList { get; set; }
-
         public bool IsConvertAll { get; set; }
 
         public string BaseCurrencyName { get; set; }

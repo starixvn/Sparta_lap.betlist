@@ -24,7 +24,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = productCode };
 
             // Action
-            await DataAccess.GetRunningBetListAsync(metaModel, UserCurrencyList);
+            await DataAccess.GetRunningBetListAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -53,7 +53,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, IsExport = true };
 
             // Action
-            await DataAccess.GetRunningBetListAsync(metaModel, UserCurrencyList);
+            await DataAccess.GetRunningBetListAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -75,7 +75,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty, SortBy = "Colum1", SortOrder = "asc" };
 
             // Action
-            await DataAccess.GetRunningBetListAsync(metaModel, UserCurrencyList);
+            await DataAccess.GetRunningBetListAsync(metaModel);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("Sort", metaModel.SortBy + " " + metaModel.SortOrder);
@@ -99,7 +99,7 @@
             var metaModel = new BaseBettingTicketMetaModel { ProductCodeList = string.Empty };
 
             // Action
-            var result = await DataAccess.GetRunningBetListAsync(metaModel, UserCurrencyList);
+            var result = await DataAccess.GetRunningBetListAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>

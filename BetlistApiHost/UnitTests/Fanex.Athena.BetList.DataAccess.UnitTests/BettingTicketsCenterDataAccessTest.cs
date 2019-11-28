@@ -27,7 +27,7 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
             DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(
-                balanceUpDataAccess);
+                balanceUpDataAccess, CurrencyDataAccess);
         }
 
         [Test]
@@ -41,7 +41,7 @@
             var metaModel = new RefNoBetListMetaModel();
 
             // Action
-            await DataAccess.GetBetListByRefnoAsync(metaModel, UserCurrencyList);
+            await DataAccess.GetBetListByRefnoAsync(metaModel);
 
             // Assert
             Assert.Multiple(() =>

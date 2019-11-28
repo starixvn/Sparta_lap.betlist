@@ -55,22 +55,24 @@
                     });
                 }
 
-                return await Export(metaModel, metaModel.UserCurrencyList, totalRow).ConfigureAwait(false);
+                return await Export(metaModel, totalRow).ConfigureAwait(false);
             }
 
-            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, metaModel.UserCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel
+                ).ConfigureAwait(false);
 
             return ReturnData(ticketResult, GetBetListOption(metaModel.HasPlayerCom), metaModel);
         }
 
-        private async Task<ActionResult> Export(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> userCurrencyList, int totalRow)
+        private async Task<ActionResult> Export(MultipleCustomersBetListMetaModel metaModel,
+            int totalRow)
         {
             var title = GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}";
 
             if (totalRow <= MaxRowPerFile)
             {
-                var normalTicketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, userCurrencyList).ConfigureAwait(false);
+                var normalTicketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
                 if (normalTicketResult.MainTicketList.Count == 0)
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
@@ -79,9 +81,11 @@
                 return ExportXls(normalTicketResult, title, metaModel.HasPlayerCom, totalText);
             }
 
-            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile, userCurrencyList).ConfigureAwait(false);
+            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile
+                ).ConfigureAwait(false);
 
-            var zipFile = _zipBuilder.BuildZip(HttpContext.Response, ticketResult, title, metaModel.HasPlayerCom, totalText);
+            var zipFile = _zipBuilder.BuildZip(HttpContext.Response,
+                ticketResult, title, metaModel.HasPlayerCom, totalText);
 
             return zipFile == null ? null : ZipContentResult(zipFile);
         }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fanex.Athena.BetList.Model.MetaModel
 {
@@ -16,7 +12,6 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public DateTime Date { get; set; }
 
         public string ProductCode { get; set; }
-        public IDictionary<int, string> UserCurrencyList { get; set; }
         public bool HasPlayerCom { get; set; }
         public int TransType { get; set; }
         public string AgentListXml { get; set; }

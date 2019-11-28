@@ -14,20 +14,20 @@
     public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-
-        public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+       
+        public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess,
+            ICurrencyDataAccess currencyService) : base(currencyService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public async Task<TicketResult> GetBetListForSingleCustomerAsync(
-            SingleCustomersBetListMetaModel metaModel,
-            IDictionary<int, string> currencyList)
+            SingleCustomersBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Mem";
 
             var ticketResult = new TicketResult();
-
+            var currencyList = await this.GetCurrencyListAsync();
             using (var db = GetObjectDb(UspKey))
             {
                 AddSingleCustomerParameters(db, metaModel);
@@ -49,11 +49,13 @@
             return ticketResult;
         }
 
-        public async Task<TicketResult> GetBetListByRefnoAsync(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetBetListByRefnoAsync(RefNoBetListMetaModel metaModel)
         {
+
             const string UspKey = "Lrf_BetList_RefNo_Mem";
 
             var ticketResult = new TicketResult();
+            var currencyList = await this.GetCurrencyListAsync();
 
             using (var db = GetObjectDb(UspKey))
             {
@@ -75,11 +77,12 @@
             return ticketResult;
         }
 
-        public async Task<TicketResult> GetRunningBetListAsync(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
+        public async Task<TicketResult> GetRunningBetListAsync(BaseBettingTicketMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Running";
 
             var ticketResult = new TicketResult();
+            var currencyList = await this.GetCurrencyListAsync();
 
             using (var db = GetObjectDb(UspKey))
             {

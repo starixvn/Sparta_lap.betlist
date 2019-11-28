@@ -33,7 +33,7 @@
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
             DataAccess = Substitute.ForPartsOf<BettingTicketCenterMultiCustomerDataAccess>(
                 balanceUpDataAccess,
-                _tempFileService);
+                _tempFileService, CurrencyDataAccess);
         }
 
         [TearDown]
@@ -57,7 +57,7 @@
             metaModel.IsExport = false;
 
             // Action
-            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -138,7 +138,7 @@
             metaModel.SortBy = string.Empty;
 
             // Action
-            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -187,7 +187,7 @@
             MapReaderData(ticket);
 
             // Action
-            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup).ConfigureAwait(false);
 
             // Assert
             _tempFileService.Received(1).Save(Arg.Any<string>(), Arg.Any<string>());
@@ -210,7 +210,7 @@
             MapReaderData(ticket);
 
             // Action
-            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup, UserCurrencyList).ConfigureAwait(false);
+            await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup).ConfigureAwait(false);
 
             // Assert
             _tempFileService.Received(2).Save(Arg.Any<string>(), Arg.Any<string>());

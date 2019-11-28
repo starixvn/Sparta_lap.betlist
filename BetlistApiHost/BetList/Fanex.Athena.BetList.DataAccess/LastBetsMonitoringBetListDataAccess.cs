@@ -11,15 +11,21 @@ namespace Fanex.Athena.BetList.DataAccess
     using System.Threading.Tasks;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.Common.DataAccess.Interfaces;
     using Interfaces;
 
     public class LastBetsMonitoringBetListDataAccess : BaseBetListDataAccess, ILastBetsMonitoringBetListDataAccess
     {
         private const string UspKey = "Lrf_Monitor_BetlistSel_New";
+        public LastBetsMonitoringBetListDataAccess(
+        ICurrencyDataAccess currencyService) : base(currencyService)
+        {
 
-        public async Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel, IDictionary<int, string> currencyList)
+        }
+        public async Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
         {
             var ticketResult = new TicketResult();
+            var currencyList = await this.GetCurrencyListAsync();
 
             using (var db = this.GetObjectDb(UspKey))
             {
