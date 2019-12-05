@@ -21,7 +21,8 @@
 
             AddDatabaseInfo(messageBuilder, exception);
 
-            AddExceptionInfo(messageBuilder, exception);
+            const int limitedNumOfInnerException = 3;
+            AddExceptionInfo(messageBuilder, exception, limitedNumOfInnerException);
 
             return messageBuilder.ToString();
         }
@@ -52,7 +53,7 @@
             }
         }
 
-        private static void AddExceptionInfo(StringBuilder builder, Exception exception)
+        private static void AddExceptionInfo(StringBuilder builder, Exception exception, int limitedInnerException)
         {
             builder.AppendLine();
             builder.AppendLine("EXCEPTION INFO");
@@ -60,6 +61,11 @@
             builder.AppendLine($"Source: {exception.Source}");
             builder.AppendLine($"TargetSite: {exception.TargetSite}");
             builder.AppendLine($"StackTrace: {exception.StackTrace}");
+
+            if (exception.InnerException != null && limitedInnerException > 0)
+            {
+                AddExceptionInfo(builder, exception.InnerException, --limitedInnerException);
+            }
         }
 
         private static IDictionary<string, object> GetObjectDbExceptionInfo(Exception ex)
