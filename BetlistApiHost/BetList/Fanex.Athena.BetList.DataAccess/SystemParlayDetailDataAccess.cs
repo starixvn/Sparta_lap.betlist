@@ -16,8 +16,7 @@
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public SystemParlayDetailDataAccess(IBalanceUpDataAccess balanceUpDataAccess
-              ) : base(null)
+        public SystemParlayDetailDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

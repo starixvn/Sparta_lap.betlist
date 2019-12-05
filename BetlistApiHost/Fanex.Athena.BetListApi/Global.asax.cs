@@ -11,13 +11,6 @@ namespace Fanex.Athena
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Web;
-    using System.Web.Http;
-    using System.Web.Mvc;
-    using System.Web.Routing;
     using App_Start;
     using Data;
     using Fanex.Athena.Common.Utility.Helpers;

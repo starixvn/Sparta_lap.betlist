@@ -8,6 +8,5 @@
     public interface IBetListByProductDataAccess
     {
         Task<TicketResult> QueryAsync(BetListByProductMetaModel metaModel);
-
     }
 }
