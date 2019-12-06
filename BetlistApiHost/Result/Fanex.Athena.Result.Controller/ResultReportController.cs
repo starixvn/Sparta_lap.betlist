@@ -211,8 +211,7 @@ namespace Fanex.Athena.Result.Controller
                 IsOutright = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
                 IsParlayPopUp = IsPalayBetType(metalModel.Bettype),
                 IsPopUp = true,
-                LanguageCode = Thread.CurrentThread.CurrentUICulture.Name,
-                EnableCheckScoreCalculated = true
+                LanguageCode = Thread.CurrentThread.CurrentUICulture.Name
             };
 
             if (setting.IsParlayPopUp)
@@ -474,7 +473,6 @@ namespace Fanex.Athena.Result.Controller
                 LanguageCode = Thread.CurrentThread.CurrentUICulture.Name,
                 VisibleDetailedLink = true,
                 VisibleFreeHeader = true,
-                EnableCheckScoreCalculated = sportType == SportType.Soccer,
                 VisibleMatchCodeIDColumn = ShowingMatchCodeSportTypes.Contains(sportType)
             };
         }

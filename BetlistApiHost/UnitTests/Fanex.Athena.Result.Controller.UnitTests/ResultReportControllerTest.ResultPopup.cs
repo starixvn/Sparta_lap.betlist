@@ -63,8 +63,7 @@
                                 x.IsOutright == expectedIsOutRight &&
                                 x.IsParlayPopUp == expectedIsParlayPopup &&
                                 x.IsPopUp &&
-                                x.LanguageCode == LanguageCode &&
-                                x.EnableCheckScoreCalculated));
+                                x.LanguageCode == LanguageCode));
                 });
             }
         }
