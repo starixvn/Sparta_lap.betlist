@@ -15,19 +15,19 @@
     using Fanex.Athena.Common.Utility.Services.Interfaces;
     using Fanex.Athena.Resources;
 
-    public class BettingTicketCenterMultiCustomerController : BettingTicketCenterBaseController
+    public class BettingTicketCenterAdvancedSearchController : BettingTicketCenterBaseController
     {
         private const int RowsExceedLimitErrorCode = 1001;
 
         private readonly IAppSettings _appSettings;
 
-        private readonly IBettingTicketCenterMultiCustomerDataAccess _dataAccess;
+        private readonly IBettingTicketCenterAdvancedSearchDataAccess _dataAccess;
 
         private readonly IBettingTicketCenterZipBuilder _zipBuilder;
 
-        public BettingTicketCenterMultiCustomerController(
+        public BettingTicketCenterAdvancedSearchController(
             IAppSettings appSettings,
-            IBettingTicketCenterMultiCustomerDataAccess dataAccess,
+            IBettingTicketCenterAdvancedSearchDataAccess dataAccess,
             ITicketBuilderService ticketBuilderService,
             IBettingTicketCenterZipBuilder zipBuilder,
             IBettingTicketCenterExcel bettingTicketCenterExcel) : base(ticketBuilderService, bettingTicketCenterExcel)
@@ -42,7 +42,7 @@
         private int MaxRowPerFile => int.Parse(_appSettings.GetValue("MaxRowPerExcelFile"));
 
         [HttpPost]
-        public async Task<ActionResult> GetData(MultipleCustomersBetListMetaModel metaModel)
+        public async Task<ActionResult> GetData(AdvancedSearchBetListMetaModel metaModel)
         {
             if (metaModel.IsExport)
             {
@@ -64,7 +64,7 @@
             return ReturnData(ticketResult, GetBetListOption(metaModel.HasPlayerCom), metaModel);
         }
 
-        private async Task<ActionResult> Export(MultipleCustomersBetListMetaModel metaModel,
+        private async Task<ActionResult> Export(AdvancedSearchBetListMetaModel metaModel,
             int totalRow)
         {
             var title = GetTitle(metaModel);
@@ -106,7 +106,7 @@
         protected FileContentResult ZipContentResult(MemoryStream stream)
         {
             var bytes = stream.ToArray();
-            return File(bytes, "application/zip", "BettingTicketsCenter_MultiCustomer.zip");
+            return File(bytes, "application/zip", "BettingTicketsCenter_AdvancedSearch.zip");
         }
 
         private static BettingTicketCenterOption GetBetListOption(bool hasPlayerComm) => new BettingTicketCenterOption

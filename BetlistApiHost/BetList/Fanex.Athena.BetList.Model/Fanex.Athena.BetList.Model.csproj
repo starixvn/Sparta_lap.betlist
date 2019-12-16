@@ -160,7 +160,7 @@
     <Compile Include="MetaModel\ICommonValueMetaModel.cs" />
     <Compile Include="MetaModel\NewParlayDetailMetaModel.cs" />
     <Compile Include="MetaModel\MixParlayDetailMetaModel.cs" />
-    <Compile Include="MetaModel\MultipleCustomersBetListMetaModel.cs" />
+    <Compile Include="MetaModel\AdvancedSearchBetListMetaModel.cs" />
     <Compile Include="MetaModel\PlayerAdminBetListMetaModel.cs" />
     <Compile Include="MetaModel\RefNoBetListMetaModel.cs" />
     <Compile Include="MetaModel\BetListShowingOption.cs" />

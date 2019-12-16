@@ -19,13 +19,13 @@
     using UnitTest.Common.Helpers;
     using Utility;
 
-    public class BettingTicketCenterMultiCustomerControllerTest
+    public class BettingTicketCenterAdvancedSearchControllerTest
     {
         private const int RowsExceedLimitErrorCode = 1001;
 
         private IAppSettings _appSettings;
 
-        private IBettingTicketCenterMultiCustomerDataAccess _dataAccess;
+        private IBettingTicketCenterAdvancedSearchDataAccess _dataAccess;
 
         private IBettingTicketCenterZipBuilder _zipBuilder;
 
@@ -38,7 +38,7 @@
         {
             _ticketBuilderService = Substitute.For<ITicketBuilderService>();
             _appSettings = Substitute.For<IAppSettings>();
-            _dataAccess = Substitute.For<IBettingTicketCenterMultiCustomerDataAccess>();
+            _dataAccess = Substitute.For<IBettingTicketCenterAdvancedSearchDataAccess>();
             _zipBuilder = Substitute.For<IBettingTicketCenterZipBuilder>();
             _bettingTicketCenterExcel = Substitute.For<IBettingTicketCenterExcel>();
         }
@@ -59,7 +59,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, false);
+                var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, false);
 
                 var ticketResult = new TicketResult();
                 _dataAccess.GetBetListForMultipleCustomersAsync(metaModel).Returns(ticketResult);
@@ -91,7 +91,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
+                var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
                 _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
@@ -115,7 +115,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
+                var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
                 _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
@@ -142,7 +142,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
+                var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
                 _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
@@ -179,7 +179,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
+                var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
                 _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
@@ -210,9 +210,9 @@
             }
         }
 
-        private BettingTicketCenterMultiCustomerController CreateController()
+        private BettingTicketCenterAdvancedSearchController CreateController()
         {
-            var controller = Substitute.ForPartsOf<BettingTicketCenterMultiCustomerController>(
+            var controller = Substitute.ForPartsOf<BettingTicketCenterAdvancedSearchController>(
                 _appSettings,
                 _dataAccess,
                 _ticketBuilderService,
@@ -225,7 +225,7 @@
             return controller;
         }
 
-        private static void SetUpForResponse(BettingTicketCenterMultiCustomerController controller, bool isClientConnected)
+        private static void SetUpForResponse(BettingTicketCenterAdvancedSearchController controller, bool isClientConnected)
         {
             var response = Substitute.For<HttpResponseBase>();
             response.IsClientConnected.Returns(isClientConnected);

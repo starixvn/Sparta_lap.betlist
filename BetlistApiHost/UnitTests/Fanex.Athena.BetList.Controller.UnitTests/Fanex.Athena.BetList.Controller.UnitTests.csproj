@@ -110,7 +110,7 @@
     <Compile Include="BetListByProductControllerTest.cs" />
     <Compile Include="BettingTicketCenterBaseControllerTest.cs" />
     <Compile Include="BettingTicketCenterControllerTest.cs" />
-    <Compile Include="BettingTicketCenterMultiCustomerControllerTest.cs" />
+    <Compile Include="BettingTicketCenterAdvancedSearchControllerTest.cs" />
     <Compile Include="CashOutBetListControllerTest.cs" />
     <Compile Include="ColossusBetBetListControllerTest.cs" />
     <Compile Include="CustomActionResult\JsonNetResultTest.cs" />

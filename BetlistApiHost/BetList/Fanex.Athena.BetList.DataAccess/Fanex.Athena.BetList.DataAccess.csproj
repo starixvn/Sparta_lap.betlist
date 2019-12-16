@@ -105,14 +105,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BetListByProductDataAccess.cs" />
-    <Compile Include="BettingTicketCenterMultiCustomerDataAccess.cs" />
+    <Compile Include="BettingTicketCenterAdvancedSearchDataAccess.cs" />
     <Compile Include="BettingTicketCenterDataAccess.cs" />
     <Compile Include="BetListDataAccess.cs" />
     <Compile Include="CashOutBetListDataAccess.cs" />
     <Compile Include="DailyStatementBetListDataAccess.cs" />
     <Compile Include="ExchangeBetListDataAccess.cs" />
     <Compile Include="Interfaces\IBetListByProductDataAccess.cs" />
-    <Compile Include="Interfaces\IBettingTicketCenterMultiCustomerDataAccess.cs" />
+    <Compile Include="Interfaces\IBettingTicketCenterAdvancedSearchDataAccess.cs" />
     <Compile Include="Interfaces\IBettingTicketCenterDataAccess.cs" />
     <Compile Include="Interfaces\IDailyStatementBetListDataAccess.cs" />
     <Compile Include="Interfaces\ICashOutBetListDataAccess.cs" />
