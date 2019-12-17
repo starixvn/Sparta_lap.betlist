@@ -25,7 +25,8 @@ namespace Fanex.Athena.BetList.Controller
 
             var result = new
             {
-                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom)
+                Data = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, metaModel.HasPlayerCom),
+                ticketResult.TotalRows
             };
             BetListHelper.ClearData(ticketResult);
             return Json(result);
