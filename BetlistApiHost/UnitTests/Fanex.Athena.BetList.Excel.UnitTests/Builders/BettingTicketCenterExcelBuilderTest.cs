@@ -432,6 +432,7 @@
         [TestCase("u", "Euro")]
         [TestCase("t", "DeepLink")]
         [TestCase("m", "Wap")]
+        [TestCase("v", "BetfromOthers")]
         public void AssignRowData_AddPlatfromCell_IndexIsOdd_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
         {
             // Arrange
