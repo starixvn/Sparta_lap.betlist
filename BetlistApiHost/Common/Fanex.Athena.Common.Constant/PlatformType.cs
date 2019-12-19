@@ -19,7 +19,8 @@
             { "x", "NewAsia" },
             { "o", "MobileApp" },
             { "c", "MobileLiteVersion" },
-            { "t", "DeepLink" }
+            { "t", "DeepLink" },
+            { "v", "BetfromOthers" }
         };
 
         public static string GetPlatformName(string code)

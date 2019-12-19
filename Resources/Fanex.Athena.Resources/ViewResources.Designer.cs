@@ -19,7 +19,7 @@ namespace Fanex.Athena.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ViewResources {
@@ -75,6 +75,15 @@ namespace Fanex.Athena.Resources {
         public static string BaseCurrency {
             get {
                 return ResourceManager.GetString("BaseCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Others.
+        /// </summary>
+        public static string BetfromOthers {
+            get {
+                return ResourceManager.GetString("BetfromOthers", resourceCulture);
             }
         }
         
