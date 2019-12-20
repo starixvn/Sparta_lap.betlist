@@ -196,6 +196,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CN.
+        /// </summary>
+        public static string HKOdds {
+            get {
+                return ResourceManager.GetString("HKOdds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid parameters.
         /// </summary>
         public static string InvalidParams {

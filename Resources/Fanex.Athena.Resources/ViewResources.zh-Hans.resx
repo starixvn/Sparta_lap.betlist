@@ -249,4 +249,8 @@
     <value>数据API</value>
     <comment>119010</comment>
   </data>
+  <data name="HKOdds" xml:space="preserve">
+    <value>中国盘</value>
+    <comment>125845</comment>
+  </data>
 </root>
