@@ -37,6 +37,9 @@
     <CodeAnalysisRuleSet>Fanex.Athena.Result.Controller.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
@@ -173,6 +176,8 @@
     <Compile Include="ResultPopup\AllBetResultPopupController.cs" />
     <Compile Include="ResultPopup\GlobalGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\CardClubResultPopupController.cs" />
+    <Compile Include="ResultPopup\SGResultPopupController.cs" />
+    <Compile Include="ResultPopup\RNGResultPopupBaseController.cs" />
     <Compile Include="ResultPopup\VoidbridgeResultPopupController.cs" />
     <Compile Include="ResultPopup\PPResultPopupController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

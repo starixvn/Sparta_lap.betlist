@@ -33,7 +33,7 @@
             // static services
             builder.RegisterInstance(new CustomMemoryCache()).As<ICustomMemoryCache>();
 
-            builder.RegisterControllers(controllerAss);
+            builder.RegisterControllers(controllerAss).WithAttributeFiltering();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
@@ -50,6 +50,7 @@
             builder.RegisterType<PokerGamesResult>().As<IPokerGamesResult>();
             builder.RegisterType<RemotingRefService>().As<IRemotingRefService>().SingleInstance();
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
+            builder.Register(x => new CasinoResult("SpadegamingResultConfigs")).Keyed<ICasinoResult>("SG");
         }
 
         private static Assembly[] GetAssemblies()
