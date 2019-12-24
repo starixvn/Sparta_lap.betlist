@@ -242,4 +242,15 @@
     <value>(中)</value>
     <comment>123772</comment>
   </data>
+  <data name="BetfromOthers" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="DeepLink" xml:space="preserve">
+    <value>数据API</value>
+    <comment>119010</comment>
+  </data>
+  <data name="HKOdds" xml:space="preserve">
+    <value>中国盘</value>
+    <comment>125845</comment>
+  </data>
 </root>
