@@ -12,7 +12,7 @@
 
         public int CustId { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime WinlostDate { get; set; }
 
         public string ProductCode { get; set; }
 
