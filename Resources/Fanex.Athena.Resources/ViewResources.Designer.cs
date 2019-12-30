@@ -277,6 +277,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Native App.
+        /// </summary>
+        public static string NativeApp {
+            get {
+                return ResourceManager.GetString("NativeApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Asia.
         /// </summary>
         public static string NewAsia {
