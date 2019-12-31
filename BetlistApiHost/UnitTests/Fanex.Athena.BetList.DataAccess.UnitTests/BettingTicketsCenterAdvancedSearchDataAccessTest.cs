@@ -13,7 +13,7 @@
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
 
-    public class BettingTicketsCenterMultiCustomerDataAccessTest : BaseDataAccessHelperTest<BettingTicketCenterMultiCustomerDataAccess>
+    public class BettingTicketsCenterAdvancedSearchDataAccessTest : BaseDataAccessHelperTest<BettingTicketCenterAdvancedSearchDataAccess>
     {
         private const string UspKey = "Lrf_BetList_Licensee";
 
@@ -31,7 +31,7 @@
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
-            DataAccess = Substitute.ForPartsOf<BettingTicketCenterMultiCustomerDataAccess>(
+            DataAccess = Substitute.ForPartsOf<BettingTicketCenterAdvancedSearchDataAccess>(
                 balanceUpDataAccess,
                 _tempFileService, CurrencyDataAccess);
         }
@@ -53,7 +53,7 @@
             Reader.Read().Returns(false);
             ObjectDb.GetOutputParams().Returns(new Hashtable());
 
-            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
+            var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>();
             metaModel.IsExport = false;
 
             // Action
@@ -96,7 +96,7 @@
             var totalRow = FakeHelper.Create<int>();
             ObjectDb.GetOutputParams().Returns(new Hashtable { { "totalrows", totalRow } });
 
-            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>();
+            var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>();
 
             // Action
             var result = await DataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
@@ -134,7 +134,7 @@
             Reader.Read().Returns(false);
             ObjectDb.GetOutputParams().Returns(new Hashtable());
 
-            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
+            var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
             metaModel.SortBy = string.Empty;
 
             // Action
@@ -181,7 +181,7 @@
             Reader.Read().Returns(true, false);
             ObjectDb.GetOutputParams().Returns(new Hashtable());
 
-            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
+            var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
             var ticket = FakeHelper.Create<LrfTicket>();
             MapReaderData(ticket);
@@ -204,7 +204,7 @@
             Reader.Read().Returns(true, true, false);
             ObjectDb.GetOutputParams().Returns(new Hashtable());
 
-            var metaModel = FakeHelper.Create<MultipleCustomersBetListMetaModel>(x => x.IsExport, true);
+            var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
             var ticket = FakeHelper.Create<LrfTicket>();
             MapReaderData(ticket);

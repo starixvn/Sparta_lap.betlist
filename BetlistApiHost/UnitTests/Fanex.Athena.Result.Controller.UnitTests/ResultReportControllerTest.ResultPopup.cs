@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Common.Constant;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Happy5.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -50,18 +51,21 @@
                 };
 
                 // Action
-                var result = await controller.ResultPopup(new ResultPopupMetaModel()).ConfigureAwait(false);
+                await controller.ResultPopup(new ResultPopupMetaModel()).ConfigureAwait(false);
 
                 // Assert
-                _resultService.HtmlParser(
-                        Arg.Any<IList<Sportsbook>>(),
-                        Arg.Is<ResultSetting>(x =>
-                            x.SportType == (Fanex.Result.Core.Base.SportType)metaModel.SportType &&
-                            x.IsOutright == expectedIsOutRight &&
-                            x.IsParlayPopUp == expectedIsParlayPopup &&
-                            x.IsPopUp &&
-                            x.LanguageCode == LanguageCode &&
-                            x.EnableCheckScoreCalculated));
+                Assert.Multiple(() =>
+                {
+                    _resultService.HtmlParser(
+                            Arg.Any<IList<Sportsbook>>(),
+                            Arg.Is<ResultSetting>(x =>
+                                x.SportType == (Fanex.Result.Core.Base.SportType)metaModel.SportType &&
+                                x.IsOutright == expectedIsOutRight &&
+                                x.IsParlayPopUp == expectedIsParlayPopup &&
+                                x.IsPopUp &&
+                                x.LanguageCode == LanguageCode &&
+                                x.EnableCheckScoreCalculated));
+                });
             }
         }
 
@@ -133,6 +137,25 @@
         }
 
         [Test]
+        public async Task ResultPopup_Happy5Sport_ResultIsCorrect()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = CreateResultPopupMetaModel(Fanex.Result.Core.Base.SportType.Happy5);
+                var dataList = new List<Happy5> { new Happy5() };
+                _resultService.GetPopUpHappy5MatchesAsync(metaModel.MatchId).Returns(dataList);
+                _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
+
+                // Action
+                var result = await controller.ResultPopup(metaModel).ConfigureAwait(false);
+
+                // Assert
+                Assert.That(result, Is.EqualTo(HtmlResult));
+            }
+        }
+
+        [Test]
         public async Task ResultPopup_SportBookSports_ResultIsCorrect()
         {
             using (var controller = CreateController())
@@ -148,6 +171,51 @@
 
                 // Assert
                 Assert.That(result, Is.EqualTo(HtmlResult));
+            }
+        }
+
+        [Test]
+        public async Task ResultPopup_SingleMatchParlay_NoData_ResultNull()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = CreateResultPopupMetaModel(Fanex.Result.Core.Base.SportType.Soccer);
+                metaModel.Bettype = (int)BetType.SingleMatchParlay;
+
+                Sportsbook data = null;
+                _resultService.GetPopUpSingleMatchParlayAsync(metaModel.MatchId, metaModel.BetId?.ToString()).Returns(Task.FromResult(data));
+
+                // Action
+                var result = await controller.ResultPopup(metaModel).ConfigureAwait(false);
+
+                // Assert
+                Assert.That(result, Is.Null);
+            }
+        }
+
+        [Test]
+        public async Task ResultPopup_SingleMatchParlay_ResultIsCorrect()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = CreateResultPopupMetaModel(Fanex.Result.Core.Base.SportType.Soccer);
+                metaModel.Bettype = (int)BetType.SingleMatchParlay;
+
+                var data = new Sportsbook();
+                _resultService.GetPopUpSingleMatchParlayAsync(metaModel.MatchId, metaModel.BetId?.ToString()).Returns(Task.FromResult(data));
+                _resultService.HtmlParser(Arg.Is<List<Sportsbook>>(x => x[0] == data), Arg.Any<ResultSetting>()).Returns(HtmlResult);
+
+                // Action
+                var result = await controller.ResultPopup(metaModel).ConfigureAwait(false);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    _resultService.Received(1).HtmlParser(Arg.Any<List<Sportsbook>>(), Arg.Is<ResultSetting>(x => x.IsPopupOpenFromBetList == true));
+                    Assert.That(result, Is.EqualTo(HtmlResult));
+                });
             }
         }
 

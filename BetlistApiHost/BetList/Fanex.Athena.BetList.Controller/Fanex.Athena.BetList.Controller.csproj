@@ -177,7 +177,7 @@
     <Compile Include="BetListByProductController.cs" />
     <Compile Include="BettingTicketCenterBaseController.cs" />
     <Compile Include="BettingTicketCenterController.cs" />
-    <Compile Include="BettingTicketCenterMultiCustomerController.cs" />
+    <Compile Include="BettingTicketCenterAdvancedSearchController.cs" />
     <Compile Include="CashOutBetListController.cs" />
     <Compile Include="ColossusBetBetListController.cs" />
     <Compile Include="CustomActionResult\ExcelResult.cs" />
@@ -191,6 +191,7 @@
     <Compile Include="OutstandingDailyStatementBetListController.cs" />
     <Compile Include="PlayerAdminBetListController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleMatchParlayBetListController.cs" />
     <Compile Include="SystemParlayBetListController.cs" />
     <Compile Include="Utility\BettingTicketCenterZipBuilder.cs" />
     <Compile Include="Utility\IBettingTicketCenterZipBuilder.cs" />

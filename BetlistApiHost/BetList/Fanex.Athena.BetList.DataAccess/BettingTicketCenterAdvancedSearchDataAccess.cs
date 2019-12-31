@@ -1,5 +1,9 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess
 {
+    using System;
+    using System.Collections;
+    using System.Linq;
+    using System.Threading.Tasks;
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
     using Common.DataAccess.Interfaces;
@@ -8,18 +12,13 @@
     using Fanex.Common;
     using Interfaces;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
-    public class BettingTicketCenterMultiCustomerDataAccess : BaseBetListDataAccess, IBettingTicketCenterMultiCustomerDataAccess
+    public class BettingTicketCenterAdvancedSearchDataAccess : BaseBetListDataAccess, IBettingTicketCenterAdvancedSearchDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ITempFileService _tempFileService;
 
-        public BettingTicketCenterMultiCustomerDataAccess(IBalanceUpDataAccess balanceUpDataAccess,
+        public BettingTicketCenterAdvancedSearchDataAccess(IBalanceUpDataAccess balanceUpDataAccess,
             ITempFileService tempFileService, ICurrencyDataAccess currencyService) : base(currencyService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
@@ -27,7 +26,7 @@
         }
 
         public async Task<GroupTicketResult> GetBetListForMultipleCustomersAsync(
-            MultipleCustomersBetListMetaModel metaModel,
+            AdvancedSearchBetListMetaModel metaModel,
             int rowPerGroup)
         {
             const string UspKey = "Lrf_BetList_Licensee";
@@ -39,7 +38,7 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                AddMultiCustomerParameters(db, metaModel);
+                AddAdvancedSearchParameters(db, metaModel);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -75,7 +74,7 @@
             }
         }
 
-        public async Task<TicketResult> GetBetListForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel)
+        public async Task<TicketResult> GetBetListForMultipleCustomersAsync(AdvancedSearchBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Licensee";
 
@@ -84,7 +83,7 @@
 
             using (var db = GetObjectDb(UspKey))
             {
-                AddMultiCustomerParameters(db, metaModel);
+                AddAdvancedSearchParameters(db, metaModel);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -103,7 +102,7 @@
             return ticketResult;
         }
 
-        public async Task<int> GetTotalRowForMultipleCustomersAsync(MultipleCustomersBetListMetaModel metaModel)
+        public async Task<int> GetTotalRowForMultipleCustomersAsync(AdvancedSearchBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Licensee_TotalRows";
 
@@ -160,7 +159,7 @@
             ticket.MainTicketList.TrimExcess();
         }
 
-        private void AddMultiCustomerParameters(IObjectDb db, MultipleCustomersBetListMetaModel metaModel)
+        private void AddAdvancedSearchParameters(IObjectDb db, AdvancedSearchBetListMetaModel metaModel)
         {
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.SetParameterValue("AgentList", metaModel.AgentListXml);

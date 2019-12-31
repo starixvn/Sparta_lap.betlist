@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Fanex.Athena.BetList.Model.MetaModel
+﻿namespace Fanex.Athena.BetList.Model.MetaModel
 {
     public class NewParlayDetailMetaModel : MixParlayDetailMetaModel
     {

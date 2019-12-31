@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Fanex.Athena.BetList.Model.DTO;
-
-namespace Fanex.Athena.BetList.Model.ViewModel
+﻿namespace Fanex.Athena.BetList.Model.ViewModel
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.Athena.BetList.Model.DTO;
+
     public class SystemParlayDetailViewModel
     {
         public IEnumerable<IGrouping<DateTime, SystemParlayDetailItem>> DataList { get; set; }

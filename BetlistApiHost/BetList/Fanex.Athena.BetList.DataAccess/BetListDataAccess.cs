@@ -10,7 +10,6 @@
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.Common.DataAccess.Interfaces;
     using Fanex.Common;
-
     using Util;
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess

@@ -70,9 +70,7 @@
                 return -1;
             }
 
-            var value = x as IComparable;
-
-            if (value != null)
+            if (x is IComparable value)
             {
                 return value.CompareTo(y);
             }

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.UnitTests;
@@ -25,7 +26,7 @@
         }
 
         [Test]
-        public void GetMixParlayDetailTicket_WhenCall_ParametersPassedCorrectly()
+        public async Task GetMixParlayDetailTicket_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetMixParlayDetailTicketSp)).Returns(ObjectDb);
@@ -36,7 +37,7 @@
             };
 
             // Action
-            DataAccess.GetMixParlayDetailTicket(metaModel);
+            await DataAccess.GetMixParlayDetailTicket(metaModel);
 
             // Assert
             ObjectDb.Received(1).SetParameterValue("TransId", metaModel.TransId);

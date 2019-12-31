@@ -73,6 +73,7 @@
         public bool IsConvertAll { get; set; }
 
         public string BaseCurrencyName { get; set; }
+
         public int CustId { get; set; }
     }
 }

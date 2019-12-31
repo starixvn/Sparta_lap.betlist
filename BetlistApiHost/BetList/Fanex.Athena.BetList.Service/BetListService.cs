@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.Service
 {
+    using System;
     using System.Threading.Tasks;
 
     using Common.DataAccess.Interfaces;
@@ -10,6 +11,7 @@
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.BetList.Service.Interfaces;
 
+    [CLSCompliant(false)]
     public class BetListService : IBetListService
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
@@ -18,7 +20,6 @@
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        [System.CLSCompliant(false)]
         public BetListService(
             IBalanceUpDataAccess balanceUpDataAccess,
             IBetListDataAccess betlistDataAccess,

@@ -31,6 +31,7 @@ namespace Fanex.Athena.Result.DataAccess
         private const string KickOffTimeColumn = "kickofftime";
         private const string LcolorColumn = "lcolor";
         private const string IsFavorColumn = "IsFavor";
+        private const string LeagueIdColumn = "leagueid";
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -70,7 +71,7 @@ namespace Fanex.Athena.Result.DataAccess
                         {
                             EventDate = DateTime.Parse(reader.ToString(EventDateColumn)),
                             SportType = reader.ToInt("sporttype"),
-                            LeagueId = reader.ToInt("leagueid"),
+                            LeagueId = reader.ToInt(LeagueIdColumn),
                             TeamId = reader.ToInt("teamid"),
                             Status = reader.ToString("status")
                         });
@@ -128,7 +129,7 @@ namespace Fanex.Athena.Result.DataAccess
                     var data = new List<League>();
                     while (reader.Read())
                     {
-                        var leagueId = Convert.ToInt32(reader["leagueid"]);
+                        var leagueId = Convert.ToInt32(reader[LeagueIdColumn]);
                         data.Add(new League
                         {
                             LeagueId = leagueId,
@@ -214,7 +215,7 @@ namespace Fanex.Athena.Result.DataAccess
 
                     while (reader.Read())
                     {
-                        var leagueId = reader.ToInt("LeagueID");
+                        var leagueId = reader.ToInt(LeagueIdColumn);
                         var parlay = results.SingleOrDefault(x => x.LeagueId == leagueId);
                         if (parlay == null)
                         {
@@ -227,7 +228,7 @@ namespace Fanex.Athena.Result.DataAccess
                             results.Add(parlay);
                         }
 
-                        parlay.Sportbook.Add(ReadSportsbook(reader, refNo, leagueId));
+                        parlay.Sportbook.Add(ReadSportsbook(reader, refNo.ToString(CultureInfo.InvariantCulture), leagueId));
                     }
 
                     AddGameDetails(reader, results);
@@ -237,51 +238,29 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        private static void AddGameDetails(IDataReader reader, IEnumerable<Parlay> results)
+        public async Task<Sportsbook> GetPopUpSingleMatchParlayAsync(int matchId, string marketId)
         {
-            var gameDetails = GetGameDetails(reader);
+            const string UspName = "Lrf_TicketResult_BetBuilder";
 
-            if (!gameDetails.Any())
+            using (var db = this.GetObjectDb(UspName))
             {
-                return;
-            }
+                db.SetParameterValue(MatchidColumn, matchId);
+                db.SetParameterValue("marketId", marketId);
 
-            foreach (var result in results)
-            {
-                foreach (var item in result.Sportbook)
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    item.GameDetails.AddRange(gameDetails.Where(i => i.MatchId == item.MatchId));
+                    if (reader.Read())
+                    {
+                        var result = ReadSportsbook(reader);
+
+                        result.BetBuilderDetails = GetBetBuilderDetails(reader);
+
+                        return result;
+                    }
+
+                    return null;
                 }
             }
-        }
-
-        private static Sportsbook ReadSportsbook(IDataReader reader, long refNo, int leagueId)
-        {
-            return new Sportsbook
-            {
-                Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
-                BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
-                AwayId = reader.ToInt("awayID"),
-                HomeId = reader.ToInt("homeID"),
-                BetStatus = reader[BetstatusColumn] != DBNull.Value ? reader.ToString(BetstatusColumn) : string.Empty,
-                LeagueId = leagueId,
-                MatchId = reader.ToInt(MatchidColumn),
-                EventStatus = reader.ToString("eventstatus"),
-                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
-                HtAwayScore = reader.ToNullableInt("htawayscore"),
-                Color = reader.HasColumn(LcolorColumn) && reader[LcolorColumn] != DBNull.Value ? reader.ToString(LcolorColumn) : string.Empty,
-                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
-                HtHomeScore = reader.ToNullableInt("hthomescore"),
-                EventDate = DateTime.Parse(reader.ToString(EventDateColumn)),
-                IsNeutral = reader.ToBool("IsNeutral"),
-                KickOffTime = DateTime.Parse(reader.ToString(KickOffTimeColumn)),
-                MatchCode = reader.ToString("matchcode"),
-                GoalRecord = reader.ToString("goalrecord"),
-                IsHTCal = reader.ToBool("IsHTCal"),
-                Calculate = reader.ToBool("Calculate"),
-                RefNo = refNo.ToString(CultureInfo.InvariantCulture),
-                SettlementStatus = reader.ToByte("SettlementStatus")
-            };
         }
 
         /// <summary>
@@ -325,7 +304,6 @@ namespace Fanex.Athena.Result.DataAccess
         /// </summary>
         /// <param name=MatchidColumn>The match ID.</param>
         /// <returns>The SPORTSBOOK data.</returns>
-        [System.CLSCompliant(false)]
         public async Task<Sportsbook> GetSportsbookGameDetailAsync(int matchId)
         {
             using (var db = this.GetObjectDb("Lrf_Result_MatchSelByLeague_Detail"))
@@ -335,7 +313,7 @@ namespace Fanex.Athena.Result.DataAccess
                 {
                     if (reader.Read())
                     {
-                        var result = BindSportsbook(reader);
+                        var result = ReadSportsbook(reader);
                         result.GameDetails = GetGameDetails(reader).ToList();
                         return result;
                     }
@@ -345,6 +323,54 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
+        private static void AddGameDetails(IDataReader reader, IEnumerable<Parlay> results)
+        {
+            var gameDetails = GetGameDetails(reader);
+
+            if (!gameDetails.Any())
+            {
+                return;
+            }
+
+            foreach (var result in results)
+            {
+                foreach (var item in result.Sportbook)
+                {
+                    item.GameDetails.AddRange(gameDetails.Where(i => i.MatchId == item.MatchId));
+                }
+            }
+        }
+
+        private static Sportsbook ReadSportsbook(IDataReader reader, string refNo = "", int? leagueId = null)
+        {
+            return new Sportsbook
+            {
+                AwayId = reader.ToInt("awayID"),
+                HomeId = reader.ToInt("homeID"),
+                BetStatus = reader[BetstatusColumn] != DBNull.Value ? reader.ToString(BetstatusColumn) : string.Empty,
+                LeagueId = leagueId ?? reader.ToInt(LeagueIdColumn),
+                MatchId = reader.ToInt(MatchidColumn),
+                EventStatus = reader.ToString("eventstatus"),
+                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                HtAwayScore = reader.ToNullableInt("htawayscore"),
+                Color = reader.HasColumn(LcolorColumn) && reader[LcolorColumn] != DBNull.Value ? reader.ToString(LcolorColumn) : string.Empty,
+                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                HtHomeScore = reader.ToNullableInt("hthomescore"),
+                EventDate = DateTime.Parse(reader.ToString(EventDateColumn)),
+                IsNeutral = reader.ToBool("IsNeutral"),
+                KickOffTime = DateTime.Parse(reader.ToString(KickOffTimeColumn)),
+                MatchCode = reader.ToString("matchcode"),
+                GoalRecord = reader.ToString("goalrecord"),
+                IsHTCal = reader.ToBool("IsHTCal"),
+                Calculate = reader.ToBool("Calculate"),
+                RefNo = refNo,
+                LiveAwayScore = reader.HasColumn("LiveAwayScore") ? reader.ToNullableInt("LiveAwayScore") : null,
+                LiveHomeScore = reader.HasColumn("LiveHomeScore") ? reader.ToNullableInt("LiveHomeScore") : null,
+                SettlementStatus = reader.ToByte("SettlementStatus"),
+                Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
+                BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
+            };
+        }
         #region Binding
 
         /// <summary>
@@ -379,38 +405,23 @@ namespace Fanex.Athena.Result.DataAccess
             return gameDetails;
         }
 
-        /// <summary>
-        /// Bind sports book.
-        /// </summary>
-        /// <param name="reader">The data reader.</param>
-        /// <returns>A sports book DTO.</returns>
-        private static Sportsbook BindSportsbook(IDataReader reader)
+        private static List<BetBuilderDetail> GetBetBuilderDetails(IDataReader reader)
         {
-            return new Sportsbook
+            var betBuilderDetail = new List<BetBuilderDetail>();
+
+            if (reader.NextResult())
             {
-                AwayId = reader.ToInt("awayID"),
-                HomeId = reader.ToInt("homeID"),
-                BetStatus = reader[BetstatusColumn] != DBNull.Value ? reader.ToString(BetstatusColumn) : string.Empty,
-                LeagueId = reader.ToInt("leagueid"),
-                MatchId = reader.ToInt(MatchidColumn),
-                EventStatus = reader.ToString("eventstatus"),
-                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
-                HtAwayScore = reader.ToNullableInt("htawayscore"),
-                Color = reader.HasColumn(LcolorColumn) && reader[LcolorColumn] != DBNull.Value ? reader.ToString(LcolorColumn) : string.Empty,
-                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
-                HtHomeScore = reader.ToNullableInt("hthomescore"),
-                EventDate = DateTime.Parse(reader.ToString(EventDateColumn)),
-                IsNeutral = reader.ToBool("IsNeutral"),
-                KickOffTime = DateTime.Parse(reader.ToString(KickOffTimeColumn)),
-                MatchCode = reader.ToString("matchcode"),
-                GoalRecord = reader.ToString("goalrecord"),
-                IsHTCal = reader.ToBool("IsHTCal"),
-                Calculate = reader.ToBool("Calculate"),
-                RefNo = string.Empty,
-                LiveAwayScore = reader.HasColumn("LiveAwayScore") ? reader.ToNullableInt("LiveAwayScore") : null,
-                LiveHomeScore = reader.HasColumn("LiveHomeScore") ? reader.ToNullableInt("LiveHomeScore") : null,
-                SettlementStatus = reader.ToByte("SettlementStatus")
-            };
+                while (reader.Read())
+                {
+                    betBuilderDetail.Add(new BetBuilderDetail
+                    {
+                        SelectionType = int.Parse(reader["SelectionType"].ToString()),
+                        Result = reader["Result"].ToString(),
+                    });
+                }
+            }
+
+            return betBuilderDetail;
         }
 
         /// <summary>
@@ -426,7 +437,7 @@ namespace Fanex.Athena.Result.DataAccess
 
             while (reader.Read())
             {
-                var result = BindSportsbook(reader);
+                var result = ReadSportsbook(reader);
 
                 if (metaModel != null)
                 {

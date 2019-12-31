@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fanex.Athena.BetList.DataAccess.Interfaces;
-using Fanex.Athena.BetList.Model.DTO;
-using Fanex.Athena.BetList.Model.MetaModel;
-using Fanex.Athena.BetList.Model.ViewModel;
-using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.Common.Utility.Services.Interfaces;
-using Fanex.BetList.Core.App_GlobalResources;
-using Fanex.BetList.Core.Entities;
-
-namespace Fanex.Athena.BetList.Service
+﻿namespace Fanex.Athena.BetList.Service
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Fanex.Athena.BetList.DataAccess.Interfaces;
+    using Fanex.Athena.BetList.Model.DTO;
+    using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.BetList.Model.ViewModel;
+    using Fanex.Athena.BetList.Service.Interfaces;
+    using Fanex.Athena.Common.Utility.Services.Interfaces;
+    using Fanex.BetList.Core.App_GlobalResources;
+    using Fanex.BetList.Core.Entities;
+
+    [CLSCompliant(false)]
     public class SystemParlayDetailService : ISystemParlayDetailService
     {
         private readonly ISystemParlayDetailDataAccess _dataAccess;

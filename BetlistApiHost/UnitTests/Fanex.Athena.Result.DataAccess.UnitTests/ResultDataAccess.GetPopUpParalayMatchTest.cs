@@ -1,10 +1,8 @@
 ﻿namespace Fanex.Athena.Result.DataAccess.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
-    using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -43,32 +41,22 @@
             Reader.GetName(0).Returns("lcolor");
             Reader.GetName(1).Returns("bettype");
             Reader.GetName(2).Returns("betcheck");
-            var refNo = 1;
 
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            dataMapping["LeagueID"] = 11;
-            dataMapping["sporttype"] = 12;
-            dataMapping["bettype"] = 5;
-            dataMapping["betcheck"] = "6";
-            var dataMappingForGameDetail = GetreaderDataMappingForGameDetail();
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(dataMapping);
+            var refNo = FakeHelper.Create<long>();
+            var sportId = FakeHelper.Create<int>();
 
             var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.LeagueId = 11;
-            sportsbookData.RefNo = "1";
+            sportsbookData.RefNo = refNo.ToString();
             sportsbookData.LiveHomeScore = null;
             sportsbookData.LiveAwayScore = null;
 
-            var expectedResult = new List<Parlay>
-            {
-                new Parlay
-                {
-                    LeagueId = sportsbookData.LeagueId,
-                    SportId = 12,
-                    Sportbook = new List<Sportsbook> { sportsbookData }
-                }
-            };
+            var dataMapping = GetReaderDataMappingForSportsbookType();
+            dataMapping["sporttype"] = sportId;
+            dataMapping["bettype"] = sportsbookData.Bettype;
+            dataMapping["betcheck"] = sportsbookData.BetID;
+            var dataMappingForGameDetail = GetreaderDataMappingForGameDetail();
+            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
+            MapReaderData(dataMapping);
 
             // Action
             var result = await DataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
@@ -76,8 +64,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+                Assert.That(result[0].LeagueId, Is.EqualTo(sportsbookData.LeagueId));
+                Assert.That(result[0].SportId, Is.EqualTo(sportId));
+                Assert.That(result[0].Sportbook[0], Tobe.SameProperties(sportsbookData));
+                Assert.That(result[0].Sportbook[0].GameDetails[0], Tobe.SameProperties(sportsbookData.GameDetails[0]));
             });
         }
 
@@ -87,45 +77,30 @@
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpParalayMatchSp)).Returns(ObjectDb);
 
-            Reader.Read().Returns(true, false, true, false);
-            Reader.NextResult().Returns(true);
-            var refNo = 1;
+            Reader.Read().Returns(true, false);
+            Reader.NextResult().Returns(false);
+
+            var refNo = FakeHelper.Create<long>();
+            var sportId = FakeHelper.Create<int>();
 
             var dataMapping = GetReaderDataMappingForSportsbookType();
-            dataMapping["LeagueID"] = 11;
-            dataMapping["sporttype"] = 12;
-            var dataMappingForGameDetail = GetreaderDataMappingForGameDetail();
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
+            dataMapping["sporttype"] = sportId;
+
             DataAccessTestHelper.MapReaderData(Reader, dataMapping);
 
             var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.LeagueId = 11;
-            sportsbookData.RefNo = "1";
+            sportsbookData.RefNo = refNo.ToString();
             sportsbookData.Bettype = 0;
             sportsbookData.BetID = string.Empty;
             sportsbookData.Color = string.Empty;
             sportsbookData.LiveHomeScore = null;
             sportsbookData.LiveAwayScore = null;
 
-            var expectedResult = new List<Parlay>
-            {
-                new Parlay
-                {
-                    LeagueId = sportsbookData.LeagueId,
-                    SportId = 12,
-                    Sportbook = new List<Sportsbook> { sportsbookData }
-                }
-            };
-
             // Action
             var result = await DataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
+            Assert.That(result[0].Sportbook[0], Tobe.SameProperties(sportsbookData));
         }
 
         [Test]
@@ -138,11 +113,12 @@
             Reader.NextResult().Returns(true);
             Reader.FieldCount.Returns(1);
             Reader.GetName(0).Returns("lcolor");
-            var refNo = 1;
+
+            var refNo = FakeHelper.Create<long>();
+            var sportId = FakeHelper.Create<int>();
 
             var dataMapping = GetReaderDataMappingForSportsbookType();
-            dataMapping["LeagueID"] = 11;
-            dataMapping["sporttype"] = 12;
+            dataMapping["sporttype"] = sportId;
             dataMapping["betstatus"] = DBNull.Value;
             dataMapping["lcolor"] = DBNull.Value;
 
@@ -153,8 +129,7 @@
             DataAccessTestHelper.MapReaderData(Reader, dataMapping);
 
             var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.LeagueId = 11;
-            sportsbookData.RefNo = "1";
+            sportsbookData.RefNo = refNo.ToString();
             sportsbookData.Bettype = 0;
             sportsbookData.BetID = string.Empty;
             sportsbookData.Color = string.Empty;
@@ -164,17 +139,14 @@
             sportsbookData.GameDetails[0].ResultStatusID = 0;
             sportsbookData.GameDetails[0].SettlementStatusID = 0;
 
-            var parlay = new Parlay { LeagueId = sportsbookData.LeagueId, SportId = 12, Sportbook = new List<Sportsbook> { sportsbookData } };
-            var expectedResult = new List<Parlay> { parlay };
-
             // Action
             var result = await DataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+                Assert.That(result[0].Sportbook[0], Tobe.SameProperties(sportsbookData));
+                Assert.That(result[0].Sportbook[0].GameDetails[0], Tobe.SameProperties(sportsbookData.GameDetails[0]));
             });
         }
 
@@ -186,7 +158,6 @@
 
             Reader.Read().Returns(true, true, false, true, false);
             Reader.NextResult().Returns(true);
-            var refNo = 1;
 
             var dataMapping = GetReaderDataMappingForSportsbookType();
             dataMapping["LeagueID"] = 11;
@@ -196,7 +167,7 @@
             DataAccessTestHelper.MapReaderData(Reader, dataMapping);
 
             // Action
-            var result = await DataAccess.GetPopUpParalayMatchAsync(refNo).ConfigureAwait(false);
+            var result = await DataAccess.GetPopUpParalayMatchAsync(FakeHelper.Create<long>()).ConfigureAwait(false);
 
             // Assert
             Assert.That(result[0].Sportbook.Count, Is.EqualTo(2));

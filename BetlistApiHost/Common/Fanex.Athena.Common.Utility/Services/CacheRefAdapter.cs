@@ -36,11 +36,19 @@ namespace Fanex.Athena.Common.Utility.Services
             return RemotingRefService.GetLeagueName(leagueId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
-        public string[] GetCombinationTypeCombo(string betTeam, string betCheck, decimal handicap1, 
-            decimal handicap2)
+        public string[] GetCombinationTypeCombo(string betTeam, string betCheck, decimal handicap1, decimal handicap2)
         {
-            return RemotingRefService.GetCombinationTypeCombo(betTeam, betCheck,
-                Convert.ToInt32(handicap1), Convert.ToInt32(handicap2), GetCurrentIBCLanguageCode());
+            return RemotingRefService.GetCombinationTypeCombo(
+                betTeam,
+                betCheck,
+                Convert.ToInt32(handicap1),
+                Convert.ToInt32(handicap2),
+                GetCurrentIBCLanguageCode());
+        }
+
+        public string[] GetBetBuilderSelectionNames(int[] selectionIds)
+        {
+            return RemotingRefService.GetBetBuilderSelectionNames(selectionIds, GetCurrentIBCLanguageCode());
         }
 
         private static bool IsValidId(object id)

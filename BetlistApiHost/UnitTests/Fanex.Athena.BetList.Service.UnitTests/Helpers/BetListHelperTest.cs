@@ -135,5 +135,18 @@
             // Assert
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        [TestCase(null, false)]
+        [TestCase(" ", false)]
+        [TestCase("void", true)]
+        [TestCase("running", false)]
+        public void IsVoid_WhenCall_ReturnCorrectResult(string status, bool expected)
+        {
+            // Action
+            var result = BetListHelper.IsVoid(status);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
     }
 }

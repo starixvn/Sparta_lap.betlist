@@ -3,11 +3,10 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-
-using System;
-
 namespace Fanex.Athena.BetList.Model.DTO
 {
+    using System;
+
     /// <summary>
     /// BetListMatch class.
     /// </summary>

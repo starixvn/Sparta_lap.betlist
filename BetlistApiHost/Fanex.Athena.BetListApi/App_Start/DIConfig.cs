@@ -1,23 +1,23 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Web.Compilation;
-using System.Web.Mvc;
-using Autofac;
-using Autofac.Integration.Mvc;
-using Fanex.Athena.Common.Utility.Services.Internal;
-using Fanex.BetList.Core.Builder;
-using Fanex.BetList.Core.Entities;
-using Fanex.BetList.Core.TicketHelper;
-using Fanex.Logging;
-using Fanex.RemotingRef;
-using Fanex.Result.Core.AllBetCasino;
-using Fanex.Result.Core.PokerGames;
-using Fanex.Result.Core.PP;
-using Fanex.Result.Core.Voidbridge;
-
-namespace Fanex.Athena
+﻿namespace Fanex.Athena
 {
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Web.Compilation;
+    using System.Web.Mvc;
+    using Autofac;
+    using Autofac.Integration.Mvc;
+    using Fanex.Athena.Common.Utility.Services.Internal;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Fanex.BetList.Core.TicketHelper;
+    using Fanex.Logging;
+    using Fanex.RemotingRef;
+    using Fanex.Result.Core.AllBetCasino;
+    using Fanex.Result.Core.PokerGames;
+    using Fanex.Result.Core.PP;
+    using Fanex.Result.Core.Voidbridge;
+
     public static class DIConfig
     {
         public static void Register()

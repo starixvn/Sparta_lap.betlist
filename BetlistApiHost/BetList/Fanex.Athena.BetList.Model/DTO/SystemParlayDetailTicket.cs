@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fanex.Athena.BetList.Model.DTO
+﻿namespace Fanex.Athena.BetList.Model.DTO
 {
+    using System;
+
     public class SystemParlayDetailTicket
     {
         public decimal Comm { get; set; }

@@ -96,11 +96,12 @@
   <ItemGroup>
     <Compile Include="BaseBetListDataAccessTest.cs" />
     <Compile Include="BetListByProductDataAccessTest.cs" />
+    <Compile Include="SingleMatchParlayDetailDataAccessTest.cs" />
     <Compile Include="BetListDataAccessTest.cs" />
     <Compile Include="BetListDataAccessTest.GetBetListData.cs" />
     <Compile Include="PlayerAdminBetListDataAccessTest.cs" />
     <Compile Include="BettingTicketsCenterDataAccessTest.cs" />
-    <Compile Include="BettingTicketsCenterMultiCustomerDataAccessTest.cs" />
+    <Compile Include="BettingTicketsCenterAdvancedSearchDataAccessTest.cs" />
     <Compile Include="BettingTicketsCenterDataAccessTest.GetBetListForSingleCustomer.cs" />
     <Compile Include="BettingTicketsCenterDataAccessTest.GetRunningBetList.cs" />
     <Compile Include="CashOutBetListDataAccessTest.cs" />

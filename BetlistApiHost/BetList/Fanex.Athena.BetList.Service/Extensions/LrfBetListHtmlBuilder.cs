@@ -17,9 +17,9 @@ namespace Fanex.Athena.BetList.Service.Extensions
     using Helpers;
     using Resources;
 
+    [CLSCompliant(false)]
     public static class LrfBetListHtmlBuilder
     {
-        [CLSCompliant(false)]
         public static string BuildLrfStatus(
             this IBetListHTMLBuilder builder,
             LrfTicket ticket,
@@ -58,7 +58,6 @@ namespace Fanex.Athena.BetList.Service.Extensions
         }
 
         // when updating this, remember to update Fanex.Athena.Excel.BetList.LrfBetListExcelBuilder as well
-        [CLSCompliant(false)]
         public static string BuildLicenseeWL(this IBetListHTMLBuilder builder, LrfTicket ticket)
         {
             var isRunning = BetListHelper.IsRunning(ticket.Status);
@@ -73,7 +72,6 @@ namespace Fanex.Athena.BetList.Service.Extensions
                 : $"<div class='lic-win-loss'>{FormatLicenseeWl(ticket.LicenseeWL + ticket.Comm)}</div>";
         }
 
-        [CLSCompliant(false)]
         public static string BuildCustomerWL(this IBetListHTMLBuilder builder, Ticket ticket, bool showPlayerComm)
         {
             var isRunning = BetListHelper.IsRunning(ticket.Status);
@@ -93,13 +91,11 @@ namespace Fanex.Athena.BetList.Service.Extensions
             return winloss;
         }
 
-        [CLSCompliant(false)]
         public static string BuildBetEffective(this IBetListHTMLBuilder builder, LrfTicket ticket)
         {
             return string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.BetEffective);
         }
 
-        [CLSCompliant(false)]
         public static string BuildLiveStatus(this IBetListHTMLBuilder builder, ITicket ticket)
         {
             const string PatternStatusBetlist = "<label style='color:{0}'>{1}</label>";
@@ -121,6 +117,11 @@ namespace Fanex.Athena.BetList.Service.Extensions
             return ticket.IsLive
                 ? string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live)
                 : string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
+        }
+
+        public static string BuildSingleMatchParlaySelectionStatus(this IBetListHTMLBuilder builder, string status)
+        {
+            return GetStatusText(status);
         }
 
         #region Private Utility

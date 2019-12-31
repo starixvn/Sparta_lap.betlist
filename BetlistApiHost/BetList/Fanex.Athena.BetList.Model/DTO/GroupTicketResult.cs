@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Fanex.Athena.BetList.Model.DTO
+﻿namespace Fanex.Athena.BetList.Model.DTO
 {
+    using System.Collections.Generic;
+
     public class GroupTicketResult
     {
         public IList<string> DataPath { get; set; } = new List<string>();
