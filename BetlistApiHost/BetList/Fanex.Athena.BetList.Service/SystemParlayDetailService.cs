@@ -96,7 +96,7 @@
                     return CoreBetList.lblLose;
 
                 case BetStatusId.Draw:
-                    return CoreBetList.lblDraw;
+                    return CoreBetList.draw;
 
                 case BetStatusId.Running:
                     return CoreBetList.lblRunning;
