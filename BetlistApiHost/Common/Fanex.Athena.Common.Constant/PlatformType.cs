@@ -20,6 +20,7 @@
             { "o", "MobileApp" },
             { "c", "MobileLiteVersion" },
             { "t", "DeepLink" },
+            { "0", "NativeApp" },
             { "v", "BetfromOthers" }
         };
 
