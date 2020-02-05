@@ -39,7 +39,7 @@
             {
                 yield return new TestCaseData(new { StatusId = BetStatusId.Won, Expected = CoreBetList.lblWon });
                 yield return new TestCaseData(new { StatusId = BetStatusId.Lost, Expected = CoreBetList.lblLose });
-                yield return new TestCaseData(new { StatusId = BetStatusId.Draw, Expected = CoreBetList.lblDraw });
+                yield return new TestCaseData(new { StatusId = BetStatusId.Draw, Expected = CoreBetList.draw });
                 yield return new TestCaseData(new { StatusId = BetStatusId.Running, Expected = CoreBetList.lblRunning });
                 yield return new TestCaseData(new { StatusId = BetStatusId.Waiting, Expected = CoreBetList.lblWaiting });
                 yield return new TestCaseData(new { StatusId = BetStatusId.Reject, Expected = CoreBetList.reject });
