@@ -6,6 +6,7 @@
     using System.Web.Compilation;
     using System.Web.Mvc;
     using Autofac;
+    using Autofac.Features.AttributeFilters;
     using Autofac.Integration.Mvc;
     using Fanex.Athena.Common.Utility.Services.Internal;
     using Fanex.BetList.Core.Builder;
@@ -14,6 +15,7 @@
     using Fanex.Logging;
     using Fanex.RemotingRef;
     using Fanex.Result.Core.AllBetCasino;
+    using Fanex.Result.Core.Casino;
     using Fanex.Result.Core.PokerGames;
     using Fanex.Result.Core.PP;
     using Fanex.Result.Core.Voidbridge;
@@ -33,7 +35,7 @@
             // static services
             builder.RegisterInstance(new CustomMemoryCache()).As<ICustomMemoryCache>();
 
-            builder.RegisterControllers(controllerAss);
+            builder.RegisterControllers(controllerAss).WithAttributeFiltering();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
@@ -50,6 +52,7 @@
             builder.RegisterType<PokerGamesResult>().As<IPokerGamesResult>();
             builder.RegisterType<RemotingRefService>().As<IRemotingRefService>().SingleInstance();
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
+            builder.Register(x => new CasinoResult("SpadegamingResultConfigs")).Keyed<ICasinoResult>("SG");
         }
 
         private static Assembly[] GetAssemblies()
