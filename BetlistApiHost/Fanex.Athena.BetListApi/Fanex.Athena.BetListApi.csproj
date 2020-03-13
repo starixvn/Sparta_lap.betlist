@@ -140,6 +140,9 @@
     <Reference Include="Fanex.BetList.Spadegaming, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Spadegaming.1.0.0\lib\net40\Fanex.BetList.Spadegaming.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.BetList.VirtualGames, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.VirtualGames.1.0.0-beta1\lib\net40\Fanex.BetList.VirtualGames.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.BetList.VirtualSports, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.VirtualSports.1.5.0\lib\net40\Fanex.BetList.VirtualSports.dll</HintPath>
       <Private>True</Private>
