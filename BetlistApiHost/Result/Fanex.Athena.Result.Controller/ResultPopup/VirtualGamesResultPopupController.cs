@@ -17,5 +17,11 @@
         {
             return _resultApi.GetDetailResult(gameId, platform, languageCode);
         }
+
+        [HttpPost]
+        public string GetResultPage(string languageCode, string platform = "d")
+        {
+            return _resultApi.GetResult(platform, languageCode);
+        }
     }
 }
