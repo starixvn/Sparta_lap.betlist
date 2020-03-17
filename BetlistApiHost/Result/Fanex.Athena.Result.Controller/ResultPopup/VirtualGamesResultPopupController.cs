@@ -13,9 +13,9 @@
         }
 
         [HttpPost]
-        public string Index(string gameId, string platform, string languageCode)
+        public string Index(string gamePlayId, string platform, string languageCode)
         {
-            return _resultApi.GetDetailResult(gameId, platform, languageCode);
+            return _resultApi.GetDetailResult(gamePlayId, platform, languageCode);
         }
 
         [HttpPost]
