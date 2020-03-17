@@ -13,7 +13,7 @@
         }
 
         [HttpPost]
-        public string Index(string gamePlayId, string platform, string languageCode)
+        public string GetDetailResult(string gamePlayId, string platform, string languageCode)
         {
             return _resultApi.GetDetailResult(gamePlayId, platform, languageCode);
         }
