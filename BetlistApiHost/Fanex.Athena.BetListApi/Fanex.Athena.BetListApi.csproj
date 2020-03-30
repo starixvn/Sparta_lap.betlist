@@ -553,6 +553,10 @@
       <Project>{bc358f4a-b85d-43a2-a669-d2d2c9f2eedb}</Project>
       <Name>Fanex.Athena.Result.Controller</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Result\Fanex.Athena.Result.Service\Fanex.Athena.Result.Service.csproj">
+      <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
+      <Name>Fanex.Athena.Result.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
