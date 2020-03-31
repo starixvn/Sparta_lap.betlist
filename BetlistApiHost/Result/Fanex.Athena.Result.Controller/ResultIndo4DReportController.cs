@@ -18,11 +18,11 @@
         }
 
         [HttpPost]
-        public string GetResultUrl(string language)
+        public string GetResultUrl(string languageCode = "en-US")
         {
             try
             {
-                return _indo4DResult.GetResult(language);
+                return _indo4DResult.GetResult(languageCode);
             }
             catch (Exception exception)
             {
