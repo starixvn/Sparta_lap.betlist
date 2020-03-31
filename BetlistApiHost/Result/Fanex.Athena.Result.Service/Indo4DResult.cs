@@ -41,7 +41,7 @@
             var isValidResponse = ValidateResponse(responseData, requestData);
             if (!isValidResponse)
             {
-                throw new ResultCoreException($"Url of Virtual Games send request incorrectly! Detail request:" +
+                throw new ResultCoreException($"Url of Indo4D send request incorrectly! Detail request:" +
                     $" {_serializer.Serialize(requestData)}; Detail response: {_serializer.Serialize(responseData)}");
             }
 
@@ -50,7 +50,7 @@
 
         private static bool ValidateResponse(Indo4DReponse responseData, Indo4DRequest requestData)
             => responseData.Result.Seq == requestData.Call.Seq &&
-                responseData.Result.ErrorCode == "0";
+                (responseData.Result.ErrorCode == "0" || responseData.Result.ErrorCode == null);
 
         private Indo4DRequest GenerateRequestData()
         {
