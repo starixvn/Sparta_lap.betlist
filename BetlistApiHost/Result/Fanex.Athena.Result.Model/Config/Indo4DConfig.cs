@@ -1,10 +1,10 @@
-﻿namespace Fanex.Athena.Result.Model.Config
+﻿namespace Fanex.Athena.Result.Model
 {
     using System.Configuration;
 
     public sealed class Indo4DConfig : ConfigurationSection
     {
-        private const string __INDO4D_RESULT_CONFIG = "Indo4DResultConfigs";
+        private const string __INDO4D_RESULT_CONFIG = "Indo4DConfig";
         private const string URLRESULT = "UrlResult";
         private const string LOGIN = "Login";
         private const string PASSWORD = "Password";

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Result.Service
 {
     using System;
-    using Fanex.Athena.Result.Model.Config;
+    using Fanex.Athena.Result.Model;
     using Fanex.Athena.Result.Model.DTO.Indo4D;
     using Fanex.Athena.Result.Service.Interfaces;
     using Fanex.Result.Core.Base;
