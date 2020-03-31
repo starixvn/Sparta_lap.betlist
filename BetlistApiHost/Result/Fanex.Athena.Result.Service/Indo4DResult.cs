@@ -2,6 +2,7 @@
 {
     using System;
     using Fanex.Athena.Result.Model;
+    using Fanex.Athena.Result.Model.Const;
     using Fanex.Athena.Result.Model.DTO.Indo4D;
     using Fanex.Athena.Result.Service.Interfaces;
     using Fanex.Result.Core.Base;
@@ -15,6 +16,7 @@
         private readonly IWebClient _client;
         private readonly ISerializer _serializer;
         private readonly INewGui _newGui;
+        private const string DefaultPlatform = "d";
 
         public Indo4DResult() : this(null, null, null)
         {
@@ -45,7 +47,14 @@
                     $" {_serializer.Serialize(requestData)}; Detail response: {_serializer.Serialize(responseData)}");
             }
 
-            return responseData.Result.Url;
+            return AddMoreInfoToResult(responseData.Result.Url, language);
+        }
+
+        private string AddMoreInfoToResult(string resultUrl, string language, string platform = DefaultPlatform)
+        {
+            var languageCode = LanguageConstants.GetLanguageCode(language);
+
+            return $"{resultUrl}&s={_configs.SiteId}$l={languageCode}&pl={platform}&dm=0";
         }
 
         private static bool ValidateResponse(Indo4DReponse responseData, Indo4DRequest requestData)

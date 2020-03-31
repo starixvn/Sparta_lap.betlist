@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Indo4DConfig.cs" />
+    <Compile Include="Const\LanguageConstants.cs" />
     <Compile Include="Const\ResultVendorProductTypes.cs" />
     <Compile Include="DTO\Indo4D\Indo4DAuth.cs" />
     <Compile Include="DTO\Indo4D\Indo4DCall.cs" />
