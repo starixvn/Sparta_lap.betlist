@@ -54,7 +54,7 @@
         {
             var languageCode = LanguageConstants.GetLanguageCode(language);
 
-            return $"{resultUrl}&s={_configs.SiteId}$l={languageCode}&pl={platform}&dm=0";
+            return $"{resultUrl}&l={languageCode}&pl={platform}&dm=0";
         }
 
         private static bool ValidateResponse(Indo4DReponse responseData, Indo4DRequest requestData)
