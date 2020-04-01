@@ -16,7 +16,7 @@
         private readonly IWebClient _client;
         private readonly ISerializer _serializer;
         private readonly INewGui _newGui;
-        private const string DefaultPlatform = "d";
+        private const string DefaultPlatform = "D";
 
         public Indo4DResult() : this(null, null, null)
         {
@@ -54,7 +54,7 @@
         {
             var languageCode = LanguageConstants.GetLanguageCode(language);
 
-            return $"{resultUrl}&l={languageCode}&pl={platform}&dm=0";
+            return $"{resultUrl}&dm=0&l={languageCode}&pl={platform}";
         }
 
         private static bool ValidateResponse(Indo4DReponse responseData, Indo4DRequest requestData)
