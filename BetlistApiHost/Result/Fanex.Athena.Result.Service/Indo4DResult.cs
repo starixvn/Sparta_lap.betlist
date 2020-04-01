@@ -1,28 +1,32 @@
 ﻿namespace Fanex.Athena.Result.Service
 {
     using System;
-    using Fanex.Athena.Common.Utility.Services.Interfaces;
-    using Fanex.Athena.Common.Utility.Services.Internal;
     using Fanex.Athena.Result.Model;
     using Fanex.Athena.Result.Model.Const;
     using Fanex.Athena.Result.Model.DTO.Indo4D;
     using Fanex.Athena.Result.Service.Interfaces;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Base.Exception;
+    using Fanex.Result.Core.Base.Utilities;
 
     public class Indo4DResult : IIndo4DResult
     {
+        private readonly int GMT8 = 8;
         private readonly Indo4DConfig _configs;
-        private readonly IWebClientService _client;
+        private readonly IWebClient _client;
         private readonly ISerializer _serializer;
         private readonly INewGui _newGui;
         private const string DefaultPlatform = "d";
-        private readonly int GMT8 = 8;
 
-        public Indo4DResult(IWebClientService client, ISerializer serializer, INewGui newGui)
+        public Indo4DResult() : this(null, null, null)
         {
-            _serializer = serializer;
-            _client = client;
-            _newGui = newGui;
+        }
+
+        protected Indo4DResult(IWebClient client = null, ISerializer serializer = null, INewGui newGui = null)
+        {
+            _serializer = serializer ?? new JsonSerializer();
+            _client = client ?? new JsonWebClient(_serializer);
+            _newGui = newGui ?? new NewGui();
             _configs = Indo4DConfig.Configs;
         }
 
@@ -32,14 +36,14 @@
 
             if ((DebugMode)_configs.DebugMode == DebugMode.DontSendRequest)
             {
-                throw new ResultException("Request data:" + _serializer.Serialize(requestData));
+                throw new Exception("Request data:" + _serializer.Serialize(requestData));
             }
 
             var responseData = _client.UploadString<Indo4DRequest, Indo4DReponse>(_configs.UrlResult, requestData);
             var isValidResponse = ValidateResponse(responseData, requestData);
             if (!isValidResponse)
             {
-                throw new ResultException($"Url of Indo4D send request incorrectly! Detail request:" +
+                throw new ResultCoreException($"Url of Indo4D send request incorrectly! Detail request:" +
                     $" {_serializer.Serialize(requestData)}; Detail response: {_serializer.Serialize(responseData)}");
             }
 
