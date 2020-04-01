@@ -48,5 +48,17 @@
                 return webClient.UploadString(address, parameters);
             }
         }
+
+        public TOut UploadString<TIn, TOut>(string address, TIn requestData)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                var serialize = new JsonSerializer();
+                var serializedRequestData = serialize.Serialize(requestData);
+                var response = webClient.UploadString(address, "POST", serializedRequestData);
+
+                return serialize.Deserialize<TOut>(response);
+            }
+        }
     }
 }
