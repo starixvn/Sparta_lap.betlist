@@ -36,7 +36,7 @@
 
             if ((DebugMode)_configs.DebugMode == DebugMode.DontSendRequest)
             {
-                throw new Exception("Request data:" + _serializer.Serialize(requestData));
+                throw new ResultCoreException("Request data:" + _serializer.Serialize(requestData));
             }
 
             var responseData = _client.UploadString<Indo4DRequest, Indo4DReponse>(_configs.UrlResult, requestData);
@@ -50,7 +50,7 @@
             return AddMoreInfoToResult(responseData.Result.Url, language);
         }
 
-        private string AddMoreInfoToResult(string resultUrl, string language, string platform = DefaultPlatform)
+        private static string AddMoreInfoToResult(string resultUrl, string language, string platform = DefaultPlatform)
         {
             var languageCode = LanguageConstants.GetLanguageCode(language);
 
