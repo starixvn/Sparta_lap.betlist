@@ -139,7 +139,7 @@
       <HintPath>..\..\packages\Fanex.BetList.Spadegaming.1.0.0\lib\net40\Fanex.BetList.Spadegaming.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.TableGames, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.TableGames.1.0.0.0-tablegame1\lib\net40\Fanex.BetList.TableGames.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.TableGames.1.0.0.0-tablegame2\lib\net40\Fanex.BetList.TableGames.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.VirtualGames, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.VirtualGames.1.0.0\lib\net40\Fanex.BetList.VirtualGames.dll</HintPath>
