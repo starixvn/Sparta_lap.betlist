@@ -72,6 +72,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
@@ -136,6 +137,8 @@
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Attributes\JsonNetModelBinderAttribute.cs" />
     <Compile Include="Helpers\LogMessageHelper.cs" />
+    <Compile Include="Serializer\ISerializer.cs" />
+    <Compile Include="Serializer\JsonSerializer.cs" />
     <Compile Include="Services\CacheRefAdapter.cs" />
     <Compile Include="Collections\PropertyComparer.cs" />
     <Compile Include="Collections\SortableList.cs" />

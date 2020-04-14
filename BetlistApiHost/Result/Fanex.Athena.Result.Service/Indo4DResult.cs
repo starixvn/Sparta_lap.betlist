@@ -1,32 +1,29 @@
 ﻿namespace Fanex.Athena.Result.Service
 {
     using System;
+    using Fanex.Athena.Common.Utility.Serializer;
+    using Fanex.Athena.Common.Utility.Services.Interfaces;
     using Fanex.Athena.Result.Model;
     using Fanex.Athena.Result.Model.Const;
     using Fanex.Athena.Result.Model.DTO.Indo4D;
     using Fanex.Athena.Result.Service.Interfaces;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.Base.Exception;
-    using Fanex.Result.Core.Base.Utilities;
 
     public class Indo4DResult : IIndo4DResult
     {
         private readonly int GMT8 = 8;
         private readonly Indo4DConfig _configs;
-        private readonly IWebClient _client;
+        private readonly IWebClientService _client;
         private readonly ISerializer _serializer;
         private readonly INewGui _newGui;
         private const string DefaultPlatform = "D";
 
-        public Indo4DResult() : this(null, null, null)
+        public Indo4DResult(IWebClientService client, ISerializer serializer, INewGui newGui)
         {
-        }
-
-        protected Indo4DResult(IWebClient client = null, ISerializer serializer = null, INewGui newGui = null)
-        {
-            _serializer = serializer ?? new JsonSerializer();
-            _client = client ?? new JsonWebClient(_serializer);
-            _newGui = newGui ?? new NewGui();
+            _serializer = serializer;
+            _client = client;
+            _newGui = newGui;
             _configs = Indo4DConfig.Configs;
         }
 
@@ -47,10 +44,10 @@
                     $" {_serializer.Serialize(requestData)}; Detail response: {_serializer.Serialize(responseData)}");
             }
 
-            return AddMoreInfoToResult(responseData.Result.Url, language);
+            return AddMoreInfoToResult(new Uri(responseData.Result.Url), language);
         }
 
-        private static string AddMoreInfoToResult(string resultUrl, string language, string platform = DefaultPlatform)
+        private static string AddMoreInfoToResult(Uri resultUrl, string language, string platform = DefaultPlatform)
         {
             var languageCode = LanguageConstants.GetLanguageCode(language);
 
