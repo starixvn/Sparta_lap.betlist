@@ -36,7 +36,7 @@
                 throw new ResultCoreException("Request data:" + _serializer.Serialize(requestData));
             }
 
-            var responseData = _client.UploadString<Indo4DRequest, Indo4DReponse>(_configs.UrlResult, requestData);
+            var responseData = _client.UploadString<Indo4DRequest, Indo4DReponse>(_configs.HrefResult, requestData);
             var isValidResponse = ValidateResponse(responseData, requestData);
             if (!isValidResponse)
             {

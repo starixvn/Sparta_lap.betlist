@@ -22,38 +22,33 @@
         }
 
         [ConfigurationProperty(URLRESULT, IsRequired = true)]
-        public string UrlResult
+        public string HrefResult
         {
             get { return this[URLRESULT].ToString(); }
-            set { this[URLRESULT] = value; }
         }
 
         [ConfigurationProperty(LOGIN, IsRequired = true)]
         public string Login
         {
             get { return this[LOGIN].ToString(); }
-            set { this[LOGIN] = value; }
         }
 
         [ConfigurationProperty(PASSWORD, IsRequired = true)]
         public string Password
         {
             get { return this[PASSWORD].ToString(); }
-            set { this[PASSWORD] = value; }
         }
 
         [ConfigurationProperty(SITE_ID, IsRequired = true)]
         public string SiteId
         {
             get { return this[SITE_ID].ToString(); }
-            set { this[SITE_ID] = value; }
         }
 
         [ConfigurationProperty(DEBUG_MODE, IsRequired = false, DefaultValue = 0)]
         public int DebugMode
         {
             get { return (int)this[DEBUG_MODE]; }
-            set { this[DEBUG_MODE] = value; }
         }
     }
 }

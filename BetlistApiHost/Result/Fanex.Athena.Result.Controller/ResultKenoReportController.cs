@@ -78,7 +78,9 @@
             };
         }
 
+#pragma warning disable S3995 // URI return values should not be strings
         private static string GetResultUrl(int vendorProduct)
+#pragma warning restore S3995 // URI return values should not be strings
         {
             string resultUrl = "";
 

@@ -18,7 +18,9 @@
         }
 
         [HttpPost]
+#pragma warning disable S3995 // URI return values should not be strings
         public string GetResultUrl(string languageCode = "en-US")
+#pragma warning restore S3995 // URI return values should not be strings
         {
             try
             {
