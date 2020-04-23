@@ -1,0 +1,79 @@
+﻿namespace Fanex.Athena.Result.Service
+{
+    using System;
+    using Fanex.Athena.Common.Utility.Serializer;
+    using Fanex.Athena.Common.Utility.Services.Interfaces;
+    using Fanex.Athena.Result.Model;
+    using Fanex.Athena.Result.Model.Const;
+    using Fanex.Athena.Result.Model.DTO.Indo4D;
+    using Fanex.Athena.Result.Service.Interfaces;
+    using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Base.Exception;
+
+    public class Indo4DResult : IIndo4DResult
+    {
+        private readonly int GMT8 = 8;
+        private readonly Indo4DConfig _configs;
+        private readonly IWebClientService _client;
+        private readonly ISerializer _serializer;
+        private readonly INewGui _newGui;
+        private const string DefaultPlatform = "D";
+
+        public Indo4DResult(IWebClientService client, ISerializer serializer, INewGui newGui)
+        {
+            _serializer = serializer;
+            _client = client;
+            _newGui = newGui;
+            _configs = Indo4DConfig.Configs;
+        }
+
+        public string GetResult(string language = "en-US")
+        {
+            var requestData = GenerateRequestData();
+
+            if ((DebugMode)_configs.DebugMode == DebugMode.DontSendRequest)
+            {
+                throw new ResultCoreException("Request data:" + _serializer.Serialize(requestData));
+            }
+
+            var responseData = _client.UploadString<Indo4DRequest, Indo4DReponse>(_configs.HrefResult, requestData);
+            var isValidResponse = ValidateResponse(responseData, requestData);
+            if (!isValidResponse)
+            {
+                throw new ResultCoreException($"Url of Indo4D send request incorrectly! Detail request:" +
+                    $" {_serializer.Serialize(requestData)}; Detail response: {_serializer.Serialize(responseData)}");
+            }
+
+            return AddMoreInfoToResult(new Uri(responseData.Result.Url), language);
+        }
+
+        private static string AddMoreInfoToResult(Uri resultUrl, string language, string platform = DefaultPlatform)
+        {
+            var languageCode = LanguageConstants.GetLanguageCode(language);
+
+            return $"{resultUrl}&dm=0&l={languageCode}&pl={platform}";
+        }
+
+        private static bool ValidateResponse(Indo4DReponse responseData, Indo4DRequest requestData)
+            => responseData.Result.Seq == requestData.Call.Seq &&
+                (responseData.Result.ErrorCode == "0" || responseData.Result.ErrorCode == null);
+
+        private Indo4DRequest GenerateRequestData()
+        {
+            return new Indo4DRequest
+            {
+                TimeStamp = DateTime.UtcNow.AddHours(GMT8).ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                Auth = new Indo4DAuth
+                {
+                    Login = _configs.Login,
+                    Password = _configs.Password
+                },
+                Call = new Indo4DCall
+                {
+                    Seq = _newGui.CreateNewId(),
+                    SiteId = _configs.SiteId
+                }
+            };
+        }
+    }
+}

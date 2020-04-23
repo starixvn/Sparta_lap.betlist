@@ -9,6 +9,8 @@
     using Autofac.Features.AttributeFilters;
     using Autofac.Integration.Mvc;
     using Fanex.Athena.Common.Utility.Services.Internal;
+    using Fanex.Athena.Result.Service;
+    using Fanex.Athena.Result.Service.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
@@ -55,6 +57,7 @@
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
             builder.Register(x => new CasinoResult("SpadegamingResultConfigs")).Keyed<ICasinoResult>("SG");
             builder.RegisterType<VirtualGamesResult>().As<IVirtualGamesResult>();
+            builder.RegisterType<Indo4DResult>().As<IIndo4DResult>();
         }
 
         private static Assembly[] GetAssemblies()

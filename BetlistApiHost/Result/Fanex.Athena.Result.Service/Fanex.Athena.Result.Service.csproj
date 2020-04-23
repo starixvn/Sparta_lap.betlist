@@ -151,6 +151,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Indo4DResult.cs" />
+    <Compile Include="Interfaces\IIndo4DResult.cs" />
+    <Compile Include="Interfaces\INewGui.cs" />
     <Compile Include="Interfaces\IResultService.cs" />
     <Compile Include="Interfaces\IRNGCasinoSingleWalletService.cs" />
     <Compile Include="KenoApi.cs" />
