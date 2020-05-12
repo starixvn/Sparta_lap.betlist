@@ -190,6 +190,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ResultPopup\CardClubResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\SexyGamingResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SGResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\VoidbridgeResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\AllBetResultPopupControllerTest.cs" />
