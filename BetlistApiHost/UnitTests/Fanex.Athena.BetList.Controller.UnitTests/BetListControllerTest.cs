@@ -60,6 +60,7 @@
             {
                 // Arrange
                 var metaModel = FakeHelper.Create<BetListMetaModel>();
+                metaModel.IsMobileView = false;
 
                 var ticketResult = new TicketResult
                 {
@@ -72,7 +73,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
-                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm: metaModel.HasPlayerCom).Returns(ticketText);
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm: metaModel.HasPlayerCom, isMobileView: false).Returns(ticketText);
 
                 // Action
                 var result = (await controller.GetBetList(metaModel)).Data as BetListResultViewModel;
@@ -219,6 +220,7 @@
             {
                 // Arrange
                 var metaModel = FakeHelper.Create<WinLossByLeagueBetListMetaModel>();
+                metaModel.IsMobileView = false;
 
                 var ticketResult = new TicketResult();
                 _betListService.GetBetListData(Arg.Any<BetListMetaModel>()).Returns(ticketResult);
@@ -233,7 +235,7 @@
                 Assert.Multiple(() =>
                 {
                     _betListService.Received().GetBetListData(metaModel);
-                    _ticketBuilderService.Received().BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm: metaModel.HasPlayerCom);
+                    _ticketBuilderService.Received().BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm: metaModel.HasPlayerCom, isMobileView: false);
                 });
             }
         }

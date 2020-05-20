@@ -73,22 +73,22 @@
             </thead>
         </table>
     </div>
-    <div id="tbodyContainer" class="tcontainer tbody-container" style="overflow: auto; border-right: 1px solid #ddd; border-left: 1px solid #ddd">
+    <div id="tbodyContainer" class="tcontainer tbody-container" style="border-right: 1px solid #ddd; border-left: 1px solid #ddd">
         <table id="tbodyData" style="text-align: right;white-space: nowrap; font-weight: bold; width: 100%;" cellspacing="0" cellpadding="0" border="0">
             <tbody>
                 @RenderFirstRow()
                 @foreach (var dataByDate in groupedData)
-            {
-                var rowSpan = dataByDate.Count().ToString();
-                var isFirstItem = true;
-
-                var subTotal = dataByDate.Sum(x => x.WinLoss);
-
-                foreach (var dataByMatch in dataByDate)
                 {
+                    var rowSpan = dataByDate.Count().ToString();
+                    var isFirstItem = true;
+
+                    var subTotal = dataByDate.Sum(x => x.WinLoss);
+
+                    foreach (var dataByMatch in dataByDate)
+                    {
                         <tr>
                             @if (isFirstItem)
-                    {
+                            {
                                 <td rowspan="@rowSpan" style="text-align: center; font-weight: normal;">@dataByMatch.Date.ToString("MM/dd/yyyy")</td>
                                 isFirstItem = false;
                             }
@@ -131,7 +131,7 @@
                     <td style="border-left: none;">&nbsp;</td>
                 </tr>
                 @if (Model.DataList.Any())
-            {
+                {
                     <tr class="system-parlay-total">
                         <td colspan="4">@CoreBetList.total:</td>
                         <td class="@(Model.Total < 0 ? "negative" : string.Empty)">@NumberHelper.DecFormat(Model.Total)</td>

@@ -43,7 +43,7 @@ namespace Fanex.Athena.BetList.Controller
                     IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
             }
 
-            viewModel.OriginalTicketText = BuildOriginalTicketText(viewModel.OriginalTicket, metaModel.HasPlayerComm);
+            viewModel.OriginalTicketText = BuildOriginalTicketText(viewModel.OriginalTicket, metaModel.HasPlayerComm, metaModel.IsMobileView);
             viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.TransId);
 
             viewModel.IsCashOut = metaModel.IsCashOut;
@@ -90,7 +90,7 @@ namespace Fanex.Athena.BetList.Controller
             return ticketTextList;
         }
 
-        private TicketText BuildOriginalTicketText(LrfTicket ticket, bool hasPlayerComm)
+        private TicketText BuildOriginalTicketText(LrfTicket ticket, bool hasPlayerComm, bool isMobileView = false)
         {
             if (ticket == null)
             {
@@ -101,14 +101,21 @@ namespace Fanex.Athena.BetList.Controller
 
             var statusHtml = _betListHTMLBuilder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, _ticketHelper, null, true);
             statusHtml.StatusResult = null;
+            var odds = isMobileView
+                ? _betListHTMLBuilder.BuildOddsValue(ticket, null, _ticketHelper.GetValidOddsTypeNameById)
+                : _betListHTMLBuilder.BuildOdds(ticket, null, _ticketHelper.GetValidOddsTypeNameById);
+            var oddsTypeName = isMobileView ? _betListHTMLBuilder.BuildOddsTypeName(ticket, null, _ticketHelper.GetValidOddsTypeNameById) : null;
+
             return new TicketText
             {
+                RefNo = isMobileView ? _betListHTMLBuilder.BuildRefNo(ticket) : null,
                 ExternalId = ticket.ExternalId,
                 SystemId = ticket.UserName,
-                TransTime = _betListHTMLBuilder.BuildTrans(ticket),
+                TransTime = isMobileView ? _betListHTMLBuilder.BuildTransTime(ticket) : _betListHTMLBuilder.BuildTrans(ticket),
                 Status = statusHtml.ToString(),
                 Choice = _betListHTMLBuilder.BuildChoice(ticket, _ticketHelper, null, false),
-                Odds = _betListHTMLBuilder.BuildOdds(ticket, null, _ticketHelper.GetValidOddsTypeNameById),
+                Odds = odds,
+                OddsType = oddsTypeName,
                 Stake = _betListHTMLBuilder.BuildStake(ticket),
                 WinLoss = _betListHTMLBuilder.BuildCustomerWL(ticket, hasPlayerComm)
             };

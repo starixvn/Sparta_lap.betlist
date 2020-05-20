@@ -9,12 +9,14 @@
     {
         IList<TicketText> BuildTicketText(TicketResult ticketResult, ICommonValueMetaModel metaModel,
             bool isAllowedCustomerComm);
+
         List<TicketText> BuildTicketText(
-           TicketResult ticketResult,
-           BetListMetaModel metaModel = null,
-           int startIndex = 1,
-           bool showOdds = false,
-           bool isAllowedCustomerComm = false);
+            TicketResult ticketResult,
+            BetListMetaModel metaModel = null,
+            int startIndex = 1,
+            bool showOdds = false,
+            bool isAllowedCustomerComm = false,
+            bool isMobileView = false);
 
         string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm);
     }

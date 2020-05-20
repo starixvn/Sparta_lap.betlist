@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.BetList.Model.MetaModel
 {
-    using System.Collections.Generic;
-
     public class CashOutBetListDetailMetaModel
     {
         public string BaseCurrency { get; set; }
@@ -24,5 +22,7 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public bool IsCashOut { get; set; }
 
         public bool HasPlayerComm { get; set; }
+
+        public bool IsMobileView { get; set; }
     }
 }
