@@ -56,7 +56,8 @@ namespace Fanex.Athena.BetList.Service
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
                     Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, new BetListMetaModel()),
                     Platform = PlatformType.GetPlatformName(ticket.BetFrom),
-                    Live = _betlistHtmlBuilder.BuildLiveStatus(ticket)
+                    Live = _betlistHtmlBuilder.BuildLiveStatus(ticket),
+                    LicenseeTxId = _betlistHtmlBuilder.BuildLicenseeTxId(ticket)
                 };
 
                 ticketTextList.Add(ticketText);
