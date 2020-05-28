@@ -13,7 +13,6 @@ namespace Fanex.Athena.BetList.Service
 {
     public class TicketBuilderService : ITicketBuilderService
     {
-
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
 
         private readonly ITicketHelper _ticketHelper;
