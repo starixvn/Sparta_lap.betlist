@@ -56,6 +56,7 @@
     <Setting Key="Lrf_BetList_CustomerList_Mem" SpName="Lrf_BetList_CustomerList_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_RefNo_Mem" SpName="Lrf_BetList_RefNo_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Running" SpName="Lrf_BetList_Running" DbName="DBBOF.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_TxID_Mem" SpName="Lrf_BetList_TxID_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Mem" SpName="Lrf_BetList_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Licensee" SpName="Lrf_BetList_Licensee" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Licensee_TotalRows" SpName="Lrf_BetList_Licensee_TotalRows" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -68,4 +69,3 @@
     <Setting Key="Acc_CustomerSelSiteByCustId" SpName="Acc_CustomerSelSiteByCustId" DbName="DBCUST.CustDB.bodbLicenseeNet" />
   </Misc>
 </Functions>
-		

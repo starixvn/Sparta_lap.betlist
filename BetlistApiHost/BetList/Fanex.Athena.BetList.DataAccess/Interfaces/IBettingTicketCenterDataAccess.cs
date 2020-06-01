@@ -14,5 +14,8 @@
            );
 
         Task<TicketResult> GetRunningBetListAsync(BaseBettingTicketMetaModel metaModel);
+
+        Task<TicketResult> GetBetListByTxIDAsync(TxIDBetListMetaModel metaModel
+           );
     }
 }

@@ -13,7 +13,7 @@
     public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-       
+
         public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess,
             ICurrencyDataAccess currencyService) : base(currencyService)
         {
@@ -50,7 +50,6 @@
 
         public async Task<TicketResult> GetBetListByRefnoAsync(RefNoBetListMetaModel metaModel)
         {
-
             const string UspKey = "Lrf_BetList_RefNo_Mem";
 
             var ticketResult = new TicketResult();
@@ -109,6 +108,33 @@
                 var outSqlParams = db.GetOutputParams();
                 ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
                 ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+            }
+
+            return ticketResult;
+        }
+
+        public async Task<TicketResult> GetBetListByTxIDAsync(TxIDBetListMetaModel metaModel)
+        {
+            const string UspKey = "Lrf_BetList_TxID_Mem";
+
+            var ticketResult = new TicketResult();
+            var currencyList = await this.GetCurrencyListAsync();
+
+            using (var db = GetObjectDb(UspKey))
+            {
+                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+                db.SetParameterValue("AgentList", metaModel.AgentListXml);
+                db.SetParameterValue("TxId", metaModel.TxID);
+                db.SetParameterValue("UserName", metaModel.UserName);
+                db.SetParameterValue("MoveBetsDay", balanceUp.MoveBetsDay);
+                db.SetParameterValue("BalanceUpDay", balanceUp.BalanceUpDay);
+                db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
+                    ticketResult.TotalRows = ticketResult.MainTicketList.Count;
+                }
             }
 
             return ticketResult;
