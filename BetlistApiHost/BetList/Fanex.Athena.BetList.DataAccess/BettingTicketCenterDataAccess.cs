@@ -126,6 +126,7 @@
                 db.SetParameterValue("AgentList", metaModel.AgentListXml);
                 db.SetParameterValue("TxId", metaModel.TxID);
                 db.SetParameterValue("UserName", metaModel.UserName);
+                db.SetParameterValue("CustId", metaModel.CustId);
                 db.SetParameterValue("MoveBetsDay", balanceUp.MoveBetsDay);
                 db.SetParameterValue("BalanceUpDay", balanceUp.BalanceUpDay);
                 db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
