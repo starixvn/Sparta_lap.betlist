@@ -75,5 +75,7 @@
         public string BaseCurrencyName { get; set; }
 
         public int CustId { get; set; }
+
+        public bool IsAllowTxIDColumn { get; set; }
     }
 }

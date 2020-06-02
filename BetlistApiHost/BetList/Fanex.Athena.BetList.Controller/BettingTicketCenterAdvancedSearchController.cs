@@ -61,7 +61,7 @@
             var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel
                 ).ConfigureAwait(false);
 
-            return ReturnData(ticketResult, GetBetListOption(metaModel.HasPlayerCom), metaModel);
+            return ReturnData(ticketResult, GetBetListOption(metaModel), metaModel);
         }
 
         private async Task<ActionResult> Export(AdvancedSearchBetListMetaModel metaModel,
@@ -78,7 +78,7 @@
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
                 }
 
-                return ExportXls(normalTicketResult, title, metaModel.HasPlayerCom, totalText);
+                return ExportXls(normalTicketResult, title, metaModel, totalText);
             }
 
             var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile
@@ -90,12 +90,12 @@
             return zipFile == null ? null : ZipContentResult(zipFile);
         }
 
-        private ExcelResult ExportXls(TicketResult ticketResult, string title, bool hasPlayerComm, string totalText)
+        private ExcelResult ExportXls(TicketResult ticketResult, string title, AdvancedSearchBetListMetaModel metaModel, string totalText)
         {
             var excelModel = new BettingTicketCenterExcelModel
             {
                 Data = ticketResult,
-                Option = GetBetListOption(hasPlayerComm),
+                Option = GetBetListOption(metaModel),
                 Title = title,
                 TotalText = totalText
             };
@@ -109,7 +109,7 @@
             return File(bytes, "application/zip", "BettingTicketsCenter_AdvancedSearch.zip");
         }
 
-        private static BettingTicketCenterOption GetBetListOption(bool hasPlayerComm) => new BettingTicketCenterOption
+        private static BettingTicketCenterOption GetBetListOption(AdvancedSearchBetListMetaModel metaModel) => new BettingTicketCenterOption
         {
             ShowTotal = true,
             ShowSumStake = true,
@@ -117,8 +117,8 @@
             ShowWinLoss = true,
             ShowExternalId = true,
             ShowSystemId = true,
-            IsAllowedCustomerComm = hasPlayerComm
+            IsAllowedCustomerComm = metaModel.HasPlayerCom,
+            ShowTxId = metaModel.IsAllowTxIDColumn
         };
-
     }
 }

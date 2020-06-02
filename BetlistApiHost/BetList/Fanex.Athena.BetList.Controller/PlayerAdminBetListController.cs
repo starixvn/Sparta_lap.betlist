@@ -52,6 +52,8 @@
                 Title = $"{ViewResources.Currency}: {metaModel.Currency}"
             };
 
+            excelModel.Option.ShowTxId = metaModel.IsAllowTxIDColumn;
+
             return ExportExcel(excelModel);
         }
 

@@ -38,7 +38,8 @@
                 ShowWinLoss = true,
                 ShowExternalId = true,
                 ShowSystemId = true,
-                IsAllowedCustomerComm = metaModel.HasPlayerCom
+                IsAllowedCustomerComm = metaModel.HasPlayerCom,
+                ShowTxId = metaModel.IsAllowTxIDColumn
             };
 
             if (metaModel.IsExport)
@@ -62,7 +63,8 @@
                 ShowTotal = false,
                 ShowExternalId = true,
                 ShowSystemId = true,
-                IsAllowedCustomerComm = metaModel.HasPlayerCom
+                IsAllowedCustomerComm = metaModel.HasPlayerCom,
+                ShowTxId = metaModel.IsAllowTxIDColumn
             };
 
             if (metaModel.IsExport)
@@ -84,7 +86,8 @@
                 ShowSumStake = true,
                 IsAllowedCustomerComm = false,
                 ShowExternalId = true,
-                ShowSystemId = true
+                ShowSystemId = true,
+                ShowTxId = metaModel.IsAllowTxIDColumn
             };
 
             if (metaModel.IsExport)
@@ -108,7 +111,8 @@
                 ShowTotal = false,
                 ShowExternalId = true,
                 ShowSystemId = true,
-                IsAllowedCustomerComm = metaModel.HasPlayerCom
+                IsAllowedCustomerComm = metaModel.HasPlayerCom,
+                ShowTxId = true
             };
 
             if (metaModel.IsExport)

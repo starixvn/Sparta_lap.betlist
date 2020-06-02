@@ -17,7 +17,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
 {
     public class BettingTicketCenterExcelBuilder : IBettingTicketCenterExcelBuilder, IDisposable
     {
-        private const int NumberOfColumns = 14;
+        private const int NumberOfColumns = 15;
 
         private const int ColumnTotalStart = 8;
 
@@ -90,7 +90,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         public void AddHeader(BettingTicketCenterOption option)
         {
-            var columnWidths = new short[] { 1500, 4800, 4800, 5400, 5400, 15500, 2600, 2600, 4200, 4200, 5400, 5400, 3400, 3400 };
+            var columnWidths = new short[] { 1500, 4800, 4800, 4800, 5400, 5400, 15500, 2600, 2600, 4200, 4200, 5400, 5400, 3400, 3400 };
             var index = 0;
 
             var headerStyle = _builder.CreateHeaderCellStyle();
@@ -108,6 +108,13 @@ namespace Fanex.Athena.BetList.Excel.Builders
             ++index;
 
             AddHeaderCell(ViewResources.RefNo, columnWidths[index++], headerStyle);
+
+            if (option.ShowTxId)
+            {
+                AddHeaderCell(ViewResources.LicenseeTxId, columnWidths[index], headerStyle);
+            }
+            ++index;
+
             AddHeaderCell(ViewResources.TransTime, columnWidths[index++], headerStyle);
             AddHeaderCell(ViewResources.Choice, columnWidths[index++], headerStyle);
             AddHeaderCell(ViewResources.Odds, columnWidths[index++], headerStyle);
@@ -198,6 +205,12 @@ namespace Fanex.Athena.BetList.Excel.Builders
             }
 
             _builder.AddRefNo(ticket, _ticketHelper);
+
+            if (option.ShowTxId)
+            {
+                _builder.AddLicenseeTxId(ticket, _ticketHelper);
+            }
+
             _builder.AddTransTime(ticket, _ticketHelper);
             _builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
             _builder.AddOddsValue(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById);
