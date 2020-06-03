@@ -5,6 +5,7 @@
     using Common.Utility.Services.Interfaces;
     using Excel;
     using Excel.Model;
+    using Fanex.Athena.BetList.Model.MetaModel;
     using Model.DTO;
     using NPOI.SS.UserModel;
     using NSubstitute;
@@ -56,9 +57,10 @@
             _tempFileService.ReadString(DataPath).Returns("{\"MainTicketList\":[{\"ExternalId\":\"ThienPham2\"}],\"TicketDataList\":[]}");
             var workbook = Substitute.For<IWorkbook>();
             _bettingTicketCenterExcel.Export(Arg.Any<BettingTicketCenterExcelModel>()).Returns(workbook);
+            var model = new AdvancedSearchBetListMetaModel();
 
             // Action
-            var result = _zipBuilder.BuildZip(httpResponse, ticketResult, null, null, null);
+            var result = _zipBuilder.BuildZip(httpResponse, ticketResult, null, model, null);
 
             // Assert
             Assert.Multiple(() =>
