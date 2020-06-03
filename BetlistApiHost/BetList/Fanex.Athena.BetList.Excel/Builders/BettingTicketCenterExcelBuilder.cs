@@ -260,7 +260,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
         }
 
         private static int GetActualCols(BettingTicketCenterOption option)
-            => NumberOfColumns - (!option.ShowWinLoss).ToInt() - (!option.ShowLicenseeWl).ToInt() - (!option.ShowExternalId).ToInt() - (!option.ShowSystemId).ToInt();
+            => NumberOfColumns - (!option.ShowWinLoss).ToInt() - (!option.ShowLicenseeWl).ToInt() - (!option.ShowExternalId).ToInt() - (!option.ShowSystemId).ToInt() - (!option.ShowTxId).ToInt();
 
         private void AddPlatfromCell(LrfTicket ticket)
         {
