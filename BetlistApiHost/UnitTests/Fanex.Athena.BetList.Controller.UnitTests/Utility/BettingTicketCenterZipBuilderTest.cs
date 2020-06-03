@@ -21,7 +21,6 @@
 
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
-
         [SetUp]
         public void SetUp()
         {
@@ -59,7 +58,7 @@
             _bettingTicketCenterExcel.Export(Arg.Any<BettingTicketCenterExcelModel>()).Returns(workbook);
 
             // Action
-            var result = _zipBuilder.BuildZip(httpResponse, ticketResult, null, false, null);
+            var result = _zipBuilder.BuildZip(httpResponse, ticketResult, null, null, null);
 
             // Assert
             Assert.Multiple(() =>
@@ -75,7 +74,5 @@
                 Assert.That(result, Is.Not.Null);
             });
         }
-
-
     }
 }

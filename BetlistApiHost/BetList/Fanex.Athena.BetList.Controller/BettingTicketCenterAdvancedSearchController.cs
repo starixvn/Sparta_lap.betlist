@@ -85,7 +85,7 @@
                 ).ConfigureAwait(false);
 
             var zipFile = _zipBuilder.BuildZip(HttpContext.Response,
-                ticketResult, title, metaModel.HasPlayerCom, totalText);
+                ticketResult, title, metaModel, totalText);
 
             return zipFile == null ? null : ZipContentResult(zipFile);
         }
