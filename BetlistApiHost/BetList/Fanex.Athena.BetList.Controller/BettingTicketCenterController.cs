@@ -19,7 +19,7 @@
             IBettingTicketCenterDataAccess dataAccess,
             ITicketBuilderService ticketBuilderService,
             IBettingTicketCenterExcel bettingTicketCenterExcel)
-            : base (ticketBuilderService, bettingTicketCenterExcel)
+            : base(ticketBuilderService, bettingTicketCenterExcel)
         {
             _dataAccess = dataAccess;
         }
@@ -38,7 +38,8 @@
                 ShowWinLoss = true,
                 ShowExternalId = true,
                 ShowSystemId = true,
-                IsAllowedCustomerComm = metaModel.HasPlayerCom
+                IsAllowedCustomerComm = metaModel.HasPlayerCom,
+                ShowTxId = metaModel.IsAllowTxIDColumn
             };
 
             if (metaModel.IsExport)
@@ -62,7 +63,8 @@
                 ShowTotal = false,
                 ShowExternalId = true,
                 ShowSystemId = true,
-                IsAllowedCustomerComm = metaModel.HasPlayerCom
+                IsAllowedCustomerComm = metaModel.HasPlayerCom,
+                ShowTxId = metaModel.IsAllowTxIDColumn
             };
 
             if (metaModel.IsExport)
@@ -84,12 +86,38 @@
                 ShowSumStake = true,
                 IsAllowedCustomerComm = false,
                 ShowExternalId = true,
-                ShowSystemId = true
+                ShowSystemId = true,
+                ShowTxId = metaModel.IsAllowTxIDColumn
             };
 
             if (metaModel.IsExport)
             {
                 return Export(ticketResult, option, metaModel, $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}");
+            }
+
+            return ReturnData(ticketResult, option, metaModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GetByTxID(TxIDBetListMetaModel metaModel)
+        {
+            var ticketResult = await _dataAccess.GetBetListByTxIDAsync(metaModel
+             ).ConfigureAwait(false);
+
+            var option = new BettingTicketCenterOption
+            {
+                ShowLicenseeWl = true,
+                ShowWinLoss = true,
+                ShowTotal = false,
+                ShowExternalId = true,
+                ShowSystemId = true,
+                IsAllowedCustomerComm = metaModel.HasPlayerCom,
+                ShowTxId = true
+            };
+
+            if (metaModel.IsExport)
+            {
+                return Export(ticketResult, option, metaModel, null);
             }
 
             return ReturnData(ticketResult, option, metaModel);

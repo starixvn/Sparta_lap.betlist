@@ -252,4 +252,7 @@
     <value>中國盤</value>
     <comment>125845</comment>
   </data>
+  <data name="LicenseeTxId" xml:space="preserve">
+    <value>TxID</value>
+  </data>
 </root>

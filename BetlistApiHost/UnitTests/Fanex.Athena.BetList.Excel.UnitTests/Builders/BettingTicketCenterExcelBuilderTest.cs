@@ -281,7 +281,8 @@
             _excelBuilder.InitializeFonts();
 
             var totalText = FakeHelper.Create<string>();
-            var option = new BettingTicketCenterOption {
+            var option = new BettingTicketCenterOption
+            {
                 ShowExternalId = showExternalId,
                 ShowSystemId = showSystemId,
                 ShowLicenseeWl = showLicenseeWL,
@@ -327,9 +328,14 @@
             var lastRow = FakeHelper.Create<int>();
             _builder.LastContentRow.Returns(lastRow);
             _excelBuilder.InitializeFonts();
+            var option = new BettingTicketCenterOption
+            {
+                ShowWinLoss = true,
+                ShowTxId = false
+            };
 
             // Action
-            _excelBuilder.AddFooter(0, original, 0, 0, FakeHelper.Create<string>(), FakeHelper.Create<BettingTicketCenterOption>(x => x.ShowWinLoss, true));
+            _excelBuilder.AddFooter(0, original, 0, 0, FakeHelper.Create<string>(), option);
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
@@ -355,7 +361,7 @@
                 new BettingTicketCenterOption { ShowWinLoss = true, IsAllowedCustomerComm = isAllowedCustomerComm });
 
             // Assert
-             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
+            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [TestCase(12.345, "12.35")]

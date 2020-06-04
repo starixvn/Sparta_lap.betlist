@@ -266,4 +266,7 @@
   <data name="ESportsMobile" xml:space="preserve">
     <value>电子竞技 手机</value>
   </data>
+  <data name="LicenseeTxId" xml:space="preserve">
+    <value>TxID</value>
+  </data>
 </root>
