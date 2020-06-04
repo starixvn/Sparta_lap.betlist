@@ -237,7 +237,6 @@
                 // Assert
                 var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>(x => x.IsExport, true);
 
-
                 var ticketResult = new TicketResult
                 {
                     MainTicketList = new SortableList<LrfTicket>
@@ -262,6 +261,74 @@
                         && x.Option.ShowSystemId
                         && x.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
                         && !x.Option.IsAllowedCustomerComm));
+                });
+            }
+        }
+
+        [Test]
+        public async Task GetByTxID_WhenGet_GenerateDataWithCorrectOption()
+        {
+            using (var controller = CreateController())
+            {
+                // Assert
+                var metaModel = FakeHelper.Create<TxIDBetListMetaModel>(x => x.IsExport, false);
+
+                var ticketResult = new TicketResult();
+                _dataAccess.GetBetListByTxIDAsync(metaModel).Returns(ticketResult);
+
+                // Action
+                await controller.GetByTxID(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    controller.Received(1).ReturnData(
+                        ticketResult,
+                        Arg.Is<BettingTicketCenterOption>(x =>
+                            !x.ShowTotal
+                            && !x.ShowSumStake
+                            && x.ShowLicenseeWl
+                            && x.ShowWinLoss
+                            && x.ShowExternalId
+                            && x.ShowSystemId
+                            && x.IsAllowedCustomerComm == metaModel.HasPlayerCom),
+                        metaModel);
+                });
+            }
+        }
+
+        [Test]
+        public async Task GetByTxID_WhenExport_ExportWithCorrectParameter()
+        {
+            using (var controller = CreateController())
+            {
+                // Assert
+                var metaModel = FakeHelper.Create<TxIDBetListMetaModel>(x => x.IsExport, true);
+
+                var ticketResult = new TicketResult
+                {
+                    MainTicketList = new SortableList<LrfTicket>
+                    {
+                        FakeHelper.Create<LrfTicket>()
+                    }
+                };
+                _dataAccess.GetBetListByTxIDAsync(metaModel).Returns(ticketResult);
+
+                // Action
+                await controller.GetByTxID(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    controller.Received(1).ExportExcel(Arg.Is<BettingTicketCenterExcelModel>(x =>
+                        !x.Option.ShowTotal
+                        && !x.Option.ShowSumStake
+                        && x.Option.ShowLicenseeWl
+                        && x.Option.ShowWinLoss
+                        && x.Option.ShowExternalId
+                        && x.Option.ShowSystemId
+                        && x.TotalText == null
+                        && x.Option.IsAllowedCustomerComm == metaModel.HasPlayerCom));
                 });
             }
         }
