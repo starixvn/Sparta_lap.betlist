@@ -7,7 +7,6 @@
 namespace Fanex.Athena.BetList.Model.MetaModel
 {
     using System;
-    using System.Collections.Generic;
     using System.Web.Script.Serialization;
 
     public class BetListMetaModel : BaseMetaModel, ICommonValueMetaModel
@@ -85,6 +84,8 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public string Handicap { get; set; }
 
         public long RefCode { get; set; }
+
+        public bool IsMobileView { get; set; }
 
         public virtual bool IsValid
         {

@@ -58,9 +58,15 @@ namespace Fanex.Athena.BetList.Controller
                 leagueName = _betListService.GetLeagueName(firstOrDefault.LeagueId);
             }
 
+            var main = _ticketBuilderService.BuildTicketText(
+                ticketResult,
+                metaModel,
+                isAllowedCustomerComm: metaModel.HasPlayerCom,
+                isMobileView: metaModel.IsMobileView);
+
             var result = new BetListResultViewModel
             {
-                Main = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm: metaModel.HasPlayerCom),
+                Main = main,
                 Total = new BetListTotalData
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
@@ -70,6 +76,7 @@ namespace Fanex.Athena.BetList.Controller
                 },
                 LeagueName = leagueName,
             };
+
             BetListHelper.ClearData(ticketResult);
             return Json(result);
         }

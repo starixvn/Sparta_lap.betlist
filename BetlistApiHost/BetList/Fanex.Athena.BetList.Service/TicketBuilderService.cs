@@ -71,7 +71,8 @@ namespace Fanex.Athena.BetList.Service
             BetListMetaModel metaModel = null,
             int startIndex = 1,
             bool showOdds = false,
-            bool isAllowedCustomerComm = false)
+            bool isAllowedCustomerComm = false,
+            bool isMobileView = false)
         {
             var baseCurrency = metaModel == null ? string.Empty : metaModel.BaseCurrency;
             var ticketTextList = new List<TicketText>();
@@ -86,15 +87,22 @@ namespace Fanex.Athena.BetList.Service
                     _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, custid);
                 }
 
+                var odds = isMobileView
+                   ? _betlistHtmlBuilder.BuildOddsValue(ticket, null, _ticketHelper.GetValidOddsTypeNameById)
+                   : _betlistHtmlBuilder.BuildOdds(ticket, null, _ticketHelper.GetValidOddsTypeNameById);
+                var oddsTypeName = isMobileView ? _betlistHtmlBuilder.BuildOddsTypeName(ticket, null, _ticketHelper.GetValidOddsTypeNameById) : null;
+
                 var ticketText = new TicketText
                 {
+                    RefNo = isMobileView ? _betlistHtmlBuilder.BuildRefNo(ticket) : null,
                     Index = startIndex++,
                     ExternalId = ticket.ExternalId,
                     SystemId = ticket.UserName,
-                    TransTime = _betlistHtmlBuilder.BuildTrans(ticket),
+                    TransTime = isMobileView ? _betlistHtmlBuilder.BuildTransTime(ticket) : _betlistHtmlBuilder.BuildTrans(ticket),
                     Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel),
                     Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
-                    Odds = _betlistHtmlBuilder.BuildOdds(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById),
+                    Odds = odds,
+                    OddsType = oddsTypeName,
                     Stake = _betlistHtmlBuilder.BuildStake(ticket),
                     LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
