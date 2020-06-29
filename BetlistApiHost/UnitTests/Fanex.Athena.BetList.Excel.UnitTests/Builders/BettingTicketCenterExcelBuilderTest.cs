@@ -443,6 +443,9 @@
         [TestCase("2", "ESportsMobile")]
         [TestCase("3", "ESportsApp")]
         [TestCase("v", "BetfromOthers")]
+        [TestCase("4", "ESportsDesktop")]
+        [TestCase("5", "ESportsMobile")]
+        [TestCase("6", "ESportsApp")]
         public void AssignRowData_AddPlatfromCell_IndexIsOdd_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
         {
             // Arrange
