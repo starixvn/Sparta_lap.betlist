@@ -16,6 +16,7 @@
         private const string CustIdColumn = "CustId";
         private const string AgentListColumn = "AgentList";
         private const string BetTypeColumn = "BetType";
+        private const string MoveBetsDayColumn = "MoveBetsDay";
 
         private static readonly Dictionary<string, Action<IObjectDb, BetListMetaModel>> NonBaseCurrencySpNameActionMap =
             new Dictionary<string, Action<IObjectDb, BetListMetaModel>>(StringComparer.OrdinalIgnoreCase)
@@ -46,8 +47,8 @@
             { "Lrf_BetList_SelByDayAll_Mem_Old", (db, metalModel) => CreateDailyStatementBetListOldParameters(db, metalModel) },
             { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
             { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
-
         };
+
         public static void CreateBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             NonBaseCurrencySpNameActionMap[metaModel.UspKey](db, metaModel);
@@ -228,6 +229,7 @@
             db.SetParameterValue(MatchIDColumn, metaModel.MatchId);
             db.SetParameterValue(LiveIndicatorColumn, metaModel.LiveIndicator ?? -1);
             db.SetParameterValue("Date", metaModel.FromDate);
+            db.SetParameterValue(MoveBetsDayColumn, metaModel.MoveBetsDay);
             CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
@@ -409,7 +411,6 @@
                 db.SetParameterValue(name, null);
             }
         }
-
 
         private static void CreateProductListParameters(IObjectDb db, string productCodeList, IEnumerable<string> supportedProducts = null)
         {

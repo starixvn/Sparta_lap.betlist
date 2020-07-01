@@ -152,7 +152,8 @@ namespace Fanex.Athena.Result.DataAccess
             {
                 fromdate = metalModel.FromDate,
                 leagueid = metalModel.LeagueId,
-                sporttype = metalModel.SportId
+                sporttype = metalModel.SportId,
+                movebetsday = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay
             };
 
             using (var db = this.GetObjectDb(UspName))
@@ -371,6 +372,7 @@ namespace Fanex.Athena.Result.DataAccess
                 BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
             };
         }
+
         #region Binding
 
         /// <summary>
