@@ -148,7 +148,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
         {
             var footerStyle = _builder.CreateFooterCellStyle();
             var cols = GetActualCols(option);
-            var totalColIndex = ColumnTotalStart - (!option.ShowExternalId).ToInt() - (!option.ShowSystemId).ToInt();
+            var totalColIndex = ColumnTotalStart - (!option.ShowExternalId).ToInt() - (!option.ShowSystemId).ToInt() + option.ShowTxId.ToInt();
             var currentTotalColIndex = totalColIndex;
 
             var rtfTotal = new HSSFRichTextString(totalText);
