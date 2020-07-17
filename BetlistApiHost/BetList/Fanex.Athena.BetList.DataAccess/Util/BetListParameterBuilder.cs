@@ -47,6 +47,7 @@
             { "Lrf_BetList_SelByDayAll_Mem_Old", (db, metalModel) => CreateDailyStatementBetListOldParameters(db, metalModel) },
             { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
             { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
+            { "Lrf_BetList_Jackpot_Detail", (db, metalModel) => JackpotWonDetailParameters(db, metalModel) },
         };
 
         public static void CreateBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -383,6 +384,14 @@
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue("TransId", metaModel.TransId);
             db.SetParameterValue("RefCode", metaModel.RefCode);
+            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+        }
+
+        private static void JackpotWonDetailParameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
+            db.SetParameterValue("TransId", metaModel.TransId);
+            db.SetParameterValue("CustIdColumn", metaModel.RefCode);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
         }
 
