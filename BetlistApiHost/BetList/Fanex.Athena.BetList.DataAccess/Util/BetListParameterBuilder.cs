@@ -391,7 +391,7 @@
         {
             db.SetParameterValue(AgentListColumn, metaModel.AgentListXml);
             db.SetParameterValue("TransId", metaModel.TransId);
-            db.SetParameterValue("CustIdColumn", metaModel.RefCode);
+            db.SetParameterValue("CustId", metaModel.CustId);
             db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
         }
 

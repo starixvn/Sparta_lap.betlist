@@ -60,6 +60,12 @@ namespace Fanex.Athena.BetList.Service
                     LicenseeTxId = _betlistHtmlBuilder.BuildLicenseeTxId(ticket)
                 };
 
+                if (ticket.BetTypeId == (int)BetType.PPContribution)
+                {
+                    ticketText.LicenseeWL = "<div class='underdog'>-</div>";
+                    ticketText.WinLoss = "<div class='underdog'>-</div>";
+                }
+
                 ticketTextList.Add(ticketText);
             }
 
@@ -108,6 +114,12 @@ namespace Fanex.Athena.BetList.Service
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
                     BetEffective = _betlistHtmlBuilder.BuildBetEffective(ticket)
                 };
+
+                if (ticket.BetTypeId == (int)BetType.PPContribution)
+                {
+                    ticketText.LicenseeWL = "<div class='underdog'>-</div>";
+                    ticketText.WinLoss = "<div class='underdog'>-</div>";
+                }
 
                 ticketTextList.Add(ticketText);
             }

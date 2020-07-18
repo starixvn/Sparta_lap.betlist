@@ -24,6 +24,7 @@ namespace Fanex.Athena.BetList.DataAccess
     public class BaseBetListDataAccess : BaseDataAccess
     {
         private readonly ICurrencyDataAccess _currencyDataAccess;
+
         protected BaseBetListDataAccess(ICurrencyDataAccess currenyDataAccess)
         {
             _currencyDataAccess = currenyDataAccess;
@@ -34,7 +35,6 @@ namespace Fanex.Athena.BetList.DataAccess
             return await _currencyDataAccess.GetCurrencyListAsync().ConfigureAwait(false);
         }
 
-
         [CLSCompliant(false)]
         protected internal static LrfTicket MapTicket(
                 ISafeDataReader reader,
@@ -42,7 +42,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 IDictionary<int, string> currencyList,
                 long custId = 0)
         {
-            var currencyId = reader.GetInt("currencyid");
+            var currencyId = reader.GetInt("currency");
             var ticket = new LrfTicket
             {
                 CurrencyId = currencyId,
