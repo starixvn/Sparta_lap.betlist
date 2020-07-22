@@ -162,6 +162,7 @@
     <Compile Include="MetaModel\MixParlayDetailMetaModel.cs" />
     <Compile Include="MetaModel\AdvancedSearchBetListMetaModel.cs" />
     <Compile Include="MetaModel\PlayerAdminBetListMetaModel.cs" />
+    <Compile Include="MetaModel\PlayerSegmentationBetListMetaModel.cs" />
     <Compile Include="MetaModel\TxIDBetListMetaModel.cs" />
     <Compile Include="MetaModel\RefNoBetListMetaModel.cs" />
     <Compile Include="MetaModel\BetListShowingOption.cs" />
