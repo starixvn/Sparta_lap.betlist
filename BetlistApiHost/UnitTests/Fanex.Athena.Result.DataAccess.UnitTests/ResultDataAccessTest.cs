@@ -232,7 +232,8 @@
             {
                 fromdate = _metaModel.FromDate,
                 leagueid = _metaModel.LeagueId,
-                sporttype = _metaModel.SportId
+                sporttype = _metaModel.SportId,
+                movebetsday = _balance.MoveBetsDay
             };
 
             // Action
