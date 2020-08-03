@@ -1,4 +1,4 @@
-namespace Fanex.Athena.Result.Controller.ResultPopup
+﻿namespace Fanex.Athena.Result.Controller.ResultPopup
 {
     using System.Web.Mvc;
     using Fanex.Result.Core.SabaClub;
@@ -15,7 +15,7 @@ namespace Fanex.Athena.Result.Controller.ResultPopup
         [HttpPost]
         public string Index(string custId, string gameRoundId, string gameId, string siteId, string languageCode)
         {
-            return _resultApi.GetResult(custId, gameRoundId, siteId, gameId, languageCode);
+            return _resultApi.GetResult(custId, gameRoundId, gameId, siteId, languageCode);
         }
     }
 }
