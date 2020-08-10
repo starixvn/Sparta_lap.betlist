@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Fanex.Athena.BetList.Model.MetaModel
+{
+    public class PlayerSegmentationBetListMetaModel : ICommonValueMetaModel
+    {
+        public int CustId { get; set; }
+
+        public string AgentListXml { get; set; }
+
+        public IEnumerable<string> ListProductCode { get; set; }
+
+        public bool IsAllowedCustomerComm { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+
+        public int PageIndex { get; set; }
+
+        public int PageSize { get; set; }
+
+        public string BaseCurrency { get; set; } = string.Empty;
+    }
+}
