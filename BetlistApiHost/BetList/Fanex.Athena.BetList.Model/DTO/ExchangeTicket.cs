@@ -26,5 +26,9 @@
         public string BetPlacedDateString => BetPlaced.ToString(FormatKey.DateTimeFormat);
 
         public decimal WinLost { get; set; }
+
+        public int CategoryType { get; set; }
+
+        public decimal FancyBetRuns { get; set; }
     }
 }

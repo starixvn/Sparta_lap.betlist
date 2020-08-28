@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BetType.cs" />
+    <Compile Include="CategoryTypeConstants.cs" />
+    <Compile Include="ExchangeEventTypeConstants.cs" />
+    <Compile Include="ExchangeMatchTypeConstants.cs" />
     <Compile Include="FormatKey.cs" />
     <Compile Include="LicenseeIdentity.cs" />
     <Compile Include="LiveStatusTypes.cs" />

@@ -1,11 +1,12 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
     using Common.DataAccess;
     using Common.Utility.Helpers;
-    using Fanex.Athena.Common.DataAccess.Interfaces;
+    using Fanex.Athena.Common.Constant;
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Interfaces;
@@ -14,7 +15,6 @@
 
     public class ExchangeBetListDataAccess : BaseDataAccess, IExchangeBetListDataAccess
     {
-        private const string ExchangeMatchTypeLay = "Lay";
         public async Task<ExchangeBetListResult> GetBetListDataAsync(ExchangeBetListMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_Exchange_Mem";
@@ -70,10 +70,13 @@
                     BetTaken = reader.ToDateTime("BetTaken"),
                     OddsReq = reader.ToDecimal("OddsRequest"),
                     Stake = reader.ToDecimal("Stake"),
-                    OddsMatched = reader.ToDecimal("OddsMatched")
+                    OddsMatched = reader.ToDecimal("OddsMatched"),
+                    CategoryType = reader.ToInt("CategoryType"),
+                    FancyBetRuns = reader.ToDecimal("FancyBetRuns"),
+                    EventType = reader.ToInt("EventType")
                 };
 
-                data.Liability = type == ExchangeMatchTypeLay ? NumberHelper.DecFormat((data.OddsMatched - 1) * data.Stake) : "-";
+                data.Liability = CalculateLiability(data, type);
                 mainData.Add(data);
             }
 
@@ -121,12 +124,30 @@
                         Stake = reader.ToDecimal("Stake"),
                         Type = reader.ToString("Type"),
                         BetPlaced = reader.ToDateTime("BetPlaced"),
-                        WinLost = reader.ToDecimal("WinLost")
+                        WinLost = reader.ToDecimal("WinLost"),
+                        CategoryType = reader.ToInt("CategoryType"),
+                        FancyBetRuns = reader.ToDecimal("FancyBetRuns")
                     });
                 }
             }
 
             return detailData;
+        }
+
+        private static string CalculateLiability(ExchangeTicketDetail data, string type)
+        {
+            if (string.Equals(type, ExchangeMatchTypeConstants.Back, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(type, ExchangeMatchTypeConstants.Yes, StringComparison.OrdinalIgnoreCase))
+            {
+                return "-";
+            }
+
+            var isIndianOdds = data.CategoryType == CategoryTypeConstants.FancyBet ||
+                (data.CategoryType == CategoryTypeConstants.BookMaker && data.EventType == ExchangeEventTypeConstants.Cricket);
+
+            var odds = isIndianOdds ? data.OddsMatched / 100 : (data.OddsMatched - 1);
+
+            return NumberHelper.DecFormat(odds * data.Stake);
         }
     }
 }
