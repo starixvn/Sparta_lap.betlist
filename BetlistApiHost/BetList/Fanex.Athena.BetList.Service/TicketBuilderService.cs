@@ -62,8 +62,7 @@ namespace Fanex.Athena.BetList.Service
 
                 if (ticket.BetTypeId == (int)BetType.PPContribution)
                 {
-                    ticketText.LicenseeWL = "<div class='underdog'>-</div>";
-                    ticketText.WinLoss = "<div class='underdog'>-</div>";
+                    BuildPPContributionTicket(ticketText);
                 }
 
                 ticketTextList.Add(ticketText);
@@ -93,18 +92,16 @@ namespace Fanex.Athena.BetList.Service
                     _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, custid);
                 }
 
-                var odds = isMobileView
-                   ? _betlistHtmlBuilder.BuildOddsValue(ticket, null, _ticketHelper.GetValidOddsTypeNameById)
-                   : _betlistHtmlBuilder.BuildOdds(ticket, null, _ticketHelper.GetValidOddsTypeNameById);
-                var oddsTypeName = isMobileView ? _betlistHtmlBuilder.BuildOddsTypeName(ticket, null, _ticketHelper.GetValidOddsTypeNameById) : null;
+                var odds = BuildOddsText(ticket, isMobileView);
+                var oddsTypeName = BuildOddsTypeNameText(ticket, isMobileView);
 
                 var ticketText = new TicketText
                 {
-                    RefNo = isMobileView ? _betlistHtmlBuilder.BuildRefNo(ticket) : null,
+                    RefNo = BuildRefNoText(ticket, isMobileView),
                     Index = startIndex++,
                     ExternalId = ticket.ExternalId,
                     SystemId = ticket.UserName,
-                    TransTime = isMobileView ? _betlistHtmlBuilder.BuildTransTime(ticket) : _betlistHtmlBuilder.BuildTrans(ticket),
+                    TransTime = BuildTransTimeText(ticket, isMobileView),
                     Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel),
                     Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     Odds = odds,
@@ -117,8 +114,7 @@ namespace Fanex.Athena.BetList.Service
 
                 if (ticket.BetTypeId == (int)BetType.PPContribution)
                 {
-                    ticketText.LicenseeWL = "<div class='underdog'>-</div>";
-                    ticketText.WinLoss = "<div class='underdog'>-</div>";
+                    BuildPPContributionTicket(ticketText);
                 }
 
                 ticketTextList.Add(ticketText);
@@ -131,6 +127,38 @@ namespace Fanex.Athena.BetList.Service
         {
             var ticket = new LrfTicket { Winlost = ticketResult.SumWinLoss, PlayerComm = ticketResult.SumPlayerComm };
             return _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm);
+        }
+
+        private static void BuildPPContributionTicket(TicketText ticketText)
+        {
+            const string HyphenTextHTML = "<div class='underdog'>-</div>";
+
+            ticketText.LicenseeWL = HyphenTextHTML;
+            ticketText.WinLoss = HyphenTextHTML;
+        }
+
+        private string BuildOddsText(LrfTicket ticket, bool isMobileView)
+        {
+            return isMobileView
+                   ? _betlistHtmlBuilder.BuildOddsValue(ticket, null, _ticketHelper.GetValidOddsTypeNameById)
+                   : _betlistHtmlBuilder.BuildOdds(ticket, null, _ticketHelper.GetValidOddsTypeNameById);
+        }
+
+        private string BuildOddsTypeNameText(LrfTicket ticket, bool isMobileView)
+        {
+            return isMobileView
+                ? _betlistHtmlBuilder.BuildOddsTypeName(ticket, null, _ticketHelper.GetValidOddsTypeNameById)
+                : null;
+        }
+
+        private string BuildTransTimeText(LrfTicket ticket, bool isMobileView)
+        {
+            return isMobileView ? _betlistHtmlBuilder.BuildTransTime(ticket) : _betlistHtmlBuilder.BuildTrans(ticket);
+        }
+
+        private string BuildRefNoText(LrfTicket ticket, bool isMobileView)
+        {
+            return isMobileView ? _betlistHtmlBuilder.BuildRefNo(ticket) : null;
         }
     }
 }
