@@ -9,6 +9,7 @@
     using Common.DataAccess.Interfaces;
     using Common.Utility.Services.Interfaces;
     using Data;
+    using Fanex.Athena.Common.Constant;
     using Fanex.Common;
     using Interfaces;
     using Newtonsoft.Json;
@@ -91,12 +92,12 @@
                 }
 
                 var outSqlParams = db.GetOutputParams();
-                ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
-                ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
-                ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
-                ticketResult.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
-                ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
-                ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+                ticketResult.SumStake = Converter.ToDecimal(outSqlParams[DbColumn.SumStake]);
+                ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams[DbColumn.SumWinLost]);
+                ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams[DbColumn.SumLicenseeWL]);
+                ticketResult.SumComm = Converter.ToDecimal(outSqlParams[DbColumn.SumComm]);
+                ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams[DbColumn.SumPlayerComm]);
+                ticketResult.TotalRows = Converter.ToInt(outSqlParams[DbColumn.TotalRows]);
             }
 
             return ticketResult;
@@ -109,43 +110,43 @@
             using (var db = GetObjectDb(UspKey))
             {
                 var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
-                db.SetParameterValue("FromDate", metaModel.FromDate);
-                db.SetParameterValue("ToDate", metaModel.ToDate);
-                db.SetParameterValue("MoveBetsDay", balanceUp.MoveBetsDay);
-                db.SetParameterValue("SportType", metaModel.SportId);
-                db.SetParameterValue("BetType", metaModel.BetTypeId);
-                db.SetParameterValue("LeagueId", metaModel.LeagueId);
-                db.SetParameterValue("MatchId", metaModel.MatchId);
-                db.SetParameterValue("StatusIdList", metaModel.Status);
-                db.SetParameterValue("Username", metaModel.UserName);
-                db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
-                db.SetParameterValue("Product", metaModel.ProductCodeList);
+                db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+                db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
+                db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
+                db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
+                db.SetParameterValue(DbColumn.SportType, metaModel.SportId);
+                db.SetParameterValue(DbColumn.BetType, metaModel.BetTypeId);
+                db.SetParameterValue(DbColumn.LeagueId, metaModel.LeagueId);
+                db.SetParameterValue(DbColumn.MatchId, metaModel.MatchId);
+                db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
+                db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+                db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
+                db.SetParameterValue(DbColumn.Product, metaModel.ProductCodeList);
 
-                db.SetParameterValue("TotalRows", null);
+                db.SetParameterValue(DbColumn.TotalRows, null);
 
                 await db.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                 var outSqlParams = db.GetOutputParams();
-                return Converter.ToInt(outSqlParams["totalrows"]);
+                return Converter.ToInt(outSqlParams[DbColumn.TotalRows]);
             }
         }
 
         private static void ReadOutputParams(GroupTicketResult groupData, Hashtable outSqlParams)
         {
-            groupData.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
-            groupData.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
-            groupData.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
-            groupData.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
-            groupData.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
-            groupData.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+            groupData.SumStake = Converter.ToDecimal(outSqlParams[DbColumn.SumStake]);
+            groupData.SumWinLoss = Converter.ToDecimal(outSqlParams[DbColumn.SumWinLost]);
+            groupData.SumLicenseeWL = Converter.ToDecimal(outSqlParams[DbColumn.SumLicenseeWL]);
+            groupData.SumComm = Converter.ToDecimal(outSqlParams[DbColumn.SumComm]);
+            groupData.SumPlayerComm = Converter.ToDecimal(outSqlParams[DbColumn.SumPlayerComm]);
+            groupData.TotalRows = Converter.ToInt(outSqlParams[DbColumn.TotalRows]);
         }
 
         private static void AddSortParameter(IObjectDb db, string sortBy, string sortOrder)
         {
             if (!string.IsNullOrWhiteSpace(sortBy))
             {
-                db.SetParameterValue("Sort", sortBy + " " + sortOrder);
+                db.SetParameterValue(DbColumn.Sort, sortBy + " " + sortOrder);
             }
         }
 
@@ -162,29 +163,29 @@
         private void AddAdvancedSearchParameters(IObjectDb db, AdvancedSearchBetListMetaModel metaModel)
         {
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("FromDate", metaModel.FromDate);
-            db.SetParameterValue("ToDate", metaModel.ToDate);
-            db.SetParameterValue("MoveBetsDay", balanceUp.MoveBetsDay);
-            db.SetParameterValue("SportType", metaModel.SportId);
-            db.SetParameterValue("BetType", metaModel.BetTypeId);
-            db.SetParameterValue("LeagueId", metaModel.LeagueId);
-            db.SetParameterValue("MatchId", metaModel.MatchId);
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-            db.SetParameterValue("StatusIdList", metaModel.Status);
-            db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
-            db.SetParameterValue("Username", metaModel.UserName);
-            db.SetParameterValue("PageSize", metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
-            db.SetParameterValue("PageIndex", metaModel.IsExport ? 1 : metaModel.PageIndex);
-            db.SetParameterValue("Product", metaModel.ProductCodeList);
-            db.SetParameterValue("ConvertToBaseCur", metaModel.IsConvertAll);
+            db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+            db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
+            db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
+            db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
+            db.SetParameterValue(DbColumn.SportType, metaModel.SportId);
+            db.SetParameterValue(DbColumn.BetType, metaModel.BetTypeId);
+            db.SetParameterValue(DbColumn.LeagueId, metaModel.LeagueId);
+            db.SetParameterValue(DbColumn.MatchId, metaModel.MatchId);
+            db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
+            db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
+            db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
+            db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+            db.SetParameterValue(DbColumn.PageSize, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
+            db.SetParameterValue(DbColumn.PageIndex, metaModel.IsExport ? 1 : metaModel.PageIndex);
+            db.SetParameterValue(DbColumn.Product, metaModel.ProductCodeList);
+            db.SetParameterValue(DbColumn.ConvertToBaseCur, metaModel.IsConvertAll);
 
-            db.SetParameterValue("TotalRows", null);
-            db.SetParameterValue("SumStake", null);
-            db.SetParameterValue("SumWinLost", null);
-            db.SetParameterValue("SumLicenseeWL", null);
-            db.SetParameterValue("SumComm", null);
-            db.SetParameterValue("SumPlayerComm", null);
+            db.SetParameterValue(DbColumn.TotalRows, null);
+            db.SetParameterValue(DbColumn.SumStake, null);
+            db.SetParameterValue(DbColumn.SumWinLost, null);
+            db.SetParameterValue(DbColumn.SumLicenseeWL, null);
+            db.SetParameterValue(DbColumn.SumComm, null);
+            db.SetParameterValue(DbColumn.SumPlayerComm, null);
             AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
         }
     }

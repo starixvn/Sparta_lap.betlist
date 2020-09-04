@@ -72,7 +72,7 @@
                 ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 ObjectDb.Received(1).SetParameterValue("StatusIdList", metaModel.Status);
-                ObjectDb.Received(1).SetParameterValue("Username", metaModel.UserName);
+                ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
@@ -94,7 +94,7 @@
             DataAccess.GetObjectDb(Arg.Is(TotalRowUspKey)).Returns(ObjectDb);
 
             var totalRow = FakeHelper.Create<int>();
-            ObjectDb.GetOutputParams().Returns(new Hashtable { { "totalrows", totalRow } });
+            ObjectDb.GetOutputParams().Returns(new Hashtable { { "TotalRows", totalRow } });
 
             var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>();
 
@@ -113,7 +113,7 @@
                 ObjectDb.Received(1).SetParameterValue("LeagueId", metaModel.LeagueId);
                 ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("StatusIdList", metaModel.Status);
-                ObjectDb.Received(1).SetParameterValue("Username", metaModel.UserName);
+                ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 ObjectDb.Received(1).SetParameterValue("Product", metaModel.ProductCodeList);
 
@@ -153,7 +153,7 @@
                 ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 ObjectDb.Received(1).SetParameterValue("StatusIdList", metaModel.Status);
-                ObjectDb.Received(1).SetParameterValue("Username", metaModel.UserName);
+                ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 ObjectDb.Received(1).SetParameterValue("PageSize", int.MaxValue - 1);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", 1);
