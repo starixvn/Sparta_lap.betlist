@@ -37,12 +37,12 @@
                 }
 
                 var outSqlParams = db.GetOutputParams();
-                ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
-                ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
-                ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
-                ticketResult.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
-                ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
-                ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+                ticketResult.SumStake = Converter.ToDecimal(outSqlParams[DbColumn.SumStake]);
+                ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams[DbColumn.SumWinLost]);
+                ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams[DbColumn.SumLicenseeWL]);
+                ticketResult.SumComm = Converter.ToDecimal(outSqlParams[DbColumn.SumComm]);
+                ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams[DbColumn.SumPlayerComm]);
+                ticketResult.TotalRows = Converter.ToInt(outSqlParams[DbColumn.TotalRows]);
             }
 
             return ticketResult;
@@ -58,12 +58,12 @@
             using (var db = GetObjectDb(UspKey))
             {
                 var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
-                db.SetParameterValue("UserName", metaModel.UserName);
-                db.SetParameterValue("RefNo", metaModel.RefNo);
-                db.SetParameterValue("MoveBetsDay", balanceUp.MoveBetsDay);
-                db.SetParameterValue("BalanceUpDay", balanceUp.BalanceUpDay);
-                db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+                db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+                db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+                db.SetParameterValue(DbColumn.RefNo, metaModel.RefNo);
+                db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
+                db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
+                db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -87,17 +87,17 @@
                 var productCodes = metaModel.ProductCodeList.Split(',');
                 var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
 
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
-                db.SetParameterValue("UserName", metaModel.UserName);
-                db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-                db.SetParameterValue("ProductList", productList);
-                db.SetParameterValue("showBA", productCodes.Contains(ProductCodes.BA));
-                db.SetParameterValue("PageSize", metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
-                db.SetParameterValue("PageIndex", metaModel.IsExport ? 1 : metaModel.PageIndex);
-                db.SetParameterValue("StatusFilter", metaModel.Status);
-                db.SetParameterValue("ConvertToBaseCur", metaModel.IsConvertAll);
-                db.SetParameterValue("TotalRows", null);
-                db.SetParameterValue("SumStake", null);
+                db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+                db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+                db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
+                db.SetParameterValue(DbColumn.ProductList, productList);
+                db.SetParameterValue(DbColumn.ShowBA, productCodes.Contains(ProductCodes.BA));
+                db.SetParameterValue(DbColumn.PageSize, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
+                db.SetParameterValue(DbColumn.PageIndex, metaModel.IsExport ? 1 : metaModel.PageIndex);
+                db.SetParameterValue(DbColumn.StatusFilter, metaModel.Status);
+                db.SetParameterValue(DbColumn.ConvertToBaseCur, metaModel.IsConvertAll);
+                db.SetParameterValue(DbColumn.TotalRows, null);
+                db.SetParameterValue(DbColumn.SumStake, null);
                 AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
@@ -106,8 +106,8 @@
                 }
 
                 var outSqlParams = db.GetOutputParams();
-                ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
-                ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+                ticketResult.SumStake = Converter.ToDecimal(outSqlParams[DbColumn.SumStake]);
+                ticketResult.TotalRows = Converter.ToInt(outSqlParams[DbColumn.TotalRows]);
             }
 
             return ticketResult;
@@ -123,13 +123,13 @@
             using (var db = GetObjectDb(UspKey))
             {
                 var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-                db.SetParameterValue("AgentList", metaModel.AgentListXml);
-                db.SetParameterValue("TxId", metaModel.TxID);
-                db.SetParameterValue("UserName", metaModel.UserName);
-                db.SetParameterValue("CustId", metaModel.CustId);
-                db.SetParameterValue("MoveBetsDay", balanceUp.MoveBetsDay);
-                db.SetParameterValue("BalanceUpDay", balanceUp.BalanceUpDay);
-                db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
+                db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+                db.SetParameterValue(DbColumn.TxId, metaModel.TxID);
+                db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+                db.SetParameterValue(DbColumn.CustId, metaModel.CustId);
+                db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
+                db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
+                db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -145,7 +145,7 @@
         {
             if (!string.IsNullOrWhiteSpace(sortBy))
             {
-                db.SetParameterValue("Sort", sortBy + " " + sortOrder);
+                db.SetParameterValue(DbColumn.Sort, sortBy + " " + sortOrder);
             }
         }
 
@@ -154,27 +154,27 @@
             var productCodes = metaModel.ProductCodeList.Split(',');
             var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-            db.SetParameterValue("ShowBA", productCodes.Contains(ProductCodes.BA));
-            db.SetParameterValue("ProductList", productList);
-            db.SetParameterValue("FromDate", metaModel.FromDate);
-            db.SetParameterValue("ToDate", metaModel.ToDate);
-            db.SetParameterValue("AgentList", metaModel.AgentListXml);
-            db.SetParameterValue("UserName", metaModel.UserName);
-            db.SetParameterValue("StatusIdList", metaModel.Status);
-            db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
-            db.SetParameterValue("Platform", metaModel.Platform);
-            db.SetParameterValue("MoveBetsDay", balanceUp.MoveBetsDay);
-            db.SetParameterValue("BalanceUpDay", balanceUp.BalanceUpDay);
-            db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
-            db.SetParameterValue("PageSize", metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
-            db.SetParameterValue("PageIndex", metaModel.IsExport ? 1 : metaModel.PageIndex);
+            db.SetParameterValue(DbColumn.ShowBA, productCodes.Contains(ProductCodes.BA));
+            db.SetParameterValue(DbColumn.ProductList, productList);
+            db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
+            db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
+            db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+            db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+            db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
+            db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
+            db.SetParameterValue(DbColumn.Platform, metaModel.Platform);
+            db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
+            db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
+            db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
+            db.SetParameterValue(DbColumn.PageSize, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
+            db.SetParameterValue(DbColumn.PageIndex, metaModel.IsExport ? 1 : metaModel.PageIndex);
 
-            db.SetParameterValue("TotalRows", null);
-            db.SetParameterValue("SumStake", null);
-            db.SetParameterValue("SumWinLost", null);
-            db.SetParameterValue("SumLicenseeWL", null);
-            db.SetParameterValue("SumComm", null);
-            db.SetParameterValue("SumPlayerComm", null);
+            db.SetParameterValue(DbColumn.TotalRows, null);
+            db.SetParameterValue(DbColumn.SumStake, null);
+            db.SetParameterValue(DbColumn.SumWinLost, null);
+            db.SetParameterValue(DbColumn.SumLicenseeWL, null);
+            db.SetParameterValue(DbColumn.SumComm, null);
+            db.SetParameterValue(DbColumn.SumPlayerComm, null);
             AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
         }
     }

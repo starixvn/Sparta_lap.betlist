@@ -133,7 +133,7 @@
                 ObjectDb.Received(1).SetParameterValue("BalanceUpDay", BalanceUp.BalanceUpDay);
                 ObjectDb.Received(1).SetParameterValue("PageSize", _metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", _metaModel.PageIndex);
-                ObjectDb.Received(1).SetParameterValue("totalrows", null);
+                ObjectDb.Received(1).SetParameterValue("TotalRows", null);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", _metaModel.BaseCurrency);
             });
         }

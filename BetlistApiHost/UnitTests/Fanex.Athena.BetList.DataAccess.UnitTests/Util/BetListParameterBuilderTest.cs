@@ -56,8 +56,8 @@
                 _objectDb.Received(1).SetParameterValue("ShowWin", metaModel.ShowWin);
                 _objectDb.Received(1).SetParameterValue("ShowLoss", metaModel.ShowLoss);
                 _objectDb.Received(1).SetParameterValue("ShowDraw", metaModel.ShowDraw);
-                _objectDb.Received(1).SetParameterValue("ShowSB", true);
-                _objectDb.Received(1).SetParameterValue("ShowBA", false);
+                _objectDb.Received(1).SetParameterValue("showSB", true);
+                _objectDb.Received(1).SetParameterValue("showBA", false);
             });
         }
 
@@ -124,7 +124,7 @@
                 _objectDb.Received(1).SetParameterValue("showNG", true);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).SetParameterValue("drawfilter", _metaModel.DrawFilter);
+                _objectDb.Received(1).SetParameterValue("DrawFilter", _metaModel.DrawFilter);
             });
         }
 
@@ -265,7 +265,7 @@
                 _objectDb.Received(1).SetParameterValue("showNG", true);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).SetParameterValue("drawfilter", _metaModel.DrawFilter);
+                _objectDb.Received(1).SetParameterValue("DrawFilter", _metaModel.DrawFilter);
                 _objectDb.Received(1).SetParameterValue("PlatformType", _metaModel.PlatformType);
             });
         }
@@ -395,7 +395,7 @@
                 _objectDb.Received(1).SetParameterValue("MatchId", _metaModel.MatchId);
                 AssertPagingParameters(_objectDb, _metaModel);
                 _objectDb.Received(1).SetParameterValue("LiveIndicator", expectedLiveIndicator);
-                _objectDb.Received(1).SetParameterValue("betteam", _metaModel.BetTeam);
+                _objectDb.Received(1).SetParameterValue("BetTeam", _metaModel.BetTeam);
             });
         }
 
@@ -425,7 +425,7 @@
                 _objectDb.Received(1).SetParameterValue("MatchId", _metaModel.MatchId);
                 AssertPagingParameters(_objectDb, _metaModel);
                 _objectDb.Received(1).SetParameterValue("LiveIndicator", expectedLiveIndicator);
-                _objectDb.Received(1).SetParameterValue("betteam", _metaModel.BetTeam);
+                _objectDb.Received(1).SetParameterValue("BetTeam", _metaModel.BetTeam);
             });
         }
 
@@ -450,7 +450,7 @@
                 _objectDb.Received(1).SetParameterValue("MatchId", _metaModel.MatchId);
                 AssertPagingParameters(_objectDb, _metaModel);
                 _objectDb.Received(1).SetParameterValue("LiveIndicator", expectedLiveIndicator);
-                _objectDb.Received(1).SetParameterValue("betteam", _metaModel.BetTeam);
+                _objectDb.Received(1).SetParameterValue("BetTeam", _metaModel.BetTeam);
                 _objectDb.Received(1).SetParameterValue("BetChoice", _metaModel.BetChoice);
                 _objectDb.Received(1).SetParameterValue("Handicap", _metaModel.Handicap);
             });
@@ -594,7 +594,7 @@
 
         private static void AssertSummaryParameters(IObjectDb objectDb)
         {
-            var summaryParams = new[] { "SumWinlost", "SumLicenseeWL", "SumComm", "SumPlayerComm" };
+            var summaryParams = new[] { "SumWinLost", "SumLicenseeWL", "SumComm", "SumPlayerComm" };
 
             foreach (var param in summaryParams)
             {
@@ -606,7 +606,7 @@
         {
             objectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
             objectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
-            objectDb.Received(1).SetParameterValue("totalrows", null);
+            objectDb.Received(1).SetParameterValue("TotalRows", null);
         }
 
         private static void AssertDateRangeParameters(IObjectDb objectDb, BetListMetaModel metaModel)
@@ -625,8 +625,8 @@
         {
             objectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
             objectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
-            objectDb.Received(1).SetParameterValue("fromdate", metaModel.FromDate);
-            objectDb.Received(1).SetParameterValue("transtype", metaModel.TransType);
+            objectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
+            objectDb.Received(1).SetParameterValue("TransType", metaModel.TransType);
             AssertPagingParameters(objectDb, metaModel);
             AssertSummaryParameters(objectDb);
         }
@@ -634,9 +634,9 @@
         private static void AssertCasinoDetailParameters(IObjectDb objectDb, BetListMetaModel metaModel)
         {
             objectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
-            objectDb.Received(1).SetParameterValue("refno", metaModel.TransId);
+            objectDb.Received(1).SetParameterValue("RefNo", metaModel.TransId);
             objectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
-            objectDb.Received(1).SetParameterValue("transtype", metaModel.TransType);
+            objectDb.Received(1).SetParameterValue("TransType", metaModel.TransType);
         }
     }
 }

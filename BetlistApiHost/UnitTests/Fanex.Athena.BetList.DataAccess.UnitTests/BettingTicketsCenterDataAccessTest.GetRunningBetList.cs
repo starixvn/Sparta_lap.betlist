@@ -91,8 +91,8 @@
 
             var outPut = new Hashtable
             {
-                { "sumstake", FakeHelper.Create<decimal>() },
-                { "totalrows", FakeHelper.Create<int>() }
+                { "SumStake", FakeHelper.Create<decimal>() },
+                { "TotalRows", FakeHelper.Create<int>() }
             };
             ObjectDb.GetOutputParams().Returns(outPut);
 
@@ -104,8 +104,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.SumStake, Is.EqualTo(outPut["sumstake"]));
-                Assert.That(result.TotalRows, Is.EqualTo(outPut["totalrows"]));
+                Assert.That(result.SumStake, Is.EqualTo(outPut["SumStake"]));
+                Assert.That(result.TotalRows, Is.EqualTo(outPut["TotalRows"]));
             });
         }
     }

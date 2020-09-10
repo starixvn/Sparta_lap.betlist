@@ -217,8 +217,7 @@
                 ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
                 ObjectDb.Received(1).SetParameterValue("SportType", metaModel.SportType);
                 ObjectDb.Received(1).SetParameterValue("SUMWL", null);
-                ObjectDb.Received(1).SetParameterValue("SUMLicenseeWL", null);
-
+                ObjectDb.Received(1).SetParameterValue("SumLicenseeWL", null);
             });
         }
 
