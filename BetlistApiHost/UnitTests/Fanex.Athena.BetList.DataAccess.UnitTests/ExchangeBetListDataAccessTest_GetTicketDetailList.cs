@@ -90,7 +90,9 @@
         }
 
         [TestCase("Lay", "9.00")]
-        [TestCase("WTH", "-")]
+        [TestCase("WTH", "9.00")]
+        [TestCase("Back", "-")]
+        [TestCase("Yes", "-")]
         public async Task GetTicketDetailList_HasData_ReturnCorrectLiability(
             string exchangeMatchType,
             string expectedLiability)
