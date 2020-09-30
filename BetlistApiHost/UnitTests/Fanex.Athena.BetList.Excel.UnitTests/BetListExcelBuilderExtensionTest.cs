@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.Excel.UnitTests
 {
     using System.Linq;
-    using Athena.BetList.Excel;
     using Athena.BetList.Model.DTO;
     using Common.Constant;
     using Fanex.BetList.Core.Builder;
