@@ -31,7 +31,7 @@
 
         Task<IList<Sport>> GetSportsAsync(DateTime dateValue, int licenseeId);
 
-        Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId);
+        Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, bool isOfferLeagueM88 = false);
 
         #endregion Filter
 

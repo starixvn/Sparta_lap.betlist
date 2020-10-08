@@ -67,14 +67,18 @@ namespace Fanex.Athena.Result.DataAccess
 
                     while (reader.Read())
                     {
-                        data.Add(new Outright
+                        var leagueId = reader.ToInt(LeagueIdColumn);
+                        if (!_appSettings.ExcludeLeagues.Contains(leagueId) || metal.IsOfferLeagueM88)
                         {
-                            EventDate = DateTime.Parse(reader.ToString(EventDateColumn)),
-                            SportType = reader.ToInt("sporttype"),
-                            LeagueId = reader.ToInt(LeagueIdColumn),
-                            TeamId = reader.ToInt("teamid"),
-                            Status = reader.ToString("status")
-                        });
+                            data.Add(new Outright
+                            {
+                                EventDate = DateTime.Parse(reader.ToString(EventDateColumn)),
+                                SportType = reader.ToInt("sporttype"),
+                                LeagueId = leagueId,
+                                TeamId = reader.ToInt("teamid"),
+                                Status = reader.ToString("status")
+                            });
+                        }
                     }
 
                     return data;
@@ -110,7 +114,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public async Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId)
+        public async Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, bool isOfferLeagueM88 = false)
         {
             const string UspName = "Lrf_Result_LeagueSelByDate";
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
@@ -130,11 +134,15 @@ namespace Fanex.Athena.Result.DataAccess
                     while (reader.Read())
                     {
                         var leagueId = Convert.ToInt32(reader[LeagueIdColumn]);
-                        data.Add(new League
+
+                        if (!_appSettings.ExcludeLeagues.Contains(leagueId) || isOfferLeagueM88)
                         {
-                            LeagueId = leagueId,
-                            LeagueName = _cacheRefAdapter.GetLeagueName(leagueId)
-                        });
+                            data.Add(new League
+                            {
+                                LeagueId = leagueId,
+                                LeagueName = _cacheRefAdapter.GetLeagueName(leagueId)
+                            });
+                        }
                     }
 
                     return data;
@@ -290,7 +298,7 @@ namespace Fanex.Athena.Result.DataAccess
 
                     if (type == typeof(Sportsbook))
                     {
-                        return (IList<T>)ReadSportbookMatches(reader);
+                        return (IList<T>)ReadSportbookMatches(reader, isOfferLeagueM88: metalModel.IsOfferLeagueM88);
                     }
                     else
                     {
@@ -433,26 +441,32 @@ namespace Fanex.Athena.Result.DataAccess
         /// <param name="bettype">The Bet type ID.</param>
         /// <param name="betid">The Bet ID.</param>
         /// <returns>The sport-book data list.</returns>
-        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, ResultPopupMetaModel metaModel = null)
+        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, ResultPopupMetaModel metaModel = null, bool isOfferLeagueM88 = false)
         {
             var results = new List<Sportsbook>();
+            const int excludeLeague = 92480;
 
             while (reader.Read())
             {
-                var result = ReadSportsbook(reader);
+                var leagueId = reader.ToInt(LeagueIdColumn);
 
-                if (metaModel != null)
+                if (leagueId != excludeLeague || isOfferLeagueM88)
                 {
-                    result.BetID = IsFastMarket(metaModel.Bettype) ? metaModel.Handicap1.ToString() : (metaModel.BetId ?? 0).ToString();
-                    result.Bettype = metaModel.Bettype;
-                    result.Handicap2 = metaModel.Handicap2;
-                }
-                else
-                {
-                    result.BetID = "0";
-                }
+                    var result = ReadSportsbook(reader, leagueId: leagueId);
 
-                results.Add(result);
+                    if (metaModel != null)
+                    {
+                        result.BetID = IsFastMarket(metaModel.Bettype) ? metaModel.Handicap1.ToString() : (metaModel.BetId ?? 0).ToString();
+                        result.Bettype = metaModel.Bettype;
+                        result.Handicap2 = metaModel.Handicap2;
+                    }
+                    else
+                    {
+                        result.BetID = "0";
+                    }
+
+                    results.Add(result);
+                }
             }
 
             var gameDetails = GetGameDetails(reader);

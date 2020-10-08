@@ -107,7 +107,7 @@ namespace Fanex.Athena.Result.Controller
 
             return metalModel.SportId == 0 ?
                 await GetNormalSports(metalModel).ConfigureAwait(false) :
-                Json(new { Leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, metalModel.SportId).ConfigureAwait(false) });
+                Json(new { Leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, metalModel.SportId, metalModel.IsOfferLeagueM88).ConfigureAwait(false) });
         }
 
         #endregion Result-Page
@@ -159,8 +159,8 @@ namespace Fanex.Athena.Result.Controller
 
         private static string GenerateOutRightCacheKey(ResultMetaModel metalModel)
         {
-            const string PatternKey = "{0}{1}Result.OutRight.Data_{2}";
-            return string.Format(PatternKey, metalModel.FromDate, metalModel.ToDate, metalModel.UserId);
+            const string PatternKey = "{0}{1}Result.OutRight.Data_{2}_{3}";
+            return string.Format(PatternKey, metalModel.FromDate, metalModel.ToDate, metalModel.UserId, metalModel.LicenseeId);
         }
 
         #region popup-page
@@ -316,7 +316,7 @@ namespace Fanex.Athena.Result.Controller
 
                 if (limitedSports.Any())
                 {
-                    var leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, limitedSports.First().SportId).ConfigureAwait(false);
+                    var leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, limitedSports.First().SportId, metalModel.IsOfferLeagueM88).ConfigureAwait(false);
                     return Json(new { Sports = limitedSports, Leagues = leagues });
                 }
             }
@@ -359,6 +359,7 @@ namespace Fanex.Athena.Result.Controller
         #endregion spots list
 
         #region main-page
+
         private async Task<int> GetSportId(DateTime fromDate, int licenseeId)
         {
             var sports = await _resultService.GetSportsAsync(fromDate, licenseeId).ConfigureAwait(false);
