@@ -11,5 +11,7 @@
         string TempFilePath { get; }
 
         string GetValue(string key);
+
+        IEnumerable<int> ExcludeLeagues { get; }
     }
 }
