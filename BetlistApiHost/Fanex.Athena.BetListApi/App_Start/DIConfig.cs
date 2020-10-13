@@ -19,6 +19,7 @@
     using Fanex.Result.Core.AllBetCasino;
     using Fanex.Result.Core.Casino;
     using Fanex.Result.Core.PGSoft;
+    using Fanex.Result.Core.Joker;
     using Fanex.Result.Core.PokerGames;
     using Fanex.Result.Core.PP;
     using Fanex.Result.Core.SabaClub;
@@ -64,6 +65,7 @@
             builder.Register(x => new CasinoResult("SpadegamingResultConfigs")).Keyed<ICasinoResult>("SG");
             builder.RegisterType<VirtualGamesResult>().As<IVirtualGamesResult>();
             builder.RegisterType<Indo4DResult>().As<IIndo4DResult>();
+            builder.RegisterType<JokerResult>().As<IJokerResult>();
             builder.RegisterType<SexyGamingResultBuilder>().As<ISexyGamingResultBuilder>();
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
         }
