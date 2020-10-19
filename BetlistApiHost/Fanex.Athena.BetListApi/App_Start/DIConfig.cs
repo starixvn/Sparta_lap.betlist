@@ -24,6 +24,7 @@
     using Fanex.Result.Core.SexyGaming;
     using Fanex.Result.Core.VirtualGames;
     using Fanex.Result.Core.Voidbridge;
+    using Fanex.Result.Core.SAGaming;
 
     public static class DIConfig
     {
@@ -62,6 +63,7 @@
             builder.RegisterType<VirtualGamesResult>().As<IVirtualGamesResult>();
             builder.RegisterType<Indo4DResult>().As<IIndo4DResult>();
             builder.RegisterType<SexyGamingResultBuilder>().As<ISexyGamingResultBuilder>();
+            builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
         }
 
         private static Assembly[] GetAssemblies()
