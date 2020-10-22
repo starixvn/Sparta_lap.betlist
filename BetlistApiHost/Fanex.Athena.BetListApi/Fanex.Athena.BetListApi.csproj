@@ -138,6 +138,9 @@
     <Reference Include="Fanex.BetList.SabaClub, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.SabaClub.1.0.0.3\lib\net40\Fanex.BetList.SabaClub.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.BetList.SAGaming, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.SAGaming.1.0.0.4\lib\net40\Fanex.BetList.SAGaming.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.BetList.SexyGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.SexyGaming.1.0.0.2\lib\net40\Fanex.BetList.SexyGaming.dll</HintPath>
     </Reference>
@@ -219,6 +222,9 @@
     <Reference Include="Fanex.Result.Core.RemotingRef, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.RemotingRef.1.0.3\lib\net461\Fanex.Result.Core.RemotingRef.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Result.Core.SAGaming, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core.SAGaming.1.0.0.3-beta01\lib\net40\Fanex.Result.Core.SAGaming.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.SabaClub, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.SabaClub.1.0.0.1\lib\Fanex.Result.Core.SabaClub.dll</HintPath>
