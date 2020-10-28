@@ -53,6 +53,7 @@
 
                 var ticket = FakeHelper.Create<LrfTicket>();
                 ticket.BetTypeId = 1;
+                ticket.OddsType = "1";
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
                 _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel).Returns(Task.FromResult(ticketResult));
 
@@ -60,7 +61,7 @@
                 var result = (await controller.GetData(metaModel)).Data;
 
                 // Assert
-                Assert.Multiple(() => 
+                Assert.Multiple(() =>
                 {
                     AssertClearData(ticketResult);
                     Assert.That(result.GetValue("NewRow"), Is.True);
@@ -86,6 +87,7 @@
 
                 var ticket = FakeHelper.Create<LrfTicket>();
                 ticket.BetTypeId = betType;
+                ticket.OddsType = "1";
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
                 _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel).Returns(Task.FromResult(ticketResult));
 
@@ -113,6 +115,7 @@
                 var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
 
                 var ticket = FakeHelper.Create<LrfTicket>();
+                ticket.OddsType = "1";
                 ticket.BetTypeId = betType;
                 ticket.Odds = -FakeHelper.Create<uint>();
                 var ticketResult = new TicketResult { MainTicketList = new SortableList<LrfTicket> { ticket } };
