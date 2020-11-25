@@ -14,7 +14,6 @@ namespace Fanex.Athena.BetList.Service
     public class TicketBuilderService : ITicketBuilderService
     {
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
-
         private readonly ITicketHelper _ticketHelper;
 
         [CLSCompliant(false)]
@@ -51,7 +50,7 @@ namespace Fanex.Athena.BetList.Service
                     Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     Odds = _betlistHtmlBuilder.BuildOddsValue(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById),
                     OddsType = _betlistHtmlBuilder.BuildOddsTypeName(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById),
-                    Stake = _betlistHtmlBuilder.BuildStake(ticket),
+                    Stake = _betlistHtmlBuilder.BuildStake(ticket, _ticketHelper),
                     LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
                     Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, new BetListMetaModel()),
@@ -106,7 +105,7 @@ namespace Fanex.Athena.BetList.Service
                     Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     Odds = odds,
                     OddsType = oddsTypeName,
-                    Stake = _betlistHtmlBuilder.BuildStake(ticket),
+                    Stake = _betlistHtmlBuilder.BuildStake(ticket, _ticketHelper),
                     LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
                     BetEffective = _betlistHtmlBuilder.BuildBetEffective(ticket)

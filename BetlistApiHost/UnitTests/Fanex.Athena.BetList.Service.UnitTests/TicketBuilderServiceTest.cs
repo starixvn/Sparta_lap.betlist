@@ -115,7 +115,7 @@
             _betlistHtmlBuilder.BuildStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false).Returns(expectedTicketText.Status);
             _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false).Returns(expectedTicketText.Choice);
             _betlistHtmlBuilder.BuildOdds(ticket, null, Arg.Any<GetCachePropertyById>()).Returns(expectedTicketText.Odds);
-            _betlistHtmlBuilder.BuildStake(ticket).Returns(expectedTicketText.Stake);
+            _betlistHtmlBuilder.BuildStake(ticket, _ticketHelper).Returns(expectedTicketText.Stake);
 
             // Action
             var result = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, 0);

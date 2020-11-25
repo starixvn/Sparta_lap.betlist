@@ -116,7 +116,7 @@ namespace Fanex.Athena.BetList.Controller
                 Choice = _betListHTMLBuilder.BuildChoice(ticket, _ticketHelper, null, false),
                 Odds = odds,
                 OddsType = oddsTypeName,
-                Stake = _betListHTMLBuilder.BuildStake(ticket),
+                Stake = _betListHTMLBuilder.BuildStake(ticket, _ticketHelper),
                 WinLoss = _betListHTMLBuilder.BuildCustomerWL(ticket, hasPlayerComm)
             };
         }
