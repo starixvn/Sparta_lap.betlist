@@ -67,6 +67,9 @@
       <HintPath>..\..\..\packages\Fanex.Result.Core.Happy5.1.0.0.0\lib\net40\Fanex.Result.Core.Happy5.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.Result.Core.Joker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.Joker.1.0.0.0\lib\Fanex.Result.Core.Joker.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Result.Core.NumberGame, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.1.0.3.2-beta01\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
     </Reference>
@@ -190,6 +193,7 @@
     <Compile Include="ResultPopup\SabaClubResultPopupController.cs" />
     <Compile Include="ResultPopup\GlobalGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\CardClubResultPopupController.cs" />
+    <Compile Include="ResultPopup\JokerResultPopupController.cs" />
     <Compile Include="ResultPopup\SexyGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\SAGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\PGSoftResultPopupController.cs" />
