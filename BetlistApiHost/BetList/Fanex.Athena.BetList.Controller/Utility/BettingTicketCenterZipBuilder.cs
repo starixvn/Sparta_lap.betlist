@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Web;
-using Fanex.Athena.BetList.Excel;
+﻿using Fanex.Athena.BetList.Excel;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
@@ -11,6 +8,9 @@ using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Ionic.Zip;
 using Newtonsoft.Json;
 using NPOI.SS.UserModel;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
 
 namespace Fanex.Athena.BetList.Controller.Utility
 {
@@ -136,6 +136,7 @@ namespace Fanex.Athena.BetList.Controller.Utility
                 }
 
                 CleanDataFile(excelFiles);
+                zip.ParallelDeflateThreshold = -1;
                 zip.Save(mem);
             }
             return mem;
