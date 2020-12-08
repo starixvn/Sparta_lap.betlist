@@ -74,6 +74,7 @@
     <Compile Include="DTO\Keno\KenoAuthorization.cs" />
     <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
     <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MetaModel\Keno\KenoApiMetaModel.cs" />
     <Compile Include="MetaModel\GetSportResultMetaModel.cs" />
     <Compile Include="MetaModel\ResultMetaModel.cs" />
