@@ -88,7 +88,7 @@
       <HintPath>..\..\..\packages\Fanex.Result.Core-Racing.1.1.0.1\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.SabaClub, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.SabaClub.1.0.0.2-freebet-01\lib\Fanex.Result.Core.SabaClub.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core.SabaClub.1.0.0.2\lib\Fanex.Result.Core.SabaClub.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.SAGaming, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.SAGaming.1.0.0.3-beta01\lib\net40\Fanex.Result.Core.SAGaming.dll</HintPath>
