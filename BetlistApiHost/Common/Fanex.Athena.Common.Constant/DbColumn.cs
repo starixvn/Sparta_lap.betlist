@@ -83,5 +83,7 @@
         public const string UserName = "UserName";
 
         public const string StatusFilter = "StatusFilter";
+
+        public const string ExcludeFreeBet = "ExcludeFreeBet";
     }
 }

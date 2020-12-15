@@ -89,6 +89,8 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public bool IsMobileView { get; set; }
 
+        public bool ExcludeFreeBet { get; set; }
+
         public virtual bool IsValid
         {
             get
