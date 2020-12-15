@@ -1,9 +1,8 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
-    using Fanex.Result.Core.CardClub;
+    using Fanex.Athena.Result.Controller.ResultPopup;
     using NSubstitute;
     using NUnit.Framework;
-    using ResultPopup;
 
     [TestFixture]
     public class CardClubResultPopupControllerTest

@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
+    using Fanex.Athena.Result.Controller.ResultPopup;
     using NSubstitute;
     using NUnit.Framework;
-    using ResultPopup;
     using UnitTest.Common.Helpers;
 
     [TestFixture]

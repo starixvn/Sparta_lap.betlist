@@ -17,6 +17,7 @@
     using Fanex.Logging;
     using Fanex.RemotingRef;
     using Fanex.Result.Core.AllBetCasino;
+    using Fanex.Result.Core.BG;
     using Fanex.Result.Core.Casino;
     using Fanex.Result.Core.Joker;
     using Fanex.Result.Core.LinkedGames;
@@ -78,6 +79,7 @@
             builder.RegisterType<SportsLotteryResult>().As<ISportsLotteryResult>();
             builder.RegisterType<HabaneroResult>().As<IHabaneroResult>().WithParameter("sectionName", "HabaneroResultConfigs");
             builder.RegisterType<WMResultBuilder>().As<IWMResultBuilder>();
+            builder.RegisterType<BigGamingResult>().As<IBigGamingResult>();
         }
 
         private static Assembly[] GetAssemblies()

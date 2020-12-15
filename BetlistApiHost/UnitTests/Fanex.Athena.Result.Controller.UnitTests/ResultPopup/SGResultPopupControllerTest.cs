@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
+    using Fanex.Athena.Result.Controller.ResultPopup;
     using Fanex.Result.Core.Casino;
     using NSubstitute;
     using NUnit.Framework;
-    using ResultPopup;
 
     [TestFixture]
     public class SGResultPopupControllerTest
