@@ -1,9 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.Controller
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
     using Fanex.Athena.BetList.Controller.CustomActionResult;
     using Fanex.Athena.BetList.Controller.Utility;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
@@ -14,6 +10,9 @@
     using Fanex.Athena.BetList.Service.Interfaces;
     using Fanex.Athena.Common.Utility.Services.Interfaces;
     using Fanex.Athena.Resources;
+    using System.IO;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
 
     public class BettingTicketCenterAdvancedSearchController : BettingTicketCenterBaseController
     {
@@ -105,7 +104,7 @@
 
         protected FileContentResult ZipContentResult(MemoryStream stream)
         {
-            var bytes = stream.ToArray();
+            var bytes = stream?.ToArray();
             return File(bytes, "application/zip", "BettingTicketsCenter_AdvancedSearch.zip");
         }
 
