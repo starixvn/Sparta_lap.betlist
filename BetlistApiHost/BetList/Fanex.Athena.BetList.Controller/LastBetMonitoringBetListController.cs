@@ -80,7 +80,7 @@ namespace Fanex.Athena.BetList.Controller
                     EndTag,
                     false);
                 BuildOdds(metaModel, ticketResult, ticket, builder);
-                builder.AddStake(ticket, "<td data-name='Stake' class='bl-stake'>", EndTag);
+                builder.AddStake(ticket, _ticketHelper, "<td data-name='Stake' class='bl-stake'>", EndTag);
                 builder.Append($"<td data-name='Status' class='bl-status'>{builder.BuildLiveStatus(ticket)}</td></tr>");
             }
 

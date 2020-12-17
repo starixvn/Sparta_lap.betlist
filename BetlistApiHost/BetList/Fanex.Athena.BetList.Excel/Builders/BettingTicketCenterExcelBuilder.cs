@@ -215,7 +215,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
             _builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
             _builder.AddOddsValue(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById);
             _builder.AddOddsType(ticket, ticketResult.TicketDataList, _ticketHelper.GetValidOddsTypeNameById);
-            _builder.AddStake(ticket);
+            _builder.AddStake(ticket, _ticketHelper);
 
             if (option.ShowWinLoss)
             {
