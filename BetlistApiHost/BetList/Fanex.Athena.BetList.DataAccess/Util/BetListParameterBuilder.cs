@@ -128,6 +128,7 @@
             db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(DbColumn.CustId, metaModel.CustId);
             db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+            db.SetParameterValue(DbColumn.ExcludeFreeBet, metaModel.ExcludeFreeBet);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateProductListParameters(db, metaModel.ProductCodeList);

@@ -13,9 +13,9 @@
         }
 
         [HttpPost]
-        public string Index(string custId, string gameRoundId, string gameId, string siteId, string languageCode)
+        public string Index(string custId, string gameRoundId, string gameId, string siteId, int sportType, string languageCode)
         {
-            return _resultApi.GetResult(custId, gameRoundId, gameId, siteId, languageCode);
+            return _resultApi.GetResult(custId, gameRoundId, gameId, siteId, sportType, languageCode);
         }
     }
 }
