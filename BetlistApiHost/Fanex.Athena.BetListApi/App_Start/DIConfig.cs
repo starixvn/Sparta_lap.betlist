@@ -18,15 +18,16 @@
     using Fanex.RemotingRef;
     using Fanex.Result.Core.AllBetCasino;
     using Fanex.Result.Core.Casino;
-    using Fanex.Result.Core.PGSoft;
     using Fanex.Result.Core.Joker;
+    using Fanex.Result.Core.LinkedGames;
+    using Fanex.Result.Core.PGSoft;
     using Fanex.Result.Core.PokerGames;
     using Fanex.Result.Core.PP;
     using Fanex.Result.Core.SabaClub;
+    using Fanex.Result.Core.SAGaming;
     using Fanex.Result.Core.SexyGaming;
     using Fanex.Result.Core.VirtualGames;
     using Fanex.Result.Core.Voidbridge;
-    using Fanex.Result.Core.SAGaming;
 
     public static class DIConfig
     {
@@ -68,6 +69,7 @@
             builder.RegisterType<JokerResult>().As<IJokerResult>();
             builder.RegisterType<SexyGamingResultBuilder>().As<ISexyGamingResultBuilder>();
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
+            builder.RegisterType<LinkedGamesResult>().As<ILinkedGamesResult>();
         }
 
         private static Assembly[] GetAssemblies()
