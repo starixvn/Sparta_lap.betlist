@@ -59,6 +59,9 @@
     <Reference Include="Fanex.Result.Core.Casino, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Casino.1.0.0.1\lib\Fanex.Result.Core.Casino.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Result.Core.GDG, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.GDG.1.0.1\lib\Fanex.Result.Core.GDG.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Result.Core.Happy5, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Happy5.1.0.0.0\lib\net40\Fanex.Result.Core.Happy5.dll</HintPath>
     </Reference>
@@ -144,6 +147,7 @@
   <ItemGroup>
     <Compile Include="ResultPopup\CardClubResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\JokerResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\GDGResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SexyGamingResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SGResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\VoidbridgeResultPopupControllerTest.cs" />

@@ -28,6 +28,7 @@
     using Fanex.Result.Core.SexyGaming;
     using Fanex.Result.Core.VirtualGames;
     using Fanex.Result.Core.Voidbridge;
+    using Fanex.Result.Core.GDG;
 
     public static class DIConfig
     {
@@ -67,6 +68,7 @@
             builder.RegisterType<VirtualGamesResult>().As<IVirtualGamesResult>();
             builder.RegisterType<Indo4DResult>().As<IIndo4DResult>();
             builder.RegisterType<JokerResult>().As<IJokerResult>();
+            builder.RegisterType<GoldDiamondGamingResult>().As<IGoldDiamondGamingResult>();
             builder.RegisterType<SexyGamingResultBuilder>().As<ISexyGamingResultBuilder>();
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
             builder.RegisterType<LinkedGamesResult>().As<ILinkedGamesResult>();
