@@ -24,9 +24,9 @@ namespace Fanex.Athena.BetList.Excel
         public static IBetListExcelBuilder AddCustomerWL(this IBetListExcelBuilder builder, ITicket ticket, bool showPlayerComm, IFont font)
         {
             var settledWL = showPlayerComm ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", ticket.Winlost, ticket.PlayerComm) : string.Format("{0:#,##0.00}", ticket.Winlost);
-            var isPPContribution = BetListHelper.IsPPContribution(ticket.BetTypeId);
+            var isContribution = BetListHelper.IsContribution(ticket.BetTypeId);
 
-            var winloss = BetListHelper.IsRunning(ticket.Status) || isPPContribution
+            var winloss = BetListHelper.IsRunning(ticket.Status) || isContribution
                 ? "-"
                 : settledWL;
 
@@ -183,9 +183,9 @@ namespace Fanex.Athena.BetList.Excel
             }
             else
             {
-                var isPPContribution = BetListHelper.IsPPContribution(ticket.BetTypeId);
+                var isContribution = BetListHelper.IsContribution(ticket.BetTypeId);
 
-                var licenseeWl = isRunning || isPPContribution
+                var licenseeWl = isRunning || isContribution
                                     ? "-"
                                     : string.Format(NumberFormat, ticket.LicenseeWL + ticket.Comm);
                 var rtfLicenseeWl = new HSSFRichTextString(licenseeWl);

@@ -57,9 +57,9 @@
             return bettype >= MinColossusBetBetType && bettype <= MaxColossusBetBetType;
         }
 
-        public static bool IsPPContribution(int bettype)
+        public static bool IsContribution(int bettype)
         {
-            return bettype == (int)BetType.PPContribution;
+            return bettype == (int)BetType.PPContribution || bettype == (int)BetType.SBCContribution;
         }
 
         public static bool IsRunning(string status)
