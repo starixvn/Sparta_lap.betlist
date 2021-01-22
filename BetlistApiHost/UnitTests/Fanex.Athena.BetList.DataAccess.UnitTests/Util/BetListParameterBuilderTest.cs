@@ -1,10 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests.Util
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Athena.BetList.DataAccess.Util;
     using Athena.BetList.Model.MetaModel;
-    using Common.Constant;
     using Data;
     using NSubstitute;
     using NUnit.Framework;
@@ -240,7 +237,6 @@
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
                 _objectDb.Received(1).SetParameterValue("showSB", true);
-                _objectDb.Received(1).SetParameterValue("showNG", true);
             });
         }
 
