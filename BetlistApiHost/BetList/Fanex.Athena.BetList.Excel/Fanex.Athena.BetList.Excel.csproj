@@ -81,6 +81,9 @@
     <Reference Include="Fanex.BetList.Core, Version=2.111.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.Core.2.111.0.2\lib\net40\Fanex.BetList.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.BetList.GDG, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.GDG.1.0.1\lib\net40\Fanex.BetList.GDG.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.BetList.Joker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.Joker.1.0.0\lib\net40\Fanex.BetList.Joker.dll</HintPath>
     </Reference>

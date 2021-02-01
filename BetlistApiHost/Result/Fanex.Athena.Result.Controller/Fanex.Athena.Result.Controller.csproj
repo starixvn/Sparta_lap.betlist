@@ -60,6 +60,9 @@
     <Reference Include="Fanex.Result.Core.Casino, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Casino.1.0.0.1\lib\Fanex.Result.Core.Casino.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Result.Core.GDG, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.GDG.1.0.1\lib\Fanex.Result.Core.GDG.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Result.Core.GlobalGaming, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.GlobalGaming.1.0.0.4\lib\net40\Fanex.Result.Core.GlobalGaming.dll</HintPath>
     </Reference>
@@ -198,6 +201,7 @@
     <Compile Include="ResultPopup\GlobalGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\CardClubResultPopupController.cs" />
     <Compile Include="ResultPopup\JokerResultPopupController.cs" />
+    <Compile Include="ResultPopup\GDGResultPopupController.cs" />
     <Compile Include="ResultPopup\SexyGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\SAGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\PGSoftResultPopupController.cs" />
