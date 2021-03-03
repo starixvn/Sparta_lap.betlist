@@ -59,9 +59,9 @@ namespace Fanex.Athena.BetList.Service
                     LicenseeTxId = _betlistHtmlBuilder.BuildLicenseeTxId(ticket)
                 };
 
-                if (ticket.BetTypeId == (int)BetType.PPContribution)
+                if (BetListHelper.IsContribution(ticket.BetTypeId))
                 {
-                    BuildPPContributionTicket(ticketText);
+                    BuildContributionTicket(ticketText);
                 }
 
                 ticketTextList.Add(ticketText);
@@ -111,9 +111,9 @@ namespace Fanex.Athena.BetList.Service
                     BetEffective = _betlistHtmlBuilder.BuildBetEffective(ticket)
                 };
 
-                if (ticket.BetTypeId == (int)BetType.PPContribution)
+                if (BetListHelper.IsContribution(ticket.BetTypeId))
                 {
-                    BuildPPContributionTicket(ticketText);
+                    BuildContributionTicket(ticketText);
                 }
 
                 ticketTextList.Add(ticketText);
@@ -128,7 +128,7 @@ namespace Fanex.Athena.BetList.Service
             return _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm);
         }
 
-        private static void BuildPPContributionTicket(TicketText ticketText)
+        private static void BuildContributionTicket(TicketText ticketText)
         {
             const string HyphenTextHTML = "<div class='underdog'>-</div>";
 
