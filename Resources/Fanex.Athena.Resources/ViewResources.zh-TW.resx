@@ -252,6 +252,9 @@
     <value>中國盤</value>
     <comment>125845</comment>
   </data>
+  <data name="MobileEuro" xml:space="preserve">
+    <value>手機歐洲版</value>
+  </data>
   <data name="LicenseeTxId" xml:space="preserve">
     <value>TxID</value>
   </data>
