@@ -279,6 +279,9 @@
   <data name="ESportsMobile" xml:space="preserve">
     <value>E-Sports Mobile</value>
   </data>
+  <data name="MobileEuro" xml:space="preserve">
+    <value>Mobile Euro</value>
+  </data>
   <data name="LicenseeTxId" xml:space="preserve">
     <value>TxID</value>
   </data>
