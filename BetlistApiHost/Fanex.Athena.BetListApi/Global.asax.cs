@@ -6,11 +6,6 @@
 
 namespace Fanex.Athena
 {
-    using System;
-    using System.Configuration;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Routing;
     using App_Start;
     using Data;
     using Fanex.Athena.Common.Utility.Helpers;
@@ -23,6 +18,11 @@ namespace Fanex.Athena
     using Fanex.Result.Core.RemotingRef;
     using Logging;
     using SharpRaven;
+    using System;
+    using System.Configuration;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
 
     public class MvcApplication : HttpApplication
     {
@@ -45,8 +45,7 @@ namespace Fanex.Athena
         {
             LogManager
                 .SetDefaultLogCategory(ConfigurationManager.AppSettings["Fanex.Logging-LogCategory"])
-                .Use(new SentryLogging(
-                new SentryEngineOptions
+                .Use(new SentryLogging(new SentryEngineOptions
                 {
                     Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry-Dsn"])
                 }));

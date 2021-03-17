@@ -2,6 +2,7 @@ FanexSpName.LOCAL.xml
 FanexSpName.PRO.xml
 FanexSpName.SANDBOX.xml
 FanexSpName.UAT.xml
+FanexSpName.AWS.xml
 \\www\\js\\source
 \\www\\js\\tests
 \\www\\css\\source

@@ -412,6 +412,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="SpNameConfig\FanexSpName.AWS.xml">
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
     <Content Include="SpNameConfig\FanexSpName.BACKUPMNL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
@@ -472,7 +475,15 @@
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
+    <Content Include="SiteConfig\Web.AppSettings.AWS.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SiteConfig\Web.AWS.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.AWS.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="SiteConfig\Web.DEV.config" />
+    <Content Include="SiteConfig\WebConfigTransforms\AWS.config" />
     <None Include="SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>

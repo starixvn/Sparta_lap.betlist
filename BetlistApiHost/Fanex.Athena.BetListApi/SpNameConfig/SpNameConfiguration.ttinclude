@@ -28,6 +28,10 @@
 		new SiteInfo
         {
             SiteEnvironment = SiteEnvironment.BACKUPMNL
+        },
+		new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.AWS
         }
     };
 #>
@@ -39,7 +43,8 @@
         UAT,
 		SIT,
         PRO,
-		BACKUPMNL
+		BACKUPMNL,
+		AWS
     }
 
 	class SiteInfo
