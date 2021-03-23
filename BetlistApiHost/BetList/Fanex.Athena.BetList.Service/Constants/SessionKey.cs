@@ -2,6 +2,6 @@
 {
     public static class SessionKey
     {
-        public const string VietnamIPList = "BetLists.Service.IPService.VNIPList";
+        public const string VNIPList = "BetLists.Service.IPService.VNIPList";
     }
 }

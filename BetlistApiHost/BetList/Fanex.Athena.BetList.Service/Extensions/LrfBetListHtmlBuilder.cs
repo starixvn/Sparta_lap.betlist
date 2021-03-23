@@ -96,9 +96,10 @@ namespace Fanex.Athena.BetList.Service.Extensions
             return string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.BetEffective);
         }
 
-        public static string BuildLiveStatus(this IBetListHTMLBuilder builder, ITicket ticket)
+        public static string BuildLiveStatus(this IBetListHTMLBuilder builder, ITicket ticket, bool isShowIp = false)
         {
             const string PatternStatusBetlist = "<label style='color:{0}'>{1}</label>";
+            const string PatternIp = "<div class='ip'><br><div class='iplink'>{0}</div></div>";
             if (ticket.BetTypeId == (int)BetType.MixParlay || ticket.BetTypeId == (int)BetType.CombinationMixParlay)
             {
                 switch (ticket.LiveHomeScore)
@@ -113,10 +114,10 @@ namespace Fanex.Athena.BetList.Service.Extensions
                         return string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
                 }
             }
-
+            string ipHtml = isShowIp ? string.Format(PatternIp, ticket.IP) : string.Empty;
             return ticket.IsLive
-                ? string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live)
-                : string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
+                ? string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live) + ipHtml
+                : string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive) + ipHtml;
         }
 
         public static string BuildSingleMatchParlaySelectionStatus(this IBetListHTMLBuilder builder, string status)

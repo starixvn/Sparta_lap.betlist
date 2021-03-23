@@ -29,7 +29,7 @@ namespace Fanex.Athena.BetList.Service
 
         public IList<IPRangeEntity> GetIPVN()
         {
-            List<IPRangeEntity> ipsFromCaching = _cache.Get<List<IPRangeEntity>>(SessionKey.VietnamIPList);
+            List<IPRangeEntity> ipsFromCaching = _cache.Get<List<IPRangeEntity>>(SessionKey.VNIPList);
             if (ipsFromCaching != null && ipsFromCaching.Count > 0)
             {
                 return ipsFromCaching;
@@ -37,7 +37,7 @@ namespace Fanex.Athena.BetList.Service
 
             var ipsFromDB = _ipDataAccess.GetVNIPs();
 
-            _cache.Set(SessionKey.VietnamIPList, ipsFromDB, CacheTimeout);
+            _cache.Set(SessionKey.VNIPList, ipsFromDB, CacheTimeout);
 
             return ipsFromDB;
         }

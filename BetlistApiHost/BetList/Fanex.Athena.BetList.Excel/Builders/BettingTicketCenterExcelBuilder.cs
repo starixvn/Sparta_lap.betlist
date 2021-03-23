@@ -227,7 +227,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
                 _builder.AddLicenseeWL(ticket, licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont);
             }
 
-            _builder.AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
+            _builder.AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, option.IsShowIpvn);
             AddPlatfromCell(ticket);
             AddLiveCell(ticket);
         }

@@ -21,5 +21,7 @@
         public string BaseCurrency { get; set; } = string.Empty;
 
         public bool IsAllowTxIDColumn { get; set; }
+
+        public bool IsShowIpvn { get; set; }
     }
 }

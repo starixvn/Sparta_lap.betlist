@@ -28,7 +28,7 @@ namespace Fanex.Athena.BetList.Service
             _ipService = ipService;
         }
 
-        public IList<TicketText> BuildTicketText(TicketResult ticketResult, ICommonValueMetaModel metaModel, bool isAllowedCustomerComm, bool isShowIpvn)
+        public IList<TicketText> BuildTicketText(TicketResult ticketResult, ICommonValueMetaModel metaModel, bool isAllowedCustomerComm)
         {
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
             var ticketTextList = new List<TicketText>();
@@ -58,7 +58,7 @@ namespace Fanex.Athena.BetList.Service
                     Stake = _betlistHtmlBuilder.BuildStake(ticket, _ticketHelper),
                     LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
-                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, new BetListMetaModel(), isShowIpvn),
+                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, new BetListMetaModel(), metaModel.IsShowIpvn),
                     Platform = PlatformType.GetPlatformName(ticket.BetFrom),
                     Live = _betlistHtmlBuilder.BuildLiveStatus(ticket),
                     LicenseeTxId = _betlistHtmlBuilder.BuildLicenseeTxId(ticket)
@@ -88,6 +88,7 @@ namespace Fanex.Athena.BetList.Service
             var ticketTextList = new List<TicketText>();
 
             _ticketHelper.IsShowOddsWithChoice = showOdds;
+            _ticketHelper.IsVnIp = _ipService.IsVNIP;
 
             foreach (var ticket in ticketResult.MainTicketList)
             {
@@ -107,7 +108,7 @@ namespace Fanex.Athena.BetList.Service
                     ExternalId = ticket.ExternalId,
                     SystemId = ticket.UserName,
                     TransTime = BuildTransTimeText(ticket, isMobileView),
-                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel, isShowIpvn),
+                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel, (metaModel != null) && metaModel.IsShowIpvn || isShowIpvn),
                     Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     Odds = odds,
                     OddsType = oddsTypeName,

@@ -8,7 +8,7 @@
     public interface ITicketBuilderService
     {
         IList<TicketText> BuildTicketText(TicketResult ticketResult, ICommonValueMetaModel metaModel,
-            bool isAllowedCustomerComm, bool isShowIpvn = false);
+            bool isAllowedCustomerComm);
 
         List<TicketText> BuildTicketText(
             TicketResult ticketResult,

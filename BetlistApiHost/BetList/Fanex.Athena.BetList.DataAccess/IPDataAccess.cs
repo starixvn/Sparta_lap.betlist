@@ -11,7 +11,7 @@ namespace Fanex.Athena.BetList.DataAccess
     {
         public IList<IPRangeEntity> GetVNIPs()
         {
-            const string UspKey = "GetIPVN";
+            const string UspKey = "Lrf_GetAllIPVN";
 
             var ipVNList = new List<IPRangeEntity>();
 
