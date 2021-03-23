@@ -25,7 +25,7 @@ namespace Fanex.Athena.BetList.Service.Extensions
             LrfTicket ticket,
             ITicketHelper ticketHelper,
             List<ITicketData> ticketData,
-            BetListMetaModel metaModel)
+            BetListMetaModel metaModel, bool isShowIpvn = false)
         {
             const string StatusTemp = "<div class='status'>{0}</div>";
             var statusText = GetStatusText(ticket.Status);
@@ -53,7 +53,7 @@ namespace Fanex.Athena.BetList.Service.Extensions
                     return statusNormalText;
 
                 default:
-                    return builder.BuildStatus(ticket, ticketHelper, ticketData, false);
+                    return builder.BuildStatus(ticket, ticketHelper, ticketData, isShowIpvn);
             }
         }
 

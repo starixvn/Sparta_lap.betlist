@@ -8,7 +8,7 @@
     public interface ITicketBuilderService
     {
         IList<TicketText> BuildTicketText(TicketResult ticketResult, ICommonValueMetaModel metaModel,
-            bool isAllowedCustomerComm);
+            bool isAllowedCustomerComm, bool isShowIpvn = false);
 
         List<TicketText> BuildTicketText(
             TicketResult ticketResult,
@@ -16,7 +16,8 @@
             int startIndex = 1,
             bool showOdds = false,
             bool isAllowedCustomerComm = false,
-            bool isMobileView = false);
+            bool isMobileView = false,
+            bool isShowIpvn = false);
 
         string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm);
     }
