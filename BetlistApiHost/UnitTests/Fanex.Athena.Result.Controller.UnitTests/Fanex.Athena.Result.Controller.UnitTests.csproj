@@ -68,8 +68,8 @@
     <Reference Include="Fanex.Result.Core.Joker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Joker.1.0.0.0\lib\Fanex.Result.Core.Joker.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.LinkedGames, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.LinkedGames.1.0.0\lib\net40\Fanex.Result.Core.LinkedGames.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.LinkedGames, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.LinkedGames.1.0.1-sportslottery-03\lib\net461\Fanex.Result.Core.LinkedGames.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.NumberGame, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.1.0.3.2-beta01\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
@@ -99,6 +99,9 @@
     </Reference>
     <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.2.7.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-Sportsbook.1.2.7.2\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Result.Core.SportsLottery, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.SportsLottery.1.0.0\lib\net461\Fanex.Result.Core.SportsLottery.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Voidbridge, Version=1.0.2.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Voidbridge.1.0.2.1\lib\net40\Fanex.Result.Core.Voidbridge.dll</HintPath>
@@ -146,6 +149,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ResultPopup\CardClubResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\SportsLotteryResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\JokerResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\GDGResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SexyGamingResultPopupControllerTest.cs" />

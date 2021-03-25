@@ -96,6 +96,9 @@
     <Reference Include="Fanex.BetList.SexyGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.SexyGaming.1.0.0.2\lib\net40\Fanex.BetList.SexyGaming.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.BetList.SportsLottery, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.SportsLottery.1.0.0\lib\net461\Fanex.BetList.SportsLottery.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.BetList.Voidbridge, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.Voidbridge.1.2.0\lib\net40\Fanex.BetList.Voidbridge.dll</HintPath>
       <Private>True</Private>
