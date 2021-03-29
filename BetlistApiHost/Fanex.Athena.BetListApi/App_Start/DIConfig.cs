@@ -29,6 +29,7 @@
     using Fanex.Result.Core.VirtualGames;
     using Fanex.Result.Core.Voidbridge;
     using Fanex.Result.Core.GDG;
+    using Fanex.Result.Core.SportsLottery;
 
     public static class DIConfig
     {
@@ -72,6 +73,7 @@
             builder.RegisterType<SexyGamingResultBuilder>().As<ISexyGamingResultBuilder>();
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
             builder.RegisterType<LinkedGamesResult>().As<ILinkedGamesResult>();
+            builder.RegisterType<SportsLotteryResult>().As<ISportsLotteryResult>();
         }
 
         private static Assembly[] GetAssemblies()
