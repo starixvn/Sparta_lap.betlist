@@ -25,20 +25,22 @@ namespace Fanex.Athena.BetList.Controller
 
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
         private readonly ITicketBuilderService _ticketBuilderService;
+        private readonly IIPService _ipService;
 
         public MixParlayBetListController(
             ICacheRefAdapter cacheRefAdapter,
             IBetListService betListService,
             ITicketHelper ticketHelper,
             IBetListHTMLBuilder betlistHtmlBuilder,
-             ITicketBuilderService ticketBuilderService)
+             ITicketBuilderService ticketBuilderService,
+             IIPService ipService)
         {
             _cacheRefAdapter = cacheRefAdapter;
             _betListService = betListService;
             _ticketHelper = ticketHelper;
             _betlistHtmlBuilder = betlistHtmlBuilder;
             _ticketBuilderService = ticketBuilderService;
-
+            _ipService = ipService;
         }
 
         [HttpPost]
@@ -103,6 +105,7 @@ namespace Fanex.Athena.BetList.Controller
             var ticketTextList = new List<string>();
 
             _ticketHelper.IsShowOddsWithChoice = showOdds;
+            _ticketHelper.IsVnIp = _ipService.IsVNIP;
 
             foreach (var ticket in ticketResult.MainTicketList)
             {

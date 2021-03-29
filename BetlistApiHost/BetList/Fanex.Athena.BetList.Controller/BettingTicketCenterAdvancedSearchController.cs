@@ -27,13 +27,14 @@
         public BettingTicketCenterAdvancedSearchController(
             IAppSettings appSettings,
             IBettingTicketCenterAdvancedSearchDataAccess dataAccess,
+            IIPService ipService,
             ITicketBuilderService ticketBuilderService,
             IBettingTicketCenterZipBuilder zipBuilder,
             IBettingTicketCenterExcel bettingTicketCenterExcel) : base(ticketBuilderService, bettingTicketCenterExcel)
         {
             _appSettings = appSettings;
             _dataAccess = dataAccess;
-            _zipBuilder = zipBuilder ?? new BettingTicketCenterZipBuilder(_appSettings, null, bettingTicketCenterExcel);
+            _zipBuilder = zipBuilder ?? new BettingTicketCenterZipBuilder(_appSettings, null, bettingTicketCenterExcel, ipService);
         }
 
         private int MaxRowSupportExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportExportExcel"));

@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.BetList.DataAccess.Interfaces;
+﻿using Fanex.Athena.BetList.DataAccess;
+using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Service.Constants;
 using Fanex.Athena.BetList.Service.Interfaces;

@@ -69,7 +69,7 @@ namespace Fanex.Athena.BetList.Controller
             {
                 _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
-                bool isShowIp = (metaModel.IsShowIpvn && _ipService.IsVNIP(ticket.IP)) || !(_ipService.IsVNIP(ticket.IP));
+                bool isShowIp = metaModel.IsShowIpvn || !(_ipService.IsVNIP(ticket.IP));
 
                 var row = $"<tr class='content-row monitor-hightlight' id='trans-{ticket.TransId}' data-transid='{ticket.TransId}'>";
                 builder.Append(row);
