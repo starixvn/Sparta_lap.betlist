@@ -1,5 +1,4 @@
-﻿using Fanex.Athena.BetList.DataAccess;
-using Fanex.Athena.BetList.DataAccess.Interfaces;
+﻿using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Service.Constants;
 using Fanex.Athena.BetList.Service.Interfaces;
@@ -16,7 +15,7 @@ namespace Fanex.Athena.BetList.Service
         private readonly IIPDataAccess _ipDataAccess;
         private readonly IMemoryCacheService _cache;
 
-        private static double IP32Bits = 16777216.0;
+        private static double IP32Bits = 16_777_216.0;
         private static double IPMaxRange = 65536.0;
         private static double IPMaxBytes = 256.0;
         private static int IpIndex2 = 2;
