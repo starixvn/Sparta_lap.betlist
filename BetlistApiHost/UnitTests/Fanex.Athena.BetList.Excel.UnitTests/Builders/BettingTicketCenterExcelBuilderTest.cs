@@ -4,6 +4,7 @@
     using Athena.BetList.Model.DTO;
     using Common.Constant;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.BetList.Service.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NPOI.HSSF.UserModel;
@@ -28,15 +29,19 @@
 
         private IBettingTicketCenterExcelBuilder _excelBuilder;
 
+        private IIPService _ipService;
+
         [SetUp]
         public void Setup()
         {
             _ticketHelper = Substitute.For<ITicketHelper>();
             _builder = Substitute.For<IBetListExcelBuilder>();
+            _ipService = Substitute.For<IIPService>();
 
             _excelBuilder = Substitute.ForPartsOf<BettingTicketCenterExcelBuilder>(
                 _builder,
-                _ticketHelper);
+                _ticketHelper,
+                _ipService);
 
             _oddStyle = Substitute.For<ICellStyle>();
             _oddStyle.FillBackgroundColor = 2;

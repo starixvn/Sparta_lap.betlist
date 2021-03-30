@@ -32,6 +32,7 @@
 
         private IBetListHTMLBuilder _betlistHtmlBuilder;
         private ITicketBuilderService _ticketBuilderService;
+        private IIPService _ipService;
 
         [SetUp]
         public void SetUp()
@@ -41,7 +42,7 @@
             _ticketHelper = Substitute.For<ITicketHelper>();
             _betlistHtmlBuilder = Substitute.For<IBetListHTMLBuilder>();
             _ticketBuilderService = Substitute.For<ITicketBuilderService>();
-
+            _ipService = Substitute.For<IIPService>();
         }
 
         [TearDown]
@@ -222,6 +223,7 @@
                 // Arrange
                 var metaModel = FakeHelper.Create<NewParlayDetailMetaModel>();
                 metaModel.Handicap1 = 1;
+                metaModel.IsShowIpvn = false;
 
                 var texts = FakeHelper.CreateMany<string>(3).ToArray();
                 _cacheRefAdapter.GetCombinationTypeCombo(metaModel.BetTeam, metaModel.BetCheck, metaModel.Handicap1, metaModel.Handicap2).Returns(texts);
@@ -262,7 +264,7 @@
 
         private MixParlayBetListController CreateController()
         {
-            return new MixParlayBetListController(_cacheRefAdapter, _betListService, _ticketHelper, _betlistHtmlBuilder, _ticketBuilderService);
+            return new MixParlayBetListController(_cacheRefAdapter, _betListService, _ticketHelper, _betlistHtmlBuilder, _ticketBuilderService, _ipService);
         }
     }
 }
