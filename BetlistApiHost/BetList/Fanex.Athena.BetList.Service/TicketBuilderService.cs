@@ -58,7 +58,7 @@ namespace Fanex.Athena.BetList.Service
                     Stake = _betlistHtmlBuilder.BuildStake(ticket, _ticketHelper),
                     LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
-                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, new BetListMetaModel(), metaModel.IsShowIpvn),
+                    Status = _betlistHtmlBuilder.BuildStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel.IsShowIpvn),
                     Platform = PlatformType.GetPlatformName(ticket.BetFrom),
                     Live = _betlistHtmlBuilder.BuildLiveStatus(ticket),
                     LicenseeTxId = _betlistHtmlBuilder.BuildLicenseeTxId(ticket)
@@ -108,7 +108,7 @@ namespace Fanex.Athena.BetList.Service
                     ExternalId = ticket.ExternalId,
                     SystemId = ticket.UserName,
                     TransTime = BuildTransTimeText(ticket, isMobileView),
-                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel, (metaModel != null) && metaModel.IsShowIpvn || isShowIpvn),
+                    Status = _betlistHtmlBuilder.BuildStatus(ticket, _ticketHelper, ticketResult.TicketDataList, (metaModel != null) && metaModel.IsShowIpvn || isShowIpvn),
                     Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     Odds = odds,
                     OddsType = oddsTypeName,
