@@ -24,5 +24,7 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public bool HasPlayerComm { get; set; }
 
         public bool IsMobileView { get; set; }
+
+        public bool IsShowIpvn { get; set; }
     }
 }
