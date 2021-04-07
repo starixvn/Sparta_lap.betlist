@@ -69,6 +69,7 @@
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
                 _ticketBuilderService.BuildTicketText(ticketResult: ticketResult, showOdds: true, isShowIpvn: true).Returns(ticketText);
+                metaModel.IsShowIpvn = true;
 
                 // Action
                 var result = (await controller.Detail(metaModel)).Data;
@@ -160,6 +161,8 @@
                 var transDateAndStatus = FakeHelper.Create<string>();
                 _betlistHtmlBuilder.BuildTransEventDateAndStatusResult(ticket, ticketResult.TicketDataList).Returns(transDateAndStatus);
 
+                metaModel.IsShowIpvn = false;
+
                 var expectedData = new List<string> { choice + transDateAndStatus };
 
                 // Action
@@ -202,6 +205,7 @@
                 _betlistHtmlBuilder.BuildTransEventDateAndStatusResult(ticket, ticketResult.TicketDataList).Returns(FakeHelper.Create<string>());
 
                 var expectedTexts = new List<string> { string.Format(TextRenderPattern, texts[0], ticket.Currency, ticket.Stake.ToString("N0")), texts[1] };
+                metaModel.IsShowIpvn = false;
 
                 // Action
                 var result = (await controller.NewParlayDetail(metaModel)).Data;
