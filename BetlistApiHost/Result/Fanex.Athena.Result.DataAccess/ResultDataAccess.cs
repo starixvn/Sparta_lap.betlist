@@ -288,7 +288,8 @@ namespace Fanex.Athena.Result.DataAccess
                 fromdate = metalModel.FromDate,
                 sporttype = metalModel.SportId,
                 leagueid = metalModel.LeagueId,
-                movebetsday = balanceUp.MoveBetsDay
+                movebetsday = balanceUp.MoveBetsDay,
+                isshowall = !_appSettings.IsProduction
             };
 
             using (var db = this.GetObjectDb(UspName))
