@@ -21,12 +21,16 @@ namespace Fanex.Athena.BetList.Controller
 
         private readonly ITicketHelper _ticketHelper;
 
+        private readonly IIPService _ipService;
+
         public LastBetMonitoringBetListController(
             ILastBetsMonitoringBetListService lastBetsMonitoringBetListService,
-            ITicketHelper ticketHelper)
+            ITicketHelper ticketHelper,
+            IIPService ipService)
         {
             _lastBetsMonitoringBetListService = lastBetsMonitoringBetListService;
             _ticketHelper = ticketHelper;
+            _ipService = ipService;
         }
 
         [HttpPost]
@@ -65,6 +69,8 @@ namespace Fanex.Athena.BetList.Controller
             {
                 _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
+                bool isShowIp = metaModel.IsShowIp && (metaModel.IsShowIpvn || !(_ipService.IsVNIP(ticket.IP)));
+
                 var row = $"<tr class='content-row monitor-hightlight' id='trans-{ticket.TransId}' data-transid='{ticket.TransId}'>";
                 builder.Append(row);
 
@@ -81,7 +87,7 @@ namespace Fanex.Athena.BetList.Controller
                     false);
                 BuildOdds(metaModel, ticketResult, ticket, builder);
                 builder.AddStake(ticket, _ticketHelper, "<td data-name='Stake' class='bl-stake'>", EndTag);
-                builder.Append($"<td data-name='Status' class='bl-status'>{builder.BuildLiveStatus(ticket)}</td></tr>");
+                builder.Append($"<td data-name='Status' class='bl-status'>{builder.BuildLiveStatus(ticket, isShowIp)}</td></tr>");
             }
 
             return builder.GetBetList();

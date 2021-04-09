@@ -10,13 +10,17 @@
         IList<TicketText> BuildTicketText(TicketResult ticketResult, ICommonValueMetaModel metaModel,
             bool isAllowedCustomerComm);
 
+#pragma warning disable S107 // Methods should not have too many parameters
         List<TicketText> BuildTicketText(
             TicketResult ticketResult,
             BetListMetaModel metaModel = null,
             int startIndex = 1,
             bool showOdds = false,
             bool isAllowedCustomerComm = false,
-            bool isMobileView = false);
+            bool isMobileView = false,
+            bool isShowIpvn = false,
+            bool isShowIp = false);
+#pragma warning restore S107 // Methods should not have too many parameters
 
         string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm);
     }

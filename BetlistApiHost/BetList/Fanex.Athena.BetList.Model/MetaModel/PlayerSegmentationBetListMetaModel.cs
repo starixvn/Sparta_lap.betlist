@@ -22,5 +22,9 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public int PageSize { get; set; }
 
         public string BaseCurrency { get; set; } = string.Empty;
+
+        public bool IsShowIpvn { get; set; }
+
+        public bool IsShowIp { get; set; }
     }
 }

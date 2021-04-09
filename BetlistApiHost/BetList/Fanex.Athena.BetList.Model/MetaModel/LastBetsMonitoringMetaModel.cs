@@ -54,5 +54,9 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public string AgentListXml { get; set; }
 
+        public bool IsShowIpvn { get; set; }
+
+        public bool IsShowIp { get; set; }
+
     }
 }

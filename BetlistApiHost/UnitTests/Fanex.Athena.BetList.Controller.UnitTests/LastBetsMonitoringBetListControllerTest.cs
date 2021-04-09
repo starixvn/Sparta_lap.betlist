@@ -17,12 +17,16 @@
 
         private ITicketHelper _ticketHelper;
 
+        private IIPService _ipService;
+
         [OneTimeSetUp]
         public void FixtureSetUp()
         {
             _lastBetsMonitoringBetListService = Substitute.For<ILastBetsMonitoringBetListService>();
 
             _ticketHelper = Substitute.For<ITicketHelper>();
+
+            _ipService = Substitute.For<IIPService>();
         }
 
         [Test]
@@ -134,7 +138,8 @@
         {
             return new LastBetMonitoringBetListController(
                  _lastBetsMonitoringBetListService,
-                 _ticketHelper);
+                 _ticketHelper,
+                 _ipService);
         }
     }
 }

@@ -8,5 +8,9 @@
 
         public int CustId { get; set; }
 
+        public bool IsShowIpvn { get; set; }
+
+        public bool IsShowIp { get; set; }
+
     }
 }

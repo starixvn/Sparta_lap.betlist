@@ -70,6 +70,9 @@
       <HintPath>..\..\..\packages\Fanex.BetList.Voidbridge.1.2.0\lib\net40\Fanex.BetList.Voidbridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.Caching, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Caching.2.2.2\lib\net461\Fanex.Caching.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Data, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Data.4.2.0\lib\net461\Fanex.Data.dll</HintPath>
     </Reference>
@@ -107,6 +110,9 @@
       <HintPath>..\..\..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
@@ -122,14 +128,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BetListByProductService.cs" />
+    <Compile Include="Constants\SessionKey.cs" />
     <Compile Include="ExchangeBetListService.cs" />
     <Compile Include="Extensions\TicketHelperExtension.cs" />
     <Compile Include="Helpers\BetListHelper.cs" />
     <Compile Include="Interfaces\IBetListByProductService.cs" />
     <Compile Include="Interfaces\IExchangeBetListService.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListService.cs" />
+    <Compile Include="Interfaces\IIPService.cs" />
     <Compile Include="Interfaces\ISystemParlayDetailService.cs" />
     <Compile Include="Interfaces\ITicketBuilderService.cs" />
+    <Compile Include="IPService.cs" />
     <Compile Include="LastBetsMonitoringBetListService.cs" />
     <Compile Include="BetListService.cs" />
     <Compile Include="Interfaces\IBetListService.cs" />
@@ -180,6 +189,7 @@
     <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

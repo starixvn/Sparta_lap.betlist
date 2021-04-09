@@ -32,12 +32,14 @@ namespace Fanex.Athena.BetList.Controller
 
         private readonly ITicketBuilderService _ticketBuilderService;
 
-        public BetListController(ICacheRefAdapter cacheRefAdapter, IBetListService betListService, ITicketBuilderService ticketBuilderService)
+        private readonly IIPService _ipService;
+
+        public BetListController(ICacheRefAdapter cacheRefAdapter, IBetListService betListService, ITicketBuilderService ticketBuilderService, IIPService ipService)
         {
             _cacheRefAdapter = cacheRefAdapter;
             _betListService = betListService;
             _ticketBuilderService = ticketBuilderService;
-
+            _ipService = ipService;
         }
 
         [HttpGet]
@@ -143,7 +145,7 @@ namespace Fanex.Athena.BetList.Controller
 
         protected internal virtual ExcelResult Export(BetListExcelMetaModel metaModel, TicketResult ticketResult)
         {
-            var excel = new BetListExcel(metaModel.ShowingOption, metaModel.LicenseeId, metaModel.HiddenColumns, metaModel.IsShowSumStake);
+            var excel = new BetListExcel(metaModel.ShowingOption, metaModel.LicenseeId, metaModel.HiddenColumns, metaModel.IsShowSumStake, metaModel.IsShowIpvn, metaModel.IsShowIp, _ipService);
 
             var workbook = excel.Export(ticketResult, metaModel.Title, metaModel.StartIndex);
 

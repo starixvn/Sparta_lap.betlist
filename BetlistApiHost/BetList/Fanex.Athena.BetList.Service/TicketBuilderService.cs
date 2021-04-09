@@ -15,14 +15,17 @@ namespace Fanex.Athena.BetList.Service
     {
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
         private readonly ITicketHelper _ticketHelper;
+        private readonly IIPService _ipService;
 
         [CLSCompliant(false)]
         public TicketBuilderService(
             IBetListHTMLBuilder betlistHtmlBuilder,
-            ITicketHelper ticketHelper)
+            ITicketHelper ticketHelper,
+            IIPService ipService)
         {
             _betlistHtmlBuilder = betlistHtmlBuilder;
             _ticketHelper = ticketHelper;
+            _ipService = ipService;
         }
 
         public IList<TicketText> BuildTicketText(TicketResult ticketResult, ICommonValueMetaModel metaModel, bool isAllowedCustomerComm)
@@ -40,6 +43,13 @@ namespace Fanex.Athena.BetList.Service
                         ticket.CustId);
                 }
 
+                _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
+
+                if (metaModel.IsShowIp)
+                {
+                    _ticketHelper.IsVnIp = _ipService.IsVNIP;
+                }
+
                 var ticketText = new TicketText
                 {
                     Index = startIndex++,
@@ -53,7 +63,7 @@ namespace Fanex.Athena.BetList.Service
                     Stake = _betlistHtmlBuilder.BuildStake(ticket, _ticketHelper),
                     LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
-                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, new BetListMetaModel()),
+                    Status = _betlistHtmlBuilder.BuildStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel.IsShowIpvn),
                     Platform = PlatformType.GetPlatformName(ticket.BetFrom),
                     Live = _betlistHtmlBuilder.BuildLiveStatus(ticket),
                     LicenseeTxId = _betlistHtmlBuilder.BuildLicenseeTxId(ticket)
@@ -70,18 +80,30 @@ namespace Fanex.Athena.BetList.Service
             return ticketTextList;
         }
 
+#pragma warning disable S1541 // Methods and properties should not be too complex
         public List<TicketText> BuildTicketText(
+#pragma warning restore S1541 // Methods and properties should not be too complex
             TicketResult ticketResult,
             BetListMetaModel metaModel = null,
             int startIndex = 1,
             bool showOdds = false,
             bool isAllowedCustomerComm = false,
-            bool isMobileView = false)
+            bool isMobileView = false,
+            bool isShowIpvn = false,
+            bool isShowIp = false)
         {
             var baseCurrency = metaModel == null ? string.Empty : metaModel.BaseCurrency;
             var ticketTextList = new List<TicketText>();
 
             _ticketHelper.IsShowOddsWithChoice = showOdds;
+
+            _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
+
+            // If show ip check ipvn
+            if ((metaModel != null) && metaModel.IsShowIp || isShowIp)
+            {
+                _ticketHelper.IsVnIp = _ipService.IsVNIP;
+            }
 
             foreach (var ticket in ticketResult.MainTicketList)
             {
@@ -101,7 +123,7 @@ namespace Fanex.Athena.BetList.Service
                     ExternalId = ticket.ExternalId,
                     SystemId = ticket.UserName,
                     TransTime = BuildTransTimeText(ticket, isMobileView),
-                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel),
+                    Status = _betlistHtmlBuilder.BuildStatus(ticket, _ticketHelper, ticketResult.TicketDataList, (metaModel != null) && metaModel.IsShowIpvn || isShowIpvn),
                     Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     Odds = odds,
                     OddsType = oddsTypeName,

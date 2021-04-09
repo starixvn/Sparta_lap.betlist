@@ -6,6 +6,7 @@
     using Excel;
     using Excel.Model;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.BetList.Service.Interfaces;
     using Model.DTO;
     using NPOI.SS.UserModel;
     using NSubstitute;
@@ -22,15 +23,18 @@
 
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
+        private IIPService _ipService;
+
         [SetUp]
         public void SetUp()
         {
             _appSettings = Substitute.For<IAppSettings>();
             _tempFileService = Substitute.For<ITempFileService>();
             _bettingTicketCenterExcel = Substitute.For<IBettingTicketCenterExcel>();
+            _ipService = Substitute.For<IIPService>();
 
             _zipBuilder = Substitute.ForPartsOf<BettingTicketCenterZipBuilder>(_appSettings,
-                _tempFileService, _bettingTicketCenterExcel);
+                _tempFileService, _bettingTicketCenterExcel, _ipService);
             _zipBuilder.When(x => x.SaveFile(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
         }
 
