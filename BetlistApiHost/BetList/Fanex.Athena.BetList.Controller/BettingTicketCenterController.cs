@@ -40,7 +40,8 @@
                 ShowSystemId = true,
                 IsAllowedCustomerComm = metaModel.HasPlayerCom,
                 ShowTxId = metaModel.IsAllowTxIDColumn,
-                IsShowIpvn = metaModel.IsShowIpvn
+                IsShowIpvn = metaModel.IsShowIpvn,
+                IsShowIp = metaModel.IsShowIp
             };
 
             if (metaModel.IsExport)
@@ -66,7 +67,8 @@
                 ShowSystemId = true,
                 IsAllowedCustomerComm = metaModel.HasPlayerCom,
                 ShowTxId = metaModel.IsAllowTxIDColumn,
-                IsShowIpvn = metaModel.IsShowIpvn
+                IsShowIpvn = metaModel.IsShowIpvn,
+                IsShowIp = metaModel.IsShowIp
             };
 
             if (metaModel.IsExport)
@@ -90,7 +92,8 @@
                 ShowExternalId = true,
                 ShowSystemId = true,
                 ShowTxId = metaModel.IsAllowTxIDColumn,
-                IsShowIpvn = metaModel.IsShowIpvn
+                IsShowIpvn = metaModel.IsShowIpvn,
+                IsShowIp = metaModel.IsShowIp
             };
 
             if (metaModel.IsExport)
@@ -116,7 +119,8 @@
                 ShowSystemId = true,
                 IsAllowedCustomerComm = metaModel.HasPlayerCom,
                 ShowTxId = true,
-                IsShowIpvn = metaModel.IsShowIpvn
+                IsShowIpvn = metaModel.IsShowIpvn,
+                IsShowIp = metaModel.IsShowIp
             };
 
             if (metaModel.IsExport)

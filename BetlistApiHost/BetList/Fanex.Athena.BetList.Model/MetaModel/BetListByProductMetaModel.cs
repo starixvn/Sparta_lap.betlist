@@ -20,6 +20,8 @@
 
         public bool IsShowIpvn { get; set; }
 
+        public bool IsShowIp { get; set; }
+
         public int TransType { get; set; }
 
         public string AgentListXml { get; set; }

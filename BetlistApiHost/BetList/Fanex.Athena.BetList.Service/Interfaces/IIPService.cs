@@ -8,6 +8,9 @@ namespace Fanex.Athena.BetList.Service.Interfaces
     public interface IIPService
     {
         IList<IPRangeEntity> GetIPVN();
+
         bool IsVNIP(string ipAddress);
+
+        bool IsAlwaysIpvn(string ipAddress);
     }
 }

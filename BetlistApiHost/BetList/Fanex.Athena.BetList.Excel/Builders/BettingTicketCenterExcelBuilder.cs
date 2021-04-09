@@ -231,7 +231,11 @@ namespace Fanex.Athena.BetList.Excel.Builders
                 _builder.AddLicenseeWL(ticket, licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont);
             }
 
-            _ticketHelper.IsVnIp = _ipService.IsVNIP;
+            _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
+            if (option.IsShowIp)
+            {
+                _ticketHelper.IsVnIp = _ipService.IsVNIP;
+            }
             _builder.AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, option.IsShowIpvn);
             AddPlatfromCell(ticket);
             AddLiveCell(ticket);

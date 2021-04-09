@@ -19,5 +19,7 @@
         public bool ShowTxId { get; set; }
 
         public bool IsShowIpvn { get; set; }
+
+        public bool IsShowIp { get; set; }
     }
 }

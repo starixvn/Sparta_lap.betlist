@@ -7,5 +7,6 @@
         int PageSize { get; set; }
         int CustId { get; set; }
         bool IsShowIpvn { get; set; }
+        bool IsShowIp { get; set; }
     }
 }

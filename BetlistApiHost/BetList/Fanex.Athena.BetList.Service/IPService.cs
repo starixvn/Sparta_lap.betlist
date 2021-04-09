@@ -42,6 +42,11 @@ namespace Fanex.Athena.BetList.Service
             return ipsFromDB;
         }
 
+        public bool IsAlwaysIpvn(string ipAddress)
+        {
+            return true;
+        }
+
         public bool IsVNIP(string ipAddress)
         {
             if (string.IsNullOrEmpty(ipAddress))

@@ -119,7 +119,8 @@
             ShowSystemId = true,
             IsAllowedCustomerComm = metaModel.HasPlayerCom,
             ShowTxId = metaModel.IsAllowTxIDColumn,
-            IsShowIpvn = metaModel.IsShowIpvn
+            IsShowIpvn = metaModel.IsShowIpvn,
+            IsShowIp = metaModel.IsShowIp
         };
     }
 }

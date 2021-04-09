@@ -48,8 +48,8 @@ namespace Fanex.Athena.BetList.Controller
                     IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
             }
 
-            viewModel.OriginalTicketText = BuildOriginalTicketText(viewModel.OriginalTicket, metaModel.HasPlayerComm, metaModel.IsMobileView, metaModel.IsShowIpvn);
-            viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.TransId, metaModel.IsShowIpvn);
+            viewModel.OriginalTicketText = BuildOriginalTicketText(viewModel.OriginalTicket, metaModel.HasPlayerComm, metaModel.IsMobileView, metaModel.IsShowIpvn, metaModel.IsShowIp);
+            viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.TransId, metaModel.IsShowIpvn, metaModel.IsShowIp);
 
             viewModel.IsCashOut = metaModel.IsCashOut;
             return Json(viewModel);
@@ -61,7 +61,7 @@ namespace Fanex.Athena.BetList.Controller
             return betdaqid == 1 && !cashOutBetTypes.Contains(bettype);
         }
 
-        private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList, long transId, bool isShowIpvn = false)
+        private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList, long transId, bool isShowIpvn = false, bool isShowIp = false)
         {
             if (dataList == null || !dataList.Any())
             {
@@ -70,7 +70,15 @@ namespace Fanex.Athena.BetList.Controller
 
             var ticketTextList = new List<CashOutTicketText>();
             _ticketHelper.HideStatusCashOutHistory = true;
-            _ticketHelper.IsVnIp = _ipService.IsVNIP;
+
+            _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
+
+            // If show ip check ipvn
+            if (isShowIp)
+            {
+                _ticketHelper.IsVnIp = _ipService.IsVNIP;
+            }
+
 
             foreach (var ticket in dataList)
             {
@@ -97,7 +105,7 @@ namespace Fanex.Athena.BetList.Controller
             return ticketTextList;
         }
 
-        private TicketText BuildOriginalTicketText(LrfTicket ticket, bool hasPlayerComm, bool isMobileView = false, bool isShowIpvn = false)
+        private TicketText BuildOriginalTicketText(LrfTicket ticket, bool hasPlayerComm, bool isMobileView = false, bool isShowIpvn = false, bool isShowIp = false)
         {
             if (ticket == null)
             {
@@ -105,7 +113,14 @@ namespace Fanex.Athena.BetList.Controller
             }
 
             _ticketHelper.HideStatusCashOutHistory = true;
-            _ticketHelper.IsVnIp = _ipService.IsVNIP;
+
+            _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
+
+            // If show ip check ipvn
+            if (isShowIp)
+            {
+                _ticketHelper.IsVnIp = _ipService.IsVNIP;
+            }
 
             var statusHtml = _betListHTMLBuilder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, _ticketHelper, null, isShowIpvn);
             statusHtml.StatusResult = null;

@@ -10,5 +10,7 @@
 
         public bool IsShowIpvn { get; set; }
 
+        public bool IsShowIp { get; set; }
+
     }
 }

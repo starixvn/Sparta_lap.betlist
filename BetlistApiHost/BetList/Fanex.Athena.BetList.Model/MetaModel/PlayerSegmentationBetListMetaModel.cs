@@ -24,5 +24,7 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public string BaseCurrency { get; set; } = string.Empty;
 
         public bool IsShowIpvn { get; set; }
+
+        public bool IsShowIp { get; set; }
     }
 }

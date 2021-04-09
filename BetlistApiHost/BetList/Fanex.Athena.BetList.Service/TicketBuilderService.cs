@@ -43,7 +43,12 @@ namespace Fanex.Athena.BetList.Service
                         ticket.CustId);
                 }
 
-                _ticketHelper.IsVnIp = _ipService.IsVNIP;
+                _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
+
+                if (metaModel.IsShowIp)
+                {
+                    _ticketHelper.IsVnIp = _ipService.IsVNIP;
+                }
 
                 var ticketText = new TicketText
                 {
@@ -75,20 +80,30 @@ namespace Fanex.Athena.BetList.Service
             return ticketTextList;
         }
 
+#pragma warning disable S1541 // Methods and properties should not be too complex
         public List<TicketText> BuildTicketText(
+#pragma warning restore S1541 // Methods and properties should not be too complex
             TicketResult ticketResult,
             BetListMetaModel metaModel = null,
             int startIndex = 1,
             bool showOdds = false,
             bool isAllowedCustomerComm = false,
             bool isMobileView = false,
-            bool isShowIpvn = false)
+            bool isShowIpvn = false,
+            bool isShowIp = false)
         {
             var baseCurrency = metaModel == null ? string.Empty : metaModel.BaseCurrency;
             var ticketTextList = new List<TicketText>();
 
             _ticketHelper.IsShowOddsWithChoice = showOdds;
-            _ticketHelper.IsVnIp = _ipService.IsVNIP;
+
+            _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
+
+            // If show ip check ipvn
+            if ((metaModel != null) && metaModel.IsShowIp || isShowIp)
+            {
+                _ticketHelper.IsVnIp = _ipService.IsVNIP;
+            }
 
             foreach (var ticket in ticketResult.MainTicketList)
             {

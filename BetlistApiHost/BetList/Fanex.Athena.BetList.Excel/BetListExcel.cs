@@ -51,6 +51,8 @@ namespace Fanex.Athena.BetList.Excel
 
         private readonly bool _isShowIpvn;
 
+        private readonly bool _isShowIp;
+
         private readonly BetListShowingOption _showingOption;
 
         private ICellStyle _evenCellStyleLeftAligned;
@@ -62,7 +64,8 @@ namespace Fanex.Athena.BetList.Excel
 
         private IFont _winLossFont;
 
-        public BetListExcel(BetListShowingOption showingOption, int licenseeId, IEnumerable<int> hiddenColumnIndexes, bool isShowSumStake = false, bool isShowIpvn = false, IIPService ipService = null)
+        public BetListExcel(BetListShowingOption showingOption, int licenseeId, IEnumerable<int> hiddenColumnIndexes, bool isShowSumStake = false,
+            bool isShowIpvn = false, bool isShowIp = false, IIPService ipService = null)
         {
             _appSettings = new AppSettings();
             _licenseeId = licenseeId;
@@ -71,6 +74,7 @@ namespace Fanex.Athena.BetList.Excel
             _showingOption = showingOption;
             _hiddenColumnIndexes = hiddenColumnIndexes;
             _isShowIpvn = isShowIpvn;
+            _isShowIp = isShowIp;
             _ipService = ipService;
         }
 
@@ -165,7 +169,13 @@ namespace Fanex.Athena.BetList.Excel
             }
 
             _ticketHelper.Index = startIndex;
-            _ticketHelper.IsVnIp = _ipService.IsVNIP;
+            _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
+
+            if (_isShowIp)
+            {
+                _ticketHelper.IsVnIp = _ipService.IsVNIP;
+            }
+
             var numOfSheets = (int)Math.Ceiling((double)ticketResult.MainTicketList.Count / SystemConstants.SheetSizeExcel);
             for (int sheetIndex = 0; sheetIndex < numOfSheets; sheetIndex++)
             {

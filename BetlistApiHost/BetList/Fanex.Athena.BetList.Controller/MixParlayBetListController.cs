@@ -93,19 +93,26 @@ namespace Fanex.Athena.BetList.Controller
 
             var result = new
             {
-                Data = BuildParlayDetailTickets(ticketResult: ticketResult, showOdds: true, isShowIpvn: metaModel.IsShowIpvn),
+                Data = BuildParlayDetailTickets(ticketResult: ticketResult, showOdds: true, isShowIpvn: metaModel.IsShowIpvn, isShowIp: metaModel.IsShowIp),
                 Texts = texts
             };
             BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 
-        protected internal virtual IList<string> BuildParlayDetailTickets(TicketResult ticketResult, bool showOdds = false, bool isShowIpvn = false)
+        protected internal virtual IList<string> BuildParlayDetailTickets(TicketResult ticketResult, bool showOdds = false, bool isShowIpvn = false, bool isShowIp = false)
         {
             var ticketTextList = new List<string>();
 
             _ticketHelper.IsShowOddsWithChoice = showOdds;
-            _ticketHelper.IsVnIp = _ipService.IsVNIP;
+
+            _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
+
+            // If show ip check ipvn
+            if (isShowIp)
+            {
+                _ticketHelper.IsVnIp = _ipService.IsVNIP;
+            }
 
             foreach (var ticket in ticketResult.MainTicketList)
             {
