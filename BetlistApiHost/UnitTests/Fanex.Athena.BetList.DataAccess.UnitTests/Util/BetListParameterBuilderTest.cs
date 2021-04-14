@@ -588,6 +588,48 @@
             });
         }
 
+        [Test]
+        public void CreateBetListParameters_CalledByGodOfFortuneWL_ParametersPassedCorrectly()
+        {
+            // Arrange
+            const string UspKey = "Lrf_BetList_GodOfFortuneWL_Mem";
+            _metaModel.UspKey = UspKey;
+
+            // Action
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received(1).SetParameterValue("BaseCurrency", _metaModel.BaseCurrency);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("CustId", _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("DrawFilter", _metaModel.DrawFilter);
+            });
+        }
+
+        [Test]
+        public void CreateBetListParameters_CalledBySabaVirtualSportsWL_ParametersPassedCorrectly()
+        {
+            // Arrange
+            const string UspKey = "Lrf_BetList_SabaVirtualSports_Mem";
+            _metaModel.UspKey = UspKey;
+
+            // Action
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received(1).SetParameterValue("BaseCurrency", _metaModel.BaseCurrency);
+                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
+                _objectDb.Received(1).SetParameterValue("CustId", _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("DrawFilter", _metaModel.DrawFilter);
+                _objectDb.Received(1).SetParameterValue("LeagueId", _metaModel.LeagueId);
+                _objectDb.Received(1).SetParameterValue("SportType", _metaModel.SportType);
+            });
+        }
+
         private static void AssertSummaryParameters(IObjectDb objectDb)
         {
             var summaryParams = new[] { "SumWinLost", "SumLicenseeWL", "SumComm", "SumPlayerComm" };
