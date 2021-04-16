@@ -436,11 +436,11 @@
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == "200.00"));
         }
 
-        [TestCase("a", "China")]
-        [TestCase("z", "China")]
-        [TestCase("g", "Asia")]
-        [TestCase("e", "Euro")]
-        [TestCase("u", "Euro")]
+        [TestCase("a", "DesktopChina")]
+        [TestCase("z", "DesktopChina")]
+        [TestCase("g", "BetfromOthers")]
+        [TestCase("e", "BetfromOthers")]
+        [TestCase("u", "BetfromOthers")]
         [TestCase("t", "DeepLink")]
         [TestCase("m", "Wap")]
         [TestCase("0", "NativeApp")]
@@ -451,8 +451,8 @@
         [TestCase("4", "ESportsDesktop")]
         [TestCase("5", "ESportsMobile")]
         [TestCase("6", "ESportsApp")]
-        [TestCase("_", "Mobile")]
-        [TestCase("@", "MobileLiteVersion")]
+        [TestCase("_", "MobileStandard")]
+        [TestCase("@", "MobileCompact")]
         [TestCase("%", "MobileEuro")]
         public void AssignRowData_AddPlatfromCell_IndexIsOdd_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
         {
@@ -484,13 +484,13 @@
         }
 
         [TestCase("t", "DeepLink")]
-        [TestCase("l", "Mobile")]
+        [TestCase("l", "MobileStandard")]
         [TestCase("r", "Tablet")]
-        [TestCase("x", "NewAsia")]
+        [TestCase("x", "DesktopNewAsia")]
         [TestCase("o", "MobileApp")]
-        [TestCase("c", "MobileLiteVersion")]
-        [TestCase("_", "Mobile")]
-        [TestCase("@", "MobileLiteVersion")]
+        [TestCase("c", "MobileCompact")]
+        [TestCase("_", "MobileStandard")]
+        [TestCase("@", "MobileCompact")]
         [TestCase("%", "MobileEuro")]
         public void AssignRowData_AddPlatfromCell_IndexIsEven_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
         {
