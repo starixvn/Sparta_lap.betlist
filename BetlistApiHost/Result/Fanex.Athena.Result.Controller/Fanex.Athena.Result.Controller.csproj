@@ -117,6 +117,9 @@
       <HintPath>..\..\..\packages\Fanex.Result.Core.Voidbridge.1.0.2.1\lib\net40\Fanex.Result.Core.Voidbridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.Result.Core.WM, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.WM.1.0.0.1\lib\net40\Fanex.Result.Core.WM.dll</HintPath>
+    </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
       <Private>True</Private>
@@ -201,6 +204,7 @@
     <Compile Include="BaseResultController.cs" />
     <Compile Include="ResultIndo4DReportController.cs" />
     <Compile Include="ResultPopup\AllBetResultPopupController.cs" />
+    <Compile Include="ResultPopup\WMResultPopupController.cs" />
     <Compile Include="ResultPopup\SportsLotteryResultPopupController.cs" />
     <Compile Include="ResultPopup\Happy5LinkedGamesResultPopupController.cs" />
     <Compile Include="ResultPopup\SabaClubResultPopupController.cs" />

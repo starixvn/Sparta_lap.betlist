@@ -31,6 +31,7 @@
     using Fanex.Result.Core.SportsLottery;
     using Fanex.Result.Core.Habanero;
     using Fanex.Result.Core.CardClub;
+    using Fanex.Result.Core.WM;
 
     public static class DIConfig
     {
@@ -76,6 +77,7 @@
             builder.RegisterType<LinkedGamesResult>().As<ILinkedGamesResult>();
             builder.RegisterType<SportsLotteryResult>().As<ISportsLotteryResult>();
             builder.RegisterType<HabaneroResult>().As<IHabaneroResult>().WithParameter("sectionName", "HabaneroResultConfigs");
+            builder.RegisterType<WMResultBuilder>().As<IWMResultBuilder>();
         }
 
         private static Assembly[] GetAssemblies()
