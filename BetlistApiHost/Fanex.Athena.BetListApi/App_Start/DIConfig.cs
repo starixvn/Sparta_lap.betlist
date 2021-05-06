@@ -30,6 +30,7 @@
     using Fanex.Result.Core.Voidbridge;
     using Fanex.Result.Core.GDG;
     using Fanex.Result.Core.SportsLottery;
+    using Fanex.Result.Core.Habanero;
 
     public static class DIConfig
     {
@@ -74,6 +75,7 @@
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
             builder.RegisterType<LinkedGamesResult>().As<ILinkedGamesResult>();
             builder.RegisterType<SportsLotteryResult>().As<ISportsLotteryResult>();
+            builder.RegisterType<HabaneroResult>().As<IHabaneroResult>().WithParameter("sectionName", "HabaneroResultConfigs");
         }
 
         private static Assembly[] GetAssemblies()

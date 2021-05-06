@@ -152,6 +152,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ResultPopup\CardClubResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\HabaneroResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SportsLotteryResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\JokerResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\GDGResultPopupControllerTest.cs" />

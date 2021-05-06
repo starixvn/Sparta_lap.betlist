@@ -209,6 +209,7 @@
     <Compile Include="ResultPopup\CardClubResultPopupController.cs" />
     <Compile Include="ResultPopup\JokerResultPopupController.cs" />
     <Compile Include="ResultPopup\GDGResultPopupController.cs" />
+    <Compile Include="ResultPopup\HabaneroResultPopupController.cs" />
     <Compile Include="ResultPopup\SexyGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\SAGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\PGSoftResultPopupController.cs" />
