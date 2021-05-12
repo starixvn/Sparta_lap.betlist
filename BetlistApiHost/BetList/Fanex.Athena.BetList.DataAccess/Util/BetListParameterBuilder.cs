@@ -40,7 +40,8 @@
             { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
             { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
             { "Lrf_BetList_Jackpot_Detail", (db, metalModel) => JackpotWonDetailParameters(db, metalModel) },
-            { "Lrf_BetList_SabaVirtualSports_Mem", (db, metalModel) => CreateSabaVirtualSportseWLBetlistParameters(db, metalModel) }
+            { "Lrf_BetList_SabaVirtualSports_Mem", (db, metalModel) => CreateSabaVirtualSportseWLBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_GodOfFortuneWL_Mem", (db, metalModel) => CreateGodOfFortuneWLBetlistParameters(db, metalModel) }
         };
 
         public static void CreateBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -325,6 +326,18 @@
             db.SetParameterValue(DbColumn.DrawFilter, metaModel.DrawFilter);
             db.SetParameterValue(DbColumn.LeagueId, metaModel.LeagueId);
             db.SetParameterValue(DbColumn.SportType, metaModel.SportType);
+            CreateBetListDateRangeParameters(db, metaModel);
+            CreateBetlistBUParameters(db, metaModel);
+            CreateBetListPagingParameters(db, metaModel);
+            CreateSummaryOutputParameters(db);
+        }
+
+        private static void CreateGodOfFortuneWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
+            db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+            db.SetParameterValue(DbColumn.CustId, metaModel.CustId);
+            db.SetParameterValue(DbColumn.DrawFilter, metaModel.DrawFilter);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
