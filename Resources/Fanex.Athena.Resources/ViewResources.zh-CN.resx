@@ -213,14 +213,14 @@
     <value>注单中心</value>
     <comment>80941</comment>
   </data>
-  <data name="China" xml:space="preserve">
-    <value>中国版</value>
+  <data name="DesktopChina" xml:space="preserve">
+    <value>桌机中国版</value>
   </data>
   <data name="Asia" xml:space="preserve">
     <value>亚洲版</value>
   </data>
-  <data name="NewAsia" xml:space="preserve">
-    <value>新亚洲版</value>
+  <data name="DesktopNewAsia" xml:space="preserve">
+    <value>桌机新亚洲版</value>
   </data>
   <data name="Euro" xml:space="preserve">
     <value>欧洲版</value>
@@ -228,8 +228,8 @@
   <data name="Wap" xml:space="preserve">
     <value>WAP</value>
   </data>
-  <data name="Mobile" xml:space="preserve">
-    <value>手机版</value>
+  <data name="MobileStandard" xml:space="preserve">
+    <value>手机經典版</value>
     <comment>118018</comment>
   </data>
   <data name="Tablet" xml:space="preserve">
@@ -238,8 +238,11 @@
   <data name="MobileApp" xml:space="preserve">
     <value>手机 APP</value>
   </data>
-  <data name="MobileLiteVersion" xml:space="preserve">
+  <data name="MobileCompact" xml:space="preserve">
     <value>手机轻量版</value>
+  </data>
+  <data name="MobileOthers" xml:space="preserve">
+    <value>手机其他</value>
   </data>
   <data name="Currency" xml:space="preserve">
     <value>货币</value>
@@ -260,11 +263,11 @@
     <comment>125845</comment>
   </data>
   <data name="NativeApp" xml:space="preserve">
-    <value>原生App</value>
+    <value>原生 APP</value>
     <comment>125824</comment>
   </data>
   <data name="ESportsApp" xml:space="preserve">
-    <value>电子竞技App</value>
+    <value>电子竞技 APP</value>
   </data>
   <data name="ESportsDesktop" xml:space="preserve">
     <value>电子竞技 桌机</value>
