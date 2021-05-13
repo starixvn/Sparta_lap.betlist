@@ -21,7 +21,6 @@
     using Fanex.Result.Core.Joker;
     using Fanex.Result.Core.LinkedGames;
     using Fanex.Result.Core.PGSoft;
-    using Fanex.Result.Core.PokerGames;
     using Fanex.Result.Core.PP;
     using Fanex.Result.Core.SabaClub;
     using Fanex.Result.Core.SAGaming;
@@ -31,6 +30,7 @@
     using Fanex.Result.Core.GDG;
     using Fanex.Result.Core.SportsLottery;
     using Fanex.Result.Core.Habanero;
+    using Fanex.Result.Core.CardClub;
 
     public static class DIConfig
     {
@@ -61,7 +61,7 @@
             builder.RegisterType<PPResult>().As<IPPResult>();
             builder.RegisterType<VoidbridgeApiImp>().As<VoidbridgeApi>();
             builder.RegisterType<AllbetResultBuilder>().As<IAllbetResultBuilder>();
-            builder.RegisterType<PokerGamesResult>().As<IPokerGamesResult>();
+            builder.RegisterType<CardClubResult>().As<ICardClubResult>();
             builder.RegisterType<PGSoftResult>().As<IPGSoftResult>();
             builder.RegisterType<SabaClubResult>().As<ISabaClubResult>();
             builder.RegisterType<RemotingRefService>().As<IRemotingRefService>().SingleInstance();
