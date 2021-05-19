@@ -109,6 +109,9 @@
       <HintPath>..\..\..\packages\Fanex.Result.Core.Voidbridge.1.0.2.1\lib\net40\Fanex.Result.Core.Voidbridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.Result.Core.WM, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.WM.1.0.0.1\lib\net40\Fanex.Result.Core.WM.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -152,6 +155,7 @@
   <ItemGroup>
     <Compile Include="ResultPopup\CardClubResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\HabaneroResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\WMResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SportsLotteryResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\JokerResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\GDGResultPopupControllerTest.cs" />
