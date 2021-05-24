@@ -451,7 +451,7 @@
         [TestCase("4", "ESportsDesktop")]
         [TestCase("5", "ESportsMobile")]
         [TestCase("6", "ESportsApp")]
-        [TestCase("_", "MobileStandard")]
+        [TestCase("_", "MobileOthers")]
         [TestCase("@", "MobileCompact")]
         [TestCase("%", "MobileEuro")]
         public void AssignRowData_AddPlatfromCell_IndexIsOdd_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
@@ -489,7 +489,7 @@
         [TestCase("x", "DesktopNewAsia")]
         [TestCase("o", "MobileApp")]
         [TestCase("c", "MobileCompact")]
-        [TestCase("_", "MobileStandard")]
+        [TestCase("_", "MobileOthers")]
         [TestCase("@", "MobileCompact")]
         [TestCase("%", "MobileEuro")]
         public void AssignRowData_AddPlatfromCell_IndexIsEven_BuildCorrectCellWithOddCellStyle(string betFrom, string platformName)
