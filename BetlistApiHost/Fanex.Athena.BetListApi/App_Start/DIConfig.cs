@@ -33,6 +33,7 @@
     using Fanex.Result.Core.Habanero;
     using Fanex.Result.Core.CardClub;
     using Fanex.Result.Core.WM;
+    using Fanex.Result.Core.VGaming;
 
     public static class DIConfig
     {
@@ -80,6 +81,7 @@
             builder.RegisterType<HabaneroResult>().As<IHabaneroResult>().WithParameter("sectionName", "HabaneroResultConfigs");
             builder.RegisterType<WMResultBuilder>().As<IWMResultBuilder>();
             builder.RegisterType<BigGamingResult>().As<IBigGamingResult>();
+            builder.RegisterType<VGamingResult>().As<IVGamingResult>();
         }
 
         private static Assembly[] GetAssemblies()
