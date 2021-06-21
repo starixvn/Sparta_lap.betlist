@@ -17,6 +17,7 @@
             { "Lrf_BetList_MatchWL_Parlay", (db, metalModel) => CreateMatchWLParlayBetListParameters(db, metalModel) },
             { "Lrf_BetList_MatchWL_Outright", (db, metalModel) => CreateMatchWLOutRightBetListParameters(db, metalModel) },
             { "Lrf_BetList_MatchWL_Bettype", (db, metalModel) => CreateMatchWLBettypeBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL_Old", (db, metalModel) => CreateMatchWLOldBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinLossByDate_Mem", (db, metalModel) => CreateCustomerWlBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinloss_Mem", (db, metalModel) => CreateLicenseeWLBetlistParameters(db, metalModel) },
             { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
@@ -232,6 +233,29 @@
 
             var supportedProducts = new[] { ProductCodes.SB, ProductCodes.NG, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
+        }
+
+        private static void CreateMatchWLOldBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
+            db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+            db.SetParameterValue(DbColumn.Date, metaModel.FromDate);
+            db.SetParameterValue(DbColumn.MatchID, metaModel.MatchId);
+            db.SetParameterValue(DbColumn.BetType, metaModel.BetType);
+            db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveIndicator ?? -1);
+            CreateBetListSortingParameters(db, metaModel);
+            CreateBetListPagingParameters(db, metaModel);
+            CreateSummaryOutputParameters(db);
+
+            var productList = metaModel.ProductCodeList.Split(',').ToList();
+            int indexBA = productList.IndexOf("BA");
+            if (indexBA > -1)
+            {
+                db.SetParameterValue("ShowBA", true);
+                productList.RemoveAt(indexBA);
+            }
+
+            db.SetParameterValue(DbColumn.ProductList, string.Join(",", productList));
         }
 
         private static void CreateLiveReportBetListVHRacingParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
