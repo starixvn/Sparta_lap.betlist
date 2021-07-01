@@ -95,6 +95,8 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public bool ExcludeFreeBet { get; set; }
 
+        public bool IsEnableSingleWallet { get; set; }
+
         public virtual bool IsValid
         {
             get

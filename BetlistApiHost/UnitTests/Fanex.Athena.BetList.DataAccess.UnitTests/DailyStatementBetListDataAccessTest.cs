@@ -40,12 +40,14 @@
                     TransType = "bal",
                     ExpectedTransTypeHasBetList = false,
                     AllowCustComm = true,
+                    IsEnableSingleWallet = false,
                     Commission = 100,
                     ExpectedBalance = 200, // =  TotalAmt
                     ExternalId = (string)null,
                     ExpectedExternalId = "0",
                     SystemId = (string)null,
-                    ExpectedSystemId = "0"
+                    ExpectedSystemId = "0",
+                    ExpectedEmptyResult = false,
                 });
                 yield return new TestCaseData(new
                 {
@@ -56,12 +58,14 @@
                     TransType = "no bal",
                     ExpectedTransTypeHasBetList = false,
                     AllowCustComm = true,
+                    IsEnableSingleWallet = false,
                     Commission = 100,
                     ExpectedBalance = 88.5,
                     ExternalId = (string)null,
                     ExpectedExternalId = "0",
                     SystemId = (string)null,
-                    ExpectedSystemId = "0"
+                    ExpectedSystemId = "0",
+                    ExpectedEmptyResult = false
                 });
                 yield return new TestCaseData(new
                 {
@@ -72,12 +76,14 @@
                     TransType = "no bal",
                     ExpectedTransTypeHasBetList = false,
                     AllowCustComm = false,
+                    IsEnableSingleWallet = false,
                     Commission = 100,
                     ExpectedBalance = 200, // =  ExpectedCreditDebit
                     ExternalId = "2",
                     ExpectedExternalId = "2",
                     SystemId = "3",
-                    ExpectedSystemId = "3"
+                    ExpectedSystemId = "3",
+                    ExpectedEmptyResult = false
                 });
                 yield return new TestCaseData(new
                 {
@@ -88,12 +94,86 @@
                     TransType = "gp",
                     ExpectedTransTypeHasBetList = true,
                     AllowCustComm = false,
+                    IsEnableSingleWallet = false,
                     Commission = 100,
                     ExpectedBalance = 0,
                     ExternalId = "4",
                     ExpectedExternalId = "4",
                     SystemId = "5",
-                    ExpectedSystemId = "5"
+                    ExpectedSystemId = "5",
+                    ExpectedEmptyResult = false
+                });
+                yield return new TestCaseData(new
+                {
+                    TransDesc = "betting statement",
+                    TotalAmt = 200,
+                    ExpectedTransType = "1",
+                    ExpectedCreditDebit = 200, // = TotalAmt
+                    TransType = "ddep",
+                    ExpectedTransTypeHasBetList = false,
+                    AllowCustComm = false,
+                    IsEnableSingleWallet = false,
+                    Commission = 100,
+                    ExpectedBalance = 200,
+                    ExternalId = "4",
+                    ExpectedExternalId = "4",
+                    SystemId = "5",
+                    ExpectedSystemId = "5",
+                    ExpectedEmptyResult = false
+                });
+                yield return new TestCaseData(new
+                {
+                    TransDesc = "betting statement",
+                    TotalAmt = 200,
+                    ExpectedTransType = "1",
+                    ExpectedCreditDebit = 200, // = TotalAmt
+                    TransType = "dwit",
+                    ExpectedTransTypeHasBetList = false,
+                    AllowCustComm = false,
+                    IsEnableSingleWallet = true,
+                    Commission = 100,
+                    ExpectedBalance = 200,
+                    ExternalId = "4",
+                    ExpectedExternalId = "4",
+                    SystemId = "5",
+                    ExpectedSystemId = "5",
+                    ExpectedEmptyResult = true
+                });
+                yield return new TestCaseData(new
+                {
+                    TransDesc = "betting statement",
+                    TotalAmt = 200,
+                    ExpectedTransType = "1",
+                    ExpectedCreditDebit = 200, // = TotalAmt
+                    TransType = "dwit",
+                    ExpectedTransTypeHasBetList = false,
+                    AllowCustComm = false,
+                    IsEnableSingleWallet = false,
+                    Commission = 100,
+                    ExpectedBalance = 200,
+                    ExternalId = "4",
+                    ExpectedExternalId = "4",
+                    SystemId = "5",
+                    ExpectedSystemId = "5",
+                    ExpectedEmptyResult = false
+                });
+                yield return new TestCaseData(new
+                {
+                    TransDesc = "betting statement",
+                    TotalAmt = 200,
+                    ExpectedTransType = "1",
+                    ExpectedCreditDebit = 200, // = TotalAmt
+                    TransType = "dwit",
+                    ExpectedTransTypeHasBetList = false,
+                    AllowCustComm = false,
+                    IsEnableSingleWallet = true,
+                    Commission = 100,
+                    ExpectedBalance = 200,
+                    ExternalId = "4",
+                    ExpectedExternalId = "4",
+                    SystemId = "5",
+                    ExpectedSystemId = "5",
+                    ExpectedEmptyResult = true
                 });
             }
         }
@@ -145,6 +225,8 @@
             _metaModel.ExternalId = testCaseData.ExternalId;
             _metaModel.SystemId = testCaseData.SystemId;
             _metaModel.HasPlayerCom = testCaseData.AllowCustComm;
+            _metaModel.IsEnableSingleWallet = testCaseData.IsEnableSingleWallet;
+
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
@@ -155,29 +237,41 @@
 
             // Action
             var result = await DataAccess.GetDailyStatementData(_metaModel).ConfigureAwait(false);
-            var firstItem = result.ElementAt(0);
+            var firstItem = result.FirstOrDefault();
 
             // Assert
-            Assert.Multiple(() =>
+            if (testCaseData.ExpectedEmptyResult)
             {
-                Assert.That(firstItem.TransType, Is.EqualTo(expected.TransType));
-                Assert.That(firstItem.CustId, Is.EqualTo(expected.CustId));
-                Assert.That(firstItem.ExternalId, Is.EqualTo(expected.ExternalId));
-                Assert.That(firstItem.SystemId, Is.EqualTo(expected.SystemId));
-                Assert.That(firstItem.FullStatementDate, Is.EqualTo(expected.FullStatementDate));
-                Assert.That(firstItem.TransTypeHasBetList, Is.EqualTo(expected.TransTypeHasBetList));
-                Assert.That(firstItem.Index, Is.EqualTo(expected.Index));
-                Assert.That(firstItem.Date, Is.EqualTo(expected.Date));
-                Assert.That(firstItem.Remark, Is.EqualTo(expected.Remark));
-                Assert.That(firstItem.Turnover, Is.EqualTo(expected.Turnover));
-                Assert.That(firstItem.CreditDebit, Is.EqualTo(expected.CreditDebit));
-                Assert.That(firstItem.Commission, Is.EqualTo(expected.Commission));
-                Assert.That(firstItem.Balance, Is.EqualTo(expected.Balance));
-            });
+                Assert.IsNull(firstItem);
+            }
+            else
+            {
+                Assert.Multiple(() =>
+                {
+                    Assert.That(firstItem.TransType, Is.EqualTo(expected.TransType));
+                    Assert.That(firstItem.CustId, Is.EqualTo(expected.CustId));
+                    Assert.That(firstItem.ExternalId, Is.EqualTo(expected.ExternalId));
+                    Assert.That(firstItem.SystemId, Is.EqualTo(expected.SystemId));
+                    Assert.That(firstItem.FullStatementDate, Is.EqualTo(expected.FullStatementDate));
+                    Assert.That(firstItem.TransTypeHasBetList, Is.EqualTo(expected.TransTypeHasBetList));
+                    Assert.That(firstItem.Index, Is.EqualTo(expected.Index));
+                    Assert.That(firstItem.Date, Is.EqualTo(expected.Date));
+                    Assert.That(firstItem.Remark, Is.EqualTo(expected.Remark));
+                    Assert.That(firstItem.Turnover, Is.EqualTo(expected.Turnover));
+                    Assert.That(firstItem.CreditDebit, Is.EqualTo(expected.CreditDebit));
+                    Assert.That(firstItem.Commission, Is.EqualTo(expected.Commission));
+                    Assert.That(firstItem.Balance, Is.EqualTo(expected.Balance));
+                });
+            }
         }
 
         private static DailyStatement GetDailyStatementData(BetListMetaModel metaModel, dynamic testCaseData)
         {
+            if(testCaseData.ExpectedEmptyResult)
+            {
+                return null;
+            }
+
             return new DailyStatement
             {
                 TransType = testCaseData.ExpectedTransType,
@@ -192,7 +286,7 @@
                 Turnover = "<span class='bl-underdog'>11.50</span>",
                 CreditDebit = $"<span class='bl-underdog'>{testCaseData.ExpectedCreditDebit:#,##0.00}</span>",
                 Commission = $"<span class='bl-underdog'>{testCaseData.Commission:#,##0.00}</span>",
-                Balance = $"<span class='bl-underdog'>{testCaseData.ExpectedBalance:#,##0.00}</span>",
+                Balance = $"<span class='bl-underdog'>{testCaseData.ExpectedBalance:#,##0.00}</span>"
             };
         }
 
