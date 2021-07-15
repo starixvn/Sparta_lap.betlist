@@ -17,6 +17,7 @@
     public class DailyStatementBetListDataAccess : BaseBetListDataAccess, IDailyStatementBetListDataAccess
     {
         private static readonly string[] TransTypeHasBetList = { "get", "com", "post", "bet", "gp" };
+        private static readonly string[] TransTypeTransfer = { "ddep", "dwit" };
 
         private static readonly Dictionary<string, int> TransTypeIdMap = new Dictionary<string, int>
             {
@@ -54,6 +55,8 @@
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Critical Code Smell", "S1541:Methods and properties should not be too complex", Justification = "Allowed")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Critical Code Smell", "S3776:Cognitive Complexity of methods should not be too high", Justification = "Allowed")]
         private static IEnumerable<DailyStatement> ReadData(BetListMetaModel metaModel, IDataReader reader)
         {
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
@@ -64,8 +67,13 @@
             var result = new List<DailyStatement>();
             while (reader.Read())
             {
-                var winlostDate = reader.ToDateTime("winlostdate");
                 var transType = reader.ToString("transtype").ToLower(currentCulture);
+                if (metaModel.IsEnableSingleWallet && TransTypeTransfer.Contains(transType, StringComparer.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                var winlostDate = reader.ToDateTime("winlostdate");
                 var transDesc = reader.ToString("transdesc");
                 var isOutstandingBet = transDesc.ToLower(currentCulture) == "outstanding bet";
                 var transTypeId = TransTypeIdMap.GetValueOrDefault(transDesc.ToLower(currentCulture), 0);
