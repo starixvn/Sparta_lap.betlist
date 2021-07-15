@@ -213,6 +213,7 @@
     <Compile Include="BaseResultController.cs" />
     <Compile Include="ResultIndo4DReportController.cs" />
     <Compile Include="ResultPopup\AllBetResultPopupController.cs" />
+    <Compile Include="ResultPopup\CGResultPopupController.cs" />
     <Compile Include="ResultPopup\VGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\WMResultPopupController.cs" />
     <Compile Include="ResultPopup\SportsLotteryResultPopupController.cs" />
