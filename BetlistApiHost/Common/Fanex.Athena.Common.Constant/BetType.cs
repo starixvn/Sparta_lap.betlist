@@ -259,6 +259,8 @@
 
         PPContribution = 4297,
 
-        SBCContribution = 1698
+        SBCContribution = 1698,
+
+        VGAContribution = 3898
     }
 }
