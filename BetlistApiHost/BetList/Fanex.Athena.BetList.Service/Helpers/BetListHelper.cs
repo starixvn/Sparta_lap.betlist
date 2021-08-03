@@ -59,7 +59,7 @@
 
         public static bool IsContribution(int bettype)
         {
-            return bettype == (int)BetType.PPContribution || bettype == (int)BetType.SBCContribution;
+            return bettype == (int)BetType.PPContribution || bettype == (int)BetType.SBCContribution || bettype == (int)BetType.VGAContribution;
         }
 
         public static bool IsRunning(string status)
