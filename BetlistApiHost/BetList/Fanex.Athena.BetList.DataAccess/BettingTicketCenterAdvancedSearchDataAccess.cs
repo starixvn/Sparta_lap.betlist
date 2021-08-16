@@ -10,6 +10,7 @@
     using Common.Utility.Services.Interfaces;
     using Data;
     using Fanex.Athena.Common.Constant;
+    using Fanex.Athena.Common.Utility.Helpers;
     using Fanex.Common;
     using Interfaces;
     using Newtonsoft.Json;
@@ -119,7 +120,7 @@
                 db.SetParameterValue(DbColumn.LeagueId, metaModel.LeagueId);
                 db.SetParameterValue(DbColumn.MatchId, metaModel.MatchId);
                 db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
-                db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+                db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
                 db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
                 db.SetParameterValue(DbColumn.Product, metaModel.ProductCodeList);
 
@@ -174,7 +175,7 @@
             db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
             db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
-            db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+            db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
             db.SetParameterValue(DbColumn.PageSize, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
             db.SetParameterValue(DbColumn.PageIndex, metaModel.IsExport ? 1 : metaModel.PageIndex);
             db.SetParameterValue(DbColumn.Product, metaModel.ProductCodeList);

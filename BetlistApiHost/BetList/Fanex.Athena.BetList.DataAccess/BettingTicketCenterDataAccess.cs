@@ -7,6 +7,7 @@
     using Common.Constant;
     using Common.DataAccess.Interfaces;
     using Data;
+    using Fanex.Athena.Common.Utility.Helpers;
     using Fanex.Common;
     using Interfaces;
 
@@ -59,7 +60,7 @@
             {
                 var balanceUp = _balanceUpDataAccess.GetBalanceUp();
                 db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
-                db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+                db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
                 db.SetParameterValue(DbColumn.RefNo, metaModel.RefNo);
                 db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
                 db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
@@ -88,7 +89,7 @@
                 var productList = string.Join(",", productCodes.Except(new[] { ProductCodes.BA }));
 
                 db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
-                db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+                db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
                 db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
                 db.SetParameterValue(DbColumn.ProductList, productList);
                 db.SetParameterValue(DbColumn.ShowBA, productCodes.Contains(ProductCodes.BA));
@@ -125,7 +126,7 @@
                 var balanceUp = _balanceUpDataAccess.GetBalanceUp();
                 db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
                 db.SetParameterValue(DbColumn.TxId, metaModel.TxID);
-                db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+                db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
                 db.SetParameterValue(DbColumn.CustId, metaModel.CustId);
                 db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
                 db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
@@ -159,7 +160,7 @@
             db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
             db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
             db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
-            db.SetParameterValue(DbColumn.UserName, metaModel.UserName);
+            db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
             db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
             db.SetParameterValue(DbColumn.Platform, metaModel.Platform);
