@@ -137,6 +137,7 @@
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Attributes\JsonNetModelBinderAttribute.cs" />
     <Compile Include="Helpers\LogMessageHelper.cs" />
+    <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Serializer\ISerializer.cs" />
     <Compile Include="Serializer\JsonSerializer.cs" />
     <Compile Include="Services\CacheRefAdapter.cs" />
