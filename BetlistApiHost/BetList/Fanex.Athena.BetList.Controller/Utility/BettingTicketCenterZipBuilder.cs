@@ -104,7 +104,9 @@ namespace Fanex.Athena.BetList.Controller.Utility
                     ShowExternalId = true,
                     ShowSystemId = true,
                     IsAllowedCustomerComm = metaModel.HasPlayerCom,
-                    ShowTxId = metaModel.IsAllowTxIDColumn
+                    ShowTxId = metaModel.IsAllowTxIDColumn,
+                    IsShowIpvn = metaModel.IsShowIpvn,
+                    IsShowIp = metaModel.IsShowIp
                 },
                 Title = title,
                 TotalText = totalText
