@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using Common.Model.DTO;
     using Fanex.Result.Core.Base;
@@ -31,7 +32,7 @@
 
         Task<IList<Sport>> GetSportsAsync(DateTime dateValue, int licenseeId);
 
-        Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, bool isOfferLeagueM88 = false);
+        Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, IEnumerable<int> specialLeagues = null);
 
         #endregion Filter
 

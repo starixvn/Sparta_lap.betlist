@@ -104,7 +104,7 @@ namespace Fanex.Athena.Result.Controller
 
             return metalModel.SportId == 0 ?
                 await GetNormalSports(metalModel).ConfigureAwait(false) :
-                Json(new { Leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, metalModel.SportId, metalModel.IsOfferLeagueM88).ConfigureAwait(false) });
+                Json(new { Leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, metalModel.SportId, metalModel.SpecialLeagues).ConfigureAwait(false) });
         }
 
         #endregion Result-Page
@@ -313,7 +313,7 @@ namespace Fanex.Athena.Result.Controller
 
                 if (limitedSports.Any())
                 {
-                    var leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, limitedSports.First().SportId, metalModel.IsOfferLeagueM88).ConfigureAwait(false);
+                    var leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, limitedSports.First().SportId, metalModel.SpecialLeagues).ConfigureAwait(false);
                     return Json(new { Sports = limitedSports, Leagues = leagues });
                 }
             }

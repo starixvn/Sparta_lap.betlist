@@ -23,7 +23,7 @@ namespace Fanex.Athena.Result.DataAccess
 
         Task<IList<Sport>> GetSportsAsync(DateTime dateValue, int licenseeId);
 
-        Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, bool isOfferLeagueM88 = false);
+        Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, IEnumerable<int> specialLeagues = null);
 
         #endregion Filter
 

@@ -69,7 +69,7 @@ namespace Fanex.Athena.Result.DataAccess
                     while (reader.Read())
                     {
                         var leagueId = reader.ToInt(LeagueIdColumn);
-                        if (!_appSettings.ExcludeLeagues.Contains(leagueId) || metal.IsOfferLeagueM88)
+                        if (metal.SpecialLeagues == null || !metal.SpecialLeagues.Contains(leagueId))
                         {
                             data.Add(new Outright
                             {
@@ -115,7 +115,7 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
-        public async Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, bool isOfferLeagueM88 = false)
+        public async Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, IEnumerable<int> specialLeagues = null)
         {
             const string UspName = "Lrf_Result_LeagueSelByDate";
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
@@ -136,7 +136,7 @@ namespace Fanex.Athena.Result.DataAccess
                     {
                         var leagueId = Convert.ToInt32(reader[LeagueIdColumn]);
 
-                        if (!_appSettings.ExcludeLeagues.Contains(leagueId) || isOfferLeagueM88)
+                        if (specialLeagues == null || !specialLeagues.Contains(leagueId))
                         {
                             data.Add(new League
                             {
@@ -300,7 +300,7 @@ namespace Fanex.Athena.Result.DataAccess
 
                     if (type == typeof(Sportsbook))
                     {
-                        return (IList<T>)ReadSportbookMatches(reader, isOfferLeagueM88: metalModel.IsOfferLeagueM88);
+                        return (IList<T>)ReadSportbookMatches(reader, specialLeagues: metalModel.SpecialLeagues);
                     }
                     else
                     {
@@ -444,16 +444,15 @@ namespace Fanex.Athena.Result.DataAccess
         /// <param name="bettype">The Bet type ID.</param>
         /// <param name="betid">The Bet ID.</param>
         /// <returns>The sport-book data list.</returns>
-        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, ResultPopupMetaModel metaModel = null, bool isOfferLeagueM88 = false)
+        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, ResultPopupMetaModel metaModel = null, IEnumerable<int> specialLeagues = null)
         {
             var results = new List<Sportsbook>();
-            const int excludeLeague = 92480;
 
             while (reader.Read())
             {
                 var leagueId = reader.ToInt(LeagueIdColumn);
 
-                if (leagueId != excludeLeague || isOfferLeagueM88)
+                if (specialLeagues == null || !specialLeagues.Contains(leagueId))
                 {
                     var result = ReadSportsbook(reader, leagueId: leagueId);
 

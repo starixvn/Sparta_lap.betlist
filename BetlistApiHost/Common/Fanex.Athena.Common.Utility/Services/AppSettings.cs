@@ -27,10 +27,5 @@
         {
             return ConfigurationManager.AppSettings[key];
         }
-
-        public IEnumerable<int> ExcludeLeagues
-        {
-            get { return GetValue("ExcludeLeagues").Split(',').Select(n => Convert.ToInt32(n)); }
-        }
     }
 }
