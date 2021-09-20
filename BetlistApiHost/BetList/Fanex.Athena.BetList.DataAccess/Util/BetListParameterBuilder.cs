@@ -315,6 +315,9 @@
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveIndicator);
             var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
+            db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
+            db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
+            db.SetParameterValue(DbColumn.MoveBetsDay, metaModel.MoveBetsDay);
         }
 
         private static void CreateLiveReportOutRightBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
