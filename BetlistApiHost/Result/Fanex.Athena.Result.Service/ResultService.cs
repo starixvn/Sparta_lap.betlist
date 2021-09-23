@@ -38,9 +38,9 @@
             return await this._dataAccess.GetSportsAsync(dateValue, licenseeId).ConfigureAwait(false);
         }
 
-        public async Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, bool isOfferLeagueM88 = false)
+        public async Task<IList<League>> GetLeaguesAsync(DateTime dateValue, int sportId, IEnumerable<int> specialLeagues = null)
         {
-            return await this._dataAccess.GetLeaguesAsync(dateValue, sportId, isOfferLeagueM88).ConfigureAwait(false);
+            return await this._dataAccess.GetLeaguesAsync(dateValue, sportId, specialLeagues).ConfigureAwait(false);
         }
 
         #region ResultEngine wrapping

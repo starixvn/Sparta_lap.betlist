@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Result.Model.MetaModel
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web.Script.Serialization;
 
@@ -43,7 +44,6 @@ namespace Fanex.Athena.Result.Model.MetaModel
         [ScriptIgnore]
         public int UserId { get; set; }
 
-        [ScriptIgnore]
-        public bool IsOfferLeagueM88 { get; set; }
+        public IEnumerable<int> SpecialLeagues { get; set; }
     }
 }
