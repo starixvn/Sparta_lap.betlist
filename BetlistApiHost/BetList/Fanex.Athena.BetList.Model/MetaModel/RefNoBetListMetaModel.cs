@@ -3,7 +3,7 @@
     public class RefNoBetListMetaModel : BaseBettingTicketMetaModel
     {
         public long RefNo { get; set; }
-
-        public override bool IsValid => RefNo > 0;
+        public string TxId { get; set; }
+        public override bool IsValid => RefNo > 0 || !string.IsNullOrEmpty(TxId);
     }
 }
