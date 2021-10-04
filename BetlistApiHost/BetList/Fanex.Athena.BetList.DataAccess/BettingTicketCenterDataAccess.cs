@@ -62,6 +62,7 @@
                 db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
                 db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
                 db.SetParameterValue(DbColumn.RefNo, metaModel.RefNo);
+                db.SetParameterValue(DbColumn.TxId, metaModel.TxId);
                 db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
                 db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
                 db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
