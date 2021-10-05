@@ -81,6 +81,7 @@ namespace Fanex.Athena.BetList.Service
         }
 
 #pragma warning disable S1541 // Methods and properties should not be too complex
+
         public List<TicketText> BuildTicketText(
 #pragma warning restore S1541 // Methods and properties should not be too complex
             TicketResult ticketResult,
@@ -90,7 +91,7 @@ namespace Fanex.Athena.BetList.Service
             bool isAllowedCustomerComm = false,
             bool isMobileView = false,
             bool isShowIpvn = false,
-            bool isShowIp = false)
+            bool isShowIp = true)
         {
             var baseCurrency = metaModel == null ? string.Empty : metaModel.BaseCurrency;
             var ticketTextList = new List<TicketText>();

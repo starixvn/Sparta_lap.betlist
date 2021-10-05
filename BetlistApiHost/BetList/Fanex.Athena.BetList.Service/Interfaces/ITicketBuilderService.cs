@@ -11,6 +11,7 @@
             bool isAllowedCustomerComm);
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         List<TicketText> BuildTicketText(
             TicketResult ticketResult,
             BetListMetaModel metaModel = null,
@@ -19,7 +20,8 @@
             bool isAllowedCustomerComm = false,
             bool isMobileView = false,
             bool isShowIpvn = false,
-            bool isShowIp = false);
+            bool isShowIp = true);
+
 #pragma warning restore S107 // Methods should not have too many parameters
 
         string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm);
