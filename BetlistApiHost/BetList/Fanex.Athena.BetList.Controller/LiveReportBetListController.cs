@@ -11,6 +11,7 @@ namespace Fanex.Athena.BetList.Controller
     {
         private readonly IBetListService _betListService;
         private readonly ITicketBuilderService _ticketBuilderService;
+
         public LiveReportBetListController(IBetListService betListService, ITicketBuilderService ticketBuilderService)
         {
             _betListService = betListService;
@@ -24,7 +25,7 @@ namespace Fanex.Athena.BetList.Controller
 
             var result = new
             {
-                Main = _ticketBuilderService.BuildTicketText(ticketResult),
+                Main = _ticketBuilderService.BuildTicketText(ticketResult, isShowIpvn: metaModel.IsShowIpvn),
                 Total = new
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
