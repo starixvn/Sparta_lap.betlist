@@ -51,7 +51,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _ticketBuilderService.BuildTicketText(ticketResult).Returns(ticketText.ToList());
+                _ticketBuilderService.BuildTicketText(ticketResult, isShowIpvn: metaModel.IsShowIpvn).Returns(ticketText.ToList());
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
