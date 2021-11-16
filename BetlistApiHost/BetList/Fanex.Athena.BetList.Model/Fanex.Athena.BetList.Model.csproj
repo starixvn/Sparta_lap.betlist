@@ -84,6 +84,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
@@ -137,7 +138,8 @@
     <Compile Include="DTO\ExchangeBetListResult.cs" />
     <Compile Include="DTO\ExchangeTicketDetail.cs" />
     <Compile Include="DTO\GroupTicketResult.cs" />
-    <Compile Include="DTO\IPRangeEntity.cs" />
+    <Compile Include="DTO\IPV6RangeEntity.cs" />
+    <Compile Include="DTO\IPV4RangeEntity.cs" />
     <Compile Include="DTO\LrfTicket.cs" />
     <Compile Include="DTO\BetListMatch.cs" />
     <Compile Include="DTO\ColossusBetDetail.cs" />
