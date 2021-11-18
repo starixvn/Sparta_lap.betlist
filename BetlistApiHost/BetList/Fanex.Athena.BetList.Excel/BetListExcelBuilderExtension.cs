@@ -133,7 +133,7 @@ namespace Fanex.Athena.BetList.Excel
                 "#", ViewResources.ExternalId, ViewResources.SystemId, ViewResources.TransTime, ViewResources.Choice, ViewResources.Odds, ViewResources.Stake,
                 custWLHeader, ViewResources.EffectiveBettingValue, ViewResources.LicenseeWL + "/" + ViewResources.Comm, ViewResources.Status
             };
-            var columWidths = new short[] { 1500, 4800, 5800, 5400, 15500, 3400, 7800, 4200, 5400, 5400, 3400 };
+            var columWidths = new short[] { 1500, 4800, 5800, 5400, 15500, 3400, 7800, 4200, 5400, 5400, 4000 };
 
             for (int i = 0; i < captions.Length; i++)
             {

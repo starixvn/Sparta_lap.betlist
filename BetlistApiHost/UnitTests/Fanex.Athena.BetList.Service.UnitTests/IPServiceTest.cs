@@ -38,7 +38,8 @@ namespace Fanex.Athena.BetList.Service.UnitTests
         public void GetIPVN_WhenCall_ReturnListIPVN()
         {
             // Arrange
-            var expectedResult = new List<IPRangeEntity>() { new IPRangeEntity { IPFrom = 1234, IPTo = 5678 } };
+            var expectedResult = Tuple.Create<IList<IPV4RangeEntity>, IList<IPV6RangeEntity>>(new List<IPV4RangeEntity>() { new IPV4RangeEntity { IPFrom = 1234, IPTo = 5678 } },
+                new List<IPV6RangeEntity>() { new IPV6RangeEntity { IPFrom = "aaaa", IPTo = "ffff" } });
             _ipDataAccess.GetVNIPs().Returns(expectedResult);
 
             // Action
@@ -66,7 +67,7 @@ namespace Fanex.Athena.BetList.Service.UnitTests
         {
             // Arrange
             var ip = "1.1.1.1";
-            List<IPRangeEntity> expectedResult = new List<IPRangeEntity>();
+            var expectedResult = Tuple.Create<IList<IPV4RangeEntity>, IList<IPV6RangeEntity>>(new List<IPV4RangeEntity>(), new List<IPV6RangeEntity>());
             _ipDataAccess.GetVNIPs().Returns(expectedResult);
 
             // Action
@@ -81,7 +82,8 @@ namespace Fanex.Athena.BetList.Service.UnitTests
         {
             // Arrange
             var ip = "1.1.1.1";
-            List<IPRangeEntity> expectedResult = new List<IPRangeEntity>() { new IPRangeEntity { IPFrom = 1234, IPTo = 5678 } };
+            var expectedResult = Tuple.Create<IList<IPV4RangeEntity>, IList<IPV6RangeEntity>>(new List<IPV4RangeEntity>() { new IPV4RangeEntity { IPFrom = 1234, IPTo = 5678 } },
+                new List<IPV6RangeEntity>() { new IPV6RangeEntity { IPFrom = "aaaa", IPTo = "ffff" } });
             _ipDataAccess.GetVNIPs().Returns(expectedResult);
 
             // Action
@@ -96,7 +98,7 @@ namespace Fanex.Athena.BetList.Service.UnitTests
         {
             // Arrange
             var ip = "1.1.1.1";
-            List<IPRangeEntity> expectedResult = new List<IPRangeEntity>() { new IPRangeEntity { IPFrom = 1234, IPTo = 16843009 } };
+            var expectedResult = Tuple.Create<IList<IPV4RangeEntity>, IList<IPV6RangeEntity>>(new List<IPV4RangeEntity>() { new IPV4RangeEntity { IPFrom = 1234, IPTo = 16843009 } }, new List<IPV6RangeEntity>() { });
             _ipDataAccess.GetVNIPs().Returns(expectedResult);
 
             // Action

@@ -413,6 +413,7 @@
             db.SetParameterValue(DbColumn.RefNo, metaModel.TransId);
             db.SetParameterValue(DbColumn.CustId, metaModel.CustId);
             db.SetParameterValue(DbColumn.TransType, metaModel.TransType);
+            CreateBetlistBUParameters(db, metaModel);
         }
 
         private static void CreateWinLossByBetTypeParameters(IObjectDb db, BetListMetaModel metaModel)

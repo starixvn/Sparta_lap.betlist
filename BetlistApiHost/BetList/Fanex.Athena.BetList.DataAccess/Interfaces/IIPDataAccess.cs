@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Fanex.Athena.BetList.Model.DTO;
 
 namespace Fanex.Athena.BetList.DataAccess.Interfaces
 {
     public interface IIPDataAccess
     {
-        IList<IPRangeEntity> GetVNIPs();
+        Tuple<IList<IPV4RangeEntity>, IList<IPV6RangeEntity>> GetVNIPs();
     }
 }
