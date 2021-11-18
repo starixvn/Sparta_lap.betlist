@@ -4,7 +4,6 @@ using Fanex.Athena.Common.DataAccess;
 using Fanex.Common.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Fanex.Athena.BetList.DataAccess
 {

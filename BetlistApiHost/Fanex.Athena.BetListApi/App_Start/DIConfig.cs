@@ -34,6 +34,8 @@
     using Fanex.Result.Core.CardClub;
     using Fanex.Result.Core.WM;
     using Fanex.Result.Core.VGaming;
+    using Fanex.Athena.BetList.Service;
+    using Fanex.Athena.BetList.Service.Interfaces;
 
     public static class DIConfig
     {
@@ -58,6 +60,7 @@
 
         private static void RegisterThirdpartyServices(ContainerBuilder builder)
         {
+            builder.RegisterType<IPService>().As<IIPService>().SingleInstance();
             builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
             builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
             builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerRequest();
