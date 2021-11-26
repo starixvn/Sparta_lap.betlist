@@ -42,7 +42,8 @@
             { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
             { "Lrf_BetList_Jackpot_Detail", (db, metalModel) => JackpotWonDetailParameters(db, metalModel) },
             { "Lrf_BetList_SabaVirtualSports_Mem", (db, metalModel) => CreateSabaVirtualSportseWLBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_GodOfFortuneWL_Mem", (db, metalModel) => CreateGodOfFortuneWLBetlistParameters(db, metalModel) }
+            { "Lrf_BetList_GodOfFortuneWL_Mem", (db, metalModel) => CreateGodOfFortuneWLBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport", (db, metalModel) => CreateLiveReportBetlistParameters(db, metalModel) }
         };
 
         public static void CreateBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -442,6 +443,19 @@
             db.SetParameterValue(DbColumn.TransId, metaModel.TransId);
             db.SetParameterValue(DbColumn.CustId, metaModel.CustId);
             db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
+        }
+
+        private static void CreateLiveReportBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
+        {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
+            db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+            CreateBetListDateRangeParameters(db, metaModel);
+            db.SetParameterValue(DbColumn.MoveBetsDay, metaModel.MoveBetsDay);
+            db.SetParameterValue(DbColumn.ProductList, metaModel.ProductCodeList);
+            db.SetParameterValue(DbColumn.SportType, metaModel.SportType);
+            AddLiveReportPagingParams(db, metaModel);
+            CreateBetListSortingParameters(db, metaModel);
         }
 
         #region Utility
