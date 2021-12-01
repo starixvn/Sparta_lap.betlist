@@ -38,15 +38,20 @@ namespace Fanex.Athena.BetList.Controller
         {
             var ticketResult = await _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(
                 metaModel).ConfigureAwait(false);
+            var transLogIdSportType = new List<int> { (int)SportType.SportsLottery };
 
             if (ticketResult.MainTicketList.Any())
             {
                 var rows = GetLastMonitorBetListContent(metaModel, ticketResult);
+                var transIdTicket = ticketResult.MainTicketList.Where(t => !transLogIdSportType.Contains(t.SportTypeId)).OrderByDescending(t => t.TransId).FirstOrDefault();
+                var transLogIdTicket = ticketResult.MainTicketList.Where(t => transLogIdSportType.Contains(t.SportTypeId)).OrderByDescending(t => t.TransId).FirstOrDefault();
+
                 var result = new
                 {
                     NewRow = true,
                     Rows = rows,
-                    LastTransId = ticketResult.MainTicketList.Max(t => t.TransId),
+                    LastTransId = transIdTicket == null ? 0 : transIdTicket.TransId,
+                    LastTransLogId = transLogIdTicket == null ? 0 : transLogIdTicket.TransId
                 };
                 BetListHelper.ClearData(ticketResult);
                 return Json(result);

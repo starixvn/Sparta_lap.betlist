@@ -1,11 +1,5 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LastBetsMonitoringMetaModel.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-namespace Fanex.Athena.BetList.Model.MetaModel
+﻿namespace Fanex.Athena.BetList.Model.MetaModel
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class LastBetsMonitoringMetaModel
@@ -50,6 +44,8 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public long TransId { get; set; }
 
+        public long TransLogId { get; set; }
+
         public string BetFrom { get; set; }
 
         public string AgentListXml { get; set; }
@@ -58,5 +54,6 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public bool IsShowIp { get; set; }
 
+        public string ProductCodeList { get; set; }
     }
 }

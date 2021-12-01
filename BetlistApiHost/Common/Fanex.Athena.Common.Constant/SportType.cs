@@ -311,6 +311,8 @@ namespace Fanex.Athena.Common.Constant
 
         VirtualBasketball = 193,
 
-        PP = 248
+        PP = 248,
+
+        SportsLottery = 169
     }
 }

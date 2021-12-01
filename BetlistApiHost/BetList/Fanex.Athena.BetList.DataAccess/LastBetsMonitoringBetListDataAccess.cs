@@ -17,11 +17,12 @@ namespace Fanex.Athena.BetList.DataAccess
     public class LastBetsMonitoringBetListDataAccess : BaseBetListDataAccess, ILastBetsMonitoringBetListDataAccess
     {
         private const string UspKey = "Lrf_Monitor_BetlistSel_New";
+
         public LastBetsMonitoringBetListDataAccess(
         ICurrencyDataAccess currencyService) : base(currencyService)
         {
-
         }
+
         public async Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
         {
             var ticketResult = new TicketResult();
@@ -43,6 +44,8 @@ namespace Fanex.Athena.BetList.DataAccess
                 db.SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 db.SetParameterValue("BaseCurrency", metaModel.BasedCurrency);
                 db.SetParameterValue("BetFrom", metaModel.BetFrom);
+                db.SetParameterValue("TransLogId", metaModel.TransLogId);
+                db.SetParameterValue("ProductList", metaModel.ProductCodeList);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var mainTicket = ReadBetListTicket(reader, currencyList);
