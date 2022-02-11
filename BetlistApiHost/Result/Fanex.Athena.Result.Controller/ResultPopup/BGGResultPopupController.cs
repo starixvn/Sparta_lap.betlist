@@ -1,19 +1,28 @@
-﻿using System.Web.Mvc;
-using Fanex.Result.Core.BG;
+﻿using Fanex.Athena.Result.Controller.MetaModel;
+using Fanex.Result.Core.ThirdParty;
+using Fanex.Result.Core.ThirdParty.Models;
+using System.Web.Mvc;
 
 namespace Fanex.Athena.Result.Controller.ResultPopup
 {
     public class BGGResultPopupController : BaseResultController
     {
-        private readonly IBigGamingResult _resultApi;
+        private readonly IThirdPartyResult _resultApi;
 
-        public BGGResultPopupController(IBigGamingResult resultApi)
+        public BGGResultPopupController(IThirdPartyResult resultApi = null)
         {
-            _resultApi = resultApi;
+            _resultApi = resultApi ?? new ThirdPartyResult("BGResultConfigs");
         }
 
         [HttpPost]
-        public string Index(string custId, string transId3rd, string currencyId, string siteId, string languageCode)
-            => _resultApi.GetResult(custId, transId3rd, currencyId, siteId, languageCode);
+        public string Index(ThirdPartyMetaModel metaModel)
+        {
+            var request = new ResultRequest(metaModel.CustId, metaModel.TransId3rd, metaModel.GameId3rd, metaModel.CurrencyId, metaModel.SiteId, metaModel.LanguageCode)
+            {
+                BetTypeId = metaModel.BetTypeId
+            };
+
+            return _resultApi.GetResultGET(request);
+        }
     }
 }

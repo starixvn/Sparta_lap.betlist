@@ -1,21 +1,28 @@
-﻿using Fanex.Result.Core.Joker;
+﻿using Fanex.Athena.Result.Controller.MetaModel;
+using Fanex.Result.Core.ThirdParty;
+using Fanex.Result.Core.ThirdParty.Models;
 using System.Web.Mvc;
 
 namespace Fanex.Athena.Result.Controller.ResultPopup
 {
     public class JokerResultPopupController : BaseResultController
     {
-        private readonly IJokerResult _resultApi;
+        private readonly IThirdPartyResult _resultApi;
 
-        public JokerResultPopupController(IJokerResult resultApi)
+        public JokerResultPopupController(IThirdPartyResult resultApi = null)
         {
-            _resultApi = resultApi;
+            _resultApi = resultApi ?? new ThirdPartyResult("JokerResultConfigs");
         }
 
         [HttpPost]
-        public string Index(string custId, string gamePlayId, string gameCode, string languageCode)
+        public string Index(ThirdPartyMetaModel metaModel)
         {
-            return _resultApi.GetJokerResult(custId, gamePlayId, gameCode, languageCode);
+            var request = new ResultRequest(metaModel.CustId, metaModel.TransId3rd, metaModel.GameId3rd, metaModel.CurrencyId, metaModel.SiteId, metaModel.LanguageCode)
+            {
+                BetTypeId = metaModel.BetTypeId
+            };
+
+            return _resultApi.GetResultGET(request);
         }
     }
 }

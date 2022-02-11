@@ -17,21 +17,13 @@
     using Fanex.Logging;
     using Fanex.RemotingRef;
     using Fanex.Result.Core.AllBetCasino;
-    using Fanex.Result.Core.BG;
     using Fanex.Result.Core.Casino;
-    using Fanex.Result.Core.Joker;
     using Fanex.Result.Core.LinkedGames;
-    using Fanex.Result.Core.PGSoft;
-    using Fanex.Result.Core.PP;
     using Fanex.Result.Core.SabaClub;
     using Fanex.Result.Core.SAGaming;
     using Fanex.Result.Core.SexyGaming;
     using Fanex.Result.Core.VirtualGames;
-    using Fanex.Result.Core.Voidbridge;
-    using Fanex.Result.Core.GDG;
     using Fanex.Result.Core.SportsLottery;
-    using Fanex.Result.Core.Habanero;
-    using Fanex.Result.Core.CardClub;
     using Fanex.Result.Core.WM;
     using Fanex.Result.Core.VGaming;
     using Fanex.Athena.BetList.Service;
@@ -64,27 +56,19 @@
             builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
             builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
             builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerRequest();
-            builder.RegisterType<PPResult>().As<IPPResult>();
-            builder.RegisterType<VoidbridgeApiImp>().As<VoidbridgeApi>();
             builder.RegisterType<AllbetResultBuilder>().As<IAllbetResultBuilder>();
-            builder.RegisterType<CardClubResult>().As<ICardClubResult>();
-            builder.RegisterType<PGSoftResult>().As<IPGSoftResult>();
             builder.RegisterType<SabaClubResult>().As<ISabaClubResult>();
             builder.RegisterType<RemotingRefService>().As<IRemotingRefService>().SingleInstance();
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
             builder.Register(x => new CasinoResult("SpadegamingResultConfigs")).Keyed<ICasinoResult>("SG");
             builder.RegisterType<VirtualGamesResult>().As<IVirtualGamesResult>();
             builder.RegisterType<Indo4DResult>().As<IIndo4DResult>();
-            builder.RegisterType<JokerResult>().As<IJokerResult>();
-            builder.RegisterType<GoldDiamondGamingResult>().As<IGoldDiamondGamingResult>();
             builder.RegisterType<SexyGamingResultBuilder>().As<ISexyGamingResultBuilder>();
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
             builder.RegisterType<LinkedGamesResult>().As<ILinkedGamesResult>();
-            builder.RegisterType<SportsLotteryResult>().As<ISportsLotteryResult>();
-            builder.RegisterType<HabaneroResult>().As<IHabaneroResult>().WithParameter("sectionName", "HabaneroResultConfigs");
             builder.RegisterType<WMResultBuilder>().As<IWMResultBuilder>();
-            builder.RegisterType<BigGamingResult>().As<IBigGamingResult>();
             builder.RegisterType<VGamingResult>().As<IVGamingResult>();
+            builder.RegisterType<SportsLotteryResult>().As<ISportsLotteryResult>();
         }
 
         private static Assembly[] GetAssemblies()
