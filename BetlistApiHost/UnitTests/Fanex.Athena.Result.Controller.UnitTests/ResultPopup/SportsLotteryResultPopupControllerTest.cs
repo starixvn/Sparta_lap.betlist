@@ -1,7 +1,10 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
+    using Fanex.Athena.Result.Controller.MetaModel;
     using Fanex.Athena.Result.Controller.ResultPopup;
     using Fanex.Result.Core.SportsLottery;
+    using Fanex.Result.Core.ThirdParty;
+    using Fanex.Result.Core.ThirdParty.Models;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -13,21 +16,24 @@
         public void Index_WhenCall_ReturnResultFromApi()
         {
             // Arrange
-            var custId = FakeHelper.Create<string>();
-            var transId3rd = FakeHelper.Create<string>();
-            var platform = "d";
-            var languageCode = FakeHelper.Create<string>();
-            var isDesktop = true;
-
+            var metaModel = FakeHelper.Create<ThirdPartyMetaModel>();
             var resultApi = Substitute.For<ISportsLotteryResult>();
+            var result3rdApi = Substitute.For<IThirdPartyResult>();
+            var request = new ResultRequest(metaModel.CustId, metaModel.TransId3rd, metaModel.GameId3rd, metaModel.CurrencyId, metaModel.SiteId, metaModel.LanguageCode)
+            {
+                BetTypeId = metaModel.BetTypeId
+            };
 
-            using (var controller = new SportsLotteryResultPopupController(resultApi))
+            using (var controller = new SportsLotteryResultPopupController(resultApi, result3rdApi))
             {
                 // Action
-                var result = controller.Index(custId, transId3rd, platform, languageCode);
+                var result = controller.Index(metaModel);
 
                 // Assert
-                resultApi.Received().GetResultDetail(custId, transId3rd, isDesktop, languageCode);
+                result3rdApi.Received().GetResultGET(Arg.Is<ResultRequest>(rq => rq.CustId == request.CustId
+                    && rq.TranId3rd == request.TranId3rd
+                    && rq.GameId3rd == request.GameId3rd
+                    && rq.SiteId == request.SiteId));
             }
         }
 
