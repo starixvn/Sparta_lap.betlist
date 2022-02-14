@@ -12,6 +12,8 @@
 
         public int MatchId { get; set; }
 
+        public string Ip { get; set; }
+
         public override bool IsValid
         {
             get
