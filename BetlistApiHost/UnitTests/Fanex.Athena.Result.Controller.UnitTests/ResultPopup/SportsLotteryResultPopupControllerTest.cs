@@ -17,14 +17,13 @@
         {
             // Arrange
             var metaModel = FakeHelper.Create<ThirdPartyMetaModel>();
-            var resultApi = Substitute.For<ISportsLotteryResult>();
             var result3rdApi = Substitute.For<IThirdPartyResult>();
             var request = new ResultRequest(metaModel.CustId, metaModel.TransId3rd, metaModel.GameId3rd, metaModel.CurrencyId, metaModel.SiteId, metaModel.LanguageCode)
             {
                 BetTypeId = metaModel.BetTypeId
             };
 
-            using (var controller = new SportsLotteryResultPopupController(resultApi, result3rdApi))
+            using (var controller = new SportsLotteryResultPopupController(result3rdApi))
             {
                 // Action
                 var result = controller.Index(metaModel);
@@ -47,7 +46,7 @@
 
             var resultApi = Substitute.For<ISportsLotteryResult>();
 
-            using (var controller = new SportsLotteryResultPopupController(resultApi))
+            using (var controller = new SportsLotteryResultMainPageController(resultApi))
             {
                 // Action
                 var result = controller.ResultPage(platform, languageCode);
