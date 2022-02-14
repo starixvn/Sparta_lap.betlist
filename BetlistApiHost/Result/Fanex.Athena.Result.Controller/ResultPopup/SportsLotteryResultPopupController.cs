@@ -9,10 +9,12 @@ namespace Fanex.Athena.Result.Controller.ResultPopup
 {
     public class SportsLotteryResultPopupController : BaseResultController
     {
+        private readonly ISportsLotteryResult _resultApi;
         private readonly IThirdPartyResult _thirdPartyResultApi;
 
-        public SportsLotteryResultPopupController(IThirdPartyResult thirdPartyResultApi = null)
+        public SportsLotteryResultPopupController(ISportsLotteryResult resultApi, IThirdPartyResult thirdPartyResultApi = null)
         {
+            _resultApi = resultApi;
             _thirdPartyResultApi = thirdPartyResultApi ?? new ThirdPartyResult("SportsLotteryDetailResultConfigs");
         }
 
@@ -28,6 +30,13 @@ namespace Fanex.Athena.Result.Controller.ResultPopup
             };
 
             return _thirdPartyResultApi.GetResultGET(request);
+        }
+
+        [HttpPost]
+        public string ResultPage(string platform, string languageCode)
+        {
+            var isDesktop = string.Equals(platform, "d", StringComparison.OrdinalIgnoreCase);
+            return _resultApi.GetResultPage(isDesktop, languageCode);
         }
     }
 }
