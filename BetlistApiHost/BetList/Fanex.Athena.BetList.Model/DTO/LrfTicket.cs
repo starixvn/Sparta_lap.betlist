@@ -18,8 +18,6 @@ namespace Fanex.Athena.BetList.Model.DTO
 
         public decimal BetEffective { get; set; }
 
-        public int CurrencyId { get; set; }
-
         public int SpecialLevel { get; set; }
 
         public string BetFrom { get; set; }

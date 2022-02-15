@@ -1,22 +1,28 @@
-﻿using Fanex.Result.Core.GDG;
-using Fanex.Result.Core.Habanero;
+﻿using Fanex.Athena.Result.Controller.MetaModel;
+using Fanex.Result.Core.ThirdParty;
+using Fanex.Result.Core.ThirdParty.Models;
 using System.Web.Mvc;
 
 namespace Fanex.Athena.Result.Controller.ResultPopup
 {
     public class HabaneroResultPopupController : BaseResultController
     {
-        private readonly IHabaneroResult _resultApi;
+        private readonly IThirdPartyResult _resultApi;
 
-        public HabaneroResultPopupController(IHabaneroResult resultApi)
+        public HabaneroResultPopupController(IThirdPartyResult resultApi = null)
         {
-            _resultApi = resultApi;
+            _resultApi = resultApi ?? new ThirdPartyResult("HabaneroResultConfigs");
         }
 
         [HttpPost]
-        public string Index(string custId, string transId3rd, string gameId3rd, string siteId, string languageCode)
+        public string Index(ThirdPartyMetaModel metaModel)
         {
-            return _resultApi.GetResult(custId, transId3rd, gameId3rd, siteId, languageCode);
+            var request = new ResultRequest(metaModel.CustId, metaModel.TransId3rd, metaModel.GameId3rd, metaModel.CurrencyId, metaModel.SiteId, metaModel.LanguageCode)
+            {
+                BetTypeId = metaModel.BetTypeId
+            };
+
+            return _resultApi.GetResultGET(request);
         }
     }
 }
