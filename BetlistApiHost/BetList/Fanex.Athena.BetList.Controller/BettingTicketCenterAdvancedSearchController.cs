@@ -24,6 +24,8 @@
 
         private readonly IBettingTicketCenterZipBuilder _zipBuilder;
 
+        private readonly IIPService _ipService;
+
         public BettingTicketCenterAdvancedSearchController(
             IAppSettings appSettings,
             IBettingTicketCenterAdvancedSearchDataAccess dataAccess,
@@ -34,6 +36,7 @@
         {
             _appSettings = appSettings;
             _dataAccess = dataAccess;
+            _ipService = ipService;
             _zipBuilder = zipBuilder ?? new BettingTicketCenterZipBuilder(_appSettings, null, bettingTicketCenterExcel, ipService);
         }
 
@@ -58,7 +61,9 @@
                 return await Export(metaModel, totalRow).ConfigureAwait(false);
             }
 
-            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel
+            var ticketResult = ShouldReturnEmptyResult(metaModel)
+                ? new TicketResult()
+                : await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel
                 ).ConfigureAwait(false);
 
             return ReturnData(ticketResult, GetBetListOption(metaModel), metaModel);
@@ -73,7 +78,7 @@
             if (totalRow <= MaxRowPerFile)
             {
                 var normalTicketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
-                if (normalTicketResult.MainTicketList.Count == 0)
+                if (normalTicketResult.MainTicketList.Count == 0 || ShouldReturnEmptyResult(metaModel))
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
                 }
@@ -122,5 +127,8 @@
             IsShowIpvn = metaModel.IsShowIpvn,
             IsShowIp = metaModel.IsShowIp
         };
+
+        private bool ShouldReturnEmptyResult(AdvancedSearchBetListMetaModel metaModel)
+            => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip); 
     }
 }
