@@ -261,6 +261,8 @@
 
         SBCContribution = 1698,
 
-        VGAContribution = 3898
+        VGAContribution = 3898,
+
+        SGContribution = 4599
     }
 }
