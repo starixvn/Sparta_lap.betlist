@@ -180,6 +180,7 @@
             db.SetParameterValue(DbColumn.PageIndex, metaModel.IsExport ? 1 : metaModel.PageIndex);
             db.SetParameterValue(DbColumn.Product, metaModel.ProductCodeList);
             db.SetParameterValue(DbColumn.ConvertToBaseCur, metaModel.IsConvertAll);
+            db.SetParameterValue(DbColumn.Ip, metaModel.Ip);
 
             db.SetParameterValue(DbColumn.TotalRows, null);
             db.SetParameterValue(DbColumn.SumStake, null);
@@ -187,6 +188,7 @@
             db.SetParameterValue(DbColumn.SumLicenseeWL, null);
             db.SetParameterValue(DbColumn.SumComm, null);
             db.SetParameterValue(DbColumn.SumPlayerComm, null);
+
             AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
         }
     }

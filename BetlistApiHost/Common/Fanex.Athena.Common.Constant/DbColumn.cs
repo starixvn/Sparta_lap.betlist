@@ -85,5 +85,7 @@
         public const string StatusFilter = "StatusFilter";
 
         public const string ExcludeFreeBet = "ExcludeFreeBet";
+
+        public const string Ip = "Ip";
     }
 }
