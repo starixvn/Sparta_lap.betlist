@@ -113,8 +113,9 @@
     <Reference Include="Fanex.BetList.SportsLottery, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.SportsLottery.1.1.0\lib\net461\Fanex.BetList.SportsLottery.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.BetList.VGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.VGaming.1.0.0.2\lib\net40\Fanex.BetList.VGaming.dll</HintPath>
+    <Reference Include="Fanex.BetList.VGaming, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.VGaming.1.0.0.4\lib\net40\Fanex.BetList.VGaming.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.Voidbridge, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.Voidbridge.1.2.0.3\lib\net40\Fanex.BetList.Voidbridge.dll</HintPath>
