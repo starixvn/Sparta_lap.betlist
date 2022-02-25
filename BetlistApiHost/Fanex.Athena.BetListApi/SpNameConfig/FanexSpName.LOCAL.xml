@@ -38,8 +38,8 @@
     <Setting Key="Lrf_BetList_LiveReport" SpName="Lrf_BetList_LiveReport" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Outright" SpName="Lrf_BetList_MatchWL_Outright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Parlay" SpName="Lrf_BetList_MatchWL_Parlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_MatchWL_Bettype" SpName="Lrf_BetList_MatchWL_Bettype" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Old" SpName="Lrf_BetList_MatchWL_Old" DbName="DBARC.bodb_Archive.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_MatchWL_Bettype" SpName="Lrf_BetList_MatchWL_Bettype" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Monitor_MatchSel" SpName="Lrf_Monitor_MatchSel" DbName="DBBOF.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Monitor_OutrightSel" SpName="Lrf_Monitor_OutrightSel" DbName="DBBOF.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelCombinationParlayDetail" SpName="Lrf_BetList_SelCombinationParlayDetail" DbName="DBACC.bodb02.bodbLicenseeNet" />
@@ -68,7 +68,7 @@
     <Setting Key="Lrf_BetList_WinlostByLeague_Mem" SpName="Lrf_BetList_WinlostByLeague_Mem"  DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Running_Mem" SpName="Lrf_BetList_Running_Mem" DbName="DBBOF.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Statement_Mem" SpName="Lrf_BetList_Statement_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_BetBuilder_Detail" SpName="Lrf_BetList_BetBuilder_Detail" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_BetBuilder_Detail" SpName="Lrf_BetList_BetBuilder_Detail"  DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_GodOfFortuneWL_Mem" SpName="Lrf_BetList_GodOfFortuneWL_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
   </Function>
   <Misc>
