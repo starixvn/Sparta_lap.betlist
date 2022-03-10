@@ -11,11 +11,13 @@
             PageSize = DefaultPageSize;
         }
 
-        public int SportId { get; set; }
+        public string SportTypeList { get; set; }
 
-        public int LeagueId { get; set; }
+        public string LeagueList { get; set; }
 
         public int MatchId { get; set; }
+
+        public string CustomerClass { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string BetType { get; set; }
