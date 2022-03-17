@@ -76,6 +76,9 @@
     <Reference Include="Fanex.Result.Core.KenoLotteryTG, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.KenoLotteryTG.1.0.0\lib\net40\Fanex.Result.Core.KenoLotteryTG.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Result.Core.LeapGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-LeapGaming.1.0.0.2\lib\net40\Fanex.Result.Core.LeapGaming.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Result.Core.NumberGame, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.1.0.3.2-beta01\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
     </Reference>
