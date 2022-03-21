@@ -36,8 +36,8 @@ namespace Fanex.Athena.BetList.DataAccess
                 db.SetParameterValue("SpecialLevel", metaModel.Level);
                 db.SetParameterValue("TransId", metaModel.TransId);
                 db.SetParameterValue("LimitRowCount", metaModel.PageSize);
-                db.SetParameterValue("SportId", metaModel.SportId);
-                db.SetParameterValue("LeagueId", metaModel.LeagueId);
+                db.SetParameterValue("SportTypeList", metaModel.SportTypeList);
+                db.SetParameterValue("LeagueList", metaModel.LeagueList);
                 db.SetParameterValue("MatchId", metaModel.MatchId);
                 db.SetParameterValue("MinStake", metaModel.StakeFrom);
                 db.SetParameterValue("MaxStake", metaModel.StakeTo);
@@ -46,6 +46,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 db.SetParameterValue("BetFrom", metaModel.BetFrom);
                 db.SetParameterValue("TransLogId", metaModel.TransLogId);
                 db.SetParameterValue("ProductList", metaModel.ProductCodeList);
+                db.SetParameterValue("CustomerClass", metaModel.CustomerClass);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var mainTicket = ReadBetListTicket(reader, currencyList);

@@ -82,6 +82,7 @@ namespace Fanex.Athena.BetList.Controller
                 builder.Append($"<td data-name='Platform'>{PlatformType.GetPlatformName(ticket.BetFrom.Trim())}</td>");
                 builder.Append($"<td data-name='ExternalId' class='special-color-{ticket.SpecialLevel}'>{ticket.ExternalId}</td>");
                 builder.Append($"<td data-name='SystemId' class='special-color-{ticket.SpecialLevel}'>{ticket.UserName}</td>");
+                builder.Append($"<td data-name='CustomerClassId' class='special-color-{ticket.SpecialLevel}'>{ticket.CustomerClass}</td>");
                 builder.AddTrans(ticket, "<td data-name='TransTime' class='special-color-0'>", EndTag);
                 builder.AddChoice(
                     ticket,

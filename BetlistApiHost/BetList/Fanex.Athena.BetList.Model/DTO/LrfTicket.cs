@@ -14,6 +14,8 @@ namespace Fanex.Athena.BetList.Model.DTO
     {
         public string ExternalId { get; set; }
 
+        public int CustomerClass { get; set; }
+
         public decimal LicenseeWL { get; set; }
 
         public decimal BetEffective { get; set; }
