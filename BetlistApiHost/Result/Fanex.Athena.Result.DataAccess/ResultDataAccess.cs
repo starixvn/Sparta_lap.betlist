@@ -182,7 +182,8 @@ namespace Fanex.Athena.Result.DataAccess
                 matchid = metaModel.MatchId,
                 raceno = metaModel.RaceNo.HasValue ? metaModel.RaceNo.Value.ToString(CultureInfo.InvariantCulture) : null,
                 bettype = metaModel.Bettype,
-                betid = metaModel.BetId
+                betid = metaModel.BetId,
+                transdesc = metaModel.TransDesc
             };
 
             using (var db = this.GetObjectDb(UspName))
