@@ -13,12 +13,13 @@
     public class LastBetsMonitoringBetListDataAccessTest : BaseDataAccessHelperTest<LastBetsMonitoringBetListDataAccess>
     {
         private const string UspKey = "Lrf_Monitor_BetlistSel_New";
+
         protected override void SetUpDataAccess()
         {
-          
             DataAccess = Substitute.ForPartsOf<LastBetsMonitoringBetListDataAccess>(
                 CurrencyDataAccess);
         }
+
         [Test]
         public async Task GetLastBetsMonitoringData_WhenCall_ParametersPassedCorrectly()
         {
@@ -38,8 +39,6 @@
                 ObjectDb.Received(1).SetParameterValue("SpecialLevel", metaModel.Level);
                 ObjectDb.Received(1).SetParameterValue("TransId", metaModel.TransId);
                 ObjectDb.Received(1).SetParameterValue("LimitRowCount", metaModel.PageSize);
-                ObjectDb.Received(1).SetParameterValue("SportId", metaModel.SportId);
-                ObjectDb.Received(1).SetParameterValue("LeagueId", metaModel.LeagueId);
                 ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("MinStake", metaModel.StakeFrom);
                 ObjectDb.Received(1).SetParameterValue("MaxStake", metaModel.StakeTo);
