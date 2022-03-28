@@ -276,7 +276,7 @@
       <HintPath>..\..\packages\Fanex.Result.Core.VirtualGames.1.0.0.0\lib\net40\Fanex.Result.Core.VirtualGames.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.WM, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core.WM.1.0.0.2-beta-01\lib\net40\Fanex.Result.Core.WM.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Result.Core.WM.1.0.0.2\lib\net40\Fanex.Result.Core.WM.dll</HintPath>
     </Reference>
     <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Crypt.1.1.0.0\lib\net40\IBCCrypt.dll</HintPath>
