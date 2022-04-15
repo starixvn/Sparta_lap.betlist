@@ -30,6 +30,7 @@
         private const int RaceNo = 2;
         private const int BettypeId = 5;
         private const long BetId = 6;
+        private const string Transdesc = "123";
 
         private readonly BalanceUp _balance = new BalanceUp
         {
