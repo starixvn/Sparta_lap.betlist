@@ -15,5 +15,7 @@
         public string LanguageCode { get; set; }
 
         public int BetTypeId { get; set; }
+
+        public string ClientIp { get; set; }
     }
 }
