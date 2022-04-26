@@ -9,6 +9,26 @@ namespace Fanex.Athena.BetList.DataAccess
 {
     public class IPDataAccess : BaseDataAccess, IIPDataAccess
     {
+        public string GetIpLocation(string IPAddress)
+        {
+            const string UspKey = "Acc_GetIPInfo_Full";
+
+            using (var db = GetObjectDb(UspKey))
+            {
+                db.SetParameterValue("IP", IPAddress);
+
+                using (var reader = db.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader.ToString("countrySHORT");
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
+
         public Tuple<IList<IPV4RangeEntity>, IList<IPV6RangeEntity>> GetVNIPs()
         {
             const string UspKey = "Lrf_GetAllIPVN";

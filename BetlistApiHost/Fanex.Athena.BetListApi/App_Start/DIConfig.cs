@@ -69,6 +69,7 @@
             builder.RegisterType<WMResultBuilder>().As<IWMResultBuilder>();
             builder.RegisterType<VGamingResult>().As<IVGamingResult>();
             builder.RegisterType<SportsLotteryResult>().As<ISportsLotteryResult>();
+            builder.RegisterType<IpInfoService>().As<IIpInfoService>();
         }
 
         private static Assembly[] GetAssemblies()
