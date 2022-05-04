@@ -7,5 +7,7 @@
         public const int Lottery = 28;
 
         public const int Table = 40;
+
+        public const int VirtualGames = 38;
     }
 }

@@ -11,6 +11,7 @@
         private const string KENO_RESULT_CONFIG = "KenoResultConfigs";
         private const string LOTTERY_RESULT_CONFIG = "LotteryResultConfigs";
         private const string TABLEGAME_RESULT_CONFIG = "TableGameResultConfigs";
+        private const string VIRTUALGAMES_RESULT_CONFIG = "VirtualGamesResultConfigs";
 
         public IKenoLotteryTGResult CreateResultApi(int vendorProductId)
         {
@@ -24,8 +25,13 @@
             {
                 case ResultVendorProductTypes.Lottery:
                     return LOTTERY_RESULT_CONFIG;
+
                 case ResultVendorProductTypes.Table:
                     return TABLEGAME_RESULT_CONFIG;
+
+                case ResultVendorProductTypes.VirtualGames:
+                    return VIRTUALGAMES_RESULT_CONFIG;
+
                 default:
                     return KENO_RESULT_CONFIG;
             }
