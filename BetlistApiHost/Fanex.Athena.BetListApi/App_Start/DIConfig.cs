@@ -22,7 +22,6 @@
     using Fanex.Result.Core.SabaClub;
     using Fanex.Result.Core.SAGaming;
     using Fanex.Result.Core.SexyGaming;
-    using Fanex.Result.Core.VirtualGames;
     using Fanex.Result.Core.SportsLottery;
     using Fanex.Result.Core.WM;
     using Fanex.Result.Core.VGaming;
@@ -61,7 +60,6 @@
             builder.RegisterType<RemotingRefService>().As<IRemotingRefService>().SingleInstance();
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
             builder.Register(x => new CasinoResult("SpadegamingResultConfigs")).Keyed<ICasinoResult>("SG");
-            builder.RegisterType<VirtualGamesResult>().As<IVirtualGamesResult>();
             builder.RegisterType<Indo4DResult>().As<IIndo4DResult>();
             builder.RegisterType<SexyGamingResultBuilder>().As<ISexyGamingResultBuilder>();
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
