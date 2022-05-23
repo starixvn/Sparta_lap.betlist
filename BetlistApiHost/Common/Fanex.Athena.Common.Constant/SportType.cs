@@ -313,6 +313,8 @@ namespace Fanex.Athena.Common.Constant
 
         PP = 248,
 
-        SportsLottery = 169
+        SportsLottery = 169,
+
+        Bitcoin = 175
     }
 }

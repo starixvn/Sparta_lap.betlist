@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-
-    using Athena.BetList.DataAccess;
     using Athena.BetList.Model.DTO;
 
     using Common.DataAccess.UnitTests;

@@ -33,7 +33,8 @@ namespace Fanex.Athena.Result.Controller
             SportType.VirtualGreyhounds,
             SportType.VirtualSpeedway,
             SportType.VirtualMotorRacing,
-            SportType.VirtualCycling
+            SportType.VirtualCycling,
+            SportType.Bitcoin
         };
 
         private readonly IResultService _resultService;
@@ -272,6 +273,15 @@ namespace Fanex.Athena.Result.Controller
             _htmlResult = _resultService.HtmlParser(leapgamings, setting);
         }
 
+        private async Task GetBitcoinPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
+        {
+            var dataBitcoin = await _resultService.GetPopUpBitcoinMatchesAsync(metalModel.MatchId).ConfigureAwait(false);
+            if (dataBitcoin != null)
+            {
+                _htmlResult = _resultService.HtmlParser(dataBitcoin, setting);
+            }
+        }
+
         private async Task GetOtherNormalPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
         {
             var data = await _resultService.GetPopUpMatchAsync(metalModel).ConfigureAwait(false);
@@ -304,6 +314,12 @@ namespace Fanex.Athena.Result.Controller
             if (sportType == SportType.LeapGamingVirtualSports)
             {
                 GetLeapGamingPopUpData(metalModel, setting);
+                return;
+            }
+
+            if (sportType == SportType.Bitcoin)
+            {
+                await GetBitcoinPopUpData(metalModel, setting).ConfigureAwait(false);
                 return;
             }
 
@@ -423,6 +439,11 @@ namespace Fanex.Athena.Result.Controller
                 case SportType.Happy5:
                     var dataHappy5 = await _resultService.GetHappy5MatchesAsync(metalModel).ConfigureAwait(false);
                     ParseResult(dataHappy5, setting, metalModel.IsExportExcel);
+                    break;
+
+                case SportType.Bitcoin:
+                    var dataBitcoin = await _resultService.GetBitcoinMatchesAsync(metalModel).ConfigureAwait(false);
+                    ParseResult(dataBitcoin, setting, metalModel.IsExportExcel);
                     break;
 
                 default:

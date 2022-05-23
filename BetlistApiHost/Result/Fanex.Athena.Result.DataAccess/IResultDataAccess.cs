@@ -31,6 +31,8 @@ namespace Fanex.Athena.Result.DataAccess
 
         Task<IList<T>> GetMatchesAsync<T>(ResultMetaModel metalModel);
 
+        Task<IList<T>> GetMatches3rdAsync<T>(ResultMetaModel metalModel);
+
         Task<IList<Racing>> GetVirtualSportMatchesAsync(ResultMetaModel metalModel);
 
         #endregion Report
@@ -42,6 +44,8 @@ namespace Fanex.Athena.Result.DataAccess
         Task<IList<Parlay>> GetPopUpParalayMatchAsync(long refNo);
 
         Task<Sportsbook> GetSportsbookGameDetailAsync(int matchId);
+
+        Task<IList<T>> GetPopUpMatches3rdAsync<T>(int matchId);
 
         Task<Sportsbook> GetPopUpSingleMatchParlayAsync(int matchId, string marketId);
 
