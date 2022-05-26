@@ -18,6 +18,8 @@ namespace Fanex.Athena.Result.DataAccess
     using Common.Model.DTO;
     using Common.Utility.Services.Interfaces;
     using Fanex.Common.Extensions;
+    using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Bitcoin.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
     using Model.MetaModel;
@@ -32,6 +34,7 @@ namespace Fanex.Athena.Result.DataAccess
         private const string LcolorColumn = "lcolor";
         private const string IsFavorColumn = "IsFavor";
         private const string LeagueIdColumn = "leagueid";
+        private const string SportTypeColumn = "sporttype";
         private const string Status = "status";
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
@@ -74,7 +77,7 @@ namespace Fanex.Athena.Result.DataAccess
                             data.Add(new Outright
                             {
                                 EventDate = DateTime.Parse(reader.ToString(EventDateColumn)),
-                                SportType = reader.ToInt("sporttype"),
+                                SportType = reader.ToInt(SportTypeColumn),
                                 LeagueId = leagueId,
                                 TeamId = reader.ToInt("teamid"),
                                 Status = reader.ToString("status")
@@ -102,7 +105,7 @@ namespace Fanex.Athena.Result.DataAccess
                     var data = new List<Sport>();
                     while (reader.Read())
                     {
-                        var sportId = reader.ToInt("sporttype");
+                        var sportId = reader.ToInt(SportTypeColumn);
                         data.Add(new Sport
                         {
                             SportId = sportId,
@@ -135,13 +138,14 @@ namespace Fanex.Athena.Result.DataAccess
                     while (reader.Read())
                     {
                         var leagueId = Convert.ToInt32(reader[LeagueIdColumn]);
+                        var sportType = Convert.ToInt32(reader[SportTypeColumn]);
 
                         if (specialLeagues == null || !specialLeagues.Contains(leagueId))
                         {
                             data.Add(new League
                             {
                                 LeagueId = leagueId,
-                                LeagueName = _cacheRefAdapter.GetLeagueName(leagueId)
+                                LeagueName = IsLeagues3rd(sportType) ? _cacheRefAdapter.GetLeagueName3rd(leagueId) : _cacheRefAdapter.GetLeagueName(leagueId)
                             });
                         }
                     }
@@ -149,6 +153,11 @@ namespace Fanex.Athena.Result.DataAccess
                     return data;
                 }
             }
+        }
+
+        private static Boolean IsLeagues3rd(int sportType)
+        {
+            return sportType == (int)SportType.Bitcoin;
         }
 
         /// <summary>
@@ -233,7 +242,7 @@ namespace Fanex.Athena.Result.DataAccess
                             parlay = new Parlay
                             {
                                 LeagueId = leagueId,
-                                SportId = reader.ToInt("sporttype")
+                                SportId = reader.ToInt(SportTypeColumn)
                             };
 
                             results.Add(parlay);
@@ -302,6 +311,35 @@ namespace Fanex.Athena.Result.DataAccess
                     if (type == typeof(Sportsbook))
                     {
                         return (IList<T>)ReadSportbookMatches(reader, specialLeagues: metalModel.SpecialLeagues);
+                    }
+                    else
+                    {
+                        throw new NotSupportedException($"The type '{type.FullName}' is not supported.");
+                    }
+                }
+            }
+        }
+
+        public async Task<IList<T>> GetMatches3rdAsync<T>(ResultMetaModel metalModel)
+        {
+            const string UspName = "Lrf_Result_Match3rdSelByLeague";
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            var uspParams = new
+            {
+                date = metalModel.FromDate,
+                leagueid = metalModel.LeagueId,
+                movebetsday = balanceUp.MoveBetsDay
+            };
+
+            using (var db = this.GetObjectDb(UspName))
+            {
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
+                {
+                    var type = typeof(T);
+
+                    if (type == typeof(Bitcoin))
+                    {
+                        return (IList<T>)ReadBitCoinMatches(reader);
                     }
                     else
                     {
@@ -391,9 +429,9 @@ namespace Fanex.Athena.Result.DataAccess
         /// </summary>
         /// <param name="reader">The data reader.</param>
         /// <returns>The game detail value.</returns>
-        private static IList<GameDetail> GetGameDetails(IDataReader reader)
+        private static IList<Fanex.Result.Core.Sportsbook.DTO.GameDetail> GetGameDetails(IDataReader reader)
         {
-            var gameDetails = new List<GameDetail>();
+            var gameDetails = new List<Fanex.Result.Core.Sportsbook.DTO.GameDetail>();
 
             if (reader.NextResult())
             {
@@ -402,7 +440,7 @@ namespace Fanex.Athena.Result.DataAccess
                     var resultStatusId = reader["ResultStatusID"];
                     var settlementStatusId = reader["SettlementStatusID"];
 
-                    gameDetails.Add(new GameDetail
+                    gameDetails.Add(new Fanex.Result.Core.Sportsbook.DTO.GameDetail
                     {
                         MatchId = int.Parse(reader[MatchidColumn].ToString()),
                         ResourceId = reader["ResourceId"].ToString(),
@@ -519,6 +557,80 @@ namespace Fanex.Athena.Result.DataAccess
             }
 
             return dataList;
+        }
+
+        public async Task<IList<T>> GetPopUpMatches3rdAsync<T>(int matchId)
+        {
+            const string UspName = "Lrf_BetList_Match3rdResultSel";
+            var uspParams = new
+            {
+                matchId
+            };
+
+            using (var db = this.GetObjectDb(UspName))
+            {
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
+                {
+                    var type = typeof(T);
+
+                    if (type == typeof(Bitcoin))
+                    {
+                        return (IList<T>)ReadBitCoinMatches(reader);
+                    }
+                    else
+                    {
+                        throw new NotSupportedException($"The type '{type.FullName}' is not supported.");
+                    }
+                }
+            }
+        }
+
+        private static IList<Bitcoin> ReadBitCoinMatches(IDataReader reader)
+        {
+            var results = new List<Bitcoin>();
+
+            while (reader.Read())
+            {
+                results.Add(
+                        new Bitcoin
+                        {
+                            League3rdId = reader.ToInt("League3rdId"),
+                            Match3rdId = reader.ToInt("Match3rdId"),
+                            BetStatus = reader[BetstatusColumn] != DBNull.Value ? reader.ToString(BetstatusColumn) : string.Empty,
+                            EventStatus = reader.ToString("EventStatus"),
+                            EventDate = DateTime.Parse(reader.ToString("EventDate"))
+                        });
+            }
+
+            var gameDetails = GetBitCoinGameDetails(reader);
+            if (gameDetails.Count > 0)
+            {
+                foreach (var result in results)
+                {
+                    result.GameResults = gameDetails.Where(i => i.Match3rdId == result.Match3rdId).ToList();
+                }
+            }
+
+            return results.OrderBy(x => x.League3rdId).ThenBy(x => x.Match3rdId).ToList();
+        }
+
+        private static IList<Fanex.Result.Core.Bitcoin.DTO.GameDetail> GetBitCoinGameDetails(IDataReader reader)
+        {
+            var gameDetails = new List<Fanex.Result.Core.Bitcoin.DTO.GameDetail>();
+
+            if (reader.NextResult())
+            {
+                while (reader.Read())
+                {
+                    gameDetails.Add(new Fanex.Result.Core.Bitcoin.DTO.GameDetail
+                    {
+                        Match3rdId = int.Parse(reader["Match3rdId"].ToString()),
+                        GameResult = reader["GameResult"].ToString()
+                    });
+                }
+            }
+
+            return gameDetails;
         }
 
         #endregion Binding

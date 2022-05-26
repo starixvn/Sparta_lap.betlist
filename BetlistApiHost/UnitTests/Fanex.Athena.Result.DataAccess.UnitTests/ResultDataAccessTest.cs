@@ -12,7 +12,6 @@
     using Fanex.Result.Core.Sportsbook.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.DataAccess;
     using Result.Model.MetaModel;
 
     [TestFixture]
@@ -206,7 +205,8 @@
             };
             var readerDataMapping = new
             {
-                leagueid = 1
+                leagueid = 1,
+                sportType = 150
             };
             MapReaderData(readerDataMapping);
 

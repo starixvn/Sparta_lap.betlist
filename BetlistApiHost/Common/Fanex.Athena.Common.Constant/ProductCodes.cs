@@ -39,5 +39,7 @@
         public const string LT = "LT";
 
         public const string PP = "PP";
+
+        public const string BTC = "BTC";
     }
 }

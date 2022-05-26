@@ -8,7 +8,6 @@
     using Fanex.Result.Core.Happy5.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.DataAccess;
     using Result.Model.MetaModel;
     using UnitTest.Common.Helpers;
 
