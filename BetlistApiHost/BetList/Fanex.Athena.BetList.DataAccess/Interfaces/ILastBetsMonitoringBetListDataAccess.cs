@@ -16,5 +16,7 @@ namespace Fanex.Athena.BetList.DataAccess.Interfaces
         Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel);
 
         Task<IList<BetListMatch>> GetMatchList(string uspKey);
+
+        Task<BetListMatch> GetMatchById(int matchId);
     }
 }
