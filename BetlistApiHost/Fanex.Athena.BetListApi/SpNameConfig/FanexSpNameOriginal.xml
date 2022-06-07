@@ -46,6 +46,7 @@
     <Setting Key="Lrf_Monitor_MatchSel" SpName="Lrf_Monitor_MatchSel" DbName="DBBOF.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Monitor_Match3rdSel" SpName="Lrf_Monitor_Match3rdSel" DbName="DBBOF.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Monitor_OutrightSel" SpName="Lrf_Monitor_OutrightSel" DbName="DBBOF.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Monitor_MatchSelById" SpName="Lrf_Monitor_MatchSelById" DbName="DBBOF.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelCombinationParlayDetail" SpName="Lrf_BetList_SelCombinationParlayDetail" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelParlayDetail" SpName="Lrf_BetList_SelParlayDetail" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Monitor_BetlistSel_New" SpName="Lrf_Monitor_BetlistSel_New" DbName="DBBOF.bodb02.bodbLicenseeNet" />

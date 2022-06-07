@@ -65,5 +65,17 @@ namespace Fanex.Athena.BetList.DataAccess
                 return (await db.QueryAsync<BetListMatch>().ConfigureAwait(false)).ToList();
             }
         }
+
+        public async Task<BetListMatch> GetMatchById(int matchId)
+        {
+            const string UspName = "Lrf_Monitor_MatchSelById";
+
+            using (var db = this.GetObjectDb(UspName))
+            {
+                db.SetParameterValue("MatchId", matchId);
+
+                return (await db.QueryEntityAsync<BetListMatch>().ConfigureAwait(false));
+            }
+        }
     }
 }
