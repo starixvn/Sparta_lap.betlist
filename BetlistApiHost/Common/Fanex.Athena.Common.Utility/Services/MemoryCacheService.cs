@@ -3,7 +3,6 @@
     using System;
     using Interfaces;
     using Internal;
-    using Newtonsoft.Json;
 
     public class MemoryCacheService : IMemoryCacheService
     {
@@ -23,7 +22,7 @@
 
         public T Get<T>(string key)
         {
-            return Contains(key) ? DeepClone((T)_cache.Get(key, REGIONNAME)) : default(T);
+            return Contains(key) ? (T)_cache.Get(key, REGIONNAME) : default(T);
         }
 
         public T Get<T>(string key, Func<T> action, int seconds = TIMEOUT) where T : class
@@ -47,18 +46,13 @@
 
             if (!Equals(value, default(T)))
             {
-                _cache.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds), REGIONNAME);
+                _cache.Set(key, value, DateTime.Now.AddSeconds(seconds), REGIONNAME);
             }
         }
 
         public void Clear()
         {
             _cache.Clear(REGIONNAME);
-        }
-
-        private static T DeepClone<T>(T source)
-        {
-            return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source));
         }
     }
 }

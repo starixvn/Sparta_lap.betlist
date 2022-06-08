@@ -208,7 +208,7 @@ namespace Fanex.Athena.BetList.Service
             var outrightMatchList = await GetOutrightMatchList().ConfigureAwait(false);
             foreach (LrfTicket ticket in mainTicketList)
             {
-                await AssignMatchInfo(ticket, matchList, outrightMatchList, match3rdList);
+                await AssignMatchInfo(ticket, matchList, outrightMatchList, match3rdList).ConfigureAwait(false);
 
                 // Update time zone
                 if (timeZoneDelta > 0)
@@ -232,8 +232,10 @@ namespace Fanex.Athena.BetList.Service
         {
             var isOutright = IsOutright(ticket.BetTypeId);
 
-            var match = (isOutright ? outrightMatchList : matchList).FirstOrDefault(x => x.MatchId == ticket.MatchId)
+            var match = (
+                (isOutright ? outrightMatchList : matchList).FirstOrDefault(x => x.MatchId == ticket.MatchId)
                 ?? match3rdList.FirstOrDefault(x => x.MatchId == ticket.MatchId)
+                )
                 ?? await _lastBetsMonitoringBetListDataAccess.GetMatchById(ticket.MatchId).ConfigureAwait(false);
 
             if (match != null)
