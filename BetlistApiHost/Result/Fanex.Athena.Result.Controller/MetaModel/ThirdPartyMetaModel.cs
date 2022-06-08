@@ -17,5 +17,7 @@
         public int BetTypeId { get; set; }
 
         public string ClientIp { get; set; }
+
+        public string WinLostDate { get; set; }
     }
 }
