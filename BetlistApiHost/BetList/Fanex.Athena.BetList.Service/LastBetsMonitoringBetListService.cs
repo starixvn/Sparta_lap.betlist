@@ -208,13 +208,7 @@ namespace Fanex.Athena.BetList.Service
             var outrightMatchList = await GetOutrightMatchList().ConfigureAwait(false);
             foreach (LrfTicket ticket in mainTicketList)
             {
-                var isOutright = IsOutright(ticket.BetTypeId);
-
-                var match = (isOutright ? outrightMatchList : matchList).FirstOrDefault(x => x.MatchId == ticket.MatchId)
-                    ?? await _lastBetsMonitoringBetListDataAccess.GetMatchById(ticket.MatchId).ConfigureAwait(false);
-                var match3rd = match3rdList.FirstOrDefault(x => x.MatchId == ticket.MatchId);
-
-                AssignMatchInfo(ticket, match, match3rd);
+                await AssignMatchInfo(ticket, matchList, outrightMatchList, match3rdList).ConfigureAwait(false);
 
                 // Update time zone
                 if (timeZoneDelta > 0)
@@ -234,8 +228,16 @@ namespace Fanex.Athena.BetList.Service
             }
         }
 
-        private static void AssignMatchInfo(LrfTicket ticket, BetListMatch match, BetListMatch match3rd)
+        private async Task AssignMatchInfo(LrfTicket ticket, IList<BetListMatch> matchList, IList<BetListMatch> outrightMatchList, IList<BetListMatch> match3rdList)
         {
+            var isOutright = IsOutright(ticket.BetTypeId);
+
+            var match = (
+                (isOutright ? outrightMatchList : matchList).FirstOrDefault(x => x.MatchId == ticket.MatchId)
+                ?? match3rdList.FirstOrDefault(x => x.MatchId == ticket.MatchId)
+                )
+                ?? await _lastBetsMonitoringBetListDataAccess.GetMatchById(ticket.MatchId).ConfigureAwait(false);
+
             if (match != null)
             {
                 ticket.SportTypeId = match.SportType;
@@ -245,13 +247,6 @@ namespace Fanex.Athena.BetList.Service
                 ticket.AwayId = match.AwayId;
                 ticket.Race = match.Race;
                 ticket.EventDate = match.EventDate;
-            }
-
-            if (match3rd != null)
-            {
-                ticket.SportTypeId = match3rd.SportType;
-                ticket.LeagueId = match3rd.LeagueId;
-                ticket.EventDate = match3rd.EventDate;
             }
         }
     }
