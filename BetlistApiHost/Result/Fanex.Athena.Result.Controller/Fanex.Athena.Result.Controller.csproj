@@ -197,6 +197,7 @@
     <Compile Include="ResultPopup\AdvantPlayResultPopupController.cs" />
     <Compile Include="ResultPopup\CGResultPopupController.cs" />
     <Compile Include="ResultPopup\FGGLResultPopupController.cs" />
+    <Compile Include="ResultPopup\MaxGameResultPopupController.cs" />
     <Compile Include="ResultPopup\RNGCasinoResultPopupController.cs" />
     <Compile Include="ResultPopup\SGResultPopupController.cs" />
     <Compile Include="ResultPopup\SportsLotteryResultMainPageController.cs" />
