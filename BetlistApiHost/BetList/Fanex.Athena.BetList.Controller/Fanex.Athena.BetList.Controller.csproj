@@ -95,6 +95,9 @@
     <Reference Include="Fanex.BetList.LeapGaming, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.LeapGaming.1.0.2-beta-01\lib\net40\Fanex.BetList.LeapGaming.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.BetList.MaxGame, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.MaxGame.1.0.0.2\lib\net40\Fanex.BetList.MaxGame.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.BetList.NumberGame, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.NumberGame.1.7.0\lib\net40\Fanex.BetList.NumberGame.dll</HintPath>
     </Reference>
