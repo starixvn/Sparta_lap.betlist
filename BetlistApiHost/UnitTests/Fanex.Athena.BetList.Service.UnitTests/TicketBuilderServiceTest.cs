@@ -114,7 +114,8 @@
                 Stake = FakeHelper.Create<string>(),
                 LicenseeWL = "-",
                 WinLoss = "-",
-                BetEffective = "<div class='underdog'>0.00</div>"
+                BetEffective = "<div class='underdog'>0.00</div>",
+                TransId = "0"
             };
             _betlistHtmlBuilder.BuildTrans(ticket).Returns(expectedTicketText.TransTime);
             _betlistHtmlBuilder.BuildStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false).Returns(expectedTicketText.Status);

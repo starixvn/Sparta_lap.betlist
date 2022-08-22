@@ -94,7 +94,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
 
         public void AddHeader(BettingTicketCenterOption option)
         {
-            var columnWidths = new short[] { 1500, 4800, 4800, 4800, 5400, 5400, 15500, 3400, 2600, 7800, 4200, 5400, 5400, 3400, 4000 };
+            var columnWidths = new short[] { 1500, 4800, 4800, 5200, 5400, 5400, 15500, 3400, 2600, 7800, 4200, 5400, 5400, 3400, 4000 };
             var index = 0;
 
             var headerStyle = _builder.CreateHeaderCellStyle();

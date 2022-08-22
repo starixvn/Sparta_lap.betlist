@@ -74,16 +74,17 @@ namespace Fanex.Athena.BetList.Controller
             {
                 _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
+                var platformName = PlatformType.GetPlatformName(ticket.BetFrom.Trim());
                 bool isShowIp = metaModel.IsShowIp && (metaModel.IsShowIpvn || !(_ipService.IsVNIP(ticket.IP)));
 
                 var row = $"<tr class='content-row monitor-hightlight' id='trans-{ticket.TransId}' data-transid='{ticket.TransId}'>";
                 builder.Append(row);
 
-                builder.Append($"<td data-name='Platform'>{PlatformType.GetPlatformName(ticket.BetFrom.Trim())}</td>");
-                builder.Append($"<td data-name='ExternalId' class='special-color-{ticket.SpecialLevel}'>{ticket.ExternalId}</td>");
-                builder.Append($"<td data-name='SystemId' class='special-color-{ticket.SpecialLevel}'>{ticket.UserName}</td>");
+                builder.Append($"<td data-name='Platform' title='{platformName}'>{platformName}</td>");
+                builder.Append($"<td data-name='ExternalId' class='special-color-{ticket.SpecialLevel}' title='{ticket.ExternalId}'>{ticket.ExternalId}</td>");
+                builder.Append($"<td data-name='SystemId' class='special-color-{ticket.SpecialLevel}' title='{ticket.UserName}'>{ticket.UserName}</td>");
                 builder.Append($"<td data-name='CustomerClassId'>{ticket.CustomerClass}</td>");
-                builder.AddTrans(ticket, "<td data-name='TransTime' class='special-color-0'>", EndTag);
+                builder.AddTrans(ticket, $"<td data-name='TransTime' class='special-color-0' title='{ticket.RefNo}'>", EndTag);
                 builder.AddChoice(
                     ticket,
                     _ticketHelper,
