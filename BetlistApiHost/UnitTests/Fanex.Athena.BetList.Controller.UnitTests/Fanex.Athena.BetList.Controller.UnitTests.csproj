@@ -147,6 +147,10 @@
       <Project>{2b213bab-b67d-4b66-a64f-ac5e9ec3de1e}</Project>
       <Name>Fanex.Athena.Common.Constant</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Model\Fanex.Athena.Common.Model.csproj">
+      <Project>{30a669bb-5e66-4e1b-8e50-04cfaa382ac6}</Project>
+      <Name>Fanex.Athena.Common.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Utility\Fanex.Athena.Common.Utility.csproj">
       <Project>{90F037EA-E730-44D0-8957-5FCA2295D22E}</Project>
       <Name>Fanex.Athena.Common.Utility</Name>

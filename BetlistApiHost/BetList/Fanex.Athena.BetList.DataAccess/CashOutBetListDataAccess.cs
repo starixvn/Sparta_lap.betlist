@@ -13,17 +13,23 @@ namespace Fanex.Athena.BetList.DataAccess
     using BetList.Model.ViewModel;
     using Common.Utility.Collections;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.Common.Constant;
     using Fanex.Athena.Common.DataAccess.Interfaces;
+    using Fanex.Athena.Common.Utility.Services;
     using Fanex.Common.Extensions;
     using Interfaces;
 
     public class CashOutBetListDataAccess : BaseBetListDataAccess, ICashOutBetListDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+        private readonly IShardInfoAccessor _shardInfoAccessor;
 
-        public CashOutBetListDataAccess(ICurrencyDataAccess currencyService, IBalanceUpDataAccess balanceUpDataAccess) : base(currencyService)
+        public CashOutBetListDataAccess(ICurrencyDataAccess currencyService,
+            IShardInfoAccessor shardInfoAccessor,
+            IBalanceUpDataAccess balanceUpDataAccess) : base(currencyService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
+            _shardInfoAccessor = shardInfoAccessor;
         }
 
         public async Task<CashOutBetListDetailViewModel> GetDetail(
@@ -67,22 +73,21 @@ namespace Fanex.Athena.BetList.DataAccess
         public async Task<CashOutHistoryDetailViewModel> GetHistoryDetail(
             CashOutHistoryDetailMetaModel metaModel)
         {
-            const string UspKey = "Lrf_BetList_CashOut_History";
-
             var balanceUpData = _balanceUpDataAccess.GetBalanceUp();
-
-            using (var db = GetObjectDb(UspKey))
+            var useSiteDB = _shardInfoAccessor.UseShardDB && metaModel.Date > balanceUpData.MoveBetsDay;
+            using (var db = GetObjectDb(useSiteDB ? "SiteDB_Lrf_BetList_CashOut_History" : "Lrf_BetList_CashOut_History"))
             {
-                var param = new
+                db.SetParameterValue(DbColumn.TransId, metaModel.TransId);
+                db.SetParameterValue(DbColumn.CustId, metaModel.CustId);
+                db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
+                db.SetParameterValue("WinLostDate", metaModel.Date);
+                db.SetParameterValue("Currency", metaModel.CurrencyId);
+                if (!useSiteDB)
                 {
-                    metaModel.TransId,
-                    metaModel.CustId,
-                    WinLostDate = metaModel.Date,
-                    Currency = metaModel.CurrencyId,
-                    metaModel.BaseCurrency,
-                    balanceUpData.BalanceUpDay
-                };
-                using (var reader = await db.ExecuteReaderAsync(param).ConfigureAwait(false))
+                    db.SetParameterValue(DbColumn.BalanceUpDay, balanceUpData.BalanceUpDay);
+                }
+              
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = new CashOutHistoryDetailViewModel
                     {

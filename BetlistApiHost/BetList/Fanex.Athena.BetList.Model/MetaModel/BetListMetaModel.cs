@@ -1,15 +1,10 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListMetaModel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.BetList.Model.MetaModel
+﻿namespace Fanex.Athena.BetList.Model.MetaModel
 {
+    using Fanex.Athena.Common.Model.MetaModel;
     using System;
     using System.Web.Script.Serialization;
 
-    public class BetListMetaModel : BaseMetaModel, ICommonValueMetaModel
+    public class BetListMetaModel : BaseMetaModel, ICommonValueMetaModel, IBalanceUpMetaModel, IShardDBMetaModel
     {
         public BetListMetaModel()
         {
@@ -97,6 +92,10 @@ namespace Fanex.Athena.BetList.Model.MetaModel
 
         public bool IsEnableSingleWallet { get; set; }
 
+        public bool UseShardDB { get; set; }
+
+        public bool InBettransRange => Date > MoveBetsDay;
+
         public virtual bool IsValid
         {
             get
@@ -104,6 +103,13 @@ namespace Fanex.Athena.BetList.Model.MetaModel
                 return FromDate <= ToDate
                     && !string.IsNullOrWhiteSpace(ProductCodeList);
             }
+        }
+
+        public BetListMetaModel ShallowCloneWith(Action<BetListMetaModel> binding)
+        {
+            var clone = (BetListMetaModel)MemberwiseClone();
+            binding?.Invoke(clone);
+            return clone;
         }
     }
 }

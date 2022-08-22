@@ -111,6 +111,7 @@
     <Compile Include="CashOutBetListDataAccess.cs" />
     <Compile Include="DailyStatementBetListDataAccess.cs" />
     <Compile Include="ExchangeBetListDataAccess.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IBetListByProductDataAccess.cs" />
     <Compile Include="Interfaces\IBettingTicketCenterAdvancedSearchDataAccess.cs" />
     <Compile Include="Interfaces\IBettingTicketCenterDataAccess.cs" />

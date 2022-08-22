@@ -17,7 +17,7 @@ namespace Fanex.Athena.BetList.DataAccess.UnitTests
     [TestFixture]
     public class SystemParlayDetailDataAccessTest : BaseDataAccessHelperTest<SystemParlayDetailDataAccess>
     {
-        private const string GetSystemParlayDetailSp = "Lrf_BetList_SelCombinationParlayDetail";
+        private const string GetSystemParlayDetailSp = "Shard_Lrf_BetList_SelCombinationParlayDetail";
 
         private IBalanceUpDataAccess _balanceUpDataAccess;
 

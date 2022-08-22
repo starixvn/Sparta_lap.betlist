@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListDataAccess.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.BetList.DataAccess
+﻿namespace Fanex.Athena.BetList.DataAccess
 {
     using System;
     using System.Collections.Generic;
@@ -14,10 +8,13 @@ namespace Fanex.Athena.BetList.DataAccess
     using Common.DataAccess;
     using Common.Utility.Collections;
     using Common.Utility.Extensions;
+    using Fanex.Athena.Common.Constant;
     using Fanex.Athena.Common.DataAccess.Extensions;
     using Fanex.Athena.Common.DataAccess.Interfaces;
+    using Fanex.Athena.Common.Model.MetaModel;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common.Extensions;
+    using Fanex.Data;
     using Model.DTO;
     using Util;
 
@@ -81,7 +78,52 @@ namespace Fanex.Athena.BetList.DataAccess
             return new SafeDataReader(reader, columns);
         }
 
-        protected static IDictionary<string, string> GetColumns(string baseCurrency = "")
+        [CLSCompliant(false)]
+        protected internal virtual async Task<TicketResult> GetMainTicketListBasedRangeAsync<TMetaModel>(TMetaModel metaModel, string uspKey,
+          Action<IObjectDb> assignCommonParamters,
+          Action<IObjectDb> assignShardSpecificParamters = null,
+          Action<IObjectDb> assignCentralSpecificParamters = null)
+          where TMetaModel : IShardDBMetaModel
+        {
+            var currencyList = await GetCurrencyListAsync();
+            var tasks = new List<Task<SortableList<LrfTicket>>>(2);
+            if (metaModel.UseShardDB)
+            {
+                tasks.Add(GetMainTicketListBasedShardDBAsync($"SiteDB_{uspKey}", currencyList, assignCommonParamters, assignShardSpecificParamters));
+            }
+            tasks.Add(GetMainTicketListBasedShardDBAsync(uspKey, currencyList, assignCommonParamters,
+                db =>
+                {
+                    assignCentralSpecificParamters?.Invoke(db);
+                    db.SetParameterValue(DbColumn.ExcludeBettrans, metaModel.UseShardDB);
+                }));
+
+            var ticketResult = new TicketResult();
+            foreach (var task in tasks)
+            {
+                ticketResult.MainTicketList.AddRange(await task);
+            }
+            return ticketResult;
+        }
+
+        private async Task<SortableList<LrfTicket>> GetMainTicketListBasedShardDBAsync(string uspKey,
+            IDictionary<int, string> currencyList,
+            Action<IObjectDb> assignCommonParamters,
+            Action<IObjectDb> assignSpecificParamters)
+        {
+            using (var db = GetObjectDb(uspKey))
+            {
+                assignCommonParamters.Invoke(db);
+                assignSpecificParamters?.Invoke(db);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return ReadBetListTicket(reader, currencyList);
+                }
+            }
+        }
+
+        protected static IDictionary<string, string> GetColumns()
         {
             var columns = new[]
              {

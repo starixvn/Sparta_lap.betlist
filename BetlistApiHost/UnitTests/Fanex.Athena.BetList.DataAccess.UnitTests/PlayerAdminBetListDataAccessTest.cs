@@ -13,7 +13,7 @@
 
     public class PlayerAdminBetListDataAccessTest : BaseDataAccessHelperTest<PlayerAdminBetListDataAccess>
     {
-        private const string UspKey = "Lrf_BetList_Running_Mem";
+        private const string UspKey = "Shard_Lrf_BetList_Running_Mem";
         protected override void SetUpDataAccess()
         {
 

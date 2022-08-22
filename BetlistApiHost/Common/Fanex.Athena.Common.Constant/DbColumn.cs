@@ -87,5 +87,7 @@
         public const string ExcludeFreeBet = "ExcludeFreeBet";
 
         public const string Ip = "Ip";
+
+        public const string ExcludeBettrans = "ExcludeBettrans";
     }
 }
