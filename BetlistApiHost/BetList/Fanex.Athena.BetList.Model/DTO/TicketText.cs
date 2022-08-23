@@ -39,5 +39,7 @@ namespace Fanex.Athena.BetList.Model.DTO
         public string Live { get; set; }
 
         public string LicenseeTxId { get; set; }
+
+        public string TransId { get; set; }
     }
 }
