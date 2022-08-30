@@ -50,8 +50,8 @@ namespace Fanex.Athena.BetList.Controller
                 {
                     NewRow = true,
                     Rows = rows,
-                    LastTransId = transIdTicket == null ? 0 : transIdTicket.TransId,
-                    LastTransLogId = transLogIdTicket == null ? 0 : transLogIdTicket.TransId
+                    LastTransId = transIdTicket == null ? "0" : transIdTicket.TransId.ToString(),
+                    LastTransLogId = transLogIdTicket == null ? "0" : transLogIdTicket.TransId.ToString()
                 };
                 BetListHelper.ClearData(ticketResult);
                 return Json(result);
