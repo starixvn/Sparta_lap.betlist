@@ -18,7 +18,5 @@
         {
             return await _betListByProductDataAccess.QueryAsync(metaModel).ConfigureAwait(false);
         }
-
-
     }
 }

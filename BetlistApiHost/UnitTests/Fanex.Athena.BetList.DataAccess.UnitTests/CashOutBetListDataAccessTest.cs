@@ -9,6 +9,7 @@
     using Common.DataAccess.UnitTests;
     using Fanex.Athena.Common.DataAccess.Interfaces;
     using Fanex.Athena.Common.Model.DTO;
+    using Fanex.Athena.Common.Utility.Services;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -21,12 +22,18 @@
         private readonly BalanceUp _balanceUp = FakeHelper.Create<BalanceUp>();
 
         private IBalanceUpDataAccess _balanceUpDataAccess;
+        private IShardInfoAccessor _shardInfoAccessor;
+
 
         protected override void SetUpDataAccess()
         {
             _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
-            DataAccess = Substitute.ForPartsOf<CashOutBetListDataAccess>(CurrencyDataAccess, _balanceUpDataAccess);
+
+            _shardInfoAccessor = Substitute.For<IShardInfoAccessor>();
+            _shardInfoAccessor.UseShardDB.Returns(false);
+
+            DataAccess = Substitute.ForPartsOf<CashOutBetListDataAccess>(CurrencyDataAccess, _shardInfoAccessor, _balanceUpDataAccess);
         }
 
         [Test]

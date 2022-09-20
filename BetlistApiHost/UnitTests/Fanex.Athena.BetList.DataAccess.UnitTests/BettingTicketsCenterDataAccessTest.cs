@@ -7,13 +7,14 @@
     using Common.DataAccess.Interfaces;
     using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
+    using Fanex.Athena.Common.Utility.Services;
     using NSubstitute;
     using NUnit.Framework;
 
     public partial class BettingTicketsCenterDataAccessTest : BaseDataAccessHelperTest<BettingTicketCenterDataAccess>
     {
         private const string BetListByRefnoUspKey = "Lrf_BetList_RefNo_Mem";
-        private const string RunningBetListUspKey = "Lrf_BetList_Running";
+        private const string RunningBetListUspKey = "Shard_Lrf_BetList_Running";
         private const string BetListBySingleCustomerUspKey = "Lrf_BetList_Mem";
 
         private static readonly BalanceUp BalanceUp = new BalanceUp
@@ -26,8 +27,10 @@
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
-            DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(
-                balanceUpDataAccess, CurrencyDataAccess);
+            var shardInfoAccessor = Substitute.For<IShardInfoAccessor>();
+            shardInfoAccessor.UseShardDB.Returns(false);
+           DataAccess = Substitute.ForPartsOf<BettingTicketCenterDataAccess>(
+                balanceUpDataAccess, CurrencyDataAccess, shardInfoAccessor);
         }
 
         [Test]

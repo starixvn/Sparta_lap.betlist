@@ -10,13 +10,14 @@
 
     public class PlayerAdminBetListDataAccess : BaseBetListDataAccess, IPlayerAdminBetListDataAccess
     {
-        private const string UspKey = "Lrf_BetList_Running_Mem";
         public PlayerAdminBetListDataAccess(ICurrencyDataAccess currencyService) : base(currencyService)
         {
 
         }
         public async Task<TicketResult> GetRunningBetListAsync(PlayerAdminBetListMetaModel metaModel)
         {
+            const string UspKey = "Shard_Lrf_BetList_Running_Mem";
+
             var ticketResult = new TicketResult();
             var currencyList = await this.GetCurrencyListAsync();
 

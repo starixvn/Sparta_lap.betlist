@@ -12,7 +12,7 @@
 
     public class LastBetsMonitoringBetListDataAccessTest : BaseDataAccessHelperTest<LastBetsMonitoringBetListDataAccess>
     {
-        private const string UspKey = "Lrf_Monitor_BetlistSel_New";
+        private const string UspKey = "Shard_Lrf_BetList_LastBetsMonitoring";
 
         protected override void SetUpDataAccess()
         {

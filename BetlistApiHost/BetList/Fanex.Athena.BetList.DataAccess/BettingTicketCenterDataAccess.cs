@@ -1,5 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using BetList.Model.DTO;
@@ -7,18 +9,23 @@
     using Common.Constant;
     using Common.DataAccess.Interfaces;
     using Data;
+    using Fanex.Athena.Common.Utility.Collections;
     using Fanex.Athena.Common.Utility.Helpers;
+    using Fanex.Athena.Common.Utility.Services;
     using Fanex.Common;
     using Interfaces;
 
     public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+        private readonly IShardInfoAccessor _shardInfoAccessor;
 
         public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess,
-            ICurrencyDataAccess currencyService) : base(currencyService)
+            ICurrencyDataAccess currencyService,
+            IShardInfoAccessor shardInfoAccessor) : base(currencyService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
+            _shardInfoAccessor = shardInfoAccessor;
         }
 
         public async Task<TicketResult> GetBetListForSingleCustomerAsync(
@@ -52,34 +59,29 @@
         public async Task<TicketResult> GetBetListByRefnoAsync(RefNoBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_RefNo_Mem";
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            metaModel.UseShardDB = _shardInfoAccessor.UseShardDB;
 
-            var ticketResult = new TicketResult();
-            var currencyList = await this.GetCurrencyListAsync();
-
-            using (var db = GetObjectDb(UspKey))
-            {
-                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-                db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
-                db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
-                db.SetParameterValue(DbColumn.RefNo, metaModel.RefNo);
-                db.SetParameterValue(DbColumn.TxId, metaModel.TxId);
-                db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
-                db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
-                db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
-
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+            var ticketResult = await GetMainTicketListBasedRangeAsync(metaModel, UspKey,
+                assignCommonParamters: db =>
                 {
-                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
-                    ticketResult.TotalRows = ticketResult.MainTicketList.Count;
-                }
-            }
+                    db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+                    db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
+                    db.SetParameterValue(DbColumn.RefNo, metaModel.RefNo);
+                    db.SetParameterValue(DbColumn.TxId, metaModel.TxId);
+                    db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
+                    db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
+                    db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
+                });
+
+            ticketResult.TotalRows = ticketResult.MainTicketList.Count;
 
             return ticketResult;
         }
 
         public async Task<TicketResult> GetRunningBetListAsync(BaseBettingTicketMetaModel metaModel)
         {
-            const string UspKey = "Lrf_BetList_Running";
+            const string UspKey = "Shard_Lrf_BetList_Running";
 
             var ticketResult = new TicketResult();
             var currencyList = await this.GetCurrencyListAsync();

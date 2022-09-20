@@ -7,7 +7,7 @@
     using Common.Utility.Services.Interfaces;
 
     using DataAccess.Interfaces;
-
+    using Fanex.Athena.Common.Utility.Services;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
 
@@ -33,9 +33,9 @@
 
         private ITicketHelper _ticketHelper;
 
-        private IBetListHTMLBuilder _betlistHtmlBuilder;
 
         private ICacheRefAdapter _cacheRefAdapter;
+        private IShardInfoAccessor _shardInfoAccessor;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -43,10 +43,10 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _betlistDataAccess = Substitute.For<IBetListDataAccess>();
             _ticketHelper = Substitute.For<ITicketHelper>();
-            _betlistHtmlBuilder = Substitute.For<IBetListHTMLBuilder>();
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            _shardInfoAccessor = Substitute.For<IShardInfoAccessor>();
 
-            _betListService = new BetListService(balanceUpDataAccess, _betlistDataAccess, _cacheRefAdapter);
+            _betListService = new BetListService(balanceUpDataAccess, _betlistDataAccess, _shardInfoAccessor, _cacheRefAdapter);
 
             balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp());
         }
@@ -56,7 +56,7 @@
         {
             _betlistDataAccess = null;
             _betListService = null;
-            _betlistHtmlBuilder = null;
+            _shardInfoAccessor = null;
             _cacheRefAdapter = null;
             _ticketHelper = null;
         }

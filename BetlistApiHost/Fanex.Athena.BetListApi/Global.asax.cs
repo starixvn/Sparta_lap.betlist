@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Global.asax.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-
-namespace Fanex.Athena
+﻿namespace Fanex.Athena
 {
     using App_Start;
     using Data;
@@ -24,6 +18,7 @@ namespace Fanex.Athena
     using System.Web.Mvc;
     using System.Web.Routing;
 
+   
     public class MvcApplication : HttpApplication
     {
         public void Application_Error(object sender, EventArgs e)
@@ -50,7 +45,6 @@ namespace Fanex.Athena
                     Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry-Dsn"])
                 }));
 
-            const string SpNameConfigSource = "~/SpNameConfig/FanexSpName.xml";
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
@@ -61,8 +55,11 @@ namespace Fanex.Athena
 
             DbSettingProviderManager
                 .StartNewSession()
-                .WithSqlServer(resourcePath: SpNameConfigSource)
+                .WithSqlServer()
+                .UseDefaultConnectionStringProvider()
+                .UseShardDbSettingProvider()
                 .Run();
+
             RefDataTypeContainer
            .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
            .FromApplication("Fanex.LAP.BetListApi");

@@ -16,8 +16,6 @@ namespace Fanex.Athena.BetList.DataAccess
 
     public class LastBetsMonitoringBetListDataAccess : BaseBetListDataAccess, ILastBetsMonitoringBetListDataAccess
     {
-        private const string UspKey = "Lrf_Monitor_BetlistSel_New";
-
         public LastBetsMonitoringBetListDataAccess(
         ICurrencyDataAccess currencyService) : base(currencyService)
         {
@@ -25,6 +23,8 @@ namespace Fanex.Athena.BetList.DataAccess
 
         public async Task<TicketResult> GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
         {
+            const string UspKey = "Shard_Lrf_BetList_LastBetsMonitoring";
+
             var ticketResult = new TicketResult();
             var currencyList = await this.GetCurrencyListAsync();
 

@@ -276,7 +276,7 @@
         public async Task GetBetListData_IsServerPagingFalseSortData_SortCorrectProperty(string sortBy, string expectedSortedProp)
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_SelWinloss_Mem";
+            const string UspKey = "Shard_Lrf_BetList_LicenseeWL_Mem";
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel(UspKey);
             metaModel.IsServerPaging = false;
@@ -334,8 +334,8 @@
             });
         }
 
-        [TestCase("Lrf_BetList_SelWinLossByDate_Mem")]
-        [TestCase("Lrf_BetList_SelWinloss_Mem")]
+        [TestCase("Shard_Lrf_BetList_CustomerWL_Mem")]
+        [TestCase("Shard_Lrf_BetList_LicenseeWL_Mem")]
         public async Task GetBetListData_CallSpHaveOutPutParam_GetSummaryFromOutputParams(string uspName)
         {
             // Arrange

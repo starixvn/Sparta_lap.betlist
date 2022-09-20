@@ -70,7 +70,7 @@
                     AssertClearData(ticketResult);
                     Assert.That(result.GetValue("NewRow"), Is.True);
                     Assert.That(result.GetValue("Rows"), Is.Not.Null);
-                    Assert.That(result.GetValue("LastTransId"), Is.EqualTo(ticket.TransId));
+                    Assert.That(result.GetValue("LastTransId"), Is.EqualTo(ticket.TransId.ToString()));
                 });
             }
         }

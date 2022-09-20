@@ -80,7 +80,7 @@
         public void CreateBetListParameters_CalledByCustomerWlBetlist_ParametersPassedCorrectly()
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
+            const string UspKey = "Shard_Lrf_BetList_CustomerWL_Mem";
             _metaModel.UspKey = UspKey;
 
             // Action
@@ -104,7 +104,7 @@
         public void CreateBetListParameters_CalledByLicenseeWLBetlist_ParametersPassedCorrectly()
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_SelWinloss_Mem";
+            const string UspKey = "Shard_Lrf_BetList_LicenseeWL_Mem";
             _metaModel.UspKey = UspKey;
 
             // Action
@@ -352,7 +352,7 @@
         public void CreateBetListParameters_CalledByRunningBetList_ParametersPassedCorrectly()
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
+            const string UspKey = "Shard_Lrf_BetList_SelRunningByDate_Mem";
             _metaModel.UspKey = UspKey;
 
             // Action
@@ -375,7 +375,7 @@
         public void CreateBetListParameters_CalledByMatchRunningBetLitByBettype_ParametersPassedCorrectly(int? liveIndicator, int expectedLiveIndicator)
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_SelRunningByBettypeMatch";
+            const string UspKey = "Shard_Lrf_BetList_SelRunningByBettypeMatch";
 
             _metaModel.LiveIndicator = liveIndicator;
             _metaModel.UspKey = UspKey;
@@ -430,7 +430,7 @@
         public void CreateBetListParameters_CalledByRunningBetListByForeCastMatch_ParametersPassedCorrectly(int? liveIndicator, int expectedLiveIndicator)
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_Forecast_SelByMatch";
+            const string UspKey = "Shard_Lrf_BetList_Forecast_SelByMatch";
 
             _metaModel.LiveIndicator = liveIndicator;
             _metaModel.UspKey = UspKey;

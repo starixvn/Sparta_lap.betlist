@@ -38,6 +38,8 @@ namespace Fanex.Athena.Common.Utility.Services
 
         public void Save(string path, string content)
         {
+            Directory.CreateDirectory(_appSettings.TempFilePath);
+
             var realPath = Path.Combine(_appSettings.TempFilePath, path);
             _fileSystem.Save(realPath, content);
         }

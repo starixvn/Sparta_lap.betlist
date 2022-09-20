@@ -2,45 +2,55 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Common.Utility.Collections;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.Common.Constant;
     using Fanex.Athena.Common.DataAccess.Interfaces;
     using Fanex.Common;
     using Util;
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
+
         public BetListDataAccess(ICurrencyDataAccess currencyDataAccess) : base(currencyDataAccess)
         {
-
         }
 
         public async Task<TicketResult> GetMixParlayDetailTicket(MixParlayDetailMetaModel metaModel)
         {
-            const string UspName = "Lrf_BetList_SelParlayDetail";
-            var currencyList = await this.GetCurrencyListAsync();
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.SetParameterValue("TransId", metaModel.TransId);
-                db.SetParameterValue("CustId", metaModel.CustId);
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+            const string UspKey = "Lrf_BetList_SelParlayDetail";
+            var ticketResult = await GetMainTicketListBasedRangeAsync(metaModel, UspKey,
+                assignCommonParamters: db =>
                 {
-                    var result = new TicketResult();
-                    result.MainTicketList.AddRange(ReadBetListTicket(reader,
-                        currencyList));
-                    return result;
-                }
-            }
+                    db.SetParameterValue(nameof(metaModel.TransId), metaModel.TransId);
+                    db.SetParameterValue(nameof(metaModel.CustId), metaModel.CustId);
+                    db.SetParameterValue(DbColumn.MoveBetsDay, metaModel.MoveBetsDay);
+                    db.SetParameterValue(DbColumn.BalanceUpDay, metaModel.BalanceUpDay);
+                });
+
+            ticketResult.MainTicketList.Sort("TransId", false);
+            return ticketResult;
         }
 
         public async Task<TicketResult> GetBetListData(BetListMetaModel metaModel)
         {
+            var shardUspKey = string.Empty;
+            var result = await GetBetListDataAsync(metaModel.UseShardDB
+                && metaModel.InBettransRange
+                && BetListParameterBuilder.IsExistedSpActionMap(shardUspKey = $"SiteDB_{metaModel.UspKey}")
+                ? metaModel.ShallowCloneWith(_ => _.UspKey = shardUspKey) : metaModel);
+            return result;
+        }
+
+        private async Task<TicketResult> GetBetListDataAsync(BetListMetaModel metaModel)
+        {
             var ticketResult = new TicketResult();
-            var currencyList = await this.GetCurrencyListAsync();
+            var currencyList = await GetCurrencyListAsync();
 
             using (var db = GetObjectDb(metaModel.UspKey))
             {
@@ -54,7 +64,6 @@
                     {
                         ticketResult.TicketDataList.AddRange(ReadReferneceTicket(reader).ToList());
                     }
-
                     SortData(metaModel, ticketResult.MainTicketList);
                 }
 
