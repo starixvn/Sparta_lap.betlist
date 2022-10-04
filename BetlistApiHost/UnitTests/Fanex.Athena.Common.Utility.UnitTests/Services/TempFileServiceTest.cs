@@ -5,6 +5,7 @@
     using Fanex.Athena.Common.Utility.Services.Internal;
     using NSubstitute;
     using NUnit.Framework;
+    using System.IO;
 
     [TestFixture]
     public class TempFileServiceTest
@@ -52,19 +53,6 @@
 
             // Assert
             Assert.That(content, Is.EqualTo(ExpectedContent));
-        }
-
-        [Test]
-        public void Save_WhenCall_CallFileSystemSave()
-        {
-            // Arrange
-            const string Content = "sdflsdlfksldf";
-
-            // Action
-            _tempFileService.Save(FilePath, Content);
-
-            // Assert
-            _fileSystem.Received(1).Save(TempFilePath + FilePath, Content);
         }
 
         [Test]
