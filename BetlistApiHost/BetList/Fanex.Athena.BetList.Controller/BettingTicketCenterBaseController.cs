@@ -1,7 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.Controller
 {
-    using System;
-    using System.Web.Mvc;
     using Fanex.Athena.BetList.Controller.CustomActionResult;
     using Fanex.Athena.BetList.Excel;
     using Fanex.Athena.BetList.Excel.Model;
@@ -11,6 +9,8 @@
     using Fanex.Athena.BetList.Service.Interfaces;
     using Fanex.Athena.Common.Constant;
     using Fanex.Athena.Resources;
+    using System;
+    using System.Web.Mvc;
 
     public class BettingTicketCenterBaseController : BaseController
     {
@@ -39,7 +39,7 @@
                 ? string.Empty
                 : $", {ViewResources.BaseCurrency}: {baseCurrencyText}";
 
-            return ViewResources.BettingTicketCenter + date + baseCurrency;
+            return ViewResources.BettingTicketCenter + date + (metaModel.IsConvertAll ? baseCurrency : string.Empty);
         }
 
         protected internal virtual ExcelResult ExportExcel(BettingTicketCenterExcelModel excelModel)
