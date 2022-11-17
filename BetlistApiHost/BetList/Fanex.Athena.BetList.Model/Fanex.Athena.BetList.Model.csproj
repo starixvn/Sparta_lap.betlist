@@ -128,6 +128,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\DateOptionTypes.cs" />
     <Compile Include="DTO\BetListTotalData.cs" />
     <Compile Include="ViewModel\CashOutHistoryDetailViewModel.cs" />
     <Compile Include="DTO\CashOutTicketText.cs" />

@@ -8,6 +8,8 @@
 
         public DateTime ToDate { get; set; }
 
+        public byte DateOptionType { get; set; } = DateOptionTypes.SettledAndResettledReport;
+
         public override bool IsValid => base.IsValid && FromDate <= ToDate;
     }
 }
