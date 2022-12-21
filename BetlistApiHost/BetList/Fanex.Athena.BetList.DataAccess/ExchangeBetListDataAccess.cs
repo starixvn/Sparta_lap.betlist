@@ -27,6 +27,7 @@
                 db.SetParameterValue("ToDate", metaModel.ToDate);
                 db.SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 db.SetParameterValue("SumWinLost", null);
+                db.SetParameterValue("DateOption", metaModel.DateOptionType);
 
                 var result = new ExchangeBetListResult();
 
