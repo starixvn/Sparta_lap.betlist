@@ -39,8 +39,6 @@ namespace Fanex.Athena.Result.Controller
 
         private readonly IResultService _resultService;
 
-        private readonly IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
-
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         private string _htmlResult;
@@ -50,11 +48,9 @@ namespace Fanex.Athena.Result.Controller
 
         public ResultReportController(
             IResultService resultService,
-            IRNGCasinoSingleWalletService rngCasinoSingleWalletService,
             ICacheRefAdapter cacheRefAdapter)
         {
             _resultService = resultService;
-            _rngCasinoSingleWalletService = rngCasinoSingleWalletService;
             _cacheRefAdapter = cacheRefAdapter;
         }
 
@@ -118,14 +114,6 @@ namespace Fanex.Athena.Result.Controller
         {
             await GetPopUpData(metalModel).ConfigureAwait(false);
             return _htmlResult;
-        }
-
-        [HttpPost]
-        public ActionResult ShowRngCasinoSingleWalletResult(string refNo)
-        {
-            var resultInfo = _rngCasinoSingleWalletService.GetResultInfo(refNo);
-
-            return Json(resultInfo);
         }
 
         /// <summary>
