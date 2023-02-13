@@ -8,12 +8,12 @@ namespace Fanex.Athena.BetList.Excel
 {
     using System.Globalization;
     using BetList.Model.DTO;
+    using BetListNPOI.HSSF.UserModel;
+    using BetListNPOI.SS.UserModel;
+    using BetListNPOI.SS.Util;
     using Common.Utility.Helpers;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using NPOI.HSSF.UserModel;
-    using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
     using Resources;
     using Service.Helpers;
 

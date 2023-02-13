@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.Controller.CustomActionResult
 {
+    using BetListNPOI.SS.UserModel;
     using System.Web.Mvc;
-    using NPOI.SS.UserModel;
 
     public class ExcelResult : ActionResult
     {
@@ -12,15 +12,11 @@
             this._hssfWorkBook = hssfWorkbook;
         }
 
-        /// <summary>
-        /// Execute result.
-        /// </summary>
-        /// <param name="context">The controller context.</param>
         public override void ExecuteResult(ControllerContext context)
         {
             var response = context.HttpContext.Response;
             response.Clear();
-            this._hssfWorkBook.Write(response.OutputStream);
+            this._hssfWorkBook.Write(response.OutputStream, true);
         }
     }
 }

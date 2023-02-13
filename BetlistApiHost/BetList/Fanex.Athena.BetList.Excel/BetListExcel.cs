@@ -20,12 +20,12 @@ namespace Fanex.Athena.BetList.Excel
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Helpers;
-    using NPOI.HSSF.UserModel;
-    using NPOI.HSSF.Util;
-    using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
     using Resources;
     using Service.Extensions;
+    using BetListNPOI.SS.UserModel;
+    using BetListNPOI.HSSF.UserModel;
+    using BetListNPOI.SS.Util;
+    using BetListNPOI.HSSF.Util;
 
     public class BetListExcel
     {
