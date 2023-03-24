@@ -101,7 +101,10 @@
             var ticketResult = new TicketResult();
             foreach (var task in tasks)
             {
-                ticketResult.MainTicketList.AddRange(await task);
+                if (!ticketResult.MainTicketList.Any())
+                {
+                    ticketResult.MainTicketList.AddRange(await task);
+                }
             }
             return ticketResult;
         }
