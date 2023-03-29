@@ -15,7 +15,7 @@
             // Arrange
             var transDesc = FakeHelper.Create<string>();
             var betCheck = FakeHelper.Create<string>();
-            var betType = FakeHelper.Create<string>();
+            var betType = FakeHelper.Create<int>();
             var languageCode = FakeHelper.Create<string>();
 
             var resultApi = Substitute.For<ISexyGamingResultBuilder>();
