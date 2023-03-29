@@ -13,7 +13,7 @@ namespace Fanex.Athena.Result.Controller.ResultPopup
         }
 
         [HttpPost]
-        public string Index(string transDesc, string matchCode, string betType, string languageCode)
+        public string Index(string transDesc, string matchCode, int betType, string languageCode)
         {
             return _resultApi.Render(transDesc, matchCode, betType, languageCode);
         }
