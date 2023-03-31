@@ -157,7 +157,6 @@
     <Compile Include="ResultPopup\WMResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SportsLotteryResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\JokerResultPopupControllerTest.cs" />
-    <Compile Include="ResultPopup\GDGResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SexyGamingResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SGResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\VoidbridgeResultPopupControllerTest.cs" />

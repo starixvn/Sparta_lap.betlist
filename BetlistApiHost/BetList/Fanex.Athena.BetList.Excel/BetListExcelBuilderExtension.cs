@@ -163,8 +163,7 @@ namespace Fanex.Athena.BetList.Excel
         {
             var isRunning = BetListHelper.IsRunning(ticket.Status);
             var isBoughtTicket = BetListHelper.IsBoughtTicket(ticket.BetTypeId);
-            var isColossusBetBettype = BetListHelper.IsColossusBet(ticket.BetTypeId);
-            if (isBoughtTicket || isColossusBetBettype)
+            if (isBoughtTicket)
             {
                 var licenseeWl = isRunning
                                     ? "-"
