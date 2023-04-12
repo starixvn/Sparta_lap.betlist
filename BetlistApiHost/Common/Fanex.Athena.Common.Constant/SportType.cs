@@ -303,8 +303,6 @@ namespace Fanex.Athena.Common.Constant
 
         Voidbridge = 212,
 
-        FishingWorld = 219,
-
         Lottery = 220,
 
         Exchange = 221,

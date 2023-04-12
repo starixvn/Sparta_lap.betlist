@@ -373,44 +373,6 @@
             AssertTicketResult(result, expectSummaryResult);
         }
 
-        [TestCase("Lrf_BetList_CustomerList_Mem")]
-        public async Task GetBetListData_CallSpHaveOnlyOriginalOutPutParam_GetSummaryFromOriginalOutputParams(string uspName)
-        {
-            // Arrange
-            const string BaseCurrency = "usd";
-            var expectSummaryResult = new Hashtable
-            {
-                { "totalrows", 6 },
-                { "sumwinlost", 12 },
-                { "sumbeteffective", 13 },
-                { "sumlicenseewl", 14 },
-                { "sumcomm", 15 },
-                { "sumplayercomm", 16 },
-            };
-            DataAccess.GetObjectDb(Arg.Is(uspName)).Returns(ObjectDb);
-            MapReaderData(new
-            {
-                winlost = 1,
-                beteffective = 2,
-                licenseewl = 3,
-                comm = 4,
-                playercomm = 5
-            });
-            Reader.NextResult().Returns(false);
-            Reader.Read().Returns(true, false, false);
-            SetUpColumnsForReader(5, new[] { "winlost", "beteffective", "licenseewl", "comm", "playercomm" });
-
-            ObjectDb.GetOutputParams().Returns(expectSummaryResult);
-
-            var metaModel = new BetListMetaModel { BaseCurrency = BaseCurrency, UspKey = uspName };
-
-            // Action
-            var result = await DataAccess.GetBetListData(metaModel).ConfigureAwait(false);
-
-            // Assert
-            AssertTicketResult(result, expectSummaryResult);
-        }
-
         private static void AssertTicketResult(TicketResult result, Hashtable expectSummaryResult)
         {
             Assert.Multiple(() =>

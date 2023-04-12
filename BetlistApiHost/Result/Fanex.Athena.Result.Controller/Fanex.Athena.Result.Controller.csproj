@@ -63,9 +63,6 @@
     <Reference Include="Fanex.Result.Core.Casino, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Casino.1.0.0.1\lib\Fanex.Result.Core.Casino.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.GlobalGaming, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.GlobalGaming.1.0.0.4\lib\net40\Fanex.Result.Core.GlobalGaming.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Result.Core.Happy5, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Happy5.1.0.2\lib\net40\Fanex.Result.Core.Happy5.dll</HintPath>
     </Reference>
@@ -200,10 +197,8 @@
     <Compile Include="ResultPopup\Happy5LinkedGamesResultPopupController.cs" />
     <Compile Include="ResultPopup\BGGResultPopupController.cs" />
     <Compile Include="ResultPopup\SabaClubResultPopupController.cs" />
-    <Compile Include="ResultPopup\GlobalGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\CardClubResultPopupController.cs" />
     <Compile Include="ResultPopup\JokerResultPopupController.cs" />
-    <Compile Include="ResultPopup\GDGResultPopupController.cs" />
     <Compile Include="ResultPopup\HabaneroResultPopupController.cs" />
     <Compile Include="ResultPopup\SexyGamingResultPopupController.cs" />
     <Compile Include="ResultPopup\SAGamingResultPopupController.cs" />

@@ -130,9 +130,6 @@
     <Reference Include="Fanex.BetList.CG, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.CG.2.0.0\lib\net461\Fanex.BetList.CG.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.BetList.ColossusBets, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.ColossusBets.2.0.0\lib\net461\Fanex.BetList.ColossusBets.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.BetList.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Core.3.0.0.1\lib\net461\Fanex.BetList.Core.dll</HintPath>
     </Reference>
@@ -144,12 +141,6 @@
     </Reference>
     <Reference Include="Fanex.BetList.FGG, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.FGG.2.0.0\lib\net461\Fanex.BetList.FGG.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.BetList.GDG, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.GDG.2.0.0\lib\net461\Fanex.BetList.GDG.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.BetList.GlobalGaming, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.GlobalGaming.2.0.0\lib\net461\Fanex.BetList.GlobalGaming.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Habanero, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Habanero.2.0.0\lib\net461\Fanex.BetList.Habanero.dll</HintPath>
@@ -524,15 +515,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
-    <Content Include="App_Data\Fanex.Result\HorseRacing.xls" />
     <Content Include="App_Data\Fanex.Result\OtherSport.xls" />
     <Content Include="App_Data\Fanex.Result\Badminton.xls" />
     <Content Include="App_Data\Fanex.Result\BaseBall.xls" />
     <Content Include="App_Data\Fanex.Result\Basketball.xls" />
     <Content Include="App_Data\Fanex.Result\Billiard.xls" />
-    <Content Include="App_Data\Fanex.Result\GoldDeluxe.xls" />
     <Content Include="App_Data\Fanex.Result\Hockey.xls" />
-    <Content Include="App_Data\Fanex.Result\LiveCasino.xls" />
     <Content Include="App_Data\Fanex.Result\MuayThai.xls" />
     <Content Include="App_Data\Fanex.Result\NumberGame.xls" />
     <Content Include="App_Data\Fanex.Result\Other.xls" />

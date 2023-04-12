@@ -219,7 +219,6 @@
     <Compile Include="BettingTicketCenterController.cs" />
     <Compile Include="BettingTicketCenterAdvancedSearchController.cs" />
     <Compile Include="CashOutBetListController.cs" />
-    <Compile Include="ColossusBetBetListController.cs" />
     <Compile Include="CustomActionResult\ExcelResult.cs" />
     <Compile Include="BetListController.cs" />
     <Compile Include="CustomActionResult\JsonNetResult.cs" />
@@ -228,7 +227,6 @@
     <Compile Include="LiveReportBetListController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="MixParlayBetListController.cs" />
-    <Compile Include="OutstandingDailyStatementBetListController.cs" />
     <Compile Include="PlayerAdminBetListController.cs" />
     <Compile Include="PlayerSegmentationBetListController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

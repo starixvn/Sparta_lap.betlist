@@ -30,35 +30,6 @@
         }
 
         [Test]
-        public void CreateBetListParameters_CalledByWinlossByLeague_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
-            var metaModel = FakeHelper.Create<WinLossByLeagueBetListMetaModel>(x => x.ProductCodeList, "SB,NG");
-            metaModel.UspKey = UspKey;
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).SetParameterValue("AgentList", metaModel.AgentListXml);
-                _objectDb.Received(1).SetParameterValue("CustId", metaModel.CustId);
-                _objectDb.Received(1).SetParameterValue("LeagueID", metaModel.LeagueId);
-                _objectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
-                _objectDb.Received(1).SetParameterValue("Odds", metaModel.Odds);
-                AssertDateRangeParameters(_objectDb, metaModel);
-                AssertMoveBetParams(_objectDb, metaModel);
-                _objectDb.Received(1).SetParameterValue("ShowWin", metaModel.ShowWin);
-                _objectDb.Received(1).SetParameterValue("ShowLoss", metaModel.ShowLoss);
-                _objectDb.Received(1).SetParameterValue("ShowDraw", metaModel.ShowDraw);
-                _objectDb.Received(1).SetParameterValue("showSB", true);
-                _objectDb.Received(1).SetParameterValue("showBA", false);
-            });
-        }
-
-        [Test]
         public void CreateBetListParameters_CalledByCorectScoreBetlist_ParametersPassedCorrectly()
         {
             // Arrange
@@ -264,88 +235,6 @@
                 _objectDb.Received(1).SetParameterValue("DrawFilter", _metaModel.DrawFilter);
                 _objectDb.Received(1).SetParameterValue("PlatformType", _metaModel.PlatformType);
             });
-        }
-
-        [Test]
-        public void CreateBetListParameters_CalledByOutStandingCompletedBetList_ParametersPassedCorrectlyWithoutSort()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_CustomerList_Mem";
-            _metaModel.SortBy = string.Empty;
-            _metaModel.UspKey = UspKey;
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
-                _objectDb.Received(1).SetParameterValue("CustId", _metaModel.CustId);
-                AssertDateRangeParameters(_objectDb, _metaModel);
-                AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).SetParameterValue("showSB", true);
-                _objectDb.Received(1).SetParameterValue("showNG", true);
-                _objectDb.DidNotReceive().SetParameterValue("Sort", Arg.Any<string>());
-            });
-        }
-
-        [Test]
-        public void CreateBetListParameters_CalledByOutStandingCompletedBetList_ParametersPassedCorrectlyWithSort()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_CustomerList_Mem";
-            _metaModel.SortBy = "Column";
-            _metaModel.SortOrder = "asc";
-            _metaModel.UspKey = UspKey;
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
-                _objectDb.Received(1).SetParameterValue("CustId", _metaModel.CustId);
-                AssertDateRangeParameters(_objectDb, _metaModel);
-                AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).SetParameterValue("showSB", true);
-                _objectDb.Received(1).SetParameterValue("showNG", true);
-                _objectDb.Received(1).SetParameterValue("Sort", _metaModel.SortBy + " " + _metaModel.SortOrder);
-            });
-        }
-
-        [Test]
-        public void CreateBetListParameters_CalledByDailyStatementBetList_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_SelByDayAll_Mem";
-            _metaModel.UspKey = UspKey;
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                AssertDailyStatementBetList(_objectDb, _metaModel);
-            });
-        }
-
-        [Test]
-        public void CreateBetListParameters_CalledByDailyStatementBetListOld_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_SelByDayAll_Mem_Old";
-            _metaModel.UspKey = UspKey;
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, _metaModel);
-
-            // Assert
-            AssertDailyStatementBetList(_objectDb, _metaModel);
         }
 
         [Test]

@@ -220,7 +220,6 @@
 
         [TestCase(BetType.CashOutBought, false, "10,000.55\n1.44")]
         [TestCase(BetType.BetTradeBought, true, "-\n-")]
-        [TestCase(18000, false, "10,000.55\n1.44")] // colossus
         [TestCase(BetType.CorrectScore, true, "-")]
         [TestCase(BetType.CorrectScore, false, "10,001.99")]
         public void AddLicenseeWL_WhenCall_AddCellWithCorrectValue(int bettype, bool isRunning, string expectedValue)
