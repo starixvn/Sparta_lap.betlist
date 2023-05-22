@@ -81,6 +81,7 @@
         [CLSCompliant(false)]
         protected internal virtual async Task<TicketResult> GetMainTicketListBasedRangeAsync<TMetaModel>(TMetaModel metaModel, string uspKey,
           Action<IObjectDb> assignCommonParamters,
+          bool getInOneRange = false,
           Action<IObjectDb> assignShardSpecificParamters = null,
           Action<IObjectDb> assignCentralSpecificParamters = null)
           where TMetaModel : IShardDBMetaModel
@@ -101,7 +102,7 @@
             var ticketResult = new TicketResult();
             foreach (var task in tasks)
             {
-                if (!ticketResult.MainTicketList.Any())
+                if (!getInOneRange || !ticketResult.MainTicketList.Any())
                 {
                     ticketResult.MainTicketList.AddRange(await task);
                 }

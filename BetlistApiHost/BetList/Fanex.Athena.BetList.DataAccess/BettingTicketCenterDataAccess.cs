@@ -72,7 +72,7 @@
                     db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
                     db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
                     db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
-                });
+                }, getInOneRange: true);
 
             ticketResult.TotalRows = ticketResult.MainTicketList.Count;
 
