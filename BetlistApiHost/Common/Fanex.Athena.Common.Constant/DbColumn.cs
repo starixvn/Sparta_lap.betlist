@@ -88,6 +88,12 @@
 
         public const string Ip = "Ip";
 
+        public const string CustomerClass = "CustomerClass";
+
+        public const string LeagueGroupIds = "LeagueGroupIds";
+
+        public const string OddsGroup = "OddsGroup";
+
         public const string ExcludeBettrans = "ExcludeBettrans";
     }
 }

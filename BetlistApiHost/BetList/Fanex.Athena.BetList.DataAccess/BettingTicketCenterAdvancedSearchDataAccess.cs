@@ -123,6 +123,10 @@
                 db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
                 db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
                 db.SetParameterValue(DbColumn.Product, metaModel.ProductCodeList);
+                db.SetParameterValue(DbColumn.OddsGroup, metaModel.OddsGroup);
+                db.SetParameterValue(DbColumn.PlatformType, metaModel.Platform);
+                db.SetParameterValue(DbColumn.CustomerClass, metaModel.CustomerClass);
+                db.SetParameterValue(DbColumn.LeagueGroupIds, metaModel.LeagueGroupIds);
 
                 db.SetParameterValue(DbColumn.TotalRows, null);
 
@@ -181,6 +185,10 @@
             db.SetParameterValue(DbColumn.Product, metaModel.ProductCodeList);
             db.SetParameterValue(DbColumn.ConvertToBaseCur, metaModel.IsConvertAll);
             db.SetParameterValue(DbColumn.Ip, metaModel.Ip);
+            db.SetParameterValue(DbColumn.PlatformType, metaModel.Platform);
+            db.SetParameterValue(DbColumn.CustomerClass, metaModel.CustomerClass);
+            db.SetParameterValue(DbColumn.LeagueGroupIds, metaModel.LeagueGroupIds);
+            db.SetParameterValue(DbColumn.OddsGroup, metaModel.OddsGroup);
 
             db.SetParameterValue(DbColumn.TotalRows, null);
             db.SetParameterValue(DbColumn.SumStake, null);
