@@ -270,6 +270,7 @@
     <value>手机欧洲版</value>
   </data>
   <data name="LicenseeTxId" xml:space="preserve">
-    <value>TxID</value>
+    <value>LicTxID</value>
+    <comment>189634</comment>
   </data>
 </root>
