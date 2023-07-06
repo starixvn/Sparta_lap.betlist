@@ -14,6 +14,14 @@
 
         public string Ip { get; set; }
 
+        public string OddsGroup { get; set; }
+
+        public string Platform { get; set; }
+
+        public string CustomerClass { get; set; }
+
+        public string LeagueGroupIds { get; set; }
+
         public override bool IsValid
         {
             get
