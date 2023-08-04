@@ -124,7 +124,8 @@ namespace Fanex.Athena.BetList.Controller
             }
 
             if (string.IsNullOrEmpty(metaModel.OddsType)
-                || !ConvertingDecimalOddsBetType.Contains(ticket.BetTypeId))
+                || !ConvertingDecimalOddsBetType.Contains(ticket.BetTypeId)
+                || ticket.OddsType == OddsType.Myanmar)
             {
                 builder.AddOdds(
                     ticket,

@@ -11,5 +11,7 @@
         public const string Indo = "4";
 
         public const string American = "5";
+
+        public const string Myanmar = "6";
     }
 }
