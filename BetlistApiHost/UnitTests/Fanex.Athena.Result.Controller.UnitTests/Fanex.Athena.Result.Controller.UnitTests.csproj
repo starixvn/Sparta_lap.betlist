@@ -151,9 +151,25 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ResultPopup\AdvantPlayMiniResultPopupControllerIndexTest.cs" />
+    <Compile Include="ResultPopup\AdvantPlayResultPopupControllerIndexTest.cs" />
+    <Compile Include="ResultPopup\TestHelper\InvokeTestHelper.cs" />
+    <Compile Include="ResultPopup\TestHelper\ResultPopupControllerIndexTest.cs" />
     <Compile Include="ResultPopup\BGGResultPopupControllerTests.cs" />
     <Compile Include="ResultPopup\CardClubResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\CgResultPopupControllerIndexTest.cs" />
+    <Compile Include="ResultPopup\FgglResultPopupControllerIndexTest.cs" />
     <Compile Include="ResultPopup\HabaneroResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\Happy5LinkedGamesResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\JiliResultPopupControllerIndexTest.cs" />
+    <Compile Include="ResultPopup\MaxGameResultPopupControllerIndexTest.cs" />
+    <Compile Include="ResultPopup\MgrngResultPopupControllerIndexTest.cs" />
+    <Compile Include="ResultPopup\PGSoftResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\RngCasinoResultPopupControllerIndexTest.cs" />
+    <Compile Include="ResultPopup\SabaClubResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\SAGamingResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\VGamingResultPopupControllerTest.cs" />
+    <Compile Include="ResultPopup\VirtualGamesResultPopupControllerIndexTest.cs" />
     <Compile Include="ResultPopup\WMResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\SportsLotteryResultPopupControllerTest.cs" />
     <Compile Include="ResultPopup\JokerResultPopupControllerTest.cs" />
@@ -171,6 +187,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BetList\Fanex.Athena.BetList.Service\Fanex.Athena.BetList.Service.csproj">
+      <Project>{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF}</Project>
+      <Name>Fanex.Athena.BetList.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\Fanex.Athena.Common.Constant\Fanex.Athena.Common.Constant.csproj">
       <Project>{2B213BAB-B67D-4B66-A64F-AC5E9EC3DE1E}</Project>
       <Name>Fanex.Athena.Common.Constant</Name>
@@ -208,6 +228,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,13 +1,13 @@
-﻿namespace Fanex.Athena.Result.Controller.UnitTests
-{
-    using Fanex.Athena.Result.Controller.MetaModel;
-    using Fanex.Athena.Result.Controller.ResultPopup;
-    using Fanex.Athena.UnitTest.Common.Helpers;
-    using Fanex.Result.Core.ThirdParty;
-    using Fanex.Result.Core.ThirdParty.Models;
-    using NSubstitute;
-    using NUnit.Framework;
+﻿using Fanex.Athena.Result.Controller.MetaModel;
+using Fanex.Athena.Result.Controller.ResultPopup;
+using Fanex.Athena.UnitTest.Common.Helpers;
+using Fanex.Result.Core.ThirdParty;
+using Fanex.Result.Core.ThirdParty.Models;
+using NSubstitute;
+using NUnit.Framework;
 
+namespace Fanex.Athena.Result.Controller.UnitTests
+{
     [TestFixture]
     public class CardClubResultPopupControllerTest
     {
@@ -17,21 +17,22 @@
             // Arrange
             var metaModel = FakeHelper.Create<ThirdPartyMetaModel>();
             var resultApi = Substitute.For<IThirdPartyResult>();
-            var request = new ResultRequest(metaModel.CustId, metaModel.TransId3rd, metaModel.GameId3rd, metaModel.CurrencyId, metaModel.SiteId, metaModel.LanguageCode)
+            var request = new ResultRequest(metaModel.CustId, metaModel.TransId3rd, metaModel.GameId3rd,
+                                            metaModel.CurrencyId, metaModel.SiteId, metaModel.LanguageCode)
             {
                 BetTypeId = metaModel.BetTypeId
             };
 
-            using (var controller = new VoidbridgeResultPopupController(resultApi))
+            using (var controller = new CardClubResultPopupController(resultApi))
             {
                 // Action
                 var result = controller.Index(metaModel);
 
                 // Assert
                 resultApi.Received().GetResultGET(Arg.Is<ResultRequest>(rq => rq.CustId == request.CustId
-                    && rq.TranId3rd == request.TranId3rd
-                    && rq.GameId3rd == request.GameId3rd
-                    && rq.SiteId == request.SiteId));
+                                                                           && rq.TranId3rd == request.TranId3rd
+                                                                           && rq.GameId3rd == request.GameId3rd
+                                                                           && rq.SiteId == request.SiteId));
             }
         }
     }
