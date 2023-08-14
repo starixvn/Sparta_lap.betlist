@@ -106,6 +106,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Room.
+        /// </summary>
+        public static string ChatRoom {
+            get {
+                return ResourceManager.GetString("ChatRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choice.
         /// </summary>
         public static string Choice {
@@ -147,6 +156,15 @@ namespace Fanex.Athena.Resources {
         public static string DesktopChina {
             get {
                 return ResourceManager.GetString("DesktopChina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop Galaxy.
+        /// </summary>
+        public static string DesktopGalaxy {
+            get {
+                return ResourceManager.GetString("DesktopGalaxy", resourceCulture);
             }
         }
         
@@ -322,11 +340,11 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mobile Euro.
+        ///   Looks up a localized string similar to Mobile Galaxy.
         /// </summary>
-        public static string MobileEuro {
+        public static string MobileGalaxy {
             get {
-                return ResourceManager.GetString("MobileEuro", resourceCulture);
+                return ResourceManager.GetString("MobileGalaxy", resourceCulture);
             }
         }
         
