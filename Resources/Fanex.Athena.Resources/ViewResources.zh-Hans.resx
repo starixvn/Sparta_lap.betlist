@@ -267,7 +267,8 @@
     <value>电子竞技 手机</value>
   </data>
   <data name="MobileGalaxy" xml:space="preserve">
-    <value>手机银河版</value>
+    <value>手机欧洲版</value>
+    <comment>revert</comment>
   </data>
   <data name="LicenseeTxId" xml:space="preserve">
     <value>LicTxID</value>
