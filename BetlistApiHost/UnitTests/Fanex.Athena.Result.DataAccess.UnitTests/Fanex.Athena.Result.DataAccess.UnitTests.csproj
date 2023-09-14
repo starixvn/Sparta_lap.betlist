@@ -44,16 +44,16 @@
       <HintPath>..\..\..\packages\Fanex.Data.4.2.0\lib\net461\Fanex.Data.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.3.9.1\lib\net40\Fanex.Result.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.3.9.2\lib\net40\Fanex.Result.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Base, Version=2.3.9.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.3.9.1\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Base, Version=2.3.9.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.3.9.2\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Bitcoin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-Bitcoin.1.0.0\lib\net40\Fanex.Result.Core.Bitcoin.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Happy5, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.Happy5.1.0.2\lib\net40\Fanex.Result.Core.Happy5.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Happy5, Version=1.0.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.Happy5.1.0.2.3\lib\net40\Fanex.Result.Core.Happy5.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.LeapGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-LeapGaming.1.0.0.2\lib\net40\Fanex.Result.Core.LeapGaming.dll</HintPath>
@@ -137,6 +137,18 @@
       <Project>{EF93477D-9D07-4B4B-9193-DB4C1F4021E3}</Project>
       <Name>Fanex.Athena.Common.DataAccess.UnitTests</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fanex.result.css" />
+    <Content Include="img\btn-close.png" />
+    <Content Include="img\favicon.ico" />
+    <Content Include="img\icon-calendar.png" />
+    <Content Include="img\icon-question.png" />
+    <Content Include="img\info-icon.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\lotto_ball.png" />
+    <Content Include="img\sprites.png" />
+    <Content Include="img\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
