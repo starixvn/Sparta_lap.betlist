@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DTO\BalanceUp.cs" />
     <Compile Include="DTO\League.cs" />
+    <Compile Include="DTO\RiskLevel.cs" />
     <Compile Include="DTO\Sport.cs" />
     <Compile Include="MetaModel\IShardDBMetaModel.cs" />
     <Compile Include="MetaModel\IBalanceUpMetaModel.cs" />
