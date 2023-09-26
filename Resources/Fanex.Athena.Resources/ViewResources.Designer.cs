@@ -538,6 +538,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uncategorized.
+        /// </summary>
+        public static string Uncategorized {
+            get {
+                return ResourceManager.GetString("Uncategorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WAP.
         /// </summary>
         public static string Wap {

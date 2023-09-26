@@ -10,6 +10,7 @@ using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Constant;
 using Fanex.Athena.Common.Model.DTO;
+using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 
@@ -70,6 +71,7 @@ namespace Fanex.Athena.BetList.Controller
         private string GetLastMonitorBetListContent(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)
         {
             const string EndTag = "</td>";
+            const string Uncategorized = "Uncategorized";
 
             var builder = new BetListHTMLBuilder();
             foreach (var ticket in ticketResult.MainTicketList)
@@ -77,7 +79,9 @@ namespace Fanex.Athena.BetList.Controller
                 _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
                 var platformName = PlatformType.GetPlatformName(ticket.BetFrom.Trim());
-                var riskLevel = metaModel.RiskLevels.FirstOrDefault(_ => _.CustomerClassList.Contains(ticket.CustomerClass.ToString()))?.Name;
+                var riskLevel = metaModel.RiskLevels.FirstOrDefault(_ => _.CustomerClassList.Contains(ticket.CustomerClass.ToString()))?.Name 
+                    ?? ViewResources.ResourceManager.GetString(Uncategorized);
+
                 bool isShowIp = metaModel.IsShowIp && (metaModel.IsShowIpvn || !(_ipService.IsVNIP(ticket.IP)));
 
                 var row = $"<tr class='content-row monitor-hightlight' id='trans-{ticket.TransId}' data-transid='{ticket.TransId}'>";
