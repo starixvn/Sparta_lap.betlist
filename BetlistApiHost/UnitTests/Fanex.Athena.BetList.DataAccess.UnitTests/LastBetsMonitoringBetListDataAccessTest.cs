@@ -38,6 +38,7 @@
                 ObjectDb.Received(1).SetParameterValue("Currency", metaModel.Currency);
                 ObjectDb.Received(1).SetParameterValue("SpecialLevel", metaModel.Level);
                 ObjectDb.Received(1).SetParameterValue("TransId", metaModel.TransId);
+                ObjectDb.Received(1).SetParameterValue("TransLogId", metaModel.TransLogId);
                 ObjectDb.Received(1).SetParameterValue("LimitRowCount", metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("MinStake", metaModel.StakeFrom);
@@ -45,6 +46,10 @@
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BasedCurrency);
                 ObjectDb.Received(1).SetParameterValue("BetFrom", metaModel.BetFrom);
+                ObjectDb.Received(1).SetParameterValue("CustomerClass", metaModel.CustomerClass);
+                ObjectDb.Received(1).SetParameterValue("LeagueList", metaModel.LeagueList);
+                ObjectDb.Received(1).SetParameterValue("SportTypeList", metaModel.SportTypeList);
+                ObjectDb.Received(1).SetParameterValue("ProductList", metaModel.ProductCodeList);
             });
         }
 

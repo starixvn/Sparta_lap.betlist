@@ -282,4 +282,7 @@
   <data name="WinLoss" xml:space="preserve">
     <value>Thắng Thua</value>
   </data>
+  <data name="Uncategorized" xml:space="preserve">
+    <value>Chưa phân loại</value>
+  </data>
 </root>

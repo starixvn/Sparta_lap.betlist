@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.BetList.Model.MetaModel
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.Athena.Common.Model.DTO;
 
     public class LastBetsMonitoringMetaModel
     {
@@ -57,5 +59,7 @@
         public bool IsShowIp { get; set; }
 
         public string ProductCodeList { get; set; }
+
+        public IEnumerable<RiskLevel> RiskLevels { get; set; } = new List<RiskLevel>();
     }
 }

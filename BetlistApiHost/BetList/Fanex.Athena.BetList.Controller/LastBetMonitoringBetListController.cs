@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.DTO;
@@ -8,6 +9,8 @@ using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Constant;
+using Fanex.Athena.Common.Model.DTO;
+using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 
@@ -68,6 +71,7 @@ namespace Fanex.Athena.BetList.Controller
         private string GetLastMonitorBetListContent(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)
         {
             const string EndTag = "</td>";
+            const string Uncategorized = "Uncategorized";
 
             var builder = new BetListHTMLBuilder();
             foreach (var ticket in ticketResult.MainTicketList)
@@ -75,6 +79,9 @@ namespace Fanex.Athena.BetList.Controller
                 _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
                 var platformName = PlatformType.GetPlatformName(ticket.BetFrom.Trim());
+                var riskLevel = metaModel.RiskLevels.FirstOrDefault(_ => _.CustomerClassList.Contains(ticket.CustomerClass.ToString()))?.Name 
+                    ?? ViewResources.ResourceManager.GetString(Uncategorized);
+
                 bool isShowIp = metaModel.IsShowIp && (metaModel.IsShowIpvn || !(_ipService.IsVNIP(ticket.IP)));
 
                 var row = $"<tr class='content-row monitor-hightlight' id='trans-{ticket.TransId}' data-transid='{ticket.TransId}'>";
@@ -83,6 +90,7 @@ namespace Fanex.Athena.BetList.Controller
                 builder.Append($"<td data-name='Platform' title='{platformName}'>{platformName}</td>");
                 builder.Append($"<td data-name='ExternalId' class='special-color-{ticket.SpecialLevel}' title='{ticket.ExternalId}'>{ticket.ExternalId}</td>");
                 builder.Append($"<td data-name='SystemId' class='special-color-{ticket.SpecialLevel}' title='{ticket.UserName}'>{ticket.UserName}</td>");
+                builder.Append($"<td data-name='RiskLevel' title='{riskLevel}'>{riskLevel}</td>");
                 builder.AddTrans(ticket, $"<td data-name='TransTime' class='special-color-0' title='{ticket.TransId}'>", EndTag);
                 builder.AddChoice(
                     ticket,
