@@ -10,6 +10,8 @@
 
         public byte DateOptionType { get; set; } = DateOptionTypes.SettledAndResettledReport;
 
+        public bool IsViewResettledTicketOnly { get; set; }
+
         public override bool IsValid => base.IsValid && FromDate <= ToDate;
     }
 }
