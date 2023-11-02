@@ -256,7 +256,7 @@
             db.SetParameterValue(DbColumn.MatchID, metaModel.MatchId);
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveIndicator);
-            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
+            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2, ProductCodes.LG };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
             db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
             db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
