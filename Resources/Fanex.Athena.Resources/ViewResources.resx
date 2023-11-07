@@ -286,8 +286,8 @@
     <value>E-Sports Mobile</value>
   </data>
   <data name="MobileGalaxy" xml:space="preserve">
-    <value>Mobile Euro</value>
-    <comment>revert</comment>
+    <value>Mobile Galaxy</value>
+    
   </data>
   <data name="LicenseeTxId" xml:space="preserve">
     <value>LicTxID</value>
@@ -301,5 +301,8 @@
   </data>
   <data name="Uncategorized" xml:space="preserve">
     <value>Uncategorized</value>
+  </data>
+  <data name="MobileEuro" xml:space="preserve">
+    <value>Mobile Euro</value>
   </data>
 </root>

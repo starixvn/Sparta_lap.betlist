@@ -211,7 +211,7 @@
     <value>Di động nhỏ gọn</value>
   </data>
   <data name="MobileGalaxy" xml:space="preserve">
-    <value>Mobile Euro</value>
+    <value>Mobile Galaxy</value>
   </data>
   <data name="MobileOthers" xml:space="preserve">
     <value>Các thiết bị di động khác</value>
@@ -284,5 +284,8 @@
   </data>
   <data name="Uncategorized" xml:space="preserve">
     <value>Chưa phân loại</value>
+  </data>
+  <data name="MobileEuro" xml:space="preserve">
+    <value>Mobile Euro</value>
   </data>
 </root>

@@ -259,4 +259,7 @@
     <value>LicTxID</value>
     <comment>189634</comment>
   </data>
+  <data name="MobileGalaxy" xml:space="preserve">
+    <value>手机银河版</value>
+  </data>
 </root>
