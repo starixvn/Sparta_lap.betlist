@@ -113,9 +113,9 @@
             db.SetParameterValue(DbColumn.CustId, metaModel.CustId);
             db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
             db.SetParameterValue(DbColumn.ExcludeFreeBet, metaModel.ExcludeFreeBet);
+            db.SetParameterValue(DbColumn.ProductList, metaModel.ProductCodeList);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateProductListParameters(db, metaModel.ProductCodeList);
         }
 
         private static void CreatePlatformWinLossBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -326,11 +326,11 @@
             db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(DbColumn.CustId, metaModel.CustId);
             db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+            db.SetParameterValue(DbColumn.ProductList, metaModel.ProductCodeList);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
-            CreateProductListParameters(db, metaModel.ProductCodeList);
         }
 
         private static void CreateRunningBetListByBettypePaprameters(IObjectDb db, BetListMetaModel metaModel)
