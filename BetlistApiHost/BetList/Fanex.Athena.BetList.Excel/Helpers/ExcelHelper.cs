@@ -34,5 +34,15 @@ namespace Fanex.Athena.BetList.Excel.Helpers
         {
             return sheet.GetRow(rowIndex).GetCell(colIndex);
         }
+
+        public static void FixCrashingInIOSSheet(ISheet sheet)
+        {
+            const int numberOfAddOnRow = 1000;
+            var lastRowNum = sheet.LastRowNum;
+            for (int i = 1; i <= numberOfAddOnRow; i++)
+            {
+                sheet.CreateRow(lastRowNum + i);
+            }
+        }
     }
 }

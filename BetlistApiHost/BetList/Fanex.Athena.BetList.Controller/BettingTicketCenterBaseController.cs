@@ -47,7 +47,7 @@
             var workbook = _bettingTicketCenterExcel.Export(excelModel);
             BetListHelper.ClearData(excelModel.Data);
             excelModel.Data = null;
-            return new ExcelResult(workbook);
+            return new ExcelResult(workbook, "BettingTicketCenter");
         }
 
         protected internal virtual JsonResult ReturnData(TicketResult ticket, BettingTicketCenterOption option, ICommonValueMetaModel metaModel)

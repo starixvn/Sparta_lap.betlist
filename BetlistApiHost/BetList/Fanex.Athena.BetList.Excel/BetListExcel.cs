@@ -102,6 +102,7 @@ namespace Fanex.Athena.BetList.Excel
             Build(builder, ticketResult, title, startIndex);
             var workbook = builder.GetBetList();
             ProcessUi(workbook);
+            FixBugIOSMobile(workbook);
             return workbook;
         }
 
@@ -273,6 +274,15 @@ namespace Fanex.Athena.BetList.Excel
 
                     ExcelHelper.HideColumn(sheet, columns.ToArray());
                 }
+            }
+        }
+
+        protected virtual void FixBugIOSMobile(IWorkbook workbook)
+        {
+            for (int i = 0; i < workbook.NumberOfSheets; i++)
+            {
+                var sheet = workbook.GetSheetAt(i);
+                ExcelHelper.FixCrashingInIOSSheet(sheet);
             }
         }
     }

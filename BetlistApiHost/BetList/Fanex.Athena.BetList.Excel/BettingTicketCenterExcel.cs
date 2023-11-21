@@ -5,6 +5,7 @@
     using BetListNPOI.SS.UserModel;
     using Builders;
     using Common.Constant;
+    using Fanex.Athena.BetList.Excel.Helpers;
     using Fanex.Athena.BetList.Service.Interfaces;
     using Model;
     using Resources;
@@ -36,7 +37,9 @@
                 _builder.AddNoInfoRow(excelModel.Option);
             }
 
-            return _builder.GetWorkbook();
+            var workbook = _builder.GetWorkbook();
+            FixBugIOSMobile(workbook);
+            return workbook;
         }
 
         protected internal virtual void BuildSheets(BettingTicketCenterExcelModel excelModel)
@@ -84,6 +87,15 @@
                 excelModel.Option);
         }
 
+        protected virtual void FixBugIOSMobile(IWorkbook workbook)
+        {
+            for (int i = 0; i < workbook.NumberOfSheets; i++)
+            {
+                var sheet = workbook.GetSheetAt(i);
+                ExcelHelper.FixCrashingInIOSSheet(sheet);
+            }
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -105,5 +117,7 @@
 
             disposed = true;
         }
+
+
     }
 }
