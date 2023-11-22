@@ -1,5 +1,4 @@
 ﻿using Fanex.Athena.Result.Controller.MetaModel;
-using Fanex.Logging;
 using Fanex.Result.Core.ThirdParty;
 using Fanex.Result.Core.ThirdParty.Models;
 using System.Web.Mvc;
