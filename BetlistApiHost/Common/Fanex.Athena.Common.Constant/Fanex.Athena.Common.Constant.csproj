@@ -54,6 +54,7 @@
     <Compile Include="PlatformType.cs" />
     <Compile Include="ProductCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecialPlatform.cs" />
     <Compile Include="SportType.cs" />
     <Compile Include="SystemConstants.cs" />
   </ItemGroup>

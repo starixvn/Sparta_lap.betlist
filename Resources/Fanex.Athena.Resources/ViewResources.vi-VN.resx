@@ -288,4 +288,10 @@
   <data name="MobileEuro" xml:space="preserve">
     <value>Mobile Euro</value>
   </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Máy tính</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Di động</value>
+  </data>
 </root>

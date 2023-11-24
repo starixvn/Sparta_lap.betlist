@@ -23,9 +23,10 @@
         private const string DeepLink = "DeepLink";
         private const string Wap = "Wap";
         private const string ChatRoom = "ChatRoom";
-        private const string BetfromOthers = "BetfromOthers";
+        private const string Mobile = "Mobile";
+        private const string Desktop = "Desktop";
 
-        private static IDictionary<string, string> _platforms = new Dictionary<string, string>
+        private static readonly IDictionary<string, string> _normalPlatform = new Dictionary<string, string>
         {
             { "x", DesktopNewAsia },
             { "a", DesktopChina },
@@ -60,24 +61,32 @@
             { "t", DeepLink },
             { "m", Wap },
             { "A000", ChatRoom },
-            { "v", BetfromOthers },
-            { "d", BetfromOthers },
-            { "g", BetfromOthers },
-            { "e", BetfromOthers },
-            { "u", BetfromOthers },
-            { "^", BetfromOthers },
-            { "A001", BetfromOthers },
-            { "A002", BetfromOthers }
         };
 
-        public static string GetPlatformName(string code)
+        private static readonly IDictionary<string, string> _JollysportsPlatform = new Dictionary<string, string>
         {
-            if (!string.IsNullOrWhiteSpace(code) && _platforms.ContainsKey(code))
+            { "A001", Desktop },
+            { "A002", Mobile },
+        };
+
+        public static string GetPlatformName(string code, int specialPlatform)
+        {
+            if (specialPlatform == SpecialPlatform.Jollysports)
             {
-                return ViewResources.ResourceManager.GetString(_platforms[code]);
+                return GetPlatformNameFromResources(code, _JollysportsPlatform);
             }
 
-            return ViewResources.Others;
+            return GetPlatformNameFromResources(code, _normalPlatform);
+        }
+
+        private static string GetPlatformNameFromResources(string code, IDictionary<string, string> platformList)
+        {
+            if (!string.IsNullOrWhiteSpace(code) && platformList.ContainsKey(code))
+            {
+                return ViewResources.ResourceManager.GetString(platformList[code]);
+            }
+
+            return ViewResources.BetfromOthers;
         }
     }
 }

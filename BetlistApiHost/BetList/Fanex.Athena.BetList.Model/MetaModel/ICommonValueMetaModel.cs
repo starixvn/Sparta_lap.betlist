@@ -8,5 +8,6 @@
         int CustId { get; set; }
         bool IsShowIpvn { get; set; }
         bool IsShowIp { get; set; }
+        int SpecialPlatform { get; set; }
     }
 }

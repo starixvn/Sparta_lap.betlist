@@ -60,6 +60,8 @@
 
         public string ProductCodeList { get; set; }
 
+        public int SpecialPlatform { get; set; }
+
         public IEnumerable<RiskLevel> RiskLevels { get; set; } = new List<RiskLevel>();
     }
 }

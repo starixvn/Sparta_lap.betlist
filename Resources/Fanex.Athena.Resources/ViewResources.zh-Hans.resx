@@ -229,7 +229,7 @@
     <value>WAP</value>
   </data>
   <data name="Mobile" xml:space="preserve">
-    <value>手机版</value>
+    <value>手机</value>
     <comment>118018</comment>
   </data>
   <data name="Tablet" xml:space="preserve">
@@ -285,5 +285,8 @@
   </data>
   <data name="MobileEuro" xml:space="preserve">
     <value>手机欧洲版</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>桌机</value>
   </data>
 </root>

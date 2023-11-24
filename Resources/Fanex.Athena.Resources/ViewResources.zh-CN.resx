@@ -295,4 +295,10 @@
   <data name="MobileEuro" xml:space="preserve">
     <value>手机欧洲版</value>
   </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>桌机</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>手机</value>
+  </data>
 </root>

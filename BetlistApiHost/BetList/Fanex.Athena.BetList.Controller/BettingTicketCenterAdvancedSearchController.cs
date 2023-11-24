@@ -125,7 +125,8 @@
             IsAllowedCustomerComm = metaModel.HasPlayerCom,
             ShowTxId = metaModel.IsAllowTxIDColumn,
             IsShowIpvn = metaModel.IsShowIpvn,
-            IsShowIp = metaModel.IsShowIp
+            IsShowIp = metaModel.IsShowIp,
+            SpecialPlatform = metaModel.SpecialPlatform,
         };
 
         private bool ShouldReturnEmptyResult(AdvancedSearchBetListMetaModel metaModel)

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Fanex.Athena.BetList.Model.DTO;
@@ -9,7 +8,6 @@ using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Constant;
-using Fanex.Athena.Common.Model.DTO;
 using Fanex.Athena.Resources;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -39,8 +37,7 @@ namespace Fanex.Athena.BetList.Controller
         [HttpPost]
         public async Task<JsonResult> GetData(LastBetsMonitoringMetaModel metaModel)
         {
-            var ticketResult = await _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(
-                metaModel).ConfigureAwait(false);
+            var ticketResult = await _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel).ConfigureAwait(false);
             var transLogIdSportType = new List<int> { (int)SportType.SportsLottery };
 
             if (ticketResult.MainTicketList.Any())
@@ -78,8 +75,8 @@ namespace Fanex.Athena.BetList.Controller
             {
                 _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
-                var platformName = PlatformType.GetPlatformName(ticket.BetFrom.Trim());
-                var riskLevel = metaModel.RiskLevels.FirstOrDefault(_ => _.CustomerClassList.Contains(ticket.CustomerClass.ToString()))?.Name 
+                var platformName = PlatformType.GetPlatformName(ticket.BetFrom.Trim(), metaModel.SpecialPlatform);
+                var riskLevel = metaModel.RiskLevels.FirstOrDefault(_ => _.CustomerClassList.Contains(ticket.CustomerClass.ToString()))?.Name
                     ?? ViewResources.ResourceManager.GetString(Uncategorized);
 
                 bool isShowIp = metaModel.IsShowIp && (metaModel.IsShowIpvn || !(_ipService.IsVNIP(ticket.IP)));

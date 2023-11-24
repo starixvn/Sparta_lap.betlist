@@ -26,5 +26,7 @@ namespace Fanex.Athena.BetList.Model.MetaModel
         public bool IsShowIpvn { get; set; }
 
         public bool IsShowIp { get; set; }
+
+        public int SpecialPlatform { get; set; }
     }
 }

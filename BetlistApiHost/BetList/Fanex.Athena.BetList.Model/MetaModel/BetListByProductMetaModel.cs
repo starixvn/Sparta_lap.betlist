@@ -26,6 +26,8 @@
 
         public string AgentListXml { get; set; }
 
+        public int SpecialPlatform { get; set; }
+
         public string Sort { get; set; } = "Transid ASC";
     }
 }
