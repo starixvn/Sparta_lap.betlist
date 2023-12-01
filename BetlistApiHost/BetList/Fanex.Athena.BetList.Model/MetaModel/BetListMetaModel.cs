@@ -94,6 +94,8 @@
 
         public bool UseShardDB { get; set; }
 
+        public int SpecialPlatform { get; set; }
+
         public bool InBettransRange => Date > MoveBetsDay;
 
         public virtual bool IsValid

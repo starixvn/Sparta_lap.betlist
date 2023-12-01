@@ -237,7 +237,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
                 _ticketHelper.IsVnIp = _ipService.IsVNIP;
             }
             _builder.AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, option.IsShowIpvn);
-            AddPlatfromCell(ticket);
+            AddPlatfromCell(ticket, option.SpecialPlatform);
             AddLiveCell(ticket);
         }
 
@@ -271,9 +271,9 @@ namespace Fanex.Athena.BetList.Excel.Builders
         private static int GetActualCols(BettingTicketCenterOption option)
             => NumberOfColumns - (!option.ShowWinLoss).ToInt() - (!option.ShowLicenseeWl).ToInt() - (!option.ShowExternalId).ToInt() - (!option.ShowSystemId).ToInt() - (!option.ShowTxId).ToInt();
 
-        private void AddPlatfromCell(LrfTicket ticket)
+        private void AddPlatfromCell(LrfTicket ticket, int specialPlatform)
         {
-            var rtfPlatfrom = new HSSFRichTextString(PlatformType.GetPlatformName(ticket.BetFrom));
+            var rtfPlatfrom = new HSSFRichTextString(PlatformType.GetPlatformName(ticket.BetFrom, specialPlatform));
             BuilDataAlignedCenterCell(rtfPlatfrom);
         }
 

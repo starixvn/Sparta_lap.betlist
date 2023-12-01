@@ -228,7 +228,7 @@
     <value>WAP</value>
   </data>
   <data name="Mobile" xml:space="preserve">
-    <value>手機版</value>
+    <value></value>
     <comment>118018</comment>
   </data>
   <data name="Tablet" xml:space="preserve">

@@ -81,5 +81,7 @@
         public bool IsShowIpvn { get; set; }
 
         public bool IsShowIp { get; set; }
+
+        public int SpecialPlatform { get; set; }
     }
 }

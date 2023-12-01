@@ -305,4 +305,10 @@
   <data name="MobileEuro" xml:space="preserve">
     <value>Mobile Euro</value>
   </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
 </root>

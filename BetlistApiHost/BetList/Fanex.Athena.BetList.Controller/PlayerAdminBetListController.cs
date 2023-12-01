@@ -8,7 +8,6 @@
     using Fanex.Athena.BetList.Excel.Model;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.BetList.Service.Interfaces;
-    using Fanex.Athena.Common.Utility.Extensions;
     using Fanex.Athena.Resources;
 
     public class PlayerAdminBetListController : BettingTicketCenterBaseController
@@ -29,7 +28,7 @@
         {
             var ticketResult = await _dataAccess.GetRunningBetListAsync(metaModel).ConfigureAwait(false);
 
-            return ReturnData(ticketResult, GetBetListOption(), metaModel);
+            return ReturnData(ticketResult, GetBetListOption(metaModel), metaModel);
         }
 
         [HttpPost]
@@ -47,7 +46,7 @@
             var excelModel = new BettingTicketCenterExcelModel
             {
                 Data = ticketResult,
-                Option = GetBetListOption(),
+                Option = GetBetListOption(metaModel),
                 TotalText = ViewResources.Total,
                 Title = $"{ViewResources.Currency}: {metaModel.Currency}"
             };
@@ -57,6 +56,14 @@
             return ExportExcel(excelModel);
         }
 
-        private static BettingTicketCenterOption GetBetListOption() => new BettingTicketCenterOption { ShowTotal = true, ShowSumStake = true };
+        private static BettingTicketCenterOption GetBetListOption(PlayerAdminBetListMetaModel metaModel)
+        {
+            return new BettingTicketCenterOption
+            {
+                ShowTotal = true,
+                ShowSumStake = true,
+                SpecialPlatform = metaModel.SpecialPlatform
+            };
+        }
     }
 }
