@@ -186,6 +186,7 @@
     <Compile Include="ResultPopup\AdvantPlayResultPopupController.cs" />
     <Compile Include="ResultPopup\CGResultPopupController.cs" />
     <Compile Include="ResultPopup\FGGLResultPopupController.cs" />
+    <Compile Include="ResultPopup\SealEntertainmentResultPopupController.cs" />
     <Compile Include="ResultPopup\MGRNGResultPopupController.cs" />
     <Compile Include="ResultPopup\JiliResultPopupController.cs" />
     <Compile Include="ResultPopup\MaxGameResultPopupController.cs" />
