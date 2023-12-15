@@ -32,7 +32,11 @@
 		new SiteInfo
         {
             SiteEnvironment = SiteEnvironment.AWS
-        }
+        },
+		new SiteInfo
+		{
+			SiteEnvironment = SiteEnvironment.KLDR
+		},
     };
 #>
 <#+
@@ -44,7 +48,8 @@
 		SIT,
         PRO,
 		BACKUPMNL,
-		AWS
+		AWS,
+		KLDR
     }
 
 	class SiteInfo

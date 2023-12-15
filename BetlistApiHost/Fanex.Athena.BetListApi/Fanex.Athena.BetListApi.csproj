@@ -636,6 +636,9 @@
     <Content Include="SpNameConfig\FanexSpName.BACKUPMNL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
+    <Content Include="SpNameConfig\FanexSpName.KLDR.xml">
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
     <Content Include="SpNameConfig\FanexSpName.LOCAL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
@@ -703,8 +706,15 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="fanex.result.less" />
+    <Content Include="SiteConfig\Web.AppSettings.KLDR.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SiteConfig\Web.ConnectionStrings.KLDR.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="SiteConfig\Web.DEV.config" />
     <Content Include="SiteConfig\WebConfigTransforms\AWS.config" />
+    <Content Include="SiteConfig\WebConfigTransforms\KLDR.config" />
     <None Include="SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
@@ -730,6 +740,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="SiteConfig\Web.SIT.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="SiteConfig\Web.KLDR.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
     <Content Include="SiteConfig\WebConfigTransforms\BACKUPMNL.config" />
