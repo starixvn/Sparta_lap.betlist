@@ -71,7 +71,7 @@
 
         public static string GetPlatformName(string code, int specialPlatform)
         {
-            if (specialPlatform == SpecialPlatform.Jollysports)
+            if (specialPlatform == SpecialPlatform.Jollysports || specialPlatform == SpecialPlatform.JollysportsCV)
             {
                 return GetPlatformNameFromResources(code, _JollysportsPlatform);
             }
