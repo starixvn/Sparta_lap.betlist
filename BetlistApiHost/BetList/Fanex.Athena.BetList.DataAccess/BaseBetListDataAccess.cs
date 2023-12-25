@@ -136,7 +136,8 @@
                 "leagueid", "awayid", "homeid", "matchid", "custid", "currencyid", "livehomescore", "liveawayscore",
                 "SpecialLevel", "StatusId", "transid", "betid", "winlostdate", "transdate", "JackpotInfo",
                 "odds", "modds", "hdp1", "hdp2", "transdesc", "currency", "betdaqid", "extrainfo", "originalbettype",
-                "refcode", "wallettype", "oddsspread", "SettlementStatus", "eventdate", "ip", "siteId", "customerclass"
+                "refcode", "wallettype", "oddsspread", "SettlementStatus", "eventdate", "ip", "siteId", "customerclass",
+                "leagueGroupId"
             };
             var result = columns.ToDictionary(x => x, y => y);
             result.Add("playerCommCol", "playercomm");
@@ -224,6 +225,7 @@
             ticket.WalletType = (byte)reader.GetInt("wallettype");
             ticket.OriginalBetType = reader.GetInt("originalbettype");
             ticket.CustomerClass = reader.GetInt("customerclass");
+            ticket.LeagueGroupId = reader.GetInt("leagueGroupId");
 
             // Long
             ticket.TransId = reader.GetLong("transid");
