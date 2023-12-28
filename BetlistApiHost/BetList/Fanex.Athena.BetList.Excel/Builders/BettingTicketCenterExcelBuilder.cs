@@ -196,6 +196,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
         public void AssignRowData(TicketResult ticketResult, LrfTicket ticket, int licenseeId, BettingTicketCenterOption option)
         {
             _ticketHelper.Index++;
+            _ticketHelper.HideSabaText = SabaHelper.IsHideSaba(option.SpecialPlatform);
             _builder.AddIndex(_ticketHelper, _ticketHelper.Index);
 
             if (option.ShowExternalId)

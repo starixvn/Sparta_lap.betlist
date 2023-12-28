@@ -6,6 +6,7 @@ using Fanex.Athena.BetList.Service.Extensions;
 using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
 using Fanex.Athena.Common.Constant;
+using Fanex.Athena.Common.Utility.Helpers;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 
@@ -49,6 +50,8 @@ namespace Fanex.Athena.BetList.Service
                 {
                     _ticketHelper.IsVnIp = _ipService.IsVNIP;
                 }
+
+                _ticketHelper.HideSabaText = SabaHelper.IsHideSaba(metaModel.SpecialPlatform);
 
                 var ticketText = new TicketText
                 {
