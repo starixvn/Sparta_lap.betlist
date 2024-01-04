@@ -1,8 +1,6 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
-    using System;
     using System.Threading.Tasks;
-    using System.Web.Mvc;
     using Common.Utility.Services.Interfaces;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.Sportsbook.DTO;

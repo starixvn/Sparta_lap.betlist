@@ -1,14 +1,10 @@
-﻿using Fanex.Athena.BetList.DataAccess.Interfaces;
-using Fanex.Athena.Common.Utility.Services.Interfaces;
-using NUnit.Framework;
-using NSubstitute;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Service.Interfaces;
+using NSubstitute;
+using NUnit.Framework;
 
 namespace Fanex.Athena.BetList.Service.UnitTests
 {

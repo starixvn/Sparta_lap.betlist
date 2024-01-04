@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Common.Utility.UnitTests.Collections
 {
-    using System.Collections.Generic;
     using ClassTest;
     using NUnit.Framework;
     using Utility.Collections;

@@ -7,10 +7,8 @@
 namespace Fanex.Athena.BetList.Service.Extensions
 {
     using System;
-    using System.Collections.Generic;
     using Common.Constant;
     using Fanex.Athena.BetList.Model.DTO;
-    using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;

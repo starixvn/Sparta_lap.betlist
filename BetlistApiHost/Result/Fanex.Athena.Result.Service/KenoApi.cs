@@ -76,9 +76,11 @@
                 case ResultVendorProductTypes.Lottery:
                     serviceName = LOTTERYSERVICENAME;
                     break;
+
                 case ResultVendorProductTypes.Table:
                     serviceName = TABLESERVICENAME;
                     break;
+
                 default:
                     serviceName = KENOSERVICENAME;
                     break;
@@ -96,9 +98,11 @@
                 case ResultVendorProductTypes.Lottery:
                     gameName = LOTTERYGAMENAME;
                     break;
+
                 case ResultVendorProductTypes.Table:
                     gameName = TABLEGAMENAME;
                     break;
+
                 default:
                     gameName = KENOGAMENAME;
                     break;

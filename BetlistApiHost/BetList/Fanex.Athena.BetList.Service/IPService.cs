@@ -1,14 +1,13 @@
-﻿using Fanex.Athena.BetList.DataAccess;
-using Fanex.Athena.BetList.DataAccess.Interfaces;
-using Fanex.Athena.BetList.Model.DTO;
-using Fanex.Athena.BetList.Service.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
 using System.Text.RegularExpressions;
+using Fanex.Athena.BetList.DataAccess.Interfaces;
+using Fanex.Athena.BetList.Model.DTO;
+using Fanex.Athena.BetList.Service.Interfaces;
 
 namespace Fanex.Athena.BetList.Service
 {

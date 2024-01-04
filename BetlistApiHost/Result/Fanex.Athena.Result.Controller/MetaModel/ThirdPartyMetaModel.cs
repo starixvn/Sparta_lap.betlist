@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Fanex.Athena.Result.Controller.MetaModel
+﻿namespace Fanex.Athena.Result.Controller.MetaModel
 {
     public class ThirdPartyMetaModel
     {

@@ -81,7 +81,7 @@
                 { "SelectionType", FakeHelper.Create<int>() }, { "Result", FakeHelper.Create<string>() }
             };
             MergeReaderDataMapping(expectedDetail, GetReaderDataMappingForSportsbookType());
-            
+
             MapReaderData(expectedDetail);
 
             // Action

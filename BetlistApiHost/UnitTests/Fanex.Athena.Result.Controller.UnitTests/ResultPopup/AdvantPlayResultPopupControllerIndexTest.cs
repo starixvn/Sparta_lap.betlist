@@ -8,6 +8,5 @@ namespace Fanex.Athena.Result.Controller.UnitTests.ResultPopup
     public class
         AdvantPlayResultPopupControllerIndexTest : ResultPopupControllerIndexTest<AdvantPlayResultPopupController>
     {
-
     }
 }

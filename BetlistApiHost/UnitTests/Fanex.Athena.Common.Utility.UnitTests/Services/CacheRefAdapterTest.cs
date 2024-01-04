@@ -54,25 +54,26 @@
             // Assert
             Assert.True(string.IsNullOrEmpty(result));
         }
+
         [Test]
         public void GetSportName_ValidSportId_ReturnSportName()
         {
             // Arrange
             const int SportId = 1;
-            
+
             // Action
             var result = _cacheRefAdapter.GetSportName(SportId, "en-US");
 
             // Assert
             Assert.AreEqual(ExpectedSportName, result);
-
         }
+
         [Test]
         public void GetLeagueName_ValidLeagueId_ReturnLegueName()
         {
             // Arrange
             const int LeagueId = 1;
-            
+
             // Action
             var result = _cacheRefAdapter.GetLeagueName(LeagueId);
 
@@ -108,7 +109,6 @@
             Assert.True(result.Length == 2);
             Assert.True(result[0] == "call1");
             Assert.True(result[1] == "call2");
-
         }
     }
 }

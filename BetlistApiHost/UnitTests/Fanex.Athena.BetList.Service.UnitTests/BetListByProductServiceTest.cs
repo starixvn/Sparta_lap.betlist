@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.Service.UnitTests
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using DataAccess.Interfaces;
@@ -20,7 +19,6 @@
     [TestFixture]
     public class BetListByProductServiceTest
     {
-
         private IBetListByProductDataAccess _betListByProductDataAccess;
         private IBetListByProductService _betListByProductService;
 
@@ -40,6 +38,7 @@
             _betListByProductDataAccess = null;
             _betListByProductService = null;
         }
+
         [Test]
         public async Task QueryAsync_WhenCall_CallDataAccess()
         {
@@ -57,6 +56,5 @@
                 result.Equals(data);
             });
         }
-
     }
 }

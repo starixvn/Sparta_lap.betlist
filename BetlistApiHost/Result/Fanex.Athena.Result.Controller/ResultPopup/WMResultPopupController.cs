@@ -1,6 +1,5 @@
-﻿using Fanex.Result.Core.SexyGaming;
+﻿using System.Web.Mvc;
 using Fanex.Result.Core.WM;
-using System.Web.Mvc;
 
 namespace Fanex.Athena.Result.Controller.ResultPopup
 {

@@ -1,4 +1,7 @@
-﻿using BetListNPOI.SS.UserModel;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Web;
+using BetListNPOI.SS.UserModel;
 using Fanex.Athena.BetList.Excel;
 using Fanex.Athena.BetList.Excel.Model;
 using Fanex.Athena.BetList.Model.DTO;
@@ -9,9 +12,6 @@ using Fanex.Athena.Common.Utility.Services;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Ionic.Zip;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-using System.Web;
 
 namespace Fanex.Athena.BetList.Controller.Utility
 {

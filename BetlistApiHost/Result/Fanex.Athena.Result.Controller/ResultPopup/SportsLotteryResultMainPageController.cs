@@ -1,6 +1,6 @@
-﻿using Fanex.Result.Core.SportsLottery;
-using System;
+﻿using System;
 using System.Web.Mvc;
+using Fanex.Result.Core.SportsLottery;
 
 namespace Fanex.Athena.Result.Controller.ResultPopup
 {

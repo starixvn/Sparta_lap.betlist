@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Result.Controller
 {
-    using Service.Interfaces;
     using System;
     using System.Web.Mvc;
+    using Service.Interfaces;
 
     public class ResultKenoReportController : BaseResultController
     {

@@ -53,7 +53,7 @@
         {
             // Arrange
             var metaModel = FakeHelper.Create<SystemParlayDetailMetaModel>();
-            DateTime groupDate1 = new DateTime(2019, 10, 20), groupDate2= new DateTime(2019, 10, 22);
+            DateTime groupDate1 = new DateTime(2019, 10, 20), groupDate2 = new DateTime(2019, 10, 22);
             const int Serial1 = 1, Serial2 = 2, Serial3 = 3;
             const string ViewPath = "ViewPath", ResultContent = "ResultContent";
             var ticketHelper = Substitute.For<ITicketHelper>();
@@ -155,7 +155,7 @@
                 TicketList = new List<SystemParlayDetailTicket> { ticket },
                 SerialList = new List<SystemParlayDetailSerial> { serial }
             };
-            _dataAccess.GetData(metaModel).Returns(Task.FromResult(fakeData));         
+            _dataAccess.GetData(metaModel).Returns(Task.FromResult(fakeData));
 
             _templateBuilder.BuildContent(Arg.Any<string>(), Arg.Any<SystemParlayDetailViewModel>()).Returns(string.Empty);
 

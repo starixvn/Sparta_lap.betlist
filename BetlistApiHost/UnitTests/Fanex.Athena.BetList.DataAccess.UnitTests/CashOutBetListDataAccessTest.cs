@@ -24,7 +24,6 @@
         private IBalanceUpDataAccess _balanceUpDataAccess;
         private IShardInfoAccessor _shardInfoAccessor;
 
-
         protected override void SetUpDataAccess()
         {
             _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();

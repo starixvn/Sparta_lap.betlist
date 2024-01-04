@@ -1,7 +1,7 @@
-﻿using Fanex.Athena.Common.Utility.Services;
-using Fanex.Data;
-using System;
+﻿using System;
 using System.Data.SqlClient;
+using Fanex.Athena.Common.Utility.Services;
+using Fanex.Data;
 
 namespace Fanex.Athena.App_Start
 {
@@ -35,5 +35,4 @@ namespace Fanex.Athena.App_Start
             return base.GetSetting(key);
         }
     }
-
 }

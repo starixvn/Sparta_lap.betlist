@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 
@@ -17,7 +13,9 @@ namespace Fanex.Athena.Common.Utility.Extensions
             NullValueHandling = NullValueHandling.Ignore,
             DateTimeZoneHandling = DateTimeZoneHandling.Unspecified
         };
+
         public Type JsonDataType { get; set; }
+
         public string Parameter { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)

@@ -1,5 +1,4 @@
 ﻿using BetListNPOI.SS.UserModel;
-using Fanex.Athena.BetList.Excel;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Interfaces;

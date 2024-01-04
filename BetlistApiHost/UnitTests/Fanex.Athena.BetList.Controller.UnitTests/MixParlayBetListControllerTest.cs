@@ -53,7 +53,6 @@
             _ticketHelper = null;
             _betlistHtmlBuilder = null;
             _ticketBuilderService = null;
-
         }
 
         [Test]

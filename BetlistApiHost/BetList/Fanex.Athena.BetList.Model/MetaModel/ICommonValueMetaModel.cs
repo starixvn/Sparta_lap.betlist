@@ -3,11 +3,17 @@
     public interface ICommonValueMetaModel
     {
         string BaseCurrency { get; set; }
+
         int PageIndex { get; set; }
+
         int PageSize { get; set; }
+
         int CustId { get; set; }
+
         bool IsShowIpvn { get; set; }
+
         bool IsShowIp { get; set; }
+
         int SpecialPlatform { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Result.Service.Interfaces
 {
-    using Fanex.Result.Core.KenoLotteryTG;
     using System;
+    using Fanex.Result.Core.KenoLotteryTG;
 
     [CLSCompliant(false)]
     public interface IKenoLotteryTGResultFactory

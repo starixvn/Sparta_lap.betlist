@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.BetList.Controller
 {
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.BetList.Service.Interfaces;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
 
     public class PlayerSegmentationBetListController : BaseController
     {
