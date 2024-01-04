@@ -54,11 +54,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ViewResources.th-TH.resx" />
     <EmbeddedResource Include="ViewResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ViewResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ViewResources.id-ID.resx" />
     <EmbeddedResource Include="ViewResources.vi-VN.resx" />
     <EmbeddedResource Include="ViewResources.zh-CN.resx">
       <SubType>Designer</SubType>
