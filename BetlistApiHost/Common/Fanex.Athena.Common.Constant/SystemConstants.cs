@@ -13,6 +13,6 @@
         public const int MaxDataTotalRow = int.MaxValue - 1000;
 
         public static readonly ReadOnlyCollection<string> BaseCurrencyList = new ReadOnlyCollection<string>(
-            new List<string> { "EUR", "USD", "GBP", "MYR", "CNY", "THB", "IDR", "INH", "BDT", "INR", "PHP", "MP", "USDT" });
+            new List<string> { "EUR", "USD", "GBP", "MYR", "CNY", "THB", "IDR", "INH", "BDT", "INR", "PHP", "MP", "NPR", "TRY", "USDT" });
     }
 }
