@@ -2,6 +2,7 @@
 
 // Generated helper templates
 // Generated items
+// Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.KLDR.xml
 // Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.AWS.xml
 // Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.BACKUPMNL.xml
 // Fanex.Athena.BetListApi\SpNameConfig\FanexSpName.PRO.xml

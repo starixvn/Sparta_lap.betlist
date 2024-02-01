@@ -14,10 +14,8 @@
         private static readonly IReadOnlyDictionary<string, Action<IObjectDb, BetListMetaModel>> NonBaseCurrencySpNameActionMap =
             new Dictionary<string, Action<IObjectDb, BetListMetaModel>>(StringComparer.OrdinalIgnoreCase)
         {
-            { "Lrf_BetList_MatchWL_Parlay", (db, metalModel) => CreateMatchWLParlayBetListParameters(db, metalModel) },
-            { "Lrf_BetList_MatchWL_Outright", (db, metalModel) => CreateMatchWLOutRightBetListParameters(db, metalModel) },
-            { "Lrf_BetList_MatchWL_Bettype", (db, metalModel) => CreateMatchWLBettypeBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_MatchWL_Old", (db, metalModel) => CreateMatchWLOldBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL", (db, metalModel) => CreateMatchWLBetListRangeBettransParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL_Old", (db, metalModel) => CreateMatchWLBetlistParameters(db, metalModel) },
             { "Shard_Lrf_BetList_CustomerWL_Mem", (db, metalModel) => CreateCustomerWlBetlistParameters(db, metalModel) },
             { "Shard_Lrf_BetList_LicenseeWL_Mem", (db, metalModel) => CreateLicenseeWLBetlistParameters(db, metalModel) },
             { "Shard_Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
@@ -28,7 +26,6 @@
             { "Shard_Lrf_BetList_SelRunningByBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByBettypeParameters(db, metalModel) },
             { "Lrf_BetList_LicenseeBonus_Detail", (db, metalModel) => CreateBonusDetailParameters(db, metalModel) },
             { "Lrf_BetList_LiveReport_SelWinlossNumberGame", (db, metalModel) => CreateLiveReportNumberGameBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_SelWinLossByBetType", (db, metalModel) => CreateWinLossByBetTypeParameters(db, metalModel) },
             { "Lrf_BetList_LiveReport_SelWinlossByMatch", (db, metalModel) => CreateLiveReportBetListByMatchParameters(db, metalModel) },
             { "Lrf_BetList_LiveReport_SelWinlossParlay", (db, metalModel) => CreateLiveReportParlayBetlistParameters(db, metalModel) },
             { "Lrf_BetList_LiveReport_SelWinlossOutright", (db, metalModel) => CreateLiveReportOutRightBetlistParameters(db, metalModel) },
@@ -143,7 +140,7 @@
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
 
-            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS2 };
+            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -161,24 +158,13 @@
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
-        private static void CreateMatchWLBettypeBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateMatchWLBetListRangeBettransParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
-            db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
-            db.SetParameterValue(DbColumn.BetType, metaModel.BetType);
-            db.SetParameterValue(DbColumn.MatchID, metaModel.MatchId);
-            db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveIndicator ?? -1);
-            db.SetParameterValue(DbColumn.Date, metaModel.FromDate);
+            CreateMatchWLBetlistParameters(db, metaModel);
             db.SetParameterValue(DbColumn.MoveBetsDay, metaModel.MoveBetsDay);
-            CreateBetListSortingParameters(db, metaModel);
-            CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
-
-            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.NG, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2 };
-            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
-        private static void CreateMatchWLOldBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateMatchWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.SetParameterValue(nameof(metaModel.BaseCurrency), metaModel.BaseCurrency);
             db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
@@ -230,8 +216,7 @@
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue(DbColumn.BetType, metaModel.BetType);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveIndicator);
-            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS2 };
-            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
+            db.SetParameterValue(DbColumn.ProductList, metaModel.ProductCodeList);
         }
 
         private static void CreateLiveReportNumberGameBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
@@ -256,8 +241,7 @@
             db.SetParameterValue(DbColumn.MatchID, metaModel.MatchId);
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveIndicator);
-            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA, ProductCodes.VS, ProductCodes.VS2, ProductCodes.LG };
-            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
+            db.SetParameterValue(DbColumn.ProductList, metaModel.ProductCodeList);
             db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
             db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
             db.SetParameterValue(DbColumn.MoveBetsDay, metaModel.MoveBetsDay);
