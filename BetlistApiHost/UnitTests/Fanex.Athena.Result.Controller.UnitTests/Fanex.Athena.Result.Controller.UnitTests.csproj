@@ -69,7 +69,7 @@
       <HintPath>..\..\..\packages\Fanex.Result.Core.Casino.1.0.0.1\lib\Fanex.Result.Core.Casino.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.ConfigurationHelper, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.ConfigurationHelper.1.0.0-beta-03\lib\net461\Fanex.Result.Core.ConfigurationHelper.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core.ConfigurationHelper.1.0.0\lib\net461\Fanex.Result.Core.ConfigurationHelper.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Happy5, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Happy5.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.Happy5.dll</HintPath>
@@ -77,26 +77,26 @@
     <Reference Include="Fanex.Result.Core.Joker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Joker.1.0.0.0\lib\Fanex.Result.Core.Joker.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.KenoLotteryTG, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.KenoLotteryTG.1.0.0\lib\net40\Fanex.Result.Core.KenoLotteryTG.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.KenoLotteryTG, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.KenoLotteryTG.3.0.0\lib\net461\Fanex.Result.Core.KenoLotteryTG.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.LeapGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-LeapGaming.1.0.0.2\lib\net40\Fanex.Result.Core.LeapGaming.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.LeapGaming, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-LeapGaming.2.0.0\lib\net461\Fanex.Result.Core.LeapGaming.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.LinkedGames, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.LinkedGames.1.0.3\lib\net40\Fanex.Result.Core.LinkedGames.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.LinkedGames, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.LinkedGames.2.0.0\lib\net461\Fanex.Result.Core.LinkedGames.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.NumberGame, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.1.0.3.2-beta01\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.NumberGame, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.2.0.0\lib\net461\Fanex.Result.Core.NumberGame.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.PGSoft, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.PGSoft.1.0.0.0\lib\Fanex.Result.Core.PGSoft.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Racing, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-Racing.1.1.0.1\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Racing, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-Racing.2.0.0\lib\net461\Fanex.Result.Core.Racing.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.SabaClub, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.SabaClub.1.0.0.2\lib\Fanex.Result.Core.SabaClub.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.SabaClub, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.SabaClub.2.0.0\lib\net461\Fanex.Result.Core.SabaClub.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.SAGaming, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.SAGaming.1.0.0.3-beta01\lib\net40\Fanex.Result.Core.SAGaming.dll</HintPath>
@@ -107,17 +107,17 @@
     <Reference Include="Fanex.Result.Core.Sportsbook, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-Sportsbook.2.0.0.4-indo-01\lib\net461\Fanex.Result.Core.Sportsbook.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.SportsLottery, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.SportsLottery.1.0.2\lib\net461\Fanex.Result.Core.SportsLottery.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.SportsLottery, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.SportsLottery.1.0.3\lib\net461\Fanex.Result.Core.SportsLottery.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.ThirdParty, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.ThirdPartyResult.1.0.0.3\lib\net461\Fanex.Result.Core.ThirdParty.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.ThirdParty, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.ThirdPartyResult.2.0.0\lib\net461\Fanex.Result.Core.ThirdParty.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.VGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.VGaming.1.0.0\lib\net40\Fanex.Result.Core.VGaming.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.WM, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.WM.1.0.0.5\lib\net40\Fanex.Result.Core.WM.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.WM, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.WM.2.0.0\lib\net461\Fanex.Result.Core.WM.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=4.15.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MathNet.Numerics.Signed.4.15.0\lib\net461\MathNet.Numerics.dll</HintPath>

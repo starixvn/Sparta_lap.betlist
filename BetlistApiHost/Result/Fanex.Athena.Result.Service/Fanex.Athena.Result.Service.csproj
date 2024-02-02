@@ -79,20 +79,23 @@
     <Reference Include="Fanex.Result.Core.Bitcoin, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-Bitcoin.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.Bitcoin.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Result.Core.ConfigurationHelper, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.ConfigurationHelper.1.0.0\lib\net461\Fanex.Result.Core.ConfigurationHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Result.Core.Happy5, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.Happy5.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.Happy5.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.KenoLotteryTG, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.KenoLotteryTG.1.0.0\lib\net40\Fanex.Result.Core.KenoLotteryTG.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.KenoLotteryTG, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.KenoLotteryTG.3.0.0\lib\net461\Fanex.Result.Core.KenoLotteryTG.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.LeapGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-LeapGaming.1.0.0.2\lib\net40\Fanex.Result.Core.LeapGaming.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.LeapGaming, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-LeapGaming.2.0.0\lib\net461\Fanex.Result.Core.LeapGaming.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.NumberGame, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.1.0.3.2-beta01\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.NumberGame, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.2.0.0\lib\net461\Fanex.Result.Core.NumberGame.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Racing, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-Racing.1.1.0.1\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Racing, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-Racing.2.0.0\lib\net461\Fanex.Result.Core.Racing.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Sportsbook, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-Sportsbook.2.0.0.4-indo-01\lib\net461\Fanex.Result.Core.Sportsbook.dll</HintPath>
@@ -155,8 +158,8 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
-    <Reference Include="System.Configuration.ConfigurationManager, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\System.Configuration.ConfigurationManager.6.0.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    <Reference Include="System.Configuration.ConfigurationManager, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Configuration.ConfigurationManager.6.0.1\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data.OracleClient" />

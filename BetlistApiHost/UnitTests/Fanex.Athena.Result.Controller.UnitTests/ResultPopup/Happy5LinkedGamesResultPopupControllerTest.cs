@@ -58,7 +58,7 @@ namespace Fanex.Athena.Result.Controller.UnitTests.ResultPopup
                 controller.Soccer5(matchId, balls, platform, languageCode);
 
                 // Assert
-                resultLinkedGameApi.Received().GetSoccer5Result(matchId, balls, true, languageCode);
+                resultLinkedGameApi.Received().GetSoccer5Result(matchId, balls, true, language: languageCode);
             }
         }
 
@@ -79,7 +79,7 @@ namespace Fanex.Athena.Result.Controller.UnitTests.ResultPopup
                 controller.Soccer5(matchId, balls, platform, languageCode);
 
                 // Assert
-                resultLinkedGameApi.Received().GetSoccer5Result(matchId, balls, false, languageCode);
+                resultLinkedGameApi.Received().GetSoccer5Result(matchId, balls, false, language: languageCode);
             }
         }
     }

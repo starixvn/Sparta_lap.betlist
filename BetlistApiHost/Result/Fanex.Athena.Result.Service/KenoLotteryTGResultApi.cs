@@ -1,9 +1,10 @@
 ﻿namespace Fanex.Athena.Result.Service
 {
+    using System;
     using Fanex.Athena.Result.Model.Const;
     using Fanex.Athena.Result.Service.Interfaces;
+    using Fanex.Result.Core.ConfigurationHelper;
     using Fanex.Result.Core.KenoLotteryTG;
-    using System;
 
     [CLSCompliant(false)]
     public class KenoLotteryTGResultApi : IKenoLotteryTGResultFactory
@@ -12,10 +13,16 @@
         private const string LOTTERY_RESULT_CONFIG = "LotteryResultConfigs";
         private const string TABLEGAME_RESULT_CONFIG = "TableGameResultConfigs";
         private const string VIRTUALGAMES_RESULT_CONFIG = "VirtualGamesResultConfigs";
+        private readonly IConfigurationHelper _configurationHelper;
+
+        public KenoLotteryTGResultApi(IConfigurationHelper configurationHelper)
+        {
+            _configurationHelper = configurationHelper;
+        }
 
         public IKenoLotteryTGResult CreateResultApi(int vendorProductId)
         {
-            var result = new KenoLotteryTGResult(GetConfigSetting(vendorProductId));
+            var result = new KenoLotteryTGResult(GetConfigSetting(vendorProductId), _configurationHelper);
             return result;
         }
 

@@ -36,7 +36,7 @@ namespace Fanex.Athena.Result.Controller.ResultPopup
         public string Soccer5(string matchId, string balls, string platform, string languageCode)
         {
             var isDesktop = string.Equals(platform, "d", StringComparison.OrdinalIgnoreCase);
-            return _resultApi.GetSoccer5Result(matchId, balls, isDesktop, languageCode);
+            return _resultApi.GetSoccer5Result(matchId, balls, isDesktop, language: languageCode);
         }
     }
 }
