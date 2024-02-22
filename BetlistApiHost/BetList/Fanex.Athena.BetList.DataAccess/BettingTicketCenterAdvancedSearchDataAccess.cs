@@ -126,6 +126,7 @@
                 db.SetParameterValue(DbColumn.OddsGroup, metaModel.OddsGroup);
                 db.SetParameterValue(DbColumn.PlatformType, metaModel.Platform);
                 db.SetParameterValue(DbColumn.CustomerClass, metaModel.CustomerClass);
+                db.SetParameterValue(DbColumn.FullCustomerClass, metaModel.FullCustomerClass);
                 db.SetParameterValue(DbColumn.LeagueGroupIds, metaModel.LeagueGroupIds);
 
                 db.SetParameterValue(DbColumn.TotalRows, null);
@@ -187,6 +188,7 @@
             db.SetParameterValue(DbColumn.Ip, metaModel.Ip);
             db.SetParameterValue(DbColumn.PlatformType, metaModel.Platform);
             db.SetParameterValue(DbColumn.CustomerClass, metaModel.CustomerClass);
+            db.SetParameterValue(DbColumn.FullCustomerClass, metaModel.FullCustomerClass);
             db.SetParameterValue(DbColumn.LeagueGroupIds, metaModel.LeagueGroupIds);
             db.SetParameterValue(DbColumn.OddsGroup, metaModel.OddsGroup);
 

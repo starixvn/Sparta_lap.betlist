@@ -20,6 +20,8 @@
 
         public string CustomerClass { get; set; }
 
+        public string FullCustomerClass { get; set; }
+
         public string LeagueGroupIds { get; set; }
 
         public override bool IsValid
