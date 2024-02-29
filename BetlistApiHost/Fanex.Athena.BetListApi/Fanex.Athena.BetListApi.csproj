@@ -134,10 +134,10 @@
       <HintPath>..\..\packages\Fanex.BetList.CG.2.0.0\lib\net461\Fanex.BetList.CG.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.3.0.2.3-indo-trans-01\lib\net461\Fanex.BetList.Core.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.Core.3.0.2.3-indo-trans-02\lib\net461\Fanex.BetList.Core.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Core.RemotingRef, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.RemotingRef.2.0.0\lib\net461\Fanex.BetList.Core.RemotingRef.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.Core.RemotingRef.2.0.0.1\lib\net461\Fanex.BetList.Core.RemotingRef.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.ESports, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.ESports.2.0.0\lib\net461\Fanex.BetList.ESports.dll</HintPath>
@@ -178,8 +178,8 @@
     <Reference Include="Fanex.BetList.MGRNGCasino, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.MGRNGCasino.2.0.0\lib\net461\Fanex.BetList.MGRNGCasino.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.BetList.NumberGame, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.NumberGame.2.0.0.2\lib\net461\Fanex.BetList.NumberGame.dll</HintPath>
+    <Reference Include="Fanex.BetList.NumberGame, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.NumberGame.2.0.0.3-IndoTrans-01\lib\net461\Fanex.BetList.NumberGame.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.PGSoft, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.PGSoft.2.0.0\lib\net461\Fanex.BetList.PGSoft.dll</HintPath>
