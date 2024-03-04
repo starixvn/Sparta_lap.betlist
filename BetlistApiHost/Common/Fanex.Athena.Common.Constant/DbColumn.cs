@@ -90,6 +90,8 @@
 
         public const string CustomerClass = "CustomerClass";
 
+        public const string FullCustomerClass = "FullCustomerClass";
+
         public const string LeagueGroupIds = "LeagueGroupIds";
 
         public const string OddsGroup = "OddsGroup";

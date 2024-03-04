@@ -47,6 +47,7 @@ namespace Fanex.Athena.BetList.DataAccess
                 db.SetParameterValue("TransLogId", metaModel.TransLogId);
                 db.SetParameterValue("ProductList", metaModel.ProductCodeList);
                 db.SetParameterValue("CustomerClass", metaModel.CustomerClass);
+                db.SetParameterValue("FullCustomerClass", string.Join(",", metaModel.RiskLevels.Select(_ => string.Join(",", _.CustomerClassList))));
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var mainTicket = ReadBetListTicket(reader, currencyList);
