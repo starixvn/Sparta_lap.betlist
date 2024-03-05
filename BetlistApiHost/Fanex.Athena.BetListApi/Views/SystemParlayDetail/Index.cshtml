@@ -2,6 +2,7 @@
 @using System.Linq;
 @using Fanex.BetList.Core.App_GlobalResources;
 @using Fanex.Athena.Resources;
+@using Fanex.BetList.Core.Entities;
 @model Fanex.Athena.BetList.Model.ViewModel.SystemParlayDetailViewModel
 @{
     var groupedData = Model.DataList;
@@ -18,17 +19,6 @@
     </tr>
 }
 <style type="text/css">
-
-
-
-
-
-
-
-
-
-
-
 
     .system-parlay-detail .negative {
         color: #ff0000;
@@ -51,7 +41,7 @@
     }
 
     .system-parlay-detail .odds-cell {
-        width: 60px;
+        width: 70px;
     }
 
     .system-parlay-detail .stake-cell {
@@ -108,7 +98,58 @@
                                     <div class="match-group" title="@matchText">@matchText</div>
                                 }
                             </td>
-                            <td>@NumberHelper.DecFormat(dataByMatch.Odds, 4)</td>
+                            <td>
+                                @if (Model.IsParlayBoost)
+                                {
+                                    <div class="oddstype">
+                                        <span class="underdog strikethrough">@dataByMatch.Odds</span><br>
+                                        <span class="underdog">@dataByMatch.MOdds</span><br><span class="boostrate"><span class="icon-boost"></span>@dataByMatch.BoostRate</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    switch (dataByMatch.StatusId)
+                                    {
+                                        case BetStatusId.Running:
+                                        case BetStatusId.Waiting:
+                                            @NumberHelper.DecFormat(dataByMatch.Odds, 4)
+                                            break;
+                                        case BetStatusId.Draw:
+                                        case BetStatusId.Refund:
+                                            @NumberHelper.DecFormat(1, 4)
+                                            break;
+                                        case BetStatusId.Lost:
+                                            if (dataByMatch.MOdds > 0)
+                                            {
+                                                <div class="oddstype">
+                                                    <span class="underdog strikethrough">@dataByMatch.Odds</span><br>
+                                                    <span class="underdog">@dataByMatch.MOdds</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                @NumberHelper.DecFormat(dataByMatch.Odds, 4)
+                                            }
+                                            break;
+                                        case BetStatusId.Won:
+                                            if (dataByMatch.Odds != dataByMatch.MOdds)
+                                            {
+                                                <div class="oddstype">
+                                                    <span class="underdog strikethrough">@dataByMatch.Odds</span><br>
+                                                    <span class="underdog">@dataByMatch.MOdds</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                @NumberHelper.DecFormat(dataByMatch.Odds, 4)
+                                            }
+                                            break;
+                                        default:
+                                            @NumberHelper.DecFormat(dataByMatch.Odds, 4)
+                                            break;
+                                    }
+                                }
+                            </td>
                             <td>@NumberHelper.DecFormat(dataByMatch.Stake)</td>
                             <td>
                                 <div class="@(dataByMatch.WinLoss < 0 ? "negative" : string.Empty)">@NumberHelper.DecFormat(dataByMatch.WinLoss)</div>
