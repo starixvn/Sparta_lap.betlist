@@ -21,6 +21,7 @@
 	border-right-style:solid;
 	padding:3px 5px;
 	white-space: nowrap;
+    text-align: center;
 }
 .oddsTable th.even {
 	background-position: left bottom;

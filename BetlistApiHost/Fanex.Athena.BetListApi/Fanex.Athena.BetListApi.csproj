@@ -283,17 +283,17 @@
     <Reference Include="Fanex.Result.Core.Happy5, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.Happy5.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.Happy5.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.LeapGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-LeapGaming.1.0.0.2\lib\net40\Fanex.Result.Core.LeapGaming.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.LeapGaming, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core-LeapGaming.2.0.0\lib\net461\Fanex.Result.Core.LeapGaming.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.LinkedGames, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.LinkedGames.2.0.0\lib\net461\Fanex.Result.Core.LinkedGames.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.NumberGame, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-NumberGame.1.0.3.2-beta01\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.NumberGame, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core-NumberGame.2.0.0\lib\net461\Fanex.Result.Core.NumberGame.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Racing, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-Racing.1.1.0.1\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Racing, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core-Racing.2.0.0\lib\net461\Fanex.Result.Core.Racing.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.RemotingRef, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.RemotingRef.2.0.0.1\lib\net461\Fanex.Result.Core.RemotingRef.dll</HintPath>
@@ -301,8 +301,8 @@
     <Reference Include="Fanex.Result.Core.SabaClub, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.SabaClub.2.0.0\lib\net461\Fanex.Result.Core.SabaClub.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.SAGaming, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core.SAGaming.1.0.0.3-beta01\lib\net40\Fanex.Result.Core.SAGaming.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.SAGaming, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core.SAGaming.2.0.0\lib\net461\Fanex.Result.Core.SAGaming.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.SexyGaming, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.SexyGaming.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.SexyGaming.dll</HintPath>
@@ -310,11 +310,11 @@
     <Reference Include="Fanex.Result.Core.Sportsbook, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.2.0.0.4-indo-02\lib\net461\Fanex.Result.Core.Sportsbook.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.SportsLottery, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core.SportsLottery.1.0.2\lib\net461\Fanex.Result.Core.SportsLottery.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.SportsLottery, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core.SportsLottery.1.0.3\lib\net461\Fanex.Result.Core.SportsLottery.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.ThirdParty, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core.ThirdPartyResult.1.0.0.3\lib\net461\Fanex.Result.Core.ThirdParty.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.ThirdParty, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core.ThirdPartyResult.2.0.0\lib\net461\Fanex.Result.Core.ThirdParty.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.VGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.VGaming.1.0.0\lib\net40\Fanex.Result.Core.VGaming.dll</HintPath>
@@ -380,7 +380,7 @@
       <HintPath>..\..\packages\SharpRaven.2.4.0\lib\net45\SharpRaven.dll</HintPath>
     </Reference>
     <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SixLabors.Fonts.1.0.0-beta19\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
+      <HintPath>..\..\packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
     </Reference>
     <Reference Include="SixLabors.ImageSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SixLabors.ImageSharp.2.1.4\lib\netstandard2.0\SixLabors.ImageSharp.dll</HintPath>
@@ -534,6 +534,20 @@
     <Content Include="Content\css\menu.css" />
     <Content Include="Content\css\oddsFamily.css" />
     <Content Include="Content\css\table_w.css" />
+    <Content Include="Content\template\public\game_result\FanTan\ball.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-main-1-dim.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-main-16-dim.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-main-2-dim.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-main-24-dim.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-main-9-dim.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-main-sa-black-dim.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-main-sa-gold-dim.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-sidebet-chicken-result.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-sidebet-coin-result-2.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-sidebet-coin-result.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-sidebet-crab.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-sidebet-hulu-result.png" />
+    <Content Include="Content\template\public\game_result\MoneyWheel\bet-sidebet-prawn-result.png" />
     <Content Include="Content\template\public\game_result\Poker\C1.png" />
     <Content Include="Content\template\public\game_result\Poker\C2.png" />
     <Content Include="Content\template\public\game_result\Poker\C3.png" />
@@ -623,6 +637,12 @@
     <Content Include="Content\template\public\game_result\Roulette\7.png" />
     <Content Include="Content\template\public\game_result\Roulette\8.png" />
     <Content Include="Content\template\public\game_result\Roulette\9.png" />
+    <Content Include="Content\template\public\game_result\Sicbo\dice-1.png" />
+    <Content Include="Content\template\public\game_result\Sicbo\dice-2.png" />
+    <Content Include="Content\template\public\game_result\Sicbo\dice-3.png" />
+    <Content Include="Content\template\public\game_result\Sicbo\dice-4.png" />
+    <Content Include="Content\template\public\game_result\Sicbo\dice-5.png" />
+    <Content Include="Content\template\public\game_result\Sicbo\dice-6.png" />
     <Content Include="Content\template\public\game_result\Sicbo\ScoreBoard_d1.png" />
     <Content Include="Content\template\public\game_result\Sicbo\ScoreBoard_d2.png" />
     <Content Include="Content\template\public\game_result\Sicbo\ScoreBoard_d3.png" />
