@@ -13,16 +13,11 @@
         private const string LOTTERY_RESULT_CONFIG = "LotteryResultConfigs";
         private const string TABLEGAME_RESULT_CONFIG = "TableGameResultConfigs";
         private const string VIRTUALGAMES_RESULT_CONFIG = "VirtualGamesResultConfigs";
-        private readonly IConfigurationHelper _configurationHelper;
-
-        public KenoLotteryTGResultApi(IConfigurationHelper configurationHelper)
-        {
-            _configurationHelper = configurationHelper;
-        }
 
         public IKenoLotteryTGResult CreateResultApi(int vendorProductId)
         {
-            var result = new KenoLotteryTGResult(GetConfigSetting(vendorProductId), _configurationHelper);
+            var configurationHelper = new ConfigurationHelper();
+            var result = new KenoLotteryTGResult(GetConfigSetting(vendorProductId), configurationHelper);
             return result;
         }
 
