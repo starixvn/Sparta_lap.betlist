@@ -134,7 +134,7 @@
       <HintPath>..\..\packages\Fanex.BetList.CG.2.0.0\lib\net461\Fanex.BetList.CG.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.3.0.2.3-indo-trans-03\lib\net461\Fanex.BetList.Core.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.Core.3.0.2.3\lib\net461\Fanex.BetList.Core.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Core.RemotingRef, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Core.RemotingRef.2.0.0.1\lib\net461\Fanex.BetList.Core.RemotingRef.dll</HintPath>
@@ -149,7 +149,7 @@
       <HintPath>..\..\packages\Fanex.BetList.Habanero.2.0.0\lib\net461\Fanex.BetList.Habanero.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Indo4D, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Indo4D.2.0.0.2-Indo-01\lib\net461\Fanex.BetList.Indo4D.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.Indo4D.2.0.0.2\lib\net461\Fanex.BetList.Indo4D.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Betlist.Jili, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Betlist.Jili.1.0.0\lib\net461\Fanex.Betlist.Jili.dll</HintPath>
@@ -179,7 +179,7 @@
       <HintPath>..\..\packages\Fanex.BetList.MGRNGCasino.2.0.0\lib\net461\Fanex.BetList.MGRNGCasino.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.NumberGame, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.NumberGame.2.0.0.3-IndoTrans-01\lib\net461\Fanex.BetList.NumberGame.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.NumberGame.2.0.0.3\lib\net461\Fanex.BetList.NumberGame.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.PGSoft, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.PGSoft.2.0.0\lib\net461\Fanex.BetList.PGSoft.dll</HintPath>
@@ -266,13 +266,13 @@
       <HintPath>..\..\packages\Fanex.RemotingRef.1.5.3\lib\net461\Fanex.RemotingRef.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Allbet, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core.AllBetCasino.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.Allbet.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Result.Core.AllBetCasino.2.0.0.1\lib\net461\Fanex.Result.Core.Allbet.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Base, Version=3.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.3.0.0.4-indo-02\lib\net461\Fanex.Result.Core.Base.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.3.0.0.4\lib\net461\Fanex.Result.Core.Base.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Bitcoin, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-Bitcoin.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.Bitcoin.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Result.Core-Bitcoin.2.0.0.1\lib\net461\Fanex.Result.Core.Bitcoin.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Casino, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.Casino.1.0.0.1\lib\Fanex.Result.Core.Casino.dll</HintPath>
@@ -281,7 +281,7 @@
       <HintPath>..\..\packages\Fanex.Result.Core.ConfigurationHelper.1.0.0\lib\net461\Fanex.Result.Core.ConfigurationHelper.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Happy5, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core.Happy5.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.Happy5.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Result.Core.Happy5.2.0.0.1\lib\net461\Fanex.Result.Core.Happy5.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.LeapGaming, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core-LeapGaming.2.0.0\lib\net461\Fanex.Result.Core.LeapGaming.dll</HintPath>
@@ -305,10 +305,10 @@
       <HintPath>..\..\packages\Fanex.Result.Core.SAGaming.2.0.0\lib\net461\Fanex.Result.Core.SAGaming.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.SexyGaming, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core.SexyGaming.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.SexyGaming.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Result.Core.SexyGaming.2.0.0.1\lib\net461\Fanex.Result.Core.SexyGaming.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.Sportsbook, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.2.0.0.4-indo-02\lib\net461\Fanex.Result.Core.Sportsbook.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.2.0.0.4\lib\net461\Fanex.Result.Core.Sportsbook.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.SportsLottery, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.SportsLottery.1.0.3\lib\net461\Fanex.Result.Core.SportsLottery.dll</HintPath>
@@ -320,7 +320,7 @@
       <HintPath>..\..\packages\Fanex.Result.Core.VGaming.1.0.0\lib\net40\Fanex.Result.Core.VGaming.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core.WM, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core.WM.2.0.0.1-indo-01\lib\net461\Fanex.Result.Core.WM.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Result.Core.WM.2.0.0.1\lib\net461\Fanex.Result.Core.WM.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=4.15.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MathNet.Numerics.Signed.4.15.0\lib\net461\MathNet.Numerics.dll</HintPath>
