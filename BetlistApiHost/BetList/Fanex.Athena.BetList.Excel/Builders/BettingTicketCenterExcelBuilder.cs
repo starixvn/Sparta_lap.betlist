@@ -80,7 +80,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
         public void AddTitle(string title, BettingTicketCenterOption option)
         {
             var font = _builder.CreateFont();
-            font.Boldweight = (short)FontBoldWeight.Bold;
+            font.IsBold = true;
             font.Color = HSSFColor.Orange.Index;
 
             var titleStyle = _builder.CreateCellStyle();
@@ -255,11 +255,11 @@ namespace Fanex.Athena.BetList.Excel.Builders
             const short MixLiveColor = 13311;
 
             _negativeWinLossFont = _builder.CreateFont();
-            _negativeWinLossFont.Boldweight = (short)FontBoldWeight.Bold;
+            _negativeWinLossFont.IsBold = true;
             _negativeWinLossFont.Color = (short)FontColor.Red;
 
             _winLossFont = _builder.CreateFont();
-            _winLossFont.Boldweight = (short)FontBoldWeight.Bold;
+            _winLossFont.IsBold = true;
             _winLossFont.Color = (short)FontColor.None;
 
             _liveFont = _builder.CreateFont();

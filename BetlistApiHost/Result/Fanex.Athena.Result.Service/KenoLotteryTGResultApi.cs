@@ -1,9 +1,10 @@
 ﻿namespace Fanex.Athena.Result.Service
 {
+    using System;
     using Fanex.Athena.Result.Model.Const;
     using Fanex.Athena.Result.Service.Interfaces;
+    using Fanex.Result.Core.ConfigurationHelper;
     using Fanex.Result.Core.KenoLotteryTG;
-    using System;
 
     [CLSCompliant(false)]
     public class KenoLotteryTGResultApi : IKenoLotteryTGResultFactory
@@ -15,7 +16,8 @@
 
         public IKenoLotteryTGResult CreateResultApi(int vendorProductId)
         {
-            var result = new KenoLotteryTGResult(GetConfigSetting(vendorProductId));
+            var configurationHelper = new ConfigurationHelper();
+            var result = new KenoLotteryTGResult(GetConfigSetting(vendorProductId), configurationHelper);
             return result;
         }
 

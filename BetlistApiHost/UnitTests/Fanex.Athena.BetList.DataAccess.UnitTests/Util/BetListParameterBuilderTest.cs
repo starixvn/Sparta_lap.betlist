@@ -62,11 +62,11 @@
             {
                 _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
                 _objectDb.Received(1).SetParameterValue("CustId", _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("ProductList", _metaModel.ProductCodeList);
                 AssertMoveBetParams(_objectDb, _metaModel);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
                 AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).SetParameterValue("ProductList", _metaModel.ProductCodeList);
             });
         }
 
@@ -174,9 +174,9 @@
             {
                 _objectDb.Received(1).SetParameterValue("AgentList", _metaModel.AgentListXml);
                 _objectDb.Received(1).SetParameterValue("CustId", _metaModel.CustId);
+                _objectDb.Received(1).SetParameterValue("ProductList", _metaModel.ProductCodeList);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
-                _objectDb.Received(1).SetParameterValue("ProductList", _metaModel.ProductCodeList);
             });
         }
 

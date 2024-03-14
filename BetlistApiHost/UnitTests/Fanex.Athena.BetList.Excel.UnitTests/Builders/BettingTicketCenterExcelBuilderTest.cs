@@ -176,7 +176,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(font.Boldweight, Is.EqualTo((short)FontBoldWeight.Bold));
+                Assert.That(font.IsBold, Is.EqualTo(true));
                 Assert.That(font.Color, Is.EqualTo(HSSFColor.Orange.Index));
 
                 Assert.That(titleStyle.VerticalAlignment, Is.EqualTo(VerticalAlignment.Center));

@@ -1,12 +1,12 @@
 ﻿namespace Fanex.Athena.BetList.Controller.CustomActionResult
 {
-    using BetListNPOI.SS.UserModel;
     using System.Web.Mvc;
+    using BetListNPOI.SS.UserModel;
 
     public class ExcelResult : ActionResult
     {
         private readonly IWorkbook _hssfWorkBook;
-        private string _fileName;
+        private readonly string _fileName;
 
         public ExcelResult(IWorkbook hssfWorkbook, string fileName = null)
         {

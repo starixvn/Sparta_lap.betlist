@@ -11,21 +11,20 @@ namespace Fanex.Athena.BetList.Excel
     using System.Linq;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
+    using BetListNPOI.HSSF.UserModel;
+    using BetListNPOI.HSSF.Util;
+    using BetListNPOI.SS.UserModel;
+    using BetListNPOI.SS.Util;
     using Common.Constant;
     using Common.Utility.Services;
     using Common.Utility.Services.Interfaces;
     using Fanex.Athena.BetList.Service.Interfaces;
-    using Fanex.Athena.BetList.Service;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Helpers;
     using Resources;
     using Service.Extensions;
-    using BetListNPOI.SS.UserModel;
-    using BetListNPOI.HSSF.UserModel;
-    using BetListNPOI.SS.Util;
-    using BetListNPOI.HSSF.Util;
 
     public class BetListExcel
     {
@@ -123,7 +122,7 @@ namespace Fanex.Athena.BetList.Excel
         private static void AddTitle(IBetListExcelBuilder builder, string title)
         {
             var font = builder.CreateFont();
-            font.Boldweight = (short)FontBoldWeight.Bold;
+            font.IsBold = true;
             font.Color = HSSFColor.Orange.Index;
 
             var titleStyle = builder.CreateCellStyle();
@@ -250,11 +249,11 @@ namespace Fanex.Athena.BetList.Excel
         protected internal virtual void InitializeFonts(IBetListExcelBuilder builder)
         {
             _negativeWinLossFont = builder.CreateFont();
-            _negativeWinLossFont.Boldweight = (short)FontBoldWeight.Bold;
+            _negativeWinLossFont.IsBold = true;
             _negativeWinLossFont.Color = (short)FontColor.Red;
 
             _winLossFont = builder.CreateFont();
-            _winLossFont.Boldweight = (short)FontBoldWeight.Bold;
+            _winLossFont.IsBold = true;
             _winLossFont.Color = (short)FontColor.None;
         }
 
