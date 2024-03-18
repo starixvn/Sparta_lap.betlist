@@ -18,6 +18,19 @@
         <td style="height: 0; padding: 0; border: none" class="status-cell"></td>
     </tr>
 }
+
+@helper RenderOddsOfParlayBoostBonus(decimal odds, decimal mOdds, string boostRate, bool showBoostRate = false)
+{
+    <div class="oddstype">
+        <span class="underdog strikethrough">@odds</span><br>
+        <span class="underdog">@mOdds</span>
+        @if (showBoostRate)
+        {
+            <br><span class="boostrate"><span class="icon-boost"></span>@boostRate</span>
+        }
+    </div>
+}
+
 <style type="text/css">
 
     .system-parlay-detail .negative {
@@ -101,13 +114,35 @@
                             <td>
                                 @if (Model.IsParlayBoost)
                                 {
-                                    <div class="oddstype">
-                                        <span class="underdog strikethrough">@dataByMatch.Odds</span><br>
-                                        <span class="underdog">@dataByMatch.MOdds</span><br><span class="boostrate"><span class="icon-boost"></span>@dataByMatch.BoostRate</span>
-                                    </div>
+                                    switch (dataByMatch.StatusId)
+                                    {
+                                        case BetStatusId.Running:
+                                        case BetStatusId.Waiting:
+                                        case BetStatusId.Won:
+                                            @RenderOddsOfParlayBoostBonus(@dataByMatch.Odds, @dataByMatch.MOdds, @dataByMatch.BoostRate, true);
+                                            break;
+                                        case BetStatusId.Draw:
+                                        case BetStatusId.Refund:
+                                            @NumberHelper.DecFormat(@dataByMatch.MOdds, 4)
+                                            break;
+                                        case BetStatusId.Lost:
+                                            if (dataByMatch.MOdds > 0)
+                                            {
+                                                @RenderOddsOfParlayBoostBonus(@dataByMatch.Odds, @dataByMatch.MOdds, @dataByMatch.BoostRate);
+                                            }
+                                            else
+                                            {
+                                                @NumberHelper.DecFormat(dataByMatch.Odds, 4)
+                                            }
+                                            break;
+                                        default:
+                                            @NumberHelper.DecFormat(dataByMatch.MOdds, 4)
+                                            break;
+                                    }
                                 }
                                 else
                                 {
+
                                     switch (dataByMatch.StatusId)
                                     {
                                         case BetStatusId.Running:
@@ -121,10 +156,7 @@
                                         case BetStatusId.Lost:
                                             if (dataByMatch.MOdds > 0)
                                             {
-                                                <div class="oddstype">
-                                                    <span class="underdog strikethrough">@dataByMatch.Odds</span><br>
-                                                    <span class="underdog">@dataByMatch.MOdds</span>
-                                                </div>
+                                                @RenderOddsOfParlayBoostBonus(@dataByMatch.Odds, @dataByMatch.MOdds, @dataByMatch.BoostRate);
                                             }
                                             else
                                             {
@@ -134,10 +166,7 @@
                                         case BetStatusId.Won:
                                             if (dataByMatch.Odds != dataByMatch.MOdds)
                                             {
-                                                <div class="oddstype">
-                                                    <span class="underdog strikethrough">@dataByMatch.Odds</span><br>
-                                                    <span class="underdog">@dataByMatch.MOdds</span>
-                                                </div>
+                                                @RenderOddsOfParlayBoostBonus(@dataByMatch.Odds, @dataByMatch.MOdds, @dataByMatch.BoostRate);
                                             }
                                             else
                                             {
