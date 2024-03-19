@@ -151,8 +151,8 @@
     <Reference Include="Fanex.BetList.Indo4D, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Indo4D.2.0.0.2\lib\net461\Fanex.BetList.Indo4D.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Betlist.Jili, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Betlist.Jili.1.0.0\lib\net461\Fanex.Betlist.Jili.dll</HintPath>
+    <Reference Include="Fanex.BetList.Jili, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Betlist.Jili.1.0.0.2\lib\net461\Fanex.BetList.Jili.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Joker, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Joker.2.0.0\lib\net461\Fanex.BetList.Joker.dll</HintPath>
