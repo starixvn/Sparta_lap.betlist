@@ -71,6 +71,9 @@ namespace Fanex.Athena.BetList.Controller
             const string Uncategorized = "Uncategorized";
 
             var builder = new BetListHTMLBuilder();
+
+            _ticketHelper.HideSabaText = metaModel.IsHideSaba;
+
             foreach (var ticket in ticketResult.MainTicketList)
             {
                 _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);

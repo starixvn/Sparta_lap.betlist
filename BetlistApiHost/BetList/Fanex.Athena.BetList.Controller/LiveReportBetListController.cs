@@ -22,10 +22,9 @@ namespace Fanex.Athena.BetList.Controller
         public async Task<JsonResult> GetData(LiveReportBetListMetaModel metaModel)
         {
             var ticketResult = await _betListService.GetBetListData(metaModel).ConfigureAwait(false);
-
             var result = new
             {
-                Main = _ticketBuilderService.BuildTicketText(ticketResult, isShowIpvn: metaModel.IsShowIpvn),
+                Main = _ticketBuilderService.BuildTicketText(ticketResult, isShowIpvn: metaModel.IsShowIpvn, isHideSaba: metaModel.IsHideSaba),
                 Total = new
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,

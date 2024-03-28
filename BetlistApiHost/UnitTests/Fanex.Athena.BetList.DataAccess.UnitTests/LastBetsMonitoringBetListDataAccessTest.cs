@@ -58,7 +58,7 @@
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Any<string>()).Returns(ObjectDb);
-            var expected = new BetListMatch { MatchId = 1, LeagueId = 2 };
+            var expected = new BetListMatch { MatchId = 1, LeagueId = 2, LeagueGroupId = 1 };
             ObjectDb.QueryAsync<BetListMatch>().Returns(new List<BetListMatch> { expected });
 
             // Action
