@@ -24,7 +24,6 @@
     using Fanex.Result.Core.SexyGaming;
     using Fanex.Result.Core.SportsLottery;
     using Fanex.Result.Core.WM;
-    using Fanex.Result.Core.VGaming;
     using Fanex.Athena.BetList.Service;
     using Fanex.Athena.BetList.Service.Interfaces;
     using Fanex.Athena.Common.Utility.Services;
@@ -67,7 +66,6 @@
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
             builder.RegisterType<LinkedGamesResult>().As<ILinkedGamesResult>();
             builder.RegisterType<WMResultBuilder>().As<IWMResultBuilder>();
-            builder.RegisterType<VGamingResult>().As<IVGamingResult>();
             builder.RegisterType<SportsLotteryResult>().As<ISportsLotteryResult>();
             builder.RegisterType<IpInfoService>().As<IIpInfoService>();
         }
