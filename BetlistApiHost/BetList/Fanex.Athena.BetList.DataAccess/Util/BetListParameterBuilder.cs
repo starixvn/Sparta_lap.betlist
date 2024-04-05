@@ -216,7 +216,7 @@
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue(DbColumn.BetType, metaModel.BetType);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveIndicator);
-            db.SetParameterValue(DbColumn.ProductList, metaModel.ProductCodeList);
+            CreateProductListParameters_New(db, metaModel.ProductCodeList);
         }
 
         private static void CreateLiveReportNumberGameBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
@@ -450,6 +450,19 @@
             {
                 db.SetParameterValue("show" + productCode, true);
             }
+        }
+
+        private static void CreateProductListParameters_New(IObjectDb db, string productCodeList)
+        {
+            var productList = productCodeList.Split(',').ToList();
+            int indexBA = productList.IndexOf(ProductCodes.BA);
+            if (indexBA > -1)
+            {
+                db.SetParameterValue(DbColumn.ShowBA, true);
+                productList.RemoveAt(indexBA);
+            }
+
+            db.SetParameterValue(DbColumn.ProductList, string.Join(",", productList));
         }
 
         #endregion Utility
