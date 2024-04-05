@@ -289,6 +289,7 @@
     <Compile Include="ResultPopup\AdvantPlayResultPopupController.cs" />
     <Compile Include="ResultPopup\CGResultPopupController.cs" />
     <Compile Include="ResultPopup\FGGLResultPopupController.cs" />
+    <Compile Include="ResultPopup\UUSlotsResultPopupController.cs" />
     <Compile Include="ResultPopup\Live22ResultPopupController.cs" />
     <Compile Include="ResultPopup\WELiveCasinoResultPopupController.cs" />
     <Compile Include="ResultPopup\SealEntertainmentResultPopupController.cs" />
