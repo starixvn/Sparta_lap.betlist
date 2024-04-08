@@ -8,6 +8,9 @@
     using Autofac;
     using Autofac.Features.AttributeFilters;
     using Autofac.Integration.Mvc;
+    using Fanex.Athena.BetList.Service;
+    using Fanex.Athena.BetList.Service.Interfaces;
+    using Fanex.Athena.Common.Utility.Services;
     using Fanex.Athena.Common.Utility.Services.Internal;
     using Fanex.Athena.Result.Service;
     using Fanex.Athena.Result.Service.Interfaces;
@@ -17,17 +20,16 @@
     using Fanex.Logging;
     using Fanex.RemotingRef;
     using Fanex.Result.Core.AllBetCasino;
+    using Fanex.Result.Core.Base.Utilities;
     using Fanex.Result.Core.Casino;
+    using Fanex.Result.Core.ConfigurationHelper;
     using Fanex.Result.Core.LinkedGames;
     using Fanex.Result.Core.SabaClub;
     using Fanex.Result.Core.SAGaming;
     using Fanex.Result.Core.SexyGaming;
     using Fanex.Result.Core.SportsLottery;
-    using Fanex.Result.Core.WM;
     using Fanex.Result.Core.VGaming;
-    using Fanex.Athena.BetList.Service;
-    using Fanex.Athena.BetList.Service.Interfaces;
-    using Fanex.Athena.Common.Utility.Services;
+    using Fanex.Result.Core.WM;
 
     public static class DIConfig
     {
@@ -52,6 +54,8 @@
 
         private static void RegisterThirdpartyServices(ContainerBuilder builder)
         {
+            builder.RegisterType<JsonSerializer>().As<ISerializer>();
+            builder.RegisterType<ConfigurationHelper>().As<IConfigurationHelper>();
             builder.RegisterType<ShardInfoAccessor>().As<IShardInfoAccessor>().SingleInstance();
             builder.RegisterType<IPService>().As<IIPService>().SingleInstance();
             builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
