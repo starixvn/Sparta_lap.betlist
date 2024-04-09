@@ -108,9 +108,6 @@
     <Reference Include="Fanex.Result.Core.ThirdParty, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.ThirdPartyResult.2.0.0\lib\net461\Fanex.Result.Core.ThirdParty.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.VGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.VGaming.1.0.0\lib\net40\Fanex.Result.Core.VGaming.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Result.Core.WM, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.WM.2.0.0.1\lib\net461\Fanex.Result.Core.WM.dll</HintPath>
     </Reference>

@@ -28,7 +28,6 @@
     using Fanex.Result.Core.SAGaming;
     using Fanex.Result.Core.SexyGaming;
     using Fanex.Result.Core.SportsLottery;
-    using Fanex.Result.Core.VGaming;
     using Fanex.Result.Core.WM;
 
     public static class DIConfig
@@ -71,7 +70,6 @@
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
             builder.RegisterType<LinkedGamesResult>().As<ILinkedGamesResult>();
             builder.RegisterType<WMResultBuilder>().As<IWMResultBuilder>();
-            builder.RegisterType<VGamingResult>().As<IVGamingResult>();
             builder.RegisterType<SportsLotteryResult>().As<ISportsLotteryResult>();
             builder.RegisterType<IpInfoService>().As<IIpInfoService>();
         }
