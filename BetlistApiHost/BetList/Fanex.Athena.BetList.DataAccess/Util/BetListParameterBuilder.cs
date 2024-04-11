@@ -241,10 +241,10 @@
             db.SetParameterValue(DbColumn.MatchID, metaModel.MatchId);
             AddLiveReportPagingParams(db, metaModel);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveIndicator);
-            db.SetParameterValue(DbColumn.ProductList, metaModel.ProductCodeList);
             db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
             db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
             db.SetParameterValue(DbColumn.MoveBetsDay, metaModel.MoveBetsDay);
+            CreateProductListParameters_New(db, metaModel.ProductCodeList);
         }
 
         private static void CreateLiveReportOutRightBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
