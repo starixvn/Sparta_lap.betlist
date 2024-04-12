@@ -35,10 +35,12 @@
             { "9", DesktopOthers },
             { ">", DesktopOthers },
             { "W001", DesktopGalaxy },
+            { "W003", DesktopGalaxy },
             { "l", MobileStandard },
             { "]", MobileStandard },
             { "%", MobileEuro },
             { "W002", MobileGalaxy },
+            { "W004", MobileGalaxy },
             { "c", MobileCompact },
             { "@", MobileCompact },
             { "7", MobileOthers },
@@ -61,6 +63,7 @@
             { "t", DeepLink },
             { "m", Wap },
             { "A000", ChatRoom },
+            { "A003", ChatRoom },
         };
 
         private static readonly IDictionary<string, string> _JollysportsPlatform = new Dictionary<string, string>
