@@ -59,22 +59,27 @@
         public async Task<TicketResult> GetBetListByRefnoAsync(RefNoBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_RefNo_Mem";
+
+            var ticketResult = new TicketResult();
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.UseShardDB = _shardInfoAccessor.UseShardDB;
 
-            var ticketResult = await GetMainTicketListBasedRangeAsync(metaModel, UspKey,
-                assignCommonParamters: db =>
-                {
-                    db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
-                    db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
-                    db.SetParameterValue(DbColumn.RefNo, metaModel.RefNo);
-                    db.SetParameterValue(DbColumn.TxId, metaModel.TxId);
-                    db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
-                    db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
-                    db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
-                }, getInOneRange: true);
+            if (long.TryParse(metaModel.RefNo, out long refno) || !string.IsNullOrEmpty(metaModel.TxId))
+            {
+                ticketResult = await GetMainTicketListBasedRangeAsync(metaModel, UspKey,
+                    assignCommonParamters: db =>
+                    {
+                        db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+                        db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
+                        db.SetParameterValue(DbColumn.RefNo, refno);
+                        db.SetParameterValue(DbColumn.TxId, metaModel.TxId);
+                        db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
+                        db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
+                        db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
+                    }, getInOneRange: true);
 
-            ticketResult.TotalRows = ticketResult.MainTicketList.Count;
+                ticketResult.TotalRows = ticketResult.MainTicketList.Count;
+            }
 
             return ticketResult;
         }
