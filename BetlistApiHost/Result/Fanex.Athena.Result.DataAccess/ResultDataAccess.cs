@@ -391,7 +391,10 @@ namespace Fanex.Athena.Result.DataAccess
             }
         }
 
+#pragma warning disable S1541 // Methods and properties should not be too complex
+
         private static Sportsbook ReadSportsbook(IDataReader reader, string refNo = "", int? leagueId = null)
+#pragma warning restore S1541 // Methods and properties should not be too complex
         {
             return new Sportsbook
             {
@@ -419,7 +422,9 @@ namespace Fanex.Athena.Result.DataAccess
                 SettlementStatus = reader.ToByte("SettlementStatus"),
                 Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
                 BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
-                NoHTScore = reader.HasColumn("NoHTScore") && reader.ToBool("NoHTScore")
+                NoHTScore = reader.HasColumn("NoHTScore") && reader.ToBool("NoHTScore"),
+                MainType = reader.HasColumn("MainType") ? reader.ToByte("MainType") : byte.MinValue,
+                SubType = reader.HasColumn("SubType") ? reader.ToInt("SubType") : 0,
             };
         }
 
