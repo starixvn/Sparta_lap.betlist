@@ -48,6 +48,7 @@
     <Compile Include="ExchangeMatchTypeConstants.cs" />
     <Compile Include="FormatKey.cs" />
     <Compile Include="LicenseeIdentity.cs" />
+    <Compile Include="BookedBetStatusTypes.cs" />
     <Compile Include="LiveStatusTypes.cs" />
     <Compile Include="DbColumn.cs" />
     <Compile Include="OddsType.cs" />

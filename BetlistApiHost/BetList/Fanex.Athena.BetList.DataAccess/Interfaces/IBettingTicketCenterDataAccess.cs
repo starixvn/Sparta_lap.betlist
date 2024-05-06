@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.Interfaces
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
@@ -17,5 +16,8 @@
 
         Task<TicketResult> GetBetListByTxIDAsync(TxIDBetListMetaModel metaModel
            );
+
+        Task<TicketResult> GetBetListForBookedBetAsync(
+            BookedBetBetListMetaModel metaModel);
     }
 }

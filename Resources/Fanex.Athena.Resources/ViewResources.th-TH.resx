@@ -132,6 +132,24 @@
   <data name="BettingTicketCenter" xml:space="preserve">
     <value>ศูนย์ตั๋วเดิมพัน</value>
   </data>
+  <data name="Booked" xml:space="preserve">
+    <value>จองแล้ว</value>
+  </data>
+  <data name="BookedBet" xml:space="preserve">
+    <value>การเดิมพันที่จองไว้</value>
+  </data>
+  <data name="BookedId" xml:space="preserve">
+    <value>รหัสการจอง</value>
+  </data>
+  <data name="BookedTime" xml:space="preserve">
+    <value>เวลาที่จองไว้</value>
+  </data>
+  <data name="Booking" xml:space="preserve">
+    <value>กำลังจอง</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>ถูกยกเลิก</value>
+  </data>
   <data name="ChatRoom" xml:space="preserve">
     <value>ห้องแชท</value>
   </data>
@@ -240,8 +258,14 @@
   <data name="Odds" xml:space="preserve">
     <value>อัตราต่อรอง</value>
   </data>
+  <data name="OddsLower" xml:space="preserve">
+    <value>อัตราต่อรองต่ำสุด</value>
+  </data>
   <data name="OddsType" xml:space="preserve">
     <value>ประเภทอัตราต่อรอง</value>
+  </data>
+  <data name="OddsUpper" xml:space="preserve">
+    <value>อัตราต่อรองสูงสุด</value>
   </data>
   <data name="Others" xml:space="preserve">
     <value>อื่นๆ</value>
@@ -251,6 +275,9 @@
   </data>
   <data name="Platform" xml:space="preserve">
     <value>แพลตฟอร์ม</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>เหตุผล</value>
   </data>
   <data name="RefNo" xml:space="preserve">
     <value>หมายเลขอ้างอิง</value>
@@ -270,6 +297,9 @@
   <data name="Status" xml:space="preserve">
     <value>สถานะ</value>
   </data>
+  <data name="Successful" xml:space="preserve">
+    <value>สำเร็จแล้ว</value>
+  </data>
   <data name="SystemId" xml:space="preserve">
     <value>รหัสระบบ</value>
   </data>
@@ -287,6 +317,9 @@
   </data>
   <data name="Uncategorized" xml:space="preserve">
     <value>ไม่ได้จัดหมวดหมู่</value>
+  </data>
+  <data name="Unsuccessful" xml:space="preserve">
+    <value>ไม่สำเร็จ</value>
   </data>
   <data name="Wap" xml:space="preserve">
     <value>WAP</value>

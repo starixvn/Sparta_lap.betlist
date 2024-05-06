@@ -518,7 +518,7 @@
             _builder.Received(1).AddCell(
                 Arg.Is<HSSFRichTextString>(x => x.String == expectedPlatformName),
                 Arg.Is<ICellStyle>(x => x.Alignment == HorizontalAlignment.Center
-                && x.FillBackgroundColor == _oddStyle.FillBackgroundColor));
+                && x.FillBackgroundColor == _evenStyle.FillBackgroundColor));
         }
 
         [TestCase(BetType.MixParlay, LiveStatusTypes.Live, false)]
