@@ -22,6 +22,8 @@
 
         public bool IsShowIp { get; set; }
 
+        public bool IsBookedBet { get; set; }
+
         public int SpecialPlatform { get; set; }
     }
 }

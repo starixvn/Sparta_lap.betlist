@@ -301,4 +301,40 @@
   <data name="Mobile" xml:space="preserve">
     <value>手机</value>
   </data>
+  <data name="Booked" xml:space="preserve">
+    <value>预约</value>
+  </data>
+  <data name="BookedBet" xml:space="preserve">
+    <value>预约投注</value>
+  </data>
+  <data name="BookedTime" xml:space="preserve">
+    <value>预约时间</value>
+  </data>
+  <data name="Booking" xml:space="preserve">
+    <value>预约中</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>已成功</value>
+  </data>
+  <data name="Unsuccessful" xml:space="preserve">
+    <value>未成功</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="BookedId" xml:space="preserve">
+    <value>预约注单ID</value>
+  </data>
+  <data name="OddsLower" xml:space="preserve">
+    <value>较低赔率</value>
+  </data>
+  <data name="OddsUpper" xml:space="preserve">
+    <value>较高赔率</value>
+  </data>
 </root>

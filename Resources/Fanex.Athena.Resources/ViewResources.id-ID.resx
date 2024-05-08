@@ -132,6 +132,24 @@
   <data name="BettingTicketCenter" xml:space="preserve">
     <value>Pusat Tiket Taruhan</value>
   </data>
+  <data name="Booked" xml:space="preserve">
+    <value>Dipesan</value>
+  </data>
+  <data name="BookedBet" xml:space="preserve">
+    <value>Taruhan yang Dipesan</value>
+  </data>
+  <data name="BookedId" xml:space="preserve">
+    <value>ID Pemesanan</value>
+  </data>
+  <data name="BookedTime" xml:space="preserve">
+    <value>Waktu yang Dipesan</value>
+  </data>
+  <data name="Booking" xml:space="preserve">
+    <value>Sedang Dipesan</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Dibatalkan</value>
+  </data>
   <data name="ChatRoom" xml:space="preserve">
     <value>Ruang Obrolan</value>
   </data>
@@ -231,8 +249,14 @@
   <data name="Odds" xml:space="preserve">
     <value>Odds</value>
   </data>
+  <data name="OddsLower" xml:space="preserve">
+    <value>Peluang Terendah</value>
+  </data>
   <data name="OddsType" xml:space="preserve">
     <value>Jenis Peluang</value>
+  </data>
+  <data name="OddsUpper" xml:space="preserve">
+    <value>Peluang Tertinggi</value>
   </data>
   <data name="Others" xml:space="preserve">
     <value>Lainnya</value>
@@ -242,6 +266,9 @@
   </data>
   <data name="Platform" xml:space="preserve">
     <value>Platform</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Alasan</value>
   </data>
   <data name="RefNo" xml:space="preserve">
     <value>No. Ref</value>
@@ -261,6 +288,9 @@
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="Successful" xml:space="preserve">
+    <value>Berhasil</value>
+  </data>
   <data name="SystemId" xml:space="preserve">
     <value>ID Sistem</value>
   </data>
@@ -278,6 +308,9 @@
   </data>
   <data name="Uncategorized" xml:space="preserve">
     <value>Belum dikategorikan</value>
+  </data>
+  <data name="Unsuccessful" xml:space="preserve">
+    <value>Tidak berhasil</value>
   </data>
   <data name="WinLoss" xml:space="preserve">
     <value>Menang atau kalah</value>
