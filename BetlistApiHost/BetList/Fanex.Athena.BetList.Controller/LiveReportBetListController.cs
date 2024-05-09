@@ -58,7 +58,7 @@ namespace Fanex.Athena.BetList.Controller
                 page = metaModel.PageIndex,
                 total = totalPage,
                 records = metaModel.TotalRows,
-                rows = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, startIndex),
+                rows = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, startIndex, isAllowedCustomerComm: metaModel.HasPlayerCom),
                 userdata = new
                 {
                     WinLoss = sumWinLossText,
