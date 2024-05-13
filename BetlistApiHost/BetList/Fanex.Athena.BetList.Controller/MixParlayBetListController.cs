@@ -8,7 +8,6 @@ using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.BetList.Model.MetaModel;
 using Fanex.Athena.BetList.Service.Helpers;
 using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.Common.Utility.Extensions;
 using Fanex.Athena.Common.Utility.Services.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -47,7 +46,7 @@ namespace Fanex.Athena.BetList.Controller
         public async Task<JsonResult> Detail(MixParlayDetailMetaModel metaModel)
         {
             var ticketResult = await _betListService.GetMixParlayDetailTicket(metaModel).ConfigureAwait(false);
-            var result = _ticketBuilderService.BuildTicketText(ticketResult: ticketResult, showOdds: true, isShowIpvn: metaModel.IsShowIpvn);
+            var result = _ticketBuilderService.BuildTicketText(ticketResult: ticketResult, showOdds: true, isShowIpvn: metaModel.IsShowIpvn, isHideSaba: metaModel.IsHideSaba);
             BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
@@ -93,19 +92,19 @@ namespace Fanex.Athena.BetList.Controller
 
             var result = new
             {
-                Data = BuildParlayDetailTickets(ticketResult: ticketResult, showOdds: true, isShowIpvn: metaModel.IsShowIpvn, isShowIp: metaModel.IsShowIp),
+                Data = BuildParlayDetailTickets(ticketResult: ticketResult, showOdds: true, isShowIpvn: metaModel.IsShowIpvn, isShowIp: metaModel.IsShowIp, isHideSaba: metaModel.IsHideSaba),
                 Texts = texts
             };
             BetListHelper.ClearData(ticketResult);
             return Json(result);
         }
 
-        protected internal virtual IList<string> BuildParlayDetailTickets(TicketResult ticketResult, bool showOdds = false, bool isShowIpvn = false, bool isShowIp = false)
+        protected internal virtual IList<string> BuildParlayDetailTickets(TicketResult ticketResult, bool showOdds = false, bool isShowIpvn = false, bool isShowIp = false, bool isHideSaba = false)
         {
             var ticketTextList = new List<string>();
 
             _ticketHelper.IsShowOddsWithChoice = showOdds;
-
+            _ticketHelper.HideSabaText = isHideSaba;
             _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
 
             // If show ip check ipvn
