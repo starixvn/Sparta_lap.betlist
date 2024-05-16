@@ -48,6 +48,8 @@ namespace Fanex.Athena.BetList.Service
             foreach (var ticket in ticketResult.MainTicketList)
             {
                 bool isShowIp = metaModel.IsShowIp && (metaModel.IsShowIpvn || !(_ipService.IsVNIP(ticket.IP)));
+                var bookedBetRefno = ticket.RefNo;
+                ticket.RefNo = SystemConstants.DefaultBookedBetRefno;
 
                 var ticketText = new TicketText
                 {
@@ -55,7 +57,7 @@ namespace Fanex.Athena.BetList.Service
                     ExternalId = ticket.ExternalId,
                     SystemId = ticket.UserName,
                     BookedTime = _betlistHtmlBuilder.BuildTransTime(ticket),
-                    RefNo = ticket.RefNo != "0" ? ticket.RefNo : string.Empty,
+                    RefNo = bookedBetRefno != "0" ? bookedBetRefno : string.Empty,
                     BookedId = ticket.TransId.ToString(),
                     Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     OddsLower = ticket.OddsLower == 0 ? HyphenTextHTML : _betlistHtmlBuilder.BuildOddsUpperLower(ticket.OddsLower),
