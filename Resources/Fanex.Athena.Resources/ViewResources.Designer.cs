@@ -565,6 +565,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saba Coins.
+        /// </summary>
+        public static string SabaCoins {
+            get {
+                return ResourceManager.GetString("SabaCoins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (N).
         /// </summary>
         public static string ShortedNeutral {
@@ -660,6 +669,15 @@ namespace Fanex.Athena.Resources {
         public static string Unsuccessful {
             get {
                 return ResourceManager.GetString("Unsuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View in {0}.
+        /// </summary>
+        public static string Viewin {
+            get {
+                return ResourceManager.GetString("Viewin", resourceCulture);
             }
         }
         

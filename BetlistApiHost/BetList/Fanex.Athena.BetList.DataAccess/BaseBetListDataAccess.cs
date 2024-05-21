@@ -5,6 +5,7 @@
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Windows.Input;
     using Common.DataAccess;
     using Common.Utility.Collections;
     using Common.Utility.Extensions;
@@ -21,6 +22,7 @@
     public class BaseBetListDataAccess : BaseDataAccess
     {
         private readonly ICurrencyDataAccess _currencyDataAccess;
+        private const string SuffixSabaCoins = "_SabaCoins";
 
         protected BaseBetListDataAccess(ICurrencyDataAccess currenyDataAccess)
         {
@@ -88,9 +90,18 @@
         {
             var currencyList = await GetCurrencyListAsync();
             var tasks = new List<Task<SortableList<LrfTicket>>>(2);
+
             if (metaModel.UseShardDB)
             {
-                tasks.Add(GetMainTicketListBasedShardDBAsync($"SiteDB_{uspKey}", currencyList, assignCommonParamters, assignShardSpecificParamters));
+                if (uspKey.EndsWith(SuffixSabaCoins, StringComparison.OrdinalIgnoreCase))
+                {
+                    tasks.Add(GetMainTicketListBasedShardDBAsync(uspKey, currencyList, assignCommonParamters, assignShardSpecificParamters));
+                    uspKey = uspKey.Substring(0, uspKey.Length - SuffixSabaCoins.Length);
+                }
+                else
+                {
+                    tasks.Add(GetMainTicketListBasedShardDBAsync($"SiteDB_{uspKey}", currencyList, assignCommonParamters, assignShardSpecificParamters));
+                }
             }
             tasks.Add(GetMainTicketListBasedShardDBAsync(uspKey, currencyList, assignCommonParamters,
                 db =>

@@ -66,7 +66,7 @@
 
             if (long.TryParse(metaModel.RefNo, out long refno) || !string.IsNullOrEmpty(metaModel.TxId))
             {
-                ticketResult = await GetMainTicketListBasedRangeAsync(metaModel, UspKey,
+                ticketResult = await GetMainTicketListBasedRangeAsync(metaModel, metaModel.ViewSabaCoins ? $"{UspKey}_SabaCoins" : UspKey,
                     assignCommonParamters: db =>
                     {
                         db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
@@ -76,6 +76,7 @@
                         db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
                         db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
                         db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
+                        db.SetParameterValue(DbColumn.ViewSabaCoins, metaModel.ViewSabaCoins);
                     }, getInOneRange: true);
 
                 ticketResult.TotalRows = ticketResult.MainTicketList.Count;

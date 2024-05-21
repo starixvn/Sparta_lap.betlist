@@ -83,5 +83,7 @@
         public bool IsShowIp { get; set; }
 
         public int SpecialPlatform { get; set; }
+
+        public bool ViewSabaCoins { get; set; }
     }
 }

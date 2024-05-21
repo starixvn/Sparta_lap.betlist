@@ -71,6 +71,7 @@
                 IsShowIpvn = metaModel.IsShowIpvn,
                 IsShowIp = metaModel.IsShowIp,
                 SpecialPlatform = metaModel.SpecialPlatform,
+                ViewSabaCoins = metaModel.ViewSabaCoins
             };
 
             if (metaModel.IsExport)
