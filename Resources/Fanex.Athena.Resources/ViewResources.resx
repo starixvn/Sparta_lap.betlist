@@ -340,4 +340,10 @@
   <data name="Booked" xml:space="preserve">
     <value>Booked</value>
   </data>
+  <data name="SabaCoins" xml:space="preserve">
+    <value>Saba Coins</value>
+  </data>
+  <data name="Viewin" xml:space="preserve">
+    <value>View in {0}</value>
+  </data>
 </root>

@@ -327,4 +327,10 @@
   <data name="Booked" xml:space="preserve">
     <value>Đặt trước</value>
   </data>
+  <data name="SabaCoins" xml:space="preserve">
+    <value>Saba Xu</value>
+  </data>
+  <data name="Viewin" xml:space="preserve">
+    <value>Xem theo {0}</value>
+  </data>
 </root>

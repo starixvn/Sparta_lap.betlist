@@ -134,7 +134,7 @@
       <HintPath>..\..\packages\Fanex.BetList.CG.2.0.0\lib\net461\Fanex.BetList.CG.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.3.0.3\lib\net461\Fanex.BetList.Core.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.Core.3.0.3.1\lib\net461\Fanex.BetList.Core.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Core.RemotingRef, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Core.RemotingRef.2.0.0.2\lib\net461\Fanex.BetList.Core.RemotingRef.dll</HintPath>
@@ -675,7 +675,7 @@
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="SpNameConfig\FanexSpName.xml1.txt">
+    <Content Include="SpNameConfig\FanexSpName.xml.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
@@ -739,7 +739,7 @@
     <Content Include="Deployment.ignore" />
     <None Include="SpNameConfig\FanexSpName.xml.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>FanexSpName.xml1.txt</LastGenOutput>
+      <LastGenOutput>FanexSpName.xml.txt</LastGenOutput>
     </None>
     <None Include="SpNameConfig\SpNameConfiguration.ttinclude" />
     <Content Include="SiteConfig\Web.LOCAL.config">

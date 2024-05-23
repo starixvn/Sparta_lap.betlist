@@ -279,6 +279,9 @@
   <data name="Results" xml:space="preserve">
     <value>Hasil</value>
   </data>
+  <data name="SabaCoins" xml:space="preserve">
+    <value>Koin SABA</value>
+  </data>
   <data name="ShortedNeutral" xml:space="preserve">
     <value>(N)</value>
   </data>
@@ -311,6 +314,9 @@
   </data>
   <data name="Unsuccessful" xml:space="preserve">
     <value>Tidak berhasil</value>
+  </data>
+  <data name="Viewin" xml:space="preserve">
+    <value>Lihat {0}</value>
   </data>
   <data name="WinLoss" xml:space="preserve">
     <value>Menang atau kalah</value>

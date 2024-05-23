@@ -158,7 +158,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
             }
             ++index;
 
-            if (option.ShowLicenseeWl)
+            if (option.ShowLicenseeWl && !option.ViewSabaCoins)
             {
                 AddHeaderCell(ViewResources.LicenseeWL + "/" + ViewResources.Comm, columnWidths[index], headerStyle);
             }
@@ -206,7 +206,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
                 currentTotalColIndex++;
             }
 
-            if (option.ShowLicenseeWl)
+            if (option.ShowLicenseeWl && !option.ViewSabaCoins)
             {
                 var rtfSumLicenseeWl = new HSSFRichTextString(sumLicenseeWL.ToString(FormatKey.DecimalFormat));
                 rtfSumLicenseeWl.ApplyFont(sumLicenseeWL < 0 ? _negativeWinLossFont : _winLossFont);
@@ -279,7 +279,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
                 _builder.AddCustomerWL(ticket, option.IsAllowedCustomerComm, _winLossFont);
             }
 
-            if (option.ShowLicenseeWl)
+            if (option.ShowLicenseeWl && !option.ViewSabaCoins)
             {
                 _builder.AddLicenseeWL(ticket, licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont);
             }
@@ -340,7 +340,7 @@ namespace Fanex.Athena.BetList.Excel.Builders
         }
 
         private static int GetActualCols(BettingTicketCenterOption option)
-            => NumberOfColumns - (!option.ShowWinLoss).ToInt() - (!option.ShowLicenseeWl).ToInt() - (!option.ShowExternalId).ToInt() -
+            => NumberOfColumns - (!option.ShowWinLoss).ToInt() - (!option.ShowLicenseeWl || option.ViewSabaCoins).ToInt() - (!option.ShowExternalId).ToInt() -
                 (!option.ShowSystemId).ToInt() - (!option.ShowTxId).ToInt() - (!option.IsBookedBet).ToInt();
 
         private void AddBookedIdBetCell(LrfTicket ticket)

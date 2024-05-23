@@ -378,9 +378,11 @@
             var lastRow = FakeHelper.Create<int>();
             _builder.LastContentRow.Returns(lastRow);
             _excelBuilder.InitializeFonts();
+            var option = FakeHelper.Create<BettingTicketCenterOption>(x => x.ShowLicenseeWl, true);
+            option.ViewSabaCoins = false;
 
             // Action
-            _excelBuilder.AddFooter(0, 0, 0, original, FakeHelper.Create<string>(), FakeHelper.Create<BettingTicketCenterOption>(x => x.ShowLicenseeWl, true));
+            _excelBuilder.AddFooter(0, 0, 0, original, FakeHelper.Create<string>(), option);
 
             // Assert
             _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
@@ -509,10 +511,13 @@
             _excelBuilder.InitializeFonts();
             _excelBuilder.InitializeCellStyles();
 
+            var option = FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, false);
+            option.ViewSabaCoins = false;
+
             var expectedPlatformName = ViewResources.ResourceManager.GetString(platformName);
 
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, 1, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, true));
+            _excelBuilder.AssignRowData(tickets, ticket, 1, option);
 
             // Assert
             _builder.Received(1).AddCell(
@@ -543,8 +548,12 @@
 
             _excelBuilder.InitializeFonts();
 
+            var option = FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, false);
+            option.ViewSabaCoins = false;
+            option.IsBookedBet = false;
+
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, 2, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, false));
+            _excelBuilder.AssignRowData(tickets, ticket, 2, option);
 
             // Assert
             _builder.Received(1).AddCell(
@@ -574,8 +583,12 @@
 
             _excelBuilder.InitializeFonts();
 
+            var option = FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, false);
+            option.ViewSabaCoins = false;
+            option.IsBookedBet = false;
+
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, 2, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, false));
+            _excelBuilder.AssignRowData(tickets, ticket, 2, option);
 
             // Assert
             _builder.Received(1).AddCell(
@@ -600,8 +613,12 @@
 
             _excelBuilder.InitializeFonts();
 
+            var option = FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, true);
+            option.ViewSabaCoins = false;
+            option.IsBookedBet = false;
+
             // Action
-            _excelBuilder.AssignRowData(tickets, ticket, 3, FakeHelper.Create<BettingTicketCenterOption>(x => x.IsAllowedCustomerComm, true));
+            _excelBuilder.AssignRowData(tickets, ticket, 3, option);
 
             // Assert
             _builder.Received(1).AddCell(

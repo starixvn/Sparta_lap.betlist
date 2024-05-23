@@ -325,4 +325,10 @@
   <data name="OddsUpper" xml:space="preserve">
     <value>最高赔率</value>
   </data>
+  <data name="SabaCoins" xml:space="preserve">
+    <value>沙巴点数</value>
+  </data>
+  <data name="Viewin" xml:space="preserve">
+    <value>以{0}查看</value>
+  </data>
 </root>

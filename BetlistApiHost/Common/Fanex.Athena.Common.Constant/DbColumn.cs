@@ -101,5 +101,7 @@
         public const string SearchText = "SearchText";
 
         public const string SearchOption = "SearchOption";
+        
+        public const string ViewSabaCoins = "ViewSabaCoins";
     }
 }

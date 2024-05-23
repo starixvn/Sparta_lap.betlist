@@ -288,6 +288,9 @@
   <data name="Results" xml:space="preserve">
     <value>ผลลัพธ์</value>
   </data>
+  <data name="SabaCoins" xml:space="preserve">
+    <value>เหรียญ SABA</value>
+  </data>
   <data name="ShortedNeutral" xml:space="preserve">
     <value>สนามกลาง</value>
   </data>
@@ -320,6 +323,9 @@
   </data>
   <data name="Unsuccessful" xml:space="preserve">
     <value>ไม่สำเร็จ</value>
+  </data>
+  <data name="Viewin" xml:space="preserve">
+    <value>ดูใน {0}</value>
   </data>
   <data name="Wap" xml:space="preserve">
     <value>WAP</value>
