@@ -333,4 +333,7 @@
   <data name="Viewin" xml:space="preserve">
     <value>Xem theo {0}</value>
   </data>
+  <data name="Saba" xml:space="preserve">
+    <value>Saba </value>
+  </data>
 </root>
