@@ -28,6 +28,7 @@
     using Fanex.Result.Core.SAGaming;
     using Fanex.Result.Core.SexyGaming;
     using Fanex.Result.Core.SportsLottery;
+    using Fanex.Result.Core.WM;
 
     public static class DIConfig
     {
