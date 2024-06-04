@@ -1,9 +1,9 @@
-﻿using Fanex.Athena.BetList.DataAccess.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using Fanex.Athena.BetList.DataAccess.Interfaces;
 using Fanex.Athena.BetList.Model.DTO;
 using Fanex.Athena.Common.DataAccess;
 using Fanex.Common.Extensions;
-using System;
-using System.Collections.Generic;
 
 namespace Fanex.Athena.BetList.DataAccess
 {

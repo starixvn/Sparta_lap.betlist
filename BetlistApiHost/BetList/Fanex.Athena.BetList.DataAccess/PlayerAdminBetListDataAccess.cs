@@ -1,19 +1,19 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess
 {
+    using System.Threading.Tasks;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.Common.DataAccess.Interfaces;
     using Fanex.Common;
     using Fanex.Data;
-    using System.Threading.Tasks;
 
     public class PlayerAdminBetListDataAccess : BaseBetListDataAccess, IPlayerAdminBetListDataAccess
     {
         public PlayerAdminBetListDataAccess(ICurrencyDataAccess currencyService) : base(currencyService)
         {
-
         }
+
         public async Task<TicketResult> GetRunningBetListAsync(PlayerAdminBetListMetaModel metaModel)
         {
             const string UspKey = "Shard_Lrf_BetList_Running_Mem";

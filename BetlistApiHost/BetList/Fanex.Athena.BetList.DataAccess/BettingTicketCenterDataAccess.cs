@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using BetList.Model.DTO;
@@ -9,7 +8,6 @@
     using Common.Constant;
     using Common.DataAccess.Interfaces;
     using Data;
-    using Fanex.Athena.Common.Utility.Collections;
     using Fanex.Athena.Common.Utility.Helpers;
     using Fanex.Athena.Common.Utility.Services;
     using Fanex.Common;

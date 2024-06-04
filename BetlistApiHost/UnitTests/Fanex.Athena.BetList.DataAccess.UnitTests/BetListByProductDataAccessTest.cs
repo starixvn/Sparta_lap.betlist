@@ -1,5 +1,8 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess.UnitTests
 {
+    using System;
+    using System.Collections;
+    using System.Threading.Tasks;
     using Athena.BetList.DataAccess;
     using Athena.BetList.Model.MetaModel;
     using Common.DataAccess.UnitTests;
@@ -7,9 +10,6 @@
     using Fanex.Athena.Common.Model.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using System;
-    using System.Collections;
-    using System.Threading.Tasks;
     using UnitTest.Common.Helpers;
 
     [TestFixture]

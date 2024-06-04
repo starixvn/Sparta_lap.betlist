@@ -21,7 +21,6 @@ namespace Fanex.Athena.Result.Controller.UnitTests.ResultPopup
             var languageCode = FakeHelper.Create<string>();
             var result3RdApi = Substitute.For<ISabaClubResult>();
 
-
             using (var controller = new SabaClubResultPopupController(result3RdApi))
             {
                 // Action

@@ -8,7 +8,6 @@
 
     using DataAccess.Interfaces;
     using Fanex.Athena.Common.Utility.Services;
-    using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
 
     using Interfaces;
@@ -32,7 +31,6 @@
         private IBetListService _betListService;
 
         private ITicketHelper _ticketHelper;
-
 
         private ICacheRefAdapter _cacheRefAdapter;
         private IShardInfoAccessor _shardInfoAccessor;

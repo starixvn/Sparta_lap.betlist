@@ -36,7 +36,6 @@
             _service = null;
         }
 
-
         [Test]
         public async Task Index_WhenCall_QueryAndReturnCorrectViewModel()
         {

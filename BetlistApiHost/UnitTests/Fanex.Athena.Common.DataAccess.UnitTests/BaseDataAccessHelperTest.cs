@@ -48,7 +48,6 @@ namespace Fanex.Athena.Common.DataAccess.UnitTests
         [SetUp]
         public virtual void SetUp()
         {
-
             ObjectDb.ClearReceivedCalls();
             Reader = Substitute.For<IDataReader>();
             ObjectDb.ExecuteReader().Returns(Reader);
@@ -60,16 +59,13 @@ namespace Fanex.Athena.Common.DataAccess.UnitTests
         [TearDown]
         public virtual void TearDown()
         {
-          
             DataAccess.ClearReceivedCalls();
             Reader = null;
         }
 
         protected virtual void SetUpDataAccess()
         {
-
             DataAccess = Substitute.ForPartsOf<T>();
-
         }
 
         protected void MapReaderData(object readerDataMapping)

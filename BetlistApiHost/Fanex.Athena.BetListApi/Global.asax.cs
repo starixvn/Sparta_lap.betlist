@@ -1,5 +1,10 @@
 ﻿namespace Fanex.Athena
 {
+    using System;
+    using System.Configuration;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
     using App_Start;
     using Data;
     using Fanex.Athena.Common.Utility.Helpers;
@@ -12,13 +17,7 @@
     using Fanex.Result.Core.RemotingRef;
     using Logging;
     using SharpRaven;
-    using System;
-    using System.Configuration;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Routing;
 
-   
     public class MvcApplication : HttpApplication
     {
         public void Application_Error(object sender, EventArgs e)
@@ -44,7 +43,6 @@
                 {
                     Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry-Dsn"])
                 }));
-
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());

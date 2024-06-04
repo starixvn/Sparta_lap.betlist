@@ -102,7 +102,7 @@
         }
 
         [Test]
-        public async Task  GetHappy5MatcheAsyncs_WhenCall_ReturnDataFromDataAccess()
+        public async Task GetHappy5MatcheAsyncs_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ResultMetaModel();

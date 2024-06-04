@@ -1,7 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.Model.MetaModel
 {
-    using System.Collections.Generic;
-
     public class PlayerAdminBetListMetaModel : ICommonValueMetaModel
     {
         public int CustId { get; set; }

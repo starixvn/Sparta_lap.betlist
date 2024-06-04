@@ -5,7 +5,6 @@
     using Fanex.Athena.Common.Utility.Services.Internal;
     using NSubstitute;
     using NUnit.Framework;
-    using System.IO;
 
     [TestFixture]
     public class TempFileServiceTest

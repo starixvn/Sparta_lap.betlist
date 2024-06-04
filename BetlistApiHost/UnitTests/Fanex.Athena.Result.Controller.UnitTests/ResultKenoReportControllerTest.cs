@@ -1,13 +1,10 @@
 ﻿namespace Fanex.Athena.Result.Controller.UnitTests
 {
+    using System;
     using Fanex.Result.Core.KenoLotteryTG;
-    using Model.Const;
-    using Model.MetaModel.Keno;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Interfaces;
-    using System;
-    using System.Globalization;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
@@ -17,8 +14,8 @@
         private const string UserId = "987343";
         private const string LanguageCode = "en-US";
 
-        IKenoLotteryTGResultFactory _kenoApi;
-        IKenoLotteryTGResult _resultApi;
+        private IKenoLotteryTGResultFactory _kenoApi;
+        private IKenoLotteryTGResult _resultApi;
 
         [SetUp]
         public void SetUp()

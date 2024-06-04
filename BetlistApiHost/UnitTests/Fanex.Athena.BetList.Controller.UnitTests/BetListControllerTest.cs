@@ -30,7 +30,6 @@
             _betListService = Substitute.For<IBetListService>();
             _ticketBuilderService = Substitute.For<ITicketBuilderService>();
             _ipService = Substitute.For<IIPService>();
-
         }
 
         [TearDown]
@@ -39,7 +38,6 @@
             _cacheRefAdapter = null;
             _betListService = null;
             _ticketBuilderService = null;
-
         }
 
         [Test]

@@ -88,7 +88,6 @@ namespace Fanex.Athena.BetList.Controller
                 _ticketHelper.IsVnIp = _ipService.IsVNIP;
             }
 
-
             foreach (var ticket in dataList)
             {
                 var betListTicket = new LrfTicket

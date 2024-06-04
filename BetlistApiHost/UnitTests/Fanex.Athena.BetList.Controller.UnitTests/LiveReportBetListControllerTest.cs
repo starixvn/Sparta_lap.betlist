@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
-    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using Common.Utility.Helpers;

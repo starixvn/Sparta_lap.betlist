@@ -7,6 +7,5 @@ namespace Fanex.Athena.Result.Controller.UnitTests.ResultPopup
     [TestFixture]
     public class JiliResultPopupControllerIndexTest : ResultPopupControllerIndexTest<JiliResultPopupController>
     {
-
     }
 }

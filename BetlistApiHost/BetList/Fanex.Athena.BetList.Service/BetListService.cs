@@ -57,7 +57,7 @@
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
         }
 
-        private void AssignShardDB(IShardDBMetaModel metaModel) 
-            =>  metaModel.UseShardDB = _shardInfoAccessor.UseShardDB;
+        private void AssignShardDB(IShardDBMetaModel metaModel)
+            => metaModel.UseShardDB = _shardInfoAccessor.UseShardDB;
     }
 }

@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
+    using System.Threading.Tasks;
     using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Interfaces;
-    using System.Threading.Tasks;
     using UnitTest.Common.Helpers;
 
     public class ExchangeWinLossBetListControllerTest

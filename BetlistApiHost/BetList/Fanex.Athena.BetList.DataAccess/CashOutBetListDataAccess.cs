@@ -80,7 +80,7 @@
                 {
                     db.SetParameterValue(DbColumn.BalanceUpDay, balanceUpData.BalanceUpDay);
                 }
-              
+
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var result = new CashOutHistoryDetailViewModel

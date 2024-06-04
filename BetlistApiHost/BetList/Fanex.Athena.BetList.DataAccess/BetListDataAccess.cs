@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Common.Utility.Collections;
@@ -16,7 +15,6 @@
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
-
         public BetListDataAccess(ICurrencyDataAccess currencyDataAccess) : base(currencyDataAccess)
         {
         }

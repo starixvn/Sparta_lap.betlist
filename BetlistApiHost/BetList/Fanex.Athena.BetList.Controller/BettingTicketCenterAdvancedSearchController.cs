@@ -1,5 +1,8 @@
 ﻿namespace Fanex.Athena.BetList.Controller
 {
+    using System.IO;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
     using Fanex.Athena.BetList.Controller.CustomActionResult;
     using Fanex.Athena.BetList.Controller.Utility;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
@@ -10,9 +13,6 @@
     using Fanex.Athena.BetList.Service.Interfaces;
     using Fanex.Athena.Common.Utility.Services.Interfaces;
     using Fanex.Athena.Resources;
-    using System.IO;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
 
     public class BettingTicketCenterAdvancedSearchController : BettingTicketCenterBaseController
     {
@@ -130,6 +130,6 @@
         };
 
         private bool ShouldReturnEmptyResult(AdvancedSearchBetListMetaModel metaModel)
-            => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip); 
+            => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip);
     }
 }

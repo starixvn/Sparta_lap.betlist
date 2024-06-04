@@ -1,6 +1,6 @@
-﻿using Fanex.Athena.Common.Utility.Helpers;
-using System;
+﻿using System;
 using System.Web.Mvc;
+using Fanex.Athena.Common.Utility.Helpers;
 
 namespace Fanex.Athena.Common.Utility.Attributes
 {
