@@ -34,6 +34,7 @@ namespace Fanex.Athena.Result.DataAccess
         private const string LcolorColumn = "lcolor";
         private const string IsFavorColumn = "IsFavor";
         private const string LeagueIdColumn = "leagueid";
+        private const string LeagueGroupIdColumn = "leaguegroupid";
         private const string SportTypeColumn = "sporttype";
         private const string Status = "status";
 
@@ -402,6 +403,7 @@ namespace Fanex.Athena.Result.DataAccess
                 HomeId = reader.ToInt("homeID"),
                 BetStatus = reader[BetstatusColumn] != DBNull.Value ? reader.ToString(BetstatusColumn) : string.Empty,
                 LeagueId = leagueId ?? reader.ToInt(LeagueIdColumn),
+                LeagueGroupId = reader.HasColumn(LeagueGroupIdColumn) ? reader.ToInt(LeagueGroupIdColumn) : 0,
                 MatchId = reader.ToInt(MatchidColumn),
                 EventStatus = reader.ToString("eventstatus"),
                 FinalAwayScore = reader.ToNullableInt("finalawayscore"),

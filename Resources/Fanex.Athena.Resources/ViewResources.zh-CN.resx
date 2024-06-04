@@ -343,4 +343,7 @@
   <data name="Viewin" xml:space="preserve">
     <value>以{0}查看</value>
   </data>
+  <data name="Saba" xml:space="preserve">
+    <value>沙巴</value>
+  </data>
 </root>

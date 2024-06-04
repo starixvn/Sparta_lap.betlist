@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.BetList.Model.MetaModel
 {
-    using Fanex.Athena.Common.Model.MetaModel;
     using System;
+    using Fanex.Athena.Common.Model.MetaModel;
 
-    public class MixParlayDetailMetaModel  : IBalanceUpMetaModel, IShardDBMetaModel
+    public class MixParlayDetailMetaModel : IBalanceUpMetaModel, IShardDBMetaModel
     {
         public long TransId { get; set; }
 
@@ -14,7 +14,11 @@
         public bool IsShowIp { get; set; }
 
         public DateTime MoveBetsDay { get; set; }
+
         public DateTime BalanceUpDay { get; set; }
+
         public bool UseShardDB { get; set; }
+
+        public bool IsHideSaba { get; set; }
     }
 }

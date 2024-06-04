@@ -72,6 +72,7 @@
             {
                 Assert.That(result.MainTicketList[0].SportTypeId, Is.EqualTo(match.SportType));
                 Assert.That(result.MainTicketList[0].LeagueId, Is.EqualTo(match.LeagueId));
+                Assert.That(result.MainTicketList[0].LeagueGroupId, Is.EqualTo(match.LeagueGroupId));
                 Assert.That(result.MainTicketList[0].MatchCode, Is.EqualTo(match.MatchCode));
                 Assert.That(result.MainTicketList[0].HomeId, Is.EqualTo(match.HomeId));
                 Assert.That(result.MainTicketList[0].AwayId, Is.EqualTo(match.AwayId));
@@ -107,6 +108,7 @@
             {
                 Assert.That(result.MainTicketList[0].SportTypeId, Is.EqualTo(match.SportType));
                 Assert.That(result.MainTicketList[0].LeagueId, Is.EqualTo(match.LeagueId));
+                Assert.That(result.MainTicketList[0].LeagueGroupId, Is.EqualTo(match.LeagueGroupId));
                 Assert.That(result.MainTicketList[0].MatchCode, Is.EqualTo(match.MatchCode));
                 Assert.That(result.MainTicketList[0].HomeId, Is.EqualTo(match.HomeId));
                 Assert.That(result.MainTicketList[0].AwayId, Is.EqualTo(match.AwayId));

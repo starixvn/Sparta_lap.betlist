@@ -321,4 +321,7 @@
   <data name="WinLoss" xml:space="preserve">
     <value>Menang atau kalah</value>
   </data>
+  <data name="Saba" xml:space="preserve">
+    <value>Saba </value>
+  </data>
 </root>

@@ -107,7 +107,7 @@ namespace Fanex.Athena.BetList.Controller
                 page = pageIndex,
                 total = totalPage,
                 records = ticketResult.TotalRows,
-                rows = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, startIndex, isAllowedCustomerComm: metaModel.HasPlayerCom),
+                rows = _ticketBuilderService.BuildTicketText(ticketResult, metaModel, startIndex, isAllowedCustomerComm: metaModel.HasPlayerCom, isHideSaba: metaModel.IsHideSaba),
                 userdata = new
                 {
                     WinLoss = sumWinLossText,
@@ -145,7 +145,7 @@ namespace Fanex.Athena.BetList.Controller
 
         protected internal virtual ExcelResult Export(BetListExcelMetaModel metaModel, TicketResult ticketResult)
         {
-            var excel = new BetListExcel(metaModel.ShowingOption, metaModel.LicenseeId, metaModel.HiddenColumns, metaModel.IsShowSumStake, metaModel.IsShowIpvn, metaModel.IsShowIp, _ipService);
+            var excel = new BetListExcel(metaModel.ShowingOption, metaModel.LicenseeId, metaModel.HiddenColumns, metaModel.IsHideSaba, metaModel.IsShowSumStake, metaModel.IsShowIpvn, metaModel.IsShowIp, _ipService);
 
             var workbook = excel.Export(ticketResult, metaModel.Title, metaModel.StartIndex);
 

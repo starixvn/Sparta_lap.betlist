@@ -51,7 +51,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _ticketBuilderService.BuildTicketText(ticketResult, isShowIpvn: metaModel.IsShowIpvn).Returns(ticketText.ToList());
+                _ticketBuilderService.BuildTicketText(ticketResult, isShowIpvn: metaModel.IsShowIpvn, isHideSaba: metaModel.IsHideSaba).Returns(ticketText.ToList());
 
                 // Action
                 var result = (await controller.GetData(metaModel)).Data;
@@ -86,7 +86,7 @@
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
-                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, startIndex).Returns(ticketText.ToList());
+                _ticketBuilderService.BuildTicketText(ticketResult, metaModel, startIndex, isAllowedCustomerComm: metaModel.HasPlayerCom).Returns(ticketText.ToList());
 
                 // Action
                 var result = (await controller.GetPagingData(metaModel)).Data;

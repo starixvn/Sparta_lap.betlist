@@ -80,14 +80,11 @@ namespace Fanex.Athena.BetList.Service
             var ticketTextList = new List<TicketText>();
 
             _ticketHelper.IsVnIp = _ipService.IsAlwaysIpvn;
-
             if (metaModel.IsShowIp)
             {
                 _ticketHelper.IsVnIp = _ipService.IsVNIP;
             }
-
             _ticketHelper.HideSabaText = SabaHelper.IsHideSaba(metaModel.SpecialPlatform);
-
             foreach (var ticket in ticketResult.MainTicketList)
             {
                 if (ticket.BetTypeId == (int)BetType.CombinationMixParlay)
@@ -140,7 +137,8 @@ namespace Fanex.Athena.BetList.Service
             bool isAllowedCustomerComm = false,
             bool isMobileView = false,
             bool isShowIpvn = false,
-            bool isShowIp = true)
+            bool isShowIp = true,
+            bool isHideSaba = false)
         {
             var baseCurrency = metaModel == null ? string.Empty : metaModel.BaseCurrency;
             var ticketTextList = new List<TicketText>();
@@ -154,6 +152,8 @@ namespace Fanex.Athena.BetList.Service
             {
                 _ticketHelper.IsVnIp = _ipService.IsVNIP;
             }
+
+            _ticketHelper.HideSabaText = (metaModel != null) ? metaModel.IsHideSaba : isHideSaba;
 
             foreach (var ticket in ticketResult.MainTicketList)
             {

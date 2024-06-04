@@ -12,6 +12,7 @@ namespace Fanex.Athena.Result.Controller
     using System.Web.Mvc;
     using Common.Model.DTO;
     using Common.Utility.Services.Interfaces;
+    using Fanex.Athena.Common.Utility.Helpers;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.LeapGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -99,9 +100,24 @@ namespace Fanex.Athena.Result.Controller
                 return await GetOutRightSports(metalModel).ConfigureAwait(false);
             }
 
-            return metalModel.SportId == 0 ?
-                await GetNormalSports(metalModel).ConfigureAwait(false) :
-                Json(new { Leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, metalModel.SportId, metalModel.SpecialLeagues).ConfigureAwait(false) });
+            if (metalModel.SportId == 0)
+            {
+                return await GetNormalSports(metalModel).ConfigureAwait(false);
+            }
+
+            var leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, metalModel.SportId, metalModel.SpecialLeagues).ConfigureAwait(false);
+
+            if (metalModel.IsHideSaba)
+            {
+                leagues = leagues.Select(l => new League
+                {
+                    IsOutRight = l.IsOutRight,
+                    LeagueId = l.LeagueId,
+                    LeagueName = SabaHelper.RemoveSabaText(l.LeagueName)
+                }).ToList();
+            }
+
+            return Json(new { Leagues = leagues });
         }
 
         #endregion Result-Page
@@ -331,6 +347,15 @@ namespace Fanex.Athena.Result.Controller
                 if (limitedSports.Any())
                 {
                     var leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, limitedSports.First().SportId, metalModel.SpecialLeagues).ConfigureAwait(false);
+                    if (metalModel.IsHideSaba)
+                    {
+                        leagues = leagues.Select(l => new League
+                        {
+                            IsOutRight = l.IsOutRight,
+                            LeagueId = l.LeagueId,
+                            LeagueName = SabaHelper.RemoveSabaText(l.LeagueName)
+                        }).ToList();
+                    }
                     return Json(new { Sports = limitedSports, Leagues = leagues });
                 }
             }
@@ -363,6 +388,16 @@ namespace Fanex.Athena.Result.Controller
                                 LeagueName = _cacheRefAdapter.GetLeagueName(i)
                             }).ToList();
 
+                    if (metalModel.IsHideSaba)
+                    {
+                        leagues = leagues.Select(l => new League
+                        {
+                            IsOutRight = l.IsOutRight,
+                            LeagueId = l.LeagueId,
+                            LeagueName = SabaHelper.RemoveSabaText(l.LeagueName)
+                        }).ToList();
+                    }
+
                     return Json(new { Sports = sports, Leagues = leagues });
                 }
             }
@@ -382,7 +417,7 @@ namespace Fanex.Athena.Result.Controller
 
         private async Task GetOutRightData(ResultMetaModel metalModel)
         {
-            var setting = GetOutRightResultSetting(metalModel.LanguageCode);
+            var setting = GetOutRightResultSetting(metalModel.LanguageCode, metalModel.IsHideSaba);
             var cacheKey = GenerateOutRightCacheKey(metalModel);
             var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? await _resultService.GetOutRightAsync(metalModel).ConfigureAwait(false);
             if (outRightData != null)
@@ -459,7 +494,7 @@ namespace Fanex.Athena.Result.Controller
         {
             if (metalModel.IsOutRight)
             {
-                var setting = GetOutRightResultSetting(metalModel.LanguageCode);
+                var setting = GetOutRightResultSetting(metalModel.LanguageCode, metalModel.IsHideSaba);
                 return _resultService.ExcelParser(new List<Outright>(), setting);
             }
             else
@@ -470,7 +505,7 @@ namespace Fanex.Athena.Result.Controller
             }
         }
 
-        private ResultSetting GetOutRightResultSetting(string languageCode)
+        private ResultSetting GetOutRightResultSetting(string languageCode, bool isHideSaba)
         {
             return new ResultSetting
             {
@@ -478,7 +513,8 @@ namespace Fanex.Athena.Result.Controller
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = HostingEnvironment.MapPath(ResultExcelTemplateAddress),
                 LanguageCode = languageCode,
-                VisibleMatchCodeIDColumn = true
+                VisibleMatchCodeIDColumn = true,
+                SupportHideSabaText = isHideSaba,
             };
         }
 
@@ -493,7 +529,8 @@ namespace Fanex.Athena.Result.Controller
                 LanguageCode = Thread.CurrentThread.CurrentUICulture.Name,
                 VisibleDetailedLink = true,
                 VisibleFreeHeader = true,
-                VisibleMatchCodeIDColumn = ShowingMatchCodeSportTypes.Contains(sportType)
+                VisibleMatchCodeIDColumn = ShowingMatchCodeSportTypes.Contains(sportType),
+                SupportHideSabaText = metalModel.IsHideSaba,
             };
         }
 
