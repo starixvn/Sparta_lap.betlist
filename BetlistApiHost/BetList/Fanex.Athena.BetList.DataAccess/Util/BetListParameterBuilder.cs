@@ -25,11 +25,6 @@
             { "Lrf_TotalBets_Sel430", (db, metalModel) => CreateCorectScoreBetlistParameters(db, metalModel) },
             { "Shard_Lrf_BetList_SelRunningByBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByBettypeParameters(db, metalModel) },
             { "Lrf_BetList_LicenseeBonus_Detail", (db, metalModel) => CreateBonusDetailParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossNumberGame", (db, metalModel) => CreateLiveReportNumberGameBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossByMatch", (db, metalModel) => CreateLiveReportBetListByMatchParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossParlay", (db, metalModel) => CreateLiveReportParlayBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossOutright", (db, metalModel) => CreateLiveReportOutRightBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossVHRacing", (db, metalModel) => CreateLiveReportBetListVHRacingParameters(db, metalModel) },
             { "Lrf_BetList_PlatformWinLoss_Mem", (db, metalModel) => CreatePlatformWinLossBetListParameters(db, metalModel) },
             { "Shard_Lrf_BetList_SelRunningByDate_Mem", (db, metalModel) => CreateRunningBetListParameters(db, metalModel) },
             { "Lrf_BetList_RNG_Detail", CreateCasinoDetailParameters},
@@ -40,7 +35,12 @@
             { "SiteDB_Lrf_BetList_Jackpot_Detail", JackpotWonDetailBettransParameters },
             { "Lrf_BetList_SabaVirtualSports_Mem", (db, metalModel) => CreateSabaVirtualSportseWLBetlistParameters(db, metalModel) },
             { "Lrf_BetList_GodOfFortuneWL_Mem", (db, metalModel) => CreateGodOfFortuneWLBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport", (db, metalModel) => CreateLiveReportBetlistParameters(db, metalModel) }
+            { "Lrf_BetList_LiveReport", (db, metalModel) => CreateLiveReportBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossNumberGame", (db, metalModel) => CreateLiveReportNumberGameBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossByMatch", (db, metalModel) => CreateLiveReportBetListByMatchParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossParlay", (db, metalModel) => CreateLiveReportParlayBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossOutright", (db, metalModel) => CreateLiveReportOutRightBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossVHRacing", (db, metalModel) => CreateLiveReportBetListVHRacingParameters(db, metalModel) },
         };
 
         public static bool IsExistedSpActionMap(string uspKey) => NonBaseCurrencySpNameActionMap.ContainsKey(uspKey);

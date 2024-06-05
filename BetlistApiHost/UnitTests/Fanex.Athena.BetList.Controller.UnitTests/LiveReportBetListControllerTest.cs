@@ -79,9 +79,11 @@
                 var metaModel = FakeHelper.Create<LiveReportBetListMetaModel>();
                 metaModel.PageIndex = pageIndex;
                 metaModel.PageSize = pageSize;
-                metaModel.TotalRows = totalRows;
 
-                var ticketResult = new TicketResult();
+                var ticketResult = new TicketResult()
+                {
+                    TotalRows = totalRows,
+                };
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
@@ -117,16 +119,18 @@
             {
                 // Arrange
                 var metaModel = FakeHelper.Create<LiveReportBetListMetaModel>();
-                metaModel.SumLicenseeWL = sumLicenseeWL;
-                metaModel.SumComm = sumComm;
 
-                var ticketResult = new TicketResult();
+                var ticketResult = new TicketResult()
+                {
+                    SumLicenseeWL = sumLicenseeWL,
+                    SumComm = sumComm,
+                };
                 _betListService.GetBetListData(metaModel).Returns(ticketResult);
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2);
                 _ticketBuilderService.BuildTicketText(ticketResult, metaModel, Arg.Any<int>()).Returns(ticketText.ToList());
 
-                var expectedWinloss = NumberHelper.DecFormat(metaModel.SumWinlost + metaModel.SumPlayerComm, 2);
+                var expectedWinloss = NumberHelper.DecFormat(ticketResult.SumWinLoss + ticketResult.SumPlayerComm, 2);
 
                 // Action
                 var result = (await controller.GetPagingData(metaModel)).Data;
