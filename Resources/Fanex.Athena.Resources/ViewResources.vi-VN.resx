@@ -336,4 +336,7 @@
   <data name="Saba" xml:space="preserve">
     <value>Saba </value>
   </data>
+  <data name="DesktopCompact" xml:space="preserve">
+    <value>Desktop nhỏ gọn</value>
+  </data>
 </root>
