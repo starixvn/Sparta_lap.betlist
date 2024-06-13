@@ -349,4 +349,7 @@
   <data name="Saba" xml:space="preserve">
     <value>Saba </value>
   </data>
+  <data name="DesktopCompact" xml:space="preserve">
+    <value>Desktop Compact</value>
+  </data>
 </root>
