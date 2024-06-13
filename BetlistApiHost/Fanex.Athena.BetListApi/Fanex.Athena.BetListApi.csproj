@@ -226,8 +226,8 @@
     <Reference Include="Fanex.BetList.VirtualGames, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.VirtualGames.2.0.0.2-RemoveTable-02\lib\net461\Fanex.BetList.VirtualGames.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.BetList.VirtualSports, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.VirtualSports.2.0.0.7\lib\net461\Fanex.BetList.VirtualSports.dll</HintPath>
+    <Reference Include="Fanex.BetList.VirtualSports, Version=2.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.VirtualSports.2.0.0.9\lib\net461\Fanex.BetList.VirtualSports.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.VoidBridge, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.VoidBridge.2.0.0\lib\net461\Fanex.BetList.VoidBridge.dll</HintPath>
@@ -713,6 +713,7 @@
     <Content Include="App_Data\Fanex.Result\Golf.xls" />
     <Content Include="App_Data\Fanex.Result\Football.xls" />
     <Content Include="App_Data\Fanex.Result\Bandy.xls" />
+    <Content Include="App_Data\Fanex.Result\VSCockFighting.xls" />
     <None Include="Dockerfile" />
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>
