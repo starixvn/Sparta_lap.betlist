@@ -152,35 +152,40 @@
         public async Task<TicketResult> GetBetListForBookedBetAsync(BookedBetBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_BookedBets";
+            const int UserNameOption = 3;
 
             var ticketResult = new TicketResult();
             var currencyList = await this.GetCurrencyListAsync();
-            using (var db = GetObjectDb(UspKey))
+
+            if (metaModel.SearchOption == UserNameOption || long.TryParse(metaModel.SearchText, out long _))
             {
-                db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
-                db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
-                db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
-                db.SetParameterValue(DbColumn.SearchText, SqlHelper.ToSqlTextSearch(metaModel.SearchText));
-                db.SetParameterValue(DbColumn.SearchOption, metaModel.SearchOption);
-                db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
-                db.SetParameterValue(DbColumn.Platform, metaModel.Platform);
-                db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
-                db.SetParameterValue(DbColumn.ConvertToBaseCur, metaModel.IsConvertAll);
-                db.SetParameterValue(DbColumn.PageSize, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
-                db.SetParameterValue(DbColumn.PageIndex, metaModel.IsExport ? 1 : metaModel.PageIndex);
-
-                db.SetParameterValue(DbColumn.TotalRows, null);
-                db.SetParameterValue(DbColumn.SumStake, null);
-                AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
-
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                using (var db = GetObjectDb(UspKey))
                 {
-                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
-                }
+                    db.SetParameterValue(DbColumn.FromDate, metaModel.FromDate);
+                    db.SetParameterValue(DbColumn.ToDate, metaModel.ToDate);
+                    db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
+                    db.SetParameterValue(DbColumn.SearchText, SqlHelper.ToSqlTextSearch(metaModel.SearchText));
+                    db.SetParameterValue(DbColumn.SearchOption, metaModel.SearchOption);
+                    db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
+                    db.SetParameterValue(DbColumn.Platform, metaModel.Platform);
+                    db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
+                    db.SetParameterValue(DbColumn.ConvertToBaseCur, metaModel.IsConvertAll);
+                    db.SetParameterValue(DbColumn.PageSize, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
+                    db.SetParameterValue(DbColumn.PageIndex, metaModel.IsExport ? 1 : metaModel.PageIndex);
 
-                var outSqlParams = db.GetOutputParams();
-                ticketResult.SumStake = Converter.ToDecimal(outSqlParams[DbColumn.SumStake]);
-                ticketResult.TotalRows = Converter.ToInt(outSqlParams[DbColumn.TotalRows]);
+                    db.SetParameterValue(DbColumn.TotalRows, null);
+                    db.SetParameterValue(DbColumn.SumStake, null);
+                    AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
+
+                    using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                    {
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
+                    }
+
+                    var outSqlParams = db.GetOutputParams();
+                    ticketResult.SumStake = Converter.ToDecimal(outSqlParams[DbColumn.SumStake]);
+                    ticketResult.TotalRows = Converter.ToInt(outSqlParams[DbColumn.TotalRows]);
+                }
             }
 
             return ticketResult;
