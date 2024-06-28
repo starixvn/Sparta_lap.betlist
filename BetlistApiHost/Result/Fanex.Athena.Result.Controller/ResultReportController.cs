@@ -344,6 +344,9 @@ namespace Fanex.Athena.Result.Controller
 
                 var limitedSports = isAllowAllProducts ? sports : RemoveNotAllowedSports(sports, productCodes);
 
+                // filter for Saba Demo
+                limitedSports = limitedSports.Where(i => i.SportId <= 99);
+
                 if (limitedSports.Any())
                 {
                     var leagues = await _resultService.GetLeaguesAsync(metalModel.FromDate, limitedSports.First().SportId, metalModel.SpecialLeagues).ConfigureAwait(false);
@@ -369,13 +372,14 @@ namespace Fanex.Athena.Result.Controller
             var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? await _resultService.GetOutRightAsync(metalModel).ConfigureAwait(false);
             if (outRightData != null && outRightData.Count > 0)
             {
-                var sports = outRightData.Where(i => i.SportType == metalModel.SportId || metalModel.SportId == 0)
-                        .Select(i => i.SportType).Distinct()
-                        .Select(i => new Sport
-                        {
-                            SportId = i,
-                            SportName = _cacheRefAdapter.GetSportName(i)
-                        }).ToList();
+                var sports = outRightData
+                    .Where(i => i.SportType <=99 && (i.SportType == metalModel.SportId || metalModel.SportId == 0))
+                    .Select(i => i.SportType).Distinct()
+                    .Select(i => new Sport
+                    {
+                       SportId = i,
+                       SportName = _cacheRefAdapter.GetSportName(i)
+                    }).ToList();
 
                 if (sports.Count > 0)
                 {
