@@ -83,7 +83,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> GetByRunning(BaseBettingTicketMetaModel metaModel)
+        public async Task<ActionResult> GetByRunning(RunningBetListMetaModel metaModel)
         {
             var ticketResult = await _dataAccess.GetRunningBetListAsync(metaModel).ConfigureAwait(false);
 

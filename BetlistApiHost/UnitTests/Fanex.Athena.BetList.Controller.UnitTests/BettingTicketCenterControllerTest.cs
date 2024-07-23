@@ -201,7 +201,7 @@
             using (var controller = CreateController())
             {
                 // Assert
-                var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>(x => x.IsExport, false);
+                var metaModel = FakeHelper.Create<RunningBetListMetaModel>(x => x.IsExport, false);
 
                 var ticketResult = new TicketResult();
                 _dataAccess.GetRunningBetListAsync(metaModel).Returns(ticketResult);
@@ -233,7 +233,7 @@
             using (var controller = CreateController())
             {
                 // Assert
-                var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>(x => x.IsExport, true);
+                var metaModel = FakeHelper.Create<RunningBetListMetaModel>(x => x.IsExport, true);
 
                 var ticketResult = new TicketResult
                 {

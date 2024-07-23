@@ -210,6 +210,7 @@
   <ItemGroup>
     <Compile Include="Constants\DateOptionTypes.cs" />
     <Compile Include="DTO\BetListTotalData.cs" />
+    <Compile Include="MetaModel\RunningBetListMetaModel.cs" />
     <Compile Include="MetaModel\BookedBetBetListMetaModel.cs" />
     <Compile Include="ViewModel\CashOutHistoryDetailViewModel.cs" />
     <Compile Include="DTO\CashOutTicketText.cs" />

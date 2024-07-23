@@ -1,7 +1,9 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
     using BetList.Model.DTO;
     using BetList.Model.MetaModel;
@@ -83,7 +85,7 @@
             return ticketResult;
         }
 
-        public async Task<TicketResult> GetRunningBetListAsync(BaseBettingTicketMetaModel metaModel)
+        public async Task<TicketResult> GetRunningBetListAsync(RunningBetListMetaModel metaModel)
         {
             const string UspKey = "Shard_Lrf_BetList_Running";
 
@@ -99,6 +101,16 @@
                 db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
                 db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
                 db.SetParameterValue(DbColumn.ProductList, productList);
+                db.SetParameterValue(DbColumn.OddsGroup, metaModel.OddsGroup);
+                db.SetParameterValue(DbColumn.Platform, metaModel.Platform);
+                db.SetParameterValue(DbColumn.CustomerClass, metaModel.CustomerClass);
+                db.SetParameterValue(DbColumn.FullCustomerClass, metaModel.FullCustomerClass);
+                db.SetParameterValue(DbColumn.SportTypeList, metaModel.SportListXML);
+                db.SetParameterValue(DbColumn.BetTypeList, metaModel.BetTypeIds);
+                db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
+                db.SetParameterValue(DbColumn.Ip, metaModel.Ip);
+                db.SetParameterValue(DbColumn.LeagueList, metaModel.LeagueIds);
+                db.SetParameterValue(DbColumn.MatchId, metaModel.MatchId);
                 db.SetParameterValue(DbColumn.ShowBA, productCodes.Contains(ProductCodes.BA));
                 db.SetParameterValue(DbColumn.PageSize, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
                 db.SetParameterValue(DbColumn.PageIndex, metaModel.IsExport ? 1 : metaModel.PageIndex);
@@ -213,6 +225,9 @@
             db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
             db.SetParameterValue(DbColumn.Platform, metaModel.Platform);
+            db.SetParameterValue(DbColumn.SportTypeList, metaModel.SportListXML);
+            db.SetParameterValue(DbColumn.BetTypeList, metaModel.BetTypeIds);
+            db.SetParameterValue(DbColumn.CashOutMode, metaModel.CashOutMode);
             db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
             db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
             db.SetParameterValue(DbColumn.BaseCurrency, metaModel.BaseCurrency);
