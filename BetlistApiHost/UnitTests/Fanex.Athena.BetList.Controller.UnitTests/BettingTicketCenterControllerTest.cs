@@ -7,6 +7,7 @@
     using Excel;
     using Excel.Model;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
+    using Fanex.Athena.BetList.Service;
     using Fanex.Athena.BetList.Service.Interfaces;
     using Model.DTO;
     using Model.MetaModel;
@@ -19,6 +20,8 @@
     {
         private IBettingTicketCenterDataAccess _dataAccess;
 
+        private IIPService _ipService;
+
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
         private ITicketBuilderService _ticketBuilderService;
@@ -27,6 +30,7 @@
         public void FixtureSetUp()
         {
             _dataAccess = Substitute.For<IBettingTicketCenterDataAccess>();
+            _ipService = Substitute.For<IIPService>();
             _bettingTicketCenterExcel = Substitute.For<IBettingTicketCenterExcel>();
             _ticketBuilderService = Substitute.For<ITicketBuilderService>();
         }
@@ -38,6 +42,7 @@
             _bettingTicketCenterExcel.Dispose();
             _bettingTicketCenterExcel = null;
             _dataAccess = null;
+            _ipService = null;
         }
 
         [Test]
@@ -201,7 +206,7 @@
             using (var controller = CreateController())
             {
                 // Assert
-                var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>(x => x.IsExport, false);
+                var metaModel = FakeHelper.Create<RunningBetListMetaModel>(x => x.IsExport, false);
 
                 var ticketResult = new TicketResult();
                 _dataAccess.GetRunningBetListAsync(metaModel).Returns(ticketResult);
@@ -233,7 +238,7 @@
             using (var controller = CreateController())
             {
                 // Assert
-                var metaModel = FakeHelper.Create<BaseBettingTicketMetaModel>(x => x.IsExport, true);
+                var metaModel = FakeHelper.Create<RunningBetListMetaModel>(x => x.IsExport, true);
 
                 var ticketResult = new TicketResult
                 {
@@ -335,6 +340,7 @@
         {
             var controller = Substitute.ForPartsOf<BettingTicketCenterController>(
                 _dataAccess,
+                _ipService,
                 _ticketBuilderService,
                 _bettingTicketCenterExcel);
 

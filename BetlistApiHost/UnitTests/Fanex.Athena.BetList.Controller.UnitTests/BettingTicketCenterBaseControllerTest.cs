@@ -6,6 +6,7 @@
     using Excel;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Excel.Model;
+    using Fanex.Athena.BetList.Service;
     using Fanex.Athena.BetList.Service.Interfaces;
     using Fanex.Athena.Common.Constant;
     using Fanex.Athena.Common.Utility.Collections;
@@ -20,6 +21,8 @@
     {
         private IBettingTicketCenterDataAccess _dataAccess;
 
+        private IIPService _ipService;
+
         private ITicketBuilderService _ticketBuilderService;
 
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
@@ -28,6 +31,7 @@
         public void FixtureSetUp()
         {
             _dataAccess = Substitute.For<IBettingTicketCenterDataAccess>();
+            _ipService = Substitute.For<IIPService>();
             _ticketBuilderService = Substitute.For<ITicketBuilderService>();
             _bettingTicketCenterExcel = Substitute.For<IBettingTicketCenterExcel>();
         }
@@ -36,6 +40,7 @@
         public void FixtureTearDown()
         {
             _dataAccess = null;
+            _ipService = null;
             _ticketBuilderService = null;
             _bettingTicketCenterExcel = null;
         }
@@ -135,6 +140,7 @@
         {
             return Substitute.ForPartsOf<BettingTicketCenterController>(
                 _dataAccess,
+                _ipService,
                 _ticketBuilderService,
                 _bettingTicketCenterExcel);
         }
