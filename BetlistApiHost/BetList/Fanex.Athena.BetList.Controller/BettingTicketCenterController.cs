@@ -3,25 +3,30 @@
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Fanex.Athena.BetList.DataAccess;
     using Fanex.Athena.BetList.DataAccess.Interfaces;
     using Fanex.Athena.BetList.Excel;
     using Fanex.Athena.BetList.Excel.Model;
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
+    using Fanex.Athena.BetList.Service;
     using Fanex.Athena.BetList.Service.Interfaces;
     using Fanex.Athena.Resources;
 
     public class BettingTicketCenterController : BettingTicketCenterBaseController
     {
         private readonly IBettingTicketCenterDataAccess _dataAccess;
+        private readonly IIPService _ipService;
 
         public BettingTicketCenterController(
             IBettingTicketCenterDataAccess dataAccess,
+            IIPService ipService,
             ITicketBuilderService ticketBuilderService,
             IBettingTicketCenterExcel bettingTicketCenterExcel)
             : base(ticketBuilderService, bettingTicketCenterExcel)
         {
             _dataAccess = dataAccess;
+            _ipService = ipService;
         }
 
         [HttpPost]
@@ -85,7 +90,8 @@
         [HttpPost]
         public async Task<ActionResult> GetByRunning(RunningBetListMetaModel metaModel)
         {
-            var ticketResult = await _dataAccess.GetRunningBetListAsync(metaModel).ConfigureAwait(false);
+            var ticketResult = ShouldReturnEmptyResult(metaModel)
+               ? new TicketResult() : await _dataAccess.GetRunningBetListAsync(metaModel).ConfigureAwait(false);
 
             var option = new BettingTicketCenterOption
             {
@@ -178,5 +184,8 @@
 
             return ExportExcel(excelModel);
         }
+
+        private bool ShouldReturnEmptyResult(RunningBetListMetaModel metaModel)
+            => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip);
     }
 }
