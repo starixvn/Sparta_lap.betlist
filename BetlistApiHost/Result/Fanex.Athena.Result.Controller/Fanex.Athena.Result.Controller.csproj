@@ -285,6 +285,7 @@
     <Compile Include="ResultPopup\AllBetResultPopupController.cs" />
     <Compile Include="ResultPopup\AdvantPlayResultPopupController.cs" />
     <Compile Include="ResultPopup\CGResultPopupController.cs" />
+    <Compile Include="ResultPopup\NextspinResultPopupController.cs" />
     <Compile Include="ResultPopup\FACHAIResultPopupController.cs" />
     <Compile Include="ResultPopup\FGGLResultPopupController.cs" />
     <Compile Include="ResultPopup\FastSpinResultPopupController.cs" />
