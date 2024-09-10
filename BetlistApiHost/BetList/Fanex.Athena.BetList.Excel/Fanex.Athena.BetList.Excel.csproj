@@ -212,7 +212,11 @@
     <Compile Include="BetListExcelBuilderExtension.cs" />
     <Compile Include="BettingTicketCenterExcel.cs" />
     <Compile Include="Builders\BettingTicketCenterExcelBuilder.cs" />
+    <Compile Include="Builders\ExcelBuilder.cs" />
     <Compile Include="Builders\IBettingTicketCenterExcelBuilder.cs" />
+    <Compile Include="Builders\IExcelBuilder.cs" />
+    <Compile Include="ExchangeExcel.cs" />
+    <Compile Include="IExchangeExcel.cs" />
     <Compile Include="Model\BettingTicketCenterExcelModel.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="IBettingTicketCenterExcel.cs" />
