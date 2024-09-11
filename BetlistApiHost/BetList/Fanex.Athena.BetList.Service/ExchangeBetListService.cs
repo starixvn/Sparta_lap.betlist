@@ -44,5 +44,8 @@
         {
             return await _dataAccess.GetTicketDetailListAsync(metaModel).ConfigureAwait(false);
         }
+
+        public Task<ExchangeResult<ExchangeRunningTicket>> GetRunningTicketsAsync(ExchangeRunningTicketMetaModel metaModel)
+            => _dataAccess.GetRunningTicketsAsync(metaModel);
     }
 }

@@ -209,7 +209,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\DateOptionTypes.cs" />
+    <Compile Include="Constants\ExchangeConstant.cs" />
     <Compile Include="DTO\BetListTotalData.cs" />
+    <Compile Include="DTO\ExchangeResult.cs" />
+    <Compile Include="DTO\ExchangeRunningTicket.cs" />
+    <Compile Include="MetaModel\ExchangeRunningTicketMetaModel.cs" />
     <Compile Include="MetaModel\RunningBetListMetaModel.cs" />
     <Compile Include="MetaModel\BookedBetBetListMetaModel.cs" />
     <Compile Include="ViewModel\CashOutHistoryDetailViewModel.cs" />
