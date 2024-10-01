@@ -29,7 +29,6 @@ namespace Fanex.Athena.Result.Controller
 
         private static readonly IEnumerable<SportType> ShowingMatchCodeSportTypes = new[]
         {
-            SportType.VirtualHorseRacing,
             SportType.VirtualGreyhounds,
             SportType.VirtualSpeedway,
             SportType.VirtualMotorRacing,
@@ -193,7 +192,7 @@ namespace Fanex.Athena.Result.Controller
 
         private static bool IsVirtualSport(SportType type)
         {
-            var isVirtualRacing = type == SportType.VirtualMotorRacing || type == SportType.VirtualHorseRacing;
+            var isVirtualRacing = type == SportType.VirtualMotorRacing;
 
             return isVirtualRacing
                 || type == SportType.VirtualGreyhounds
@@ -286,6 +285,16 @@ namespace Fanex.Athena.Result.Controller
             }
         }
 
+        private async Task GetBetradarPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
+        {
+            var eventDate = metalModel.WinLossDate.HasValue ? metalModel.WinLossDate.Value : DateTime.Now;
+            var dataBetradar = await _resultService.GetPopUpBetradarMatchesAsync(metalModel.MatchId, eventDate).ConfigureAwait(false);
+            if (dataBetradar != null)
+            {
+                _htmlResult = _resultService.HtmlParser(dataBetradar, setting);
+            }
+        }
+
         private async Task GetOtherNormalPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
         {
             var data = await _resultService.GetPopUpMatchAsync(metalModel).ConfigureAwait(false);
@@ -324,6 +333,12 @@ namespace Fanex.Athena.Result.Controller
             if (sportType == SportType.Bitcoin)
             {
                 await GetBitcoinPopUpData(metalModel, setting).ConfigureAwait(false);
+                return;
+            }
+
+            if (sportType == SportType.VirtualDogRacing || sportType == SportType.VirtualHorseRacing)
+            {
+                await GetBetradarPopUpData(metalModel, setting).ConfigureAwait(false);
                 return;
             }
 
@@ -445,7 +460,6 @@ namespace Fanex.Athena.Result.Controller
             var setting = GetNormalResultSetting(metalModel);
             switch (setting.SportType)
             {
-                case SportType.VirtualHorseRacing:
                 case SportType.VirtualGreyhounds:
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualCycling:
@@ -467,6 +481,12 @@ namespace Fanex.Athena.Result.Controller
                 case SportType.Bitcoin:
                     var dataBitcoin = await _resultService.GetBitcoinMatchesAsync(metalModel).ConfigureAwait(false);
                     ParseResult(dataBitcoin, setting, metalModel.IsExportExcel);
+                    break;
+
+                case SportType.VirtualHorseRacing:
+                case SportType.VirtualDogRacing:
+                    var dataDRc = await _resultService.GetBetradarSportMatchesAsync(metalModel).ConfigureAwait(false);
+                    ParseResult(dataDRc, setting, metalModel.IsExportExcel);
                     break;
 
                 default:
