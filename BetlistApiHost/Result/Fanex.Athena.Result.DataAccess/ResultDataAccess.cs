@@ -427,6 +427,7 @@ namespace Fanex.Athena.Result.DataAccess
                 NoHTScore = reader.HasColumn("NoHTScore") && reader.ToBool("NoHTScore"),
                 MainType = reader.HasColumn("MainType") ? reader.ToByte("MainType") : byte.MinValue,
                 SubType = reader.HasColumn("SubType") ? reader.ToInt("SubType") : 0,
+                SessionTime = reader.HasColumn("SessionTime") ? reader.ToInt("SessionTime") : 0
             };
         }
 
