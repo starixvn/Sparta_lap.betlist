@@ -139,6 +139,7 @@
         private TicketResult GetTicketFromFile(string filePath)
         {
             var contentData = _tempFileService.ReadString(filePath);
+            _tempFileService.Delete(filePath);
             return JsonConvert.DeserializeObject<TicketResult>(contentData);
         }
     }
