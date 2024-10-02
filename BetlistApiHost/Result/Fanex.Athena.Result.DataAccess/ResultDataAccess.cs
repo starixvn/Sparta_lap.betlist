@@ -101,6 +101,7 @@ namespace Fanex.Athena.Result.DataAccess
                 db.SetParameterValue(EventDateColumn, dateValue);
                 db.SetParameterValue("licenseeid", licenseeId);
                 db.SetParameterValue("movebetsday", balanceUp.MoveBetsDay);
+                db.SetParameterValue("isshowall", !_appSettings.IsProduction);
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
                     var data = new List<Sport>();
