@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
     using System.Threading.Tasks;
+    using Fanex.Athena.BetList.Excel;
     using Model.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -10,17 +11,20 @@
     public class ExchangeWinLossBetListControllerTest
     {
         private IExchangeBetListService _service;
+        private IExchangeExcel _exchangeExcel;
 
         [OneTimeSetUp]
         public void FixtureSetUp()
         {
             _service = Substitute.For<IExchangeBetListService>();
+            _exchangeExcel = Substitute.For<IExchangeExcel>();
         }
 
         [OneTimeTearDown]
         public void FixtureTearDown()
         {
-            _service = Substitute.For<IExchangeBetListService>();
+            _service = null;
+            _exchangeExcel = null;
         }
 
         [Test]
@@ -57,7 +61,7 @@
 
         private ExchangeWinLossBetListController CreateController()
         {
-            return new ExchangeWinLossBetListController(_service);
+            return new ExchangeWinLossBetListController(_service, _exchangeExcel);
         }
     }
 }
