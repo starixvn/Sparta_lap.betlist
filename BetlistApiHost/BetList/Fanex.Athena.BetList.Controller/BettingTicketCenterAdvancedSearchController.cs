@@ -111,6 +111,8 @@
             var title = GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}";
 
+            Task.Delay(5 * 1000).Wait();
+
             var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile
                 ).ConfigureAwait(false);
 
