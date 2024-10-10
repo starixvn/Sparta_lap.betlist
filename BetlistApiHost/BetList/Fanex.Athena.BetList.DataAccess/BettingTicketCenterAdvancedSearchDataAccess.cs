@@ -32,13 +32,14 @@
             int rowPerGroup)
         {
             const string UspKey = "Lrf_BetList_Licensee";
+            const int timeOut = 180;
             var groupData = new GroupTicketResult
             {
                 RowPerGroup = rowPerGroup
             };
             var currencyList = await this.GetCurrencyListAsync();
 
-            using (var db = GetObjectDb(UspKey))
+            using (var db = GetObjectDb(UspKey, timeOut))
             {
                 AddAdvancedSearchParameters(db, metaModel);
 
@@ -181,8 +182,8 @@
             db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
             db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
-            db.SetParameterValue(DbColumn.PageSize, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
-            db.SetParameterValue(DbColumn.PageIndex, metaModel.IsExport ? 1 : metaModel.PageIndex);
+            db.SetParameterValue(DbColumn.PageSize, metaModel.PageSize);
+            db.SetParameterValue(DbColumn.PageIndex, metaModel.PageIndex);
             db.SetParameterValue(DbColumn.Product, metaModel.ProductCodeList);
             db.SetParameterValue(DbColumn.ConvertToBaseCur, metaModel.IsConvertAll);
             db.SetParameterValue(DbColumn.Ip, metaModel.Ip);
