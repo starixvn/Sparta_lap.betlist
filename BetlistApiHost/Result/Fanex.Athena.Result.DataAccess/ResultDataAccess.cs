@@ -332,6 +332,7 @@ namespace Fanex.Athena.Result.DataAccess
                             EventTime = reader.ToDateTime("EventTime"),
                             EventStatus = reader.ToString("EventStatus"),
                             BetStatus = reader.ToString("BetStatus"),
+                            Distance = reader.ToString("Distance"),
                             Details = new List<VirtualRacingDetail>()
                         };
 
@@ -655,6 +656,7 @@ namespace Fanex.Athena.Result.DataAccess
                     EventTime = reader.ToDateTime("EventTime"),
                     EventStatus = reader.ToString("EventStatus"),
                     BetStatus = reader.ToString("BetStatus"),
+                    Distance = reader.ToString("Distance"),
                     Details = new List<VirtualRacingDetail>()
                 });
             }

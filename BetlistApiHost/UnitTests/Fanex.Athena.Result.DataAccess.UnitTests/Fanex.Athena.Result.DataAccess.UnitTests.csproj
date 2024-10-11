@@ -72,7 +72,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.VirtualRacing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core.VirtualRacing.1.0.0-beta-07\lib\net461\Fanex.Result.Core.VirtualRacing.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core.VirtualRacing.1.0.0-beta-09\lib\net461\Fanex.Result.Core.VirtualRacing.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=4.15.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MathNet.Numerics.Signed.4.15.0\lib\net461\MathNet.Numerics.dll</HintPath>
