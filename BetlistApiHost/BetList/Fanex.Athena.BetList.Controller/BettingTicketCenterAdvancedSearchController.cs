@@ -1,6 +1,9 @@
 ﻿namespace Fanex.Athena.BetList.Controller
 {
+    using System;
     using System.IO;
+    using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Fanex.Athena.BetList.Controller.CustomActionResult;
@@ -18,6 +21,10 @@
     public class BettingTicketCenterAdvancedSearchController : BettingTicketCenterBaseController
     {
         private const int RowsExceedLimitErrorCode = 1001;
+
+        private const int ExportMultipleFile = 1002;
+
+        private const int ExportSingleFile = 1003;
 
         private readonly IAppSettings _appSettings;
 
@@ -49,20 +56,44 @@
 
         private int MaxRowPerFile => int.Parse(_appSettings.GetValue("MaxRowPerExcelFile"));
 
+        private int MaxRowForMultipleExcelFiles => int.Parse(_appSettings.GetValue("MaxRowForMultipleExcelFiles"));
+
+        private string LicenseesExportedExceedMaxRow => _appSettings.GetValue("LicenseesExportedExceedMaxRow");
+
+        [HttpPost]
+        public async Task<ActionResult> GetExportStatus(AdvancedSearchBetListMetaModel metaModel)
+        {
+            var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
+
+            if (totalRow <= MaxRowSupportExportExcel)
+            {
+                return Json(new
+                {
+                    StatusCode = ExportSingleFile
+                });
+            }
+            else if (LicenseesExportedExceedMaxRow.Split(',').Contains(metaModel.LicenseeName, StringComparer.InvariantCultureIgnoreCase))
+            {
+                return Json(new
+                {
+                    StatusCode = ExportMultipleFile,
+                    PageSize = MaxRowForMultipleExcelFiles
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    StatusCode = RowsExceedLimitErrorCode
+                });
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> GetData(AdvancedSearchBetListMetaModel metaModel)
         {
             if (metaModel.IsExport)
             {
-                var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
-                if (totalRow > MaxRowSupportExportExcel)
-                {
-                    return Json(new
-                    {
-                        ErrorCode = RowsExceedLimitErrorCode
-                    });
-                }
-
                 return await Export(metaModel).ConfigureAwait(false);
             }
 
@@ -82,21 +113,31 @@
             var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile
                 ).ConfigureAwait(false);
 
+            if (!ticketResult.DataPath.Any())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NoContent);
+            }
+
             if (ticketResult.TotalRows <= MaxRowPerFile)
             {
                 if (ticketResult.TotalRows == 0 || ShouldReturnEmptyResult(metaModel))
                 {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
+                    return new HttpStatusCodeResult(HttpStatusCode.NoContent);
                 }
 
-                var tickets = GetTicketFromFile(ticketResult.DataPath[0]);
+                var tickets = GetTicketFromFile(ticketResult);
                 return ExportXls(tickets, title, metaModel, totalText);
+            }
+
+            if (ShouldExportNextPage(metaModel.PageSize, ticketResult.CurrentPageRowCount))
+            {
+                Response.StatusCode = (int)HttpStatusCode.PartialContent;
             }
 
             var zipFile = _zipBuilder.BuildZip(HttpContext.Response,
                 ticketResult, title, metaModel, totalText);
 
-            return zipFile == null ? null : ZipContentResult(zipFile);
+            return zipFile == null ? null : ZipContentResult(zipFile, metaModel);
         }
 
         private ExcelResult ExportXls(TicketResult ticketResult, string title, AdvancedSearchBetListMetaModel metaModel, string totalText)
@@ -112,9 +153,10 @@
             return ExportExcel(excelModel);
         }
 
-        protected FileContentResult ZipContentResult(MemoryStream stream)
+        protected FileContentResult ZipContentResult(MemoryStream stream, AdvancedSearchBetListMetaModel metaModel)
         {
             var bytes = stream?.ToArray();
+            Response.Headers.Add("X-File-Name", $"BettingTicketsCenter_AdvancedSearch{metaModel.PageIndex}");
             return File(bytes, "application/zip", "BettingTicketsCenter_AdvancedSearch.zip");
         }
 
@@ -136,11 +178,23 @@
         private bool ShouldReturnEmptyResult(AdvancedSearchBetListMetaModel metaModel)
             => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip);
 
-        private TicketResult GetTicketFromFile(string filePath)
+        private bool ShouldExportNextPage(int pageSize, int currentPageRowCount)
+            => pageSize == MaxRowForMultipleExcelFiles
+                && currentPageRowCount == MaxRowForMultipleExcelFiles;
+
+        private TicketResult GetTicketFromFile(GroupTicketResult groupTicket)
         {
-            var contentData = _tempFileService.ReadString(filePath);
-            _tempFileService.Delete(filePath);
-            return JsonConvert.DeserializeObject<TicketResult>(contentData);
+            var contentData = _tempFileService.ReadString(groupTicket.DataPath[0]);
+            _tempFileService.Delete(groupTicket.DataPath[0]);
+            var ticketResult = JsonConvert.DeserializeObject<TicketResult>(contentData);
+
+            ticketResult.SumStake = groupTicket.SumStake;
+            ticketResult.SumWinLoss = groupTicket.SumWinLoss;
+            ticketResult.SumLicenseeWL = groupTicket.SumLicenseeWL;
+            ticketResult.SumComm = groupTicket.SumComm;
+            ticketResult.SumPlayerComm = groupTicket.SumPlayerComm;
+            ticketResult.TotalRows = groupTicket.TotalRows;
+            return ticketResult;
         }
     }
 }
