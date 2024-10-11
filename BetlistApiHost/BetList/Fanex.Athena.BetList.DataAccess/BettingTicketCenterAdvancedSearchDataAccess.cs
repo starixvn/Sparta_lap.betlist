@@ -47,6 +47,7 @@
                 {
                     var count = 0;
                     var ticket = new TicketResult();
+                    var currentPageRowCount = 0;
 
                     var columns = GetColumns();
                     var safeReader = this.GetSafeDataReader(reader, columns.Select(x => x.Value).ToList());
@@ -56,6 +57,7 @@
                         if (count == rowPerGroup)
                         {
                             SaveDataToFile(groupData, ticket);
+                            currentPageRowCount += rowPerGroup;
                             count = 0;
                             ticket = new TicketResult();
                         }
@@ -67,7 +69,10 @@
                     if (ticket.MainTicketList.Any())
                     {
                         SaveDataToFile(groupData, ticket);
+                        currentPageRowCount += count;
                     }
+
+                    groupData.CurrentPageRowCount = currentPageRowCount;
                 }
 
                 var outSqlParams = db.GetOutputParams();

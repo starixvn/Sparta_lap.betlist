@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Fanex.Athena.BetList.Controller.CustomActionResult;
@@ -76,7 +77,6 @@
                 return Json(new
                 {
                     StatusCode = ExportMultipleFile,
-                    TotalPages = (int)Math.Round((double)totalRow / MaxRowForMultipleExcelFiles),
                     PageSize = MaxRowForMultipleExcelFiles
                 });
             }
@@ -113,15 +113,25 @@
             var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile
                 ).ConfigureAwait(false);
 
+            if (!ticketResult.DataPath.Any())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NoContent);
+            }
+
             if (ticketResult.TotalRows <= MaxRowPerFile)
             {
                 if (ticketResult.TotalRows == 0 || ShouldReturnEmptyResult(metaModel))
                 {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.NoContent);
+                    return new HttpStatusCodeResult(HttpStatusCode.NoContent);
                 }
 
-                var tickets = GetTicketFromFile(ticketResult.DataPath[0]);
+                var tickets = GetTicketFromFile(ticketResult);
                 return ExportXls(tickets, title, metaModel, totalText);
+            }
+
+            if (ShouldExportNextPage(metaModel.PageSize, ticketResult.CurrentPageRowCount))
+            {
+                Response.StatusCode = (int)HttpStatusCode.PartialContent;
             }
 
             var zipFile = _zipBuilder.BuildZip(HttpContext.Response,
@@ -168,11 +178,23 @@
         private bool ShouldReturnEmptyResult(AdvancedSearchBetListMetaModel metaModel)
             => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip);
 
-        private TicketResult GetTicketFromFile(string filePath)
+        private bool ShouldExportNextPage(int pageSize, int currentPageRowCount)
+            => pageSize == MaxRowForMultipleExcelFiles
+                && currentPageRowCount == MaxRowForMultipleExcelFiles;
+
+        private TicketResult GetTicketFromFile(GroupTicketResult groupTicket)
         {
-            var contentData = _tempFileService.ReadString(filePath);
-            _tempFileService.Delete(filePath);
-            return JsonConvert.DeserializeObject<TicketResult>(contentData);
+            var contentData = _tempFileService.ReadString(groupTicket.DataPath[0]);
+            _tempFileService.Delete(groupTicket.DataPath[0]);
+            var ticketResult = JsonConvert.DeserializeObject<TicketResult>(contentData);
+
+            ticketResult.SumStake = groupTicket.SumStake;
+            ticketResult.SumWinLoss = groupTicket.SumWinLoss;
+            ticketResult.SumLicenseeWL = groupTicket.SumLicenseeWL;
+            ticketResult.SumComm = groupTicket.SumComm;
+            ticketResult.SumPlayerComm = groupTicket.SumPlayerComm;
+            ticketResult.TotalRows = groupTicket.TotalRows;
+            return ticketResult;
         }
     }
 }
