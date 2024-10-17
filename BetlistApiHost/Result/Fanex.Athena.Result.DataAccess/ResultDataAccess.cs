@@ -22,7 +22,9 @@ namespace Fanex.Athena.Result.DataAccess
     using Fanex.Result.Core.Bitcoin.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Fanex.Result.Core.VirtualRacing.DTO;
     using Model.MetaModel;
+    using NPOI.POIFS.Crypt.Dsig;
 
     [CLSCompliant(false)]
     public class ResultDataAccess : BaseDataAccess, IResultDataAccess
@@ -159,7 +161,7 @@ namespace Fanex.Athena.Result.DataAccess
 
         private static Boolean IsLeagues3rd(int sportType)
         {
-            return sportType == (int)SportType.Bitcoin;
+            return sportType == (int)SportType.Bitcoin || sportType == (int)SportType.VirtualDogRacing || sportType == (int)SportType.VirtualHorseRacing;
         }
 
         /// <summary>
@@ -181,6 +183,26 @@ namespace Fanex.Athena.Result.DataAccess
                 using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
                 {
                     return ReadVirtualSportMatches(reader);
+                }
+            }
+        }
+
+        public async Task<IList<VirtualRacing>> GetBetradarSportMatchesAsync(ResultMetaModel metalModel)
+        {
+            const string UspName = "Lrf_Result_RaceSelByLeague";
+            var uspParams = new
+            {
+                eventDate = metalModel.FromDate,
+                leagueid = metalModel.LeagueId,
+                sporttype = metalModel.SportId,
+                movebetsday = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay
+            };
+
+            using (var db = this.GetObjectDb(UspName))
+            {
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
+                {
+                    return ReadBetradarSportMatches(reader);
                 }
             }
         }
@@ -281,6 +303,57 @@ namespace Fanex.Athena.Result.DataAccess
                     }
 
                     return null;
+                }
+            }
+        }
+
+        public async Task<IList<VirtualRacing>> GetPopUpBetradarAsync(int eventId, DateTime eventDate)
+        {
+            const string UspName = "Lrf_TicketResult_Race";
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            var result = new List<VirtualRacing>();
+
+            using (var db = this.GetObjectDb(UspName))
+            {
+                db.SetParameterValue("EventId", eventId);
+                db.SetParameterValue("EventDate", eventDate);
+                db.SetParameterValue("MoveBetsDay", balanceUp.MoveBetsDay);
+                db.SetParameterValue("BalanceUpDay", balanceUp.BalanceUpDay);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    while (reader.Read())
+                    {
+                        var data = new VirtualRacing
+                        {
+                            LeagueId = reader.ToInt("LeagueID"),
+                            EventId = reader.ToInt("EventID"),
+                            VendorMatchId = reader.ToInt("VendorMatchId"),
+                            EventTime = reader.ToDateTime("EventTime"),
+                            EventStatus = reader.ToString("EventStatus"),
+                            BetStatus = reader.ToString("BetStatus"),
+                            Distance = reader.ToString("Distance"),
+                            Details = new List<VirtualRacingDetail>()
+                        };
+
+                        if (reader.NextResult())
+                        {
+                            while (reader.Read())
+                            {
+                                data.Details.Add(new VirtualRacingDetail
+                                {
+                                    Orid = reader.ToInt("Orid"),
+                                    EventId = reader.ToInt("EventID"),
+                                    Placing = reader.ToInt("Placing"),
+                                    Lane = reader.ToString("Lane"),
+                                    RacerId = reader.ToInt("RacerID")
+                                });
+                            }
+                        }
+                        result.Add(data);
+                    }
+
+                    return result;
                 }
             }
         }
@@ -567,6 +640,60 @@ namespace Fanex.Athena.Result.DataAccess
             }
 
             return dataList;
+        }
+
+        private static IList<VirtualRacing> ReadBetradarSportMatches(IDataReader reader)
+        {
+            var dataList = new List<VirtualRacing>();
+
+            while (reader.Read())
+            {
+                dataList.Add(new VirtualRacing
+                {
+                    LeagueId = reader.ToInt("LeagueID"),
+                    EventId = reader.ToInt("EventID"),
+                    VendorMatchId = reader.ToInt("VendorMatchId"),
+                    EventTime = reader.ToDateTime("EventTime"),
+                    EventStatus = reader.ToString("EventStatus"),
+                    BetStatus = reader.ToString("BetStatus"),
+                    Distance = reader.ToString("Distance"),
+                    Details = new List<VirtualRacingDetail>()
+                });
+            }
+
+            var dataDetails = GetVirtualRacingDetails(reader);
+
+            if (dataDetails.Count > 0)
+            {
+                foreach (var data in dataList)
+                {
+                    data.Details = dataDetails.Where(_ => _.EventId == data.EventId).ToList();
+                }
+            }
+
+            return dataList;
+        }
+
+        private static IList<VirtualRacingDetail> GetVirtualRacingDetails(IDataReader reader)
+        {
+            var gameDetails = new List<VirtualRacingDetail>();
+
+            if (reader.NextResult())
+            {
+                while (reader.Read())
+                {
+                    gameDetails.Add(new VirtualRacingDetail
+                    {
+                        Orid = reader.ToInt("Orid"),
+                        EventId = reader.ToInt("EventID"),
+                        Placing = reader.ToInt("Placing"),
+                        Lane = reader.ToString("Lane"),
+                        RacerId = reader.ToInt("RacerID")
+                    });
+                }
+            }
+
+            return gameDetails;
         }
 
         public async Task<IList<T>> GetPopUpMatches3rdAsync<T>(int matchId)

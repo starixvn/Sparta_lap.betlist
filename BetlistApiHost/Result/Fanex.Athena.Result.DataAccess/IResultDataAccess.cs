@@ -12,6 +12,7 @@ namespace Fanex.Athena.Result.DataAccess
     using Common.Model.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Fanex.Result.Core.VirtualRacing.DTO;
     using Model.MetaModel;
 
     [System.CLSCompliant(false)]
@@ -35,6 +36,8 @@ namespace Fanex.Athena.Result.DataAccess
 
         Task<IList<Racing>> GetVirtualSportMatchesAsync(ResultMetaModel metalModel);
 
+        Task<IList<VirtualRacing>> GetBetradarSportMatchesAsync(ResultMetaModel metalModel);
+
         #endregion Report
 
         #region Popup
@@ -48,6 +51,8 @@ namespace Fanex.Athena.Result.DataAccess
         Task<IList<T>> GetPopUpMatches3rdAsync<T>(int matchId);
 
         Task<Sportsbook> GetPopUpSingleMatchParlayAsync(int matchId, string marketId);
+
+        Task<IList<VirtualRacing>> GetPopUpBetradarAsync(int eventId, DateTime eventDate);
 
         #endregion Popup
     }

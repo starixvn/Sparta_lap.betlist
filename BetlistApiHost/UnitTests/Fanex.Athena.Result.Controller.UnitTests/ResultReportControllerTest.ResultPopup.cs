@@ -93,7 +93,6 @@
             }
         }
 
-        [TestCase(Fanex.Result.Core.Base.SportType.VirtualHorseRacing)]
         [TestCase(Fanex.Result.Core.Base.SportType.VirtualMotorRacing)]
         [TestCase(Fanex.Result.Core.Base.SportType.VirtualGreyhounds)]
         [TestCase(Fanex.Result.Core.Base.SportType.VirtualSpeedway)]

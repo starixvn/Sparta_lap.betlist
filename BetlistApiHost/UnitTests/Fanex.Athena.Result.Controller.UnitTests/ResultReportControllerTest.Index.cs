@@ -59,7 +59,6 @@
             }
         }
 
-        [TestCase((int)SportType.VirtualHorseRacing)]
         [TestCase((int)SportType.VirtualGreyhounds)]
         [TestCase((int)SportType.VirtualMotorRacing)]
         [TestCase((int)SportType.VirtualCycling)]
