@@ -12,12 +12,14 @@
     {
         private IExchangeBetListService _service;
         private IExchangeExcel _exchangeExcel;
+        private IExchangeWinLossExcel _exchangeWLExcel;
 
         [OneTimeSetUp]
         public void FixtureSetUp()
         {
             _service = Substitute.For<IExchangeBetListService>();
             _exchangeExcel = Substitute.For<IExchangeExcel>();
+            _exchangeWLExcel = Substitute.For<IExchangeWinLossExcel>();
         }
 
         [OneTimeTearDown]
@@ -25,6 +27,7 @@
         {
             _service = null;
             _exchangeExcel = null;
+            _exchangeWLExcel = null;
         }
 
         [Test]
@@ -61,7 +64,7 @@
 
         private ExchangeWinLossBetListController CreateController()
         {
-            return new ExchangeWinLossBetListController(_service, _exchangeExcel);
+            return new ExchangeWinLossBetListController(_service, _exchangeExcel, _exchangeWLExcel);
         }
     }
 }

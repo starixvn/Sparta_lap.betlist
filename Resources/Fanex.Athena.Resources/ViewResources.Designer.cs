@@ -574,6 +574,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Player Bet List.
+        /// </summary>
+        public static string PlayerBetList {
+            get {
+                return ResourceManager.GetString("PlayerBetList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reason.
         /// </summary>
         public static string Reason {
@@ -777,6 +786,15 @@ namespace Fanex.Athena.Resources {
         public static string WinLoss {
             get {
                 return ResourceManager.GetString("WinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WL.
+        /// </summary>
+        public static string WL {
+            get {
+                return ResourceManager.GetString("WL", resourceCulture);
             }
         }
     }

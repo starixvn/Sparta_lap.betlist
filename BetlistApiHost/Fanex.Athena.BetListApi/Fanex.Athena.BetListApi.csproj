@@ -728,6 +728,7 @@
     <Content Include="App_Data\Fanex.Result\VSCockFighting.xls" />
     <Content Include="App_Data\ExchangeRunningTicket.xls" />
     <Content Include="App_Data\Fanex.Result\VirtualRacing.xls" />
+    <Content Include="App_Data\ExchangeWinLossTicket.xls" />
     <None Include="Dockerfile" />
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>

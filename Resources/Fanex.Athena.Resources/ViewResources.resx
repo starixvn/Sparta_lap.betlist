@@ -373,4 +373,10 @@
   <data name="TotalInWithParam" xml:space="preserve">
     <value>Total in {0}</value>
   </data>
+  <data name="PlayerBetList" xml:space="preserve">
+    <value>Player Bet List</value>
+  </data>
+  <data name="WL" xml:space="preserve">
+    <value>WL</value>
+  </data>
 </root>
