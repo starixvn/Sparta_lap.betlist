@@ -26,7 +26,6 @@
     using Fanex.Result.Core.LinkedGames;
     using Fanex.Result.Core.SabaClub;
     using Fanex.Result.Core.SAGaming;
-    using Fanex.Result.Core.SexyGaming;
     using Fanex.Result.Core.SportsLottery;
     using Fanex.Result.Core.WM;
 
@@ -66,7 +65,6 @@
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
             builder.Register(x => new CasinoResult("SpadegamingResultConfigs")).Keyed<ICasinoResult>("SG");
             builder.RegisterType<Indo4DResult>().As<IIndo4DResult>();
-            builder.RegisterType<SexyGamingResultBuilder>().As<ISexyGamingResultBuilder>();
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
             builder.RegisterType<LinkedGamesResult>().As<ILinkedGamesResult>();
             builder.RegisterType<WMResultBuilder>().As<IWMResultBuilder>();
