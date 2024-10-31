@@ -132,7 +132,7 @@
                     {
                         row.Cells[ColumnIndex].SetCellValue(++rowIndex);
                         row.Cells[ColumnMarket].SetCellValue($"{item.Ticket.EventTypeName} > {item.Ticket.EventName} > {item.Ticket.MarketName}");
-                        row.Cells[ColumnWL_Comm].SetCellValue($"{item.Ticket.WinLost.ToString("0.00")}\n{item.Ticket.Commission.ToString("0.00")}");
+                        row.Cells[ColumnWL_Comm].SetCellValue($"{item.Ticket.WinLost.ToString("#,0.00")}\n{item.Ticket.Commission.ToString("#,0.00")}");
                         isFirstRow = false;
                     }
 
@@ -161,7 +161,7 @@
         private static void AssignCellData(IRow row, ExchangeTicket item)
         {
             var isFancyBet = item.CategoryType == 2;
-            var oddsAvgStrings = isFancyBet ? $"{item.FancyBetRuns.ToString("0")} / {item.OddsAvg.ToString("0")}" : item.OddsAvg.ToString("0.00");
+            var oddsAvgStrings = isFancyBet ? $"{item.FancyBetRuns.ToString("0")}/{item.OddsAvg.ToString("0")}" : item.OddsAvg.ToString("0.00");
             row.Cells[ColumnBetId].SetCellValue(item.BetId);
             row.Cells[ColumnSelection].SetCellValue(item.SelectionName);
             row.Cells[ColumnType].SetCellValue(item.Type);
