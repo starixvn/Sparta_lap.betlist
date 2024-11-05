@@ -360,4 +360,10 @@
   <data name="TotalInWithParam" xml:space="preserve">
     <value>รวมใน {0}</value>
   </data>
+  <data name="PlayerBetList" xml:space="preserve">
+    <value>รายการเดิมพันของผู้เล่น</value>
+  </data>
+  <data name="WL" xml:space="preserve">
+    <value>แพ้ชนะ</value>
+  </data>
 </root>

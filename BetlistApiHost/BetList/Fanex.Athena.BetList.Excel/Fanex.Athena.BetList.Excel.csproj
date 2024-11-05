@@ -215,7 +215,9 @@
     <Compile Include="Builders\ExcelBuilder.cs" />
     <Compile Include="Builders\IBettingTicketCenterExcelBuilder.cs" />
     <Compile Include="Builders\IExcelBuilder.cs" />
+    <Compile Include="ExchangeWinLossExcel.cs" />
     <Compile Include="ExchangeExcel.cs" />
+    <Compile Include="IExchangeWinLossExcel.cs" />
     <Compile Include="IExchangeExcel.cs" />
     <Compile Include="Model\BettingTicketCenterExcelModel.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />

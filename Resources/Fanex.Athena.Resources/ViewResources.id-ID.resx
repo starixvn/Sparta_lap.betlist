@@ -348,4 +348,7 @@
   <data name="TotalInWithParam" xml:space="preserve">
     <value>Total dalam {0}</value>
   </data>
+  <data name="PlayerBetList" xml:space="preserve">
+    <value>Daftar Taruhan Pemain</value>
+  </data>
 </root>
