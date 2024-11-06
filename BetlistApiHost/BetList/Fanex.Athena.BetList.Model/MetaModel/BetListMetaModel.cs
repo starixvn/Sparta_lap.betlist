@@ -97,6 +97,8 @@
 
         public int SpecialPlatform { get; set; }
 
+        public int EventType { get; set; }
+
         public bool IsHideSaba => SabaHelper.IsHideSaba(SpecialPlatform);
 
         public bool InBettransRange => Date > MoveBetsDay;

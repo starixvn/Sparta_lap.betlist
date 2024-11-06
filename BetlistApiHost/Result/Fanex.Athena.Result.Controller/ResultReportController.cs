@@ -285,6 +285,15 @@ namespace Fanex.Athena.Result.Controller
             }
         }
 
+        private async Task GetBetbyPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
+        {
+            var dataBetby = await _resultService.GetPopUpMatch3rdAsync(metalModel.MatchId).ConfigureAwait(false);
+            if (dataBetby != null)
+            {
+                _htmlResult = _resultService.HtmlParser(dataBetby, setting);
+            }
+        }
+
         private async Task GetBetradarPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
         {
             var eventDate = metalModel.WinLossDate.HasValue ? metalModel.WinLossDate.Value : DateTime.Now;
@@ -339,6 +348,12 @@ namespace Fanex.Athena.Result.Controller
             if (sportType == SportType.VirtualDogRacing || sportType == SportType.VirtualHorseRacing)
             {
                 await GetBetradarPopUpData(metalModel, setting).ConfigureAwait(false);
+                return;
+            }
+
+            if (sportType == SportType.BetbyBasketball)
+            {
+                await GetBetbyPopUpData(metalModel, setting).ConfigureAwait(false);
                 return;
             }
 
@@ -481,6 +496,11 @@ namespace Fanex.Athena.Result.Controller
                 case SportType.Bitcoin:
                     var dataBitcoin = await _resultService.GetBitcoinMatchesAsync(metalModel).ConfigureAwait(false);
                     ParseResult(dataBitcoin, setting, metalModel.IsExportExcel);
+                    break;
+
+                case SportType.BetbyBasketball:
+                    var dataBetby = await _resultService.GetMatches3rdAsync(metalModel).ConfigureAwait(false);
+                    ParseResult(dataBetby, setting, metalModel.IsExportExcel);
                     break;
 
                 case SportType.VirtualHorseRacing:
