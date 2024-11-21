@@ -1,26 +1,24 @@
 ﻿namespace Fanex.Athena.BetList.DataAccess
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
-    using BetList.Model.DTO;
-    using BetList.Model.MetaModel;
     using Common.Constant;
     using Common.DataAccess.Interfaces;
+    using Common.Utility.Helpers;
+    using Common.Utility.Services;
     using Data;
-    using Fanex.Athena.Common.Utility.Helpers;
-    using Fanex.Athena.Common.Utility.Services;
     using Fanex.Common;
     using Interfaces;
+    using Model.DTO;
+    using Model.MetaModel;
 
     public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly IShardInfoAccessor _shardInfoAccessor;
 
-        public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess,
+        public BettingTicketCenterDataAccess(
+            IBalanceUpDataAccess balanceUpDataAccess,
             ICurrencyDataAccess currencyService,
             IShardInfoAccessor shardInfoAccessor) : base(currencyService)
         {
@@ -34,7 +32,7 @@
             const string UspKey = "Lrf_BetList_Mem";
 
             var ticketResult = new TicketResult();
-            var currencyList = await this.GetCurrencyListAsync();
+            var currencyList = await GetCurrencyListAsync();
             using (var db = GetObjectDb(UspKey))
             {
                 AddSingleCustomerParameters(db, metaModel);
@@ -66,8 +64,8 @@
 
             if (long.TryParse(metaModel.RefNo, out long refno) || !string.IsNullOrEmpty(metaModel.TxId))
             {
-                ticketResult = await GetMainTicketListBasedRangeAsync(metaModel, metaModel.ViewSabaCoins ? $"{UspKey}_SabaCoins" : UspKey,
-                    assignCommonParamters: db =>
+                ticketResult = await GetMainTicketListBasedRangeAsync(metaModel, UspKey,
+                    db =>
                     {
                         db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
                         db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
@@ -77,7 +75,7 @@
                         db.SetParameterValue(DbColumn.MoveBetsDay, balanceUp.MoveBetsDay);
                         db.SetParameterValue(DbColumn.BalanceUpDay, balanceUp.BalanceUpDay);
                         db.SetParameterValue(DbColumn.ViewSabaCoins, metaModel.ViewSabaCoins);
-                    }, getInOneRange: true);
+                    }, getInOneRange: true, viewSabaCoins: metaModel.ViewSabaCoins);
 
                 ticketResult.TotalRows = ticketResult.MainTicketList.Count;
             }
@@ -90,7 +88,7 @@
             const string UspKey = "Shard_Lrf_BetList_Running";
 
             var ticketResult = new TicketResult();
-            var currencyList = await this.GetCurrencyListAsync();
+            var currencyList = await GetCurrencyListAsync();
 
             using (var db = GetObjectDb(UspKey))
             {
@@ -138,7 +136,7 @@
             const string UspKey = "Lrf_BetList_TxID_Mem";
 
             var ticketResult = new TicketResult();
-            var currencyList = await this.GetCurrencyListAsync();
+            var currencyList = await GetCurrencyListAsync();
 
             using (var db = GetObjectDb(UspKey))
             {
@@ -167,7 +165,7 @@
             const int UserNameOption = 3;
 
             var ticketResult = new TicketResult();
-            var currencyList = await this.GetCurrencyListAsync();
+            var currencyList = await GetCurrencyListAsync();
 
             if (metaModel.SearchOption == UserNameOption || long.TryParse(metaModel.SearchText, out long _))
             {
