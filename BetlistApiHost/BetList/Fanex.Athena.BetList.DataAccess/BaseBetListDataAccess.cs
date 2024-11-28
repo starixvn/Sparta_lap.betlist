@@ -5,41 +5,35 @@
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Windows.Input;
+    using Common.Constant;
     using Common.DataAccess;
+    using Common.DataAccess.Extensions;
+    using Common.DataAccess.Interfaces;
+    using Common.Model.MetaModel;
     using Common.Utility.Collections;
     using Common.Utility.Extensions;
-    using Fanex.Athena.Common.Constant;
-    using Fanex.Athena.Common.DataAccess.Extensions;
-    using Fanex.Athena.Common.DataAccess.Interfaces;
-    using Fanex.Athena.Common.Model.MetaModel;
+    using Data;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Model.DTO;
     using Util;
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
-        private readonly ICurrencyDataAccess _currencyDataAccess;
         private const string SuffixSabaCoins = "_SabaCoins";
+        private readonly ICurrencyDataAccess _currencyDataAccess;
 
         protected BaseBetListDataAccess(ICurrencyDataAccess currenyDataAccess)
         {
             _currencyDataAccess = currenyDataAccess;
         }
 
-        protected async Task<IDictionary<int, string>> GetCurrencyListAsync()
-        {
-            return await _currencyDataAccess.GetCurrencyListAsync().ConfigureAwait(false);
-        }
-
         [CLSCompliant(false)]
         protected internal static LrfTicket MapTicket(
-                ISafeDataReader reader,
-                IDictionary<string, string> columns,
-                IDictionary<int, string> currencyList,
-                long custId = 0)
+            ISafeDataReader reader,
+            IDictionary<string, string> columns,
+            IDictionary<int, string> currencyList,
+            long custId = 0)
         {
             var currencyId = reader.GetInt("currency");
             var ticket = new LrfTicket
@@ -66,7 +60,7 @@
             var columns = GetColumns();
             var tickets = new SortableList<LrfTicket>();
 
-            var reader = this.GetSafeDataReader(dataReader, columns.Select(x => x.Value).ToList());
+            var reader = GetSafeDataReader(dataReader, columns.Select(x => x.Value).ToList());
             while (reader.Read())
             {
                 tickets.Add(MapTicket(reader, columns, currencyList, custId));
@@ -81,28 +75,39 @@
         }
 
         [CLSCompliant(false)]
-        protected internal virtual async Task<TicketResult> GetMainTicketListBasedRangeAsync<TMetaModel>(TMetaModel metaModel, string uspKey,
-          Action<IObjectDb> assignCommonParamters,
-          bool getInOneRange = false,
-          Action<IObjectDb> assignShardSpecificParamters = null,
-          Action<IObjectDb> assignCentralSpecificParamters = null)
-          where TMetaModel : IShardDBMetaModel
+        protected internal virtual async Task<TicketResult> GetMainTicketListBasedRangeAsync<TMetaModel>(
+            TMetaModel metaModel,
+            string uspKey,
+            Action<IObjectDb> assignCommonParamters,
+            bool getInOneRange = false,
+            Action<IObjectDb> assignShardSpecificParamters = null,
+            Action<IObjectDb> assignCentralSpecificParamters = null,
+            bool viewSabaCoins = false)
+            where TMetaModel : IShardDBMetaModel
         {
             var currencyList = await GetCurrencyListAsync();
             var tasks = new List<Task<SortableList<LrfTicket>>>(2);
 
             if (metaModel.UseShardDB)
             {
-                if (uspKey.EndsWith(SuffixSabaCoins, StringComparison.OrdinalIgnoreCase))
+                if (viewSabaCoins)
                 {
-                    tasks.Add(GetMainTicketListBasedShardDBAsync(uspKey, currencyList, assignCommonParamters, assignShardSpecificParamters));
-                    uspKey = uspKey.Substring(0, uspKey.Length - SuffixSabaCoins.Length);
+                    tasks.Add(GetMainTicketListBasedShardDBAsync(
+                        $"{uspKey}_SabaCoins",
+                        currencyList,
+                        assignCommonParamters,
+                        assignShardSpecificParamters));
                 }
                 else
                 {
-                    tasks.Add(GetMainTicketListBasedShardDBAsync($"SiteDB_{uspKey}", currencyList, assignCommonParamters, assignShardSpecificParamters));
+                    tasks.Add(GetMainTicketListBasedShardDBAsync(
+                        $"SiteDB_{uspKey}",
+                        currencyList,
+                        assignCommonParamters,
+                        assignShardSpecificParamters));
                 }
             }
+
             tasks.Add(GetMainTicketListBasedShardDBAsync(uspKey, currencyList, assignCommonParamters,
                 db =>
                 {
@@ -118,30 +123,19 @@
                     ticketResult.MainTicketList.AddRange(await task);
                 }
             }
+
             return ticketResult;
         }
 
-        private async Task<SortableList<LrfTicket>> GetMainTicketListBasedShardDBAsync(string uspKey,
-            IDictionary<int, string> currencyList,
-            Action<IObjectDb> assignCommonParamters,
-            Action<IObjectDb> assignSpecificParamters)
+        protected async Task<IDictionary<int, string>> GetCurrencyListAsync()
         {
-            using (var db = GetObjectDb(uspKey))
-            {
-                assignCommonParamters.Invoke(db);
-                assignSpecificParamters?.Invoke(db);
-
-                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    return ReadBetListTicket(reader, currencyList);
-                }
-            }
+            return await _currencyDataAccess.GetCurrencyListAsync().ConfigureAwait(false);
         }
 
         protected static IDictionary<string, string> GetColumns()
         {
             var columns = new[]
-             {
+            {
                 "username", "refno", "matchcode", "status", "betteam", "betstatus", "showtime", "oddstype",
                 "nickname", "race", "betfrom", "betcheck", "liveindicator", "isneutral", "sporttype", "bettype",
                 "leagueid", "awayid", "homeid", "matchid", "custid", "currencyid", "livehomescore", "liveawayscore",
@@ -183,6 +177,24 @@
                 };
 
                 yield return ticket;
+            }
+        }
+
+        private async Task<SortableList<LrfTicket>> GetMainTicketListBasedShardDBAsync(
+            string uspKey,
+            IDictionary<int, string> currencyList,
+            Action<IObjectDb> assignCommonParamters,
+            Action<IObjectDb> assignSpecificParamters)
+        {
+            using (var db = GetObjectDb(uspKey))
+            {
+                assignCommonParamters.Invoke(db);
+                assignSpecificParamters?.Invoke(db);
+
+                using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
+                {
+                    return ReadBetListTicket(reader, currencyList);
+                }
             }
         }
 
