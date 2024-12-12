@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.Controller
 {
-    using System;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -58,35 +57,34 @@
 
         private int MaxRowForMultipleExcelFiles => int.Parse(_appSettings.GetValue("MaxRowForMultipleExcelFiles"));
 
-        private string LicenseesExportedExceedMaxRow => _appSettings.GetValue("LicenseesExportedExceedMaxRow");
+        private int MaxRowSupportSingleExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportSingleExportExcel"));
 
         [HttpPost]
         public async Task<ActionResult> GetExportStatus(AdvancedSearchBetListMetaModel metaModel)
         {
             var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
 
-            if (totalRow <= MaxRowSupportExportExcel)
-            {
-                return Json(new
-                {
-                    StatusCode = ExportSingleFile
-                });
-            }
-            else if (LicenseesExportedExceedMaxRow.Split(',').Contains(metaModel.LicenseeName, StringComparer.InvariantCultureIgnoreCase))
-            {
-                return Json(new
-                {
-                    StatusCode = ExportMultipleFile,
-                    PageSize = MaxRowForMultipleExcelFiles
-                });
-            }
-            else
+            if (totalRow > MaxRowSupportExportExcel)
             {
                 return Json(new
                 {
                     StatusCode = RowsExceedLimitErrorCode
                 });
             }
+
+            if (totalRow <= MaxRowSupportSingleExportExcel)
+            {
+                return Json(new
+                {
+                    StatusCode = ExportSingleFile
+                });
+            }
+
+            return Json(new
+            {
+                StatusCode = ExportMultipleFile,
+                PageSize = MaxRowForMultipleExcelFiles
+            });
         }
 
         [HttpPost]
