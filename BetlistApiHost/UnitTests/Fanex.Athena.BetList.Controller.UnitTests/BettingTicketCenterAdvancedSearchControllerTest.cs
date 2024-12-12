@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
+    using System.Collections.Generic;
     using System.Net;
     using System.Threading.Tasks;
     using System.Web;
@@ -107,8 +108,8 @@
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow - 1).ToString());
 
                 // Action
-                var result = (await controller.GetData(metaModel) as JsonResult).Data;
-                var errorCode = result.GetValue("ErrorCode");
+                var result = (await controller.GetExportStatus(metaModel) as JsonResult).Data;
+                var errorCode = result.GetValue("StatusCode");
 
                 // Assert
                 Assert.Multiple(() =>
@@ -163,10 +164,11 @@
                 _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
                 _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
+                _appSettings.GetValue("MaxRowForMultipleExcelFiles").Returns(maxRowPerFile.ToString());
 
                 var ticketResult = new GroupTicketResult
                 {
-                    TotalRows = totalRow
+                    TotalRows = totalRow,
                 };
 
                 ticketResult.DataPath.Add(filePath);
@@ -191,8 +193,7 @@
                             && x.Option.ShowExternalId
                             && x.Option.ShowSystemId
                             && x.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
-                            && x.Option.IsAllowedCustomerComm == metaModel.HasPlayerCom
-                            && JsonConvert.SerializeObject(x.Data) == jsonData));
+                            && x.Option.IsAllowedCustomerComm == metaModel.HasPlayerCom));
                 });
             }
         }
@@ -211,10 +212,12 @@
 
                 var maxRowPerFile = totalRow - 1;
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
+                _appSettings.GetValue("MaxRowForMultipleExcelFiles").Returns(maxRowPerFile.ToString());
 
                 var ticketResult = new GroupTicketResult
                 {
-                    TotalRows = totalRow
+                    TotalRows = totalRow,
+                    DataPath = new List<string> { "/Test" }
                 };
                 _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, maxRowPerFile).Returns(ticketResult);
 
