@@ -161,7 +161,7 @@ namespace Fanex.Athena.Result.DataAccess
 
         private static Boolean IsLeagues3rd(int sportType)
         {
-            return sportType == (int)SportType.Bitcoin || sportType == (int)SportType.VirtualDogRacing || sportType == (int)SportType.VirtualHorseRacing;
+            return sportType == (int)SportType.Bitcoin || sportType == (int)SportType.VirtualDogRacing || sportType == (int)SportType.VirtualHorseRacing || sportType == (int)SportType.BetbyBasketball;
         }
 
         /// <summary>
@@ -416,6 +416,10 @@ namespace Fanex.Athena.Result.DataAccess
                     {
                         return (IList<T>)ReadBitCoinMatches(reader);
                     }
+                    else if (type == typeof(Sportsbook))
+                    {
+                        return (IList<T>)ReadSportbookMatches3rd(reader);
+                    }
                     else
                     {
                         throw new NotSupportedException($"The type '{type.FullName}' is not supported.");
@@ -502,6 +506,25 @@ namespace Fanex.Athena.Result.DataAccess
                 MainType = reader.HasColumn("MainType") ? reader.ToByte("MainType") : byte.MinValue,
                 SubType = reader.HasColumn("SubType") ? reader.ToInt("SubType") : 0,
                 SessionTime = reader.HasColumn("SessionTime") ? reader.ToInt("SessionTime") : 0
+            };
+        }
+
+        private static Sportsbook ReadSportsbook3rd(IDataReader reader)
+        {
+            return new Sportsbook
+            {
+                AwayId = reader.ToInt("awayID"),
+                HomeId = reader.ToInt("homeID"),
+                BetStatus = reader.ToString(BetstatusColumn),
+                LeagueId = reader.ToInt("League3rdId"),
+                MatchId = reader.ToInt("Match3rdId"),
+                EventStatus = reader.ToString("eventstatus"),
+                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                HtAwayScore = reader.ToNullableInt("htawayscore"),
+                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                HtHomeScore = reader.ToNullableInt("hthomescore"),
+                EventDate = DateTime.Parse(reader.ToString(EventDateColumn)),
+                MatchCode = reader.ToString("matchcode")
             };
         }
 
@@ -714,6 +737,10 @@ namespace Fanex.Athena.Result.DataAccess
                     {
                         return (IList<T>)ReadBitCoinMatches(reader);
                     }
+                    else if (type == typeof(Sportsbook))
+                    {
+                        return (IList<T>)ReadSportbookMatches3rd(reader);
+                    }
                     else
                     {
                         throw new NotSupportedException($"The type '{type.FullName}' is not supported.");
@@ -763,6 +790,50 @@ namespace Fanex.Athena.Result.DataAccess
                     {
                         Match3rdId = int.Parse(reader["Match3rdId"].ToString()),
                         GameResult = reader["GameResult"].ToString()
+                    });
+                }
+            }
+
+            return gameDetails;
+        }
+
+        private static IList<Sportsbook> ReadSportbookMatches3rd(IDataReader reader)
+        {
+            var results = new List<Sportsbook>();
+
+            while (reader.Read())
+            {
+                var result = ReadSportsbook3rd(reader);
+                results.Add(result);
+            }
+
+            var gameDetails = GetGame3rdDetails(reader);
+            if (gameDetails.Count > 0)
+            {
+                foreach (var result in results)
+                {
+                    result.GameDetails = gameDetails.Where(i => i.MatchId == result.MatchId).ToList();
+                }
+            }
+
+            return results;
+        }
+
+        private static IList<Fanex.Result.Core.Sportsbook.DTO.GameDetail> GetGame3rdDetails(IDataReader reader)
+        {
+            var gameDetails = new List<Fanex.Result.Core.Sportsbook.DTO.GameDetail>();
+
+            if (reader.NextResult())
+            {
+                while (reader.Read())
+                {
+                    gameDetails.Add(new Fanex.Result.Core.Sportsbook.DTO.GameDetail
+                    {
+                        MatchId = int.Parse(reader["Match3rdId"].ToString()),
+                        HomeValue = reader["Custom1"].ToString(),
+                        AwayValue = reader["Custom2"].ToString(),
+                        SettlementStatusID = int.Parse(reader["SettlementStatusID"].ToString()),
+                        ResourceId = reader["ResourceId"].ToString()
                     });
                 }
             }

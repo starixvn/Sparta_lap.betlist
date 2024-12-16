@@ -71,6 +71,11 @@
             return await this._dataAccess.GetMatchesAsync<Sportsbook>(metalModel).ConfigureAwait(false);
         }
 
+        public async Task<IList<Sportsbook>> GetMatches3rdAsync(ResultMetaModel metalModel)
+        {
+            return await this._dataAccess.GetMatches3rdAsync<Sportsbook>(metalModel).ConfigureAwait(false);
+        }
+
         public async Task<IList<NumberGame>> GetNumberGameMatchesAsync(ResultMetaModel metalModel)
         {
             return await this._numberGameDataAccess.GetNumberGameMatchesAsync(metalModel).ConfigureAwait(false);
@@ -105,6 +110,11 @@
         {
             metalModel.RaceNo = null;
             return await this._dataAccess.GetPopUpMatchesAsync<Sportsbook>(metalModel).ConfigureAwait(false);
+        }
+
+        public async Task<IList<Sportsbook>> GetPopUpMatch3rdAsync(int matchId)
+        {
+            return await this._dataAccess.GetPopUpMatches3rdAsync<Sportsbook>(matchId).ConfigureAwait(false);
         }
 
         public async Task<IList<Racing>> GetPopUpVirtualSportMatchAsync(ResultPopupMetaModel metalModel)
