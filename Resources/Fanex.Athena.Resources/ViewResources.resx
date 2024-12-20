@@ -379,4 +379,7 @@
   <data name="WL" xml:space="preserve">
     <value>WL</value>
   </data>
+  <data name="QuickBetWidget" xml:space="preserve">
+    <value>Quick Bet Widget</value>
+  </data>
 </root>

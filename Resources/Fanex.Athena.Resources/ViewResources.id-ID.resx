@@ -351,4 +351,7 @@
   <data name="PlayerBetList" xml:space="preserve">
     <value>Daftar Taruhan Pemain</value>
   </data>
+  <data name="QuickBetWidget" xml:space="preserve">
+    <value>Widget Taruhan Cepat</value>
+  </data>
 </root>
