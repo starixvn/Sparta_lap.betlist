@@ -6,17 +6,18 @@
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using Fanex.Athena.BetList.Controller.CustomActionResult;
-    using Fanex.Athena.BetList.Controller.Utility;
-    using Fanex.Athena.BetList.DataAccess.Interfaces;
-    using Fanex.Athena.BetList.Excel;
-    using Fanex.Athena.BetList.Excel.Model;
-    using Fanex.Athena.BetList.Model.DTO;
-    using Fanex.Athena.BetList.Model.MetaModel;
-    using Fanex.Athena.BetList.Service.Interfaces;
-    using Fanex.Athena.Common.Utility.Services.Interfaces;
-    using Fanex.Athena.Resources;
+    using Common.Utility.Services.Interfaces;
+    using CustomActionResult;
+    using DataAccess.Interfaces;
+    using Excel;
+    using Excel.Model;
+    using Logging;
+    using Model.DTO;
+    using Model.MetaModel;
     using Newtonsoft.Json;
+    using Resources;
+    using Service.Interfaces;
+    using Utility;
 
     public class BettingTicketCenterAdvancedSearchController : BettingTicketCenterBaseController
     {
@@ -30,11 +31,11 @@
 
         private readonly IBettingTicketCenterAdvancedSearchDataAccess _dataAccess;
 
-        private readonly IBettingTicketCenterZipBuilder _zipBuilder;
-
         private readonly IIPService _ipService;
 
         private readonly ITempFileService _tempFileService;
+
+        private readonly IBettingTicketCenterZipBuilder _zipBuilder;
 
         public BettingTicketCenterAdvancedSearchController(
             IAppSettings appSettings,
@@ -72,7 +73,8 @@
                     StatusCode = ExportSingleFile
                 });
             }
-            else if (LicenseesExportedExceedMaxRow.Split(',').Contains(metaModel.LicenseeName, StringComparer.InvariantCultureIgnoreCase))
+
+            if (LicenseesExportedExceedMaxRow.Split(',').Contains(metaModel.LicenseeName, StringComparer.InvariantCultureIgnoreCase))
             {
                 return Json(new
                 {
@@ -80,18 +82,17 @@
                     PageSize = MaxRowForMultipleExcelFiles
                 });
             }
-            else
+
+            return Json(new
             {
-                return Json(new
-                {
-                    StatusCode = RowsExceedLimitErrorCode
-                });
-            }
+                StatusCode = RowsExceedLimitErrorCode
+            });
         }
 
         [HttpPost]
         public async Task<ActionResult> GetData(AdvancedSearchBetListMetaModel metaModel)
         {
+            await Logger.Log.InfoAsync(JsonConvert.SerializeObject(metaModel));
             if (metaModel.IsExport)
             {
                 return await Export(metaModel).ConfigureAwait(false);
@@ -105,13 +106,20 @@
             return ReturnData(ticketResult, GetBetListOption(metaModel), metaModel);
         }
 
+        protected FileContentResult ZipContentResult(MemoryStream stream, AdvancedSearchBetListMetaModel metaModel)
+        {
+            var bytes = stream?.ToArray();
+            Response.Headers.Add("X-File-Name", $"BettingTicketsCenter_AdvancedSearch{metaModel.PageIndex}");
+            return File(bytes, "application/zip", "BettingTicketsCenter_AdvancedSearch.zip");
+        }
+
         private async Task<ActionResult> Export(AdvancedSearchBetListMetaModel metaModel)
         {
             var title = GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}";
 
             var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile
-                ).ConfigureAwait(false);
+            ).ConfigureAwait(false);
 
             if (!ticketResult.DataPath.Any())
             {
@@ -153,13 +161,6 @@
             return ExportExcel(excelModel);
         }
 
-        protected FileContentResult ZipContentResult(MemoryStream stream, AdvancedSearchBetListMetaModel metaModel)
-        {
-            var bytes = stream?.ToArray();
-            Response.Headers.Add("X-File-Name", $"BettingTicketsCenter_AdvancedSearch{metaModel.PageIndex}");
-            return File(bytes, "application/zip", "BettingTicketsCenter_AdvancedSearch.zip");
-        }
-
         private static BettingTicketCenterOption GetBetListOption(AdvancedSearchBetListMetaModel metaModel) => new BettingTicketCenterOption
         {
             ShowTotal = true,
@@ -172,7 +173,7 @@
             ShowTxId = metaModel.IsAllowTxIDColumn,
             IsShowIpvn = metaModel.IsShowIpvn,
             IsShowIp = metaModel.IsShowIp,
-            SpecialPlatform = metaModel.SpecialPlatform,
+            SpecialPlatform = metaModel.SpecialPlatform
         };
 
         private bool ShouldReturnEmptyResult(AdvancedSearchBetListMetaModel metaModel)
@@ -180,7 +181,7 @@
 
         private bool ShouldExportNextPage(int pageSize, int currentPageRowCount)
             => pageSize == MaxRowForMultipleExcelFiles
-                && currentPageRowCount == MaxRowForMultipleExcelFiles;
+               && currentPageRowCount == MaxRowForMultipleExcelFiles;
 
         private TicketResult GetTicketFromFile(GroupTicketResult groupTicket)
         {
