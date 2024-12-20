@@ -51,7 +51,7 @@
             _tempFileService = tempFileService;
         }
 
-        private int MaxRowSupportExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportExportExcel"));
+        private int MaxTicketLimit => int.Parse(_appSettings.GetValue("MaxTicketLimit"));
 
         private int MaxRowPerFile => int.Parse(_appSettings.GetValue("MaxRowPerExcelFile"));
 
@@ -64,7 +64,7 @@
         {
             var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
 
-            if (totalRow > MaxRowSupportExportExcel)
+            if (totalRow > MaxTicketLimit)
             {
                 return Json(new
                 {
@@ -93,6 +93,16 @@
             if (metaModel.IsExport)
             {
                 return await Export(metaModel).ConfigureAwait(false);
+            }
+
+            var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
+
+            if (totalRow > MaxTicketLimit)
+            {
+                return Json(new
+                {
+                    StatusCode = RowsExceedLimitErrorCode
+                });
             }
 
             var ticketResult = ShouldReturnEmptyResult(metaModel)
