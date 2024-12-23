@@ -62,7 +62,7 @@
         [HttpPost]
         public async Task<ActionResult> GetExportStatus(AdvancedSearchBetListMetaModel metaModel)
         {
-            var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
+            var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, MaxTicketLimit).ConfigureAwait(false);
 
             if (totalRow > MaxTicketLimit)
             {
@@ -95,7 +95,7 @@
                 return await Export(metaModel).ConfigureAwait(false);
             }
 
-            var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
+            var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, MaxTicketLimit).ConfigureAwait(false);
 
             if (totalRow > MaxTicketLimit)
             {

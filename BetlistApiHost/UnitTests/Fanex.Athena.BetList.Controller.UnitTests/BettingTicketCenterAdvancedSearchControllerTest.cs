@@ -71,6 +71,11 @@
                 // Arrange
                 var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, false);
 
+                var totalRow = FakeHelper.Create<int>();
+                var maxTotalRows = FakeHelper.Create<int>();
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, totalRow).Returns(totalRow);
+                _appSettings.GetValue("MaxTicketLimit").Returns(totalRow.ToString());
+
                 var ticketResult = new TicketResult();
                 _dataAccess.GetBetListForMultipleCustomersAsync(metaModel).Returns(ticketResult);
 
@@ -104,7 +109,8 @@
                 var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
+                var maxTotalRows = FakeHelper.Create<int>();
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, (totalRow - 1)).Returns(totalRow);
                 _appSettings.GetValue("MaxTicketLimit").Returns((totalRow - 1).ToString());
 
                 // Action
@@ -129,7 +135,7 @@
 
                 var totalRow = FakeHelper.Create<int>();
                 var maxRowPerFile = totalRow - 1;
-                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, (totalRow + 1)).Returns(totalRow);
                 _appSettings.GetValue("MaxTicketLimit").Returns((totalRow + 1).ToString());
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
 
@@ -161,7 +167,7 @@
 
                 var totalRow = FakeHelper.Create<int>();
                 var maxRowPerFile = totalRow + 1;
-                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, (totalRow + 1)).Returns(totalRow);
                 _appSettings.GetValue("MaxTicketLimit").Returns((totalRow + 1).ToString());
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
                 _appSettings.GetValue("MaxRowForMultipleExcelFiles").Returns(maxRowPerFile.ToString());
@@ -207,7 +213,7 @@
                 var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, (totalRow + 1)).Returns(totalRow);
                 _appSettings.GetValue("MaxTicketLimit").Returns((totalRow + 1).ToString());
 
                 var maxRowPerFile = totalRow - 1;

@@ -8,6 +8,7 @@
     using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
     using Common.Utility.Services.Interfaces;
+    using Fanex.Athena.Common.Utility.Services;
     using Model.DTO;
     using NSubstitute;
     using NUnit.Framework;
@@ -92,15 +93,16 @@
         public async Task GetTotalRowForMultipleCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(TotalRowUspKey)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(TotalRowUspKey), Arg.Any<int>()).Returns(ObjectDb);
 
             var totalRow = FakeHelper.Create<int>();
             ObjectDb.GetOutputParams().Returns(new Hashtable { { "TotalRows", totalRow } });
 
             var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>();
+            var maxTotalRows = FakeHelper.Create<int>();
 
             // Action
-            var result = await DataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, maxTotalRows).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -118,6 +120,7 @@
                 ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 ObjectDb.Received(1).SetParameterValue("ProductList", metaModel.ProductCodeList);
+                ObjectDb.Received(1).SetParameterValue("MaxTotalRows", maxTotalRows);
 
                 ObjectDb.Received(1).SetParameterValue("TotalRows", null);
 
@@ -137,7 +140,7 @@
             ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
-            metaModel.SortBy = string.Empty;
+            metaModel.SortBy = string.Empty; ;
 
             // Action
             await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup).ConfigureAwait(false);
@@ -158,8 +161,8 @@
                 ObjectDb.Received(1).SetParameterValue("StatusIdList", metaModel.Status);
                 ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
-                ObjectDb.Received(1).SetParameterValue("PageSize", int.MaxValue - 1);
-                ObjectDb.Received(1).SetParameterValue("PageIndex", 1);
+                ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
                 ObjectDb.Received(1).SetParameterValue("ProductList", metaModel.ProductCodeList);
 
                 ObjectDb.Received(1).SetParameterValue("TotalRows", null);

@@ -110,7 +110,7 @@
             return ticketResult;
         }
 
-        public async Task<int> GetTotalRowForMultipleCustomersAsync(AdvancedSearchBetListMetaModel metaModel)
+        public async Task<int> GetTotalRowForMultipleCustomersAsync(AdvancedSearchBetListMetaModel metaModel, int maxTotalRows)
         {
             const string UspKey = "Lrf_BetList_Licensee_TotalRows";
             const int TimeOut = 300;
@@ -136,6 +136,7 @@
                 db.SetParameterValue(DbColumn.CustomerClass, metaModel.CustomerClass);
                 db.SetParameterValue(DbColumn.FullCustomerClass, metaModel.FullCustomerClass);
                 db.SetParameterValue(DbColumn.LeagueGroupIds, metaModel.LeagueGroupIds);
+                db.SetParameterValue(DbColumn.MaxTotalRows, maxTotalRows);
 
                 db.SetParameterValue(DbColumn.TotalRows, null);
 
