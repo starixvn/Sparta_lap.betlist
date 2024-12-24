@@ -32,14 +32,14 @@
             int rowPerGroup)
         {
             const string UspKey = "Lrf_BetList_Licensee";
-            const int timeOut = 180;
+            const int TimeOut = 300;
             var groupData = new GroupTicketResult
             {
                 RowPerGroup = rowPerGroup
             };
             var currencyList = await this.GetCurrencyListAsync();
 
-            using (var db = GetObjectDb(UspKey, timeOut))
+            using (var db = GetObjectDb(UspKey, TimeOut))
             {
                 AddAdvancedSearchParameters(db, metaModel);
 
@@ -85,11 +85,12 @@
         public async Task<TicketResult> GetBetListForMultipleCustomersAsync(AdvancedSearchBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Licensee";
+            const int TimeOut = 300;
 
             var ticketResult = new TicketResult();
             var currencyList = await this.GetCurrencyListAsync();
 
-            using (var db = GetObjectDb(UspKey))
+            using (var db = GetObjectDb(UspKey, TimeOut))
             {
                 AddAdvancedSearchParameters(db, metaModel);
 
