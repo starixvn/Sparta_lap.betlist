@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Common.Constant
 {
+    using System;
     using System.Collections.Generic;
     using Resources;
 
@@ -28,7 +29,7 @@
         private const string Mobile = "Mobile";
         private const string Desktop = "Desktop";
 
-        private static readonly IDictionary<string, string> _normalPlatform = new Dictionary<string, string>
+        private static readonly IDictionary<string, string> _normalPlatform = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { "x", DesktopNewAsia },
             { "a", DesktopChina },
@@ -72,7 +73,7 @@
             { "Q001", QuickBetWidget }
         };
 
-        private static readonly IDictionary<string, string> _JollysportsPlatform = new Dictionary<string, string>
+        private static readonly IDictionary<string, string> _JollysportsPlatform = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { "A001", Desktop },
             { "A002", Mobile }
