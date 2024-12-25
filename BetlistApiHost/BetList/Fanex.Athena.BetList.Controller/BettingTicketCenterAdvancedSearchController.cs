@@ -76,7 +76,8 @@
             {
                 return Json(new
                 {
-                    StatusCode = ExportSingleFile
+                    StatusCode = ExportSingleFile,
+                    PageSize = MaxRowSupportSingleExportExcel
                 });
             }
 
@@ -186,9 +187,8 @@
         private bool ShouldReturnEmptyResult(AdvancedSearchBetListMetaModel metaModel)
             => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip);
 
-        private bool ShouldExportNextPage(int pageSize, int currentPageRowCount)
-            => pageSize == MaxRowForMultipleExcelFiles
-                && currentPageRowCount == MaxRowForMultipleExcelFiles;
+        private static bool ShouldExportNextPage(int pageSize, int currentPageRowCount)
+            => pageSize == currentPageRowCount;
 
         private TicketResult GetTicketFromFile(GroupTicketResult groupTicket)
         {
