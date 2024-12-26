@@ -366,4 +366,7 @@
   <data name="WL" xml:space="preserve">
     <value>Thắng Thua</value>
   </data>
+  <data name="QuickBetWidget" xml:space="preserve">
+    <value>Công cụ đặt cược nhanh</value>
+  </data>
 </root>

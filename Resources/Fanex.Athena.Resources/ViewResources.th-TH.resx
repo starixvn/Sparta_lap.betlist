@@ -366,4 +366,7 @@
   <data name="WL" xml:space="preserve">
     <value>แพ้ชนะ</value>
   </data>
+  <data name="QuickBetWidget" xml:space="preserve">
+    <value>วิดเจ็ตเดิมพันด่วน</value>
+  </data>
 </root>

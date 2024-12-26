@@ -364,4 +364,7 @@
   <data name="WL" xml:space="preserve">
     <value>输赢</value>
   </data>
+  <data name="QuickBetWidget" xml:space="preserve">
+    <value>快捷投注元件</value>
+  </data>
 </root>
