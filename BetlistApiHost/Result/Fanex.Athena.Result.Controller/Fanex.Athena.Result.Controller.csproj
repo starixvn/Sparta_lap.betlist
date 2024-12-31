@@ -285,6 +285,7 @@
     <Compile Include="ResultPopup\AllBetResultPopupController.cs" />
     <Compile Include="ResultPopup\AdvantPlayResultPopupController.cs" />
     <Compile Include="ResultPopup\CGResultPopupController.cs" />
+    <Compile Include="ResultPopup\PlayStarResultPopupController.cs" />
     <Compile Include="ResultPopup\GPIResultPopupController.cs" />
     <Compile Include="ResultPopup\GPILiveCasinoResultPopupController.cs" />
     <Compile Include="ResultPopup\PlaytechResultPopupController.cs" />
