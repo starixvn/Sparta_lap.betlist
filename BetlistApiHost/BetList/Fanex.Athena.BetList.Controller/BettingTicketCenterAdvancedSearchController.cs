@@ -68,7 +68,8 @@
             {
                 return Json(new
                 {
-                    StatusCode = RowsExceedLimitErrorCode
+                    StatusCode = RowsExceedLimitErrorCode,
+                    LimitRows = MaxTicketLimit
                 });
             }
 
@@ -102,7 +103,8 @@
             {
                 return Json(new
                 {
-                    StatusCode = RowsExceedLimitErrorCode
+                    StatusCode = RowsExceedLimitErrorCode,
+                    LimitRows = MaxTicketLimit
                 });
             }
 
