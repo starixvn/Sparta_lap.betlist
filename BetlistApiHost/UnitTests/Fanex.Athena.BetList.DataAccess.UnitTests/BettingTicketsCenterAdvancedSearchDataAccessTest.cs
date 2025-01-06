@@ -8,6 +8,7 @@
     using Common.DataAccess.UnitTests;
     using Common.Model.DTO;
     using Common.Utility.Services.Interfaces;
+    using Fanex.Athena.Common.Utility.Services;
     using Model.DTO;
     using NSubstitute;
     using NUnit.Framework;
@@ -48,7 +49,7 @@
         public async Task GetBetListForMultipleCustomersAsync_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(UspKey), Arg.Any<int>()).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
             ObjectDb.GetOutputParams().Returns(new Hashtable());
@@ -66,8 +67,9 @@
                 ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
                 ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
                 ObjectDb.Received(1).SetParameterValue("MoveBetsDay", BalanceUp.MoveBetsDay);
-                ObjectDb.Received(1).SetParameterValue("SportType", metaModel.SportId);
-                ObjectDb.Received(1).SetParameterValue("BetType", metaModel.BetTypeId);
+                ObjectDb.Received(1).SetParameterValue("SportTypeList", metaModel.SportListXML);
+                ObjectDb.Received(1).SetParameterValue("BetTypeList", metaModel.BetTypeIds);
+                ObjectDb.Received(1).SetParameterValue("CashOutMode", metaModel.CashOutMode);
                 ObjectDb.Received(1).SetParameterValue("LeagueId", metaModel.LeagueId);
                 ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
@@ -76,7 +78,7 @@
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
                 ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
                 ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
-                ObjectDb.Received(1).SetParameterValue("Product", metaModel.ProductCodeList);
+                ObjectDb.Received(1).SetParameterValue("ProductList", metaModel.ProductCodeList);
 
                 ObjectDb.Received(1).SetParameterValue("TotalRows", null);
                 ObjectDb.Received(1).SetParameterValue("SumStake", null);
@@ -91,15 +93,16 @@
         public async Task GetTotalRowForMultipleCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(TotalRowUspKey)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(TotalRowUspKey), Arg.Any<int>()).Returns(ObjectDb);
 
             var totalRow = FakeHelper.Create<int>();
             ObjectDb.GetOutputParams().Returns(new Hashtable { { "TotalRows", totalRow } });
 
             var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>();
+            var maxTotalRows = FakeHelper.Create<int>();
 
             // Action
-            var result = await DataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
+            var result = await DataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, maxTotalRows).ConfigureAwait(false);
 
             // Assert
             Assert.Multiple(() =>
@@ -108,14 +111,16 @@
                 ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
                 ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
                 ObjectDb.Received(1).SetParameterValue("MoveBetsDay", BalanceUp.MoveBetsDay);
-                ObjectDb.Received(1).SetParameterValue("SportType", metaModel.SportId);
-                ObjectDb.Received(1).SetParameterValue("BetType", metaModel.BetTypeId);
+                ObjectDb.Received(1).SetParameterValue("SportTypeList", metaModel.SportListXML);
+                ObjectDb.Received(1).SetParameterValue("BetTypeList", metaModel.BetTypeIds);
+                ObjectDb.Received(1).SetParameterValue("CashOutMode", metaModel.CashOutMode);
                 ObjectDb.Received(1).SetParameterValue("LeagueId", metaModel.LeagueId);
                 ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("StatusIdList", metaModel.Status);
                 ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
-                ObjectDb.Received(1).SetParameterValue("Product", metaModel.ProductCodeList);
+                ObjectDb.Received(1).SetParameterValue("ProductList", metaModel.ProductCodeList);
+                ObjectDb.Received(1).SetParameterValue("MaxTotalRows", maxTotalRows);
 
                 ObjectDb.Received(1).SetParameterValue("TotalRows", null);
 
@@ -129,13 +134,13 @@
             // Arrange
             const int RowPerGroup = 1000;
 
-            DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(UspKey), Arg.Any<int>()).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(false);
             ObjectDb.GetOutputParams().Returns(new Hashtable());
 
             var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
-            metaModel.SortBy = string.Empty;
+            metaModel.SortBy = string.Empty; ;
 
             // Action
             await DataAccess.GetBetListForMultipleCustomersAsync(metaModel, RowPerGroup).ConfigureAwait(false);
@@ -147,17 +152,18 @@
                 ObjectDb.Received(1).SetParameterValue("FromDate", metaModel.FromDate);
                 ObjectDb.Received(1).SetParameterValue("ToDate", metaModel.ToDate);
                 ObjectDb.Received(1).SetParameterValue("MoveBetsDay", BalanceUp.MoveBetsDay);
-                ObjectDb.Received(1).SetParameterValue("SportType", metaModel.SportId);
-                ObjectDb.Received(1).SetParameterValue("BetType", metaModel.BetTypeId);
+                ObjectDb.Received(1).SetParameterValue("SportTypeList", metaModel.SportListXML);
+                ObjectDb.Received(1).SetParameterValue("BetTypeList", metaModel.BetTypeIds);
+                ObjectDb.Received(1).SetParameterValue("CashOutMode", metaModel.CashOutMode);
                 ObjectDb.Received(1).SetParameterValue("LeagueId", metaModel.LeagueId);
                 ObjectDb.Received(1).SetParameterValue("MatchId", metaModel.MatchId);
                 ObjectDb.Received(1).SetParameterValue("BaseCurrency", metaModel.BaseCurrency);
                 ObjectDb.Received(1).SetParameterValue("StatusIdList", metaModel.Status);
                 ObjectDb.Received(1).SetParameterValue("UserName", metaModel.UserName);
                 ObjectDb.Received(1).SetParameterValue("LiveIndicator", metaModel.LiveStatus);
-                ObjectDb.Received(1).SetParameterValue("PageSize", int.MaxValue - 1);
-                ObjectDb.Received(1).SetParameterValue("PageIndex", 1);
-                ObjectDb.Received(1).SetParameterValue("Product", metaModel.ProductCodeList);
+                ObjectDb.Received(1).SetParameterValue("PageSize", metaModel.PageSize);
+                ObjectDb.Received(1).SetParameterValue("PageIndex", metaModel.PageIndex);
+                ObjectDb.Received(1).SetParameterValue("ProductList", metaModel.ProductCodeList);
 
                 ObjectDb.Received(1).SetParameterValue("TotalRows", null);
                 ObjectDb.Received(1).SetParameterValue("SumStake", null);
@@ -176,7 +182,7 @@
             // Arrange
             const int RowPerGroup = 1000;
 
-            DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(UspKey), Arg.Any<int>()).Returns(ObjectDb);
             ObjectDb.ExecuteReaderAsync().Returns(Reader);
             Reader.Read().Returns(true, false);
             ObjectDb.GetOutputParams().Returns(new Hashtable());

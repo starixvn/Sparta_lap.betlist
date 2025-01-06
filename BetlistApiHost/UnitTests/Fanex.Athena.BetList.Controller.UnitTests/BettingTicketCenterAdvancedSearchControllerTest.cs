@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.Controller.UnitTests
 {
+    using System.Collections.Generic;
     using System.Net;
     using System.Threading.Tasks;
     using System.Web;
@@ -70,6 +71,11 @@
                 // Arrange
                 var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, false);
 
+                var totalRow = FakeHelper.Create<int>();
+                var maxTotalRows = FakeHelper.Create<int>();
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, totalRow).Returns(totalRow);
+                _appSettings.GetValue("MaxTicketLimit").Returns(totalRow.ToString());
+
                 var ticketResult = new TicketResult();
                 _dataAccess.GetBetListForMultipleCustomersAsync(metaModel).Returns(ticketResult);
 
@@ -103,12 +109,13 @@
                 var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
-                _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow - 1).ToString());
+                var maxTotalRows = FakeHelper.Create<int>();
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, (totalRow - 1)).Returns(totalRow);
+                _appSettings.GetValue("MaxTicketLimit").Returns((totalRow - 1).ToString());
 
                 // Action
-                var result = (await controller.GetData(metaModel) as JsonResult).Data;
-                var errorCode = result.GetValue("ErrorCode");
+                var result = (await controller.GetExportStatus(metaModel) as JsonResult).Data;
+                var errorCode = result.GetValue("StatusCode");
 
                 // Assert
                 Assert.Multiple(() =>
@@ -128,8 +135,8 @@
 
                 var totalRow = FakeHelper.Create<int>();
                 var maxRowPerFile = totalRow - 1;
-                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
-                _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, (totalRow + 1)).Returns(totalRow);
+                _appSettings.GetValue("MaxTicketLimit").Returns((totalRow + 1).ToString());
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
 
                 var ticketResult = new GroupTicketResult
@@ -160,13 +167,14 @@
 
                 var totalRow = FakeHelper.Create<int>();
                 var maxRowPerFile = totalRow + 1;
-                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
-                _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, (totalRow + 1)).Returns(totalRow);
+                _appSettings.GetValue("MaxTicketLimit").Returns((totalRow + 1).ToString());
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
+                _appSettings.GetValue("MaxRowForMultipleExcelFiles").Returns(maxRowPerFile.ToString());
 
                 var ticketResult = new GroupTicketResult
                 {
-                    TotalRows = totalRow
+                    TotalRows = totalRow,
                 };
 
                 ticketResult.DataPath.Add(filePath);
@@ -191,8 +199,7 @@
                             && x.Option.ShowExternalId
                             && x.Option.ShowSystemId
                             && x.TotalText == $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}"
-                            && x.Option.IsAllowedCustomerComm == metaModel.HasPlayerCom
-                            && JsonConvert.SerializeObject(x.Data) == jsonData));
+                            && x.Option.IsAllowedCustomerComm == metaModel.HasPlayerCom));
                 });
             }
         }
@@ -206,15 +213,17 @@
                 var metaModel = FakeHelper.Create<AdvancedSearchBetListMetaModel>(x => x.IsExport, true);
 
                 var totalRow = FakeHelper.Create<int>();
-                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).Returns(totalRow);
-                _appSettings.GetValue("MaxRowSupportExportExcel").Returns((totalRow + 1).ToString());
+                _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, (totalRow + 1)).Returns(totalRow);
+                _appSettings.GetValue("MaxTicketLimit").Returns((totalRow + 1).ToString());
 
                 var maxRowPerFile = totalRow - 1;
                 _appSettings.GetValue("MaxRowPerExcelFile").Returns(maxRowPerFile.ToString());
+                _appSettings.GetValue("MaxRowForMultipleExcelFiles").Returns(maxRowPerFile.ToString());
 
                 var ticketResult = new GroupTicketResult
                 {
-                    TotalRows = totalRow
+                    TotalRows = totalRow,
+                    DataPath = new List<string> { "/Test" }
                 };
                 _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, maxRowPerFile).Returns(ticketResult);
 

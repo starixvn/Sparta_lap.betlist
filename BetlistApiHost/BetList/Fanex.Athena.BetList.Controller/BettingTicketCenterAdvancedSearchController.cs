@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.BetList.Controller
 {
-    using System;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -52,41 +51,42 @@
             _tempFileService = tempFileService;
         }
 
-        private int MaxRowSupportExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportExportExcel"));
+        private int MaxTicketLimit => int.Parse(_appSettings.GetValue("MaxTicketLimit"));
 
         private int MaxRowPerFile => int.Parse(_appSettings.GetValue("MaxRowPerExcelFile"));
 
         private int MaxRowForMultipleExcelFiles => int.Parse(_appSettings.GetValue("MaxRowForMultipleExcelFiles"));
 
-        private string LicenseesExportedExceedMaxRow => _appSettings.GetValue("LicenseesExportedExceedMaxRow");
+        private int MaxRowSupportSingleExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportSingleExportExcel"));
 
         [HttpPost]
         public async Task<ActionResult> GetExportStatus(AdvancedSearchBetListMetaModel metaModel)
         {
-            var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
+            var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, MaxTicketLimit).ConfigureAwait(false);
 
-            if (totalRow <= MaxRowSupportExportExcel)
+            if (totalRow > MaxTicketLimit)
             {
                 return Json(new
                 {
-                    StatusCode = ExportSingleFile
+                    StatusCode = RowsExceedLimitErrorCode,
+                    LimitRows = MaxTicketLimit
                 });
             }
-            else if (LicenseesExportedExceedMaxRow.Split(',').Contains(metaModel.LicenseeName, StringComparer.InvariantCultureIgnoreCase))
+
+            if (totalRow <= MaxRowSupportSingleExportExcel)
             {
                 return Json(new
                 {
-                    StatusCode = ExportMultipleFile,
-                    PageSize = MaxRowForMultipleExcelFiles
+                    StatusCode = ExportSingleFile,
+                    PageSize = MaxRowSupportSingleExportExcel
                 });
             }
-            else
+
+            return Json(new
             {
-                return Json(new
-                {
-                    StatusCode = RowsExceedLimitErrorCode
-                });
-            }
+                StatusCode = ExportMultipleFile,
+                PageSize = MaxRowForMultipleExcelFiles
+            });
         }
 
         [HttpPost]
@@ -95,6 +95,17 @@
             if (metaModel.IsExport)
             {
                 return await Export(metaModel).ConfigureAwait(false);
+            }
+
+            var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, MaxTicketLimit).ConfigureAwait(false);
+
+            if (totalRow > MaxTicketLimit)
+            {
+                return Json(new
+                {
+                    StatusCode = RowsExceedLimitErrorCode,
+                    LimitRows = MaxTicketLimit
+                });
             }
 
             var ticketResult = ShouldReturnEmptyResult(metaModel)
@@ -178,9 +189,8 @@
         private bool ShouldReturnEmptyResult(AdvancedSearchBetListMetaModel metaModel)
             => !string.IsNullOrWhiteSpace(metaModel.Ip) && !metaModel.IsShowIpvn && _ipService.IsVNIP(metaModel.Ip);
 
-        private bool ShouldExportNextPage(int pageSize, int currentPageRowCount)
-            => pageSize == MaxRowForMultipleExcelFiles
-                && currentPageRowCount == MaxRowForMultipleExcelFiles;
+        private static bool ShouldExportNextPage(int pageSize, int currentPageRowCount)
+            => pageSize == currentPageRowCount;
 
         private TicketResult GetTicketFromFile(GroupTicketResult groupTicket)
         {
