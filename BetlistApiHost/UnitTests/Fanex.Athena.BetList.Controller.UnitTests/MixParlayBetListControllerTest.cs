@@ -68,6 +68,7 @@
 
                 var ticketText = FakeHelper.CreateMany<TicketText>(2).ToList();
                 metaModel.IsShowIpvn = true;
+                metaModel.IsHideSaba = false;
                 _ticketBuilderService.BuildTicketText(ticketResult: ticketResult, showOdds: true, isShowIpvn: true, isHideSaba: false).Returns(ticketText);
 
                 // Action
