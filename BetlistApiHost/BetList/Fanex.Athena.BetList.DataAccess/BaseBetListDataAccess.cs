@@ -20,7 +20,6 @@
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
-        private const string SuffixSabaCoins = "_SabaCoins";
         private readonly ICurrencyDataAccess _currencyDataAccess;
 
         protected BaseBetListDataAccess(ICurrencyDataAccess currenyDataAccess)
@@ -88,31 +87,20 @@
             var currencyList = await GetCurrencyListAsync();
             var tasks = new List<Task<SortableList<LrfTicket>>>(2);
 
-            if (metaModel.UseShardDB)
+            if (metaModel.UseShardDB && !viewSabaCoins)
             {
-                if (viewSabaCoins)
-                {
-                    tasks.Add(GetMainTicketListBasedShardDBAsync(
-                        $"{uspKey}_SabaCoins",
-                        currencyList,
-                        assignCommonParamters,
-                        assignShardSpecificParamters));
-                }
-                else
-                {
-                    tasks.Add(GetMainTicketListBasedShardDBAsync(
+                tasks.Add(GetMainTicketListBasedShardDBAsync(
                         $"SiteDB_{uspKey}",
                         currencyList,
                         assignCommonParamters,
                         assignShardSpecificParamters));
-                }
             }
 
             tasks.Add(GetMainTicketListBasedShardDBAsync(uspKey, currencyList, assignCommonParamters,
                 db =>
                 {
                     assignCentralSpecificParamters?.Invoke(db);
-                    db.SetParameterValue(DbColumn.ExcludeBettrans, metaModel.UseShardDB);
+                    db.SetParameterValue(DbColumn.ExcludeBettrans, metaModel.UseShardDB && !viewSabaCoins);
                 }));
 
             var ticketResult = new TicketResult();
