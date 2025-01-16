@@ -1,17 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="BaseBetList.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-
-namespace Fanex.Athena.BetList.Excel
+﻿namespace Fanex.Athena.BetList.Excel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Athena.BetList.Model.DTO;
     using Athena.BetList.Model.MetaModel;
-    using BetListNPOI.HSSF.UserModel;
+    using BetListNPOI.XSSF.UserModel;
     using BetListNPOI.HSSF.Util;
     using BetListNPOI.SS.UserModel;
     using BetListNPOI.SS.Util;
@@ -25,6 +16,9 @@ namespace Fanex.Athena.BetList.Excel
     using Helpers;
     using Resources;
     using Service.Extensions;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class BetListExcel
     {
@@ -110,7 +104,7 @@ namespace Fanex.Athena.BetList.Excel
 
         protected internal virtual IBetListExcelBuilder CreateExcelBuilder()
         {
-            return new BetListExcelBuilder();
+            return new BetListExcelXBuilder();
         }
 
         private static void AddNoInfoRow(IBetListExcelBuilder builder)
@@ -118,7 +112,7 @@ namespace Fanex.Athena.BetList.Excel
             var titleStyle = builder.CreateCellStyle();
             titleStyle.Alignment = HorizontalAlignment.Center;
 
-            builder.AddCell(new HSSFRichTextString(ViewResources.NoInfo), titleStyle);
+            builder.AddCell(new XSSFRichTextString(ViewResources.NoInfo), titleStyle);
             builder.MergeCell(new CellRangeAddress(ContentRowIndex, ContentRowIndex, 0, NumberOfColumn - 1));
         }
 
@@ -132,7 +126,7 @@ namespace Fanex.Athena.BetList.Excel
             titleStyle.VerticalAlignment = VerticalAlignment.Center;
             titleStyle.SetFont(font);
 
-            builder.AddCell(new HSSFRichTextString(title), titleStyle);
+            builder.AddCell(new XSSFRichTextString(title), titleStyle);
             builder.MergeCell(new CellRangeAddress(0, 0, 0, NumberOfColumn - 1));
         }
 

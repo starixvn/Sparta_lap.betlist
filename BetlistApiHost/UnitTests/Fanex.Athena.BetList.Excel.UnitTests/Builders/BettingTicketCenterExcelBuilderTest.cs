@@ -2,7 +2,7 @@
 {
     using Athena.BetList.Excel.Builders;
     using Athena.BetList.Model.DTO;
-    using BetListNPOI.HSSF.UserModel;
+    using BetListNPOI.XSSF.UserModel;
     using BetListNPOI.HSSF.Util;
     using BetListNPOI.SS.UserModel;
     using BetListNPOI.SS.Util;
@@ -136,7 +136,7 @@
                 Assert.That(titleStyle.Alignment, Is.EqualTo(HorizontalAlignment.Center));
 
                 _builder.Received(1).AddCell(
-                    Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.NoInfo),
+                    Arg.Is<XSSFRichTextString>(x => x.String == ViewResources.NoInfo),
                     titleStyle);
                 _builder.Received(1).MergeCell(
                     Arg.Is<CellRangeAddress>(x => x.FirstRow == 2 && x.LastRow == 2
@@ -183,7 +183,7 @@
                 titleStyle.Received(1).SetFont(font);
 
                 _builder.Received(1).AddCell(
-                    Arg.Is<HSSFRichTextString>(x => x.String == Title),
+                    Arg.Is<XSSFRichTextString>(x => x.String == Title),
                     titleStyle);
                 _builder.Received(1).MergeCell(
                     Arg.Is<CellRangeAddress>(x => x.FirstRow == 0 && x.LastRow == 0
@@ -230,7 +230,7 @@
                 for (int i = 0; i < captions.Length; i++)
                 {
                     _builder.Received(1).AddCell(
-                        Arg.Is<HSSFRichTextString>(x => x.String == captions[i]),
+                        Arg.Is<XSSFRichTextString>(x => x.String == captions[i]),
                         cellStyle);
                 }
             });
@@ -248,7 +248,7 @@
 
             // Assert
             _builder.DidNotReceive().AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.WinLoss),
+                Arg.Is<XSSFRichTextString>(x => x.String == ViewResources.WinLoss),
                 cellStyle);
         }
 
@@ -264,7 +264,7 @@
 
             // Assert
             _builder.DidNotReceive().AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.LicenseeWL + "/" + ViewResources.Comm),
+                Arg.Is<XSSFRichTextString>(x => x.String == ViewResources.LicenseeWL + "/" + ViewResources.Comm),
                 cellStyle);
         }
 
@@ -302,8 +302,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _builder.Received(expectedColumnTotalStart).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == totalText), Arg.Any<ICellStyle>());
-                _builder.Received(ExpectedNonTotalColumn).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
+                _builder.Received(expectedColumnTotalStart).AddCell(Arg.Is<XSSFRichTextString>(x => x.String == totalText), Arg.Any<ICellStyle>());
+                _builder.Received(ExpectedNonTotalColumn).AddCell(Arg.Is<XSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
             });
         }
 
@@ -321,7 +321,7 @@
             _excelBuilder.AddFooter(original, 0, 0, 0, FakeHelper.Create<string>(), FakeHelper.Create<BettingTicketCenterOption>(x => x.ShowSumStake, true));
 
             // Assert
-            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
+            _builder.Received(1).AddCell(Arg.Is<XSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [TestCase(0.996, "1.00")]
@@ -343,7 +343,7 @@
             _excelBuilder.AddFooter(0, original, 0, 0, FakeHelper.Create<string>(), option);
 
             // Assert
-            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
+            _builder.Received(1).AddCell(Arg.Is<XSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [TestCase(0.996, 0, true, "1.00\n0.00")]
@@ -366,7 +366,7 @@
                 new BettingTicketCenterOption { ShowWinLoss = true, IsAllowedCustomerComm = isAllowedCustomerComm });
 
             // Assert
-            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
+            _builder.Received(1).AddCell(Arg.Is<XSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [TestCase(12.345, "12.35")]
@@ -385,7 +385,7 @@
             _excelBuilder.AddFooter(0, 0, 0, original, FakeHelper.Create<string>(), option);
 
             // Assert
-            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
+            _builder.Received(1).AddCell(Arg.Is<XSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
         }
 
         [Test]
@@ -410,7 +410,7 @@
             _excelBuilder.AssignRowData(tickets, ticket, 1, new BettingTicketCenterOption { ShowWinLoss = true });
 
             // Assert
-            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == "100.00"));
+            _builder.Received(1).AddCell(Arg.Is<XSSFRichTextString>(x => x.String == "100.00"));
         }
 
         [Test]
@@ -435,7 +435,7 @@
             _excelBuilder.AssignRowData(tickets, ticket, 1, new BettingTicketCenterOption { ShowLicenseeWl = true });
 
             // Assert
-            _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == "200.00"));
+            _builder.Received(1).AddCell(Arg.Is<XSSFRichTextString>(x => x.String == "200.00"));
         }
 
         [TestCase("a", "DesktopChina")]
@@ -480,7 +480,7 @@
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == expectedPlatformName),
+                Arg.Is<XSSFRichTextString>(x => x.String == expectedPlatformName),
                 Arg.Is<ICellStyle>(x => x.Alignment == HorizontalAlignment.Center
                 && x.FillBackgroundColor == _evenStyle.FillBackgroundColor));
         }
@@ -521,7 +521,7 @@
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == expectedPlatformName),
+                Arg.Is<XSSFRichTextString>(x => x.String == expectedPlatformName),
                 Arg.Is<ICellStyle>(x => x.Alignment == HorizontalAlignment.Center
                 && x.FillBackgroundColor == _evenStyle.FillBackgroundColor));
         }
@@ -557,7 +557,7 @@
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.Live),
+                Arg.Is<XSSFRichTextString>(x => x.String == ViewResources.Live),
                 Arg.Any<ICellStyle>());
         }
 
@@ -592,7 +592,7 @@
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.NoneLive),
+                Arg.Is<XSSFRichTextString>(x => x.String == ViewResources.NoneLive),
                 Arg.Any<ICellStyle>());
         }
 
@@ -622,7 +622,7 @@
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.MixLiveAndNoneLive),
+                Arg.Is<XSSFRichTextString>(x => x.String == ViewResources.MixLiveAndNoneLive),
                 Arg.Any<ICellStyle>());
         }
     }

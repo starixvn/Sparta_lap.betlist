@@ -41,38 +41,23 @@
 
             using (var db = GetObjectDb(UspKey, TimeOut))
             {
-                AddAdvancedSearchParameters(db, metaModel);
+                AddAdvancedSearchParameters(db, metaModel, rowPerGroup);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
-                    var count = 0;
                     var ticket = new TicketResult();
-                    var currentPageRowCount = 0;
-
                     var columns = GetColumns();
                     var safeReader = this.GetSafeDataReader(reader, columns.Select(x => x.Value).ToList());
 
                     while (reader.Read())
                     {
-                        if (count == rowPerGroup)
-                        {
-                            SaveDataToFile(groupData, ticket);
-                            currentPageRowCount += rowPerGroup;
-                            count = 0;
-                            ticket = new TicketResult();
-                        }
-
                         ticket.MainTicketList.Add(MapTicket(safeReader, columns, currencyList));
-                        count++;
                     }
 
                     if (ticket.MainTicketList.Any())
                     {
                         SaveDataToFile(groupData, ticket);
-                        currentPageRowCount += count;
                     }
-
-                    groupData.CurrentPageRowCount = currentPageRowCount;
                 }
 
                 var outSqlParams = db.GetOutputParams();
@@ -92,7 +77,7 @@
 
             using (var db = GetObjectDb(UspKey, TimeOut))
             {
-                AddAdvancedSearchParameters(db, metaModel);
+                AddAdvancedSearchParameters(db, metaModel, metaModel.PageSize);
 
                 using (var reader = await db.ExecuteReaderAsync().ConfigureAwait(false))
                 {
@@ -171,12 +156,15 @@
             var data = JsonConvert.SerializeObject(ticket);
             var dataFileName = $"{Guid.NewGuid().ToString()}.json";
             _tempFileService.Save(dataFileName, data);
+
             groupData.DataPath.Add(dataFileName);
+            groupData.CurrentPageRowCount = ticket.MainTicketList.Count;
+
             ticket.MainTicketList.Clear();
             ticket.MainTicketList.TrimExcess();
         }
 
-        private void AddAdvancedSearchParameters(IObjectDb db, AdvancedSearchBetListMetaModel metaModel)
+        private void AddAdvancedSearchParameters(IObjectDb db, AdvancedSearchBetListMetaModel metaModel, int pageSize)
         {
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.SetParameterValue(DbColumn.AgentList, metaModel.AgentListXml);
@@ -192,7 +180,7 @@
             db.SetParameterValue(DbColumn.StatusIdList, metaModel.Status);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveStatus);
             db.SetParameterValue(DbColumn.UserName, SqlHelper.ToSqlTextSearch(metaModel.UserName));
-            db.SetParameterValue(DbColumn.PageSize, metaModel.PageSize);
+            db.SetParameterValue(DbColumn.PageSize, pageSize);
             db.SetParameterValue(DbColumn.PageIndex, metaModel.PageIndex);
             db.SetParameterValue(DbColumn.ProductList, metaModel.ProductCodeList);
             db.SetParameterValue(DbColumn.ConvertToBaseCur, metaModel.IsConvertAll);

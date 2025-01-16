@@ -58,7 +58,7 @@
             builder.RegisterType<IPService>().As<IIPService>().SingleInstance();
             builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
             builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
-            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerRequest();
+            builder.RegisterType<BetListExcelXBuilder>().As<IBetListExcelBuilder>().InstancePerRequest();
             builder.RegisterType<AllbetResultBuilder>().As<IAllbetResultBuilder>();
             builder.RegisterType<SabaClubResult>().As<ISabaClubResult>();
             builder.RegisterType<RemotingRefService>().As<IRemotingRefService>().SingleInstance();

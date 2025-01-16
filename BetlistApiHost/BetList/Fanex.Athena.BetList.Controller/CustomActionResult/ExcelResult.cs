@@ -18,10 +18,10 @@
         {
             var response = context.HttpContext.Response;
             response.Clear();
-            response.ContentType = "application/vnd.ms-excel";
+            response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             if (!string.IsNullOrWhiteSpace(_fileName))
             {
-                response.AddHeader("Content-disposition", "attachment; filename=" + _fileName + ".xls");
+                response.AddHeader("Content-disposition", "attachment; filename=" + _fileName + ".xlsx");
             }
             _hssfWorkBook.Write(response.OutputStream, true);
         }

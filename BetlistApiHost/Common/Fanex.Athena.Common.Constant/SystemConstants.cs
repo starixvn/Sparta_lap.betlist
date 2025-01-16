@@ -5,7 +5,7 @@
 
     public static class SystemConstants
     {
-        public const int SheetSizeExcel = 60000;
+        public const int SheetSizeExcel = 1_000_000;
 
         public const int MaxDataTotalRow = int.MaxValue - 1000;
 
