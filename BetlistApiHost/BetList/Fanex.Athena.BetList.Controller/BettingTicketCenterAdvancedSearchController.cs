@@ -46,8 +46,6 @@
 
         private int MaxRowPerFile => int.Parse(_appSettings.GetValue("MaxRowPerExcelFile"));
 
-        private int MaxRowSupportSingleExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportSingleExportExcel"));
-
         [HttpPost]
         public async Task<ActionResult> GetData(AdvancedSearchBetListMetaModel metaModel)
         {
@@ -79,17 +77,16 @@
         {
             if (metaModel.PageIndex == 1)
             {
-                var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel).ConfigureAwait(false);
-
-                if (totalRow > MaxRowSupportExportExcel &&
-                    !LicenseesExportedExceedMaxRow.Split(',').Contains(metaModel.LicenseeName, StringComparer.InvariantCultureIgnoreCase))
-                {
-                    return new HttpStatusCodeResult(RowsExceedLimitErrorCode);
-                }
+                var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, MaxTicketLimit).ConfigureAwait(false);
 
                 if (totalRow == 0)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.NoContent);
+                }
+
+                if (totalRow > MaxTicketLimit)
+                {
+                    return new HttpStatusCodeResult(RowsExceedLimitErrorCode, MaxTicketLimit.ToString());
                 }
             }
 

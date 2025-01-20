@@ -48,17 +48,17 @@
     <CodeAnalysisRuleSet>Fanex.Athena.BetList.Controller.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BetListNPOI, Version=2.6.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\BetListNPOI.2.6.0\lib\netstandard2.0\BetListNPOI.dll</HintPath>
+    <Reference Include="BetListNPOI, Version=2.7.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\BetListNPOI.2.7.2.2-beta02\lib\netstandard2.0\BetListNPOI.dll</HintPath>
     </Reference>
-    <Reference Include="BetListNPOI.OOXML, Version=2.6.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\BetListNPOI.2.6.0\lib\netstandard2.0\BetListNPOI.OOXML.dll</HintPath>
+    <Reference Include="BetListNPOI.OOXML, Version=2.7.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\BetListNPOI.2.7.2.2-beta02\lib\netstandard2.0\BetListNPOI.OOXML.dll</HintPath>
     </Reference>
-    <Reference Include="BetListNPOI.OpenXml4Net, Version=2.6.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\BetListNPOI.2.6.0\lib\netstandard2.0\BetListNPOI.OpenXml4Net.dll</HintPath>
+    <Reference Include="BetListNPOI.OpenXml4Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\BetListNPOI.2.7.2.2-beta02\lib\netstandard2.0\BetListNPOI.OpenXml4Net.dll</HintPath>
     </Reference>
-    <Reference Include="BetListNPOI.OpenXmlFormats, Version=2.6.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\BetListNPOI.2.6.0\lib\netstandard2.0\BetListNPOI.OpenXmlFormats.dll</HintPath>
+    <Reference Include="BetListNPOI.OpenXmlFormats, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\BetListNPOI.2.7.2.2-beta02\lib\netstandard2.0\BetListNPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
@@ -73,7 +73,7 @@
       <HintPath>..\..\..\packages\ExtendedNumerics.BigDecimal.3000.0.1.312\lib\net46\ExtendedNumerics.BigDecimal.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.3.0.4.5-beta-04\lib\net461\Fanex.BetList.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.3.0.4.5-beta-07\lib\net461\Fanex.BetList.Core.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Logging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Logging.2.0.0\lib\net461\Fanex.Logging.dll</HintPath>
@@ -89,8 +89,8 @@
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MathNet.Numerics.Signed.5.0.0\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=2.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.IO.RecyclableMemoryStream.2.3.2\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.1\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
