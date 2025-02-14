@@ -85,7 +85,7 @@
 
         public async Task<TicketResult> GetRunningBetListAsync(RunningBetListMetaModel metaModel)
         {
-            const string UspKey = "Shard_Lrf_BetList_Running";
+            const string UspKey = "Lrf_BetList_Running";
 
             var ticketResult = new TicketResult();
             var currencyList = await GetCurrencyListAsync();
