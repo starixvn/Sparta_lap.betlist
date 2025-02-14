@@ -168,10 +168,13 @@ namespace Fanex.Athena.Result.Controller
 
         private static bool IsPalayBetType(int betType)
         {
+#pragma warning disable S1067 // Expressions should not be too complex
             return betType == ParlayBetType
                 || betType == SystemParlayBetType
                 || betType == (int)Common.Constant.BetType.VirtualSports2MixParlay
-                || betType == (int)Common.Constant.BetType.VirtualSports4MixParlay;
+                || betType == (int)Common.Constant.BetType.VirtualSports4MixParlay
+                || betType == (int)Common.Constant.BetType.VirtualSports5MixParlay;
+#pragma warning restore S1067 // Expressions should not be too complex
         }
 
         private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, IEnumerable<string> productCodes)
@@ -221,7 +224,9 @@ namespace Fanex.Athena.Result.Controller
             {
                 if (metalModel.RefNo != null)
                 {
-                    var parlayData = await _resultService.GetPopUpParlayMatchAsync(metalModel.RefNo.Value).ConfigureAwait(false);
+                    var parlayData = metalModel.Bettype == (int)Common.Constant.BetType.VirtualSports5MixParlay
+                        ? await _resultService.GetPopUpVS5ParlayMatchAsync(metalModel.RefNo.Value).ConfigureAwait(false)
+                        : await _resultService.GetPopUpParlayMatchAsync(metalModel.RefNo.Value).ConfigureAwait(false);
                     _htmlResult = _resultService.HtmlParser(parlayData, setting);
                 }
             }
@@ -284,13 +289,22 @@ namespace Fanex.Athena.Result.Controller
                 _htmlResult = _resultService.HtmlParser(dataBitcoin, setting);
             }
         }
-
+        
         private async Task GetBetbyPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
         {
             var dataBetby = await _resultService.GetPopUpMatch3rdAsync(metalModel.MatchId).ConfigureAwait(false);
             if (dataBetby != null)
             {
                 _htmlResult = _resultService.HtmlParser(dataBetby, setting);
+            }
+        }
+
+        private async Task GetVirtuallySportsPopUpData(ResultPopupMetaModel metalModel, ResultSetting setting)
+        {
+            var dataVirtuallySports = await _resultService.GetPopUpVS5MatchesAsync(metalModel.MatchId).ConfigureAwait(false);
+            if (dataVirtuallySports != null)
+            {
+                _htmlResult = _resultService.HtmlParser(dataVirtuallySports, setting);
             }
         }
 
@@ -350,10 +364,16 @@ namespace Fanex.Athena.Result.Controller
                 await GetBetradarPopUpData(metalModel, setting).ConfigureAwait(false);
                 return;
             }
-
+            
             if (sportType == SportType.BetbyBasketball)
             {
                 await GetBetbyPopUpData(metalModel, setting).ConfigureAwait(false);
+                return;
+            }
+
+            if (sportType == SportType.VirtuallySports)
+            {
+                await GetVirtuallySportsPopUpData(metalModel, setting).ConfigureAwait(false);
                 return;
             }
 
@@ -507,6 +527,11 @@ namespace Fanex.Athena.Result.Controller
                 case SportType.VirtualDogRacing:
                     var dataDRc = await _resultService.GetBetradarSportMatchesAsync(metalModel).ConfigureAwait(false);
                     ParseResult(dataDRc, setting, metalModel.IsExportExcel);
+                    break;
+
+                case SportType.VirtuallySports:
+                    var dataVirtuallySports = await _resultService.GetVS5MatchesAsync(metalModel).ConfigureAwait(false);
+                    ParseResult(dataVirtuallySports, setting, metalModel.IsExportExcel);
                     break;
 
                 default:

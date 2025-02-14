@@ -46,6 +46,8 @@ namespace Fanex.Athena.Result.DataAccess
 
         Task<IList<Parlay>> GetPopUpParalayMatchAsync(long refNo);
 
+        Task<IList<Parlay>> GetPopUpVS5ParalayMatchAsync(long refNo);
+
         Task<Sportsbook> GetSportsbookGameDetailAsync(int matchId);
 
         Task<IList<T>> GetPopUpMatches3rdAsync<T>(int matchId);

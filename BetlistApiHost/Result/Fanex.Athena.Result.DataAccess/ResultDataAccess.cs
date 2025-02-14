@@ -19,6 +19,7 @@ namespace Fanex.Athena.Result.DataAccess
     using Common.Utility.Services.Interfaces;
     using Fanex.Common.Extensions;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Base.DataDomain;
     using Fanex.Result.Core.Bitcoin.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -39,6 +40,8 @@ namespace Fanex.Athena.Result.DataAccess
         private const string LeagueGroupIdColumn = "leaguegroupid";
         private const string SportTypeColumn = "sporttype";
         private const string Status = "status";
+        private const string Match3rdIdColumn = "Match3rdId";
+        private const string League3rdIdColumn = "League3rdId";
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -161,7 +164,13 @@ namespace Fanex.Athena.Result.DataAccess
 
         private static Boolean IsLeagues3rd(int sportType)
         {
-            return sportType == (int)SportType.Bitcoin || sportType == (int)SportType.VirtualDogRacing || sportType == (int)SportType.VirtualHorseRacing || sportType == (int)SportType.BetbyBasketball;
+#pragma warning disable S1067 // Expressions should not be too complex
+            return sportType == (int)SportType.Bitcoin
+                || sportType == (int)SportType.VirtualDogRacing
+                || sportType == (int)SportType.VirtualHorseRacing
+                || sportType == (int)SportType.BetbyBasketball
+                || sportType == (int)SportType.VirtuallySports;
+#pragma warning restore S1067 // Expressions should not be too complex
         }
 
         /// <summary>
@@ -276,6 +285,57 @@ namespace Fanex.Athena.Result.DataAccess
                     }
 
                     AddGameDetails(reader, results);
+
+                    return results;
+                }
+            }
+        }
+
+        public async Task<IList<Parlay>> GetPopUpVS5ParalayMatchAsync(long refNo)
+        {
+            const string UspName = "Lrf_Result_Parlay_Match3rd";
+            var uspParams = new { refno = refNo };
+
+            using (var db = this.GetObjectDb(UspName))
+            {
+                using (var reader = await db.ExecuteReaderAsync(uspParams).ConfigureAwait(false))
+                {
+                    var results = new List<Parlay>();
+
+                    while (reader.Read())
+                    {
+                        var leagueId = reader.ToInt(League3rdIdColumn);
+                        var parlay = results.SingleOrDefault(x => x.LeagueId == leagueId);
+                        if (parlay == null)
+                        {
+                            parlay = new Parlay
+                            {
+                                LeagueId = leagueId,
+                                SportId = reader.ToInt(SportTypeColumn)
+                            };
+
+                            results.Add(parlay);
+                        }
+
+                        var sportbook = new Sportsbook
+                        {
+                            AwayId = reader.ToInt("awayID"),
+                            HomeId = reader.ToInt("homeID"),
+                            BetStatus = reader.ToString(BetstatusColumn),
+                            LeagueId = leagueId,
+                            MatchId = reader.ToInt(Match3rdIdColumn),
+                            EventStatus = reader.ToString("eventstatus"),
+                            FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                            HtAwayScore = reader.ToNullableInt("htawayscore"),
+                            FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                            HtHomeScore = reader.ToNullableInt("hthomescore"),
+                            KickOffTime = DateTime.Parse(reader.ToString(EventDateColumn)),
+                            MatchCode = reader.ToString("matchcode"),
+                            RefNo = refNo.ToString(CultureInfo.InvariantCulture)
+                        };
+
+                        parlay.Sportbook.Add(sportbook);
+                    }
 
                     return results;
                 }
@@ -759,7 +819,7 @@ namespace Fanex.Athena.Result.DataAccess
                         new Bitcoin
                         {
                             League3rdId = reader.ToInt("League3rdId"),
-                            Match3rdId = reader.ToInt("Match3rdId"),
+                            Match3rdId = reader.ToInt(Match3rdIdColumn),
                             BetStatus = reader[BetstatusColumn] != DBNull.Value ? reader.ToString(BetstatusColumn) : string.Empty,
                             EventStatus = reader.ToString("EventStatus"),
                             EventDate = DateTime.Parse(reader.ToString("EventDate"))
@@ -788,7 +848,7 @@ namespace Fanex.Athena.Result.DataAccess
                 {
                     gameDetails.Add(new Fanex.Result.Core.Bitcoin.DTO.GameDetail
                     {
-                        Match3rdId = int.Parse(reader["Match3rdId"].ToString()),
+                        Match3rdId = int.Parse(reader[Match3rdIdColumn].ToString()),
                         GameResult = reader["GameResult"].ToString()
                     });
                 }
@@ -839,6 +899,33 @@ namespace Fanex.Athena.Result.DataAccess
             }
 
             return gameDetails;
+        }
+
+        private static IList<Sportsbook> ReadSportsbookMatches(IDataReader reader)
+        {
+            var results = new List<Sportsbook>();
+
+            while (reader.Read())
+            {
+                results.Add(
+                        new Sportsbook
+                        {
+                            LeagueId = reader.ToInt("League3rdId"),
+                            MatchId = reader.ToInt(Match3rdIdColumn),
+                            BetStatus = reader[BetstatusColumn] != DBNull.Value ? reader.ToString(BetstatusColumn) : string.Empty,
+                            EventStatus = reader.ToString("EventStatus"),
+                            KickOffTime = DateTime.Parse(reader.ToString(EventDateColumn)),
+                            AwayId = reader.ToInt("awayID"),
+                            HomeId = reader.ToInt("homeID"),
+                            FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                            HtHomeScore = reader.ToNullableInt("hthomescore"),
+                            FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                            HtAwayScore = reader.ToNullableInt("htawayscore"),
+                            MatchCode = reader.ToString("matchcode")
+                        });
+            }
+
+            return results.OrderBy(x => x.LeagueId).ThenBy(x => x.MatchId).ToList();
         }
 
         #endregion Binding
