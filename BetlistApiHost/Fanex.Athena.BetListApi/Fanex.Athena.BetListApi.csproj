@@ -115,6 +115,9 @@
     <Reference Include="Fanex.BetList.Allbet, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Allbet.2.0.0.2\lib\net461\Fanex.BetList.Allbet.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.BetList.ASKMESLOT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.ASKMESLOT.1.0.0-Beta-02\lib\net461\Fanex.BetList.ASKMESLOT.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.BetTrade.2.0.0\lib\net461\Fanex.BetList.BetTrade.dll</HintPath>
     </Reference>
