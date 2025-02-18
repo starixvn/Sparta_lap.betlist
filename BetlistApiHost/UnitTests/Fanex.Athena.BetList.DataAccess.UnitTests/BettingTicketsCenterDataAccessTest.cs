@@ -14,7 +14,7 @@
     public partial class BettingTicketsCenterDataAccessTest : BaseDataAccessHelperTest<BettingTicketCenterDataAccess>
     {
         private const string BetListByRefnoUspKey = "Lrf_BetList_RefNo_Mem";
-        private const string RunningBetListUspKey = "Shard_Lrf_BetList_Running";
+        private const string RunningBetListUspKey = "Lrf_BetList_Running";
         private const string BetListBySingleCustomerUspKey = "Lrf_BetList_Mem";
 
         private static readonly BalanceUp BalanceUp = new BalanceUp

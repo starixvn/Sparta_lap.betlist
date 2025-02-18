@@ -144,19 +144,10 @@
             db.SetParameterValue(DbColumn.BetType, metaModel.BetType);
             db.SetParameterValue(DbColumn.LiveIndicator, metaModel.LiveIndicator ?? -1);
             db.SetParameterValue(DbColumn.EventType, metaModel.EventType);
+            db.SetParameterValue(DbColumn.ProductList, metaModel.ProductCodeList);
             CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
-
-            var productList = metaModel.ProductCodeList.Split(',').ToList();
-            int indexBA = productList.IndexOf("BA");
-            if (indexBA > -1)
-            {
-                db.SetParameterValue("ShowBA", true);
-                productList.RemoveAt(indexBA);
-            }
-
-            db.SetParameterValue(DbColumn.ProductList, string.Join(",", productList));
         }
 
         private static void CreateLiveReportBetListVHRacingParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
@@ -228,8 +219,6 @@
             CreateBetListDateRangeParameters(db, metaModel);
             db.SetParameterValue(DbColumn.MoveBetsDay, metaModel.MoveBetsDay);
             AddLiveReportPagingParams(db, metaModel);
-            var supportedProducts = new[] { ProductCodes.SB, ProductCodes.BA };
-            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
         private static void CreateLicenseeWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -416,15 +405,7 @@
 
         private static void CreateProductListParameters_New(IObjectDb db, string productCodeList)
         {
-            var productList = productCodeList.Split(',').ToList();
-            int indexBA = productList.IndexOf(ProductCodes.BA);
-            if (indexBA > -1)
-            {
-                db.SetParameterValue(DbColumn.ShowBA, true);
-                productList.RemoveAt(indexBA);
-            }
-
-            db.SetParameterValue(DbColumn.ProductList, string.Join(",", productList));
+            db.SetParameterValue(DbColumn.ProductList, productCodeList);
         }
 
         #endregion Utility

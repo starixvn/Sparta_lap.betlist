@@ -44,11 +44,9 @@ namespace Fanex.Athena.BetList.DataAccess
 
         private void AddAbnormalBetListParameters(IObjectDb db, PlayerSegmentationBetListMetaModel metaModel)
         {
-            var isShowBA = metaModel.ListProductCode.Contains(ProductCodes.BA);
-            var productList = string.Join(",", metaModel.ListProductCode.Except(new[] { ProductCodes.BA }));
+            var productList = string.Join(",", metaModel.ListProductCode);
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
 
-            db.SetParameterValue("ShowBA", isShowBA);
             db.SetParameterValue("ProductList", productList);
             db.SetParameterValue("CustId", metaModel.CustId);
             db.SetParameterValue("FromDate", metaModel.FromDate);
