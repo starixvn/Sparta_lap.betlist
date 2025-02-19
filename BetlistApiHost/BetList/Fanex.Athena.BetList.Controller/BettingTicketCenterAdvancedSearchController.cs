@@ -5,17 +5,17 @@
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using Fanex.Athena.BetList.Controller.CustomActionResult;
-    using Fanex.Athena.BetList.Controller.Utility;
-    using Fanex.Athena.BetList.DataAccess.Interfaces;
-    using Fanex.Athena.BetList.Excel;
-    using Fanex.Athena.BetList.Excel.Model;
-    using Fanex.Athena.BetList.Model.DTO;
-    using Fanex.Athena.BetList.Model.MetaModel;
-    using Fanex.Athena.BetList.Service.Interfaces;
-    using Fanex.Athena.Common.Utility.Services.Interfaces;
-    using Fanex.Athena.Resources;
+    using Common.Utility.Services.Interfaces;
+    using CustomActionResult;
+    using DataAccess.Interfaces;
+    using Excel;
+    using Excel.Model;
+    using Model.DTO;
+    using Model.MetaModel;
     using Newtonsoft.Json;
+    using Resources;
+    using Service.Interfaces;
+    using Utility;
 
     public class BettingTicketCenterAdvancedSearchController : BettingTicketCenterBaseController
     {
@@ -29,11 +29,13 @@
 
         private readonly IBettingTicketCenterAdvancedSearchDataAccess _dataAccess;
 
-        private readonly IBettingTicketCenterZipBuilder _zipBuilder;
-
         private readonly IIPService _ipService;
 
+        private readonly ILogAggregateService _logAggregateService;
+
         private readonly ITempFileService _tempFileService;
+
+        private readonly IBettingTicketCenterZipBuilder _zipBuilder;
 
         public BettingTicketCenterAdvancedSearchController(
             IAppSettings appSettings,
@@ -42,13 +44,15 @@
             ITicketBuilderService ticketBuilderService,
             IBettingTicketCenterZipBuilder zipBuilder,
             IBettingTicketCenterExcel bettingTicketCenterExcel,
-            ITempFileService tempFileService) : base(ticketBuilderService, bettingTicketCenterExcel)
+            ITempFileService tempFileService,
+            ILogAggregateService logAggregateService) : base(ticketBuilderService, bettingTicketCenterExcel)
         {
             _appSettings = appSettings;
             _dataAccess = dataAccess;
             _ipService = ipService;
-            _zipBuilder = zipBuilder ?? new BettingTicketCenterZipBuilder(_appSettings, null, bettingTicketCenterExcel, ipService);
+            _zipBuilder = zipBuilder ?? new BettingTicketCenterZipBuilder(_appSettings, null, bettingTicketCenterExcel, ipService, _logAggregateService);
             _tempFileService = tempFileService;
+            _logAggregateService = logAggregateService;
         }
 
         private int MaxTicketLimit => int.Parse(_appSettings.GetValue("MaxTicketLimit"));
@@ -94,7 +98,12 @@
         {
             if (metaModel.IsExport)
             {
-                return await Export(metaModel).ConfigureAwait(false);
+                _logAggregateService.Append("Start request");
+                var result = await Export(metaModel).ConfigureAwait(false);
+                _logAggregateService.Append("End request");
+                _logAggregateService.SendLog();
+
+                return result;
             }
 
             var totalRow = await _dataAccess.GetTotalRowForMultipleCustomersAsync(metaModel, MaxTicketLimit).ConfigureAwait(false);
@@ -116,25 +125,37 @@
             return ReturnData(ticketResult, GetBetListOption(metaModel), metaModel);
         }
 
+        protected FileContentResult ZipContentResult(MemoryStream stream, AdvancedSearchBetListMetaModel metaModel)
+        {
+            var bytes = stream?.ToArray();
+            Response.Headers.Add("X-File-Name", $"BettingTicketsCenter_AdvancedSearch{metaModel.PageIndex}");
+            return File(bytes, "application/zip", "BettingTicketsCenter_AdvancedSearch.zip");
+        }
+
         private async Task<ActionResult> Export(AdvancedSearchBetListMetaModel metaModel)
         {
             var title = GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}";
 
-            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile
-                ).ConfigureAwait(false);
+            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(
+                metaModel,
+                metaModel.PageSize == MaxRowSupportSingleExportExcel ? MaxRowSupportSingleExportExcel : MaxRowPerFile
+            ).ConfigureAwait(false);
+            _logAggregateService.Append("Done get data");
 
             if (!ticketResult.DataPath.Any())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NoContent);
             }
 
-            if (ticketResult.TotalRows <= MaxRowPerFile)
+            if (ticketResult.TotalRows <= MaxRowSupportSingleExportExcel)
             {
                 if (ticketResult.TotalRows == 0 || ShouldReturnEmptyResult(metaModel))
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.NoContent);
                 }
+
+                _logAggregateService.Append("Export single excel");
 
                 var tickets = GetTicketFromFile(ticketResult);
                 return ExportXls(tickets, title, metaModel, totalText);
@@ -145,9 +166,10 @@
                 Response.StatusCode = (int)HttpStatusCode.PartialContent;
             }
 
+            _logAggregateService.Append("Export zip excel");
+
             var zipFile = _zipBuilder.BuildZip(HttpContext.Response,
                 ticketResult, title, metaModel, totalText);
-
             return zipFile == null ? null : ZipContentResult(zipFile, metaModel);
         }
 
@@ -164,13 +186,6 @@
             return ExportExcel(excelModel);
         }
 
-        protected FileContentResult ZipContentResult(MemoryStream stream, AdvancedSearchBetListMetaModel metaModel)
-        {
-            var bytes = stream?.ToArray();
-            Response.Headers.Add("X-File-Name", $"BettingTicketsCenter_AdvancedSearch{metaModel.PageIndex}");
-            return File(bytes, "application/zip", "BettingTicketsCenter_AdvancedSearch.zip");
-        }
-
         private static BettingTicketCenterOption GetBetListOption(AdvancedSearchBetListMetaModel metaModel) => new BettingTicketCenterOption
         {
             ShowTotal = true,
@@ -183,7 +198,7 @@
             ShowTxId = metaModel.IsAllowTxIDColumn,
             IsShowIpvn = metaModel.IsShowIpvn,
             IsShowIp = metaModel.IsShowIp,
-            SpecialPlatform = metaModel.SpecialPlatform,
+            SpecialPlatform = metaModel.SpecialPlatform
         };
 
         private bool ShouldReturnEmptyResult(AdvancedSearchBetListMetaModel metaModel)

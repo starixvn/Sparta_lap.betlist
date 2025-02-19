@@ -1,53 +1,63 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Web;
-using BetListNPOI.SS.UserModel;
-using Fanex.Athena.BetList.Excel;
-using Fanex.Athena.BetList.Excel.Model;
-using Fanex.Athena.BetList.Model.DTO;
-using Fanex.Athena.BetList.Model.MetaModel;
-using Fanex.Athena.BetList.Service.Helpers;
-using Fanex.Athena.BetList.Service.Interfaces;
-using Fanex.Athena.Common.Utility.Services;
-using Fanex.Athena.Common.Utility.Services.Interfaces;
-using Ionic.Zip;
-using Newtonsoft.Json;
-
-namespace Fanex.Athena.BetList.Controller.Utility
+﻿namespace Fanex.Athena.BetList.Controller.Utility
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Web;
+    using BetListNPOI.SS.UserModel;
+    using Common.Utility.Services;
+    using Common.Utility.Services.Interfaces;
+    using Excel;
+    using Excel.Model;
+    using Ionic.Zip;
+    using Model.DTO;
+    using Model.MetaModel;
+    using Newtonsoft.Json;
+    using Service.Helpers;
+    using Service.Interfaces;
+
     public class BettingTicketCenterZipBuilder : IBettingTicketCenterZipBuilder
     {
         private readonly IAppSettings _appSettings;
+        private readonly IIPService _ipService;
+
+        private readonly ILogAggregateService _logAggregateService;
 
         private readonly ITempFileService _tempFileService;
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
-        private readonly IIPService _ipService;
 
         public BettingTicketCenterZipBuilder(
             IAppSettings appSettings,
             ITempFileService tempFileService,
             IBettingTicketCenterExcel bettingTicketCenterExcel,
-            IIPService ipService
-            )
+            IIPService ipService,
+            ILogAggregateService logAggregateService
+        )
         {
+            _logAggregateService = logAggregateService;
             _appSettings = appSettings ?? new AppSettings();
             _ipService = ipService;
             _tempFileService = tempFileService ?? new TempFileService(_appSettings, null);
-            _bettingTicketCenterExcel = bettingTicketCenterExcel ?? new BettingTicketCenterExcel(null, _ipService);
+            _bettingTicketCenterExcel = bettingTicketCenterExcel ?? new BettingTicketCenterExcel(null, _ipService, _logAggregateService);
         }
 
         public IBettingTicketCenterExcel ExcelBuilder
         {
-            get { return _bettingTicketCenterExcel ?? new BettingTicketCenterExcel(null, _ipService); }
+            get { return _bettingTicketCenterExcel ?? new BettingTicketCenterExcel(null, _ipService, _logAggregateService); }
             set { _bettingTicketCenterExcel = value; }
         }
 
-        public MemoryStream BuildZip(HttpResponseBase response, GroupTicketResult ticketResult, string title, AdvancedSearchBetListMetaModel metaModel, string totalText)
+        public MemoryStream BuildZip(
+            HttpResponseBase response,
+            GroupTicketResult ticketResult,
+            string title,
+            AdvancedSearchBetListMetaModel metaModel,
+            string totalText)
         {
             var excelFiles = new List<string>();
 
             for (int i = 0; i < ticketResult.DataPath.Count; i++)
             {
+                _logAggregateService.Append($"Start export file {i}");
                 var contentData = _tempFileService.ReadString(ticketResult.DataPath[i]);
                 var excelModel = CreateExcelModel(ticketResult, contentData, title, metaModel, totalText);
                 if (excelModel != null)
@@ -64,10 +74,21 @@ namespace Fanex.Athena.BetList.Controller.Utility
                     ExcelBuilder.Dispose();
                     ExcelBuilder = null;
                 }
+
+                _logAggregateService.Append($"Done export file {i}");
             }
 
             CleanDataFile(ticketResult.DataPath);
             return CreateZipFile(excelFiles);
+        }
+
+        protected internal virtual void SaveFile(IWorkbook workbook, string dataFilePath)
+        {
+            using (var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write))
+            using (var bufferStream = new BufferedStream(stream))
+            {
+                workbook.Write(bufferStream, true);
+            }
         }
 
         private static BettingTicketCenterExcelModel CreateExcelModel(
@@ -113,15 +134,6 @@ namespace Fanex.Athena.BetList.Controller.Utility
             };
         }
 
-        protected internal virtual void SaveFile(IWorkbook workbook, string dataFilePath)
-        {
-            using (var stream = new FileStream(dataFilePath, FileMode.CreateNew, FileAccess.Write))
-            using (var bufferStream = new BufferedStream(stream))
-            {
-                workbook.Write(bufferStream, true);
-            }
-        }
-
         private void CleanDataFile(IList<string> dataPath)
         {
             foreach (var item in dataPath)
@@ -144,6 +156,7 @@ namespace Fanex.Athena.BetList.Controller.Utility
                 zip.ParallelDeflateThreshold = -1;
                 zip.Save(mem);
             }
+
             return mem;
         }
     }

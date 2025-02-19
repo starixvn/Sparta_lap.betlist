@@ -8,17 +8,14 @@
     using Autofac;
     using Autofac.Features.AttributeFilters;
     using Autofac.Integration.Mvc;
-    using Fanex.Athena.BetList.Service;
-    using Fanex.Athena.BetList.Service.Interfaces;
-    using Fanex.Athena.Common.Utility.Services;
-    using Fanex.Athena.Common.Utility.Services.Internal;
-    using Fanex.Athena.Result.Service;
-    using Fanex.Athena.Result.Service.Interfaces;
+    using BetList.Service;
+    using BetList.Service.Helpers;
+    using BetList.Service.Interfaces;
+    using Common.Utility.Services;
+    using Common.Utility.Services.Internal;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
-    using Fanex.Logging;
-    using Fanex.RemotingRef;
     using Fanex.Result.Core.AllBetCasino;
     using Fanex.Result.Core.Base.Utilities;
     using Fanex.Result.Core.Casino;
@@ -28,6 +25,10 @@
     using Fanex.Result.Core.SAGaming;
     using Fanex.Result.Core.SportsLottery;
     using Fanex.Result.Core.WM;
+    using Logging;
+    using RemotingRef;
+    using Result.Service;
+    using Result.Service.Interfaces;
 
     public static class DIConfig
     {
@@ -56,13 +57,14 @@
             builder.RegisterType<ConfigurationHelper>().As<IConfigurationHelper>();
             builder.RegisterType<ShardInfoAccessor>().As<IShardInfoAccessor>().SingleInstance();
             builder.RegisterType<IPService>().As<IIPService>().SingleInstance();
+            builder.RegisterType<LogAggregateService>().As<ILogAggregateService>().InstancePerLifetimeScope();
             builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
             builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
             builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerRequest();
             builder.RegisterType<AllbetResultBuilder>().As<IAllbetResultBuilder>();
             builder.RegisterType<SabaClubResult>().As<ISabaClubResult>();
             builder.RegisterType<RemotingRefService>().As<IRemotingRefService>().SingleInstance();
-            builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
+            builder.RegisterInstance(Logger.Log).As<ILogger>();
             builder.Register(x => new CasinoResult("SpadegamingResultConfigs")).Keyed<ICasinoResult>("SG");
             builder.RegisterType<Indo4DResult>().As<IIndo4DResult>();
             builder.RegisterType<SAGamingResultBuilder>().As<ISAGamingResultBuilder>();
