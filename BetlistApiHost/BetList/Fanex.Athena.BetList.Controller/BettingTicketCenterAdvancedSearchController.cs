@@ -121,7 +121,9 @@
             var title = GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}";
 
-            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile
+            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(
+                metaModel,
+                metaModel.PageSize == MaxRowSupportSingleExportExcel ? MaxRowSupportSingleExportExcel : MaxRowPerFile
                 ).ConfigureAwait(false);
 
             if (!ticketResult.DataPath.Any())
@@ -129,7 +131,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.NoContent);
             }
 
-            if (ticketResult.TotalRows <= MaxRowPerFile)
+            if (ticketResult.TotalRows <= MaxRowSupportSingleExportExcel)
             {
                 if (ticketResult.TotalRows == 0 || ShouldReturnEmptyResult(metaModel))
                 {
