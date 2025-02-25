@@ -54,8 +54,8 @@
             DbSettingProviderManager
                 .StartNewSession()
                 .WithSqlServer()
-                .UseDefaultConnectionStringProvider()
                 .UseShardDbSettingProvider()
+                .UseDefaultDbSettingProvider("~/SpNameConfig", true)
                 .Run();
 
             RefDataTypeContainer
