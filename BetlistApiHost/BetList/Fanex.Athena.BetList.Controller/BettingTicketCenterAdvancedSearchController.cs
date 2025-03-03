@@ -26,8 +26,6 @@
 
         private const int ExportMultipleFile = 1002;
 
-        private const int ExportSingleFile = 1003;
-
         private readonly IAppSettings _appSettings;
 
         private readonly IBettingTicketCenterAdvancedSearchDataAccess _dataAccess;
@@ -60,8 +58,6 @@
 
         private int MaxRowForMultipleExcelFiles => int.Parse(_appSettings.GetValue("MaxRowForMultipleExcelFiles"));
 
-        private int MaxRowSupportSingleExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportSingleExportExcel"));
-
         [HttpPost]
         public async Task<ActionResult> GetExportStatus(AdvancedSearchBetListMetaModel metaModel)
         {
@@ -75,15 +71,6 @@
                     LimitRows = MaxTicketLimit
                 });
             }
-
-            //if (totalRow <= MaxRowSupportSingleExportExcel)
-            //{
-            //    return Json(new
-            //    {
-            //        StatusCode = ExportSingleFile,
-            //        PageSize = MaxRowSupportSingleExportExcel
-            //    });
-            //}
 
             return Json(new
             {
@@ -199,10 +186,10 @@
             var mainTicketList = new SortableList<LrfTicket>();
             var ticketDataList = new List<ITicketData>();
 
-            for (int i = 0; i < groupTicket.DataPath.Count; i++)
+            foreach (var filePath in groupTicket.DataPath)
             {
-                var contentData = _tempFileService.ReadString(groupTicket.DataPath[i]);
-                _tempFileService.Delete(groupTicket.DataPath[i]);
+                var contentData = _tempFileService.ReadString(filePath);
+                _tempFileService.Delete(filePath);
                 var tickets = JsonConvert.DeserializeObject<TicketResult>(contentData);
                 mainTicketList.AddRange(tickets.MainTicketList);
                 ticketDataList.AddRange(tickets.TicketDataList);
