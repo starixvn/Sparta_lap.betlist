@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.BetList.Controller
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -13,8 +14,10 @@
     using Fanex.Athena.BetList.Model.DTO;
     using Fanex.Athena.BetList.Model.MetaModel;
     using Fanex.Athena.BetList.Service.Interfaces;
+    using Fanex.Athena.Common.Utility.Collections;
     using Fanex.Athena.Common.Utility.Services.Interfaces;
     using Fanex.Athena.Resources;
+    using Fanex.BetList.Core.Entities;
     using Newtonsoft.Json;
 
     public class BettingTicketCenterAdvancedSearchController : BettingTicketCenterBaseController
@@ -22,8 +25,6 @@
         private const int RowsExceedLimitErrorCode = 1001;
 
         private const int ExportMultipleFile = 1002;
-
-        private const int ExportSingleFile = 1003;
 
         private readonly IAppSettings _appSettings;
 
@@ -57,8 +58,6 @@
 
         private int MaxRowForMultipleExcelFiles => int.Parse(_appSettings.GetValue("MaxRowForMultipleExcelFiles"));
 
-        private int MaxRowSupportSingleExportExcel => int.Parse(_appSettings.GetValue("MaxRowSupportSingleExportExcel"));
-
         [HttpPost]
         public async Task<ActionResult> GetExportStatus(AdvancedSearchBetListMetaModel metaModel)
         {
@@ -70,15 +69,6 @@
                 {
                     StatusCode = RowsExceedLimitErrorCode,
                     LimitRows = MaxTicketLimit
-                });
-            }
-
-            if (totalRow <= MaxRowSupportSingleExportExcel)
-            {
-                return Json(new
-                {
-                    StatusCode = ExportSingleFile,
-                    PageSize = MaxRowSupportSingleExportExcel
                 });
             }
 
@@ -120,18 +110,14 @@
         {
             var title = GetTitle(metaModel);
             var totalText = $"{ViewResources.Totalin} {metaModel.BaseCurrencyName}";
-
-            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(
-                metaModel,
-                metaModel.PageSize == MaxRowSupportSingleExportExcel ? MaxRowSupportSingleExportExcel : MaxRowPerFile
-                ).ConfigureAwait(false);
+            var ticketResult = await _dataAccess.GetBetListForMultipleCustomersAsync(metaModel, MaxRowPerFile).ConfigureAwait(false);
 
             if (!ticketResult.DataPath.Any())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NoContent);
             }
 
-            if (ticketResult.TotalRows <= MaxRowSupportSingleExportExcel)
+            if (ticketResult.TotalRows <= MaxRowForMultipleExcelFiles)
             {
                 if (ticketResult.TotalRows == 0 || ShouldReturnEmptyResult(metaModel))
                 {
@@ -196,10 +182,21 @@
 
         private TicketResult GetTicketFromFile(GroupTicketResult groupTicket)
         {
-            var contentData = _tempFileService.ReadString(groupTicket.DataPath[0]);
-            _tempFileService.Delete(groupTicket.DataPath[0]);
-            var ticketResult = JsonConvert.DeserializeObject<TicketResult>(contentData);
+            var ticketResult = new TicketResult();
+            var mainTicketList = new SortableList<LrfTicket>();
+            var ticketDataList = new List<ITicketData>();
 
+            foreach (var filePath in groupTicket.DataPath)
+            {
+                var contentData = _tempFileService.ReadString(filePath);
+                _tempFileService.Delete(filePath);
+                var tickets = JsonConvert.DeserializeObject<TicketResult>(contentData);
+                mainTicketList.AddRange(tickets.MainTicketList);
+                ticketDataList.AddRange(tickets.TicketDataList);
+            }
+
+            ticketResult.MainTicketList = mainTicketList;
+            ticketResult.TicketDataList = ticketDataList;
             ticketResult.SumStake = groupTicket.SumStake;
             ticketResult.SumWinLoss = groupTicket.SumWinLoss;
             ticketResult.SumLicenseeWL = groupTicket.SumLicenseeWL;
