@@ -864,6 +864,7 @@ namespace Fanex.Athena.Result.DataAccess
             while (reader.Read())
             {
                 var result = ReadSportsbook3rd(reader);
+                result.KickOffTime = result.EventDate;
                 results.Add(result);
             }
 
